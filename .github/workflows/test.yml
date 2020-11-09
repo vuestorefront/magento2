@@ -1,0 +1,93 @@
+name: Run tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  prepare_dependencies:
+    name: Prepare dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Get cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+  lint:
+    name: Lint
+    needs: prepare_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Get cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Run linter
+        run: yarn lint
+
+  test:
+    name: Test api-client and composables
+    needs: prepare_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Get cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Build core
+        run: yarn build:core
+
+      - name: Build api-client
+        run: cd packages/api-client && yarn build
+
+      - name: Test api-client
+        run: cd packages/api-client && yarn test --passWithNoTests
+
+      - name: Build composables
+        run: cd packages/composables && yarn build
+
+      - name: Test composables
+        run: cd packages/composables && yarn test --passWithNoTests
+
+      - name: Build theme
+        run: cd packages/theme && yarn build
+
+      - name: Test theme
+        run: cd packages/theme && yarn test --passWithNoTests
