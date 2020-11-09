@@ -18,7 +18,7 @@
     "test:api-client": "cd packages/api-client && yarn test --passWithNoTests",
     "test:composables": "cd packages/composables && yarn test --passWithNoTests",
     "test:theme": "cd packages/theme && yarn test --passWithNoTests",
-    "lint": "eslint . --ext .js,.ts,.vue"
+    "lint": "eslint . --ext .ts,.vue"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
