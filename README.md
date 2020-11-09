@@ -6,7 +6,13 @@
 
 > **Disclaimer:** This project is still in beta phase.
 
-This repository is a starting point for creating new integrations for [Vue Storefront Next](https://github.com/DivanteLtd/vue-storefront/tree/next). It is a monorepo containing three projects:
+This repository is a starting point for creating new integrations for [Vue Storefront Next](https://github.com/DivanteLtd/vue-storefront/tree/next).
+
+* [Documentation](https://docs-next.vuestorefront.io/) (WIP)
+* [Demo](https://vsf-next-demo.storefrontcloud.io/) (WIP)
+
+
+This repository is a monorepo containing three projects:
 
 * **api-client** - communicates with a backend;
 * **composables** - exposes composable functions used to retrieve data using `api-client` and to map them to universal data formats using `getters`;
