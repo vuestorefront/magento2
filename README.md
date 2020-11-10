@@ -17,21 +17,23 @@ This repository is a monorepo containing three projects:
 * **composables** - exposes composable functions used to retrieve data using `api-client` and to map them to universal data formats using `getters`;
 * **theme** - `nuxt` project that glues everything together. It extends our core theme and uses `composables` to retrieve data.
 
-## Installation
+## How to start?
 
-Before starting, you have to install all required dependencies:
+1. Change all `@vue-storefront/boilerplate` strings to your integration name (eg `@vue-storefront/super-ecomm`)
+
+2. Install all required dependencies:
 
 ```sh
 yarn install
 ```
 
-Then you can verify if everything works properly by building all three projects:
+3. (optional) Then you can verify if everything works properly by building all three projects:
 
 ```sh
 yarn build
 ```
 
-If everything built properly, you can start creating your new integration with:
+4. If everything built properly, you can start creating your new integration with:
 
 ```sh
 yarn dev
