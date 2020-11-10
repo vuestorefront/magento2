@@ -8,8 +8,7 @@
 
 This repository is a starting point for creating new integrations for [Vue Storefront Next](https://github.com/DivanteLtd/vue-storefront/tree/next).
 
-* [Documentation](https://docs-next.vuestorefront.io/) (WIP)
-* [Demo](https://vsf-next-demo.storefrontcloud.io/) (WIP)
+* [Documentation](https://docs-next.vuestorefront.io/integrate/ecommerce.html#scope) (WIP)
 
 
 This repository is a monorepo containing three projects:
