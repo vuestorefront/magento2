@@ -9,32 +9,25 @@ export default {
   head: {
     title: 'Vue Storefront',
     meta: [
-      {
-        charset: 'utf-8'
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
-      {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon',
-        type: 'image/x-icon',
-        href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' }
     ]
   },
-  loading: { color: '#fff' },
-  plugins: [
-    './plugins/boilerplate.js'
+  css: [
+    '@storefront-ui/vue/styles.scss'
   ],
+  loading: { color: '#fff' },
+  plugins: [],
   buildModules: [
     // to core
     '@nuxt/typescript-build',
+    '@nuxtjs/style-resources',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -86,6 +79,9 @@ export default {
       }
     }
   },
+  styleResources: {
+    scss: ['@storefront-ui/shared/styles/_helpers.scss']
+  },
   build: {
     transpile: [
       'vee-validate/dist/rules'
@@ -102,7 +98,11 @@ export default {
   },
   router: {
     scrollBehavior (_to, _from, savedPosition) {
-      return savedPosition || { x: 0, y: 0 };
+      if (savedPosition) {
+        return savedPosition;
+      } else {
+        return { x: 0, y: 0 };
+      }
     }
   }
 };
