@@ -34,11 +34,11 @@ export default {
       // @core-development-only-end
       useRawSource: {
         dev: [
-          '@vue-storefront/boilerplate',
+          '@vue-storefront/magento2',
           '@vue-storefront/core'
         ],
         prod: [
-          '@vue-storefront/boilerplate',
+          '@vue-storefront/magento2',
           '@vue-storefront/core'
         ]
       }
@@ -47,8 +47,8 @@ export default {
     ['@vue-storefront/nuxt-theme', {
       generate: {
         replace: {
-          apiClient: '@vue-storefront/boilerplate-api',
-          composables: '@vue-storefront/boilerplate'
+          apiClient: '@vue-storefront/magento2-api',
+          composables: '@vue-storefront/magento2'
         }
       }
     }],
@@ -56,7 +56,7 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/boilerplate/nuxt', {}]
+    ['@vue-storefront/magento2/nuxt', {}]
   ],
   modules: [
     'nuxt-i18n',

@@ -1,5 +1,5 @@
 import { CheckoutGetters} from '@vue-storefront/core';
-import { ShippingMethod } from '@vue-storefront/boilerplate-api/src/types';
+import { ShippingMethod } from '@vue-storefront/magento2-api/src/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getShippingMethodId = (shippingMethod: ShippingMethod): string => '';

@@ -12,7 +12,7 @@ import useUserBilling from './useUserBilling';
 import useUserOrders from './useUserOrders';
 import useUserShipping from './useUserShipping';
 import { useWishlist, setWishlist } from './useWishlist';
-import { createApiClient } from '@vue-storefront/boilerplate-api';
+import { createApiClient } from '@vue-storefront/magento2-api';
 import { integrationPluginFactory } from '@vue-storefront/core';
 
 const integrationPlugin = integrationPluginFactory(createApiClient);

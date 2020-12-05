@@ -4,7 +4,7 @@ import {
   AgnosticPrice,
   ProductGetters
 } from '@vue-storefront/core';
-import { ProductVariant } from '@vue-storefront/boilerplate-api/src/types';
+import { ProductVariant } from '@vue-storefront/magento2-api/src/types';
 
 type ProductVariantFilters = any
 
