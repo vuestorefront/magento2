@@ -1,4 +1,4 @@
-import { integrationPlugin } from '@vue-storefront/boilerplate';
+import { integrationPlugin } from '@vue-storefront/magento2';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 

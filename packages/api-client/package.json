@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/boilerplate-api",
+  "name": "@vue-storefront/magento2-api",
   "version": "0.0.1",
   "private": true,
   "sideEffects": false,

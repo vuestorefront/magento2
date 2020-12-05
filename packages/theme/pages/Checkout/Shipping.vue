@@ -173,7 +173,7 @@ import {
   SfSelect,
   SfRadio
 } from '@storefront-ui/vue';
-import { useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters } from '@vue-storefront/boilerplate';
+import { useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters } from '@vue-storefront/magento2';
 import { ref, onMounted, computed } from '@vue/composition-api';
 
 const COUNTRIES = [

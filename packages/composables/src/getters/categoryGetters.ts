@@ -1,5 +1,5 @@
 import { CategoryGetters, AgnosticCategoryTree } from '@vue-storefront/core';
-import { Category } from '@vue-storefront/boilerplate-api/src/types';
+import { Category } from '@vue-storefront/magento2-api/src/types';
 
 const itemToTree = (category: Category): AgnosticCategoryTree => {
   return {

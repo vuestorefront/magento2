@@ -19,7 +19,7 @@ This repository is a monorepo containing three projects:
 
 ## How to start?
 
-1. Change all `@vue-storefront/boilerplate` strings to your integration name (eg `@vue-storefront/super-ecomm`)
+1. Change all `@vue-storefront/magento2` strings to your integration name (eg `@vue-storefront/super-ecomm`)
 
 2. Install all required dependencies:
 
