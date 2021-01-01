@@ -56,7 +56,9 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/magento2/nuxt', {}]
+    ['@vue-storefront/magento2/nuxt', {
+      api: 'https://demoshops.splendid-internet.de/magento/demoshop-magento2-daily/graphql'
+    }]
   ],
   modules: [
     'nuxt-i18n',
@@ -97,6 +99,7 @@ export default {
     ]
   },
   router: {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     scrollBehavior (_to, _from, savedPosition) {
       if (savedPosition) {
         return savedPosition;
