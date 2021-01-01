@@ -1,10 +1,23 @@
-import { CustomQuery } from '@vue-storefront/core';
+import { ProductAttributeFilterInput, ProductAttributeSortInput, Products } from '../../types/GraphQL';
+import query from './query';
+import { ApolloQueryResult } from 'apollo-client';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default async function getProduct(context, params, customQuery?: CustomQuery) {
-  return Promise.resolve({
-    data: [],
-    total: 0
+const getProduct = async ({ client },
+  search?: string,
+  filter?: ProductAttributeFilterInput,
+  pageSize = 20,
+  currentPage = 1,
+  sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>> => {
+  return await client.query({
+    query: query,
+    variables: {
+      search,
+      filter,
+      pageSize,
+      currentPage,
+      sort
+    }
   });
-}
+};
 
+export default getProduct;
