@@ -1,4 +1,4 @@
-import { AgnosticCoupon, AgnosticPrice, AgnosticTotals, CartGetters } from '@vue-storefront/core';
+import { AgnosticCoupon, AgnosticDiscount, AgnosticPrice, AgnosticTotals, CartGetters } from '@vue-storefront/core';
 import { Cart, LineItem } from '@vue-storefront/magento2-api/src/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
