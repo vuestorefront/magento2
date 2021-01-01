@@ -1,16 +1,11 @@
 import {
-  Context,
-  CustomQuery,
-  useProductFactory,
-  ProductsSearchParams,
-  ProductsSearchResult,
-  UseProductFactoryParams
+  Context, ProductsSearchParams, ProductsSearchResult, useProductFactory, UseProductFactoryParams
 } from '@vue-storefront/core';
-import { UseProduct, Product } from '../types';
+import { Product, UseProduct } from '../types';
 
 const params: UseProductFactoryParams<Product, any> = {
-  productsSearch: async (context: Context, params: ProductsSearchParams, customQuery?: CustomQuery): Promise<ProductsSearchResult<Product>> => {
-    return await context.$boilerplate.api.getProduct(params, customQuery);
+  productsSearch: async (context: Context, params: ProductsSearchParams): Promise<ProductsSearchResult<Product>> => {
+    return await context.$m2.api.getProduct(params);
   }
 };
 
