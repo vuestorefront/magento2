@@ -8,42 +8,38 @@ export default {
   },
   head: {
     title: 'Vue Storefront',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-      { rel: 'preconnect', href: 'https://fonts.gstatic.com' }
-    ]
+    meta: [{ charset: 'utf-8' }, {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1'
+    }, {
+      hid: 'description',
+      name: 'description',
+      content: process.env.npm_package_description || ''
+    }],
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }, {
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com'
+    }, {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com'
+    }]
   },
-  css: [
-    '@storefront-ui/vue/styles.scss'
-  ],
+  css: ['@storefront-ui/vue/styles.scss'],
   loading: { color: '#fff' },
   plugins: [],
-  buildModules: [
-    // to core
-    '@nuxt/typescript-build',
-    '@nuxtjs/style-resources',
-    ['@vue-storefront/nuxt', {
+  buildModules: [// to core
+    '@nuxt/typescript-build', '@nuxtjs/style-resources', ['@vue-storefront/nuxt', {
       // @core-development-only-start
-      coreDevelopment: true,
-      // @core-development-only-end
+      coreDevelopment: true, // @core-development-only-end
       useRawSource: {
-        dev: [
-          '@vue-storefront/magento2',
-          '@vue-storefront/core'
-        ],
-        prod: [
-          '@vue-storefront/magento2',
-          '@vue-storefront/core'
-        ]
+        dev: ['@vue-storefront/magento2', '@vue-storefront/core'],
+        prod: ['@vue-storefront/magento2', '@vue-storefront/core']
       }
-    }],
-    // @core-development-only-start
+    }], // @core-development-only-start
     ['@vue-storefront/nuxt-theme', {
       generate: {
         replace: {
@@ -51,20 +47,32 @@ export default {
           composables: '@vue-storefront/magento2'
         }
       }
-    }],
-    // @core-development-only-end
+    }], // @core-development-only-end
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
     ['@vue-storefront/magento2/nuxt', {
-      api: 'https://demoshops.splendid-internet.de/magento/demoshop-magento2-daily/graphql'
-    }]
-  ],
-  modules: [
-    'nuxt-i18n',
-    'cookie-universal-nuxt',
-    'vue-scrollto/nuxt'
-  ],
+      api: 'https://ma-whitelabel.leonex-projekt.de/',
+      defaultStore: 'de',
+      websites: {
+        'Whitelabel - PWA': {
+          code: 'de',
+          defaultStoreGroup: 'vue1.int.leonex.de',
+          storeGroups: {
+            'vue1.int.leonex.de': {
+              code: 'de',
+              defaultStore: 'Whitelabel - PWA',
+              stores: {
+                'Whitelabel - PWA': {
+                  code: 'de'
+                }
+              }
+            }
+          }
+        }
+      }
+    }]],
+  modules: ['nuxt-i18n', 'cookie-universal-nuxt', 'vue-scrollto/nuxt'],
   i18n: {
     locales: ['en'],
     defaultLocale: 'en',
@@ -85,18 +93,14 @@ export default {
     scss: ['@storefront-ui/shared/styles/_helpers.scss']
   },
   build: {
-    transpile: [
-      'vee-validate/dist/rules'
-    ],
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.VERSION': JSON.stringify({
-          // eslint-disable-next-line global-require
-          version: require('./package.json').version,
-          lastCommit: process.env.LAST_COMMIT || ''
-        })
+    transpile: ['vee-validate/dist/rules'],
+    plugins: [new webpack.DefinePlugin({
+      'process.VERSION': JSON.stringify({
+        // eslint-disable-next-line global-require
+        version: require('./package.json').version,
+        lastCommit: process.env.LAST_COMMIT || ''
       })
-    ]
+    })]
   },
   router: {
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -104,7 +108,10 @@ export default {
       if (savedPosition) {
         return savedPosition;
       } else {
-        return { x: 0, y: 0 };
+        return {
+          x: 0,
+          y: 0
+        };
       }
     }
   }

@@ -3,7 +3,8 @@ import { Category } from '../types';
 
 const params: UseCategoryFactoryParams<Category, any> = {
   categorySearch: async (context: Context, params) => {
-    return await context.$m2.api.getCategory(params);
+    const { data: categoryList } = await context.$m2.api.getCategory(params);
+    return categoryList;
   }
 };
 

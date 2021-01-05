@@ -1,28 +1,26 @@
 import { apiClientFactory } from '@vue-storefront/core';
-import getProduct from './api/getProduct';
-import getCategory from './api/getCategory';
-import getUrls from './api/getUrls';
+import { getCategory, getProduct, getUrls } from './api';
 import { Config } from './types/setup';
 import createMagentoConnection from './helpers/magentoLink';
 import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-const defaultSettings = {
-  locale: 'en',
-  acceptLanguage: ['en']
-};
+declare let window: any;
 
-const onSetup = (settings: Config): {config: Config, client: ApolloClient<any>} => {
-  const languageMap = settings.languageMap || {};
-  const acceptLanguage = settings.acceptLanguage || defaultSettings.acceptLanguage;
-  const locale = settings.locale || defaultSettings.locale;
+const onSetup = (settings: Config): { config: Config, client: ApolloClient<any> } => {
+  const defaultSettings = {
+    tax: {
+      displayCartSubtotalIncludingTax: true
+    },
+    externalCheckout: {
+      enable: false
+    },
+    storage: window.localStorage
+  };
 
   const config = {
-    ...defaultSettings,
-    ...settings,
-    languageMap,
-    acceptLanguage: languageMap[locale] || acceptLanguage
-  } as any as Config;
+    ...defaultSettings, ...settings
+  } as any;
 
   if (settings.client) {
     return {
@@ -34,8 +32,7 @@ const onSetup = (settings: Config): {config: Config, client: ApolloClient<any>} 
   if (settings.customOptions && settings.customOptions.link) {
     return {
       client: new ApolloClient({
-        cache: new InMemoryCache(),
-        ...settings.customOptions
+        cache: new InMemoryCache(), ...settings.customOptions
       }),
       config
     };
