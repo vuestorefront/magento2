@@ -55,11 +55,11 @@ export interface ApiClientMethods {
   categoryList(categoryFilter?: CategoryFilterInput): Promise<ApolloQueryResult<categoryList>>;
   urlResolver(url: string): Promise<ApolloQueryResult<urlResolver>>;
   products(pageSize: number,
-    currentPage: number,
-    queryType: ProductsQueryType,
-    search?: string,
-    filter?: ProductAttributeFilterInput,
-    sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>>;
+           currentPage: number,
+           queryType: ProductsQueryType,
+           search?: string,
+           filter?: ProductAttributeFilterInput,
+           sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>>;
   storeConfig(): Promise<ApolloQueryResult<storeConfigQuery>>;
   cmsPage(indentifier: string): Promise<ApolloQueryResult<cmsPageQuery>>;
   createEmptyCart(): Promise<ExecutionResult<createEmptyCartMutation>>;
@@ -78,18 +78,63 @@ export interface ApiClientMethods {
   revokeCustomerToken(): Promise<boolean>;
   updateCustomer(input: CustomerInput): Promise<Customer>;
 }
-export type ExternalCheckoutStore = {
+
+export interface ApiClientSettings {
+  storage: Storage;
+  api?: {
+    uri: string;
+  };
+  tax: {
+    displayCartSubtotalIncludingTax: boolean;
+  };
+  externalCheckout: {
+    enabled: boolean;
+    cmsUrl: string;
+    stores: Record<string, ExternalCheckoutStore>;
+  };
+  websites: Record<string, Website>;
+  defaultStore: string;
+  overrides: {
+    categoryList?(categoryFilter?: CategoryFilterInput): Promise<ApolloQueryResult<categoryList>>;
+    urlResolver?(url: string): Promise<ApolloQueryResult<urlResolver>>;
+    products?(pageSize: number,
+              currentPage: number,
+              queryType: ProductsQueryType,
+              search?: string,
+              filter?: ProductAttributeFilterInput,
+              sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>>;
+    storeConfig?(): Promise<ApolloQueryResult<storeConfigQuery>>;
+    cmsPage?(indentifier: string): Promise<ApolloQueryResult<cmsPageQuery>>;
+    createEmptyCart?(): Promise<ExecutionResult<createEmptyCartMutation>>;
+    cart?(cartId: string): Promise<ApolloQueryResult<cartQuery>>;
+    addSimpleProductsToCart?(input: AddSimpleProductsToCartInput): Promise<ExecutionResult<AddSimpleProductsToCartOutput>>;
+    addConfigurableProductsToCart?(input: AddConfigurableProductsToCartInput): Promise<ExecutionResult<AddConfigurableProductsToCartOutput>>;
+    updateCartItems?(input: UpdateCartItemsInput): Promise<ExecutionResult<UpdateCartItemsOutput>>;
+    removeItemFromCart?(input: RemoveItemFromCartInput): Promise<ExecutionResult<RemoveItemFromCartOutput>>;
+    applyCouponToCart?(input: ApplyCouponToCartInput): Promise<ExecutionResult<ApplyCouponToCartOutput>>;
+    generateCustomerToken?(email: string, password: string): Promise<ExecutionResult<CustomerToken>>;
+    customer?(): Promise<ApolloQueryResult<customerQuery>>;
+    mergeCarts?(sourceCartId: string, destinationCartId: string): Promise<ExecutionResult<Cart>>;
+    customerCart?(): Promise<ApolloQueryResult<cartQuery>>;
+    createCustomer?(input: CustomerInput): Promise<Customer>;
+    changeCustomerPassword?(currentPassword: string, newPassword: string): Promise<Customer>;
+    revokeCustomerToken(): Promise<boolean>;
+    updateCustomer?(input: CustomerInput): Promise<Customer>;
+  };
+}
+
+type ExternalCheckoutStore = {
   cmsUrl: string;
 }
 
 export interface Storage {
-  setItem: (
+  set: (
     name: string,
     value: any,
   ) => void;
-  getItem: (name: string) => any;
-  removeItem: (name: string) => any;
-  clear: () => void;
+  get: (name: string) => any;
+  remove: (name: string) => any;
+  removeAll: () => void;
 }
 
 export type Website = {

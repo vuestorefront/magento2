@@ -1,20 +1,23 @@
 {
-  "name": "@vue-storefront/magento2",
+  "name": "@vue-storefront/magento",
   "version": "0.0.1",
-  "private": true,
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rimraf lib && rollup -c",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "jest",
-    "prepublish": "yarn build"
+    "test": "jest"
   },
   "dependencies": {
-    "@vue-storefront/magento2-api": "0.0.1",
-    "@vue-storefront/core": "2.1.1-rc.1"
+    "@vue-storefront/magento-api": "^0.0.1",
+    "@vue-storefront/core": "^2.2.1",
+    "vue": "^2.6.x"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.30",
+    "vue-template-compiler": "^2.6.x"
   },
   "files": [
     "lib/**/*"

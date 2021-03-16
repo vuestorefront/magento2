@@ -173,7 +173,7 @@ import {
   SfSelect,
   SfRadio
 } from '@storefront-ui/vue';
-import { useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters } from '@vue-storefront/magento2';
+import { useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters } from '@vue-storefront/magento';
 import { ref, onMounted, computed } from '@vue/composition-api';
 
 const COUNTRIES = [
@@ -205,7 +205,7 @@ export default {
       shippingMethods
     } = useCheckout();
 
-    const { shipping, load: loadShipping, setDefault } = useUserShipping();
+    const { shipping, load: loadUserShipping, setDefault } = useUserShipping();
     const { isAuthenticated } = useUser();
 
     const canAddNewAddress = ref(true);
@@ -246,7 +246,7 @@ export default {
 
     onMounted(async () => {
       if (isAuthenticated.value) {
-        await loadShipping();
+        await loadUserShipping();
         const shippingAddresses = userShippingGetters.getAddresses(shipping.value);
         if (!shippingAddresses || !shippingAddresses.length) {
           return;

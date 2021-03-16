@@ -1,4 +1,21 @@
-export { default as getCategory } from './getCategory';
-export { default as getProduct } from './getProduct';
-export { default as getUrls } from './getUrls';
-
+export { default as products } from './products';
+export { default as storeConfig } from './storeConfig';
+export { default as categoryList} from './categoryList';
+export { default as urlResolver} from './urlResolver';
+export { default as cmsPage} from './cmsPage';
+export { default as createEmptyCart} from './createEmptyCart';
+export { default as cart} from './cart';
+export { default as addSimpleProductsToCart} from './addSimpleProductsToCart';
+export { default as addConfigurableProductsToCart} from './addConfigurableProductsToCart';
+export { default as updateCartItems} from './updateCartItems';
+export { default as removeItemFromCart} from './removeItemFromCart';
+export { default as applyCouponToCart} from './applyCouponToCart';
+export { default as generateCustomerToken} from './generateCustomerToken';
+export { default as customer} from './customer';
+export { default as mergeCarts} from './mergeCarts';
+export { default as customerCart} from './customerCart';
+export { default as createCustomer} from './createCustomer';
+export { default as changeCustomerPassword} from './changeCustomerPassword';
+export { default as revokeCustomerToken} from './revokeCustomerToken';
+export { default as updateCustomer} from './updateCustomer';
+export { default as wishlist } from './wishlist';

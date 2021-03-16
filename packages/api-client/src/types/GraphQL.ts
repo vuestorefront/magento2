@@ -657,6 +657,14 @@ export type cartQuery = {
   cart: CmsPage;
 }
 
+export type wishlistOutput = {
+  items: [WishlistItem],
+  items_count: number,
+  name: string,
+  sharing_code: string,
+  updated_at: string
+}
+
 export type AddSimpleProductsToCartInput = {
   cart_id: string
   cart_items: [SimpleProductCartItemInput]
@@ -717,7 +725,17 @@ export type ApplyCouponToCartInput = {
 }
 
 export type ApplyCouponToCartOutput = {
-  removeItemFromCart: {
+  applyCouponToCart: {
+    cart: Cart
+  }
+}
+
+export type RemoveCouponFromCartInput = {
+  cart_id: string
+}
+
+export type RemoveCouponFromCartOutput = {
+  removeCouponFromCart: {
     cart: Cart
   }
 }

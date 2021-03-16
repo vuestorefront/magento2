@@ -1,5 +1,5 @@
 import ApolloClient, { ApolloClientOptions } from 'apollo-client';
-import { ExternalCheckoutStore, Storage, Website } from './index';
+import { Storage, Website } from './index';
 
 export interface LocaleItem {
   name: string;
@@ -11,13 +11,13 @@ export interface Config<T = any> {
   api: string;
   customOptions?: ApolloClientOptions<any>;
   currency: string;
-  externalCheckout?: {
-    enabled: boolean; cmsUrl: string; stores: Record<string, ExternalCheckoutStore>;
-  };
   websites: Record<string, Website>;
   defaultStore: string;
   storage: Storage;
+  state: any;
   tax: {
     displayCartSubtotalIncludingTax: boolean;
   };
 }
+
+export default Storage;
