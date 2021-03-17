@@ -5,7 +5,12 @@ import {
   AgnosticPrice,
   ProductGetters
 } from '@vue-storefront/core';
-import { Category, Product } from '@vue-storefront/magento-api';
+
+import { 
+  CategoryInterface as Category,
+  ProductInterface as Product 
+} from '@vue-storefront/magento-api';
+
 import categoryGetters from './categoryGetters';
 
 type ProductVariantFilters = any
@@ -111,7 +116,6 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
   const configurableOptions = products.configurable_options;
   for (let i = 0; i < configurableOptions.length; i++) {
     const option = configurableOptions[i];
-    console.log(option.values);
     attributes[option.attribute_code] = {
       name: option.attribute_code,
       label: option.label,
@@ -122,7 +126,6 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
       })
     } as AgnosticAttribute;
   }
-  console.log(attributes);
   return attributes;
 };
 
@@ -235,7 +238,7 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getWishlistState: getProductWishlistState,
 
   getTotalReviews: getProductTotalReviews,
-  getAverageRating: getProductAverageRating
+  getAverageRating: getProductAverageRating,
 };
 
 export default productGetters;

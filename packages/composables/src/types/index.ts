@@ -1,10 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ComputedProperty, UseCategory, UseProduct} from '@vue-storefront/core';
 import {
-  Product as ProductInterface,
-  Cart as CartInterface,
-  CartItem as CartItemInterface,
-  Coupon as CouponInterface,
+  ProductInterface,
+  CartInterface,
+  CartItemInterface,
+  CouponInterface,
   Customer
 } from '@vue-storefront/magento-api';
 import { ComputedRef } from '@vue/composition-api';

@@ -35,7 +35,6 @@ import {ExecutionResult} from 'graphql';
 export type Cart = CartInterface;
 export type Wishlist = {}
 export type Product = ProductInterface;
-export type ProductList = Products;
 export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput
 export type ShippingMethod = {}

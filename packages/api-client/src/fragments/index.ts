@@ -121,4 +121,17 @@ export const customerFragment = `
   taxvat
   default_billing
   default_shipping
+  addresses {
+    firstname
+    lastname
+    street
+    city
+    region {
+      region_code
+      region
+    }
+    postcode
+    country_code
+    telephone
+  }
 `;

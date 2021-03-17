@@ -1,12 +1,7 @@
-import {
-  Context,
-  useUserBillingFactory,
-  UseUserBillingFactoryParams
-} from '@vue-storefront/core';
-
+import { useUserShippingFactory, UseUserShippingFactoryParams, Context } from '@vue-storefront/core';
 import useUser from '../useUser';
 
-const params: UseUserBillingFactoryParams<any, any> = {
+const params: UseUserShippingFactoryParams<any, any> = {
   provide() {
     return {
       user: useUser(),
@@ -23,7 +18,7 @@ const params: UseUserBillingFactoryParams<any, any> = {
     const response = await context.$ma.api.deleteCustomerAddress(params.address.id)
 
     //if (indexToRemove < 0) {
-    //return Promise.reject('This address does not exist');
+      //return Promise.reject('This address does not exist');
     //}
 
     // true ? false?
@@ -32,7 +27,7 @@ const params: UseUserBillingFactoryParams<any, any> = {
 
   updateAddress: async (context: Context, params?) => {
     console.log('[Magento] updateAddress', params);
-    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id, input: params.address });
+    const response = await context.$ma.api.updateCustomerAddress({id: params.address.id, input: params.address});
     return Promise.resolve(response.data.updateCustomerAddress);
   },
 
@@ -40,22 +35,20 @@ const params: UseUserBillingFactoryParams<any, any> = {
   load: async (context: Context, params?) => {
     console.log('[Magento] load address');
     if (!context.user.user?.value?.id) {
-      await context.user.load();
+        await context.user.load();
     }
-    return Promise.resolve(context.user.user?.value?.addresses);
+    return Promise.resolve(context.user.user?.value);
   },
 
   setDefaultAddress: async (context: Context, params?) => {
     console.log('[Magento] setDefaultAddress');
-    const response = await context.$ma.api.updateCustomerAddress({
-      id: params.address.id, input: {
+    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id, input: {
         ...params.address,
-        default_billing: true
+        default_shipping: true
       }
     });
     return Promise.resolve(response.data.updateCustomerAddress);
   }
-
 };
 
-export default useUserBillingFactory<any, any>(params);
+export default useUserShippingFactory<any, any>(params);

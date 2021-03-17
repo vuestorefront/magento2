@@ -19,3 +19,11 @@ export { default as changeCustomerPassword} from './changeCustomerPassword';
 export { default as revokeCustomerToken} from './revokeCustomerToken';
 export { default as updateCustomer} from './updateCustomer';
 export { default as wishlist } from './wishlist';
+export { default as placeOrder } from './placeOrder';
+export { default as setBillingAddressOnCart } from './setBillingAddressOnCart';
+export { default as setGuestEmailOnCart } from './setGuestEmailOnCart';
+export { default as setPaymentMethodOnCart } from './setPaymentMethodOnCart';
+export { default as setShippingAddressesOnCart } from './setShippingAddressesOnCart';
+export { default as setShippingMethodsOnCart } from './setShippingMethodsOnCart';
+export { default as updateCustomerAddress } from './updateCustomerAddress';
+export { default as customerOrders } from './customerOrders'

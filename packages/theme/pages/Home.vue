@@ -18,8 +18,6 @@ export default {
       await load();
     });
 
-    console.log(wishlist);
-
     return {
       wishlist,
       loading

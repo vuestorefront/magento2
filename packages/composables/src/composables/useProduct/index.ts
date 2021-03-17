@@ -1,5 +1,8 @@
 import {
-  ProductAttributeFilter, ProductAttributeSortInput, ProductList, ProductsQueryType
+  ProductAttributeFilter, 
+  ProductAttributeSortInput, 
+  Products, 
+  ProductsQueryType
 } from '@vue-storefront/magento-api';
 import { Context } from '@vue-storefront/core';
 import { useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
@@ -35,7 +38,7 @@ const productsSearch = async (context: Context, params: {
   
 };
 
-const useProduct: (cacheId: string) => UseProduct<ProductList, ProductsSearchParams> = useProductFactory<ProductList, ProductsSearchParams>({
+const useProduct: (cacheId: string) => UseProduct<Products, ProductsSearchParams> = useProductFactory<Products, ProductsSearchParams>({
   productsSearch
 });
 

@@ -1,15 +1,22 @@
 import { Order, UseMakeOrder } from '../../types';
 import { Context } from '@vue-storefront/core'
 import { useMakeOrderFactory } from '../../factories/useMakeOrderFactory';
+import useCart from '../useCart';
 
 const factoryParams = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  make: async (context: Context, { customQuery }): Promise<Order> => {
-    console.log('Mocked: makeOrder');
-    return {
-      id: '123-456-7890'
-    };
-  }
+    provide() {
+        return {
+            cart: useCart()
+        };
+    },
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    make: async (context: Context, { customQuery }): Promise<Order> => {
+        console.log('[Magento] Make Order');
+        const { id } = context.cart.cart.value;
+        const placeOrderResponse = await context.$ma.api.placeOrder({cart_id: id});
+        return placeOrderResponse.data.order;
+    }
 };
 
 const useMakeOrder: () => UseMakeOrder<Order> = useMakeOrderFactory<Order>(factoryParams);

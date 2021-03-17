@@ -1,5 +1,7 @@
 import exp from "constants";
+import { cart } from "../api";
 
+/* Category */
 export type categoryList = [CategoryTree]
 
 export type CategoryFilterInput = {
@@ -64,6 +66,8 @@ export type CategoryProducts = {
   page_info: SearchResultPageInfo
   total_count: number
 }
+
+/* Product */
 
 export type ProductInterface = {
   activity: string
@@ -363,6 +367,8 @@ export type Breadcrumb = {
   category_url_path: string
 }
 
+/* CMS */
+
 export type CmsBlock = {
   content: string
   identifier: string
@@ -531,7 +537,6 @@ export type StoreConfig = {
   welcome: string
 }
 
-
 enum FixedProductTaxDisplaySettings {
   INCLUDE_FPT_WITHOUT_DETAILS = 'INCLUDE_FPT_WITHOUT_DETAILS',
   INCLUDE_FPT_WITH_DETAILS = 'INCLUDE_FPT_WITH_DETAILS',
@@ -589,7 +594,42 @@ type AvailablePaymentMethod = {
 }
 
 type BillingCartAddress = CartAddressInterface;
-type ShippingCartAddress = CartAddressInterface;
+
+export type SelectedShippingMethod = {
+  amount: Money,
+  base_amount: Money,
+  carrier_code: String,
+  carrier_title: String,
+  method_code: String,
+  method_title: String
+}
+
+type CartItemQuantity = {
+  cart_item_id: Number,
+  quantity: Number
+}
+
+type AvailableShippingMethod = {
+  amount: Money,
+  available: Boolean,
+  base_amount: Money,
+  carrier_code: String,
+  carrier_title: String,
+  error_message: String,
+  method_code: String,
+  method_title: String,
+  price_excl_tax: Money,
+  price_incl_tax: Money
+}
+
+type ShippingCartAddress = {
+  available_shipping_methods: [AvailableShippingMethod],
+  cart_items: [CartItemQuantity],
+  cart_items_v2: CartItemInterface,
+  items_weight: Number,
+  selected_shipping_method: SelectedShippingMethod,
+  pickup_location_code: String
+}
 
 interface CartAddressInterface {
   city: string
@@ -613,11 +653,19 @@ type CartAddressRegion = {
   label: string
 }
 
+// CUSTOM
+type CustNote = {
+  amount: Money,
+  customer_note: String,
+  font: String
+}
+
 export interface CartItemInterface {
   id: string
   prices: CartItemPrices
   product: ProductInterface
   quantity: number
+  engraving: CustNote // CUSTOM
 }
 
 type CartItemPrices = {
@@ -766,6 +814,19 @@ export type CustomerToken = {
 
 export type customerQuery = {
   customer: Customer
+}
+
+type CustomerOrder = {
+  created_at: String,
+  grand_total: Number,
+  id: Number,
+  increment_id: String,
+  order_number: String,
+  status: String
+}
+
+export type customerOrdersQuery = {
+  items: [CustomerOrder]
 }
 
 export type Customer = {
@@ -1094,4 +1155,141 @@ export type CustomerInput = {
   prefix: string
   suffix: string
   taxvat: string
+}
+
+/* Checkout */
+export type Order = {
+  order_id: string,
+  order_number: string
+}
+
+/* SetPaymentMethodOnCart */
+type PaymentMethodInput = {
+  code: string,
+  purchase_order_number: string
+}
+
+export type SetPaymentMethodOnCartInput = {
+  cart_id: string,
+  payment_method: PaymentMethodInput
+}
+
+export type SetPaymentMethodOnCartOutput = {
+  cart: Cart
+}
+
+/* updateCustomerAddress */
+type CustomerAddressAttributeInput = {
+  attribute_code: string,
+  value: string
+}
+
+type CustomerAddressRegionInput = {
+  region: string,
+  region_code: string,
+  region_id: number
+}
+
+export type CustomerAddressInput = {
+  city: String
+  company: String
+  country_code: CountryCodeEnum
+  country_id: CountryCodeEnum
+  custom_attributes: [CustomerAddressAttributeInput]
+  default_billing: Boolean
+  default_shipping: Boolean
+  fax: String
+  firstname: String
+  lastname: String
+  middlename: String
+  postcode: String
+  prefix: String
+  region: CustomerAddressRegionInput
+  street: [String]
+  suffix: String
+  telephone: String
+  vat_id: String
+}
+
+
+/* SetBillingAddressOnCart*/
+type CartAddressInput = {
+  city: string,
+  company: string,
+  country_code: String
+  firstname: String
+  lastname: String
+  postcode: String
+  region: String
+  save_in_address_book: boolean
+  street: [String],
+  telephone: String
+}
+
+type BillingAddressInput = {
+  address: CartAddressInput,
+  customer_address_id: number,
+  same_as_shipping: boolean,
+  use_for_shipping: boolean
+}
+
+export type SetBillingAddressOnCartInput = {
+  billing_address: BillingAddressInput,
+  cart_id: string
+}
+
+export type SetBillingAddressOnCartOutput = {
+  cart: CartItemPrices
+}
+
+/*SetShippingAddressesOnCart*/
+type ShippingAddressInput = {
+  address: CartAddressInput,
+  customer_address_id: number,
+  customer_notes: String,
+  pickup_location_code: String
+}
+
+export type SetShippingAddressesOnCartInput = {
+  cart_id: String,
+  shipping_addresses: ShippingAddressInput
+}
+
+export type SetShippingAddressesOnCartOutput = {
+  cart: Cart
+}
+
+/*SetGuestEmailOnCart*/
+export type SetGuestEmailOnCartInput = {
+   cart_id: String,
+   email: String
+}
+
+export type SetGuestEmailOnCartOutput = {
+  cart: Cart
+}
+
+/*PlaceOrder*/
+export type PlaceOrderInput = {
+  cart_id: String,
+  delivery_date: String
+}
+
+export type PlaceOrderOutput = {
+  order: Order
+}
+
+/*SetShippingMethodsOnCart*/
+type ShippingMethodInput = {
+  carrier_code: string,
+  method_code: string
+}
+
+export type SetShippingMethodsOnCartInput = {
+  cart_id: String,
+  shipping_methods: ShippingMethodInput
+}
+
+export type SetShippingMethodsOnCartOutput = {
+  cart: Cart
 }

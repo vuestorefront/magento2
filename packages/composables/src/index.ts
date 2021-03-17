@@ -15,6 +15,8 @@ import useUserBilling from './composables/useUserBilling';
 import useShipping from './composables/useShipping';
 import useShippingProvider from './composables/useShippingProvider';
 import useMakeOrder from './composables/useMakeOrder';
+import useFacet from './composables/useFacet';
+import useUserShipping from './composables/useUserShipping';
 
 import { createApiClient } from '@vue-storefront/magento-api';
 import { integrationPluginFactory } from '@vue-storefront/core';
@@ -28,7 +30,10 @@ import {
   productGetters,
   userGetters,
   orderGetters,
-  wishlistGetters
+  wishlistGetters,
+  facetGetters,
+  userShippingGetters,
+  userBillingGetters
 } from './composables/getters';
 
 export {
@@ -47,6 +52,8 @@ export {
   useShipping,
   useShippingProvider,
   useMakeOrder,
+  useFacet,
+  useUserShipping,
   cartGetters,
   categoryGetters,
   checkoutGetters,
@@ -54,5 +61,8 @@ export {
   userGetters,
   orderGetters,
   wishlistGetters,
+  facetGetters,
+  userShippingGetters,
+  userBillingGetters,
   integrationPlugin
 };
