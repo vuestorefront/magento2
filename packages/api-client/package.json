@@ -11,7 +11,7 @@
     "test": "cross-env APP_ENV=test jest --rootDir ."
   },
   "dependencies": {
-    "@vue-storefront/core": "^2.2.1",
+    "@vue-storefront/core": "^2.x",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-link": "^1.2.13",

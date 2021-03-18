@@ -11,9 +11,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@vue-storefront/core": "^2.2.1",
+    "@vue-storefront/core": "^2.x",
     "@vue-storefront/magento-api": "^0.0.1",
-    "@vue/composition-api": "^1.0.0-rc.5",
     "vue": "^2.6.x"
   },
   "devDependencies": {
