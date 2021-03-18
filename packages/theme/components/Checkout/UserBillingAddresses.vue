@@ -42,7 +42,7 @@ import {
   SfCheckbox,
   SfAddressPicker
 } from '@storefront-ui/vue';
-import { userBillingGetters } from '@vue-storefront/magento';
+import { userBillingGetters } from '@vue-storefront/magento-composables';
 
 export default {
   name: 'UserBillingAddresses',

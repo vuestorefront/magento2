@@ -43,7 +43,7 @@ import {
   SfCheckbox,
   SfAddressPicker
 } from '@storefront-ui/vue';
-import { userShippingGetters } from '@vue-storefront/magento';
+import { userShippingGetters } from '@vue-storefront/magento-composables';
 
 export default {
   name: 'UserShippingAddresses',

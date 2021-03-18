@@ -48,11 +48,11 @@ export default {
       // @core-development-only-end
       useRawSource: {
         dev: [
-          '@vue-storefront/magento',
+          '@vue-storefront/magento-composables',
           '@vue-storefront/core'
         ],
         prod: [
-          '@vue-storefront/magento',
+          '@vue-storefront/magento-composables',
           '@vue-storefront/core'
         ]
       }
@@ -62,7 +62,7 @@ export default {
       generate: {
         replace: {
           apiClient: '@vue-storefront/magento-api',
-          composables: '@vue-storefront/magento'
+          composables: '@vue-storefront/magento-composables'
         }
       }
     }],

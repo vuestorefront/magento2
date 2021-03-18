@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import { useWishlist } from '@vue-storefront/magento';
+import { useWishlist } from '@vue-storefront/magento-composables';
 import { onSSR } from '@vue-storefront/core';
 
 export default {
