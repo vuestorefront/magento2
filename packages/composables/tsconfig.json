@@ -4,5 +4,10 @@
   "exclude": ["node_modules", "lib"],
   "references": [
     { "path": "apollo-client" }
-  ]
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom"
+    ]
+  }
 }

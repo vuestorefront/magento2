@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@storefront-ui/vue": "^0.9.1",
-    "@vue-storefront/magento": "0.0.1",
+    "@vue-storefront/magento-composables": "0.0.1",
     "@vue-storefront/nuxt": "^2.2.1",
     "@vue-storefront/nuxt-theme": "^2.2.1",
     "@nuxtjs/style-resources": "^1.0.0",
