@@ -1,12 +1,13 @@
 import { integrationPlugin } from '@vue-storefront/magento';
-import { 
-  loadState
-} from '@vue-storefront/magento/nuxt/helpers';
+import { loadState } from '@vue-storefront/magento/nuxt/helpers';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-export default integrationPlugin(({ app, integration }) => {
+export default integrationPlugin(({
+  app,
+  integration
+}) => {
   const settings = {
     api: 'https://miuz.cyberfuze.com/graphql',
     websites: {
@@ -14,7 +15,7 @@ export default integrationPlugin(({ app, integration }) => {
         code: 'base',
         defaultStoreGroup: 'main_website_store',
         storeGroups: {
-          // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
+          // eslint-disable-next-line camelcase
           main_website_store: {
             code: 'main_website_store',
             defaultStore: 'default',
@@ -36,8 +37,11 @@ export default integrationPlugin(({ app, integration }) => {
     defaultStore: 'default'
   };
 
-  
   const state = loadState(app, settings);
 
-  integration.configure({ ...moduleOptions, ...settings, state });
+  integration.configure({
+    ...moduleOptions,
+    ...settings,
+    state
+  });
 });
