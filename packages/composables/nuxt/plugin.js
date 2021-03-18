@@ -1,5 +1,5 @@
-import { integrationPlugin } from '@vue-storefront/magento';
-import { loadState } from '@vue-storefront/magento/nuxt/helpers';
+import { integrationPlugin } from '@vue-storefront/magento-composables';
+import { loadState } from '@vue-storefront/magento-composables/nuxt/helpers';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
