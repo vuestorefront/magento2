@@ -70,7 +70,7 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/magento/nuxt', {}]
+    ['@vue-storefront/magento-composables/nuxt', {}]
   ],
   modules: [
     'nuxt-i18n',
