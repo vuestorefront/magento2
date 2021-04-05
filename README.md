@@ -9,7 +9,7 @@
     - [Configuration](#configuration)
     - [Overriding and extending API Client methods](#overriding-and-extending-api-client-methods)
     - [Methods](#methods)
-* [Composables](#composables)
+* [Composable](#composables)
     - [ `useCart()` ](#usecart)
     - [ `useCategory()` ](#usecategory)
     - [ `useCheckout()` ](#usecheckout)
@@ -19,16 +19,8 @@
     - [ `useProduct()` ](#useproduct)
     - [ `useRouter()` ](#userouter)
     - [ `useUser()` ](#useuser)
-    - [ `useUserOrders()` ](#useuserorders)
+    - [ `useUserOrder()` ](#useuserorder)
     - [ `useWishlist()` ](#usewishlist)
-* [Getters](#getters)
-    - [Cardgetters](#cardgetters)
-    - [Categorygetters](#categorygetters)
-    - [Checkoutgetters](#checkoutgetters)
-    - [Ordergetters](#ordergetters)
-    - [Productgetters](#productgetters)
-    - [Usergetters](#usergetters)
-    - [Wishlistgetters](#wishlistgetters)
 
 ## Introduction
 
@@ -63,8 +55,7 @@ Based on provided answers Vue Storefront CLI will generate a project already int
 First, install the packages:
 
 ```shell script
-npm install --save @vue-storefront/magento @vue-storefront/magento-api
-
+npm install --save @vue-storefront/magento @vue-storefront/magento-api 
 # OR
 
 yarn add @vue-storefront/magento @vue-storefront/magento-api
@@ -85,7 +76,6 @@ In the next chapters, you will learn in-depth about Commercetools API Client and
 ## API Client
 
 * [Configuration](#configuration)
-* [Overriding and extending API Client methods](#overriding-and-extending-api-client-methods)
 * [Methods](#methods)
 
 ---
@@ -98,31 +88,14 @@ API Client by itself is a Vanilla JavaScript application and it doesn't require 
 
 ### Configuration
 
-``` javascript
-import {
-  setup
-} from '@vue-storefront/magento-api';
+```javascript
+import { setup } from '@vue-storefront/magento-api';
 
-export default async ({
-  app
-}) => {
-
+export default async ({ app }) => {
   const config = {
-    storage: app.$cookies,
-    api: {
-      uri: process.env.API_URL
-    },
+    api: 'https://your-magento-instance.tld/graphql'
     tax: {
       displayCartSubtotalIncludingTax: true
-    },
-    externalCheckout: {
-      enabled: true,
-      cmsUrl: 'https://your-magento-instance.tld/vue/cart/sync/',
-      stores: {
-        default: {
-          cmsUrl: 'https://your-magento-instance.tld/vue/cart/sync/'
-        }
-      }
     },
     websites: {
       base: {
@@ -157,26 +130,19 @@ export default async ({
 
 `setup` accepts the following config:
 
-``` typescript
-interface ApiClientSettings {
+```typescript
+interface Config<T = any> {
+  client?: ApolloClient<T>;
+  api: string;
+  customOptions?: ApolloClientOptions<any>;
+  currency: string;
+  websites: Record<string, Website>;
+  defaultStore: string;
   storage: Storage;
-  api?: {
-    uri: string;
-  };
+  state: any;
   tax: {
     displayCartSubtotalIncludingTax: boolean;
   };
-  externalCheckout: {
-    enabled: boolean;
-    cmsUrl: string;
-    stores: Record<string, ExternalCheckoutStore>;
-  };
-  websites: Record<string, Website>;
-  defaultStore: string;
-}
-
-type ExternalCheckoutStore = {
-  cmsUrl: string;
 }
 
 interface Storage {
@@ -208,280 +174,316 @@ type Store = {
 }
 ```
 
-### Overriding and extending API Client methods
-
-One of the biggest benefits of using headless architecture is the flexibility of combining multiple specialized third-party services in one application. It gives you a freedom of replacing parts of your app that are not meeting your expectations with other ones that do. For example if you don't like your eCommerce default CMS you can easily replace it with Storyblok.
-
-The main purpose of introducing the API Client into Vue Storefront architecture was to make such changes as simple as possible and let people apply them without introducing breaking changes to other parts of the app
-
-For example: If you want to change the way you're getting eCommerce data and switch from REST API to GraphQL or fetch product reviews from external service you can easily do that without introducing breaking changes in the UI layer or composition API functions **as long as your method will keep the same interface**
-
-You can override any of API Client methods with `override function. It accepts an object where you can put functions you want to override.
-
-``` javascript
-import {
-  override
-} from '@vue-storefront/{platform}-api'
-
-override({
-  async getProduct(params) {
-    // new getProduct
-  },
-})
-```
-
 ### Methods
 
 You can find detailed information about all API Client methods here
 
 ## Composables
 
+* [ `useBilling()` ](#usebilling)
 * [ `useCart()` ](#usecart)
 * [ `useCategory()` ](#usecategory)
 * [ `useCheckout()` ](#usecheckout)
 * [ `useConfig()` ](#useconfig)
-* [ `useLocale()` ](#uselocale)
+* [ `useFacet()` ](#usefacet)
+* [ `useMakeOrder()` ](#usemakeorder)
 * [ `usePage()` ](#usepage)
 * [ `useProduct()` ](#useproduct)
 * [ `useRouter()` ](#userouter)
+* [ `useShipping()` ](#useshipping)
+* [ `useShippingProvider()` ](#useshippingprovider)
 * [ `useUser()` ](#useuser)
+* [ `useUserBilling()` ](#useuserbilling)
 * [ `useUserOrders()` ](#useuserorders)
+* [ `useUserShipping()` ](#useusershipping)
 * [ `useWishlist()` ](#usewishlist)
 
-### useCart
+### useBilling
+`useUserBilling` composable can be used to:
 
-`useCart` composition API function is responsible, as its name suggests, for interactions with the cart in your eCommerce. This function returns following values:
+* fetch existing billing addresses,
+* submit new billing addresses,
+* modify and delete existing billing addresses.
+
+### API
 
 ``` typescript
-interface UseCart
-<
-  CART,
-  CART_ITEM,
-  PRODUCT,
-  COUPON
-> {
-  cart: ComputedProperty<CART>;
-  addItem: (product: PRODUCT, quantity: number) => Promise<void>;
-  isOnCart: (product: PRODUCT) => boolean;
-  removeItem: (product: CART_ITEM,) => Promise<void>;
-  updateItemQty: (product: CART_ITEM, quantity?: number) => Promise<void>;
-  clear: () => Promise<void>;
-  coupon: ComputedProperty<COUPON | null>;
-  applyCoupon: (coupon: string) => Promise<void>;
-  removeCoupon: () => Promise<void>;
-  load: () => Promise<void>;
+interface UseBilling<BILLING, BILLING_PARAMS> {
+  error: ComputedProperty<UseBillingErrors>;
   loading: ComputedProperty<boolean>;
+  billing: ComputedProperty<BILLING>;
+  load(): Promise<void>;
+  load(params: { customQuery?: CustomQuery }): Promise<void>;
+  save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
 }
 ```
 
-* `cart` - Returns the Items in the Cart as a `computed` property
-* `isOnCart` - Function that takes in a `product` and returns `true` or `false`
-* `addItem` - Function that takes in a `product` and its `quantaty` and adds it to the cart
-* `load` - Function that loads the current `cart
-* `removeItem` - Function that takes in a `product` and removes it from the `cart 
-* `clear` - Function that clears cart
-* `updateItemQty` - Function that takes in a `product` and its new `quantaty` and updates it accordingly
-* `coupon` - Returns applied coupon codes as a `computed` property
-* `applyCoupon` - Function that takes in a `coupon` and applies it to the cart
-* `removeCoupon` - Function that removes all applied coupons
-* `loading` - Returns `true` / `false` as `computed` property
+* `load` - loads the users billing addresses
+* `save` - saves new address
+* `error` - reactive object containing the error message, if some properties failed for any reason.
+* `loading` - reactive object containing information about loading state of `load` and `save`
+* `billing` - reactive data object containing response from the backend.
 
-#### Cart initialization
+### Getters
 
-Cart composable is a service designed for supporting a single cart and access it everywhere with ease. Initialization of a cart requires using `load()` when calling `useCart()` for the first time. Keep in mind that upon execution of `load` , the cart will get loaded only once, if a wishlist has already been loaded, nothing happens.
+```typescript
+interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
+    getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
+    getDefault: (billing: USER_BILLING) => USER_BILLING_ITEM;
+    getTotal: (billing: USER_BILLING) => number;
+    getPostCode: (address: USER_BILLING_ITEM) => string;
+    getStreetName: (address: USER_BILLING_ITEM) => string;
+    getStreetNumber: (address: USER_BILLING_ITEM) => string | number;
+    getCity: (address: USER_BILLING_ITEM) => string;
+    getFirstName: (address: USER_BILLING_ITEM) => string;
+    getLastName: (address: USER_BILLING_ITEM) => string;
+    getCountry: (address: USER_BILLING_ITEM) => string;
+    getPhone: (address: USER_BILLING_ITEM) => string;
+    getEmail: (address: USER_BILLING_ITEM) => string;
+    getProvince: (address: USER_BILLING_ITEM) => string;
+    getCompanyName: (address: USER_BILLING_ITEM) => string;
+    getTaxNumber: (address: USER_BILLING_ITEM) => string;
+    getId: (address: USER_BILLING_ITEM) => string;
+    getApartmentNumber: (address: USER_BILLING_ITEM) => string | number;
+    isDefault: (address: USER_BILLING_ITEM) => boolean;
+}
+```
+* `getAddresses` - returns list of billing addresses.
+* `getDefault` - returns a default billing address.
+* `getTotal` - returns total number of billing addresses user has.
+* `getId` - returns id from an individual address.
+* `getPostCode` - returns post code from an individual address.
+* `getStreetName` - returns street name from an individual address.
+* `getStreetNumber` - returns street number from an individual address.
+* `getCity` - returns city name from an individual address.
+* `getFirstName` - returns first name from an individual address.
+* `getLastName` - returns last name from an individual address.
+* `getCountry` - returns country name from an individual address.
+* `getPhone` - return phone number from an individual address.
+* `getEmail` - returns e-mail address from an individual address.
+* `getProvince` - returns province (state) from an individual address.
+* `getCompanyName` - returns company name from an individual address.
+* `getTaxNumber` - returns tax number from an individual address.
+* `getApartmentNumber` - returns apartment number from an individual address.
+* `isDefault` - return information if address is current default.
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useCart
-} from '@vue-storefront/magento';
+### Example
+
+````javascript
+import { onSSR } from '@vue-storefront/core';
+import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
 
 export default {
   setup() {
     const {
-      cart,
-      isOnCart,
-      addItem,
+      billing,
       load,
-      removeItem,
-      clear,
-      updateItemQty,
-      coupon,
-      applyCoupon,
-      removeCoupon,
-      loading
-    } = useCart();
+      addAddress,
+      deleteAddress,
+      updateAddress
+    } = useUserBilling();
 
+    // If you're using Nuxt or any other framework for Universal Vue apps
     onSSR(async () => {
       await load();
     });
 
     return {
-      cart,
-      isOnCart,
-      addItem,
-      removeItem,
-      clear,
-      updateItemQty,
-      coupon,
-      applyCoupon,
-      removeCoupon,
-      loading,
+      billing: computed(() => userBillingGetters.getAddresses(billing.value)),
+      userBillingGetters
     };
   }
 };
+````
+
+### useCart
+
+`useCart` composable can be used to:
+* load cart information,
+* add, update and remove items in the cart,
+* applying and removing coupons,
+* checking if product is already added to the cart.
+
+### API 
+
+``` typescript
+interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
+    cart: ComputedProperty<CART>;
+    setCart(cart: CART): void;
+    addItem(params: {
+        product: PRODUCT;
+        quantity: number;
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    isOnCart: ({ product: PRODUCT }: {
+        product: any;
+    }) => boolean;
+    removeItem(params: {
+        product: CART_ITEM;
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    updateItemQty(params: {
+        product: CART_ITEM;
+        quantity?: number;
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    clear(): Promise<void>;
+    applyCoupon(params: {
+        couponCode: string;
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    removeCoupon(params: {
+        coupon: COUPON;
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    load(): Promise<void>;
+    load(params: {
+        customQuery?: CustomQuery;
+    }): Promise<void>;
+    error: ComputedProperty<UseCartErrors>;
+    loading: ComputedProperty<boolean>;
+}
+```
+
+* `cart` - Returns the Items in the Cart as a `computed` property
+* `setCart` - set new Cart
+* `addItem` - Function that takes in a `product` and its `quantaty` and adds it to the cart
+* `isOnCart` - Function that takes in a `product` and returns `true` or `false`
+* `removeItem` - Function that takes in a `product` and removes it from the `cart`
+* `updateItemQty` - Function that takes in a `product` and its new `quantaty` and updates it accordingly
+* `clear` - Function that clears cart
+* `applyCoupon` - Function that takes in a `coupon` and applies it to the cart
+* `removeCoupon` - Function that removes all applied coupons
+* `load` - Function that loads the current `cart`
+* `loading` - a reactive object containing information about loading state of the cart.
+* `error` - reactive object containing the error message, if some properties failed for any reason.
+
+### Getters
+
+````typescript
+interface CartGetters<CART, CART_ITEM> {
+    getItems: (cart: CART) => CART_ITEM[];
+    getItemName: (cartItem: CART_ITEM) => string;
+    getItemImage: (cartItem: CART_ITEM) => string;
+    getItemPrice: (cartItem: CART_ITEM) => AgnosticPrice;
+    getItemQty: (cartItem: CART_ITEM) => number;
+    getItemAttributes: (cartItem: CART_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+    getItemSku: (cartItem: CART_ITEM) => string;
+    getTotals: (cart: CART) => AgnosticTotals;
+    getShippingPrice: (cart: CART) => number;
+    getTotalItems: (cart: CART) => number;
+    getFormattedPrice: (price: number) => string;
+    getCoupons: (cart: CART) => AgnosticCoupon[];
+    getDiscounts: (cart: CART) => AgnosticDiscount[];
+    [getterName: string]: (element: any, options?: any) => unknown;
+}
+````
+
+* `getTotals` - returns cart totals.
+* `getShippingPrice` - returns current shipping price.
+* `getItems` - returns all items from cart.
+* `getItemName` - returns product name.
+* `getItemImage` - returns product image.
+* `getItemPrice` - returns product price.
+* `getItemQty` - returns product quantity.
+* `getItemAttributes` - returns product attribute.
+* `getItemSku` - returns product SKU.
+* `getTotalItems` - returns products amount.
+* `getFormattedPrice` - returns product price with currency sign.
+* `getCoupons` - returns applied coupons.
+* `getDiscounts` - returns all discounts.
+
+#### Example
+
+```javascript
+import { useCart, cartGetters } from '@vue-storefront/magento';
+import { onSSR } from '@vue-storefront/core'
+
+export default {
+  setup () {
+    const { cart, removeItem, updateItemQty, load } = useCart();
+
+    onSSR(async () => {
+      await loadCart();
+    })
+
+    return {
+      removeItem,
+      updateItemQty,
+      products: computed(() => cartGetters.getItems(cart.value)),
+      totals: computed(() => cartGetters.getTotals(cart.value)),
+      totalItems: computed(() => cartGetters.getTotalItems(cart.value))
+    }
+  }
+}
 ```
 
 ### useCategory
 
-`useCategory` composition API function is responsible, as its name suggests, for interactions with the categories in your eCommerce. This function returns following values:
+`useCategory` composable is responsible for fetching a list of categories. A common usage scenario for this composable is navigation.
+
+### API
 
 ``` typescript
-interface UseCategory
-<
-  CATEGORY
-> {
-  categories: ComputedProperty<CATEGORY[]>;
-  search: (params: {
-    [x: string]: any;
-  }) => Promise<void>;
-  loading: ComputedProperty<boolean>;
+interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
+    categories: ComputedProperty<CATEGORY[]>;
+    search(params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>): Promise<void>;
+    loading: ComputedProperty<boolean>;
+    error: ComputedProperty<UseCategoryErrors>;
 }
 ```
 
-* `categories` - Returns all `categories` as a `computed` property
+* `categories` - a main data object that contains an array of categories fetched by `search` method.
 * `search` - Function that takes `categorySearchParams` as input and fill the `categories
 * `loading` - Returns the current state of `search` as `computed` property
+* `error` - reactive object containing the error message, if search failed for any reason.
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useCategory
-} from '@vue-storefront/magento';
+### Getters
+````typescript
+interface CategoryGetters<CATEGORY> {
+    getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
+    getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
+    [getterName: string]: any;
+}
+````
+### Example
+
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useCategory } from '@vue-storefront/magento';
 
 export default {
-  setup(props) {
-    const {
-      categories,
-      search,
-      loading
-    } = useCategory();
+  setup () {
+    const { categories, search, loading } = useCategory('category-id');
 
     onSSR(async () => {
-      let searchParameters = {};
-      if (props.categoryId) {
-        searchParameters = {
-          ids: {
-            eq: props.categoryId
-          }
-        };
-      } else {
-        searchParameters = getCategorySearchParameters(context);
-      }
-      await search(searchParameters);
+      await search({});
     });
 
     return {
       categories,
       loading
-    };
+    }
   }
-};
+}
 ```
 
 ### useCheckout
 
 `useCheckout` composition API function is responsible, as its name suggests, for interactions with the checkout in your eCommerce. This function returns following values:
 
-> This composable however needs to be impelemented in the `core` and then ported to magento.
-
-``` typescript
-interface UseCheckout
-<
-  PAYMENT_METHODS,
-  SHIPPING_METHODS,
-  PERSONAL_DETAILS,
-  SHIPPING_DETAILS,
-  SHIPPING_METHOD,
-  BILLING_DETAILS,
-  CHOOSEN_PAYMENT_METHOD,
-  CHOOSEN_SHIPPING_METHOD,
-  PLACE_ORDER
-> { 
-    chosenShippingMethod: Ref<CHOOSEN_SHIPPING_METHOD>; 
-    shippingDetails: Ref<PERSONAL_DETAILS>; 
-    billingDetails: Ref<PERSONAL_DETAILS>; 
-    chosenPaymentMethod: Ref<CHOOSEN_PAYMENT_METHOD>;  
-    placeOrder: (params: any) => Promise<any>; 
-    loadDetails: (params: any) => Promise<any>; 
-    paymentMethods: Ref<PAYMENT_METHODS[]>; 
-    personalDetails: Ref<PERSONAL_DETAILS>; 
-    loading: Readonly<Ref<Readonly<boolean>>>; 
-    shippingMethods: Ref<SHIPPING_METHODS[]> 
-}
-```
-
-* `chosenShippingMethod` - Returns the `chosenShippingMethod
-* `shippingDetails` - Returns the `shippingDetails`
-* `billingDetails` - Returns the `billingDetails`
-* `chosenPaymentMethod` - Returns the `chosenPaymentMethod`
-* `chosenShippingMethod` - Returns the `chosenShippingMethod`
-* `placeOrder` - Function to `placeOrder`
-* `loadDetails` - Function to `loadDetails`
-* `paymentMethods` - Returns the `paymentMethods`
-* `personalDetails` - Returns the `personalDetails`
-* `loading` - Returns the `loading` state
-* `shippingMethods` - Returns the `shippingMethods`
-
-``` javascript
-import {
-  useCheckout
-} from '@vue-storefront/magento';
-
-export default {
-  setup() {
-    const {
-      chosenShippingMethod,
-      shippingDetails,
-      billingDetails,
-      chosenPaymentMethod,
-      placeOrder,
-      loadDetails,
-      paymentMethods,
-      personalDetails,
-      loading,
-      shippingMethods
-    } = useCheckout();
-
-    return {
-      chosenShippingMethod,
-      shippingDetails,
-      billingDetails,
-      chosenPaymentMethod,
-      placeOrder,
-      loadDetails,
-      paymentMethods,
-      personalDetails,
-      loading,
-      shippingMethods
-    };
-  }
-};
-```
+> This composable however needs to be implemented
 
 ### useConfig
 
 useConfig` composition API function is responsible, as its name suggests, for interactions with the configuration in your eCommerce. This function returns following values:
 
-``` typescript
-interface UseConfig<CONFIG> {
-  config: ComputedProperty<CONFIG>;
+### API
+```typescript
+interface UseConfig<Config> {
+  config: ComputedRef<Config>;
   loadConfig: () => Promise<void>;
-  loading: ComputedProperty<boolean>;
+  loading: ComputedRef<boolean>;
 }
 ```
 
@@ -489,13 +491,10 @@ interface UseConfig<CONFIG> {
 * `loadConfig` - Function to load the `config`
 * `loading` - Return state of `loadConfig` Function as `computed` property
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useConfig
-} from '@vue-storefront/magento';
+### Example
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useConfig } from '@vue-storefront/magento';
 
 export default {
   setup() {
@@ -516,93 +515,148 @@ export default {
   }
 };
 ```
+### useFacet
+`useFacet` composition function can be used to fetch data related to:
+* products,
+* categories,
+* breadcrumbs.
 
-### useLocale
+What makes it powerful is the ability to accept multiple filters, allowing to narrow down the results to a specific category, search term, etc.
 
-`useLocale` composition API function is responsible, as its name suggests, for interactions with the locales in your eCommerce. This function returns following values:
+For more information about faceting, please refer to this page.
 
-``` typescript
-interface UseLocale {
-  availableLocales: ComputedProperty<AgnosticLocale[]>;
-  availableCountries: ComputedProperty<AgnosticCountry[]>;
-  availableCurrencies: ComputedProperty<AgnosticCurrency[]>;
-  country: ComputedProperty<AgnosticCountry>;
-  currency: ComputedProperty<AgnosticCurrency>;
-  loadAvailableLocales: () => Promise<void>;
-  loadAvailableCountries: () => Promise<void>;
-  loadAvailableCurrencies: () => Promise<void>;
-  loading: ComputedProperty<boolean>;
-  locale: ComputedProperty<AgnosticLocale>;
-  setLocale: (locale: AgnosticLocale) => Promise<void>;
-  setCountry: (country: AgnosticCountry) => Promise<void>;
-  setCurrency: (currency: AgnosticCurrency) => Promise<void>;
+### API
+````typescript
+interface UseFacet<SEARCH_DATA> {
+    result: ComputedProperty<FacetSearchResult<SEARCH_DATA>>;
+    loading: ComputedProperty<boolean>;
+    search: (params?: AgnosticFacetSearchParams) => Promise<void>;
+    error: ComputedProperty<UseFacetErrors>;
 }
-```
+````
 
-* `availableLocales` - Returns all `availableLocales` as `computed` property
-* `availableCountries` - Returns all `availableCountries` as `computed` property
-* `availableCurrencies` - Returns all `availableCurrencies` as `computed` property
-* `country` - Returns all `country` s as `computed` property
-* `currency` - Returns all `currency` s as `computed` property
-* `loadAvailableLocales` - Function that loads available locales
-* `loadAvailableCountries` - Function that loads available countries
-* `loadAvailableCurrencies` - Function that loads available currencies
-* `loading` - Returns the `loading` state as `computed` property
-* `setLocale` - Function that takes a `locale` as param and sets the `locale` property 
-* `setCountry` - Function that takes a `country` as param and sets the `country` property 
-* `setCurrency` - Function that takes a `currency` as param and sets the `currency` property 
+* `search` - function for searching and classifying records, allowing users to browse the catalog data. It accepts a single object as a parameter
+* `result` - reactive data object containing the response from the backend.
+* `loading` - reactive object containing information about the loading state of search.
+* `error - reactive object containing the error message, if search failed for any reason.
 
-``` javascript
-import {
-  useLocale
-} from '@vue-storefront/magento';
+### Getters
+````typescript
+interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
+    getAll: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticFacet[];
+    getGrouped: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticGroupedFacet[];
+    getCategoryTree: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticCategoryTree;
+    getSortOptions: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticSort;
+    getProducts: (searchData: FacetSearchResult<SEARCH_DATA>) => RESULTS;
+    getPagination: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticPagination;
+    getBreadcrumbs: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticBreadcrumb[];
+    [getterName: string]: (element: any, options?: any) => unknown;
+}
+````
+
+* `getAll` - returns all available facets.
+* `getGrouped` - returns grouped facets by facet name.
+* `getCategoryTree` - return the tree of nested categories.
+* `getSortOptions` - returns available and currently selected sorting options.
+* `getProducts` - returns products matching current filters.
+* `getPagination` - returns pagination information.
+* `getBreadcrumbs` - returns breadcrumbs information.
+
+### Example
+```javascript
+import { useFacet, facetGetters } from '@vue-storefront/magento';
+
 export default {
-  setup(props, context) {
+  setup (props, context) {
     const {
-      $router,
-      $route
-    } = context.root;
-    const {
-      locale,
-      ...fields
-    } = useLocale();
-    const setCookie = context.root.$i18n.setLocaleCookie;
-    const isLangModalOpen = ref(false);
+      result,
+      search,
+      loading
+    } = useFacet();
 
-    const handleChangeLang = ({
-      name
-    }) => {
-      if (name === locale.value) {
-        isLangModalOpen.value = false;
-        return;
-      }
-      locale.value = name;
-      setCookie(name);
-      $router.go({
-        path: $route.fullPath,
-        force: true
+    onSSR(async () => {
+      await search({
+        categorySlug: 'clothing',
+        sort: 'latest',
+        itemsPerPage: 10,
+        term: 'some search query'
       });
-    };
+    });
 
     return {
-      handleChangeLang,
-      locale,
-      isLangModalOpen,
-      ...fields
+      products: computed(() => facetGetters.getProducts(result.value)),
+      categoryTree: computed(() => facetGetters.getCategoryTree(result.value)),
+      breadcrumbs: computed(() => facetGetters.getBreadcrumbs(result.value)),
+      sortBy: computed(() => facetGetters.getSortOptions(result.value)),
+      facets: computed(() => facetGetters.getGrouped(result.value, ['color', 'size'])),
+      pagination: computed(() => facetGetters.getPagination(result.value)),
+      loading
     };
   }
 }
 ```
 
+### useMakeOrder
+`useMakeOrder` composable is responsible for making an order
+
+### API
+````typescript
+interface UseMakeOrder<ORDER> {
+  order: Ref<ORDER>;
+  make(params: { customQuery?: CustomQuery }): Promise<void>;
+  error: ComputedProperty<UseMakeOrderErrors>;
+  loading: ComputedProperty<boolean>;
+}
+````
+
+* `make` - function for making an order. This method accepts a single optional params object. 
+* `order` - a main data object that contains a made order.
+* `loading` - a reactive object containing information about loading state of your make method.
+* `error` - a reactive object containing the error message, if load or save failed for any reason.
+
+### Getters
+````typescript
+interface UserOrderGetters<ORDER, ORDER_ITEM> {
+    getDate: (order: ORDER) => string;
+    getId: (order: ORDER) => string;
+    getStatus: (order: ORDER) => string;
+    getPrice: (order: ORDER) => number;
+    getItems: (order: ORDER) => ORDER_ITEM[];
+    getItemSku: (item: ORDER_ITEM) => string;
+    getItemName: (item: ORDER_ITEM) => string;
+    getItemQty: (item: ORDER_ITEM) => number;
+    getItemPrice: (item: ORDER_ITEM) => number;
+    getFormattedPrice: (price: number) => string;
+    [getterName: string]: (element: any, options?: any) => unknown;
+}
+````
+
+> To be implemented
+
+### Example
+````javascript
+import { useMakeOrder } from '@vue-storefront/magento';
+export default {
+  setup () {
+    const { make, order } = useMakeOrder();
+    return {
+      make,
+      order
+    };
+  }
+}
+````
+
 ### usePage
 
-`usePage` composition API function is responsible, as its name suggests, for interactions with the pages in your eCommerce. This function returns following values:
+`usePage` composition API function is responsible, as its name suggests, for interactions with the cms pages in your eCommerce. This function returns following values:
 
-``` typescript
-interface UsePage<CACHEID> {
-    loadPage: (identifier: string) => Promise<void>;
-    page: Readonly<Ref<Readonly<Page>>>;
-    loading: Readonly<Ref<Readonly<boolean>>>;
+### API
+```typescript
+interface UsePage<PAGE> {
+  page: ComputedProperty<PAGE>;
+  loadPage: (identifier: string) => Promise<void>;
+  loading: ComputedProperty<boolean>;
 }
 ```
 
@@ -610,7 +664,8 @@ interface UsePage<CACHEID> {
 * `page` - Returns the `page` data
 * `loading` - indicates the State of `loadPage`
 
-``` javascript
+### Example 
+```javascript
 import {
   usePage
 } from '@vue-storefront/magento';
@@ -640,70 +695,80 @@ export default {
 
 ### useProduct
 
-`useProduct` composition API function is responsible, as its name suggests, for interactions with the products in your eCommerce. This function returns following values:
+`useProduct` composable is responsible for fetching a list of products.
 
-``` typescript
-interface UseProduct<PRODUCT, PRODUCT_FILTERS, SORTING_OPTIONS> {
- products: ComputedProperty<PRODUCT[]>;
- totalProducts: ComputedProperty<number>;
- availableFilters: ComputedProperty<PRODUCT_FILTERS>;
- search: (params: {
-   perPage?: number;
-   page?: number;
-   sort?: any;
-   term?: any;
-   filters?: PRODUCT_FILTERS;
-   [x: string]: any;
- }) => Promise<void>;
- availableSortingOptions: ComputedProperty<SORTING_OPTIONS>;
- loading: ComputedProperty<boolean>;
- [x: string]: any;
+### API
+
+```typescript
+interface UseProduct<PRODUCTS, PRODUCT_SEARCH_PARAMS> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseProductErrors>;
+  search(params: ComposableFunctionArgs<PRODUCT_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
 }
 ```
 
 * `products` - Returns `products` as a `computed` property
-* `totalProducts` - Returns the number of `totalProducts` as a `computed` property 
-* `availableFilters` - Returns all `availableFilters` as a `computed` property
-* `search` - Function that takes in `perPage` , `page` , `sort` , `term` , `filters` and an `array of String` as optional
+* `search` - Function that takes in `perPage` , `page` , `sort` , `term` , `filters` and an `array of String` as optional params and gets the `products` accordingly
+* `loading` - Returns the `loading` state of `search`
+* `error` - reactive object containing the error message, if search failed for any reason.
 
- params and gets the `products` accordingly
+### Getters
 
-* `availableSortingOptions` - Return all `availableSortingOptions` as a `computed` property
-* `loading` - Retruns the `loading` state of `search`
+```typescript
+interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
+    getName: (product: PRODUCT) => string;
+    getSlug: (product: PRODUCT) => string;
+    getPrice: (product: PRODUCT) => AgnosticPrice;
+    getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[];
+    getCoverImage: (product: PRODUCT) => string;
+    getFiltered: (products: PRODUCT[], filters?: PRODUCT_FILTER) => PRODUCT[];
+    getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+    getDescription: (product: PRODUCT) => string;
+    getCategoryIds: (product: PRODUCT) => string[];
+    getId: (product: PRODUCT) => string;
+    getFormattedPrice: (price: number) => string;
+    getTotalReviews: (product: PRODUCT) => number;
+    getAverageRating: (product: PRODUCT) => number;
+    getBreadcrumbs?: (product: PRODUCT) => AgnosticBreadcrumb[];
+    [getterName: string]: any;
+}
+```
+* `getName` - returns product name.
+* `getSlug` - returns product slug.
+* `getPrice` - returns product price.
+* `getGallery` - returns product gallery.
+* `getCoverImage` - returns cover image of product.
+* `getFiltered` - returns filtered product.
+* `getAttributes` - returns product attributes.
+* `getDescription` - returns product description.
+* `getCategoryIds` - returns all product categories.
+* `getId` - returns product ID.
+* `getFormattedPrice` - returns product price with currency sign.
+* `getTotalReviews` - returns total number of reviews product has.
+* `getAverageRating` - returns average rating from all reviews.
 
-``` javascript
-import {
-  useProduct
-} from '@vue-storefront/magento';
-import {
-  onSSR
-} from '@vue-storefront/core';
+### Example
+
+```javascript
+import { useProduct, productGetters } from '@vue-storefront/magento';
+import { onSSR } from '@vue-storefront/core'
 
 export default {
-  setup(props) {
-    const path = context.root.$route.path;
-    let urlKey = path.split('/').pop();
-    const {
-      loading: productLoading,
-      products,
-      search
-    } = useProduct('products__' + urlKey);
+  setup () {
+    const { products, search, loading, error } = useProduct('<UNIQUE_ID>');
+
     onSSR(async () => {
-      urlKey = urlKey.replace(config.value.product_url_suffix, '');
-      // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
-      await search({
-        filter: {
-          url_key: {
-            eq: urlKey
-          }
-        },
-        queryType: 'DETAIL'
-      });
-    });
+      await search({ slug: 'super-t-shirt' })
+    })
 
     return {
-      productLoading,
-      products
+      loading,
+      error,
+      product: computed(() => productGetters.getFiltered(products.value, { master: true, attributes: context.root.$route.query })[0]),
+      option: computed(() => productGetters.getAttributes(products.value, ['color', 'size'])),
+      configuration: computed(() => productGetters.getCategoryIds(product.value))
     }
   }
 }
@@ -713,7 +778,8 @@ export default {
 
 `useRouter` composition API function is responsible, as its name suggests, for interactions with the routes in your eCommerce. This function returns following values:
 
-``` typescript
+### API 
+```typescript
 interface UseRouter {
   search: (url: string) => Promise<void>; 
   route: Readonly<Ref<Readonly<Page>>>; 
@@ -725,16 +791,12 @@ interface UseRouter {
 * `route` - Returns the current Page
 * `loading` - Returns state of `search`
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useRouter
-} from '@vue-storefront/magento';
-import {
-  computed
-} from '@vue/composition-api';
+### Example
+
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useRouter } from '@vue-storefront/magento';
+import { computed } from '@vue/composition-api';
 
 export default {
   setup(props, context) {
@@ -771,114 +833,307 @@ export default {
 };
 ```
 
+### useShipping
+`useShipping` composable can be used for:
+* Loading shipping address for the current cart.
+* Saving shipping address for the current cart.
+
+> WIP
+
+### API
+```typescript
+interface UseShipping<SHIPPING, SHIPPING_PARAMS> {
+  error: ComputedProperty<UseShippingErrors>;
+  loading: ComputedProperty<boolean>;
+  shipping: ComputedProperty<SHIPPING>;
+  load(): Promise<void>;
+  load(params: { customQuery?: CustomQuery }): Promise<void>;
+  save: (params: { params: SHIPPING_PARAMS; shippingDetails: SHIPPING; customQuery?: CustomQuery }) => Promise<void>;
+}
+```
+* `load` - function for fetching shipping address. When invoked, it requests data from the API and populates shipping property. This method accepts a single optional params object.
+* `save` - function for saving shipping address. This method accepts a single saveParams object.
+* `shipping` - a main data object that contains a shipping address.
+* `loading` - a reactive object containing information about loading state of your load or save method.
+* `error` - a reactive object containing the error message, if load or save failed for any reason.
+
+### Example 
+````javascript
+import { useShipping } from '@vue-storefront/magento';
+import { onSSR } from '@vue-storefront/core';
+
+export default {
+  setup () {
+    const { load, shipping } = useShipping();
+
+    onSSR(async () => {
+      await load();
+    });
+
+    return {
+      shipping
+    };
+  }
+}
+````
+
+### useShippingProvider
+`useShippingProvider` composable can be used for:
+* Loading shipping methods for the current cart.
+* Selecting shipping method for the current cart.
+
+> WIP
+
+### API
+```typescript
+interface UseShippingProvider<STATE, SHIPPING_METHOD> {
+  error: ComputedProperty<UseShippingErrors>;
+  loading: ComputedProperty<boolean>;
+  state: ComputedProperty<STATE>;
+  setState(state: STATE): void;
+  load(): Promise<void>;
+  load(params: { customQuery?: CustomQuery }): Promise<void>;
+  save(params: { shippingMethod: SHIPPING_METHOD, customQuery?: CustomQuery }): Promise<void>;
+}
+```
+* `load` - function for fetching shipping method. When invoked, it requests data from the API and populates the response key inside the state property. This method accepts a single optional params object.
+* `save` - function for selecting shipping method. This method accepts a single saveParams object.
+* `state` - function for selecting shipping method. This method accepts a single saveParams object.
+* `loading` - a reactive object containing information about loading state of your load or save method.
+* `error` - a reactive object containing the error message, if load or save failed for any reason.
+
+### Example
+````javascript
+import { useShippingProvider } from '@vue-storefront/magento';
+import { onSSR } from '@vue-storefront/core';
+import { computed } from '@vue/composition-api';
+
+export default {
+  setup () {
+    const { load, state } = useShippingProvider();
+
+    onSSR(async () => {
+      await load();
+    });
+
+    return {
+      selectedShippingMethod: computed(() => state.value && state.value.response)
+    };
+  }
+}
+````
+
 ### useUser
 
-`useUser` composition API function is responsible, as its name suggests, for interactions with the user in your
- eCommerce. This function returns following values:
+`useUser` composable can be used to:
+* manage user authentication
+* manage authentication data like email address, login or password.
+* If you want to fetch/save other user data you should use the following composables:
+
+* `useUserBilling`
+* `useUserShipping`
+* `useUserOrders` 
  
 
-``` typescript
-interface UseUser
-<
-  USER,
-  UPDATE_USER_PARAMS
-> {
+```typescript
+interface UseUser<USER, UPDATE_USER_PARAMS> {
   user: ComputedProperty<USER>;
-  updateUser: (params: UPDATE_USER_PARAMS) => Promise<void>;
-  register: (user: {
-    email: string;
-    password: string;
-    firstName?: string;
-    lastName?: string;
-    [x: string]: any;
+  setUser: (user: USER) => void;
+  updateUser: (params: {
+    user: UPDATE_USER_PARAMS;
   }) => Promise<void>;
-  login: (user: {
-    username: string;
-    password: string;
-    [x: string]: any;
+  register: (params: {
+    user: UseUserRegisterParams;
+  }) => Promise<void>;
+  login: (params: {
+    user: UseUserLoginParams;
   }) => Promise<void>;
   logout: () => Promise<void>;
-  changePassword: (
-    currentPassword: string,
-    newPassword: string) => Promise<void>;
-  refreshUser: () => Promise<void>;
+  changePassword: (params: {
+    current: string;
+    new: string;
+  }) => Promise<void>;
+  load: () => Promise<void>;
   isAuthenticated: Ref<boolean>;
   loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUserErrors>;
 }
 ```
 
-* `user` - Returns the current `User` as `computed` property
-* `updateUser` - Function that takes the `currentUser` and the data to be updated as params and updates the `user
+* `user` - reactive object containing information about current user.
+* `updateUser` - function for updating user data. When invoked, it submits data to the API and populates user property with updated information. This method accepts a single params object.
+* `register` - function for creating a new user. When invoked, it submits new user data to the API and saves them. This method accepts a single params object.
+* `login` - function for log in a user based on a username and password. This method accepts a single params object.
+* `logout` - function for logout a user.
+* `changePassword` - function for changing user password. This method accepts a single params object.
+* `isAuthenticated` - checks if user is authenticated or not.
+* `loading` - reactive object containing information about loading state of user.
+* `error` - reactive object containing the error message, if some properties failed for any reason.
 
-` property
+### Getters
+````typescript
+interface UserGetters<USER> {
+    getFirstName: (customer: USER) => string;
+    getLastName: (customer: USER) => string;
+    getFullName: (customer: USER) => string;
+    getEmailAddress: (customer: USER) => string;
+    [getterName: string]: (element: any, options?: any) => unknown;
+}
+````
+* `getFirstName` - returns user first name.
+* `getLastName` - returns user last name.
+* `getFullName` - returns full user name.
+* `getEmailAddress` - returns user email address.
 
-* `register` - Function that takes in an `email` , `password` as params and `firstName` , `lastName` as optional params
-
- and registers a new `User` and sets the `user`
-* `login` - Function that takes in the `username` and `password` of a `User` and sets `user`
-* `logout` - Function that logs out the current `user`
-* `changePassword` - Function that takes in the `currentPassword` and `newPassword` and updates the `user`
-* `refreshUser` - Function to refresh `user`
-* `isAuthenticated` - Return `boolean` if `user` exists
-* `loading` - Returns the current state of the above functions as `computed` property
-
-``` javascript
+### Example
+```javascript
 import {
   useUser
 } from '@vue-storefront/magento';
 
 export default {
-  setup(props, {
-    root
-  }) {
-    const {
-      isAuthenticated
-    } = useUser();
-    const onAccountClicked = () => {
-      isAuthenticated && isAuthenticated.value ? root.$router.push('/my-account') : toggleLoginModal();
-    };
+  setup () {
+    const { user, register, login, loading } = useUser();
 
     return {
-      onAccountClicked
+      register,
+      login,
+      loading,
+      firstName: userGetters.getFirstName(user.value),
+      email: userGetters.getEmailAddress(user.value)
     }
   }
 }
 ```
+### useUserBilling
+`useUserBilling` composable can be used to:
+* fetch existing billing addresses,
+* submit new billing addresses,
+* modify and delete existing billing addresses.
 
-### useUserOrders
+````typescript
+interface UseUserBilling<USER_BILLING, USER_BILLING_ITEM> {
+    billing: ComputedProperty<USER_BILLING>;
+    addAddress: (params: {
+        address: USER_BILLING_ITEM;
+    }) => Promise<void>;
+    deleteAddress: (params: {
+        address: USER_BILLING_ITEM;
+    }) => Promise<void>;
+    updateAddress: (params: {
+        address: USER_BILLING_ITEM;
+    }) => Promise<void>;
+    load: () => Promise<void>;
+    setDefaultAddress: (params: {
+        address: USER_BILLING_ITEM;
+    }) => Promise<void>;
+    loading: ComputedProperty<boolean>;
+    error: ComputedProperty<UseUserBillingErrors>;
+}
+````
 
-`useUserOrders` composition API function is responsible, as its name suggests, for interactions with the orders in your
- eCommerce. This function returns following values:
+* `load` - function for fetching user addresses. When invoked, it requests data from the API and populates billing property.
+* `addAddress`- function for posting new billing address. This method accepts a single params object.
+* `deleteAddress` - function for deleting existing billing address. This method accepts a single params object.
+* `updateAddress` - function for updating existing billing address. This method accepts a single params object.
+* `setDefaultAddress` - function for settings an existing billing address as default. This method accepts a single params object.
+* `billing` - reactive data object containing response from the backend.
+* `loading` - reactive object containing information about loading state of load, addAddress, deleteAddress, updateAddress and setDefaultAddress methods.
+* `error` - reactive object containing the error message, if some properties failed for any reason.
 
-``` typescript
-interface UseUserOrders<ORDER> {
-  orders: ComputedProperty<ORDER[]>;
-  totalOrders: ComputedProperty<number>;
-  searchOrders: (params?: {
-    id?: any;
-    page?: number;
-    perPage?: number;
-    [x: string]: any;
-  }) => Promise<void>;
+### Getter
+````typescript
+interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
+    getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
+    getDefault: (billing: USER_BILLING) => USER_BILLING_ITEM;
+    getTotal: (billing: USER_BILLING) => number;
+    getPostCode: (address: USER_BILLING_ITEM) => string;
+    getStreetName: (address: USER_BILLING_ITEM) => string;
+    getStreetNumber: (address: USER_BILLING_ITEM) => string | number;
+    getCity: (address: USER_BILLING_ITEM) => string;
+    getFirstName: (address: USER_BILLING_ITEM) => string;
+    getLastName: (address: USER_BILLING_ITEM) => string;
+    getCountry: (address: USER_BILLING_ITEM) => string;
+    getPhone: (address: USER_BILLING_ITEM) => string;
+    getEmail: (address: USER_BILLING_ITEM) => string;
+    getProvince: (address: USER_BILLING_ITEM) => string;
+    getCompanyName: (address: USER_BILLING_ITEM) => string;
+    getTaxNumber: (address: USER_BILLING_ITEM) => string;
+    getId: (address: USER_BILLING_ITEM) => string;
+    getApartmentNumber: (address: USER_BILLING_ITEM) => string | number;
+    isDefault: (address: USER_BILLING_ITEM) => boolean;
+}
+````
+
+* `getAddresses` - returns list of billing addresses.
+* `getDefault` - returns a default billing address.
+* `getTotal` - returns total number of billing addresses user has.
+* `getId` - returns id from an individual address.
+* `getPostCode` - returns post code from an individual address.
+* `getStreetName` - returns street name from an individual address.
+* `getStreetNumber` - returns street number from an individual address.
+* `getCity` - returns city name from an individual address.
+* `getFirstName` - returns first name from an individual address.
+* `getLastName` - returns last name from an individual address.
+* `getCountry` - returns country name from an individual address.
+* `getPhone` - return phone number from an individual address.
+* `getEmail` - returns e-mail address from an individual address.
+* `getProvince` - returns province (state) from an individual address.
+* `getCompanyName` - returns company name from an individual address.
+* `getTaxNumber` - returns tax number from an individual address.
+* `getApartmentNumber` - returns apartment number from an individual address.
+* `isDefault` - return information if address is current default.
+
+### Example
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
+
+export default {
+  setup() {
+    const {
+      billing,
+      load,
+      addAddress,
+      deleteAddress,
+      updateAddress
+    } = useUserBilling();
+
+    // If you're using Nuxt or any other framework for Universal Vue apps
+    onSSR(async () => {
+      await load();
+    });
+
+    return {
+      billing: computed(() => userBillingGetters.getAddresses(billing.value)),
+      userBillingGetters
+    };
+  }
+};
+```
+
+### useUserOrder
+
+`useUserOrders` composable is responsible, as it's name suggests for interactions with user's order history from your eCommerce.
+
+```typescript
+interface UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
+  orders: ComputedProperty<ORDERS>;
+  search(params: ComposableFunctionArgs<ORDER_SEARCH_PARAMS>): Promise<void>;
   loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUserOrderErrors>;
 }
 ```
 
-* `orders` - Returns an `array` of orders for the current User as a `computed` property
+* `orders` - a main data object that contains an array of orders fetched by searchOrders method.
 * `totalOrder` - Returns the total `number` of `orders` for the current User 
-* `searchOrders` - Function that takes an `id` , `page` and `perPage` as optional values and sets the `orders array`
-* `loading` - Returns the current state of the `searchOrders` function
+* `error` - reactive object containing the error message, if some properties failed for any reason.
+* `loading` - a reactive object containing information about loading state of your searchOrders method.
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useUserOrders
-} from '@vue-storefront/magento';
-import {
-  computed
-} from '@vue/composition-api';
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useUserOrder } from '@vue-storefront/magento';
+import { computed } from '@vue/composition-api';
 
 export default {
   setup() {
@@ -888,7 +1143,7 @@ export default {
     } = useUserOrders();
 
     onSSR(async () => {
-      await searchOrders();
+      await searchOrder();
     });
 
     return {
@@ -900,238 +1155,94 @@ export default {
 
 ### useWishlist
 
-`useWishlist` composition API function is responsible, as its name suggests, for interactions with the user in your
- eCommerce. This function returns following values:
- 
+`useWishlist` composable is responsible, for integrating with wishlist from Commercetools. It allows to:
+* fetch products from wishlist
+* add products to wishlist
+* remove products from wishlist
+* check if product is on wishlist
 
-``` typescript
- interface UseWishlist
-<
-  WISHLIST,
-  WISHLIST_ITEM,
-  PRODUCT,
-> {
+```typescript
+ interface UseWishlist<WISHLIST, WISHLIST_ITEM, PRODUCT> {
   wishlist: ComputedProperty<WISHLIST>;
-  addItem: (product: PRODUCT) => Promise<void>;
-  isOnWishlist: (product: PRODUCT) => boolean;
-  removeItem: (product: WISHLIST_ITEM,) => Promise<void>;
-  clear: () => Promise<void>;
-  load: () => Promise<void>;
   loading: ComputedProperty<boolean>;
+  addItem(params: {
+    product: PRODUCT;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  removeItem(params: {
+    product: WISHLIST_ITEM;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  load(): Promise<void>;
+  load(params: {
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  clear(): Promise<void>;
+  setWishlist: (wishlist: WISHLIST) => void;
+  isOnWishlist({ product: PRODUCT }: {
+    product: any;
+  }): boolean;
+  error: ComputedProperty<UseWishlistErrors>;
 }
 ```
 
-* `wishlist` - Returns the current `whishlist` as `computed` property
-* `addItem` - Function that takes in a product and adds it to the `wishlist`
-* `isOnWishlist` - Function that takes in `product` and checks it against the `wishlist` and returns a `boolean`
-* `removeItem` - Function that takes in a `product` of the `wishlist` and removes it
-* `clear` - Function that clears out all `products` from the `wishlist`
-* `load` - Function that loads the `wishlist`
-* `loading` - Indicated the state of the above functions and returns a `boolean` as `computed` property 
+* `wishlist` - a main data object.
+* `load` - function used to retrieve wishlist products. When invoked, it requests data from the API and populates wishlist property. This method accepts a single params object.
+* `addItem` - function used to add new product to wishlist. When invoked, it submits data to the API and populates wishlist property with updated information. This method accepts a single params object.
+* `removeItem` - function that removes products from the wishlist. It submits data to the API and populates updated wishlist property. This method accepts a single params object.
+* `clear` - function that removes all products from the wishlist and populates clear wishlist property.
+* `isOnWishlist` - function that checks if product is on the wishlist. It returns boolean value. This method accepts a single params object.
+* `loading` - function that checks if product is on the wishlist. It returns boolean value. This method accepts a single params object.
+* `error` - reactive object containing the error message, if some properties failed for any reason.
 
-``` javascript
-import {
-  onSSR
-} from '@vue-storefront/core';
-import {
-  useWishlist
-} from '@vue-storefront/magento';
-export default {
-  setup(props, {
-    root
-  }) {
-    const {
-      load
-    } = useWishlist();
-    onSSR(async () => {
-      await load();
-    });
-  }
-}
-```
+### Getters
+> WIP
 
-## Getters
-
-* [Cardgetters](#cardgetters)
-* [Categorygetters](#categorygetters)
-* [Checkoutgetters](#checkoutgetters)
-* [Ordergetters](#ordergetters)
-* [Productgetters](#productgetters)
-* [Usergetters](#usergetters)
-* [Wishlistgetters](#wishlistgetters)
-
-### Cardgetters
-
-``` typescript
-interface CartGetters<CART, CART_ITEM> {
-  getItems: (cart: CART) => CART_ITEM[];
-  getItemName: (cartItem: CART_ITEM) => string;
-  getItemImage: (cartItem: CART_ITEM) => string;
-  getItemPrice: (cartItem: CART_ITEM) => AgnosticPrice;
-  getItemQty: (cartItem: CART_ITEM) => number;
-  getItemAttributes: (cartItem: CART_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
-  getItemSku: (cartItem: CART_ITEM) => string;
-  getTotals: (cart: CART) => AgnosticTotals;
-  getShippingPrice: (cart: CART) => number;
-  getTotalItems: (cart: CART) => number;
-  getFormattedPrice: (price: number) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-```
-
-* `getItems` - Function that takes in a `cart` and returns an `array` of `CartItems`
-* `getItemName` - Function that takes in a `cartItem` and returns its `name`
-* `getItemPrice` - Function that takes in a `cartItem` and returns its `regular price` and optional its `special price`
-* `getItemQty` - Function that takes in a `cartItem` and returns its `quantity`
-* `getItemAttributes` - Function that takes in a `cartItem` and optional `filters` and returns the attribute as `value`
- and `label`, optional the `name`
-* `getItemSku` - Function that takes in a `cartItem` and returns its `sku`
-* `getTotals` - Function that takes in a `cart` and returns the `total` and `subtotal
-* `getShippingPrice` - Function that takes in a `cart` and retruns the total `shippingprice`
-* `getTotalItems` - Function that takes in a `cart` and returns the amount of `cartItems`
-* `getFormattedPrice` - Function that takes in `price` and returns it as a formatted `string`
-
-### Categorygetters
-
-``` typescript
-interface CategoryGetters<CATEGORY> {
-  getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
-  getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
-}
-```
-
-* `getTree` - Function that takes in a `Category` and returns a `label`, an optional `slug` and an `array` of `items
-` that contains the same information and is recursive
-* `getBreadcrumbs` - Function that takes in a Category  and returns an `array` of `text` and `links`
-
-### Checkoutgetters
-
-``` typescript
-interface CheckoutGetters<SHIPPING_METHOD> {
-  getShippingMethodId: (shippingMethod: SHIPPING_METHOD) => string;
-  getShippingMethodName: (shippingMethod: SHIPPING_METHOD) => string;
-  getShippingMethodDescription: (shippingMethod: SHIPPING_METHOD) => string;
-  getShippingMethodPrice: (shippingMethod: SHIPPING_METHOD) => number;
-  getFormattedPrice: (price: number) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-```
-
-* `getShippingMethodId` - Function that takes in a `shippingMethod` and returns its `id`
-* `getShippingMethodName` - Function that takes in a `shippingMethod` and returns its `name`
-* `getShippingMethodDescription` - Function that takes in a `shippingMethod` and returns its `description`
-* `getShippingMethdPrice` - Function that takes in a `shippingMethod` and returns the `price` to use it
-* `getFormattedPrice` - Function that takes in a `price` and returns it formatted. 
-
-### Ordergetters
-
-``` typescript
-interface UserOrderGetters<ORDER, ORDER_ITEM> {
-  getDate: (order: ORDER) => string;
-  getId: (order: ORDER) => string;
-  getStatus: (order: ORDER) => string;
-  getPrice: (order: ORDER) => number;
-  getItems: (order: ORDER) => ORDER_ITEM[];
-  getItemSku: (item: ORDER_ITEM) => string;
-  getItemName: (item: ORDER_ITEM) => string;
-  getItemQty: (item: ORDER_ITEM) => number;
-  getFormattedPrice: (price: number) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-```
-
-* `getDate` - Function that takes in an `order` and returns the `date` it has been issued
-* `getId` - Function that takes in an `order` and returns its `id`
-* `getStatus` - Function that takes in an `order` and returns its current `status`
-* `getPrice` - Function that takes in an `order` and returns its `total price`
-* `getItems` - Function that takes in an `order` and returns an `array` of `items` in the `order`
-* `getItemSku` - Function that takes in an `orderItem` and returns its `sku`
-* `getItemName` - Function that takes in an `orderItem` and returns its `name`
-* `getItemQty` - Function that takes in an `orderItem` and returns its `quantity` in the `order`
-* `getFormattedPrice` - Function that takes in a `price` and returns it formatted
-
-### Productgetters
-
-``` typescript
-interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
-  getName: (product: PRODUCT) => string;
-  getSlug: (product: PRODUCT) => string;
-  getPrice: (product: PRODUCT) => AgnosticPrice;
-  getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[];
-  getCoverImage: (product: PRODUCT) => string;
-  getFiltered: (products: PRODUCT[], filters?: PRODUCT_FILTER) =>
-    PRODUCT[];
-  getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
-  getDescription: (product: PRODUCT) => string;
-  getCategoryIds: (product: PRODUCT) => string[];
-  getId: (product: PRODUCT) => string;
-  getFormattedPrice: (price: number) => string;
-  getBreadcrumbs?: (product: PRODUCT) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
-}
-```
-
-* `getName` - Function that takes in a `product` and returns its `name`
-* `getSlug` - Function that takes in a `product` and returns its `slug`
-* `getPrice` - Function that takes in a `product` and returns a `regular price` and `special price`
-* `getGallery` - Function that takes in a `product` and returns an `array` of `small`, `normal` and `big` image paths
-* `getCoverImage` - Function that takes in a `product` and returns the `path` to its `coverImage`
-* `getFiltered` - Function that takes in an `array`of `products`, optional `filters` and returns a `productsArray`
-* `getAttributes` - Function that takes in an `array` of `products` or a single `product`, optional an `array` of
- `attributes` as `filters` and returns the `productAttributes`
-* `getDescription` - Function that takes in a `product` and returns its `description`
-* `getCategoryIds`- Function that takes in `product` and returns an `array` with its `categoryIds`
-* `getId` - Function that takes in a `product` and returns its `id`
-* `getFormattedPrice` - Function that takes in the `productPrice` and returns it formatted
-* `getBreadcrumbs` - Function that takes in a `product` and returns its `breadcrumbItems`
-
-### Usergetters
-
-``` typescript
-interface UserGetters<USER> {
-  getFirstName: (customer: USER) => string;
-  getLastName: (customer: USER) => string;
-  getFullName: (customer: USER) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-```
-
-* `getFirstName` - Function that takes in a `user` and returns its `firstname`
-* `getLastName` - Function that takes in a `user` and returns its `lastname`
-* `getFullName` - Function that takes in a `user` and returns the `fullname`
-
-### Wishlistgetters
-
-``` typescript
+````typescript
 interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
-  getItems: (wishlist: WISHLIST) => WISHLIST_ITEM[];
-  getItemName: (wishlistItem: WISHLIST_ITEM) => string;
-  getItemImage: (wishlistItem: WISHLIST_ITEM) => string;
-  getItemPrice: (wishlistItem: WISHLIST_ITEM) => AgnosticPrice;
-  getItemAttributes: (wishlistItem: WISHLIST_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
-  getItemSku: (wishlistItem: WISHLIST_ITEM) => string;
-  getTotals: (wishlist: WISHLIST) => AgnosticTotals;
-  getTotalItems: (wishlist: WISHLIST) => number;
-  getFormattedPrice: (price: number) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
+    getItems: (wishlist: WISHLIST) => WISHLIST_ITEM[];
+    getItemName: (wishlistItem: WISHLIST_ITEM) => string;
+    getItemImage: (wishlistItem: WISHLIST_ITEM) => string;
+    getItemPrice: (wishlistItem: WISHLIST_ITEM) => AgnosticPrice;
+    getItemAttributes: (wishlistItem: WISHLIST_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+    getItemSku: (wishlistItem: WISHLIST_ITEM) => string;
+    getTotals: (wishlist: WISHLIST) => AgnosticTotals;
+    getTotalItems: (wishlist: WISHLIST) => number;
+    getFormattedPrice: (price: number) => string;
+    [getterName: string]: (element: any, options?: any) => unknown;
 }
+````
+* `getItems` - returns list of products on wishlist
+* `getItemName` - returns product's name from wishlist.
+* `getItemImage` - returns product's image from wishlist.
+* `getItemPrice` - returns product's price from wishlist.
+* `getItemQty` - returns quantity of product which is on wishlist.
+* `getItemAttributes` - returns product variant attribute chosen by its name.
+* `getItemSku` - returns product's SKU code.
+* `getTotals` - returns price of products.
+* `getTotalItems` - returns amount of all items that are currently on wishlist.
+* `getFormattedPrice` - returns price in formatted manner taking into account local specifics.
+
+### Example
+
+```javascript
+import { onSSR } from '@vue-storefront/core';
+import { useWishlist, wishlistGetters } from '@vue-storefront/magento';
+export default {
+  setup() {
+    const { load: loadWishlist } = useWishlist();
+
+    const wishlistItems = computed(() => wishlistGetters.getItems());
+
+    // If you're using Nuxt or any other framework for Universal Vue apps
+    onSSR(async () => {
+      await loadWishlist();
+    });
+
+    return {
+      loadWishlist,
+      wishlistItems
+    };
+  }
+};
 ```
-
-* `getItems` - Function that takes in a `wishlist` and returns an `array` of `wishlistItems`
-* `getItemName` - Function that takes in a `wishlistItem` and returns its `name`
-* `getItemImage` - Function that takes in a `wishlistItem` and returns its `imagePath`
-* `getItemPrice` - Function that takes in a `wishlistItem` and returns the `regular price` and `special price`
-* `getItemAttributes` - Function that takes in a `wishlistItem` and an optional `array` of filters and returns the
- `attributes`
-* `getItemSku` - Function that takes in a `wishlistItem` and returns its `sku`
-* `getTotals` - Function that takes in a `whishlistItem` and returns the `total` and `suptotal`
-* `getTotalItems` - Function that takes in a `wishlist` and returns the number of `items`
-* `getFormattedPrice` - Function that takes in a `price` and returns it formatted 
-
-## Setter
-
-### Cartsetter
-
-`setCart` - Function that takes in new `cart` and sets it as default.
-
