@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rm -rf lib && rollup -c",
     "dev": "rollup -c -w",
-    "test": "cross-env APP_ENV=test jest --rootDir ."
+    "test": "cross-env APP_ENV=test jest --rootDir .",
+    "types": "typedoc --out ../../docs/api-client --plugin typedoc-plugin-markdown src/index.ts"
   },
   "dependencies": {
     "@vue-storefront/core": "^2.x",
@@ -16,8 +17,8 @@
     "apollo-client": "^2.6.4",
     "apollo-link": "^1.2.13",
     "apollo-link-context": "^1.0.19",
-    "apollo-link-http": "^1.5.16",
     "apollo-link-error": "^1.1.13",
+    "apollo-link-http": "^1.5.16",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "isomorphic-fetch": "^2.2.1"
@@ -27,7 +28,9 @@
     "apollo-link-schema": "^1.2.4",
     "graphql-tools": "^4.0.6",
     "jest-transform-graphql": "^2.1.0",
-    "rollup-plugin-graphql": "^0.1.0"
+    "rollup-plugin-graphql": "^0.1.0",
+    "typedoc": "^0.20.35",
+    "typedoc-plugin-markdown": "^3.6.0"
   },
   "files": [
     "lib/**/*"
