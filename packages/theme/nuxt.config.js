@@ -70,7 +70,27 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/magento-composables/nuxt', {}]
+    ['@vue-storefront/magento-composables/nuxt', {
+      api: 'https://demo.site-builder.app/graphql',
+      websites: {
+        base: {
+          code: 'base',
+          defaultStoreGroup: 'main_website_store',
+          storeGroups: {
+            // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
+            main_website_store: {
+              code: 'main_website_store',
+              defaultStore: 'default',
+              stores: {
+                default: {code: 'default'},
+                en: {code: 'en'}
+              }
+            }
+          }
+        }
+      },
+      defaultStore: 'default'
+    }]
   ],
   modules: [
     'nuxt-i18n',
