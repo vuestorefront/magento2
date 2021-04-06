@@ -125,6 +125,13 @@ export default {
     ]
   },
   router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'urlResolver',
+        path: '*',
+        component: resolve(__dirname, '_theme/pages/UrlResolver.vue')
+      });
+    },
     scrollBehavior (_to, _from, savedPosition) {
       if (savedPosition) {
         return savedPosition;
