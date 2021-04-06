@@ -1,7 +1,9 @@
 import webpack from 'webpack';
 
+process.env.API_URL = process.env.API_URL || 'http://localhost:3000/api';
+process.env.API_TARGET = process.env.API_TARGET || 'https://vsf-m2.site-builder.app/';
+
 export default {
-  mode: 'universal',
   server: {
     port: 3000,
     host: '0.0.0.0'
@@ -70,12 +72,23 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/magento-composables/nuxt']
+    ['@vue-storefront/magento-composables/nuxt', {
+      api: process.env.API_URL
+    }]
   ],
+  proxy: {
+    '/api': {
+      target: process.env.API_TARGET,
+      pathRewrite: {
+        '^/api': '/graphql'
+      }
+    }
+  },
   modules: [
     'nuxt-i18n',
     'cookie-universal-nuxt',
-    'vue-scrollto/nuxt'
+    'vue-scrollto/nuxt',
+    '@nuxtjs/proxy'
   ],
   i18n: {
     locales: ['en'],
@@ -106,7 +119,8 @@ export default {
           // eslint-disable-next-line global-require
           version: require('./package.json').version,
           lastCommit: process.env.LAST_COMMIT || ''
-        })
+        }),
+        'process.env.API_URL': JSON.stringify(process.env.API_URL)
       })
     ]
   },
