@@ -36,8 +36,7 @@ const loadState = (app) => {
   };
 
   const getStore = () => {
-    // return store;
-    return 'ru';
+    return store;
   };
 
   const setStore = (id) => {
