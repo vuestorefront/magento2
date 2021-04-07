@@ -1,23 +1,29 @@
 {
-  "name": "@vue-storefront/magento-composables",
-  "version": "0.0.1",
+  "name": "@vue-storefront/magento",
+  "version": "2.3.0-rc.3",
+  "private": true,
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "jest"
+    "build": "rimraf lib && rollup -c",
+    "dev": "rimraf lib && rollup -c -w",
+    "test": "jest",
+    "prepublish": "yarn build",
+    "update:check": "ncu",
+    "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/core": "^2.x",
-    "@vue-storefront/magento-api": "^0.0.1",
-    "vue": "^2.6.x"
+    "@vue-storefront/magento-api": "^2.3.0-rc.3",
+    "@vue-storefront/core": "^2.3.0-rc.3"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.30",
     "vue-template-compiler": "^2.6.x"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "1.0.0-rc.6"
   },
   "files": [
     "lib/**/*"
