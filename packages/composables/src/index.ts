@@ -1,68 +1,48 @@
 /* istanbul ignore file */
-
-import useCategory from './composables/useCategory';
-import useProduct from './composables/useProduct';
-import useCart from './composables/useCart';
-import useCheckout from './composables/useCheckout';
-import useUser from './composables/useUser';
-import useUserOrder from './composables/useUserOrder';
-import usePage from './composables/usePage';
-import useWishlist from './composables/useWishlist';
-import useRouter from './composables/useRouter';
-import useConfig from './composables/useConfig';
-import useBilling from './composables/useBilling';
-import useUserBilling from './composables/useUserBilling';
-import useShipping from './composables/useShipping';
-import useShippingProvider from './composables/useShippingProvider';
-import useMakeOrder from './composables/useMakeOrder';
-import useFacet from './composables/useFacet';
-import useUserShipping from './composables/useUserShipping';
-
 import { createApiClient } from '@vue-storefront/magento-api';
 import { integrationPluginFactory } from '@vue-storefront/core';
 
+import useBilling from './composables/useBilling';
+import useCart from './composables/useCart';
+import useCategory from './composables/useCategory';
+import useCheckout from './composables/useCheckout';
+import useConfig from './composables/useConfig';
+import useFacet from './composables/useFacet';
+import useMakeOrder from './composables/useMakeOrder';
+import usePage from './composables/usePage';
+import useProduct from './composables/useProduct';
+import useReview from './composables/useReview';
+import useRouter from './composables/useRouter';
+import useShipping from './composables/useShipping';
+import useShippingProvider from './composables/useShippingProvider';
+import useUser from './composables/useUser';
+import useUserBilling from './composables/useUserBilling';
+import useUserOrder from './composables/useUserOrder';
+import useUserShipping from './composables/useUserShipping';
+import useWishlist from './composables/useWishlist';
+
+export * from './composables/getters';
+
 const integrationPlugin = integrationPluginFactory(createApiClient);
 
-import {
-  cartGetters,
-  categoryGetters,
-  checkoutGetters,
-  productGetters,
-  userGetters,
-  orderGetters,
-  wishlistGetters,
-  facetGetters,
-  userShippingGetters,
-  userBillingGetters
-} from './composables/getters';
-
 export {
-  useCategory,
-  useProduct,
-  useCart,
-  useCheckout,
-  useUser,
-  useUserOrder,
-  usePage,
-  useWishlist,
-  useRouter,
-  useConfig,
   useBilling,
-  useUserBilling,
+  useCart,
+  useCategory,
+  useCheckout,
+  useConfig,
+  useFacet,
+  useMakeOrder,
+  usePage,
+  useProduct,
+  useReview,
+  useRouter,
   useShipping,
   useShippingProvider,
-  useMakeOrder,
-  useFacet,
+  useUser,
+  useUserBilling,
+  useUserOrder,
   useUserShipping,
-  cartGetters,
-  categoryGetters,
-  checkoutGetters,
-  productGetters,
-  userGetters,
-  orderGetters,
-  wishlistGetters,
-  facetGetters,
-  userShippingGetters,
-  userBillingGetters,
+  useWishlist,
   integrationPlugin
 };

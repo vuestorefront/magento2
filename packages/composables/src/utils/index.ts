@@ -2,49 +2,47 @@
 import { Context, FactoryParams } from '@vue-storefront/core';
 
 interface ContextConfiguration {
-    useVSFContext: () => Context;
+  useVSFContext: () => Context;
 }
 
 let useVSFContext = () => ({}) as Context;
 
 const configureContext = (config: ContextConfiguration) => {
-    useVSFContext = config.useVSFContext || useVSFContext;
+  useVSFContext = config.useVSFContext || useVSFContext;
 };
 
 const generateContext = (factoryParams) => {
-    const vsfContext = useVSFContext();
+  const vsfContext = useVSFContext();
 
-    if (factoryParams.provide) {
-        return { ...vsfContext.$vsf, ...factoryParams.provide(vsfContext.$vsf) };
-    }
+  if (factoryParams.provide) {
+    return { ...vsfContext.$vsf, ...factoryParams.provide(vsfContext.$vsf) };
+  }
 
-    return vsfContext.$vsf;
+  return vsfContext.$vsf;
 };
 
 const createFactoryParamsMethod = (fn, fnName, context) => (argObj) => {
-    const blackList = ['provide'];
+  const blackList = ['provide'];
 
-    if (blackList.includes(fnName)) {
-        return fn(context);
-    }
+  if (blackList.includes(fnName)) {
+    return fn(context);
+  }
 
-    return fn(context, argObj);
+  return fn(context, argObj);
 };
 
 const createFactoryParamsReducer = (context) => (prev, [fnName, fn]: any) => ({
-    ...prev,
-    [fnName]: createFactoryParamsMethod(fn, fnName, context)
+  ...prev,
+  [fnName]: createFactoryParamsMethod(fn, fnName, context)
 });
 
 const configureFactoryParams = <T extends FactoryParams>(factoryParams: T): any =>
-    Object.entries(factoryParams)
-        .reduce(
-            createFactoryParamsReducer(generateContext(factoryParams)
-            ), {});
+  Object.entries(factoryParams)
+    .reduce(createFactoryParamsReducer(generateContext(factoryParams)), {});
 
 export {
-    generateContext,
-    useVSFContext,
-    configureContext,
-    configureFactoryParams
+  generateContext,
+  useVSFContext,
+  configureContext,
+  configureFactoryParams
 };
