@@ -4,12 +4,13 @@ process.env.API_URL = process.env.API_URL || 'http://localhost:3000/api';
 process.env.API_TARGET = process.env.API_TARGET || 'https://vsf-m2.site-builder.app/';
 
 export default {
+  mode: 'universal',
   server: {
     port: 3000,
     host: '0.0.0.0'
   },
   head: {
-    title: 'Vue Storefront',
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -50,11 +51,11 @@ export default {
       // @core-development-only-end
       useRawSource: {
         dev: [
-          '@vue-storefront/magento-composables',
+          '@vue-storefront/magento',
           '@vue-storefront/core'
         ],
         prod: [
-          '@vue-storefront/magento-composables',
+          '@vue-storefront/magento',
           '@vue-storefront/core'
         ]
       }
@@ -64,7 +65,7 @@ export default {
       generate: {
         replace: {
           apiClient: '@vue-storefront/magento-api',
-          composables: '@vue-storefront/magento-composables'
+          composables: '@vue-storefront/magento'
         }
       }
     }],
@@ -72,7 +73,7 @@ export default {
     /* project-only-start
     ['@vue-storefront/nuxt-theme'],
     project-only-end */
-    ['@vue-storefront/magento-composables/nuxt', {
+    ['@vue-storefront/magento/nuxt', {
       api: process.env.API_URL
     }]
   ],
@@ -88,7 +89,7 @@ export default {
     'nuxt-i18n',
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
-    '@nuxtjs/proxy'
+    '@vue-storefront/middleware/nuxt',
   ],
   i18n: {
     locales: ['en'],

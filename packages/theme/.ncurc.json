@@ -1,0 +1,6 @@
+{
+  "reject": [
+    "core-js",
+    "webpack"
+  ]
+}

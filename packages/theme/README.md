@@ -1,6 +1,6 @@
-# theme
+# Vue-Storefront@Next Magento 2.x Theme
 
-> Boilerplate theme
+> Magento 2.x theme
 
 ## Build Setup
 
