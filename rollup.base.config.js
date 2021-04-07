@@ -7,15 +7,18 @@ export function generateBaseConfig(pkg) {
     output: [
       {
         file: pkg.main,
-        format: 'cjs'
+        format: 'cjs',
+        sourcemap: true
       },
       {
         file: pkg.module,
-        format: 'es'
+        format: 'es',
+        sourcemap: true
       }
     ],
     external: [
-      ...Object.keys(pkg.dependencies || {})
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {})
     ],
     plugins: [
       typescript({
