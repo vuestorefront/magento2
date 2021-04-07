@@ -1,13 +1,12 @@
-const baseConfig = require('./../../jest.base.config');
+const baseConfig = require('../../jest.base.config');
 
 module.exports = {
   ...baseConfig,
   transform: {
     ...baseConfig.transform,
-    '\\.(gql|graphql)$': 'jest-transform-graphql'
+    '\\.(gql|graphql)$': 'jest-transform-graphql',
   },
-  setupFilesAfterEnv: ['./__tests__/setup.ts'],
   moduleNameMapper: {
-    'api-client(.*)$': '<rootDir>$1'
-  }
+    'api-client(.*)$': '<rootDir>$1',
+  },
 };

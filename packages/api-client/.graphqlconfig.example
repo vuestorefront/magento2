@@ -1,0 +1,12 @@
+{
+  "name": "Magento",
+  "schemaPath": "./schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "API": {
+        "url": "https://<URL>/graphql",
+        "introspect": true
+      }
+    }
+  }
+}

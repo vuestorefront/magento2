@@ -1,33 +1,49 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "0.0.1",
+  "version": "2.3.0-rc.3",
+  "private": true,
   "sideEffects": false,
+  "server": "server/index.js",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rm -rf lib && rollup -c",
-    "dev": "rollup -c -w",
-    "test": "cross-env APP_ENV=test jest --rootDir ."
+    "build": "rimraf lib server && rollup -c",
+    "dev": "rimraf lib server && rollup -c -w",
+    "graphql:codegen": "graphql-codegen --config codegen.yml",
+    "prepublish": "yarn build",
+    "test": "jest",
+    "update:check": "ncu",
+    "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/core": "^2.x",
-    "apollo-cache-inmemory": "^1.6.3",
-    "apollo-client": "^2.6.4",
-    "apollo-link": "^1.2.13",
-    "apollo-link-context": "^1.0.19",
-    "apollo-link-http": "^1.5.16",
+    "@apollo/client": "^3.3.14",
+    "@vue-storefront/core": "^2.3.0-rc.3",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link": "^1.2.14",
+    "apollo-link-context": "^1.0.20",
     "apollo-link-error": "^1.1.13",
-    "graphql": "^14.5.8",
-    "graphql-tag": "^2.10.1",
-    "isomorphic-fetch": "^2.2.1"
+    "apollo-link-http": "^1.5.17",
+    "apollo-link-retry": "^2.2.16",
+    "graphql": "^15.5.0",
+    "graphql-tag": "^2.11.0",
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.21.3",
+    "@graphql-codegen/typescript": "1.21.1",
+    "@graphql-codegen/typescript-operations": "^1.17.15",
     "@rollup/plugin-json": "^4.0.3",
-    "apollo-link-schema": "^1.2.4",
-    "graphql-tools": "^4.0.6",
+    "@types/isomorphic-fetch": "^0.0.35",
+    "apollo-link-schema": "^1.2.5",
+    "graphql-tools": "^7.0.4",
     "jest-transform-graphql": "^2.1.0",
-    "rollup-plugin-graphql": "^0.1.0"
+    "rollup": "^2.44.0",
+    "rollup-plugin-graphql": "^0.1.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.30.0"
   },
   "files": [
     "lib/**/*"

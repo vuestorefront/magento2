@@ -1,0 +1,12 @@
+overwrite: true
+schema: "schema.graphql"
+documents: "src/**/*.graphql"
+generates:
+  src/types/GraphQL.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      skipTypename: true
+      namingConvention:
+        default: change-case-all#pascalCase
