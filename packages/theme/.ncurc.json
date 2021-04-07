@@ -1,6 +1,7 @@
 {
   "reject": [
     "core-js",
-    "webpack"
+    "webpack",
+    "@vue/composition-api"
   ]
 }
