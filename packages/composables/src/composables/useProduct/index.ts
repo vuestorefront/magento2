@@ -6,6 +6,7 @@ import {
 } from '@vue-storefront/magento-api';
 import { Context, useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
 
+import { ProductAttributeFilterInput } from '@vue-storefront/magento-api/src';
 import { UseProduct } from '../../types';
 
 const availableSortingOptions = [{
@@ -27,7 +28,14 @@ const productsSearch = async (context: Context, params: {
   sort?: ProductAttributeSortInput;
   queryType?: ProductsQueryType;
 }) => {
-  const productResults = await context.$ma.api.products(params.pageSize, params.currentPage, params.queryType, params.search, params.filter, params.sort);
+  const productResults = await context.$ma.api.products({
+    pageSize: params.pageSize,
+    currentPage: params.currentPage,
+    queryType: params.queryType,
+    search: params.search,
+    filter: params.filter,
+    sort: params.sort,
+  });
 
   return {
     data: productResults.data.products,

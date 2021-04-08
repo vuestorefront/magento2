@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
 /* istanbul ignore file */
-
 import { useWishlistFactory, UseWishlistFactoryParams, Context } from '@vue-storefront/core';
 import { ref, Ref } from '@vue/composition-api';
 import { Product, WishlistProduct, Wishlist } from '../../types';
@@ -27,13 +27,9 @@ const params: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
     // return guest wishlist
     return guestWishlist.load();
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addItem: async ({ currentWishlist, product }) => ({}),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeItem: async ({ currentWishlist, product }) => ({}),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async ({ currentWishlist }) => ({}),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isOnWishlist: ({ currentWishlist }) => false,
 };
 

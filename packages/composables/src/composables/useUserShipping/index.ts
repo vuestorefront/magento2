@@ -1,7 +1,7 @@
 import { useUserShippingFactory, UseUserShippingFactoryParams, Context } from '@vue-storefront/core';
 import useUser from '../useUser';
 
-const params: UseUserShippingFactoryParams<any, any> = {
+const factoryParams: UseUserShippingFactoryParams<any, any> = {
   provide() {
     return {
       user: useUser(),
@@ -53,4 +53,4 @@ const params: UseUserShippingFactoryParams<any, any> = {
   },
 };
 
-export default useUserShippingFactory<any, any>(params);
+export default useUserShippingFactory<any, any>(factoryParams);

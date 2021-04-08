@@ -15,20 +15,33 @@ type Variables = {
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
 };
+type GetProductParams = {
+  pageSize: number;
+  currentPage: number;
+  queryType: ProductsQueryType;
+  search?: string;
+  filter?: ProductAttributeFilterInput;
+  sort?: ProductAttributeSortInput;
+};
 
 const getProduct = async ({ client }: Context,
-  pageSize = 20,
-  currentPage = 1,
-  queryType: ProductsQueryType = ProductsQueryType.list,
-  search?: string,
-  filter?: ProductAttributeFilterInput,
-  sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>> => {
-  const query = queryType === ProductsQueryType.list ? listQuery : detailQuery;
+  params: GetProductParams): Promise<ApolloQueryResult<Products>> => {
+  const defaultParams: GetProductParams = {
+    pageSize: 20,
+    currentPage: 1,
+    queryType: ProductsQueryType.list,
+    ...params,
+  };
 
-  const variables: Variables = { pageSize, currentPage };
-  if (search) variables.search = search;
-  if (filter) variables.filter = filter;
-  if (sort) variables.sort = sort;
+  const query = defaultParams.queryType === ProductsQueryType.list ? listQuery : detailQuery;
+
+  const variables: Variables = {
+    pageSize: defaultParams.pageSize,
+    currentPage: defaultParams.currentPage,
+  };
+  if (defaultParams.search) variables.search = defaultParams.search;
+  if (defaultParams.filter) variables.filter = defaultParams.filter;
+  if (defaultParams.sort) variables.sort = defaultParams.sort;
 
   return client.query({
     query,

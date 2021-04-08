@@ -46,7 +46,6 @@ module.exports = {
     'plugin:jest/recommended',
   ],
   rules: {
-    'prefer-const': 2,
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-console': (process.env.NODE_ENV === 'production') ? 'error' : 'off',
     'no-debugger': (process.env.NODE_ENV === 'production') ? 'error' : 'off',
@@ -60,7 +59,6 @@ module.exports = {
         ignore: ['^e(rr)?$'],
       },
     ],
-    indent: 'off',
     'prefer-promise-reject-errors': 'off',
     'no-shadow': 'off',
     'no-redeclare': 'off',
@@ -103,6 +101,22 @@ module.exports = {
       'argsIgnorePattern': '^_',
       'caughtErrorsIgnorePattern': '^ignore',
     }],
+    '@typescript-eslint/restrict-template-expressions': 0,
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'variable',
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+      },
+      {
+        selector: 'function',
+        format: ['camelCase', 'PascalCase'],
+      },
+      {
+        selector: 'typeLike',
+        format: ['PascalCase', 'UPPER_CASE'],
+      },
+    ],
     'max-len': ['error', {
       code: 150,
       ignoreComments: true,

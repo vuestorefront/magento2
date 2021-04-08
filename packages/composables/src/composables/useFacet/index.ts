@@ -58,7 +58,13 @@ const factoryParams = {
       },
     };
 
-    const categoryResponse = await context.$ma.api.categoryList(categoryParams.perPage, categoryParams.page, categoryParams.filter, categoryParams.search, categoryParams.sort);
+    const categoryResponse = await context.$ma.api.categoryList(
+      categoryParams.perPage,
+      categoryParams.page,
+      categoryParams.filter,
+      categoryParams.search,
+      categoryParams.sort,
+    );
 
     // What happen if not exsits?
     const category = categoryResponse.data.categoryList[0];
@@ -76,7 +82,14 @@ const factoryParams = {
       offset: (params.input.page - 1) * itemsPerPage,
       page: params.input.page,
     };
-    const productResponse = await context.$ma.api.products(productParams.perPage, productParams.page, queryType, inputSearch, { ...productParams.filter, ...constructFilterObject(params.input.filters) }, inputSort);
+    const productResponse = await context.$ma.api.products({
+      pageSize: productParams.perPage,
+      currentPage: productParams.page,
+      queryType,
+      search: inputSearch,
+      filter: { ...productParams.filter, ...constructFilterObject(params.input.filters) },
+      sort: inputSort,
+    });
     return {
       items: productResponse?.data?.products?.items || [],
       total: productResponse?.data?.products?.total_count?.value || 0,

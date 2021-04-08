@@ -21,6 +21,7 @@ const params: UseShippingParams<Address, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // @TODO Check because magento is getting array and not single address.
   // @TODO check for types
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingDetails, customQuery }) => {
     console.log('[Magento] setShippingAddress');
     const { id } = context.cart.cart.value;

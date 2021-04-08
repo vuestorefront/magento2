@@ -9,7 +9,7 @@ import { OrderSearchParams } from '../../types';
 import { CustomerOrder } from '../../../../api-client';
 import useUser from '../useUser';
 
-const params: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParams> = {
+const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParams> = {
   provide() {
     return {
       user: useUser(),
@@ -27,4 +27,4 @@ const params: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParams> = {
   },
 };
 
-export default useUserOrderFactory<CustomerOrder[], OrderSearchParams>(params);
+export default useUserOrderFactory<CustomerOrder[], OrderSearchParams>(factoryParams);

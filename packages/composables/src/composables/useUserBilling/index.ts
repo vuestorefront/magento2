@@ -6,7 +6,7 @@ import {
 
 import useUser from '../useUser';
 
-const params: UseUserBillingFactoryParams<any, any> = {
+const factoryParams: UseUserBillingFactoryParams<any, any> = {
   provide() {
     return {
       user: useUser(),
@@ -59,4 +59,4 @@ const params: UseUserBillingFactoryParams<any, any> = {
 
 };
 
-export default useUserBillingFactory<any, any>(params);
+export default useUserBillingFactory<any, any>(factoryParams);

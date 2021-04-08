@@ -5,6 +5,7 @@ interface ContextConfiguration {
   useVSFContext: () => Context;
 }
 
+// eslint-disable-next-line import/no-mutable-exports
 let useVSFContext = () => ({}) as Context;
 
 const configureContext = (config: ContextConfiguration) => {

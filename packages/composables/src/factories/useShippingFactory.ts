@@ -15,8 +15,8 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
 ) => function useShipping(): UseShipping<SHIPPING, SHIPPING_PARAMS> {
   const loading: Ref<boolean> = sharedRef(false, 'useShipping-loading');
   const shipping: Ref<SHIPPING> = sharedRef(null, 'useShipping-shipping');
-  const _factoryParams = configureFactoryParams(factoryParams);
   const error: Ref<UseShippingErrors> = sharedRef({}, 'useShipping-error');
+  const baseFactoryParams = configureFactoryParams(factoryParams);
 
   const load = async ({ customQuery = null } = {}) => {
     Logger.debug('useShipping.load');
@@ -24,7 +24,7 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
     try {
       loading.value = true;
       error.value.load = null;
-      const shippingInfo = await _factoryParams.load({ customQuery });
+      const shippingInfo = await baseFactoryParams.load({ customQuery });
       shipping.value = shippingInfo;
     } catch (err) {
       error.value.load = err;
@@ -40,7 +40,7 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
     try {
       loading.value = true;
       error.value.save = null;
-      const shippingInfo = await _factoryParams.save(saveParams);
+      const shippingInfo = await baseFactoryParams.save(saveParams);
       shipping.value = shippingInfo;
     } catch (err) {
       error.value.save = err;

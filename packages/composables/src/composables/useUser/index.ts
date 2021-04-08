@@ -15,7 +15,7 @@ const params: UseUserFactoryParams<User, any, any> = {
       const response = await context.$ma.api.customer();
       return response.data.customer;
     } catch {
-      params.logOut(context, parameters);
+      await params.logOut(context, parameters);
     }
 
     return null;

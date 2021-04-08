@@ -15,8 +15,8 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
 ) => function useBilling(): UseBilling<BILLING, BILLING_PARAMS> {
   const loading: Ref<boolean> = sharedRef(false, 'useBilling-loading');
   const billing: Ref<BILLING> = sharedRef(null, 'useBilling-billing');
-  const _factoryParams = configureFactoryParams(factoryParams);
   const error: Ref<UseBillingErrors> = sharedRef({}, 'useBilling-error');
+  const baseFactoryParams = configureFactoryParams(factoryParams);
 
   const load = async ({ customQuery = null } = {}) => {
     Logger.debug('useBilling.load');
@@ -24,7 +24,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
     try {
       loading.value = true;
       error.value.load = null;
-      const billingInfo = await _factoryParams.load({ customQuery });
+      const billingInfo = await baseFactoryParams.load({ customQuery });
       billing.value = billingInfo;
     } catch (err) {
       error.value.load = err;
@@ -40,7 +40,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
     try {
       loading.value = true;
       error.value.save = null;
-      const billingInfo = await _factoryParams.save(saveParams);
+      const billingInfo = await baseFactoryParams.save(saveParams);
       billing.value = billingInfo;
     } catch (err) {
       error.value.save = err;

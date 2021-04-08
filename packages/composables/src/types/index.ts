@@ -1,5 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ComputedProperty, UseCategory, UseProduct } from '@vue-storefront/core';
+import {
+  ComputedProperty,
+  UseCategory,
+  UseProduct,
+  ComposableFunctionArgs,
+  CustomQuery,
+} from '@vue-storefront/core';
 import {
   ProductInterface,
   CartInterface,
@@ -8,15 +14,12 @@ import {
   Customer,
 } from '@vue-storefront/magento-api';
 import { ComputedRef, Ref } from '@vue/composition-api';
-import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core';
 
 // @todo: replace with real types
 
 type Product = ProductInterface;
 
-type Category = {
-
-};
+type Category = {};
 
 type CategorySearchParams = {};
 
@@ -42,37 +45,21 @@ type CartItem = CartItemInterface;
 
 type Coupon = CouponInterface;
 
-type Order = {
+type Order = any;
 
-};
+type OrderItem = any;
 
-type OrderItem = {
+type WishlistProduct = any;
 
-};
+type Wishlist = any;
 
-type WishlistProduct = {
+type Route = any;
 
-};
+type Config = any;
 
-type Wishlist = {
+type Page = any;
 
-};
-
-type Route = {
-
-};
-
-type Config = {
-
-};
-
-type Page = {
-
-};
-
-type Filter = {
-
-};
+type Filter = any;
 
 interface UseRouter<ROUTE> {
   route: ComputedProperty<ROUTE>;
@@ -80,8 +67,8 @@ interface UseRouter<ROUTE> {
   loading: ComputedProperty<boolean>;
 }
 
-interface UseConfig<Config> {
-  config: ComputedRef<Config>;
+interface UseConfig<CONFIG> {
+  config: ComputedRef<CONFIG>;
   loadConfig: () => Promise<void>;
   loading: ComputedRef<boolean>;
 }
