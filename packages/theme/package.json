@@ -3,17 +3,18 @@
   "version": "2.3.0-rc.3",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
     "build": "nuxt build -m",
     "build:analyze": "nuxt build -a -m",
-    "start": "nuxt start",
+    "dev": "nuxt",
     "generate": "nuxt generate",
+    "lint": "eslint . --ext .ts,.vue",
+    "lint:fix": "eslint . --ext .ts,.vue --fix",
+    "start": "nuxt start",
     "test": "jest",
     "update:check": "ncu",
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@storefront-ui/vue": "^0.10.4",
     "@vue-storefront/core": "^2.3.0-rc.3",

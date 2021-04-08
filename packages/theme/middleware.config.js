@@ -1,13 +1,30 @@
 module.exports = {
   integrations: {
-    magento: {
+    ma: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: {
-          uri: 'https://bo-mvp.ecritel.com.br/graphql',
+        api: 'https://vsf-m2.site-builder.app/graphql',
+        tax: {
+          displayCartSubtotalIncludingTax: true,
         },
-        currency: 'USD',
-        country: 'US',
+        websites: {
+          base: {
+            code: 'base',
+            defaultStoreGroup: 'main_website_store',
+            storeGroups: {
+              main_website_store: {
+                code: 'main_website_store',
+                defaultStore: 'default',
+                stores: {
+                  default: { code: 'default' },
+                  de: { code: 'de' },
+                  fr: { code: 'fr' },
+                },
+              },
+            },
+          },
+        },
+        defaultStore: 'default',
       },
     },
   },
