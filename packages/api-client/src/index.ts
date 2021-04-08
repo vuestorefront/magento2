@@ -1,16 +1,82 @@
-import * as api from './api';
-import { apiClientFactory } from '@vue-storefront/core';
-export * from './types';
-import { onSetup } from './helpers';
-
-const { createApiClient } = apiClientFactory<any, any>({
-  tag: 'ma',
-  onSetup,
-  api: {
-    ...api
-  }
-});
-
+export * from './types/Api';
+export * from './types/context';
+export * from './types/setup';
 export {
-  createApiClient
-};
+  Cart as CartInterface,
+  Customer as CustomerInterface,
+  ProductInterface,
+  AddSimpleProductsToCartInput,
+  AddConfigurableProductsToCartOutput,
+  AddConfigurableProductsToCartInput,
+  Products,
+  AddSimpleProductsToCartOutput,
+  Aggregation,
+  AggregationOption,
+  AppliedCoupon,
+  ApplyCouponToCartInput,
+  CartQuery,
+  ApplyCouponToCartOutput,
+  Breadcrumb,
+  CategoryList,
+  CategoryFilterInput,
+  CmsPageQuery,
+  Order,
+  CategoryInterface,
+  CategoryProducts,
+  CreateEmptyCartMutation,
+  CustomerAddressInput,
+  CustomerInput,
+  CustomerOrdersQuery,
+  CustomerQuery,
+  CmsBlock,
+  CmsPage,
+  PlaceOrderInput,
+  PlaceOrderOutput,
+  ComplexTextValue,
+  CustomerAddress,
+  CustomerToken,
+  EntityUrl,
+  Money,
+  FixedProductTax,
+  HttpQueryParameter,
+  MediaGalleryInterface,
+  PriceRange,
+  ProductAttributeFilterInput,
+  ProductAttributeSortInput,
+  ProductDiscount,
+  ProductImage,
+  ProductLinks,
+  SetBillingAddressOnCartInput,
+  SetBillingAddressOnCartOutput,
+  SetGuestEmailOnCartInput,
+  SetGuestEmailOnCartOutput,
+  SetPaymentMethodOnCartInput,
+  SetPaymentMethodOnCartOutput,
+  SetShippingAddressesOnCartInput,
+  SetShippingAddressesOnCartOutput,
+  SetShippingMethodsOnCartInput,
+  SetShippingMethodsOnCartOutput,
+  ProductLinksInterface,
+  ProductPrice,
+  ProductStockStatus,
+  StoreConfigQuery,
+  RemoveCouponFromCartInput,
+  UrlResolver,
+  RemoveCouponFromCartOutput,
+  RemoveItemFromCartInput,
+  RemoveItemFromCartOutput,
+  WishlistOutput,
+  SearchResultPageInfo,
+  SelectedShippingMethod,
+  SortEnum,
+  SortField,
+  SortFields,
+  StoreConfig,
+  TierPrice,
+  UpdateCartItemsInput,
+  UpdateCartItemsOutput,
+  UrlRewrite,
+  Wishlist,
+  CartItemInterface,
+  CategoryTree,
+} from './types/GraphQL';

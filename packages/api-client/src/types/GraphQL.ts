@@ -1,28 +1,25 @@
-import exp from "constants";
-import { cart } from "../api";
-
 /* Category */
-export type categoryList = [CategoryTree]
+export type CategoryList = [CategoryTree];
 
 export type CategoryFilterInput = {
   ids?: FilterEqualTypeInput
   name?: FilterMatchTypeInput
   url_key?: FilterEqualTypeInput
-}
+};
 
 type FilterEqualTypeInput = {
   eq: string
   in: [string]
-}
+};
 
 type FilterMatchTypeInput = {
   match: string
-}
+};
 
 type FilterRangeTypeInput = {
   from: string,
   to: string
-}
+};
 
 export interface CategoryTree extends CategoryInterface {
   children: [CategoryTree]
@@ -59,13 +56,13 @@ export type CategoryInterface = {
   url_key: string
   url_path: string
   url_suffix: string
-}
+};
 
 export type CategoryProducts = {
   items: [ProductInterface]
   page_info: SearchResultPageInfo
   total_count: number
-}
+};
 
 /* Product */
 
@@ -129,7 +126,7 @@ export type ProductInterface = {
   url_key: string
   url_rewrites: [UrlRewrite]
   url_suffix: string
-}
+};
 
 export type ProductLinksInterface = {
   link_type: string
@@ -137,54 +134,54 @@ export type ProductLinksInterface = {
   linked_product_type: string
   position: number
   sku: string
-}
+};
 
-export type ProductLinks = ProductLinksInterface
+export type ProductLinks = ProductLinksInterface;
 
 export enum ProductStockStatus {
   IN_STOCK = 'IN_STOCK',
-  OUT_OF_STOCK = 'OUT_OF_STOCK'
+  OUT_OF_STOCK = 'OUT_OF_STOCK',
 }
 
 export type MediaGalleryInterface = {
   label: string
   url: string
-}
+};
 
-export type ProductImage = MediaGalleryInterface
+export type ProductImage = MediaGalleryInterface;
 
 export type ProductPrice = {
   discount?: ProductDiscount
   final_price: Money
   fixed_product_taxes?: [FixedProductTax]
   regular_price: Money
-}
+};
 
 export type TierPrice = {
   discount: ProductDiscount
   final_price: Money
   quantity: number
-}
+};
 
 export type ProductDiscount = {
   amount_off?: number
   percent_off?: number
-}
+};
 
 export type PriceRange = {
   maximum_price?: ProductPrice
   minimum_price: ProductPrice
-}
+};
 
 export type FixedProductTax = {
   amount?: Money
   label?: string
-}
+};
 
 export type Money = {
   currency: CurrencyEnum
   value: number
-}
+};
 
 enum CurrencyEnum {
   AFN = 'AFN',
@@ -356,7 +353,7 @@ enum CurrencyEnum {
   AZM = 'AZM',
   ROL = 'ROL',
   TRL = 'TRL',
-  XPF = 'XPF'
+  XPF = 'XPF',
 }
 
 export type Breadcrumb = {
@@ -365,7 +362,7 @@ export type Breadcrumb = {
   category_name: string
   category_url_key: string
   category_url_path: string
-}
+};
 
 /* CMS */
 
@@ -373,41 +370,41 @@ export type CmsBlock = {
   content: string
   identifier: string
   title: string
-}
+};
 
 export type ComplexTextValue = {
   html: string
-}
+};
 
 export type UrlRewrite = {
   parameters: [HttpQueryParameter]
   url: string
-}
+};
 
 export type HttpQueryParameter = {
   name: string
   value: string
-}
+};
 
 export type SearchResultPageInfo = {
   current_page: number
   page_size: number
   total_pages: number
-}
+};
 
-export type urlResolver = EntityUrl;
+export type UrlResolver = EntityUrl;
 
 export type EntityUrl = {
   id: number
   redirectCode: number
   relative_url: string
   type: UrlRewriteEntityTypeEnum
-}
+};
 
 enum UrlRewriteEntityTypeEnum {
   CMS_PAGE = 'CMS_PAGE',
   PRODUCT = 'PRODUCT',
-  CATEGORY = 'CATEGORY'
+  CATEGORY = 'CATEGORY',
 }
 
 export type Products = {
@@ -416,30 +413,30 @@ export type Products = {
   page_info: SearchResultPageInfo
   sort_fields: SortFields
   total_count: number
-}
+};
 
 export type Aggregation = {
   attribute_code: string
   count: number
   label: string
   options: [AggregationOption]
-}
+};
 
 export type AggregationOption = {
   count: number
   label: string
   value: string
-}
+};
 
 export type SortFields = {
   default: string
   options: [SortField]
-}
+};
 
 export type SortField = {
   label: string
   value: string
-}
+};
 
 export type ProductAttributeFilterInput = {
   activity: FilterEqualTypeInput
@@ -470,17 +467,17 @@ export type ProductAttributeFilterInput = {
   style_bottom: FilterEqualTypeInput
   style_general: FilterEqualTypeInput
   url_key: FilterEqualTypeInput
-}
+};
 
 export type ProductAttributeSortInput = {
   name: SortEnum
   position: SortEnum
   price: SortEnum
   relevance: SortEnum
-}
+};
 export enum SortEnum {
   ASC = 'ASC',
-  DESC = 'DESC'
+  DESC = 'DESC',
 }
 
 export type StoreConfig = {
@@ -535,20 +532,20 @@ export type StoreConfig = {
   website_id: number
   weight_unit: string
   welcome: string
-}
+};
 
 enum FixedProductTaxDisplaySettings {
   INCLUDE_FPT_WITHOUT_DETAILS = 'INCLUDE_FPT_WITHOUT_DETAILS',
   INCLUDE_FPT_WITH_DETAILS = 'INCLUDE_FPT_WITH_DETAILS',
   EXCLUDE_FPT_AND_INCLUDE_WITH_DETAILS = 'EXCLUDE_FPT_AND_INCLUDE_WITH_DETAILS',
   EXCLUDE_FPT_WITHOUT_DETAILS = 'EXCLUDE_FPT_WITHOUT_DETAILS',
-  FPT_DISABLED = 'FPT_DISABLED'
+  FPT_DISABLED = 'FPT_DISABLED',
 }
 
 // Queries
-export type storeConfigQuery = {
+export type StoreConfigQuery = {
   storeConfig: StoreConfig;
-}
+};
 
 export type CmsPage = {
   content: string
@@ -560,13 +557,13 @@ export type CmsPage = {
   page_layout: string
   title: string
   url_key: string
-}
+};
 
-export type cmsPageQuery = {
+export type CmsPageQuery = {
   cmsPage: CmsPage;
-}
+};
 
-export type createEmptyCartMutation = {
+export type CreateEmptyCartMutation = {
   createEmptyCart: string
 };
 
@@ -582,16 +579,16 @@ export type Cart = {
   selected_payment_method: SelectedPaymentMethod
   shipping_addresses: [ShippingCartAddress]
   total_quantity: number
-}
+};
 
 export type AppliedCoupon = {
   code: string
-}
+};
 
 type AvailablePaymentMethod = {
   code: string
   title: string
-}
+};
 
 type BillingCartAddress = CartAddressInterface;
 
@@ -602,12 +599,12 @@ export type SelectedShippingMethod = {
   carrier_title: String,
   method_code: String,
   method_title: String
-}
+};
 
 type CartItemQuantity = {
   cart_item_id: Number,
   quantity: Number
-}
+};
 
 type AvailableShippingMethod = {
   amount: Money,
@@ -620,7 +617,7 @@ type AvailableShippingMethod = {
   method_title: String,
   price_excl_tax: Money,
   price_incl_tax: Money
-}
+};
 
 type ShippingCartAddress = {
   available_shipping_methods: [AvailableShippingMethod],
@@ -629,7 +626,7 @@ type ShippingCartAddress = {
   items_weight: Number,
   selected_shipping_method: SelectedShippingMethod,
   pickup_location_code: String
-}
+};
 
 interface CartAddressInterface {
   city: string
@@ -646,19 +643,19 @@ interface CartAddressInterface {
 type CartAddressCountry = {
   code: string
   label: string
-}
+};
 
 type CartAddressRegion = {
   code: string
   label: string
-}
+};
 
 // CUSTOM
 type CustNote = {
   amount: Money,
   customer_note: String,
   font: String
-}
+};
 
 export interface CartItemInterface {
   id: string
@@ -674,12 +671,12 @@ type CartItemPrices = {
   row_total: Money
   row_total_including_tax: Money
   total_item_discount: Money
-}
+};
 
 type Discount = {
   amount: Money
   label: string
-}
+};
 
 type CartPrices = {
   applied_taxes: [CartTaxItem]
@@ -688,133 +685,133 @@ type CartPrices = {
   subtotal_excluding_tax: Money
   subtotal_including_tax: Money
   subtotal_with_discount_excluding_tax: Money
-}
+};
 
 type CartTaxItem = {
   amount: Money
   label: string
-}
+};
 
 type SelectedPaymentMethod = {
   code: string
   purchase_order_number: string
   title: string
-}
+};
 
-export type cartQuery = {
+export type CartQuery = {
   cart: CmsPage;
-}
+};
 
-export type wishlistOutput = {
+export type WishlistOutput = {
   items: [WishlistItem],
   items_count: number,
   name: string,
   sharing_code: string,
   updated_at: string
-}
+};
 
 export type AddSimpleProductsToCartInput = {
   cart_id: string
   cart_items: [SimpleProductCartItemInput]
-}
+};
 
 type SimpleProductCartItemInput = {
   customizable_options: [CustomizableOptionInput]
   data: CartItemInput
-}
+};
 
 type CustomizableOptionInput = {
   id: number
   value_string: string
-}
+};
 
 type CartItemInput = {
   quantity: number
   sku: string
-}
+};
 
 export type AddSimpleProductsToCartOutput = {
   addSimpleProductsToCart: {
     cart: Cart
   }
-}
+};
 
 export type UpdateCartItemsInput = {
   cart_id: string
   cart_items: [CartItemUpdateInput]
-}
+};
 
 type CartItemUpdateInput = {
   cart_item_id: number
   customizable_options: [CustomizableOptionInput]
   quantity: number
-}
+};
 
 export type UpdateCartItemsOutput = {
   updateCartItems: {
     cart: Cart
   }
-}
+};
 
 export type RemoveItemFromCartInput = {
   cart_id: string
   cart_item_id: number
-}
+};
 
 export type RemoveItemFromCartOutput = {
   removeItemFromCart: {
     cart: Cart
   }
-}
+};
 
 export type ApplyCouponToCartInput = {
   cart_id: string
   coupon_code: string
-}
+};
 
 export type ApplyCouponToCartOutput = {
   applyCouponToCart: {
     cart: Cart
   }
-}
+};
 
 export type RemoveCouponFromCartInput = {
   cart_id: string
-}
+};
 
 export type RemoveCouponFromCartOutput = {
   removeCouponFromCart: {
     cart: Cart
   }
-}
+};
 
 export type AddConfigurableProductsToCartInput = {
   cart_id: string
   cart_items: [ConfigurableProductCartItemInput]
-}
+};
 
 type ConfigurableProductCartItemInput = {
   customizable_options: [CustomizableOptionInput]
   data: CartItemInput
   parent_sku: string
   variant_sku: string
-}
+};
 
 export type AddConfigurableProductsToCartOutput = {
   addConfigurableProductsToCart: {
     cart: Cart
   }
-}
+};
 
 export type CustomerToken = {
   generateCustomerToken: {
     token: string
   }
-}
+};
 
-export type customerQuery = {
+export type CustomerQuery = {
   customer: Customer
-}
+};
 
 type CustomerOrder = {
   created_at: String,
@@ -823,11 +820,11 @@ type CustomerOrder = {
   increment_id: String,
   order_number: String,
   status: String
-}
+};
 
-export type customerOrdersQuery = {
+export type CustomerOrdersQuery = {
   items: [CustomerOrder]
-}
+};
 
 export type Customer = {
   addresses: [CustomerAddress]
@@ -845,7 +842,7 @@ export type Customer = {
   suffix: string
   taxvat: string
   wishlist: Wishlist
-}
+};
 
 export type CustomerAddress = {
   city: string
@@ -866,7 +863,7 @@ export type CustomerAddress = {
   suffix: string
   telephone: string
   vat_id: string
-}
+};
 
 enum CountryCodeEnum {
   AF = 'AF',
@@ -1113,18 +1110,18 @@ enum CountryCodeEnum {
   EH = 'EH',
   YE = 'YE',
   ZM = 'ZM',
-  ZW = 'ZW'
+  ZW = 'ZW',
 }
 
 type CustomerAddressAttribute = {
   attribute_code: string
   value: string
-}
+};
 
 type CustomerAddressRegion = {
   region: string
   region_code: string
-}
+};
 
 export type Wishlist = {
   id: number
@@ -1132,7 +1129,7 @@ export type Wishlist = {
   items_count: number
   sharing_code: string
   updated_at: string
-}
+};
 
 type WishlistItem = {
   added_at: string
@@ -1140,7 +1137,7 @@ type WishlistItem = {
   id: number
   product: ProductInterface
   qty: number
-}
+};
 
 export type CustomerInput = {
   date_of_birth: string
@@ -1155,40 +1152,40 @@ export type CustomerInput = {
   prefix: string
   suffix: string
   taxvat: string
-}
+};
 
 /* Checkout */
 export type Order = {
   order_id: string,
   order_number: string
-}
+};
 
 /* SetPaymentMethodOnCart */
 type PaymentMethodInput = {
   code: string,
   purchase_order_number: string
-}
+};
 
 export type SetPaymentMethodOnCartInput = {
   cart_id: string,
   payment_method: PaymentMethodInput
-}
+};
 
 export type SetPaymentMethodOnCartOutput = {
   cart: Cart
-}
+};
 
 /* updateCustomerAddress */
 type CustomerAddressAttributeInput = {
   attribute_code: string,
   value: string
-}
+};
 
 type CustomerAddressRegionInput = {
   region: string,
   region_code: string,
   region_id: number
-}
+};
 
 export type CustomerAddressInput = {
   city: String
@@ -1209,10 +1206,9 @@ export type CustomerAddressInput = {
   suffix: String
   telephone: String
   vat_id: String
-}
+};
 
-
-/* SetBillingAddressOnCart*/
+/* SetBillingAddressOnCart */
 type CartAddressInput = {
   city: string,
   company: string,
@@ -1224,72 +1220,72 @@ type CartAddressInput = {
   save_in_address_book: boolean
   street: [String],
   telephone: String
-}
+};
 
 type BillingAddressInput = {
   address: CartAddressInput,
   customer_address_id: number,
   same_as_shipping: boolean,
   use_for_shipping: boolean
-}
+};
 
 export type SetBillingAddressOnCartInput = {
   billing_address: BillingAddressInput,
   cart_id: string
-}
+};
 
 export type SetBillingAddressOnCartOutput = {
   cart: CartItemPrices
-}
+};
 
-/*SetShippingAddressesOnCart*/
+/* SetShippingAddressesOnCart */
 type ShippingAddressInput = {
   address: CartAddressInput,
   customer_address_id: number,
   customer_notes: String,
   pickup_location_code: String
-}
+};
 
 export type SetShippingAddressesOnCartInput = {
   cart_id: String,
   shipping_addresses: ShippingAddressInput
-}
+};
 
 export type SetShippingAddressesOnCartOutput = {
   cart: Cart
-}
+};
 
-/*SetGuestEmailOnCart*/
+/* SetGuestEmailOnCart */
 export type SetGuestEmailOnCartInput = {
-   cart_id: String,
-   email: String
-}
+  cart_id: String,
+  email: String
+};
 
 export type SetGuestEmailOnCartOutput = {
   cart: Cart
-}
+};
 
-/*PlaceOrder*/
+/* PlaceOrder */
 export type PlaceOrderInput = {
   cart_id: String,
   delivery_date: String
-}
+};
 
 export type PlaceOrderOutput = {
   order: Order
-}
+};
 
-/*SetShippingMethodsOnCart*/
+/* SetShippingMethodsOnCart */
 type ShippingMethodInput = {
   carrier_code: string,
   method_code: string
-}
+};
 
 export type SetShippingMethodsOnCartInput = {
   cart_id: String,
   shipping_methods: ShippingMethodInput
-}
+};
 
 export type SetShippingMethodsOnCartOutput = {
   cart: Cart
-}
+};

@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "API": {
-        "url": "https://<URL>/graphql",
+        "url": "https://vsf-m2.site-builder.app/graphql",
         "introspect": true
       }
     }

@@ -1,5 +1,4 @@
 import { createHttpLink } from 'apollo-link-http';
-import { Config } from './types/setup';
 import fetch from 'isomorphic-fetch';
 import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
@@ -7,40 +6,39 @@ import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemo
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { Logger } from '@vue-storefront/core';
+import { Config } from './types/setup';
 import introspectionQueryResultData from '../fragmentTypes.json';
 
-const createErrorHandler = () => {
-  return onError(({
-    graphQLErrors,
-    networkError
-  }) => {
-    if (graphQLErrors) {
-      graphQLErrors.map(({
-        message,
-        locations,
-        path
-      }) => {
-        if (!message.includes('Resource Owner Password Credentials Grant')) {
-          if (!locations) {
-            Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
-            return;
-          }
-
-          const parsedLocations = locations.map(({
-            column,
-            line
-          }) => `[column: ${column}, line: ${line}]`);
-
-          Logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+const createErrorHandler = () => onError(({
+  graphQLErrors,
+  networkError,
+}) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({
+      message,
+      locations,
+      path,
+    }) => {
+      if (!message.includes('Resource Owner Password Credentials Grant')) {
+        if (!locations) {
+          Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+          return;
         }
-      });
-    }
 
-    if (networkError) {
-      Logger.error(`[Network error]: ${networkError}`);
-    }
-  });
-};
+        const parsedLocations = locations.map(({
+          column,
+          line,
+        }) => `[column: ${column}, line: ${line}]`);
+
+        Logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+      }
+    });
+  }
+
+  if (networkError) {
+    Logger.error(`[Network error]: ${networkError}`);
+  }
+});
 
 const createMagentoConnection = (settings: Config): ApolloClient<any> => {
   const apiState = settings.state;
@@ -50,30 +48,36 @@ const createMagentoConnection = (settings: Config): ApolloClient<any> => {
     uri: settings.api,
     fetch,
     headers: {
-      Store: storeCode
-    }
+      Store: storeCode,
+    },
   });
+
   const onErrorLink = createErrorHandler();
+
   const authLink = setContext((_, { headers }) => {
     const token = apiState.getCustomerToken();
     if (token) {
       return {
         headers: {
           ...headers,
-          authorization: `Bearer ${token}`
-        }
+          authorization: `Bearer ${token}`,
+        },
       };
     }
     return { headers };
   });
+
   const link: ApolloLink = ApolloLink.from([authLink, onErrorLink, httpLink]);
+
   const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData
+    introspectionQueryResultData,
   });
+
   const cache = new InMemoryCache({ fragmentMatcher });
+
   return new ApolloClient({
     cache,
-    link
+    link,
   });
 };
 

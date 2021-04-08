@@ -11,6 +11,8 @@
     "build": "rimraf lib server && rollup -c",
     "dev": "rimraf lib server && rollup -c -w",
     "graphql:codegen": "graphql-codegen --config codegen.yml",
+    "lint": "eslint ./src --ext .ts,.vue",
+    "lint:fix": "eslint ./src --ext .ts --fix",
     "prepublish": "yarn build",
     "test": "jest",
     "update:check": "ncu",
