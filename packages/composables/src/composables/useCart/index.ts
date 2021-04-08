@@ -1,8 +1,9 @@
 /* istanbul ignore file */
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
 import { useCartFactory, UseCartFactoryParams, Context } from '@vue-storefront/core';
-import { Cart, CartItem, Coupon, Product } from '../../types';
+import {
+  Cart, CartItem, Coupon, Product,
+} from '../../types';
 
 const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   load: async (context: Context) => {
@@ -13,14 +14,14 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         // get cart ID
         const result = await context.$ma.api.customerCart();
         return result.data.customerCart;
-      } catch (e) {
+      } catch {
         // Signed up user don't have a cart.
         apiState.setCartId(null);
         apiState.setCustomerToken(null);
         return await params.load(context, {});
       }
     }
-    
+
     // if guest user have a cart ID
     let cartId = apiState.getCartId();
 
@@ -32,9 +33,9 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     try {
       const cartResponse = await context.$ma.api.cart(cartId);
-      //console.log(cartResponse);
+      // console.log(cartResponse);
       return cartResponse.data.cart;
-    } catch (e) {
+    } catch {
       apiState.setCartId(null);
       return await params.load(context, {});
     }
@@ -47,11 +48,11 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
           cart_items: [
             {
               data: {
-                quantity: quantity,
-                sku: product.sku
-              }
-            }
-          ]
+                quantity,
+                sku: product.sku,
+              },
+            },
+          ],
         });
         return response.data.addSimpleProductsToCart.cart;
       case 'configurable':
@@ -62,11 +63,11 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
               parent_sku: product.sku,
               variant_sku: product.variant_sku,
               data: {
-                quantity: quantity,
-                sku: product.variant_sku
-              }
-            }
-          ]
+                quantity,
+                sku: product.variant_sku,
+              },
+            },
+          ],
         });
         return configurableResponse.data.addConfigurableProductsToCart.cart;
       default:
@@ -77,7 +78,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   removeItem: async (context: Context, { currentCart, product }) => {
     const response = await context.$ma.api.removeItemFromCart({
       cart_id: currentCart.id,
-      cart_item_id: product.id
+      cart_item_id: product.id,
     });
     return response.data.removeItemFromCart.cart;
   },
@@ -87,24 +88,24 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       cart_items: [
         {
           cart_item_id: product.id,
-          quantity: quantity
-        }
-      ]
+          quantity,
+        },
+      ],
     });
     return response.data.updateCartItems.cart;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
     context.$ma.config.state.setCartId(null);
-    return await params.load(context, {});
+    return params.load(context, {});
   },
   applyCoupon: async (context: Context, { currentCart, couponCode }) => {
     const response = await context.$ma.api.applyCouponToCart({
       cart_id: currentCart.id,
-      coupon_code: couponCode
+      coupon_code: couponCode,
     });
 
-    return {updatedCart: response.data.applyCouponToCart.cart, updatedCoupon: { code: couponCode }};
+    return { updatedCart: response.data.applyCouponToCart.cart, updatedCoupon: { code: couponCode } };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeCoupon: async (context: Context, { currentCart }) => {
@@ -112,13 +113,13 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       cart_id: currentCart.id,
     });
 
-    return { updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: { code: ''}};
+    return { updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: { code: '' } };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isOnCart: (context: Context, { currentCart, product }) => {
+  isOnCart: (context: Context, { currentCart, product }) =>
     // @TODO: Check if this is the format.
-    return currentCart.items.find((item) => item.id === product.id);
-  }
+    currentCart.items.find((item) => item.id === product.id),
+
 };
 
 export default useCartFactory<Cart, CartItem, Product, Coupon>(params);

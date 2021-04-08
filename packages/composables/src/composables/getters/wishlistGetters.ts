@@ -3,9 +3,9 @@
 import {
   WishlistGetters,
   AgnosticPrice,
-  AgnosticTotals
+  AgnosticTotals,
 } from '@vue-storefront/core';
-import { WishlistProduct } from './../../types';
+import { WishlistProduct } from '../../types';
 
 type Wishlist = {};
 
@@ -25,7 +25,7 @@ export const getWishlistItemPrice = (product: WishlistProduct): AgnosticPrice =>
 export const getWishlistItemQty = (product: WishlistProduct): number => 1;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getWishlistItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({'': ''});
+export const getWishlistItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({ '': '' });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getWishlistItemSku = (product: WishlistProduct): string => '';
@@ -53,7 +53,7 @@ const wishlistGetters: WishlistGetters<Wishlist, WishlistProduct> = {
   getItemAttributes: getWishlistItemAttributes,
   getItemSku: getWishlistItemSku,
   getTotalItems: getWishlistTotalItems,
-  getFormattedPrice
+  getFormattedPrice,
 };
 
 export default wishlistGetters;

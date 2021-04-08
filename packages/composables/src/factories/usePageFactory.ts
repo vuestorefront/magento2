@@ -1,13 +1,15 @@
-import { UsePage } from '../types';
 import { Ref, computed } from '@vue/composition-api';
-import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
+import {
+  Context, generateContext, sharedRef, Logger,
+} from '@vue-storefront/core';
+import { UsePage } from '../types';
 
 export interface UsePageFactoryParams<PAGE> {
-    loadPage: (context: Context, identifer: string) => Promise<PAGE>;
+  loadPage: (context: Context, identifer: string) => Promise<PAGE>;
 }
 
 export function usePageFactory<PAGE>(
-  factoryParams: UsePageFactoryParams<PAGE>
+  factoryParams: UsePageFactoryParams<PAGE>,
 ) {
   return function usePage(cacheId: string): UsePage<PAGE> {
     const page: Ref<PAGE> = sharedRef({}, `usePage-pages-${cacheId}`);
@@ -28,7 +30,7 @@ export function usePageFactory<PAGE>(
     return {
       loadPage,
       page: computed(() => page.value),
-      loading: computed(() => loading.value)
+      loading: computed(() => loading.value),
     };
   };
 }

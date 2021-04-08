@@ -1,5 +1,7 @@
 import { Ref, computed } from '@vue/composition-api';
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger } from '@vue-storefront/core'
+import {
+  CustomQuery, Context, FactoryParams, sharedRef, Logger,
+} from '@vue-storefront/core';
 import { UseUserOrder, UseUserOrderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
 
@@ -33,7 +35,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
       orders: computed(() => orders.value),
       search,
       loading: computed(() => loading.value),
-      error: computed(() => error.value)
+      error: computed(() => error.value),
     };
   };
 }

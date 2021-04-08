@@ -6,7 +6,7 @@ const usePage: (cacheId: string) => UsePage<Page> = usePageFactory<Page>({
   loadPage: async (context: Context, identifer: string) => {
     const result = await context.$ma.api.cmsPage(identifer);
     return result.data.cmsPage;
-  }
+  },
 });
 
 export default usePage;

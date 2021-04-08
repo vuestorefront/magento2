@@ -46,7 +46,7 @@ const reviewGetters: ReviewGetters<Review, ReviewItem> = {
   getTotalReviews,
   getAverageRating,
   getRatesCount,
-  getReviewsPage
+  getReviewsPage,
 };
 
 export default reviewGetters;

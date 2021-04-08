@@ -1,13 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ComputedProperty, UseCategory, UseProduct} from '@vue-storefront/core';
+import { ComputedProperty, UseCategory, UseProduct } from '@vue-storefront/core';
 import {
   ProductInterface,
   CartInterface,
   CartItemInterface,
   CouponInterface,
-  Customer
+  Customer,
 } from '@vue-storefront/magento-api';
-import { ComputedRef } from '@vue/composition-api';
+import { ComputedRef, Ref } from '@vue/composition-api';
+import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core';
 
 // @todo: replace with real types
 
@@ -15,9 +16,9 @@ type Product = ProductInterface;
 
 type Category = {
 
-}
+};
 
-type CategorySearchParams = {}
+type CategorySearchParams = {};
 
 type User = Customer;
 
@@ -25,53 +26,53 @@ type UpdateUserParams = {
   firstName: string;
   lastName: string;
   email: string;
-}
+};
 
 type RegisterUserParams = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-}
+};
 
 // @todo: replace with real Cart types
-type Cart = CartInterface
+type Cart = CartInterface;
 
-type CartItem = CartItemInterface
+type CartItem = CartItemInterface;
 
-type Coupon = CouponInterface
+type Coupon = CouponInterface;
 
 type Order = {
 
-}
+};
 
 type OrderItem = {
 
-}
+};
 
 type WishlistProduct = {
 
-}
+};
 
 type Wishlist = {
 
-}
+};
 
 type Route = {
 
-}
+};
 
 type Config = {
 
-}
+};
 
 type Page = {
 
-}
+};
 
 type Filter = {
 
-}
+};
 
 interface UseRouter<ROUTE> {
   route: ComputedProperty<ROUTE>;
@@ -110,8 +111,6 @@ export type OrdersResponse = {
 };
 
 export type ShippingMethod = Record<string, unknown>;
-import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core'
-import { Ref } from '@vue/composition-api'
 export interface UseUserOrderSearchParams {
   id?: any;
   page?: number;
@@ -177,7 +176,6 @@ export interface UseShippingProviderErrors {
   save?: Error;
 }
 
-
 export interface UseMakeOrderErrors {
   make?: Error;
 }
@@ -188,7 +186,6 @@ export interface UseMakeOrder<ORDER> {
   error: ComputedProperty<UseMakeOrderErrors>;
   loading: ComputedProperty<boolean>;
 }
-
 
 export {
   Cart,
@@ -213,5 +210,5 @@ export {
   Route,
   Breadcrumb,
   UseConfig,
-  Config
+  Config,
 };

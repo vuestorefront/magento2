@@ -1,4 +1,4 @@
-import { CheckoutGetters} from '@vue-storefront/core';
+import { CheckoutGetters } from '@vue-storefront/core';
 import { ShippingMethod } from '@vue-storefront/magento-api/src/types';
 import productGetters from './productGetters';
 
@@ -14,16 +14,14 @@ export const getShippingMethodDescription = (shippingMethod: ShippingMethod): st
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getShippingMethodPrice = (shippingMethod: ShippingMethod): number => 0;
 
-export const getFormattedPrice = (price: number) => {
-  return productGetters.getFormattedPrice(price);
-};
+export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
 const checkoutGetters: CheckoutGetters<ShippingMethod> = {
   getShippingMethodId,
   getShippingMethodName,
   getShippingMethodDescription,
   getFormattedPrice,
-  getShippingMethodPrice
+  getShippingMethodPrice,
 };
 
 export default checkoutGetters;

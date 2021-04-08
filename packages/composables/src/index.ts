@@ -1,48 +1,25 @@
 /* istanbul ignore file */
-import { createApiClient } from '@vue-storefront/magento-api';
-import { integrationPluginFactory } from '@vue-storefront/core';
+import { track } from '@vue-storefront/core';
 
-import useBilling from './composables/useBilling';
-import useCart from './composables/useCart';
-import useCategory from './composables/useCategory';
-import useCheckout from './composables/useCheckout';
-import useConfig from './composables/useConfig';
-import useFacet from './composables/useFacet';
-import useMakeOrder from './composables/useMakeOrder';
-import usePage from './composables/usePage';
-import useProduct from './composables/useProduct';
-import useReview from './composables/useReview';
-import useRouter from './composables/useRouter';
-import useShipping from './composables/useShipping';
-import useShippingProvider from './composables/useShippingProvider';
-import useUser from './composables/useUser';
-import useUserBilling from './composables/useUserBilling';
-import useUserOrder from './composables/useUserOrder';
-import useUserShipping from './composables/useUserShipping';
-import useWishlist from './composables/useWishlist';
+track('VSFMagento');
+
+export { default as useBilling } from './composables/useBilling';
+export { default as useCart } from './composables/useCart';
+export { default as useCategory } from './composables/useCategory';
+export { default as useCheckout } from './composables/useCheckout';
+export { default as useConfig } from './composables/useConfig';
+export { default as useFacet } from './composables/useFacet';
+export { default as useMakeOrder } from './composables/useMakeOrder';
+export { default as usePage } from './composables/usePage';
+export { default as useProduct } from './composables/useProduct';
+export { default as useReview } from './composables/useReview';
+export { default as useRouter } from './composables/useRouter';
+export { default as useShipping } from './composables/useShipping';
+export { default as useShippingProvider } from './composables/useShippingProvider';
+export { default as useUser } from './composables/useUser';
+export { default as useUserBilling } from './composables/useUserBilling';
+export { default as useUserOrder } from './composables/useUserOrder';
+export { default as useUserShipping } from './composables/useUserShipping';
+export { default as useWishlist } from './composables/useWishlist';
 
 export * from './composables/getters';
-
-const integrationPlugin = integrationPluginFactory(createApiClient);
-
-export {
-  useBilling,
-  useCart,
-  useCategory,
-  useCheckout,
-  useConfig,
-  useFacet,
-  useMakeOrder,
-  usePage,
-  useProduct,
-  useReview,
-  useRouter,
-  useShipping,
-  useShippingProvider,
-  useUser,
-  useUserBilling,
-  useUserOrder,
-  useUserShipping,
-  useWishlist,
-  integrationPlugin
-};

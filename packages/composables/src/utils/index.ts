@@ -33,16 +33,15 @@ const createFactoryParamsMethod = (fn, fnName, context) => (argObj) => {
 
 const createFactoryParamsReducer = (context) => (prev, [fnName, fn]: any) => ({
   ...prev,
-  [fnName]: createFactoryParamsMethod(fn, fnName, context)
+  [fnName]: createFactoryParamsMethod(fn, fnName, context),
 });
 
-const configureFactoryParams = <T extends FactoryParams>(factoryParams: T): any =>
-  Object.entries(factoryParams)
-    .reduce(createFactoryParamsReducer(generateContext(factoryParams)), {});
+const configureFactoryParams = <T extends FactoryParams>(factoryParams: T): any => Object.entries(factoryParams)
+  .reduce(createFactoryParamsReducer(generateContext(factoryParams)), {});
 
 export {
   generateContext,
   useVSFContext,
   configureContext,
-  configureFactoryParams
+  configureFactoryParams,
 };

@@ -3,17 +3,16 @@ import { CategoryFilterInput, ProductAttributeFilterInput } from '@vue-storefron
 
 const availableSortingOptions = [{
   value: 'name',
-  label: 'Name'
+  label: 'Name',
 }, {
   value: 'price-up',
-  label: 'Price from low to high'
+  label: 'Price from low to high',
 }, {
   value: 'price-down',
-  label: 'Price from high to low'
+  label: 'Price from high to low',
 }];
 
 const constructFilterObject = (obj: Object) => {
-
   /*
   return Object.entries(obj)
     .reduce((prev, [value, options]) => {
@@ -36,10 +35,10 @@ const constructFilterObject = (obj: Object) => {
     if (!filters[key]) {
       filters[key] = {
         in: value.join(''),
-        scope: 'catalog'
+        scope: 'catalog',
       };
     } else {
-      filters[key].in = filters[key].in + ',' + value.join('');
+      filters[key].in = `${filters[key].in},${value.join('')}`;
     }
   }
 
@@ -49,14 +48,14 @@ const constructFilterObject = (obj: Object) => {
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
-    const itemsPerPage = params.input.itemsPerPage;
+    const { itemsPerPage } = params.input;
     const categoryParams: CategoryFilterInput = {
       filters: {
         // eslint-disable-next-line camelcase
         url_path: {
-          eq: params.input.categorySlug
-        }
-      }
+          eq: params.input.categorySlug,
+        },
+      },
     };
 
     const categoryResponse = await context.$ma.api.categoryList(categoryParams.perPage, categoryParams.page, categoryParams.filter, categoryParams.search, categoryParams.sort);
@@ -70,22 +69,22 @@ const factoryParams = {
       filter: {
         // eslint-disable-next-line camelcase
         category_id: {
-          eq: category.id
-        }
+          eq: category.id,
+        },
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
-      page: params.input.page
+      page: params.input.page,
     };
-    const productResponse = await context.$ma.api.products(productParams.perPage, productParams.page, queryType, inputSearch, Object.assign({}, productParams.filter, constructFilterObject(params.input.filters)), inputSort);
+    const productResponse = await context.$ma.api.products(productParams.perPage, productParams.page, queryType, inputSearch, { ...productParams.filter, ...constructFilterObject(params.input.filters) }, inputSort);
     return {
       items: productResponse?.data?.products?.items || [],
       total: productResponse?.data?.products?.total_count?.value || 0,
       availableFilters: productResponse?.data?.products?.attribute_metadata,
-      category: category,
-      availableSortingOptions
+      category,
+      availableSortingOptions,
     };
-  }
+  },
 };
 
 export default useFacetFactory<any>(factoryParams);

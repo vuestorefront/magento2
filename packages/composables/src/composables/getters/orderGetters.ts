@@ -43,7 +43,7 @@ const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getItemName,
   getItemQty,
   getItemPrice,
-  getFormattedPrice
+  getFormattedPrice,
 };
 
 export default orderGetters;
