@@ -5,7 +5,7 @@ import {
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
-  AgnosticFacet,
+  AgnosticFacet, Logger,
 } from '@vue-storefront/core';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -39,7 +39,7 @@ const getSortOptions = (searchData): AgnosticSort => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCategoryTree = (searchData): AgnosticCategoryTree => {
-  console.log(searchData);
+  Logger.debug(searchData);
   const buildTree = (category: any): AgnosticCategoryTree => ({
     label: category.name,
     slug: category.url_path,

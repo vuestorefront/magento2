@@ -63,6 +63,7 @@ module.exports = {
     'no-shadow': 'off',
     'no-redeclare': 'off',
     'no-unused-vars': 'off',
+    'no-case-declarations': 0,
     'unicorn/no-null': 0,
     'unicorn/no-reduce': 0,
     'unicorn/no-array-for-each': 0,

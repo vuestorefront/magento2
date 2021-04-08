@@ -8,7 +8,7 @@ import {
 const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   load: async (context: Context) => {
     const apiState = context.$ma.config.state;
-    // is user authincated.
+    // is user authenticated.
     if (apiState.getCustomerToken()) {
       try {
         // get cart ID
@@ -115,11 +115,9 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     return { updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: { code: '' } };
   },
+  // @TODO: Check if this is the format.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isOnCart: (context: Context, { currentCart, product }) =>
-    // @TODO: Check if this is the format.
-    currentCart.items.find((item) => item.id === product.id),
-
+  isOnCart: (context: Context, { currentCart, product }) => currentCart.items.find((item) => item.id === product.id),
 };
 
 export default useCartFactory<Cart, CartItem, Product, Coupon>(params);

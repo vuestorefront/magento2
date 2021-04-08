@@ -1,13 +1,11 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import { useBillingFactory, UseBillingParams } from '../../factories/useBillingFactory';
 import { Address } from '../../types';
-
-const details = {};
 
 const params: UseBillingParams<Address, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadBilling');
+    Logger.debug('[Magento] loadBilling');
     if (!context.cart.cart?.value?.billing_address) {
       await context.cart.load({ customQuery });
     }
@@ -16,7 +14,7 @@ const params: UseBillingParams<Address, any> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { billingDetails, customQuery }) => {
-    console.log('[Magento] setBillingAddress');
+    Logger.debug('[Magento] setBillingAddress');
     const { id } = context.cart.cart.value;
     const setBillingAddressOnCartResponse = await context.$ma.api.setBillingAddressOnCart({
       cart_id: id,

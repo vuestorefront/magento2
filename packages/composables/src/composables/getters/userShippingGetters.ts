@@ -2,7 +2,6 @@ import { UserShippingGetters } from '@vue-storefront/core';
 
 const userShippingGetters: UserShippingGetters<any, any> = {
   getAddresses: (shipping, criteria?: Record<string, any>) => {
-    console.log(shipping);
     if (!shipping || !shipping.addresses) return [] as Record<string, any>;
 
     if (!criteria || Object.keys(criteria).length === 0) {
@@ -14,7 +13,6 @@ const userShippingGetters: UserShippingGetters<any, any> = {
   },
   getDefault: (shipping) => shipping.addresses.find(({ isDefault }) => isDefault),
   getTotal: (shipping) => shipping.addresses.length,
-
   getPostCode: (address) => address?.postalCode || '',
   getStreetName: (address) => address?.streetName || '',
   getStreetNumber: (address) => address?.streetNumber || '',

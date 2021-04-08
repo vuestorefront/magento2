@@ -30,7 +30,18 @@ const placeOrder = async () => {};
 const loadDetails = async () => {};
 
 // @todo CHECKOUT
-const useCheckout: () => { chosenShippingMethod: Ref<ShippingMethod>; shippingDetails: Ref<UserAddress>; billingDetails: Ref<UserAddress>; chosenPaymentMethod: Ref<string>; placeOrder: () => Promise<any>; loadDetails: () => Promise<any>; paymentMethods: Ref<any[]>; personalDetails: Ref<User>; loading: Readonly<Ref<Readonly<boolean>>>; shippingMethods: Ref<any[]> } = () => ({
+const useCheckout: () => {
+  chosenShippingMethod: Ref<ShippingMethod>;
+  shippingDetails: Ref<UserAddress>;
+  billingDetails: Ref<UserAddress>;
+  chosenPaymentMethod: Ref<string>;
+  placeOrder: () => Promise<any>;
+  loadDetails: () => Promise<any>;
+  paymentMethods: Ref<any[]>;
+  personalDetails: Ref<User>;
+  loading: Readonly<Ref<Readonly<boolean>>>;
+  shippingMethods: Ref<any[]>;
+} = () => ({
   paymentMethods,
   shippingMethods,
   personalDetails,

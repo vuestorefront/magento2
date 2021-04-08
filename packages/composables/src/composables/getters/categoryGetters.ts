@@ -4,7 +4,7 @@ import { Category } from '@vue-storefront/magento-api';
 const buildTree = (rootCategory: Category): AgnosticCategoryTree => ({
   label: rootCategory.name,
   slug: `/${rootCategory.url_path}${rootCategory.url_suffix}`,
-  items: rootCategory.children.map(buildTree),
+  items: rootCategory.children.map((category) => buildTree(category)),
   isCurrent: false,
 });
 

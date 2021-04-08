@@ -1,4 +1,4 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import { Address } from '../../types';
 import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
@@ -11,7 +11,7 @@ const params: UseShippingParams<Address, any> = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadShipping');
+    Logger.debug('[Magento] loadShipping');
     if (!context.cart.cart?.value?.shipping_addresses) {
       await context.cart.load({ customQuery });
     }
@@ -23,7 +23,7 @@ const params: UseShippingParams<Address, any> = {
   // @TODO check for types
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingDetails, customQuery }) => {
-    console.log('[Magento] setShippingAddress');
+    Logger.debug('[Magento] setShippingAddress');
     const { id } = context.cart.cart.value;
     const setShippingAddressesOnCartResponse = await context.$ma.api.setShippingAddressesOnCart({
       cart_id: id,
@@ -47,7 +47,11 @@ const params: UseShippingParams<Address, any> = {
         },
       ],
     });
-    return setShippingAddressesOnCartResponse.data.setShippingAddressesOnCart.cart.shipping_addresses[0];
+    return setShippingAddressesOnCartResponse
+      .data
+      .setShippingAddressesOnCart
+      .cart
+      .shipping_addresses[0];
   },
 };
 

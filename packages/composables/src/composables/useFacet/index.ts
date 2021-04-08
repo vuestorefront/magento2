@@ -30,7 +30,9 @@ const constructFilterObject = (obj: Object) => {
     }, {});
   */
   const filters = {};
-  for (const [key, value] of Object.entries(obj)) {
+
+  Object.entries(obj).forEach((tuple) => {
+    const [key, value] = tuple;
     if (value.length === 0) return;
     if (!filters[key]) {
       filters[key] = {
@@ -40,7 +42,7 @@ const constructFilterObject = (obj: Object) => {
     } else {
       filters[key].in = `${filters[key].in},${value.join('')}`;
     }
-  }
+  });
 
   return filters;
 };

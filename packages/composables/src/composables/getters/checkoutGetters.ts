@@ -1,5 +1,5 @@
 import { CheckoutGetters } from '@vue-storefront/core';
-import { ShippingMethod } from '@vue-storefront/magento-api/src/types';
+import { ShippingMethod } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

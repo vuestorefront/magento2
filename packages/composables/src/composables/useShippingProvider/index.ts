@@ -1,4 +1,4 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import { Shipping, ShippingMethod } from '../../types';
 import { useShippingProviderFactory, UseShippingProviderParams } from '../../factories/useShippingProviderFactory';
 import useCart from '../useCart';
@@ -18,7 +18,7 @@ const params: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadShippingProvider');
+    Logger.debug('[Magento] loadShippingProvider');
     if (!context.cart.cart?.value?.shipping_addresses[0].selected_shipping_method) {
       await context.cart.load({ customQuery });
     }
@@ -35,7 +35,7 @@ const params: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingMethod, customQuery }) => {
-    console.log('[Magento] saveShippingProvider');
+    Logger.debug('[Magento] saveShippingProvider');
     const setShippingMethodsOnCartResponse = await context.$ma.api.setShippingMethodsOnCart({
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{

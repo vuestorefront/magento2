@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import {
   useUserOrderFactory,
   UseUserOrderFactoryParams,
@@ -17,7 +17,7 @@ const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParam
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchOrders: async (context: Context, params: OrderSearchParams): Promise<CustomerOrder[]> => {
-    console.log('[Magento] searchOrders');
+    Logger.debug('[Magento] searchOrders');
     if (!context.user.user?.value?.id) {
       await context.user.load();
     }
