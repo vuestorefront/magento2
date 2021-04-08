@@ -1,15 +1,14 @@
-import PlaceOrder from './mutation';
 import { ExecutionResult } from 'graphql';
+import PlaceOrder from './mutation';
 import {
   PlaceOrderInput,
-  PlaceOrderOutput
+  PlaceOrderOutput,
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const placeOrder = async ({ client }, input: PlaceOrderInput): Promise<ExecutionResult<PlaceOrderOutput>> => {
-  return await client.mutate({
-    mutation: PlaceOrder,
-    variables: { input }
-  });
-};
+const placeOrder = async ({ client }: Context, input: PlaceOrderInput): Promise<ExecutionResult<PlaceOrderOutput>> => client.mutate({
+  mutation: PlaceOrder,
+  variables: { input },
+});
 
 export default placeOrder;

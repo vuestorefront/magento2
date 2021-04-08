@@ -1,13 +1,12 @@
-import { cmsPageQuery } from '../../types/GraphQL';
 import { ApolloQueryResult } from 'apollo-client';
+import { CmsPageQuery } from '../../types/GraphQL';
 import query from './query';
+import { Context } from '../../types/context';
 
-const getCmsPage = async ({ client }, identifier: string): Promise<ApolloQueryResult<cmsPageQuery>> => {
-  return await client.query({
-    query: query,
-    variables: { identifier },
-    fetchPolicy: 'no-cache'
-  });
-};
+const getCmsPage = async ({ client }: Context, identifier: string): Promise<ApolloQueryResult<CmsPageQuery>> => client.query({
+  query,
+  variables: { identifier },
+  fetchPolicy: 'no-cache',
+});
 
 export default getCmsPage;

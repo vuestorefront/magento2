@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
-import {productFragment} from '../../fragments';
+import { productFragment } from '../../fragments';
+
 export const detailQuery = gql`
     query products($search: String, $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
         products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {

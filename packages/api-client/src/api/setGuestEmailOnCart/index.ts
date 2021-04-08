@@ -1,15 +1,15 @@
-import SetGuestEmailOnCart from './mutation';
 import { ExecutionResult } from 'graphql';
+import SetGuestEmailOnCart from './mutation';
 import {
   SetGuestEmailOnCartInput,
-  SetGuestEmailOnCartOutput
+  SetGuestEmailOnCartOutput,
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const setGuestEmailOnCart = async ({ client }, input: SetGuestEmailOnCartInput): Promise<ExecutionResult<SetGuestEmailOnCartOutput>> => {
-  return await client.mutate({
-    mutation: SetGuestEmailOnCart,
-    variables: { input }
-  });
-};
+const setGuestEmailOnCart = async ({ client }: Context, input: SetGuestEmailOnCartInput):
+Promise<ExecutionResult<SetGuestEmailOnCartOutput>> => client.mutate({
+  mutation: SetGuestEmailOnCart,
+  variables: { input },
+});
 
 export default setGuestEmailOnCart;

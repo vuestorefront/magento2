@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import {customerFragment} from '../../fragments';
+import { customerFragment } from '../../fragments';
 
 export default gql`
   query customer {

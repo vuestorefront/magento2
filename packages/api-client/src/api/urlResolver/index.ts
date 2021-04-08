@@ -1,13 +1,11 @@
-import { urlResolver } from '../../types/GraphQL';
-import query from './query';
 import { ApolloQueryResult } from 'apollo-client';
+import { UrlResolver } from '../../types/GraphQL';
+import query from './query';
+import { Context } from '../../types/context';
 
-const getUrl = async ({ client }, url: string): Promise<ApolloQueryResult<urlResolver>> => {
-
-  return await client.query({
-    query: query,
-    variables: { url }
-  });
-};
+const getUrl = async ({ client }: Context, url: string): Promise<ApolloQueryResult<UrlResolver>> => client.query({
+  query,
+  variables: { url },
+});
 
 export default getUrl;

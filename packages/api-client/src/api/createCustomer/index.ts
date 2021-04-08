@@ -1,13 +1,14 @@
 import { Customer, CustomerInput } from '../../types/GraphQL';
 import createCustomerMutation from './mutation';
+import { Context } from '../../types/context';
 
-const createCustomer = async ({ client }, input: CustomerInput): Promise<Customer> => {
-  const response = await client.mutate({
+const createCustomer = async ({ client }: Context, input: CustomerInput): Promise<Customer> => {
+  const { data } = await client.mutate({
     mutation: createCustomerMutation,
     variables: { input },
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
   });
-  return response.data.createCustomer.customer;
+  return data.createCustomer.customer;
 };
 
 export default createCustomer;

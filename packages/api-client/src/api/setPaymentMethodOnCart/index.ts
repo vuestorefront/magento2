@@ -1,15 +1,15 @@
-import SetPaymentMethodOnCart from './mutation';
 import { ExecutionResult } from 'graphql';
+import SetPaymentMethodOnCart from './mutation';
 import {
   SetPaymentMethodOnCartInput,
-  SetPaymentMethodOnCartOutput
+  SetPaymentMethodOnCartOutput,
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const setPaymentMethodOnCart = async ({ client }, input: SetPaymentMethodOnCartInput): Promise<ExecutionResult<SetPaymentMethodOnCartOutput>> => {
-  return await client.mutate({
-    mutation: SetPaymentMethodOnCart,
-    variables: { input }
-  });
-};
+const setPaymentMethodOnCart = async ({ client }: Context, input: SetPaymentMethodOnCartInput):
+Promise<ExecutionResult<SetPaymentMethodOnCartOutput>> => client.mutate({
+  mutation: SetPaymentMethodOnCart,
+  variables: { input },
+});
 
 export default setPaymentMethodOnCart;
