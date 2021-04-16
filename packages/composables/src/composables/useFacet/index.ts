@@ -1,5 +1,5 @@
-import { Context, useFacetFactory, FacetSearchResult, ProductsSearchParams } from '@vue-storefront/core';
-import { CategoryFilterInput, ProductAttributeFilterInput } from '@vue-storefront/magento-api'
+import { Context, FacetSearchResult, useFacetFactory } from '@vue-storefront/core';
+import { CategoryFilterInput, ProductAttributeFilterInput } from '@vue-storefront/magento-api';
 
 const availableSortingOptions = [{
   value: 'name',
@@ -12,8 +12,8 @@ const availableSortingOptions = [{
   label: 'Price from high to low'
 }];
 
-
 const constructFilterObject = (obj: Object) => {
+
   /*
   return Object.entries(obj)
     .reduce((prev, [value, options]) => {
@@ -30,18 +30,16 @@ const constructFilterObject = (obj: Object) => {
       return prev;
     }, {});
   */
-  let filters = {};
-  console.log(Object.entries(obj));
+  const filters = {};
   for (const [key, value] of Object.entries(obj)) {
-    if(value.length === 0)
-      return;
+    if (value.length === 0) return;
     if (!filters[key]) {
       filters[key] = {
-        "in": value.join(''),
-        "scope": "catalog"
+        in: value.join(''),
+        scope: 'catalog'
       };
     } else {
-      filters[key].in = filters[key].in + "," + value.join('');
+      filters[key].in = filters[key].in + ',' + value.join('');
     }
   }
 
@@ -54,54 +52,40 @@ const factoryParams = {
     const itemsPerPage = params.input.itemsPerPage;
     const categoryParams: CategoryFilterInput = {
       filters: {
+        // eslint-disable-next-line camelcase
         url_path: {
           eq: params.input.categorySlug
         }
       }
     };
 
-    const categoryResponse = await context.$ma.api.categoryList(
-      categoryParams.perPage,
-      categoryParams.page,
-      categoryParams.filter,
-      categoryParams.search,
-      categoryParams.sort,
-    );
-    
+    const categoryResponse = await context.$ma.api.categoryList(categoryParams.perPage, categoryParams.page, categoryParams.filter, categoryParams.search, categoryParams.sort);
+
     // What happen if not exsits?
     const category = categoryResponse.data.categoryList[0];
-    const inputFilters = params.input.filters;
-    
+    const inputSort = params.input.sort;
+    const queryType = params.input.categorySlug ? 'LIST' : 'DETAIL';
+    const inputSearch = '';
     const productParams: ProductAttributeFilterInput = {
       filter: {
+        // eslint-disable-next-line camelcase
         category_id: {
-            eq: category.id
+          eq: category.id
         }
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
       page: params.input.page
     };
-    
-    const productResponse = await context.$ma.api.getProduct(
-      productParams.perPage,
-      productParams.page,
-      Object.assign(productParams.filter, constructFilterObject(params.input.filters)),
-      productParams.queryType,
-      productParams.search,
-      productParams.sort
-    );
-
-    const data = {
+    const productResponse = await context.$ma.api.products(productParams.perPage, productParams.page, queryType, inputSearch, Object.assign({}, productParams.filter, constructFilterObject(params.input.filters)), inputSort);
+    return {
       items: productResponse?.data?.products?.items || [],
       total: productResponse?.data?.products?.total_count?.value || 0,
       availableFilters: productResponse?.data?.products?.attribute_metadata,
       category: category,
       availableSortingOptions
     };
-    
-    return data;
-  },
+  }
 };
 
 export default useFacetFactory<any>(factoryParams);

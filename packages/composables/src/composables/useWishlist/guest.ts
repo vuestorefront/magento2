@@ -6,8 +6,7 @@ export default {
   items: [],
 
   load (): Array<Record<string, unknown>> {
-    if (typeof window !== 'undefined') return [];
-
+    if (typeof window === 'undefined' || (typeof localStorage === 'undefined' || localStorage === null)) return [];
     if (localStorage.getItem(GUEST_WISHLIST_KEY)) this.items = JSON.parse(localStorage.getItem(GUEST_WISHLIST_KEY));
     else localStorage.setItem('GUEST_WISHLIST_KEY', '[]');
     return this.items;

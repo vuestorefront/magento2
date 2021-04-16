@@ -12,9 +12,25 @@ const onSetup = (settings: Config): {
     tax: {
       displayCartSubtotalIncludingTax: true
     },
-    externalCheckout: {
-      enable: false
-    }
+    websites: {
+      base: {
+        code: 'base',
+        defaultStoreGroup: 'main_website_store',
+        storeGroups: {
+          // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
+          main_website_store: {
+            code: 'main_website_store',
+            defaultStore: 'default',
+            stores: {
+              default: {code: 'default'},
+              de: {code: 'de'},
+              fr: {code: 'fr'}
+            }
+          }
+        }
+      }
+    },
+    defaultStore: 'default'
   };
 
   const config = {
