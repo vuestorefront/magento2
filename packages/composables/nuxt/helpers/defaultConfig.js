@@ -1,5 +1,5 @@
 export default {
-  api: '',
+  api: 'https://demo-magento2.storefrontcloud.io/graphql',
   cookies: {
     currencyCookieName: 'vsf-currency',
     countryCookieName: 'vsf-country',
