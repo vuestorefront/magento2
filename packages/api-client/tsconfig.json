@@ -5,5 +5,10 @@
   "files": ["typings.d.ts"],
   "compilerOptions": {
     "resolveJsonModule": true
+  },
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts", "src/api/index.ts"],
+    "out": "../../docs/api-client",
+    "plugin": "typedoc-plugin-markdown"
   }
 }

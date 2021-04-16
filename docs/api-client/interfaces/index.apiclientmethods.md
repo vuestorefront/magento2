@@ -1,31 +1,33 @@
-[@vue-storefront/magento-api](../README.md) / [Exports](../modules.md) / ApiClientMethods
+[@vue-storefront/magento-api](../README.md) / [Modules](../modules.md) / [index](../modules/index.md) / ApiClientMethods
 
 # Interface: ApiClientMethods
+
+[index](../modules/index.md).ApiClientMethods
 
 ## Table of contents
 
 ### Methods
 
-- [addConfigurableProductsToCart](apiclientmethods.md#addconfigurableproductstocart)
-- [addSimpleProductsToCart](apiclientmethods.md#addsimpleproductstocart)
-- [applyCouponToCart](apiclientmethods.md#applycoupontocart)
-- [cart](apiclientmethods.md#cart)
-- [categoryList](apiclientmethods.md#categorylist)
-- [changeCustomerPassword](apiclientmethods.md#changecustomerpassword)
-- [cmsPage](apiclientmethods.md#cmspage)
-- [createCustomer](apiclientmethods.md#createcustomer)
-- [createEmptyCart](apiclientmethods.md#createemptycart)
-- [customer](apiclientmethods.md#customer)
-- [customerCart](apiclientmethods.md#customercart)
-- [generateCustomerToken](apiclientmethods.md#generatecustomertoken)
-- [mergeCarts](apiclientmethods.md#mergecarts)
-- [products](apiclientmethods.md#products)
-- [removeItemFromCart](apiclientmethods.md#removeitemfromcart)
-- [revokeCustomerToken](apiclientmethods.md#revokecustomertoken)
-- [storeConfig](apiclientmethods.md#storeconfig)
-- [updateCartItems](apiclientmethods.md#updatecartitems)
-- [updateCustomer](apiclientmethods.md#updatecustomer)
-- [urlResolver](apiclientmethods.md#urlresolver)
+- [addConfigurableProductsToCart](index.apiclientmethods.md#addconfigurableproductstocart)
+- [addSimpleProductsToCart](index.apiclientmethods.md#addsimpleproductstocart)
+- [applyCouponToCart](index.apiclientmethods.md#applycoupontocart)
+- [cart](index.apiclientmethods.md#cart)
+- [categoryList](index.apiclientmethods.md#categorylist)
+- [changeCustomerPassword](index.apiclientmethods.md#changecustomerpassword)
+- [cmsPage](index.apiclientmethods.md#cmspage)
+- [createCustomer](index.apiclientmethods.md#createcustomer)
+- [createEmptyCart](index.apiclientmethods.md#createemptycart)
+- [customer](index.apiclientmethods.md#customer)
+- [customerCart](index.apiclientmethods.md#customercart)
+- [generateCustomerToken](index.apiclientmethods.md#generatecustomertoken)
+- [mergeCarts](index.apiclientmethods.md#mergecarts)
+- [products](index.apiclientmethods.md#products)
+- [removeItemFromCart](index.apiclientmethods.md#removeitemfromcart)
+- [revokeCustomerToken](index.apiclientmethods.md#revokecustomertoken)
+- [storeConfig](index.apiclientmethods.md#storeconfig)
+- [updateCartItems](index.apiclientmethods.md#updatecartitems)
+- [updateCustomer](index.apiclientmethods.md#updatecustomer)
+- [urlResolver](index.apiclientmethods.md#urlresolver)
 
 ## Methods
 
@@ -41,7 +43,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<AddConfigurableProductsToCartOutput\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:67](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L67)
+Defined in: [packages/api-client/src/types/index.ts:67](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L67)
 
 ___
 
@@ -57,7 +59,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<AddSimpleProductsToCartOutput\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:66](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L66)
+Defined in: [packages/api-client/src/types/index.ts:66](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L66)
 
 ___
 
@@ -73,7 +75,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<ApplyCouponToCartOutput\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:70](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L70)
+Defined in: [packages/api-client/src/types/index.ts:70](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L70)
 
 ___
 
@@ -89,7 +91,7 @@ Name | Type |
 
 **Returns:** *Promise*<ApolloQueryResult<cartQuery\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:65](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L65)
+Defined in: [packages/api-client/src/types/index.ts:65](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L65)
 
 ___
 
@@ -105,7 +107,7 @@ Name | Type |
 
 **Returns:** *Promise*<ApolloQueryResult<categoryList\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:54](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L54)
+Defined in: [packages/api-client/src/types/index.ts:54](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L54)
 
 ___
 
@@ -122,7 +124,7 @@ Name | Type |
 
 **Returns:** *Promise*<Customer\>
 
-Defined in: [packages/api-client/src/types/index.ts:76](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L76)
+Defined in: [packages/api-client/src/types/index.ts:76](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L76)
 
 ___
 
@@ -138,7 +140,7 @@ Name | Type |
 
 **Returns:** *Promise*<ApolloQueryResult<cmsPageQuery\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:63](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L63)
+Defined in: [packages/api-client/src/types/index.ts:63](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L63)
 
 ___
 
@@ -154,7 +156,7 @@ Name | Type |
 
 **Returns:** *Promise*<Customer\>
 
-Defined in: [packages/api-client/src/types/index.ts:75](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L75)
+Defined in: [packages/api-client/src/types/index.ts:75](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L75)
 
 ___
 
@@ -164,7 +166,7 @@ ___
 
 **Returns:** *Promise*<ExecutionResult<createEmptyCartMutation\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:64](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L64)
+Defined in: [packages/api-client/src/types/index.ts:64](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L64)
 
 ___
 
@@ -174,7 +176,7 @@ ___
 
 **Returns:** *Promise*<ApolloQueryResult<customerQuery\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:72](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L72)
+Defined in: [packages/api-client/src/types/index.ts:72](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L72)
 
 ___
 
@@ -184,7 +186,7 @@ ___
 
 **Returns:** *Promise*<ApolloQueryResult<cartQuery\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:74](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L74)
+Defined in: [packages/api-client/src/types/index.ts:74](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L74)
 
 ___
 
@@ -201,7 +203,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<CustomerToken\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:71](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L71)
+Defined in: [packages/api-client/src/types/index.ts:71](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L71)
 
 ___
 
@@ -218,13 +220,13 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<Cart\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:73](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L73)
+Defined in: [packages/api-client/src/types/index.ts:73](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L73)
 
 ___
 
 ### products
 
-▸ **products**(`pageSize`: *number*, `currentPage`: *number*, `queryType`: [*ProductsQueryType*](../enums/productsquerytype.md), `search?`: *string*, `filter?`: ProductAttributeFilterInput, `sort?`: ProductAttributeSortInput): *Promise*<ApolloQueryResult<Products\>\>
+▸ **products**(`pageSize`: *number*, `currentPage`: *number*, `queryType`: [*ProductsQueryType*](../enums/index.productsquerytype.md), `search?`: *string*, `filter?`: ProductAttributeFilterInput, `sort?`: ProductAttributeSortInput): *Promise*<ApolloQueryResult<Products\>\>
 
 #### Parameters:
 
@@ -232,14 +234,14 @@ Name | Type |
 :------ | :------ |
 `pageSize` | *number* |
 `currentPage` | *number* |
-`queryType` | [*ProductsQueryType*](../enums/productsquerytype.md) |
+`queryType` | [*ProductsQueryType*](../enums/index.productsquerytype.md) |
 `search?` | *string* |
 `filter?` | ProductAttributeFilterInput |
 `sort?` | ProductAttributeSortInput |
 
 **Returns:** *Promise*<ApolloQueryResult<Products\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:56](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L56)
+Defined in: [packages/api-client/src/types/index.ts:56](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L56)
 
 ___
 
@@ -255,7 +257,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<RemoveItemFromCartOutput\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:69](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L69)
+Defined in: [packages/api-client/src/types/index.ts:69](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L69)
 
 ___
 
@@ -265,7 +267,7 @@ ___
 
 **Returns:** *Promise*<boolean\>
 
-Defined in: [packages/api-client/src/types/index.ts:77](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L77)
+Defined in: [packages/api-client/src/types/index.ts:77](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L77)
 
 ___
 
@@ -275,7 +277,7 @@ ___
 
 **Returns:** *Promise*<ApolloQueryResult<storeConfigQuery\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:62](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L62)
+Defined in: [packages/api-client/src/types/index.ts:62](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L62)
 
 ___
 
@@ -291,7 +293,7 @@ Name | Type |
 
 **Returns:** *Promise*<ExecutionResult<UpdateCartItemsOutput\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:68](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L68)
+Defined in: [packages/api-client/src/types/index.ts:68](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L68)
 
 ___
 
@@ -307,7 +309,7 @@ Name | Type |
 
 **Returns:** *Promise*<Customer\>
 
-Defined in: [packages/api-client/src/types/index.ts:78](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L78)
+Defined in: [packages/api-client/src/types/index.ts:78](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L78)
 
 ___
 
@@ -323,4 +325,4 @@ Name | Type |
 
 **Returns:** *Promise*<ApolloQueryResult<EntityUrl\>\>
 
-Defined in: [packages/api-client/src/types/index.ts:55](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L55)
+Defined in: [packages/api-client/src/types/index.ts:55](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L55)

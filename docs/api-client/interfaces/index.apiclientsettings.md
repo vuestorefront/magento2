@@ -1,18 +1,20 @@
-[@vue-storefront/magento-api](../README.md) / [Exports](../modules.md) / ApiClientSettings
+[@vue-storefront/magento-api](../README.md) / [Modules](../modules.md) / [index](../modules/index.md) / ApiClientSettings
 
 # Interface: ApiClientSettings
+
+[index](../modules/index.md).ApiClientSettings
 
 ## Table of contents
 
 ### Properties
 
-- [api](apiclientsettings.md#api)
-- [defaultStore](apiclientsettings.md#defaultstore)
-- [externalCheckout](apiclientsettings.md#externalcheckout)
-- [overrides](apiclientsettings.md#overrides)
-- [storage](apiclientsettings.md#storage)
-- [tax](apiclientsettings.md#tax)
-- [websites](apiclientsettings.md#websites)
+- [api](index.apiclientsettings.md#api)
+- [defaultStore](index.apiclientsettings.md#defaultstore)
+- [externalCheckout](index.apiclientsettings.md#externalcheckout)
+- [overrides](index.apiclientsettings.md#overrides)
+- [storage](index.apiclientsettings.md#storage)
+- [tax](index.apiclientsettings.md#tax)
+- [websites](index.apiclientsettings.md#websites)
 
 ## Properties
 
@@ -26,7 +28,7 @@ Name | Type |
 :------ | :------ |
 `uri` | *string* |
 
-Defined in: [packages/api-client/src/types/index.ts:83](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L83)
+Defined in: [packages/api-client/src/types/index.ts:83](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L83)
 
 ___
 
@@ -34,7 +36,7 @@ ___
 
 • **defaultStore**: *string*
 
-Defined in: [packages/api-client/src/types/index.ts:95](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L95)
+Defined in: [packages/api-client/src/types/index.ts:95](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L95)
 
 ___
 
@@ -50,7 +52,7 @@ Name | Type |
 `enabled` | *boolean* |
 `stores` | *Record*<string, ExternalCheckoutStore\> |
 
-Defined in: [packages/api-client/src/types/index.ts:89](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L89)
+Defined in: [packages/api-client/src/types/index.ts:89](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L89)
 
 ___
 
@@ -75,7 +77,7 @@ Name | Type |
 `customerCart`? | () => *Promise*<ApolloQueryResult<cartQuery\>\> |
 `generateCustomerToken`? | (`email`: *string*, `password`: *string*) => *Promise*<ExecutionResult<CustomerToken\>\> |
 `mergeCarts`? | (`sourceCartId`: *string*, `destinationCartId`: *string*) => *Promise*<ExecutionResult<Cart\>\> |
-`products`? | (`pageSize`: *number*, `currentPage`: *number*, `queryType`: [*ProductsQueryType*](../enums/productsquerytype.md), `search?`: *string*, `filter?`: ProductAttributeFilterInput, `sort?`: ProductAttributeSortInput) => *Promise*<ApolloQueryResult<Products\>\> |
+`products`? | (`pageSize`: *number*, `currentPage`: *number*, `queryType`: [*ProductsQueryType*](../enums/index.productsquerytype.md), `search?`: *string*, `filter?`: ProductAttributeFilterInput, `sort?`: ProductAttributeSortInput) => *Promise*<ApolloQueryResult<Products\>\> |
 `removeItemFromCart`? | (`input`: RemoveItemFromCartInput) => *Promise*<ExecutionResult<RemoveItemFromCartOutput\>\> |
 `revokeCustomerToken` | () => *Promise*<boolean\> |
 `storeConfig`? | () => *Promise*<ApolloQueryResult<storeConfigQuery\>\> |
@@ -83,15 +85,15 @@ Name | Type |
 `updateCustomer`? | (`input`: CustomerInput) => *Promise*<Customer\> |
 `urlResolver`? | (`url`: *string*) => *Promise*<ApolloQueryResult<EntityUrl\>\> |
 
-Defined in: [packages/api-client/src/types/index.ts:96](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L96)
+Defined in: [packages/api-client/src/types/index.ts:96](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L96)
 
 ___
 
 ### storage
 
-• **storage**: [*Storage*](storage.md)
+• **storage**: [*Storage*](index.storage.md)
 
-Defined in: [packages/api-client/src/types/index.ts:82](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L82)
+Defined in: [packages/api-client/src/types/index.ts:82](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L82)
 
 ___
 
@@ -105,12 +107,12 @@ Name | Type |
 :------ | :------ |
 `displayCartSubtotalIncludingTax` | *boolean* |
 
-Defined in: [packages/api-client/src/types/index.ts:86](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L86)
+Defined in: [packages/api-client/src/types/index.ts:86](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L86)
 
 ___
 
 ### websites
 
-• **websites**: *Record*<string, [*Website*](../modules.md#website)\>
+• **websites**: *Record*<string, [*Website*](../modules/index.md#website)\>
 
-Defined in: [packages/api-client/src/types/index.ts:94](https://github.com/vuestorefront/magento2/blob/92b9847/packages/api-client/src/types/index.ts#L94)
+Defined in: [packages/api-client/src/types/index.ts:94](https://github.com/vuestorefront/magento2/blob/9cc19fe/packages/api-client/src/types/index.ts#L94)
