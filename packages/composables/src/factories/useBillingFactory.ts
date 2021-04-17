@@ -1,4 +1,4 @@
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger } from '@vue-storefront/core'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
 import { Ref, computed } from '@vue/composition-api';
 import { UseBilling, UseBillingErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -16,6 +16,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
     const billing: Ref<BILLING> = sharedRef(null, 'useBilling-billing');
     const _factoryParams = configureFactoryParams(factoryParams);
     const error: Ref<UseBillingErrors> = sharedRef({}, 'useBilling-error');
+    const context = generateContext(factoryParams);
 
     const load = async ({ customQuery = null } = {}) => {
       Logger.debug('useBilling.load');
@@ -23,7 +24,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
       try {
         loading.value = true;
         error.value.load = null;
-        const billingInfo = await _factoryParams.load({ customQuery });
+        const billingInfo = await factoryParams.load(context, { customQuery });
         billing.value = billingInfo;
       } catch (err) {
         error.value.load = err;
@@ -39,7 +40,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
       try {
         loading.value = true;
         error.value.save = null;
-        const billingInfo = await _factoryParams.save(saveParams);
+        const billingInfo = await factoryParams.save(context, saveParams);
         billing.value = billingInfo;
       } catch (err) {
         error.value.save = err;

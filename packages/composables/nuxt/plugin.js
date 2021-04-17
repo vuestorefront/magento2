@@ -8,7 +8,7 @@ const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 export default integrationPlugin(({ app, integration }) => {
   const settings = {
-    api: 'https://miuz.cyberfuze.com/graphql',
+    api: 'https://demo-magento2.storefrontcloud.io/graphql',
     websites: {
       base: {
         code: 'base',

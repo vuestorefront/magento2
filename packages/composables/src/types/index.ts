@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ComputedProperty, UseCategory, UseProduct} from '@vue-storefront/core';
+import { ComputedProperty, UseCategory, UseProduct, FacetSearchResult, FacetResultsData} from '@vue-storefront/core';
 import {
   ProductInterface,
   CartInterface,
@@ -188,6 +188,8 @@ export interface UseMakeOrder<ORDER> {
   error: ComputedProperty<UseMakeOrderErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export type SearchData = FacetSearchResult<FacetResultsData>
 
 
 export {

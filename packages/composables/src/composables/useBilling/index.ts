@@ -1,23 +1,34 @@
 import { Context } from '@vue-storefront/core';
 import { useBillingFactory, UseBillingParams } from '../../factories/useBillingFactory'
 import { Address } from '../../types';
+import useCart from '../useCart';
 
 let details = {};
 
 const params: UseBillingParams<Address, any> = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    provide() {
+        return {
+            cart: useCart()
+        };
+    },
+
     load: async (context: Context, { customQuery }) => {
         console.log('[Magento] loadBilling');
         if (!context.cart.cart?.value?.billing_address) {
             await context.cart.load({ customQuery });
         }
-        return context.cart.cart.value.billing_address;
+        return context.cart.cart.value.billing_address;        
     },
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     save: async (context: Context, { billingDetails, customQuery }) => {
         console.log('[Magento] setBillingAddress');
-        const { id } = context.cart.cart.value;
+        const id = context.$ma.config.state.getCartId();
+        console.log(id);
+        console.log(typeof id);
+        
+        //const { id } = context.cart.cart.value;
         const setBillingAddressOnCartResponse = await context.$ma.api.setBillingAddressOnCart({
             cart_id: id,
             billing_address: {
@@ -36,7 +47,7 @@ const params: UseBillingParams<Address, any> = {
                     */
                     ...billingDetails
                 },
-                same_as_shipping: false
+                same_as_shipping: true
             }
         });
         return setBillingAddressOnCartResponse.data.setBillingAddressOnCart.cart.billing_address;

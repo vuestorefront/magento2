@@ -27,3 +27,4 @@ export { default as setShippingAddressesOnCart } from './setShippingAddressesOnC
 export { default as setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 export { default as updateCustomerAddress } from './updateCustomerAddress';
 export { default as customerOrders } from './customerOrders'
+export { default as removeCouponFromCart } from './removeCouponFromCart';

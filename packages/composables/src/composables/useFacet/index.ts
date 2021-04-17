@@ -1,5 +1,4 @@
 import { Context, useFacetFactory, FacetSearchResult, ProductsSearchParams } from '@vue-storefront/core';
-import { CategoryFilterInput, ProductAttributeFilterInput } from '@vue-storefront/magento-api'
 
 const availableSortingOptions = [{
   value: 'name',
@@ -12,81 +11,59 @@ const availableSortingOptions = [{
   label: 'Price from high to low'
 }];
 
+const constructFilterObject = (inputFilters: Object) => {
+  const filter = {}
 
-const constructFilterObject = (obj: Object) => {
-  /*
-  return Object.entries(obj)
-    .reduce((prev, [value, options]) => {
-      if (value !== 'price') {
-        prev[value] = { in: options.map(({ value }) => value.toString()) };
-      } else {
-        const val = options[0].value.split('_');
-        prev[value] = {
-          from: decodeURIComponent(val[0].toString()),
-          to: decodeURIComponent(val[1].toString())
-        };
-      }
-      // eslint-disable-next-line camelcase,@typescript-eslint/camelcase
-      return prev;
-    }, {});
-  */
-  let filters = {};
-  console.log(Object.entries(obj));
-  for (const [key, value] of Object.entries(obj)) {
-    if(value.length === 0)
-      return;
-    if (!filters[key]) {
-      filters[key] = {
-        "in": value.join(''),
-        "scope": "catalog"
-      };
+  for (const key in inputFilters) {
+    if (key === 'price') {
+      const price = { from: 0, to: 0 };
+      const fromTo = inputFilters[key].split('-');
+      price.from = fromTo[0];
+      if (fromTo[1]) price.to = fromTo[1];
+      filter[key] = price;
+    } else if (typeof inputFilters[key] === 'string') {
+      filter[key] = { finset: [inputFilters[key]] }
     } else {
-      filters[key].in = filters[key].in + "," + value.join('');
+      filter[key] = { finset: inputFilters[key] }
     }
   }
 
-  return filters;
+  return filter;
 };
 
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
-    const itemsPerPage = params.input.itemsPerPage;
-    const categoryParams: CategoryFilterInput = {
-      filters: {
-        url_path: {
-          eq: params.input.categorySlug
-        }
-      }
-    };
+    const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
+    const inputFilters = (params.input.filters) ? params.input.filters : {};
 
-    const categoryResponse = await context.$ma.api.categoryList(
-      categoryParams.perPage,
-      categoryParams.page,
-      categoryParams.filter,
-      categoryParams.search,
-      categoryParams.sort,
-    );
-    
-    // What happen if not exsits?
-    const category = categoryResponse.data.categoryList[0];
-    const inputFilters = params.input.filters;
-    
-    const productParams: ProductAttributeFilterInput = {
+    // ref for filters 
+    // async for filters
+    // if ref for filters: don't run again.
+
+    // ref for products
+    // async for products
+
+    const productParams: ProductsSearchParams = {
       filter: {
-        category_id: {
-            eq: category.id
-        }
+        category_ids: {
+          eq: params.input.categorySlug
+        },
+        type_id: {
+          eq: 'configurable'
+        },
+        ...constructFilterObject(inputFilters)
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
-      page: params.input.page
+      page: params.input.page,
+      search: (params.input.term) ? params.input.term : ''
     };
-    
+
     const productResponse = await context.$ma.api.getProduct(
       productParams.perPage,
       productParams.page,
-      Object.assign(productParams.filter, constructFilterObject(params.input.filters)),
+      productParams.filter,
       productParams.queryType,
       productParams.search,
       productParams.sort
@@ -96,10 +73,12 @@ const factoryParams = {
       items: productResponse?.data?.products?.items || [],
       total: productResponse?.data?.products?.total_count?.value || 0,
       availableFilters: productResponse?.data?.products?.attribute_metadata,
-      category: category,
-      availableSortingOptions
+      category: { id: params.input.categorySlug },
+      availableSortingOptions,
+      perPageOptions: [10, 20, 50],
+      itemsPerPage: itemsPerPage
     };
-    
+
     return data;
   },
 };

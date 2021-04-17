@@ -1,5 +1,5 @@
 import { getCurrentInstance } from '@vue/composition-api';
-import { CategoryInterface } from '@vue-storefront/magento-api';
+import { Category } from '@vue-storefront/magento-api';
 import { AgnosticFacet } from '@vue-storefront/core';
 
 const nonFilters = ['page', 'sort', 'term', 'itemsPerPage'];
@@ -63,7 +63,7 @@ const useUiHelpers = () => {
     };
   };
 
-  const getCatLink = (category: CategoryInterface): string => {
+  const getCatLink = (category: Category): string => {
     return `/c/${category.url_path}`;
   };
 

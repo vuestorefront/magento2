@@ -7,10 +7,12 @@ import {
 } from '@vue-storefront/core';
 import { WishlistProduct } from './../../types';
 
-type Wishlist = {};
+import { WishlistOutput } from '@vue-storefront/magento-api';
+
+type Wishlist = WishlistOutput;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getWishlistItems = (wishlist: Wishlist): WishlistProduct[] => [];
+export const getWishlistItems = (wishlist: Wishlist): WishlistProduct[] => wishlist.items;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getWishlistItemName = (product: WishlistProduct): string => '';
@@ -37,7 +39,7 @@ export const getWishlistTotals = (wishlist: Wishlist): AgnosticTotals => ({ tota
 export const getWishlistShippingPrice = (wishlist: Wishlist): number => 0;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getWishlistTotalItems = (wishlist: Wishlist): number => 0;
+export const getWishlistTotalItems = (wishlist: Wishlist): number => (wishlist) ? wishlist.items_count : 0;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getFormattedPrice = (price: number): string => '';

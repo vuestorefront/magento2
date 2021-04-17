@@ -3,7 +3,6 @@
 import { useWishlistFactory, UseWishlistFactoryParams, Context } from '@vue-storefront/core';
 import { ref, Ref } from '@vue/composition-api';
 import { Product, WishlistProduct, Wishlist } from '../../types';
-import guestWishlist from './guest';
 
 import useUser from '../useUser';
 
@@ -19,13 +18,14 @@ const params: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
 
   load: async (context: Context) => {
     // is user authincated.
-    if(context.user.user.value) {
+    const apiState = context.$ma.config.state;
+
+    if (apiState.getCustomerToken()) {
       const result = await context.$ma.api.wishlist();
-      return result.data.wishlist.items;
+      return result.data.wishlist;
     }
 
-    // return guest wishlist
-    return guestWishlist.load();
+    return [];
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addItem: async ({ currentWishlist, product }) => {

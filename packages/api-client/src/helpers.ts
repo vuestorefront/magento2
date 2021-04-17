@@ -31,7 +31,7 @@ const onSetup = (settings: Config): {
   if (settings.customOptions && settings.customOptions.link) {
     return {
       client: new ApolloClient({
-        cache: new InMemoryCache(), ...settings.customOptions
+        cache: new InMemoryCache({ addTypename: false }), ...settings.customOptions
       }),
       config
     };

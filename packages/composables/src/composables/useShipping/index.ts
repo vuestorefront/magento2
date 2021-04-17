@@ -23,6 +23,7 @@ const params: UseShippingParams<Address, any> = {
   // @TODO check for types
   save: async (context: Context, { shippingDetails, customQuery }) => {
     console.log('[Magento] setShippingAddress');
+    console.log(context);
     const { id } = context.cart.cart.value;
     const setShippingAddressesOnCartResponse = await context.$ma.api.setShippingAddressesOnCart({
       cart_id: id,

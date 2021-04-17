@@ -70,7 +70,7 @@ const createMagentoConnection = (settings: Config): ApolloClient<any> => {
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData
   });
-  const cache = new InMemoryCache({ fragmentMatcher });
+  const cache = new InMemoryCache({ addTypename: false, fragmentMatcher });
   return new ApolloClient({
     cache,
     link

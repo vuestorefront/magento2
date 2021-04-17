@@ -7,8 +7,8 @@ import {
 } from '@vue-storefront/core';
 
 import { 
-  CategoryInterface as Category,
-  ProductInterface as Product 
+  Category,
+  Product 
 } from '@vue-storefront/magento-api';
 
 import categoryGetters from './categoryGetters';
@@ -91,15 +91,11 @@ export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductCoverImage = (product: Product): string => {
-  if (!product) {
+  if (!product || !product.image) {
     return null;
   }
 
-  if (!product.small_image) {
-    return '';
-  }
-
-  return product.small_image.url;
+  return product.image.url;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -128,6 +124,7 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
   }
   return attributes;
 };
+
 
 export const getProductDescription = (product: Product): string => {
   if (!product || !product.description) {

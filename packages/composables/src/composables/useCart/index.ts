@@ -39,11 +39,24 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       return await params.load(context, {});
     }
   },
-  addItem: async (context: Context, { currentCart, product, quantity }) => {
+  addItem: async (context: Context, { product, quantity }) => {
+    const apiState = context.$ma.config.state;
+    let currentCartId = apiState.getCartId();
+
+    if (!currentCartId) {
+      await params.load(context, {});
+      currentCartId = apiState.getCartId();
+    }
+
+    if(!product) {
+      return;
+    }
+    
+    product.type_id = 'simple';
     switch (product.type_id) {
       case 'simple':
         const response = await context.$ma.api.addSimpleProductsToCart({
-          cart_id: currentCart.id,
+          cart_id: currentCartId,
           cart_items: [
             {
               data: {
@@ -56,7 +69,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         return response.data.addSimpleProductsToCart.cart;
       case 'configurable':
         const configurableResponse = await context.$ma.api.addConfigurableProductsToCart({
-          cart_id: currentCart.id,
+          cart_id: currentCartId,
           cart_items: [
             {
               parent_sku: product.sku,
@@ -75,10 +88,17 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     }
   },
   removeItem: async (context: Context, { currentCart, product }) => {
+    // @TODO, why i can't just get the item??
+    const item = currentCart.items.find((item) => item.product.id === product.id);
+    if (!item) {
+      return;
+    }
+
     const response = await context.$ma.api.removeItemFromCart({
       cart_id: currentCart.id,
-      cart_item_id: product.id
+      cart_item_id: item.id
     });
+    
     return response.data.removeItemFromCart.cart;
   },
   updateItemQty: async (context: Context, { currentCart, product, quantity }) => {
@@ -91,7 +111,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         }
       ]
     });
-    return response.data.updateCartItems.cart;
+    return {updatedCart: response.data.updateCartItems.cart};
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
@@ -107,17 +127,27 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     return {updatedCart: response.data.applyCouponToCart.cart, updatedCoupon: { code: couponCode }};
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeCoupon: async (context: Context, { currentCart }) => {
+  removeCoupon: async (context: Context, { currentCart, coupon }) => {
     const response = await context.$ma.api.removeCouponFromCart({
       cart_id: currentCart.id,
     });
 
-    return { updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: { code: ''}};
+    return {updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: {code: ''}};
   },
+
+  /*
+  applyManzana: async(context: Context, { currentCart, loyaltyNumber }) => {
+    const response = await context.$ma.api.applyManzanaOnCart({
+      cart_id: currentCart.id,
+      coupon_code: loyaltyNumber
+    });
+
+    return { updatedCart: response.data.applyCouponToCart.cart, updatedCoupon: { code: loyaltyNumber } };
+  },
+  */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isOnCart: (context: Context, { currentCart, product }) => {
-    // @TODO: Check if this is the format.
-    return currentCart.items.find((item) => item.id === product.id);
+    return currentCart.items.find((item) => item.product.id === product.id);
   }
 };
 

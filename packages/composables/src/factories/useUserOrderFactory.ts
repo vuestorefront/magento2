@@ -1,5 +1,5 @@
 import { Ref, computed } from '@vue/composition-api';
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger } from '@vue-storefront/core'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
 import { UseUserOrder, UseUserOrderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
 
@@ -13,6 +13,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
     const loading: Ref<boolean> = sharedRef(false, 'useUserOrder-loading');
     const _factoryParams = configureFactoryParams(factoryParams);
     const error: Ref<UseUserOrderErrors> = sharedRef({}, 'useUserOrder-error');
+    const context = generateContext(factoryParams);
 
     const search = async (searchParams): Promise<void> => {
       Logger.debug('useUserOrder.search', searchParams);
@@ -20,7 +21,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
       try {
         loading.value = true;
         error.value.search = null;
-        orders.value = await _factoryParams.searchOrders(searchParams);
+        orders.value = await factoryParams.searchOrders(context, searchParams);
       } catch (err) {
         error.value.search = err;
         Logger.error('useUserOrder/search', err);

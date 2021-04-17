@@ -571,7 +571,7 @@ export type createEmptyCartMutation = {
 };
 
 export type Cart = {
-  applied_coupons: [AppliedCoupon]
+  applied_coupons: AppliedCoupon[]
   available_payment_methods: [AvailablePaymentMethod]
   billing_address: BillingCartAddress
   email: string
@@ -676,7 +676,7 @@ type CartItemPrices = {
   total_item_discount: Money
 }
 
-type Discount = {
+export type Discount = {
   amount: Money
   label: string
 }

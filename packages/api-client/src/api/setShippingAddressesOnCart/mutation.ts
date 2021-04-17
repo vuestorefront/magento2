@@ -1,11 +1,21 @@
 import gql from 'graphql-tag';
-import { cartFragment } from '../../fragments';
 
 export default gql`
-  mutation setShippingMethodsOnCart($input: SetShippingMethodsOnCartInput) {
-      setShippingMethodsOnCart(input: $input) {
+  mutation setShippingAddressesOnCart($input: setShippingAddressesOnCartInput) {
+      setShippingAddressesOnCart(input: $input) {
           cart {
-              ${cartFragment}
+            shipping_addresses {
+              selected_shipping_method {
+                carrier_code
+                carrier_title
+                method_code
+                method_title
+                amount {
+                  value
+                  currency
+                }
+              }
+            }
           }
       }
   }

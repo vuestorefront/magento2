@@ -1,4 +1,4 @@
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger } from '@vue-storefront/core'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
 import { Ref, computed } from '@vue/composition-api';
 import { UseShippingProvider, UseShippingProviderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -16,6 +16,7 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
     const state: Ref<STATE> = sharedRef(null, 'useShippingProvider-response');
     const _factoryParams = configureFactoryParams(factoryParams);
     const error: Ref<UseShippingProviderErrors> = sharedRef({}, 'useShippingProvider-error');
+    const context = generateContext(factoryParams);
 
     const setState = (newState: STATE) => {
       state.value = newState;
@@ -28,7 +29,7 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
       try {
         loading.value = true;
         error.value.save = null;
-        state.value = await _factoryParams.save({ shippingMethod, customQuery, state });
+        state.value = await factoryParams.save(context, { shippingMethod, customQuery, state });
       } catch (err) {
         error.value.save = err;
         Logger.error('useShippingProvider/save', err);
@@ -43,7 +44,7 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
       try {
         loading.value = true;
         error.value.load = null;
-        state.value = await _factoryParams.load({ customQuery, state });
+        state.value = await factoryParams.load(context, { customQuery, state });
       } catch (err) {
         error.value.load = err;
         Logger.error('useShippingProvider/load', err);
