@@ -10,11 +10,11 @@ const generateCustomerToken = async ({ client }, email: string, password: string
       email,
       password
     },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: 'no-cache'
   });
 
   return response;
-  //return response.data.changeCustomerPassword;
+  // return response.data.changeCustomerPassword;
 };
 
 export default generateCustomerToken;

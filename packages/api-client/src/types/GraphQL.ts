@@ -1,5 +1,5 @@
-import exp from "constants";
-import { cart } from "../api";
+import exp from 'constants';
+import { cart } from '../api';
 
 /* Category */
 export type categoryList = [CategoryTree]
@@ -598,26 +598,26 @@ type BillingCartAddress = CartAddressInterface;
 export type SelectedShippingMethod = {
   amount: Money,
   base_amount: Money,
-  carrier_code: String,
-  carrier_title: String,
-  method_code: String,
-  method_title: String
+  carrier_code: string,
+  carrier_title: string,
+  method_code: string,
+  method_title: string
 }
 
 type CartItemQuantity = {
-  cart_item_id: Number,
-  quantity: Number
+  cart_item_id: number,
+  quantity: number
 }
 
 type AvailableShippingMethod = {
   amount: Money,
-  available: Boolean,
+  available: boolean,
   base_amount: Money,
-  carrier_code: String,
-  carrier_title: String,
-  error_message: String,
-  method_code: String,
-  method_title: String,
+  carrier_code: string,
+  carrier_title: string,
+  error_message: string,
+  method_code: string,
+  method_title: string,
   price_excl_tax: Money,
   price_incl_tax: Money
 }
@@ -626,9 +626,9 @@ type ShippingCartAddress = {
   available_shipping_methods: [AvailableShippingMethod],
   cart_items: [CartItemQuantity],
   cart_items_v2: CartItemInterface,
-  items_weight: Number,
+  items_weight: number,
   selected_shipping_method: SelectedShippingMethod,
-  pickup_location_code: String
+  pickup_location_code: string
 }
 
 interface CartAddressInterface {
@@ -656,8 +656,8 @@ type CartAddressRegion = {
 // CUSTOM
 type CustNote = {
   amount: Money,
-  customer_note: String,
-  font: String
+  customer_note: string,
+  font: string
 }
 
 export interface CartItemInterface {
@@ -817,12 +817,12 @@ export type customerQuery = {
 }
 
 type CustomerOrder = {
-  created_at: String,
-  grand_total: Number,
-  id: Number,
-  increment_id: String,
-  order_number: String,
-  status: String
+  created_at: string,
+  grand_total: number,
+  id: number,
+  increment_id: string,
+  order_number: string,
+  status: string
 }
 
 export type customerOrdersQuery = {
@@ -838,7 +838,7 @@ export type Customer = {
   email: string
   firstname: string
   gender: number
-  is_subscribed: Boolean
+  is_subscribed: boolean
   lastname: string
   middlename: string
   prefix: string
@@ -851,8 +851,8 @@ export type CustomerAddress = {
   city: string
   company: string
   country_code: CountryCodeEnum
-  default_billing: Boolean
-  default_shipping: Boolean
+  default_billing: boolean
+  default_shipping: boolean
   extension_attributes: [CustomerAddressAttribute]
   fax: string
   firstname: string
@@ -1191,39 +1191,38 @@ type CustomerAddressRegionInput = {
 }
 
 export type CustomerAddressInput = {
-  city: String
-  company: String
+  city: string
+  company: string
   country_code: CountryCodeEnum
   country_id: CountryCodeEnum
   custom_attributes: [CustomerAddressAttributeInput]
-  default_billing: Boolean
-  default_shipping: Boolean
-  fax: String
-  firstname: String
-  lastname: String
-  middlename: String
-  postcode: String
-  prefix: String
+  default_billing: boolean
+  default_shipping: boolean
+  fax: string
+  firstname: string
+  lastname: string
+  middlename: string
+  postcode: string
+  prefix: string
   region: CustomerAddressRegionInput
-  street: [String]
-  suffix: String
-  telephone: String
-  vat_id: String
+  street: [string]
+  suffix: string
+  telephone: string
+  vat_id: string
 }
-
 
 /* SetBillingAddressOnCart*/
 type CartAddressInput = {
   city: string,
   company: string,
-  country_code: String
-  firstname: String
-  lastname: String
-  postcode: String
-  region: String
+  country_code: string
+  firstname: string
+  lastname: string
+  postcode: string
+  region: string
   save_in_address_book: boolean
-  street: [String],
-  telephone: String
+  street: [string],
+  telephone: string
 }
 
 type BillingAddressInput = {
@@ -1242,16 +1241,16 @@ export type SetBillingAddressOnCartOutput = {
   cart: CartItemPrices
 }
 
-/*SetShippingAddressesOnCart*/
+/* SetShippingAddressesOnCart*/
 type ShippingAddressInput = {
   address: CartAddressInput,
   customer_address_id: number,
-  customer_notes: String,
-  pickup_location_code: String
+  customer_notes: string,
+  pickup_location_code: string
 }
 
 export type SetShippingAddressesOnCartInput = {
-  cart_id: String,
+  cart_id: string,
   shipping_addresses: ShippingAddressInput
 }
 
@@ -1259,34 +1258,34 @@ export type SetShippingAddressesOnCartOutput = {
   cart: Cart
 }
 
-/*SetGuestEmailOnCart*/
+/* SetGuestEmailOnCart*/
 export type SetGuestEmailOnCartInput = {
-   cart_id: String,
-   email: String
+   cart_id: string,
+   email: string
 }
 
 export type SetGuestEmailOnCartOutput = {
   cart: Cart
 }
 
-/*PlaceOrder*/
+/* PlaceOrder*/
 export type PlaceOrderInput = {
-  cart_id: String,
-  delivery_date: String
+  cart_id: string,
+  delivery_date: string
 }
 
 export type PlaceOrderOutput = {
   order: Order
 }
 
-/*SetShippingMethodsOnCart*/
+/* SetShippingMethodsOnCart*/
 type ShippingMethodInput = {
   carrier_code: string,
   method_code: string
 }
 
 export type SetShippingMethodsOnCartInput = {
-  cart_id: String,
+  cart_id: string,
   shipping_methods: ShippingMethodInput
 }
 

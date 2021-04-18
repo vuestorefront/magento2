@@ -8,7 +8,7 @@ const onSetup = (settings: Config): {
   client: ApolloClient<any>
 } => {
   const defaultSettings = {
-    api: "https://demo.site-builder.app/graphql",
+    api: 'https://demo.site-builder.app/graphql',
     tax: {
       displayCartSubtotalIncludingTax: true
     },

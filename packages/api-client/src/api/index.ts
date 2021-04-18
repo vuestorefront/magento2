@@ -26,5 +26,5 @@ export { default as setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 export { default as setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 export { default as setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 export { default as updateCustomerAddress } from './updateCustomerAddress';
-export { default as customerOrders } from './customerOrders'
+export { default as customerOrders } from './customerOrders';
 export { default as removeCouponFromCart } from './removeCouponFromCart';

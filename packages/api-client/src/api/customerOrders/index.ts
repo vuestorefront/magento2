@@ -6,7 +6,7 @@ const orders = async ({ client }): Promise<ApolloQueryResult<customerOrdersQuery
   return await client.query({
     query,
     fetchPolicy: 'no-cache'
-  })
+  });
 };
 
 export default orders;

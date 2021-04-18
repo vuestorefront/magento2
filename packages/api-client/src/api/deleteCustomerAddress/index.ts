@@ -1,7 +1,7 @@
 import DeleteCustomerAddress from './mutation';
 import { ExecutionResult } from 'graphql';
 
-const deleteCustomerAddress = async ({ client }, input: {id: Number}): Promise<ExecutionResult<Boolean>> => {
+const deleteCustomerAddress = async ({ client }, input: {id: number}): Promise<ExecutionResult<boolean>> => {
   return await client.mutate({
     mutation: DeleteCustomerAddress,
     variables: { input }
