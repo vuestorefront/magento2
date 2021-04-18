@@ -33,11 +33,11 @@ import {ApolloQueryResult} from 'apollo-client';
 import {ExecutionResult} from 'graphql';
 
 export type Cart = CartInterface;
-export type Wishlist = {}
+export type Wishlist = Record<string, any>
 export type Product = ProductInterface;
 export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput
-export type ShippingMethod = {}
+export type ShippingMethod = Record<string, any>
 export type CartItem = CartItemInterface;
 export type Coupon = AppliedCoupon;
 export type Customer = CustomerInterface;
