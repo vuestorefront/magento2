@@ -4,7 +4,7 @@ import useUser from '../useUser';
 const params: UseUserShippingFactoryParams<any, any> = {
   provide() {
     return {
-      user: useUser(),
+      user: useUser()
     };
   },
   addAddress: async (context: Context, params?) => {
@@ -15,11 +15,11 @@ const params: UseUserShippingFactoryParams<any, any> = {
 
   deleteAddress: async (context: Context, params?) => {
     console.log('[Magento] deleteAddress', params);
-    const response = await context.$ma.api.deleteCustomerAddress(params.address.id)
+    const response = await context.$ma.api.deleteCustomerAddress(params.address.id);
 
-    //if (indexToRemove < 0) {
-      //return Promise.reject('This address does not exist');
-    //}
+    // if (indexToRemove < 0) {
+    // return Promise.reject('This address does not exist');
+    // }
 
     // true ? false?
     return Promise.resolve(response.data.deleteCustomerAddress);
@@ -35,14 +35,15 @@ const params: UseUserShippingFactoryParams<any, any> = {
   load: async (context: Context, params?) => {
     console.log('[Magento] load address');
     if (!context.user.user?.value?.id) {
-        await context.user.load();
+      await context.user.load();
     }
     return Promise.resolve(context.user.user?.value);
   },
 
   setDefaultAddress: async (context: Context, params?) => {
     console.log('[Magento] setDefaultAddress');
-    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id, input: {
+    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id,
+      input: {
         ...params.address,
         default_shipping: true
       }

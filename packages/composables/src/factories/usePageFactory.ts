@@ -3,7 +3,7 @@ import { Ref, computed } from '@vue/composition-api';
 import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
 export interface UsePageFactoryParams<PAGE> {
-    loadPage: (context: Context, identifer: string) => Promise<PAGE>;
+  loadPage: (context: Context, identifer: string) => Promise<PAGE>;
 }
 
 export function usePageFactory<PAGE>(

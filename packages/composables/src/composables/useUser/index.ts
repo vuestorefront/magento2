@@ -7,7 +7,7 @@ import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
 const params: UseUserFactoryParams<User, any, any> = {
   load: async (context: Context, parameters) => {
     const apiState = context.$ma.config.state;
-    
+
     if (!apiState.getCustomerToken()) {
       return null;
     }
@@ -17,7 +17,7 @@ const params: UseUserFactoryParams<User, any, any> = {
     } catch (e) {
       params.logOut(context, parameters);
     }
-    
+
     return null;
   },
   logOut: async (context: Context) => {

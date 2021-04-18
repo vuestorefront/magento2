@@ -5,7 +5,7 @@ import {
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
-  AgnosticFacet,
+  AgnosticFacet
 } from '@vue-storefront/core';
 
 import {
@@ -13,24 +13,32 @@ import {
   buildFacets,
   reduceForGroupedFacets,
   reduceForFacets
-} from '../../composables/useFacet/_utils'
+} from '../../composables/useFacet/_utils';
 
 import {
   SearchData
-} from '../../types'
+} from '../../types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);
 
 const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] =>
-  buildFacets(searchData, reduceForGroupedFacets, criteria).filter((facet) => facet.options.length > 0);
+  buildFacets(searchData, reduceForGroupedFacets, criteria)
+    .filter((facet) => facet.options.length > 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSortOptions = (searchData): AgnosticSort => {
-  if (!searchData || !searchData.data || !searchData.data.availableSortingOptions)
-    return { options: [], selected: '' } as AgnosticSort;
+  if (!searchData || !searchData.data || !searchData.data.availableSortingOptions) {
+    return {
+      options: [],
+      selected: ''
+    } as AgnosticSort;
+  }
 
-  return { options: searchData.data.availableSortingOptions, selected: searchData.input.sort };
+  return {
+    options: searchData.data.availableSortingOptions,
+    selected: searchData.input.sort
+  };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -40,7 +48,7 @@ const getCategoryTree = (searchData): AgnosticCategoryTree => {
       label: category.name,
       slug: category.url_path,
       items: (category.children) ? category.children.map(buildTree) : [],
-      isCurrent: (category.name === searchData.data.category.name) ? true : false
+      isCurrent: (category.name === searchData.data.category.name)
     };
   };
 
@@ -53,8 +61,9 @@ const getCategoryTree = (searchData): AgnosticCategoryTree => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getProducts = (searchData): any => {
-  if (!searchData || !searchData.data || !searchData.data.items)
+  if (!searchData || !searchData.data || !searchData.data.items) {
     return [];
+  }
   return searchData.data.items;
 };
 

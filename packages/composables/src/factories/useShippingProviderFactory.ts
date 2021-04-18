@@ -1,4 +1,4 @@
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core';
 import { Ref, computed } from '@vue/composition-api';
 import { UseShippingProvider, UseShippingProviderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -11,7 +11,7 @@ export interface UseShippingProviderParams<STATE, SHIPPING_METHOD> extends Facto
 export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
   factoryParams: UseShippingProviderParams<STATE, SHIPPING_METHOD>
 ) => {
-  return function useShippingProvider (): UseShippingProvider<STATE, SHIPPING_METHOD> {
+  return function useShippingProvider(): UseShippingProvider<STATE, SHIPPING_METHOD> {
     const loading: Ref<boolean> = sharedRef(false, 'useShippingProvider-loading');
     const state: Ref<STATE> = sharedRef(null, 'useShippingProvider-response');
     const _factoryParams = configureFactoryParams(factoryParams);
@@ -23,13 +23,21 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
       Logger.debug('useShippingProvider.setState', newState);
     };
 
-    const save = async ({ shippingMethod, customQuery = null }) => {
+    const save = async ({
+      shippingMethod,
+      customQuery = null
+    }) => {
       Logger.debug('useShippingProvider.save');
 
       try {
         loading.value = true;
         error.value.save = null;
-        state.value = await factoryParams.save(context, { shippingMethod, customQuery, state });
+        state.value = await factoryParams.save(context,
+          {
+            shippingMethod,
+            customQuery,
+            state
+          });
       } catch (err) {
         error.value.save = err;
         Logger.error('useShippingProvider/save', err);
@@ -44,7 +52,11 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
       try {
         loading.value = true;
         error.value.load = null;
-        state.value = await factoryParams.load(context, { customQuery, state });
+        state.value = await factoryParams.load(context,
+          {
+            customQuery,
+            state
+          });
       } catch (err) {
         error.value.load = err;
         Logger.error('useShippingProvider/load', err);

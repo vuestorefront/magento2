@@ -1,68 +1,28 @@
 /* istanbul ignore file */
-
-import useCategory from './composables/useCategory';
-import useProduct from './composables/useProduct';
-import useCart from './composables/useCart';
-import useCheckout from './composables/useCheckout';
-import useUser from './composables/useUser';
-import useUserOrder from './composables/useUserOrder';
-import usePage from './composables/usePage';
-import useWishlist from './composables/useWishlist';
-import useRouter from './composables/useRouter';
-import useConfig from './composables/useConfig';
-import useBilling from './composables/useBilling';
-import useUserBilling from './composables/useUserBilling';
-import useShipping from './composables/useShipping';
-import useShippingProvider from './composables/useShippingProvider';
-import useMakeOrder from './composables/useMakeOrder';
-import useFacet from './composables/useFacet';
-import useUserShipping from './composables/useUserShipping';
+export {default as useCategory } from './composables/useCategory';
+export {default as useProduct } from './composables/useProduct';
+export {default as useCart } from './composables/useCart';
+export {default as useCheckout } from './composables/useCheckout';
+export {default as useUser } from './composables/useUser';
+export {default as useUserOrder } from './composables/useUserOrder';
+export {default as usePage } from './composables/usePage';
+export {default as useWishlist } from './composables/useWishlist';
+export {default as useRouter } from './composables/useRouter';
+export {default as useConfig } from './composables/useConfig';
+export {default as useBilling } from './composables/useBilling';
+export {default as useUserBilling } from './composables/useUserBilling';
+export {default as useShipping } from './composables/useShipping';
+export {default as useShippingProvider } from './composables/useShippingProvider';
+export {default as useMakeOrder } from './composables/useMakeOrder';
+export {default as useFacet } from './composables/useFacet';
+export {default as useUserShipping } from './composables/useUserShipping';
+export * from './composables/getters';
 
 import { createApiClient } from '@vue-storefront/magento-api';
 import { integrationPluginFactory } from '@vue-storefront/core';
 
 const integrationPlugin = integrationPluginFactory(createApiClient);
 
-import {
-  cartGetters,
-  categoryGetters,
-  checkoutGetters,
-  productGetters,
-  userGetters,
-  orderGetters,
-  wishlistGetters,
-  facetGetters,
-  userShippingGetters,
-  userBillingGetters
-} from './composables/getters';
-
 export {
-  useCategory,
-  useProduct,
-  useCart,
-  useCheckout,
-  useUser,
-  useUserOrder,
-  usePage,
-  useWishlist,
-  useRouter,
-  useConfig,
-  useBilling,
-  useUserBilling,
-  useShipping,
-  useShippingProvider,
-  useMakeOrder,
-  useFacet,
-  useUserShipping,
-  cartGetters,
-  categoryGetters,
-  checkoutGetters,
-  productGetters,
-  userGetters,
-  orderGetters,
-  wishlistGetters,
-  facetGetters,
-  userShippingGetters,
-  userBillingGetters,
   integrationPlugin
 };

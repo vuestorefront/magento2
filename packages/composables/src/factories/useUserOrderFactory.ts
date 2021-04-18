@@ -1,5 +1,12 @@
 import { Ref, computed } from '@vue/composition-api';
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
+import {
+  Context,
+  CustomQuery,
+  FactoryParams,
+  generateContext,
+  Logger,
+  sharedRef
+} from '@vue-storefront/core';
 import { UseUserOrder, UseUserOrderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
 

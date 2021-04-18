@@ -4,7 +4,7 @@ import { Context } from '@vue-storefront/core';
 import {
   useUserOrderFactory,
   UseUserOrderFactoryParams
-} from '../../factories/useUserOrderFactory'
+} from '../../factories/useUserOrderFactory';
 import { OrderSearchParams } from '../../types';
 import { CustomerOrder } from '../../../../api-client';
 import useUser from '../useUser';
@@ -28,6 +28,4 @@ const params: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParams> = {
 };
 
 export default useUserOrderFactory<CustomerOrder[], OrderSearchParams>(params);
-
-
 

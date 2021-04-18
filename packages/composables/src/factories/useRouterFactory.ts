@@ -3,7 +3,7 @@ import { Ref, computed } from '@vue/composition-api';
 import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
 export interface UseRouterFactoryParams<ROUTER> {
-    search: (context: Context, url: string) => Promise<ROUTER>;
+  search: (context: Context, url: string) => Promise<ROUTER>;
 }
 
 export function useRouterFactory<ROUTER>(

@@ -20,7 +20,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         return await params.load(context, {});
       }
     }
-    
+
     // if guest user have a cart ID
     let cartId = apiState.getCartId();
 
@@ -32,7 +32,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     try {
       const cartResponse = await context.$ma.api.cart(cartId);
-      //console.log(cartResponse);
+      // console.log(cartResponse);
       return cartResponse.data.cart;
     } catch (e) {
       apiState.setCartId(null);
@@ -48,10 +48,10 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       currentCartId = apiState.getCartId();
     }
 
-    if(!product) {
+    if (!product) {
       return;
     }
-    
+
     product.type_id = 'simple';
     switch (product.type_id) {
       case 'simple':
@@ -98,7 +98,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       cart_id: currentCart.id,
       cart_item_id: item.id
     });
-    
+
     return response.data.removeItemFromCart.cart;
   },
   updateItemQty: async (context: Context, { currentCart, product, quantity }) => {
@@ -129,7 +129,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeCoupon: async (context: Context, { currentCart, coupon }) => {
     const response = await context.$ma.api.removeCouponFromCart({
-      cart_id: currentCart.id,
+      cart_id: currentCart.id
     });
 
     return {updatedCart: response.data.removeCouponFromCart.cart, updatedCoupon: {code: ''}};

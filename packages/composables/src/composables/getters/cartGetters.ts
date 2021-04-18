@@ -1,5 +1,5 @@
 import { CartGetters, AgnosticPrice, AgnosticTotals, AgnosticAttribute, AgnosticCoupon, AgnosticDiscount } from '@vue-storefront/core';
-import { CartItem, } from '../../types';
+import { CartItem } from '../../types';
 import { Discount, Cart } from '../../../../api-client/src/types/GraphQL';
 import productGetters from './productGetters';
 // import { settings } from '@vue-storefront/magento-api';
@@ -30,7 +30,7 @@ export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
     return {
       regular: 0,
       special: 0
-    }
+    };
   }
 
   const data = {
@@ -38,10 +38,10 @@ export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
     special: product.product?.price_range?.minimum_price?.final_price?.value || 0,
     credit: Math.round(product.product?.price_range?.minimum_price?.final_price?.value / 10),
     installment: Math.round(product.product?.price_range?.minimum_price?.final_price?.value * 1.1046 / 10),
-    discountPercentage: 100 - Math.round(product.product?.price_range?.minimum_price?.final_price?.value / product.product?.regular_price * 100), 
+    discountPercentage: 100 - Math.round(product.product?.price_range?.minimum_price?.final_price?.value / product.product?.regular_price * 100),
     total: product.prices?.row_total?.value
   };
-//
+  //
   return data;
 };
 
@@ -68,13 +68,13 @@ export const getCartItemSku = (product: CartItem): string => {
 };
 
 const calculateDiscounts = (discounts: Discount[]): number => {
-  return discounts.reduce((a, b) => +a + b.amount.value, 0);
+  return discounts.reduce((a, b) => Number(a) + b.amount.value, 0);
 };
 
 export const getCartTotals = (cart: Cart): AgnosticTotals => {
-  if(!cart || !cart.prices)
+  if (!cart || !cart.prices)
     return {} as AgnosticTotals;
-  
+
   return {
     total: cart.prices.grand_total.value,
     subtotal: cart.prices.subtotal_including_tax.value,

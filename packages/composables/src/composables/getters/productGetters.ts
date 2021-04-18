@@ -6,9 +6,9 @@ import {
   ProductGetters
 } from '@vue-storefront/core';
 
-import { 
+import {
   Category,
-  Product 
+  Product
 } from '@vue-storefront/magento-api';
 
 import categoryGetters from './categoryGetters';
@@ -116,7 +116,7 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
       name: option.attribute_code,
       label: option.label,
       value: option.values.map((value) => {
-        let obj = {};
+        const obj = {};
         obj[value.value_index] = value.value_label;
         return obj;
       })
@@ -124,7 +124,6 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
   }
   return attributes;
 };
-
 
 export const getProductDescription = (product: Product): string => {
   if (!product || !product.description) {
@@ -235,7 +234,7 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getWishlistState: getProductWishlistState,
 
   getTotalReviews: getProductTotalReviews,
-  getAverageRating: getProductAverageRating,
+  getAverageRating: getProductAverageRating
 };
 
 export default productGetters;

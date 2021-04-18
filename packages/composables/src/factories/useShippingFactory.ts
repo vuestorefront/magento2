@@ -1,7 +1,7 @@
 import { UseShipping, UseShippingErrors } from '../types';
 import { Ref, computed } from '@vue/composition-api';
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
-import { configureFactoryParams } from '../utils'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core';
+import { configureFactoryParams } from '../utils';
 
 export interface UseShippingParams<SHIPPING, SHIPPING_PARAMS> extends FactoryParams {
   load: (context: Context, params: { customQuery?: CustomQuery }) => Promise<SHIPPING>;
@@ -11,7 +11,7 @@ export interface UseShippingParams<SHIPPING, SHIPPING_PARAMS> extends FactoryPar
 export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
   factoryParams: UseShippingParams<SHIPPING, SHIPPING_PARAMS>
 ) => {
-  return function useShipping (): UseShipping<SHIPPING, SHIPPING_PARAMS> {
+  return function useShipping(): UseShipping<SHIPPING, SHIPPING_PARAMS> {
     const loading: Ref<boolean> = sharedRef(false, 'useShipping-loading');
     const shipping: Ref<SHIPPING> = sharedRef(null, 'useShipping-shipping');
     const _factoryParams = configureFactoryParams(factoryParams);

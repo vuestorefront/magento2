@@ -1,4 +1,4 @@
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core'
+import { CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext } from '@vue-storefront/core';
 import { Ref, computed } from '@vue/composition-api';
 import { UseBilling, UseBillingErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -11,7 +11,7 @@ export interface UseBillingParams<BILLING, BILLING_PARAMS> extends FactoryParams
 export const useBillingFactory = <BILLING, BILLING_PARAMS>(
   factoryParams: UseBillingParams<BILLING, BILLING_PARAMS>
 ) => {
-  return function useBilling (): UseBilling<BILLING, BILLING_PARAMS> {
+  return function useBilling(): UseBilling<BILLING, BILLING_PARAMS> {
     const loading: Ref<boolean> = sharedRef(false, 'useBilling-loading');
     const billing: Ref<BILLING> = sharedRef(null, 'useBilling-billing');
     const _factoryParams = configureFactoryParams(factoryParams);

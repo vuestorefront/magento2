@@ -12,7 +12,7 @@ const availableSortingOptions = [{
 }];
 
 const constructFilterObject = (inputFilters: Object) => {
-  const filter = {}
+  const filter = {};
 
   for (const key in inputFilters) {
     if (key === 'price') {
@@ -22,9 +22,9 @@ const constructFilterObject = (inputFilters: Object) => {
       if (fromTo[1]) price.to = fromTo[1];
       filter[key] = price;
     } else if (typeof inputFilters[key] === 'string') {
-      filter[key] = { finset: [inputFilters[key]] }
+      filter[key] = { finset: [inputFilters[key]] };
     } else {
-      filter[key] = { finset: inputFilters[key] }
+      filter[key] = { finset: inputFilters[key] };
     }
   }
 
@@ -37,7 +37,7 @@ const factoryParams = {
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
 
-    // ref for filters 
+    // ref for filters
     // async for filters
     // if ref for filters: don't run again.
 
@@ -80,7 +80,7 @@ const factoryParams = {
     };
 
     return data;
-  },
+  }
 };
 
 export default useFacetFactory<any>(factoryParams);

@@ -9,7 +9,7 @@ import useUser from '../useUser';
 const params: UseUserBillingFactoryParams<any, any> = {
   provide() {
     return {
-      user: useUser(),
+      user: useUser()
     };
   },
   addAddress: async (context: Context, params?) => {
@@ -20,11 +20,11 @@ const params: UseUserBillingFactoryParams<any, any> = {
 
   deleteAddress: async (context: Context, params?) => {
     console.log('[Magento] deleteAddress', params);
-    const response = await context.$ma.api.deleteCustomerAddress(params.address.id)
+    const response = await context.$ma.api.deleteCustomerAddress(params.address.id);
 
-    //if (indexToRemove < 0) {
-    //return Promise.reject('This address does not exist');
-    //}
+    // if (indexToRemove < 0) {
+    // return Promise.reject('This address does not exist');
+    // }
 
     // true ? false?
     return Promise.resolve(response.data.deleteCustomerAddress);
@@ -48,7 +48,8 @@ const params: UseUserBillingFactoryParams<any, any> = {
   setDefaultAddress: async (context: Context, params?) => {
     console.log('[Magento] setDefaultAddress');
     const response = await context.$ma.api.updateCustomerAddress({
-      id: params.address.id, input: {
+      id: params.address.id,
+      input: {
         ...params.address,
         default_billing: true
       }

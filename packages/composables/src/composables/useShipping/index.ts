@@ -1,6 +1,6 @@
 import { Context } from '@vue-storefront/core';
 import { Address } from '../../types';
-import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory'
+import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
 
 const params: UseShippingParams<Address, any> = {
@@ -30,6 +30,7 @@ const params: UseShippingParams<Address, any> = {
       shipping_addresses: [
         {
           address: {
+
             /*
             firstname: "Bob",
             lastname: "Roll",

@@ -1,5 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ComputedProperty, UseCategory, UseProduct, FacetSearchResult, FacetResultsData} from '@vue-storefront/core';
+import {
+  ComputedProperty,
+  UseCategory,
+  UseProduct,
+  FacetSearchResult } from '@vue-storefront/core';
+import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core';
+import { Ref } from '@vue/composition-api';
 import {
   ProductInterface,
   CartInterface,
@@ -10,14 +16,11 @@ import {
 import { ComputedRef } from '@vue/composition-api';
 
 // @todo: replace with real types
-
 type Product = ProductInterface;
 
-type Category = {
+type Category = Record<string, any>
 
-}
-
-type CategorySearchParams = {}
+type CategorySearchParams = Record<string, any>
 
 type User = Customer;
 
@@ -41,36 +44,30 @@ type CartItem = CartItemInterface
 
 type Coupon = CouponInterface
 
-type Order = {
+type Order = Record<string, any>
 
-}
+type OrderItem = Record<string, any>
 
-type OrderItem = {
+type WishlistProduct = Record<string, any>
 
-}
+type Wishlist = Record<string, any>
 
-type WishlistProduct = {
+type Route = Record<string, any>
 
-}
+type Config = Record<string, any>
 
-type Wishlist = {
+type Page = Record<string, any>
 
-}
+type Filter = Record<string, any>
 
-type Route = {
-
-}
-
-type Config = {
-
-}
-
-type Page = {
-
-}
-
-type Filter = {
-
+export interface FacetResultsData {
+  products: Product[];
+  categories: Category[];
+  facets: Record<string, Filter>;
+  total: number;
+  perPageOptions: number[];
+  itemsPerPage: number;
+  availableFilters: Record<string, any>;
 }
 
 interface UseRouter<ROUTE> {
@@ -110,8 +107,7 @@ export type OrdersResponse = {
 };
 
 export type ShippingMethod = Record<string, unknown>;
-import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core'
-import { Ref } from '@vue/composition-api'
+
 export interface UseUserOrderSearchParams {
   id?: any;
   page?: number;
@@ -177,7 +173,6 @@ export interface UseShippingProviderErrors {
   save?: Error;
 }
 
-
 export interface UseMakeOrderErrors {
   make?: Error;
 }
@@ -190,7 +185,6 @@ export interface UseMakeOrder<ORDER> {
 }
 
 export type SearchData = FacetSearchResult<FacetResultsData>
-
 
 export {
   Cart,

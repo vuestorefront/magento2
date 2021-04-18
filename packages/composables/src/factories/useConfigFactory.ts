@@ -3,7 +3,7 @@ import { Ref, computed } from '@vue/composition-api';
 import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
 export interface UseConfigFactoryParams<CONFIG> {
-    loadConfig: (context: Context) => Promise<CONFIG>;
+  loadConfig: (context: Context) => Promise<CONFIG>;
 }
 
 export function useConfigFactory<CONFIG>(
