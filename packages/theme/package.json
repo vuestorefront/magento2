@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.1",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@storefront-ui/vue": "^0.9.1",
-    "@vue-storefront/magento": "0.0.1",
+    "@vue-storefront/magento": "^1.0.0-beta.1",
     "@vue-storefront/nuxt": "^2.2.1",
     "@vue-storefront/nuxt-theme": "^2.2.1",
     "@nuxtjs/style-resources": "^1.0.0",
@@ -27,7 +27,9 @@
     "@nuxt/types": "^0.7.9",
     "@nuxt/typescript-build": "^2.0.0",
     "@vue/test-utils": "^1.0.0-beta.27",
+    "rollup-plugin-terser": "^7.0.2",
     "babel-jest": "^24.1.0",
+    "ejs": "^3.1.6",
     "jest": "^24.1.0",
     "vue-jest": "^4.0.0-0"
   }
