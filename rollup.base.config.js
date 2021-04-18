@@ -11,7 +11,8 @@ export function generateBaseConfig(pkg) {
       },
       {
         file: pkg.module,
-        format: 'es'
+        format: 'es',
+        sourcemap: true
       }
     ],
     external: [
