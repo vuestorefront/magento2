@@ -14,12 +14,12 @@ import {
 
 const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   load: async (context: Context) => {
-    const apiState = context.$ma.config.state;
+    const apiState = context.$magento.config.state;
     // is user authenticated.
     if (apiState.getCustomerToken()) {
       try {
         // get cart ID
-        const result = await context.$ma.api.customerCart();
+        const result = await context.$magento.api.customerCart();
         return result.data.customerCart;
       } catch (e) {
         // Signed up user don't have a cart.
@@ -33,13 +33,13 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     let cartId = apiState.getCartId();
 
     if (!cartId) {
-      const result = await context.$ma.api.createEmptyCart();
+      const result = await context.$magento.api.createEmptyCart();
       cartId = result.data.createEmptyCart;
       apiState.setCartId(cartId);
     }
 
     try {
-      const cartResponse = await context.$ma.api.cart(cartId);
+      const cartResponse = await context.$magento.api.cart(cartId);
       // console.log(cartResponse);
       return cartResponse.data.cart;
     } catch (e) {
@@ -51,7 +51,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     product,
     quantity,
   }) => {
-    const apiState = context.$ma.config.state;
+    const apiState = context.$magento.config.state;
     let currentCartId = apiState.getCartId();
 
     if (!currentCartId) {
@@ -66,7 +66,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     product.type_id = 'simple';
     switch (product.type_id) {
       case 'simple':
-        const simpleProduct = await context.$ma.api.addSimpleProductsToCart({
+        const simpleProduct = await context.$magento.api.addSimpleProductsToCart({
           cart_id: currentCartId,
           cart_items: [
             {
@@ -79,7 +79,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         });
         return simpleProduct.data.addSimpleProductsToCart.cart;
       case 'configurable':
-        const configurableProduct = await context.$ma.api.addConfigurableProductsToCart({
+        const configurableProduct = await context.$magento.api.addConfigurableProductsToCart({
           cart_id: currentCartId,
           cart_items: [
             {
@@ -108,7 +108,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       return;
     }
 
-    const response = await context.$ma.api.removeItemFromCart({
+    const response = await context.$magento.api.removeItemFromCart({
       cart_id: currentCart.id,
       cart_item_id: item.id,
     });
@@ -120,7 +120,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     product,
     quantity,
   }) => {
-    const response = await context.$ma.api.updateCartItems({
+    const response = await context.$magento.api.updateCartItems({
       cart_id: currentCart.id,
       cart_items: [
         {
@@ -133,14 +133,14 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
-    context.$ma.config.state.setCartId(null);
+    context.$magento.config.state.setCartId(null);
     return params.load(context, {});
   },
   applyCoupon: async (context: Context, {
     currentCart,
     couponCode,
   }) => {
-    const response = await context.$ma.api.applyCouponToCart({
+    const response = await context.$magento.api.applyCouponToCart({
       cart_id: currentCart.id,
       coupon_code: couponCode,
     });
@@ -155,7 +155,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     currentCart,
     coupon,
   }) => {
-    const response = await context.$ma.api.removeCouponFromCart({
+    const response = await context.$magento.api.removeCouponFromCart({
       cart_id: currentCart.id,
     });
 

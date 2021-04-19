@@ -18,6 +18,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
   return function useUserOrder(): UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
     const _factoryParams = configureFactoryParams(factoryParams);
     const context = generateContext(factoryParams);
+    // @ts-ignore
     const orders = sharedRef<ORDERS>([], 'useUserOrder-orders');
     const loading = sharedRef<boolean>(false, 'useUserOrder-loading');
     const error = sharedRef<UseUserOrderErrors>({}, 'useUserOrder-error');
@@ -38,9 +39,12 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
     };
 
     return {
+      // @ts-ignore
       orders: computed(() => orders.value),
       search,
+      // @ts-ignore
       loading: computed(() => loading.value),
+      // @ts-ignore
       error: computed(() => error.value),
     };
   };

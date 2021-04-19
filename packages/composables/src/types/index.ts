@@ -3,24 +3,25 @@ import {
   ComputedProperty,
   UseCategory,
   UseProduct,
-  FacetSearchResult } from '@vue-storefront/core';
-import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core';
-import { Ref } from '@vue/composition-api';
+  FacetSearchResult,
+  ComposableFunctionArgs,
+  CustomQuery,
+} from '@vue-storefront/core';
+import { Ref, ComputedRef } from '@vue/composition-api';
 import {
   ProductInterface,
   CartInterface,
   CartItemInterface,
   CouponInterface,
-  Customer
+  Customer,
 } from '@vue-storefront/magento-api';
-import { ComputedRef } from '@vue/composition-api';
 
 // @todo: replace with real types
 type Product = ProductInterface;
 
-type Category = Record<string, any>
+type Category = Record<string, any>;
 
-type CategorySearchParams = Record<string, any>
+type CategorySearchParams = Record<string, any>;
 
 type User = Customer;
 
@@ -28,37 +29,37 @@ type UpdateUserParams = {
   firstName: string;
   lastName: string;
   email: string;
-}
+};
 
 type RegisterUserParams = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-}
+};
 
 // @todo: replace with real Cart types
-type Cart = CartInterface
+type Cart = CartInterface;
 
-type CartItem = CartItemInterface
+type CartItem = CartItemInterface;
 
-type Coupon = CouponInterface
+type Coupon = CouponInterface;
 
-type Order = Record<string, any>
+type Order = Record<string, any>;
 
-type OrderItem = Record<string, any>
+type OrderItem = Record<string, any>;
 
-type WishlistProduct = Record<string, any>
+type WishlistProduct = Record<string, any>;
 
-type Wishlist = Record<string, any>
+type Wishlist = Record<string, any>;
 
-type Route = Record<string, any>
+type Route = Record<string, any>;
 
-type Config = Record<string, any>
+type Config = Record<string, any>;
 
-type Page = Record<string, any>
+type Page = Record<string, any>;
 
-type Filter = Record<string, any>
+type Filter = Record<string, any>;
 
 export interface FacetResultsData {
   products: Product[];
@@ -76,8 +77,8 @@ interface UseRouter<ROUTE> {
   loading: ComputedProperty<boolean>;
 }
 
-interface UseConfig<Config> {
-  config: ComputedRef<Config>;
+interface UseConfig<CONFIG> {
+  config: ComputedRef<CONFIG>;
   loadConfig: () => Promise<void>;
   loading: ComputedRef<boolean>;
 }
@@ -131,11 +132,11 @@ export interface UseBillingErrors {
 }
 
 export interface UseBilling<BILLING, BILLING_PARAMS> {
-  error: ComputedProperty<UseBillingErrors>;
-  loading: ComputedProperty<boolean>;
   billing: ComputedProperty<BILLING>;
+  error: ComputedProperty<UseBillingErrors>;
   load(): Promise<void>;
   load(params: { customQuery?: CustomQuery }): Promise<void>;
+  loading: ComputedProperty<boolean>;
   save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
 }
 
@@ -184,7 +185,7 @@ export interface UseMakeOrder<ORDER> {
   loading: ComputedProperty<boolean>;
 }
 
-export type SearchData = FacetSearchResult<FacetResultsData>
+export type SearchData = FacetSearchResult<FacetResultsData>;
 
 export {
   Cart,
@@ -209,5 +210,5 @@ export {
   Route,
   Breadcrumb,
   UseConfig,
-  Config
+  Config,
 };

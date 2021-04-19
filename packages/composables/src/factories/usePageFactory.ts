@@ -16,6 +16,7 @@ export function usePageFactory<PAGE>(
 ) {
   return function usePage(cacheId: string): UsePage<PAGE> {
     const context = generateContext(factoryParams);
+    // @ts-ignore
     const page = sharedRef<PAGE>({}, `usePage-pages-${cacheId}`);
     const loading = sharedRef<boolean>(false, `usePage-loading-${cacheId}`);
 
@@ -31,8 +32,10 @@ export function usePageFactory<PAGE>(
     };
 
     return {
+      // @ts-ignore
       loading: computed(() => loading.value),
       loadPage,
+      // @ts-ignore
       page: computed(() => page.value),
     };
   };

@@ -14,13 +14,13 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
   },
   addAddress: async (context: Context, params?) => {
     console.log('[Magento]: addAddress', params.address);
-    const response = await context.$ma.api.createCustomerAddress({ input: params.address });
+    const response = await context.$magento.api.createCustomerAddress({ input: params.address });
     return Promise.resolve(response.data.createCustomerAddress);
   },
 
   deleteAddress: async (context: Context, params?) => {
     console.log('[Magento] deleteAddress', params);
-    const response = await context.$ma.api.deleteCustomerAddress(params.address.id);
+    const response = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
     // if (indexToRemove < 0) {
     // return Promise.reject('This address does not exist');
@@ -32,7 +32,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
   updateAddress: async (context: Context, params?) => {
     console.log('[Magento] updateAddress', params);
-    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id, input: params.address });
+    const response = await context.$magento.api.updateCustomerAddress({ id: params.address.id, input: params.address });
     return Promise.resolve(response.data.updateCustomerAddress);
   },
 
@@ -47,7 +47,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
   setDefaultAddress: async (context: Context, params?) => {
     console.log('[Magento] setDefaultAddress');
-    const response = await context.$ma.api.updateCustomerAddress({
+    const response = await context.$magento.api.updateCustomerAddress({
       id: params.address.id,
       input: {
         ...params.address,

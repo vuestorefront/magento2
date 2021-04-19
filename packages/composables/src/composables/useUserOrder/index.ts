@@ -21,7 +21,7 @@ const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParam
       await context.user.load();
     }
 
-    const response = await context.$ma.api.customerOrders();
+    const response = await context.$magento.api.customerOrders();
     return response.data.customerOrders.items || [] as CustomerOrder[];
   },
 };

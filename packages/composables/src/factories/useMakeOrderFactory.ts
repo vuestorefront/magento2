@@ -40,9 +40,12 @@ export const useMakeOrderFactory = <ORDER>(
   };
 
   return {
+    // @ts-ignore
     error: computed(() => error.value),
+    // @ts-ignore
     loading: computed(() => loading.value),
     make,
+    // @ts-ignore
     order,
   };
 };

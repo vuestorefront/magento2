@@ -1,11 +1,6 @@
 import { computed } from '@vue/composition-api';
 import {
-  Context,
-  CustomQuery,
-  FactoryParams,
-  generateContext,
-  Logger,
-  sharedRef,
+  Context, CustomQuery, FactoryParams, generateContext, Logger, sharedRef,
 } from '@vue-storefront/core';
 import { UseShipping, UseShippingErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -30,8 +25,7 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
     try {
       loading.value = true;
       error.value.load = null;
-      const shippingInfo = await factoryParams.load(context, { customQuery });
-      shipping.value = shippingInfo;
+      shipping.value = await factoryParams.load(context, { customQuery });
     } catch (err) {
       error.value.load = err;
       Logger.error('useShipping/load', err);
@@ -46,8 +40,7 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
     try {
       loading.value = true;
       error.value.save = null;
-      const shippingInfo = await factoryParams.save(context, saveParams);
-      shipping.value = shippingInfo;
+      shipping.value = await factoryParams.save(context, saveParams);
     } catch (err) {
       error.value.save = err;
       Logger.error('useShipping/save', err);
@@ -57,10 +50,13 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
   };
 
   return {
+    // @ts-ignore
     error: computed(() => error.value),
     load,
+    // @ts-ignore
     loading: computed(() => loading.value),
     save,
+    // @ts-ignore
     shipping: computed(() => shipping.value),
   };
 };

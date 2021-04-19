@@ -1,5 +1,5 @@
-import { AgnosticAttribute, AgnosticPrice } from '@vue-storefront/core';
-import { ProductInterface, ConfigurableOption } from '@vue-storefront/magento-api';
+import { AgnosticAttribute } from '@vue-storefront/core';
+import { Product, ConfigurableOption } from '@vue-storefront/magento-api';
 
 export const getAttributeValue = (attribute) => attribute.values;
 
@@ -19,5 +19,6 @@ export const getVariantByAttributes = (products: Product[], attributes: any): Pr
 
   const configurationKeys = Object.keys(attributes);
 
-  return products[0].configurable_children.find((product) => configurationKeys.every((attrName) => product.hasOwnProperty(attrName) && product[attrName] == attributes[attrName])) || products[0].configurable_children[0];
+  return products[0].configurable_children.find((product) => configurationKeys
+    .every((attrName) => product[attrName] && product[attrName] === attributes[attrName])) || products[0].configurable_children[0];
 };

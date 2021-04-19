@@ -67,7 +67,7 @@ const factoryParams = {
       search: (params.input.term) ? params.input.term : '',
     };
 
-    const productResponse = await context.$ma.api.getProduct(
+    const productResponse = await context.$magento.api.getProduct(
       productParams.perPage,
       productParams.page,
       productParams.filter,

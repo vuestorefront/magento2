@@ -18,10 +18,10 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product
 
   load: async (context: Context) => {
     // is user authenticated.
-    const apiState = context.$ma.config.state;
+    const apiState = context.$magento.config.state;
 
     if (apiState.getCustomerToken()) {
-      const result = await context.$ma.api.wishlist();
+      const result = await context.$magento.api.wishlist();
       return result.data.wishlist;
     }
 

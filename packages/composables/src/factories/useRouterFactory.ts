@@ -16,6 +16,7 @@ export function useRouterFactory<ROUTER>(
 ) {
   return function useRouter(cacheId: string): UseRouter<ROUTER> {
     const context = generateContext(factoryParams);
+    // @ts-ignore
     const route = sharedRef<ROUTER>({}, `useRouter-routers-${cacheId}`);
     const loading = sharedRef<boolean>(false, `useRouter-loading-${cacheId}`);
 
@@ -32,7 +33,9 @@ export function useRouterFactory<ROUTER>(
 
     return {
       search,
+      // @ts-ignore
       route: computed(() => route.value),
+      // @ts-ignore
       loading: computed(() => loading.value),
     };
   };

@@ -36,7 +36,7 @@ const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod>
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingMethod, customQuery }) => {
     console.log('[Magento] saveShippingProvider');
-    const setShippingMethodsOnCartResponse = await context.$ma.api.setShippingMethodsOnCart({
+    const setShippingMethodsOnCartResponse = await context.$magento.api.setShippingMethodsOnCart({
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{
         ...shippingMethod,

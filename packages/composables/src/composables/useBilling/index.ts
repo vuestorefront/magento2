@@ -22,12 +22,12 @@ const params: UseBillingParams<Address, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { billingDetails, customQuery }) => {
     console.log('[Magento] setBillingAddress');
-    const id = context.$ma.config.state.getCartId();
+    const id = context.$magento.config.state.getCartId();
     console.log(id);
     console.log(typeof id);
 
     // const { id } = context.cart.cart.value;
-    const setBillingAddressOnCartResponse = await context.$ma.api.setBillingAddressOnCart({
+    const setBillingAddressOnCartResponse = await context.$magento.api.setBillingAddressOnCart({
       cart_id: id,
       billing_address: {
         address: {

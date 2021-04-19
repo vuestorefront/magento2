@@ -1,7 +1,7 @@
 import {
-  CustomQuery, Context, FactoryParams, sharedRef, Logger, generateContext,
+  Context, CustomQuery, FactoryParams, generateContext, Logger, sharedRef,
 } from '@vue-storefront/core';
-import { computed } from '@vue/composition-api';
+import { computed, Ref } from '@vue/composition-api';
 import { UseBilling, UseBillingErrors } from '../types';
 import { configureFactoryParams } from '../utils';
 
@@ -25,8 +25,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
     try {
       loading.value = true;
       error.value.load = null;
-      const billingInfo = await factoryParams.load(context, { customQuery });
-      billing.value = billingInfo;
+      billing.value = await factoryParams.load(context, { customQuery });
     } catch (err) {
       error.value.load = err;
       Logger.error('useBilling/load', err);
@@ -41,8 +40,7 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
     try {
       loading.value = true;
       error.value.save = null;
-      const billingInfo = await factoryParams.save(context, saveParams);
-      billing.value = billingInfo;
+      billing.value = await factoryParams.save(context, saveParams);
     } catch (err) {
       error.value.save = err;
       Logger.error('useBilling/save', err);
@@ -52,8 +50,11 @@ export const useBillingFactory = <BILLING, BILLING_PARAMS>(
   };
 
   return {
+    // @ts-ignore
     billing: computed(() => billing.value),
+    // @ts-ignore
     loading: computed(() => loading.value),
+    // @ts-ignore
     error: computed(() => error.value),
     load,
     save,

@@ -14,7 +14,7 @@ const factoryParams = {
   make: async (context: Context, { customQuery }): Promise<Order> => {
     console.log('[Magento] Make Order');
     const { id } = context.cart.cart.value;
-    const placeOrderResponse = await context.$ma.api.placeOrder({ cart_id: id });
+    const placeOrderResponse = await context.$magento.api.placeOrder({ cart_id: id });
     return placeOrderResponse.data.order;
   },
 };

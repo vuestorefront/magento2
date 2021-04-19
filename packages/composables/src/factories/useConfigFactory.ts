@@ -16,6 +16,7 @@ export function useConfigFactory<CONFIG>(
 ) {
   return function useConfig(cacheId: string): UseConfig<CONFIG> {
     const context = generateContext(factoryParams);
+    // @ts-ignore
     const config = sharedRef<CONFIG>({}, `useConfig-categories-${cacheId}`);
     const loading = sharedRef<boolean>(false, `useConfig-loading-${cacheId}`);
 

@@ -4,7 +4,7 @@ import { UseCategory, Category, CategorySearchParams } from '../../types';
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   categorySearch: async (context: Context, params) => {
-    const categoryResponse = await context.$ma.api.categoryList(params);
+    const categoryResponse = await context.$magento.api.categoryList(params);
     return categoryResponse.data.categoryList;
   },
 };

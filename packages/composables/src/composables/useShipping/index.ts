@@ -25,7 +25,7 @@ const factoryParams: UseShippingParams<Address, any> = {
     console.log('[Magento] setShippingAddress');
     console.log(context);
     const { id } = context.cart.cart.value;
-    const setShippingAddressesOnCartResponse = await context.$ma.api.setShippingAddressesOnCart({
+    const setShippingAddressesOnCartResponse = await context.$magento.api.setShippingAddressesOnCart({
       cart_id: id,
       shipping_addresses: [
         {

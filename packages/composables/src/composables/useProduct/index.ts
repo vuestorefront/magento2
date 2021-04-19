@@ -27,7 +27,7 @@ const productsSearch = async (context: Context, params: {
   sort?: ProductAttributeSortInput;
   queryType?: ProductsQueryType;
 }) => {
-  const productResults = await context.$ma.api.products(params.pageSize,
+  const productResults = await context.$magento.api.products(params.pageSize,
     params.currentPage,
     params.queryType,
     params.search,

@@ -42,6 +42,7 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
         {
           shippingMethod,
           customQuery,
+          // @ts-ignore
           state,
         });
     } catch (err) {
@@ -61,6 +62,7 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
       state.value = await factoryParams.load(context,
         {
           customQuery,
+          // @ts-ignore
           state,
         });
     } catch (err) {
@@ -72,8 +74,10 @@ export const useShippingProviderFactory = <STATE, SHIPPING_METHOD>(
   };
 
   return {
+    // @ts-ignore
     error: computed(() => error.value),
     load,
+    // @ts-ignore
     loading: computed(() => loading.value),
     save,
     setState,

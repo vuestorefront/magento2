@@ -4,6 +4,7 @@
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
+  "tsModule": "src/index.ts",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rollup -c",
@@ -15,17 +16,17 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
+    "@vue/composition-api": "1.0.0-beta.21",
     "@vue-storefront/magento-api": "^1.0.0-beta.1",
     "@vue-storefront/core": "^2.3.0-rc.3",
     "vue": "^2.6.x"
   },
   "devDependencies": {
-    "@vue/composition-api": "^1.0.0-rc.7",
     "@vue/test-utils": "^1.1.4",
     "vue-template-compiler": "^2.6.x"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.0.0-rc.7"
+    "@vue/composition-api": "1.0.0-beta.21"
   },
   "files": [
     "lib/**/*"
