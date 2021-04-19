@@ -1,9 +1,13 @@
 const { resolve } = require('path');
 const airBnb = require('./eslint/airBnB/extends');
 const eslintExtends = require('./eslint/extends');
-const eslintRules = require('./eslint/airBnB/rules');
+const eslintRules = require('./eslint/rules');
 const jest = require('./eslint/jest/extends');
 const jestRules = require('./eslint/jest/rules');
+const importEsLint = require('./eslint/import/plugin');
+const importEsLintExtends = require('./eslint/import/extends');
+const importEsLintRules = require('./eslint/import/rules');
+const importEsLintSettings = require('./eslint/import/settings');
 const typescript = require('./eslint/typescript/plugin');
 const typescriptExtends = require('./eslint/typescript/extends');
 const typescriptRules = require('./eslint/typescript/rules');
@@ -35,18 +39,23 @@ module.exports = {
   plugins: [
     ...typescript,
     ...vue,
+    ...importEsLint,
   ],
   extends: [
     ...eslintExtends,
     ...airBnb,
     ...typescriptExtends,
     ...vueExtends,
+    ...importEsLintExtends,
     ...jest,
   ],
   rules: {
     ...eslintRules,
     ...typescriptRules,
+    ...importEsLintRules,
     ...jestRules,
   },
-  settings: {},
+  settings: {
+    ...importEsLintSettings,
+  }
 }
