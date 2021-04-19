@@ -10,6 +10,7 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
   const config = {
     ...defaultSettings,
     ...settings,
+    state: settings.state || defaultSettings.state,
   } as unknown as Config;
 
   if (settings.client) {

@@ -82,12 +82,12 @@ export interface ClientConfig {
     customerCookieName: string;
     storeCookieName: string;
   },
+  state: ConfigState;
 }
 
 export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
   storage: Storage;
-  state: ConfigState;
 }
 
 export interface ClientInstance extends ApolloClient<any> {

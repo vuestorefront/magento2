@@ -30,4 +30,12 @@ export const defaultSettings: ClientConfig = {
       },
     },
   },
+  state: {
+    getCartId: () => '',
+    setCartId: () => {},
+    getCustomerToken: () => '',
+    setCustomerToken: () => {},
+    getStore: () => '',
+    setStore: () => {},
+  },
 };
