@@ -125,12 +125,6 @@ export default {
         file: 'en.js',
         iso: 'en',
       },
-      {
-        code: 'de',
-        label: 'German',
-        file: 'de.js',
-        iso: 'de',
-      },
     ],
     defaultLocale: 'en',
     lazy: true,
@@ -142,11 +136,6 @@ export default {
         en: {
           currency: {
             style: 'currency', currency: 'USD', currencyDisplay: 'symbol',
-          },
-        },
-        de: {
-          currency: {
-            style: 'currency', currency: 'EUR', currencyDisplay: 'symbol',
           },
         },
       },

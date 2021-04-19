@@ -1,9 +1,9 @@
 module.exports = {
   integrations: {
-    ma: {
+    magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: 'https://vsf-m2.site-builder.app/graphql',
+        api: 'https://bo-mvp.ecritel.com.br/graphql', // 'https://demo-magento2.storefrontcloud.io/graphql',
         tax: {
           displayCartSubtotalIncludingTax: true,
         },
