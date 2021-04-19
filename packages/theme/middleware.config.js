@@ -24,6 +24,9 @@ module.exports = {
             },
           },
         },
+        externalCheckout: {
+          enable: false,
+        },
         defaultStore: 'default',
       },
     },

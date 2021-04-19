@@ -60,7 +60,7 @@ export default integrationPlugin(({ app, integration }) => {
     additionalProperties: {
       state: loadState(),
     }
-  })
+  });
 
   integration.configure('magento', settings);
 });

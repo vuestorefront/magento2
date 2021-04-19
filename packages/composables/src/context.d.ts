@@ -3,6 +3,6 @@ import { ClientInstance, Config, MagentoApiMethods } from '@vue-storefront/magen
 
 declare module '@vue-storefront/core' {
   export interface Context {
-    $ma: IntegrationContext<ClientInstance, Config, ApiClientMethods<MagentoApiMethods>>;
+    $magento: IntegrationContext<ClientInstance, Config, ApiClientMethods<MagentoApiMethods>>;
   }
 }
