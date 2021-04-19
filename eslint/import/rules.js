@@ -5,6 +5,7 @@ module.exports = {
   'import/export': 'off',
   'import/no-cycle': 'off',
   'import/prefer-default-export': 'off', // Allow single Named-export
+  'import/no-extraneous-dependencies': 'off',
   'import/extensions': ['error', 'always', {
     js: 'never',
     mjs: 'never',

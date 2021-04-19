@@ -16,7 +16,6 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue/composition-api": "1.0.0-beta.21",
     "@vue-storefront/magento-api": "^1.0.0-beta.1",
     "@vue-storefront/core": "^2.3.0-rc.3",
     "vue": "^2.6.x"
