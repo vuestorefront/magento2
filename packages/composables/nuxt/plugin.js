@@ -5,9 +5,9 @@ import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
 export default integrationPlugin(({ app, integration }) => {
-  const cartCookieName = moduleOptions.cookies.cartCookieName || defaultConfig.cookies.cartCookieName;
-  const customerCookieName = moduleOptions.cookies.customerCookieName || defaultConfig.cookies.customerCookieName;
-  const storeCookieName = moduleOptions.cookies.storeCookieName || defaultConfig.cookies.storeCookieName;
+  const cartCookieName = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
+  const customerCookieName = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;
+  const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
 
   const getCartId = () => app.$cookies.get(cartCookieName);
 
@@ -43,7 +43,7 @@ export default integrationPlugin(({ app, integration }) => {
     moduleOptions,
     app,
     additionalProperties: {
-      state:{
+      state: {
         getCartId,
         setCartId,
         getCustomerToken,
