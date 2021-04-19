@@ -16,6 +16,7 @@ export {default as useShippingProvider } from './composables/useShippingProvider
 export {default as useMakeOrder } from './composables/useMakeOrder';
 export {default as useFacet } from './composables/useFacet';
 export {default as useUserShipping } from './composables/useUserShipping';
+export {default as useReview } from './composables/useReview';
 export * from './composables/getters';
 
 import { createApiClient } from '@vue-storefront/magento-api';

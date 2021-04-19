@@ -1,24 +1,12 @@
 /* istanbul ignore file */
-import cartGetters from './cartGetters';
-import categoryGetters from './categoryGetters';
-import checkoutGetters from './checkoutGetters';
-import productGetters from './productGetters';
-import userGetters from './userGetters';
-import orderGetters from './orderGetters';
-import wishlistGetters from './wishlistGetters';
-import facetGetters from './facetGetters';
-import userShippingGetters from './userShippingGetters';
-import userBillingGetters from './userBillingGetters';
-
-export {
-  cartGetters,
-  categoryGetters,
-  checkoutGetters,
-  productGetters,
-  userGetters,
-  orderGetters,
-  wishlistGetters,
-  facetGetters,
-  userShippingGetters,
-  userBillingGetters
-};
+export { default as cartGetters } from './cartGetters';
+export { default as categoryGetters } from './categoryGetters';
+export { default as checkoutGetters } from './checkoutGetters';
+export { default as productGetters } from './productGetters';
+export { default as userGetters } from './userGetters';
+export { default as orderGetters } from './orderGetters';
+export { default as wishlistGetters } from './wishlistGetters';
+export { default as facetGetters } from './facetGetters';
+export { default as userShippingGetters } from './userShippingGetters';
+export { default as userBillingGetters } from './userBillingGetters';
+export { default as reviewGetters } from './reviewGetters';
