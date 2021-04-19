@@ -1,7 +1,7 @@
-import { Config } from './types/setup';
-import createMagentoConnection from './link';
 import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Config } from './types/setup';
+import createMagentoConnection from './link';
 
 const onSetup = (settings: Config): {
   config: Config;
@@ -10,30 +10,30 @@ const onSetup = (settings: Config): {
   const defaultSettings = {
     api: 'https://demo.site-builder.app/graphql',
     tax: {
-      displayCartSubtotalIncludingTax: true
+      displayCartSubtotalIncludingTax: true,
     },
     externalCheckout: {
-      enable: false
-    }
+      enable: false,
+    },
   };
 
   const config = {
-    ...defaultSettings, ...settings
+    ...defaultSettings, ...settings,
   } as any;
 
   if (settings.client) {
     return {
       client: settings.client,
-      config
+      config,
     };
   }
 
   if (settings.customOptions && settings.customOptions.link) {
     return {
       client: new ApolloClient({
-        cache: new InMemoryCache({ addTypename: false }), ...settings.customOptions
+        cache: new InMemoryCache({ addTypename: false }), ...settings.customOptions,
       }),
-      config
+      config,
     };
   }
 
@@ -41,10 +41,10 @@ const onSetup = (settings: Config): {
 
   return {
     config,
-    client
+    client,
   };
 };
 
 export {
-  onSetup
+  onSetup,
 };
