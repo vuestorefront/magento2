@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
-fetch('https://demo.site-builder.app//graphql', {
+fetch('https://demo-magento2.storefrontcloud.io/graphql', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

@@ -1,16 +1,83 @@
-import * as api from './api';
-import { apiClientFactory } from '@vue-storefront/core';
-export * from './types';
-import { onSetup } from './helpers';
-
-const { createApiClient } = apiClientFactory<any, any>({
-  tag: 'ma',
-  onSetup,
-  api: {
-    ...api
-  }
-});
-
+export * from './types/setup';
+export * from './types/API';
+export * from './types/context';
 export {
-  createApiClient
-};
+  Cart as CartInterface,
+  Customer as CustomerInterface,
+  ProductInterface,
+  AddSimpleProductsToCartInput,
+  AddConfigurableProductsToCartOutput,
+  AddConfigurableProductsToCartInput,
+  Products,
+  AddSimpleProductsToCartOutput,
+  Aggregation,
+  AggregationOption,
+  AppliedCoupon,
+  ApplyCouponToCartInput,
+  ApplyCouponToCartOutput,
+  Breadcrumb,
+  CategoryFilterInput,
+  Order,
+  CategoryInterface,
+  CategoryProducts,
+  CustomerAddressInput,
+  CustomerInput,
+  CmsBlock,
+  CmsPage,
+  PlaceOrderInput,
+  PlaceOrderOutput,
+  ComplexTextValue,
+  CustomerAddress,
+  CustomerToken,
+  EntityUrl,
+  Money,
+  FixedProductTax,
+  HttpQueryParameter,
+  MediaGalleryInterface,
+  PriceRange,
+  ProductAttributeFilterInput,
+  ProductAttributeSortInput,
+  ProductDiscount,
+  ProductImage,
+  ProductLinks,
+  SetBillingAddressOnCartInput,
+  SetBillingAddressOnCartOutput,
+  SetGuestEmailOnCartInput,
+  SetGuestEmailOnCartOutput,
+  SetPaymentMethodOnCartInput,
+  SetPaymentMethodOnCartOutput,
+  SetShippingAddressesOnCartInput,
+  SetShippingAddressesOnCartOutput,
+  SetShippingMethodsOnCartInput,
+  SetShippingMethodsOnCartOutput,
+  ProductLinksInterface,
+  ProductPrice,
+  ProductStockStatus,
+  RemoveCouponFromCartInput,
+  RemoveCouponFromCartOutput,
+  RemoveItemFromCartInput,
+  RemoveItemFromCartOutput,
+  SearchResultPageInfo,
+  SelectedShippingMethod,
+  SortEnum,
+  SortField,
+  SortFields,
+  StoreConfig,
+  TierPrice,
+  UpdateCartItemsInput,
+  UpdateCartItemsOutput,
+  UrlRewrite,
+  Wishlist,
+  CartItemInterface,
+  CategoryTree,
+  cmsPageQuery,
+  createEmptyCartMutation,
+  categoryList,
+  customerQuery,
+  cartQuery,
+  customerOrdersQuery,
+  Discount,
+  storeConfigQuery,
+  urlResolver,
+  wishlistOutput,
+} from './types/GraphQL';
