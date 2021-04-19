@@ -118,3 +118,22 @@ export const customerFragment = `
     telephone
   }
 `;
+
+export const categoryDataFragment = `
+  canonical_url
+  image
+  include_in_menu
+  is_anchor
+  level
+  name
+  path
+  path_in_store
+  position
+  uid
+`;
+
+export const categoryUrlData = `
+  url_key
+  url_path
+  url_suffix
+`;

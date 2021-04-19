@@ -11,7 +11,7 @@ import {
   CartItemInterface,
   cartQuery,
   CategoryFilterInput,
-  categoryList,
+  categoryList, CategoryProducts,
   CategoryTree,
   cmsPageQuery,
   createEmptyCartMutation,
@@ -65,6 +65,8 @@ export interface MagentoApiMethods {
   cmsPage(indentifier: string): Promise<ApolloQueryResult<cmsPageQuery>>;
 
   createEmptyCart(): Promise<ExecutionResult<createEmptyCartMutation>>;
+
+  getMenuCategory(): Promise<ApolloQueryResult<CategoryProducts>>;
 
   cart(cartId: string): Promise<ApolloQueryResult<cartQuery>>;
 

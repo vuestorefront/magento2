@@ -1,6 +1,7 @@
+import { ApolloQueryResult } from 'apollo-client';
 import { ProductAttributeFilterInput, ProductAttributeSortInput, Products } from '../../types/GraphQL';
 import { detailQuery, listQuery } from './query';
-import { ApolloQueryResult } from 'apollo-client';
+import { Context } from '../../types/context';
 
 const enum ProductsQueryType {
   list = 'LIST',
@@ -13,9 +14,9 @@ type Variables = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
-}
+};
 
-const getProduct = async({ client },
+const getProduct = async ({ client }: Context,
   pageSize = 20,
   currentPage = 1,
   queryType: ProductsQueryType = ProductsQueryType.list,
@@ -29,9 +30,9 @@ const getProduct = async({ client },
   if (filter) variables.filter = filter;
   if (sort) variables.sort = sort;
 
-  return await client.query({
+  return client.query({
     query,
-    variables
+    variables,
   });
 };
 
