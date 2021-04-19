@@ -7,7 +7,7 @@ const useConfig: (cacheId: string) => UseConfig<Config> = useConfigFactory<Confi
     const result = await context.$ma.api.storeConfig();
 
     return result.data.storeConfig || {};
-  }
+  },
 });
 
 export default useConfig;

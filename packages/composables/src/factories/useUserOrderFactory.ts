@@ -1,11 +1,11 @@
-import { Ref, computed } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import {
   Context,
   CustomQuery,
   FactoryParams,
   generateContext,
   Logger,
-  sharedRef
+  sharedRef,
 } from '@vue-storefront/core';
 import { UseUserOrder, UseUserOrderErrors } from '../types';
 import { configureFactoryParams } from '../utils';
@@ -16,11 +16,11 @@ export interface UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS> extends 
 
 export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS>) {
   return function useUserOrder(): UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
-    const orders: Ref<ORDERS> = sharedRef([], 'useUserOrder-orders');
-    const loading: Ref<boolean> = sharedRef(false, 'useUserOrder-loading');
     const _factoryParams = configureFactoryParams(factoryParams);
-    const error: Ref<UseUserOrderErrors> = sharedRef({}, 'useUserOrder-error');
     const context = generateContext(factoryParams);
+    const orders = sharedRef<ORDERS>([], 'useUserOrder-orders');
+    const loading = sharedRef<boolean>(false, 'useUserOrder-loading');
+    const error = sharedRef<UseUserOrderErrors>({}, 'useUserOrder-error');
 
     const search = async (searchParams): Promise<void> => {
       Logger.debug('useUserOrder.search', searchParams);
@@ -41,7 +41,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
       orders: computed(() => orders.value),
       search,
       loading: computed(() => loading.value),
-      error: computed(() => error.value)
+      error: computed(() => error.value),
     };
   };
 }

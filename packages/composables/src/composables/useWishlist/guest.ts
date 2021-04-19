@@ -4,13 +4,15 @@ export default {
   items: [],
 
   load(): Array<Object> {
-    if (typeof window !== 'undefined')
+    if (typeof window !== 'undefined') {
       return [];
+    }
 
-    if (localStorage.getItem(GUEST_WISHLIST_KEY))
+    if (localStorage.getItem(GUEST_WISHLIST_KEY)) {
       this.items = JSON.parse(localStorage.getItem(GUEST_WISHLIST_KEY));
-    else
+    } else {
       localStorage.setItem('GUEST_WISHLIST_KEY', '[]');
+    }
     return this.items;
   },
 
@@ -20,7 +22,7 @@ export default {
   },
 
   removeItem(id: number): void {
-    this.items = this.items.filter(product => product.id != id);
+    this.items = this.items.filter((product) => product.id != id);
     this.save();
   },
 
@@ -30,12 +32,13 @@ export default {
   },
 
   isOnWishlist(id: number): boolean {
-    return this.items.find(product => product.id === id);
+    return this.items.find((product) => product.id === id);
   },
 
   save(): void {
-    if (typeof window !== 'undefined')
+    if (typeof window !== 'undefined') {
       localStorage.setItem('guest-wishlist', JSON.stringify(this.items));
-  }
+    }
+  },
 
 };

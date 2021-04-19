@@ -1,23 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
 /* istanbul ignore file */
-
 import { useWishlistFactory, UseWishlistFactoryParams, Context } from '@vue-storefront/core';
-import { ref, Ref } from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 import { Product, WishlistProduct, Wishlist } from '../../types';
 
 import useUser from '../useUser';
 
-export const wishlist: Ref<Wishlist> = ref(null);
+export const wishlist = ref<Wishlist>(null);
 
 // @todo: implement wishlist
-const params: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
+const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
   provide() {
     return {
-      user: useUser()
+      user: useUser(),
     };
   },
 
   load: async (context: Context) => {
-    // is user authincated.
+    // is user authenticated.
     const apiState = context.$ma.config.state;
 
     if (apiState.getCustomerToken()) {
@@ -27,22 +27,10 @@ const params: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
 
     return [];
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addItem: async ({ currentWishlist, product }) => {
-    return {};
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeItem: async ({ currentWishlist, product }) => {
-    return {};
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  clear: async ({ currentWishlist }) => {
-    return {};
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isOnWishlist: ({ currentWishlist }) => {
-    return false;
-  }
+  addItem: async ({ currentWishlist, product }) => ({}),
+  removeItem: async ({ currentWishlist, product }) => ({}),
+  clear: async ({ currentWishlist }) => ({}),
+  isInWishlist: ({ currentWishlist }) => false,
 };
 
-export default useWishlistFactory<Wishlist, WishlistProduct, Product>(params);
+export default useWishlistFactory<Wishlist, WishlistProduct, Product>(factoryParams);

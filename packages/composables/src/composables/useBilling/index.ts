@@ -3,13 +3,11 @@ import { useBillingFactory, UseBillingParams } from '../../factories/useBillingF
 import { Address } from '../../types';
 import useCart from '../useCart';
 
-const details = {};
-
 const params: UseBillingParams<Address, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   provide() {
     return {
-      cart: useCart()
+      cart: useCart(),
     };
   },
 
@@ -46,13 +44,13 @@ const params: UseBillingParams<Address, any> = {
                     telephone: "8675309",
                     save_in_address_book: false
                     */
-          ...billingDetails
+          ...billingDetails,
         },
-        same_as_shipping: true
-      }
+        same_as_shipping: true,
+      },
     });
     return setBillingAddressOnCartResponse.data.setBillingAddressOnCart.cart.billing_address;
-  }
+  },
 };
 
 export default useBillingFactory<Address, any>(params);

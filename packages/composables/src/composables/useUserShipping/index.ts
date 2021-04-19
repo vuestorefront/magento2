@@ -1,10 +1,10 @@
 import { useUserShippingFactory, UseUserShippingFactoryParams, Context } from '@vue-storefront/core';
 import useUser from '../useUser';
 
-const params: UseUserShippingFactoryParams<any, any> = {
+const factoryParams: UseUserShippingFactoryParams<any, any> = {
   provide() {
     return {
-      user: useUser()
+      user: useUser(),
     };
   },
   addAddress: async (context: Context, params?) => {
@@ -27,7 +27,7 @@ const params: UseUserShippingFactoryParams<any, any> = {
 
   updateAddress: async (context: Context, params?) => {
     console.log('[Magento] updateAddress', params);
-    const response = await context.$ma.api.updateCustomerAddress({id: params.address.id, input: params.address});
+    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id, input: params.address });
     return Promise.resolve(response.data.updateCustomerAddress);
   },
 
@@ -42,14 +42,15 @@ const params: UseUserShippingFactoryParams<any, any> = {
 
   setDefaultAddress: async (context: Context, params?) => {
     console.log('[Magento] setDefaultAddress');
-    const response = await context.$ma.api.updateCustomerAddress({ id: params.address.id,
+    const response = await context.$ma.api.updateCustomerAddress({
+      id: params.address.id,
       input: {
         ...params.address,
-        default_shipping: true
-      }
+        default_shipping: true,
+      },
     });
     return Promise.resolve(response.data.updateCustomerAddress);
-  }
+  },
 };
 
-export default useUserShippingFactory<any, any>(params);
+export default useUserShippingFactory<any, any>(factoryParams);

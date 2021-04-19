@@ -1,6 +1,8 @@
-import { CartGetters, AgnosticPrice, AgnosticTotals, AgnosticAttribute, AgnosticCoupon, AgnosticDiscount } from '@vue-storefront/core';
+import {
+  CartGetters, AgnosticPrice, AgnosticTotals, AgnosticAttribute, AgnosticCoupon, AgnosticDiscount,
+} from '@vue-storefront/core';
+import { Discount, Cart } from '@vue-storefront/magento-api';
 import { CartItem } from '../../types';
-import { Discount, Cart } from '../../../../api-client/src/types/GraphQL';
 import productGetters from './productGetters';
 // import { settings } from '@vue-storefront/magento-api';
 
@@ -15,41 +17,35 @@ export const getCartItems = (cart: Cart): CartItem[] => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getCartItemName = (product: CartItem): string => {
-  return productGetters.getName(product.product);
-};
+export const getCartItemName = (product: CartItem): string => productGetters.getName(product.product);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getCartItemImage = (product: CartItem): string => {
-  return productGetters.getCoverImage(product.product);
-};
+export const getCartItemImage = (product: CartItem): string => productGetters.getCoverImage(product.product);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
   if (!product || !product.prices) {
     return {
       regular: 0,
-      special: 0
+      special: 0,
     };
   }
 
-  const data = {
+  return {
     regular: product.product?.regular_price || 0,
     special: product.product?.price_range?.minimum_price?.final_price?.value || 0,
+    // @ts-ignore
     credit: Math.round(product.product?.price_range?.minimum_price?.final_price?.value / 10),
-    installment: Math.round(product.product?.price_range?.minimum_price?.final_price?.value * 1.1046 / 10),
-    discountPercentage: 100 - Math.round(product.product?.price_range?.minimum_price?.final_price?.value / product.product?.regular_price * 100),
-    total: product.prices?.row_total?.value
+    installment: Math.round((product.product?.price_range?.minimum_price?.final_price?.value * 1.1046) / 10),
+    discountPercentage: 100 - Math.round((product.product?.price_range?.minimum_price?.final_price?.value / product.product?.regular_price) * 100),
+    total: product.prices?.row_total?.value,
   };
-  //
-  return data;
 };
 
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCartItemAttributes = (product: CartItem, filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
-
   const attributes = {};
   if (!product || !product.configurable_options) {
     return attributes;
@@ -67,18 +63,15 @@ export const getCartItemSku = (product: CartItem): string => {
   return product.product.sku;
 };
 
-const calculateDiscounts = (discounts: Discount[]): number => {
-  return discounts.reduce((a, b) => Number(a) + b.amount.value, 0);
-};
+const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((a, b) => Number.parseFloat(a) + Number.parseFloat(b.amount.value), 0);
 
 export const getCartTotals = (cart: Cart): AgnosticTotals => {
-  if (!cart || !cart.prices)
-    return {} as AgnosticTotals;
+  if (!cart || !cart.prices) return {} as AgnosticTotals;
 
   return {
     total: cart.prices.grand_total.value,
     subtotal: cart.prices.subtotal_including_tax.value,
-    special: (cart.prices.discounts) ? calculateDiscounts(cart.prices.discounts) : 0
+    special: (cart.prices.discounts) ? calculateDiscounts(cart.prices.discounts) : 0,
   } as AgnosticTotals;
 };
 
@@ -104,9 +97,7 @@ export const getCartTotalItems = (cart: Cart): number => {
   return cart.total_quantity;
 };
 
-export const getFormattedPrice = (price: number) => {
-  return productGetters.getFormattedPrice(price);
-};
+export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons as AgnosticCoupon[] || [];
@@ -125,9 +116,9 @@ const cartGetters: CartGetters<Cart, CartItem> = {
   getTotals: getCartTotals,
   getShippingPrice: getCartShippingPrice,
   getTotalItems: getCartTotalItems,
-  getFormattedPrice: getFormattedPrice,
-  getCoupons: getCoupons,
-  getDiscounts: getDiscounts
+  getFormattedPrice,
+  getCoupons,
+  getDiscounts,
 };
 
 export default cartGetters;

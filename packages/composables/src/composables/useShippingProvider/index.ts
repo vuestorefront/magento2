@@ -1,8 +1,8 @@
 import { Context } from '@vue-storefront/core';
+import { SelectedShippingMethod } from '@vue-storefront/magento-api';
 import { Shipping, ShippingMethod } from '../../types';
 import { useShippingProviderFactory, UseShippingProviderParams } from '../../factories/useShippingProviderFactory';
 import useCart from '../useCart';
-import { SelectedShippingMethod } from '../../../../api-client';
 
 /*
 interface ShippingProviderState {
@@ -10,10 +10,10 @@ interface ShippingProviderState {
 }
 */
 /* Magento Shipping Methods are "Selected_Shipping_Method & avabile shipping methods." */
-const params: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
+const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
   provide() {
     return {
-      cart: useCart()
+      cart: useCart(),
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -39,12 +39,12 @@ const params: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
     const setShippingMethodsOnCartResponse = await context.$ma.api.setShippingMethodsOnCart({
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{
-        ...shippingMethod
-      }]
+        ...shippingMethod,
+      }],
     });
 
     return setShippingMethodsOnCartResponse.data.cart.shipping_addresses[0].selected_shipping_method;
-  }
+  },
 };
 
-export default useShippingProviderFactory<Shipping, ShippingMethod>(params);
+export default useShippingProviderFactory<Shipping, ShippingMethod>(factoryParams);

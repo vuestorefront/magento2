@@ -3,19 +3,17 @@ import {
   AgnosticBreadcrumb,
   AgnosticMediaGalleryItem,
   AgnosticPrice,
-  ProductGetters
+  ProductGetters,
 } from '@vue-storefront/core';
 
 import {
   Category,
-  Product
+  Product,
 } from '@vue-storefront/magento-api';
 
 import categoryGetters from './categoryGetters';
 
-type ProductVariantFilters = any
-
-// Product
+type ProductVariantFilters = any;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductName = (product: Product): string => {
@@ -28,12 +26,12 @@ export const getProductName = (product: Product): string => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductSlug = (product: Product, category?: Category): string => {
   const rewrites = product.url_rewrites;
-  let url = '/p/' + product.sku;
+  let url = `/p/${product.sku}`;
   if (!rewrites || rewrites.length === 0) {
     return url;
   }
 
-  url = '/' + rewrites[0].url;
+  url = `/${rewrites[0].url}`;
   loopOuter:
   for (let i = 0; i < rewrites.length; i++) {
     const rewrite = rewrites[i];
@@ -42,7 +40,7 @@ export const getProductSlug = (product: Product, category?: Category): string =>
         const parameter = rewrite.parameters[j];
         // eslint-disable-next-line max-depth
         if (parameter.name === 'category' && parseInt(parameter.value) === category.id) {
-          url = '/' + rewrite.url;
+          url = `/${rewrite.url}`;
           break loopOuter;
         }
       }
@@ -65,8 +63,8 @@ export const getProductPrice = (product: Product): AgnosticPrice => {
   }
 
   return {
-    regular: regular,
-    special: special
+    regular,
+    special,
   };
 };
 
@@ -82,7 +80,7 @@ export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] 
     images.push({
       small: galleryItem.url,
       normal: galleryItem.url,
-      big: galleryItem.url
+      big: galleryItem.url,
     });
   }
 
@@ -99,9 +97,7 @@ export const getProductCoverImage = (product: Product): string => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
-  return products;
-};
+export const getProductFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => products;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductAttributes = (products: Product[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
@@ -119,7 +115,7 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
         const obj = {};
         obj[value.value_index] = value.value_label;
         return obj;
-      })
+      }),
     } as AgnosticAttribute;
   }
   return attributes;
@@ -159,14 +155,14 @@ export const getProductCategory = (product: Product, currentUrlPath: string): Ca
   categories.pop();
   if (categories.length === 0) {
     return null;
-  } else {
-    const categoryPath = categories.join('/');
-    for (const category of product.categories) {
-      if ('/' + category.url_path === categoryPath) {
-        return category;
-      }
+  }
+  const categoryPath = categories.join('/');
+  for (const category of product.categories) {
+    if (`/${category.url_path}` === categoryPath) {
+      return category;
     }
   }
+
   return null;
 };
 
@@ -183,9 +179,9 @@ export const getFormattedPrice = (price: number) => {
   const country = 'en';
   const currency = 'USD';
 
-  return new Intl.NumberFormat(`${ locale }-${ country }`, {
+  return new Intl.NumberFormat(`${locale}-${country}`, {
     style: 'currency',
-    currency
+    currency,
   }).format(price);
 };
 
@@ -201,8 +197,8 @@ export const getProductBreadcrumbs = (product: Product, category?: Category): Ag
   breadcrumbs.push({
     text: getProductName(product),
     route: {
-      path: getProductSlug(product)
-    }
+      path: getProductSlug(product),
+    },
   });
 
   return breadcrumbs;
@@ -228,13 +224,13 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getCategoryIds: getProductCategoryIds,
   getCategory: getProductCategory,
   getId: getProductId,
-  getFormattedPrice: getFormattedPrice,
+  getFormattedPrice,
   getBreadcrumbs: getProductBreadcrumbs,
   getTypeId: getProductTypeId,
   getWishlistState: getProductWishlistState,
 
   getTotalReviews: getProductTotalReviews,
-  getAverageRating: getProductAverageRating
+  getAverageRating: getProductAverageRating,
 };
 
 export default productGetters;

@@ -1,18 +1,23 @@
+import { computed } from '@vue/composition-api';
+import {
+  Context,
+  generateContext,
+  Logger,
+  sharedRef,
+} from '@vue-storefront/core';
 import { UseRouter } from '../types';
-import { Ref, computed } from '@vue/composition-api';
-import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
 export interface UseRouterFactoryParams<ROUTER> {
   search: (context: Context, url: string) => Promise<ROUTER>;
 }
 
 export function useRouterFactory<ROUTER>(
-  factoryParams: UseRouterFactoryParams<ROUTER>
+  factoryParams: UseRouterFactoryParams<ROUTER>,
 ) {
   return function useRouter(cacheId: string): UseRouter<ROUTER> {
-    const route: Ref<ROUTER> = sharedRef({}, `useRouter-routers-${cacheId}`);
-    const loading: Ref<boolean> = sharedRef(false, `useRouter-loading-${cacheId}`);
     const context = generateContext(factoryParams);
+    const route = sharedRef<ROUTER>({}, `useRouter-routers-${cacheId}`);
+    const loading = sharedRef<boolean>(false, `useRouter-loading-${cacheId}`);
 
     const search = async (url: string) => {
       Logger.debug(`useRouter/${cacheId}/search`);
@@ -28,7 +33,7 @@ export function useRouterFactory<ROUTER>(
     return {
       search,
       route: computed(() => route.value),
-      loading: computed(() => loading.value)
+      loading: computed(() => loading.value),
     };
   };
 }

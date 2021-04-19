@@ -3,10 +3,10 @@ import { Address } from '../../types';
 import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
 
-const params: UseShippingParams<Address, any> = {
+const factoryParams: UseShippingParams<Address, any> = {
   provide() {
     return {
-      cart: useCart()
+      cart: useCart(),
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,13 +43,13 @@ const params: UseShippingParams<Address, any> = {
             telephone: "8675309",
             save_in_address_book: false
             */
-            ...shippingDetails
-          }
-        }
-      ]
+            ...shippingDetails,
+          },
+        },
+      ],
     });
     return setShippingAddressesOnCartResponse.data.setShippingAddressesOnCart.cart.shipping_addresses[0];
-  }
+  },
 };
 
-export default useShippingFactory<Address, any>(params);
+export default useShippingFactory<Address, any>(factoryParams);

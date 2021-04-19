@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-
 import { UserOrderGetters } from '@vue-storefront/core';
 import { Order, OrderItem } from '../../types';
 
@@ -43,7 +42,7 @@ const orderGetters: UserOrderGetters<Order, OrderItem> = {
   getItemName,
   getItemQty,
   getItemPrice,
-  getFormattedPrice
+  getFormattedPrice,
 };
 
 export default orderGetters;

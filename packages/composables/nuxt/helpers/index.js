@@ -1,63 +1,74 @@
-import { 
-    M2_CART_ID_COOKIE_NAME,
-    M2_CUSTOMER_TOKEN_COOKIE_NAME,
-    M2_STORE_COOKIE_NAME 
-} from './consts';
+import defaultConfig from './defaultConfig';
 
-const loadState = (app) => {
-    let cartId = app.$cookies.get(M2_CART_ID_COOKIE_NAME);
-    let customerToken = app.$cookies.get(M2_CUSTOMER_TOKEN_COOKIE_NAME);
-    let store = app.$cookies.get(M2_STORE_COOKIE_NAME);
+export const getLocaleSettings = (moduleOptions, app) => {
+  let localeSettings = {};
 
-    const getCartId = () => {
-        return cartId;
+  if (moduleOptions.cookies) {
+    localeSettings = {
+      locale: app.$cookies.get(moduleOptions.cookies.localeCookieName),
+      country: app.$cookies.get(moduleOptions.cookies.currencyCookieName),
+      currency: app.$cookies.get(moduleOptions.cookies.countryCookieName),
     };
+  }
 
-    const setCartId = (id) => {
-        if (!id) {
-            app.$cookies.remove(M2_CART_ID_COOKIE_NAME);
-            return;
-        }
-        app.$cookies.set(M2_CART_ID_COOKIE_NAME, id);
-        cartId = id;
+  return {
+    locale: app.i18n.locale || (localeSettings.locale || moduleOptions.locale || defaultConfig.locale),
+    country: localeSettings.country || moduleOptions.country || defaultConfig.country,
+    currency: localeSettings.currency || moduleOptions.currency || defaultConfig.currency,
+  };
+};
+
+export const loadState = (app) => {
+  let cartId = app.$cookies.get(defaultConfig.cookies.cartCookieName);
+  let customerToken = app.$cookies.get(defaultConfig.cookies.customerCookieName);
+  let store = app.$cookies.get(defaultConfig.cookies.storeCookieName);
+
+  const getCartId = () => cartId;
+
+  const setCartId = (id) => {
+    if (!id) {
+      app.$cookies.remove(defaultConfig.cookies.cartCookieName);
+      return;
     }
+    app.$cookies.set(defaultConfig.cookies.cartCookieName, id);
+    cartId = id;
+  };
 
-    const getCustomerToken = () => {
-        return customerToken;
+  const getCustomerToken = () => customerToken;
+
+  const setCustomerToken = (token) => {
+    if (!token) {
+      app.$cookies.remove(defaultConfig.cookies.customerCookieName);
+      return;
     }
+    app.$cookies.set(defaultConfig.cookies.customerCookieName, token);
+    customerToken = token;
+  };
 
-    const setCustomerToken = (token) => {
-        if(!token) {
-            app.$cookies.remove(M2_CUSTOMER_TOKEN_COOKIE_NAME);
-            return;
-        }
-        app.$cookies.set(M2_CUSTOMER_TOKEN_COOKIE_NAME, token);
-        customerToken = token;
+  const getStore = () => store;
+
+  const setStore = (id) => {
+    if (!id) {
+      app.$cookies.remove(defaultConfig.cookies.storeCookieName);
+      return;
     }
+    app.$cookies.set(defaultConfig.cookies.storeCookieName, id);
+    store = id;
+  };
 
-    const getStore = () => {
-        return store;
-    }
+  return {
+    getCartId,
+    setCartId,
+    getCustomerToken,
+    setCustomerToken,
+    getStore,
+    setStore,
+  };
+};
 
-    const setStore = (id) => {
-        if (!id) {
-            app.$cookies.remove(M2_STORE_COOKIE_NAME);
-            return;
-        }
-        app.$cookies.set(M2_STORE_COOKIE_NAME, id);
-        store = id;
-    }
-
-    return {
-        getCartId,
-        setCartId,
-        getCustomerToken,
-        setCustomerToken,
-        getStore,
-        setStore
-    }
-}
-
-export {
-    loadState
-}
+export const mapConfigToSetupObject = ({ moduleOptions, app, additionalProperties = {} }) => ({
+  ...defaultConfig,
+  ...moduleOptions,
+  ...additionalProperties,
+  ...getLocaleSettings(moduleOptions, app),
+});

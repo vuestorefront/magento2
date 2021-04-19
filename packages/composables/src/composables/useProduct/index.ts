@@ -2,21 +2,21 @@ import {
   ProductAttributeFilter,
   ProductAttributeSortInput,
   Products,
-  ProductsQueryType
+  ProductsQueryType,
 } from '@vue-storefront/magento-api';
-import { Context } from '@vue-storefront/core';
-import { useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
+import { Context, useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
+
 import { UseProduct } from '../../types';
 
 const availableSortingOptions = [{
   value: 'latest',
-  label: 'Latest'
+  label: 'Latest',
 }, {
   value: 'price-up',
-  label: 'Price from low to high'
+  label: 'Price from low to high',
 }, {
   value: 'price-down',
-  label: 'Price from high to low'
+  label: 'Price from high to low',
 }];
 
 const productsSearch = async (context: Context, params: {
@@ -38,13 +38,12 @@ const productsSearch = async (context: Context, params: {
     data: productResults.data.products,
     total: productResults.data.products.total_count,
     availableFilters: productResults.data.products.aggregations,
-    availableSortingOptions
+    availableSortingOptions,
   };
-
 };
 
 const useProduct: (cacheId: string) => UseProduct<Products, ProductsSearchParams> = useProductFactory<Products, ProductsSearchParams>({
-  productsSearch
+  productsSearch,
 });
 
 export default useProduct;

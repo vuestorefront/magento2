@@ -1,15 +1,15 @@
 import {
   Context,
   useUserBillingFactory,
-  UseUserBillingFactoryParams
+  UseUserBillingFactoryParams,
 } from '@vue-storefront/core';
 
 import useUser from '../useUser';
 
-const params: UseUserBillingFactoryParams<any, any> = {
+const factoryParams: UseUserBillingFactoryParams<any, any> = {
   provide() {
     return {
-      user: useUser()
+      user: useUser(),
     };
   },
   addAddress: async (context: Context, params?) => {
@@ -51,12 +51,12 @@ const params: UseUserBillingFactoryParams<any, any> = {
       id: params.address.id,
       input: {
         ...params.address,
-        default_billing: true
-      }
+        default_billing: true,
+      },
     });
     return Promise.resolve(response.data.updateCustomerAddress);
-  }
+  },
 
 };
 
-export default useUserBillingFactory<any, any>(params);
+export default useUserBillingFactory<any, any>(factoryParams);

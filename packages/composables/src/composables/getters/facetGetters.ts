@@ -5,52 +5,49 @@ import {
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
-  AgnosticFacet
+  AgnosticFacet,
 } from '@vue-storefront/core';
 
 import {
   buildBreadcrumbs,
   buildFacets,
   reduceForGroupedFacets,
-  reduceForFacets
-} from '../../composables/useFacet/_utils';
+  reduceForFacets,
+} from '../useFacet/_utils';
 
 import {
-  SearchData
+  SearchData,
 } from '../../types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);
 
-const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] =>
-  buildFacets(searchData, reduceForGroupedFacets, criteria)
-    .filter((facet) => facet.options.length > 0);
+const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
+  .filter((facet) => facet.options.length > 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSortOptions = (searchData): AgnosticSort => {
   if (!searchData || !searchData.data || !searchData.data.availableSortingOptions) {
     return {
       options: [],
-      selected: ''
+      selected: '',
     } as AgnosticSort;
   }
 
   return {
     options: searchData.data.availableSortingOptions,
-    selected: searchData.input.sort
+    selected: searchData.input.sort,
   };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getCategoryTree = (searchData): AgnosticCategoryTree => {
-  const buildTree = (category: any): AgnosticCategoryTree => {
-    return {
-      label: category.name,
-      slug: category.url_path,
-      items: (category.children) ? category.children.map(buildTree) : [],
-      isCurrent: (category.name === searchData.data.category.name)
-    };
-  };
+  const buildTree = (category: any): AgnosticCategoryTree => ({
+    label: category.name,
+    slug: category.url_path,
+    items: (category.children) ? category.children.map(buildTree) : [],
+    isCurrent: (category.name === searchData.data.category.name),
+  });
 
   if (!searchData.data || !searchData.data.category.children) {
     return {} as AgnosticCategoryTree;
@@ -73,7 +70,7 @@ const getPagination = (searchData): AgnosticPagination => ({
   totalPages: (searchData.data) ? Math.ceil(searchData.data.total / searchData.input.itemsPerPage) : 0,
   totalItems: (searchData.data) ? searchData.data.total : 0,
   itemsPerPage: searchData.input.itemsPerPage,
-  pageOptions: [10, 50, 100]
+  pageOptions: [10, 50, 100],
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -86,7 +83,7 @@ const facetGetters: FacetsGetters<any, any> = {
   getProducts,
   getCategoryTree,
   getBreadcrumbs,
-  getPagination
+  getPagination,
 };
 
 export default facetGetters;

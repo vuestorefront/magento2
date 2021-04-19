@@ -1,13 +1,11 @@
 /* istanbul ignore file */
-
 import {
   WishlistGetters,
   AgnosticPrice,
-  AgnosticTotals
+  AgnosticTotals,
 } from '@vue-storefront/core';
-import { WishlistProduct } from './../../types';
-
 import { WishlistOutput } from '@vue-storefront/magento-api';
+import { WishlistProduct } from '../../types';
 
 type Wishlist = WishlistOutput;
 
@@ -27,7 +25,7 @@ export const getWishlistItemPrice = (product: WishlistProduct): AgnosticPrice =>
 export const getWishlistItemQty = (product: WishlistProduct): number => 1;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getWishlistItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({'': ''});
+export const getWishlistItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({ '': '' });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getWishlistItemSku = (product: WishlistProduct): string => '';
@@ -39,7 +37,7 @@ export const getWishlistTotals = (wishlist: Wishlist): AgnosticTotals => ({ tota
 export const getWishlistShippingPrice = (wishlist: Wishlist): number => 0;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getWishlistTotalItems = (wishlist: Wishlist): number => (wishlist) ? wishlist.items_count : 0;
+export const getWishlistTotalItems = (wishlist: Wishlist): number => ((wishlist) ? wishlist.items_count : 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getFormattedPrice = (price: number): string => '';
@@ -55,7 +53,7 @@ const wishlistGetters: WishlistGetters<Wishlist, WishlistProduct> = {
   getItemAttributes: getWishlistItemAttributes,
   getItemSku: getWishlistItemSku,
   getTotalItems: getWishlistTotalItems,
-  getFormattedPrice
+  getFormattedPrice,
 };
 
 export default wishlistGetters;

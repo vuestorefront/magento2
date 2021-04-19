@@ -6,7 +6,7 @@ const factoryParams = {
   categorySearch: async (context: Context, params) => {
     const categoryResponse = await context.$ma.api.categoryList(params);
     return categoryResponse.data.categoryList;
-  }
+  },
 };
 
 const useCategory: (id: string) => UseCategory<Category, CategorySearchParams> = useCategoryFactory<Category, any>(factoryParams);

@@ -1,18 +1,23 @@
+import { computed } from '@vue/composition-api';
+import {
+  Context,
+  generateContext,
+  sharedRef,
+  Logger,
+} from '@vue-storefront/core';
 import { UseConfig } from '../types';
-import { Ref, computed } from '@vue/composition-api';
-import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
 export interface UseConfigFactoryParams<CONFIG> {
   loadConfig: (context: Context) => Promise<CONFIG>;
 }
 
 export function useConfigFactory<CONFIG>(
-  factoryParams: UseConfigFactoryParams<CONFIG>
+  factoryParams: UseConfigFactoryParams<CONFIG>,
 ) {
   return function useConfig(cacheId: string): UseConfig<CONFIG> {
-    const config: Ref<CONFIG> = sharedRef({}, `useConfig-categories-${cacheId}`);
-    const loading: Ref<boolean> = sharedRef(false, `useConfig-loading-${cacheId}`);
     const context = generateContext(factoryParams);
+    const config = sharedRef<CONFIG>({}, `useConfig-categories-${cacheId}`);
+    const loading = sharedRef<boolean>(false, `useConfig-loading-${cacheId}`);
 
     const loadConfig = async () => {
       Logger.debug(`useConfig/${cacheId}/loadConfig`);
@@ -27,7 +32,7 @@ export function useConfigFactory<CONFIG>(
     return {
       loadConfig,
       config: computed(() => config.value),
-      loading: computed(() => loading.value)
+      loading: computed(() => loading.value),
     };
   };
 }
