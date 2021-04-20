@@ -3,7 +3,7 @@
 ## Vue Storefront 2 integration with Magento (WIP)
 
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration is being developed by superheroes from [Cyberfuze](https://cyberfuzee.com/), [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
+This integration is being developed by superheroes from [Cyberfuze](https://cyberfuze.com/), [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
 
 **We're aiming to release beta version the latest end of April 2021**. Stay tuned!
 
