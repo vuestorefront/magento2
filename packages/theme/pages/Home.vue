@@ -128,7 +128,7 @@ export default {
       await loadCart();
     });
     return {
-      products: computed(() => productGetters.getFiltered(relatedProducts.value.data.items, { master: true })),
+      products: computed(() => productGetters.getFiltered(relatedProducts.value.data?.items, { master: true })),
       getChkId: computed(() => cart.value.id),
       productsLoading,
       productGetters,
