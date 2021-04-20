@@ -78,7 +78,7 @@ const factoryParams = {
 
     const data = {
       items: productResponse?.data?.products?.items || [],
-      total: productResponse?.data?.products?.total_count?.value || 0,
+      total: productResponse?.data?.products?.total_count || 0,
       availableFilters: productResponse?.data?.products?.attribute_metadata,
       category: { id: params.input.categorySlug },
       availableSortingOptions,
