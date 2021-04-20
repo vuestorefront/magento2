@@ -20,13 +20,15 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](discord.
 
 1. CLone the repo
 2. Run `yarn` to install dependencies
-3. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+3. Build dependencies `yarn build:api-client && yarn build:composables`
+4. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+5. If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
 ## Resources
 
 - [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
 - [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
-
+- [Communicty Chat](https://discord.vuestorefront.io)
 
 ## Support
 
