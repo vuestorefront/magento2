@@ -7,6 +7,15 @@ This integration is being developed by superheroes from [Cyberfuze](https://cybe
 
 **We're aiming to release beta version the latest end of April 2021**. Stay tuned!
 
+## Roadmap 🚀
+- [ ] Making sure Product.vue don’t have errors
+- [ ] Refactor Getters (Facet,  Products, Cart, Checkout)
+- [ ] Wishlist Guest Implementation
+- [ ] Error Handling 
+- [ ] Sort  in Facet.
+- [ ] Facet Separate calls Product & Category queries.
+
+
 ## How to start if you want to try out the integration
 
 ```
