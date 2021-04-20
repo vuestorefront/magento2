@@ -10,7 +10,7 @@ This repository is a starting point for creating new integrations for [Vue Store
 com/DivanteLtd/vue-storefront/tree/next).
 
 - [Demo]() (WIP)
-- [Documentation](https://docs-next.vuestorefront.io/magento/) (WIP)
+- [Documentation](https://docs-next.vuestorefront.io/guide/) (WIP)
 
 This repository is a monorepo containing three projects:
 
