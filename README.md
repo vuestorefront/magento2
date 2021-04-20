@@ -3,7 +3,7 @@
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration is being developed by Cyberfuze, [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/)
+This integration is being developed by superheroes from Cyberfuze, [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
 
 ## How to start if you want to try out the integration
 
