@@ -70,7 +70,7 @@ export const buildFacets = (searchData: SearchData, reduceFn, criteria?: string[
     input: { filters },
   } = searchData;
 
-  return Object.keys(facets)
+  return Object.keys(facets || [])
     .filter(filterFacets(criteria))
     .reduce(reduceFn(facets, filters), []);
 };
