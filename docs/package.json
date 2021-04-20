@@ -1,0 +1,19 @@
+{
+  "name": "vsf-magento-integration-docs",
+  "version": "1.0.0-beta.0",
+  "description": "Documentation for the Magento integration for Vue Storefront",
+  "main": "index.js",
+  "license": "MIT",
+  "authors": {
+    "name": "Dominik Deimel",
+    "email": "@domideimel"
+  },
+  "repository": "https://github.com/vuestorefront/salesforce-commerce-cloud/docs",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  },
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
