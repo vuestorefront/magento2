@@ -28,7 +28,7 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](discord.
 
 - [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
 - [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
-- [Communicty Chat](https://discord.vuestorefront.io)
+- [Community Chat](https://discord.vuestorefront.io)
 
 ## Support
 
