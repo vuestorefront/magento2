@@ -22,7 +22,7 @@
             :image="productGetters.getCoverImage(product)"
             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-            :link="localePath(`/p/${productGetters.getId(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+            :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
           />
         </SfCarouselItem>
       </SfCarousel>

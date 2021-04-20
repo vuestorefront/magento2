@@ -106,7 +106,7 @@
           >
             <SfTab title="Description">
               <div class="product__description">
-                {{ $t('Product description') }}
+                <div v-dompurify-html="product.description.html" />
               </div>
               <SfProperty
                 v-for="(property, i) in properties"
@@ -167,7 +167,7 @@
     </div>
 
     <LazyHydrate when-visible>
-      <RelatedProducts
+      <ProductsCarousel
         :products="relatedProducts"
         :loading="relatedLoading"
         title="Match it with"
@@ -215,7 +215,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import RelatedProducts from '~/components/RelatedProducts.vue';
+import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 
 export default {
@@ -239,14 +239,14 @@ export default {
     SfBreadcrumbs,
     SfButton,
     InstagramFeed,
-    RelatedProducts,
+    ProductsCarousel,
     MobileStoreBanner,
     LazyHydrate,
   },
   transition: 'fade',
   setup(props, context) {
     const qty = ref(1);
-    const { id, relativeUrl } = context.root.$route.params;
+    const { sku } = context.root.$route.params;
     const {
       products,
       search,
@@ -268,11 +268,14 @@ export default {
       search: searchReviews,
     } = useReview('productReviews');
 
-    const product = computed(() => productGetters.getFiltered(products.value,
-      {
+    const product = computed(() => {
+      const baseProduct = productGetters.getFiltered(products.value?.data?.items, {
         master: true,
         attributes: context.root.$route.query,
-      })[0]);
+      });
+
+      return Array.isArray(baseProduct) && baseProduct[0] ? baseProduct[0] : {};
+    });
 
     const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
 
@@ -283,8 +286,8 @@ export default {
 
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
 
-    // TODO: Breadcrumbs are temporary disabled because productGetters return undefined. We have a mocks in data
-    // const breadcrumbs = computed(() => productGetters.getBreadcrumbs ? productGetters.getBreadcrumbs(product.value) : props.fallbackBreadcrumbs);
+    const breadcrumbs = computed(() => (productGetters.getBreadcrumbs(product.value, product.value.categories[0])));
+
     const productGallery = computed(() => productGetters.getGallery(product.value)
       .map((img) => ({
         mobile: { url: img.small },
@@ -297,8 +300,8 @@ export default {
       await search({
         queryType: 'DETAIL',
         filter: {
-          url_key: {
-            eq: relativeUrl,
+          sku: {
+            eq: sku,
           },
         },
       });
@@ -308,7 +311,7 @@ export default {
         currentPage: 1,
         filter: {
           category_id: {
-            in: categories,
+            in: categories.value,
           },
         },
         sort: {
@@ -316,7 +319,7 @@ export default {
         },
       });
 
-      await searchReviews({ productId: id });
+      await searchReviews({ productSku: sku });
     });
 
     const updateFilter = (filter) => {
@@ -330,23 +333,24 @@ export default {
     };
 
     return {
-      updateFilter,
-      configuration,
-      product,
-      reviews,
-      categories,
-      reviewGetters,
-      averageRating: computed(() => productGetters.getAverageRating(product.value)),
-      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
-      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value,
-        { master: true })),
-      relatedLoading,
-      options,
-      qty,
       addItem,
+      averageRating: computed(() => productGetters.getAverageRating(product.value)),
+      breadcrumbs,
+      categories,
+      configuration,
       loading,
-      productGetters,
+      options,
+      product,
       productGallery,
+      productGetters,
+      products,
+      qty,
+      relatedLoading,
+      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value.data.items, { master: true })),
+      reviewGetters,
+      reviews,
+      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
+      updateFilter,
     };
   },
 };

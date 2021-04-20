@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { productFragment } from '../../fragments';
 
 export const detailQuery = gql`
-    query products($search: String, $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
+    query products($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
         products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
             items {
                 id
@@ -94,7 +94,7 @@ export const detailQuery = gql`
 `;
 
 export const listQuery = gql`
-    query products($search: String, $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
+    query products($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
         products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
             aggregations {
                 attribute_code,

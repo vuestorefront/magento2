@@ -178,6 +178,8 @@ export const getProductCategory = (product: Product, currentUrlPath: string): Ca
 
 export const getProductId = (product: Product): string => product.id;
 
+export const getProductSku = (product: Product): string => product.sku;
+
 export const getProductTypeId = (product: Product): string => product.type_id;
 
 export const getFormattedPrice = (price: number) => {
@@ -243,6 +245,7 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getWishlistState: getProductWishlistState,
   getTotalReviews: getProductTotalReviews,
   getAverageRating: getProductAverageRating,
+  getProductSku,
 };
 
 export default productGetters;

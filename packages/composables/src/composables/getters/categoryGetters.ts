@@ -17,20 +17,22 @@ export const getCategoryTree = (category: Category): AgnosticCategoryTree | null
 };
 
 export const getCategoryBreadcrumbs = (category: Category): AgnosticBreadcrumb[] => {
+  let breadcrumbs = [];
+
   if (!category) {
     return [];
   }
-  let breadcrumbs = [];
-  if (category.breadcrumbs !== null) {
+
+  if (Array.isArray(category?.breadcrumbs)) {
     breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
       text: breadcrumb.category_name,
-      link: `/${breadcrumb.category_url_path}${category.url_suffix}`,
+      link: `/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
     } as AgnosticBreadcrumb));
   }
 
   breadcrumbs.push({
     text: category.name,
-    link: `/${category.url_path}${category.url_suffix}`,
+    link: `/${category.url_path}${category.url_suffix || ''}`,
   } as AgnosticBreadcrumb);
 
   return breadcrumbs;

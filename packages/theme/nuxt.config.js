@@ -45,7 +45,9 @@ export default {
     ],
   },
   loading: { color: '#fff' },
-  plugins: [],
+  plugins: [
+    { src: '~/plugins/domPurify.js', ssr: false },
+  ],
   buildModules: [
     // to core
     '@nuxt/typescript-build',
@@ -181,7 +183,7 @@ export default {
 
         routes.push({
           name: 'Product',
-          path: '/p/:id/:relativeUrl+',
+          path: '/p/:sku/:relativeUrl+',
           component: resolve(__dirname, '_theme/pages/Product.vue'),
         });
       }
