@@ -49,7 +49,7 @@ const useUiHelpers = () => {
   const getSearchTermFromUrl = () => {
     const { query, params } = instance.$router.history.current;
     // hardcoded categorySlug for search results
-    const categorySlug = 'catalogue';
+    const categorySlug = 'root-category';
 
     return {
       rootCatSlug: params.slug_1,
