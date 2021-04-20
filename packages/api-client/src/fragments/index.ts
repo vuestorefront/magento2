@@ -18,6 +18,26 @@ export const productFragment = `
   image {
     url
   }
+  thumbnail {
+      url
+  }
+  url_rewrites {
+      url
+      parameters {
+          name
+          value
+      }
+  }
+  categories {
+      id
+      name
+      url_suffix
+      url_path
+      breadcrumbs {
+          category_name,
+          category_url_path
+      }
+  }
 `;
 
 export const cartFragment = `

@@ -48,17 +48,21 @@ export const enum ProductsQueryType {
   detail = 'DETAIL',
 }
 
+export type GetProductSearchParams = {
+  pageSize?: number;
+  currentPage?: number;
+  queryType?: ProductsQueryType;
+  search?: string;
+  filter?: ProductAttributeFilterInput;
+  sort?: ProductAttributeSortInput;
+};
+
 export interface MagentoApiMethods {
   categoryList(categoryFilter?: CategoryFilterInput): Promise<ApolloQueryResult<categoryList>>;
 
   urlResolver(url: string): Promise<ApolloQueryResult<urlResolver>>;
 
-  products(pageSize: number,
-    currentPage: number,
-    queryType: ProductsQueryType,
-    search?: string,
-    filter?: ProductAttributeFilterInput,
-    sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>>;
+  products(searchParams: GetProductSearchParams): Promise<ApolloQueryResult<Products>>;
 
   storeConfig(): Promise<ApolloQueryResult<storeConfigQuery>>;
 
