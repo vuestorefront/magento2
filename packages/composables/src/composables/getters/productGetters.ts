@@ -119,7 +119,7 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
       label: option.label,
       value: option.values.map((value) => {
         const obj = {};
-        obj[value.value_index] = value.value_label;
+        obj[value.value_index] = value.label;
         return obj;
       }),
     } as AgnosticAttribute;

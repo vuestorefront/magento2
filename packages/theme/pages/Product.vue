@@ -51,41 +51,39 @@
           </div>
         </div>
         <div>
-          <p class="product__description desktop-only">
-            {{ description }}
-          </p>
+          <p class="product__description desktop-only" v-if="product.short_description.html" v-dompurify-html="product.short_description.html"/>
           <SfButton class="sf-button--text desktop-only product__guide">
             {{ $t('Size guide') }}
           </SfButton>
           <SfSelect
             v-if="options.size"
-            :value="configuration.size"
+            :value="Object.keys(options.size.value[0])[0]"
             label="Size"
             class="sf-select--underlined product__select-size"
             :required="true"
             @input="size => updateFilter({ size })"
           >
             <SfSelectOption
-              v-for="size in options.size"
-              :key="size.value"
-              :value="size.value"
+              v-for="(size, i) in options.size.value"
+              :key="i"
+              :value="Object.keys(size)[0]"
             >
-              {{ size.label }}
+              {{ Object.values(size)[0] }}
             </SfSelectOption>
           </SfSelect>
           <div
-            v-if="options.color && options.color.length > 1"
+            v-if="options.color && options.color.value.length > 1"
             class="product__colors desktop-only"
           >
             <p class="product__color-label">
               {{ $t('Color') }}:
             </p>
             <SfColor
-              v-for="(color, i) in options.color"
+              v-for="(color, i) in options.color.value"
               :key="i"
-              :color="color.value"
+              :color="Object.values(color)[0]"
               class="product__color"
-              @click="updateFilter({color})"
+              @click="updateFilter({color: Object.keys(color)[0]})"
             />
           </div>
           <SfAddToCart
@@ -277,7 +275,8 @@ export default {
       return Array.isArray(baseProduct) && baseProduct[0] ? baseProduct[0] : {};
     });
 
-    const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
+    const options = computed(() => productGetters.getAttributes(product.value,
+      ['color', 'size']));
 
     const configuration = computed(() => productGetters.getAttributes(product.value,
       ['color', 'size']));
@@ -326,7 +325,7 @@ export default {
       context.root.$router.push({
         path: context.root.$route.path,
         query: {
-          ...configuration.value,
+          ...Object.keys(configuration.value)[0],
           ...filter,
         },
       });
