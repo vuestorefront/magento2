@@ -10,8 +10,15 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: process.env.npm_package_description || '',
+      },
     ],
     link: [
       {
@@ -138,7 +145,9 @@ export default {
       numberFormats: {
         en: {
           currency: {
-            style: 'currency', currency: 'USD', currencyDisplay: 'symbol',
+            style: 'currency',
+            currency: 'USD',
+            currencyDisplay: 'symbol',
           },
         },
       },
@@ -166,6 +175,17 @@ export default {
   },
   router: {
     extendRoutes(routes, resolve) {
+      const productRouteIndex = routes.findIndex((r) => r.name === 'Product');
+      if (productRouteIndex) {
+        routes.splice(productRouteIndex, 1);
+
+        routes.push({
+          name: 'Product',
+          path: '/p/:id/:relativeUrl+',
+          component: resolve(__dirname, '_theme/pages/Product.vue'),
+        });
+      }
+
       routes.push({
         name: 'urlResolver',
         path: '*',
@@ -173,7 +193,10 @@ export default {
       });
     },
     scrollBehavior(_to, _from, savedPosition) {
-      return savedPosition || { x: 0, y: 0 };
+      return savedPosition || {
+        x: 0,
+        y: 0,
+      };
     },
   },
 };
