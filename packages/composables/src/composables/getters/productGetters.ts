@@ -20,6 +20,7 @@ export const getProductName = (product: Product): string => {
   if (!product) {
     return '';
   }
+
   return product.name;
 };
 
@@ -33,13 +34,13 @@ export const getProductSlug = (product: Product, category?: Category): string =>
 
   url = `/${rewrites[0].url}`;
   loopOuter:
-  for (let i = 0; i < rewrites.length; i++) {
+  for (let i = 0; i < rewrites.length; i += 1) {
     const rewrite = rewrites[i];
     if (category && category.id && rewrite.parameters) {
-      for (let j = 0; j < rewrite.parameters.length; j++) {
+      for (let j = 0; j < rewrite.parameters.length; j += 1) {
         const parameter = rewrite.parameters[j];
         // eslint-disable-next-line max-depth
-        if (parameter.name === 'category' && parseInt(parameter.value) === category.id) {
+        if (parameter.name === 'category' && parseInt(parameter.value, 10) === category.id) {
           url = `/${rewrite.url}`;
           break loopOuter;
         }
@@ -54,9 +55,11 @@ export const getProductSlug = (product: Product, category?: Category): string =>
 export const getProductPrice = (product: Product): AgnosticPrice => {
   let regular = 0;
   let special = null;
-  if (product.price_range) {
+
+  if (product?.price_range) {
     regular = product.price_range.minimum_price.regular_price.value;
     const final = product.price_range.minimum_price.final_price.value;
+
     if (final < regular) {
       special = final;
     }
@@ -71,11 +74,12 @@ export const getProductPrice = (product: Product): AgnosticPrice => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] => {
   const images = [];
-  if (!product.media_gallery) {
+
+  if (!product?.media_gallery) {
     return images;
   }
 
-  for (let i = 0; i < product.media_gallery.length; i++) {
+  for (let i = 0; i < product.media_gallery.length; i += 1) {
     const galleryItem = product.media_gallery[i];
     images.push({
       small: galleryItem.url,
@@ -101,12 +105,14 @@ export const getProductFiltered = (products: Product[], filters: ProductVariantF
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductAttributes = (products: Product[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
-  if (!products || !products.configurable_options) {
+  if (!products || !products?.configurable_options) {
     return {};
   }
+
   const attributes = {};
   const configurableOptions = products.configurable_options;
-  for (let i = 0; i < configurableOptions.length; i++) {
+
+  for (let i = 0; i < configurableOptions.length; i += 1) {
     const option = configurableOptions[i];
     attributes[option.attribute_code] = {
       name: option.attribute_code,
@@ -122,9 +128,10 @@ export const getProductAttributes = (products: Product[] | Product, filterByAttr
 };
 
 export const getProductDescription = (product: Product): string => {
-  if (!product || !product.description) {
+  if (!product || !product?.description) {
     return '';
   }
+
   return product.description.html;
 };
 
@@ -138,25 +145,28 @@ export const getProductShortDescription = (product: Product): string => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductCategoryIds = (product: Product): string[] => {
   const categoryIds = [];
-  if (!product.categories) {
+
+  if (!product?.categories) {
     return categoryIds;
   }
-  for (const category of product.categories) {
-    categoryIds.push(category.id);
-  }
-  return categoryIds;
+
+  return product.categories.map((category) => category.id);
 };
 
 export const getProductCategory = (product: Product, currentUrlPath: string): Category | null => {
-  if (!product.categories || product.categories.length === 0) {
+  if (!product?.categories || product?.categories.length === 0) {
     return null;
   }
+
   const categories = currentUrlPath.split('/');
   categories.pop();
+
   if (categories.length === 0) {
     return null;
   }
+
   const categoryPath = categories.join('/');
+
   for (const category of product.categories) {
     if (`/${category.url_path}` === categoryPath) {
       return category;
@@ -167,6 +177,7 @@ export const getProductCategory = (product: Product, currentUrlPath: string): Ca
 };
 
 export const getProductId = (product: Product): string => product.id;
+
 export const getProductTypeId = (product: Product): string => product.type_id;
 
 export const getFormattedPrice = (price: number) => {
@@ -186,10 +197,12 @@ export const getFormattedPrice = (price: number) => {
 };
 
 export const getProductBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
-  if (!product) {
-    return [];
-  }
   let breadcrumbs = [];
+
+  if (!product) {
+    return breadcrumbs;
+  }
+
   if (category) {
     breadcrumbs = categoryGetters.getBreadCrumbs(category) as AgnosticBreadcrumb[];
   }
@@ -204,7 +217,7 @@ export const getProductBreadcrumbs = (product: Product, category?: Category): Ag
   return breadcrumbs;
 };
 
-export const getProductWishlistState = (product: Product): boolean => product.isOnWishlist;
+export const getProductWishlistState = (product: Product): boolean => product?.isOnWishlist;
 
 export const getProductTotalReviews = (): number => 0;
 
@@ -228,7 +241,6 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getBreadcrumbs: getProductBreadcrumbs,
   getTypeId: getProductTypeId,
   getWishlistState: getProductWishlistState,
-
   getTotalReviews: getProductTotalReviews,
   getAverageRating: getProductAverageRating,
 };

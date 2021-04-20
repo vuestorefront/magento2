@@ -15,6 +15,7 @@ import {
   CouponInterface,
   Customer,
 } from '@vue-storefront/magento-api';
+import { ProductAttributeFilterInput, ProductAttributeSortInput, ProductsQueryType } from '@vue-storefront/magento-api/src';
 
 // @todo: replace with real types
 type Product = ProductInterface;

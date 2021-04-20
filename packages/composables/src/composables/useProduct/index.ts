@@ -1,8 +1,6 @@
 import {
-  ProductAttributeFilter,
-  ProductAttributeSortInput,
   Products,
-  ProductsQueryType,
+  GetProductSearchParams,
 } from '@vue-storefront/magento-api';
 import { Context, useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
 
@@ -19,20 +17,8 @@ const availableSortingOptions = [{
   label: 'Price from high to low',
 }];
 
-const productsSearch = async (context: Context, params: {
-  search?: string;
-  filter?: ProductAttributeFilter;
-  pageSize?: number;
-  currentPage?: number;
-  sort?: ProductAttributeSortInput;
-  queryType?: ProductsQueryType;
-}) => {
-  const productResults = await context.$magento.api.products(params.pageSize,
-    params.currentPage,
-    params.queryType,
-    params.search,
-    params.filter,
-    params.sort);
+const productsSearch = async (context: Context, params: GetProductSearchParams) => {
+  const productResults = await context.$magento.api.products(params);
 
   return {
     data: productResults.data.products,
