@@ -1,7 +1,5 @@
 # Vue Storefront for Magento
 
-This is a documentation for Vue Storefront integration with Magento 2.
+This is a documentation for Vue Storefront 2 integration with Magento 2.
 
-This Open Source integration is currently a **work in progress** and not ready for production usage.
-
-If you'd like to use Vue Storefront in production we suggest using the Enterprise version. [Contact us](https://www.vuestorefront.io/contact/sales) to learn more
+This integration is currently a **Beta** and not ready for production usage. You can help us making the integration production-ready faster by reporting bugs and contributing to the code.

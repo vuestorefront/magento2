@@ -9,7 +9,7 @@
     "build": "rm -rf lib && rollup -c",
     "dev": "rollup -c -w",
     "test": "cross-env APP_ENV=test jest --rootDir .",
-    "types": "typedoc --out ../../docs/magento/api-client --plugin typedoc-plugin-markdown src/index.ts"
+    "types": "typedoc --out ../../docs/guide/api-client --plugin typedoc-plugin-markdown src/index.ts"
   },
   "dependencies": {
     "@vue-storefront/core": "^2.x",
