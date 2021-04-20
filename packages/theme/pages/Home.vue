@@ -117,10 +117,8 @@ export default {
       await productsSearch({
         pageSize: 10,
         currentPage: 1,
-        filter: {
-          new: {
-            eq: '1',
-          },
+        new: {
+          eq: '1',
         },
         sort: {
           position: 'ASC',
