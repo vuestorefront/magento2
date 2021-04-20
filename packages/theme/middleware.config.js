@@ -3,7 +3,7 @@ module.exports = {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: 'https://bo-mvp.ecritel.com.br/graphql', // 'https://demo-magento2.storefrontcloud.io/graphql',
+        api: 'https://demo-magento2.storefrontcloud.io/graphql',
         tax: {
           displayCartSubtotalIncludingTax: true,
         },
