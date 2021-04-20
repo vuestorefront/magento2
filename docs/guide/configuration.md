@@ -57,7 +57,7 @@ You can read more about middleware configuration in Vue Storefront [here](../adv
 // middleware.config.js
 module.exports = {
   integrations: {
-    ma: {
+    magento: {
       ...
     }
   }
