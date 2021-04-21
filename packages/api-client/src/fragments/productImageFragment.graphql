@@ -1,0 +1,16 @@
+#import "./productMediaConfigurationFragment.graphql"
+
+fragment ProductImages on ProductInterface {
+  media_gallery {
+    ...ProductMediaConfigurationFragment
+  }
+  small_image {
+    ...ProductMediaConfigurationFragment
+  }
+  image {
+    ...ProductMediaConfigurationFragment
+  }
+  thumbnail {
+    ...ProductMediaConfigurationFragment
+  }
+}

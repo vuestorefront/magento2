@@ -1,0 +1,74 @@
+#import "./productFragment.graphql"
+
+fragment CartFragment on Cart {
+  id
+  applied_coupons {
+    code
+  }
+  prices {
+    subtotal_excluding_tax {
+      value
+    },
+    subtotal_including_tax {
+      value
+    },
+    applied_taxes {
+      amount {
+        value
+      },
+      label
+    }
+    discounts {
+      amount {
+        value
+      },
+      label
+    }
+    grand_total {
+      value
+    }
+  }
+  shipping_addresses {
+    selected_shipping_method {
+      amount {
+        currency
+        value
+      },
+      carrier_code
+      method_code,
+      carrier_title
+      method_title
+    }
+  }
+  billing_address {
+    firstname
+    lastname
+    street
+    city
+    postcode
+    telephone
+    country {
+      code
+      label
+    }
+  }
+  items {
+    id
+    product {
+      ...ProductFragment
+    }
+    prices {
+      row_total {
+        value
+      }
+      row_total_including_tax {
+        value
+      }
+      total_item_discount {
+        value
+      }
+    }
+    quantity
+  }
+  total_quantity
+}

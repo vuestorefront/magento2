@@ -1,0 +1,18 @@
+fragment ConfigurableProductOptionsFragment on ConfigurableProduct{
+  configurable_options {
+    label
+    attribute_code
+    uid
+    position
+    values {
+      default_label
+      label
+      store_label
+      use_default_value
+      value_index
+      swatch_data {
+        value
+      }
+    }
+  }
+}

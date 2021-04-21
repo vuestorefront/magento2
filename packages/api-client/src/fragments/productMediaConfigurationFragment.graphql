@@ -1,0 +1,6 @@
+fragment ProductMediaConfigurationFragment on MediaGalleryInterface{
+  url
+  position
+  disabled
+  label
+}
