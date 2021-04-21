@@ -1,12 +1,17 @@
-import ApplyCouponToCart from './mutation';
-import { ExecutionResult } from 'graphql';
-import { RemoveCouponFromCartInput, RemoveCouponFromCartOutput } from '../../types/GraphQL';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
+import {
+  RemoveCouponFromCartInput,
+  RemoveCouponFromCartMutation,
+  RemoveCouponFromCartMutationVariables,
+} from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const removeCouponFromCart = async ({ client }, input: RemoveCouponFromCartInput): Promise<ExecutionResult<RemoveCouponFromCartOutput>> => {
-  return await client.mutate({
-    mutation: ApplyCouponToCart,
-    variables: { input }
-  });
-};
-
-export default removeCouponFromCart;
+export default async (
+  { client }: Context,
+  input: RemoveCouponFromCartInput,
+): Promise<FetchResult<RemoveCouponFromCartMutation>> => client
+  .mutate<RemoveCouponFromCartMutation, RemoveCouponFromCartMutationVariables>({
+  mutation,
+  variables: { input },
+});

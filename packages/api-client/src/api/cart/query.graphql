@@ -1,0 +1,7 @@
+#import "../../fragments/cartFragment.graphql"
+
+query cart($cartId: String!) {
+  cart(cart_id:$cartId) {
+    ...CartFragment
+  }
+}

@@ -1,0 +1,9 @@
+#import "../../fragments/cartFragment.graphql"
+
+mutation applyCouponToCart($input: ApplyCouponToCartInput) {
+  applyCouponToCart(input: $input) {
+    cart {
+      ...CartFragment
+    }
+  }
+}

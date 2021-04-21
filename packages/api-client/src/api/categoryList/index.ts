@@ -1,12 +1,13 @@
-import { CategoryTree, CategoryFilterInput } from '../../types/GraphQL';
 import { ApolloQueryResult } from 'apollo-client';
-import { query } from './query';
+import { CategoryFilterInput, CategoryListQuery, CategoryListQueryVariables } from '../../types/GraphQL';
+import query from './query.graphql';
+import { Context } from '../../types/context';
 
-const categoryList = async ({ client }, filters: CategoryFilterInput): Promise<ApolloQueryResult<CategoryTree[]>> => {
-  return await client.query({
-    query,
-    variables: { filters }
-  });
-};
-
-export default categoryList;
+export default async (
+  { client }: Context,
+  filters: CategoryFilterInput,
+): Promise<ApolloQueryResult<CategoryListQuery>> => client
+  .query<CategoryListQuery, CategoryListQueryVariables>({
+  query,
+  variables: { filters },
+});

@@ -1,19 +1,17 @@
-import MergeCarts from './mutation';
-import { ExecutionResult } from 'graphql';
-import { Cart } from '../../types/GraphQL';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
+import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const mergeCarts = async ({ client }, sourceCartId: string, destinationCartId: string): Promise<ExecutionResult<Cart>> => {
-  const response = client.mutate({
-    mutation: MergeCarts,
-    variables: {
-      // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
-      source_cart_id: sourceCartId,
-      // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
-      destination_cart_id: destinationCartId
-    }
-  });
-
-  return response;
-};
-
-export default mergeCarts;
+export default async (
+  { client }: Context,
+  sourceCartId: string,
+  destinationCartId: string,
+): Promise<FetchResult<MergeCartsMutation>> => client
+  .mutate<MergeCartsMutation, MergeCartsMutationVariables>({
+  mutation,
+  variables: {
+    sourceCartId,
+    destinationCartId,
+  },
+});

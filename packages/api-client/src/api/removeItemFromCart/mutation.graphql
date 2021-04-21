@@ -1,0 +1,9 @@
+#import "../../fragments/cartFragment.graphql"
+
+mutation removeItemFromCart($input: RemoveItemFromCartInput) {
+  removeItemFromCart(input: $input) {
+    cart {
+      ...CartFragment
+    }
+  }
+}

@@ -1,0 +1,11 @@
+query customerOrders {
+  customerOrders {
+    items {
+      order_number
+      id
+      created_at
+      grand_total
+      status
+    }
+  }
+}

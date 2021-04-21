@@ -1,0 +1,20 @@
+#import "../../fragments/productFragment.graphql"
+
+query productsList($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
+  products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
+    aggregations {
+      attribute_code,
+      count,
+      label,
+      options {
+        count,
+        label,
+        value
+      }
+    }
+    items {
+      ...ProductFragment
+    },
+    total_count
+  }
+}

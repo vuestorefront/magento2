@@ -1,0 +1,66 @@
+#import "../../fragments/productFragment.graphql"
+#import "../../fragments/configurableProductOptionsFragment.graphql"
+#import "../../fragments/productImageFragment.graphql"
+#import "../../fragments/productPriceRangeFragment.graphql"
+
+query productDetails($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
+  products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
+    items {
+      uid
+      __typename
+      canonical_url
+      sku
+      name
+      stock_status
+      only_x_left_in_stock
+      description {
+        html
+      }
+      short_description {
+        html
+      }
+      ...ProductPriceRange
+      ...ProductImages
+      url_rewrites {
+        url
+        parameters {
+          name
+          value
+        }
+      }
+      upsell_products {
+        ...ProductFragment
+      }
+      related_products {
+        ...ProductFragment
+      }
+      categories {
+        id
+        name
+        url_suffix
+        url_path
+        breadcrumbs {
+          category_name,
+          category_url_path
+        }
+      }
+      ... on ConfigurableProduct {
+        variants {
+          attributes {
+            code
+            value_index
+            label
+            uid
+          }
+          product {
+            ...ProductFragment
+            media_gallery {
+              url
+            }
+          }
+        }
+        ...ConfigurableProductOptionsFragment
+      }
+    }
+  }
+}

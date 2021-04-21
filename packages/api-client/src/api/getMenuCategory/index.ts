@@ -1,13 +1,18 @@
 import { CustomQuery } from '@vue-storefront/core';
+import { ApolloQueryResult } from '@apollo/client';
 import { Context } from '../../types/context';
-import { CategoryFilterInput, CategoryProducts } from '../../types/GraphQL';
-import { BaseQuery } from './query';
+import {
+  CategoryFilterInput,
+  GetMenuCategoryQuery,
+  GetMenuCategoryQueryVariables,
+} from '../../types/GraphQL';
+import query from './query.graphql';
 
-export default async function getMenuCategory(
+export default async (
   context: Context,
   params: CategoryFilterInput,
   customQuery?: CustomQuery,
-): Promise<CategoryProducts> {
+): Promise<GetMenuCategoryQuery> => {
   const defaultVariables = params ? {
     ids: params.ids,
     name: params.name,
@@ -17,17 +22,15 @@ export default async function getMenuCategory(
   const { categories } = context.extendQuery(customQuery,
     {
       categories: {
-        query: BaseQuery,
+        query,
         variables: defaultVariables,
       },
     });
 
   try {
-    const { data } = await context.client.query({
-      query: BaseQuery,
+    const { data } = await context.client.query<GetMenuCategoryQuery, GetMenuCategoryQueryVariables>({
+      query,
       variables: categories.variables,
-      // temporary, seems like bug in apollo:
-      // @link: https://github.com/apollographql/apollo-client/issues/3234
       fetchPolicy: 'no-cache',
     });
 
@@ -35,4 +38,4 @@ export default async function getMenuCategory(
   } catch (error) {
     throw error.graphQLErrors?.[0] || error.networkError?.result || error;
   }
-}
+};

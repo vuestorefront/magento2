@@ -1,0 +1,9 @@
+query urlReslover($url: String!) {
+  urlResolver(url:$url) {
+    id,
+    redirectCode,
+    relative_url,
+    type
+    entity_uid
+  }
+}

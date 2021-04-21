@@ -1,0 +1,10 @@
+#import "../../fragments/customerFragment.graphql"
+
+mutation changeCustomerPassword($currentPassword: String!, $newPassword: String!) {
+  changeCustomerPassword(
+    currentPassword: $currentPassword
+    newPassword: $newPassword
+  ) {
+    ...CustomerFragment
+  }
+}
