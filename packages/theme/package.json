@@ -35,6 +35,7 @@
     "vue": "^2.6.12"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "@nuxt/types": "^2.15.4",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",

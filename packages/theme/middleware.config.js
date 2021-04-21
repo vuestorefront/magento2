@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 module.exports = {
   integrations: {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: 'https://demo-magento2.storefrontcloud.io/graphql',
+        api: process.env.MAGENTO_GRAPHQL,
         tax: {
           displayCartSubtotalIncludingTax: true,
         },
