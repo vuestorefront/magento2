@@ -29,7 +29,7 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](discord.vuestorefront.io)!
 
-1. CLone the repo
+1. Clone the repo
 2. Run `yarn` to install dependencies
 3. Build dependencies `yarn build:api-client && yarn build:composables`
 4. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
