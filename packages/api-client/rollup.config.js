@@ -1,5 +1,6 @@
-import graphql from 'rollup-plugin-graphql';
-import typescript from 'rollup-plugin-typescript2';
+import graphql from '@rollup/plugin-graphql';
+import typescript from '@rollup/plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import { generateBaseConfig } from '../../rollup.base.config';
@@ -25,6 +26,7 @@ const server = {
     }),
     graphql(),
     json(),
+    terser(),
   ],
 };
 
