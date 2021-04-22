@@ -33,11 +33,12 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.21.3",
-    "@graphql-codegen/typescript": "1.21.1",
-    "@graphql-codegen/typescript-operations": "^1.17.15",
+    "@graphql-codegen/cli": "1.21.4",
+    "@graphql-codegen/typescript": "1.22.0",
+    "@graphql-codegen/typescript-operations": "^1.17.16",
     "@rollup/plugin-graphql": "^1.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
+    "@rollup/plugin-node-resolve": "^11.2.1",
     "@rollup/plugin-json": "^4.1.0",
     "@types/isomorphic-fetch": "^0.0.35",
     "apollo-link-schema": "^1.2.5",

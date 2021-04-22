@@ -7,8 +7,8 @@
   "tsModule": "src/index.ts",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "build": "rimraf lib && rollup -c",
+    "dev": "rimraf lib && rollup -c -w",
     "test": "jest",
     "lint:fix": "eslint ./src --ext .ts,.vue --fix",
     "prepublish": "yarn build",
