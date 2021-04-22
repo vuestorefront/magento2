@@ -4,6 +4,7 @@
   "exclude": ["node_modules", "lib"],
   "files": ["typings.d.ts"],
   "compilerOptions": {
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "rootDir": "src"
   }
 }

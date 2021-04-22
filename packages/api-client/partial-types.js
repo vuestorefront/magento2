@@ -29,7 +29,7 @@ fetch(process.env.MAGENTO_GRAPHQL, {
       (type) => type.possibleTypes !== null,
     );
     result.data.__schema.types = filteredData;
-    fs.writeFile('./fragmentTypes.json', JSON.stringify(result.data), (err) => {
+    fs.writeFile('./src/types/fragmentTypes.json', JSON.stringify(result.data), (err) => {
       if (err) {
         console.error('Error writing fragmentTypes file', err);
       } else {

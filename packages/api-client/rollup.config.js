@@ -1,6 +1,6 @@
-import graphql from '@rollup/plugin-graphql';
 import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
+import resolve from '@rollup/plugin-node-resolve';
+import graphql from '@rollup/plugin-graphql';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import { generateBaseConfig } from '../../rollup.base.config';
@@ -20,13 +20,12 @@ const server = {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    typescript({
-      // eslint-disable-next-line global-require
-      typescript: require('typescript'),
+    resolve({
+      extensions: ['.js', '.ts', '.graphql'],
     }),
+    typescript(),
     graphql(),
     json(),
-    terser(),
   ],
 };
 
