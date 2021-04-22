@@ -7,7 +7,7 @@ import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { Logger } from '@vue-storefront/core';
 import { Config } from './types/setup';
-import introspectionQueryResultData from '../fragmentTypes.json';
+import introspectionQueryResultData from './types/fragmentTypes.json';
 
 const createErrorHandler = () => onError(({
   graphQLErrors,

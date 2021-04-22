@@ -16,7 +16,6 @@ import {
   CategoryFilterInput,
   CategoryListQuery,
   CategoryTree,
-  Customer as CustomerInterface,
   CustomerInput,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
@@ -62,7 +61,7 @@ export type CartItem = CartItemInterface;
 export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput;
 export type Coupon = AppliedCoupon;
-export type Customer = CustomerInterface;
+export type Customer = CustomerFragment;
 export type CustomerUpdateParameters = CustomerInput;
 export type Product = ProductInterface;
 export type ProductAttributeFilter = ProductAttributeFilterInput;
