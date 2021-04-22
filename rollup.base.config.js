@@ -1,5 +1,4 @@
 import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
 
 export function generateBaseConfig(pkg) {
   return {
@@ -8,6 +7,7 @@ export function generateBaseConfig(pkg) {
       {
         file: pkg.main,
         format: 'cjs',
+        sourcemap: true,
       },
       {
         file: pkg.module,
@@ -19,11 +19,7 @@ export function generateBaseConfig(pkg) {
       ...Object.keys(pkg.dependencies || {}),
     ],
     plugins: [
-      typescript({
-        // eslint-disable-next-line global-require
-        typescript: require('typescript'),
-      }),
-      terser(),
+      typescript(),
     ],
   };
 }
