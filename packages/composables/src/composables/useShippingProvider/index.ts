@@ -1,15 +1,8 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import { SelectedShippingMethod } from '@vue-storefront/magento-api';
-import { Shipping, ShippingMethod } from '../../types';
 import { useShippingProviderFactory, UseShippingProviderParams } from '../../factories/useShippingProviderFactory';
 import useCart from '../useCart';
 
-/*
-interface ShippingProviderState {
-    response: SelectedShippingMethod
-}
-*/
-/* Magento Shipping Methods are "Selected_Shipping_Method & avabile shipping methods." */
 const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
   provide() {
     return {
@@ -18,24 +11,17 @@ const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod>
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadShippingProvider');
+    Logger.debug('[Magento] loadShippingProvider');
     if (!context.cart.cart?.value?.shipping_addresses[0].selected_shipping_method) {
       await context.cart.load({ customQuery });
     }
-
-    /*
-        return {
-            ...state.value,
-            response: context.cart.cart.value.shipping_addresses[0].selected_shipping_method
-        };
-        */
 
     return context.cart.cart.value.shipping_addresses[0].selected_shipping_method;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingMethod, customQuery }) => {
-    console.log('[Magento] saveShippingProvider');
+    Logger.debug('[Magento] saveShippingProvider');
     const setShippingMethodsOnCartResponse = await context.$magento.api.setShippingMethodsOnCart({
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{

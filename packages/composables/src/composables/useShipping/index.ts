@@ -1,9 +1,9 @@
-import { Context } from '@vue-storefront/core';
-import { Address } from '../../types';
+import { Context, Logger } from '@vue-storefront/core';
+import { AddressOnCart } from '@vue-storefront/magento-api';
 import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
 
-const factoryParams: UseShippingParams<Address, any> = {
+const factoryParams: UseShippingParams<AddressOnCart, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -11,7 +11,7 @@ const factoryParams: UseShippingParams<Address, any> = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadShipping');
+    Logger.debug('[Magento] loadShipping');
     if (!context.cart.cart?.value?.shipping_addresses) {
       await context.cart.load({ customQuery });
     }
@@ -19,37 +19,23 @@ const factoryParams: UseShippingParams<Address, any> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // @TODO Check because magento is getting array and not single address.
-  // @TODO check for types
   save: async (context: Context, { shippingDetails, customQuery }) => {
-    console.log('[Magento] setShippingAddress');
-    console.log(context);
+    Logger.debug('[Magento] setShippingAddress');
+    Logger.debug(context);
     const { id } = context.cart.cart.value;
     const setShippingAddressesOnCartResponse = await context.$magento.api.setShippingAddressesOnCart({
       cart_id: id,
       shipping_addresses: [
         {
           address: {
-
-            /*
-            firstname: "Bob",
-            lastname: "Roll",
-            company: "Magento",
-            street: ["Magento Pkwy", "Main Street"],
-            city: "Austin",
-            region: "TX",
-            postcode: "78758",
-            country_code: "US",
-            telephone: "8675309",
-            save_in_address_book: false
-            */
             ...shippingDetails,
           },
         },
       ],
     });
+
     return setShippingAddressesOnCartResponse.data.setShippingAddressesOnCart.cart.shipping_addresses[0];
   },
 };
 
-export default useShippingFactory<Address, any>(factoryParams);
+export default useShippingFactory<AddressOnCart, any>(factoryParams);

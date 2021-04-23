@@ -1,5 +1,6 @@
 import { Context } from '@vue-storefront/core';
-import { Order, UseMakeOrder } from '../../types';
+import { Order } from '@vue-storefront/magento-api';
+import { UseMakeOrder } from '../../types';
 import { useMakeOrderFactory } from '../../factories/useMakeOrderFactory';
 import useCart from '../useCart';
 
@@ -14,8 +15,9 @@ const factoryParams = {
   make: async (context: Context, { customQuery }): Promise<Order> => {
     console.log('[Magento] Make Order');
     const { id } = context.cart.cart.value;
-    const placeOrderResponse = await context.$magento.api.placeOrder({ cart_id: id });
-    return placeOrderResponse.data.order;
+    const { data } = await context.$magento.api.placeOrder({ cart_id: id });
+
+    return data.placeOrder.order;
   },
 };
 

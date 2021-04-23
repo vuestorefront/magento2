@@ -1,6 +1,10 @@
 import {
-  Context, useFacetFactory, FacetSearchResult, ProductsSearchParams,
+  Context,
+  FacetSearchResult,
+  ProductsSearchParams,
+  useFacetFactory,
 } from '@vue-storefront/core';
+import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
 
 const availableSortingOptions = [{
   value: 'name',
@@ -44,13 +48,6 @@ const factoryParams = {
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
 
-    // ref for filters
-    // async for filters
-    // if ref for filters: don't run again.
-
-    // ref for products
-    // async for products
-
     const productParams: ProductsSearchParams = {
       filter: {
         category_ids: {
@@ -65,21 +62,23 @@ const factoryParams = {
       offset: (params.input.page - 1) * itemsPerPage,
       page: params.input.page,
       search: (params.input.term) ? params.input.term : '',
+      sort: params.input.sortFilter || {},
     };
 
-    const productResponse = await context.$magento.api.products(
-      productParams.perPage,
-      productParams.page,
-      productParams.filter,
-      productParams.queryType,
-      productParams.search,
-      productParams.sort,
-    );
+    const productSearchParams: GetProductSearchParams = {
+      pageSize: productParams.perPage,
+      search: productParams.search,
+      filter: productParams.filters,
+      sort: productParams.sort,
+      currentPage: productParams.offset,
+    };
+
+    const productResponse = await context.$magento.api.products(productSearchParams);
 
     const data = {
       items: productResponse?.data?.products?.items || [],
-      total: productResponse?.data?.products?.total_count || 0,
-      availableFilters: productResponse?.data?.products?.attribute_metadata,
+      total: productResponse?.data?.products?.total_count,
+      availableFilters: productResponse?.data?.products?.aggregations,
       category: { id: params.input.categorySlug },
       availableSortingOptions,
       perPageOptions: [10, 20, 50],

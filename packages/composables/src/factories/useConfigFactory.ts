@@ -11,9 +11,7 @@ export interface UseConfigFactoryParams<CONFIG> {
   loadConfig: (context: Context) => Promise<CONFIG>;
 }
 
-export function useConfigFactory<CONFIG>(
-  factoryParams: UseConfigFactoryParams<CONFIG>,
-) {
+export function useConfigFactory<CONFIG>(factoryParams: UseConfigFactoryParams<CONFIG>) {
   return function useConfig(cacheId: string): UseConfig<CONFIG> {
     const context = generateContext(factoryParams);
     // @ts-ignore
