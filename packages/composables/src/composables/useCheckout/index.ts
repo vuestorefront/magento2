@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 import { computed, Ref, ref } from '@vue/composition-api';
-import { ShippingMethod, User, UserAddress } from '../../types';
+import { CustomerAddress, ShippingMethod } from '@vue-storefront/magento-api';
+import { User } from '../../types';
 
 const PAYMENT_METHODS_MOCK = [{
   label: 'Visa Debit',
@@ -21,8 +22,8 @@ const PAYMENT_METHODS_MOCK = [{
 const paymentMethods = ref<any[]>(PAYMENT_METHODS_MOCK);
 const shippingMethods = ref<any[]>([]);
 const personalDetails = ref<User>({});
-const shippingDetails = ref<UserAddress>({});
-const billingDetails = ref<UserAddress>({});
+const shippingDetails = ref<CustomerAddress>({});
+const billingDetails = ref<CustomerAddress>({});
 const chosenPaymentMethod = ref<string>('');
 const chosenShippingMethod = ref<ShippingMethod>({});
 const placeOrder = async () => {};
@@ -31,8 +32,8 @@ const loadDetails = async () => {};
 // @todo CHECKOUT
 const useCheckout: () => {
   chosenShippingMethod: Ref<ShippingMethod>;
-  shippingDetails: Ref<UserAddress>;
-  billingDetails: Ref<UserAddress>;
+  shippingDetails: Ref<CustomerAddress>;
+  billingDetails: Ref<CustomerAddress>;
   chosenPaymentMethod: Ref<string>;
   placeOrder: () => Promise<any>;
   loadDetails: () => Promise<any>;
