@@ -1,46 +1,55 @@
 #import "../../fragments/productMediaConfigurationFragment.graphql"
 
-query wishlist {
-  wishlist {
-    items_count
-    sharing_code
-    updated_at
-    items {
+query wishlist($currentPage: Int = 1, $pageSize: Int = 20) {
+  customer {
+    wishlists(currentPage: $currentPage, pageSize: $pageSize) {
       id
-      qty
-      description
-      added_at
-      product {
-        uid
-        name
-        sku
-        special_price
-        attribute_set_id
-        image{
-          url,
-          label
-        }
-        price_tiers{
-          discount {
-            amount_off
-            percent_off
-          }
-          final_price {
-            currency
-            value
-          }
-          quantity
-        }
-        type_id
-        manufacturer
-        categories{
+      items_count
+      sharing_code
+      items_v2 {
+        items {
           id
-          name
-          path
+          quantity
+          description
+          added_at
+          product {
+            uid
+            name
+            sku
+            special_price
+            attribute_set_id
+            image{
+              url,
+              label
+            }
+            price_tiers{
+              discount {
+                amount_off
+                percent_off
+              }
+              final_price {
+                currency
+                value
+              }
+              quantity
+            }
+            type_id
+            manufacturer
+            categories{
+              id
+              name
+              path
+            }
+            canonical_url
+            media_gallery {
+              ...ProductMediaConfigurationFragment
+            }
+          }
         }
-        canonical_url
-        media_gallery {
-          ...ProductMediaConfigurationFragment
+        page_info {
+          current_page
+          page_size
+          total_pages
         }
       }
     }
