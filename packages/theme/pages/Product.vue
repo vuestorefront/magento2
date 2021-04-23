@@ -51,7 +51,11 @@
           </div>
         </div>
         <div>
-          <p class="product__description desktop-only" v-if="product.short_description.html" v-dompurify-html="product.short_description.html"/>
+          <p
+            v-if="product.short_description.html"
+            v-dompurify-html="product.short_description.html"
+            class="product__description desktop-only"
+          />
           <SfButton class="sf-button--text desktop-only product__guide">
             {{ $t('Size guide') }}
           </SfButton>
@@ -89,9 +93,8 @@
           <SfAddToCart
             v-model="qty"
             v-e2e="'product_add-to-cart'"
-            :stock="stock"
             :disabled="loading"
-            :can-add-to-cart="stock > 0"
+            :can-add-to-cart="canAddToCart"
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
@@ -251,12 +254,6 @@ export default {
     } = useProduct('products');
 
     const {
-      products: relatedProducts,
-      search: searchRelatedProducts,
-      loading: relatedLoading,
-    } = useProduct('relatedProducts');
-
-    const {
       addItem,
       loading,
     } = useCart();
@@ -283,9 +280,23 @@ export default {
 
     const categories = computed(() => productGetters.getCategoryIds(product.value));
 
+    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
+
+    const canAddToCart = computed(() => {
+      const inStock = product.value.stock_status || '';
+
+      const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
+
+      return inStock && stockLeft;
+    });
+
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
 
-    const breadcrumbs = computed(() => (productGetters.getBreadcrumbs(product.value, product.value.categories[0])));
+    const breadcrumbs = computed(() => {
+      const productCategories = product.value.categories;
+      return productGetters.getBreadcrumbs(product.value,
+        Array.isArray(productCategories) ? productCategories[0] : []);
+    });
 
     const productGallery = computed(() => productGetters.getGallery(product.value)
       .map((img) => ({
@@ -302,19 +313,6 @@ export default {
           sku: {
             eq: sku,
           },
-        },
-      });
-
-      await searchRelatedProducts({
-        pageSize: 8,
-        currentPage: 1,
-        filter: {
-          category_id: {
-            in: categories.value,
-          },
-        },
-        sort: {
-          position: 'ASC',
         },
       });
 
@@ -335,6 +333,7 @@ export default {
       addItem,
       averageRating: computed(() => productGetters.getAverageRating(product.value)),
       breadcrumbs,
+      canAddToCart,
       categories,
       configuration,
       loading,
@@ -344,8 +343,7 @@ export default {
       productGetters,
       products,
       qty,
-      relatedLoading,
-      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value.data.items, { master: true })),
+      relatedProducts,
       reviewGetters,
       reviews,
       totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
