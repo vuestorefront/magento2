@@ -5,6 +5,9 @@
   "files": ["typings.d.ts"],
   "compilerOptions": {
     "resolveJsonModule": true,
-    "rootDir": "src"
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./lib",
+    "sourceMap": true
   }
 }

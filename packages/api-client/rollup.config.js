@@ -1,9 +1,12 @@
-import typescript from '@rollup/plugin-typescript';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import typescript from 'rollup-plugin-typescript2';
 import resolve from '@rollup/plugin-node-resolve';
 import graphql from '@rollup/plugin-graphql';
 import json from '@rollup/plugin-json';
 import pkg from './package.json';
 import { generateBaseConfig } from '../../rollup.base.config';
+
+const extensions = ['.ts', '.graphql', '.js'];
 
 const server = {
   input: 'src/index.server.ts',
@@ -20,6 +23,10 @@ const server = {
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
+    nodeResolve({
+      extensions,
+    }),
+    typescript({ useTsconfigDeclarationDir: true }),
     resolve({
       extensions: ['.js', '.ts', '.graphql'],
     }),
