@@ -16,6 +16,7 @@ export { default as getAvailablePaymentMethods } from './getAvailablePaymentMeth
 export { default as getMenuCategory } from './getMenuCategory';
 export { default as mergeCarts } from './mergeCarts';
 export { default as placeOrder } from './placeOrder';
+export { default as productDetail } from './productDetail';
 export { default as products } from './products';
 export { default as removeCouponFromCart } from './removeCouponFromCart';
 export { default as removeItemFromCart } from './removeItemFromCart';

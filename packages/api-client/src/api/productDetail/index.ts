@@ -3,10 +3,10 @@ import { CustomQuery } from '@vue-storefront/core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductsListQuery,
-  ProductsListQueryVariables,
+  ProductDetailsQuery,
+  ProductDetailsQueryVariables,
 } from '../../types/GraphQL';
-import listQuery from './productsListQuery.graphql';
+import detailQuery from './productDetailsQuery.graphql';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -22,7 +22,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery?: CustomQuery,
-): Promise<ApolloQueryResult<ProductsListQuery>> => {
+): Promise<ApolloQueryResult<ProductDetailsQuery>> => {
   const defaultParams = {
     pageSize: 20,
     currentPage: 1,
@@ -43,13 +43,13 @@ export default async (
   const { products } = context.extendQuery(
     customQuery, {
       products: {
-        query: listQuery,
+        query: detailQuery,
         variables: defaultParams,
       },
     },
   );
 
-  return context.client.query<ProductsListQuery, ProductsListQueryVariables>({
+  return context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
     query: products.query,
     variables: products.variables,
     fetchPolicy: 'no-cache',

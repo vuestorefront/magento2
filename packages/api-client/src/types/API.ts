@@ -62,16 +62,22 @@ import {
   CartFragmentFragment, GuestAvailablePaymentMethodsQuery, CustomerAvailablePaymentMethodsQuery,
 } from './GraphQL';
 
+export type AddressOnCart = SetShippingAddressesOnCartMutation['setShippingAddressesOnCart']['cart']['shipping_addresses'][0];
 export type Cart = CartFragmentFragment;
 export type CartItem = CartItemInterface;
 export type Category = CategoryListQuery['categoryList'][0];
+export type CategoryMenu = GetMenuCategoryQuery['categories']['items'][0];
 export type CategoryFilter = CategoryFilterInput;
 export type Coupon = AppliedCoupon;
+export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Customer = CustomerFragment;
 export type CustomerUpdateParameters = CustomerInput;
+export type Page = CmsPageQuery['cmsPage'];
 export type Product = ProductDetailsQuery['products']['items'][0];
+export type Route = UrlResloverQuery['urlResolver'];
 export type ProductAttributeFilter = ProductAttributeFilterInput;
 export type ShippingMethod = Record<string, any>;
+export type Order = PlaceOrderMutation['placeOrder']['order'];
 export type Wishlist = Record<string, any>;
 
 export const enum ProductsQueryType {
@@ -82,7 +88,6 @@ export const enum ProductsQueryType {
 export type GetProductSearchParams = {
   pageSize?: number;
   currentPage?: number;
-  queryType?: ProductsQueryType;
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
@@ -129,7 +134,9 @@ export interface MagentoApiMethods {
 
   placeOrder(input: PlaceOrderInput): Promise<FetchResult<PlaceOrderMutation>>;
 
-  products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery | ProductsListQuery>>;
+  productDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery>>;
+
+  products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductsListQuery>>;
 
   removeCouponFromCart(input: RemoveCouponFromCartInput): Promise<FetchResult<RemoveCouponFromCartMutation>>;
 
@@ -146,6 +153,8 @@ export interface MagentoApiMethods {
   setPaymentMethodOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
 
   setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
+
+  setShippingAddressesOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
 
   storeConfig(): Promise<ApolloQueryResult<StoreConfigQuery>>;
 

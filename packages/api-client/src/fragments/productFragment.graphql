@@ -8,6 +8,12 @@ fragment ProductFragment on ProductInterface {
   __typename
   sku
   name
+  meta_description
+  meta_keyword
+  meta_title
+  new
+  stock_status
+  only_x_left_in_stock
   ...ProductImages
   ...ProductPriceRange
   ...ProductUrlFragment
