@@ -1,14 +1,12 @@
-import { useCategoryFactory, Context } from '@vue-storefront/core';
-import { UseCategory, Category, CategorySearchParams } from '../../types';
+import { useCategoryFactory, Context, UseCategoryFactoryParams } from '@vue-storefront/core';
+import { Category, CategoryFilterInput } from '@vue-storefront/magento-api';
 
-const factoryParams = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+const factoryParams: UseCategoryFactoryParams<Category, CategoryFilterInput> = {
   categorySearch: async (context: Context, params) => {
-    const categoryResponse = await context.$magento.api.categoryList(params);
-    return categoryResponse.data.categoryList;
+    const { data } = await context.$magento.api.categoryList(params);
+
+    return data.categoryList;
   },
 };
 
-const useCategory: (id: string) => UseCategory<Category, CategorySearchParams> = useCategoryFactory<Category, any>(factoryParams);
-
-export default useCategory;
+export default useCategoryFactory<Category, CategoryFilterInput>(factoryParams);
