@@ -1,11 +1,13 @@
-query customerOrders {
-  customerOrders {
-    items {
-      order_number
-      id
-      created_at
-      grand_total
-      status
+query customerOrders($currentPage: Int = 1, $filter: CustomerOrdersFilterInput = {}, $pageSize: Int = 20) {
+  customer {
+    orders(currentPage: $currentPage, filter: $filter, pageSize: $pageSize) {
+      items {
+        order_number
+        id
+        created_at
+        grand_total
+        status
+      }
     }
   }
 }
