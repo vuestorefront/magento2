@@ -53,17 +53,23 @@ import {
   SetShippingMethodsOnCartMutation,
   StoreConfigQuery,
   UpdateCartItemsMutation,
-  UpdateCustomerAddressMutation, UrlResloverQuery, WishlistQuery,
+  UpdateCustomerAddressMutation,
+  UrlResloverQuery,
+  WishlistQuery,
+  WishlistQueryVariables,
+  CustomerOrdersQueryVariables,
+  CustomerCartQuery,
+  CartFragmentFragment, GuestAvailablePaymentMethodsQuery, CustomerAvailablePaymentMethodsQuery,
 } from './GraphQL';
 
-export type Cart = CartInterface;
+export type Cart = CartFragmentFragment;
 export type CartItem = CartItemInterface;
-export type Category = CategoryTree;
+export type Category = CategoryListQuery['categoryList'][0];
 export type CategoryFilter = CategoryFilterInput;
 export type Coupon = AppliedCoupon;
 export type Customer = CustomerFragment;
 export type CustomerUpdateParameters = CustomerInput;
-export type Product = ProductInterface;
+export type Product = ProductDetailsQuery['products']['items'][0];
 export type ProductAttributeFilter = ProductAttributeFilterInput;
 export type ShippingMethod = Record<string, any>;
 export type Wishlist = Record<string, any>;
@@ -105,15 +111,19 @@ export interface MagentoApiMethods {
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 
-  customerCart(): Promise<ApolloQueryResult<CartQuery>>;
+  customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
-  customerOrders(): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
+  customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
   deleteCustomerAddress(addressId: number): Promise<ExecutionResult<DeleteCustomerAddressMutation>>;
 
   generateCustomerToken(email: string, password: string): Promise<FetchResult<GenerateCustomerTokenMutation>>;
 
   getMenuCategory(params: CategoryFilterInput, customQuery?: CustomQuery): Promise<GetMenuCategoryQuery>;
+
+  getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<
+  ApolloQueryResult<GuestAvailablePaymentMethodsQuery | CustomerAvailablePaymentMethodsQuery>
+  >;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 
@@ -127,7 +137,7 @@ export interface MagentoApiMethods {
 
   revokeCustomerToken(): Promise<FetchResult<RevokeCustomerTokenMutation>>;
 
-  setBillingAddress(input: SetBillingAddressOnCartInput): Promise<FetchResult<SetBillingAddressOnCartMutation>>;
+  setBillingAddressOnCart(input: SetBillingAddressOnCartInput): Promise<FetchResult<SetBillingAddressOnCartMutation>>;
 
   setGuestEmailOnCart(input: SetGuestEmailOnCartInput): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
 
@@ -147,5 +157,5 @@ export interface MagentoApiMethods {
 
   urlResolver(url: string): Promise<ApolloQueryResult<UrlResloverQuery>>;
 
-  wishlist(): Promise<ApolloQueryResult<WishlistQuery>>;
+  wishlist(queryParams: WishlistQueryVariables): Promise<ApolloQueryResult<WishlistQuery>>;
 }
