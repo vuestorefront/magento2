@@ -46,7 +46,10 @@ export default {
   },
   loading: { color: '#fff' },
   plugins: [
-    { src: '~/plugins/domPurify.js', ssr: false },
+    {
+      src: '~/plugins/domPurify.js',
+      ssr: false,
+    },
   ],
   buildModules: [
     // to core
@@ -162,6 +165,10 @@ export default {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
   },
   build: {
+    extend(config, ctx) {
+      // eslint-disable-next-line no-param-reassign
+      config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
+    },
     transpile: [
       'vee-validate/dist/rules',
     ],
