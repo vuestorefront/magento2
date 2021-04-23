@@ -1,7 +1,7 @@
 import {
   Context, CustomQuery, FactoryParams, generateContext, Logger, sharedRef,
 } from '@vue-storefront/core';
-import { computed, Ref } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import { UseBilling, UseBillingErrors } from '../types';
 import { configureFactoryParams } from '../utils';
 
