@@ -150,7 +150,7 @@ export const getProductCategoryIds = (product: Product): string[] => {
     return categoryIds;
   }
 
-  return product.categories.map((category) => category.id);
+  return product.categories.map((category) => category.uid);
 };
 
 export const getProductCategory = (product: Product, currentUrlPath: string): Category | null => {
@@ -176,11 +176,11 @@ export const getProductCategory = (product: Product, currentUrlPath: string): Ca
   return null;
 };
 
-export const getProductId = (product: Product): string => product.id;
+export const getProductId = (product: Product): string => product.uid;
 
 export const getProductSku = (product: Product): string => product.sku;
 
-export const getProductTypeId = (product: Product): string => product.type_id;
+export const getProductTypeId = (product: Product): string => product.__typename;
 
 export const getFormattedPrice = (price: number) => {
   if (price === null) {
@@ -226,6 +226,8 @@ export const getProductTotalReviews = (): number => 0;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductAverageRating = (): number => 0;
 
+export const getProductRelatedProduct = (product: Product) => product?.upsell_products;
+
 const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getName: getProductName,
   getSlug: getProductSlug,
@@ -238,6 +240,7 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getShortDescription: getProductShortDescription,
   getCategoryIds: getProductCategoryIds,
   getCategory: getProductCategory,
+  getProductRelatedProduct,
   getId: getProductId,
   getFormattedPrice,
   getBreadcrumbs: getProductBreadcrumbs,
