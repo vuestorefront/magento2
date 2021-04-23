@@ -1,0 +1,10 @@
+fragment ProductUrlFragment on ProductInterface {
+  canonical_url
+  url_rewrites {
+    url
+    parameters {
+      name
+      value
+    }
+  }
+}

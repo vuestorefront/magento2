@@ -1,0 +1,13 @@
+fragment ProductPriceTier on ProductInterface {
+  price_tiers {
+    quantity
+    discount {
+      amount_off
+      percent_off
+    }
+    final_price {
+      currency
+      value
+    }
+  }
+}
