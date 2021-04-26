@@ -1,9 +1,10 @@
 import {
-  Context,
+  Context, Logger,
   useUserBillingFactory,
   UseUserBillingFactoryParams,
 } from '@vue-storefront/core';
 
+import { CustomerAddress, CustomerAddressInput } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 
 const factoryParams: UseUserBillingFactoryParams<any, any> = {
@@ -13,50 +14,67 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
     };
   },
   addAddress: async (context: Context, params?) => {
-    console.log('[Magento]: addAddress', params.address);
-    const response = await context.$magento.api.createCustomerAddress({ input: params.address });
-    return Promise.resolve(response.data.createCustomerAddress);
+    Logger.debug('[Magento]: addAddress', params.address);
+    const createParams: CustomerAddressInput = params.address;
+
+    const { data } = await context.$magento.api.createCustomerAddress(createParams);
+
+    return data.createCustomerAddress;
   },
 
   deleteAddress: async (context: Context, params?) => {
-    console.log('[Magento] deleteAddress', params);
-    const response = await context.$magento.api.deleteCustomerAddress(params.address.id);
+    Logger.debug('[Magento] deleteAddress', params);
 
-    // if (indexToRemove < 0) {
-    // return Promise.reject('This address does not exist');
-    // }
+    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
-    // true ? false?
-    return Promise.resolve(response.data.deleteCustomerAddress);
+    return data.deleteCustomerAddress;
   },
 
   updateAddress: async (context: Context, params?) => {
-    console.log('[Magento] updateAddress', params);
-    const response = await context.$magento.api.updateCustomerAddress({ id: params.address.id, input: params.address });
-    return Promise.resolve(response.data.updateCustomerAddress);
+    Logger.debug('[Magento] updateAddress', params);
+    const updateAddressParams: {
+      addressId: number;
+      input: CustomerAddressInput;
+    } = {
+      addressId: params.address.id,
+      input: params.address,
+    };
+
+    const { data } = await context.$magento.api.updateCustomerAddress(updateAddressParams);
+
+    return data.updateCustomerAddress;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  load: async (context: Context, params?) => {
-    console.log('[Magento] load address');
+  load: async (context: Context, _params?) => {
+    Logger.debug('[Magento] load address');
+
     if (!context.user.user?.value?.id) {
       await context.user.load();
     }
-    return Promise.resolve(context.user.user?.value?.addresses);
+
+    return context.user.user?.value;
   },
 
   setDefaultAddress: async (context: Context, params?) => {
-    console.log('[Magento] setDefaultAddress');
-    const response = await context.$magento.api.updateCustomerAddress({
-      id: params.address.id,
+    Logger.debug('[Magento] setDefaultAddress');
+
+    const updateAddressParams: {
+      addressId: number;
+      input: CustomerAddressInput;
+    } = {
+      addressId: params.address.id,
       input: {
         ...params.address,
         default_billing: true,
       },
-    });
-    return Promise.resolve(response.data.updateCustomerAddress);
+    };
+
+    const { data } = await context.$magento.api.updateCustomerAddress(updateAddressParams);
+
+    return data.updateCustomerAddress;
   },
 
 };
 
-export default useUserBillingFactory<any, any>(factoryParams);
+export default useUserBillingFactory<any, CustomerAddress>(factoryParams);
