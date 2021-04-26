@@ -2934,32 +2934,6 @@ type PlaceOrderOutput {
   order: Order!
 }
 
-"Contains details about each of the posts"
-type Post {
-  "The post content"
-  content: String
-  "Unique identifier for the post"
-  id: ID!
-  "The post image"
-  image: String
-  "The post meta description"
-  meta_description: String
-  "The post meta keywords"
-  meta_keywords: String
-  "The post meta title"
-  meta_title: String
-  "The post title"
-  title: String
-}
-
-"The collection of posts that match the conditions defined in the filter"
-type Posts {
-  "An array of posts that match the specified search criteria."
-  items: [Post]
-  "The number of posts returned."
-  total_count: Int
-}
-
 "Price is deprecated, replaced by ProductPrice. The Price object defines the price of a product as well as any tax-related adjustments."
 type Price {
   "An array that provides information about tax, weee, or weee_tax adjustments."
@@ -3254,14 +3228,6 @@ type Query {
     "Specifies which attribute to sort on, and whether to return the results in ascending or descending order."
     sort: PickupLocationSortInput
   ): PickupLocations
-  posts(
-    "Specifies which page of results to return. The default value is 1"
-    currentPage: Int = 1,
-    "Defines the filter to use for searching posts"
-    filter: PostsFilterInput,
-    "Specifies the maximum number of results to return at once. The default value is 20"
-    pageSize: Int = 20
-  ): Posts
   "Retrieves metadata required by clients to render the Reviews section."
   productReviewRatingsMetadata: ProductReviewRatingsMetadata!
   "The products query searches for products that match the criteria specified in the search and filter attributes."
@@ -3744,8 +3710,6 @@ type StoreConfig {
   default_title: String
   "Display Demo Store Notice"
   demonotice: Int
-  "Indicates whether FAQ is enabled"
-  faq_enabled: Boolean
   "Default Web URL"
   front: String
   "Products per Page on Grid Default Value."
@@ -5546,12 +5510,6 @@ input PickupLocationSortInput {
 
 input PlaceOrderInput {
   cart_id: String!
-}
-
-"Identifies the filter to use for filtering posts."
-input PostsFilterInput {
-  "Filters by post ID."
-  post_id: FilterTypeInput
 }
 
 "ProductAttributeFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for."
