@@ -226,26 +226,29 @@ export const getProductTotalReviews = (): number => 0;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductAverageRating = (): number => 0;
 
+export const getProductRelatedProduct = (product: Product) => product?.upsell_products;
+
 const productGetters: ProductGetters<Product, ProductVariantFilters> = {
-  getName: getProductName,
-  getSlug: getProductSlug,
-  getPrice: getProductPrice,
-  getGallery: getProductGallery,
-  getCoverImage: getProductCoverImage,
-  getFiltered: getProductFiltered,
   getAttributes: getProductAttributes,
-  getDescription: getProductDescription,
-  getShortDescription: getProductShortDescription,
-  getCategoryIds: getProductCategoryIds,
-  getCategory: getProductCategory,
-  getId: getProductId,
-  getFormattedPrice,
+  getAverageRating: getProductAverageRating,
   getBreadcrumbs: getProductBreadcrumbs,
+  getCategory: getProductCategory,
+  getCategoryIds: getProductCategoryIds,
+  getCoverImage: getProductCoverImage,
+  getDescription: getProductDescription,
+  getFiltered: getProductFiltered,
+  getFormattedPrice,
+  getGallery: getProductGallery,
+  getId: getProductId,
+  getName: getProductName,
+  getPrice: getProductPrice,
+  getProductRelatedProduct,
+  getProductSku,
+  getShortDescription: getProductShortDescription,
+  getSlug: getProductSlug,
+  getTotalReviews: getProductTotalReviews,
   getTypeId: getProductTypeId,
   getWishlistState: getProductWishlistState,
-  getTotalReviews: getProductTotalReviews,
-  getAverageRating: getProductAverageRating,
-  getProductSku,
 };
 
 export default productGetters;

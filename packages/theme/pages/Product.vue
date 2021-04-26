@@ -51,7 +51,11 @@
           </div>
         </div>
         <div>
-          <p class="product__description desktop-only" v-if="product.short_description.html" v-dompurify-html="product.short_description.html"/>
+          <p
+            v-if="productDescription"
+            v-dompurify-html="productDescription"
+            class="product__description desktop-only"
+          />
           <SfButton class="sf-button--text desktop-only product__guide">
             {{ $t('Size guide') }}
           </SfButton>
@@ -88,10 +92,8 @@
           </div>
           <SfAddToCart
             v-model="qty"
-            v-e2e="'product_add-to-cart'"
-            :stock="stock"
             :disabled="loading"
-            :can-add-to-cart="stock > 0"
+            :can-add-to-cart="canAddToCart"
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
@@ -104,9 +106,9 @@
           >
             <SfTab title="Description">
               <div class="product__description">
-                <div v-dompurify-html="product.description.html" />
+                <div v-dompurify-html="productDescription" />
               </div>
-              <SfProperty
+              <!--              <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
                 :name="property.name"
@@ -117,13 +119,13 @@
                   v-if="property.name === 'Category'"
                   #value
                 >
-                  <SfButton class="product__property__button sf-button--text">
+                  <SfButton class="product__property__button sf-button&#45;&#45;text">
                     {{ property.value }}
                   </SfButton>
                 </template>
-              </SfProperty>
+              </SfProperty>-->
             </SfTab>
-            <SfTab title="Read reviews">
+            <!--            <SfTab title="Read reviews">
               <SfReview
                 v-for="review in reviews"
                 :key="reviewGetters.getReviewId(review)"
@@ -137,16 +139,16 @@
                 hide-full-text="Read less"
                 class="product__review"
               />
-            </SfTab>
+            </SfTab>-->
             <SfTab
               title="Additional Information"
               class="product__additional-info"
             >
               <div class="product__additional-info">
-                <p class="product__additional-info__title">
+                <!--                <p class="product__additional-info__title">
                   {{ $t('Brand') }}
                 </p>
-                <p>{{ brand }}</p>
+                <p>{{ brand }}</p>-->
                 <p class="product__additional-info__title">
                   {{ $t('Instruction1') }}
                 </p>
@@ -156,7 +158,6 @@
                 <p class="product__additional-info__paragraph">
                   {{ $t('Instruction3') }}
                 </p>
-                <p>{{ careInstructions }}</p>
               </div>
             </SfTab>
           </SfTabs>
@@ -167,7 +168,6 @@
     <LazyHydrate when-visible>
       <ProductsCarousel
         :products="relatedProducts"
-        :loading="relatedLoading"
         title="Match it with"
       />
     </LazyHydrate>
@@ -251,12 +251,6 @@ export default {
     } = useProduct('products');
 
     const {
-      products: relatedProducts,
-      search: searchRelatedProducts,
-      loading: relatedLoading,
-    } = useProduct('relatedProducts');
-
-    const {
       addItem,
       loading,
     } = useCart();
@@ -275,6 +269,8 @@ export default {
       return Array.isArray(baseProduct) && baseProduct[0] ? baseProduct[0] : {};
     });
 
+    const productDescription = computed(() => product.value.description?.html || '');
+
     const options = computed(() => productGetters.getAttributes(product.value,
       ['color', 'size']));
 
@@ -283,9 +279,23 @@ export default {
 
     const categories = computed(() => productGetters.getCategoryIds(product.value));
 
+    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
+
+    const canAddToCart = computed(() => {
+      const inStock = product.value.stock_status || '';
+
+      const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
+
+      return inStock && stockLeft;
+    });
+
     const reviews = computed(() => reviewGetters.getItems(productReviews.value));
 
-    const breadcrumbs = computed(() => (productGetters.getBreadcrumbs(product.value, product.value.categories[0])));
+    const breadcrumbs = computed(() => {
+      const productCategories = product.value.categories;
+      return productGetters.getBreadcrumbs(product.value,
+        Array.isArray(productCategories) ? productCategories[0] : []);
+    });
 
     const productGallery = computed(() => productGetters.getGallery(product.value)
       .map((img) => ({
@@ -302,19 +312,6 @@ export default {
           sku: {
             eq: sku,
           },
-        },
-      });
-
-      await searchRelatedProducts({
-        pageSize: 8,
-        currentPage: 1,
-        filter: {
-          category_id: {
-            in: categories.value,
-          },
-        },
-        sort: {
-          position: 'ASC',
         },
       });
 
@@ -335,17 +332,18 @@ export default {
       addItem,
       averageRating: computed(() => productGetters.getAverageRating(product.value)),
       breadcrumbs,
+      canAddToCart,
       categories,
       configuration,
       loading,
       options,
       product,
+      productDescription,
       productGallery,
       productGetters,
       products,
       qty,
-      relatedLoading,
-      relatedProducts: computed(() => productGetters.getFiltered(relatedProducts.value.data.items, { master: true })),
+      relatedProducts,
       reviewGetters,
       reviews,
       totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
