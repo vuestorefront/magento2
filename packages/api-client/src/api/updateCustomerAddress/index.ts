@@ -9,15 +9,16 @@ import { Context } from '../../types/context';
 
 export default async (
   { client }: Context,
-  addressId: number,
-  input: CustomerAddressInput,
+  params: {
+    addressId: number;
+    input: CustomerAddressInput;
+  },
 ): Promise<FetchResult<UpdateCustomerAddressMutation>> => client
-  .mutate<
-UpdateCustomerAddressMutation,
+  .mutate<UpdateCustomerAddressMutation,
 UpdateCustomerAddressMutationVariables>({
   mutation,
   variables: {
-    id: addressId,
-    input,
+    id: params.addressId,
+    input: params.input,
   },
 });
