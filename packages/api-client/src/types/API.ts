@@ -10,16 +10,13 @@ import {
   AppliedCoupon,
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
-  Cart as CartInterface,
   CartItemInterface,
   CartQuery,
   CategoryFilterInput,
   CategoryListQuery,
-  CategoryTree,
   CustomerInput,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductInterface,
   RemoveItemFromCartInput,
   UpdateCartItemsInput,
   CustomerFragmentFragment as CustomerFragment,
@@ -66,19 +63,22 @@ export type AddressOnCart = SetShippingAddressesOnCartMutation['setShippingAddre
 export type Cart = CartFragmentFragment;
 export type CartItem = CartItemInterface;
 export type Category = CategoryListQuery['categoryList'][0];
-export type CategoryMenu = GetMenuCategoryQuery['categories']['items'][0];
 export type CategoryFilter = CategoryFilterInput;
+export type CategoryMenu = GetMenuCategoryQuery['categories']['items'][0];
 export type Coupon = AppliedCoupon;
-export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Customer = CustomerFragment;
+export type CustomerAddress = CustomerFragment['addresses'];
+export type CustomerOrder = CustomerOrdersQuery['customer']['orders']['items'][0];
 export type CustomerUpdateParameters = CustomerInput;
+export type Order = PlaceOrderMutation['placeOrder']['order'];
 export type Page = CmsPageQuery['cmsPage'];
 export type Product = ProductDetailsQuery['products']['items'][0];
-export type Route = UrlResloverQuery['urlResolver'];
 export type ProductAttributeFilter = ProductAttributeFilterInput;
-export type ShippingMethod = Record<string, any>;
-export type Order = PlaceOrderMutation['placeOrder']['order'];
-export type Wishlist = Record<string, any>;
+export type Route = UrlResloverQuery['urlResolver'];
+export type ShippingMethod = Partial<SetShippingMethodsOnCartMutation['setShippingMethodsOnCart']['cart']['shipping_addresses'][0]['selected_shipping_method']>;
+export type StoreConfig = StoreConfigQuery['storeConfig'];
+export type Wishlist = WishlistQuery['customer']['wishlists'][0];
+export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
 
 export const enum ProductsQueryType {
   List = 'LIST',
@@ -162,7 +162,10 @@ export interface MagentoApiMethods {
 
   updateCustomer(input: CustomerInput): Promise<CustomerFragment>;
 
-  updateCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<UpdateCustomerAddressMutation>>;
+  updateCustomerAddress(input: {
+    addressId: number;
+    input: CustomerAddressInput;
+  }): Promise<FetchResult<UpdateCustomerAddressMutation>>;
 
   urlResolver(url: string): Promise<ApolloQueryResult<UrlResloverQuery>>;
 

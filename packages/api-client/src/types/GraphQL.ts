@@ -4708,38 +4708,6 @@ export interface PlaceOrderOutput {
   order: Order;
 }
 
-/** Contains details about each of the posts */
-export interface Post {
-  /** The post content */
-  content?: Maybe<Scalars['String']>;
-  /** Unique identifier for the post */
-  id: Scalars['ID'];
-  /** The post image */
-  image?: Maybe<Scalars['String']>;
-  /** The post meta description */
-  meta_description?: Maybe<Scalars['String']>;
-  /** The post meta keywords */
-  meta_keywords?: Maybe<Scalars['String']>;
-  /** The post meta title */
-  meta_title?: Maybe<Scalars['String']>;
-  /** The post title */
-  title?: Maybe<Scalars['String']>;
-}
-
-/** The collection of posts that match the conditions defined in the filter */
-export interface Posts {
-  /** An array of posts that match the specified search criteria. */
-  items?: Maybe<Array<Maybe<Post>>>;
-  /** The number of posts returned. */
-  total_count?: Maybe<Scalars['Int']>;
-}
-
-/** Identifies the filter to use for filtering posts. */
-export interface PostsFilterInput {
-  /** Filters by post ID. */
-  post_id?: Maybe<FilterTypeInput>;
-}
-
 /** Price is deprecated, replaced by ProductPrice. The Price object defines the price of a product as well as any tax-related adjustments. */
 export interface Price {
   /**
@@ -5489,7 +5457,6 @@ export interface Query {
   isEmailAvailable?: Maybe<IsEmailAvailableOutput>;
   /** The pickup locations query searches for locations that match the search request requirements. */
   pickupLocations?: Maybe<PickupLocations>;
-  posts?: Maybe<Posts>;
   /** Retrieves metadata required by clients to render the Reviews section. */
   productReviewRatingsMetadata: ProductReviewRatingsMetadata;
   /** The products query searches for products that match the criteria specified in the search and filter attributes. */
@@ -5581,13 +5548,6 @@ export interface QueryPickupLocationsArgs {
   pageSize?: Maybe<Scalars['Int']>;
   productsInfo?: Maybe<Array<Maybe<ProductInfoInput>>>;
   sort?: Maybe<PickupLocationSortInput>;
-}
-
-
-export interface QueryPostsArgs {
-  currentPage?: Maybe<Scalars['Int']>;
-  filter?: Maybe<PostsFilterInput>;
-  pageSize?: Maybe<Scalars['Int']>;
 }
 
 
@@ -6229,8 +6189,6 @@ export interface StoreConfig {
   default_title?: Maybe<Scalars['String']>;
   /** Display Demo Store Notice */
   demonotice?: Maybe<Scalars['Int']>;
-  /** Indicates whether FAQ is enabled */
-  faq_enabled?: Maybe<Scalars['Boolean']>;
   /** Default Web URL */
   front?: Maybe<Scalars['String']>;
   /** Products per Page on Grid Default Value. */
@@ -6997,19 +6955,25 @@ export type ProductDetailsQueryVariables = Exact<{
 
 
 export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
-      Pick<BundleProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+      Pick<BundleProduct, 'material' | 'options_container'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ProductFragment_BundleProduct_Fragment
       & ProductPriceRange_BundleProduct_Fragment
       & ProductPriceTier_BundleProduct_Fragment
       & ProductImages_BundleProduct_Fragment
       & ProductUrlFragment_BundleProduct_Fragment
     ) | (
-      Pick<ConfigurableProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
+      Pick<ConfigurableProduct, 'material' | 'options_container'>
       & { variants?: Maybe<Array<Maybe<{ attributes?: Maybe<Array<Maybe<Pick<ConfigurableAttributeOption, 'code' | 'value_index' | 'label' | 'uid'>>>>, product?: Maybe<(
           { media_gallery?: Maybe<Array<Maybe<Pick<ProductImage, 'url'> | Pick<ProductVideo, 'url'>>>> }
           & ProductFragment_SimpleProduct_Fragment
-        )> }>>>, description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+        )> }>>>, description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ConfigurableProductOptionsFragmentFragment
       & ProductFragment_ConfigurableProduct_Fragment
       & ProductPriceRange_ConfigurableProduct_Fragment
@@ -7017,32 +6981,44 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductImages_ConfigurableProduct_Fragment
       & ProductUrlFragment_ConfigurableProduct_Fragment
     ) | (
-      Pick<DownloadableProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+      Pick<DownloadableProduct, 'material' | 'options_container'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ProductFragment_DownloadableProduct_Fragment
       & ProductPriceRange_DownloadableProduct_Fragment
       & ProductPriceTier_DownloadableProduct_Fragment
       & ProductImages_DownloadableProduct_Fragment
       & ProductUrlFragment_DownloadableProduct_Fragment
     ) | (
-      Pick<GroupedProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+      Pick<GroupedProduct, 'material' | 'options_container'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ProductFragment_GroupedProduct_Fragment
       & ProductPriceRange_GroupedProduct_Fragment
       & ProductPriceTier_GroupedProduct_Fragment
       & ProductImages_GroupedProduct_Fragment
       & ProductUrlFragment_GroupedProduct_Fragment
     ) | (
-      Pick<SimpleProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+      Pick<SimpleProduct, 'material' | 'options_container'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ProductFragment_SimpleProduct_Fragment
       & ProductPriceRange_SimpleProduct_Fragment
       & ProductPriceTier_SimpleProduct_Fragment
       & ProductImages_SimpleProduct_Fragment
       & ProductUrlFragment_SimpleProduct_Fragment
     ) | (
-      Pick<VirtualProduct, 'stock_status' | 'only_x_left_in_stock' | 'material' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+      Pick<VirtualProduct, 'material' | 'options_container'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
       & ProductFragment_VirtualProduct_Fragment
       & ProductPriceRange_VirtualProduct_Fragment
       & ProductPriceTier_VirtualProduct_Fragment
@@ -7156,7 +7132,7 @@ export type UpdateCustomerAddressMutationVariables = Exact<{
 
 
 export type UpdateCustomerAddressMutation = { updateCustomerAddress?: Maybe<(
-    Pick<CustomerAddress, 'city' | 'company' | 'country_code' | 'default_billing' | 'default_shipping' | 'fax' | 'firstname' | 'id' | 'lastname' | 'middlename' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone' | 'vat_id'>
+    Pick<CustomerAddress, 'id' | 'city' | 'company' | 'country_code' | 'default_billing' | 'default_shipping' | 'fax' | 'firstname' | 'lastname' | 'middlename' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone' | 'vat_id'>
     & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_code' | 'region_id'>> }
   )> };
 
@@ -7412,6 +7388,11 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
         )>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }> }
     )>> }> };
 
+export type AddressFragmentFragment = (
+  Pick<CustomerAddress, 'city' | 'country_code' | 'default_billing' | 'default_shipping' | 'firstname' | 'id' | 'lastname' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone'>
+  & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
+);
+
 export type CartFragmentFragment = (
   Pick<Cart, 'id' | 'total_quantity'>
   & { applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
@@ -7458,10 +7439,7 @@ export type ConfigurableProductOptionsFragmentFragment = { configurable_options?
 
 export type CustomerFragmentFragment = (
   Pick<Customer, 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat' | 'default_billing' | 'default_shipping'>
-  & { addresses?: Maybe<Array<Maybe<(
-    Pick<CustomerAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'postcode' | 'country_code' | 'telephone'>
-    & { region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
-  )>>> }
+  & { addresses?: Maybe<Array<Maybe<AddressFragmentFragment>>> }
 );
 
 type ProductCategoriesFragment_BundleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
@@ -7498,7 +7476,7 @@ export type ProductCategoriesFragmentFragment = ProductCategoriesFragment_Bundle
 
 type ProductFragment_BundleProduct_Fragment = (
   { __typename: 'BundleProduct' }
-  & Pick<BundleProduct, 'uid' | 'sku' | 'name'>
+  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_BundleProduct_Fragment
   & ProductPriceRange_BundleProduct_Fragment
   & ProductUrlFragment_BundleProduct_Fragment
@@ -7507,7 +7485,7 @@ type ProductFragment_BundleProduct_Fragment = (
 
 type ProductFragment_ConfigurableProduct_Fragment = (
   { __typename: 'ConfigurableProduct' }
-  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name'>
+  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_ConfigurableProduct_Fragment
   & ProductPriceRange_ConfigurableProduct_Fragment
   & ProductUrlFragment_ConfigurableProduct_Fragment
@@ -7516,7 +7494,7 @@ type ProductFragment_ConfigurableProduct_Fragment = (
 
 type ProductFragment_DownloadableProduct_Fragment = (
   { __typename: 'DownloadableProduct' }
-  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name'>
+  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_DownloadableProduct_Fragment
   & ProductPriceRange_DownloadableProduct_Fragment
   & ProductUrlFragment_DownloadableProduct_Fragment
@@ -7525,7 +7503,7 @@ type ProductFragment_DownloadableProduct_Fragment = (
 
 type ProductFragment_GroupedProduct_Fragment = (
   { __typename: 'GroupedProduct' }
-  & Pick<GroupedProduct, 'uid' | 'sku' | 'name'>
+  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_GroupedProduct_Fragment
   & ProductPriceRange_GroupedProduct_Fragment
   & ProductUrlFragment_GroupedProduct_Fragment
@@ -7534,7 +7512,7 @@ type ProductFragment_GroupedProduct_Fragment = (
 
 type ProductFragment_SimpleProduct_Fragment = (
   { __typename: 'SimpleProduct' }
-  & Pick<SimpleProduct, 'uid' | 'sku' | 'name'>
+  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_SimpleProduct_Fragment
   & ProductPriceRange_SimpleProduct_Fragment
   & ProductUrlFragment_SimpleProduct_Fragment
@@ -7543,7 +7521,7 @@ type ProductFragment_SimpleProduct_Fragment = (
 
 type ProductFragment_VirtualProduct_Fragment = (
   { __typename: 'VirtualProduct' }
-  & Pick<VirtualProduct, 'uid' | 'sku' | 'name'>
+  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
   & ProductImages_VirtualProduct_Fragment
   & ProductPriceRange_VirtualProduct_Fragment
   & ProductUrlFragment_VirtualProduct_Fragment
