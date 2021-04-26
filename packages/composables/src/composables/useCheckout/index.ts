@@ -20,7 +20,7 @@ const PAYMENT_METHODS_MOCK = [{
   value: 'check',
 }];
 const paymentMethods = ref<any[]>(PAYMENT_METHODS_MOCK);
-const shippingMethods = ref<any[]>([]);
+const shippingMethods = ref<ShippingMethod[]>([]);
 const personalDetails = ref<User>({});
 const shippingDetails = ref<CustomerAddress>({});
 const billingDetails = ref<CustomerAddress>({});
@@ -30,18 +30,7 @@ const placeOrder = async () => {};
 const loadDetails = async () => {};
 
 // @todo CHECKOUT
-const useCheckout: () => {
-  chosenShippingMethod: Ref<ShippingMethod>;
-  shippingDetails: Ref<CustomerAddress>;
-  billingDetails: Ref<CustomerAddress>;
-  chosenPaymentMethod: Ref<string>;
-  placeOrder: () => Promise<any>;
-  loadDetails: () => Promise<any>;
-  paymentMethods: Ref<any[]>;
-  personalDetails: Ref<User>;
-  loading: Readonly<Ref<Readonly<boolean>>>;
-  shippingMethods: Ref<any[]>;
-} = () => ({
+const useCheckout = () => ({
   paymentMethods,
   shippingMethods,
   personalDetails,
