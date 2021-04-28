@@ -97,7 +97,7 @@ export const getProductCoverImage = (product: Product): string => {
 export const getProductFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
 
 export const getProductAttributes = (
-  products: Product[] | Product,
+  products: Product,
   _filterByAttributeName?: string[],
 ): Record<string, AgnosticAttribute | string> => {
   if (!products || !products?.configurable_options) {
@@ -175,6 +175,7 @@ export const getProductId = (product: Product): string => product.uid;
 
 export const getProductSku = (product: Product): string => product.sku;
 
+// @ts-ignore
 // eslint-disable-next-line no-underscore-dangle
 export const getProductTypeId = (product: Product): string => product.__typename;
 
@@ -215,8 +216,6 @@ export const getProductBreadcrumbs = (product: Product, category?: Category): Ag
   return breadcrumbs;
 };
 
-export const getProductWishlistState = (product: Product): boolean => product?.isOnWishlist;
-
 export const getProductTotalReviews = (): number => 0;
 
 export const getProductAverageRating = (): number => 0;
@@ -240,7 +239,6 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getFormattedPrice,
   getBreadcrumbs: getProductBreadcrumbs,
   getTypeId: getProductTypeId,
-  getWishlistState: getProductWishlistState,
   getTotalReviews: getProductTotalReviews,
   getAverageRating: getProductAverageRating,
   getProductSku,
