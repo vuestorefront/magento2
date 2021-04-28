@@ -52,8 +52,8 @@
         </div>
         <div>
           <p
-            v-if="product.short_description.html"
-            v-dompurify-html="product.short_description.html"
+            v-if="productDescription"
+            v-dompurify-html="productDescription"
             class="product__description desktop-only"
           />
           <SfButton class="sf-button--text desktop-only product__guide">
@@ -92,7 +92,6 @@
           </div>
           <SfAddToCart
             v-model="qty"
-            v-e2e="'product_add-to-cart'"
             :disabled="loading"
             :can-add-to-cart="canAddToCart"
             class="product__add-to-cart"
@@ -107,9 +106,9 @@
           >
             <SfTab title="Description">
               <div class="product__description">
-                <div v-dompurify-html="product.description.html" />
+                <div v-dompurify-html="productDescription" />
               </div>
-              <SfProperty
+              <!--              <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
                 :name="property.name"
@@ -120,13 +119,13 @@
                   v-if="property.name === 'Category'"
                   #value
                 >
-                  <SfButton class="product__property__button sf-button--text">
+                  <SfButton class="product__property__button sf-button&#45;&#45;text">
                     {{ property.value }}
                   </SfButton>
                 </template>
-              </SfProperty>
+              </SfProperty>-->
             </SfTab>
-            <SfTab title="Read reviews">
+            <!--            <SfTab title="Read reviews">
               <SfReview
                 v-for="review in reviews"
                 :key="reviewGetters.getReviewId(review)"
@@ -140,16 +139,16 @@
                 hide-full-text="Read less"
                 class="product__review"
               />
-            </SfTab>
+            </SfTab>-->
             <SfTab
               title="Additional Information"
               class="product__additional-info"
             >
               <div class="product__additional-info">
-                <p class="product__additional-info__title">
+                <!--                <p class="product__additional-info__title">
                   {{ $t('Brand') }}
                 </p>
-                <p>{{ brand }}</p>
+                <p>{{ brand }}</p>-->
                 <p class="product__additional-info__title">
                   {{ $t('Instruction1') }}
                 </p>
@@ -159,7 +158,6 @@
                 <p class="product__additional-info__paragraph">
                   {{ $t('Instruction3') }}
                 </p>
-                <p>{{ careInstructions }}</p>
               </div>
             </SfTab>
           </SfTabs>
@@ -170,7 +168,6 @@
     <LazyHydrate when-visible>
       <ProductsCarousel
         :products="relatedProducts"
-        :loading="relatedLoading"
         title="Match it with"
       />
     </LazyHydrate>
@@ -272,6 +269,8 @@ export default {
       return Array.isArray(baseProduct) && baseProduct[0] ? baseProduct[0] : {};
     });
 
+    const productDescription = computed(() => product.value.description?.html || '');
+
     const options = computed(() => productGetters.getAttributes(product.value,
       ['color', 'size']));
 
@@ -299,12 +298,12 @@ export default {
     });
 
     const productGallery = computed(() => productGetters.getGallery(product.value)
-      .map((img) => ({
-        mobile: { url: img.small },
-        desktop: { url: img.normal },
-        big: { url: img.big },
-        alt: product.value._name || product.value.name,
-      })));
+    .map((img) => ({
+      mobile: { url: img.small },
+      desktop: { url: img.normal },
+      big: { url: img.big },
+      alt: product.value._name || product.value.name,
+    })));
 
     onSSR(async () => {
       await search({
@@ -339,6 +338,7 @@ export default {
       loading,
       options,
       product,
+      productDescription,
       productGallery,
       productGetters,
       products,
