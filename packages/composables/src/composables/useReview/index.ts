@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import {
-  Context,
+  Context, Logger,
   UseReview,
   useReviewFactory,
   UseReviewFactoryParams,
@@ -9,12 +9,12 @@ import {
 const factoryParams: UseReviewFactoryParams<any, any, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchReviews: async (context: Context, params) => {
-    console.log('Mocked: searchReviews');
+    Logger.debug('Mocked: searchReviews');
     return {};
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addReview: async (context: Context, params) => {
-    console.log('Mocked: addReview');
+    Logger.debug('Mocked: addReview');
     return {};
   },
 };
