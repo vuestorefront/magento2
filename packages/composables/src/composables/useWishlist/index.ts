@@ -13,13 +13,14 @@ import useUser from '../useUser';
 
 export const wishlist = ref<Wishlist>(null);
 
+// @ts-ignore
 const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
   provide() {
     return {
       user: useUser(),
     };
   },
-
+  // @ts-ignore
   load: async (context: Context, params) => {
     const apiState = context.$magento.config.state;
 
@@ -28,6 +29,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product
         ...(params.customQuery || {}),
       };
       const { data } = await context.$magento.api.wishlist(wishlistParams);
+
       return data.customer.wishlists;
     }
 

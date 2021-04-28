@@ -10,9 +10,10 @@
   "scripts": {
     "build": "rimraf lib && rollup -c",
     "dev": "rimraf lib && rollup -c -w",
-    "test": "jest",
     "lint:fix": "eslint ./src --ext .ts,.vue --fix",
+    "precommit": "lint-staged",
     "prepublish": "yarn build",
+    "test": "jest",
     "update:check": "ncu",
     "update:update": "ncu -u"
   },
