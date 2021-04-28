@@ -8,9 +8,9 @@
     <div class="form">
       <UserBillingAddresses
         v-if="isAuthenticated && billingAddresses && billingAddresses.length"
-        :setAsDefault="setAsDefault"
-        :billingAddresses="billingAddresses"
-        :currentAddressId="currentAddressId"
+        :set-as-default="setAsDefault"
+        :billing-addresses="billingAddresses"
+        :current-address-id="currentAddressId"
         @setCurrentAddress="setCurrentAddress($event)"
         @changeSetAsDefault="setAsDefault = $event"
       />
@@ -22,94 +22,94 @@
         @input="afterModifiedAddress"
       />
       <template v-if="canAddNewAddress">
-      <SfInput
-        data-cy="payment-input_firstName"
-        v-model="billingDetails.firstName"
-        label="First name"
-        name="firstName"
-        class="form__element form__element--half"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_lastName"
-        v-model="billingDetails.lastName"
-        label="Last name"
-        name="lastName"
-        class="form__element form__element--half form__element--half-even"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_streetName"
-        v-model="billingDetails.streetName"
-        label="Street name"
-        name="streetName"
-        class="form__element"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_apartment"
-        v-model="billingDetails.apartment"
-        label="House/Apartment number"
-        name="apartment"
-        class="form__element"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_"
-        v-model="billingDetails.city"
-        label="City"
-        name="city"
-        class="form__element form__element--half"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_state"
-        v-model="billingDetails.state"
-        label="State/Province"
-        name="state"
-        class="form__element form__element--half form__element--half-even"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfInput
-        data-cy="payment-input_postalCode"
-        v-model="billingDetails.postalCode"
-        label="Zip-code"
-        name="zipCode"
-        class="form__element form__element--half"
-        @input="afterModifiedAddress"
-        required
-      />
-      <SfSelect
-        data-cy="payment-select_billingDetails"
-        v-model="billingDetails.country"
-        label="Country"
-        class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-        @input="afterModifiedAddress"
-        required
-      >
-        <SfSelectOption
-          v-for="countryOption in COUNTRIES"
-          :key="countryOption.key"
-          :value="countryOption.key"
+        <SfInput
+          v-model="billingDetails.firstName"
+          data-cy="payment-input_firstName"
+          label="First name"
+          name="firstName"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.lastName"
+          data-cy="payment-input_lastName"
+          label="Last name"
+          name="lastName"
+          class="form__element form__element--half form__element--half-even"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.streetName"
+          data-cy="payment-input_streetName"
+          label="Street name"
+          name="streetName"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.apartment"
+          data-cy="payment-input_apartment"
+          label="House/Apartment number"
+          name="apartment"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.city"
+          data-cy="payment-input_"
+          label="City"
+          name="city"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.state"
+          data-cy="payment-input_state"
+          label="State/Province"
+          name="state"
+          class="form__element form__element--half form__element--half-even"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="billingDetails.postalCode"
+          data-cy="payment-input_postalCode"
+          label="Zip-code"
+          name="zipCode"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfSelect
+          v-model="billingDetails.country"
+          data-cy="payment-select_billingDetails"
+          label="Country"
+          class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
+          required
+          @input="afterModifiedAddress"
         >
-          {{ countryOption.label }}
-        </SfSelectOption>
-      </SfSelect>
-      <SfInput
-        data-cy="payment-input_phone"
-        v-model="billingDetails.phone"
-        label="Phone number"
-        name="phone"
-        class="form__element"
-        @input="afterModifiedAddress"
-        required
-      />
+          <SfSelectOption
+            v-for="countryOption in COUNTRIES"
+            :key="countryOption.key"
+            :value="countryOption.key"
+          >
+            {{ countryOption.label }}
+          </SfSelectOption>
+        </SfSelect>
+        <SfInput
+          v-model="billingDetails.phone"
+          data-cy="payment-input_phone"
+          label="Phone number"
+          name="phone"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
       </template>
     </div>
     <SfButton
@@ -127,12 +127,15 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="form">
-      <div class="form__element payment-methods" v-if="canContinueToReview">
+      <div
+        v-if="canContinueToReview"
+        class="form__element payment-methods"
+      >
         <SfRadio
-          data-cy="payment-radio_paymentMethod"
           v-for="item in paymentMethods"
           :key="item.value"
           v-model="chosenPaymentMethod"
+          data-cy="payment-radio_paymentMethod"
           :label="item.label"
           :value="item.value"
           name="paymentMethod"
@@ -148,13 +151,24 @@
       </div>
       <div class="form__action">
         <!-- TODO: add nuxt link for returning to personal details -->
-        <SfButton data-cy="payment-btn_go-back" class="color-secondary form__back-button">
+        <SfButton
+          data-cy="payment-btn_go-back"
+          class="color-secondary form__back-button"
+        >
           Go back
         </SfButton>
-        <SfButton class="form__action-button" @click="$emit('nextStep')" v-if="canContinueToReview">
+        <SfButton
+          v-if="canContinueToReview"
+          class="form__action-button"
+          @click="$emit('nextStep')"
+        >
           Review my order
         </SfButton>
-        <SfButton class="form__action-button" @click="saveBillingDetails" v-else>
+        <SfButton
+          v-else
+          class="form__action-button"
+          @click="saveBillingDetails"
+        >
           Select payment method
         </SfButton>
       </div>
@@ -171,20 +185,32 @@ import {
   SfSelect,
   SfRadio,
   SfImage,
-  SfCheckbox
+  SfCheckbox,
 } from '@storefront-ui/vue';
-import { ref, watch, onMounted, computed } from '@vue/composition-api';
-import { useCheckout, useUser, useUserBilling, userBillingGetters } from '@vue-storefront/magento';
+import {
+  ref, watch, onMounted, computed,
+} from '@vue/composition-api';
+import {
+  useCheckout, useUser, useUserBilling, userBillingGetters,
+} from '@vue-storefront/magento';
 
 const COUNTRIES = [
-  { key: 'US',
-    label: 'United States' },
-  { key: 'UK',
-    label: 'United Kingdom' },
-  { key: 'IT',
-    label: 'Italy' },
-  { key: 'PL',
-    label: 'Poland' }
+  {
+    key: 'US',
+    label: 'United States',
+  },
+  {
+    key: 'UK',
+    label: 'United Kingdom',
+  },
+  {
+    key: 'IT',
+    label: 'Italy',
+  },
+  {
+    key: 'PL',
+    label: 'Poland',
+  },
 ];
 
 export default {
@@ -197,11 +223,16 @@ export default {
     SfRadio,
     SfImage,
     SfCheckbox,
-    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses')
+    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses'),
   },
   setup(props, context) {
     context.emit('changeStep', 2);
-    const { billingDetails, shippingDetails, paymentMethods, chosenPaymentMethod } = useCheckout();
+    const {
+      billingDetails,
+      shippingDetails,
+      paymentMethods,
+      chosenPaymentMethod,
+    } = useCheckout();
     const sameAsShipping = ref(false);
 
     const { billing, load: loadUserBilling, setDefault } = useUserBilling();
@@ -213,14 +244,14 @@ export default {
     const setAsDefault = ref(false);
     const isBillingAddressCompleted = ref(false);
 
-    const setBillingDetails = address => {
+    const setBillingDetails = (address) => {
       billingDetails.value = {
         ...billingDetails.value,
-        ...address
+        ...address,
       };
     };
 
-    const mapAbstractAddressToIntegrationAddress = address => ({
+    const mapAbstractAddressToIntegrationAddress = (address) => ({
       ...billingDetails.value,
       city: userBillingGetters.getCity(address),
       country: userBillingGetters.getCountry(address),
@@ -230,7 +261,7 @@ export default {
       postalCode: userBillingGetters.getPostCode(address),
       state: userBillingGetters.getProvince(address),
       phone: userBillingGetters.getPhone(address),
-      apartment: userBillingGetters.getApartmentNumber(address)
+      apartment: userBillingGetters.getApartmentNumber(address),
     });
 
     const setCurrentAddress = async (addressId) => {
@@ -302,9 +333,9 @@ export default {
       isBillingAddressCompleted,
       addressIsModified,
       saveBillingDetails,
-      afterModifiedAddress
+      afterModifiedAddress,
     };
-  }
+  },
 };
 
 </script>
