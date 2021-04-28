@@ -56,12 +56,15 @@ import {
   WishlistQueryVariables,
   CustomerOrdersQueryVariables,
   CustomerCartQuery,
-  CartFragmentFragment, GuestAvailablePaymentMethodsQuery, CustomerAvailablePaymentMethodsQuery,
+  CartFragmentFragment,
+  GuestAvailablePaymentMethodsQuery,
+  CustomerAvailablePaymentMethodsQuery,
+  CartProductFragmentFragment,
 } from './GraphQL';
 
 export type AddressOnCart = SetShippingAddressesOnCartMutation['setShippingAddressesOnCart']['cart']['shipping_addresses'][0];
 export type Cart = CartFragmentFragment;
-export type CartItem = CartItemInterface;
+export type CartItem = CartProductFragmentFragment;
 export type Category = CategoryListQuery['categoryList'][0];
 export type CategoryFilter = CategoryFilterInput;
 export type CategoryMenu = GetMenuCategoryQuery['categories']['items'][0];
