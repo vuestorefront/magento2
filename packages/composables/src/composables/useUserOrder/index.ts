@@ -23,7 +23,7 @@ const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQu
 
     const { data } = await context.$magento.api.customerOrders(param);
 
-    return data.customer.orders.items || [];
+    return (data.customer.orders.items || []) as unknown as CustomerOrder[];
   },
 };
 
