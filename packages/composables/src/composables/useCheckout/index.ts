@@ -25,7 +25,7 @@ const personalDetails = ref<User>({});
 const shippingDetails = ref<CustomerAddress>({});
 const billingDetails = ref<CustomerAddress>({});
 const chosenPaymentMethod = ref<string>('');
-const chosenShippingMethod = ref<ShippingMethod>({});
+const chosenShippingMethod = ref<Partial<ShippingMethod>>({});
 const placeOrder = async () => {};
 const loadDetails = async () => {};
 
