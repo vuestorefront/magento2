@@ -4,6 +4,7 @@ import {
   useCartFactory,
   UseCartFactoryParams,
   Context,
+  Logger,
 } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
@@ -44,7 +45,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     try {
       const cartResponse = await context.$magento.api.cart(cartId);
-      // console.log(cartResponse);
+      Logger.debug(cartResponse);
       return cartResponse.data.cart;
     } catch (e) {
       apiState.setCartId(null);
@@ -120,7 +121,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     const removeItemParams: RemoveItemFromCartInput = {
       cart_id: currentCart.id,
-      cart_item_id: Number.parseInt(item.id, 10),
+      cart_item_id: Number.parseInt(item.uid, 10),
     };
 
     const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
