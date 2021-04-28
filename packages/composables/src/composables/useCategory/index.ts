@@ -5,7 +5,7 @@ const factoryParams: UseCategoryFactoryParams<Category, CategoryFilterInput> = {
   categorySearch: async (context: Context, params) => {
     const { data } = await context.$magento.api.categoryList(params);
 
-    return data.categoryList;
+    return data.categoryList as unknown as Category[];
   },
 };
 
