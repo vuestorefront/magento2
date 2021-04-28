@@ -1,9 +1,11 @@
 import { Context, Logger } from '@vue-storefront/core';
-import { SelectedShippingMethod, ShippingMethod, SetShippingMethodsOnCartInput } from '@vue-storefront/magento-api';
+import {
+  SetShippingMethodsOnCartInput,
+} from '@vue-storefront/magento-api';
 import { useShippingProviderFactory, UseShippingProviderParams } from '../../factories/useShippingProviderFactory';
 import useCart from '../useCart';
 
-const factoryParams: UseShippingProviderParams<any, SelectedShippingMethod> = {
+const factoryParams: UseShippingProviderParams<any, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -17,7 +19,12 @@ const factoryParams: UseShippingProviderParams<any, SelectedShippingMethod> = {
       await context.cart.load({ customQuery });
     }
 
-    return context.cart.cart.value.shipping_addresses[0].selected_shipping_method;
+    return context
+      .cart
+      .cart
+      .value
+      .shipping_addresses[0]
+      .selected_shipping_method;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,8 +40,12 @@ const factoryParams: UseShippingProviderParams<any, SelectedShippingMethod> = {
 
     const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
 
-    return data.setShippingMethodsOnCart.cart.shipping_addresses[0].selected_shipping_method;
+    return data
+      .setShippingMethodsOnCart
+      .cart
+      .shipping_addresses[0]
+      .selected_shipping_method;
   },
 };
 
-export default useShippingProviderFactory<any, ShippingMethod>(factoryParams);
+export default useShippingProviderFactory<any, any>(factoryParams);
