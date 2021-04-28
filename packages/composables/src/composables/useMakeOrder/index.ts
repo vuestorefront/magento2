@@ -1,4 +1,4 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
 import { Order } from '@vue-storefront/magento-api';
 import { UseMakeOrder } from '../../types';
 import { useMakeOrderFactory } from '../../factories/useMakeOrderFactory';
@@ -13,7 +13,7 @@ const factoryParams = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   make: async (context: Context, { customQuery }): Promise<Order> => {
-    console.log('[Magento] Make Order');
+    Logger.debug('[Magento] Make Order');
     const { id } = context.cart.cart.value;
     const { data } = await context.$magento.api.placeOrder({ cart_id: id });
 
