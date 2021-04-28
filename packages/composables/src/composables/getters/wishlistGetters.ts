@@ -4,10 +4,10 @@ import {
   AgnosticPrice,
   AgnosticTotals,
 } from '@vue-storefront/core';
-import { WishlistOutput } from '@vue-storefront/magento-api';
-import { WishlistProduct } from '../../types';
+import { WishlistOutput, WishlistItem } from '@vue-storefront/magento-api';
 
 type Wishlist = WishlistOutput;
+type WishlistProduct = WishlistItem;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getWishlistItems = (wishlist: Wishlist): WishlistProduct[] => wishlist.items;
