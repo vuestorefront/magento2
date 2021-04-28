@@ -10,6 +10,7 @@
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
+    "precommit": "lint-staged",
     "start": "nuxt start",
     "test": "jest",
     "update:check": "ncu",
