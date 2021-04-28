@@ -1,4 +1,4 @@
-#import "./productFragment.graphql"
+#import "./cartProductFragment.graphql"
 
 fragment CartFragment on Cart {
   id
@@ -53,22 +53,7 @@ fragment CartFragment on Cart {
     }
   }
   items {
-    id
-    product {
-      ...ProductFragment
-    }
-    prices {
-      row_total {
-        value
-      }
-      row_total_including_tax {
-        value
-      }
-      total_item_discount {
-        value
-      }
-    }
-    quantity
+    ...CartProductFragment
   }
   total_quantity
 }

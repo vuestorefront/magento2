@@ -1,18 +1,48 @@
 fragment ConfigurableProductOptionsFragment on ConfigurableProduct{
   configurable_options {
-    label
     attribute_code
-    uid
+    attribute_uid
+    label
     position
+    uid
+    use_default
     values {
       default_label
       label
       store_label
-      use_default_value
-      value_index
       swatch_data {
         value
       }
+      uid
+      use_default_value
+    }
+  }
+  configurable_product_options_selection {
+    media_gallery {
+      disabled
+      label
+      position
+      url
+    }
+    options_available_for_selection {
+      attribute_code
+      option_value_uids
+    }
+    variant {
+      uid
+      __typename
+      sku
+      name
+      meta_description
+      meta_keyword
+      meta_title
+      new
+      stock_status
+      only_x_left_in_stock
+      ...ProductImages
+      ...ProductPriceRange
+      ...ProductUrlFragment
+      ...ProductCategoriesFragment
     }
   }
 }

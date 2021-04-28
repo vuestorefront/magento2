@@ -2,6 +2,7 @@
 #import "./productPriceRangeFragment.graphql"
 #import "./productUrlFragment.graphql"
 #import "./productCategoriesFragment.graphql"
+#import "./configurableProductOptionsFragment.graphql"
 
 fragment ProductFragment on ProductInterface {
   uid
@@ -18,4 +19,5 @@ fragment ProductFragment on ProductInterface {
   ...ProductPriceRange
   ...ProductUrlFragment
   ...ProductCategoriesFragment
+  ...ConfigurableProductOptionsFragment
 }

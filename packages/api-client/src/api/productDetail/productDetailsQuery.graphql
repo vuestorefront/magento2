@@ -12,6 +12,7 @@ query productDetails($search: String = "", $filter: ProductAttributeFilterInput,
       ...ProductPriceTier
       ...ProductImages
       ...ProductUrlFragment
+      ...ConfigurableProductOptionsFragment
       material
       options_container
       description {
@@ -43,23 +44,6 @@ query productDetails($search: String = "", $filter: ProductAttributeFilterInput,
           page_size
           total_pages
         }
-      }
-      ... on ConfigurableProduct {
-        variants {
-          attributes {
-            code
-            value_index
-            label
-            uid
-          }
-          product {
-            ...ProductFragment
-            media_gallery {
-              url
-            }
-          }
-        }
-        ...ConfigurableProductOptionsFragment
       }
     }
   }
