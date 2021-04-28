@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { computed, Ref, ref } from '@vue/composition-api';
+import { computed, ref } from '@vue/composition-api';
 import { CustomerAddress, ShippingMethod } from '@vue-storefront/magento-api';
 import { User } from '../../types';
 
