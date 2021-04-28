@@ -10,32 +10,45 @@ import {
   AppliedCoupon,
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
+  AvailableShippingMethod,
+  BundleProduct,
+  Cart as CartInterface,
   CartItemInterface,
   CartQuery,
   CategoryFilterInput,
   CategoryListQuery,
-  CustomerInput,
-  ProductAttributeFilterInput,
-  ProductAttributeSortInput,
-  RemoveItemFromCartInput,
-  UpdateCartItemsInput,
-  CustomerFragmentFragment as CustomerFragment,
+  CategoryTree,
+  CmsPage,
   CmsPageQuery,
-  CustomerAddressInput,
+  ConfigurableProduct,
   CreateCustomerAddressMutation,
   CreateEmptyCartMutation,
-  CustomerQuery,
+  CustomerAddress as CustomerAddressInterface,
+  CustomerAddressInput,
+  CustomerAvailablePaymentMethodsQuery,
+  CustomerCartQuery,
+  CustomerFragmentFragment as CustomerFragment,
+  CustomerInput,
+  CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
+  CustomerOrdersQueryVariables,
+  CustomerQuery,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GetMenuCategoryQuery,
+  GuestAvailablePaymentMethodsQuery,
   MergeCartsMutation,
+  Order as OrderInterface,
   PlaceOrderInput,
   PlaceOrderMutation,
+  ProductAttributeFilterInput,
+  ProductAttributeSortInput,
   ProductDetailsQuery,
+  ProductInterface,
   ProductsListQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
+  RemoveItemFromCartInput,
   RemoveItemFromCartMutation,
   RevokeCustomerTokenMutation,
   SetBillingAddressOnCartInput,
@@ -48,40 +61,38 @@ import {
   SetShippingAddressesOnCartMutation,
   SetShippingMethodsOnCartInput,
   SetShippingMethodsOnCartMutation,
+  ShippingCartAddress,
   StoreConfigQuery,
+  UpdateCartItemsInput,
   UpdateCartItemsMutation,
   UpdateCustomerAddressMutation,
   UrlResloverQuery,
+  Wishlist as WishlistInterface,
+  WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
-  CustomerOrdersQueryVariables,
-  CustomerCartQuery,
-  CartFragmentFragment,
-  GuestAvailablePaymentMethodsQuery,
-  CustomerAvailablePaymentMethodsQuery,
-  CartProductFragmentFragment,
 } from './GraphQL';
 
-export type AddressOnCart = SetShippingAddressesOnCartMutation['setShippingAddressesOnCart']['cart']['shipping_addresses'][0];
-export type Cart = CartFragmentFragment;
-export type CartItem = CartProductFragmentFragment;
-export type Category = CategoryListQuery['categoryList'][0];
+export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
+export type AddressOnCart = ShippingCartAddress;
+export type Cart = CartInterface;
+export type CartItem = CartItemInterface;
+export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput;
-export type CategoryMenu = GetMenuCategoryQuery['categories']['items'][0];
+export type CategoryMenu = CategoryTree;
 export type Coupon = AppliedCoupon;
 export type Customer = CustomerFragment;
-export type CustomerAddress = CustomerFragment['addresses'];
-export type CustomerOrder = CustomerOrdersQuery['customer']['orders']['items'][0];
+export type CustomerAddress = CustomerAddressInterface;
+export type CustomerOrder = CustomerOrderInterface;
 export type CustomerUpdateParameters = CustomerInput;
-export type Order = PlaceOrderMutation['placeOrder']['order'];
-export type Page = CmsPageQuery['cmsPage'];
-export type Product = ProductDetailsQuery['products']['items'][0];
+export type Order = OrderInterface;
+export type Page = CmsPage;
 export type ProductAttributeFilter = ProductAttributeFilterInput;
 export type Route = UrlResloverQuery['urlResolver'];
-export type ShippingMethod = Partial<SetShippingMethodsOnCartMutation['setShippingMethodsOnCart']['cart']['shipping_addresses'][0]['selected_shipping_method']>;
+export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
-export type Wishlist = WishlistQuery['customer']['wishlists'][0];
-export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
+export type Wishlist = WishlistInterface;
+export type WishlistProduct = WishlistItemInterface;
 
 export const enum ProductsQueryType {
   List = 'LIST',
