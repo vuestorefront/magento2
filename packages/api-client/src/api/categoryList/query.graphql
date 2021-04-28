@@ -1,27 +1,36 @@
 query categoryList($filters: CategoryFilterInput) {
   categoryList(filters: $filters) {
-    id,
-    name,
-    url_path,
-    meta_title,
-    meta_description,
+    available_sort_by
     breadcrumbs {
-      category_name,
+      category_name
       category_url_path
-    },
-    display_mode,
-    description,
-    available_sort_by,
-    default_sort_by,
-    product_count,
-    cms_block{
-      content,
-      title
-    },
-    children {
-      id,
-      name,
-      url_path
+      category_url_key
+      category_uid
     }
+    canonical_url
+    children {
+      id
+      name
+      url_path
+      url_key
+      url_suffix
+      canonical_url
+    }
+    cms_block{
+      content
+      title
+    }
+    default_sort_by
+    description
+    display_mode
+    id
+    meta_description
+    meta_title
+    name
+    product_count
+    url_key
+    url_path
+    url_path
+    url_suffix
   }
 }
