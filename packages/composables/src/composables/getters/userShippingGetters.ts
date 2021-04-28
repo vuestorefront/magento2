@@ -1,8 +1,8 @@
-import { UserShippingGetters } from '@vue-storefront/core';
+import { Logger, UserShippingGetters } from '@vue-storefront/core';
 
 const userShippingGetters: UserShippingGetters<any, any> = {
   getAddresses: (shipping, criteria?: Record<string, any>) => {
-    console.log(shipping);
+    Logger.debug(shipping);
     if (!shipping || !shipping.addresses) return [] as Record<string, any>;
 
     if (!criteria || !Object.keys(criteria).length) {

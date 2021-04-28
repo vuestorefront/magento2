@@ -5,7 +5,6 @@ import {
   AgnosticPrice,
   ProductGetters,
 } from '@vue-storefront/core';
-
 import {
   Category,
   Product,
@@ -15,7 +14,6 @@ import categoryGetters from './categoryGetters';
 
 type ProductVariantFilters = any;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductName = (product: Product): string => {
   if (!product) {
     return '';
@@ -24,7 +22,6 @@ export const getProductName = (product: Product): string => {
   return product.name;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductSlug = (product: Product, category?: Category): string => {
   const rewrites = product.url_rewrites;
   let url = `/p/${product.sku}`;
@@ -51,7 +48,6 @@ export const getProductSlug = (product: Product, category?: Category): string =>
   return url;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductPrice = (product: Product): AgnosticPrice => {
   let regular = 0;
   let special = null;
@@ -71,7 +67,6 @@ export const getProductPrice = (product: Product): AgnosticPrice => {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] => {
   const images = [];
 
@@ -91,7 +86,6 @@ export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] 
   return images;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductCoverImage = (product: Product): string => {
   if (!product || !product.image) {
     return null;
@@ -100,11 +94,12 @@ export const getProductCoverImage = (product: Product): string => {
   return product.image.url;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => products;
+export const getProductFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductAttributes = (products: Product[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
+export const getProductAttributes = (
+  products: Product[] | Product,
+  _filterByAttributeName?: string[],
+): Record<string, AgnosticAttribute | string> => {
   if (!products || !products?.configurable_options) {
     return {};
   }
@@ -180,6 +175,7 @@ export const getProductId = (product: Product): string => product.uid;
 
 export const getProductSku = (product: Product): string => product.sku;
 
+// eslint-disable-next-line no-underscore-dangle
 export const getProductTypeId = (product: Product): string => product.__typename;
 
 export const getFormattedPrice = (price: number) => {
@@ -223,7 +219,6 @@ export const getProductWishlistState = (product: Product): boolean => product?.i
 
 export const getProductTotalReviews = (): number => 0;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getProductAverageRating = (): number => 0;
 
 export const getProductRelatedProduct = (product: Product) => product?.upsell_products;
