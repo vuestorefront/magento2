@@ -298,12 +298,12 @@ export default {
     });
 
     const productGallery = computed(() => productGetters.getGallery(product.value)
-    .map((img) => ({
-      mobile: { url: img.small },
-      desktop: { url: img.normal },
-      big: { url: img.big },
-      alt: product.value._name || product.value.name,
-    })));
+      .map((img) => ({
+        mobile: { url: img.small },
+        desktop: { url: img.normal },
+        big: { url: img.big },
+        alt: product.value._name || product.value.name,
+      })));
 
     onSSR(async () => {
       await search({
