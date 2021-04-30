@@ -17,10 +17,13 @@ import {
   UpdateCartItemsInput,
 } from '@vue-storefront/magento-api';
 
-const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
+const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   load: async (context: Context) => {
     const apiState = context.$magento.config.state;
-    if (apiState.getCustomerToken()) { // is user authenticated.
+    Logger.debug('[Magento Storefront]: Loading Cart');
+    const customerToken = apiState.getCustomerToken();
+
+    if (customerToken) { // is user authenticated.
       try { // get cart ID
         const result = await context.$magento.api.customerCart();
 
@@ -29,16 +32,18 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         apiState.setCartId(null);
         apiState.setCustomerToken(null);
 
-        return await params.load(context, {}) as unknown as Cart;
+        return await factoryParams.load(context, {}) as unknown as Cart;
       }
     }
 
-    const cartId = apiState.getCartId(); // if guest user have a cart ID
+    let cartId = apiState.getCartId(); // if guest user have a cart ID
 
     if (!cartId) {
       const { data } = await context.$magento.api.createEmptyCart();
 
-      apiState.setCartId(data.createEmptyCart);
+      cartId = data.createEmptyCart;
+
+      apiState.setCartId(cartId);
     }
 
     try {
@@ -50,7 +55,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     } catch (e) {
       apiState.setCartId(null);
 
-      return await params.load(context, {}) as unknown as Cart;
+      return await factoryParams.load(context, {}) as unknown as Cart;
     }
   },
   addItem: async (context: Context, {
@@ -61,7 +66,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     let currentCartId = apiState.getCartId();
 
     if (!currentCartId) {
-      await params.load(context, {});
+      await factoryParams.load(context, {});
 
       currentCartId = apiState.getCartId();
     }
@@ -166,7 +171,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   clear: async (context: Context, { currentCart }) => {
     context.$magento.config.state.setCartId(null);
 
-    return params.load(context, {});
+    return factoryParams.load(context, {});
   },
   applyCoupon: async (context: Context, {
     currentCart,
@@ -205,4 +210,4 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     .find((cartItem) => cartItem.product.uid === product.uid),
 };
 
-export default useCartFactory<Cart, CartItem, Product, Coupon>(params);
+export default useCartFactory<Cart, CartItem, Product, Coupon>(factoryParams);
