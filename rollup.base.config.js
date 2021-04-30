@@ -27,7 +27,7 @@ export function generateBaseConfig(pkg) {
         extensions,
       }),
       typescript({ useTsconfigDeclarationDir: true }),
-      terser(),
+      // terser(),
     ],
   };
 }
