@@ -4,6 +4,7 @@
   "exclude": ["node_modules", "lib"],
   "files": ["typings.d.ts"],
   "compilerOptions": {
+    "lib": ["ESNext"],
     "resolveJsonModule": true,
     "rootDir": "./src",
     "declaration": true,
