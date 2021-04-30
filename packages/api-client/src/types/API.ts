@@ -27,7 +27,7 @@ import {
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
   CustomerCartQuery,
-  CustomerFragmentFragment as CustomerFragment,
+  CustomerDataFragment as CustomerFragment,
   CustomerInput,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
@@ -100,6 +100,7 @@ export const enum ProductsQueryType {
 }
 
 export type GetProductSearchParams = {
+
   pageSize?: number;
   currentPage?: number;
   search?: string;

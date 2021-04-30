@@ -6790,28 +6790,28 @@ export type AddConfigurableProductsToCartMutationVariables = Exact<{
 }>;
 
 
-export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CartFragmentFragment }> };
+export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CartDataFragment }> };
 
 export type AddSimpleProductsToCartMutationVariables = Exact<{
   input?: Maybe<AddSimpleProductsToCartInput>;
 }>;
 
 
-export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CartFragmentFragment }> };
+export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CartDataFragment }> };
 
 export type ApplyCouponToCartMutationVariables = Exact<{
   input?: Maybe<ApplyCouponToCartInput>;
 }>;
 
 
-export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CartFragmentFragment }> };
+export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CartDataFragment }> };
 
 export type CartQueryVariables = Exact<{
   cartId: Scalars['String'];
 }>;
 
 
-export type CartQuery = { cart?: Maybe<CartFragmentFragment> };
+export type CartQuery = { cart?: Maybe<CartDataFragment> };
 
 export type CategoryListQueryVariables = Exact<{
   filters?: Maybe<CategoryFilterInput>;
@@ -6829,7 +6829,7 @@ export type ChangeCustomerPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ChangeCustomerPasswordMutation = { changeCustomerPassword?: Maybe<CustomerFragmentFragment> };
+export type ChangeCustomerPasswordMutation = { changeCustomerPassword?: Maybe<CustomerDataFragment> };
 
 export type CmsPageQueryVariables = Exact<{
   identifier?: Maybe<Scalars['String']>;
@@ -6843,7 +6843,7 @@ export type CreateCustomerMutationVariables = Exact<{
 }>;
 
 
-export type CreateCustomerMutation = { createCustomer?: Maybe<{ customer: CustomerFragmentFragment }> };
+export type CreateCustomerMutation = { createCustomer?: Maybe<{ customer: CustomerDataFragment }> };
 
 export type CreateCustomerAddressMutationVariables = Exact<{
   input: CustomerAddressInput;
@@ -6863,12 +6863,12 @@ export type CreateEmptyCartMutation = Pick<Mutation, 'createEmptyCart'>;
 export type CustomerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CustomerQuery = { customer?: Maybe<CustomerFragmentFragment> };
+export type CustomerQuery = { customer?: Maybe<CustomerDataFragment> };
 
 export type CustomerCartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CustomerCartQuery = { customerCart: CartFragmentFragment };
+export type CustomerCartQuery = { customerCart: CartDataFragment };
 
 export type CustomerOrdersQueryVariables = Exact<{
   currentPage?: Maybe<Scalars['Int']>;
@@ -6919,13 +6919,13 @@ export type GetMenuCategoryQuery = { categories?: Maybe<(
         Pick<CategoryTree, 'children_count'>
         & { children?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'children_count'>
-          & CategoryDataFragmentFragment
+          & CategoryDataFragment
           & CategoryUrlDataFragment
         )>>> }
-        & CategoryDataFragmentFragment
+        & CategoryDataFragment
         & CategoryUrlDataFragment
       )>>> }
-      & CategoryDataFragmentFragment
+      & CategoryDataFragment
       & CategoryUrlDataFragment
     )>>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }
   )> };
@@ -6936,7 +6936,7 @@ export type MergeCartsMutationVariables = Exact<{
 }>;
 
 
-export type MergeCartsMutation = { mergeCarts: CartFragmentFragment };
+export type MergeCartsMutation = { mergeCarts: CartDataFragment };
 
 export type PlaceOrderMutationVariables = Exact<{
   input?: Maybe<PlaceOrderInput>;
@@ -6955,72 +6955,60 @@ export type ProductDetailsQueryVariables = Exact<{
 
 
 export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
-      Pick<BundleProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_BundleProduct_Fragment
-      & ProductPriceRange_BundleProduct_Fragment
-      & ProductPriceTier_BundleProduct_Fragment
-      & ProductImages_BundleProduct_Fragment
-      & ProductUrlFragment_BundleProduct_Fragment
+      Pick<BundleProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_BundleProduct_Fragment
+      & ProductPriceRangeData_BundleProduct_Fragment
+      & ProductImagesData_BundleProduct_Fragment
+      & ProductGalleryData_BundleProduct_Fragment
+      & ProductThumbnailData_BundleProduct_Fragment
+      & ProductUrlFragmentData_BundleProduct_Fragment
     ) | (
-      Pick<ConfigurableProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_ConfigurableProduct_Fragment
-      & ProductPriceRange_ConfigurableProduct_Fragment
-      & ProductPriceTier_ConfigurableProduct_Fragment
-      & ProductImages_ConfigurableProduct_Fragment
-      & ProductUrlFragment_ConfigurableProduct_Fragment
-      & ConfigurableProductOptionsFragmentFragment
+      Pick<ConfigurableProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_ConfigurableProduct_Fragment
+      & ProductPriceRangeData_ConfigurableProduct_Fragment
+      & ProductImagesData_ConfigurableProduct_Fragment
+      & ProductGalleryData_ConfigurableProduct_Fragment
+      & ProductThumbnailData_ConfigurableProduct_Fragment
+      & ProductUrlFragmentData_ConfigurableProduct_Fragment
+      & ConfigurableProductOptionsDataFragment
     ) | (
-      Pick<DownloadableProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_DownloadableProduct_Fragment
-      & ProductPriceRange_DownloadableProduct_Fragment
-      & ProductPriceTier_DownloadableProduct_Fragment
-      & ProductImages_DownloadableProduct_Fragment
-      & ProductUrlFragment_DownloadableProduct_Fragment
+      Pick<DownloadableProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_DownloadableProduct_Fragment
+      & ProductPriceRangeData_DownloadableProduct_Fragment
+      & ProductImagesData_DownloadableProduct_Fragment
+      & ProductGalleryData_DownloadableProduct_Fragment
+      & ProductThumbnailData_DownloadableProduct_Fragment
+      & ProductUrlFragmentData_DownloadableProduct_Fragment
     ) | (
-      Pick<GroupedProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_GroupedProduct_Fragment
-      & ProductPriceRange_GroupedProduct_Fragment
-      & ProductPriceTier_GroupedProduct_Fragment
-      & ProductImages_GroupedProduct_Fragment
-      & ProductUrlFragment_GroupedProduct_Fragment
+      Pick<GroupedProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_GroupedProduct_Fragment
+      & ProductPriceRangeData_GroupedProduct_Fragment
+      & ProductImagesData_GroupedProduct_Fragment
+      & ProductGalleryData_GroupedProduct_Fragment
+      & ProductThumbnailData_GroupedProduct_Fragment
+      & ProductUrlFragmentData_GroupedProduct_Fragment
     ) | (
-      Pick<SimpleProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_SimpleProduct_Fragment
-      & ProductPriceRange_SimpleProduct_Fragment
-      & ProductPriceTier_SimpleProduct_Fragment
-      & ProductImages_SimpleProduct_Fragment
-      & ProductUrlFragment_SimpleProduct_Fragment
+      Pick<SimpleProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_SimpleProduct_Fragment
+      & ProductPriceRangeData_SimpleProduct_Fragment
+      & ProductImagesData_SimpleProduct_Fragment
+      & ProductGalleryData_SimpleProduct_Fragment
+      & ProductThumbnailData_SimpleProduct_Fragment
+      & ProductUrlFragmentData_SimpleProduct_Fragment
     ) | (
-      Pick<VirtualProduct, 'material' | 'options_container'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>>, reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
-      & ProductFragment_VirtualProduct_Fragment
-      & ProductPriceRange_VirtualProduct_Fragment
-      & ProductPriceTier_VirtualProduct_Fragment
-      & ProductImages_VirtualProduct_Fragment
-      & ProductUrlFragment_VirtualProduct_Fragment
+      Pick<VirtualProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & ProductData_VirtualProduct_Fragment
+      & ProductPriceRangeData_VirtualProduct_Fragment
+      & ProductImagesData_VirtualProduct_Fragment
+      & ProductGalleryData_VirtualProduct_Fragment
+      & ProductThumbnailData_VirtualProduct_Fragment
+      & ProductUrlFragmentData_VirtualProduct_Fragment
     )>>> }> };
 
 export type ProductsListQueryVariables = Exact<{
@@ -7037,7 +7025,7 @@ export type ProductsListQuery = { products?: Maybe<(
     & { aggregations?: Maybe<Array<Maybe<(
       Pick<Aggregation, 'attribute_code' | 'count' | 'label'>
       & { options?: Maybe<Array<Maybe<Pick<AggregationOption, 'count' | 'label' | 'value'>>>> }
-    )>>>, items?: Maybe<Array<Maybe<ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment>>> }
+    )>>>, items?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
   )> };
 
 export type RemoveCouponFromCartMutationVariables = Exact<{
@@ -7045,14 +7033,14 @@ export type RemoveCouponFromCartMutationVariables = Exact<{
 }>;
 
 
-export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CartFragmentFragment> }> };
+export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CartDataFragment> }> };
 
 export type RemoveItemFromCartMutationVariables = Exact<{
   input?: Maybe<RemoveItemFromCartInput>;
 }>;
 
 
-export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CartFragmentFragment }> };
+export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CartDataFragment }> };
 
 export type RevokeCustomerTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -7113,14 +7101,14 @@ export type UpdateCartItemsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CartFragmentFragment }> };
+export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CartDataFragment }> };
 
 export type UpdateCustomerMutationVariables = Exact<{
   input: CustomerInput;
 }>;
 
 
-export type UpdateCustomerMutation = { updateCustomer?: Maybe<{ customer: CustomerFragmentFragment }> };
+export type UpdateCustomerMutation = { updateCustomer?: Maybe<{ customer: CustomerDataFragment }> };
 
 export type UpdateCustomerAddressMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -7155,37 +7143,37 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         ) | (
           Pick<ConfigurableWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -7194,37 +7182,37 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         ) | (
           Pick<DownloadableWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -7233,37 +7221,37 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         ) | (
           Pick<GroupedProductWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -7272,37 +7260,37 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         ) | (
           Pick<SimpleWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -7311,37 +7299,37 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         ) | (
           Pick<VirtualWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -7350,47 +7338,47 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<ConfigurableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<DownloadableProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<GroupedProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<SimpleProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           ) | (
             Pick<VirtualProduct, 'uid' | 'name' | 'sku' | 'special_price' | 'attribute_set_id' | 'type_id' | 'manufacturer' | 'canonical_url'>
             & { image?: Maybe<Pick<ProductImage, 'url' | 'label'>>, price_tiers?: Maybe<Array<Maybe<(
               Pick<TierPrice, 'quantity'>
               & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
-            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>> }
+            )>>>, categories?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'path'>>>>, media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> }
           )> }
         )>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }> }
     )>> }> };
 
-export type AddressFragmentFragment = (
+export type CustomerAddressDataFragment = (
   Pick<CustomerAddress, 'city' | 'country_code' | 'default_billing' | 'default_shipping' | 'firstname' | 'id' | 'lastname' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone'>
   & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
 );
 
-export type CartFragmentFragment = (
+export type CartDataFragment = (
   Pick<Cart, 'id' | 'total_quantity'>
   & { applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
       Pick<CartTaxItem, 'label'>
@@ -7404,216 +7392,237 @@ export type CartFragmentFragment = (
     )> }>>, billing_address?: Maybe<(
     Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'postcode' | 'telephone'>
     & { country: Pick<CartAddressCountry, 'code' | 'label'> }
-  )>, items?: Maybe<Array<Maybe<CartProductFragment_BundleCartItem_Fragment | CartProductFragment_ConfigurableCartItem_Fragment | CartProductFragment_DownloadableCartItem_Fragment | CartProductFragment_SimpleCartItem_Fragment | CartProductFragment_VirtualCartItem_Fragment>>> }
+  )>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
 );
 
-type CartProductFragment_BundleCartItem_Fragment = (
+type CartProductData_BundleCartItem_Fragment = (
   Pick<BundleCartItem, 'uid' | 'quantity'>
-  & { product: ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
+  & { product: ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
 );
 
-type CartProductFragment_ConfigurableCartItem_Fragment = (
+type CartProductData_ConfigurableCartItem_Fragment = (
   Pick<ConfigurableCartItem, 'uid' | 'quantity'>
-  & { product: ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
+  & { product: ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
 );
 
-type CartProductFragment_DownloadableCartItem_Fragment = (
+type CartProductData_DownloadableCartItem_Fragment = (
   Pick<DownloadableCartItem, 'uid' | 'quantity'>
-  & { product: ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
+  & { product: ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
 );
 
-type CartProductFragment_SimpleCartItem_Fragment = (
+type CartProductData_SimpleCartItem_Fragment = (
   Pick<SimpleCartItem, 'uid' | 'quantity'>
-  & { product: ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
+  & { product: ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
 );
 
-type CartProductFragment_VirtualCartItem_Fragment = (
+type CartProductData_VirtualCartItem_Fragment = (
   Pick<VirtualCartItem, 'uid' | 'quantity'>
-  & { product: ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
+  & { product: ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment, prices?: Maybe<{ row_total: Pick<Money, 'value'>, row_total_including_tax: Pick<Money, 'value'>, total_item_discount?: Maybe<Pick<Money, 'value'>> }> }
 );
 
-export type CartProductFragmentFragment = CartProductFragment_BundleCartItem_Fragment | CartProductFragment_ConfigurableCartItem_Fragment | CartProductFragment_DownloadableCartItem_Fragment | CartProductFragment_SimpleCartItem_Fragment | CartProductFragment_VirtualCartItem_Fragment;
+export type CartProductDataFragment = CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment;
 
-export type CategoryDataFragmentFragment = Pick<CategoryTree, 'canonical_url' | 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'path' | 'path_in_store' | 'position' | 'uid'>;
+export type CategoryDataFragment = Pick<CategoryTree, 'canonical_url' | 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'path' | 'path_in_store' | 'position' | 'uid'>;
 
 export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_key' | 'url_path' | 'url_suffix'>;
 
-export type ConfigurableProductOptionsFragmentFragment = { configurable_options?: Maybe<Array<Maybe<(
+export type ConfigurableProductOptionsDataFragment = { configurable_options?: Maybe<Array<Maybe<(
     Pick<ConfigurableProductOptions, 'attribute_code' | 'attribute_uid' | 'label' | 'position' | 'uid' | 'use_default'>
     & { values?: Maybe<Array<Maybe<(
       Pick<ConfigurableProductOptionsValues, 'default_label' | 'label' | 'store_label' | 'uid' | 'use_default_value'>
       & { swatch_data?: Maybe<Pick<ColorSwatchData, 'value'> | Pick<ImageSwatchData, 'value'> | Pick<TextSwatchData, 'value'>> }
     )>>> }
-  )>>>, configurable_product_options_selection?: Maybe<{ media_gallery?: Maybe<Array<Maybe<Pick<ProductImage, 'disabled' | 'label' | 'position' | 'url'> | Pick<ProductVideo, 'disabled' | 'label' | 'position' | 'url'>>>>, options_available_for_selection?: Maybe<Array<Maybe<Pick<ConfigurableOptionAvailableForSelection, 'attribute_code' | 'option_value_uids'>>>>, variant?: Maybe<(
-      { __typename: 'SimpleProduct' }
-      & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-      & ProductImages_SimpleProduct_Fragment
-      & ProductPriceRange_SimpleProduct_Fragment
-      & ProductUrlFragment_SimpleProduct_Fragment
-      & ProductCategoriesFragment_SimpleProduct_Fragment
-    )> }> };
+  )>>> };
 
-export type CustomerFragmentFragment = (
+export type CustomerDataFragment = (
   Pick<Customer, 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat' | 'default_billing' | 'default_shipping'>
-  & { addresses?: Maybe<Array<Maybe<AddressFragmentFragment>>> }
+  & { addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }
 );
 
-type ProductCategoriesFragment_BundleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_BundleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-type ProductCategoriesFragment_ConfigurableProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_ConfigurableProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-type ProductCategoriesFragment_DownloadableProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_DownloadableProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-type ProductCategoriesFragment_GroupedProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_GroupedProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-type ProductCategoriesFragment_SimpleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_SimpleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-type ProductCategoriesFragment_VirtualProduct_Fragment = { categories?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'id' | 'name' | 'url_suffix' | 'url_path'>
+type ProductCategoriesData_VirtualProduct_Fragment = { categories?: Maybe<Array<Maybe<(
+    Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
   )>>> };
 
-export type ProductCategoriesFragmentFragment = ProductCategoriesFragment_BundleProduct_Fragment | ProductCategoriesFragment_ConfigurableProduct_Fragment | ProductCategoriesFragment_DownloadableProduct_Fragment | ProductCategoriesFragment_GroupedProduct_Fragment | ProductCategoriesFragment_SimpleProduct_Fragment | ProductCategoriesFragment_VirtualProduct_Fragment;
+export type ProductCategoriesDataFragment = ProductCategoriesData_BundleProduct_Fragment | ProductCategoriesData_ConfigurableProduct_Fragment | ProductCategoriesData_DownloadableProduct_Fragment | ProductCategoriesData_GroupedProduct_Fragment | ProductCategoriesData_SimpleProduct_Fragment | ProductCategoriesData_VirtualProduct_Fragment;
 
-type ProductFragment_BundleProduct_Fragment = (
+type ProductData_BundleProduct_Fragment = (
   { __typename: 'BundleProduct' }
-  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_BundleProduct_Fragment
-  & ProductPriceRange_BundleProduct_Fragment
-  & ProductUrlFragment_BundleProduct_Fragment
-  & ProductCategoriesFragment_BundleProduct_Fragment
+  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_BundleProduct_Fragment
+  & ProductPriceRangeData_BundleProduct_Fragment
+  & ProductUrlFragmentData_BundleProduct_Fragment
+  & ProductCategoriesData_BundleProduct_Fragment
 );
 
-type ProductFragment_ConfigurableProduct_Fragment = (
+type ProductData_ConfigurableProduct_Fragment = (
   { __typename: 'ConfigurableProduct' }
-  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_ConfigurableProduct_Fragment
-  & ProductPriceRange_ConfigurableProduct_Fragment
-  & ProductUrlFragment_ConfigurableProduct_Fragment
-  & ProductCategoriesFragment_ConfigurableProduct_Fragment
-  & ConfigurableProductOptionsFragmentFragment
+  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_ConfigurableProduct_Fragment
+  & ProductPriceRangeData_ConfigurableProduct_Fragment
+  & ProductUrlFragmentData_ConfigurableProduct_Fragment
+  & ProductCategoriesData_ConfigurableProduct_Fragment
+  & ConfigurableProductOptionsDataFragment
 );
 
-type ProductFragment_DownloadableProduct_Fragment = (
+type ProductData_DownloadableProduct_Fragment = (
   { __typename: 'DownloadableProduct' }
-  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_DownloadableProduct_Fragment
-  & ProductPriceRange_DownloadableProduct_Fragment
-  & ProductUrlFragment_DownloadableProduct_Fragment
-  & ProductCategoriesFragment_DownloadableProduct_Fragment
+  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_DownloadableProduct_Fragment
+  & ProductPriceRangeData_DownloadableProduct_Fragment
+  & ProductUrlFragmentData_DownloadableProduct_Fragment
+  & ProductCategoriesData_DownloadableProduct_Fragment
 );
 
-type ProductFragment_GroupedProduct_Fragment = (
+type ProductData_GroupedProduct_Fragment = (
   { __typename: 'GroupedProduct' }
-  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_GroupedProduct_Fragment
-  & ProductPriceRange_GroupedProduct_Fragment
-  & ProductUrlFragment_GroupedProduct_Fragment
-  & ProductCategoriesFragment_GroupedProduct_Fragment
+  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_GroupedProduct_Fragment
+  & ProductPriceRangeData_GroupedProduct_Fragment
+  & ProductUrlFragmentData_GroupedProduct_Fragment
+  & ProductCategoriesData_GroupedProduct_Fragment
 );
 
-type ProductFragment_SimpleProduct_Fragment = (
+type ProductData_SimpleProduct_Fragment = (
   { __typename: 'SimpleProduct' }
-  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_SimpleProduct_Fragment
-  & ProductPriceRange_SimpleProduct_Fragment
-  & ProductUrlFragment_SimpleProduct_Fragment
-  & ProductCategoriesFragment_SimpleProduct_Fragment
+  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_SimpleProduct_Fragment
+  & ProductPriceRangeData_SimpleProduct_Fragment
+  & ProductUrlFragmentData_SimpleProduct_Fragment
+  & ProductCategoriesData_SimpleProduct_Fragment
 );
 
-type ProductFragment_VirtualProduct_Fragment = (
+type ProductData_VirtualProduct_Fragment = (
   { __typename: 'VirtualProduct' }
-  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'meta_description' | 'meta_keyword' | 'meta_title' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
-  & ProductImages_VirtualProduct_Fragment
-  & ProductPriceRange_VirtualProduct_Fragment
-  & ProductUrlFragment_VirtualProduct_Fragment
-  & ProductCategoriesFragment_VirtualProduct_Fragment
+  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & ProductThumbnailData_VirtualProduct_Fragment
+  & ProductPriceRangeData_VirtualProduct_Fragment
+  & ProductUrlFragmentData_VirtualProduct_Fragment
+  & ProductCategoriesData_VirtualProduct_Fragment
 );
 
-export type ProductFragmentFragment = ProductFragment_BundleProduct_Fragment | ProductFragment_ConfigurableProduct_Fragment | ProductFragment_DownloadableProduct_Fragment | ProductFragment_GroupedProduct_Fragment | ProductFragment_SimpleProduct_Fragment | ProductFragment_VirtualProduct_Fragment;
+export type ProductDataFragment = ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment;
 
-type ProductImages_BundleProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_BundleProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-type ProductImages_ConfigurableProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_ConfigurableProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-type ProductImages_DownloadableProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_DownloadableProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-type ProductImages_GroupedProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_GroupedProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-type ProductImages_SimpleProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_SimpleProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-type ProductImages_VirtualProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment>>>, small_image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment>, thumbnail?: Maybe<ProductMediaConfigurationFragment_ProductImage_Fragment> };
+type ProductGalleryData_VirtualProduct_Fragment = { media_gallery?: Maybe<Array<Maybe<ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment>>> };
 
-export type ProductImagesFragment = ProductImages_BundleProduct_Fragment | ProductImages_ConfigurableProduct_Fragment | ProductImages_DownloadableProduct_Fragment | ProductImages_GroupedProduct_Fragment | ProductImages_SimpleProduct_Fragment | ProductImages_VirtualProduct_Fragment;
+export type ProductGalleryDataFragment = ProductGalleryData_BundleProduct_Fragment | ProductGalleryData_ConfigurableProduct_Fragment | ProductGalleryData_DownloadableProduct_Fragment | ProductGalleryData_GroupedProduct_Fragment | ProductGalleryData_SimpleProduct_Fragment | ProductGalleryData_VirtualProduct_Fragment;
 
-type ProductMediaConfigurationFragment_ProductImage_Fragment = Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>;
+type ProductImagesData_BundleProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-type ProductMediaConfigurationFragment_ProductVideo_Fragment = Pick<ProductVideo, 'url' | 'position' | 'disabled' | 'label'>;
+type ProductImagesData_ConfigurableProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-export type ProductMediaConfigurationFragmentFragment = ProductMediaConfigurationFragment_ProductImage_Fragment | ProductMediaConfigurationFragment_ProductVideo_Fragment;
+type ProductImagesData_DownloadableProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-type ProductPriceRange_BundleProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+type ProductImagesData_GroupedProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-type ProductPriceRange_ConfigurableProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+type ProductImagesData_SimpleProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-type ProductPriceRange_DownloadableProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+type ProductImagesData_VirtualProduct_Fragment = { small_image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment>, image?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
 
-type ProductPriceRange_GroupedProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+export type ProductImagesDataFragment = ProductImagesData_BundleProduct_Fragment | ProductImagesData_ConfigurableProduct_Fragment | ProductImagesData_DownloadableProduct_Fragment | ProductImagesData_GroupedProduct_Fragment | ProductImagesData_SimpleProduct_Fragment | ProductImagesData_VirtualProduct_Fragment;
 
-type ProductPriceRange_SimpleProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+type ProductMediaConfigurationData_ProductImage_Fragment = Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>;
 
-type ProductPriceRange_VirtualProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+type ProductMediaConfigurationData_ProductVideo_Fragment = Pick<ProductVideo, 'url' | 'position' | 'disabled' | 'label'>;
 
-export type ProductPriceRangeFragment = ProductPriceRange_BundleProduct_Fragment | ProductPriceRange_ConfigurableProduct_Fragment | ProductPriceRange_DownloadableProduct_Fragment | ProductPriceRange_GroupedProduct_Fragment | ProductPriceRange_SimpleProduct_Fragment | ProductPriceRange_VirtualProduct_Fragment;
+export type ProductMediaConfigurationDataFragment = ProductMediaConfigurationData_ProductImage_Fragment | ProductMediaConfigurationData_ProductVideo_Fragment;
 
-type ProductPriceTier_BundleProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceRangeData_BundleProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+type ProductPriceRangeData_ConfigurableProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+type ProductPriceRangeData_DownloadableProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+type ProductPriceRangeData_GroupedProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+type ProductPriceRangeData_SimpleProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+type ProductPriceRangeData_VirtualProduct_Fragment = { price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } } };
+
+export type ProductPriceRangeDataFragment = ProductPriceRangeData_BundleProduct_Fragment | ProductPriceRangeData_ConfigurableProduct_Fragment | ProductPriceRangeData_DownloadableProduct_Fragment | ProductPriceRangeData_GroupedProduct_Fragment | ProductPriceRangeData_SimpleProduct_Fragment | ProductPriceRangeData_VirtualProduct_Fragment;
+
+type ProductPriceTierData_BundleProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-type ProductPriceTier_ConfigurableProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceTierData_ConfigurableProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-type ProductPriceTier_DownloadableProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceTierData_DownloadableProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-type ProductPriceTier_GroupedProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceTierData_GroupedProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-type ProductPriceTier_SimpleProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceTierData_SimpleProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-type ProductPriceTier_VirtualProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
+type ProductPriceTierData_VirtualProduct_Fragment = { price_tiers?: Maybe<Array<Maybe<(
     Pick<TierPrice, 'quantity'>
     & { discount?: Maybe<Pick<ProductDiscount, 'amount_off' | 'percent_off'>>, final_price?: Maybe<Pick<Money, 'currency' | 'value'>> }
   )>>> };
 
-export type ProductPriceTierFragment = ProductPriceTier_BundleProduct_Fragment | ProductPriceTier_ConfigurableProduct_Fragment | ProductPriceTier_DownloadableProduct_Fragment | ProductPriceTier_GroupedProduct_Fragment | ProductPriceTier_SimpleProduct_Fragment | ProductPriceTier_VirtualProduct_Fragment;
+export type ProductPriceTierDataFragment = ProductPriceTierData_BundleProduct_Fragment | ProductPriceTierData_ConfigurableProduct_Fragment | ProductPriceTierData_DownloadableProduct_Fragment | ProductPriceTierData_GroupedProduct_Fragment | ProductPriceTierData_SimpleProduct_Fragment | ProductPriceTierData_VirtualProduct_Fragment;
 
-type ProductUrlFragment_BundleProduct_Fragment = (
+type ProductThumbnailData_BundleProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+type ProductThumbnailData_ConfigurableProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+type ProductThumbnailData_DownloadableProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+type ProductThumbnailData_GroupedProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+type ProductThumbnailData_SimpleProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+type ProductThumbnailData_VirtualProduct_Fragment = { thumbnail?: Maybe<ProductMediaConfigurationData_ProductImage_Fragment> };
+
+export type ProductThumbnailDataFragment = ProductThumbnailData_BundleProduct_Fragment | ProductThumbnailData_ConfigurableProduct_Fragment | ProductThumbnailData_DownloadableProduct_Fragment | ProductThumbnailData_GroupedProduct_Fragment | ProductThumbnailData_SimpleProduct_Fragment | ProductThumbnailData_VirtualProduct_Fragment;
+
+type ProductUrlFragmentData_BundleProduct_Fragment = (
   Pick<BundleProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7621,7 +7630,7 @@ type ProductUrlFragment_BundleProduct_Fragment = (
   )>>> }
 );
 
-type ProductUrlFragment_ConfigurableProduct_Fragment = (
+type ProductUrlFragmentData_ConfigurableProduct_Fragment = (
   Pick<ConfigurableProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7629,7 +7638,7 @@ type ProductUrlFragment_ConfigurableProduct_Fragment = (
   )>>> }
 );
 
-type ProductUrlFragment_DownloadableProduct_Fragment = (
+type ProductUrlFragmentData_DownloadableProduct_Fragment = (
   Pick<DownloadableProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7637,7 +7646,7 @@ type ProductUrlFragment_DownloadableProduct_Fragment = (
   )>>> }
 );
 
-type ProductUrlFragment_GroupedProduct_Fragment = (
+type ProductUrlFragmentData_GroupedProduct_Fragment = (
   Pick<GroupedProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7645,7 +7654,7 @@ type ProductUrlFragment_GroupedProduct_Fragment = (
   )>>> }
 );
 
-type ProductUrlFragment_SimpleProduct_Fragment = (
+type ProductUrlFragmentData_SimpleProduct_Fragment = (
   Pick<SimpleProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7653,7 +7662,7 @@ type ProductUrlFragment_SimpleProduct_Fragment = (
   )>>> }
 );
 
-type ProductUrlFragment_VirtualProduct_Fragment = (
+type ProductUrlFragmentData_VirtualProduct_Fragment = (
   Pick<VirtualProduct, 'canonical_url'>
   & { url_rewrites?: Maybe<Array<Maybe<(
     Pick<UrlRewrite, 'url'>
@@ -7661,4 +7670,4 @@ type ProductUrlFragment_VirtualProduct_Fragment = (
   )>>> }
 );
 
-export type ProductUrlFragmentFragment = ProductUrlFragment_BundleProduct_Fragment | ProductUrlFragment_ConfigurableProduct_Fragment | ProductUrlFragment_DownloadableProduct_Fragment | ProductUrlFragment_GroupedProduct_Fragment | ProductUrlFragment_SimpleProduct_Fragment | ProductUrlFragment_VirtualProduct_Fragment;
+export type ProductUrlFragmentDataFragment = ProductUrlFragmentData_BundleProduct_Fragment | ProductUrlFragmentData_ConfigurableProduct_Fragment | ProductUrlFragmentData_DownloadableProduct_Fragment | ProductUrlFragmentData_GroupedProduct_Fragment | ProductUrlFragmentData_SimpleProduct_Fragment | ProductUrlFragmentData_VirtualProduct_Fragment;
