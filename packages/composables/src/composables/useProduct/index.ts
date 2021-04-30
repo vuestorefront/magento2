@@ -1,6 +1,6 @@
 import { Context, useProductFactory, ProductsSearchParams } from '@vue-storefront/core';
 import { UseProductFactoryParams } from '@vue-storefront/core/lib/src/factories/useProductFactory';
-import { ProductsListQuery, GetProductSearchParams } from '@vue-storefront/magento-api';
+import { ProductsListQuery, GetProductSearchParams, ProductsQueryType } from '@vue-storefront/magento-api';
 
 const availableSortingOptions = [{
   value: 'latest',
@@ -14,10 +14,18 @@ const availableSortingOptions = [{
 }];
 
 const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], ProductsSearchParams> = {
-  productsSearch: async (context: Context, params: GetProductSearchParams) => {
-    const productResults = await context.$magento.api.products(params);
+  productsSearch: async (context: Context, params: GetProductSearchParams & { queryType: ProductsQueryType; }) => {
+    const { queryType, ...searchParams } = params;
+    switch (queryType) {
+      case ProductsQueryType.Detail:
+        const productDetailsResults = await context.$magento.api.productDetail(searchParams as GetProductSearchParams);
+        return productDetailsResults.data.products;
 
-    return productResults.data.products;
+      case ProductsQueryType.List:
+      default:
+        const productListResults = await context.$magento.api.products(searchParams as GetProductSearchParams);
+        return productListResults.data.products;
+    }
   },
 };
 
