@@ -70,7 +70,7 @@ export default {
         ],
       },
       logger: {
-        verbosity: 'error',
+        verbosity: 'debug',
       },
     }],
     // @core-development-only-start
@@ -184,17 +184,6 @@ export default {
   },
   router: {
     extendRoutes(routes, resolve) {
-      const productRouteIndex = routes.findIndex((r) => r.name === 'Product');
-      if (productRouteIndex) {
-        routes.splice(productRouteIndex, 1);
-
-        routes.push({
-          name: 'Product',
-          path: '/p/:sku/:relativeUrl+',
-          component: resolve(__dirname, '_theme/pages/Product.vue'),
-        });
-      }
-
       routes.push({
         name: 'urlResolver',
         path: '*',
