@@ -11,8 +11,6 @@ import {
 
 import useUser from '../useUser';
 
-export const wishlist = ref<Wishlist>(null);
-
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
   provide() {
