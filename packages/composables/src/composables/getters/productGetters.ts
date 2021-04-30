@@ -94,6 +94,14 @@ export const getProductCoverImage = (product: Product): string => {
   return product.image.url;
 };
 
+export const getProductThumbnailImage = (product: Product): string => {
+  if (!product || !product.thumbnail) {
+    return null;
+  }
+
+  return product.thumbnail.url;
+};
+
 export const getProductFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
 
 export const getProductAttributes = (
@@ -220,28 +228,29 @@ export const getProductTotalReviews = (): number => 0;
 
 export const getProductAverageRating = (): number => 0;
 
-export const getProductRelatedProduct = (product: Product) => product?.upsell_products;
+export const getProductRelatedProduct = (product: Product) => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
 
 const productGetters: ProductGetters<Product, ProductVariantFilters> = {
-  getName: getProductName,
-  getSlug: getProductSlug,
-  getPrice: getProductPrice,
-  getGallery: getProductGallery,
-  getCoverImage: getProductCoverImage,
-  getFiltered: getProductFiltered,
   getAttributes: getProductAttributes,
-  getDescription: getProductDescription,
-  getShortDescription: getProductShortDescription,
-  getCategoryIds: getProductCategoryIds,
-  getCategory: getProductCategory,
-  getProductRelatedProduct,
-  getId: getProductId,
-  getFormattedPrice,
-  getBreadcrumbs: getProductBreadcrumbs,
-  getTypeId: getProductTypeId,
-  getTotalReviews: getProductTotalReviews,
   getAverageRating: getProductAverageRating,
+  getBreadcrumbs: getProductBreadcrumbs,
+  getCategory: getProductCategory,
+  getCategoryIds: getProductCategoryIds,
+  getCoverImage: getProductCoverImage,
+  getDescription: getProductDescription,
+  getFiltered: getProductFiltered,
+  getFormattedPrice,
+  getGallery: getProductGallery,
+  getId: getProductId,
+  getName: getProductName,
+  getPrice: getProductPrice,
+  getProductRelatedProduct,
   getProductSku,
+  getProductThumbnailImage,
+  getShortDescription: getProductShortDescription,
+  getSlug: getProductSlug,
+  getTotalReviews: getProductTotalReviews,
+  getTypeId: getProductTypeId,
 };
 
 export default productGetters;
