@@ -4,7 +4,7 @@ import {
   useUserShippingFactory,
   UseUserShippingFactoryParams,
 } from '@vue-storefront/core';
-import { CustomerAddress, CustomerAddressInput } from '@vue-storefront/magento-api';
+import { CustomerAddressInput } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 
 const factoryParams: UseUserShippingFactoryParams<any, any> = {
