@@ -19,7 +19,7 @@
         >
           <SfProductCard
             :title="productGetters.getName(product)"
-            :image="productGetters.getCoverImage(product)"
+            :image="productGetters.getProductThumbnailImage(product)"
             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
             :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
