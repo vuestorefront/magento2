@@ -35,8 +35,8 @@
     </LazyHydrate>
     <LazyHydrate when-visible>
       <ProductsCarousel
-        :products="products"
-        :loading="productsLoading"
+        :products="newProducts"
+        :loading="newProductsLoading"
         title="New Products"
       />
     </LazyHydrate>
@@ -102,10 +102,11 @@ export default {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const {
-      products: relatedProducts,
-      search: productsSearch,
-      loading: productsLoading,
-    } = useProduct('relatedProducts');
+      products: newProductsResult,
+      search: newProductsSearch,
+      loading: newProductsLoading,
+    } = useProduct('newProducts');
+
     const {
       cart,
       load: loadCart,
@@ -113,8 +114,10 @@ export default {
       isInCart,
     } = useCart();
 
+    const newProducts = computed(() => productGetters.getFiltered(newProductsResult.value?.items, { master: true }));
+
     onSSR(async () => {
-      await productsSearch({
+      await newProductsSearch({
         pageSize: 10,
         currentPage: 1,
         new: {
@@ -127,10 +130,11 @@ export default {
 
       await loadCart();
     });
+
     return {
-      products: computed(() => productGetters.getFiltered(relatedProducts.value.data?.items, { master: true })),
+      newProducts,
       getChkId: computed(() => cart.value.id),
-      productsLoading,
+      newProductsLoading,
       productGetters,
       addToCart,
       isInCart,
