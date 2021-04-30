@@ -1,6 +1,6 @@
 #import "./cartProductFragment.graphql"
 
-fragment CartFragment on Cart {
+fragment CartData on Cart {
   id
   applied_coupons {
     code
@@ -53,7 +53,7 @@ fragment CartFragment on Cart {
     }
   }
   items {
-    ...CartProductFragment
+    ...CartProductData
   }
   total_quantity
 }

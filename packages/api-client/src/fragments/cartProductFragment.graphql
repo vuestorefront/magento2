@@ -1,9 +1,9 @@
 #import "./productFragment.graphql"
 
-fragment CartProductFragment on CartItemInterface {
+fragment CartProductData on CartItemInterface {
   uid
   product {
-    ...ProductFragment
+    ...ProductData
   }
   prices {
     row_total {

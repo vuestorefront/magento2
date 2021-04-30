@@ -13,7 +13,7 @@ query productsList($search: String = "", $filter: ProductAttributeFilterInput, $
       }
     }
     items {
-      ...ProductFragment
+      ...ProductData
     },
     total_count
   }

@@ -1,4 +1,4 @@
-fragment CategoryDataFragment on CategoryTree {
+fragment CategoryData on CategoryTree {
   canonical_url
   image
   include_in_menu

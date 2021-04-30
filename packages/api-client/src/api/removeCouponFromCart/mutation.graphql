@@ -3,7 +3,7 @@
 mutation removeCouponFromCart($input: RemoveCouponFromCartInput) {
   removeCouponFromCart(input: $input) {
     cart {
-      ...CartFragment
+      ...CartData
     }
   }
 }

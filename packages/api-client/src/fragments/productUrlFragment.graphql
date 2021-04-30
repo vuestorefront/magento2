@@ -1,4 +1,4 @@
-fragment ProductUrlFragment on ProductInterface {
+fragment ProductUrlFragmentData on ProductInterface {
   canonical_url
   url_rewrites {
     url

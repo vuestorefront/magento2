@@ -1,23 +1,20 @@
-#import "./productImageFragment.graphql"
+#import "./productThumbnailFragment.graphql"
 #import "./productPriceRangeFragment.graphql"
 #import "./productUrlFragment.graphql"
 #import "./productCategoriesFragment.graphql"
 #import "./configurableProductOptionsFragment.graphql"
 
-fragment ProductFragment on ProductInterface {
+fragment ProductData on ProductInterface {
   uid
   __typename
   sku
   name
-  meta_description
-  meta_keyword
-  meta_title
   new
   stock_status
   only_x_left_in_stock
-  ...ProductImages
-  ...ProductPriceRange
-  ...ProductUrlFragment
-  ...ProductCategoriesFragment
-  ...ConfigurableProductOptionsFragment
+  ...ProductThumbnailData
+  ...ProductPriceRangeData
+  ...ProductUrlFragmentData
+  ...ProductCategoriesData
+  ...ConfigurableProductOptionsData
 }

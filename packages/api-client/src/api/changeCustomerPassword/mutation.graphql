@@ -5,6 +5,6 @@ mutation changeCustomerPassword($currentPassword: String!, $newPassword: String!
     currentPassword: $currentPassword
     newPassword: $newPassword
   ) {
-    ...CustomerFragment
+    ...CustomerData
   }
 }

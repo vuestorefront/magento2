@@ -1,4 +1,4 @@
-fragment ConfigurableProductOptionsFragment on ConfigurableProduct{
+fragment ConfigurableProductOptionsData on ConfigurableProduct{
   configurable_options {
     attribute_code
     attribute_uid
@@ -15,34 +15,6 @@ fragment ConfigurableProductOptionsFragment on ConfigurableProduct{
       }
       uid
       use_default_value
-    }
-  }
-  configurable_product_options_selection {
-    media_gallery {
-      disabled
-      label
-      position
-      url
-    }
-    options_available_for_selection {
-      attribute_code
-      option_value_uids
-    }
-    variant {
-      uid
-      __typename
-      sku
-      name
-      meta_description
-      meta_keyword
-      meta_title
-      new
-      stock_status
-      only_x_left_in_stock
-      ...ProductImages
-      ...ProductPriceRange
-      ...ProductUrlFragment
-      ...ProductCategoriesFragment
     }
   }
 }

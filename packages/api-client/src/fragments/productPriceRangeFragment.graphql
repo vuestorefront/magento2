@@ -1,4 +1,4 @@
-fragment ProductPriceRange on ProductInterface {
+fragment ProductPriceRangeData on ProductInterface {
   price_range {
     minimum_price {
       final_price {

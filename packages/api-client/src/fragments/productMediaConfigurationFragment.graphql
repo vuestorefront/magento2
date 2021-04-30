@@ -1,4 +1,4 @@
-fragment ProductMediaConfigurationFragment on MediaGalleryInterface{
+fragment ProductMediaConfigurationData on MediaGalleryInterface{
   url
   position
   disabled

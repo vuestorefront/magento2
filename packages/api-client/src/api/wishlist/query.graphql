@@ -42,7 +42,7 @@ query wishlist($currentPage: Int = 1, $pageSize: Int = 20) {
             }
             canonical_url
             media_gallery {
-              ...ProductMediaConfigurationFragment
+              ...ProductMediaConfigurationData
             }
           }
         }

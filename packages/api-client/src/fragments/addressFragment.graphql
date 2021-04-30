@@ -1,4 +1,4 @@
-fragment AddressFragment on CustomerAddress {
+fragment CustomerAddressData on CustomerAddress {
   city
   country_code
   default_billing

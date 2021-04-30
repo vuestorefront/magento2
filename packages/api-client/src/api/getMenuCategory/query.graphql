@@ -5,17 +5,17 @@ query GetMenuCategory($filters: CategoryFilterInput = {}){
   categories(filters: $filters) {
     items {
       children {
-        ...CategoryDataFragment
+        ...CategoryData
         ...CategoryUrlData
         children_count
         children {
-          ...CategoryDataFragment
+          ...CategoryData
           ...CategoryUrlData
           children_count
         }
       }
       children_count
-      ...CategoryDataFragment
+      ...CategoryData
       ...CategoryUrlData
     }
     page_info{

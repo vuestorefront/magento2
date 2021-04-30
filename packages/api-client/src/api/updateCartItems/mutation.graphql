@@ -3,7 +3,7 @@
 mutation updateCartItems($input: UpdateCartItemsInput) {
   updateCartItems(input: $input) {
     cart {
-      ...CartFragment
+      ...CartData
     }
   }
 }

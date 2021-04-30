@@ -1,20 +1,16 @@
 #import "../../fragments/productFragment.graphql"
-#import "../../fragments/configurableProductOptionsFragment.graphql"
 #import "../../fragments/productImageFragment.graphql"
+#import "../../fragments/productGalleryFragment.graphql"
+#import "../../fragments/productThumbnailFragment.graphql"
 #import "../../fragments/productPriceRangeFragment.graphql"
-#import "../../fragments/productPriceTierFragment.graphql"
 
 query productDetails($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
-  products(search: $search, filter: $filter, sort: $sort) {
+  products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
     items {
-      ...ProductFragment
-      ...ProductPriceRange
-      ...ProductPriceTier
-      ...ProductImages
-      ...ProductUrlFragment
-      ...ConfigurableProductOptionsFragment
-      material
       options_container
+      meta_description
+      meta_keyword
+      meta_title
       description {
         html
       }
@@ -22,29 +18,18 @@ query productDetails($search: String = "", $filter: ProductAttributeFilterInput,
         html
       }
       upsell_products {
-        ...ProductFragment
+        ...ProductData
       }
       related_products {
-        ...ProductFragment
+        ...ProductData
       }
-      reviews(pageSize: $pageSize, currentPage: $currentPage) {
-        items {
-          average_rating
-          nickname
-          summary
-          text
-          created_at
-          ratings_breakdown {
-            name
-            value
-          }
-        }
-        page_info {
-          current_page
-          page_size
-          total_pages
-        }
-      }
+      ...ProductData
+      ...ProductPriceRangeData
+      ...ProductImagesData
+      ...ProductGalleryData
+      ...ProductThumbnailData
+      ...ProductUrlFragmentData
+      ...ConfigurableProductOptionsData
     }
   }
 }

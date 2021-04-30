@@ -3,7 +3,7 @@
 mutation addSimpleProductsToCart($input: AddSimpleProductsToCartInput) {
   addSimpleProductsToCart(input: $input) {
     cart {
-      ...CartFragment
+      ...CartData
     }
   }
 }

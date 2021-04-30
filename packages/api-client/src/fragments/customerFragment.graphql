@@ -1,6 +1,6 @@
 #import "./addressFragment.graphql"
 
-fragment CustomerFragment on Customer {
+fragment CustomerData on Customer {
   email
   firstname
   is_subscribed
@@ -12,6 +12,6 @@ fragment CustomerFragment on Customer {
   default_billing
   default_shipping
   addresses {
-    ...AddressFragment
+    ...CustomerAddressData
   }
 }

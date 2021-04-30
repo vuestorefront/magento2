@@ -1,4 +1,4 @@
-fragment ProductPriceTier on ProductInterface {
+fragment ProductPriceTierData on ProductInterface {
   price_tiers {
     quantity
     discount {

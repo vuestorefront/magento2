@@ -3,7 +3,7 @@
 mutation applyCouponToCart($input: ApplyCouponToCartInput) {
   applyCouponToCart(input: $input) {
     cart {
-      ...CartFragment
+      ...CartData
     }
   }
 }

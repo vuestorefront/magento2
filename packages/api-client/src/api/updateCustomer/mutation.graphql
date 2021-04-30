@@ -3,7 +3,7 @@
 mutation updateCustomer($input: CustomerInput!) {
   updateCustomer(input: $input) {
     customer {
-      ...CustomerFragment
+      ...CustomerData
     }
   }
 }
