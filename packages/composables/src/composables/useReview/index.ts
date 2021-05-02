@@ -14,8 +14,6 @@ const factoryParams: UseReviewFactoryParams<any, any, any> = {
 
     const { data } = await context.$magento.api.productReview(params as GetProductSearchParams);
 
-    Logger.debug(JSON.stringify(data, null, 2));
-
     return data.products.items;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
