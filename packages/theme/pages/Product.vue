@@ -214,7 +214,6 @@ import {
   reviewGetters,
 } from '@vue-storefront/magento';
 import InstagramFeed from '~/components/InstagramFeed.vue';
-import RelatedProducts from '~/components/RelatedProducts.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
@@ -225,7 +224,6 @@ export default {
     LazyHydrate,
     MobileStoreBanner,
     ProductsCarousel,
-    RelatedProducts,
     SfAddToCart,
     SfAlert,
     SfBanner,
@@ -293,16 +291,20 @@ export default {
       })));
 
     onSSR(async () => {
-      await search({
-        queryType: 'DETAIL',
+      const baseSearchQuery = {
         filter: {
           sku: {
             eq: id,
           },
         },
+      };
+
+      await search({
+        queryType: 'DETAIL',
+        ...baseSearchQuery,
       });
 
-      await searchReviews({ productId: id });
+      await searchReviews({ ...baseSearchQuery });
     });
 
     const updateFilter = (filter) => {
