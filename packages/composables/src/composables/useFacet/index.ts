@@ -70,7 +70,7 @@ const factoryParams = {
       search: productParams.search,
       filter: productParams.filters,
       sort: productParams.sort,
-      currentPage: productParams.offset,
+      currentPage: productParams.page,
     };
 
     const productResponse = await context.$magento.api.products(productSearchParams);
