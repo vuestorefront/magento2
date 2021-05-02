@@ -7020,25 +7020,43 @@ export type ProductReviewQueryVariables = Exact<{
 }>;
 
 
-export type ProductReviewQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<{ reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+export type ProductReviewQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
+      Pick<BundleProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } } | { reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    ) | (
+      Pick<ConfigurableProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } } | { reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    ) | (
+      Pick<DownloadableProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } } | { reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    ) | (
+      Pick<GroupedProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } } | { reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    ) | (
+      Pick<SimpleProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } } | { reviews: { items: Array<Maybe<(
-          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    ) | (
+      Pick<VirtualProduct, 'review_count'>
+      & { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
           & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
-        )>> } }>>> }> };
+        )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
+    )>>> }> };
 
 export type ProductsListQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;

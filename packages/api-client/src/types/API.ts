@@ -45,7 +45,6 @@ import {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductInterface,
-  ProductReview,
   ProductReviewQuery,
   ProductsListQuery,
   RemoveCouponFromCartInput,
@@ -90,11 +89,12 @@ export type CustomerUpdateParameters = CustomerInput;
 export type Order = OrderInterface;
 export type Page = CmsPage;
 export type ProductAttributeFilter = ProductAttributeFilterInput;
+export type ProductReviews = ProductReviewQuery['products']['items'][0];
+export type ProductReview = ProductReviewQuery['products']['items'][0]['reviews']['items'][0];
 export type Route = UrlResloverQuery['urlResolver'];
 export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Wishlist = WishlistInterface;
-export type ProductReviews = ProductReview;
 export type WishlistProduct = WishlistItemInterface;
 
 export const enum ProductsQueryType {
@@ -103,7 +103,6 @@ export const enum ProductsQueryType {
 }
 
 export type GetProductSearchParams = {
-
   pageSize?: number;
   currentPage?: number;
   search?: string;

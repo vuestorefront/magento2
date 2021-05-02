@@ -40,20 +40,18 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { productsReview } = context.extendQuery(
+  const { reviews } = context.extendQuery(
     customQuery, {
-      products: {
+      reviews: {
         query: reviewQuery,
         variables: defaultParams,
       },
     },
   );
 
-  const returndata = await context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
-    query: productsReview.query,
-    variables: productsReview.variables,
+  return context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
+    query: reviews.query,
+    variables: reviews.variables,
     fetchPolicy: 'no-cache',
   });
-
-  return returndata;
 };
