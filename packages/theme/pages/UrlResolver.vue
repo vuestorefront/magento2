@@ -18,7 +18,7 @@ import {
 import { useRouter } from '@vue-storefront/magento';
 import { computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import Category from '~/pages/Category';
+import Category from './Category';
 import Product from './Product';
 import CmsPage from './Page';
 
