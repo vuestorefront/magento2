@@ -2,7 +2,7 @@ import mutation from './mutation.graphql';
 import {
   ChangeCustomerPasswordMutation,
   ChangeCustomerPasswordMutationVariables,
-  CustomerFragmentFragment as Customer,
+  CustomerDataFragment as Customer,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 

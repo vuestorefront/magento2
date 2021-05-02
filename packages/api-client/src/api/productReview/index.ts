@@ -3,10 +3,10 @@ import { CustomQuery } from '@vue-storefront/core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductsListQuery,
-  ProductsListQueryVariables,
+  ProductReviewQuery,
+  ProductReviewQueryVariables,
 } from '../../types/GraphQL';
-import listQuery from './productsListQuery.graphql';
+import reviewQuery from './productReviewQuery.graphql';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -22,7 +22,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery?: CustomQuery,
-): Promise<ApolloQueryResult<ProductsListQuery>> => {
+): Promise<ApolloQueryResult<ProductReviewQuery>> => {
   const defaultParams = {
     pageSize: 20,
     currentPage: 1,
@@ -30,8 +30,8 @@ export default async (
   };
 
   const variables: Variables = {
-    pageSize: defaultParams.pageSize <= 0 ? 20 : defaultParams.pageSize,
-    currentPage: defaultParams.currentPage <= 0 ? 1 : defaultParams.currentPage,
+    pageSize: defaultParams.pageSize,
+    currentPage: defaultParams.currentPage,
   };
 
   if (defaultParams.search) variables.search = defaultParams.search;
@@ -40,18 +40,20 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { products } = context.extendQuery(
+  const { productsReview } = context.extendQuery(
     customQuery, {
       products: {
-        query: listQuery,
+        query: reviewQuery,
         variables: defaultParams,
       },
     },
   );
 
-  return context.client.query<ProductsListQuery, ProductsListQueryVariables>({
-    query: products.query,
-    variables: products.variables,
+  const returndata = await context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
+    query: productsReview.query,
+    variables: productsReview.variables,
     fetchPolicy: 'no-cache',
   });
+
+  return returndata;
 };

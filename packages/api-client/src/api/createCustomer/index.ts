@@ -1,7 +1,7 @@
 import {
   CreateCustomerMutation,
   CreateCustomerMutationVariables,
-  CustomerFragmentFragment as Customer,
+  CustomerDataFragment as Customer,
   CustomerInput,
 } from '../../types/GraphQL';
 import mutation from './mutation.graphql';
