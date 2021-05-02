@@ -261,6 +261,7 @@ export default {
 
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
+
     const canAddToCart = computed(() => {
       const inStock = product.value.stock_status || '';
 
@@ -270,11 +271,15 @@ export default {
     });
 
     const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
-    const configuration = computed(() => productGetters.getAttributes(product.value,
-      ['color', 'size']));
+    const configuration = computed(() => productGetters.getAttributes(product.value, ['color', 'size']));
     const categories = computed(() => productGetters.getCategoryIds(product.value));
+
     const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
-    const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+
+    const baseReviews = computed(() => [...productReviews.value].shift());
+    const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
+    const totalReviews = computed(() => reviewGetters.getTotalReviews(baseReviews.value));
+    const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
 
     const breadcrumbs = computed(() => {
       const productCategories = product.value.categories;
@@ -319,7 +324,7 @@ export default {
 
     return {
       addItem,
-      averageRating: computed(() => productGetters.getAverageRating(product.value)),
+      averageRating,
       breadcrumbs,
       canAddToCart,
       categories,
@@ -335,7 +340,7 @@ export default {
       relatedProducts,
       reviewGetters,
       reviews,
-      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
+      totalReviews,
       updateFilter,
     };
   },
