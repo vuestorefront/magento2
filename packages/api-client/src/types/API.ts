@@ -45,6 +45,8 @@ import {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductInterface,
+  ProductReview,
+  ProductReviewQuery,
   ProductsListQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -92,6 +94,7 @@ export type Route = UrlResloverQuery['urlResolver'];
 export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Wishlist = WishlistInterface;
+export type ProductReviews = ProductReview;
 export type WishlistProduct = WishlistItemInterface;
 
 export const enum ProductsQueryType {
@@ -150,6 +153,8 @@ export interface MagentoApiMethods {
   placeOrder(input: PlaceOrderInput): Promise<FetchResult<PlaceOrderMutation>>;
 
   productDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery>>;
+
+  productReview(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewQuery>>;
 
   products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductsListQuery>>;
 

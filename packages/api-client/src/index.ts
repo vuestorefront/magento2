@@ -510,4 +510,7 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
+  ProductReviewQuery,
+  ProductReviewQueryVariables,
+  CustomerAvailablePaymentMethodsQuery,
 } from './types/GraphQL';

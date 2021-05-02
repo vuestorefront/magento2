@@ -7011,6 +7011,35 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductUrlFragmentData_VirtualProduct_Fragment
     )>>> }> };
 
+export type ProductReviewQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+  filter?: Maybe<ProductAttributeFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  sort?: Maybe<ProductAttributeSortInput>;
+}>;
+
+
+export type ProductReviewQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<{ reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } } | { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } } | { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } } | { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } } | { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } } | { reviews: { items: Array<Maybe<(
+          Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text'>
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+        )>> } }>>> }> };
+
 export type ProductsListQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   filter?: Maybe<ProductAttributeFilterInput>;
