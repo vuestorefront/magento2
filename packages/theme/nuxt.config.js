@@ -69,9 +69,6 @@ export default {
           '@vue-storefront/core',
         ],
       },
-      logger: {
-        verbosity: 'debug',
-      },
     }],
     // @core-development-only-start
     ['@vue-storefront/nuxt-theme', {
