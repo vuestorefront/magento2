@@ -1,12 +1,9 @@
 fragment CategoryData on CategoryTree {
-  canonical_url
   image
   include_in_menu
   is_anchor
   level
   name
-  path
-  path_in_store
   position
   uid
 }

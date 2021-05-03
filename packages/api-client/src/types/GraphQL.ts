@@ -6815,13 +6815,23 @@ export type CartQuery = { cart?: Maybe<CartDataFragment> };
 
 export type CategoryListQueryVariables = Exact<{
   filters?: Maybe<CategoryFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
 }>;
 
 
-export type CategoryListQuery = { categoryList?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'available_sort_by' | 'canonical_url' | 'default_sort_by' | 'description' | 'display_mode' | 'uid' | 'meta_description' | 'meta_title' | 'level' | 'position' | 'name' | 'product_count' | 'url_key' | 'url_path' | 'url_suffix'>
-    & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path' | 'category_url_key' | 'category_uid'>>>>, children?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'url_path' | 'url_key' | 'url_suffix' | 'canonical_url'>>>>, cms_block?: Maybe<Pick<CmsBlock, 'content' | 'title'>> }
-  )>>> };
+export type CategoryListQuery = { categories?: Maybe<{ items?: Maybe<Array<Maybe<(
+      { children?: Maybe<Array<Maybe<(
+        { children?: Maybe<Array<Maybe<(
+          CategoryDataFragment
+          & CategoryUrlDataFragment
+        )>>> }
+        & CategoryDataFragment
+        & CategoryUrlDataFragment
+      )>>>, breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path' | 'category_url_key' | 'category_uid'>>>> }
+      & CategoryDataFragment
+      & CategoryUrlDataFragment
+    )>>> }> };
 
 export type ChangeCustomerPasswordMutationVariables = Exact<{
   currentPassword: Scalars['String'];
@@ -6837,6 +6847,20 @@ export type CmsPageQueryVariables = Exact<{
 
 
 export type CmsPageQuery = { cmsPage?: Maybe<Pick<CmsPage, 'identifier' | 'content' | 'title' | 'meta_title' | 'meta_description' | 'content_heading'>> };
+
+export type ConfigurableProductDetailQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+  filter?: Maybe<ProductAttributeFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  sort?: Maybe<ProductAttributeSortInput>;
+}>;
+
+
+export type ConfigurableProductDetailQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<Pick<BundleProduct, 'uid'> | (
+      Pick<ConfigurableProduct, 'uid'>
+      & ConfigurableProductOptionsDataFragment
+    ) | Pick<DownloadableProduct, 'uid'> | Pick<GroupedProduct, 'uid'> | Pick<SimpleProduct, 'uid'> | Pick<VirtualProduct, 'uid'>>>> }> };
 
 export type CreateCustomerMutationVariables = Exact<{
   input: CustomerInput;
@@ -6956,7 +6980,7 @@ export type ProductDetailsQueryVariables = Exact<{
 
 export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
       Pick<BundleProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_BundleProduct_Fragment
       & ProductPriceRangeData_BundleProduct_Fragment
       & ProductImagesData_BundleProduct_Fragment
@@ -6965,17 +6989,16 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductUrlFragmentData_BundleProduct_Fragment
     ) | (
       Pick<ConfigurableProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_ConfigurableProduct_Fragment
       & ProductPriceRangeData_ConfigurableProduct_Fragment
       & ProductImagesData_ConfigurableProduct_Fragment
       & ProductGalleryData_ConfigurableProduct_Fragment
       & ProductThumbnailData_ConfigurableProduct_Fragment
       & ProductUrlFragmentData_ConfigurableProduct_Fragment
-      & ConfigurableProductOptionsDataFragment
     ) | (
       Pick<DownloadableProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_DownloadableProduct_Fragment
       & ProductPriceRangeData_DownloadableProduct_Fragment
       & ProductImagesData_DownloadableProduct_Fragment
@@ -6984,7 +7007,7 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductUrlFragmentData_DownloadableProduct_Fragment
     ) | (
       Pick<GroupedProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_GroupedProduct_Fragment
       & ProductPriceRangeData_GroupedProduct_Fragment
       & ProductImagesData_GroupedProduct_Fragment
@@ -6993,7 +7016,7 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductUrlFragmentData_GroupedProduct_Fragment
     ) | (
       Pick<SimpleProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_SimpleProduct_Fragment
       & ProductPriceRangeData_SimpleProduct_Fragment
       & ProductImagesData_SimpleProduct_Fragment
@@ -7002,7 +7025,7 @@ export type ProductDetailsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       & ProductUrlFragmentData_SimpleProduct_Fragment
     ) | (
       Pick<VirtualProduct, 'options_container' | 'meta_description' | 'meta_keyword' | 'meta_title'>
-      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>>, upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { description?: Maybe<Pick<ComplexTextValue, 'html'>>, short_description?: Maybe<Pick<ComplexTextValue, 'html'>> }
       & ProductData_VirtualProduct_Fragment
       & ProductPriceRangeData_VirtualProduct_Fragment
       & ProductImagesData_VirtualProduct_Fragment
@@ -7074,6 +7097,35 @@ export type ProductsListQuery = { products?: Maybe<(
       & { options?: Maybe<Array<Maybe<Pick<AggregationOption, 'label' | 'value' | 'count'>>>> }
     )>>>, items?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
   )> };
+
+export type RelatedProductQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+  filter?: Maybe<ProductAttributeFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  sort?: Maybe<ProductAttributeSortInput>;
+}>;
+
+
+export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
+      Pick<BundleProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<ConfigurableProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<DownloadableProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<GroupedProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<SimpleProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<VirtualProduct, 'uid'>
+      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    )>>> }> };
 
 export type RemoveCouponFromCartMutationVariables = Exact<{
   input?: Maybe<RemoveCouponFromCartInput>;
@@ -7167,6 +7219,35 @@ export type UpdateCustomerAddressMutation = { updateCustomerAddress?: Maybe<(
     Pick<CustomerAddress, 'id' | 'city' | 'company' | 'country_code' | 'default_billing' | 'default_shipping' | 'fax' | 'firstname' | 'lastname' | 'middlename' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone' | 'vat_id'>
     & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_code' | 'region_id'>> }
   )> };
+
+export type UpsellProductsQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+  filter?: Maybe<ProductAttributeFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  sort?: Maybe<ProductAttributeSortInput>;
+}>;
+
+
+export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
+      Pick<BundleProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<ConfigurableProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<DownloadableProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<GroupedProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<SimpleProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    ) | (
+      Pick<VirtualProduct, 'uid'>
+      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+    )>>> }> };
 
 export type UrlResloverQueryVariables = Exact<{
   url: Scalars['String'];
@@ -7469,9 +7550,9 @@ type CartProductData_VirtualCartItem_Fragment = (
 
 export type CartProductDataFragment = CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment;
 
-export type CategoryDataFragment = Pick<CategoryTree, 'canonical_url' | 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'path' | 'path_in_store' | 'position' | 'uid'>;
+export type CategoryDataFragment = Pick<CategoryTree, 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'position' | 'uid'>;
 
-export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_key' | 'url_path' | 'url_suffix'>;
+export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_path' | 'url_suffix'>;
 
 export type ConfigurableProductOptionsDataFragment = { configurable_options?: Maybe<Array<Maybe<(
     Pick<ConfigurableProductOptions, 'attribute_code' | 'attribute_uid' | 'label' | 'position' | 'uid' | 'use_default'>

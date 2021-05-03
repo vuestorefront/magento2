@@ -16,11 +16,11 @@ import {
   CartItemInterface,
   CartQuery,
   CategoryFilterInput,
-  CategoryListQuery,
+  CategoryListQuery, CategoryListQueryVariables,
   CategoryTree,
   CmsPage,
   CmsPageQuery,
-  ConfigurableProduct,
+  ConfigurableProduct, ConfigurableProductDetailQuery,
   CreateCustomerAddressMutation,
   CreateEmptyCartMutation,
   CustomerAddress as CustomerAddressInterface,
@@ -46,7 +46,7 @@ import {
   ProductDetailsQuery,
   ProductInterface,
   ProductReviewQuery,
-  ProductsListQuery,
+  ProductsListQuery, RelatedProductQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
   RemoveItemFromCartInput,
@@ -66,7 +66,7 @@ import {
   StoreConfigQuery,
   UpdateCartItemsInput,
   UpdateCartItemsMutation,
-  UpdateCustomerAddressMutation,
+  UpdateCustomerAddressMutation, UpsellProductsQuery,
   UrlResloverQuery,
   Wishlist as WishlistInterface,
   WishlistItemInterface,
@@ -119,7 +119,7 @@ export interface MagentoApiMethods {
 
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
 
-  categoryList(categoryFilter?: CategoryFilterInput): Promise<ApolloQueryResult<CategoryListQuery>>;
+  categoryList(categoryFilter?: CategoryListQueryVariables): Promise<ApolloQueryResult<CategoryListQuery>>;
 
   changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
 
@@ -152,6 +152,12 @@ export interface MagentoApiMethods {
   placeOrder(input: PlaceOrderInput): Promise<FetchResult<PlaceOrderMutation>>;
 
   productDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery>>;
+
+  configurableProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ConfigurableProductDetailQuery>>;
+
+  relatedProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<RelatedProductQuery>>;
+
+  upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<UpsellProductsQuery>>;
 
   productReview(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewQuery>>;
 

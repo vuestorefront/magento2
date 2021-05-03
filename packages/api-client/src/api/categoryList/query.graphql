@@ -1,38 +1,25 @@
-query categoryList($filters: CategoryFilterInput) {
-  categoryList(filters: $filters) {
-    available_sort_by
-    breadcrumbs {
-      category_name
-      category_url_path
-      category_url_key
-      category_uid
+#import "../../fragments/categoryDataFragment.graphql"
+#import "../../fragments/categoryUrlData.graphql"
+
+query categoryList($filters: CategoryFilterInput = {}, $pageSize: Int = 20, $currentPage: Int = 1){
+  categories(filters: $filters, pageSize: $pageSize, currentPage: $currentPage) {
+    items {
+      children {
+        ...CategoryData
+        ...CategoryUrlData
+        children {
+          ...CategoryData
+          ...CategoryUrlData
+        }
+      }
+      breadcrumbs {
+        category_name
+        category_url_path
+        category_url_key
+        category_uid
+      }
+      ...CategoryData
+      ...CategoryUrlData
     }
-    canonical_url
-    children {
-      id
-      name
-      url_path
-      url_key
-      url_suffix
-      canonical_url
-    }
-    cms_block{
-      content
-      title
-    }
-    default_sort_by
-    description
-    display_mode
-    uid
-    meta_description
-    meta_title
-    level
-    position
-    name
-    product_count
-    url_key
-    url_path
-    url_path
-    url_suffix
   }
 }

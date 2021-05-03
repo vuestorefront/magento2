@@ -1,5 +1,4 @@
 fragment CategoryUrlData on CategoryTree {
-  url_key
   url_path
   url_suffix
 }
