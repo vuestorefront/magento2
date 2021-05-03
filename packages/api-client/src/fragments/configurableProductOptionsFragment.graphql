@@ -1,3 +1,7 @@
+#import "./productThumbnailFragment.graphql"
+#import "./productPriceRangeFragment.graphql"
+#import "./productUrlFragment.graphql"
+
 fragment ConfigurableProductOptionsData on ConfigurableProduct{
   configurable_options {
     attribute_code
@@ -7,14 +11,33 @@ fragment ConfigurableProductOptionsData on ConfigurableProduct{
     uid
     use_default
     values {
-      default_label
       label
-      store_label
       swatch_data {
         value
       }
       uid
-      use_default_value
+    }
+  }
+  variants {
+    product {
+      __typename
+      uid
+      sku
+      name
+      new
+      stock_status
+      only_x_left_in_stock
+      rating_summary
+      sale
+      ...ProductThumbnailData
+      ...ProductPriceRangeData
+      ...ProductUrlFragmentData
+    }
+    attributes {
+      uid
+      value_index
+      label
+      code
     }
   }
 }

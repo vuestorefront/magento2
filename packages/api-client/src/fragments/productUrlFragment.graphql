@@ -1,10 +1,6 @@
 fragment ProductUrlFragmentData on ProductInterface {
-  canonical_url
+  url_key
   url_rewrites {
     url
-    parameters {
-      name
-      value
-    }
   }
 }

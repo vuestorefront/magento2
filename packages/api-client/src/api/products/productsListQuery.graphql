@@ -3,18 +3,17 @@
 query productsList($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
   products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
     aggregations {
-      attribute_code,
-      count,
-      label,
+      attribute_code
+      label
       options {
-        count,
-        label,
+        label
         value
+        count
       }
     }
     items {
       ...ProductData
-    },
+    }
     total_count
   }
 }

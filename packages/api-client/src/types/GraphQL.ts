@@ -7070,8 +7070,8 @@ export type ProductsListQueryVariables = Exact<{
 export type ProductsListQuery = { products?: Maybe<(
     Pick<Products, 'total_count'>
     & { aggregations?: Maybe<Array<Maybe<(
-      Pick<Aggregation, 'attribute_code' | 'count' | 'label'>
-      & { options?: Maybe<Array<Maybe<Pick<AggregationOption, 'count' | 'label' | 'value'>>>> }
+      Pick<Aggregation, 'attribute_code' | 'label'>
+      & { options?: Maybe<Array<Maybe<Pick<AggregationOption, 'label' | 'value' | 'count'>>>> }
     )>>>, items?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
   )> };
 
@@ -7476,10 +7476,16 @@ export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_key' | 'url_path' 
 export type ConfigurableProductOptionsDataFragment = { configurable_options?: Maybe<Array<Maybe<(
     Pick<ConfigurableProductOptions, 'attribute_code' | 'attribute_uid' | 'label' | 'position' | 'uid' | 'use_default'>
     & { values?: Maybe<Array<Maybe<(
-      Pick<ConfigurableProductOptionsValues, 'default_label' | 'label' | 'store_label' | 'uid' | 'use_default_value'>
+      Pick<ConfigurableProductOptionsValues, 'label' | 'uid'>
       & { swatch_data?: Maybe<Pick<ColorSwatchData, 'value'> | Pick<ImageSwatchData, 'value'> | Pick<TextSwatchData, 'value'>> }
     )>>> }
-  )>>> };
+  )>>>, variants?: Maybe<Array<Maybe<{ product?: Maybe<(
+      { __typename: 'SimpleProduct' }
+      & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+      & ProductThumbnailData_SimpleProduct_Fragment
+      & ProductPriceRangeData_SimpleProduct_Fragment
+      & ProductUrlFragmentData_SimpleProduct_Fragment
+    )>, attributes?: Maybe<Array<Maybe<Pick<ConfigurableAttributeOption, 'uid' | 'value_index' | 'label' | 'code'>>>> }>>> };
 
 export type CustomerDataFragment = (
   Pick<Customer, 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat' | 'default_billing' | 'default_shipping'>
@@ -7520,7 +7526,7 @@ export type ProductCategoriesDataFragment = ProductCategoriesData_BundleProduct_
 
 type ProductData_BundleProduct_Fragment = (
   { __typename: 'BundleProduct' }
-  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_BundleProduct_Fragment
   & ProductPriceRangeData_BundleProduct_Fragment
   & ProductUrlFragmentData_BundleProduct_Fragment
@@ -7529,7 +7535,7 @@ type ProductData_BundleProduct_Fragment = (
 
 type ProductData_ConfigurableProduct_Fragment = (
   { __typename: 'ConfigurableProduct' }
-  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_ConfigurableProduct_Fragment
   & ProductPriceRangeData_ConfigurableProduct_Fragment
   & ProductUrlFragmentData_ConfigurableProduct_Fragment
@@ -7539,7 +7545,7 @@ type ProductData_ConfigurableProduct_Fragment = (
 
 type ProductData_DownloadableProduct_Fragment = (
   { __typename: 'DownloadableProduct' }
-  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_DownloadableProduct_Fragment
   & ProductPriceRangeData_DownloadableProduct_Fragment
   & ProductUrlFragmentData_DownloadableProduct_Fragment
@@ -7548,7 +7554,7 @@ type ProductData_DownloadableProduct_Fragment = (
 
 type ProductData_GroupedProduct_Fragment = (
   { __typename: 'GroupedProduct' }
-  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_GroupedProduct_Fragment
   & ProductPriceRangeData_GroupedProduct_Fragment
   & ProductUrlFragmentData_GroupedProduct_Fragment
@@ -7557,7 +7563,7 @@ type ProductData_GroupedProduct_Fragment = (
 
 type ProductData_SimpleProduct_Fragment = (
   { __typename: 'SimpleProduct' }
-  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_SimpleProduct_Fragment
   & ProductPriceRangeData_SimpleProduct_Fragment
   & ProductUrlFragmentData_SimpleProduct_Fragment
@@ -7566,7 +7572,7 @@ type ProductData_SimpleProduct_Fragment = (
 
 type ProductData_VirtualProduct_Fragment = (
   { __typename: 'VirtualProduct' }
-  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock'>
+  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
   & ProductThumbnailData_VirtualProduct_Fragment
   & ProductPriceRangeData_VirtualProduct_Fragment
   & ProductUrlFragmentData_VirtualProduct_Fragment
@@ -7670,51 +7676,33 @@ type ProductThumbnailData_VirtualProduct_Fragment = { thumbnail?: Maybe<ProductM
 export type ProductThumbnailDataFragment = ProductThumbnailData_BundleProduct_Fragment | ProductThumbnailData_ConfigurableProduct_Fragment | ProductThumbnailData_DownloadableProduct_Fragment | ProductThumbnailData_GroupedProduct_Fragment | ProductThumbnailData_SimpleProduct_Fragment | ProductThumbnailData_VirtualProduct_Fragment;
 
 type ProductUrlFragmentData_BundleProduct_Fragment = (
-  Pick<BundleProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<BundleProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 type ProductUrlFragmentData_ConfigurableProduct_Fragment = (
-  Pick<ConfigurableProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<ConfigurableProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 type ProductUrlFragmentData_DownloadableProduct_Fragment = (
-  Pick<DownloadableProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<DownloadableProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 type ProductUrlFragmentData_GroupedProduct_Fragment = (
-  Pick<GroupedProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<GroupedProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 type ProductUrlFragmentData_SimpleProduct_Fragment = (
-  Pick<SimpleProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<SimpleProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 type ProductUrlFragmentData_VirtualProduct_Fragment = (
-  Pick<VirtualProduct, 'canonical_url'>
-  & { url_rewrites?: Maybe<Array<Maybe<(
-    Pick<UrlRewrite, 'url'>
-    & { parameters?: Maybe<Array<Maybe<Pick<HttpQueryParameter, 'name' | 'value'>>>> }
-  )>>> }
+  Pick<VirtualProduct, 'url_key'>
+  & { url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>> }
 );
 
 export type ProductUrlFragmentDataFragment = ProductUrlFragmentData_BundleProduct_Fragment | ProductUrlFragmentData_ConfigurableProduct_Fragment | ProductUrlFragmentData_DownloadableProduct_Fragment | ProductUrlFragmentData_GroupedProduct_Fragment | ProductUrlFragmentData_SimpleProduct_Fragment | ProductUrlFragmentData_VirtualProduct_Fragment;
