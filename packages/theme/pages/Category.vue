@@ -379,6 +379,7 @@ import {
   productGetters,
   useFacet,
   useCategory,
+  categoryGetters,
   facetGetters,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
@@ -418,7 +419,7 @@ export default {
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
-    const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
+    const categoryTree = computed(() => categoryGetters.getCategoryTreeList(categories.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
@@ -426,7 +427,7 @@ export default {
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
-    const activeCategory = computed(() => {
+    /* const activeCategory = computed(() => {
       const { items } = categoryTree.value;
 
       if (!items) {
@@ -439,12 +440,14 @@ export default {
       }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
 
       return category?.label || items[0].label;
-    });
+    }); */
 
     onSSR(async () => {
       await search(th.getFacetsFromURL());
 
-      await categoriesSearch({});
+      await categoriesSearch({
+        pageSize: 100,
+      });
     });
 
     const { changeFilters, isFacetColor } = useUiHelpers();
@@ -493,14 +496,12 @@ export default {
     return {
       ...uiState,
       th,
-      result, // @TODO Remove
-      categories, // @TODO Remove
       products,
       categoryTree,
       loading,
       productGetters,
       pagination,
-      activeCategory,
+      activeCategory: '', // @TODO Back
       sortBy,
       facets,
       breadcrumbs,
