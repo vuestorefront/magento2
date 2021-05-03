@@ -6,16 +6,27 @@ import {
 } from '@vue-storefront/core';
 import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
 
-const availableSortingOptions = [{
-  value: 'name',
-  label: 'Name',
-}, {
-  value: 'price-up',
-  label: 'Price from low to high',
-}, {
-  value: 'price-down',
-  label: 'Price from high to low',
-}];
+const availableSortingOptions = [
+  {
+    label: 'Sort: Default',
+    value: '',
+  },
+  {
+    label: 'Sort: Name A-Z',
+    value: 'name_ASC',
+  },
+  {
+    label: 'Sort: Name Z-A',
+    value: 'name_DESC',
+  },
+  {
+    label: 'Sort: Price from low to high',
+    value: 'price_ASC',
+  }, {
+    label: 'Sort: Price from high to low',
+    value: 'price_DESC',
+  },
+];
 
 const constructFilterObject = (inputFilters: Object) => {
   const filter = {};
@@ -42,6 +53,12 @@ const constructFilterObject = (inputFilters: Object) => {
   return filter;
 };
 
+const constructSortObject = (sortData: string) => {
+  const baseData = sortData.split(/_/ig);
+
+  return baseData.length ? Object.fromEntries([baseData]) : {};
+};
+
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
@@ -62,7 +79,7 @@ const factoryParams = {
       offset: (params.input.page - 1) * itemsPerPage,
       page: params.input.page,
       search: (params.input.term) ? params.input.term : '',
-      sort: params.input.sortFilter || {},
+      sort: constructSortObject(params.input.sort || ''),
     };
 
     const productSearchParams: GetProductSearchParams = {
