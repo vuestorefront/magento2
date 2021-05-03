@@ -41,7 +41,7 @@ import {
 import { productGetters } from '@vue-storefront/magento';
 
 export default {
-  name: 'RelatedProducts',
+  name: 'ProductsCarousel',
   components: {
     SfCarousel,
     SfProductCard,
