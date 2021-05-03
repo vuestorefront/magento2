@@ -97,6 +97,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
           .data
           .addSimpleProductsToCart
           .cart as unknown as Cart;
+
       case 'ConfigurableProduct':
         const configurableCartInput: AddConfigurableProductsToCartInput = {
           cart_id: currentCartId,

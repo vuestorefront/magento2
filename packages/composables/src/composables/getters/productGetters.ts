@@ -211,7 +211,7 @@ export const getProductBreadcrumbs = (product: Product, category?: Category): Ag
   }
 
   if (category) {
-    breadcrumbs = categoryGetters.getBreadCrumbs(category) as AgnosticBreadcrumb[];
+    breadcrumbs = categoryGetters.getBreadcrumbs(category) as AgnosticBreadcrumb[];
   }
 
   breadcrumbs.push({

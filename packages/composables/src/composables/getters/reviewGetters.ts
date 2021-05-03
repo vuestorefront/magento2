@@ -20,7 +20,7 @@ export const getAverageRating = (review: ProductReviews): number => (review?.rev
   .items
   .reduce((
     acc, curr,
-  ) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / review.review_count || 0;
+  ) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
 
 export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
 
