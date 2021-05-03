@@ -6819,7 +6819,7 @@ export type CategoryListQueryVariables = Exact<{
 
 
 export type CategoryListQuery = { categoryList?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'available_sort_by' | 'canonical_url' | 'default_sort_by' | 'description' | 'display_mode' | 'id' | 'meta_description' | 'meta_title' | 'name' | 'product_count' | 'url_key' | 'url_path' | 'url_suffix'>
+    Pick<CategoryTree, 'available_sort_by' | 'canonical_url' | 'default_sort_by' | 'description' | 'display_mode' | 'uid' | 'meta_description' | 'meta_title' | 'level' | 'position' | 'name' | 'product_count' | 'url_key' | 'url_path' | 'url_suffix'>
     & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path' | 'category_url_key' | 'category_uid'>>>>, children?: Maybe<Array<Maybe<Pick<CategoryTree, 'id' | 'name' | 'url_path' | 'url_key' | 'url_suffix' | 'canonical_url'>>>>, cms_block?: Maybe<Pick<CmsBlock, 'content' | 'title'>> }
   )>>> };
 

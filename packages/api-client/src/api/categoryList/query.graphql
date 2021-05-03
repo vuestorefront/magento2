@@ -23,9 +23,11 @@ query categoryList($filters: CategoryFilterInput) {
     default_sort_by
     description
     display_mode
-    id
+    uid
     meta_description
     meta_title
+    level
+    position
     name
     product_count
     url_key
