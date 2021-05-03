@@ -33,11 +33,11 @@ export const getProductSlug = (product: Product, category?: Category): string =>
   loopOuter:
   for (let i = 0; i < rewrites.length; i += 1) {
     const rewrite = rewrites[i];
-    if (category && category.id && rewrite.parameters) {
+    if (category && category.uid && rewrite.parameters) {
       for (let j = 0; j < rewrite.parameters.length; j += 1) {
         const parameter = rewrite.parameters[j];
         // eslint-disable-next-line max-depth
-        if (parameter.name === 'category' && parseInt(parameter.value, 10) === category.id) {
+        if (parameter.name === 'category' && parameter.value === category.uid) {
           url = `/${rewrite.url}`;
           break loopOuter;
         }
