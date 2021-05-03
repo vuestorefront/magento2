@@ -38,10 +38,10 @@ const useUiHelpers = () => {
     return {
       categorySlug,
       filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: parseInt(query.itemsPerPage, 10) || 20,
-      page: parseInt(query.page, 10) || 1,
+      itemsPerPage: Number.parseInt(query.itemsPerPage, 10) || 20,
+      page: Number.parseInt(query.page, 10) || 1,
       rootCatSlug: params.slug_1,
-      sort: query.sort || 'latest',
+      sort: query.sort || '',
       term: query.term,
     };
   };
@@ -57,7 +57,7 @@ const useUiHelpers = () => {
       rootCatSlug: params.slug_1,
       categorySlug,
       page: parseInt(query.page, 10) || 1,
-      sort: query.sort || 'latest',
+      sort: query.sort || '',
       filters: getFiltersDataFromUrl(instance, true),
       itemsPerPage: parseInt(query.itemsPerPage, 10) || 20,
       term: query.term,

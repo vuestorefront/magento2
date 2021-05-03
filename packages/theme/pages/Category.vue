@@ -43,11 +43,11 @@
             >
               <SfSelectOption
                 v-for="option in sortBy.options"
-                :key="option.id"
-                :value="option.id"
+                :key="option.value"
+                :value="option.value"
                 class="sort-by__option"
               >
-                {{ option.value }}
+                {{ $t(option.label) }}
               </SfSelectOption>
             </SfSelect>
           </LazyHydrate>
@@ -378,6 +378,7 @@ import {
   useWishlist,
   productGetters,
   useFacet,
+  useCategory,
   facetGetters,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
@@ -413,13 +414,18 @@ export default {
     const { addItem: addItemToCart, isInCart } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
     const { result, search, loading } = useFacet();
+    const { categories, search: categoriesSearch } = useCategory('categoryList');
 
     const products = computed(() => facetGetters.getProducts(result.value));
+
     const categoryTree = computed(() => facetGetters.getCategoryTree(result.value));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
+
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
     const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size']));
+
     const pagination = computed(() => facetGetters.getPagination(result.value));
+
     const activeCategory = computed(() => {
       const { items } = categoryTree.value;
 
@@ -436,8 +442,9 @@ export default {
     });
 
     onSSR(async () => {
-      const searchParams = th.getFacetsFromURL();
-      await search(searchParams);
+      await search(th.getFacetsFromURL());
+
+      await categoriesSearch({});
     });
 
     const { changeFilters, isFacetColor } = useUiHelpers();
@@ -486,6 +493,8 @@ export default {
     return {
       ...uiState,
       th,
+      result, // @TODO Remove
+      categories, // @TODO Remove
       products,
       categoryTree,
       loading,
