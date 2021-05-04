@@ -2,27 +2,33 @@
 /* istanbul ignore file */
 import { useWishlistFactory, UseWishlistFactoryParams, Context } from '@vue-storefront/core';
 import { ref } from '@vue/composition-api';
-import { Product, WishlistProduct, Wishlist } from '../../types';
+import {
+  Wishlist,
+  Product,
+  WishlistProduct,
+  WishlistQueryVariables,
+} from '@vue-storefront/magento-api';
 
 import useUser from '../useUser';
 
-export const wishlist = ref<Wishlist>(null);
-
-// @todo: implement wishlist
+// @ts-ignore
 const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
   provide() {
     return {
       user: useUser(),
     };
   },
-
-  load: async (context: Context) => {
-    // is user authenticated.
+  // @ts-ignore
+  load: async (context: Context, params) => {
     const apiState = context.$magento.config.state;
 
     if (apiState.getCustomerToken()) {
-      const result = await context.$magento.api.wishlist();
-      return result.data.wishlist;
+      const wishlistParams: WishlistQueryVariables = {
+        ...(params.customQuery || {}),
+      };
+      const { data } = await context.$magento.api.wishlist(wishlistParams);
+
+      return data.customer.wishlists;
     }
 
     return [];

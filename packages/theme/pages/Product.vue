@@ -52,8 +52,8 @@
         </div>
         <div>
           <p
-            v-if="productDescription"
-            v-dompurify-html="productDescription"
+            v-if="productShortDescription"
+            v-dompurify-html="productShortDescription"
             class="product__description desktop-only"
           />
           <SfButton class="sf-button--text desktop-only product__guide">
@@ -61,33 +61,33 @@
           </SfButton>
           <SfSelect
             v-if="options.size"
-            :value="Object.keys(options.size.value[0])[0]"
+            :value="configuration.size"
             label="Size"
             class="sf-select--underlined product__select-size"
             :required="true"
             @input="size => updateFilter({ size })"
           >
             <SfSelectOption
-              v-for="(size, i) in options.size.value"
-              :key="i"
-              :value="Object.keys(size)[0]"
+              v-for="size in options.size"
+              :key="size.value"
+              :value="size.value"
             >
-              {{ Object.values(size)[0] }}
+              {{ size.label }}
             </SfSelectOption>
           </SfSelect>
           <div
-            v-if="options.color && options.color.value.length > 1"
+            v-if="options.color && options.color.length > 1"
             class="product__colors desktop-only"
           >
             <p class="product__color-label">
               {{ $t('Color') }}:
             </p>
             <SfColor
-              v-for="(color, i) in options.color.value"
+              v-for="(color, i) in options.color"
               :key="i"
-              :color="Object.values(color)[0]"
+              :color="color.value"
               class="product__color"
-              @click="updateFilter({color: Object.keys(color)[0]})"
+              @click="updateFilter({color})"
             />
           </div>
           <SfAddToCart
@@ -105,9 +105,12 @@
             class="product__tabs"
           >
             <SfTab title="Description">
-              <div class="product__description">
-                <div v-dompurify-html="productDescription" />
-              </div>
+              <div
+                v-if="productDescription"
+                v-dompurify-html="productDescription"
+                class="product__description"
+              />
+              <!-- @TODO: Check Property in Configurable Products              -->
               <!--              <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
@@ -125,7 +128,7 @@
                 </template>
               </SfProperty>-->
             </SfTab>
-            <!--            <SfTab title="Read reviews">
+            <SfTab title="Read reviews">
               <SfReview
                 v-for="review in reviews"
                 :key="reviewGetters.getReviewId(review)"
@@ -139,16 +142,12 @@
                 hide-full-text="Read less"
                 class="product__review"
               />
-            </SfTab>-->
+            </SfTab>
             <SfTab
               title="Additional Information"
               class="product__additional-info"
             >
               <div class="product__additional-info">
-                <!--                <p class="product__additional-info__title">
-                  {{ $t('Brand') }}
-                </p>
-                <p>{{ brand }}</p>-->
                 <p class="product__additional-info__title">
                   {{ $t('Instruction1') }}
                 </p>
@@ -165,7 +164,10 @@
       </div>
     </div>
 
-    <LazyHydrate when-visible>
+    <LazyHydrate
+      v-if="relatedProducts.length"
+      when-visible
+    >
       <ProductsCarousel
         :products="relatedProducts"
         title="Match it with"
@@ -201,8 +203,9 @@ import {
   SfButton,
   SfColor,
 } from '@storefront-ui/vue';
-
 import { ref, computed } from '@vue/composition-api';
+import { onSSR } from '@vue-storefront/core';
+import LazyHydrate from 'vue-lazy-hydration';
 import {
   useProduct,
   useCart,
@@ -210,76 +213,54 @@ import {
   useReview,
   reviewGetters,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
-import LazyHydrate from 'vue-lazy-hydration';
+import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 
 export default {
   name: 'Product',
   components: {
-    SfAlert,
-    SfColor,
-    SfProperty,
-    SfHeading,
-    SfPrice,
-    SfRating,
-    SfSelect,
+    InstagramFeed,
+    LazyHydrate,
+    MobileStoreBanner,
+    ProductsCarousel,
     SfAddToCart,
-    SfTabs,
-    SfGallery,
-    SfIcon,
-    SfImage,
+    SfAlert,
     SfBanner,
-    SfSticky,
-    SfReview,
     SfBreadcrumbs,
     SfButton,
-    InstagramFeed,
-    ProductsCarousel,
-    MobileStoreBanner,
-    LazyHydrate,
+    SfColor,
+    SfGallery,
+    SfHeading,
+    SfIcon,
+    SfImage,
+    SfPrice,
+    SfProperty,
+    SfRating,
+    SfReview,
+    SfSelect,
+    SfSticky,
+    SfTabs,
   },
   transition: 'fade',
   setup(props, context) {
     const qty = ref(1);
-    const { sku } = context.root.$route.params;
-    const {
-      products,
-      search,
-    } = useProduct('products');
-
-    const {
-      addItem,
-      loading,
-    } = useCart();
-
-    const {
-      reviews: productReviews,
-      search: searchReviews,
-    } = useReview('productReviews');
+    const { id } = context.root.$route.params;
+    const { products, search } = useProduct('products');
+    const { addItem, loading } = useCart();
+    const { reviews: productReviews, search: searchReviews } = useReview('productReviews');
 
     const product = computed(() => {
-      const baseProduct = productGetters.getFiltered(products.value?.data?.items, {
+      const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
+
+      return productGetters.getFiltered(baseProduct, {
         master: true,
         attributes: context.root.$route.query,
       });
-
-      return Array.isArray(baseProduct) && baseProduct[0] ? baseProduct[0] : {};
     });
 
+    const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
-
-    const options = computed(() => productGetters.getAttributes(product.value,
-      ['color', 'size']));
-
-    const configuration = computed(() => productGetters.getAttributes(product.value,
-      ['color', 'size']));
-
-    const categories = computed(() => productGetters.getCategoryIds(product.value));
-
-    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
 
     const canAddToCart = computed(() => {
       const inStock = product.value.stock_status || '';
@@ -289,7 +270,16 @@ export default {
       return inStock && stockLeft;
     });
 
-    const reviews = computed(() => reviewGetters.getItems(productReviews.value));
+    const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
+    const configuration = computed(() => productGetters.getAttributes(product.value, ['color', 'size']));
+    const categories = computed(() => productGetters.getCategoryIds(product.value));
+
+    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
+
+    const baseReviews = computed(() => [...productReviews.value].shift());
+    const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
+    const totalReviews = computed(() => reviewGetters.getTotalReviews(baseReviews.value));
+    const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
 
     const breadcrumbs = computed(() => {
       const productCategories = product.value.categories;
@@ -306,23 +296,27 @@ export default {
       })));
 
     onSSR(async () => {
-      await search({
-        queryType: 'DETAIL',
+      const baseSearchQuery = {
         filter: {
           sku: {
-            eq: sku,
+            eq: id,
           },
         },
+      };
+
+      await search({
+        queryType: 'DETAIL',
+        ...baseSearchQuery,
       });
 
-      await searchReviews({ productSku: sku });
+      await searchReviews({ ...baseSearchQuery });
     });
 
     const updateFilter = (filter) => {
       context.root.$router.push({
         path: context.root.$route.path,
         query: {
-          ...Object.keys(configuration.value)[0],
+          ...configuration.value,
           ...filter,
         },
       });
@@ -330,7 +324,7 @@ export default {
 
     return {
       addItem,
-      averageRating: computed(() => productGetters.getAverageRating(product.value)),
+      averageRating,
       breadcrumbs,
       canAddToCart,
       categories,
@@ -341,12 +335,12 @@ export default {
       productDescription,
       productGallery,
       productGetters,
-      products,
+      productShortDescription,
       qty,
       relatedProducts,
       reviewGetters,
       reviews,
-      totalReviews: computed(() => productGetters.getTotalReviews(product.value)),
+      totalReviews,
       updateFilter,
     };
   },

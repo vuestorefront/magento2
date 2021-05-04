@@ -1,0 +1,16 @@
+mutation createCustomerAddress($input: CustomerAddressInput!) {
+  createCustomerAddress(input: $input) {
+    id
+    region {
+      region
+      region_code
+    }
+    country_code
+    street
+    telephone
+    postcode
+    city
+    default_shipping
+    default_billing
+  }
+}

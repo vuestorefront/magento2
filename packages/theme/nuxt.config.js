@@ -46,7 +46,10 @@ export default {
   },
   loading: { color: '#fff' },
   plugins: [
-    { src: '~/plugins/domPurify.js', ssr: false },
+    {
+      src: '~/plugins/domPurify.js',
+      ssr: false,
+    },
   ],
   buildModules: [
     // to core
@@ -65,9 +68,6 @@ export default {
           '@vue-storefront/magento',
           '@vue-storefront/core',
         ],
-      },
-      logger: {
-        verbosity: 'error',
       },
     }],
     // @core-development-only-start
@@ -162,6 +162,10 @@ export default {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
   },
   build: {
+    extend(config, ctx) {
+      // eslint-disable-next-line no-param-reassign
+      config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
+    },
     transpile: [
       'vee-validate/dist/rules',
     ],
@@ -176,24 +180,6 @@ export default {
     ],
   },
   router: {
-    extendRoutes(routes, resolve) {
-      const productRouteIndex = routes.findIndex((r) => r.name === 'Product');
-      if (productRouteIndex) {
-        routes.splice(productRouteIndex, 1);
-
-        routes.push({
-          name: 'Product',
-          path: '/p/:sku/:relativeUrl+',
-          component: resolve(__dirname, '_theme/pages/Product.vue'),
-        });
-      }
-
-      routes.push({
-        name: 'urlResolver',
-        path: '*',
-        component: resolve(__dirname, '_theme/pages/UrlResolver.vue'),
-      });
-    },
     scrollBehavior(_to, _from, savedPosition) {
       return savedPosition || {
         x: 0,

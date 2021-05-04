@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "API": {
-        "url": "https://vsf-m2.site-builder.app/graphql",
+        "url": "https://demo-magento2.storefrontcloud.io/graphql",
         "introspect": true
       }
     }

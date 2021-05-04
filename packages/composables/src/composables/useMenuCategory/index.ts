@@ -4,20 +4,16 @@ import {
   useCategoryFactory,
   UseCategoryFactoryParams,
 } from '@vue-storefront/core';
-import { MenuCategory, CategoryFilter } from '@vue-storefront/magento-api';
+import { CategoryFilter, CategoryMenu } from '@vue-storefront/magento-api';
 
-const factoryParams: UseCategoryFactoryParams<MenuCategory, any> = {
+const factoryParams: UseCategoryFactoryParams<CategoryMenu, any> = {
   categorySearch: async (context: Context, parameters) => {
     const { customQuery, ...searchParams } = parameters;
-    const {
-      $magento: {
-        api,
-      },
-    } = context;
-    const { categories: { items } } = await api.getMenuCategories(searchParams, customQuery);
+
+    const { categories: { items } } = await context.$magento.api.getMenuCategory(searchParams, customQuery);
 
     return items.filter((i) => i.include_in_menu);
   },
 };
 
-export default useCategoryFactory<MenuCategory, CategoryFilter>(factoryParams);
+export default useCategoryFactory<CategoryMenu, CategoryFilter>(factoryParams);

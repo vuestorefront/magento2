@@ -1,24 +1,26 @@
 /* istanbul ignore file */
 import {
   Context,
-  UseReview,
+  Logger,
   useReviewFactory,
   UseReviewFactoryParams,
 } from '@vue-storefront/core';
+import { GetProductSearchParams } from '@vue-storefront/magento-api';
 
 const factoryParams: UseReviewFactoryParams<any, any, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  searchReviews: async (context: Context, params) => {
-    console.log('Mocked: searchReviews');
-    return {};
+  searchReviews: async (context: Context, params: GetProductSearchParams) => {
+    Logger.debug('[Magento] searchReviews');
+
+    const { data } = await context.$magento.api.productReview(params as GetProductSearchParams);
+
+    return data.products.items;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addReview: async (context: Context, params) => {
-    console.log('Mocked: addReview');
+    Logger.debug('Mocked: addReview');
     return {};
   },
 };
 
-const useReview: (cacheId: string) => UseReview<any, any, any> = useReviewFactory<any, any, any>(factoryParams);
-
-export default useReview;
+export default useReviewFactory<any, any, any>(factoryParams);

@@ -8,5 +8,4 @@ generates:
       - "typescript-operations"
     config:
       skipTypename: true
-      namingConvention:
-        default: change-case-all#pascalCase
+      declarationKind: 'interface'

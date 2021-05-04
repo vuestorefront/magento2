@@ -1,50 +1,61 @@
 /* istanbul ignore file */
 /* eslint-disable no-param-reassign */
 import {
+  Context,
+  Logger,
   useCartFactory,
   UseCartFactoryParams,
-  Context,
 } from '@vue-storefront/core';
 import {
+  AddConfigurableProductsToCartInput,
+  AddSimpleProductsToCartInput,
   Cart,
   CartItem,
   Coupon,
   Product,
-} from '../../types';
+  RemoveItemFromCartInput,
+  UpdateCartItemsInput,
+} from '@vue-storefront/magento-api';
 
-const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
+const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   load: async (context: Context) => {
     const apiState = context.$magento.config.state;
-    // is user authenticated.
-    if (apiState.getCustomerToken()) {
-      try {
-        // get cart ID
+    Logger.debug('[Magento Storefront]: Loading Cart');
+    const customerToken = apiState.getCustomerToken();
+
+    if (customerToken) { // is user authenticated.
+      try { // get cart ID
         const result = await context.$magento.api.customerCart();
-        return result.data.customerCart;
-      } catch (e) {
-        // Signed up user don't have a cart.
+
+        return result.data.customerCart as unknown as Cart;
+      } catch (e) { // Signed up user don't have a cart.
         apiState.setCartId(null);
         apiState.setCustomerToken(null);
-        return await params.load(context, {});
+
+        return await factoryParams.load(context, {}) as unknown as Cart;
       }
     }
 
-    // if guest user have a cart ID
-    let cartId = apiState.getCartId();
+    let cartId = apiState.getCartId(); // if guest user have a cart ID
 
     if (!cartId) {
-      const result = await context.$magento.api.createEmptyCart();
-      cartId = result.data.createEmptyCart;
+      const { data } = await context.$magento.api.createEmptyCart();
+
+      cartId = data.createEmptyCart;
+
       apiState.setCartId(cartId);
     }
 
     try {
       const cartResponse = await context.$magento.api.cart(cartId);
-      // console.log(cartResponse);
-      return cartResponse.data.cart;
+
+      Logger.debug(cartResponse);
+
+      return cartResponse.data.cart as unknown as Cart;
     } catch (e) {
       apiState.setCartId(null);
-      return await params.load(context, {});
+
+      return await factoryParams.load(context, {}) as unknown as Cart;
     }
   },
   addItem: async (context: Context, {
@@ -55,7 +66,8 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     let currentCartId = apiState.getCartId();
 
     if (!currentCartId) {
-      await params.load(context, {});
+      await factoryParams.load(context, {});
+
       currentCartId = apiState.getCartId();
     }
 
@@ -63,10 +75,11 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       return;
     }
 
-    product.type_id = 'simple';
-    switch (product.type_id) {
-      case 'simple':
-        const simpleProduct = await context.$magento.api.addSimpleProductsToCart({
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    switch (product.__typename) {
+      case 'SimpleProduct':
+        const simpleCartInput: AddSimpleProductsToCartInput = {
           cart_id: currentCartId,
           cart_items: [
             {
@@ -76,65 +89,90 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
               },
             },
           ],
-        });
-        return simpleProduct.data.addSimpleProductsToCart.cart;
-      case 'configurable':
-        const configurableProduct = await context.$magento.api.addConfigurableProductsToCart({
+        };
+
+        const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
+
+        return simpleProduct
+          .data
+          .addSimpleProductsToCart
+          .cart as unknown as Cart;
+
+      case 'ConfigurableProduct':
+        const configurableCartInput: AddConfigurableProductsToCartInput = {
           cart_id: currentCartId,
           cart_items: [
             {
               parent_sku: product.sku,
-              variant_sku: product.variant_sku,
               data: {
                 quantity,
-                sku: product.variant_sku,
+                sku: product.sku,
               },
             },
           ],
-        });
-        return configurableProduct.data.addConfigurableProductsToCart.cart;
+        };
+
+        const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
+
+        return configurableProduct
+          .data
+          .addConfigurableProductsToCart
+          .cart as unknown as Cart;
       default:
         // todo implement other options
-        throw new Error(`Product Type ${product.type_id} not supported in add to cart yet`);
+        // @ts-ignore
+        // eslint-disable-next-line no-underscore-dangle
+        throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
     }
   },
   removeItem: async (context: Context, {
     currentCart,
     product,
   }) => {
-    // @TODO, why i can't just get the item??
-    const item = currentCart.items.find((cartItem) => cartItem.product.id === product.id);
+    const item = currentCart.items.find((cartItem) => cartItem.product.uid === product.uid);
+
     if (!item) {
       return;
     }
 
-    const response = await context.$magento.api.removeItemFromCart({
+    const removeItemParams: RemoveItemFromCartInput = {
       cart_id: currentCart.id,
-      cart_item_id: item.id,
-    });
+      cart_item_id: Number.parseInt(item.uid, 10),
+    };
 
-    return response.data.removeItemFromCart.cart;
+    const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
+
+    return data
+      .removeItemFromCart
+      .cart as unknown as Cart;
   },
+
   updateItemQty: async (context: Context, {
     currentCart,
     product,
     quantity,
   }) => {
-    const response = await context.$magento.api.updateCartItems({
+    const updateCartParams: UpdateCartItemsInput = {
       cart_id: currentCart.id,
       cart_items: [
         {
-          cart_item_id: product.id,
+          cart_item_id: Number.parseInt(product.uid, 10),
           quantity,
         },
       ],
-    });
-    return { updatedCart: response.data.updateCartItems.cart };
+    };
+
+    const { data } = await context.$magento.api.updateCartItems(updateCartParams);
+
+    return data
+      .updateCartItems
+      .cart as unknown as Cart;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
     context.$magento.config.state.setCartId(null);
-    return params.load(context, {});
+
+    return factoryParams.load(context, {});
   },
   applyCoupon: async (context: Context, {
     currentCart,
@@ -146,26 +184,31 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     });
 
     return {
-      updatedCart: response.data.applyCouponToCart.cart,
+      updatedCart: response.data.applyCouponToCart.cart as unknown as Cart,
       updatedCoupon: { code: couponCode },
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  removeCoupon: async (context: Context, {
-    currentCart,
-    coupon,
-  }) => {
+  removeCoupon: async (context: Context, { currentCart }) => {
     const response = await context.$magento.api.removeCouponFromCart({
       cart_id: currentCart.id,
     });
 
     return {
-      updatedCart: response.data.removeCouponFromCart.cart,
+      updatedCart: response.data.removeCouponFromCart.cart as unknown as Cart,
       updatedCoupon: { code: '' },
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  isInCart: (context: Context, { currentCart, product }) => currentCart.items.find((cartItem) => cartItem.product.id === product.id),
+  isInCart: (
+    context: Context,
+    {
+      currentCart,
+      product,
+    },
+  ) => !!currentCart
+    .items
+    .find((cartItem) => cartItem.product.uid === product.uid),
 };
 
-export default useCartFactory<Cart, CartItem, Product, Coupon>(params);
+export default useCartFactory<Cart, CartItem, Product, Coupon>(factoryParams);

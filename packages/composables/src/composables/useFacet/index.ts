@@ -1,17 +1,32 @@
 import {
-  Context, useFacetFactory, FacetSearchResult, ProductsSearchParams,
+  Context,
+  FacetSearchResult,
+  ProductsSearchParams,
+  useFacetFactory,
 } from '@vue-storefront/core';
+import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
 
-const availableSortingOptions = [{
-  value: 'name',
-  label: 'Name',
-}, {
-  value: 'price-up',
-  label: 'Price from low to high',
-}, {
-  value: 'price-down',
-  label: 'Price from high to low',
-}];
+const availableSortingOptions = [
+  {
+    label: 'Sort: Default',
+    value: '',
+  },
+  {
+    label: 'Sort: Name A-Z',
+    value: 'name_ASC',
+  },
+  {
+    label: 'Sort: Name Z-A',
+    value: 'name_DESC',
+  },
+  {
+    label: 'Sort: Price from low to high',
+    value: 'price_ASC',
+  }, {
+    label: 'Sort: Price from high to low',
+    value: 'price_DESC',
+  },
+];
 
 const constructFilterObject = (inputFilters: Object) => {
   const filter = {};
@@ -38,49 +53,41 @@ const constructFilterObject = (inputFilters: Object) => {
   return filter;
 };
 
+const constructSortObject = (sortData: string) => {
+  const baseData = sortData.split(/_/ig);
+
+  return baseData.length ? Object.fromEntries([baseData]) : {};
+};
+
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
 
-    // ref for filters
-    // async for filters
-    // if ref for filters: don't run again.
-
-    // ref for products
-    // async for products
-
     const productParams: ProductsSearchParams = {
       filter: {
-        category_ids: {
-          eq: params.input.categorySlug,
+        category_uid: {
+          eq: params.input.categoryId,
         },
-        type_id: {
-          eq: 'configurable',
-        },
-        ...constructFilterObject(inputFilters),
+        ...constructFilterObject({
+          ...inputFilters,
+        }),
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
       page: params.input.page,
       search: (params.input.term) ? params.input.term : '',
+      sort: constructSortObject(params.input.sort || ''),
     };
 
-    const productResponse = await context.$magento.api.products(
-      productParams.perPage,
-      productParams.page,
-      productParams.filter,
-      productParams.queryType,
-      productParams.search,
-      productParams.sort,
-    );
+    const productResponse = await context.$magento.api.products(productParams);
 
     const data = {
       items: productResponse?.data?.products?.items || [],
-      total: productResponse?.data?.products?.total_count || 0,
-      availableFilters: productResponse?.data?.products?.attribute_metadata,
-      category: { id: params.input.categorySlug },
+      total: productResponse?.data?.products?.total_count,
+      availableFilters: productResponse?.data?.products?.aggregations,
+      category: { id: params.input.categoryId },
       availableSortingOptions,
       perPageOptions: [10, 20, 50],
       itemsPerPage,

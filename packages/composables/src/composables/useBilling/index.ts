@@ -1,9 +1,9 @@
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
+import { BillingAddressInput, BillingCartAddress, CartAddressInput } from '@vue-storefront/magento-api';
 import { useBillingFactory, UseBillingParams } from '../../factories/useBillingFactory';
-import { Address } from '../../types';
 import useCart from '../useCart';
 
-const params: UseBillingParams<Address, any> = {
+const factoryParams: UseBillingParams<BillingCartAddress, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   provide() {
     return {
@@ -12,7 +12,7 @@ const params: UseBillingParams<Address, any> = {
   },
 
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadBilling');
+    Logger.debug('[Magento] loadBilling');
     if (!context.cart.cart?.value?.billing_address) {
       await context.cart.load({ customQuery });
     }
@@ -20,37 +20,28 @@ const params: UseBillingParams<Address, any> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  save: async (context: Context, { billingDetails, customQuery }) => {
-    console.log('[Magento] setBillingAddress');
+  save: async (
+    context: Context,
+    params,
+  ) => {
+    Logger.debug('[Magento] setBillingAddress');
     const id = context.$magento.config.state.getCartId();
-    console.log(id);
-    console.log(typeof id);
+    Logger.debug(id);
+    Logger.debug(typeof id);
+    const address = params.billingDetails as unknown as CartAddressInput;
 
+    const billingAddress: BillingAddressInput = {
+      address,
+      same_as_shipping: true,
+    };
     // const { id } = context.cart.cart.value;
-    const setBillingAddressOnCartResponse = await context.$magento.api.setBillingAddressOnCart({
+    const { data } = await context.$magento.api.setBillingAddressOnCart({
       cart_id: id,
-      billing_address: {
-        address: {
-
-          /*
-                    firstname: "Bob",
-                    lastname: "Roll",
-                    company: "Magento",
-                    street: ["Magento Pkwy", "Main Street"],
-                    city: "Austin",
-                    region: "TX",
-                    postcode: "78758",
-                    country_code: "US",
-                    telephone: "8675309",
-                    save_in_address_book: false
-                    */
-          ...billingDetails,
-        },
-        same_as_shipping: true,
-      },
+      billing_address: billingAddress,
     });
-    return setBillingAddressOnCartResponse.data.setBillingAddressOnCart.cart.billing_address;
+
+    return data.setBillingAddressOnCart.cart.billing_address;
   },
 };
 
-export default useBillingFactory<Address, any>(params);
+export default useBillingFactory<BillingCartAddress, any>(factoryParams);

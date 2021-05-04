@@ -1,13 +1,13 @@
 import { Context } from '@vue-storefront/core';
-import { Config, UseConfig } from '../../types';
-import { useConfigFactory } from '../../factories/useConfigFactory';
+import { StoreConfig } from '@vue-storefront/magento-api';
+import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';
 
-const useConfig: (cacheId: string) => UseConfig<Config> = useConfigFactory<Config>({
+const factoryParams: UseConfigFactoryParams<StoreConfig> = {
   loadConfig: async (context: Context) => {
-    const result = await context.$magento.api.storeConfig();
+    const { data } = await context.$magento.api.storeConfig();
 
-    return result.data.storeConfig || {};
+    return data.storeConfig || {};
   },
-});
+};
 
-export default useConfig;
+export default useConfigFactory<StoreConfig>(factoryParams);

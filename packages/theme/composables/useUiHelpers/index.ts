@@ -31,15 +31,13 @@ const useUiHelpers = () => {
   const instance = getInstance();
 
   const getFacetsFromURL = () => {
-    const { query, params } = instance.$router.history.current;
-    const categorySlug = Object.keys(params).reduce((prev, curr) => params[curr] || prev, params.slug_1);
+    const { query } = instance.$router.history.current;
+
     return {
-      rootCatSlug: params.slug_1,
-      categorySlug,
-      page: parseInt(query.page, 10) || 1,
-      sort: query.sort || 'latest',
       filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: parseInt(query.itemsPerPage, 10) || 20,
+      itemsPerPage: Number.parseInt(query.itemsPerPage, 10) || 20,
+      page: Number.parseInt(query.page, 10) || 1,
+      sort: query.sort || '',
       term: query.term,
     };
   };
@@ -47,15 +45,11 @@ const useUiHelpers = () => {
   const changeSearchTerm = (term: string) => term;
 
   const getSearchTermFromUrl = () => {
-    const { query, params } = instance.$router.history.current;
-    // hardcoded categorySlug for search results
-    const categorySlug = 'root-category';
+    const { query } = instance.$router.history.current;
 
     return {
-      rootCatSlug: params.slug_1,
-      categorySlug,
       page: parseInt(query.page, 10) || 1,
-      sort: query.sort || 'latest',
+      sort: query.sort || '',
       filters: getFiltersDataFromUrl(instance, true),
       itemsPerPage: parseInt(query.itemsPerPage, 10) || 20,
       term: query.term,
