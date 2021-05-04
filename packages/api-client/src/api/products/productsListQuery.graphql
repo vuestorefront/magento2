@@ -14,6 +14,11 @@ query productsList($search: String = "", $filter: ProductAttributeFilterInput, $
     items {
       ...ProductData
     }
+    page_info {
+      current_page
+      page_size
+      total_pages
+    }
     total_count
   }
 }
