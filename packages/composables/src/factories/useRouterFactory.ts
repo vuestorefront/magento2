@@ -30,7 +30,11 @@ export const useRouterFactory = <ROUTER>(
     loading.value = true;
 
     try {
-      result.value = await _factoryParams.search(url);
+      const data = await _factoryParams.search(url);
+
+      result.value = data;
+
+      return data;
     } catch (err) {
       error.value.search = err;
 
