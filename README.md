@@ -5,17 +5,6 @@
 This project is a Magento 2 integration for Vue Storefront 2.
 This integration is being developed by superheroes from [Cyberfuze](https://cyberfuze.com/), [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
 
-**We're aiming to release beta version the latest end of April 2021**. Stay tuned!
-
-## Roadmap 🚀
-- [ ] Making sure Product.vue don’t have errors
-- [ ] Refactor Getters (Facet,  Products, Cart, Checkout)
-- [ ] Wishlist Guest Implementation
-- [ ] Error Handling 
-- [ ] Sort  in Facet.
-- [ ] Facet Separate calls Product & Category queries.
-
-
 ## How to start if you want to try out the integration
 
 ```
