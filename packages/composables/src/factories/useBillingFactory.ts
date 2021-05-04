@@ -1,9 +1,9 @@
 import {
+  configureFactoryParams,
   Context, CustomQuery, FactoryParams, generateContext, Logger, sharedRef,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
 import { UseBilling, UseBillingErrors } from '../types';
-import { configureFactoryParams } from '../utils';
 
 export interface UseBillingParams<BILLING, BILLING_PARAMS> extends FactoryParams {
   load: (context: Context, params: { customQuery?: CustomQuery }) => Promise<BILLING>;

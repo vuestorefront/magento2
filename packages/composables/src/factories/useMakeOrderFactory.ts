@@ -1,5 +1,6 @@
 import { computed } from '@vue/composition-api';
 import {
+  configureFactoryParams,
   Context,
   CustomQuery,
   FactoryParams,
@@ -8,7 +9,6 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { UseMakeOrder, UseMakeOrderErrors } from '../types';
-import { configureFactoryParams } from '../utils';
 
 export interface UseMakeOrderFactoryParams<ORDER> extends FactoryParams {
   make: (context: Context, params: { customQuery?: CustomQuery }) => Promise<ORDER>;
@@ -17,11 +17,11 @@ export interface UseMakeOrderFactoryParams<ORDER> extends FactoryParams {
 export const useMakeOrderFactory = <ORDER>(
   factoryParams: UseMakeOrderFactoryParams<ORDER>,
 ) => function useMakeOrder(): UseMakeOrder<ORDER> {
-  const _factoryParams = configureFactoryParams(factoryParams);
-  const context = generateContext(factoryParams);
   const order = sharedRef<ORDER>(null, 'useMakeOrder-order');
   const loading = sharedRef<boolean>(false, 'useMakeOrder-loading');
   const error = sharedRef<UseMakeOrderErrors>({}, 'useMakeOrder-error');
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+  const _factoryParams = configureFactoryParams(factoryParams);
 
   const make = async (params = { customQuery: null }) => {
     Logger.debug('useMakeOrder.make');
@@ -29,8 +29,7 @@ export const useMakeOrderFactory = <ORDER>(
     try {
       loading.value = true;
       error.value.make = null;
-      const createdOrder = await factoryParams.make(context, params);
-      order.value = createdOrder;
+      order.value = await _factoryParams.make(params);
     } catch (err) {
       error.value.make = err;
       Logger.error('useMakeOrder.make', err);
@@ -40,12 +39,9 @@ export const useMakeOrderFactory = <ORDER>(
   };
 
   return {
-    // @ts-ignore
     error: computed(() => error.value),
-    // @ts-ignore
     loading: computed(() => loading.value),
     make,
-    // @ts-ignore
     order,
   };
 };
