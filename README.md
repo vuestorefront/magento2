@@ -17,12 +17,31 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 ## How to start if you want to contribute?
 
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
+### Requirements:
+  - NodeJS v12 or later
+  - Magento v2.4 instance for GraphQL endpoint
+### Steps
+1. Fork the repo
+2. Clone your fork of the repo 
+    ```
+    example:
+    git clone https://github.com/vuestorefront/magento2.git
+    cd magento2
+    ```
+3. Checkout develop branch `git checkout develop`
+4. Run `yarn` to install dependencies
+5. Copy .env.example and update GraphQL Endpoint
+    ```
+    cp packages/theme/.env.example .env
+    ```
+6. Update `MAGENTO_GRAPHQL=` with url to Magento 2.4 GrapgQL endpoint
+    ```
+    MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql
+    ```
+7. Build dependencies `yarn build:api-client && yarn build:composables`
+8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+- If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
-1. CLone the repo
-2. Run `yarn` to install dependencies
-3. Build dependencies `yarn build:api-client && yarn build:composables`
-4. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
-5. If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
 ## Resources
 
