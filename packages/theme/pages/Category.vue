@@ -419,9 +419,7 @@ export default {
     const { categories, search: categoriesSearch } = useCategory('categoryList');
 
     const { path } = context.root.$route;
-    const { search: routeSearch, result: route } = useRouter(`router:${path}`);
-    // @TODO: Temp Solution
-    const routeType = computed(() => route);
+    const { search: routeSearch } = useRouter(`router:${path}`);
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
@@ -449,11 +447,11 @@ export default {
     }); */
 
     onSSR(async () => {
-      await routeSearch(path);
+      const categoryId = await routeSearch(path);
 
       await search({
         ...th.getFacetsFromURL(),
-        categoryId: routeType.value.entity_uid,
+        categoryId: categoryId.entity_uid,
       });
 
       await categoriesSearch({
