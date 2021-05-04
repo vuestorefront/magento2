@@ -1,15 +1,17 @@
-import PlaceOrder from './mutation';
-import { ExecutionResult } from 'graphql';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
 import {
   PlaceOrderInput,
-  PlaceOrderOutput
+  PlaceOrderMutation,
+  PlaceOrderMutationVariables,
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const placeOrder = async ({ client }, input: PlaceOrderInput): Promise<ExecutionResult<PlaceOrderOutput>> => {
-  return await client.mutate({
-    mutation: PlaceOrder,
-    variables: { input }
-  });
-};
-
-export default placeOrder;
+export default async (
+  { client }: Context,
+  input: PlaceOrderInput,
+): Promise<FetchResult<PlaceOrderMutation>> => client
+  .mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
+  mutation,
+  variables: { input },
+});

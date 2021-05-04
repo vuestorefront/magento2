@@ -1,0 +1,10 @@
+#import "./productMediaConfigurationFragment.graphql"
+
+fragment ProductImagesData on ProductInterface {
+  small_image {
+    ...ProductMediaConfigurationData
+  }
+  image {
+    ...ProductMediaConfigurationData
+  }
+}

@@ -1,12 +1,9 @@
-import { createEmptyCartMutation } from '../../types/GraphQL';
-import CreateCartMutation from './mutation';
-import { ExecutionResult } from 'graphql';
+import { FetchResult } from '@apollo/client';
+import { CreateEmptyCartMutation } from '../../types/GraphQL';
+import mutation from './mutation.graphql';
+import { Context } from '../../types/context';
 
-const createEmptyCart = async ({ client }): Promise<ExecutionResult<createEmptyCartMutation>> => {
-
-  return await client.mutate({
-    mutation: CreateCartMutation
-  });
-};
-
-export default createEmptyCart;
+export default async ({ client }: Context): Promise<FetchResult<CreateEmptyCartMutation>> => client
+  .mutate<CreateEmptyCartMutation>({
+  mutation,
+});

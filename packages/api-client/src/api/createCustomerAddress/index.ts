@@ -1,15 +1,17 @@
-import CreateCustomerAddress from './mutation';
-import { ExecutionResult } from 'graphql';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
 import {
+  CreateCustomerAddressMutation,
+  CreateCustomerAddressMutationVariables,
   CustomerAddressInput,
-  CustomerAddress
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const createCustomerAddress = async ({ client }, input: CustomerAddressInput): Promise<ExecutionResult<CustomerAddress>> => {
-  return await client.mutate({
-    mutation: CreateCustomerAddress,
-    variables: { input }
-  });
-};
-
-export default createCustomerAddress;
+export default async (
+  { client }: Context,
+  input: CustomerAddressInput,
+): Promise<FetchResult<CreateCustomerAddressMutation>> => client
+  .mutate<CreateCustomerAddressMutation, CreateCustomerAddressMutationVariables>({
+  mutation,
+  variables: { input },
+});

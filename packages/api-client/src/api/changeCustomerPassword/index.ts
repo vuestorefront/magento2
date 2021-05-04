@@ -1,16 +1,25 @@
-import changeCustomerPasswordMutation from './mutation';
-import { Customer } from '../../types/GraphQL';
+import mutation from './mutation.graphql';
+import {
+  ChangeCustomerPasswordMutation,
+  ChangeCustomerPasswordMutationVariables,
+  CustomerDataFragment as Customer,
+} from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const changeCustomerPassword = async({ client }, currentPassword: string, newPassword: string): Promise<Customer> => {
-  const response = client.mutate({
-    mutation: changeCustomerPasswordMutation,
+export default async (
+  { client }: Context,
+  currentPassword: string,
+  newPassword: string,
+): Promise<Customer> => {
+  const { data } = await client
+    .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
+    mutation,
     variables: {
       currentPassword,
-      newPassword
+      newPassword,
     },
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
   });
-  return response.data.changeCustomerPassword;
-};
 
-export default changeCustomerPassword;
+  return data?.changeCustomerPassword;
+};

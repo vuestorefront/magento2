@@ -1,30 +1,29 @@
 import { computed } from '@vue/composition-api';
 import {
   Context,
-  generateContext,
   sharedRef,
   Logger,
+  configureFactoryParams, FactoryParams,
 } from '@vue-storefront/core';
 import { UseConfig } from '../types';
 
-export interface UseConfigFactoryParams<CONFIG> {
+export interface UseConfigFactoryParams<CONFIG> extends FactoryParams{
   loadConfig: (context: Context) => Promise<CONFIG>;
 }
 
-export function useConfigFactory<CONFIG>(
-  factoryParams: UseConfigFactoryParams<CONFIG>,
-) {
+export function useConfigFactory<CONFIG>(factoryParams: UseConfigFactoryParams<CONFIG>) {
   return function useConfig(cacheId: string): UseConfig<CONFIG> {
-    const context = generateContext(factoryParams);
     // @ts-ignore
     const config = sharedRef<CONFIG>({}, `useConfig-categories-${cacheId}`);
     const loading = sharedRef<boolean>(false, `useConfig-loading-${cacheId}`);
+    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+    const _factoryParams = configureFactoryParams(factoryParams);
 
     const loadConfig = async () => {
       Logger.debug(`useConfig/${cacheId}/loadConfig`);
       loading.value = true;
       try {
-        config.value = await factoryParams.loadConfig(context);
+        config.value = await _factoryParams.loadConfig();
       } finally {
         loading.value = false;
       }

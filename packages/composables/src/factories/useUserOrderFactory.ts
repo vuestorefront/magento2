@@ -1,14 +1,13 @@
 import { computed } from '@vue/composition-api';
 import {
+  configureFactoryParams,
   Context,
   CustomQuery,
   FactoryParams,
-  generateContext,
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
 import { UseUserOrder, UseUserOrderErrors } from '../types';
-import { configureFactoryParams } from '../utils';
 
 export interface UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS> extends FactoryParams {
   searchOrders: (context: Context, params: ORDER_SEARCH_PARAMS & { customQuery?: CustomQuery }) => Promise<ORDERS>;
@@ -16,12 +15,12 @@ export interface UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS> extends 
 
 export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS>) {
   return function useUserOrder(): UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
-    const _factoryParams = configureFactoryParams(factoryParams);
-    const context = generateContext(factoryParams);
     // @ts-ignore
     const orders = sharedRef<ORDERS>([], 'useUserOrder-orders');
     const loading = sharedRef<boolean>(false, 'useUserOrder-loading');
     const error = sharedRef<UseUserOrderErrors>({}, 'useUserOrder-error');
+    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+    const _factoryParams = configureFactoryParams(factoryParams);
 
     const search = async (searchParams): Promise<void> => {
       Logger.debug('useUserOrder.search', searchParams);
@@ -29,7 +28,7 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
       try {
         loading.value = true;
         error.value.search = null;
-        orders.value = await factoryParams.searchOrders(context, searchParams);
+        orders.value = await _factoryParams.searchOrders(searchParams);
       } catch (err) {
         error.value.search = err;
         Logger.error('useUserOrder/search', err);
@@ -39,13 +38,10 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
     };
 
     return {
-      // @ts-ignore
+      error: computed(() => error.value),
+      loading: computed(() => loading.value),
       orders: computed(() => orders.value),
       search,
-      // @ts-ignore
-      loading: computed(() => loading.value),
-      // @ts-ignore
-      error: computed(() => error.value),
     };
   };
 }

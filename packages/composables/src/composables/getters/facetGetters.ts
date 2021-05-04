@@ -66,10 +66,10 @@ const getProducts = (searchData): any => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getPagination = (searchData): AgnosticPagination => ({
-  currentPage: searchData.input.page,
+  currentPage: searchData.input?.page || 1,
   totalPages: (searchData.data) ? Math.ceil(searchData.data.total / searchData.input.itemsPerPage) : 0,
   totalItems: (searchData.data) ? searchData.data.total : 0,
-  itemsPerPage: searchData.input.itemsPerPage,
+  itemsPerPage: searchData.input?.itemsPerPage || 20,
   pageOptions: [10, 50, 100],
 });
 

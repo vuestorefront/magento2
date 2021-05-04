@@ -1,0 +1,9 @@
+fragment CategoryData on CategoryTree {
+  image
+  include_in_menu
+  is_anchor
+  level
+  name
+  position
+  uid
+}

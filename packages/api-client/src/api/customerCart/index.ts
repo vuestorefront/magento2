@@ -1,13 +1,10 @@
-import { cartQuery } from '../../types/GraphQL';
-import query from './query';
 import { ApolloQueryResult } from 'apollo-client';
+import { CustomerCartQuery } from '../../types/GraphQL';
+import query from './query.graphql';
+import { Context } from '../../types/context';
 
-const customerCart = async ({ client }): Promise<ApolloQueryResult<cartQuery>> => {
-
-  return await client.query({
-    query: query,
-    fetchPolicy: 'no-cache'
-  });
-};
-
-export default customerCart;
+export default async ({ client }: Context): Promise<ApolloQueryResult<CustomerCartQuery>> => client
+  .query<CustomerCartQuery>({
+  query,
+  fetchPolicy: 'no-cache',
+});

@@ -1,41 +1,32 @@
 /* istanbul ignore file */
 import { ReviewGetters, AgnosticRateCount } from '@vue-storefront/core';
+import { ProductReview, ProductReviews } from '@vue-storefront/magento-api';
 
-// TODO: Replace with GraphQL types when they get updated
-type Review = any;
-type ReviewItem = any;
+export const getItems = (review: ProductReviews): ProductReview[] => review?.reviews.items;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItems = (review: Review): ReviewItem[] => [];
+export const getReviewId = (item: ProductReview): string => `${item.nickname}_${item.created_at}_${item.average_rating}`;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewId = (item: ReviewItem): string => '';
+export const getReviewAuthor = (item: ProductReview): string => item.nickname;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewAuthor = (item: ReviewItem): string => '';
+export const getReviewMessage = (item: ProductReview): string => item.text;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewMessage = (item: ReviewItem): string => '';
+export const getReviewRating = (item: ProductReview): number => Number.parseInt(item.ratings_breakdown.find((r) => r.name === 'Rating')?.value, 10) || 0;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewRating = (item: ReviewItem): number => 0;
+export const getReviewDate = (item: ProductReview): string => item.created_at;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewDate = (item: ReviewItem): string => '';
+export const getTotalReviews = (review: ProductReviews): number => review?.review_count;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotalReviews = (review: Review): number => 0;
+export const getAverageRating = (review: ProductReviews): number => (review?.reviews
+  .items
+  .reduce((
+    acc, curr,
+  ) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getAverageRating = (review: Review): number => 0;
+export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getRatesCount = (review: Review): AgnosticRateCount[] => [];
+export const getReviewsPage = (review: ProductReviews): number => review?.reviews.page_info.page_size;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getReviewsPage = (review: Review): number => 1;
-
-const reviewGetters: ReviewGetters<Review, ReviewItem> = {
+const reviewGetters: ReviewGetters<ProductReviews, ProductReview> = {
   getItems,
   getReviewId,
   getReviewAuthor,

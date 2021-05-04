@@ -1,9 +1,15 @@
 import { Context } from '@vue-storefront/core';
-import { Route, UseRouter } from '../../types';
-import { useRouterFactory } from '../../factories/useRouterFactory';
+import { Route } from '@vue-storefront/magento-api';
+import { useRouterFactory, UseRouterFactoryParams } from '../../factories/useRouterFactory';
 
-const useRouter: (cacheId: string) => UseRouter<Route> = useRouterFactory <Route>({
-  search: async (context: Context, url: string) => await context.$magento.api.urlResolver(url),
-});
+const factoryParams: UseRouterFactoryParams<Route> = {
+  search: async (context: Context, url: string) => {
+    const clearUrl = url.replace(/\/[c|p]\//gi, '');
 
-export default useRouter;
+    const { data } = await context.$magento.api.urlResolver(clearUrl);
+
+    return data.urlResolver;
+  },
+};
+
+export default useRouterFactory<Route>(factoryParams);

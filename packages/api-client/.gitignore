@@ -2,3 +2,5 @@ lib
 node_modules
 coverage
 server
+.graphqlconfig
+.env

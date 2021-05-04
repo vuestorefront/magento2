@@ -4,7 +4,7 @@
       <Category :category-id="routeType.id" />
     </div>
     <div v-if="routeType.type === 'PRODUCT'">
-      <Product />
+      <Product :product-id="routeType.id" />
     </div>
     <div v-if="routeType.type === 'CMS_PAGE'">
       <CmsPage :identifier="routeType.relative_url" />
@@ -18,7 +18,7 @@ import {
 import { useRouter } from '@vue-storefront/magento';
 import { computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import Category from '~/pages/Category';
+import Category from './Category';
 import Product from './Product';
 import CmsPage from './Page';
 

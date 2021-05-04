@@ -1,16 +1,11 @@
-import { Context } from '@vue-storefront/core';
-import { SelectedShippingMethod } from '@vue-storefront/magento-api';
-import { Shipping, ShippingMethod } from '../../types';
+import { Context, Logger } from '@vue-storefront/core';
+import {
+  SetShippingMethodsOnCartInput,
+} from '@vue-storefront/magento-api';
 import { useShippingProviderFactory, UseShippingProviderParams } from '../../factories/useShippingProviderFactory';
 import useCart from '../useCart';
 
-/*
-interface ShippingProviderState {
-    response: SelectedShippingMethod
-}
-*/
-/* Magento Shipping Methods are "Selected_Shipping_Method & avabile shipping methods." */
-const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod> = {
+const factoryParams: UseShippingProviderParams<any, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -18,33 +13,39 @@ const factoryParams: UseShippingProviderParams<Shipping, SelectedShippingMethod>
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    console.log('[Magento] loadShippingProvider');
+    Logger.debug('[Magento] loadShippingProvider');
+
     if (!context.cart.cart?.value?.shipping_addresses[0].selected_shipping_method) {
       await context.cart.load({ customQuery });
     }
 
-    /*
-        return {
-            ...state.value,
-            response: context.cart.cart.value.shipping_addresses[0].selected_shipping_method
-        };
-        */
-
-    return context.cart.cart.value.shipping_addresses[0].selected_shipping_method;
+    return context
+      .cart
+      .cart
+      .value
+      .shipping_addresses[0]
+      .selected_shipping_method;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, { shippingMethod, customQuery }) => {
-    console.log('[Magento] saveShippingProvider');
-    const setShippingMethodsOnCartResponse = await context.$magento.api.setShippingMethodsOnCart({
+    Logger.debug('[Magento] saveShippingProvider');
+
+    const shippingMethodParams: SetShippingMethodsOnCartInput = {
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{
         ...shippingMethod,
       }],
-    });
+    };
 
-    return setShippingMethodsOnCartResponse.data.cart.shipping_addresses[0].selected_shipping_method;
+    const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
+
+    return data
+      .setShippingMethodsOnCart
+      .cart
+      .shipping_addresses[0]
+      .selected_shipping_method;
   },
 };
 
-export default useShippingProviderFactory<Shipping, ShippingMethod>(factoryParams);
+export default useShippingProviderFactory<any, any>(factoryParams);

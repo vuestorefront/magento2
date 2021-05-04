@@ -1,23 +1,31 @@
 {
   "name": "@vue-storefront/magento",
   "version": "1.0.0-beta.1",
+  "license": "MIT",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "tsModule": "src/index.ts",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "jest",
+    "build": "rimraf lib && rollup -c",
+    "dev": "rimraf lib && rollup -c -w",
     "lint:fix": "eslint ./src --ext .ts,.vue --fix",
+    "precommit": "lint-staged",
     "prepublish": "yarn build",
+    "test": "jest",
     "update:check": "ncu",
     "update:update": "ncu -u"
   },
+  "files": [
+    "lib/**/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@vue-storefront/magento-api": "^1.0.0-beta.1",
-    "@vue-storefront/core": "^2.3.0-rc.3",
+    "@vue-storefront/core": "^2.3.0",
     "vue": "^2.6.x"
   },
   "devDependencies": {
@@ -25,12 +33,6 @@
     "vue-template-compiler": "^2.6.x"
   },
   "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21"
-  },
-  "files": [
-    "lib/**/*"
-  ],
-  "publishConfig": {
-    "access": "public"
+    "@vue/composition-api": ">= 1.0.0"
   }
 }

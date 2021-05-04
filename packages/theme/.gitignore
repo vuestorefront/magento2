@@ -93,3 +93,4 @@ sw.*
 *.swp
 
 version
+.env

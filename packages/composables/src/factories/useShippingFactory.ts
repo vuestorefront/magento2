@@ -1,9 +1,13 @@
 import { computed } from '@vue/composition-api';
 import {
-  Context, CustomQuery, FactoryParams, generateContext, Logger, sharedRef,
+  configureFactoryParams,
+  Context, CustomQuery,
+  FactoryParams,
+  generateContext,
+  Logger,
+  sharedRef,
 } from '@vue-storefront/core';
 import { UseShipping, UseShippingErrors } from '../types';
-import { configureFactoryParams } from '../utils';
 
 export interface UseShippingParams<SHIPPING, SHIPPING_PARAMS> extends FactoryParams {
   load: (context: Context, params: { customQuery?: CustomQuery }) => Promise<SHIPPING>;
@@ -25,7 +29,7 @@ export const useShippingFactory = <SHIPPING, SHIPPING_PARAMS>(
     try {
       loading.value = true;
       error.value.load = null;
-      shipping.value = await factoryParams.load(context, { customQuery });
+      shipping.value = await _factoryParams.load({ customQuery });
     } catch (err) {
       error.value.load = err;
       Logger.error('useShipping/load', err);
