@@ -3,6 +3,7 @@ on:
     types: [labeled]
 jobs:
   automerge:
+    name: GitFlow AutoMerge
     if: github.event.label.name == 'release'
     runs-on: ubuntu-latest
     steps:
@@ -12,6 +13,12 @@ jobs:
         id: extract_branch
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract tag name
+        shell: bash
+        run: |
+          branch=${{ steps.extract_branch.outputs.branch }}
+          echo "##[set-output name=tag;]$(echo ${branch#release/})"
+        id: extract_tag
       - uses: yanamura/git-flow-merge-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
