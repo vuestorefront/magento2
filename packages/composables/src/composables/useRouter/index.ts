@@ -4,7 +4,9 @@ import { useRouterFactory, UseRouterFactoryParams } from '../../factories/useRou
 
 const factoryParams: UseRouterFactoryParams<Route> = {
   search: async (context: Context, url: string) => {
-    const { data } = await context.$magento.api.urlResolver(url);
+    const clearUrl = url.replace(/\/[c|p]\//gi, '');
+
+    const { data } = await context.$magento.api.urlResolver(clearUrl);
 
     return data.urlResolver;
   },

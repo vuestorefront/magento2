@@ -67,13 +67,12 @@ const factoryParams = {
 
     const productParams: ProductsSearchParams = {
       filter: {
-        category_ids: {
-          eq: params.input.categorySlug,
+        category_uid: {
+          eq: params.input.categoryId,
         },
-        type_id: {
-          eq: 'configurable',
-        },
-        ...constructFilterObject(inputFilters),
+        ...constructFilterObject({
+          ...inputFilters,
+        }),
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
@@ -82,21 +81,13 @@ const factoryParams = {
       sort: constructSortObject(params.input.sort || ''),
     };
 
-    const productSearchParams: GetProductSearchParams = {
-      pageSize: productParams.perPage,
-      search: productParams.search,
-      filter: productParams.filters,
-      sort: productParams.sort,
-      currentPage: productParams.page,
-    };
-
-    const productResponse = await context.$magento.api.products(productSearchParams);
+    const productResponse = await context.$magento.api.products(productParams);
 
     const data = {
       items: productResponse?.data?.products?.items || [],
       total: productResponse?.data?.products?.total_count,
       availableFilters: productResponse?.data?.products?.aggregations,
-      category: { id: params.input.categorySlug },
+      category: { id: params.input.categoryId },
       availableSortingOptions,
       perPageOptions: [10, 20, 50],
       itemsPerPage,
