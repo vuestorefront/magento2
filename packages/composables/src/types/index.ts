@@ -36,9 +36,14 @@ export interface FacetResultsData {
 }
 
 export interface UseRouter<ROUTE> {
-  route: ComputedProperty<ROUTE>;
   search: (url: string) => Promise<void>;
+  result: ComputedProperty<ROUTE>;
+  error: ComputedProperty<UseRouterErrors>;
   loading: ComputedProperty<boolean>;
+}
+
+export interface UseRouterErrors {
+  search: Error;
 }
 
 export interface UseConfig<CONFIG> {

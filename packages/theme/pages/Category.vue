@@ -381,6 +381,7 @@ import {
   useCategory,
   categoryGetters,
   facetGetters,
+  useRouter,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -417,6 +418,11 @@ export default {
     const { result, search, loading } = useFacet();
     const { categories, search: categoriesSearch } = useCategory('categoryList');
 
+    const { path } = context.root.$route;
+    const { search: routeSearch, result: route } = useRouter(`router:${path}`);
+    // @TODO: Temp Solution
+    const routeType = computed(() => route);
+
     const products = computed(() => facetGetters.getProducts(result.value));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTreeList(categories.value));
@@ -443,7 +449,12 @@ export default {
     }); */
 
     onSSR(async () => {
-      await search(th.getFacetsFromURL());
+      await routeSearch(path);
+
+      await search({
+        ...th.getFacetsFromURL(),
+        categoryId: routeType.value.entity_uid,
+      });
 
       await categoriesSearch({
         pageSize: 100,
