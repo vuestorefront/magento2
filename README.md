@@ -22,7 +22,7 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
   - Magento v2.4 instance for GraphQL endpoint
 ### Steps
 1. Fork the repo
-2. Clone your fork of the repo 
+2. Clone your fork of the repo
     ```
     example:
     git clone https://github.com/vuestorefront/magento2.git
@@ -41,7 +41,6 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
 7. Build dependencies `yarn build:api-client && yarn build:composables`
 8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
 - If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
-
 
 ## Resources
 

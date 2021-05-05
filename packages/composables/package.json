@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "license": "MIT",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
