@@ -1,11 +1,12 @@
 name: Release
 on:
-  pull_request:
-    types: [labeled]
+  push:
+    branches:
+      - release/*
+
 jobs:
   release:
     name: Release
-    if: github.event.label.name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,8 +22,13 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: npx semantic-release --branches "${{ steps.extract_branch.outputs.branch }}"
