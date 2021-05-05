@@ -511,4 +511,10 @@ export {
   ProductReviewQuery,
   ProductReviewQueryVariables,
   CustomerAvailablePaymentMethodsQuery,
+  ConfigurableProductDetailQueryVariables,
+  ConfigurableProductDetailQuery,
+  RelatedProductQuery,
+  RelatedProductQueryVariables,
+  UpsellProductsQuery,
+  UpsellProductsQueryVariables,
 } from './types/GraphQL';

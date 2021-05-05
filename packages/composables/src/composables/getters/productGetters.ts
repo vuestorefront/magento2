@@ -221,7 +221,9 @@ export const getProductTotalReviews = (): number => 0;
 
 export const getProductAverageRating = (): number => 0;
 
-export const getProductRelatedProduct = (product: Product) => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
+export const getProductRelatedProduct = (product: Product) => product?.related_products?.filter((p) => p.name && p.uid) || [];
+
+export const getProductUpsellProduct = (product: Product) => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
 
 const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getAttributes: getProductAttributes,
@@ -238,6 +240,7 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getName: getProductName,
   getPrice: getProductPrice,
   getProductRelatedProduct,
+  getProductUpsellProduct,
   getProductSku,
   getProductThumbnailImage,
   getShortDescription: getProductShortDescription,

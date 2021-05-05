@@ -112,7 +112,7 @@
                       >
                         <template #label>
                           <nuxt-link
-                            :to="localePath(th.getCatLink(cat))"
+                            :to="localePath(th.getAgnosticCatLink(cat))"
                             :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
                           >
                             All
@@ -131,7 +131,7 @@
                       >
                         <template #label="{ label }">
                           <nuxt-link
-                            :to="localePath(th.getCatLink(subCat))"
+                            :to="localePath(th.getAgnosticCatLink(subCat))"
                             :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
                           >
                             {{ label }}
@@ -418,12 +418,17 @@ export default {
     const { result, search, loading } = useFacet();
     const { categories, search: categoriesSearch } = useCategory('categoryList');
 
+    // @TODO: Fix when URL Factory is Working
     const { path } = context.root.$route;
     const { search: routeSearch } = useRouter(`router:${path}`);
+    const currentCategory = ref({});
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
-    const categoryTree = computed(() => categoryGetters.getCategoryTreeList(categories.value));
+    const categoryTree = computed(() => categoryGetters.getCategoryTree(
+      categories.value?.[0],
+      currentCategory.value.entity_uid,
+    ));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
@@ -431,27 +436,24 @@ export default {
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
-    /* const activeCategory = computed(() => {
+    const activeCategory = computed(() => {
       const { items } = categoryTree.value;
 
       if (!items) {
         return '';
       }
 
-      const category = items.find(({
-        isCurrent,
-        items,
-      }) => isCurrent || items.find(({ isCurrent }) => isCurrent));
+      const category = items.find((cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent));
 
-      return category?.label || items[0].label;
-    }); */
+      return category?.label || items[0]?.label;
+    });
 
     onSSR(async () => {
-      const categoryId = await routeSearch(path);
+      currentCategory.value = await routeSearch(path);
 
       await search({
         ...th.getFacetsFromURL(),
-        categoryId: categoryId.entity_uid,
+        categoryId: currentCategory.value.entity_uid,
       });
 
       await categoriesSearch({
@@ -504,25 +506,26 @@ export default {
 
     return {
       ...uiState,
-      th,
-      products,
-      categoryTree,
-      loading,
-      productGetters,
-      pagination,
-      activeCategory: '', // @TODO Back
-      sortBy,
-      facets,
-      breadcrumbs,
-      addItemToWishlist,
+      activeCategory,
       addItemToCart,
-      isInCart,
-      isFacetColor,
-      selectFilter,
-      isFilterSelected,
-      selectedFilters,
-      clearFilters,
+      addItemToWishlist,
       applyFilters,
+      breadcrumbs,
+      categoryTree,
+      categories,
+      clearFilters,
+      facets,
+      isFacetColor,
+      isFilterSelected,
+      isInCart,
+      loading,
+      pagination,
+      productGetters,
+      products,
+      selectedFilters,
+      selectFilter,
+      sortBy,
+      th,
     };
   },
 };

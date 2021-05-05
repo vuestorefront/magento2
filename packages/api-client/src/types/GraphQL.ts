@@ -6813,24 +6813,19 @@ export type CartQueryVariables = Exact<{
 
 export type CartQuery = { cart?: Maybe<CartDataFragment> };
 
-export type CategoryListQueryVariables = Exact<{
-  filters?: Maybe<CategoryFilterInput>;
-  pageSize?: Maybe<Scalars['Int']>;
-  currentPage?: Maybe<Scalars['Int']>;
-}>;
+export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoryListQuery = { categories?: Maybe<{ items?: Maybe<Array<Maybe<(
-      { children?: Maybe<Array<Maybe<(
+      Pick<CategoryTree, 'name' | 'uid'>
+      & { children?: Maybe<Array<Maybe<(
         { children?: Maybe<Array<Maybe<(
           CategoryDataFragment
           & CategoryUrlDataFragment
         )>>> }
         & CategoryDataFragment
         & CategoryUrlDataFragment
-      )>>>, breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path' | 'category_url_key' | 'category_uid'>>>> }
-      & CategoryDataFragment
-      & CategoryUrlDataFragment
+      )>>> }
     )>>> }> };
 
 export type ChangeCustomerPasswordMutationVariables = Exact<{

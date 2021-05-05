@@ -1,7 +1,7 @@
 import { getCurrentInstance } from '@vue/composition-api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Category } from '@vue-storefront/magento-api';
-import { AgnosticFacet } from '@vue-storefront/core';
+import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
 
 const nonFilters = ['page', 'sort', 'term', 'itemsPerPage'];
 
@@ -56,7 +56,9 @@ const useUiHelpers = () => {
     };
   };
 
-  const getCatLink = (category: Category): string => `/c/${category.url_path}`;
+  const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
+
+  const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
 
   const changeSorting = (sort: string) => {
     const { query } = instance.$router.history.current;
@@ -97,6 +99,7 @@ const useUiHelpers = () => {
   return {
     getFacetsFromURL,
     getCatLink,
+    getAgnosticCatLink,
     changeSorting,
     changeFilters,
     changeItemsPerPage,
