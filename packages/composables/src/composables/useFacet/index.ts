@@ -81,7 +81,15 @@ const factoryParams = {
       sort: constructSortObject(params.input.sort || ''),
     };
 
-    const productResponse = await context.$magento.api.products(productParams);
+    const productSearchParams: GetProductSearchParams = {
+      pageSize: productParams.perPage,
+      search: productParams.search,
+      filter: productParams.filter,
+      sort: productParams.sort,
+      currentPage: productParams.page,
+    };
+
+    const productResponse = await context.$magento.api.products(productSearchParams);
 
     const data = {
       items: productResponse?.data?.products?.items || [],

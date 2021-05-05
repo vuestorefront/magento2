@@ -1,11 +1,6 @@
 /* eslint-disable  */
 
 export default {
-  'Sort: Default': 'Default',
-  'Sort: Name A-Z': 'Name A-Z',
-  'Sort: Name Z-A': 'Name Z-A',
-  'Sort: Price from high to low': 'Price from high to low',
-  'Sort: Price from low to high': 'Price from low to high',
   'About us': 'About us',
   'Add new address': 'Add new address',
   'Add to compare': 'Add to compare',
@@ -77,6 +72,7 @@ export default {
   'or': 'or',
   'Order No.': 'Order No.',
   'Order summary': 'Order summary',
+  'Other products you might like': 'Other products you might like',
   'Pay for order': 'Pay for order',
   'Payment & Delivery': 'Payment & Delivery',
   'Payment method': 'Payment method',
@@ -117,6 +113,11 @@ export default {
   'Show on page': 'Show on page',
   'Size guide': 'Size guide',
   'Sort by': 'Sort by',
+  'Sort: Default': 'Default',
+  'Sort: Name A-Z': 'Name A-Z',
+  'Sort: Name Z-A': 'Name Z-A',
+  'Sort: Price from high to low': 'Price from high to low',
+  'Sort: Price from low to high': 'Price from low to high',
   'Start shopping': 'Start shopping',
   'Subtotal': 'Subtotal',
   'Successful placed order': 'You have successfully placed the order. You can check status of your order by using our delivery status feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.',

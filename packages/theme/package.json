@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -26,7 +26,7 @@
     "@vue-storefront/nuxt": "^2.3.0",
     "@vue-storefront/nuxt-theme": "^2.3.0",
     "cookie-universal-nuxt": "^2.1.4",
-    "core-js": "^3.11.1",
+    "core-js": "^3.11.2",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "nuxt": "^2.15.4",
@@ -41,7 +41,7 @@
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxtjs/pwa": "^3.3.5",
-    "@vue/test-utils": "^1.1.4",
+    "@vue/test-utils": "^1.2.0",
     "babel-core": "7.0.0-bridge.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
