@@ -25,4 +25,4 @@ jobs:
           branch: ${{ steps.extract_branch.outputs.branch }}
           develop_branch: 'develop'
           main_branch: 'master'
-          tag: v${{ steps.extract_tag.outputs.tag }}
+          tag: ${{ steps.extract_tag.outputs.tag }}
