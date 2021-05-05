@@ -1,7 +1,6 @@
 {
-  "branches": ["master", "develop"],
   "dryRun": false,
-    "ci": false,
+  "ci": false,
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
