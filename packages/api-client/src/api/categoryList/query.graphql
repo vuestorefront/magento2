@@ -12,6 +12,7 @@ query categoryList {
           ...CategoryUrlData
         }
       }
+      product_count
       name
       uid
     }

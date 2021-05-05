@@ -6817,7 +6817,7 @@ export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CategoryListQuery = { categories?: Maybe<{ items?: Maybe<Array<Maybe<(
-      Pick<CategoryTree, 'name' | 'uid'>
+      Pick<CategoryTree, 'product_count' | 'name' | 'uid'>
       & { children?: Maybe<Array<Maybe<(
         { children?: Maybe<Array<Maybe<(
           CategoryDataFragment
@@ -7545,7 +7545,7 @@ type CartProductData_VirtualCartItem_Fragment = (
 
 export type CartProductDataFragment = CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment;
 
-export type CategoryDataFragment = Pick<CategoryTree, 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'position' | 'uid'>;
+export type CategoryDataFragment = Pick<CategoryTree, 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'position' | 'product_count' | 'uid'>;
 
 export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_path' | 'url_suffix'>;
 
