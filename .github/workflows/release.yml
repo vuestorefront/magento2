@@ -22,8 +22,14 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Extract branch name
+        uses: mdecoleman/pr-branch-name@1.0.0
+        id: extract_branch
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+        run: npx semantic-release --branch ${{ steps.extract_branch.outputs.branch }}
