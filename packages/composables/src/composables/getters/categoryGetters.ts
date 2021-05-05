@@ -1,10 +1,14 @@
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
 import { Category } from '@vue-storefront/magento-api';
 
-const buildTree = (rootCategory: Category, currentCategory: string): AgnosticCategoryTree => ({
+const buildTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => ({
   label: rootCategory.name,
   slug: `/${rootCategory.url_path}${rootCategory.url_suffix || ''}`,
-  items: Array.isArray(rootCategory.children) && rootCategory.children.length ? rootCategory.children.map((c) => buildTree(c, currentCategory)) : [],
+  items: Array.isArray(rootCategory.children) && rootCategory.children.length ? rootCategory
+    .children
+    .filter((c) => (withProducts ? c.product_count > 0 : true))
+    .map((c) => buildTree(c, currentCategory)) : [],
+  count: rootCategory.product_count,
   isCurrent: rootCategory.uid === currentCategory,
 });
 
@@ -19,9 +23,10 @@ export const getTree = (category: Category): AgnosticCategoryTree | null => {
 export const getCategoryTree = (
   category: Category,
   currentCategory: string = '',
+  withProducts = false,
 ): AgnosticCategoryTree | null => (
   category
-    ? buildTree(category, currentCategory)
+    ? buildTree(category, currentCategory, withProducts)
     : null
 );
 
