@@ -24,8 +24,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@vue-storefront/magento-api": "^1.0.0-beta.1",
-    "@vue-storefront/core": "^2.3.0",
+    "@vue-storefront/magento-api": "^1.0.0-beta.2",
+    "@vue-storefront/core": "^2.3.1",
     "vue": "^2.6.x"
   },
   "devDependencies": {
