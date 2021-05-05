@@ -1,7 +1,8 @@
 import webpack from 'webpack';
 
 export default {
-  mode: 'universal',
+  ssr: true,
+  dev: process.env.NODE_ENV !== 'production',
   server: {
     port: 3000,
     host: '0.0.0.0',
@@ -55,6 +56,7 @@ export default {
     // to core
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
+    '@nuxtjs/pwa',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
@@ -178,13 +180,5 @@ export default {
         }),
       }),
     ],
-  },
-  router: {
-    scrollBehavior(_to, _from, savedPosition) {
-      return savedPosition || {
-        x: 0,
-        y: 0,
-      };
-    },
   },
 };
