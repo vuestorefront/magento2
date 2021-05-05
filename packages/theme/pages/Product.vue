@@ -170,7 +170,17 @@
     >
       <ProductsCarousel
         :products="relatedProducts"
-        title="Match it with"
+        :title="$t('Match it with')"
+      />
+    </LazyHydrate>
+
+    <LazyHydrate
+      v-if="upsellProducts.length"
+      when-visible
+    >
+      <ProductsCarousel
+        :products="upsellProducts"
+        :title="$t('Other products you might like')"
       />
     </LazyHydrate>
 
@@ -275,6 +285,7 @@ export default {
     const categories = computed(() => productGetters.getCategoryIds(product.value));
 
     const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
+    const upsellProducts = computed(() => productGetters.getProductUpsellProduct(product.value));
 
     const baseReviews = computed(() => [...productReviews.value].shift());
     const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
@@ -284,7 +295,7 @@ export default {
     const breadcrumbs = computed(() => {
       const productCategories = product.value.categories;
       return productGetters.getBreadcrumbs(product.value,
-        Array.isArray(productCategories) ? productCategories[0] : []);
+        Array.isArray(productCategories) ? [...productCategories].pop() : []);
     });
 
     const productGallery = computed(() => productGetters.getGallery(product.value)
@@ -338,6 +349,7 @@ export default {
       productShortDescription,
       qty,
       relatedProducts,
+      upsellProducts,
       reviewGetters,
       reviews,
       totalReviews,
