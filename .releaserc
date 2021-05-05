@@ -1,26 +1,9 @@
 {
-  "branches": ["master", "develop"],
   "dryRun": false,
-    "ci": false,
+  "ci": false,
   "plugins": [
     "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
     "@semantic-release/git",
-     "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-        [
-          "@saithodev/semantic-release-backmerge",
-          {
-            "branchName": "master",
-            "plugins": [
-              [
-                "@semantic-release/exec",
-                {
-                  "successCmd": "echo 'Version in master is ${nextRelease.version}' > test.txt && git add test.txt"
-                }
-              ]
-            ]
-          }
-        ]
+    "@semantic-release/release-notes-generator",
   ]
 }
