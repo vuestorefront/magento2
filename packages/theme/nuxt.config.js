@@ -164,6 +164,11 @@ export default {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
   },
   build: {
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-private-methods', { loose: true }],
+      ],
+    },
     extend(config, ctx) {
       // eslint-disable-next-line no-param-reassign
       config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
