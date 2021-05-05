@@ -1,6 +1,6 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
-'use strict'
+
 module.exports = {
   globals: {
     __DEV__: true,
@@ -26,18 +26,18 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-sixteen',
 
   transform: {
-    '^.+\\.(ts)$': 'ts-jest'
+    '^.+\\.(ts)$': 'ts-jest',
   },
 
   coverageDirectory: './coverage/',
 
   collectCoverageFrom: [
-    'src/**/*.ts'
+    'src/**/*.ts',
   ],
 
   setupFiles: [
     'jest-date-mock',
-    'jest-localstorage-mock'
+    'jest-localstorage-mock',
   ],
 
   transformIgnorePatterns: [
