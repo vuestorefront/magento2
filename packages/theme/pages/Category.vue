@@ -428,6 +428,7 @@ export default {
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
       currentCategory.value.entity_uid,
+      true,
     ));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
@@ -437,7 +438,7 @@ export default {
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
     const activeCategory = computed(() => {
-      const { items } = categoryTree.value;
+      const items = categoryTree.value?.items;
 
       if (!items) {
         return '';

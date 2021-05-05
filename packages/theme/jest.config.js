@@ -1,6 +1,4 @@
-// For a detailed explanation regarding each configuration property, visit:
-// https://jestjs.io/docs/en/configuration.html
-
+'use strict'
 module.exports = {
   globals: {
     __DEV__: true,
@@ -22,17 +20,25 @@ module.exports = {
   },
 
   coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
-
+  collectCoverage: true,
   testEnvironment: 'jest-environment-jsdom-sixteen',
-
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+    '^~/(.*)$': '<rootDir>/$1',
+    '^vue$': 'vue/dist/vue.common.js'
+  },
+  moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
+    '.*\\.(vue)$': 'vue-jest'
   },
 
   coverageDirectory: './coverage/',
 
   collectCoverageFrom: [
-    'src/**/*.ts',
+    '<rootDir>/components/**/*.vue',
+    '<rootDir>/pages/**/*.vue'
   ],
 
   setupFiles: [

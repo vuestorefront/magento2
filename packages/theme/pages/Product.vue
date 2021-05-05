@@ -92,6 +92,7 @@
           </div>
           <SfAddToCart
             v-model="qty"
+            v-e2e="'product_add-to-cart'"
             :disabled="loading"
             :can-add-to-cart="canAddToCart"
             class="product__add-to-cart"
