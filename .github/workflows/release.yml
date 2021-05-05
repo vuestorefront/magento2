@@ -23,10 +23,9 @@ jobs:
         run: yarn
 
       - name: Extract branch name
-        uses: mdecoleman/pr-branch-name@1.0.0
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
         env:
