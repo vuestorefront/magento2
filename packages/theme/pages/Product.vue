@@ -1,10 +1,14 @@
 <template>
   <div id="product">
     <SfBreadcrumbs
+      v-if="!productDataIsLoading"
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
-    <div class="product">
+    <div
+      v-if="!productDataIsLoading"
+      class="product"
+    >
       <LazyHydrate when-idle>
         <SfGallery
           :images="productGallery"
@@ -165,6 +169,13 @@
       </div>
     </div>
 
+    <div
+      v-else
+      class="product-loader"
+    >
+      <SfLoader />
+    </div>
+
     <LazyHydrate
       v-if="relatedProducts.length"
       when-visible
@@ -196,23 +207,24 @@
 </template>
 <script>
 import {
-  SfProperty,
-  SfHeading,
-  SfPrice,
-  SfRating,
-  SfSelect,
   SfAddToCart,
-  SfTabs,
-  SfGallery,
-  SfIcon,
-  SfImage,
-  SfBanner,
   SfAlert,
-  SfSticky,
-  SfReview,
+  SfBanner,
   SfBreadcrumbs,
   SfButton,
   SfColor,
+  SfGallery,
+  SfHeading,
+  SfIcon,
+  SfImage,
+  SfLoader,
+  SfPrice,
+  SfProperty,
+  SfRating,
+  SfReview,
+  SfSelect,
+  SfSticky,
+  SfTabs,
 } from '@storefront-ui/vue';
 import { ref, computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
@@ -227,6 +239,7 @@ import {
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
 export default {
   name: 'Product',
@@ -245,6 +258,7 @@ export default {
     SfHeading,
     SfIcon,
     SfImage,
+    SfLoader,
     SfPrice,
     SfProperty,
     SfRating,
@@ -256,10 +270,13 @@ export default {
   transition: 'fade',
   setup(props, context) {
     const qty = ref(1);
-    const { id } = context.root.$route.params;
-    const { products, search } = useProduct('products');
+    const { route } = useVueRouter();
+    const { id } = route.params;
+    const { products, search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
-    const { reviews: productReviews, search: searchReviews } = useReview('productReviews');
+    const { reviews: productReviews, search: searchReviews, loading: reviewsLoading } = useReview(`productReviews-${id}`);
+
+    const productDataIsLoading = computed(() => reviewsLoading.value || productLoading.value);
 
     const product = computed(() => {
       const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
@@ -347,14 +364,15 @@ export default {
       productDescription,
       productGallery,
       productGetters,
+      productDataIsLoading,
       productShortDescription,
       qty,
       relatedProducts,
-      upsellProducts,
       reviewGetters,
       reviews,
       totalReviews,
       updateFilter,
+      upsellProducts,
     };
   },
 };
@@ -367,6 +385,10 @@ export default {
     max-width: 1272px;
     margin: 0 auto;
   }
+}
+
+.product-loader {
+  height: 38px; margin: var(--spacer-base) auto var(--spacer-lg)
 }
 
 .product {
