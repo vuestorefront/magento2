@@ -387,6 +387,7 @@ import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import Vue from 'vue';
 import { useUiHelpers, useUiState } from '~/composables';
+import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default {
@@ -411,15 +412,16 @@ export default {
   },
   transition: 'fade',
   setup(props, context) {
+    const { router, route } = useVueRouter();
     const th = useUiHelpers();
     const uiState = useUiState();
-    const { addItem: addItemToCart, isInCart } = useCart();
+    const { addItem: addItemToCartBase, isInCart } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
     const { result, search, loading } = useFacet();
     const { categories, search: categoriesSearch } = useCategory('categoryList');
 
     // @TODO: Fix when URL Factory is Working
-    const { path } = context.root.$route;
+    const { path } = route;
     const { search: routeSearch } = useRouter(`router:${path}`);
     const currentCategory = ref({});
 
@@ -503,6 +505,22 @@ export default {
     const applyFilters = () => {
       toggleFilterSidebar();
       changeFilters(selectedFilters.value);
+    };
+
+    const addItemToCart = async ({ product, quantity }) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const productType = product.__typename;
+
+      switch (productType) {
+        case 'SimpleProduct':
+          await addItemToCartBase({ product, quantity });
+          break;
+        case 'ConfigurableProduct':
+          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
+          break;
+        default:
+          throw new Error(`Product Type ${productType} not supported in add to cart yet`);
+      }
     };
 
     return {
