@@ -11,6 +11,7 @@ import {
 } from '@vue-storefront/magento-api';
 
 import categoryGetters from './categoryGetters';
+import { htmlDecode } from '../../helpers/htmlDecoder';
 
 type ProductVariantFilters = any;
 
@@ -19,7 +20,7 @@ export const getProductName = (product: Product): string => {
     return '';
   }
 
-  return product.name;
+  return htmlDecode(product.name);
 };
 
 export const getProductSlug = (product: Product, category?: Category): string => {

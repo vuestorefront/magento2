@@ -54,6 +54,7 @@
         :title="$t('Attention!')"
         cross
         persistent
+        @close="requirePassword = false"
       >
         {{ $t('Please type your current password to change your email address.') }}
         <SfInput
@@ -63,6 +64,7 @@
           label="Current Password"
           required
           class="form__element"
+          style="margin-top: 10px"
           @keypress.enter="handleSubmit(submitForm(reset))"
         />
         <SfButton

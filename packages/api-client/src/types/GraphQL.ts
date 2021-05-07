@@ -6868,11 +6868,11 @@ export type ConfigurableProductDetailQuery = { products?: Maybe<{ items?: Maybe<
     ) | Pick<DownloadableProduct, 'uid'> | Pick<GroupedProduct, 'uid'> | Pick<SimpleProduct, 'uid'> | Pick<VirtualProduct, 'uid'>>>> }> };
 
 export type CreateCustomerMutationVariables = Exact<{
-  input: CustomerInput;
+  input: CustomerCreateInput;
 }>;
 
 
-export type CreateCustomerMutation = { createCustomer?: Maybe<{ customer: CustomerDataFragment }> };
+export type CreateCustomerMutation = { createCustomerV2?: Maybe<{ customer: CustomerDataFragment }> };
 
 export type CreateCustomerAddressMutationVariables = Exact<{
   input: CustomerAddressInput;
@@ -7114,22 +7114,274 @@ export type RelatedProductQueryVariables = Exact<{
 
 export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
       Pick<BundleProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<ConfigurableProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<DownloadableProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<GroupedProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<SimpleProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<VirtualProduct, 'uid'>
-      & { related_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { related_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     )>>> }> };
 
 export type RemoveCouponFromCartMutationVariables = Exact<{
@@ -7236,22 +7488,274 @@ export type UpsellProductsQueryVariables = Exact<{
 
 export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<(
       Pick<BundleProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<ConfigurableProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<DownloadableProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<GroupedProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<SimpleProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     ) | (
       Pick<VirtualProduct, 'uid'>
-      & { upsell_products?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>> }
+      & { upsell_products?: Maybe<Array<Maybe<(
+        { __typename: 'BundleProduct' }
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_BundleProduct_Fragment
+        & ProductPriceRangeData_BundleProduct_Fragment
+        & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
+      ) | (
+        { __typename: 'ConfigurableProduct' }
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_ConfigurableProduct_Fragment
+        & ProductPriceRangeData_ConfigurableProduct_Fragment
+        & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
+      ) | (
+        { __typename: 'DownloadableProduct' }
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_DownloadableProduct_Fragment
+        & ProductPriceRangeData_DownloadableProduct_Fragment
+        & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
+      ) | (
+        { __typename: 'GroupedProduct' }
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_GroupedProduct_Fragment
+        & ProductPriceRangeData_GroupedProduct_Fragment
+        & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
+      ) | (
+        { __typename: 'SimpleProduct' }
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_SimpleProduct_Fragment
+        & ProductPriceRangeData_SimpleProduct_Fragment
+        & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
+      ) | (
+        { __typename: 'VirtualProduct' }
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+        & ProductThumbnailData_VirtualProduct_Fragment
+        & ProductPriceRangeData_VirtualProduct_Fragment
+        & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
+      )>>> }
     )>>> }> };
 
 export type UrlResloverQueryVariables = Exact<{
