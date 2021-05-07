@@ -1,0 +1,18 @@
+#import "../../fragments/categoryDataFragment.graphql"
+#import "../../fragments/categoryUrlData.graphql"
+
+query categorySearch($filters: CategoryFilterInput) {
+  categoryList(filters: $filters) {
+    children {
+      ...CategoryData
+      ...CategoryUrlData
+      children {
+        ...CategoryData
+        ...CategoryUrlData
+      }
+    }
+    product_count
+    name
+    uid
+  }
+}
