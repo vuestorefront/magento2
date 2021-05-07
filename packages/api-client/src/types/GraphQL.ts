@@ -6834,15 +6834,8 @@ export type CategorySearchQueryVariables = Exact<{
 
 
 export type CategorySearchQuery = { categoryList?: Maybe<Array<Maybe<(
-    Pick<CategoryTree, 'product_count' | 'name' | 'uid'>
-    & { children?: Maybe<Array<Maybe<(
-      { children?: Maybe<Array<Maybe<(
-        CategoryDataFragment
-        & CategoryUrlDataFragment
-      )>>> }
-      & CategoryDataFragment
-      & CategoryUrlDataFragment
-    )>>> }
+    CategoryDataFragment
+    & CategoryUrlDataFragment
   )>>> };
 
 export type ChangeCustomerPasswordMutationVariables = Exact<{
