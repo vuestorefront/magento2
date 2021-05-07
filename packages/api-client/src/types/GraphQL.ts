@@ -6828,6 +6828,16 @@ export type CategoryListQuery = { categories?: Maybe<{ items?: Maybe<Array<Maybe
       )>>> }
     )>>> }> };
 
+export type CategorySearchQueryVariables = Exact<{
+  filters?: Maybe<CategoryFilterInput>;
+}>;
+
+
+export type CategorySearchQuery = { categoryList?: Maybe<Array<Maybe<(
+    CategoryDataFragment
+    & CategoryUrlDataFragment
+  )>>> };
+
 export type ChangeCustomerPasswordMutationVariables = Exact<{
   currentPassword: Scalars['String'];
   newPassword: Scalars['String'];

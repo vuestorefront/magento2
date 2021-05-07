@@ -3,6 +3,7 @@ export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
 export { default as cart } from './cart';
 export { default as categoryList } from './categoryList';
+export { default as categorySearch } from './categorySearch';
 export { default as changeCustomerPassword } from './changeCustomerPassword';
 export { default as cmsPage } from './cmsPage';
 export { default as configurableProductDetail } from './configurableProductDetail';

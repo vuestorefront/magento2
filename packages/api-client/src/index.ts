@@ -517,4 +517,6 @@ export {
   RelatedProductQueryVariables,
   UpsellProductsQuery,
   UpsellProductsQueryVariables,
+  CategorySearchQuery,
+  CategorySearchQueryVariables,
 } from './types/GraphQL';

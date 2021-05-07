@@ -64,12 +64,10 @@ const factoryParams = {
   search: async (context: Context, params: FacetSearchResult<any>) => {
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
-
+    const categoryId = (params.input.categoryId) ? { category_uid: { eq: params.input.categoryId } } : {};
     const productParams: ProductsSearchParams = {
       filter: {
-        category_uid: {
-          eq: params.input.categoryId,
-        },
+        ...categoryId,
         ...constructFilterObject({
           ...inputFilters,
         }),

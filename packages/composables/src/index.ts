@@ -6,6 +6,7 @@ track('VSFMagento');
 export { default as useBilling } from './composables/useBilling';
 export { default as useCart } from './composables/useCart';
 export { default as useCategory } from './composables/useCategory';
+export { default as useCategorySearch } from './composables/useCategorySearch';
 export { default as useCheckout } from './composables/useCheckout';
 export { default as useConfig } from './composables/useConfig';
 export { default as useFacet } from './composables/useFacet';
