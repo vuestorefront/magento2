@@ -2,11 +2,12 @@ import { createHttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-fetch';
 import ApolloClient from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { Logger } from '@vue-storefront/core';
 import { Config } from './types/setup';
+import introspectionQueryResultData from './types/fragmentTypes.json';
 
 const createErrorHandler = () => onError(({
   graphQLErrors,
@@ -68,7 +69,11 @@ const createMagentoConnection = (settings: Config): ApolloClient<any> => {
 
   const link: ApolloLink = ApolloLink.from([authLink, onErrorLink, httpLink]);
 
-  const cache = new InMemoryCache();
+  const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData,
+  });
+
+  const cache = new InMemoryCache({ fragmentMatcher });
 
   return new ApolloClient({
     cache,
