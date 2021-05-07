@@ -1,6 +1,8 @@
 /* eslint-disable  */
 
 export default {
+  'Attention!': 'Attention!',
+  'Please type your current password to change your email address.': 'Please type your current password to change your email address.',
   'About us': 'About us',
   'Add new address': 'Add new address',
   'Add to compare': 'Add to compare',

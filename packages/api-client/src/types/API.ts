@@ -110,6 +110,11 @@ export type GetProductSearchParams = {
   sort?: ProductAttributeSortInput;
 };
 
+export enum MagentoCustomerGender {
+  Male = 1,
+  Female = 2,
+}
+
 export interface MagentoApiMethods {
   addConfigurableProductsToCart(input: AddConfigurableProductsToCartInput): Promise<FetchResult<AddConfigurableProductsToCartMutation>>;
 
