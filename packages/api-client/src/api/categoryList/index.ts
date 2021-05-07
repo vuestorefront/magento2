@@ -10,4 +10,5 @@ export default async (
   .query<CategoryListQuery, CategoryListQueryVariables>({
   query,
   variables: { ...params },
+  fetchPolicy: 'cache-first',
 });
