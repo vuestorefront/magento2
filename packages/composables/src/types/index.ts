@@ -47,7 +47,7 @@ export interface UseRouterErrors {
 }
 
 export interface UseCategorySearch<CATEGORY> {
-  search: (params: { term: string }) => Promise<void>;
+  search: (params: { term: string }) => Promise<CATEGORY[]>;
   result: ComputedProperty<CATEGORY[]>;
   error: ComputedProperty<UseCategorySearchErrors>;
   loading: ComputedProperty<boolean>;

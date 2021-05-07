@@ -1,4 +1,3 @@
-// import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -12,42 +11,48 @@ export interface UseCategorySearchFactory<CATEGORY> extends FactoryParams {
   search: (context: Context, params: { term: string }) => Promise<CATEGORY[]>;
 }
 
-export const useCategorySearchFactory = <ROUTER>(
-  factoryParams: UseCategorySearchFactory<ROUTER>,
-) => function useCategorySearch(id?: string): UseCategorySearch<ROUTER> {
-  const ssrKey = id || 'useCategorySearch';
-  // @ts-ignore
-  const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
-  const loading = sharedRef(false, `${ssrKey}-loading`);
-  const error = sharedRef({
-    search: null,
-  }, `${ssrKey}-error`);
+export function useCategorySearchFactory<CATEGORY>(
+  factoryParams: UseCategorySearchFactory<CATEGORY>,
+) {
+  return function useCategorySearch(id: string): UseCategorySearch<CATEGORY> {
+    const ssrKey = id || 'useCategorySearch';
+    // @ts-ignore
+    const result = sharedRef<CATEGORY>([], `${ssrKey}-result`);
+    const loading = sharedRef(false, `${ssrKey}-loading`);
+    const error = sharedRef({
+      search: null,
+    }, `${ssrKey}-error`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
-  const _factoryParams = configureFactoryParams(factoryParams);
+    const _factoryParams = configureFactoryParams(factoryParams);
 
-  const search = async (params: { term: string }) => {
-    Logger.debug(`useCategorySearch/${ssrKey}/search`);
-    loading.value = true;
+    const search = async (params: { term: string }): Promise<CATEGORY[]> => {
+      Logger.debug(`useCategorySearch/${ssrKey}/search`);
 
-    try {
-      const data = await _factoryParams.search(params);
+      try {
+        loading.value = true;
 
-      result.value = data;
+        const data = await _factoryParams.search(params);
 
-      return data;
-    } catch (err) {
-      error.value.search = err;
+        result.value = data;
 
-      Logger.error(`useCategorySearch/${ssrKey}/search`, err);
-    } finally {
-      loading.value = false;
-    }
+        error.value.search = null;
+
+        return data;
+      } catch (err) {
+        error.value.search = err;
+        Logger.error(`useCategorySearch/${ssrKey}/search`, err);
+      } finally {
+        loading.value = false;
+      }
+    };
+
+    return {
+      search,
+      // @ts-ignore
+      result,
+      loading,
+      // @ts-ignore
+      error,
+    };
   };
-
-  return {
-    search,
-    result: result.value, // @TODO: Check CAPI
-    loading: loading.value, // @TODO: Check CAPI
-    error: error.value, // @TODO: Check CAPI
-  };
-};
+}
