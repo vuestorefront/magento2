@@ -16,7 +16,7 @@ import {
   CartItemInterface,
   CartQuery,
   CategoryFilterInput,
-  CategoryListQuery, CategoryListQueryVariables,
+  CategoryListQuery, CategoryListQueryVariables, CategorySearchQuery, CategorySearchQueryVariables,
   CategoryTree,
   CmsPage,
   CmsPageQuery,
@@ -110,6 +110,11 @@ export type GetProductSearchParams = {
   sort?: ProductAttributeSortInput;
 };
 
+export enum MagentoCustomerGender {
+  Male = 1,
+  Female = 2,
+}
+
 export interface MagentoApiMethods {
   addConfigurableProductsToCart(input: AddConfigurableProductsToCartInput): Promise<FetchResult<AddConfigurableProductsToCartMutation>>;
 
@@ -120,6 +125,8 @@ export interface MagentoApiMethods {
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
 
   categoryList(categoryFilter?: CategoryListQueryVariables): Promise<ApolloQueryResult<CategoryListQuery>>;
+
+  categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;
 
   changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
 

@@ -1,4 +1,4 @@
-import { computed } from '@vue/composition-api';
+// import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -15,13 +15,13 @@ export interface UseRouterFactoryParams<ROUTER> extends FactoryParams {
 export const useRouterFactory = <ROUTER>(
   factoryParams: UseRouterFactoryParams<ROUTER>,
 ) => function useRouter(id?: string): UseRouter<ROUTER> {
-  const ssrKey = id || 'useFacet';
+  const ssrKey = id || 'useRouter';
   // @ts-ignore
-  const result = sharedRef<ROUTER>({}, `useRouter-routers-${ssrKey}`);
+  const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);
   const error = sharedRef({
     search: null,
-  }, `useRouter-error-${id}`);
+  }, `${ssrKey}-error`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
 

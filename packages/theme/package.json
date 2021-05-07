@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -24,12 +24,12 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@storefront-ui/vue": "^0.10.5",
     "@vue-storefront/core": "^2.3.1",
-    "@vue-storefront/magento": "^1.0.0-beta.2",
+    "@vue-storefront/magento": "^1.0.0-beta.4",
     "@vue-storefront/middleware": "^2.3.1",
     "@vue-storefront/nuxt": "^2.3.1",
     "@vue-storefront/nuxt-theme": "^2.3.1",
     "cookie-universal-nuxt": "^2.1.4",
-    "core-js": "^3.11.3",
+    "core-js": "^3.12.0",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "nuxt": "^2.15.4",

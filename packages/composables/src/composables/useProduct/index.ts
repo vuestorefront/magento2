@@ -18,9 +18,15 @@ const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], Prod
     const { queryType, ...searchParams } = params;
     switch (queryType) {
       case ProductsQueryType.Detail:
-        const productDetailsResults = await context.$magento.api.productDetail(searchParams as GetProductSearchParams);
-        const upsellProduct = await context.$magento.api.upsellProduct(searchParams as GetProductSearchParams);
-        const relatedProduct = await context.$magento.api.relatedProduct(searchParams as GetProductSearchParams);
+        const [
+          productDetailsResults,
+          upsellProduct,
+          relatedProduct,
+        ] = await Promise.all([
+          context.$magento.api.productDetail(searchParams as GetProductSearchParams),
+          context.$magento.api.upsellProduct(searchParams as GetProductSearchParams),
+          context.$magento.api.relatedProduct(searchParams as GetProductSearchParams),
+        ]);
 
         productDetailsResults.data.products.items[0] = {
           ...productDetailsResults.data.products.items[0],

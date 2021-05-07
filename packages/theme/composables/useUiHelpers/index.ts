@@ -2,13 +2,9 @@ import { getCurrentInstance } from '@vue/composition-api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
+import { getInstance } from '~/helpers/hooks/getInstance';
 
 const nonFilters = ['page', 'sort', 'term', 'itemsPerPage'];
-
-const getInstance = () => {
-  const vm = getCurrentInstance();
-  return vm.$root as any;
-};
 
 const reduceFilters = (query) => (prev, curr) => {
   const makeArray = Array.isArray(query[curr]) || nonFilters.includes(curr);
