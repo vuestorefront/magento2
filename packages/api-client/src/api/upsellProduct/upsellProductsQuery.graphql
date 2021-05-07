@@ -1,8 +1,3 @@
-#import "../../fragments/productThumbnailFragment.graphql"
-#import "../../fragments/productPriceRangeFragment.graphql"
-#import "../../fragments/productUrlFragment.graphql"
-#import "../../fragments/productCategoriesFragment.graphql"
-
 query upsellProducts(
   $search: String = ""
   $filter: ProductAttributeFilterInput
@@ -16,7 +11,7 @@ query upsellProducts(
     sort: $sort
     pageSize: $pageSize
     currentPage: $currentPage
-  ) {
+  ){
     items {
       upsell_products {
         uid
@@ -28,10 +23,38 @@ query upsellProducts(
         only_x_left_in_stock
         rating_summary
         sale
-        ...ProductThumbnailData
-        ...ProductPriceRangeData
-        ...ProductUrlFragmentData
-        ...ProductCategoriesData
+        thumbnail {
+          url
+          position
+          disabled
+          label
+        }
+        price_range {
+          minimum_price {
+            final_price {
+              currency
+              value
+            }
+            regular_price {
+              currency
+              value
+            }
+          }
+        }
+        url_key
+        url_rewrites {
+          url
+        }
+        categories {
+          uid
+          name
+          url_suffix
+          url_path
+          breadcrumbs {
+            category_name
+            category_url_path
+          }
+        }
       }
       uid
     }
