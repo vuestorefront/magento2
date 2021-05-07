@@ -6,7 +6,9 @@ import {
   CustomQuery,
 } from '@vue-storefront/core';
 import { Ref, ComputedRef } from '@vue/composition-api';
-import { Category, Customer, Product } from '@vue-storefront/magento-api';
+import {
+  Category, Customer, MagentoCustomerGender, Product,
+} from '@vue-storefront/magento-api';
 
 export type User = Customer;
 
@@ -14,6 +16,11 @@ export type UpdateUserParams = {
   firstName: string;
   lastName: string;
   email: string;
+  dateOfBirth?: string;
+  gender?: MagentoCustomerGender,
+  taxvat?: string;
+  prefix?: string
+  suffix?: string
 };
 
 export type RegisterUserParams = {
