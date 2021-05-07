@@ -91,8 +91,8 @@
       <div class="sidebar desktop-only">
         <LazyHydrate when-idle>
           <SfLoader
-            :class="{ 'loading--categories': loading }"
-            :loading="loading"
+            :class="{ 'loading--categories': categoriesLoading }"
+            :loading="categoriesLoading"
           >
             <SfAccordion
               :open="activeCategory"
@@ -413,15 +413,15 @@ export default {
   transition: 'fade',
   setup(props, context) {
     const { router, route } = useVueRouter();
+    const { path } = route;
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
-    const { result, search, loading } = useFacet();
-    const { categories, search: categoriesSearch } = useCategory('categoryList');
+    const { result, search, loading } = useFacet(`facetId:${path}`);
+    const { categories, search: categoriesSearch, loading: categoriesLoading } = useCategory(`categoryList:${path}`);
 
     // @TODO: Fix when URL Factory is Working
-    const { path } = route;
     const { search: routeSearch } = useRouter(`router:${path}`);
     const currentCategory = ref({});
 
@@ -454,14 +454,15 @@ export default {
     onSSR(async () => {
       currentCategory.value = await routeSearch(path);
 
-      await search({
-        ...th.getFacetsFromURL(),
-        categoryId: currentCategory.value.entity_uid,
-      });
-
-      await categoriesSearch({
-        pageSize: 100,
-      });
+      await Promise.all([
+        search({
+          ...th.getFacetsFromURL(),
+          categoryId: currentCategory.value.entity_uid,
+        }),
+        categoriesSearch({
+          pageSize: 100,
+        }),
+      ]);
     });
 
     const { changeFilters, isFacetColor } = useUiHelpers();
@@ -532,6 +533,7 @@ export default {
       breadcrumbs,
       categoryTree,
       categories,
+      categoriesLoading,
       clearFilters,
       facets,
       isFacetColor,
