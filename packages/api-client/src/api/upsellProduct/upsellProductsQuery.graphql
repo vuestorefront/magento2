@@ -1,10 +1,37 @@
-#import "../../fragments/productFragment.graphql"
+#import "../../fragments/productThumbnailFragment.graphql"
+#import "../../fragments/productPriceRangeFragment.graphql"
+#import "../../fragments/productUrlFragment.graphql"
+#import "../../fragments/productCategoriesFragment.graphql"
 
-query upsellProducts($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
-  products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
+query upsellProducts(
+  $search: String = ""
+  $filter: ProductAttributeFilterInput
+  $pageSize: Int = 20
+  $currentPage: Int = 1
+  $sort: ProductAttributeSortInput
+) {
+  products(
+    search: $search
+    filter: $filter
+    sort: $sort
+    pageSize: $pageSize
+    currentPage: $currentPage
+  ) {
     items {
       upsell_products {
-        ...ProductData
+        uid
+        __typename
+        sku
+        name
+        new
+        stock_status
+        only_x_left_in_stock
+        rating_summary
+        sale
+        ...ProductThumbnailData
+        ...ProductPriceRangeData
+        ...ProductUrlFragmentData
+        ...ProductCategoriesData
       }
       uid
     }
