@@ -9,11 +9,9 @@ fragment ProductData on ProductInterface {
   __typename
   sku
   name
-  new
   stock_status
   only_x_left_in_stock
   rating_summary
-  sale
   ...ProductThumbnailData
   ...ProductPriceRangeData
   ...ProductUrlFragmentData
