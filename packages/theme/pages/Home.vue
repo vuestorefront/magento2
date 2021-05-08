@@ -120,9 +120,6 @@ export default {
       await newProductsSearch({
         pageSize: 10,
         currentPage: 1,
-        new: {
-          eq: '1',
-        },
         sort: {
           position: 'ASC',
         },
