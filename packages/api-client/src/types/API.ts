@@ -26,7 +26,7 @@ import {
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
-  CustomerCartQuery,
+  CustomerCartQuery, CustomerCreateInput,
   CustomerDataFragment as CustomerFragment,
   CustomerInput,
   CustomerOrder as CustomerOrderInterface,
@@ -132,7 +132,7 @@ export interface MagentoApiMethods {
 
   cmsPage(indentifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
 
-  createCustomer(input: CustomerInput): Promise<CustomerFragment>;
+  createCustomer(input: CustomerCreateInput): Promise<CustomerFragment>;
 
   createCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
@@ -160,7 +160,9 @@ export interface MagentoApiMethods {
 
   productDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery>>;
 
-  configurableProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ConfigurableProductDetailQuery>>;
+  configurableProductDetail(
+    searchParams: GetProductSearchParams,
+    customQuery?: CustomQuery): Promise<ApolloQueryResult<ConfigurableProductDetailQuery>>;
 
   relatedProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<RelatedProductQuery>>;
 
