@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import middleware from './middleware.config';
 
 export default {
   ssr: true,
@@ -185,5 +186,14 @@ export default {
         }),
       }),
     ],
+  },
+  router: {
+    extendRoutes(routes, resolve) {
+      routes.push({
+        name: 'external-thank-you',
+        path: '/external-thank-you',
+        component: resolve(__dirname, 'pages/checkout/ExternalCheckoutThankYou.vue'),
+      });
+    },
   },
 };
