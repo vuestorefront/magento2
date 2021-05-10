@@ -1,0 +1,46 @@
+name: Publish Packages on NPM
+on:
+  pull_request:
+    types: [ labeled ]
+jobs:
+  prepare_dependencies:
+    if: contains(github.event.pull_request.labels.*.name, 'release')
+    name: Prepare dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract branch name
+        uses: mdecoleman/pr-branch-name@1.0.0
+        id: extract_branch
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+
+      - name: Get cached dependencies
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+  publishing:
+    name: Package Publishing
+    if: contains(github.event.pull_request.labels.*.name, 'release')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build - API-Client
+        run: yarn build:api-client
+
+      - name: Build - Composeables
+        run: yarn build:composables
+
+      - name: Publish Packages
+        run: yarn publish:packages "${{ github.event.pull_request.labels.*.name }}" "${{ secrets.NPM_TOKEN }}"
