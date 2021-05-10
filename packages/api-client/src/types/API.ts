@@ -28,11 +28,10 @@ import {
   CustomerAvailablePaymentMethodsQuery,
   CustomerCartQuery, CustomerCreateInput,
   CustomerDataFragment as CustomerFragment,
-  CustomerInput,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
-  CustomerQuery,
+  CustomerQuery, CustomerUpdateInput,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GetMenuCategoryQuery,
@@ -85,7 +84,7 @@ export type Coupon = AppliedCoupon;
 export type Customer = CustomerFragment;
 export type CustomerAddress = CustomerAddressInterface;
 export type CustomerOrder = CustomerOrderInterface;
-export type CustomerUpdateParameters = CustomerInput;
+export type CustomerUpdateParameters = CustomerCreateInput;
 export type Order = OrderInterface;
 export type Page = CmsPage;
 export type ProductAttributeFilter = ProductAttributeFilterInput;
@@ -194,7 +193,7 @@ export interface MagentoApiMethods {
 
   updateCartItems(input: UpdateCartItemsInput): Promise<FetchResult<UpdateCartItemsMutation>>;
 
-  updateCustomer(input: CustomerInput): Promise<CustomerFragment>;
+  updateCustomer(input: CustomerUpdateInput): Promise<CustomerFragment>;
 
   updateCustomerAddress(input: {
     addressId: number;
