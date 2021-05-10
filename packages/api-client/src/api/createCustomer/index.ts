@@ -1,15 +1,15 @@
 import {
   CreateCustomerMutation,
   CreateCustomerMutationVariables,
+  CustomerCreateInput,
   CustomerDataFragment as Customer,
-  CustomerInput,
 } from '../../types/GraphQL';
 import mutation from './mutation.graphql';
 import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  input: CustomerInput,
+  input: CustomerCreateInput,
 ): Promise<Customer> => {
   const response = await context
     .client
@@ -21,5 +21,5 @@ export default async (
 
   const { data } = response;
 
-  return data?.createCustomer?.customer;
+  return data?.createCustomerV2?.customer;
 };
