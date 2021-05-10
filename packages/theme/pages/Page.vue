@@ -16,7 +16,7 @@ import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { usePage } from '@vue-storefront/magento';
+import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 
 export default {
@@ -30,7 +30,7 @@ export default {
     },
   },
   setup(props) {
-    const { page, loadPage, loading } = usePage('cmsPage');
+    const { page, loadPage, loading } = useContent('cmsPage');
     onSSR(async () => {
       await loadPage(props.identifier);
     });

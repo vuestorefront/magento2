@@ -381,7 +381,7 @@ import {
   useCategory,
   categoryGetters,
   facetGetters,
-  useRouter,
+  useUrlResolver,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -422,7 +422,7 @@ export default {
     const { categories, search: categoriesSearch, loading: categoriesLoading } = useCategory(`categoryList:${path}`);
 
     // @TODO: Fix when URL Factory is Working
-    const { search: routeSearch } = useRouter(`router:${path}`);
+    const { search: routeSearch } = useUrlResolver(`router:${path}`);
     const currentCategory = ref({});
 
     const products = computed(() => facetGetters.getProducts(result.value));
