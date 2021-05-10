@@ -7460,11 +7460,11 @@ export type UpdateCartItemsMutationVariables = Exact<{
 export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CartDataFragment }> };
 
 export type UpdateCustomerMutationVariables = Exact<{
-  input: CustomerInput;
+  input: CustomerUpdateInput;
 }>;
 
 
-export type UpdateCustomerMutation = { updateCustomer?: Maybe<{ customer: CustomerDataFragment }> };
+export type UpdateCustomerMutation = { updateCustomerV2?: Maybe<{ customer: CustomerDataFragment }> };
 
 export type UpdateCustomerAddressMutationVariables = Exact<{
   id: Scalars['Int'];
