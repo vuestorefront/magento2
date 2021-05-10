@@ -3,13 +3,13 @@ on:
   pull_request:
     types: [ labeled ]
 jobs:
-  prepare_dependencies:
+  publishing:
+    name: Package Publishing
     if: contains(github.event.pull_request.labels.*.name, 'release')
-    name: Prepare dependencies
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
       - name: Extract branch name
         uses: mdecoleman/pr-branch-name@1.0.0
@@ -31,11 +31,6 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-  publishing:
-    name: Package Publishing
-    if: contains(github.event.pull_request.labels.*.name, 'release')
-    runs-on: ubuntu-latest
-    steps:
       - name: Build - API-Client
         run: yarn build:api-client
 
@@ -44,3 +39,29 @@ jobs:
 
       - name: Publish Packages
         run: yarn publish:packages "${{ github.event.pull_request.labels.*.name }}" "${{ secrets.NPM_TOKEN }}"
+
+  automerge:
+    if: contains(github.event.pull_request.labels.*.name, 'release')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Extract branch name
+        uses: mdecoleman/pr-branch-name@1.0.0
+        id: extract_branch
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract tag name
+        shell: bash
+        run: |
+          branch=${{ steps.extract_branch.outputs.branch }}
+          echo "##[set-output name=tag;]$(echo ${branch#release/})"
+        id: extract_tag
+
+      - uses: yanamura/git-flow-merge-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.extract_branch.outputs.branch }}
+          develop_branch: 'develop'
+          main_branch: 'master'
+          tag: ${{ steps.extract_tag.outputs.tag }}
