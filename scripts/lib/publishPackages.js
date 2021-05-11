@@ -31,8 +31,12 @@ const publishPackages = async (labels, token) => {
       ...basePublishOptions,
     });
 
-    console.log(JSON.stringify(apiReturn, null, 2));
-    console.log(JSON.stringify(composerReturn, null, 2));
+    console.log(apiReturn, composerReturn);
+
+    return {
+      apiReturn,
+      composerReturn,
+    }
   }
 }
 
