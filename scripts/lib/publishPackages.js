@@ -3,42 +3,45 @@ const path = require('path');
 const labelsToRemove = ['release'];
 const npmLabelBase = 'NPM:';
 
-const publishPackages = async (labels, token) => {
-  const npmTagBase = [...labels]
-  .filter((l) => !labelsToRemove.includes(l))
-  .find((l) => l.startsWith(npmLabelBase));
+const publishPackages = (labels, token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const npmTagBase = [...labels]
+      .filter((l) => !labelsToRemove.includes(l))
+      .find((l) => l.startsWith(npmLabelBase));
 
-  if(npmTagBase){
-    const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
+      if (npmTagBase) {
+        const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
 
-    const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
+        const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
 
-    const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
+        const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
 
-    const basePublishOptions = {
-      token: token,
-      tag: npmTag,
-      access: 'public',
-      checkVersion: true,
-    };
-
-    const apiReturn = await npmPublish({
-      package: path.resolve(baseApiClientPath, './package.json'),
-      ...basePublishOptions,
-    });
-
-    const composerReturn = await npmPublish({
-      package: path.resolve(baseComposablesPath, './package.json'),
-      ...basePublishOptions,
-    });
-
-    console.log(apiReturn, composerReturn);
-
-    return {
-      apiReturn,
-      composerReturn,
+        const basePublishOptions = {
+          token: token,
+          tag: npmTag,
+          access: 'public',
+          checkVersion: true,
+        };
+        npmPublish({
+          package: path.resolve(baseApiClientPath, './package.json'),
+          ...basePublishOptions,
+        }).then((apiReturn) => {
+          npmPublish({
+            package: path.resolve(baseComposablesPath, './package.json'),
+            ...basePublishOptions,
+          }).then((composerReturn) => {
+            resolve({
+              apiReturn,
+              composerReturn,
+            })
+          });
+        })
+      }
+    } catch(e){
+      reject(e);
     }
-  }
+  });
 }
 
 module.exports = {
