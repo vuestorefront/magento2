@@ -1,6 +1,10 @@
 /* eslint-disable  */
 
 export default {
+  'My Cart': 'My Cart',
+  'Total items': 'Total items',
+  'Total price': 'Total price',
+  'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.': 'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.',
   'Attention!': 'Attention!',
   'Please type your current password to change your email address.': 'Please type your current password to change your email address.',
   'About us': 'About us',
