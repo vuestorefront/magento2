@@ -206,13 +206,4 @@ export default {
       }),
     ],
   },
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'external-thank-you',
-        path: '/external-thank-you',
-        component: resolve(__dirname, 'pages/checkout/ExternalCheckoutThankYou.vue'),
-      });
-    },
-  },
 };
