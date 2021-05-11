@@ -1,8 +1,8 @@
 import { Context } from '@vue-storefront/core';
 import { Route } from '@vue-storefront/magento-api';
-import { useRouterFactory, UseRouterFactoryParams } from '../../factories/useRouterFactory';
+import { useUrlResolverFactory, UseUrlResolverFactoryParams } from '../../factories/useUrlResolverFactory';
 
-const factoryParams: UseRouterFactoryParams<Route> = {
+const factoryParams: UseUrlResolverFactoryParams<Route> = {
   search: async (context: Context, url: string) => {
     const clearUrl = url.replace(/\/[c|p]\//gi, '');
 
@@ -12,4 +12,4 @@ const factoryParams: UseRouterFactoryParams<Route> = {
   },
 };
 
-export default useRouterFactory<Route>(factoryParams);
+export default useUrlResolverFactory<Route>(factoryParams);
