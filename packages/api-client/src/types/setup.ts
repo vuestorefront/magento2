@@ -11,6 +11,13 @@ export interface Storage {
   removeAll: () => void;
 }
 
+export type StoreGroup = {
+  code: string;
+  defaultStore: string;
+  stores: Record<string, Store>;
+  website?: Website;
+};
+
 export type Website = {
   code: string;
   defaultStoreGroup: string;
@@ -22,39 +29,10 @@ export interface LocaleItem {
   label: string;
 }
 
-type ExternalCheckoutStore = {
-  cmsUrl: string;
-};
-
-export type StoreGroup = {
-  code: string;
-  defaultStore: string;
-  stores: Record<string, Store>;
-  website?: Website;
-};
-
 export type Store = {
   code: string;
   storeGroup?: StoreGroup;
 };
-
-export interface ApiClientSettings {
-  storage: Storage;
-  api?: {
-    uri: string;
-  };
-  tax: {
-    displayCartSubtotalIncludingTax: boolean;
-  };
-  externalCheckout: {
-    enabled: boolean;
-    cmsUrl: string;
-    stores: Record<string, ExternalCheckoutStore>;
-  };
-  websites: Record<string, Website>;
-  defaultStore: string;
-  overrides: MagentoApiMethods;
-}
 
 export type ConfigState = {
   getCartId(): string;
@@ -67,13 +45,6 @@ export type ConfigState = {
 
 export interface ClientConfig {
   api: string;
-  customOptions?: ApolloClientOptions<any>;
-  currency: string;
-  websites: Record<string, Website>;
-  defaultStore: string;
-  tax: {
-    displayCartSubtotalIncludingTax: boolean;
-  };
   cookies: {
     currencyCookieName: string;
     countryCookieName: string;
@@ -82,12 +53,28 @@ export interface ClientConfig {
     customerCookieName: string;
     storeCookieName: string;
   },
+  currency: string;
+  customOptions?: ApolloClientOptions<any>;
+  defaultStore: string;
+  externalCheckout: {
+    enabled: boolean;
+    cmsUrl: string;
+    syncUrlPath: string;
+    stores: Record<string, {
+      cmsUrl: string;
+    }>;
+  };
+  overrides: MagentoApiMethods;
   state: ConfigState;
+  storage: Storage;
+  tax: {
+    displayCartSubtotalIncludingTax: boolean;
+  };
+  websites: Record<string, Website>;
 }
 
 export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
-  storage: Storage;
 }
 
 export interface ClientInstance extends ApolloClient<any> {
