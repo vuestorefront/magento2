@@ -39,6 +39,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "alefbarbeli",
+      "name": "Alef Barbeli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
+      "profile": "https://github.com/alefbarbeli",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
