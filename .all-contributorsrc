@@ -57,6 +57,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "filrak",
+      "name": "Filip Rakowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15185752?v=4",
+      "profile": "https://rakowski.dev/",
+      "contributions": [
+        "question",
+        "mentoring",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7
