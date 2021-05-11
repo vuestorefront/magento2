@@ -2,10 +2,14 @@ const { publishPackages } = require('./lib/publishPackages');
 
 (async () => {
   const myArgs = process.argv.slice(2);
+  const token = myArgs[1];
+  const labels = myArgs[0].split('|');
+
+  if(token || labels.length <= 0) return false;
 
   try {
-    await publishPackages(JSON.parse(myArgs[0]), myArgs[1]);
+    await publishPackages(labels, token);
   } catch (e) {
-    console.error(e);
+    throw e;
   }
 })();

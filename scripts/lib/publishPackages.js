@@ -12,6 +12,7 @@ const publishPackages = async (labels, token) => {
     const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
 
     const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
+
     const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
 
     const basePublishOptions = {
@@ -31,8 +32,12 @@ const publishPackages = async (labels, token) => {
       ...basePublishOptions,
     });
 
-    console.log(JSON.stringify(apiReturn, null, 2));
-    console.log(JSON.stringify(composerReturn, null, 2));
+    console.log(apiReturn, composerReturn);
+
+    return {
+      apiReturn,
+      composerReturn,
+    }
   }
 }
 
