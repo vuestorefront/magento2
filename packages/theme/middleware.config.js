@@ -6,6 +6,23 @@ module.exports = {
       location: '@vue-storefront/magento-api/server',
       configuration: {
         api: process.env.MAGENTO_GRAPHQL,
+        cookies: {
+          currencyCookieName: 'vsf-currency',
+          countryCookieName: 'vsf-country',
+          localeCookieName: 'vsf-locale',
+          cartCookieName: 'vsf-cart',
+          customerCookieName: 'vsf-customer',
+          storeCookieName: 'vsf-store',
+        },
+        defaultStore: 'default',
+        externalCheckout: {
+          enable: true,
+          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT,
+          syncUrlPath: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
+          stores: {
+            default: process.env.MAGENTO_EXTERNAL_CHECKOUT,
+          },
+        },
         tax: {
           displayCartSubtotalIncludingTax: true,
         },
@@ -25,18 +42,6 @@ module.exports = {
               },
             },
           },
-        },
-        externalCheckout: {
-          enable: false,
-        },
-        defaultStore: 'default',
-        cookies: {
-          currencyCookieName: 'vsf-currency',
-          countryCookieName: 'vsf-country',
-          localeCookieName: 'vsf-locale',
-          cartCookieName: 'vsf-cart',
-          customerCookieName: 'vsf-customer',
-          storeCookieName: 'vsf-store',
         },
       },
     },

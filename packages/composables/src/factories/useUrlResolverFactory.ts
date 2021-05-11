@@ -8,12 +8,12 @@ import {
 } from '@vue-storefront/core';
 import { UseRouter } from '../types';
 
-export interface UseRouterFactoryParams<ROUTER> extends FactoryParams {
+export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
   search: (context: Context, url: string) => Promise<ROUTER>;
 }
 
-export const useRouterFactory = <ROUTER>(
-  factoryParams: UseRouterFactoryParams<ROUTER>,
+export const useUrlResolverFactory = <ROUTER>(
+  factoryParams: UseUrlResolverFactoryParams<ROUTER>,
 ) => function useRouter(id?: string): UseRouter<ROUTER> {
   const ssrKey = id || 'useRouter';
   // @ts-ignore
@@ -22,7 +22,7 @@ export const useRouterFactory = <ROUTER>(
   const error = sharedRef({
     search: null,
   }, `${ssrKey}-error`);
-    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
 
   const search = async (url: string) => {
