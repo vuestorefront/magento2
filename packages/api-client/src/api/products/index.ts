@@ -1,11 +1,14 @@
-import { ProductAttributeFilterInput, ProductAttributeSortInput, Products } from '../../types/GraphQL';
-import { detailQuery, listQuery } from './query';
 import { ApolloQueryResult } from 'apollo-client';
-
-const enum ProductsQueryType {
-  list = 'LIST',
-  detail = 'DETAIL',
-}
+import { CustomQuery } from '@vue-storefront/core';
+import {
+  ProductAttributeFilterInput,
+  ProductAttributeSortInput,
+  ProductsListQuery,
+  ProductsListQueryVariables,
+} from '../../types/GraphQL';
+import listQuery from './productsListQuery.graphql';
+import { Context } from '../../types/context';
+import { GetProductSearchParams } from '../../types/API';
 
 type Variables = {
   pageSize: number;
@@ -13,26 +16,42 @@ type Variables = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
-}
-
-const getProduct = async({ client },
-  pageSize = 20,
-  currentPage = 1,
-  queryType: ProductsQueryType = ProductsQueryType.list,
-  search?: string,
-  filter?: ProductAttributeFilterInput,
-  sort?: ProductAttributeSortInput): Promise<ApolloQueryResult<Products>> => {
-  const query = queryType === ProductsQueryType.list ? listQuery : detailQuery;
-
-  const variables: Variables = { pageSize, currentPage };
-  if (search) variables.search = search;
-  if (filter) variables.filter = filter;
-  if (sort) variables.sort = sort;
-
-  return await client.query({
-    query,
-    variables
-  });
 };
 
-export default getProduct;
+export default async (
+  context: Context,
+  searchParams?: GetProductSearchParams,
+  customQuery?: CustomQuery,
+): Promise<ApolloQueryResult<ProductsListQuery>> => {
+  const defaultParams = {
+    pageSize: 20,
+    currentPage: 1,
+    ...searchParams,
+  };
+
+  const variables: Variables = {
+    pageSize: defaultParams.pageSize <= 0 ? 20 : defaultParams.pageSize,
+    currentPage: defaultParams.currentPage <= 0 ? 1 : defaultParams.currentPage,
+  };
+
+  if (defaultParams.search) variables.search = defaultParams.search;
+
+  if (defaultParams.filter) variables.filter = defaultParams.filter;
+
+  if (defaultParams.sort) variables.sort = defaultParams.sort;
+
+  const { products } = context.extendQuery(
+    customQuery, {
+      products: {
+        query: listQuery,
+        variables: defaultParams,
+      },
+    },
+  );
+
+  return context.client.query<ProductsListQuery, ProductsListQueryVariables>({
+    query: products.query,
+    variables: products.variables,
+    fetchPolicy: 'no-cache',
+  });
+};

@@ -1,0 +1,62 @@
+query upsellProducts(
+  $search: String = ""
+  $filter: ProductAttributeFilterInput
+  $pageSize: Int = 20
+  $currentPage: Int = 1
+  $sort: ProductAttributeSortInput
+) {
+  products(
+    search: $search
+    filter: $filter
+    sort: $sort
+    pageSize: $pageSize
+    currentPage: $currentPage
+  ){
+    items {
+      upsell_products {
+        uid
+        __typename
+        sku
+        name
+        new
+        stock_status
+        only_x_left_in_stock
+        rating_summary
+        sale
+        thumbnail {
+          url
+          position
+          disabled
+          label
+        }
+        price_range {
+          minimum_price {
+            final_price {
+              currency
+              value
+            }
+            regular_price {
+              currency
+              value
+            }
+          }
+        }
+        url_key
+        url_rewrites {
+          url
+        }
+        categories {
+          uid
+          name
+          url_suffix
+          url_path
+          breadcrumbs {
+            category_name
+            category_url_path
+          }
+        }
+      }
+      uid
+    }
+  }
+}

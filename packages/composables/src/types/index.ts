@@ -1,117 +1,93 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ComputedProperty, UseCategory, UseProduct} from '@vue-storefront/core';
 import {
-  ProductInterface,
-  CartInterface,
-  CartItemInterface,
-  CouponInterface,
-  Customer
+  ComputedProperty,
+  FacetSearchResult,
+  ComposableFunctionArgs,
+  CustomQuery,
+} from '@vue-storefront/core';
+import { Ref, ComputedRef } from '@vue/composition-api';
+import {
+  Category, Customer, MagentoCustomerGender, Product,
 } from '@vue-storefront/magento-api';
-import { ComputedRef } from '@vue/composition-api';
 
-// @todo: replace with real types
+export type User = Customer;
 
-type Product = ProductInterface;
-
-type Category = {
-
-}
-
-type CategorySearchParams = {}
-
-type User = Customer;
-
-type UpdateUserParams = {
+export type UpdateUserParams = {
   firstName: string;
   lastName: string;
   email: string;
-}
+  dateOfBirth?: string;
+  gender?: MagentoCustomerGender,
+  taxvat?: string;
+  prefix?: string
+  suffix?: string
+};
 
-type RegisterUserParams = {
+export type RegisterUserParams = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+};
+
+export type Filter = Record<string, any>;
+
+export interface FacetResultsData {
+  products: Product[];
+  categories: Category[];
+  facets: Record<string, Filter>;
+  total: number;
+  perPageOptions: number[];
+  itemsPerPage: number;
+  availableFilters: Record<string, any>;
 }
 
-// @todo: replace with real Cart types
-type Cart = CartInterface
-
-type CartItem = CartItemInterface
-
-type Coupon = CouponInterface
-
-type Order = {
-
-}
-
-type OrderItem = {
-
-}
-
-type WishlistProduct = {
-
-}
-
-type Wishlist = {
-
-}
-
-type Route = {
-
-}
-
-type Config = {
-
-}
-
-type Page = {
-
-}
-
-type Filter = {
-
-}
-
-interface UseRouter<ROUTE> {
-  route: ComputedProperty<ROUTE>;
+export interface UseRouter<ROUTE> {
   search: (url: string) => Promise<void>;
+  result: ComputedProperty<ROUTE>;
+  error: ComputedProperty<UseRouterErrors>;
   loading: ComputedProperty<boolean>;
 }
 
-interface UseConfig<Config> {
-  config: ComputedRef<Config>;
+export interface UseRouterErrors {
+  search: Error;
+}
+
+export interface UseCategorySearch<CATEGORY> {
+  search: (params: { term: string }) => Promise<CATEGORY[]>;
+  result: ComputedProperty<CATEGORY[]>;
+  error: ComputedProperty<UseCategorySearchErrors>;
+  loading: ComputedProperty<boolean>;
+}
+
+export interface UseCategorySearchErrors {
+  search: Error;
+}
+
+export interface UseConfig<CONFIG> {
+  config: ComputedRef<CONFIG>;
   loadConfig: () => Promise<void>;
   loading: ComputedRef<boolean>;
 }
 
-interface UsePage<PAGE> {
+export interface UsePage<PAGE> {
   page: ComputedProperty<PAGE>;
   loadPage: (identifier: string) => Promise<void>;
   loading: ComputedProperty<boolean>;
 }
 
-interface Breadcrumb {
+export interface Breadcrumb {
   text: string;
   route: {
     path: string;
   };
 }
 
-/** Copied From new version */
-export type Shipping = Record<string, unknown>;
-export type Address = Record<string, unknown>;
-export type UserAddress = Record<string, unknown>;
-export type OrderSearchParams = Record<string, any>;
-
 export type OrdersResponse = {
   data: any[];
   total: number;
 };
 
-export type ShippingMethod = Record<string, unknown>;
-import { ComposableFunctionArgs, CustomQuery } from '@vue-storefront/core'
-import { Ref } from '@vue/composition-api'
 export interface UseUserOrderSearchParams {
   id?: any;
   page?: number;
@@ -135,11 +111,11 @@ export interface UseBillingErrors {
 }
 
 export interface UseBilling<BILLING, BILLING_PARAMS> {
-  error: ComputedProperty<UseBillingErrors>;
-  loading: ComputedProperty<boolean>;
   billing: ComputedProperty<BILLING>;
+  error: ComputedProperty<UseBillingErrors>;
   load(): Promise<void>;
   load(params: { customQuery?: CustomQuery }): Promise<void>;
+  loading: ComputedProperty<boolean>;
   save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
 }
 
@@ -177,7 +153,6 @@ export interface UseShippingProviderErrors {
   save?: Error;
 }
 
-
 export interface UseMakeOrderErrors {
   make?: Error;
 }
@@ -189,29 +164,4 @@ export interface UseMakeOrder<ORDER> {
   loading: ComputedProperty<boolean>;
 }
 
-
-export {
-  Cart,
-  CartItem,
-  Category,
-  CategorySearchParams,
-  Coupon,
-  Order,
-  OrderItem,
-  Product,
-  User,
-  UpdateUserParams,
-  RegisterUserParams,
-  Wishlist,
-  WishlistProduct,
-  Page,
-  Filter,
-  UseCategory,
-  UseProduct,
-  UseRouter,
-  UsePage,
-  Route,
-  Breadcrumb,
-  UseConfig,
-  Config
-};
+export type SearchData = FacetSearchResult<FacetResultsData>;

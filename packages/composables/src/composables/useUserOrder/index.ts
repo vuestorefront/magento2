@@ -1,33 +1,30 @@
 /* istanbul ignore file */
-
-import { Context } from '@vue-storefront/core';
+import { Context, Logger } from '@vue-storefront/core';
+import { CustomerOrder, CustomerOrdersQueryVariables } from '@vue-storefront/magento-api';
 import {
   useUserOrderFactory,
-  UseUserOrderFactoryParams
-} from '../../factories/useUserOrderFactory'
-import { OrderSearchParams } from '../../types';
-import { CustomerOrder } from '../../../../api-client';
+  UseUserOrderFactoryParams,
+} from '../../factories/useUserOrderFactory';
 import useUser from '../useUser';
 
-const params: UseUserOrderFactoryParams<CustomerOrder[], OrderSearchParams> = {
+const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQueryVariables> = {
   provide() {
     return {
-      user: useUser()
+      user: useUser(),
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  searchOrders: async (context: Context, params: OrderSearchParams): Promise<CustomerOrder[]> => {
-    console.log('[Magento] searchOrders');
+  searchOrders: async (context: Context, param): Promise<CustomerOrder[]> => {
+    Logger.debug('[Magento] searchOrders');
+
     if (!context.user.user?.value?.id) {
       await context.user.load();
     }
 
-    const response = await context.$ma.api.customerOrders();
-    return response.data.customerOrders.items || [] as CustomerOrder[];
-  }
+    const { data } = await context.$magento.api.customerOrders(param);
+
+    return (data.customer.orders.items || []) as unknown as CustomerOrder[];
+  },
 };
 
-export default useUserOrderFactory<CustomerOrder[], OrderSearchParams>(params);
-
-
-
+export default useUserOrderFactory<CustomerOrder[], CustomerOrdersQueryVariables>(factoryParams);

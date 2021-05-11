@@ -1,15 +1,17 @@
-import SetShippingMethodsOnCart from './mutation';
-import { ExecutionResult } from 'graphql';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
 import {
   SetShippingMethodsOnCartInput,
-  SetShippingMethodsOnCartOutput
+  SetShippingMethodsOnCartMutation,
+  SetShippingMethodsOnCartMutationVariables,
 } from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const setShippingMethodsOnCart = async ({ client }, input: SetShippingMethodsOnCartInput): Promise<ExecutionResult<SetShippingMethodsOnCartOutput>> => {
-  return await client.mutate({
-    mutation: SetShippingMethodsOnCart,
-    variables: { input }
-  });
-};
-
-export default setShippingMethodsOnCart;
+export default async (
+  { client }: Context,
+  input: SetShippingMethodsOnCartInput,
+): Promise<FetchResult<SetShippingMethodsOnCartMutation>> => client
+  .mutate<SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables>({
+  mutation,
+  variables: { input },
+});

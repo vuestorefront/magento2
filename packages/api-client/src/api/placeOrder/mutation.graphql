@@ -1,0 +1,8 @@
+mutation placeOrder($input: PlaceOrderInput) {
+  placeOrder(input: $input) {
+    order {
+      order_id
+      order_number
+    }
+  }
+}

@@ -1,34 +1,53 @@
+// import { computed } from '@vue/composition-api';
+import {
+  configureFactoryParams,
+  Context,
+  FactoryParams,
+  Logger,
+  sharedRef,
+} from '@vue-storefront/core';
 import { UseRouter } from '../types';
-import { Ref, computed } from '@vue/composition-api';
-import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
-export interface UseRouterFactoryParams<ROUTER> {
-    search: (context: Context, url: string) => Promise<ROUTER>;
+export interface UseRouterFactoryParams<ROUTER> extends FactoryParams {
+  search: (context: Context, url: string) => Promise<ROUTER>;
 }
 
-export function useRouterFactory<ROUTER>(
-  factoryParams: UseRouterFactoryParams<ROUTER>
-) {
-  return function useRouter(cacheId: string): UseRouter<ROUTER> {
-    const route: Ref<ROUTER> = sharedRef({}, `useRouter-routers-${cacheId}`);
-    const loading: Ref<boolean> = sharedRef(false, `useRouter-loading-${cacheId}`);
-    const context = generateContext(factoryParams);
+export const useRouterFactory = <ROUTER>(
+  factoryParams: UseRouterFactoryParams<ROUTER>,
+) => function useRouter(id?: string): UseRouter<ROUTER> {
+  const ssrKey = id || 'useRouter';
+  // @ts-ignore
+  const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
+  const loading = sharedRef(false, `${ssrKey}-loading`);
+  const error = sharedRef({
+    search: null,
+  }, `${ssrKey}-error`);
+    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+  const _factoryParams = configureFactoryParams(factoryParams);
 
-    const search = async (url: string) => {
-      Logger.debug(`useRouter/${cacheId}/search`);
-      loading.value = true;
+  const search = async (url: string) => {
+    Logger.debug(`useRouter/${ssrKey}/search`);
+    loading.value = true;
 
-      try {
-        route.value = await factoryParams.search(context, url);
-      } finally {
-        loading.value = false;
-      }
-    };
+    try {
+      const data = await _factoryParams.search(url);
 
-    return {
-      search,
-      route: computed(() => route.value),
-      loading: computed(() => loading.value)
-    };
+      result.value = data;
+
+      return data;
+    } catch (err) {
+      error.value.search = err;
+
+      Logger.error(`useRouter/${ssrKey}/search`, err);
+    } finally {
+      loading.value = false;
+    }
   };
-}
+
+  return {
+    search,
+    result: result.value, // @TODO: Check CAPI
+    loading: loading.value, // @TODO: Check CAPI
+    error: error.value, // @TODO: Check CAPI
+  };
+};

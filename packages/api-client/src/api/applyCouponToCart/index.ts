@@ -1,12 +1,18 @@
-import ApplyCouponToCart from './mutation';
-import { ExecutionResult } from 'graphql';
-import { ApplyCouponToCartInput, ApplyCouponToCartOutput } from '../../types/GraphQL';
+import { FetchResult } from '@apollo/client';
+import mutation from './mutation.graphql';
+import {
+  ApplyCouponToCartInput,
+  ApplyCouponToCartMutation,
+  ApplyCouponToCartMutationVariables,
+} from '../../types/GraphQL';
+import { Context } from '../../types/context';
+// @TODO : Add Mutation FROM CodeGEN
 
-const applyCouponToCart = async ({ client }, input: ApplyCouponToCartInput): Promise<ExecutionResult<ApplyCouponToCartOutput>>=> {
-  return await client.mutate({
-    mutation: ApplyCouponToCart,
-    variables: { input }
-  });
-};
-
-export default applyCouponToCart;
+export default async (
+  { client }: Context,
+  input: ApplyCouponToCartInput,
+): Promise<FetchResult<ApplyCouponToCartMutation>> => client
+  .mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
+  mutation,
+  variables: { input },
+});

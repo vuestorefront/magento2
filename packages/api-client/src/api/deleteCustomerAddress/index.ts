@@ -1,11 +1,13 @@
-import DeleteCustomerAddress from './mutation';
 import { ExecutionResult } from 'graphql';
+import mutation from './mutation.graphql';
+import { Context } from '../../types/context';
+import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '../../types/GraphQL';
 
-const deleteCustomerAddress = async ({ client }, input: {id: Number}): Promise<ExecutionResult<Boolean>> => {
-  return await client.mutate({
-    mutation: DeleteCustomerAddress,
-    variables: { input }
-  });
-};
-
-export default deleteCustomerAddress;
+export default async (
+  { client }: Context,
+  addressId: number,
+): Promise<ExecutionResult<DeleteCustomerAddressMutation>> => client
+  .mutate<DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables>({
+  mutation,
+  variables: { id: addressId },
+});

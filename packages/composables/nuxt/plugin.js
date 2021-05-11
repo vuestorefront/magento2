@@ -1,15 +1,58 @@
-import { integrationPlugin } from '@vue-storefront/magento-composables';
-import { loadState } from '@vue-storefront/magento-composables/nuxt/helpers';
+import { integrationPlugin } from '@vue-storefront/core'
+import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
+import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 export default integrationPlugin(({ app, integration }) => {
-  const settings = Object.assign({}, {...moduleOptions});
-  const state = loadState(app, settings);
+  const cartCookieName = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
+  const customerCookieName = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;
+  const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
 
-  integration.configure({
-    ...settings,
-    state
+  const getCartId = () => app.$cookies.get(cartCookieName);
+
+  const setCartId = (id) => {
+    if (!id) {
+      app.$cookies.remove(cartCookieName);
+      return;
+    }
+    app.$cookies.set(cartCookieName, id);
+  };
+
+  const getCustomerToken = () => app.$cookies.get(customerCookieName);
+
+  const setCustomerToken = (token) => {
+    if (!token) {
+      app.$cookies.remove(customerCookieName);
+      return;
+    }
+    app.$cookies.set(customerCookieName, token);
+  };
+
+  const getStore = () => app.$cookies.get(storeCookieName);
+
+  const setStore = (id) => {
+    if (!id) {
+      app.$cookies.remove(storeCookieName);
+      return;
+    }
+    app.$cookies.set(storeCookieName, id);
+  };
+
+  const settings = mapConfigToSetupObject({
+    moduleOptions,
+    app,
+    additionalProperties: {
+      state: {
+        getCartId,
+        setCartId,
+        getCustomerToken,
+        setCustomerToken,
+        getStore,
+        setStore,
+      },
+    }
   });
+
+  integration.configure('magento', settings);
 });

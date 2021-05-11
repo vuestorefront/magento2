@@ -1,55 +1,40 @@
-import { Config } from './types/setup';
-import createMagentoConnection from './link';
 import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Config } from './types/setup';
+import createMagentoConnection from './link';
 
 const onSetup = (settings: Config): {
   config: Config;
   client: ApolloClient<any>
 } => {
   const defaultSettings = {
-    api: "https://demo.site-builder.app/graphql",
+    api: '',
     tax: {
-      displayCartSubtotalIncludingTax: true
+      displayCartSubtotalIncludingTax: true,
     },
-    websites: {
-      base: {
-        code: 'base',
-        defaultStoreGroup: 'main_website_store',
-        storeGroups: {
-          // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
-          main_website_store: {
-            code: 'main_website_store',
-            defaultStore: 'default',
-            stores: {
-              default: {code: 'default'},
-              de: {code: 'de'},
-              fr: {code: 'fr'}
-            }
-          }
-        }
-      }
+    externalCheckout: {
+      enable: false,
     },
-    defaultStore: 'default'
   };
 
   const config = {
-    ...defaultSettings, ...settings
+    ...defaultSettings,
+    ...settings,
   } as any;
 
   if (settings.client) {
     return {
       client: settings.client,
-      config
+      config,
     };
   }
 
   if (settings.customOptions && settings.customOptions.link) {
     return {
       client: new ApolloClient({
-        cache: new InMemoryCache(), ...settings.customOptions
+        cache: new InMemoryCache({ addTypename: false }), ...settings.customOptions,
       }),
-      config
+      config,
     };
   }
 
@@ -57,10 +42,10 @@ const onSetup = (settings: Config): {
 
   return {
     config,
-    client
+    client,
   };
 };
 
 export {
-  onSetup
+  onSetup,
 };

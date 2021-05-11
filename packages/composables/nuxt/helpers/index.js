@@ -1,64 +1,26 @@
-import {
-  M2_CART_ID_COOKIE_NAME,
-  M2_CUSTOMER_TOKEN_COOKIE_NAME,
-  M2_STORE_COOKIE_NAME
-} from './consts';
+import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 
-const loadState = (app) => {
-  let cartId = app.$cookies.get(M2_CART_ID_COOKIE_NAME);
-  let customerToken = app.$cookies.get(M2_CUSTOMER_TOKEN_COOKIE_NAME);
-  let store = app.$cookies.get(M2_STORE_COOKIE_NAME);
+export const getLocaleSettings = (app, moduleOptions) => {
+  let localeSettings = {};
 
-  const getCartId = () => {
-    return cartId;
-  };
-
-  const setCartId = (id) => {
-    if (!id) {
-      app.$cookies.remove(M2_CART_ID_COOKIE_NAME);
-      return;
-    }
-    app.$cookies.set(M2_CART_ID_COOKIE_NAME, id);
-    cartId = id;
-  };
-
-  const getCustomerToken = () => {
-    return customerToken;
-  };
-
-  const setCustomerToken = (token) => {
-    if (!token) {
-      app.$cookies.remove(M2_CUSTOMER_TOKEN_COOKIE_NAME);
-      return;
-    }
-    app.$cookies.set(M2_CUSTOMER_TOKEN_COOKIE_NAME, token);
-    customerToken = token;
-  };
-
-  const getStore = () => {
-    return store;
-  };
-
-  const setStore = (id) => {
-    if (!id) {
-      app.$cookies.remove(M2_STORE_COOKIE_NAME);
-      return;
-    }
-    app.$cookies.set(M2_STORE_COOKIE_NAME, id);
-    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-    store = id;
-  };
+  if (moduleOptions.cookies) {
+    localeSettings = {
+      locale: app.$cookies.get(moduleOptions.cookies.localeCookieName),
+      country: app.$cookies.get(moduleOptions.cookies.currencyCookieName),
+      currency: app.$cookies.get(moduleOptions.cookies.countryCookieName),
+    };
+  }
 
   return {
-    getCartId,
-    setCartId,
-    getCustomerToken,
-    setCustomerToken,
-    getStore,
-    setStore
+    locale: app.i18n.locale || (localeSettings.locale || moduleOptions.locale || defaultConfig.locale),
+    country: localeSettings.country || moduleOptions.country || defaultConfig.country,
+    currency: localeSettings.currency || moduleOptions.currency || defaultConfig.currency,
   };
 };
 
-export {
-  loadState
-};
+export const mapConfigToSetupObject = ({ moduleOptions, app, additionalProperties = {} }) => ({
+  ...defaultConfig,
+  ...moduleOptions,
+  ...additionalProperties,
+  ...getLocaleSettings(app, moduleOptions),
+});

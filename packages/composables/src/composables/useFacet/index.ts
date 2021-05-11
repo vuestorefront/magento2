@@ -1,91 +1,106 @@
-import { Context, FacetSearchResult, useFacetFactory } from '@vue-storefront/core';
-import { CategoryFilterInput, ProductAttributeFilterInput } from '@vue-storefront/magento-api';
+import {
+  Context,
+  FacetSearchResult,
+  ProductsSearchParams,
+  useFacetFactory,
+} from '@vue-storefront/core';
+import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
 
-const availableSortingOptions = [{
-  value: 'name',
-  label: 'Name'
-}, {
-  value: 'price-up',
-  label: 'Price from low to high'
-}, {
-  value: 'price-down',
-  label: 'Price from high to low'
-}];
+const availableSortingOptions = [
+  {
+    label: 'Sort: Default',
+    value: '',
+  },
+  {
+    label: 'Sort: Name A-Z',
+    value: 'name_ASC',
+  },
+  {
+    label: 'Sort: Name Z-A',
+    value: 'name_DESC',
+  },
+  {
+    label: 'Sort: Price from low to high',
+    value: 'price_ASC',
+  }, {
+    label: 'Sort: Price from high to low',
+    value: 'price_DESC',
+  },
+];
 
-const constructFilterObject = (obj: Object) => {
+const constructFilterObject = (inputFilters: Object) => {
+  const filter = {};
 
-  /*
-  return Object.entries(obj)
-    .reduce((prev, [value, options]) => {
-      if (value !== 'price') {
-        prev[value] = { in: options.map(({ value }) => value.toString()) };
-      } else {
-        const val = options[0].value.split('_');
-        prev[value] = {
-          from: decodeURIComponent(val[0].toString()),
-          to: decodeURIComponent(val[1].toString())
-        };
+  Object.keys(inputFilters).forEach((key) => {
+    if (key === 'price') {
+      const price = { from: 0, to: 0 };
+      const [priceFrom, priceTo] = inputFilters[key].split('-');
+
+      price.from = priceFrom;
+
+      if (priceTo) {
+        price.to = priceTo;
       }
-      // eslint-disable-next-line camelcase,@typescript-eslint/camelcase
-      return prev;
-    }, {});
-  */
-  const filters = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (value.length === 0) return;
-    if (!filters[key]) {
-      filters[key] = {
-        in: value.join(''),
-        scope: 'catalog'
-      };
-    } else {
-      filters[key].in = filters[key].in + ',' + value.join('');
-    }
-  }
 
-  return filters;
+      filter[key] = price;
+    } else if (typeof inputFilters[key] === 'string') {
+      filter[key] = { finset: [inputFilters[key]] };
+    } else {
+      filter[key] = { finset: inputFilters[key] };
+    }
+  });
+
+  return filter;
+};
+
+const constructSortObject = (sortData: string) => {
+  const baseData = sortData.split(/_/ig);
+
+  return baseData.length ? Object.fromEntries([baseData]) : {};
 };
 
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
-    const itemsPerPage = params.input.itemsPerPage;
-    const categoryParams: CategoryFilterInput = {
-      filters: {
-        // eslint-disable-next-line camelcase
-        url_path: {
-          eq: params.input.categorySlug
-        }
-      }
-    };
-
-    const categoryResponse = await context.$ma.api.categoryList(categoryParams.perPage, categoryParams.page, categoryParams.filter, categoryParams.search, categoryParams.sort);
-
-    // What happen if not exsits?
-    const category = categoryResponse.data.categoryList[0];
-    const inputSort = params.input.sort;
-    const queryType = params.input.categorySlug ? 'LIST' : 'DETAIL';
-    const inputSearch = '';
-    const productParams: ProductAttributeFilterInput = {
+    const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
+    const inputFilters = (params.input.filters) ? params.input.filters : {};
+    const categoryId = (params.input.categoryId) ? { category_uid: { eq: params.input.categoryId } } : {};
+    const productParams: ProductsSearchParams = {
       filter: {
-        // eslint-disable-next-line camelcase
-        category_id: {
-          eq: category.id
-        }
+        ...categoryId,
+        ...constructFilterObject({
+          ...inputFilters,
+        }),
       },
       perPage: itemsPerPage,
       offset: (params.input.page - 1) * itemsPerPage,
-      page: params.input.page
+      page: params.input.page,
+      search: (params.input.term) ? params.input.term : '',
+      sort: constructSortObject(params.input.sort || ''),
     };
-    const productResponse = await context.$ma.api.products(productParams.perPage, productParams.page, queryType, inputSearch, Object.assign({}, productParams.filter, constructFilterObject(params.input.filters)), inputSort);
-    return {
+
+    const productSearchParams: GetProductSearchParams = {
+      pageSize: productParams.perPage,
+      search: productParams.search,
+      filter: productParams.filter,
+      sort: productParams.sort,
+      currentPage: productParams.page,
+    };
+
+    const productResponse = await context.$magento.api.products(productSearchParams);
+
+    const data = {
       items: productResponse?.data?.products?.items || [],
-      total: productResponse?.data?.products?.total_count?.value || 0,
-      availableFilters: productResponse?.data?.products?.attribute_metadata,
-      category: category,
-      availableSortingOptions
+      total: productResponse?.data?.products?.total_count,
+      availableFilters: productResponse?.data?.products?.aggregations,
+      category: { id: params.input.categoryId },
+      availableSortingOptions,
+      perPageOptions: [10, 20, 50],
+      itemsPerPage,
     };
-  }
+
+    return data;
+  },
 };
 
 export default useFacetFactory<any>(factoryParams);

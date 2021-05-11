@@ -6,133 +6,133 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="form">
-        <UserShippingAddresses
-          v-if="isAuthenticated && shippingAddresses && shippingAddresses.length"
-          :setAsDefault="setAsDefault"
-          :shippingAddresses="shippingAddresses"
-          :currentAddressId="currentAddressId"
-          @setCurrentAddress="setCurrentAddress($event); addressIsModified = true;"
-          @changeSetAsDefault="setAsDefault = $event"
-        />
-        <SfButton
-          v-if="!canAddNewAddress"
-          class="form__action-button form__action-button--margin-bottom"
-          type="submit"
-          @click.native="canAddNewAddress = true"
-        >
-          Add new address
-        </SfButton>
+      <UserShippingAddresses
+        v-if="isAuthenticated && shippingAddresses && shippingAddresses.length"
+        :set-as-default="setAsDefault"
+        :shipping-addresses="shippingAddresses"
+        :current-address-id="currentAddressId"
+        @setCurrentAddress="setCurrentAddress($event); addressIsModified = true;"
+        @changeSetAsDefault="setAsDefault = $event"
+      />
+      <SfButton
+        v-if="!canAddNewAddress"
+        class="form__action-button form__action-button--margin-bottom"
+        type="submit"
+        @click.native="canAddNewAddress = true"
+      >
+        Add new address
+      </SfButton>
 
-        <template v-if="canAddNewAddress">
-          <SfInput
-            data-cy="shipping-details-input_firstName"
-            v-model="shippingDetails.firstName"
-            label="First name"
-            name="firstName"
-            class="form__element form__element--half"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_lastName"
-            v-model="shippingDetails.lastName"
-            label="Last name"
-            name="lastName"
-            class="form__element form__element--half form__element--half-even"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_streetName"
-            v-model="shippingDetails.streetName"
-            label="Street name"
-            name="streetName"
-            class="form__element"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_apartmanet"
-            v-model="shippingDetails.apartment"
-            label="House/Apartment number"
-            name="apartment"
-            class="form__element"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_city"
-            v-model="shippingDetails.city"
-            label="City"
-            name="city"
-            class="form__element form__element--half"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_state"
-            v-model="shippingDetails.state"
-            label="State/Province"
-            name="state"
-            class="form__element form__element--half form__element--half-even"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfInput
-            data-cy="shipping-details-input_postalCode"
-            v-model="shippingDetails.postalCode"
-            label="Zip-code"
-            name="zipCode"
-            class="form__element form__element--half"
-            @input="afterModifiedAddress"
-            required
-          />
-          <SfSelect
-            data-cy="shipping-details-select_country"
-            v-model="shippingDetails.country"
-            label="Country"
-            class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-            @input="afterModifiedAddress"
-            required
+      <template v-if="canAddNewAddress">
+        <SfInput
+          v-model="shippingDetails.firstName"
+          data-cy="shipping-details-input_firstName"
+          label="First name"
+          name="firstName"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.lastName"
+          data-cy="shipping-details-input_lastName"
+          label="Last name"
+          name="lastName"
+          class="form__element form__element--half form__element--half-even"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.streetName"
+          data-cy="shipping-details-input_streetName"
+          label="Street name"
+          name="streetName"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.apartment"
+          data-cy="shipping-details-input_apartmanet"
+          label="House/Apartment number"
+          name="apartment"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.city"
+          data-cy="shipping-details-input_city"
+          label="City"
+          name="city"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.state"
+          data-cy="shipping-details-input_state"
+          label="State/Province"
+          name="state"
+          class="form__element form__element--half form__element--half-even"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfInput
+          v-model="shippingDetails.postalCode"
+          data-cy="shipping-details-input_postalCode"
+          label="Zip-code"
+          name="zipCode"
+          class="form__element form__element--half"
+          required
+          @input="afterModifiedAddress"
+        />
+        <SfSelect
+          v-model="shippingDetails.country"
+          data-cy="shipping-details-select_country"
+          label="Country"
+          class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
+          required
+          @input="afterModifiedAddress"
+        >
+          <SfSelectOption
+            v-for="countryOption in COUNTRIES"
+            :key="countryOption.key"
+            :value="countryOption.key"
           >
-            <SfSelectOption
-              v-for="countryOption in COUNTRIES"
-              :key="countryOption.key"
-              :value="countryOption.key"
-            >
-              {{ countryOption.label }}
-            </SfSelectOption>
-          </SfSelect>
-          <SfInput
-            data-cy="shipping-details-input_phone"
-            v-model="shippingDetails.phone"
-            label="Phone number"
-            name="phone"
-            class="form__element"
-            @input="afterModifiedAddress"
-            required
-          />
-        </template>
+            {{ countryOption.label }}
+          </SfSelectOption>
+        </SfSelect>
+        <SfInput
+          v-model="shippingDetails.phone"
+          data-cy="shipping-details-input_phone"
+          label="Phone number"
+          name="phone"
+          class="form__element"
+          required
+          @input="afterModifiedAddress"
+        />
+      </template>
     </div>
     <SfHeading
+      v-if="canContinueToPayment"
       :level="3"
       title="Shipping method"
       class="sf-heading--left sf-heading--no-underline title"
-      v-if="canContinueToPayment"
     />
     <div class="form">
       <div class="form__radio-group">
         <SfRadio
-          data-cy="shipping-details-radio_shippingMethod"
           v-for="item in shippingMethods"
           :key="checkoutGetters.getShippingMethodName(item)"
+          data-cy="shipping-details-radio_shippingMethod"
           :label="checkoutGetters.getShippingMethodName(item)"
           :value="checkoutGetters.getShippingMethodId(item)"
           :selected="checkoutGetters.getShippingMethodId(chosenShippingMethod)"
-          @input="() => chosenShippingMethod = item"
           name="shippingMethod"
           :description="checkoutGetters.getShippingMethodDescription(item)"
           class="form__radio shipping"
+          @input="() => chosenShippingMethod = item"
         >
           <template #label="{label}">
             <div class="sf-radio__label shipping__label">
@@ -151,13 +151,26 @@
       </div>
       <div class="form__action">
         <!-- TODO: add nuxt link for returning to personal details -->
-        <SfButton data-cy="shipping-btn_go-back" class="color-secondary form__back-button">
+        <SfButton
+          data-cy="shipping-btn_go-back"
+          class="color-secondary form__back-button"
+        >
           Go back
         </SfButton>
-        <SfButton data-cy="shipping-btn_continue" class="form__action-button" @click="$emit('nextStep')" v-if="canContinueToPayment">
+        <SfButton
+          v-if="canContinueToPayment"
+          data-cy="shipping-btn_continue"
+          class="form__action-button"
+          @click="$emit('nextStep')"
+        >
           Continue to payment
         </SfButton>
-        <SfButton data-cy="shipping-btn_continue" class="form__action-button" @click="saveShippingDetails" v-else>
+        <SfButton
+          v-else
+          data-cy="shipping-btn_continue"
+          class="form__action-button"
+          @click="saveShippingDetails"
+        >
           Select shipping method
         </SfButton>
       </div>
@@ -171,20 +184,30 @@ import {
   SfInput,
   SfButton,
   SfSelect,
-  SfRadio
+  SfRadio,
 } from '@storefront-ui/vue';
-import { useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters } from '@vue-storefront/magento-composables';
+import {
+  useCheckout, useUser, useUserShipping, checkoutGetters, userShippingGetters,
+} from '@vue-storefront/magento';
 import { ref, onMounted, computed } from '@vue/composition-api';
 
 const COUNTRIES = [
-  { key: 'US',
-    label: 'United States' },
-  { key: 'UK',
-    label: 'United Kingdom' },
-  { key: 'IT',
-    label: 'Italy' },
-  { key: 'PL',
-    label: 'Poland' }
+  {
+    key: 'US',
+    label: 'United States',
+  },
+  {
+    key: 'UK',
+    label: 'United Kingdom',
+  },
+  {
+    key: 'IT',
+    label: 'Italy',
+  },
+  {
+    key: 'PL',
+    label: 'Poland',
+  },
 ];
 
 export default {
@@ -195,14 +218,14 @@ export default {
     SfButton,
     SfSelect,
     SfRadio,
-    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses')
+    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses'),
   },
   setup(props, context) {
     context.emit('changeStep', 1);
     const {
       shippingDetails,
       chosenShippingMethod,
-      shippingMethods
+      shippingMethods,
     } = useCheckout();
 
     const { shipping, load: loadUserShipping, setDefault } = useUserShipping();
@@ -214,14 +237,14 @@ export default {
     const setAsDefault = ref(false);
     const isShippingAddressCompleted = ref(false);
 
-    const setShippingDetails = address => {
+    const setShippingDetails = (address) => {
       shippingDetails.value = {
         ...shippingDetails.value,
-        ...address
+        ...address,
       };
     };
 
-    const mapAbstractAddressToIntegrationAddress = address => ({
+    const mapAbstractAddressToIntegrationAddress = (address) => ({
       ...shippingDetails.value,
       city: address.city,
       country: address.country,
@@ -231,7 +254,7 @@ export default {
       postalCode: address.zipCode,
       state: address.state,
       phone: address.phoneNumber,
-      apartment: address.apartment
+      apartment: address.apartment,
     });
 
     const setCurrentAddress = async (addressId) => {
@@ -293,9 +316,9 @@ export default {
       isShippingAddressCompleted,
       addressIsModified,
       saveShippingDetails,
-      afterModifiedAddress
+      afterModifiedAddress,
     };
-  }
+  },
 };
 
 </script>

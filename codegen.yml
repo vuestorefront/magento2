@@ -1,0 +1,11 @@
+overwrite: true
+schema: "packages/api-client/schema.graphql"
+documents: "packages/api-client/src/**/*.graphql"
+generates:
+  packages/api-client/src/types/GraphQL.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+    config:
+      skipTypename: true
+      declarationKind: 'interface'

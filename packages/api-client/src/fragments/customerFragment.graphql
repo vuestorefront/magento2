@@ -1,0 +1,17 @@
+#import "./addressFragment.graphql"
+
+fragment CustomerData on Customer {
+  email
+  firstname
+  is_subscribed
+  lastname
+  middlename
+  prefix
+  suffix
+  taxvat
+  default_billing
+  default_shipping
+  addresses {
+    ...CustomerAddressData
+  }
+}

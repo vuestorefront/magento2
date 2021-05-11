@@ -1,0 +1,9 @@
+#import "../../fragments/categoryDataFragment.graphql"
+#import "../../fragments/categoryUrlData.graphql"
+
+query categorySearch($filters: CategoryFilterInput) {
+  categoryList(filters: $filters) {
+    ...CategoryData
+    ...CategoryUrlData
+  }
+}

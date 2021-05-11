@@ -2,12 +2,15 @@
   "extends": "../../tsconfig.base.json",
   "include": ["src"],
   "exclude": ["node_modules", "lib"],
-  "references": [
-    { "path": "apollo-client" }
-  ],
   "compilerOptions": {
-    "lib": [
-      "dom"
-    ]
+    "lib": ["DOM", "ESNext"],
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationDir": "./lib",
+    "sourceMap": true,
+    "importHelpers": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   }
 }

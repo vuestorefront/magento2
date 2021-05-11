@@ -3,17 +3,6 @@ export const productFragment = `
   type_id
   sku
   name
-  stock_status
-  only_x_left_in_stock
-  description {
-    html
-  }
-  short_description {
-    html
-  }
-  categories {
-    id
-  }
   price_range {
     minimum_price {
       final_price {
@@ -26,26 +15,36 @@ export const productFragment = `
       }
     }
   }
-  small_image {
-    url
-  }
   image {
     url
   }
   thumbnail {
-    url
+      url
   }
   url_rewrites {
-    url
-    parameters {
+      url
+      parameters {
+          name
+          value
+      }
+  }
+  categories {
+      id
       name
-      value
-    }
+      url_suffix
+      url_path
+      breadcrumbs {
+          category_name,
+          category_url_path
+      }
   }
 `;
 
 export const cartFragment = `
   id
+  applied_coupons {
+    code
+  }
   prices {
       subtotal_excluding_tax {
         value
@@ -81,6 +80,18 @@ export const cartFragment = `
       method_title
     }
   }
+  billing_address {
+    firstname
+    lastname
+    street
+    city
+    postcode
+    telephone
+    country {
+      code
+      label
+    }
+  }
   items {
     id
     product {
@@ -95,14 +106,6 @@ export const cartFragment = `
       }
       total_item_discount {
         value
-      }
-    }
-    ... on ConfigurableCartItem {
-      configurable_options {
-         id
-         value_id,
-         option_label
-         value_label
       }
     }
     quantity
@@ -134,4 +137,23 @@ export const customerFragment = `
     country_code
     telephone
   }
+`;
+
+export const categoryDataFragment = `
+  canonical_url
+  image
+  include_in_menu
+  is_anchor
+  level
+  name
+  path
+  path_in_store
+  position
+  uid
+`;
+
+export const categoryUrlData = `
+  url_key
+  url_path
+  url_suffix
 `;

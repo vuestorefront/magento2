@@ -1,71 +1,92 @@
 /* istanbul ignore file */
-
 import { useUserFactory, UseUserFactoryParams, Context } from '@vue-storefront/core';
-import { RegisterUserParams, UpdateUserParams, User } from '../../types';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
+import { RegisterUserParams, UpdateUserParams, User } from '../../types';
 
-const params: UseUserFactoryParams<User, any, any> = {
+const generateUserData = (userData): CustomerUpdateParameters => {
+  const baseData = {
+    email: userData.email,
+    firstname: userData.firstName,
+    lastname: userData.lastName,
+  } as CustomerUpdateParameters;
+
+  if (userData.dateOfBirth) {
+    baseData.date_of_birth = userData.dateOfBirth;
+  }
+  if (userData.gender) {
+    baseData.gender = userData.gender;
+  }
+  if (userData.taxvat) {
+    baseData.taxvat = userData.taxvat;
+  }
+  if (userData.prefix) {
+    baseData.prefix = userData.prefix;
+  }
+  if (userData.suffix) {
+    baseData.suffix = userData.suffix;
+  }
+  if (userData.password) {
+    baseData.password = userData.password;
+  }
+
+  return baseData;
+};
+
+const factoryParams: UseUserFactoryParams<User, any, any> = {
   load: async (context: Context, parameters) => {
-    const apiState = context.$ma.config.state;
-    
+    const apiState = context.$magento.config.state;
+
     if (!apiState.getCustomerToken()) {
       return null;
     }
     try {
-      const response = await context.$ma.api.customer();
+      const response = await context.$magento.api.customer();
       return response.data.customer;
     } catch (e) {
-      params.logOut(context, parameters);
+      // eslint-disable-next-line no-void
+      void factoryParams.logOut(context, parameters);
     }
-    
+
     return null;
   },
   logOut: async (context: Context) => {
-    const apiState = context.$ma.config.state;
+    const apiState = context.$magento.config.state;
 
     if (apiState.getCustomerToken()) {
-      await context.$ma.api.revokeCustomerToken();
+      await context.$magento.api.revokeCustomerToken();
     }
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
   },
-  updateUser: async (context: Context, { updatedUserData }) => {
-    return await context.$ma.api.updateCustomer({
-      email: updatedUserData.email,
-      firstname: updatedUserData.firstName,
-      lastname: updatedUserData.lastName
-    } as CustomerUpdateParameters);
+  updateUser: async (context: Context, { updatedUserData }) => context.$magento.api.updateCustomer(generateUserData(updatedUserData)),
+  register: async (context: Context, registerParams) => {
+    const { email, password, ...baseData } = generateUserData(registerParams);
+
+    await context.$magento.api.createCustomer({ email, password, ...baseData });
+
+    return factoryParams.logIn(context, { username: email, password });
   },
-  register: async (context: Context, {email, password, firstName, lastName}) => {
-    await context.$ma.api.createCustomer({
-      email: email,
-      firstname: firstName,
-      lastname: lastName,
-      password: password
-    } as CustomerUpdateParameters);
-    return params.logIn(context, {username: email, password: password});
-  },
-  logIn: async (context: Context, {username, password}) => {
-    const apiState = context.$ma.config.state;
-    const response = await context.$ma.api.generateCustomerToken(username, password);
+  logIn: async (context: Context, { username, password }) => {
+    const apiState = context.$magento.config.state;
+    const response = await context.$magento.api.generateCustomerToken(username, password);
 
     apiState.setCustomerToken(response.data.generateCustomerToken.token);
 
     // merge existing cart with customer cart
     const currentCartId = apiState.getCartId();
-    const cart = await context.$ma.api.customerCart();
+    const cart = await context.$magento.api.customerCart();
     const newCartId = cart.data.customerCart.id;
     if (newCartId && currentCartId && currentCartId !== newCartId) {
-      const newCart = await context.$ma.api.mergeCarts(currentCartId, newCartId);
+      const newCart = await context.$magento.api.mergeCarts(currentCartId, newCartId);
       apiState.setCartId(newCart.data.mergeCarts.id);
     }
 
-    return params.load(context, { username, password });
+    return factoryParams.load(context, { username, password });
   },
-  changePassword: async function changePassword(context: Context, {currentPassword, newPassword}) {
-    return await context.$ma.api.changeCustomerPassword(currentPassword, newPassword);
-  }
+  changePassword: async function changePassword(context: Context, { currentPassword, newPassword }) {
+    return context.$magento.api.changeCustomerPassword(currentPassword, newPassword);
+  },
 };
 
-export default useUserFactory<User, UpdateUserParams, RegisterUserParams>(params);
+export default useUserFactory<User, UpdateUserParams, RegisterUserParams>(factoryParams);

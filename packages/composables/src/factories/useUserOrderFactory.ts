@@ -1,7 +1,13 @@
-import { Ref, computed } from '@vue/composition-api';
-import { CustomQuery, Context, FactoryParams, sharedRef, Logger } from '@vue-storefront/core'
+import { computed } from '@vue/composition-api';
+import {
+  configureFactoryParams,
+  Context,
+  CustomQuery,
+  FactoryParams,
+  Logger,
+  sharedRef,
+} from '@vue-storefront/core';
 import { UseUserOrder, UseUserOrderErrors } from '../types';
-import { configureFactoryParams } from '../utils';
 
 export interface UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS> extends FactoryParams {
   searchOrders: (context: Context, params: ORDER_SEARCH_PARAMS & { customQuery?: CustomQuery }) => Promise<ORDERS>;
@@ -9,10 +15,12 @@ export interface UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS> extends 
 
 export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS>) {
   return function useUserOrder(): UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
-    const orders: Ref<ORDERS> = sharedRef([], 'useUserOrder-orders');
-    const loading: Ref<boolean> = sharedRef(false, 'useUserOrder-loading');
+    // @ts-ignore
+    const orders = sharedRef<ORDERS>([], 'useUserOrder-orders');
+    const loading = sharedRef<boolean>(false, 'useUserOrder-loading');
+    const error = sharedRef<UseUserOrderErrors>({}, 'useUserOrder-error');
+    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
-    const error: Ref<UseUserOrderErrors> = sharedRef({}, 'useUserOrder-error');
 
     const search = async (searchParams): Promise<void> => {
       Logger.debug('useUserOrder.search', searchParams);
@@ -30,10 +38,10 @@ export function useUserOrderFactory<ORDERS, ORDER_SEARCH_PARAMS>(factoryParams: 
     };
 
     return {
+      error: computed(() => error.value),
+      loading: computed(() => loading.value),
       orders: computed(() => orders.value),
       search,
-      loading: computed(() => loading.value),
-      error: computed(() => error.value)
     };
   };
 }

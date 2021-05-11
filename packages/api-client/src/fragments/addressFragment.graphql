@@ -1,0 +1,22 @@
+fragment CustomerAddressData on CustomerAddress {
+  city
+  country_code
+  default_billing
+  default_shipping
+  extension_attributes {
+    attribute_code
+    value
+  }
+  firstname
+  id
+  lastname
+  postcode
+  prefix
+  region {
+    region_code
+    region
+  }
+  street
+  suffix
+  telephone
+}

@@ -1,13 +1,21 @@
-import updateCustomerMutation from './mutation';
-import { Customer, CustomerInput } from '../../types/GraphQL';
+import mutation from './mutation.graphql';
+import {
+  CustomerDataFragment as Customer,
+  CustomerUpdateInput,
+  UpdateCustomerMutation,
+  UpdateCustomerMutationVariables,
+} from '../../types/GraphQL';
+import { Context } from '../../types/context';
 
-const updateCustomer = async({ client }, input: CustomerInput): Promise<Customer> => {
-  const response = client.mutate({
-    mutation: updateCustomerMutation,
+export default async ({ client }: Context, input: CustomerUpdateInput): Promise<Customer> => {
+  const { data } = await client
+    .mutate<
+  UpdateCustomerMutation,
+  UpdateCustomerMutationVariables>({
+    mutation,
     variables: { input },
-    fetchPolicy: 'no-cache'
+    fetchPolicy: 'no-cache',
   });
-  return response.data.updateCustomer.customer;
-};
 
-export default updateCustomer;
+  return data?.updateCustomerV2?.customer;
+};

@@ -1,0 +1,20 @@
+#import "../../fragments/categoryDataFragment.graphql"
+#import "../../fragments/categoryUrlData.graphql"
+
+query categoryList {
+  categories {
+    items {
+      children {
+        ...CategoryData
+        ...CategoryUrlData
+        children {
+          ...CategoryData
+          ...CategoryUrlData
+        }
+      }
+      product_count
+      name
+      uid
+    }
+  }
+}

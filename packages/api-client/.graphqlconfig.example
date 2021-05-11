@@ -1,0 +1,12 @@
+{
+  "name": "Magento",
+  "schemaPath": "./schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "API": {
+        "url": "https://demo-magento2.storefrontcloud.io/graphql",
+        "introspect": true
+      }
+    }
+  }
+}

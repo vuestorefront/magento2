@@ -1,0 +1,20 @@
+#import "./productThumbnailFragment.graphql"
+#import "./productPriceRangeFragment.graphql"
+#import "./productUrlFragment.graphql"
+#import "./productCategoriesFragment.graphql"
+#import "./configurableProductOptionsFragment.graphql"
+
+fragment ProductData on ProductInterface {
+  uid
+  __typename
+  sku
+  name
+  stock_status
+  only_x_left_in_stock
+  rating_summary
+  ...ProductThumbnailData
+  ...ProductPriceRangeData
+  ...ProductUrlFragmentData
+  ...ProductCategoriesData
+  ...ConfigurableProductOptionsData
+}

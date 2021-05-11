@@ -1,34 +1,42 @@
+import { computed } from '@vue/composition-api';
+import {
+  configureFactoryParams,
+  Context,
+  FactoryParams,
+  Logger,
+  sharedRef,
+} from '@vue-storefront/core';
 import { UsePage } from '../types';
-import { Ref, computed } from '@vue/composition-api';
-import { Context, generateContext, sharedRef, Logger } from '@vue-storefront/core';
 
-export interface UsePageFactoryParams<PAGE> {
-    loadPage: (context: Context, identifer: string) => Promise<PAGE>;
+export interface UsePageFactoryParams<PAGE> extends FactoryParams{
+  loadPage: (context: Context, identifer: string) => Promise<PAGE>;
 }
 
 export function usePageFactory<PAGE>(
-  factoryParams: UsePageFactoryParams<PAGE>
+  factoryParams: UsePageFactoryParams<PAGE>,
 ) {
   return function usePage(cacheId: string): UsePage<PAGE> {
-    const page: Ref<PAGE> = sharedRef({}, `usePage-pages-${cacheId}`);
-    const loading: Ref<boolean> = sharedRef(false, `usePage-loading-${cacheId}`);
-    const context = generateContext(factoryParams);
+    // @ts-ignore
+    const page = sharedRef<PAGE>({}, `usePage-pages-${cacheId}`);
+    const loading = sharedRef<boolean>(false, `usePage-loading-${cacheId}`);
+    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+    const _factoryParams = configureFactoryParams(factoryParams);
 
     const loadPage = async (identifer: string) => {
       Logger.debug(`usePage/${cacheId}/loadPage`);
       loading.value = true;
 
       try {
-        page.value = await factoryParams.loadPage(context, identifer);
+        page.value = await _factoryParams.loadPage(identifer);
       } finally {
         loading.value = false;
       }
     };
 
     return {
+      loading: computed(() => loading.value),
       loadPage,
       page: computed(() => page.value),
-      loading: computed(() => loading.value)
     };
   };
 }
