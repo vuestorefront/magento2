@@ -79,6 +79,17 @@
         "mentoring",
         "review"
       ]
+    },
+    {
+      "login": "andrzejewsky",
+      "name": "Patryk Andrzejewski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7943292?v=4",
+      "profile": "https://github.com/andrzejewsky",
+      "contributions": [
+        "question",
+        "mentoring",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7
