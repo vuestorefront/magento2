@@ -8,12 +8,12 @@ import {
 } from '@vue-storefront/core';
 import { UsePage } from '../types';
 
-export interface UsePageFactoryParams<PAGE> extends FactoryParams{
+export interface UseContentFactoryParams<PAGE> extends FactoryParams{
   loadPage: (context: Context, identifer: string) => Promise<PAGE>;
 }
 
-export function usePageFactory<PAGE>(
-  factoryParams: UsePageFactoryParams<PAGE>,
+export function useContentFactory<PAGE>(
+  factoryParams: UseContentFactoryParams<PAGE>,
 ) {
   return function usePage(cacheId: string): UsePage<PAGE> {
     // @ts-ignore

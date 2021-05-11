@@ -1,7 +1,7 @@
 import { ClientConfig } from '../../types/setup';
 
 export const defaultSettings: ClientConfig = {
-  api: 'https://demo-magento2.storefrontcloud.io/graphql',
+  api: '',
   cookies: {
     currencyCookieName: 'vsf-currency',
     countryCookieName: 'vsf-country',

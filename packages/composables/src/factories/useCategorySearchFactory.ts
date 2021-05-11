@@ -14,7 +14,7 @@ export interface UseCategorySearchFactory<CATEGORY> extends FactoryParams {
 export function useCategorySearchFactory<CATEGORY>(
   factoryParams: UseCategorySearchFactory<CATEGORY>,
 ) {
-  return function useCategorySearch(id: string): UseCategorySearch<CATEGORY> {
+  return function useCategorySearch(id: string = ''): UseCategorySearch<CATEGORY> {
     const ssrKey = id || 'useCategorySearch';
     // @ts-ignore
     const result = sharedRef<CATEGORY>([], `${ssrKey}-result`);
