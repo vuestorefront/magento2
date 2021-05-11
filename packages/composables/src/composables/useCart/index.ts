@@ -129,7 +129,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     currentCart,
     product,
   }) => {
-    const item = currentCart.items.find((cartItem) => cartItem.product.uid === product.uid);
+    const item = currentCart.items.find((cartItem) => cartItem.uid === product.uid);
 
     if (!item) {
       return;
@@ -137,7 +137,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     const removeItemParams: RemoveItemFromCartInput = {
       cart_id: currentCart.id,
-      cart_item_id: Number.parseInt(item.uid, 10),
+      cart_item_uid: item.uid,
     };
 
     const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
@@ -156,7 +156,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       cart_id: currentCart.id,
       cart_items: [
         {
-          cart_item_id: Number.parseInt(product.uid, 10),
+          cart_item_uid: product.uid,
           quantity,
         },
       ],
