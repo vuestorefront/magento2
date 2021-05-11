@@ -38,4 +38,10 @@ export const defaultSettings: ClientConfig = {
     getStore: () => '',
     setStore: () => {},
   },
+  externalCheckout: {
+    enable: false,
+    syncUrlPath: '/vue/cart/sync',
+    stores: {},
+    cmsUrl: '',
+  },
 };
