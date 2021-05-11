@@ -48,6 +48,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "hcmlopes",
+      "name": "Henrique Lopes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
+      "profile": "https://github.com/hcmlopes",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
