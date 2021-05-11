@@ -39,7 +39,7 @@ jobs:
 
       - name: Publish Packages
         shell: bash
-        run: yarn publish:packages "[${{ join(github.event.pull_request.labels.*.name, '|') }}]" "$NPM_TOKEN"
+        run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NPM_TOKEN"
 
   automerge:
     needs: publishing
