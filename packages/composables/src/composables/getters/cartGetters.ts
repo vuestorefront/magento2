@@ -18,7 +18,7 @@ export const getCartItems = (cart: Cart): CartItem[] => {
 
 export const getCartItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
 
-export const getCartItemImage = (product: CartItem): string => productGetters.getCoverImage(product.product as Product);
+export const getCartItemImage = (product: CartItem): string => productGetters.getProductThumbnailImage(product.product as Product);
 
 export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
   if (!product || !product.prices) {
