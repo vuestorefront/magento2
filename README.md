@@ -8,7 +8,7 @@ This integration is being developed by superheroes from [Cyberfuze](https://cybe
 ------
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
@@ -67,8 +67,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://heitorramon.com/"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/@vue-storefront/magento2/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
-    <td align="center"><a href="https://dominikdeimel.com/"><img src="https://avatars.githubusercontent.com/u/32941053?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Deimel</b></sub></a><br /><a href="https://github.com/vuestorefront/@vue-storefront/magento2/commits?author=domideimel" title="Code">💻</a> <a href="https://github.com/vuestorefront/@vue-storefront/magento2/commits?author=domideimel" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://heitorramon.com/"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/vue-storefront/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://dominikdeimel.com/"><img src="https://avatars.githubusercontent.com/u/32941053?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dominik Deimel</b></sub></a><br /><a href="https://github.com/vuestorefront/vue-storefront/commits?author=domideimel" title="Code">💻</a> <a href="https://github.com/vuestorefront/vue-storefront/commits?author=domideimel" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://cyberfuze.com/"><img src="https://avatars.githubusercontent.com/u/6757942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lior Lindvor</b></sub></a><br /><a href="https://github.com/vuestorefront/vue-storefront/commits?author=LiorLindvor" title="Code">💻</a></td>
   </tr>
 </table>
 

@@ -1,5 +1,5 @@
 {
-  "projectName": "@vue-storefront/magento2",
+  "projectName": "vue-storefront",
   "projectOwner": "vuestorefront",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -29,6 +29,15 @@
       "contributions": [
         "code",
         "doc"
+      ]
+    },
+    {
+      "login": "LiorLindvor",
+      "name": "Lior Lindvor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6757942?v=4",
+      "profile": "http://cyberfuze.com/",
+      "contributions": [
+        "code"
       ]
     }
   ],
