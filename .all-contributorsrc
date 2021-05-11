@@ -1,0 +1,36 @@
+{
+  "projectName": "@vue-storefront/magento2",
+  "projectOwner": "vuestorefront",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "bloodf",
+      "name": "Heitor Ramon Ribeiro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1626923?v=4",
+      "profile": "http://heitorramon.com/",
+      "contributions": [
+        "code",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "domideimel",
+      "name": "Dominik Deimel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
+      "profile": "https://dominikdeimel.com/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
