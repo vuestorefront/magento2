@@ -54,19 +54,16 @@ export interface ClientConfig {
     storeCookieName: string;
   },
   currency: string;
-  customOptions?: ApolloClientOptions<any>;
   defaultStore: string;
   externalCheckout: {
-    enabled: boolean;
+    enable: boolean;
     cmsUrl: string;
     syncUrlPath: string;
     stores: Record<string, {
       cmsUrl: string;
     }>;
   };
-  overrides: MagentoApiMethods;
   state: ConfigState;
-  storage: Storage;
   tax: {
     displayCartSubtotalIncludingTax: boolean;
   };
@@ -75,6 +72,9 @@ export interface ClientConfig {
 
 export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
+  storage: Storage;
+  customOptions?: ApolloClientOptions<any>;
+  overrides: MagentoApiMethods;
 }
 
 export interface ClientInstance extends ApolloClient<any> {
