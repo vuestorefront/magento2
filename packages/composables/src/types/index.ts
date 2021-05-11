@@ -53,6 +53,16 @@ export interface UseRouterErrors {
   search: Error;
 }
 
+export interface UseExternalCheckout {
+  initializeCheckout: (baseUrl: string) => Promise<string>;
+  error: ComputedProperty<UseExternalCheckoutErrors>;
+  loading: ComputedProperty<boolean>;
+}
+
+export interface UseExternalCheckoutErrors {
+  initializeCheckout: Error;
+}
+
 export interface UseCategorySearch<CATEGORY> {
   search: (params: { term: string }) => Promise<CATEGORY[]>;
   result: ComputedProperty<CATEGORY[]>;
