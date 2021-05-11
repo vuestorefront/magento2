@@ -12,6 +12,7 @@ const publishPackages = async (labels, token) => {
     const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
 
     const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
+
     const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
 
     const basePublishOptions = {
