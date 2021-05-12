@@ -37,6 +37,10 @@ jobs:
       - name: Build - Composeables
         run: yarn build:composables
 
+      - name: Copy .npmrc
+        shell: bash
+        run: cp .npmrc ~/.npmrc
+
       - name: Publish Packages
         shell: bash
         run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NPM_TOKEN"
