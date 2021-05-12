@@ -3,12 +3,13 @@ import {
   ComputedProperty,
   FacetSearchResult,
   ComposableFunctionArgs,
-  CustomQuery,
+  CustomQuery, AgnosticCategoryTree, AgnosticBreadcrumb,
 } from '@vue-storefront/core';
 import { Ref, ComputedRef } from '@vue/composition-api';
 import {
   Category, Customer, MagentoCustomerGender, Product,
 } from '@vue-storefront/magento-api';
+import { UseCategoryErrors } from '@vue-storefront/core/lib/src/types';
 
 export type User = Customer;
 
@@ -117,6 +118,24 @@ export interface UseBilling<BILLING, BILLING_PARAMS> {
   load(params: { customQuery?: CustomQuery }): Promise<void>;
   loading: ComputedProperty<boolean>;
   save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
+}
+
+export interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
+  categories: ComputedProperty<CATEGORY[]>;
+  search(params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>): Promise<void>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseCategoryErrors>;
+}
+
+export interface CategoryGetters<CATEGORY> {
+  getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
+  getBreadcrumbs: (category: CATEGORY) => AgnosticBreadcrumb[];
+  getCategoryTree?: (
+    category: CATEGORY,
+    currentCategory: string,
+    withProducts: boolean,
+  ) => AgnosticCategoryTree | null;
+  [getterName: string]: any;
 }
 
 export interface UseShippingErrors {

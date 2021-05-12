@@ -6,10 +6,10 @@
 
 ```typescript
 interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
-    categories: ComputedProperty<CATEGORY[]>;
-    search(params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>): Promise<void>;
-    loading: ComputedProperty<boolean>;
-    error: ComputedProperty<UseCategoryErrors>;
+  categories: ComputedProperty<CATEGORY[]>;
+  search(params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>): Promise<void>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseCategoryErrors>;
 }
 ```
 
@@ -21,9 +21,14 @@ interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
 ## Getters
 ````typescript
 interface CategoryGetters<CATEGORY> {
-    getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
-    getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
-    [getterName: string]: any;
+  getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
+  getBreadcrumbs: (category: CATEGORY) => AgnosticBreadcrumb[];
+  getCategoryTree?: (
+    category: CATEGORY,
+    currentCategory: string,
+    withProducts: boolean,
+  ) => AgnosticCategoryTree | null;
+  [getterName: string]: any;"
 }
 ````
 ## Example
