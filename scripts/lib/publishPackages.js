@@ -22,7 +22,7 @@ const publishPackages = (labels, token) => {
           tag: npmTag,
           access: 'public',
           checkVersion: true,
-          registry: 'https://registry.npmjs.org/'
+          // registry: 'https://registry.npmjs.org/'
         };
         npmPublish({
           package: path.resolve(baseApiClientPath, './package.json'),
