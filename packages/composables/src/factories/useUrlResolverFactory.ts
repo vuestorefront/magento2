@@ -22,7 +22,7 @@ export const useUrlResolverFactory = <ROUTER>(
   const error = sharedRef({
     search: null,
   }, `${ssrKey}-error`);
-    // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
 
   const search = async (url: string) => {

@@ -12,12 +12,6 @@ export const defaultSettings: ClientConfig = {
   },
   currency: 'USD',
   defaultStore: 'default',
-  externalCheckout: {
-    enable: false,
-    cmsUrl: '',
-    syncUrlPath: '',
-    stores: {},
-  },
   tax: {
     displayCartSubtotalIncludingTax: true,
   },
@@ -43,5 +37,11 @@ export const defaultSettings: ClientConfig = {
     setCustomerToken: () => {},
     getStore: () => '',
     setStore: () => {},
+  },
+  externalCheckout: {
+    enable: false,
+    syncUrlPath: '/vue/cart/sync',
+    stores: {},
+    cmsUrl: '',
   },
 };

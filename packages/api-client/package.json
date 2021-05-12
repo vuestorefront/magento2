@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.8",
   "sideEffects": false,
   "license": "MIT",
   "server": "server/index.js",
@@ -49,7 +49,8 @@
     "webpack": "^4.46.0"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "server/**/*"
   ],
   "publishConfig": {
     "access": "public"
