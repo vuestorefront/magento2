@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Get cached dependencies
         uses: actions/cache@v2
@@ -29,7 +30,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --check-files --frozen-lockfile --non-interactive
 
       - name: Build - API-Client
         run: yarn build:api-client
@@ -39,7 +40,7 @@ jobs:
 
       - name: Copy .npmrc
         shell: bash
-        run: cp .npmrc ~/.npmrc
+        run: cp scripts/.npmrc ~/.npmrc
 
       - name: Publish Packages
         shell: bash
