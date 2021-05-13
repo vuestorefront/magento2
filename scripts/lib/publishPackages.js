@@ -1,4 +1,4 @@
-const npmPublish = require('@jsdevtools/npm-publish');
+const { exec } = require("child_process");
 const path = require('path');
 const labelsToRemove = ['release'];
 const npmLabelBase = 'NPM:';
@@ -17,27 +17,19 @@ const publishPackages = (labels, token) => {
 
         const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
 
-        const basePublishOptions = {
-          token: token,
-          tag: npmTag,
-          access: 'public',
-          checkVersion: true,
-          // registry: 'https://registry.npmjs.org/'
-        };
-        npmPublish({
-          package: path.resolve(baseApiClientPath, './package.json'),
-          ...basePublishOptions,
-        }).then((apiReturn) => {
-          npmPublish({
-            package: path.resolve(baseComposablesPath, './package.json'),
-            ...basePublishOptions,
-          }).then((composerReturn) => {
-            resolve({
-              apiReturn,
-              composerReturn,
-            })
+        [baseApiClientPath, baseComposablesPath].forEach((p) => {
+          exec(`npm publish ${p} --access public --tag ${npmTag}`, (error, stdout, stderr) => {
+            if (error) {
+              console.log(`error: ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`);
+              return;
+            }
+            console.log(`stdout: ${stdout}`);
           });
-        })
+        });
       }
     } catch(e){
       reject(e);
