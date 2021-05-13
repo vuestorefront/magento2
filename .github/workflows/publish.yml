@@ -40,11 +40,15 @@ jobs:
 
       - name: Copy .npmrc to root
         shell: bash
-        run: cp scripts/.npmrc ~/.npmrc
+        run: cp scripts/.npmrc .npmrc
 
       - name: Publish Packages
         shell: bash
         run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NPM_TOKEN"
+
+      - name: Remove .npmrc
+        shell: bash
+        run: rm -rf .npmrc
 
   automerge:
     needs: publishing
