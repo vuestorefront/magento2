@@ -38,14 +38,9 @@ jobs:
       - name: Build - Composeables
         run: yarn build:composables
 
-      - name: Create .npmrc
-        shell: bash
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${INPUT_TOKEN}\nregistry=https://registry.npmjs.org/\n@vue-storefront:registry=https://registry.npmjs.org/\n" > .npmrc
-
       - name: Copy .npmrc to root
         shell: bash
-        run: cp .npmrc ~/.npmrc
+        run: cp scripts/.npmrc ~/.npmrc
 
       - name: Publish Packages
         shell: bash
