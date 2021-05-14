@@ -6,9 +6,6 @@
   "bugs": {
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
-  "bugs": {
-    "url": "https://github.com/vuestorefront/magento2/issues"
-  },
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
