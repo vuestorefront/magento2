@@ -5,7 +5,7 @@ import {
   ComposableFunctionArgs,
   CustomQuery,
 } from '@vue-storefront/core';
-import { Ref, ComputedRef } from '@vue/composition-api';
+import { Ref, ComputedRef } from 'vue-demi';
 import {
   Category, Customer, MagentoCustomerGender, Product,
 } from '@vue-storefront/magento-api';

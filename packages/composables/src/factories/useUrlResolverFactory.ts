@@ -5,7 +5,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue-demi';
 import { UseUrlResolver } from '../types';
 
 export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {

@@ -20,7 +20,8 @@
   "dependencies": {
     "@vue-storefront/magento-api": "^1.0.0-beta.9",
     "@vue-storefront/core": "^2.3.1",
-    "vue": "^2.6.x"
+    "vue": "^2.6.x",
+    "vue-demi": "latest"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
@@ -28,7 +29,13 @@
     "vue-template-compiler": "^2.6.x"
   },
   "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21"
+    "@vue/composition-api": "1.0.0-beta.21",
+    "vue": "^2.0.0 || >=3.0.0-rc.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "files": [
     "lib/**/*",

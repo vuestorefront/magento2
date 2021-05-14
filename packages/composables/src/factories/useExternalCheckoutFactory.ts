@@ -1,4 +1,3 @@
-// import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -6,7 +5,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue-demi';
 import { UseExternalCheckout } from '../types';
 
 export interface UseExternalCheckoutFactoryParams extends FactoryParams {

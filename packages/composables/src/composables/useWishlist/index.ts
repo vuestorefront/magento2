@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
 /* istanbul ignore file */
 import { useWishlistFactory, UseWishlistFactoryParams, Context } from '@vue-storefront/core';
-import { ref } from '@vue/composition-api';
 import {
   Wishlist,
   Product,
