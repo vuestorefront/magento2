@@ -7,7 +7,7 @@ import {
 } from '@vue-storefront/core';
 import { Ref, ComputedRef } from 'vue-demi';
 import {
-  Category, Customer, MagentoCustomerGender, Product,
+  Category, Countries, Customer, MagentoCustomerGender, Product,
 } from '@vue-storefront/magento-api';
 
 export type User = Customer;
@@ -72,6 +72,20 @@ export interface UseCategorySearch<CATEGORY> {
 
 export interface UseCategorySearchErrors {
   search: Error;
+}
+
+export interface UseCountrySearch<COUNTRIES, COUNTRY> {
+  loadCountries: () => Promise<COUNTRIES[]>;
+  searchCountry: (params: { id: string }) => Promise<COUNTRY>;
+  countries: ComputedProperty<COUNTRIES[]>;
+  country: ComputedProperty<COUNTRY>;
+  error: ComputedProperty<UseCategorySearchErrors>;
+  loading: ComputedProperty<boolean>;
+}
+
+export interface UseCountrySearchErrors {
+  loadCountries: Error;
+  searchCountry: Error;
 }
 
 export interface UseConfig<CONFIG> {
@@ -175,3 +189,12 @@ export interface UseMakeOrder<ORDER> {
 }
 
 export type SearchData = FacetSearchResult<FacetResultsData>;
+
+export interface AddressGetter {
+  countriesList: (countries: Countries[]) => {
+    id: string;
+    label: string;
+    englishLabel: string;
+    abbreviation: string;
+  }[]
+}

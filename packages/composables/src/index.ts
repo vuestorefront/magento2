@@ -9,6 +9,7 @@ export { default as useCategory } from './composables/useCategory';
 export { default as useCategorySearch } from './composables/useCategorySearch';
 export { default as useConfig } from './composables/useConfig';
 export { default as useContent } from './composables/useContent';
+export { default as useCountrySearch } from './composables/useCountrySearch';
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
 export { default as useFacet } from './composables/useFacet';
 export { default as useMakeOrder } from './composables/useMakeOrder';
