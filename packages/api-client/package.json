@@ -2,6 +2,13 @@
   "name": "@vue-storefront/magento-api",
   "version": "1.0.0-beta.9",
   "sideEffects": false,
+  "homepage": "https://github.com/vuestorefront/magento2",
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
   "license": "MIT",
   "server": "server/index.js",
   "main": "lib/index.cjs.js",

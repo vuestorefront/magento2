@@ -3,6 +3,10 @@
   "version": "1.0.0-beta.9",
   "private": true,
   "license": "MIT",
+  "homepage": "https://github.com/vuestorefront/magento2",
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
   "scripts": {
     "build": "nuxt build -m",
     "build:analyze": "nuxt build -a -m",

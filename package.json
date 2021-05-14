@@ -5,6 +5,10 @@
   "engines": {
     "node": ">=10.x"
   },
+  "homepage": "https://github.com/vuestorefront/magento2",
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
   "workspaces": [
     "packages/*"
   ],

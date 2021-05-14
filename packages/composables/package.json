@@ -2,6 +2,13 @@
   "name": "@vue-storefront/magento",
   "version": "1.0.0-beta.9",
   "license": "MIT",
+  "homepage": "https://github.com/vuestorefront/magento2",
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
