@@ -15,8 +15,8 @@ export function useConfigFactory<CONFIG>(factoryParams: UseConfigFactoryParams<C
   return function useConfig(cacheId: string = ''): UseConfig<CONFIG> {
     const ssrKey = cacheId || 'useConfigFactory';
     // @ts-ignore
-    const config = sharedRef<CONFIG>({}, `useConfig-categories-${ssrKey}`);
-    const loading = sharedRef<boolean>(false, `useConfig-loading-${ssrKey}`);
+    const config = sharedRef<CONFIG>({}, `${ssrKey}-config`);
+    const loading = sharedRef<boolean>(false, `${ssrKey}-loading`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
