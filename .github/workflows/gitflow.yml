@@ -1,3 +1,4 @@
+name: Gitflow Merge
 on:
   pull_request:
     branches:
