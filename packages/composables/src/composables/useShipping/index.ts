@@ -1,9 +1,13 @@
-import { Context, Logger } from '@vue-storefront/core';
+import {
+  Context,
+  Logger,
+  useShippingFactory,
+  UseShippingParams,
+} from '@vue-storefront/core';
 import {
   CartAddressInput,
   SetShippingAddressesOnCartInput,
 } from '@vue-storefront/magento-api';
-import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
 
 const factoryParams: UseShippingParams<any, any> = {

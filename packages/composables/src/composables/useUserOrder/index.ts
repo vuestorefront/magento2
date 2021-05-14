@@ -1,10 +1,11 @@
 /* istanbul ignore file */
-import { Context, Logger } from '@vue-storefront/core';
-import { CustomerOrder, CustomerOrdersQueryVariables } from '@vue-storefront/magento-api';
 import {
+  Context,
+  Logger,
   useUserOrderFactory,
   UseUserOrderFactoryParams,
-} from '../../factories/useUserOrderFactory';
+} from '@vue-storefront/core';
+import { CustomerOrder, CustomerOrdersQueryVariables } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 
 const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQueryVariables> = {

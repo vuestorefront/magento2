@@ -1,3 +1,4 @@
+import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -48,11 +49,9 @@ export function useCategorySearchFactory<CATEGORY>(
 
     return {
       search,
-      // @ts-ignore
-      result,
-      loading,
-      // @ts-ignore
-      error,
+      result: computed(() => result.value),
+      loading: computed(() => loading.value),
+      error: computed(() => error.value),
     };
   };
 }

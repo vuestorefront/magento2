@@ -1,6 +1,10 @@
-import { Context, Logger } from '@vue-storefront/core';
+import {
+  Context,
+  Logger,
+  useBillingFactory,
+  UseBillingParams,
+} from '@vue-storefront/core';
 import { BillingAddressInput, BillingCartAddress, CartAddressInput } from '@vue-storefront/magento-api';
-import { useBillingFactory, UseBillingParams } from '../../factories/useBillingFactory';
 import useCart from '../useCart';
 
 const factoryParams: UseBillingParams<BillingCartAddress, any> = {

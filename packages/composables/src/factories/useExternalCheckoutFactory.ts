@@ -6,6 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { computed } from '@vue/composition-api';
 import { UseExternalCheckout } from '../types';
 
 export interface UseExternalCheckoutFactoryParams extends FactoryParams {
@@ -41,8 +42,8 @@ export const useExternalCheckoutFactory = (
 
     return {
       initializeCheckout,
-      loading: loading.value, // @TODO: Check CAPI
-      error: error.value, // @TODO: Check CAPI
+      loading: computed(() => loading.value),
+      error: computed(() => error.value),
     };
   }
 

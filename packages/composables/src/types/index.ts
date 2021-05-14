@@ -42,7 +42,7 @@ export interface FacetResultsData {
   availableFilters: Record<string, any>;
 }
 
-export interface UseRouter<ROUTE> {
+export interface UseUrlResolver<ROUTE> {
   search: (url: string) => Promise<void>;
   result: ComputedProperty<ROUTE>;
   error: ComputedProperty<UseRouterErrors>;
@@ -80,9 +80,9 @@ export interface UseConfig<CONFIG> {
   loading: ComputedRef<boolean>;
 }
 
-export interface UsePage<PAGE> {
+export interface UseContent<PAGE> {
   page: ComputedProperty<PAGE>;
-  loadPage: (identifier: string) => Promise<void>;
+  loadContent: (identifier: string) => Promise<void>;
   loading: ComputedProperty<boolean>;
 }
 

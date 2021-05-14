@@ -1,6 +1,7 @@
 import { Context } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';
 import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';
+import { UseConfig } from '../../types';
 
 const factoryParams: UseConfigFactoryParams<StoreConfig> = {
   loadConfig: async (context: Context) => {
@@ -10,4 +11,6 @@ const factoryParams: UseConfigFactoryParams<StoreConfig> = {
   },
 };
 
-export default useConfigFactory<StoreConfig>(factoryParams);
+const useConfig: (cacheId: string) => UseConfig<StoreConfig> = useConfigFactory<StoreConfig>(factoryParams);
+
+export default useConfig;
