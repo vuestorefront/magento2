@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=10.x"
+    "node": ">=14.x"
   },
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {

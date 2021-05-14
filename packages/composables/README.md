@@ -23,7 +23,7 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
 ### Requirements:
-  - NodeJS v12 or later
+  - NodeJS v14 or later
   - Magento >= v2.4 instance for GraphQL endpoint
 ### Steps
 1. Fork the repo

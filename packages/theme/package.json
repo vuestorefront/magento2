@@ -87,5 +87,8 @@
     "@vue/composition-api": {
       "optional": true
     }
+  },
+  "engines": {
+    "node": ">=14.x"
   }
 }
