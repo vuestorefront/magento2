@@ -32,7 +32,7 @@
     "core-js": "^3.12.1",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
-    "nuxt": "^2.15.5",
+    "nuxt": "^2.15.6",
     "nuxt-i18n": "^6.27.0",
     "vee-validate": "^3.4.5",
     "vue-dompurify-html": "^2.3.0",
