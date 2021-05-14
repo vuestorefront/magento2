@@ -7,6 +7,8 @@ export { default as categorySearch } from './categorySearch';
 export { default as changeCustomerPassword } from './changeCustomerPassword';
 export { default as cmsPage } from './cmsPage';
 export { default as configurableProductDetail } from './configurableProductDetail';
+export { default as countries } from './countries';
+export { default as country } from './country';
 export { default as createCustomer } from './createCustomer';
 export { default as createCustomerAddress } from './createCustomerAddress';
 export { default as createEmptyCart } from './createEmptyCart';

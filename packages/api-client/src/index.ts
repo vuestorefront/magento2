@@ -519,4 +519,8 @@ export {
   UpsellProductsQueryVariables,
   CategorySearchQuery,
   CategorySearchQueryVariables,
+  CountriesListQuery,
+  CountryInformationQuery,
+  CountryInformationQueryVariables,
+  CountriesListQueryVariables,
 } from './types/GraphQL';

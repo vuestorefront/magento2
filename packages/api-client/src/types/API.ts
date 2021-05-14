@@ -20,7 +20,7 @@ import {
   CategoryTree,
   CmsPage,
   CmsPageQuery,
-  ConfigurableProduct, ConfigurableProductDetailQuery,
+  ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
   CreateCustomerAddressMutation,
   CreateEmptyCartMutation,
   CustomerAddress as CustomerAddressInterface,
@@ -79,6 +79,7 @@ export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
 export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput;
+export type Countries = CountriesListQuery['countries'][0];
 export type CategoryMenu = CategoryTree;
 export type Coupon = AppliedCoupon;
 export type Customer = CustomerFragment;
@@ -138,6 +139,10 @@ export interface MagentoApiMethods {
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
+
+  countries(): Promise<ApolloQueryResult<CountriesListQuery>>;
+
+  country(id: string): Promise<ApolloQueryResult<CountryInformationQuery>>;
 
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
