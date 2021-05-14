@@ -7,7 +7,7 @@ import {
 } from '@vue-storefront/core';
 import { Ref, ComputedRef } from 'vue-demi';
 import {
-  Category, Countries, Customer, MagentoCustomerGender, Product,
+  Category, Countries, Country, Customer, MagentoCustomerGender, Product,
 } from '@vue-storefront/magento-api';
 
 export type User = Customer;
@@ -191,10 +191,15 @@ export interface UseMakeOrder<ORDER> {
 export type SearchData = FacetSearchResult<FacetResultsData>;
 
 export interface AddressGetter {
-  countriesList: (countries: Countries[]) => {
+  countriesList(countries: Countries[]): {
     id: string;
     label: string;
     englishLabel: string;
     abbreviation: string;
-  }[]
+  }[];
+  regionList(country: Country): {
+    id: number;
+    label: string;
+    abbreviation: string;
+  }[];
 }
