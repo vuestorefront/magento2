@@ -1,4 +1,4 @@
-import { Countries } from '@vue-storefront/magento-api';
+import { Countries, Country } from '@vue-storefront/magento-api';
 import { AddressGetter } from '../../types';
 
 const countriesList: AddressGetter['countriesList'] = (countries: Countries[]) => countries
@@ -11,6 +11,20 @@ const countriesList: AddressGetter['countriesList'] = (countries: Countries[]) =
   }))
   .sort((a, b) => a.label.localeCompare(b.label));
 
+const regionList: AddressGetter['regionList'] = (country: Country) => (country?.available_regions ? country.available_regions
+  .filter((c) => c.id && c.code && c.name)
+  .map((c) => ({
+    id: c.id,
+    label: c.name,
+    abbreviation: c.code,
+  } as {
+    id: number;
+    label: string;
+    abbreviation: string;
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label)) : []);
+
 export default {
   countriesList,
+  regionList,
 } as AddressGetter;
