@@ -38,7 +38,8 @@
     "vue-dompurify-html": "^2.3.0",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vue-demi": "latest"
   },
   "devDependencies": {
     "@nuxt/types": "latest",
@@ -75,6 +76,12 @@
     "webpack": "^4.46.0"
   },
   "peerDependencies": {
-    "@vue/composition-api": ">= 1.0.0"
+    "@vue/composition-api": "1.0.0-beta.21",
+    "vue": "^2.0.0 || >=3.0.0-rc.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   }
 }

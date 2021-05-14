@@ -149,7 +149,7 @@ import {
 } from '@vue-storefront/magento';
 import {
   computed, ref, onBeforeUnmount, watch,
-} from '@vue/composition-api';
+} from 'vue-demi';
 import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import {

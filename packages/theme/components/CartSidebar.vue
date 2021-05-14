@@ -121,7 +121,7 @@ import {
   SfCollectedProduct,
   SfImage,
 } from '@storefront-ui/vue';
-import { computed } from '@vue/composition-api';
+import { computed } from 'vue-demi';
 import {
   useCart, useUser, cartGetters, useExternalCheckout,
 } from '@vue-storefront/magento';

@@ -80,7 +80,7 @@ import {
 } from '@vue-storefront/magento';
 import {
   computed,
-} from '@vue/composition-api';
+} from 'vue-demi';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';

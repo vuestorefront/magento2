@@ -143,7 +143,7 @@ import {
   SfButton,
   SfImage,
 } from '@storefront-ui/vue';
-import { ref, watch, computed } from '@vue/composition-api';
+import { ref, watch, computed } from 'vue-demi';
 import { productGetters } from '@vue-storefront/magento';
 import { useUiHelpers } from '~/composables';
 

@@ -152,7 +152,7 @@ import {
   SfButton,
   SfProperty,
 } from '@storefront-ui/vue';
-import { computed, ref } from '@vue/composition-api';
+import { computed, ref } from 'vue-demi';
 import { useUserOrder, orderGetters } from '@vue-storefront/magento';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 

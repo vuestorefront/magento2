@@ -372,7 +372,7 @@ import {
   SfColor,
   SfProperty,
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted } from '@vue/composition-api';
+import { ref, computed, onMounted } from 'vue-demi';
 import {
   useCart,
   useWishlist,

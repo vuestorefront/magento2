@@ -1,4 +1,3 @@
-import { getCurrentInstance } from '@vue/composition-api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';

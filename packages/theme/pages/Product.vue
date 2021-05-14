@@ -226,7 +226,7 @@ import {
   SfSticky,
   SfTabs,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed } from 'vue-demi';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
