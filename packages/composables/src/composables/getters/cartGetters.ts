@@ -4,7 +4,8 @@ import {
 import {
   Discount,
   Cart,
-  CartItem, Product,
+  CartItem,
+  Product,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 
@@ -42,6 +43,8 @@ export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
     total: product.prices?.row_total?.value,
   };
 };
+
+export const productHasSpecialPrice = (product: CartItem): boolean => getCartItemPrice(product).regular < getCartItemPrice(product).special;
 
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
@@ -128,6 +131,7 @@ const cartGetters: CartGetters<Cart, CartItem> = {
   getFormattedPrice,
   getCoupons,
   getDiscounts,
+  productHasSpecialPrice,
 };
 
 export default cartGetters;
