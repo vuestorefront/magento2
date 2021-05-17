@@ -1,7 +1,7 @@
 import { Context } from '@vue-storefront/core';
 import { Route } from '@vue-storefront/magento-api';
 import { useUrlResolverFactory, UseUrlResolverFactoryParams } from '../../factories/useUrlResolverFactory';
-import { UseUrlResolver } from '../../types';
+import { UseUrlResolver } from '../../types/composeables';
 
 const factoryParams: UseUrlResolverFactoryParams<Route> = {
   search: async (context: Context, url: string) => {

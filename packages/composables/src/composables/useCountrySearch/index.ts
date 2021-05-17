@@ -2,8 +2,8 @@ import {
   Context,
 } from '@vue-storefront/core';
 import { Countries, Country } from '@vue-storefront/magento-api';
-import { UseCountrySearch } from '../../types';
 import { UseCountryFactoryParams, useCountrySearchFactory } from '../../factories/useCountrySearchFactory';
+import { UseCountrySearch } from '../../types/composeables';
 
 const factoryParams: UseCountryFactoryParams<Countries, Country> = {
   loadCountries: async (context: Context): Promise<Countries[]> => {

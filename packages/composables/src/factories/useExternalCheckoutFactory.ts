@@ -6,7 +6,7 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed } from 'vue-demi';
-import { UseExternalCheckout } from '../types';
+import { UseExternalCheckout } from '../types/composeables';
 
 export interface UseExternalCheckoutFactoryParams extends FactoryParams {
   initializeCheckout: (context: Context, baseUrl: string) => Promise<string>;

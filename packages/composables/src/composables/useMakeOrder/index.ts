@@ -1,8 +1,7 @@
 import {
-  Context, Logger, useMakeOrderFactory, UseMakeOrderFactoryParams,
+  Context, Logger, UseMakeOrder, useMakeOrderFactory, UseMakeOrderFactoryParams,
 } from '@vue-storefront/core';
 import { Order } from '@vue-storefront/magento-api';
-import { UseMakeOrder } from '../../types';
 import useCart from '../useCart';
 
 const factoryParams: UseMakeOrderFactoryParams<Order> = {

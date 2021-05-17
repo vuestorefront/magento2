@@ -1,9 +1,9 @@
 import { AgnosticAttribute } from '@vue-storefront/core';
-import { Product, ConfigurableOption } from '@vue-storefront/magento-api';
+import { Product } from '@vue-storefront/magento-api';
 
 export const getAttributeValue = (attribute) => attribute.values;
 
-export const formatAttributeList = (attributes: ConfigurableOption[]): AgnosticAttribute[] => attributes.map((attr) => {
+export const formatAttributeList = (attributes): AgnosticAttribute[] => attributes.map((attr) => {
   const attrValue = getAttributeValue(attr);
   return {
     name: attr.attribute_code,

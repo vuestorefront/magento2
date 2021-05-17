@@ -6,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseContent } from '../types';
+import { UseContent } from '../types/composeables';
 
 export interface UseContentFactoryParams<CONTENT> extends FactoryParams{
   loadContent: (context: Context, identifer: string) => Promise<CONTENT>;

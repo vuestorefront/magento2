@@ -1,7 +1,7 @@
 import { Context } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';
 import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';
-import { UseConfig } from '../../types';
+import { UseConfig } from '../../types/composeables';
 
 const factoryParams: UseConfigFactoryParams<StoreConfig> = {
   loadConfig: async (context: Context) => {

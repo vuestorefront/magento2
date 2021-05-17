@@ -5,7 +5,6 @@ import {
   UseShippingParams,
 } from '@vue-storefront/core';
 import {
-  CartAddressInput,
   SetShippingAddressesOnCartInput,
 } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
@@ -37,13 +36,19 @@ const factoryParams: UseShippingParams<any, any> = {
     Logger.debug(context);
 
     const { id } = context.cart.cart.value;
-    const address = saveParams.shippingDetails as CartAddressInput;
+    const {
+      apartment,
+      ...address
+    } = saveParams.shippingDetails;
 
     const shippingAddressInput: SetShippingAddressesOnCartInput = {
       cart_id: id,
       shipping_addresses: [
         {
-          address,
+          address: {
+            ...address,
+            street: [address.street, apartment],
+          },
         },
       ],
     };
