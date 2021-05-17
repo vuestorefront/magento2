@@ -25,9 +25,7 @@ const factoryParams: UseShippingProviderParams<any, any> = {
     return context
       .cart
       .cart
-      .value
-      .shipping_addresses[0]
-      .selected_shipping_method;
+      .value?.shipping_addresses[0]?.selected_shipping_method;
   },
 
   save: async (context: Context, { shippingMethod }) => {

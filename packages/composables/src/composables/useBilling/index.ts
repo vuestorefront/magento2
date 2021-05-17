@@ -36,6 +36,7 @@ const factoryParams: UseBillingParams<any, any> = {
     Logger.debug(typeof id);
     const {
       apartment,
+      sameAsShipping,
       ...address
     } = params.billingDetails;
 
@@ -47,7 +48,7 @@ const factoryParams: UseBillingParams<any, any> = {
           ...address,
           street: [address.street, apartment],
         },
-        same_as_shipping: address.same_as_shipping,
+        same_as_shipping: sameAsShipping,
       },
     };
 

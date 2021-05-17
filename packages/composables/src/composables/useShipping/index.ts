@@ -23,11 +23,7 @@ const factoryParams: UseShippingParams<any, any> = {
       await context.cart.load({ customQuery });
     }
 
-    return context
-      .cart
-      .cart
-      .value
-      .shipping_addresses[0];
+    return context.cart.cart.value.shipping_addresses[0];
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
