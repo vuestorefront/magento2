@@ -33,7 +33,7 @@
           v-e2e="'shipping-method-label'"
           :label="method.method_title"
           :value="method.method_code"
-          :selected="selectedShippingMethod && selectedShippingMethod.shippingMethod && selectedShippingMethod.shippingMethod.id"
+          :selected="selectedShippingMethod && selectedShippingMethod.method_code"
           name="shippingMethod"
           :description="method.carrier_title"
           class="form__radio shipping"
@@ -53,7 +53,7 @@
           v-e2e="'continue-to-billing'"
           class="form__action-button"
           type="button"
-          :disabled="!isShippingMethodStepCompleted || loading || loadingShippingProvider.save"
+          :disabled="!isShippingMethodStepCompleted || isLoading || loadingShippingProvider.save"
           @click.native="$emit('submit')"
         >
           {{ $t('Continue to billing') }}
@@ -73,7 +73,8 @@ import {
 } from '@storefront-ui/vue';
 import { useGetShippingMethods } from '@vue-storefront/magento/src';
 import {
-  ref, reactive, onMounted, computed,
+  onMounted,
+  computed,
 } from '@vue/composition-api';
 
 export default {
@@ -85,7 +86,6 @@ export default {
     SfLoader,
   },
   setup() {
-    const isShippingMethodStepCompleted = ref(false);
     const {
       load: loadShippingMethods,
       result: shippingMethods,
@@ -100,13 +100,25 @@ export default {
       save,
       load,
     } = useShippingProvider('VsfShippingProvider');
-    const selectedShippingMethod = computed(() => state.value && state.value.response);
+    const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
-
-    const isLoading = computed(() => loadShippingMethods.value || loadingShippingProvider.value);
+    const isLoading = computed(() => loadingShippingMethods.value || loadingShippingProvider.value);
+    const isShippingMethodStepCompleted = computed(() => state.value?.method_code && !isLoading.value);
+    /**
+     * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders. Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
+     */
+    const selectShippingMethod = async (method) => {
+      await save({
+        shippingMethod: {
+          carrier_code: method.carrier_code,
+          method_code: method.method_code,
+        },
+      });
+    };
 
     onMounted(async () => {
       await loadShippingMethods({ cartId: cart.value.id });
+      await load();
     });
 
     return {
@@ -116,6 +128,7 @@ export default {
       isShippingMethodStepCompleted,
       loadingShippingProvider,
       selectedShippingMethod,
+      selectShippingMethod,
       shippingMethods,
       state,
       totals,
