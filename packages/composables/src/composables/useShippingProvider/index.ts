@@ -15,7 +15,6 @@ const factoryParams: UseShippingProviderParams<any, any> = {
       cart: useCart(),
     };
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
     Logger.debug('[Magento] loadShippingProvider');
 
@@ -31,8 +30,7 @@ const factoryParams: UseShippingProviderParams<any, any> = {
       .selected_shipping_method;
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  save: async (context: Context, { shippingMethod, customQuery }) => {
+  save: async (context: Context, { shippingMethod }) => {
     Logger.debug('[Magento] saveShippingProvider');
 
     const shippingMethodParams: SetShippingMethodsOnCartInput = {
