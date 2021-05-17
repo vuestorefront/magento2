@@ -1,4 +1,6 @@
 # useFacet
+
+## Features
 `useFacet` composition function can be used to fetch data related to:
 * products,
 * categories,
@@ -6,22 +8,43 @@
 
 What makes it powerful is the ability to accept multiple filters, allowing to narrow down the results to a specific category, search term, etc.
 
-For more information about faceting, please refer to this page.
-
 ## API
-````typescript
-interface UseFacet<SEARCH_DATA> {
-    result: ComputedProperty<FacetSearchResult<SEARCH_DATA>>;
-    loading: ComputedProperty<boolean>;
-    search: (params?: AgnosticFacetSearchParams) => Promise<void>;
-    error: ComputedProperty<UseFacetErrors>;
-}
-````
+The `useFacet` composable implements `useFacetFactory` from `@vue-storefront/core` wich exports return the `UseFacet` interface:
 
-* `search` - function for searching and classifying records, allowing users to browse the catalog data. It accepts a single object as a parameter
-* `result` - reactive data object containing the response from the backend.
-* `loading` - reactive object containing information about the loading state of search.
-* `error - reactive object containing the error message, if search failed for any reason.
+``` typescript
+export interface UseFacet<SEARCH_DATA> {
+  result: ComputedProperty<FacetSearchResult<SEARCH_DATA>>;
+  loading: ComputedProperty<boolean>;
+  search: (params?: AgnosticFacetSearchParams) => Promise<void>;
+  error: ComputedProperty<UseFacetErrors>;
+}
+```
+
+### `search`
+Function for searching and classifying records, allowing users to browse the catalog data. It accepts a single object as a parameter
+``` typescript
+interface AgnosticFacetSearchParams {
+    categorySlug?: string;
+    rootCatSlug?: string;
+    term?: string;
+    page?: number;
+    itemsPerPage?: number;
+    sort?: string;
+    filters?: Record<string, string[]>;
+    metadata?: any;
+    [x: string]: any;
+}
+```
+
+### `result`
+Reactive data object containing the response from the backend.
+
+### `loading`
+Reactive object containing information about the loading state of search.
+
+### `error`
+Reactive object containing the error message, if search failed for any reason.
+
 
 ## Getters
 ````typescript
@@ -33,7 +56,6 @@ interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
     getProducts: (searchData: FacetSearchResult<SEARCH_DATA>) => RESULTS;
     getPagination: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticPagination;
     getBreadcrumbs: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticBreadcrumb[];
-    [getterName: string]: (element: any, options?: any) => unknown;
 }
 ````
 
@@ -47,15 +69,18 @@ interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
 
 ## Example
 ```javascript
+import { onSSR } from '@vue-storefront/core';
 import { useFacet, facetGetters } from '@vue-storefront/magento';
 
 export default {
   setup (props, context) {
-    const {
-      result,
-      search,
-      loading
-    } = useFacet();
+    const { result, search, loading } = useFacet(`facetId:${path}`);
+
+    const products = computed(() => facetGetters.getProducts(result.value));
+    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
+    const sortBy = computed(() => facetGetters.getSortOptions(result.value));
+    const facets = computed(() => facetGetters.getGrouped(result.value));
+    const pagination = computed(() => facetGetters.getPagination(result.value));
 
     onSSR(async () => {
       await search({
@@ -67,13 +92,12 @@ export default {
     });
 
     return {
-      products: computed(() => facetGetters.getProducts(result.value)),
-      categoryTree: computed(() => facetGetters.getCategoryTree(result.value)),
-      breadcrumbs: computed(() => facetGetters.getBreadcrumbs(result.value)),
-      sortBy: computed(() => facetGetters.getSortOptions(result.value)),
-      facets: computed(() => facetGetters.getGrouped(result.value, ['color', 'size'])),
-      pagination: computed(() => facetGetters.getPagination(result.value)),
-      loading
+      produproducts,
+      breadcrumbs,
+      sortBy,
+      facets,
+      pagination,
+      loading,
     };
   }
 }
