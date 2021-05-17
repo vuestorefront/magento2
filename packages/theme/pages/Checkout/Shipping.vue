@@ -10,12 +10,12 @@
       <div class="form">
         <ValidationProvider
           v-slot="{ errors }"
-          name="firstName"
+          name="firstname"
           rules="required|min:2"
           slim
         >
           <SfInput
-            v-model="form.firstName"
+            v-model="form.firstname"
             v-e2e="'shipping-firstName'"
             label="First name"
             name="firstName"
@@ -27,12 +27,12 @@
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
-          name="lastName"
+          name="lastname"
           rules="required|min:2"
           slim
         >
           <SfInput
-            v-model="form.lastName"
+            v-model="form.lastname"
             v-e2e="'shipping-lastName'"
             label="Last name"
             name="lastName"
@@ -44,12 +44,12 @@
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
-          name="streetName"
+          name="street"
           rules="required|min:2"
           slim
         >
           <SfInput
-            v-model="form.streetName"
+            v-model="form.street"
             v-e2e="'shipping-streetName'"
             label="Street name"
             name="streetName"
@@ -94,20 +94,21 @@
           />
         </ValidationProvider>
         <ValidationProvider
-          name="state"
+          name="region"
           slim
         >
           <SfInput
-            v-if="!form.country || !regionInformation.length"
-            v-model="form.state"
+            v-if="!form.country_code || !regionInformation.length"
+            v-model="form.region"
             v-e2e="'shipping-state'"
             label="State/Province"
+            :disabled="!form.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
           />
           <SfSelect
             v-else
-            v-model="form.state"
+            v-model="form.region"
             v-e2e="'shipping-state'"
             label="State/Province"
             name="state"
@@ -129,7 +130,7 @@
           slim
         >
           <SfSelect
-            v-model="form.country"
+            v-model="form.country_code"
             v-e2e="'shipping-country'"
             label="Country"
             name="country"
@@ -137,6 +138,7 @@
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="searchCountry({ id:$event })"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -154,7 +156,7 @@
           slim
         >
           <SfInput
-            v-model="form.postalCode"
+            v-model="form.postcode"
             v-e2e="'shipping-zipcode'"
             label="Zip-code"
             name="zipCode"
@@ -167,11 +169,11 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="phone"
-          rules="required|digits:9"
+          rules="required"
           slim
         >
           <SfInput
-            v-model="form.phone"
+            v-model="form.telephone"
             v-e2e="'shipping-phone'"
             label="Phone number"
             name="phone"
@@ -243,7 +245,11 @@ export default {
   },
   setup() {
     const isFormSubmitted = ref(false);
-    const { load, save, loading } = useShipping();
+    const {
+      load,
+      save,
+      loading,
+    } = useShipping();
     const {
       loadCountries,
       countries,
@@ -252,15 +258,15 @@ export default {
     } = useCountrySearch('shipping-step');
 
     const form = ref({
-      firstName: '',
-      lastName: '',
-      streetName: '',
+      firstname: '',
+      lastname: '',
+      street: '',
       apartment: '',
       city: '',
-      state: '',
-      country: '',
-      postalCode: '',
-      phone: null,
+      region: '',
+      country_code: '',
+      postcode: '',
+      telephone: null,
     });
 
     const handleFormSubmit = async () => {
@@ -279,11 +285,14 @@ export default {
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
+    /*
     watch(selectedCountry, async () => {
       await searchCountry({ id: selectedCountry.value });
     });
+*/
 
     return {
+      searchCountry,
       country,
       regionInformation,
       loading,
