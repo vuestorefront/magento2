@@ -249,13 +249,13 @@ export default {
       load,
       save,
       loading,
-    } = useShipping();
+    } = useShipping('Step:Shipping');
     const {
       loadCountries,
       countries,
       searchCountry,
       country,
-    } = useCountrySearch('shipping-step');
+    } = useCountrySearch('Step:Shipping');
 
     const form = ref({
       firstname: '',
@@ -281,15 +281,8 @@ export default {
       ]);
     });
 
-    const selectedCountry = computed(() => form.value.country);
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
     const regionInformation = computed(() => addressGetter.regionList(country.value));
-
-    /*
-    watch(selectedCountry, async () => {
-      await searchCountry({ id: selectedCountry.value });
-    });
-*/
 
     return {
       searchCountry,
