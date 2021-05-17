@@ -1,0 +1,17 @@
+fragment CartAddress on CartAddressInterface {
+  firstname
+  lastname
+  street
+  city
+  company
+  region {
+    code
+    label
+  }
+  postcode
+  telephone
+  country {
+    code
+    label
+  }
+}

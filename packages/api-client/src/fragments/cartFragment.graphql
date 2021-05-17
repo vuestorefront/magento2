@@ -1,4 +1,5 @@
 #import "./cartProductFragment.graphql"
+#import "./cartAddressFragment.graphql"
 
 fragment CartData on Cart {
   id
@@ -29,6 +30,7 @@ fragment CartData on Cart {
     }
   }
   shipping_addresses {
+    ...CartAddress
     selected_shipping_method {
       amount {
         currency
@@ -41,16 +43,7 @@ fragment CartData on Cart {
     }
   }
   billing_address {
-    firstname
-    lastname
-    street
-    city
-    postcode
-    telephone
-    country {
-      code
-      label
-    }
+   ...CartAddress
   }
   items {
     ...CartProductData

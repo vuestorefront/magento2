@@ -6943,13 +6943,6 @@ export type CustomerAvailablePaymentMethodsQueryVariables = Exact<{ [key: string
 
 export type CustomerAvailablePaymentMethodsQuery = { customerCart: { available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> } };
 
-export type GuestAvailablePaymentMethodsQueryVariables = Exact<{
-  cartId: Scalars['String'];
-}>;
-
-
-export type GuestAvailablePaymentMethodsQuery = { cart?: Maybe<{ available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> }> };
-
 export type CustomerAvailableShippingMethodsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6957,6 +6950,13 @@ export type CustomerAvailableShippingMethodsQuery = { customerCart: { shipping_a
         Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
         & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
       )>>> }>> } };
+
+export type GuestAvailablePaymentMethodsQueryVariables = Exact<{
+  cartId: Scalars['String'];
+}>;
+
+
+export type GuestAvailablePaymentMethodsQuery = { cart?: Maybe<{ available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> }> };
 
 export type GuestAvailableShippingMethodsQueryVariables = Exact<{
   cart_id: Scalars['String'];
@@ -8048,6 +8048,18 @@ export type CustomerAddressDataFragment = (
   & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
 );
 
+type CartAddress_BillingCartAddress_Fragment = (
+  Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+);
+
+type CartAddress_ShippingCartAddress_Fragment = (
+  Pick<ShippingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+);
+
+export type CartAddressFragment = CartAddress_BillingCartAddress_Fragment | CartAddress_ShippingCartAddress_Fragment;
+
 export type CartDataFragment = (
   Pick<Cart, 'id' | 'total_quantity'>
   & { applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
@@ -8056,13 +8068,13 @@ export type CartDataFragment = (
     )>>>, discounts?: Maybe<Array<Maybe<(
       Pick<Discount, 'label'>
       & { amount: Pick<Money, 'value'> }
-    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, shipping_addresses: Array<Maybe<{ selected_shipping_method?: Maybe<(
+    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, shipping_addresses: Array<Maybe<(
+    { selected_shipping_method?: Maybe<(
       Pick<SelectedShippingMethod, 'carrier_code' | 'method_code' | 'carrier_title' | 'method_title'>
       & { amount: Pick<Money, 'currency' | 'value'> }
-    )> }>>, billing_address?: Maybe<(
-    Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'postcode' | 'telephone'>
-    & { country: Pick<CartAddressCountry, 'code' | 'label'> }
-  )>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
+    )> }
+    & CartAddress_ShippingCartAddress_Fragment
+  )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
 );
 
 type CartProductData_BundleCartItem_Fragment = (
