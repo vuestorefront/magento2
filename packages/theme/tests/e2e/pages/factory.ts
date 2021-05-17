@@ -1,5 +1,7 @@
 import Category from './category';
-import { Billing, Payment, Shipping, ThankYou } from './checkout';
+import {
+  Billing, Payment, Shipping, ThankYou,
+} from './checkout';
 import Cart from './components/cart-sidebar';
 import LoginModal from './components/login-modal';
 import Home from './home';
@@ -16,14 +18,14 @@ const page = {
       shipping: new Shipping(),
       billing: new Billing(),
       payment: new Payment(),
-      thankyou: new ThankYou()
+      thankyou: new ThankYou(),
     };
   },
 
   get components() {
     return {
       cart: Cart,
-      loginModal: LoginModal
+      loginModal: LoginModal,
     };
   },
 
@@ -33,13 +35,13 @@ const page = {
 
   get myAccount() {
     return {
-      sidebar: new Sidebar()
+      sidebar: new Sidebar(),
     };
   },
 
   get product() {
     return Product;
-  }
+  },
 };
 
 export default page;
