@@ -1,12 +1,11 @@
 # useCategory
 
 ## Features
-
 `useCategory` composable is responsible for fetching a list of categories. A common usage scenario for this composable is navigation.
 
 ## API
 
-The `useCategory` composable makes uses of `useCategoryFactory` from `@vue-storefront/core` wich exports return the `UseCategory` interface:
+The `useCategory` composable implements `useCategoryFactory` from `@vue-storefront/core` wich exports return the `UseCategory` interface:
 
 ```typescript
 interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {

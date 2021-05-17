@@ -1,12 +1,10 @@
 # useProduct
 
 ## Features
-
 `useProduct` composable is responsible for fetching a list of products.
 
 ## API
-
-The `useProduct` composable makes uses of `useProductFactory` from `@vue-storefront/core` wich exports return the `UseProduct` interface:
+The `useProduct` composable implements `useProductFactory` from `@vue-storefront/core` wich exports return the `UseProduct` interface:
 
 ```typescript
 interface UseProduct<PRODUCTS, PRODUCT_SEARCH_PARAMS> {
@@ -236,38 +234,38 @@ reactive object containing the error message, if search failed for any reason.
 ```typescript
 interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
   getAttributes: (
-    products: Product,
+    products: PRODUCT,
     _filterByAttributeName?: string[],
   ) => Record<string, AgnosticAttribute | string>,
   getAverageRating: () => number,
   getBreadcrumbs: (
-    product: Product,
+    product: PRODUCT,
     category?: Category,
   ) => AgnosticBreadcrumb[],
   getCategory: (
-    product: Product,
+    product: PRODUCT,
     currentUrlPath: string,
   ) => Category | null,
-  getCategoryIds: (product: Product) => string[],
-  getCoverImage: (product: Product) => string,
-  getDescription: (product: Product) => string,
+  getCategoryIds: (product: PRODUCT) => string[],
+  getCoverImage: (product: PRODUCT) => string,
+  getDescription: (product: PRODUCT) => string,
   getFiltered: (
-    products: Product[],
-    _filters: ProductVariantFilters | any = {}
-  ) => Product[],
+    products: PRODUCT[],
+    _filters: PRODUCT_FILTER,
+  ) => PRODUCT[],
   getFormattedPrice: (price: number) => string | null,
-  getGallery: (product: Product) => AgnosticMediaGalleryItem[],
-  getId: (product: Product) => string,
-  getName: (product: Product) => string,
-  getPrice: (product: Product) => AgnosticPrice,
-  getProductRelatedProduct: (product: Product) => Product[] | [],
-  getProductUpsellProduct: (product: Product) => Product[] | [],
-  getProductSku: (product: Product) => string,
-  getProductThumbnailImage: (product: Product) => string,
-  getShortDescription: (product: Product) => string,
-  getSlug: (product: Product, category?: Category) => string,
+  getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[],
+  getId: (product: PRODUCT) => string,
+  getName: (product: PRODUCT) => string,
+  getPrice: (product: PRODUCT) => AgnosticPrice,
+  getProductRelatedProduct: (product: PRODUCT) => PRODUCT[] | [],
+  getProductUpsellProduct: (product: PRODUCT) => PRODUCT[] | [],
+  getProductSku: (product: PRODUCT) => string,
+  getProductThumbnailImage: (product: PRODUCT) => string,
+  getShortDescription: (product: PRODUCT) => string,
+  getSlug: (product: PRODUCT, category?: Category) => string,
   getTotalReviews: () => number,
-  getTypeId: (product: Product) => string,
+  getTypeId: (product: PRODUCT) => string,
 }
 ```
 * `getAttributes` - returns product attributes.

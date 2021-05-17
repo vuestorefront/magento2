@@ -1,28 +1,56 @@
 # useBilling
-`useUserBilling` composable can be used to:
 
+## Features
+`useBilling` composable can be used to:
 * fetch existing billing addresses,
 * submit new billing addresses,
 * modify and delete existing billing addresses.
 
 ## API
+The `useBilling` composable implements `useBillingFactory` from `@vue-storefront/core` wich exports return the `UseBilling` interface:
 
 ```typescript
 interface UseBilling<BILLING, BILLING_PARAMS> {
-  error: ComputedProperty<UseBillingErrors>;
-  loading: ComputedProperty<boolean>;
   billing: ComputedProperty<BILLING>;
+  error: ComputedProperty<UseBillingErrors>;
   load(): Promise<void>;
   load(params: { customQuery?: CustomQuery }): Promise<void>;
+  loading: ComputedProperty<boolean>;
   save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
 }
 ```
 
-* `load` - loads the users billing addresses
-* `save` - saves new address
-* `error` - reactive object containing the error message, if some properties failed for any reason.
-* `loading` - reactive object containing information about loading state of `load` and `save`
-* `billing` - reactive data object containing response from the backend.
+### `load`
+Function that takes in `CustomQuery` as optional params and gets the `billing` accordingly
+
+### `billing`
+Returns `billing` as a `computed` property
+``` typescript
+// packages/composables/src/composables/useBilling/index.ts
+export default useBillingFactory<BillingCartAddress, any>(factoryParams);
+
+// packages/api-client/src/types/GraphQL.ts
+interface BillingCartAddress {
+  city: Scalars['String'];
+  company?: Maybe<Scalars['String']>;
+  country: CartAddressCountry;
+  firstname: Scalars['String'];
+  lastname: Scalars['String'];
+  postcode?: Maybe<Scalars['String']>;
+  region?: Maybe<CartAddressRegion>;
+  street: Array<Maybe<Scalars['String']>>;
+  telephone: Scalars['String'];
+}
+```
+
+### `save`
+Saves new address
+
+### `loading`
+Returns the `loading` state of `search`
+
+### `error`
+reactive object containing the error message, if search failed for any reason.
 
 ## Getters
 
@@ -69,7 +97,7 @@ interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
 
 ## Example
 
-````javascript
+```javascript
 import { onSSR } from '@vue-storefront/core';
 import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
 
@@ -94,4 +122,4 @@ export default {
     };
   }
 };
-````
+```
