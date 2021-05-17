@@ -1,5 +1,6 @@
 # useCart
 
+## Features
 `useCart` composable can be used to:
 * load cart information,
 * add, update and remove items in the cart,
@@ -7,43 +8,44 @@
 * checking if product is already added to the cart.
 
 ## API
+The `useCart` composable implements `useCartFactory` from `@vue-storefront/core` wich exports return the `UseCart` interface:
 
 ```typescript
 interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
-    cart: ComputedProperty<CART>;
-    setCart(cart: CART): void;
-    addItem(params: {
-        product: PRODUCT;
-        quantity: number;
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    isOnCart: ({ product: PRODUCT }: {
-        product: any;
-    }) => boolean;
-    removeItem(params: {
-        product: CART_ITEM;
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    updateItemQty(params: {
-        product: CART_ITEM;
-        quantity?: number;
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    clear(): Promise<void>;
-    applyCoupon(params: {
-        couponCode: string;
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    removeCoupon(params: {
-        coupon: COUPON;
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    load(): Promise<void>;
-    load(params: {
-        customQuery?: CustomQuery;
-    }): Promise<void>;
-    error: ComputedProperty<UseCartErrors>;
-    loading: ComputedProperty<boolean>;
+  cart: ComputedProperty<CART>;
+  setCart(cart: CART): void;
+  addItem(params: {
+    product: PRODUCT;
+    quantity: number;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  isInCart: ({ product: PRODUCT }: {
+    product: any;
+  }) => boolean;
+  removeItem(params: {
+    product: CART_ITEM;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  updateItemQty(params: {
+    product: CART_ITEM;
+    quantity?: number;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  clear(): Promise<void>;
+  applyCoupon(params: {
+    couponCode: string;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  removeCoupon(params: {
+    coupon: COUPON;
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  load(): Promise<void>;
+  load(params: {
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+  error: ComputedProperty<UseCartErrors>;
+  loading: ComputedProperty<boolean>;
 }
 ```
 
@@ -57,8 +59,8 @@ interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
 * `applyCoupon` - Function that takes in a `coupon` and applies it to the cart
 * `removeCoupon` - Function that removes all applied coupons
 * `load` - Function that loads the current `cart`
-* `loading` - a reactive object containing information about loading state of the cart.
 * `error` - reactive object containing the error message, if some properties failed for any reason.
+* `loading` - a reactive object containing information about loading state of the cart.
 
 ## Getters
 
@@ -69,7 +71,10 @@ interface CartGetters<CART, CART_ITEM> {
     getItemImage: (cartItem: CART_ITEM) => string;
     getItemPrice: (cartItem: CART_ITEM) => AgnosticPrice;
     getItemQty: (cartItem: CART_ITEM) => number;
-    getItemAttributes: (cartItem: CART_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+    getItemAttributes: (
+      cartItem: CART_ITEM,
+      _filterByAttributeName?: Array<string>,
+    ) => Record<string, AgnosticAttribute | string>;
     getItemSku: (cartItem: CART_ITEM) => string;
     getTotals: (cart: CART) => AgnosticTotals;
     getShippingPrice: (cart: CART) => number;
@@ -77,7 +82,6 @@ interface CartGetters<CART, CART_ITEM> {
     getFormattedPrice: (price: number) => string;
     getCoupons: (cart: CART) => AgnosticCoupon[];
     getDiscounts: (cart: CART) => AgnosticDiscount[];
-    [getterName: string]: (element: any, options?: any) => unknown;
 }
 ````
 
@@ -106,7 +110,7 @@ export default {
     const { cart, removeItem, updateItemQty, load } = useCart();
 
     onSSR(async () => {
-      await loadCart();
+      await load();
     })
 
     return {

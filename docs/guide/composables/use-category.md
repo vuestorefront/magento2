@@ -4,7 +4,6 @@
 `useCategory` composable is responsible for fetching a list of categories. A common usage scenario for this composable is navigation.
 
 ## API
-
 The `useCategory` composable implements `useCategoryFactory` from `@vue-storefront/core` wich exports return the `UseCategory` interface:
 
 ```typescript

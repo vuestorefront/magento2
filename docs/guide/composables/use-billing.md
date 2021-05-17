@@ -99,7 +99,7 @@ interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
 
 ```javascript
 import { onSSR } from '@vue-storefront/core';
-import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
+import { useBilling, userBillingGetters } from '@vue-storefront/magento';
 
 export default {
   setup() {
@@ -109,7 +109,7 @@ export default {
       addAddress,
       deleteAddress,
       updateAddress
-    } = useUserBilling();
+    } = useBilling();
 
     // If you're using Nuxt or any other framework for Universal Vue apps
     onSSR(async () => {
