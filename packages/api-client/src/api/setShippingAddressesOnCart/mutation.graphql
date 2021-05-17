@@ -2,15 +2,21 @@ mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {
   setShippingAddressesOnCart(input: $input) {
     cart {
       shipping_addresses {
-        selected_shipping_method {
-          carrier_code
-          carrier_title
-          method_code
-          method_title
-          amount {
-            value
-            currency
-          }
+        city
+        company
+        firstname
+        lastname
+        postcode
+        region {
+          code
+          label
+          region_id
+        }
+        street
+        telephone
+        country {
+          code
+          label
         }
       }
     }

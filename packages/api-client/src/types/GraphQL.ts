@@ -6950,6 +6950,24 @@ export type GuestAvailablePaymentMethodsQueryVariables = Exact<{
 
 export type GuestAvailablePaymentMethodsQuery = { cart?: Maybe<{ available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> }> };
 
+export type CustomerAvailableShippingMethodsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CustomerAvailableShippingMethodsQuery = { customerCart: { shipping_addresses: Array<Maybe<{ available_shipping_methods?: Maybe<Array<Maybe<(
+        Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
+      )>>> }>> } };
+
+export type GuestAvailableShippingMethodsQueryVariables = Exact<{
+  cart_id: Scalars['String'];
+}>;
+
+
+export type GuestAvailableShippingMethodsQuery = { cart?: Maybe<{ shipping_addresses: Array<Maybe<{ available_shipping_methods?: Maybe<Array<Maybe<(
+        Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
+      )>>> }>> }> };
+
 export type GetMenuCategoryQueryVariables = Exact<{
   filters?: Maybe<CategoryFilterInput>;
 }>;
@@ -7447,10 +7465,10 @@ export type SetShippingAddressesOnCartMutationVariables = Exact<{
 }>;
 
 
-export type SetShippingAddressesOnCartMutation = { setShippingAddressesOnCart?: Maybe<{ cart: { shipping_addresses: Array<Maybe<{ selected_shipping_method?: Maybe<(
-          Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
-          & { amount: Pick<Money, 'value' | 'currency'> }
-        )> }>> } }> };
+export type SetShippingAddressesOnCartMutation = { setShippingAddressesOnCart?: Maybe<{ cart: { shipping_addresses: Array<Maybe<(
+        Pick<ShippingCartAddress, 'city' | 'company' | 'firstname' | 'lastname' | 'postcode' | 'street' | 'telephone'>
+        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label' | 'region_id'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+      )>> } }> };
 
 export type SetShippingMethodsOnCartMutationVariables = Exact<{
   input?: Maybe<SetShippingMethodsOnCartInput>;

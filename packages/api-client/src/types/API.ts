@@ -25,7 +25,7 @@ import {
   CreateEmptyCartMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
-  CustomerAvailablePaymentMethodsQuery,
+  CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
   CustomerCartQuery, CustomerCreateInput,
   CustomerDataFragment as CustomerFragment,
   CustomerOrder as CustomerOrderInterface,
@@ -35,7 +35,7 @@ import {
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GetMenuCategoryQuery,
-  GuestAvailablePaymentMethodsQuery,
+  GuestAvailablePaymentMethodsQuery, GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
   Order as OrderInterface,
   PlaceOrderInput,
@@ -72,6 +72,7 @@ import {
   WishlistQuery,
   WishlistQueryVariables,
 } from './GraphQL';
+import { getAvailableCustomerPaymentMethods, getAvailableCustomerShippingMethods } from '../api';
 
 export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
 export type AddressOnCart = ShippingCartAddress;
@@ -154,9 +155,13 @@ export interface MagentoApiMethods {
 
   getMenuCategory(params: CategoryFilterInput, customQuery?: CustomQuery): Promise<GetMenuCategoryQuery>;
 
-  getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<
-  ApolloQueryResult<GuestAvailablePaymentMethodsQuery | CustomerAvailablePaymentMethodsQuery>
-  >;
+  getAvailableCustomerPaymentMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>>;
+
+  getAvailableCustomerShippingMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>>;
+
+  getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
+
+  getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 

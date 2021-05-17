@@ -1,10 +1,10 @@
 import { CustomQuery } from '@vue-storefront/core';
 import { ApolloQueryResult } from '@apollo/client';
 import { Context } from '../../types/context';
-import guestQuery from './GuestPaymentMethods.graphql';
+import guestQuery from './GuestShippingMethods.graphql';
 import {
-  GuestAvailablePaymentMethodsQuery,
-  GuestAvailablePaymentMethodsQueryVariables,
+  GuestAvailableShippingMethodsQuery,
+  GuestAvailableShippingMethodsQueryVariables,
 } from '../../types/GraphQL';
 
 export default async (
@@ -13,23 +13,24 @@ export default async (
     cartId: string;
   },
   customQuery?: CustomQuery,
-): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> => {
+): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
   const defaultVariables = params ? {
     cart_id: params.cartId,
-  } : { };
+  } : {};
 
-  const { paymentMethods } = context.extendQuery(customQuery,
+  const { shippingMethods } = context.extendQuery(customQuery,
     {
-      paymentMethods: {
+      shippingMethods: {
         query: guestQuery,
         variables: defaultVariables,
       },
     });
 
   try {
-    return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({
-      query: paymentMethods.query,
-      variables: paymentMethods.variables,
+    return await context.client.query<GuestAvailableShippingMethodsQuery,
+    GuestAvailableShippingMethodsQueryVariables>({
+      query: shippingMethods.query,
+      variables: shippingMethods.variables,
       fetchPolicy: 'no-cache',
     });
   } catch (error) {

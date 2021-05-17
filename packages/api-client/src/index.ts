@@ -523,4 +523,8 @@ export {
   CountryInformationQuery,
   CountryInformationQueryVariables,
   CountriesListQueryVariables,
+  GuestAvailableShippingMethodsQueryVariables,
+  CustomerAvailableShippingMethodsQuery,
+  GuestAvailableShippingMethodsQuery,
+  CustomerAvailableShippingMethodsQueryVariables,
 } from './types/GraphQL';
