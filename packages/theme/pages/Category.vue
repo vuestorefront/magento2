@@ -466,9 +466,9 @@ export default {
         },
       );
 
-      const categoryUidResult = categoryDeep.parent.length === 1
-        ? categoryDeep.parent[0]
-        : categoryDeep.parent;
+      const categoryUidResult = categoryDeep?.parent.length === 1
+        ? categoryDeep?.parent[0]
+        : categoryDeep?.parent;
 
       return categoryUidResult || items[0]?.uid;
     };
@@ -540,6 +540,7 @@ export default {
         case 'SimpleProduct':
           await addItemToCartBase({ product, quantity });
           break;
+        case 'BundleProduct':
         case 'ConfigurableProduct':
           await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
           break;
