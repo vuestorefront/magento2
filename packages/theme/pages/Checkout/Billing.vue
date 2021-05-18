@@ -425,7 +425,7 @@ export default {
     });
 
     onMounted(async () => {
-      if (Object.keys(address.value).length) {
+      if (Object.keys((address.value || {})).length) {
         await searchCountry({ id: address.value.country.code });
 
         billingDetails.value = { ...(formatAddressReturnToData(address.value) || {}) };
@@ -438,7 +438,7 @@ export default {
       if (!billingAddresses || !billingAddresses.length) {
         return;
       }
-      const hasEmptyBillingDetails = !billingDetails.value || Object.keys(billingDetails.value).length === 0;
+      const hasEmptyBillingDetails = !billingDetails.value || Object.keys((billingDetails.value || {})).length === 0;
       if (hasEmptyBillingDetails) {
         selectDefaultAddress();
         return;
