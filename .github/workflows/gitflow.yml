@@ -1,10 +1,14 @@
+name: Gitflow Merge
 on:
   pull_request:
-    types: [labeled]
+    branches:
+      - release/*
+      - master
+      - develop
+    types: [ opened, ready_for_review, edited, synchronize ]
 jobs:
   automerge:
-    name: GitFlow AutoMerge
-    if: github.event.label.name == 'release'
+    if: contains(github.event.pull_request.labels.*.name, 'gitflow')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -13,12 +17,6 @@ jobs:
         id: extract_branch
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Extract tag name
-        shell: bash
-        run: |
-          branch=${{ steps.extract_branch.outputs.branch }}
-          echo "##[set-output name=tag;]$(echo ${branch#release/})"
-        id: extract_tag
       - uses: yanamura/git-flow-merge-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

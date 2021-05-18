@@ -1,0 +1,20 @@
+# Configuration for probot-stale - https://github.com/probot/stale
+daysUntilStale: 30
+daysUntilClose: 7
+staleLabel: stale
+exemptLabels:
+  - "cmty:feature-request"
+  - "feature-request"
+  - "WIP"
+  - "pending"
+  - "discussion"
+exemptAssignees: true
+only: issues
+markComment: >
+  Thanks for your contribution to @vue-storefront/magento!
+  This issue has been automatically marked as stale because it has not had
+  recent activity. It will be closed if no further activity occurs.
+  If you would like this issue to remain open:
+   1. Verify that you can still reproduce the issue in the latest version
+   1. Comment the steps to reproduce it
+  Issues that are labeled as `pending` will not be automatically marked as stale.

@@ -1,0 +1,96 @@
+{
+  "projectName": "@vue-storefront/magento-api",
+  "projectOwner": "vuestorefront",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "bloodf",
+      "name": "Heitor Ramon Ribeiro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1626923?v=4",
+      "profile": "http://heitorramon.com/",
+      "contributions": [
+        "code",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "domideimel",
+      "name": "Dominik Deimel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
+      "profile": "https://dominikdeimel.com/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "LiorLindvor",
+      "name": "Lior Lindvor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6757942?v=4",
+      "profile": "http://cyberfuze.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "alefbarbeli",
+      "name": "Alef Barbeli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
+      "profile": "https://github.com/alefbarbeli",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "hcmlopes",
+      "name": "Henrique Lopes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
+      "profile": "https://github.com/hcmlopes",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "filrak",
+      "name": "Filip Rakowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15185752?v=4",
+      "profile": "https://rakowski.dev/",
+      "contributions": [
+        "question",
+        "mentoring",
+        "review"
+      ]
+    },
+    {
+      "login": "filipsobol",
+      "name": "Filip Sobol",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4145208?v=4",
+      "profile": "https://github.com/filipsobol",
+      "contributions": [
+        "question",
+        "mentoring",
+        "review"
+      ]
+    },
+    {
+      "login": "andrzejewsky",
+      "name": "Patryk Andrzejewski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7943292?v=4",
+      "profile": "https://github.com/andrzejewsky",
+      "contributions": [
+        "question",
+        "mentoring",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

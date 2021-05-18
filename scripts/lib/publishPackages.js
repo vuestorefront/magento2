@@ -1,39 +1,40 @@
-const npmPublish = require('@jsdevtools/npm-publish');
+const { exec } = require("child_process");
 const path = require('path');
 const labelsToRemove = ['release'];
 const npmLabelBase = 'NPM:';
 
-const publishPackages = async (labels, token) => {
-  const npmTagBase = [...labels]
-  .filter((l) => !labelsToRemove.includes(l))
-  .find((l) => l.startsWith(npmLabelBase));
+const publishPackages = (labels, token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const npmTagBase = [...labels]
+      .filter((l) => !labelsToRemove.includes(l))
+      .find((l) => l.startsWith(npmLabelBase));
 
-  if(npmTagBase){
-    const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
+      if (npmTagBase) {
+        const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
 
-    const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
-    const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
+        const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
 
-    const basePublishOptions = {
-      token: token,
-      tag: npmTag,
-      access: 'public',
-      checkVersion: true,
-    };
+        const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
 
-    const apiReturn = await npmPublish({
-      package: path.resolve(baseApiClientPath, './package.json'),
-      ...basePublishOptions,
-    });
-
-    const composerReturn = await npmPublish({
-      package: path.resolve(baseComposablesPath, './package.json'),
-      ...basePublishOptions,
-    });
-
-    console.log(JSON.stringify(apiReturn, null, 2));
-    console.log(JSON.stringify(composerReturn, null, 2));
-  }
+        [baseApiClientPath, baseComposablesPath].forEach((p) => {
+          exec(`npm publish ${p} --access public --tag ${npmTag}`, (error, stdout, stderr) => {
+            if (error) {
+              console.log(`error: ${error.message}`);
+              return;
+            }
+            if (stderr) {
+              console.log(`stderr: ${stderr}`);
+              return;
+            }
+            console.log(`stdout: ${stdout}`);
+          });
+        });
+      }
+    } catch(e){
+      reject(e);
+    }
+  });
 }
 
 module.exports = {

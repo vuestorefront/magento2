@@ -1,4 +1,19 @@
 import webpack from 'webpack';
+import middleware from './middleware.config';
+
+const {
+  integrations: {
+    magento: {
+      configuration: {
+        cookies,
+        externalCheckout,
+        tax,
+        defaultStore,
+        websites,
+      },
+    },
+  },
+} = middleware;
 
 export default {
   ssr: true,
@@ -89,6 +104,11 @@ export default {
       i18n: {
         useNuxtI18nConfig: true,
       },
+      cookies,
+      externalCheckout,
+      tax,
+      defaultStore,
+      websites,
     }],
   ],
   modules: [

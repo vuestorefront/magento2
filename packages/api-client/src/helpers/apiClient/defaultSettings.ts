@@ -1,7 +1,7 @@
 import { ClientConfig } from '../../types/setup';
 
 export const defaultSettings: ClientConfig = {
-  api: 'https://demo-magento2.storefrontcloud.io/graphql',
+  api: '',
   cookies: {
     currencyCookieName: 'vsf-currency',
     countryCookieName: 'vsf-country',
@@ -37,5 +37,11 @@ export const defaultSettings: ClientConfig = {
     setCustomerToken: () => {},
     getStore: () => '',
     setStore: () => {},
+  },
+  externalCheckout: {
+    enable: false,
+    syncUrlPath: '/vue/cart/sync',
+    stores: {},
+    cmsUrl: '',
   },
 };
