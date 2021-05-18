@@ -18,7 +18,7 @@ const factoryParams: UseShippingProviderParams<any, any> = {
   load: async (context: Context, { customQuery }) => {
     Logger.debug('[Magento] loadShippingProvider');
 
-    if (!context.cart.cart?.value?.shipping_addresses[0].selected_shipping_method) {
+    if (!context.cart.cart?.value?.shipping_addresses[0]?.selected_shipping_method) {
       await context.cart.load({ customQuery });
     }
 
