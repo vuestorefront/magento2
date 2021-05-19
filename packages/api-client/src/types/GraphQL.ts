@@ -6811,7 +6811,16 @@ export type CartQueryVariables = Exact<{
 }>;
 
 
-export type CartQuery = { cart?: Maybe<CartDataFragment> };
+export type CartQuery = { cart?: Maybe<(
+    { shipping_addresses: Array<Maybe<(
+      { selected_shipping_method?: Maybe<(
+        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'value' | 'currency'> }
+      )> }
+      & CartAddress_ShippingCartAddress_Fragment
+    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
+    & CartDataFragment
+  )> };
 
 export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6912,7 +6921,16 @@ export type CustomerQuery = { customer?: Maybe<CustomerDataFragment> };
 export type CustomerCartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CustomerCartQuery = { customerCart: CartDataFragment };
+export type CustomerCartQuery = { customerCart: (
+    { shipping_addresses: Array<Maybe<(
+      { selected_shipping_method?: Maybe<(
+        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'value' | 'currency'> }
+      )> }
+      & CartAddress_ShippingCartAddress_Fragment
+    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
+    & CartDataFragment
+  ) };
 
 export type CustomerOrdersQueryVariables = Exact<{
   currentPage?: Maybe<Scalars['Int']>;
@@ -6998,7 +7016,16 @@ export type MergeCartsMutationVariables = Exact<{
 }>;
 
 
-export type MergeCartsMutation = { mergeCarts: CartDataFragment };
+export type MergeCartsMutation = { mergeCarts: (
+    { shipping_addresses: Array<Maybe<(
+      { selected_shipping_method?: Maybe<(
+        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'value' | 'currency'> }
+      )> }
+      & CartAddress_ShippingCartAddress_Fragment
+    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
+    & CartDataFragment
+  ) };
 
 export type PlaceOrderMutationVariables = Exact<{
   input?: Maybe<PlaceOrderInput>;
@@ -8068,13 +8095,7 @@ export type CartDataFragment = (
     )>>>, discounts?: Maybe<Array<Maybe<(
       Pick<Discount, 'label'>
       & { amount: Pick<Money, 'value'> }
-    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, shipping_addresses: Array<Maybe<(
-    { selected_shipping_method?: Maybe<(
-      Pick<SelectedShippingMethod, 'carrier_code' | 'method_code' | 'carrier_title' | 'method_title'>
-      & { amount: Pick<Money, 'currency' | 'value'> }
-    )> }
-    & CartAddress_ShippingCartAddress_Fragment
-  )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
+    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
 );
 
 type CartProductData_BundleCartItem_Fragment = (

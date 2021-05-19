@@ -29,22 +29,6 @@ fragment CartData on Cart {
       value
     }
   }
-  shipping_addresses {
-    ...CartAddress
-    selected_shipping_method {
-      amount {
-        currency
-        value
-      },
-      carrier_code
-      method_code,
-      carrier_title
-      method_title
-    }
-  }
-  billing_address {
-   ...CartAddress
-  }
   items {
     ...CartProductData
   }

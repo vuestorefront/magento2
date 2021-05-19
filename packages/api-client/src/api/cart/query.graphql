@@ -3,5 +3,21 @@
 query cart($cartId: String!) {
   cart(cart_id:$cartId) {
     ...CartData
+    shipping_addresses {
+      ...CartAddress
+      selected_shipping_method {
+        carrier_code
+        carrier_title
+        method_code
+        method_title
+        amount {
+          value
+          currency
+        }
+      }
+    }
+    billing_address {
+      ...CartAddress
+    }
   }
 }
