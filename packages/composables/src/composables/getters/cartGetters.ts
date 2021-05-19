@@ -5,7 +5,7 @@ import {
   Discount,
   Cart,
   CartItem,
-  Product,
+  Product, ShippingMethod, SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 
@@ -117,6 +117,8 @@ export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons
 
 export const getDiscounts = (_cart: Cart): AgnosticDiscount[] => [];
 
+export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod => cart?.shipping_addresses[0]?.selected_shipping_method;
+
 const cartGetters: CartGetters<Cart, CartItem> = {
   getItems: getCartItems,
   getItemName: getCartItemName,
@@ -131,6 +133,7 @@ const cartGetters: CartGetters<Cart, CartItem> = {
   getFormattedPrice,
   getCoupons,
   getDiscounts,
+  getSelectedShippingMethod,
   productHasSpecialPrice,
 };
 
