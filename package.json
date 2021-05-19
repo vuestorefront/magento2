@@ -10,7 +10,8 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "internals/*"
   ],
   "scripts": {
     "build": "yarn build:api-client && yarn build:composables && yarn build:theme",
@@ -51,7 +52,6 @@
     "@types/jsdom": "^16.2.10",
     "@types/node": "^15.3.0",
     "@types/webpack": "^5.28.0",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "all-contributors-cli": "^6.20.0",
@@ -60,18 +60,6 @@
     "consola":  "^2.15.3",
     "ejs": "^3.1.6",
     "eslint": "7.26.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-airbnb-typescript": "^12.3.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-import-resolver-typescript": "^2.4.0",
-    "eslint-plugin-cypress": "^2.11.3",
-    "eslint-plugin-import": "^2.23.2",
-    "eslint-plugin-jest": "^24.3.6",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-standard": "^5.0.0",
-    "eslint-plugin-unicorn": "32.0.1",
-    "eslint-plugin-vue": "^7.9.0",
     "execa": "^5.0.0",
     "fs-extra": "^10.0.0",
     "husky": "^6.0.0",

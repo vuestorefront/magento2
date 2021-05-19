@@ -1,0 +1,35 @@
+{
+  "name": "@vue-storefront/eslint-config-vue",
+  "version": "0.0.1",
+  "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "echo \"Skip this step\"",
+    "docs": "echo \"Skip this step\"",
+    "lint": "echo \"Skip this step\"",
+    "lint:fix": "echo \"Skip this step\"",
+    "lint:fix:src": "echo \"Skip this step\"",
+    "lint:fix:test": "echo \"Skip this step\"",
+    "lint:src": "echo \"Skip this step\"",
+    "lint:test": "echo \"Skip this step\"",
+    "precommit": "echo \"Skip this step\"",
+    "prepare": "echo \"Skip this step\"",
+    "start": "echo \"Skip this step\"",
+    "test": "echo \"Skip this step\"",
+    "test:coverage": "echo \"Skip this step\"",
+    "test:ui": "echo \"Skip this step\"",
+    "test:unit": "echo \"Skip this step\"",
+    "test:watch": "echo \"Skip this step\"",
+    "test:watchAll": "echo \"Skip this step\"",
+    "update:check": "ncu",
+    "update:update": "ncu -u"
+  },
+  "files": [
+    "index.js",
+    "rules"
+  ],
+  "dependencies": {
+    "eslint-plugin-vue": "^7.9.0"
+  },
+  "main": "index.js"
+}
