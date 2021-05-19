@@ -221,7 +221,7 @@ export default {
     SfSelect,
     ValidationProvider,
     ValidationObserver,
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
+    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
   },
   setup() {
     const isFormSubmitted = ref(false);

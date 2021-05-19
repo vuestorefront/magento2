@@ -277,7 +277,7 @@ import {
   ref,
   computed,
   onMounted,
-} from '@vue/composition-api';
+} from 'vue-demi';
 import { formatAddressReturnToData } from '~/helpers/checkout/address';
 
 const NOT_SELECTED_ADDRESS = '';

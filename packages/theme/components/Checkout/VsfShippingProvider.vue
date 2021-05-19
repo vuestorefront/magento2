@@ -39,13 +39,21 @@
           class="form__radio shipping"
           @input="selectShippingMethod(method)"
         >
-          <div class="shipping__label">
-            {{ method.method_title }}
-          </div>
-
-          <div class="shipping__description">
-            {{ method.carrier_title }}
-          </div>
+          <template #label>
+            <div class="sf-radio__label shipping__label">
+              <div>{{ method.carrier_title }}</div>
+              <div v-if="method && (method.amount || method.price_incl_tax)">
+                {{ $n(getShippingMethodPrice(method), 'currency') }}
+              </div>
+            </div>
+          </template>
+          <template #description>
+            <div class="sf-radio__description shipping__description">
+              <div class="shipping__info">
+                {{ method.method_title }}
+              </div>
+            </div>
+          </template>
         </SfRadio>
       </div>
       <div class="form__action">
@@ -75,7 +83,8 @@ import { useGetShippingMethods } from '@vue-storefront/magento/src';
 import {
   onMounted,
   computed,
-} from '@vue/composition-api';
+} from 'vue-demi';
+import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default {
   name: 'VsfShippingProvider',
@@ -98,14 +107,16 @@ export default {
       error: errorShippingProvider,
       loading: loadingShippingProvider,
       save,
+      setState,
       load,
-    } = useShippingProvider('VsfShippingProvider');
+    } = useShippingProvider();
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const isLoading = computed(() => loadingShippingMethods.value || loadingShippingProvider.value);
     const isShippingMethodStepCompleted = computed(() => state.value?.method_code && !isLoading.value);
     /**
-     * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders. Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
+     * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
+     * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
      */
     const selectShippingMethod = async (method) => {
       await save({
@@ -124,6 +135,7 @@ export default {
     return {
       errorShippingProvider,
       errorUseGetShippingMethods,
+      getShippingMethodPrice,
       isLoading,
       isShippingMethodStepCompleted,
       loadingShippingProvider,

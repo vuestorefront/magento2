@@ -75,6 +75,9 @@ export default {
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
       coreDevelopment: true,
+      logger: {
+        verbosity: 'debug',
+      },
       // @core-development-only-end
       useRawSource: {
         dev: [
@@ -109,6 +112,7 @@ export default {
       tax,
       defaultStore,
       websites,
+
     }],
   ],
   modules: [

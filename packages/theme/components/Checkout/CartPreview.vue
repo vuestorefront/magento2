@@ -31,9 +31,9 @@
         class="sf-property--full-width sf-property--small property special-price"
       />
       <SfProperty
-        v-if="selectedShippingMethod && selectedShippingMethod.zoneRates"
+        v-if="selectedShippingMethod"
         :name="$t('Shipping')"
-        :value="$n(totals.total, 'currency')"
+        :value="$n(getShippingMethodPrice(selectedShippingMethod), 'currency')"
         class="sf-property--full-width sf-property--large property"
       />
       <SfProperty
@@ -69,7 +69,6 @@
   </div>
 </template>
 <script>
-
 import {
   SfHeading,
   SfButton,
@@ -79,8 +78,10 @@ import {
   SfInput,
   SfCircleIcon,
 } from '@storefront-ui/vue';
-import { computed, ref } from '@vue/composition-api';
+import { getSelectedShippingMethod } from '@vue-storefront/magento/src/composables/getters/cartGetters';
+import { computed, ref } from 'vue-demi';
 import { useCart, useShippingProvider, cartGetters } from '@vue-storefront/magento';
+import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default {
   name: 'CartPreview',
@@ -98,7 +99,6 @@ export default {
       updateItemQty,
       applyCoupon,
     } = useCart();
-    const { state } = useShippingProvider();
 
     const listIsHidden = ref(false);
     const promoCode = ref('');
@@ -108,10 +108,10 @@ export default {
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
-    const selectedShippingMethod = computed(() => state.value && state.value.response && state.value.response.shippingMethod);
     const hasSpecialPrice = computed(() => totals.value.special > 0 && totals.value.special < totals.value.subtotal);
 
     return {
+      cart,
       discounts,
       totalItems,
       listIsHidden,
@@ -122,6 +122,7 @@ export default {
       removeItem,
       updateItemQty,
       cartGetters,
+      getShippingMethodPrice,
       applyCoupon,
       characteristics: [
         {
@@ -141,8 +142,7 @@ export default {
           icon: 'return',
         },
       ],
-
-      selectedShippingMethod,
+      selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
       hasSpecialPrice,
     };
   },

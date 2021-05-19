@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { toRef, computed } from '@vue/composition-api';
+import { toRef, computed } from 'vue-demi';
 import { userBillingGetters } from '@vue-storefront/magento';
 
 export default {

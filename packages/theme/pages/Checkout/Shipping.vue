@@ -105,6 +105,8 @@
             :disabled="!form.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
+            :valid="!!form.country_code"
+            :error-message="!form.country_code ? 'Please select a country first' : ''"
           />
           <SfSelect
             v-else
@@ -212,12 +214,11 @@ import {
   SfButton,
   SfSelect,
 } from '@storefront-ui/vue';
-import { ref } from '@vue/composition-api';
+import { ref, computed } from 'vue-demi';
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { computed, watch } from 'vue-demi';
 
 extend('required', {
   ...required,
@@ -241,7 +242,7 @@ export default {
     SfSelect,
     ValidationProvider,
     ValidationObserver,
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider'),
+    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
   },
   setup() {
     const isFormSubmitted = ref(false);
@@ -249,7 +250,7 @@ export default {
       load,
       save,
       loading,
-    } = useShipping('Step:Shipping');
+    } = useShipping();
     const {
       loadCountries,
       countries,
