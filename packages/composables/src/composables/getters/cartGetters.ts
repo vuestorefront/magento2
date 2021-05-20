@@ -113,9 +113,20 @@ export const getCartTotalItems = (cart: Cart): number => {
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
-export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons as AgnosticCoupon[] || [];
+export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons.map((c) => ({
+  id: c.code,
+  name: c.code,
+  value: 0,
+  code: c.code,
+} as AgnosticCoupon));
 
-export const getDiscounts = (_cart: Cart): AgnosticDiscount[] => [];
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => cart.applied_coupons.map((c) => ({
+  id: c.code,
+  name: c.code,
+  description: c.code,
+  value: 0,
+  code: c.code,
+} as AgnosticDiscount));
 
 export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod => cart?.shipping_addresses[0]?.selected_shipping_method;
 
