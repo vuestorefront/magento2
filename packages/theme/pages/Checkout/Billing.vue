@@ -277,7 +277,7 @@ import {
   ref,
   computed,
   onMounted,
-} from 'vue-demi';
+} from '@vue/composition-api';
 import { formatAddressReturnToData } from '~/helpers/checkout/address';
 
 const NOT_SELECTED_ADDRESS = '';
@@ -404,7 +404,7 @@ export default {
     const selectDefaultAddress = () => {
       const defaultAddress = userBillingGetters.getAddresses(userBilling.value,
         { isDefault: true });
-      if (defaultAddress && defaultAddress.length) {
+      if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }
     };
@@ -425,7 +425,7 @@ export default {
     });
 
     onMounted(async () => {
-      if (Object.keys((address.value || {})).length) {
+      if (Object.keys((address.value || {})).length > 0) {
         await searchCountry({ id: address.value.country.code });
 
         billingDetails.value = { ...(formatAddressReturnToData(address.value) || {}) };
@@ -435,7 +435,7 @@ export default {
         await loadUserBilling();
       }
       const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
-      if (!billingAddresses || !billingAddresses.length) {
+      if (!billingAddresses || billingAddresses.length === 0) {
         return;
       }
       const hasEmptyBillingDetails = !billingDetails.value || Object.keys((billingDetails.value || {})).length === 0;

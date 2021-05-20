@@ -31,7 +31,7 @@
             >
               <SfCollectedProduct
                 v-for="product in products"
-                :key="cartGetters.getItemSku(product)"
+                :key="`${cartGetters.getItemSku(product)}-${Math.random()}`"
                 :image="cartGetters.getItemImage(product)"
                 :title="cartGetters.getItemName(product)"
                 :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
@@ -123,7 +123,7 @@ import {
   SfCollectedProduct,
   SfImage,
 } from '@storefront-ui/vue';
-import { computed } from 'vue-demi';
+import { computed } from '@vue/composition-api';
 import {
   useCart, useUser, cartGetters, useExternalCheckout,
 } from '@vue-storefront/magento';

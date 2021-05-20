@@ -193,7 +193,7 @@ import {
   SfButton,
   SfSelect,
 } from '@storefront-ui/vue';
-import { ref, computed } from 'vue-demi';
+import { ref, computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';

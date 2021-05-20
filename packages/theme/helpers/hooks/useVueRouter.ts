@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { Route } from 'vue-router';
-import { reactive, watch } from 'vue-demi';
+import { reactive, watch } from '@vue/composition-api';
 import { getInstance } from '~/helpers/hooks/getInstance';
 
 export const useVueRouter = () => {

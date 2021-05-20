@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { ref } from 'vue-demi';
+import { ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { useUser, userGetters } from '@vue-storefront/magento';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';

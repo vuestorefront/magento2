@@ -372,7 +372,7 @@ import {
   SfColor,
   SfProperty,
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted } from 'vue-demi';
+import { ref, computed, onMounted } from '@vue/composition-api';
 import {
   useCart,
   useWishlist,
@@ -495,7 +495,7 @@ export default {
 
     onMounted(() => {
       context.root.$scrollTo(context.root.$el, 2000);
-      if (!facets.value.length) return;
+      if (facets.value.length === 0) return;
       selectedFilters.value = facets.value.reduce((prev, curr) => ({
         ...prev,
         [curr.id]: curr.options

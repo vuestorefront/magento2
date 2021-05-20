@@ -76,7 +76,7 @@
           >
             <template #name>
               <span class="sf-property__name">
-                {{ selectedShippingMethod.carrier_title }}
+                {{ selectedShippingMethod.carrier_title }} (<small>{{ selectedShippingMethod.method_title }}</small>)
               </span>
             </template>
           </SfProperty>
@@ -145,7 +145,7 @@ import {
   SfLink,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from 'vue-demi';
+import { ref, computed } from '@vue/composition-api';
 import {
   useMakeOrder,
   useCart,

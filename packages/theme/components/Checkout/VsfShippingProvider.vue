@@ -83,7 +83,7 @@ import { useGetShippingMethods } from '@vue-storefront/magento/src';
 import {
   onMounted,
   computed,
-} from 'vue-demi';
+} from '@vue/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default {

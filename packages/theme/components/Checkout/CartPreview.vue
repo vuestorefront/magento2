@@ -19,13 +19,6 @@
         :class="['sf-property--full-width', 'sf-property--large property', { discounted: hasSpecialPrice }]"
       />
       <SfProperty
-        v-for="discount in discounts"
-        :key="discount.id"
-        :name="discount.name + (discount.code && ` (${discount.code})`)"
-        :value="'-' + $n(discount.value, 'currency')"
-        class="sf-property--full-width sf-property--small"
-      />
-      <SfProperty
         v-if="hasSpecialPrice"
         :value="$n(totals.special, 'currency')"
         class="sf-property--full-width sf-property--small property special-price"
@@ -78,9 +71,8 @@ import {
   SfInput,
   SfCircleIcon,
 } from '@storefront-ui/vue';
-import { getSelectedShippingMethod } from '@vue-storefront/magento/src/composables/getters/cartGetters';
-import { computed, ref } from 'vue-demi';
-import { useCart, useShippingProvider, cartGetters } from '@vue-storefront/magento';
+import { computed, ref } from '@vue/composition-api';
+import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default {

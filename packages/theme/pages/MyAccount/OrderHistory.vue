@@ -152,7 +152,7 @@ import {
   SfButton,
   SfProperty,
 } from '@storefront-ui/vue';
-import { computed, ref } from 'vue-demi';
+import { computed, ref } from '@vue/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/magento';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 
@@ -193,7 +193,7 @@ export default {
 
     const downloadFile = (file, name) => {
       const a = document.createElement('a');
-      document.body.appendChild(a);
+      document.body.append(a);
       a.style = 'display: none';
 
       const url = window.URL.createObjectURL(file);

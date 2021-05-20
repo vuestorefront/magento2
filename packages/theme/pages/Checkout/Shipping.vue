@@ -214,7 +214,7 @@ import {
   SfButton,
   SfSelect,
 } from '@storefront-ui/vue';
-import { ref, computed } from 'vue-demi';
+import { ref, computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
@@ -286,6 +286,7 @@ export default {
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     return {
+      load,
       searchCountry,
       country,
       regionInformation,
@@ -314,6 +315,10 @@ export default {
       color: var(--c-text);
       font-family: var(--font-family--secondary);
       font-weight: var(--font-weight--normal);
+    }
+
+    ::v-deep .sf-select__label {
+      left: initial;
     }
   }
   @include for-desktop {
