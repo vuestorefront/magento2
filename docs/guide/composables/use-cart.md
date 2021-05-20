@@ -8,8 +8,6 @@
 * checking if product is already added to the cart.
 
 ## API
-The `useCart` composable implements `useCartFactory` from `@vue-storefront/core` wich exports return the `UseCart` interface:
-
 ```typescript
 interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
   cart: ComputedProperty<CART>;
@@ -64,7 +62,7 @@ interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
 
 ## Getters
 
-````typescript
+```typescript
 interface CartGetters<CART, CART_ITEM> {
     getItems: (cart: CART) => CART_ITEM[];
     getItemName: (cartItem: CART_ITEM) => string;
@@ -83,7 +81,7 @@ interface CartGetters<CART, CART_ITEM> {
     getCoupons: (cart: CART) => AgnosticCoupon[];
     getDiscounts: (cart: CART) => AgnosticDiscount[];
 }
-````
+```
 
 * `getTotals` - returns cart totals.
 * `getShippingPrice` - returns current shipping price.

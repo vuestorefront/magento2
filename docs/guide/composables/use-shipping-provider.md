@@ -1,9 +1,11 @@
 # useShippingProvider
+
+## Features
 `useShippingProvider` composable can be used for:
 * Loading shipping methods for the current cart.
 * Selecting shipping method for the current cart.
 
-> WIP
+> This component still a Work In Progress
 
 ## API
 ```typescript
@@ -24,7 +26,7 @@ interface UseShippingProvider<STATE, SHIPPING_METHOD> {
 * `error` - a reactive object containing the error message, if load or save failed for any reason.
 
 ## Example
-````javascript
+```javascript
 import { useShippingProvider } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
@@ -42,4 +44,4 @@ export default {
     };
   }
 }
-````
+```

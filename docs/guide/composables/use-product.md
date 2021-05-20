@@ -4,15 +4,12 @@
 `useProduct` composable is responsible for fetching a list of products.
 
 ## API
-The `useProduct` composable implements `useProductFactory` from `@vue-storefront/core` wich exports return the `UseProduct` interface:
-
 ```typescript
 interface UseProduct<PRODUCTS, PRODUCT_SEARCH_PARAMS> {
   products: ComputedProperty<PRODUCTS>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseProductErrors>;
   search(params: ComposableFunctionArgs<PRODUCT_SEARCH_PARAMS>): Promise<void>;
-  [x: string]: any;
 }
 ```
 

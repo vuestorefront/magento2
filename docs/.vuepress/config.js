@@ -38,20 +38,23 @@ module.exports = {
           ['/guide/composables/use-billing', 'useBilling'],
           ['/guide/composables/use-cart', 'useCart'],
           ['/guide/composables/use-category', 'useCategory'],
+          ['/guide/composables/use-category-search', 'useCategorySearch'],
           ['/guide/composables/use-checkout', 'useCheckout'],
           ['/guide/composables/use-config', 'useConfig'],
+          ['/guide/composables/use-content', 'useContent'],
           ['/guide/composables/use-facet', 'useFacet'],
           ['/guide/composables/use-make-oder', 'useMakeOrder'],
-          ['/guide/composables/use-page', 'usePage'],
+          ['/guide/composables/use-menu-category', 'useMenuCategory'],
           ['/guide/composables/use-product', 'useProduct'],
-          ['/guide/composables/use-router', 'useRouter'],
+          ['/guide/composables/use-review', 'useReview'],
           ['/guide/composables/use-shipping', 'useShipping'],
           ['/guide/composables/use-shipping-provider', 'useShippingProvider'],
+          ['/guide/composables/use-url-resolver', 'useUrlResolver'],
           ['/guide/composables/use-user', 'useUser'],
           ['/guide/composables/use-user-billing', 'useUserBilling'],
           ['/guide/composables/use-user-order', 'useUserOrder'],
           ['/guide/composables/use-user-shipping', 'useUserShipping'],
-          ['/guide/composables/use-user-wishlist', 'useUserWishlist']
+          ['/guide/composables/use-wishlist', 'useWishlist']
         ]
       }
     ]

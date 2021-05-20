@@ -2,10 +2,9 @@
 
 ## Features
 `useConfig` composable is responsible, as its name suggests, for interactions with the configuration in your eCommerce.
+The `useConfig` composable is specific to Magento integration and doesn't come out of the box with Vue Storefront.
 
 ## API
-The `useConfig` composable implements `useConfigFactory` located in `packages/composables/src/factories/useConfigFactory.ts` wich exports return the `UseConfig` interface:
-
 ```typescript
 interface UseConfig<CONFIG> {
   config: ComputedRef<CONFIG>;
@@ -14,11 +13,13 @@ interface UseConfig<CONFIG> {
 }
 ```
 
-### `config`
-Returns the loaded `config` as `computed` property
+### `loadConfig`
+Function to load the `config`StoreConfig
 
+### `config`
+Returns the loaded `config` as `StoreConfig` computed property
 ``` typescript
-export interface StoreConfig {
+interface StoreConfig {
   /** Footer Miscellaneous HTML */
   absolute_footer?: Maybe<Scalars['String']>;
   /** Indicates whether guest users can write product reviews. Possible values: 1 (Yes) and 0 (No) */
@@ -179,9 +180,6 @@ export interface StoreConfig {
   welcome?: Maybe<Scalars['String']>;
 }
 ```
-
-### `loadConfig`
-Function to load the `config`
 
 ### `loading`
 Return state of `loadConfig` Function as `computed` property

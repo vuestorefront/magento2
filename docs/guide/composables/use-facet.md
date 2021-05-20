@@ -9,10 +9,8 @@
 What makes it powerful is the ability to accept multiple filters, allowing to narrow down the results to a specific category, search term, etc.
 
 ## API
-The `useFacet` composable implements `useFacetFactory` from `@vue-storefront/core` wich exports return the `UseFacet` interface:
-
 ``` typescript
-export interface UseFacet<SEARCH_DATA> {
+interface UseFacet<SEARCH_DATA> {
   result: ComputedProperty<FacetSearchResult<SEARCH_DATA>>;
   loading: ComputedProperty<boolean>;
   search: (params?: AgnosticFacetSearchParams) => Promise<void>;
@@ -47,7 +45,7 @@ Reactive object containing the error message, if search failed for any reason.
 
 
 ## Getters
-````typescript
+```typescript
 interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
     getAll: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticFacet[];
     getGrouped: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticGroupedFacet[];
@@ -57,7 +55,7 @@ interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
     getPagination: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticPagination;
     getBreadcrumbs: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticBreadcrumb[];
 }
-````
+```
 
 * `getAll` - returns all available facets.
 * `getGrouped` - returns grouped facets by facet name.

@@ -1,41 +1,48 @@
 # useUserBilling
+
+## Features
 `useUserBilling` composable can be used to:
 * fetch existing billing addresses,
 * submit new billing addresses,
 * modify and delete existing billing addresses.
 
-````typescript
+## API
+```typescript
 interface UseUserBilling<USER_BILLING, USER_BILLING_ITEM> {
-    billing: ComputedProperty<USER_BILLING>;
-    addAddress: (params: {
-        address: USER_BILLING_ITEM;
-    }) => Promise<void>;
-    deleteAddress: (params: {
-        address: USER_BILLING_ITEM;
-    }) => Promise<void>;
-    updateAddress: (params: {
-        address: USER_BILLING_ITEM;
-    }) => Promise<void>;
-    load: () => Promise<void>;
-    setDefaultAddress: (params: {
-        address: USER_BILLING_ITEM;
-    }) => Promise<void>;
-    loading: ComputedProperty<boolean>;
-    error: ComputedProperty<UseUserBillingErrors>;
+  billing: ComputedProperty<USER_BILLING>;
+  addAddress: (params: {
+    address: USER_BILLING_ITEM;
+    customQuery?: CustomQuery;
+  }) => Promise<void>;
+  deleteAddress: (params: {
+    address: USER_BILLING_ITEM;
+    customQuery?: CustomQuery;
+  }) => Promise<void>;
+  updateAddress: (params: {
+    address: USER_BILLING_ITEM;
+    customQuery?: CustomQuery;
+  }) => Promise<void>;
+  load: () => Promise<void>;
+  setDefaultAddress: (params: {
+    address: USER_BILLING_ITEM;
+    customQuery?: CustomQuery;
+  }) => Promise<void>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUserBillingErrors>;
 }
-````
+```
 
-* `load` - function for fetching user addresses. When invoked, it requests data from the API and populates billing property.
+* `billing` - reactive data object containing response from the backend.
 * `addAddress`- function for posting new billing address. This method accepts a single params object.
 * `deleteAddress` - function for deleting existing billing address. This method accepts a single params object.
 * `updateAddress` - function for updating existing billing address. This method accepts a single params object.
+* `load` - function for fetching user addresses. When invoked, it requests data from the API and populates billing property.
 * `setDefaultAddress` - function for settings an existing billing address as default. This method accepts a single params object.
-* `billing` - reactive data object containing response from the backend.
 * `loading` - reactive object containing information about loading state of load, addAddress, deleteAddress, updateAddress and setDefaultAddress methods.
 * `error` - reactive object containing the error message, if some properties failed for any reason.
 
 ## Getter
-````typescript
+```typescript
 interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
     getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
     getDefault: (billing: USER_BILLING) => USER_BILLING_ITEM;
@@ -56,7 +63,7 @@ interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
     getApartmentNumber: (address: USER_BILLING_ITEM) => string | number;
     isDefault: (address: USER_BILLING_ITEM) => boolean;
 }
-````
+```
 
 * `getAddresses` - returns list of billing addresses.
 * `getDefault` - returns a default billing address.
@@ -86,20 +93,19 @@ export default {
   setup() {
     const {
       billing,
-      load,
-      addAddress,
-      deleteAddress,
-      updateAddress
+      load: loadUserBilling,
+      setDefault,
     } = useUserBilling();
 
     // If you're using Nuxt or any other framework for Universal Vue apps
     onSSR(async () => {
-      await load();
+      await loadUserBilling();
     });
 
     return {
-      billing: computed(() => userBillingGetters.getAddresses(billing.value)),
-      userBillingGetters
+      billing,
+      chosenAddress: computed(() => userBillingGetters.getAddresses(billing.value)),
+      setDefault,
     };
   }
 };

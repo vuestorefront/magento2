@@ -1,11 +1,10 @@
-# usePage
+# useContent
 
 ## Features
-`usePage` is the alias used by `useContent` composable, and can be used to fetch content pages.
+`useContent` composable can be used to fetch content pages.
+The `useContent` composable is specific to Magento integration and doesn't come out of the box with Vue Storefront.
 
 ## API
-The `useContent` composable implements `usePageFactory` located in `packages/composables/src/factories/usePageFactory.ts` wich exports return the `UsePage` interface:
-
 ```typescript
 interface UsePage<PAGE> {
   page: ComputedProperty<PAGE>;
@@ -18,14 +17,8 @@ interface UsePage<PAGE> {
 Function that takes in `identifier` as param and gets the `page` accordingly
 
 ### `page`
-Returns `page` as a `computed` property
+Returns `page` as a `CmsPage` computed property
 ``` typescript
-// packages/composables/src/composables/useContent/index.ts
-export default usePageFactory<Page>(factoryParams);
-
-// packages/api-client/src/types/API.ts
-type Page = CmsPage;
-
 // packages/api-client/src/types/GraphQL.ts
 interface CmsPage {
   /** CMS page content */
@@ -55,11 +48,11 @@ Returns the `loading` state of `loadPage`
 ## Example
 ```javascript
 import { onSSR } from '@vue-storefront/core';
-import { usePage } from '@vue-storefront/magento';
+import { useContent } from '@vue-storefront/magento';
 
 export default {
   setup(props) {
-    const { page, loadPage, loading } = usePage('cmsPage');
+    const { page, loadPage, loading } = useContent('cmsPage');
 
     onSSR(async () => {
       await loadPage(props.identifier);

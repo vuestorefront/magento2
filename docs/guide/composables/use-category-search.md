@@ -4,10 +4,8 @@
 `useCategorySearch` composable is responsible for fetching a list of categories based on search term provided. A common usage scenario for this composable is navigation subtrees.
 
 ## API
-The `useCategorySearch` composable implements `useCategorySearchFactory` located in `packages/composables/src/factories/useCategorySearchFactory.ts` wich exports return the `UseCategorySearch` interface:
-
 ```typescript
-export interface UseCategorySearch<CATEGORY> {
+interface UseCategorySearch<CATEGORY> {
   search: (params: { term: string }) => Promise<CATEGORY[]>;
   result: ComputedProperty<CATEGORY[]>;
   error: ComputedProperty<UseCategorySearchErrors>;

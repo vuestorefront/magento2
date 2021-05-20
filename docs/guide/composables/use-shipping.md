@@ -1,9 +1,11 @@
 # useShipping
+
+## Features
 `useShipping` composable can be used for:
 * Loading shipping address for the current cart.
 * Saving shipping address for the current cart.
 
-> WIP
+> This component still a Work In Progress
 
 ## API
 ```typescript
@@ -23,7 +25,7 @@ interface UseShipping<SHIPPING, SHIPPING_PARAMS> {
 * `error` - a reactive object containing the error message, if load or save failed for any reason.
 
 ## Example
-````javascript
+```javascript
 import { useShipping } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 
@@ -40,4 +42,4 @@ export default {
     };
   }
 }
-````
+```

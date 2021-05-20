@@ -7,8 +7,6 @@
 * modify and delete existing billing addresses.
 
 ## API
-The `useBilling` composable implements `useBillingFactory` from `@vue-storefront/core` wich exports return the `UseBilling` interface:
-
 ```typescript
 interface UseBilling<BILLING, BILLING_PARAMS> {
   billing: ComputedProperty<BILLING>;
@@ -22,14 +20,13 @@ interface UseBilling<BILLING, BILLING_PARAMS> {
 
 ### `load`
 Function that takes in `CustomQuery` as optional params and gets the `billing` accordingly
+``` typescript
+type CustomQuery = Record<string, string>;
+```
 
 ### `billing`
 Returns `billing` as a `computed` property
 ``` typescript
-// packages/composables/src/composables/useBilling/index.ts
-export default useBillingFactory<BillingCartAddress, any>(factoryParams);
-
-// packages/api-client/src/types/GraphQL.ts
 interface BillingCartAddress {
   city: Scalars['String'];
   company?: Maybe<Scalars['String']>;

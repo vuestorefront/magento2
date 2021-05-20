@@ -1,9 +1,9 @@
 # useUserOrder
 
+## Features
 `useUserOrders` composable is responsible, as it's name suggests for interactions with user's order history from your eCommerce.
 
 ## API
-
 ```typescript
 interface UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
   orders: ComputedProperty<ORDERS>;
@@ -14,7 +14,7 @@ interface UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS> {
 ```
 
 * `orders` - a main data object that contains an array of orders fetched by searchOrders method.
-* `totalOrder` - Returns the total `number` of `orders` for the current User
+* `search` - Function that takes in `CustomerOrdersQueryVariables` as optional params and gets the `orders` accordingly
 * `error` - reactive object containing the error message, if some properties failed for any reason.
 * `loading` - a reactive object containing information about loading state of your searchOrders method.
 

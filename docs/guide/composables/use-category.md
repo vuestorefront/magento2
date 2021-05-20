@@ -4,8 +4,6 @@
 `useCategory` composable is responsible for fetching a list of categories. A common usage scenario for this composable is navigation.
 
 ## API
-The `useCategory` composable implements `useCategoryFactory` from `@vue-storefront/core` wich exports return the `UseCategory` interface:
-
 ```typescript
 interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
   categories: ComputedProperty<CATEGORY[]>;
@@ -14,6 +12,7 @@ interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
   error: ComputedProperty<UseCategoryErrors>;
 }
 ```
+
 ### `search`
 Function that takes `CategoryListQueryVariables` and `CustomQuery` as optional params and gets the `categories` accordingly
 ``` typescript
@@ -24,7 +23,6 @@ type CustomQuery = Record<string, string>;
 
 ### `categories`
 Returns an array of categories fetched by `search` method as a `computed` property.
-
 ``` typescript
 interface Category {
   available_sort_by?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -98,7 +96,7 @@ Returns the current state of `search` as `computed` boolean property
 Reactive object containing the error message, if search failed for any reason.
 
 ## Getters
-````typescript
+```typescript
 interface CategoryGetters<CATEGORY> {
   getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
   getBreadcrumbs: (category: CATEGORY) => AgnosticBreadcrumb[];
@@ -108,7 +106,7 @@ interface CategoryGetters<CATEGORY> {
     withProducts: boolean,
   ) => AgnosticCategoryTree | null;
 }
-````
+```
 ## Example
 
 ```javascript
