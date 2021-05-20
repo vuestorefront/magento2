@@ -1,23 +1,7 @@
-#import "../../fragments/cartFragment.graphql"
+#import "../../fragments/completeCartFragment.graphql"
 
 query customerCart {
   customerCart {
-    ...CartData
-    shipping_addresses {
-      ...CartAddress
-      selected_shipping_method {
-        carrier_code
-        carrier_title
-        method_code
-        method_title
-        amount {
-          value
-          currency
-        }
-      }
-    }
-    billing_address {
-      ...CartAddress
-    }
+    ...CompleteCartData
   }
 }

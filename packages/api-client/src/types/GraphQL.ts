@@ -6790,37 +6790,28 @@ export type AddConfigurableProductsToCartMutationVariables = Exact<{
 }>;
 
 
-export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CartDataFragment }> };
+export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type AddSimpleProductsToCartMutationVariables = Exact<{
   input?: Maybe<AddSimpleProductsToCartInput>;
 }>;
 
 
-export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CartDataFragment }> };
+export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type ApplyCouponToCartMutationVariables = Exact<{
   input?: Maybe<ApplyCouponToCartInput>;
 }>;
 
 
-export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CartDataFragment }> };
+export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type CartQueryVariables = Exact<{
   cartId: Scalars['String'];
 }>;
 
 
-export type CartQuery = { cart?: Maybe<(
-    { shipping_addresses: Array<Maybe<(
-      { selected_shipping_method?: Maybe<(
-        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
-        & { amount: Pick<Money, 'value' | 'currency'> }
-      )> }
-      & CartAddress_ShippingCartAddress_Fragment
-    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
-    & CartDataFragment
-  )> };
+export type CartQuery = { cart?: Maybe<CompleteCartDataFragment> };
 
 export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6921,16 +6912,7 @@ export type CustomerQuery = { customer?: Maybe<CustomerDataFragment> };
 export type CustomerCartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CustomerCartQuery = { customerCart: (
-    { shipping_addresses: Array<Maybe<(
-      { selected_shipping_method?: Maybe<(
-        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
-        & { amount: Pick<Money, 'value' | 'currency'> }
-      )> }
-      & CartAddress_ShippingCartAddress_Fragment
-    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
-    & CartDataFragment
-  ) };
+export type CustomerCartQuery = { customerCart: CompleteCartDataFragment };
 
 export type CustomerOrdersQueryVariables = Exact<{
   currentPage?: Maybe<Scalars['Int']>;
@@ -7016,16 +6998,7 @@ export type MergeCartsMutationVariables = Exact<{
 }>;
 
 
-export type MergeCartsMutation = { mergeCarts: (
-    { shipping_addresses: Array<Maybe<(
-      { selected_shipping_method?: Maybe<(
-        Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
-        & { amount: Pick<Money, 'value' | 'currency'> }
-      )> }
-      & CartAddress_ShippingCartAddress_Fragment
-    )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
-    & CartDataFragment
-  ) };
+export type MergeCartsMutation = { mergeCarts: CompleteCartDataFragment };
 
 export type PlaceOrderMutationVariables = Exact<{
   input?: Maybe<PlaceOrderInput>;
@@ -7449,14 +7422,14 @@ export type RemoveCouponFromCartMutationVariables = Exact<{
 }>;
 
 
-export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CartDataFragment> }> };
+export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CompleteCartDataFragment> }> };
 
 export type RemoveItemFromCartMutationVariables = Exact<{
   input?: Maybe<RemoveItemFromCartInput>;
 }>;
 
 
-export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CartDataFragment }> };
+export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type RevokeCustomerTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -7517,7 +7490,7 @@ export type UpdateCartItemsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CartDataFragment }> };
+export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type UpdateCustomerMutationVariables = Exact<{
   input: CustomerUpdateInput;
@@ -8128,6 +8101,23 @@ export type CartProductDataFragment = CartProductData_BundleCartItem_Fragment | 
 export type CategoryDataFragment = Pick<CategoryTree, 'image' | 'include_in_menu' | 'is_anchor' | 'level' | 'name' | 'position' | 'product_count' | 'uid'>;
 
 export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_path' | 'url_suffix'>;
+
+export type CompleteCartDataFragment = (
+  Pick<Cart, 'id' | 'email' | 'is_virtual' | 'total_quantity'>
+  & { gift_message?: Maybe<Pick<GiftMessage, 'from' | 'message' | 'to'>>, applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
+      Pick<CartTaxItem, 'label'>
+      & { amount: Pick<Money, 'value'> }
+    )>>>, discounts?: Maybe<Array<Maybe<(
+      Pick<Discount, 'label'>
+      & { amount: Pick<Money, 'value'> }
+    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>>, shipping_addresses: Array<Maybe<(
+    { selected_shipping_method?: Maybe<(
+      Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
+      & { amount: Pick<Money, 'value' | 'currency'> }
+    )> }
+    & CartAddress_ShippingCartAddress_Fragment
+  )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
+);
 
 export type ConfigurableProductOptionsDataFragment = { configurable_options?: Maybe<Array<Maybe<(
     Pick<ConfigurableProductOptions, 'attribute_code' | 'attribute_uid' | 'label' | 'position' | 'uid' | 'use_default'>

@@ -193,8 +193,6 @@ export interface MagentoApiMethods {
 
   setPaymentMethodOnCart(input: SetPaymentMethodOnCartInput): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
 
-  setPaymentMethodOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
-
   setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
 
   setShippingAddressesOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
