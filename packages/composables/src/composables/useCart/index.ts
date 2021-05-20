@@ -28,7 +28,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         const result = await context.$magento.api.customerCart();
 
         return result.data.customerCart as unknown as Cart;
-      } catch (e) { // Signed up user don't have a cart.
+      } catch { // Signed up user don't have a cart.
         apiState.setCartId(null);
         apiState.setCustomerToken(null);
 
@@ -52,7 +52,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       Logger.debug(cartResponse);
 
       return cartResponse.data.cart as unknown as Cart;
-    } catch (e) {
+    } catch {
       apiState.setCartId(null);
 
       return await factoryParams.load(context, {}) as unknown as Cart;

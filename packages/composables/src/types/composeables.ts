@@ -1,5 +1,5 @@
-import { ComputedProperty } from '@vue-storefront/core';
-import { ComputedRef } from 'vue-demi';
+import { ComputedProperty, CustomQuery } from '@vue-storefront/core';
+import { ComputedRef } from '@vue/composition-api';
 
 export interface UseUrlResolver<ROUTE> {
   search: (url: string) => Promise<void>;
@@ -68,4 +68,18 @@ export interface UseGetShippingMethods<SHIPPING_METHOD> {
 
 export interface UseGetShippingMethodsErrors {
   load: Error;
+}
+
+export interface UsePaymentProviderErrors {
+  load: Error;
+  save: Error;
+}
+export interface UsePaymentProvider<STATE, PAYMENT_METHOD> {
+  error: ComputedProperty<UsePaymentProviderErrors>;
+  loading: ComputedProperty<boolean>;
+  state: ComputedProperty<STATE>;
+  setState(state: STATE): void;
+  load(): Promise<void>;
+  load(params: { customQuery?: CustomQuery }): Promise<void>;
+  save(params: { paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }): Promise<void>;
 }

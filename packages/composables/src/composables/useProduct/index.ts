@@ -1,7 +1,10 @@
 import {
-  Context, useProductFactory, ProductsSearchParams, UseProduct,
+  Context,
+  ProductsSearchParams,
+  UseProduct,
+  useProductFactory,
+  UseProductFactoryParams,
 } from '@vue-storefront/core';
-import { UseProductFactoryParams } from '@vue-storefront/core/lib/src/factories/useProductFactory';
 import { ProductsListQuery, GetProductSearchParams, ProductsQueryType } from '@vue-storefront/magento-api';
 
 const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], ProductsSearchParams> = {

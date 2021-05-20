@@ -1,7 +1,15 @@
 /* istanbul ignore file */
-import { useUserFactory, UseUserFactoryParams, Context } from '@vue-storefront/core';
+import {
+  Context,
+  useUserFactory,
+  UseUserFactoryParams,
+} from '@vue-storefront/core';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
-import { RegisterUserParams, UpdateUserParams, User } from '../../types';
+import {
+  RegisterUserParams,
+  UpdateUserParams,
+  User,
+} from '../../types';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
@@ -42,7 +50,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     try {
       const response = await context.$magento.api.customer();
       return response.data.customer;
-    } catch (e) {
+    } catch {
       // eslint-disable-next-line no-void
       void factoryParams.logOut(context, parameters);
     }

@@ -54,9 +54,9 @@ const constructFilterObject = (inputFilters: Object) => {
 };
 
 const constructSortObject = (sortData: string) => {
-  const baseData = sortData.split(/_/ig);
+  const baseData = sortData.split(/_/gi);
 
-  return baseData.length ? Object.fromEntries([baseData]) : {};
+  return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
 };
 
 const factoryParams = {
