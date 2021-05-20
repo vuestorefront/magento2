@@ -7,7 +7,6 @@ import useCart from '../useCart';
 const factoryParams: UseExternalCheckoutFactoryParams = {
   provide() {
     return {
-      user: useUser(),
       cart: useCart(),
     };
   },
@@ -16,14 +15,18 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
     const userToken = state.getCustomerToken();
     const cartToken = state.getCartId();
 
-    if (userToken && cartToken && externalCheckout.enable) {
-      // @TODO: Implements Multiple Store
-      /* if (Object.keys(externalCheckout.stores).length) {
+    if (externalCheckout.enable) {
+      if (userToken && cartToken) {
+        // @TODO: Implements Multiple Store
+        /* if (Object.keys(externalCheckout.stores).length) {
 
-      } */
-      await context.cart.$magento.load();
+        } */
+        window.location.replace(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token/${userToken}/cart/${cartToken}`);
+        return Promise.resolve('');
+      }
 
-      return Promise.resolve(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token/${userToken}/cart/${cartToken}`);
+      window.location.replace(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token//cart/${cartToken}`);
+      return Promise.resolve('');
     }
 
     return Promise.resolve(baseUrl);
