@@ -163,7 +163,7 @@ export default {
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout('/checkout/shipping');
+      const redirectUrl = await initializeCheckout('/checkout/user-account');
       await router.push(redirectUrl);
     };
 

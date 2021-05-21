@@ -1,23 +1,17 @@
 <template>
   <div>
-    <p>
-      <b>Please implement vendor specific VsfPaymentProvider component in 'components/Checkout'
-        directory</b>
-    </p>
-
     <SfRadio
-      v-for="method in shippingMethods"
+      v-for="method in paymentMethods"
       :key="method.value"
       v-e2e="'payment-method'"
       :label="method.label"
       :value="method.value"
-      :description="method.description"
       :selected="selectedMethod"
-      name="shippingMethod"
-      class="form__radio shipping"
-      @input="selectMethod(method.value)"
+      name="paymentMethod"
+      class="form__radio payment"
+      @input="definePaymentMethods(method.value)"
     >
-      <div class="shipping__label">
+      <div class="payment__label">
         {{ method.label }}
       </div>
     </SfRadio>
@@ -26,15 +20,8 @@
 
 <script>
 import { SfButton, SfRadio } from '@storefront-ui/vue';
-import { ref } from '@vue/composition-api';
-
-const SHIPPING_METHODS = [
-  { label: 'Visa Debit', value: 'visa_debit' },
-  { label: 'MasterCard', value: 'master_card' },
-  { label: 'VisaElectron', value: 'visa_electron' },
-  { label: 'Cash on delivery', value: 'cash' },
-  { label: 'Check', value: 'check' },
-];
+import { ref, onMounted, computed } from '@vue/composition-api';
+import { usePaymentProvider } from '@vue-storefront/magento';
 
 export default {
   name: 'VsfPaymentProvider',
@@ -44,25 +31,49 @@ export default {
     SfRadio,
   },
 
+  emits: ['status'],
+
   setup(props, { emit }) {
+    const { load, state, save } = usePaymentProvider();
     const selectedMethod = ref(null);
 
-    const selectMethod = (method) => {
-      selectedMethod.value = method;
-      emit('status');
+    onMounted(async () => {
+      await load();
+    });
+
+    const paymentMethods = computed(() => (Array.isArray(state.value) ? state.value.map((p) => ({
+      label: p.title,
+      value: p.code,
+    })) : []));
+
+    const definePaymentMethods = async (paymentMethod) => {
+      try {
+        await save({
+          paymentMethod: {
+            code: paymentMethod,
+          },
+        });
+
+        selectedMethod.value = paymentMethod;
+
+        emit('status', paymentMethod);
+      } catch (e) {
+        console.error(e);
+      }
     };
 
     return {
-      shippingMethods: SHIPPING_METHODS,
+      state,
+      paymentMethods,
       selectedMethod,
-      selectMethod,
+      definePaymentMethods,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.shipping {
+.payment {
   &__label {
     display: flex;
     justify-content: space-between;

@@ -90,7 +90,9 @@
           class="sf-property--full-width sf-property--large summary__property-total"
         />
 
-        <VsfPaymentProvider @status="isPaymentReady = true" />
+        <VsfPaymentProvider
+          @status="isPaymentReady = true"
+        />
 
         <SfCheckbox
           v-model="terms"
