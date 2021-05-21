@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import middleware from './middleware.config';
+import { getRoutes } from './routes';
 
 const {
   integrations: {
@@ -98,6 +99,7 @@ export default {
           composables: '@vue-storefront/magento',
         },
       },
+      routes: false,
     }],
     // @core-development-only-end
     /* project-only-start
@@ -211,12 +213,8 @@ export default {
     ],
   },
   router: {
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'external-thank-you',
-        path: '/external-thank-you',
-        component: resolve(__dirname, 'pages/checkout/ExternalCheckoutThankYou.vue'),
-      });
+    extendRoutes(routes) {
+      getRoutes(`${__dirname}/_theme`).forEach((route) => routes.unshift(route));
     },
   },
 };
