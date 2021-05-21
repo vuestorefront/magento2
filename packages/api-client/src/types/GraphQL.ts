@@ -7458,7 +7458,7 @@ export type SetPaymentMethodOnCartMutationVariables = Exact<{
 }>;
 
 
-export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart?: Maybe<{ cart: { selected_payment_method?: Maybe<Pick<SelectedPaymentMethod, 'code' | 'title'>> } }> };
+export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart?: Maybe<{ cart: { available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>>, selected_payment_method?: Maybe<Pick<SelectedPaymentMethod, 'code' | 'title'>> } }> };
 
 export type SetShippingAddressesOnCartMutationVariables = Exact<{
   input?: Maybe<SetShippingAddressesOnCartInput>;

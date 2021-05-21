@@ -14,9 +14,9 @@ export default async (
   },
   customQuery?: CustomQuery,
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> => {
-  const defaultVariables = params ? {
-    cart_id: params.cartId,
-  } : { };
+  const defaultVariables = {
+    cartId: params.cartId || '',
+  };
 
   const { paymentMethods } = context.extendQuery(customQuery,
     {
