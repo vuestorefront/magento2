@@ -83,3 +83,23 @@ export interface UsePaymentProvider<STATE, PAYMENT_METHOD> {
   load(params: { customQuery?: CustomQuery }): Promise<void>;
   save(params: { paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }): Promise<void>;
 }
+
+export interface UseGuestUserErrors {
+  attachToCart: Error;
+}
+
+export interface UseGuestUserRegisterParams {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+  [x: string]: any;
+}
+
+export interface UseGuestUser<GUEST_USER> {
+  guestUser: ComputedProperty<GUEST_USER>;
+  setGuestUser: (user: GUEST_USER) => void;
+  attachToCart: (params: { user: UseGuestUserRegisterParams }) => Promise<void>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseGuestUserErrors>;
+}
