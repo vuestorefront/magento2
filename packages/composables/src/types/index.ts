@@ -65,3 +65,8 @@ export interface AddressGetter {
     abbreviation: string;
   }[];
 }
+
+export interface AgnosticPaymentMethod {
+  label: string;
+  value: string;
+}

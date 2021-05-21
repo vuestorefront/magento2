@@ -19,6 +19,7 @@ export { default as useProduct } from './composables/useProduct';
 export { default as useReview } from './composables/useReview';
 export { default as useShipping } from './composables/useShipping';
 export { default as useShippingProvider } from './composables/useShippingProvider';
+export { default as usePaymentProvider } from './composables/usePaymentProvider';
 export { default as useUrlResolver } from './composables/useUrlResolver';
 export { default as useUser } from './composables/useUser';
 export { default as useUserBilling } from './composables/useUserBilling';

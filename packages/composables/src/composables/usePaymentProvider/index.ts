@@ -16,11 +16,11 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
   },
   load: async (context: Context, { customQuery }) => {
     Logger.debug('[Magento] loadPaymentProvider');
-
+    const cartId = context.cart.cart.value.id;
     const { data } = await context
       .$magento
       .api
-      .getAvailablePaymentMethods({ cartId: context.cart.cart.id }, customQuery);
+      .getAvailablePaymentMethods({ cartId }, customQuery);
 
     return data
       .cart
@@ -45,7 +45,7 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
     return data
       .setPaymentMethodOnCart
       .cart
-      .selected_payment_method;
+      .available_payment_methods;
   },
 };
 

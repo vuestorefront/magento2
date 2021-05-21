@@ -8,6 +8,7 @@ import {
   Product, ShippingMethod, SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
+import { AgnosticPaymentMethod } from '../../types';
 
 export const getCartItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {
@@ -130,21 +131,27 @@ export const getDiscounts = (cart: Cart): AgnosticDiscount[] => cart.applied_cou
 
 export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod => cart?.shipping_addresses[0]?.selected_shipping_method;
 
+export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] => cart?.available_payment_methods.map((p) => ({
+  label: p.title,
+  value: p.code,
+}));
+
 const cartGetters: CartGetters<Cart, CartItem> = {
-  getItems: getCartItems,
-  getItemName: getCartItemName,
-  getItemImage: getCartItemImage,
-  getItemPrice: getCartItemPrice,
-  getItemQty: getCartItemQty,
-  getItemAttributes: getCartItemAttributes,
-  getItemSku: getCartItemSku,
-  getTotals: getCartTotals,
-  getShippingPrice: getCartShippingPrice,
-  getTotalItems: getCartTotalItems,
-  getFormattedPrice,
+  getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
+  getFormattedPrice,
+  getItemAttributes: getCartItemAttributes,
+  getItemImage: getCartItemImage,
+  getItemName: getCartItemName,
+  getItemPrice: getCartItemPrice,
+  getItemQty: getCartItemQty,
+  getItems: getCartItems,
+  getItemSku: getCartItemSku,
   getSelectedShippingMethod,
+  getShippingPrice: getCartShippingPrice,
+  getTotalItems: getCartTotalItems,
+  getTotals: getCartTotals,
   productHasSpecialPrice,
 };
 
