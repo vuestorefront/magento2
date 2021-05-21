@@ -1,9 +1,9 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }">
     <SfHeading
-      v-e2e="'shipping-heading'"
+      v-e2e="'user-account-heading'"
       :level="3"
-      :title="$t('Shipping')"
+      :title="$t('User Account')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <form @submit.prevent="handleSubmit(handleFormSubmit)">
@@ -16,7 +16,7 @@
         >
           <SfInput
             v-model="form.firstname"
-            v-e2e="'shipping-firstName'"
+            v-e2e="'user-account-firstName'"
             label="First name"
             name="firstName"
             class="form__element form__element--half"
@@ -33,7 +33,7 @@
         >
           <SfInput
             v-model="form.lastname"
-            v-e2e="'shipping-lastName'"
+            v-e2e="'user-account-lastName'"
             label="Last name"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
@@ -50,7 +50,7 @@
         >
           <SfInput
             v-model="form.street"
-            v-e2e="'shipping-streetName'"
+            v-e2e="'user-account-streetName'"
             label="Street name"
             name="streetName"
             class="form__element form__element--half"
@@ -67,7 +67,7 @@
         >
           <SfInput
             v-model="form.apartment"
-            v-e2e="'shipping-apartment'"
+            v-e2e="'user-account-apartment'"
             label="House/Apartment number"
             name="apartment"
             class="form__element form__element--half form__element--half-even"
@@ -84,7 +84,7 @@
         >
           <SfInput
             v-model="form.city"
-            v-e2e="'shipping-city'"
+            v-e2e="'user-account-city'"
             label="City"
             name="city"
             class="form__element form__element--half"
@@ -100,7 +100,7 @@
           <SfInput
             v-if="!form.country_code || !regionInformation.length"
             v-model="form.region"
-            v-e2e="'shipping-state'"
+            v-e2e="'user-account-state'"
             label="State/Province"
             :disabled="!form.country_code"
             name="state"
@@ -111,7 +111,7 @@
           <SfSelect
             v-else
             v-model="form.region"
-            v-e2e="'shipping-state'"
+            v-e2e="'user-account-state'"
             label="State/Province"
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
@@ -133,7 +133,7 @@
         >
           <SfSelect
             v-model="form.country_code"
-            v-e2e="'shipping-country'"
+            v-e2e="'user-account-country'"
             label="Country"
             name="country"
             class="form__element form__element--half form__select sf-select--underlined"
@@ -159,7 +159,7 @@
         >
           <SfInput
             v-model="form.postcode"
-            v-e2e="'shipping-zipcode'"
+            v-e2e="'user-account-zipcode'"
             label="Zip-code"
             name="zipCode"
             class="form__element form__element--half form__element--half-even"
@@ -176,7 +176,7 @@
         >
           <SfInput
             v-model="form.telephone"
-            v-e2e="'shipping-phone'"
+            v-e2e="'user-account-phone'"
             label="Phone number"
             name="phone"
             class="form__element form__element--half"
@@ -189,20 +189,15 @@
       <div class="form">
         <div class="form__action">
           <SfButton
-            v-if="!isFormSubmitted"
-            v-e2e="'select-shipping'"
-            :disabled="loading"
+            v-e2e="'continue-to-shipping'"
             class="form__action-button"
             type="submit"
+            :disabled="!canMoveForward"
           >
-            {{ $t('Select shipping method') }}
+            {{ $t('Continue to shipping') }}
           </SfButton>
         </div>
       </div>
-      <VsfShippingProvider
-        v-if="isFormSubmitted"
-        @submit="$router.push('/checkout/billing')"
-      />
     </form>
   </ValidationObserver>
 </template>
@@ -215,8 +210,7 @@ import {
   SfSelect,
 } from '@storefront-ui/vue';
 import { ref, computed } from '@vue/composition-api';
-import { onSSR } from '@vue-storefront/core';
-import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
+import { useUser } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 
@@ -242,21 +236,10 @@ export default {
     SfSelect,
     ValidationProvider,
     ValidationObserver,
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
   },
   setup() {
     const isFormSubmitted = ref(false);
-    const {
-      load,
-      save,
-      loading,
-    } = useShipping();
-    const {
-      loadCountries,
-      countries,
-      searchCountry,
-      country,
-    } = useCountrySearch('Step:Shipping');
+    const canMoveForward = computed(() => false);
 
     const form = ref({
       firstname: '',
@@ -271,29 +254,15 @@ export default {
     });
 
     const handleFormSubmit = async () => {
-      await save({ shippingDetails: form.value });
+      // await save({ shippingDetails: form.value });
       isFormSubmitted.value = true;
     };
 
-    onSSR(async () => {
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
-    });
-
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
-
     return {
-      load,
-      searchCountry,
-      country,
-      regionInformation,
-      loading,
+      canMoveForward,
+      loading: false,
       isFormSubmitted,
       form,
-      countriesList,
       handleFormSubmit,
     };
   },
