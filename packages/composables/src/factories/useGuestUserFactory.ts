@@ -12,9 +12,9 @@ export interface UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAM
   attachToCart: (context: Context, params: REGISTER_GUEST_USER_PARAMS) => Promise<GUEST_USER>;
 }
 
-export const useUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { email: string; password: string }>(
+export const useGuestUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { email: string; password: string }>(
   factoryParams: UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS>,
-) => function useUser(): UseGuestUser<GUEST_USER> {
+) => function useGuestUser(): UseGuestUser<GUEST_USER> {
   const errorsFactory = (): UseGuestUserErrors => ({
     attachToCart: null,
   });
@@ -27,7 +27,7 @@ export const useUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { 
 
   const setGuestUser = (newUser: GUEST_USER) => {
     guestUser.value = newUser;
-    Logger.debug('useUserFactory.setGuestUser', newUser);
+    Logger.debug('useGuestUserFactory.setGuestUser', newUser);
   };
 
   const resetErrorValue = () => {
@@ -35,7 +35,7 @@ export const useUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { 
   };
 
   const attachToCart = async ({ user: providedUser }) => {
-    Logger.debug('useUserFactory.attachToCart', providedUser);
+    Logger.debug('useGuestUserFactory.attachToCart', providedUser);
     resetErrorValue();
 
     try {
@@ -44,7 +44,7 @@ export const useUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { 
       error.value.attachToCart = null;
     } catch (err) {
       error.value.attachToCart = err;
-      Logger.error('useUser/attachToCart', err);
+      Logger.error('useGuestUser/attachToCart', err);
     } finally {
       loading.value = false;
     }
