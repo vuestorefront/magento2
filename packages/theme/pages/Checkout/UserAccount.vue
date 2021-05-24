@@ -64,17 +64,20 @@
         <ValidationProvider
           v-if="createUserAccount"
           v-slot="{ errors }"
-          rules="required"
+          rules="required|min:8|password"
+          slim
         >
           <SfInput
             v-model="form.password"
-            v-e2e="'login-modal-password'"
-            :valid="!errors[0]"
-            :error-message="errors[0]"
+            v-e2e="'user-account-password'"
             name="password"
             label="Password"
             type="password"
-            class="form__element"
+            class="form__element form__element--half form__element--half-even"
+            required
+            has-show-password
+            :valid="!errors[0]"
+            :error-message="errors[0]"
           />
         </ValidationProvider>
       </div>
@@ -107,9 +110,12 @@ import {
   SfInput,
   SfButton, SfCheckbox,
 } from '@storefront-ui/vue';
+import { onSSR } from '@vue-storefront/core';
 import { ref, computed } from '@vue/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
-import { required, min, email } from 'vee-validate/dist/rules';
+import {
+  required, min, email,
+} from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
@@ -124,6 +130,14 @@ extend('min', {
 extend('email', {
   ...email,
   message: 'Invalid email',
+});
+
+extend('password', {
+  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
+  validate: (value) => {
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])(?=.{8,})');
+    return strongRegex.test(value);
+  },
 });
 
 export default {
@@ -144,8 +158,11 @@ export default {
       error: errorGuestUser,
     } = useGuestUser();
     const {
+      load,
       loading: loadingUser,
       register,
+      user,
+      isAuthenticated,
       error: errorUser,
     } = useUser();
 
@@ -153,7 +170,8 @@ export default {
     const createUserAccount = ref(false);
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
-    const canMoveForward = computed(() => !(loading.value || errorUser.value.register || errorGuestUser.value.attachToCart));
+    const canMoveForward = computed(() => !(loading.value));
+    const hasError = computed(() => !(errorUser.value.register || errorGuestUser.value.attachToCart));
 
     const form = ref({
       firstname: '',
@@ -163,22 +181,34 @@ export default {
     });
 
     const handleFormSubmit = (reset) => async () => {
-      try {
+      if (!isAuthenticated.value) {
         await (
           !createUserAccount.value
             ? attachToCart({ user: form.value })
             : register({ user: form.value })
         );
+      }
 
+      if (hasError.value) {
         await router.push('/checkout/shipping');
         reset();
         isFormSubmitted.value = true;
-      } catch {
-        isFormSubmitted.value = false;
       }
     };
 
+    onSSR(async () => {
+      await load();
+
+      if (Object.keys(user.value).length > 0) {
+        form.value.firstname = user.value.firstname;
+        form.value.lastname = user.value.lastname;
+        form.value.email = user.value.email;
+      }
+    });
+
     return {
+      user,
+      errorUser,
       canMoveForward,
       createUserAccount,
       form,
