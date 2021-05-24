@@ -80,10 +80,7 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import { useGetShippingMethods } from '@vue-storefront/magento/src';
-import {
-  onMounted,
-  computed,
-} from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default {
@@ -96,7 +93,6 @@ export default {
   },
   setup() {
     const {
-      load: loadShippingMethods,
       result: shippingMethods,
       loading: loadingShippingMethods,
       error: errorUseGetShippingMethods,
@@ -107,8 +103,6 @@ export default {
       error: errorShippingProvider,
       loading: loadingShippingProvider,
       save,
-      setState,
-      load,
     } = useShippingProvider();
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
@@ -126,11 +120,6 @@ export default {
         },
       });
     };
-
-    onMounted(async () => {
-      await loadShippingMethods({ cartId: cart.value.id });
-      await load();
-    });
 
     return {
       errorShippingProvider,
