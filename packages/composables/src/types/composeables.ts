@@ -60,6 +60,8 @@ export interface UseContent<PAGE> {
 }
 
 export interface UseGetShippingMethods<SHIPPING_METHOD> {
+  state: ComputedProperty<SHIPPING_METHOD[]>;
+  setState(state: SHIPPING_METHOD[]): void;
   load: (params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;
   result: ComputedProperty<SHIPPING_METHOD[]>;
   error: ComputedProperty<UseGetShippingMethodsErrors>;
