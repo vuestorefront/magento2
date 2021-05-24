@@ -61,6 +61,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
   addItem: async (context: Context, {
     product,
     quantity,
+    currentCart,
+    customQuery,
   }) => {
     const apiState = context.$magento.config.state;
     let currentCartId = apiState.getCartId();
@@ -74,55 +76,65 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     if (!product) {
       return;
     }
-
-    // @ts-ignore
-    // eslint-disable-next-line no-underscore-dangle
-    switch (product.__typename) {
-      case 'SimpleProduct':
-        const simpleCartInput: AddSimpleProductsToCartInput = {
-          cart_id: currentCartId,
-          cart_items: [
-            {
-              data: {
-                quantity,
-                sku: product.sku,
+    try {
+      // @ts-ignore
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.__typename) {
+        case 'SimpleProduct':
+          const simpleCartInput: AddSimpleProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: [
+              {
+                data: {
+                  quantity,
+                  sku: product.sku,
+                },
               },
-            },
-          ],
-        };
+            ],
+          };
 
-        const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
+          const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
 
-        return simpleProduct
-          .data
-          .addSimpleProductsToCart
-          .cart as unknown as Cart;
+          return simpleProduct
+            .data
+            .addSimpleProductsToCart
+            .cart as unknown as Cart;
 
-      case 'ConfigurableProduct':
-        const configurableCartInput: AddConfigurableProductsToCartInput = {
-          cart_id: currentCartId,
-          cart_items: [
-            {
-              parent_sku: product.sku,
-              data: {
-                quantity,
-                sku: product.sku,
+        case 'ConfigurableProduct':
+          const configurableCartInput: AddConfigurableProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: [
+              {
+                parent_sku: product.sku,
+                data: {
+                  quantity,
+                  sku: product.sku,
+                },
               },
-            },
-          ],
-        };
+            ],
+          };
 
-        const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
+          const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
 
-        return configurableProduct
-          .data
-          .addConfigurableProductsToCart
-          .cart as unknown as Cart;
-      default:
-        // todo implement other options
-        // @ts-ignore
-        // eslint-disable-next-line no-underscore-dangle
-        throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
+          return configurableProduct
+            .data
+            .addConfigurableProductsToCart
+            .cart as unknown as Cart;
+        default:
+          // todo implement other options
+          // @ts-ignore
+          // eslint-disable-next-line no-underscore-dangle
+          throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
+      }
+    } catch {
+      await factoryParams.clear(context, null);
+
+      await factoryParams.addItem(context, {
+        product,
+        quantity,
+        currentCart,
+        customQuery,
+      });
     }
   },
   removeItem: async (context: Context, {
@@ -169,7 +181,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       .cart as unknown as Cart;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  clear: async (context: Context, { currentCart }) => {
+  clear: async (context: Context, _params = null) => {
     context.$magento.config.state.setCartId(null);
 
     return factoryParams.load(context, {});
