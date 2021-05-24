@@ -1,12 +1,14 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }">
+  <ValidationObserver v-slot="{ handleSubmit, reset }">
     <SfHeading
       v-e2e="'user-account-heading'"
       :level="3"
       :title="$t('User Account')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <form @submit.prevent="handleSubmit(handleFormSubmit)">
+    <form
+      @submit.prevent="handleSubmit(handleFormSubmit(reset))"
+    >
       <div class="form">
         <ValidationProvider
           v-slot="{ errors }"
@@ -44,15 +46,15 @@
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
-          name="street"
-          rules="required|min:2"
+          name="email"
+          rules="email|required"
           slim
         >
           <SfInput
-            v-model="form.street"
-            v-e2e="'user-account-streetName'"
-            label="Street name"
-            name="streetName"
+            v-model="form.email"
+            v-e2e="'user-account-email'"
+            label="E-mail"
+            name="email"
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
@@ -60,132 +62,29 @@
           />
         </ValidationProvider>
         <ValidationProvider
+          v-if="createUserAccount"
           v-slot="{ errors }"
-          name="apartment"
-          rules="required|min:2"
-          slim
-        >
-          <SfInput
-            v-model="form.apartment"
-            v-e2e="'user-account-apartment'"
-            label="House/Apartment number"
-            name="apartment"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="city"
-          rules="required|min:2"
-          slim
-        >
-          <SfInput
-            v-model="form.city"
-            v-e2e="'user-account-city'"
-            label="City"
-            name="city"
-            class="form__element form__element--half"
-            required
-            :valid="!errors[0]"
-            :error-message="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          name="region"
-          slim
-        >
-          <SfInput
-            v-if="!form.country_code || !regionInformation.length"
-            v-model="form.region"
-            v-e2e="'user-account-state'"
-            label="State/Province"
-            :disabled="!form.country_code"
-            name="state"
-            class="form__element form__element--half form__element--half-even"
-            :valid="!!form.country_code"
-            :error-message="!form.country_code ? 'Please select a country first' : ''"
-          />
-          <SfSelect
-            v-else
-            v-model="form.region"
-            v-e2e="'user-account-state'"
-            label="State/Province"
-            name="state"
-            class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-          >
-            <SfSelectOption
-              v-for="regionOption in regionInformation"
-              :key="regionOption.id"
-              :value="regionOption.abbreviation"
-            >
-              {{ regionOption.label }}
-            </SfSelectOption>
-          </SfSelect>
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="country"
-          rules="required|min:2"
-          slim
-        >
-          <SfSelect
-            v-model="form.country_code"
-            v-e2e="'user-account-country'"
-            label="Country"
-            name="country"
-            class="form__element form__element--half form__select sf-select--underlined"
-            required
-            :valid="!errors[0]"
-            :error-message="errors[0]"
-            @input="searchCountry({ id:$event })"
-          >
-            <SfSelectOption
-              v-for="countryOption in countriesList"
-              :key="countryOption.id"
-              :value="countryOption.abbreviation"
-            >
-              {{ countryOption.label }}
-            </SfSelectOption>
-          </SfSelect>
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="zipCode"
-          rules="required|min:2"
-          slim
-        >
-          <SfInput
-            v-model="form.postcode"
-            v-e2e="'user-account-zipcode'"
-            label="Zip-code"
-            name="zipCode"
-            class="form__element form__element--half form__element--half-even"
-            required
-            :valid="!errors[0]"
-            :error-message="errors[0]"
-          />
-        </ValidationProvider>
-        <ValidationProvider
-          v-slot="{ errors }"
-          name="phone"
           rules="required"
-          slim
         >
           <SfInput
-            v-model="form.telephone"
-            v-e2e="'user-account-phone'"
-            label="Phone number"
-            name="phone"
-            class="form__element form__element--half"
-            required
+            v-model="form.password"
+            v-e2e="'login-modal-password'"
             :valid="!errors[0]"
             :error-message="errors[0]"
+            name="password"
+            label="Password"
+            type="password"
+            class="form__element"
           />
         </ValidationProvider>
       </div>
+      <SfCheckbox
+        v-model="createUserAccount"
+        v-e2e="'create-account'"
+        label="Create an account on the store"
+        name="createUserAccount"
+        class="form__element"
+      />
       <div class="form">
         <div class="form__action">
           <SfButton
@@ -206,13 +105,13 @@
 import {
   SfHeading,
   SfInput,
-  SfButton,
-  SfSelect,
+  SfButton, SfCheckbox,
 } from '@storefront-ui/vue';
 import { ref, computed } from '@vue/composition-api';
-import { useUser } from '@vue-storefront/magento';
-import { required, min, digits } from 'vee-validate/dist/rules';
+import { useUser, useGuestUser } from '@vue-storefront/magento';
+import { required, min, email } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 extend('required', {
   ...required,
@@ -222,48 +121,70 @@ extend('min', {
   ...min,
   message: 'The field should have at least {length} characters',
 });
-extend('digits', {
-  ...digits,
-  message: 'Please provide a valid phone number',
+extend('email', {
+  ...email,
+  message: 'Invalid email',
 });
 
 export default {
-  name: 'Shipping',
+  name: 'UserAccount',
   components: {
     SfHeading,
     SfInput,
     SfButton,
-    SfSelect,
+    SfCheckbox,
     ValidationProvider,
     ValidationObserver,
   },
   setup() {
+    const { router } = useVueRouter();
+    const {
+      attachToCart,
+      loading: loadingGuestUser,
+      error: errorGuestUser,
+    } = useGuestUser();
+    const {
+      loading: loadingUser,
+      register,
+      error: errorUser,
+    } = useUser();
+
     const isFormSubmitted = ref(false);
-    const canMoveForward = computed(() => false);
+    const createUserAccount = ref(false);
+    const loading = computed(() => loadingUser.value || loadingGuestUser.value);
+
+    const canMoveForward = computed(() => !(loading.value || errorUser.value.register || errorGuestUser.value.attachToCart));
 
     const form = ref({
       firstname: '',
       lastname: '',
-      street: '',
-      apartment: '',
-      city: '',
-      region: '',
-      country_code: '',
-      postcode: '',
-      telephone: null,
+      email: '',
+      password: '',
     });
 
-    const handleFormSubmit = async () => {
-      // await save({ shippingDetails: form.value });
-      isFormSubmitted.value = true;
+    const handleFormSubmit = (reset) => async () => {
+      try {
+        await (
+          !createUserAccount.value
+            ? attachToCart({ user: form.value })
+            : register({ user: form.value })
+        );
+
+        await router.push('/checkout/shipping');
+        reset();
+        isFormSubmitted.value = true;
+      } catch {
+        isFormSubmitted.value = false;
+      }
     };
 
     return {
       canMoveForward,
-      loading: false,
-      isFormSubmitted,
+      createUserAccount,
       form,
       handleFormSubmit,
+      isFormSubmitted,
+      loading,
     };
   },
 };
@@ -290,6 +211,7 @@ export default {
       left: initial;
     }
   }
+
   @include for-desktop {
     display: flex;
     flex-wrap: wrap;
