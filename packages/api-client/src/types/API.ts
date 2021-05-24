@@ -55,7 +55,6 @@ import {
   SetBillingAddressOnCartMutation,
   SetGuestEmailOnCartInput,
   SetGuestEmailOnCartMutation,
-  SetPaymentMethodOnCartInput,
   SetPaymentMethodOnCartMutation,
   SetShippingAddressesOnCartInput,
   SetShippingAddressesOnCartMutation,
@@ -72,7 +71,7 @@ import {
   WishlistQuery,
   WishlistQueryVariables,
 } from './GraphQL';
-import { getAvailableCustomerPaymentMethods, getAvailableCustomerShippingMethods } from '../api';
+import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 
 export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
 export type AddressOnCart = ShippingCartAddress;
@@ -191,7 +190,7 @@ export interface MagentoApiMethods {
 
   setGuestEmailOnCart(input: SetGuestEmailOnCartInput): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
 
-  setPaymentMethodOnCart(input: SetPaymentMethodOnCartInput): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
+  setPaymentMethodOnCart(input: SetPaymentMethodOnCartInputs): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
 
   setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
 
