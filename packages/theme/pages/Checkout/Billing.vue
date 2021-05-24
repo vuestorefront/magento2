@@ -279,6 +279,7 @@ import {
   onMounted,
 } from '@vue/composition-api';
 import { formatAddressReturnToData } from '~/helpers/checkout/address';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -308,7 +309,8 @@ export default {
     ValidationObserver,
     UserBillingAddresses: () => import('@/components/Checkout/UserBillingAddresses'),
   },
-  setup(_, context) {
+  setup() {
+    const { router } = useVueRouter();
     const {
       shipping: shippingDetails,
       load: loadShipping,
@@ -339,7 +341,7 @@ export default {
     let oldBilling = null;
 
     const canMoveForward = computed(() => !loading.value
-      && billingDetails.value && Object.keys(billingDetails.value).length);
+      && billingDetails.value && Object.keys(billingDetails.value).length > 0);
 
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
@@ -378,7 +380,7 @@ export default {
         },
       });
       reset();
-      context.root.$router.push('/checkout/payment');
+      router.push('/checkout/payment');
     };
 
     const handleAddNewAddressBtnClick = () => {
@@ -386,9 +388,9 @@ export default {
       canAddNewAddress.value = true;
     };
 
-    const handleSetCurrentAddress = (address) => {
-      billingDetails.value = { ...(formatAddressReturnToData(address) || {}) };
-      currentAddressId.value = address.id;
+    const handleSetCurrentAddress = (addr) => {
+      billingDetails.value = { ...(formatAddressReturnToData(addr) || {}) };
+      currentAddressId.value = addr.id;
       canAddNewAddress.value = false;
       sameAsShipping.value = false;
     };
