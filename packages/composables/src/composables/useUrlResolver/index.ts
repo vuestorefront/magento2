@@ -5,13 +5,13 @@ import { UseUrlResolver } from '../../types/composeables';
 
 const factoryParams: UseUrlResolverFactoryParams<Route> = {
   search: async (context: Context, url: string) => {
-    const clearUrl = url.replace(/\/[c|p]\//gi, '');
+    const clearUrl = url.replace(/\/[cp|]\//gi, '');
 
     const { data } = await context.$magento.api.urlResolver(clearUrl);
 
     return data.urlResolver;
   },
 };
-const useUrlResolver: (cacheId: string) => UseUrlResolver<Route> = useUrlResolverFactory<Route>(factoryParams);
+const useUrlResolver: (cacheId?: string) => UseUrlResolver<Route> = useUrlResolverFactory<Route>(factoryParams);
 
 export default useUrlResolver;

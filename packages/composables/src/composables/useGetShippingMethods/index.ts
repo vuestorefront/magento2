@@ -21,6 +21,6 @@ const factoryParams: UseGetShippingMethodsFactory<ShippingMethod> = {
   },
 };
 
-const useGetShippingMethods: (cacheId: string) => UseGetShippingMethods<ShippingMethod> = useGetShippingMethodsFactory<ShippingMethod>(factoryParams);
+const useGetShippingMethods: (cacheId?: string) => UseGetShippingMethods<ShippingMethod> = useGetShippingMethodsFactory<ShippingMethod>(factoryParams);
 
 export default useGetShippingMethods;

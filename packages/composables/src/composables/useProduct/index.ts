@@ -48,6 +48,6 @@ const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], Prod
   },
 };
 
-const useProduct: (cacheId: string) => UseProduct<ProductsListQuery['products'], ProductsSearchParams> = useProductFactory<ProductsListQuery['products'], ProductsSearchParams>(factoryParams);
+const useProduct: (cacheId?: string) => UseProduct<ProductsListQuery['products'], ProductsSearchParams> = useProductFactory<ProductsListQuery['products'], ProductsSearchParams>(factoryParams);
 
 export default useProduct;

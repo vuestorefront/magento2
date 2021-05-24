@@ -8,10 +8,12 @@ import {
   SetShippingAddressesOnCartInput,
 } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
+import useGetShippingMethods from '../useGetShippingMethods';
 
 const factoryParams: UseShippingParams<any, any> = {
   provide() {
     return {
+      useGetShippingMethods: useGetShippingMethods(),
       cart: useCart(),
     };
   },
@@ -49,13 +51,18 @@ const factoryParams: UseShippingParams<any, any> = {
       ],
     };
 
-    const setShippingAddressesOnCartResponse = await context
+    const { data } = await context
       .$magento
       .api
       .setShippingAddressesOnCart(shippingAddressInput);
 
-    return setShippingAddressesOnCartResponse
-      .data
+    context.useGetShippingMethods.setState(data
+      .setShippingAddressesOnCart
+      .cart
+      .shipping_addresses[0]
+      .available_shipping_methods);
+
+    return data
       .setShippingAddressesOnCart
       .cart
       .shipping_addresses[0];

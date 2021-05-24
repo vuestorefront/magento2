@@ -13,6 +13,6 @@ const factoryParams: UseCategorySearchFactory<Category> = {
   },
 };
 
-const useCategorySearch: (cacheId: string) => UseCategorySearch<Category> = useCategorySearchFactory<Category>(factoryParams);
+const useCategorySearch: (cacheId?: string) => UseCategorySearch<Category> = useCategorySearchFactory<Category>(factoryParams);
 
 export default useCategorySearch;

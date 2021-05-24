@@ -18,6 +18,6 @@ const factoryParams: UseCountryFactoryParams<Countries, Country> = {
   },
 };
 
-const useCountrySearch: (cacheId: string) => UseCountrySearch<Countries, Country> = useCountrySearchFactory<Countries, Country>(factoryParams);
+const useCountrySearch: (cacheId?: string) => UseCountrySearch<Countries, Country> = useCountrySearchFactory<Countries, Country>(factoryParams);
 
 export default useCountrySearch;
