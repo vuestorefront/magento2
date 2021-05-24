@@ -3,7 +3,7 @@ import {
   Logger,
 } from '@vue-storefront/core';
 import {
-  SetPaymentMethodOnCartInput,
+  SetPaymentMethodOnCartInputs,
 } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
 import { usePaymentProviderFactory, UsePaymentProviderParams } from '../../factories/usePaymentProviderFactory';
@@ -30,7 +30,7 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
   save: async (context: Context, { paymentMethod }) => {
     Logger.debug('[Magento] savePaymentProvider');
 
-    const paymentMethodParams: SetPaymentMethodOnCartInput = {
+    const paymentMethodParams: SetPaymentMethodOnCartInputs = {
       cart_id: context.cart.cart.value.id,
       payment_method: {
         ...paymentMethod,
