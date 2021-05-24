@@ -10,12 +10,13 @@ import {
   UpdateUserParams,
   User,
 } from '../../types';
+import { useCart } from '../../index';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
     email: userData.email,
-    firstname: userData.firstName,
-    lastname: userData.lastName,
+    firstname: userData.firstName || userData.firstname,
+    lastname: userData.lastName || userData.lastname,
   } as CustomerUpdateParameters;
 
   if (userData.dateOfBirth) {
@@ -41,6 +42,11 @@ const generateUserData = (userData): CustomerUpdateParameters => {
 };
 
 const factoryParams: UseUserFactoryParams<User, any, any> = {
+  provide() {
+    return {
+      cart: useCart(),
+    };
+  },
   load: async (context: Context, parameters) => {
     const apiState = context.$magento.config.state;
 
@@ -87,6 +93,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     const newCartId = cart.data.customerCart.id;
     if (newCartId && currentCartId && currentCartId !== newCartId) {
       const newCart = await context.$magento.api.mergeCarts(currentCartId, newCartId);
+      context.cart.setCart(newCart);
       apiState.setCartId(newCart.data.mergeCarts.id);
     }
 
