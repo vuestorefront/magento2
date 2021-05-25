@@ -16,8 +16,14 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   addAddress: async (context: Context, params?) => {
     Logger.debug('[Magento]: addAddress', params.address);
+    const {
+      apartment,
+      ...address
+    } = params.address;
+
     const createParams: CustomerAddressInput = {
-      ...params.address,
+      ...address,
+      street: [address.street, apartment],
     };
 
     const { data } = await context.$magento.api.createCustomerAddress(createParams);
@@ -34,12 +40,22 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   updateAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] updateAddress', params);
+    const {
+      apartment,
+      ...address
+    } = params.address;
+
+    const updateParams: CustomerAddressInput = {
+      ...address,
+      street: [address.street, apartment],
+    };
+
     const updateAddressParams: {
       addressId: number;
       input: CustomerAddressInput;
     } = {
       addressId: params.address.id,
-      input: params.address,
+      input: updateParams,
     };
 
     const { data } = await context.$magento.api.updateCustomerAddress(updateAddressParams);
@@ -60,6 +76,16 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   setDefaultAddress: async (context: Context, params) => {
     Logger.debug('[Magento] setDefaultAddress');
+    const {
+      apartment,
+      ...address
+    } = params.address;
+
+    const addressParams: CustomerAddressInput = {
+      ...address,
+      street: [address.street, apartment],
+    };
+
     const customerAddressParams: {
       addressId: number;
       input: CustomerAddressInput;
@@ -67,7 +93,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
       // @ts-ignore
       addressId: params.address.id,
       input: {
-        ...params.address,
+        ...addressParams,
         default_shipping: true,
       },
     };
