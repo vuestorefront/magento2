@@ -114,22 +114,31 @@ export const getCartTotalItems = (cart: Cart): number => {
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
-export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons.map((c) => ({
+export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
   name: c.code,
   value: 0,
   code: c.code,
-} as AgnosticCoupon));
+} as AgnosticCoupon)) : []);
 
-export const getDiscounts = (cart: Cart): AgnosticDiscount[] => cart.applied_coupons.map((c) => ({
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
   name: c.code,
   description: c.code,
   value: 0,
   code: c.code,
-} as AgnosticDiscount));
+} as AgnosticDiscount)) : []);
 
-export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod => cart?.shipping_addresses[0]?.selected_shipping_method;
+export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
+  id: cart.applied_coupons[0].code,
+  name: cart.applied_coupons[0].code,
+  value: 0,
+  code: cart.applied_coupons[0].code,
+} : null);
+
+export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod | null => (cart?.shipping_addresses?.length > 0
+  ? cart?.shipping_addresses[0]?.selected_shipping_method
+  : null);
 
 export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] => cart?.available_payment_methods.map((p) => ({
   label: p.title,
@@ -153,6 +162,7 @@ const cartGetters: CartGetters<Cart, CartItem> = {
   getTotalItems: getCartTotalItems,
   getTotals: getCartTotals,
   productHasSpecialPrice,
+  getAppliedCoupon,
 };
 
 export default cartGetters;
