@@ -13,7 +13,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="firstname"
-          rules="required|min:2"
+          :rules="loginUserAccount ? '' : 'required|min:2'"
           slim
         >
           <SfInput
@@ -22,7 +22,8 @@
             label="First name"
             name="firstName"
             class="form__element form__element--half"
-            required
+            :required="!loginUserAccount"
+            :disabled="loginUserAccount"
             :valid="!errors[0]"
             :error-message="errors[0]"
           />
@@ -30,7 +31,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="lastname"
-          rules="required|min:2"
+          :rules="loginUserAccount ? '' : 'required|min:2'"
           slim
         >
           <SfInput
@@ -39,7 +40,8 @@
             label="Last name"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
-            required
+            :required="!loginUserAccount"
+            :disabled="loginUserAccount"
             :valid="!errors[0]"
             :error-message="errors[0]"
           />
@@ -62,7 +64,7 @@
           />
         </ValidationProvider>
         <ValidationProvider
-          v-if="createUserAccount"
+          v-if="createUserAccount || loginUserAccount"
           v-slot="{ errors }"
           rules="required|min:8|password"
           slim
@@ -87,6 +89,15 @@
         label="Create an account on the store"
         name="createUserAccount"
         class="form__element"
+        :disabled="loginUserAccount"
+      />
+      <SfCheckbox
+        v-model="loginUserAccount"
+        v-e2e="'login-account'"
+        label="Login on the store"
+        name="loginUserAccount"
+        class="form__element"
+        :disabled="createUserAccount"
       />
       <div class="form">
         <div class="form__action">
@@ -161,6 +172,7 @@ export default {
       load,
       loading: loadingUser,
       register,
+      login,
       user,
       isAuthenticated,
       error: errorUser,
@@ -168,6 +180,7 @@ export default {
 
     const isFormSubmitted = ref(false);
     const createUserAccount = ref(false);
+    const loginUserAccount = ref(false);
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !(loading.value));
@@ -189,6 +202,15 @@ export default {
         );
       }
 
+      if (loginUserAccount.value) {
+        await login({
+          user: {
+            username: form.value.email,
+            password: form.value.password,
+          },
+        });
+      }
+
       if (hasError.value) {
         await router.push('/checkout/shipping');
         reset();
@@ -199,7 +221,7 @@ export default {
     onSSR(async () => {
       await load();
 
-      if (Object.keys(user.value).length > 0) {
+      if (isAuthenticated.value) {
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;
         form.value.email = user.value.email;
@@ -211,6 +233,7 @@ export default {
       errorUser,
       canMoveForward,
       createUserAccount,
+      loginUserAccount,
       form,
       handleFormSubmit,
       isFormSubmitted,
