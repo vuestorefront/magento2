@@ -1,12 +1,10 @@
 <template>
   <div>
-    <p>{{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}</p>
+    <p><strong>{{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}</strong></p>
     <p>{{ userShippingAddress.street }}, {{ userShippingAddress.streetNumber }}</p>
 
     <p>
-      {{ userShippingAddress.city }}
-      {{ userShippingAddress.province }}
-      {{ userShippingAddress.postalCode }}
+      {{ userShippingAddress.city }}, {{ userShippingAddress.province }} - {{ userShippingAddress.postalCode }}
     </p>
 
     <p>{{ userShippingAddress.country }}</p>
