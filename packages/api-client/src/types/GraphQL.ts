@@ -6896,7 +6896,7 @@ export type CreateCustomerAddressMutationVariables = Exact<{
 
 export type CreateCustomerAddressMutation = { createCustomerAddress?: Maybe<(
     Pick<CustomerAddress, 'id' | 'country_code' | 'street' | 'telephone' | 'postcode' | 'city' | 'default_shipping' | 'default_billing'>
-    & { region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_code'>> }
+    & { region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_id' | 'region_code'>> }
   )> };
 
 export type CreateEmptyCartMutationVariables = Exact<{ [key: string]: never; }>;
@@ -7443,7 +7443,7 @@ export type SetBillingAddressOnCartMutationVariables = Exact<{
 
 export type SetBillingAddressOnCartMutation = { setBillingAddressOnCart?: Maybe<{ cart: { billing_address?: Maybe<(
         Pick<BillingCartAddress, 'firstname' | 'lastname' | 'company' | 'street' | 'city' | 'postcode' | 'telephone'>
-        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
       )> } }> };
 
 export type SetGuestEmailOnCartMutationVariables = Exact<{
@@ -8048,17 +8048,17 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
 
 export type CustomerAddressDataFragment = (
   Pick<CustomerAddress, 'city' | 'country_code' | 'default_billing' | 'default_shipping' | 'firstname' | 'id' | 'lastname' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone'>
-  & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
+  & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region_id' | 'region'>> }
 );
 
 type CartAddress_BillingCartAddress_Fragment = (
   Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
-  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
 );
 
 type CartAddress_ShippingCartAddress_Fragment = (
   Pick<ShippingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
-  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
 );
 
 export type CartAddressFragment = CartAddress_BillingCartAddress_Fragment | CartAddress_ShippingCartAddress_Fragment;

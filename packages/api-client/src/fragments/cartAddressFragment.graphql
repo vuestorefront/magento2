@@ -6,6 +6,7 @@ fragment CartAddress on CartAddressInterface {
   company
   region {
     code
+    region_id
     label
   }
   postcode
