@@ -7,13 +7,12 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <form
-      @submit.prevent="
-        handleSubmit(handleAddressSubmit(reset))
-      "
+      @submit.prevent="handleSubmit(handleAddressSubmit(reset))"
     >
       <UserBillingAddresses
         v-if="isAuthenticated && hasSavedBillingAddress"
         v-model="setAsDefault"
+        v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
         @setCurrentAddress="handleSetCurrentAddress"
       />
@@ -174,7 +173,7 @@
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
-            @input="updateCountryForm"
+            @input="changeCountry"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -277,8 +276,9 @@ import {
   ref,
   computed,
   onMounted,
+  watch,
 } from '@vue/composition-api';
-import { formatAddressReturnToData } from '~/helpers/checkout/address';
+import { addressFromApiToForm, formatAddressReturnToData } from '../../helpers/checkout/address';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 const NOT_SELECTED_ADDRESS = '';
@@ -307,20 +307,25 @@ export default {
     SfCheckbox,
     ValidationProvider,
     ValidationObserver,
-    UserBillingAddresses: () => import('@/components/Checkout/UserBillingAddresses'),
+    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
   },
   setup() {
     const { router } = useVueRouter();
     const {
-      shipping: shippingDetails,
-      load: loadShipping,
-    } = useShipping('Step:Billing');
-    const {
-      billing: address,
-      loading,
       load,
       save,
-    } = useBilling('Step:Billing');
+      loading,
+      billing: address,
+    } = useBilling();
+    const {
+      billing: userBilling,
+      load: loadUserBilling,
+      setDefaultAddress,
+    } = useUserBilling();
+    const {
+      shipping: shippingDetails,
+      load: loadShipping,
+    } = useShipping();
     const {
       loadCountries,
       countries,
@@ -328,24 +333,20 @@ export default {
       country,
     } = useCountrySearch('Step:Billing');
     const { isAuthenticated } = useUser();
-    const {
-      billing: userBilling,
-      load: loadUserBilling,
-    } = useUserBilling('Step:Billing');
-    const billingDetails = ref({});
-
-    const currentAddressId = ref(NOT_SELECTED_ADDRESS);
-    const setAsDefault = ref(false);
-    const canAddNewAddress = ref(true);
-    const sameAsShipping = ref(false);
     let oldBilling = null;
+    const sameAsShipping = ref(false);
+    const billingDetails = ref(addressFromApiToForm(address.value) || {});
+    const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
-    const canMoveForward = computed(() => !loading.value
-      && billingDetails.value && Object.keys(billingDetails.value).length > 0);
+    const setAsDefault = ref(false);
+    const isFormSubmitted = ref(false);
+    const canAddNewAddress = ref(true);
 
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+    const isBillingDetailsStepCompleted = ref(false);
 
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
+    const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
+      billingDetails.value,
+    ).length > 0);
 
     const hasSavedBillingAddress = computed(() => {
       if (!isAuthenticated.value || !userBilling.value) {
@@ -354,6 +355,30 @@ export default {
       const addresses = userBillingGetters.getAddresses(userBilling.value);
       return Boolean(addresses?.length);
     });
+
+    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+
+    const regionInformation = computed(() => addressGetter.regionList(country.value));
+
+    const handleAddressSubmit = (reset) => async () => {
+      const addressId = currentAddressId.value;
+      await save({
+        billingDetails: {
+          ...billingDetails.value,
+          sameAsShipping: sameAsShipping.value,
+        },
+      });
+      if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
+        const chosenAddress = userBillingGetters.getAddresses(userBilling.value,
+          { id: addressId });
+        if (chosenAddress && chosenAddress.length > 0) {
+          await setDefaultAddress({ address: chosenAddress[0] });
+        }
+      }
+      reset();
+      router.push('/checkout/payment');
+      isBillingDetailsStepCompleted.value = true;
+    };
 
     const handleCheckSameAddress = async () => {
       sameAsShipping.value = !sameAsShipping.value;
@@ -366,33 +391,25 @@ export default {
         oldBilling = { ...billingDetails.value };
         billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
+        canAddNewAddress.value = true;
         setAsDefault.value = false;
         return;
       }
       billingDetails.value = oldBilling;
     };
 
-    const handleAddressSubmit = (reset) => async () => {
-      await save({
-        billingDetails: {
-          ...billingDetails.value,
-          sameAsShipping: sameAsShipping.value,
-        },
-      });
-      reset();
-      router.push('/checkout/payment');
-    };
-
     const handleAddNewAddressBtnClick = () => {
       currentAddressId.value = NOT_SELECTED_ADDRESS;
+      billingDetails.value = {};
       canAddNewAddress.value = true;
+      isBillingDetailsStepCompleted.value = false;
     };
 
     const handleSetCurrentAddress = (addr) => {
-      billingDetails.value = { ...(formatAddressReturnToData(addr) || {}) };
-      currentAddressId.value = addr.id;
+      billingDetails.value = { ...addressFromApiToForm(addr) };
+      currentAddressId.value = addr?.id;
       canAddNewAddress.value = false;
-      sameAsShipping.value = false;
+      isBillingDetailsStepCompleted.value = false;
     };
 
     const changeBillingDetails = (field, value) => {
@@ -400,47 +417,45 @@ export default {
         ...billingDetails.value,
         [field]: value,
       };
+      isBillingDetailsStepCompleted.value = false;
       currentAddressId.value = NOT_SELECTED_ADDRESS;
     };
 
     const selectDefaultAddress = () => {
       const defaultAddress = userBillingGetters.getAddresses(userBilling.value,
-        { isDefault: true });
+        { default_billing: true });
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }
     };
 
-    const updateCountryForm = async (event) => {
-      await Promise.all([
-        changeBillingDetails('country_code', event),
-        searchCountry({ id: event }),
-      ]);
+    const changeCountry = async (id) => {
+      changeBillingDetails('country_code', id);
+      await searchCountry({ id });
     };
 
+    watch(address, (addr) => {
+      billingDetails.value = addressFromApiToForm(addr || {});
+    });
+
     onSSR(async () => {
-      await Promise.all([await load(),
-        await loadCountries()]);
-      if (isAuthenticated.value) {
-        await loadUserBilling();
-      }
+      await Promise.all([
+        loadCountries(),
+        load(),
+      ]);
     });
 
     onMounted(async () => {
-      if (Object.keys((address.value || {})).length > 0) {
-        await searchCountry({ id: address.value.country.code });
-
-        billingDetails.value = { ...(formatAddressReturnToData(address.value) || {}) };
-      }
-
       if (!userBilling.value?.addresses && isAuthenticated.value) {
         await loadUserBilling();
       }
       const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
+
       if (!billingAddresses || billingAddresses.length === 0) {
         return;
       }
-      const hasEmptyBillingDetails = !billingDetails.value || Object.keys((billingDetails.value || {})).length === 0;
+
+      const hasEmptyBillingDetails = !billingDetails.value || Object.keys(billingDetails.value).length === 0;
       if (hasEmptyBillingDetails) {
         selectDefaultAddress();
         return;
@@ -449,26 +464,29 @@ export default {
     });
 
     return {
-      billingDetails,
       canAddNewAddress,
       canMoveForward,
+      changeCountry,
       changeBillingDetails,
       countriesList,
+      country,
       currentAddressId,
       handleAddNewAddressBtnClick,
       handleAddressSubmit,
-      handleCheckSameAddress,
       handleSetCurrentAddress,
+      handleCheckSameAddress,
       hasSavedBillingAddress,
       isAuthenticated,
+      isFormSubmitted,
+      isBillingDetailsStepCompleted,
+      load,
       loading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
-      sameAsShipping,
       searchCountry,
       setAsDefault,
-      shippingDetails,
-      updateCountryForm,
+      billingDetails,
+      sameAsShipping,
     };
   },
 };
