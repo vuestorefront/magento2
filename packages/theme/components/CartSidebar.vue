@@ -44,6 +44,16 @@
                 @input="updateItemQty({ product, quantity: $event })"
                 @click:remove="removeItem({ product })"
               >
+                <template #input>
+                  <div class="sf-collected-product__quantity-wrapper">
+                    <SfQuantitySelector
+                      :disabled="loading"
+                      :qty="cartGetters.getItemQty(product)"
+                      class="sf-collected-product__quantity-selector"
+                      @input="updateItemQty({ product, quantity: $event })"
+                    />
+                  </div>
+                </template>
                 <template #configuration>
                   <div class="collected-product__properties">
                     <SfProperty
@@ -82,11 +92,14 @@
         <transition name="sf-fade">
           <div v-if="totalItems">
             <SfProperty
-              :name="$t('Total price')"
+              :name="$t('Subtotal price')"
               class="sf-property--full-width sf-property--large my-cart__total-price"
             >
               <template #value>
-                <SfPrice :regular="$n(totals.subtotal, 'currency')" />
+                <SfPrice
+                  :regular="$n(totals.subtotal, 'currency')"
+                  :special="totals.subtotal > totals.special && $n(totals.special, 'currency')"
+                />
               </template>
             </SfProperty>
             <a @click="goToCheckout">
@@ -122,6 +135,7 @@ import {
   SfPrice,
   SfCollectedProduct,
   SfImage,
+  SfQuantitySelector,
 } from '@storefront-ui/vue';
 import { computed } from '@vue/composition-api';
 import {
@@ -142,6 +156,7 @@ export default {
     SfPrice,
     SfCollectedProduct,
     SfImage,
+    SfQuantitySelector,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
@@ -152,6 +167,7 @@ export default {
       removeItem,
       updateItemQty,
       load: loadCart,
+      loading,
     } = useCart();
     const { isAuthenticated } = useUser();
     const products = computed(() => cartGetters.getItems(cart.value));
@@ -168,6 +184,7 @@ export default {
     };
 
     return {
+      loading,
       isAuthenticated,
       products,
       removeItem,
