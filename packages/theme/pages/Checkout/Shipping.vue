@@ -1,13 +1,23 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit }">
+  <ValidationObserver v-slot="{ handleSubmit, dirty, reset }">
     <SfHeading
       v-e2e="'shipping-heading'"
       :level="3"
       :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <form @submit.prevent="handleSubmit(handleFormSubmit)">
-      <div class="form">
+    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
+      <UserShippingAddresses
+        v-if="isAuthenticated && hasSavedShippingAddress"
+        v-model="setAsDefault"
+        v-e2e="'shipping-addresses'"
+        :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        @setCurrentAddress="handleSetCurrentAddress"
+      />
+      <div
+        v-if="canAddNewAddress"
+        class="form"
+      >
         <ValidationProvider
           v-slot="{ errors }"
           name="firstname"
@@ -15,14 +25,15 @@
           slim
         >
           <SfInput
-            v-model="form.firstname"
             v-e2e="'shipping-firstName'"
+            :value="shippingDetails.firstname"
             label="First name"
             name="firstName"
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="firstname => changeShippingDetails('firstname', firstname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -32,14 +43,15 @@
           slim
         >
           <SfInput
-            v-model="form.lastname"
             v-e2e="'shipping-lastName'"
+            :value="shippingDetails.lastname"
             label="Last name"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="lastname => changeShippingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -49,14 +61,15 @@
           slim
         >
           <SfInput
-            v-model="form.street"
             v-e2e="'shipping-streetName'"
+            :value="shippingDetails.street"
             label="Street name"
             name="streetName"
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="street => changeShippingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -66,14 +79,15 @@
           slim
         >
           <SfInput
-            v-model="form.apartment"
             v-e2e="'shipping-apartment'"
+            :value="shippingDetails.apartment"
             label="House/Apartment number"
             name="apartment"
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="apartment => changeShippingDetails('apartment', apartment)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -83,38 +97,45 @@
           slim
         >
           <SfInput
-            v-model="form.city"
             v-e2e="'shipping-city'"
+            :value="shippingDetails.city"
             label="City"
             name="city"
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="city => changeShippingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
+          v-slot="{ errors }"
           name="region"
+          :rules="!shippingDetails.country_code || !regionInformation.length ? null : 'required|min:2'"
           slim
         >
           <SfInput
-            v-if="!form.country_code || !regionInformation.length"
-            v-model="form.region"
+            v-if="!shippingDetails.country_code || !regionInformation.length"
             v-e2e="'shipping-state'"
+            :value="shippingDetails.region"
             label="State/Province"
-            :disabled="!form.country_code"
+            :disabled="!shippingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
-            :valid="!!form.country_code"
-            :error-message="!form.country_code ? 'Please select a country first' : ''"
+            :valid="!!shippingDetails.country_code"
+            :error-message="!shippingDetails.country_code ? 'Please select a country first' : ''"
+            @input="region => changeShippingDetails('region', region)"
           />
           <SfSelect
             v-else
-            v-model="form.region"
             v-e2e="'shipping-state'"
+            :value="shippingDetails.region"
             label="State/Province"
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
+            :valid="!errors[0]"
+            :error-message="errors[0]"
+            @input="region => changeShippingDetails('region', region)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -132,15 +153,15 @@
           slim
         >
           <SfSelect
-            v-model="form.country_code"
             v-e2e="'shipping-country'"
+            :value="shippingDetails.country_code"
             label="Country"
             name="country"
             class="form__element form__element--half form__select sf-select--underlined"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
-            @input="searchCountry({ id:$event })"
+            @input="changeCountry"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -158,14 +179,15 @@
           slim
         >
           <SfInput
-            v-model="form.postcode"
             v-e2e="'shipping-zipcode'"
+            :value="shippingDetails.postcode"
             label="Zip-code"
             name="zipCode"
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="postcode => changeShippingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -175,7 +197,7 @@
           slim
         >
           <SfInput
-            v-model="form.telephone"
+            v-model="shippingDetails.telephone"
             v-e2e="'shipping-phone'"
             label="Phone number"
             name="phone"
@@ -183,13 +205,22 @@
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
+            @input="telephone => changeShippingDetails('telephone', telephone)"
           />
         </ValidationProvider>
       </div>
+      <SfButton
+        v-if="!canAddNewAddress"
+        class="color-light form__action-button form__action-button--add-address"
+        type="submit"
+        @click.native="handleAddNewAddressBtnClick"
+      >
+        {{ $t('Add new address') }}
+      </SfButton>
       <div class="form">
         <div class="form__action">
           <SfButton
-            v-if="!isFormSubmitted"
+            v-if="!(isShippingDetailsStepCompleted && !dirty)"
             v-e2e="'select-shipping'"
             :disabled="loading"
             class="form__action-button"
@@ -200,7 +231,7 @@
         </div>
       </div>
       <VsfShippingProvider
-        v-if="isFormSubmitted"
+        v-if="isShippingDetailsStepCompleted && !dirty"
         @submit="$router.push('/checkout/billing')"
       />
     </form>
@@ -214,11 +245,26 @@ import {
   SfButton,
   SfSelect,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@vue/composition-api';
+import {
+  ref,
+  computed,
+  watch,
+  onMounted,
+} from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
+import {
+  addressGetter,
+  useCountrySearch,
+  userShippingGetters,
+  useShipping,
+  useUser,
+  useUserShipping,
+} from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { addressFromApiToForm } from '../../helpers/checkout/address';
+
+const NOT_SELECTED_ADDRESS = '';
 
 extend('required', {
   ...required,
@@ -242,38 +288,107 @@ export default {
     SfSelect,
     ValidationProvider,
     ValidationObserver,
+    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses.vue'),
     VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
   },
   setup() {
-    const isFormSubmitted = ref(false);
     const {
       load,
       save,
       loading,
+      shipping: address,
     } = useShipping();
+    const {
+      shipping: userShipping,
+      load: loadUserShipping,
+      setDefaultAddress,
+    } = useUserShipping();
     const {
       loadCountries,
       countries,
       searchCountry,
       country,
     } = useCountrySearch('Step:Shipping');
+    const { isAuthenticated } = useUser();
 
-    const form = ref({
-      firstname: '',
-      lastname: '',
-      street: '',
-      apartment: '',
-      city: '',
-      region: '',
-      country_code: '',
-      postcode: '',
-      telephone: null,
+    const shippingDetails = ref(addressFromApiToForm(address.value) || {});
+    const currentAddressId = ref(NOT_SELECTED_ADDRESS);
+
+    const setAsDefault = ref(false);
+    const isFormSubmitted = ref(false);
+    const canAddNewAddress = ref(true);
+
+    const isShippingDetailsStepCompleted = ref(false);
+
+    const canMoveForward = computed(() => !loading.value && shippingDetails.value && Object.keys(
+      shippingDetails.value,
+    ).length > 0);
+
+    const hasSavedShippingAddress = computed(() => {
+      if (!isAuthenticated.value || !userShipping.value) {
+        return false;
+      }
+      const addresses = userShippingGetters.getAddresses(userShipping.value);
+      return Boolean(addresses?.length);
     });
 
-    const handleFormSubmit = async () => {
-      await save({ shippingDetails: form.value });
-      isFormSubmitted.value = true;
+    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+
+    const regionInformation = computed(() => addressGetter.regionList(country.value));
+
+    const handleAddressSubmit = (reset) => async () => {
+      const addressId = currentAddressId.value;
+      await save({ shippingDetails: shippingDetails.value });
+      if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
+        const chosenAddress = userShippingGetters.getAddresses(userShipping.value,
+          { id: addressId });
+        if (chosenAddress && chosenAddress.length > 0) {
+          await setDefaultAddress({ address: chosenAddress[0] });
+        }
+      }
+      reset();
+      isShippingDetailsStepCompleted.value = true;
     };
+
+    const handleAddNewAddressBtnClick = () => {
+      currentAddressId.value = NOT_SELECTED_ADDRESS;
+      shippingDetails.value = {};
+      canAddNewAddress.value = true;
+      isShippingDetailsStepCompleted.value = false;
+    };
+
+    const handleSetCurrentAddress = (addr) => {
+      shippingDetails.value = { ...addressFromApiToForm(addr) };
+      currentAddressId.value = addr?.id;
+      canAddNewAddress.value = false;
+      isShippingDetailsStepCompleted.value = false;
+    };
+
+    const changeShippingDetails = (field, value) => {
+      shippingDetails.value = {
+        ...shippingDetails.value,
+        [field]: value,
+      };
+      isShippingDetailsStepCompleted.value = false;
+      currentAddressId.value = NOT_SELECTED_ADDRESS;
+    };
+
+    const selectDefaultAddress = () => {
+      const defaultAddress = userShippingGetters.getAddresses(userShipping.value,
+        { default_shipping: true });
+      if (defaultAddress && defaultAddress.length > 0) {
+        handleSetCurrentAddress(defaultAddress[0]);
+      }
+    };
+
+    const changeCountry = async (id) => {
+      changeShippingDetails('country_code', id);
+      await searchCountry({ id });
+    };
+
+    watch(address, (addr) => {
+      shippingDetails.value = addressFromApiToForm(addr || {});
+    });
 
     onSSR(async () => {
       await Promise.all([
@@ -282,19 +397,46 @@ export default {
       ]);
     });
 
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
+    onMounted(async () => {
+      if (!userShipping.value?.addresses && isAuthenticated.value) {
+        await loadUserShipping();
+      }
+      const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
+
+      if (!shippingAddresses || shippingAddresses.length === 0) {
+        return;
+      }
+
+      const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
+      if (hasEmptyShippingDetails) {
+        selectDefaultAddress();
+        return;
+      }
+      canAddNewAddress.value = false;
+    });
 
     return {
-      load,
-      searchCountry,
-      country,
-      regionInformation,
-      loading,
-      isFormSubmitted,
-      form,
+      canAddNewAddress,
+      canMoveForward,
+      changeCountry,
+      changeShippingDetails,
       countriesList,
-      handleFormSubmit,
+      country,
+      currentAddressId,
+      handleAddNewAddressBtnClick,
+      handleAddressSubmit,
+      handleSetCurrentAddress,
+      hasSavedShippingAddress,
+      isAuthenticated,
+      isFormSubmitted,
+      isShippingDetailsStepCompleted,
+      load,
+      loading,
+      NOT_SELECTED_ADDRESS,
+      regionInformation,
+      searchCountry,
+      setAsDefault,
+      shippingDetails,
     };
   },
 };
@@ -321,6 +463,7 @@ export default {
       left: initial;
     }
   }
+
   @include for-desktop {
     display: flex;
     flex-wrap: wrap;
