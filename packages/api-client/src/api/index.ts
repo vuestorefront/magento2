@@ -15,6 +15,7 @@ export { default as createEmptyCart } from './createEmptyCart';
 export { default as customer } from './customer';
 export { default as customerCart } from './customerCart';
 export { default as customerOrders } from './customerOrders';
+export { default as deleteCustomerAddress } from './deleteCustomerAddress';
 export { default as generateCustomerToken } from './generateCustomerToken';
 export { default as getAvailableCustomerPaymentMethods } from './getAvailableCustomerPaymentMethods';
 export { default as getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
