@@ -84,6 +84,7 @@
         </ValidationProvider>
       </div>
       <SfCheckbox
+        v-if="!isAuthenticated"
         v-model="createUserAccount"
         v-e2e="'create-account'"
         label="Create an account on the store"
@@ -92,6 +93,7 @@
         :disabled="loginUserAccount"
       />
       <SfCheckbox
+        v-if="!isAuthenticated"
         v-model="loginUserAccount"
         v-e2e="'login-account'"
         label="Login on the store"
@@ -229,15 +231,16 @@ export default {
     });
 
     return {
-      user,
-      errorUser,
       canMoveForward,
       createUserAccount,
-      loginUserAccount,
+      errorUser,
       form,
       handleFormSubmit,
+      isAuthenticated,
       isFormSubmitted,
       loading,
+      loginUserAccount,
+      user,
     };
   },
 };
