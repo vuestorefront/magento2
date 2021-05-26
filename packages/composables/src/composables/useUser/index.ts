@@ -47,7 +47,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       cart: useCart(),
     };
   },
-  load: async (context: Context, parameters) => {
+  load: async (context: Context) => {
     const apiState = context.$magento.config.state;
 
     if (!apiState.getCustomerToken()) {
@@ -58,7 +58,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       return response.data.customer;
     } catch {
       // eslint-disable-next-line no-void
-      void factoryParams.logOut(context, parameters);
+      await factoryParams.logOut(context);
     }
 
     return null;
@@ -66,9 +66,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   logOut: async (context: Context) => {
     const apiState = context.$magento.config.state;
 
-    if (apiState.getCustomerToken()) {
-      await context.$magento.api.revokeCustomerToken();
-    }
+    await context.$magento.api.revokeCustomerToken();
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
@@ -92,9 +90,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     const cart = await context.$magento.api.customerCart();
     const newCartId = cart.data.customerCart.id;
     if (newCartId && currentCartId && currentCartId !== newCartId) {
-      const newCart = await context.$magento.api.mergeCarts(currentCartId, newCartId);
-      context.cart.setCart(newCart);
-      apiState.setCartId(newCart.data.mergeCarts.id);
+      const { data } = await context.$magento.api.mergeCarts(currentCartId, newCartId);
+      context.cart.setCart(data.mergeCarts);
+      apiState.setCartId(data.mergeCarts.id);
     }
 
     return factoryParams.load(context, { username, password });
