@@ -1,19 +1,23 @@
 <template>
   <div>
-    <p><strong>{{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}</strong></p>
-    <p>{{ userShippingAddress.street }}, {{ userShippingAddress.streetNumber }}</p>
+    <p
+      :style="userBillingAddress.isDefault ? 'font-weight: bold;' : ''"
+    >
+      {{ userBillingAddress.firstName }} {{ userBillingAddress.lastName }}
+    </p>
+    <p>{{ userBillingAddress.street }}, {{ userBillingAddress.streetNumber }}</p>
 
     <p>
-      {{ userShippingAddress.city }}, {{ userShippingAddress.province }} -
-      {{ userShippingAddress.postalCode }}
+      {{ userBillingAddress.city }}, {{ userBillingAddress.province }} -
+      {{ userBillingAddress.postalCode }}
     </p>
 
-    <p>{{ userShippingAddress.country }}</p>
+    <p>{{ userBillingAddress.country }}</p>
     <p
-      v-if="userShippingAddress.phone"
+      v-if="userBillingAddress.phone"
       class="phone"
     >
-      {{ userShippingAddress.phone }}
+      {{ userBillingAddress.phone }}
     </p>
   </div>
 </template>
@@ -34,7 +38,7 @@ export default {
   setup(props) {
     const address = toRef(props, 'address');
 
-    const userShippingAddress = computed(() => ({
+    const userBillingAddress = computed(() => ({
       firstName: userBillingGetters.getFirstName(address.value),
       lastName: userBillingGetters.getLastName(address.value),
       street: userBillingGetters.getStreetName(address.value),
@@ -44,10 +48,11 @@ export default {
       province: userBillingGetters.getProvince(address.value) || '',
       country: userBillingGetters.getCountry(address.value),
       phone: userBillingGetters.getPhone(address.value),
+      isDefault: userBillingGetters.isDefault(address.value),
     }));
 
     return {
-      userShippingAddress,
+      userBillingAddress,
     };
   },
 };

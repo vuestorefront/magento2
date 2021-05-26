@@ -1,6 +1,10 @@
 <template>
   <div>
-    <p><strong>{{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}</strong></p>
+    <p
+      :style="userShippingAddress.isDefault ? 'font-weight: bold;' : ''"
+    >
+      {{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}
+    </p>
     <p>{{ userShippingAddress.street }}, {{ userShippingAddress.streetNumber }}</p>
 
     <p>
@@ -43,6 +47,7 @@ export default {
       province: userShippingGetters.getProvince(address.value) || '',
       country: userShippingGetters.getCountry(address.value),
       phone: userShippingGetters.getPhone(address.value),
+      isDefault: userShippingGetters.isDefault(address.value),
     }));
 
     return {
