@@ -13,7 +13,7 @@
           {{ $t('Contact details updated') }}
         </p>
 
-        <ShippingAddressForm
+        <BillingAddressForm
           :address="activeAddress"
           :is-new="isNewAddress"
           @submit="saveAddress"
@@ -27,26 +27,26 @@
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab title="Shipping details">
+      <SfTab title="Billing details">
         <p class="message">
-          {{ $t('Manage shipping addresses') }}
+          {{ $t('Manage billing addresses') }}
         </p>
         <transition-group
           tag="div"
           name="fade"
-          class="shipping-list"
+          class="billing-list"
         >
           <div
             v-for="address in addresses"
-            :key="userShippingGetters.getId(address)"
-            class="shipping"
+            :key="userBillingGetters.getId(address)"
+            class="billing"
           >
-            <div class="shipping__content">
-              <div class="shipping__address">
-                <UserShippingAddress :address="address" />
+            <div class="billing__content">
+              <div class="billing__address">
+                <UserBillingAddress :address="address" />
               </div>
             </div>
-            <div class="shipping__actions">
+            <div class="billing__actions">
               <SfIcon
                 icon="cross"
                 color="gray"
@@ -62,8 +62,8 @@
               </SfButton>
 
               <SfButton
-                v-if="!userShippingGetters.isDefault(address)"
-                class="color-light shipping__button-delete desktop-only"
+                v-if="!userBillingGetters.isDefault(address)"
+                class="color-light billing__button-delete desktop-only"
                 @click="removeAddress(address)"
               >
                 {{ $t('Delete') }}
@@ -87,30 +87,30 @@ import {
   SfButton,
   SfIcon,
 } from '@storefront-ui/vue';
-import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
+import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
 import { ref, computed } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm';
-import UserShippingAddress from '~/components/UserShippingAddress';
+import BillingAddressForm from '~/components/MyAccount/BillingAddressForm';
+import UserBillingAddress from '~/components/UserBillingAddress';
 
 export default {
-  name: 'ShippingDetails',
+  name: 'BillingDetails',
   components: {
     SfTabs,
     SfButton,
     SfIcon,
-    UserShippingAddress,
-    ShippingAddressForm,
+    UserBillingAddress,
+    BillingAddressForm,
   },
   setup() {
     const {
-      shipping,
-      load: loadUserShipping,
+      billing,
+      load: loadUserBilling,
       addAddress,
       deleteAddress,
       updateAddress,
-    } = useUserShipping();
-    const addresses = computed(() => userShippingGetters.getAddresses(shipping.value));
+    } = useUserBilling();
+    const addresses = computed(() => userBillingGetters.getAddresses(billing.value));
     const editingAddress = ref(false);
     const activeAddress = ref();
     const isNewAddress = computed(() => !activeAddress.value);
@@ -121,7 +121,8 @@ export default {
     };
 
     const removeAddress = async (address) => {
-      const isDefault = userShippingGetters.isDefault(address);
+      const isDefault = userBillingGetters.isDefault(address);
+
       if (!isDefault) {
         await deleteAddress({ address });
       }
@@ -140,7 +141,7 @@ export default {
     };
 
     onSSR(async () => {
-      await loadUserShipping();
+      await loadUserBilling();
     });
 
     return {
@@ -148,7 +149,7 @@ export default {
       updateAddress,
       removeAddress,
       saveAddress,
-      userShippingGetters,
+      userBillingGetters,
       addresses,
       editingAddress,
       activeAddress,
@@ -167,11 +168,11 @@ export default {
   margin: 0 0 var(--spacer-base);
 }
 
-.shipping-list {
+.billing-list {
   margin-bottom: var(--spacer-base);
 }
 
-.shipping {
+.billing {
   display: flex;
   padding: var(--spacer-xl) 0;
   border-top: 1px solid var(--c-light);
