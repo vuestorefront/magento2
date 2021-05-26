@@ -30,7 +30,7 @@ const userShippingGetters: UserShippingGetters<any, any> = {
   getTaxNumber: (address) => '',
   getId: (address) => address?.id || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : ''),
-  isDefault: (address) => address?.isDefault || false,
+  isDefault: (address) => address?.default_shipping || false,
 };
 
 export default userShippingGetters;

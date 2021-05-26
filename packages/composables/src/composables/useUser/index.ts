@@ -10,7 +10,7 @@ import {
   UpdateUserParams,
   User,
 } from '../../types';
-import { useCart } from '../../index';
+import useCart from '../useCart';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
