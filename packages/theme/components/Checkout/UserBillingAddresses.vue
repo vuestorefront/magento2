@@ -79,6 +79,9 @@ export default {
     margin-bottom: var(--spacer-base);
     @include for-desktop {
       margin-right: var(--spacer-sm);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
     }
   }
 

@@ -2,13 +2,13 @@
   <div>
     <SfAddressPicker
       :selected="`${currentAddressId}`"
-      class="shipping-addresses"
+      class="shipping__addresses"
       @change="setCurrentAddress($event)"
     >
       <SfAddress
         v-for="shippingAddress in shippingAddresses"
         :key="userShippingGetters.getId(shippingAddress)"
-        class="shipping-addresses__address"
+        class="shipping__address"
         :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
         <UserShippingAddress
@@ -21,7 +21,7 @@
       :selected="value"
       name="setAsDefault"
       label="Use this address as my default one."
-      class="shipping-address-setAsDefault"
+      class="shipping__setAsDefault"
       @change="$emit('input', $event)"
     />
     <hr class="sf-divider">
@@ -82,16 +82,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shipping-addresses {
-  @include for-desktop {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10px;
-  }
-  margin-bottom: var(--spacer-xl);
-
+.shipping {
   &__address {
-    margin-bottom: var(--spacer-sm);
+    margin-bottom: var(--spacer-base);
+    @include for-desktop {
+      margin-right: var(--spacer-sm);
+    }
+  }
+
+  &__addresses {
+    margin-bottom: var(--spacer-xl);
+    @include for-desktop {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  &__setAsDefault {
+    margin-bottom: var(--spacer-xl);
   }
 }
 
