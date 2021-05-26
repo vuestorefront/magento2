@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="currentAddressId"
+      :selected="`${currentAddressId}`"
       class="shipping-addresses"
       @change="setCurrentAddress($event)"
     >
@@ -9,9 +9,11 @@
         v-for="shippingAddress in shippingAddresses"
         :key="userShippingGetters.getId(shippingAddress)"
         class="shipping-addresses__address"
-        :name="String(userShippingGetters.getId(shippingAddress))"
+        :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
-        <UserShippingAddress :address="shippingAddress" />
+        <UserShippingAddress
+          :address="shippingAddress"
+        />
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
@@ -22,6 +24,7 @@
       class="shipping-address-setAsDefault"
       @change="$emit('input', $event)"
     />
+    <hr class="sf-divider">
   </div>
 </template>
 
@@ -31,6 +34,7 @@ import {
   SfAddressPicker,
 } from '@storefront-ui/vue';
 import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
+import { computed } from '@vue/composition-api';
 import UserShippingAddress from '~/components/UserShippingAddress';
 
 export default {
@@ -50,20 +54,23 @@ export default {
       required: true,
     },
   },
-  setup(_, { emit }) {
+  emits: ['setCurrentAddress'],
+  setup(props, { emit }) {
     const { shipping: userShipping } = useUserShipping();
 
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userShippingGetters.getAddresses(userShipping.value, { id: addressId });
+      const selectedAddress = userShippingGetters.getAddresses(userShipping.value,
+        { id: Number.parseInt(addressId, 10) });
 
-      if (!selectedAddress || !selectedAddress.length) {
+      if (!selectedAddress) {
         return;
       }
 
       emit('setCurrentAddress', selectedAddress[0]);
     };
 
-    const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
+    const shippingAddresses = computed(() => userShippingGetters
+      .getAddresses(userShipping.value));
 
     return {
       setCurrentAddress,
@@ -74,7 +81,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .shipping-addresses {
   @include for-desktop {
     display: grid;
@@ -82,12 +89,13 @@ export default {
     grid-column-gap: 10px;
   }
   margin-bottom: var(--spacer-xl);
+
   &__address {
     margin-bottom: var(--spacer-sm);
   }
 }
 
-.shipping-address-setAsDefault, .form__action-button--margin-bottom {
+.sf-divider, .form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>

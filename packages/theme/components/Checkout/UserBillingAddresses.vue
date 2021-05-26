@@ -1,14 +1,14 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="String(currentAddressId)"
+      :selected="`${currentAddressId}`"
       class="billing__addresses"
       @change="setCurrentAddress($event)"
     >
       <SfAddress
         v-for="billingAddress in billingAddresses"
         :key="userBillingGetters.getId(billingAddress)"
-        :name="String(userBillingGetters.getId(billingAddress))"
+        :name="`${userBillingGetters.getId(billingAddress)}`"
         class="billing__address"
       >
         <UserBillingAddress :address="billingAddress" />
@@ -21,6 +21,7 @@
       class="billing__setAsDefault"
       @change="$emit('input', $event)"
     />
+    <hr class="sf-divider">
   </div>
 </template>
 
@@ -49,12 +50,13 @@ export default {
       required: true,
     },
   },
+  emits: ['setCurrentAddress'],
   setup(_, { emit }) {
     const { billing: userBilling } = useUserBilling();
 
-    const setCurrentAddress = async (addressId) => {
-      const selectedAddress = userBillingGetters.getAddresses(userBilling.value, { id: addressId });
-      if (!selectedAddress || !selectedAddress.length) {
+    const setCurrentAddress = (addressId) => {
+      const selectedAddress = userBillingGetters.getAddresses(userBilling.value, { id: Number.parseInt(addressId, 10) });
+      if (!selectedAddress || selectedAddress.length === 0) {
         return;
       }
       emit('setCurrentAddress', selectedAddress[0]);
@@ -79,14 +81,20 @@ export default {
       margin-right: var(--spacer-sm);
     }
   }
+
   &__addresses {
     margin-bottom: var(--spacer-xl);
     @include for-desktop {
       display: flex;
     }
   }
+
   &__setAsDefault {
     margin-bottom: var(--spacer-xl);
   }
+}
+
+.sf-divider, .form__action-button--margin-bottom {
+  margin-bottom: var(--spacer-xl);
 }
 </style>
