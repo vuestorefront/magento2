@@ -3,11 +3,6 @@
 fragment CompleteCartData on Cart {
   id
   email
-  gift_message {
-    from
-    message
-    to
-  }
   is_virtual
   applied_coupons {
     code

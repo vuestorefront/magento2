@@ -1,3 +1,10 @@
+#import "../../fragments/orderAddressFragment.graphql"
+#import "../../fragments/orderTotalFragment.graphql"
+#import "../../fragments/orderItemFragment.graphql"
+#import "../../fragments/invoiceItemFragment.graphql"
+#import "../../fragments/invoiceTotalFragment.graphql"
+#import "../../fragments/shipmentItemFragment.graphql"
+
 query customerOrders($currentPage: Int = 1, $filter: CustomerOrdersFilterInput = {}, $pageSize: Int = 20) {
   customer {
     orders(currentPage: $currentPage, filter: $filter, pageSize: $pageSize) {
@@ -6,7 +13,59 @@ query customerOrders($currentPage: Int = 1, $filter: CustomerOrdersFilterInput =
         id
         created_at
         grand_total
+        total {
+          ...OrderTotalData
+        }
         status
+        comments {
+          message
+          timestamp
+        }
+        invoices {
+          comments {
+            message
+            timestamp
+          }
+          id
+          items {
+            ...InvoiceItemData
+          }
+          number
+          total {
+            ...InvoiceTotalData
+          }
+        }
+        items {
+          ...OrderItemData
+        }
+        payment_methods {
+          name
+          type
+          additional_data {
+            name
+            value
+          }
+        }
+        shipments {
+          comments {
+            message
+            timestamp
+          }
+          id
+          number
+          tracking {
+            carrier
+            number
+            title
+          }
+          items {
+            ...ShipmentItemData
+          }
+        }
+        shipping_address {
+          ...OrderAddressData
+        }
+        shipping_method
       }
     }
   }

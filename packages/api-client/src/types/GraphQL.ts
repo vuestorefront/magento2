@@ -6921,7 +6921,19 @@ export type CustomerOrdersQueryVariables = Exact<{
 }>;
 
 
-export type CustomerOrdersQuery = { customer?: Maybe<{ orders?: Maybe<{ items: Array<Maybe<Pick<CustomerOrder, 'order_number' | 'id' | 'created_at' | 'grand_total' | 'status'>>> }> }> };
+export type CustomerOrdersQuery = { customer?: Maybe<{ orders?: Maybe<{ items: Array<Maybe<(
+        Pick<CustomerOrder, 'order_number' | 'id' | 'created_at' | 'grand_total' | 'status' | 'shipping_method'>
+        & { total?: Maybe<OrderTotalDataFragment>, comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, invoices: Array<Maybe<(
+          Pick<Invoice, 'id' | 'number'>
+          & { comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, items?: Maybe<Array<Maybe<InvoiceItemData_BundleInvoiceItem_Fragment | InvoiceItemData_DownloadableInvoiceItem_Fragment | InvoiceItemData_InvoiceItem_Fragment>>>, total?: Maybe<InvoiceTotalDataFragment> }
+        )>>, items?: Maybe<Array<Maybe<OrderItemData_BundleOrderItem_Fragment | OrderItemData_DownloadableOrderItem_Fragment | OrderItemData_OrderItem_Fragment>>>, payment_methods?: Maybe<Array<Maybe<(
+          Pick<OrderPaymentMethod, 'name' | 'type'>
+          & { additional_data?: Maybe<Array<Maybe<Pick<KeyValue, 'name' | 'value'>>>> }
+        )>>>, shipments?: Maybe<Array<Maybe<(
+          Pick<OrderShipment, 'id' | 'number'>
+          & { comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, tracking?: Maybe<Array<Maybe<Pick<ShipmentTracking, 'carrier' | 'number' | 'title'>>>>, items?: Maybe<Array<Maybe<ShipmentItemData_BundleShipmentItem_Fragment | ShipmentItemData_ShipmentItem_Fragment>>> }
+        )>>>, shipping_address?: Maybe<OrderAddressDataFragment> }
+      )>> }> }> };
 
 export type DeleteCustomerAddressMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -8107,7 +8119,7 @@ export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_path' | 'url_suffi
 
 export type CompleteCartDataFragment = (
   Pick<Cart, 'id' | 'email' | 'is_virtual' | 'total_quantity'>
-  & { gift_message?: Maybe<Pick<GiftMessage, 'from' | 'message' | 'to'>>, applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
+  & { applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
       Pick<CartTaxItem, 'label'>
       & { amount: Pick<Money, 'value'> }
     )>>>, discounts?: Maybe<Array<Maybe<(
@@ -8140,6 +8152,82 @@ export type CustomerDataFragment = (
   Pick<Customer, 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat' | 'default_billing' | 'default_shipping'>
   & { addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }
 );
+
+type InvoiceItemData_BundleInvoiceItem_Fragment = (
+  Pick<BundleInvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type InvoiceItemData_DownloadableInvoiceItem_Fragment = (
+  Pick<DownloadableInvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type InvoiceItemData_InvoiceItem_Fragment = (
+  Pick<InvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+export type InvoiceItemDataFragment = InvoiceItemData_BundleInvoiceItem_Fragment | InvoiceItemData_DownloadableInvoiceItem_Fragment | InvoiceItemData_InvoiceItem_Fragment;
+
+export type InvoiceTotalDataFragment = { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, base_grand_total: Pick<Money, 'currency' | 'value'>, shipping_handling?: Maybe<{ amount_excluding_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, amount_including_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, discounts?: Maybe<Array<Maybe<{ amount: Pick<Money, 'currency' | 'value'> }>>>, taxes?: Maybe<Array<Maybe<(
+      Pick<TaxItem, 'rate' | 'title'>
+      & { amount: Pick<Money, 'currency' | 'value'> }
+    )>>>, total_amount: Pick<Money, 'currency' | 'value'> }>, subtotal: Pick<Money, 'currency' | 'value'>, taxes?: Maybe<Array<Maybe<(
+    Pick<TaxItem, 'rate' | 'title'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, total_shipping: Pick<Money, 'currency' | 'value'>, total_tax: Pick<Money, 'currency' | 'value'> };
+
+export type OrderAddressDataFragment = Pick<OrderAddress, 'city' | 'country_code' | 'firstname' | 'lastname' | 'postcode' | 'prefix' | 'region' | 'street' | 'suffix' | 'telephone'>;
+
+type OrderItemData_BundleOrderItem_Fragment = (
+  Pick<BundleOrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+type OrderItemData_DownloadableOrderItem_Fragment = (
+  Pick<DownloadableOrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+type OrderItemData_OrderItem_Fragment = (
+  Pick<OrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+export type OrderItemDataFragment = OrderItemData_BundleOrderItem_Fragment | OrderItemData_DownloadableOrderItem_Fragment | OrderItemData_OrderItem_Fragment;
+
+export type OrderTotalDataFragment = { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, base_grand_total: Pick<Money, 'currency' | 'value'>, shipping_handling?: Maybe<{ amount_excluding_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, amount_including_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, discounts?: Maybe<Array<Maybe<{ amount: Pick<Money, 'currency' | 'value'> }>>>, taxes?: Maybe<Array<Maybe<(
+      Pick<TaxItem, 'rate' | 'title'>
+      & { amount: Pick<Money, 'currency' | 'value'> }
+    )>>>, total_amount: Pick<Money, 'currency' | 'value'> }>, subtotal: Pick<Money, 'currency' | 'value'>, taxes?: Maybe<Array<Maybe<(
+    Pick<TaxItem, 'rate' | 'title'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, total_shipping: Pick<Money, 'currency' | 'value'>, total_tax: Pick<Money, 'currency' | 'value'> };
 
 type ProductCategoriesData_BundleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
     Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
@@ -8355,3 +8443,15 @@ type ProductUrlFragmentData_VirtualProduct_Fragment = (
 );
 
 export type ProductUrlFragmentDataFragment = ProductUrlFragmentData_BundleProduct_Fragment | ProductUrlFragmentData_ConfigurableProduct_Fragment | ProductUrlFragmentData_DownloadableProduct_Fragment | ProductUrlFragmentData_GroupedProduct_Fragment | ProductUrlFragmentData_SimpleProduct_Fragment | ProductUrlFragmentData_VirtualProduct_Fragment;
+
+type ShipmentItemData_BundleShipmentItem_Fragment = (
+  Pick<BundleShipmentItem, 'id' | 'product_name' | 'product_sku' | 'quantity_shipped'>
+  & { product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type ShipmentItemData_ShipmentItem_Fragment = (
+  Pick<ShipmentItem, 'id' | 'product_name' | 'product_sku' | 'quantity_shipped'>
+  & { product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+export type ShipmentItemDataFragment = ShipmentItemData_BundleShipmentItem_Fragment | ShipmentItemData_ShipmentItem_Fragment;
