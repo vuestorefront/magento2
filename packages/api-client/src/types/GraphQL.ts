@@ -7017,7 +7017,7 @@ export type PlaceOrderMutationVariables = Exact<{
 }>;
 
 
-export type PlaceOrderMutation = { placeOrder?: Maybe<{ order: Pick<Order, 'order_id' | 'order_number'> }> };
+export type PlaceOrderMutation = { placeOrder?: Maybe<{ order: Pick<Order, 'order_number'> }> };
 
 export type ProductDetailsQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
