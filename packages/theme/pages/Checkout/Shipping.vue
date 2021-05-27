@@ -304,9 +304,9 @@ export default {
       setDefaultAddress,
     } = useUserShipping();
     const {
-      loadCountries,
+      load: loadCountries,
       countries,
-      searchCountry,
+      search: searchCountry,
       country,
     } = useCountrySearch('Step:Shipping');
     const { isAuthenticated } = useUser();

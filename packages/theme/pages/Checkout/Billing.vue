@@ -327,9 +327,9 @@ export default {
       load: loadShipping,
     } = useShipping();
     const {
-      loadCountries,
+      load: loadCountries,
       countries,
-      searchCountry,
+      search: searchCountry,
       country,
     } = useCountrySearch('Step:Billing');
     const { isAuthenticated } = useUser();

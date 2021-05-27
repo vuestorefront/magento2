@@ -248,9 +248,9 @@ export default {
 
   setup(props, { emit }) {
     const {
-      loadCountries,
+      load: loadCountries,
       countries,
-      searchCountry,
+      search: searchCountry,
       country,
     } = useCountrySearch('my-account-shipping');
     const {

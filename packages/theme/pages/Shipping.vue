@@ -226,7 +226,7 @@ export default {
   setup() {
     const isFormSubmitted = ref(false);
     const { load, save, loading } = useShipping();
-    const { loadCountries, countries } = useCountrySearch('shipping-step');
+    const { load: loadCountries, countries } = useCountrySearch('shipping-step');
 
     const form = ref({
       firstName: '',
