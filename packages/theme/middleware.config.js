@@ -1,11 +1,11 @@
-require('dotenv').config();
+const config = require('./config.js');
 
 module.exports = {
   integrations: {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: process.env.MAGENTO_GRAPHQL,
+        api: config.get('magentoGraphQl'),
         cookies: {
           currencyCookieName: 'vsf-currency',
           countryCookieName: 'vsf-country',
@@ -16,11 +16,11 @@ module.exports = {
         },
         defaultStore: 'default',
         externalCheckout: {
-          enable: JSON.parse(process.env.MAGENTO_EXTERNAL_CHECKOUT),
-          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL,
-          syncUrlPath: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
+          enable: config.get('enableMagentoExternalCheckout'),
+          cmsUrl: config.get('externalCheckoutUrl'),
+          syncUrlPath: config.get('externalCheckoutSyncPath'),
           stores: {
-            default: process.env.MAGENTO_EXTERNAL_CHECKOUT,
+            default: config.get('enableMagentoExternalCheckout'),
           },
         },
         tax: {

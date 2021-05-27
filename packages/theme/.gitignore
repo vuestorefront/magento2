@@ -94,3 +94,5 @@ sw.*
 
 version
 .env
+!config/example.json
+config/*.json
