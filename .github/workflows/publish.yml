@@ -12,7 +12,7 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'release')
     runs-on: ubuntu-latest
     env:
-      INPUT_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: '14'
           registry-url: 'https://registry.npmjs.org'
+          scope: '@vue-storefront'
 
       - name: Get cached dependencies
         uses: actions/cache@v2
@@ -38,28 +39,9 @@ jobs:
       - name: Build - Composeables
         run: yarn build:composables
 
-      - name: Copy .npmrc to base folder
-        shell: bash
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${INPUT_TOKEN}\nregistry=https://registry.npmjs.org/\n@vue-storefront:registry=https://registry.npmjs.org/\n" > .npmrc
-
-      - name: Copy .npmrc to root
-        shell: bash
-        run: cp scripts/.npmrc ~/.npmrc
-
-      - name: Write date of .npmrc on root
-        shell: bash
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${INPUT_TOKEN}\nregistry=https://registry.npmjs.org/\n@vue-storefront:registry=https://registry.npmjs.org/\n" > ~/.npmrc
-
-
       - name: Publish Packages
         shell: bash
-        run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NPM_TOKEN"
-
-      - name: Remove .npmrc
-        shell: bash
-        run: rm -rf .npmrc
+        run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
 
   automerge:
     needs: publishing
