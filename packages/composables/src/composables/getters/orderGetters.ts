@@ -2,9 +2,9 @@
 import { UserOrderGetters } from '@vue-storefront/core';
 import { Order, OrderItem } from '@vue-storefront/magento-api';
 
-export const getDate = (order: any): string => order?.created_at || '123';
+export const getDate = (order: any): string => new Date(order?.created_at).toLocaleDateString() || '';
 
-export const getId = (order: any): string => order?.id || Math.floor(Math.random() * 100);
+export const getId = (order: any): string => String(Number.parseInt(order?.order_number, 10) || Math.floor(Math.random() * 100));
 
 export const getStatus = (order: any): string => order?.status || 'Failed';
 

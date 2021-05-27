@@ -7,5 +7,5 @@ class Sidebar {
 }
 
 export {
-  Sidebar
+  Sidebar,
 };

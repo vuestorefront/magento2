@@ -1,4 +1,3 @@
-// import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -6,7 +5,8 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseRouter } from '../types';
+import { computed } from 'vue-demi';
+import { UseUrlResolver } from '../types/composeables';
 
 export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
   search: (context: Context, url: string) => Promise<ROUTER>;
@@ -14,7 +14,7 @@ export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
 
 export const useUrlResolverFactory = <ROUTER>(
   factoryParams: UseUrlResolverFactoryParams<ROUTER>,
-) => function useRouter(id?: string): UseRouter<ROUTER> {
+) => function useRouter(id?: string): UseUrlResolver<ROUTER> {
   const ssrKey = id || 'useRouter';
   // @ts-ignore
   const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
@@ -46,8 +46,8 @@ export const useUrlResolverFactory = <ROUTER>(
 
   return {
     search,
-    result: result.value, // @TODO: Check CAPI
-    loading: loading.value, // @TODO: Check CAPI
-    error: error.value, // @TODO: Check CAPI
+    result: computed(() => result.value),
+    loading: computed(() => loading.value),
+    error: computed(() => error.value),
   };
 };

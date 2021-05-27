@@ -386,6 +386,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import Vue from 'vue';
+import findDeep from 'deepdash/findDeep';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
@@ -421,15 +422,13 @@ export default {
     const { result, search, loading } = useFacet(`facetId:${path}`);
     const { categories, search: categoriesSearch, loading: categoriesLoading } = useCategory(`categoryList:${path}`);
 
-    // @TODO: Fix when URL Factory is Working
-    const { search: routeSearch } = useUrlResolver(`router:${path}`);
-    const currentCategory = ref({});
+    const { search: routeSearch, result: routeData } = useUrlResolver(`router:${path}`);
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
-      currentCategory.value.entity_uid,
+      routeData.value.entity_uid,
       true,
     ));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
@@ -451,16 +450,41 @@ export default {
       return category?.label || items[0]?.label;
     });
 
+    const activeCategoryUid = (categoryUid) => {
+      const items = categoryTree.value?.items;
+
+      if (!items) {
+        return '';
+      }
+
+      const categoryDeep = findDeep(
+        categoryTree.value?.items,
+        (value, key, parentValue, _deepCtx) => {
+          const hasUid = key === '0' && value && Array.isArray(parentValue);
+
+          return (hasUid) ? value === (categoryUid) : false;
+        },
+      );
+
+      const categoryUidResult = categoryDeep?.parent.length === 1
+        ? categoryDeep?.parent[0]
+        : categoryDeep?.parent;
+
+      return categoryUidResult || items[0]?.uid;
+    };
+
     onSSR(async () => {
-      currentCategory.value = await routeSearch(path);
+      await Promise.all([
+        await routeSearch(path),
+        categoriesSearch({
+          pageSize: 100,
+        }),
+      ]);
 
       await Promise.all([
         search({
           ...th.getFacetsFromURL(),
-          categoryId: currentCategory.value.entity_uid,
-        }),
-        categoriesSearch({
-          pageSize: 100,
+          categoryId: activeCategoryUid(routeData.value.entity_uid),
         }),
       ]);
     });
@@ -471,7 +495,7 @@ export default {
 
     onMounted(() => {
       context.root.$scrollTo(context.root.$el, 2000);
-      if (!facets.value.length) return;
+      if (facets.value.length === 0) return;
       selectedFilters.value = facets.value.reduce((prev, curr) => ({
         ...prev,
         [curr.id]: curr.options
@@ -516,6 +540,7 @@ export default {
         case 'SimpleProduct':
           await addItemToCartBase({ product, quantity });
           break;
+        case 'BundleProduct':
         case 'ConfigurableProduct':
           await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
           break;

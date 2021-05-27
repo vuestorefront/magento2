@@ -1,3 +1,4 @@
+import { computed } from 'vue-demi';
 import {
   configureFactoryParams,
   Context,
@@ -5,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseCategorySearch } from '../types';
+import { UseCategorySearch, UseCategorySearchErrors } from '../types/composeables';
 
 export interface UseCategorySearchFactory<CATEGORY> extends FactoryParams {
   search: (context: Context, params: { term: string }) => Promise<CATEGORY[]>;
@@ -19,7 +20,7 @@ export function useCategorySearchFactory<CATEGORY>(
     // @ts-ignore
     const result = sharedRef<CATEGORY>([], `${ssrKey}-result`);
     const loading = sharedRef(false, `${ssrKey}-loading`);
-    const error = sharedRef({
+    const error = sharedRef<UseCategorySearchErrors>({
       search: null,
     }, `${ssrKey}-error`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
@@ -48,11 +49,9 @@ export function useCategorySearchFactory<CATEGORY>(
 
     return {
       search,
-      // @ts-ignore
-      result,
-      loading,
-      // @ts-ignore
-      error,
+      result: computed(() => result.value),
+      loading: computed(() => loading.value),
+      error: computed(() => error.value),
     };
   };
 }

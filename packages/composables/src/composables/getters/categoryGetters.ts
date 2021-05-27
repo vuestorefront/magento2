@@ -2,16 +2,39 @@ import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-
 import { Category } from '@vue-storefront/magento-api';
 import { htmlDecode } from '../../helpers/htmlDecoder';
 
-const buildTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => ({
-  label: htmlDecode(rootCategory.name),
-  slug: `/${rootCategory.url_path}${rootCategory.url_suffix || ''}`,
-  items: Array.isArray(rootCategory.children) && rootCategory.children.length ? rootCategory
-    .children
-    .filter((c) => (withProducts ? c.product_count > 0 : true))
-    .map((c) => buildTree(c, currentCategory)) : [],
-  count: rootCategory.product_count,
-  isCurrent: rootCategory.uid === currentCategory,
-});
+const buildTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
+  const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length;
+  const isCurrent = rootCategory.uid === currentCategory;
+  const label = htmlDecode(rootCategory.name);
+  const slug = `/${rootCategory.url_path}${rootCategory.url_suffix || ''}`;
+  const childrenUid = hasChildren
+    ? rootCategory
+      .children
+      .reduce((acc, curr) => [...acc, curr.uid], [])
+    : [];
+
+  const childProductCount = hasChildren
+    ? rootCategory
+      .children
+      .reduce((acc, curr) => acc + curr.product_count, 0)
+    : 0;
+
+  const items = hasChildren
+    ? rootCategory
+      .children
+      .filter((c) => (withProducts ? c.product_count > 0 : true))
+      .map((c) => buildTree(c, currentCategory))
+    : [];
+
+  return {
+    label,
+    slug,
+    uid: [rootCategory.uid, ...childrenUid],
+    items,
+    count: childProductCount || rootCategory.product_count,
+    isCurrent,
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTree = (category: Category): AgnosticCategoryTree | null => {

@@ -1,9 +1,9 @@
-#import "../../fragments/cartFragment.graphql"
+#import "../../fragments/completeCartFragment.graphql"
 
 mutation removeCouponFromCart($input: RemoveCouponFromCartInput) {
   removeCouponFromCart(input: $input) {
     cart {
-      ...CartData
+      ...CompleteCartData
     }
   }
 }

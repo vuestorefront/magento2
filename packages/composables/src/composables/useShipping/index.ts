@@ -1,14 +1,19 @@
-import { Context, Logger } from '@vue-storefront/core';
 import {
-  CartAddressInput,
+  Context,
+  Logger,
+  useShippingFactory,
+  UseShippingParams,
+} from '@vue-storefront/core';
+import {
   SetShippingAddressesOnCartInput,
 } from '@vue-storefront/magento-api';
-import { useShippingFactory, UseShippingParams } from '../../factories/useShippingFactory';
 import useCart from '../useCart';
+import useGetShippingMethods from '../useGetShippingMethods';
 
 const factoryParams: UseShippingParams<any, any> = {
   provide() {
     return {
+      useGetShippingMethods: useGetShippingMethods(),
       cart: useCart(),
     };
   },
@@ -20,11 +25,7 @@ const factoryParams: UseShippingParams<any, any> = {
       await context.cart.load({ customQuery });
     }
 
-    return context
-      .cart
-      .cart
-      .value
-      .shipping_addresses[0];
+    return context.cart.cart.value.shipping_addresses[0];
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,24 +34,35 @@ const factoryParams: UseShippingParams<any, any> = {
     Logger.debug(context);
 
     const { id } = context.cart.cart.value;
-    const address = saveParams.shippingDetails as CartAddressInput;
+    const {
+      apartment,
+      ...address
+    } = saveParams.shippingDetails;
 
     const shippingAddressInput: SetShippingAddressesOnCartInput = {
       cart_id: id,
       shipping_addresses: [
         {
-          address,
+          address: {
+            ...address,
+            street: [address.street, apartment],
+          },
         },
       ],
     };
 
-    const setShippingAddressesOnCartResponse = await context
+    const { data } = await context
       .$magento
       .api
       .setShippingAddressesOnCart(shippingAddressInput);
 
-    return setShippingAddressesOnCartResponse
-      .data
+    context.useGetShippingMethods.setState(data
+      .setShippingAddressesOnCart
+      .cart
+      .shipping_addresses[0]
+      .available_shipping_methods);
+
+    return data
       .setShippingAddressesOnCart
       .cart
       .shipping_addresses[0];

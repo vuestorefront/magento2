@@ -2,7 +2,7 @@ import { UserBillingGetters } from '@vue-storefront/core';
 
 const userBillingGetters: UserBillingGetters<any, any> = {
   getAddresses: (billing, criteria?: Record<string, any>) => {
-    if (!criteria || !Object.keys(criteria).length) {
+    if (!criteria || Object.keys(criteria).length === 0) {
       return billing.addresses;
     }
 
@@ -12,22 +12,22 @@ const userBillingGetters: UserBillingGetters<any, any> = {
   getDefault: (billing) => billing.addresses.find(({ isDefault }) => isDefault),
   getTotal: (billing) => billing.addresses.length,
 
-  getPostCode: (address) => address?.postalCode || '',
-  getStreetName: (address) => address?.streetName || '',
+  getPostCode: (address) => address?.postcode || '',
+  getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : ''),
   getStreetNumber: (address) => address?.streetNumber || '',
   getCity: (address) => address?.city || '',
-  getFirstName: (address) => address?.firstName || '',
-  getLastName: (address) => address?.lastName || '',
-  getCountry: (address) => address?.country || '',
+  getFirstName: (address) => address?.firstname || '',
+  getLastName: (address) => address?.lastname || '',
+  getCountry: (address) => address?.country_code || '',
   getPhone: (address) => address?.phone || '',
   getEmail: (address) => address?.email || '',
-  getProvince: (address) => address?.state || '',
+  getProvince: (address) => (address?.region?.region_code || address?.region?.region) || '',
   getCompanyName: (address) => address?.company || '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTaxNumber: (address) => '',
   getId: (address) => address?.id || '',
-  getApartmentNumber: (address) => address?.apartment || '',
-  isDefault: (address) => address?.isDefault || false,
+  getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : ''),
+  isDefault: (address) => address?.default_billing || false,
 };
 
 export default userBillingGetters;
