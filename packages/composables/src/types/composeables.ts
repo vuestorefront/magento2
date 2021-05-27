@@ -38,13 +38,13 @@ export interface UseCountrySearch<COUNTRIES, COUNTRY> {
   search: (params: { id: string }) => Promise<COUNTRY>;
   countries: ComputedProperty<COUNTRIES[]>;
   country: ComputedProperty<COUNTRY>;
-  error: ComputedProperty<UseCategorySearchErrors>;
+  error: ComputedProperty<UseCountrySearchErrors>;
   loading: ComputedProperty<boolean>;
 }
 
 export interface UseCountrySearchErrors {
-  loadCountries: Error;
-  searchCountry: Error;
+  load: Error;
+  search: Error;
 }
 
 export interface UseConfig<CONFIG> {

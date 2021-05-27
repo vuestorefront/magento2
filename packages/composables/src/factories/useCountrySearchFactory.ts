@@ -20,27 +20,28 @@ export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCo
     const country = sharedRef<COUNTRY>({}, `${ssrKey}-country`);
     const loading = sharedRef<boolean>(false, `${ssrKey}-loading`);
     const error = sharedRef<UseCountrySearchErrors>({
-      loadCountries: null,
-      searchCountry: null,
+      load: null,
+      search: null,
     }, `${ssrKey}-error`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
+    // eslint-disable-next-line consistent-return
     const load = async (): Promise<COUNTRIES[]> => {
       Logger.debug(`useCountrySearch/${ssrKey}/load`);
 
       try {
         loading.value = true;
 
-        const data = await _factoryParams.loadCountries();
+        const data = await _factoryParams.load();
 
         countries.value = data;
 
-        error.value.search = null;
+        error.value.load = null;
 
         return data;
       } catch (err) {
-        error.value.loadCountries = err;
+        error.value.load = err;
         Logger.error(`useCountrySearch/${ssrKey}/load`, err);
       } finally {
         loading.value = false;
@@ -54,15 +55,15 @@ export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCo
       try {
         loading.value = true;
 
-        const data = await _factoryParams.searchCountry(params);
+        const data = await _factoryParams.search(params);
 
         country.value = data;
 
-        error.value.searchCountry = null;
+        error.value.search = null;
 
         return data;
       } catch (err) {
-        error.value.searchCountry = err;
+        error.value.search = err;
         Logger.error(`useCountrySearch/${ssrKey}/search`, err);
       } finally {
         loading.value = false;
