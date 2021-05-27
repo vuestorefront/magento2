@@ -186,7 +186,7 @@ export default {
 
     const processOrder = async () => {
       await make();
-      router.push(`/checkout/thank-you?order=${order.value.id}`);
+      router.push(`/checkout/thank-you?order=${order.value.order_number}`);
       setCart(null);
     };
 
