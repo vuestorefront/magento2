@@ -8,8 +8,8 @@ import {
 import { UseCountrySearch, UseCountrySearchErrors } from '../types/composeables';
 
 export interface UseCountryFactoryParams<COUNTRIES, COUNTRY> extends FactoryParams{
-  loadCountries: (context: Context) => Promise<COUNTRIES[]>;
-  searchCountry: (context: Context, params: { id: string }) => Promise<COUNTRY>;
+  load: (context: Context) => Promise<COUNTRIES[]>;
+  search: (context: Context, params: { id: string }) => Promise<COUNTRY>;
 }
 
 export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCountryFactoryParams<COUNTRIES, COUNTRY>) {
@@ -26,8 +26,8 @@ export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCo
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const loadCountries = async (): Promise<COUNTRIES[]> => {
-      Logger.debug(`useCountrySearch/${ssrKey}/loadCountries`);
+    const load = async (): Promise<COUNTRIES[]> => {
+      Logger.debug(`useCountrySearch/${ssrKey}/load`);
 
       try {
         loading.value = true;
@@ -41,15 +41,15 @@ export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCo
         return data;
       } catch (err) {
         error.value.loadCountries = err;
-        Logger.error(`useCountrySearch/${ssrKey}/loadCountries`, err);
+        Logger.error(`useCountrySearch/${ssrKey}/load`, err);
       } finally {
         loading.value = false;
       }
     };
 
     // eslint-disable-next-line consistent-return
-    const searchCountry = async (params: { id: string }): Promise<COUNTRY> => {
-      Logger.debug(`useCountrySearch/${ssrKey}/searchCountry`);
+    const search = async (params: { id: string }): Promise<COUNTRY> => {
+      Logger.debug(`useCountrySearch/${ssrKey}/search`);
 
       try {
         loading.value = true;
@@ -63,15 +63,15 @@ export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCo
         return data;
       } catch (err) {
         error.value.searchCountry = err;
-        Logger.error(`useCountrySearch/${ssrKey}/searchCountry`, err);
+        Logger.error(`useCountrySearch/${ssrKey}/search`, err);
       } finally {
         loading.value = false;
       }
     };
 
     return {
-      loadCountries,
-      searchCountry,
+      load,
+      search,
       countries: computed(() => countries.value),
       country: computed(() => country.value),
       loading: computed(() => loading.value),

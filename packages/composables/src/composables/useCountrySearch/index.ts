@@ -6,12 +6,12 @@ import { UseCountryFactoryParams, useCountrySearchFactory } from '../../factorie
 import { UseCountrySearch } from '../../types/composeables';
 
 const factoryParams: UseCountryFactoryParams<Countries, Country> = {
-  loadCountries: async (context: Context): Promise<Countries[]> => {
+  load: async (context: Context): Promise<Countries[]> => {
     const { data } = await context.$magento.api.countries();
 
     return data.countries;
   },
-  searchCountry: async (context: Context, params): Promise<Country> => {
+  search: async (context: Context, params): Promise<Country> => {
     const { data } = await context.$magento.api.country(params.id);
 
     return data.country;

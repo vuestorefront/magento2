@@ -34,8 +34,8 @@ export interface UseCategorySearchErrors {
 }
 
 export interface UseCountrySearch<COUNTRIES, COUNTRY> {
-  loadCountries: () => Promise<COUNTRIES[]>;
-  searchCountry: (params: { id: string }) => Promise<COUNTRY>;
+  load: () => Promise<COUNTRIES[]>;
+  search: (params: { id: string }) => Promise<COUNTRY>;
   countries: ComputedProperty<COUNTRIES[]>;
   country: ComputedProperty<COUNTRY>;
   error: ComputedProperty<UseCategorySearchErrors>;
