@@ -34,6 +34,8 @@
     "@vue-storefront/nuxt-theme": "^2.3.3",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.13.0",
+    "convict": "^6.1.0",
+    "convict-format-with-validator": "^6.0.1",
     "lodash.debounce": "^4.0.8",
     "deepdash": "^5.3.9",
     "lodash.merge": "^4.6.2",

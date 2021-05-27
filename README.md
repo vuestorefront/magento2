@@ -36,13 +36,13 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
     ```
 3. Checkout develop branch `git checkout develop`
 4. Run `yarn` to install dependencies
-5. Copy .env.example and update GraphQL Endpoint
+5. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
     ```
-    cp packages/theme/.env.example .env
+    cp packages/theme/config/example.json packages/theme/config/dev.json
     ```
-6. Update `MAGENTO_GRAPHQL=` with url to Magento 2.4 GrapgQL endpoint
+6. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
-    MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql
+    "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
     ```
 7. Build dependencies `yarn build:api-client && yarn build:composables`
 8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
