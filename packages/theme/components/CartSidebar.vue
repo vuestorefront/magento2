@@ -98,7 +98,7 @@
               <template #value>
                 <SfPrice
                   :regular="$n(totals.subtotal, 'currency')"
-                  :special="totals.subtotal > totals.special && $n(totals.special, 'currency')"
+                  :special="totals.subtotal > totals.special ? '' : $n(totals.special, 'currency')"
                 />
               </template>
             </SfProperty>
@@ -146,7 +146,7 @@ import { useUiState } from '~/composables';
 import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
 export default {
-  name: 'Cart',
+  name: 'CartSidebar',
   components: {
     SfSidebar,
     SfButton,
