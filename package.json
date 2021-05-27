@@ -2,9 +2,6 @@
   "name": "vue-storefront",
   "private": true,
   "license": "MIT",
-  "engines": {
-    "node": ">=14.x"
-  },
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
     "url": "https://github.com/vuestorefront/magento2/issues"
@@ -86,5 +83,8 @@
     "tslib": "^2.2.0",
     "typescript": "^4.3.2",
     "vue-eslint-parser": "^7.6.0"
+  },
+  "engines": {
+    "node": ">=14.x"
   }
 }
