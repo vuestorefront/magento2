@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -28,7 +28,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@storefront-ui/vue": "^0.10.6",
     "@vue-storefront/core": "^2.3.3",
-    "@vue-storefront/magento": "^1.0.0-beta.9",
+    "@vue-storefront/magento": "^1.0.0-beta.10",
     "@vue-storefront/middleware": "^2.3.3",
     "@vue-storefront/nuxt": "^2.3.3",
     "@vue-storefront/nuxt-theme": "^2.3.3",
@@ -39,7 +39,7 @@
     "lodash.merge": "^4.6.2",
     "nuxt": "^2.15.6",
     "nuxt-i18n": "^6.27.0",
-    "vee-validate": "^3.4.6",
+    "vee-validate": "^3.4.7",
     "vue-dompurify-html": "^2.3.0",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0",
@@ -73,16 +73,16 @@
     "mochawesome-report-generator": "^5.2.0",
     "npm-check-updates": "^11.5.13",
     "rollup-plugin-terser": "^7.0.2",
-    "ts-jest": "^27.0.0",
+    "ts-jest": "^27.0.1",
     "ts-loader": "^8.1.0",
     "tslib": "^2.2.0",
-    "typescript": "^4.2.4",
+    "typescript": "^4.3.2",
     "vue-jest": "^4.0.0-0",
     "webpack": "^4.46.0"
   },
   "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21",
-    "vue": "^2.0.0 || >=3.0.0-rc.0"
+    "@vue/composition-api": "1.0.0-rc.9",
+    "vue": "^2.6.12"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
