@@ -1,95 +1,110 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="String(currentAddressId)"
-      @input="setCurrentAddress($event)"
-      class="shipping-addresses"
+      :selected="`${currentAddressId}`"
+      class="shipping__addresses"
+      @change="setCurrentAddress($event)"
     >
       <SfAddress
-        class="shipping-addresses__address"
         v-for="shippingAddress in shippingAddresses"
         :key="userShippingGetters.getId(shippingAddress)"
-        :name="String(userShippingGetters.getId(shippingAddress))"
+        class="shipping__address"
+        :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
-        <span
-          >{{ userShippingGetters.getFirstName(shippingAddress) }} {{ userShippingGetters.getLastName(shippingAddress) }}</span
-        >
-        <span
-          >{{ userShippingGetters.getStreetName(shippingAddress) }}
-          {{ userShippingGetters.getApartmentNumber(shippingAddress) }}</span
-        >
-        <span>{{ userShippingGetters.getPostCode(shippingAddress) }}</span>
-        <span
-          >{{ userShippingGetters.getCity(shippingAddress)
-          }}{{ userShippingGetters.getProvince(shippingAddress) ? `, ${userShippingGetters.getProvince(shippingAddress)}` : '' }}</span
-        >
-        <span>{{ userShippingGetters.getCountry(shippingAddress)}}</span>
-        <span>{{ userShippingGetters.getPhone(shippingAddress) }}</span>
+        <UserShippingAddress
+          :address="shippingAddress"
+        />
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
-      data-cy="shipping-details-checkbox_isDefault"
-      :selected="setAsDefault"
-      @change="$emit('changeSetAsDefault', $event)"
+      v-show="currentAddressId"
+      :selected="value"
       name="setAsDefault"
       label="Use this address as my default one."
-      class="shipping-address-setAsDefault"
+      class="shipping__setAsDefault"
+      @change="$emit('input', $event)"
     />
+    <hr class="sf-divider">
   </div>
 </template>
 
 <script>
 import {
   SfCheckbox,
-  SfAddressPicker
+  SfAddressPicker,
 } from '@storefront-ui/vue';
-import { userShippingGetters } from '@vue-storefront/magento';
+import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
+import { computed } from '@vue/composition-api';
+import UserShippingAddress from '~/components/UserShippingAddress';
 
 export default {
   name: 'UserShippingAddresses',
-  props: {
-    currentAddressId: {
-      type: Number,
-      required: true
-    },
-    setAsDefault: {
-      type: Boolean,
-      required: true
-    },
-    shippingAddresses: {
-      type: Array,
-      required: true
-    }
-  },
   components: {
     SfCheckbox,
-    SfAddressPicker
+    SfAddressPicker,
+    UserShippingAddress,
   },
-  setup (_, { emit }) {
-    const setCurrentAddress = $event => emit('setCurrentAddress', $event);
+  props: {
+    currentAddressId: {
+      type: [String, Number],
+      required: true,
+    },
+    value: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ['setCurrentAddress'],
+  setup(props, { emit }) {
+    const { shipping: userShipping } = useUserShipping();
+
+    const setCurrentAddress = (addressId) => {
+      const selectedAddress = userShippingGetters.getAddresses(userShipping.value,
+        { id: Number.parseInt(addressId, 10) });
+
+      if (!selectedAddress) {
+        return;
+      }
+
+      emit('setCurrentAddress', selectedAddress[0]);
+    };
+
+    const shippingAddresses = computed(() => userShippingGetters
+      .getAddresses(userShipping.value));
 
     return {
       setCurrentAddress,
-      userShippingGetters
+      shippingAddresses,
+      userShippingGetters,
     };
-  }
+  },
 };
 </script>
 
-<style lang="scss">
-.shipping-addresses {
-  @include for-desktop {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10px;
-  }
-  margin-bottom: var(--spacer-xl);
+<style lang="scss" scoped>
+.shipping {
   &__address {
-    margin-bottom: var(--spacer-sm);
+    margin-bottom: var(--spacer-base);
+    @include for-desktop {
+      margin-right: var(--spacer-sm);
+    }
+  }
+
+  &__addresses {
+    margin-bottom: var(--spacer-xl);
+    @include for-desktop {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  &__setAsDefault {
+    margin-bottom: var(--spacer-xl);
   }
 }
 
-.shipping-address-setAsDefault, .form__action-button--margin-bottom {
+.sf-divider, .form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>

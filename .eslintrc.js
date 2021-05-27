@@ -1,18 +1,4 @@
 const { resolve } = require('path');
-const airBnb = require('./eslint/airBnB/extends');
-const eslintExtends = require('./eslint/extends');
-const eslintRules = require('./eslint/rules');
-const jest = require('./eslint/jest/extends');
-const jestRules = require('./eslint/jest/rules');
-const importEsLint = require('./eslint/import/plugin');
-const importEsLintExtends = require('./eslint/import/extends');
-const importEsLintRules = require('./eslint/import/rules');
-const importEsLintSettings = require('./eslint/import/settings');
-const typescript = require('./eslint/typescript/plugin');
-const typescriptExtends = require('./eslint/typescript/extends');
-const typescriptRules = require('./eslint/typescript/rules');
-const vue = require('./eslint/vue/plugin');
-const vueExtends = require('./eslint/vue/extends');
 
 module.exports = {
   env: {
@@ -36,26 +22,11 @@ module.exports = {
     ecmaVersion: 2021,
     sourceType: 'module',
   },
-  plugins: [
-    ...typescript,
-    ...vue,
-    ...importEsLint,
-  ],
   extends: [
-    ...eslintExtends,
-    ...airBnb,
-    ...typescriptExtends,
-    ...vueExtends,
-    ...importEsLintExtends,
-    ...jest,
+    '@vue-storefront/eslint-config-base',
+    '@vue-storefront/eslint-config-typescript',
+    '@vue-storefront/eslint-config-import',
+    '@vue-storefront/eslint-config-vue',
+    '@vue-storefront/eslint-config-jest',
   ],
-  rules: {
-    ...eslintRules,
-    ...typescriptRules,
-    ...importEsLintRules,
-    ...jestRules,
-  },
-  settings: {
-    ...importEsLintSettings,
-  }
 }

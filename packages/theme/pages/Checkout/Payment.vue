@@ -2,460 +2,348 @@
   <div>
     <SfHeading
       :level="3"
-      title="Billing address"
+      title="Payment"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <div class="form">
-      <UserBillingAddresses
-        v-if="isAuthenticated && billingAddresses && billingAddresses.length"
-        :set-as-default="setAsDefault"
-        :billing-addresses="billingAddresses"
-        :current-address-id="currentAddressId"
-        @setCurrentAddress="setCurrentAddress($event)"
-        @changeSetAsDefault="setAsDefault = $event"
-      />
-      <SfCheckbox
-        v-model="sameAsShipping"
-        label="Copy address data from shipping"
-        name="copyShippingAddress"
-        class="form__element"
-        @input="afterModifiedAddress"
-      />
-      <template v-if="canAddNewAddress">
-        <SfInput
-          v-model="billingDetails.firstName"
-          data-cy="payment-input_firstName"
-          label="First name"
-          name="firstName"
-          class="form__element form__element--half"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.lastName"
-          data-cy="payment-input_lastName"
-          label="Last name"
-          name="lastName"
-          class="form__element form__element--half form__element--half-even"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.streetName"
-          data-cy="payment-input_streetName"
-          label="Street name"
-          name="streetName"
-          class="form__element"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.apartment"
-          data-cy="payment-input_apartment"
-          label="House/Apartment number"
-          name="apartment"
-          class="form__element"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.city"
-          data-cy="payment-input_"
-          label="City"
-          name="city"
-          class="form__element form__element--half"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.state"
-          data-cy="payment-input_state"
-          label="State/Province"
-          name="state"
-          class="form__element form__element--half form__element--half-even"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfInput
-          v-model="billingDetails.postalCode"
-          data-cy="payment-input_postalCode"
-          label="Zip-code"
-          name="zipCode"
-          class="form__element form__element--half"
-          required
-          @input="afterModifiedAddress"
-        />
-        <SfSelect
-          v-model="billingDetails.country"
-          data-cy="payment-select_billingDetails"
-          label="Country"
-          class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-          required
-          @input="afterModifiedAddress"
+    <SfTable class="sf-table--bordered table desktop-only">
+      <SfTableHeading class="table__row">
+        <SfTableHeader class="table__header table__image">
+          {{ $t('Item') }}
+        </SfTableHeader>
+        <SfTableHeader
+          v-for="tableHeader in tableHeaders"
+          :key="tableHeader"
+          class="table__header"
+          :class="{ table__description: tableHeader === 'Description' }"
         >
-          <SfSelectOption
-            v-for="countryOption in COUNTRIES"
-            :key="countryOption.key"
-            :value="countryOption.key"
-          >
-            {{ countryOption.label }}
-          </SfSelectOption>
-        </SfSelect>
-        <SfInput
-          v-model="billingDetails.phone"
-          data-cy="payment-input_phone"
-          label="Phone number"
-          name="phone"
-          class="form__element"
-          required
-          @input="afterModifiedAddress"
-        />
-      </template>
-    </div>
-    <SfButton
-      v-if="!canAddNewAddress"
-      class="form__action-button form__action-button--margin-bottom"
-      type="submit"
-      @click.native="canAddNewAddress = true"
-    >
-      Add new address
-    </SfButton>
-    <SfHeading
-      v-if="canContinueToReview"
-      :level="3"
-      title="Payment methods"
-      class="sf-heading--left sf-heading--no-underline title"
-    />
-    <div class="form">
-      <div
-        v-if="canContinueToReview"
-        class="form__element payment-methods"
+          {{ tableHeader }}
+        </SfTableHeader>
+      </SfTableHeading>
+      <SfTableRow
+        v-for="(product, index) in products"
+        :key="index"
+        class="table__row"
       >
-        <SfRadio
-          v-for="item in paymentMethods"
-          :key="item.value"
-          v-model="chosenPaymentMethod"
-          data-cy="payment-radio_paymentMethod"
-          :label="item.label"
-          :value="item.value"
-          name="paymentMethod"
-          :description="item.description"
-          class="form__radio payment-method"
+        <SfTableData class="table__image">
+          <SfImage
+            :src="cartGetters.getItemImage(product)"
+            :alt="cartGetters.getItemName(product)"
+          />
+        </SfTableData>
+        <SfTableData class="table__data table__description table__data">
+          <div class="product-title">
+            {{ cartGetters.getItemName(product) }}
+          </div>
+          <div class="product-sku">
+            {{ cartGetters.getItemSku(product) }}
+          </div>
+        </SfTableData>
+        <SfTableData
+          v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
+          :key="key"
+          class="table__data"
+        >
+          {{ value }}
+        </SfTableData>
+        <SfTableData class="table__data">
+          {{ cartGetters.getItemQty(product) }}
+        </SfTableData>
+        <SfTableData class="table__data price">
+          <SfPrice
+            :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
+            :special="cartGetters.getItemPrice(product).regular > cartGetters.getItemPrice(product).special
+              && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            class="product-price"
+          />
+        </SfTableData>
+      </SfTableRow>
+    </SfTable>
+    <div class="summary">
+      <div class="summary__group">
+        <div class="summary__total">
+          <SfProperty
+            name="Subtotal"
+            :value="$n(totals.special > 0 ? totals.special : totals.subtotal, 'currency')"
+            class="sf-property--full-width property"
+          />
+        </div>
+        <div
+          v-if="selectedShippingMethod"
+          class="summary__total"
+        >
+          <SfProperty
+            :value="$n(getShippingMethodPrice(selectedShippingMethod), 'currency')"
+            class="sf-property--full-width property"
+          >
+            <template #name>
+              <span class="sf-property__name">
+                {{ selectedShippingMethod.carrier_title }} (<small>{{ selectedShippingMethod.method_title }}</small>)
+              </span>
+            </template>
+          </SfProperty>
+        </div>
+
+        <SfDivider />
+
+        <SfProperty
+          name="Total price"
+          :value="$n(totals.total, 'currency')"
+          class="sf-property--full-width sf-property--large summary__property-total"
+        />
+
+        <VsfPaymentProvider
+          @status="isPaymentReady = true"
+        />
+
+        <SfCheckbox
+          v-model="terms"
+          v-e2e="'terms'"
+          name="terms"
+          class="summary__terms"
         >
           <template #label>
-            <div class="sf-radio__label">
-              {{ item.label }}
+            <div class="sf-checkbox__label">
+              {{ $t('I agree to') }}
+              <SfLink href="#">
+                {{ $t('Terms and conditions') }}
+              </SfLink>
             </div>
           </template>
-        </SfRadio>
-      </div>
-      <div class="form__action">
-        <!-- TODO: add nuxt link for returning to personal details -->
-        <SfButton
-          data-cy="payment-btn_go-back"
-          class="color-secondary form__back-button"
-        >
-          Go back
-        </SfButton>
-        <SfButton
-          v-if="canContinueToReview"
-          class="form__action-button"
-          @click="$emit('nextStep')"
-        >
-          Review my order
-        </SfButton>
-        <SfButton
-          v-else
-          class="form__action-button"
-          @click="saveBillingDetails"
-        >
-          Select payment method
-        </SfButton>
+        </SfCheckbox>
+
+        <div class="summary__action">
+          <SfButton
+            type="button"
+            class="sf-button color-secondary summary__back-button"
+            @click="$router.push('/checkout/billing')"
+          >
+            {{ $t('Go back') }}
+          </SfButton>
+          <SfButton
+            v-e2e="'make-an-order'"
+            :disabled="loading || !isPaymentReady || !terms"
+            class="summary__action-button"
+            @click="processOrder"
+          >
+            {{ $t('Make an order') }}
+          </SfButton>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import {
   SfHeading,
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfRadio,
-  SfImage,
+  SfTable,
   SfCheckbox,
+  SfButton,
+  SfDivider,
+  SfImage,
+  SfIcon,
+  SfPrice,
+  SfProperty,
+  SfAccordion,
+  SfLink,
 } from '@storefront-ui/vue';
+import { onSSR } from '@vue-storefront/core';
+import { ref, computed } from '@vue/composition-api';
 import {
-  ref, watch, onMounted, computed,
-} from '@vue/composition-api';
-import {
-  useCheckout, useUser, useUserBilling, userBillingGetters,
+  useMakeOrder,
+  useCart,
+  cartGetters,
 } from '@vue-storefront/magento';
-
-const COUNTRIES = [
-  {
-    key: 'US',
-    label: 'United States',
-  },
-  {
-    key: 'UK',
-    label: 'United Kingdom',
-  },
-  {
-    key: 'IT',
-    label: 'Italy',
-  },
-  {
-    key: 'PL',
-    label: 'Poland',
-  },
-];
+import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default {
-  name: 'Payment',
+  name: 'ReviewOrder',
   components: {
     SfHeading,
-    SfInput,
-    SfButton,
-    SfSelect,
-    SfRadio,
-    SfImage,
+    SfTable,
     SfCheckbox,
-    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses'),
+    SfButton,
+    SfDivider,
+    SfImage,
+    SfIcon,
+    SfPrice,
+    SfProperty,
+    SfAccordion,
+    SfLink,
+    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
-  setup(props, context) {
-    context.emit('changeStep', 2);
-    const {
-      billingDetails,
-      shippingDetails,
-      paymentMethods,
-      chosenPaymentMethod,
-    } = useCheckout();
-    const sameAsShipping = ref(false);
+  setup() {
+    const { cart, load, setCart } = useCart();
+    const { order, make, loading } = useMakeOrder();
+    const { router } = useVueRouter();
+    const isPaymentReady = ref(false);
+    const terms = ref(false);
 
-    const { billing, load: loadUserBilling, setDefault } = useUserBilling();
-    const { isAuthenticated } = useUser();
-
-    const canAddNewAddress = ref(true);
-    const addressIsModified = ref(false);
-    const currentAddressId = ref(-1);
-    const setAsDefault = ref(false);
-    const isBillingAddressCompleted = ref(false);
-
-    const setBillingDetails = (address) => {
-      billingDetails.value = {
-        ...billingDetails.value,
-        ...address,
-      };
-    };
-
-    const mapAbstractAddressToIntegrationAddress = (address) => ({
-      ...billingDetails.value,
-      city: userBillingGetters.getCity(address),
-      country: userBillingGetters.getCountry(address),
-      firstName: userBillingGetters.getFirstName(address),
-      lastName: userBillingGetters.getLastName(address),
-      streetName: userBillingGetters.getStreetName(address),
-      postalCode: userBillingGetters.getPostCode(address),
-      state: userBillingGetters.getProvince(address),
-      phone: userBillingGetters.getPhone(address),
-      apartment: userBillingGetters.getApartmentNumber(address),
+    onSSR(async () => {
+      await load();
     });
 
-    const setCurrentAddress = async (addressId) => {
-      const chosenAddress = userBillingGetters.getAddresses(billing.value, { id: addressId });
-      if (!chosenAddress || !chosenAddress.length) {
-        return;
-      }
-      currentAddressId.value = addressId;
-      sameAsShipping.value = false;
-      setBillingDetails(mapAbstractAddressToIntegrationAddress(chosenAddress[0]));
-      addressIsModified.value = true;
+    const processOrder = async () => {
+      await make();
+      router.push(`/checkout/thank-you?order=${order.value.order_number}`);
+      setCart(null);
     };
-
-    onMounted(async () => {
-      if (isAuthenticated.value) {
-        await loadUserBilling();
-        const billingAddresses = userBillingGetters.getAddresses(billing.value);
-        if (!billingAddresses || !billingAddresses.length) {
-          return;
-        }
-        canAddNewAddress.value = false;
-        if (userBillingGetters.isDefault(billingAddresses[0])) {
-          setCurrentAddress(userBillingGetters.getId(billingAddresses[0]));
-        }
-      }
-    });
-
-    const saveBillingDetails = async () => {
-      if (currentAddressId.value > -1 && setAsDefault.value) {
-        const chosenAddress = userBillingGetters.getAddresses(billing.value, { id: currentAddressId.value });
-        if (!chosenAddress || !chosenAddress.length) {
-          return;
-        }
-        await setDefault(chosenAddress[0]);
-      }
-      isBillingAddressCompleted.value = true;
-      addressIsModified.value = false;
-    };
-
-    const afterModifiedAddress = () => {
-      addressIsModified.value = true;
-      currentAddressId.value = -1;
-    };
-
-    const canContinueToReview = computed(() => isBillingAddressCompleted.value && !addressIsModified.value);
-
-    watch(sameAsShipping, () => {
-      if (sameAsShipping.value) {
-        billingDetails.value = { ...shippingDetails.value };
-        currentAddressId.value = -1;
-        setAsDefault.value = false;
-        addressIsModified.value = true;
-      }
-    });
 
     return {
-      billingDetails,
-      paymentMethods,
-      chosenPaymentMethod,
-      sameAsShipping,
-      COUNTRIES,
-      isAuthenticated,
-      billingAddresses: computed(() => userBillingGetters.getAddresses(billing.value)),
-      setAsDefault,
-      currentAddressId,
-      setCurrentAddress,
-      canAddNewAddress,
-      canContinueToReview,
-      isBillingAddressCompleted,
-      addressIsModified,
-      saveBillingDetails,
-      afterModifiedAddress,
+      cart,
+      cartGetters,
+      getShippingMethodPrice,
+      isPaymentReady,
+      loading,
+      processOrder,
+      products: computed(() => cartGetters.getItems(cart.value)),
+      selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
+      tableHeaders: ['Description', 'Colour', 'Size', 'Quantity', 'Amount'],
+      terms,
+      totals: computed(() => cartGetters.getTotals(cart.value)),
     };
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
 .title {
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
+}
+
+.table {
+  margin: 0 0 var(--spacer-base) 0;
+
+  &__row {
+    justify-content: space-between;
+  }
+
   @include for-desktop {
-    margin: var(--spacer-2xl) 0 var(--spacer-base) 0;
+    &__header {
+      text-align: center;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+    &__data {
+      text-align: center;
+    }
+    &__description {
+      text-align: left;
+      flex: 0 0 12rem;
+    }
+    &__image {
+      --image-width: 5.125rem;
+      text-align: left;
+      margin: 0 var(--spacer-xl) 0 0;
+    }
   }
 }
-.form {
-  @include for-desktop {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+
+.product-sku {
+  color: var(--c-text-muted);
+  font-size: var(--font-size--sm);
+}
+
+.price {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.product-price {
+  --price-font-size: var(--font-size--base);
+}
+
+.summary {
+  &__terms {
+    margin: var(--spacer-base) 0 0 0;
   }
-  &__element {
-    margin: 0 0 var(--spacer-xl) 0;
-    @include for-desktop {
-      flex: 0 0 100%;
-    }
-    &--half {
-      @include for-desktop {
-        flex: 1 1 50%;
-      }
-      &-even {
-        @include for-desktop {
-          padding: 0 0 0 var(--spacer-xl);
-        }
-      }
-    }
+
+  &__total {
+    margin: 0 0 var(--spacer-sm) 0;
+    flex: 0 0 16.875rem;
   }
-  &__group {
-    display: flex;
-    align-items: center;
-  }
+
   &__action {
     @include for-desktop {
-      flex: 0 0 100%;
       display: flex;
+      margin: var(--spacer-xl) 0 0 0;
     }
   }
+
   &__action-button {
+    margin: 0;
+    width: 100%;
+    margin: var(--spacer-sm) 0 0 0;
+    @include for-desktop {
+      margin: 0 var(--spacer-xl) 0 0;
+      width: auto;
+    }
+
     &--secondary {
       @include for-desktop {
-        order: -1;
-        --button-margin: 0;
-        text-align: left;
+        text-align: right;
       }
     }
   }
+
   &__back-button {
-    margin: 0 var(--spacer-xl) 0 0;
-  }
-  &__button {
-    --button-width: 100%;
+    margin: var(--spacer-xl) 0 0 0;
+    width: 100%;
     @include for-desktop {
-      --button-width: auto;
+      margin: 0 var(--spacer-xl) 0 0;
+      width: auto;
+    }
+    color: var(--c-white);
+
+    &:hover {
+      color: var(--c-white);
     }
   }
-  &__radio-group {
-    flex: 0 0 100%;
-    margin: 0 0 var(--spacer-2xl) 0;
+
+  &__property-total {
+    margin: var(--spacer-xl) 0 0 0;
   }
 }
-.payment-methods {
-  @include for-desktop {
-    display: flex;
-    padding: var(--spacer-lg) 0;
-    border: 1px solid var(--c-light);
-    border-width: 1px 0;
+
+.property {
+  margin: 0 0 var(--spacer-sm) 0;
+
+  &__name {
+    color: var(--c-text-muted);
   }
 }
-.payment-method {
-  --radio-container-align-items: center;
-  --ratio-content-margin: 0 0 0 var(--spacer-base);
-  --radio-label-font-size: var(--font-base);
-  white-space: nowrap;
-  border: 1px solid var(--c-light);
-  border-width: 1px 0 0 0;
-  &:last-child {
-    border-width: 1px 0;
-  }
-  @include for-mobile {
-    --radio-background: transparent;
-  }
-  @include for-desktop {
-    border: 0;
-    --radio-border-radius: 4px;
-  }
-}
-.credit-card-form {
+
+.accordion {
   margin: 0 0 var(--spacer-xl) 0;
-  @include for-desktop {
-    flex: 0 0 66.666%;
-    padding: 0 calc((100% - 66.666%) / 2);
-  }
-  &__group {
+
+  &__item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 var(--spacer-xl) 0;
+    align-items: flex-start;
   }
-  &__label {
-    flex: unset;
-    font: 300 var(--font-base) / 1.6 var(--font-family-secondary);
-  }
-  &__element {
-    display: flex;
-    flex: 0 0 66.66%;
-  }
-  &__input {
+
+  &__content {
     flex: 1;
-    &--small {
-      flex: 0 0 46.666%;
-    }
-    & + & {
-      margin: 0 0 0 var(--spacer-xl);
-    }
+  }
+
+  &__edit {
+    flex: unset;
+  }
+}
+
+.content {
+  margin: 0 0 var(--spacer-xl) 0;
+  color: var(--c-text);
+
+  &:last-child {
+    margin: 0;
+  }
+
+  &__label {
+    font-weight: var(--font-weight--normal);
   }
 }
 </style>

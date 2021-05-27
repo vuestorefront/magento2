@@ -6790,28 +6790,28 @@ export type AddConfigurableProductsToCartMutationVariables = Exact<{
 }>;
 
 
-export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CartDataFragment }> };
+export type AddConfigurableProductsToCartMutation = { addConfigurableProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type AddSimpleProductsToCartMutationVariables = Exact<{
   input?: Maybe<AddSimpleProductsToCartInput>;
 }>;
 
 
-export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CartDataFragment }> };
+export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type ApplyCouponToCartMutationVariables = Exact<{
   input?: Maybe<ApplyCouponToCartInput>;
 }>;
 
 
-export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CartDataFragment }> };
+export type ApplyCouponToCartMutation = { applyCouponToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type CartQueryVariables = Exact<{
   cartId: Scalars['String'];
 }>;
 
 
-export type CartQuery = { cart?: Maybe<CartDataFragment> };
+export type CartQuery = { cart?: Maybe<CompleteCartDataFragment> };
 
 export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6867,6 +6867,21 @@ export type ConfigurableProductDetailQuery = { products?: Maybe<{ items?: Maybe<
       & ConfigurableProductOptionsDataFragment
     ) | Pick<DownloadableProduct, 'uid'> | Pick<GroupedProduct, 'uid'> | Pick<SimpleProduct, 'uid'> | Pick<VirtualProduct, 'uid'>>>> }> };
 
+export type CountriesListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CountriesListQuery = { countries?: Maybe<Array<Maybe<Pick<Country, 'id' | 'two_letter_abbreviation' | 'full_name_locale' | 'full_name_english'>>>> };
+
+export type CountryInformationQueryVariables = Exact<{
+  id?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CountryInformationQuery = { country?: Maybe<(
+    Pick<Country, 'id' | 'two_letter_abbreviation' | 'full_name_locale' | 'full_name_english'>
+    & { available_regions?: Maybe<Array<Maybe<Pick<Region, 'id' | 'code' | 'name'>>>> }
+  )> };
+
 export type CreateCustomerMutationVariables = Exact<{
   input: CustomerCreateInput;
 }>;
@@ -6881,7 +6896,7 @@ export type CreateCustomerAddressMutationVariables = Exact<{
 
 export type CreateCustomerAddressMutation = { createCustomerAddress?: Maybe<(
     Pick<CustomerAddress, 'id' | 'country_code' | 'street' | 'telephone' | 'postcode' | 'city' | 'default_shipping' | 'default_billing'>
-    & { region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_code'>> }
+    & { region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_id' | 'region_code'>> }
   )> };
 
 export type CreateEmptyCartMutationVariables = Exact<{ [key: string]: never; }>;
@@ -6897,7 +6912,7 @@ export type CustomerQuery = { customer?: Maybe<CustomerDataFragment> };
 export type CustomerCartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CustomerCartQuery = { customerCart: CartDataFragment };
+export type CustomerCartQuery = { customerCart: CompleteCartDataFragment };
 
 export type CustomerOrdersQueryVariables = Exact<{
   currentPage?: Maybe<Scalars['Int']>;
@@ -6906,7 +6921,19 @@ export type CustomerOrdersQueryVariables = Exact<{
 }>;
 
 
-export type CustomerOrdersQuery = { customer?: Maybe<{ orders?: Maybe<{ items: Array<Maybe<Pick<CustomerOrder, 'order_number' | 'id' | 'created_at' | 'grand_total' | 'status'>>> }> }> };
+export type CustomerOrdersQuery = { customer?: Maybe<{ orders?: Maybe<{ items: Array<Maybe<(
+        Pick<CustomerOrder, 'order_number' | 'id' | 'created_at' | 'grand_total' | 'status' | 'shipping_method'>
+        & { total?: Maybe<OrderTotalDataFragment>, comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, invoices: Array<Maybe<(
+          Pick<Invoice, 'id' | 'number'>
+          & { comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, items?: Maybe<Array<Maybe<InvoiceItemData_BundleInvoiceItem_Fragment | InvoiceItemData_DownloadableInvoiceItem_Fragment | InvoiceItemData_InvoiceItem_Fragment>>>, total?: Maybe<InvoiceTotalDataFragment> }
+        )>>, items?: Maybe<Array<Maybe<OrderItemData_BundleOrderItem_Fragment | OrderItemData_DownloadableOrderItem_Fragment | OrderItemData_OrderItem_Fragment>>>, payment_methods?: Maybe<Array<Maybe<(
+          Pick<OrderPaymentMethod, 'name' | 'type'>
+          & { additional_data?: Maybe<Array<Maybe<Pick<KeyValue, 'name' | 'value'>>>> }
+        )>>>, shipments?: Maybe<Array<Maybe<(
+          Pick<OrderShipment, 'id' | 'number'>
+          & { comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, tracking?: Maybe<Array<Maybe<Pick<ShipmentTracking, 'carrier' | 'number' | 'title'>>>>, items?: Maybe<Array<Maybe<ShipmentItemData_BundleShipmentItem_Fragment | ShipmentItemData_ShipmentItem_Fragment>>> }
+        )>>>, shipping_address?: Maybe<OrderAddressDataFragment> }
+      )>> }> }> };
 
 export type DeleteCustomerAddressMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -6928,12 +6955,30 @@ export type CustomerAvailablePaymentMethodsQueryVariables = Exact<{ [key: string
 
 export type CustomerAvailablePaymentMethodsQuery = { customerCart: { available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> } };
 
+export type CustomerAvailableShippingMethodsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CustomerAvailableShippingMethodsQuery = { customerCart: { shipping_addresses: Array<Maybe<{ available_shipping_methods?: Maybe<Array<Maybe<(
+        Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
+      )>>> }>> } };
+
 export type GuestAvailablePaymentMethodsQueryVariables = Exact<{
   cartId: Scalars['String'];
 }>;
 
 
 export type GuestAvailablePaymentMethodsQuery = { cart?: Maybe<{ available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>> }> };
+
+export type GuestAvailableShippingMethodsQueryVariables = Exact<{
+  cart_id: Scalars['String'];
+}>;
+
+
+export type GuestAvailableShippingMethodsQuery = { cart?: Maybe<{ shipping_addresses: Array<Maybe<{ available_shipping_methods?: Maybe<Array<Maybe<(
+        Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
+        & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
+      )>>> }>> }> };
 
 export type GetMenuCategoryQueryVariables = Exact<{
   filters?: Maybe<CategoryFilterInput>;
@@ -6965,14 +7010,14 @@ export type MergeCartsMutationVariables = Exact<{
 }>;
 
 
-export type MergeCartsMutation = { mergeCarts: CartDataFragment };
+export type MergeCartsMutation = { mergeCarts: CompleteCartDataFragment };
 
 export type PlaceOrderMutationVariables = Exact<{
   input?: Maybe<PlaceOrderInput>;
 }>;
 
 
-export type PlaceOrderMutation = { placeOrder?: Maybe<{ order: Pick<Order, 'order_id' | 'order_number'> }> };
+export type PlaceOrderMutation = { placeOrder?: Maybe<{ order: Pick<Order, 'order_number'> }> };
 
 export type ProductDetailsQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
@@ -7116,42 +7161,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<BundleProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7161,42 +7206,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<ConfigurableProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7206,42 +7251,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<DownloadableProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7251,42 +7296,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<GroupedProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7296,42 +7341,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<SimpleProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7341,42 +7386,42 @@ export type RelatedProductQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<VirtualProduct, 'uid'>
       & { related_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7389,14 +7434,14 @@ export type RemoveCouponFromCartMutationVariables = Exact<{
 }>;
 
 
-export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CartDataFragment> }> };
+export type RemoveCouponFromCartMutation = { removeCouponFromCart?: Maybe<{ cart?: Maybe<CompleteCartDataFragment> }> };
 
 export type RemoveItemFromCartMutationVariables = Exact<{
   input?: Maybe<RemoveItemFromCartInput>;
 }>;
 
 
-export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CartDataFragment }> };
+export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type RevokeCustomerTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -7410,7 +7455,7 @@ export type SetBillingAddressOnCartMutationVariables = Exact<{
 
 export type SetBillingAddressOnCartMutation = { setBillingAddressOnCart?: Maybe<{ cart: { billing_address?: Maybe<(
         Pick<BillingCartAddress, 'firstname' | 'lastname' | 'company' | 'street' | 'city' | 'postcode' | 'telephone'>
-        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
       )> } }> };
 
 export type SetGuestEmailOnCartMutationVariables = Exact<{
@@ -7425,17 +7470,20 @@ export type SetPaymentMethodOnCartMutationVariables = Exact<{
 }>;
 
 
-export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart?: Maybe<{ cart: { selected_payment_method?: Maybe<Pick<SelectedPaymentMethod, 'code' | 'title'>> } }> };
+export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart?: Maybe<{ cart: { available_payment_methods?: Maybe<Array<Maybe<Pick<AvailablePaymentMethod, 'code' | 'title'>>>>, selected_payment_method?: Maybe<Pick<SelectedPaymentMethod, 'code' | 'title'>> } }> };
 
 export type SetShippingAddressesOnCartMutationVariables = Exact<{
   input?: Maybe<SetShippingAddressesOnCartInput>;
 }>;
 
 
-export type SetShippingAddressesOnCartMutation = { setShippingAddressesOnCart?: Maybe<{ cart: { shipping_addresses: Array<Maybe<{ selected_shipping_method?: Maybe<(
-          Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
-          & { amount: Pick<Money, 'value' | 'currency'> }
-        )> }>> } }> };
+export type SetShippingAddressesOnCartMutation = { setShippingAddressesOnCart?: Maybe<{ cart: { shipping_addresses: Array<Maybe<(
+        Pick<ShippingCartAddress, 'city' | 'company' | 'firstname' | 'lastname' | 'postcode' | 'street' | 'telephone'>
+        & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'label' | 'region_id'>>, country: Pick<CartAddressCountry, 'code' | 'label'>, available_shipping_methods?: Maybe<Array<Maybe<(
+          Pick<AvailableShippingMethod, 'available' | 'carrier_code' | 'carrier_title' | 'error_message' | 'method_code' | 'method_title'>
+          & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
+        )>>> }
+      )>> } }> };
 
 export type SetShippingMethodsOnCartMutationVariables = Exact<{
   input?: Maybe<SetShippingMethodsOnCartInput>;
@@ -7457,7 +7505,7 @@ export type UpdateCartItemsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CartDataFragment }> };
+export type UpdateCartItemsMutation = { updateCartItems?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type UpdateCustomerMutationVariables = Exact<{
   input: CustomerUpdateInput;
@@ -7490,42 +7538,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<BundleProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7535,42 +7583,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<ConfigurableProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7580,42 +7628,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<DownloadableProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7625,42 +7673,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<GroupedProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7670,42 +7718,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<SimpleProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -7715,42 +7763,42 @@ export type UpsellProductsQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe
       Pick<VirtualProduct, 'uid'>
       & { upsell_products?: Maybe<Array<Maybe<(
         { __typename: 'BundleProduct' }
-        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'ConfigurableProduct' }
-        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'DownloadableProduct' }
-        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'GroupedProduct' }
-        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'SimpleProduct' }
-        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
         )>>> }
       ) | (
         { __typename: 'VirtualProduct' }
-        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale' | 'url_key'>
+        & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'url_key'>
         & { thumbnail?: Maybe<Pick<ProductImage, 'url' | 'position' | 'disabled' | 'label'>>, price_range: { minimum_price: { final_price: Pick<Money, 'currency' | 'value'>, regular_price: Pick<Money, 'currency' | 'value'> } }, url_rewrites?: Maybe<Array<Maybe<Pick<UrlRewrite, 'url'>>>>, categories?: Maybe<Array<Maybe<(
           Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
           & { breadcrumbs?: Maybe<Array<Maybe<Pick<Breadcrumb, 'category_name' | 'category_url_path'>>>> }
@@ -8012,8 +8060,20 @@ export type WishlistQuery = { customer?: Maybe<{ wishlists: Array<Maybe<(
 
 export type CustomerAddressDataFragment = (
   Pick<CustomerAddress, 'city' | 'country_code' | 'default_billing' | 'default_shipping' | 'firstname' | 'id' | 'lastname' | 'postcode' | 'prefix' | 'street' | 'suffix' | 'telephone'>
-  & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region'>> }
+  & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region_code' | 'region_id' | 'region'>> }
 );
+
+type CartAddress_BillingCartAddress_Fragment = (
+  Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+);
+
+type CartAddress_ShippingCartAddress_Fragment = (
+  Pick<ShippingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'company' | 'postcode' | 'telephone'>
+  & { region?: Maybe<Pick<CartAddressRegion, 'code' | 'region_id' | 'label'>>, country: Pick<CartAddressCountry, 'code' | 'label'> }
+);
+
+export type CartAddressFragment = CartAddress_BillingCartAddress_Fragment | CartAddress_ShippingCartAddress_Fragment;
 
 export type CartDataFragment = (
   Pick<Cart, 'id' | 'total_quantity'>
@@ -8023,13 +8083,7 @@ export type CartDataFragment = (
     )>>>, discounts?: Maybe<Array<Maybe<(
       Pick<Discount, 'label'>
       & { amount: Pick<Money, 'value'> }
-    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, shipping_addresses: Array<Maybe<{ selected_shipping_method?: Maybe<(
-      Pick<SelectedShippingMethod, 'carrier_code' | 'method_code' | 'carrier_title' | 'method_title'>
-      & { amount: Pick<Money, 'currency' | 'value'> }
-    )> }>>, billing_address?: Maybe<(
-    Pick<BillingCartAddress, 'firstname' | 'lastname' | 'street' | 'city' | 'postcode' | 'telephone'>
-    & { country: Pick<CartAddressCountry, 'code' | 'label'> }
-  )>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
+    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>> }
 );
 
 type CartProductData_BundleCartItem_Fragment = (
@@ -8063,6 +8117,23 @@ export type CategoryDataFragment = Pick<CategoryTree, 'image' | 'include_in_menu
 
 export type CategoryUrlDataFragment = Pick<CategoryTree, 'url_path' | 'url_suffix'>;
 
+export type CompleteCartDataFragment = (
+  Pick<Cart, 'id' | 'email' | 'is_virtual' | 'total_quantity'>
+  & { applied_coupons?: Maybe<Array<Maybe<Pick<AppliedCoupon, 'code'>>>>, prices?: Maybe<{ subtotal_excluding_tax?: Maybe<Pick<Money, 'value'>>, subtotal_including_tax?: Maybe<Pick<Money, 'value'>>, applied_taxes?: Maybe<Array<Maybe<(
+      Pick<CartTaxItem, 'label'>
+      & { amount: Pick<Money, 'value'> }
+    )>>>, discounts?: Maybe<Array<Maybe<(
+      Pick<Discount, 'label'>
+      & { amount: Pick<Money, 'value'> }
+    )>>>, grand_total?: Maybe<Pick<Money, 'value'>> }>, items?: Maybe<Array<Maybe<CartProductData_BundleCartItem_Fragment | CartProductData_ConfigurableCartItem_Fragment | CartProductData_DownloadableCartItem_Fragment | CartProductData_SimpleCartItem_Fragment | CartProductData_VirtualCartItem_Fragment>>>, shipping_addresses: Array<Maybe<(
+    { selected_shipping_method?: Maybe<(
+      Pick<SelectedShippingMethod, 'carrier_code' | 'carrier_title' | 'method_code' | 'method_title'>
+      & { amount: Pick<Money, 'value' | 'currency'> }
+    )> }
+    & CartAddress_ShippingCartAddress_Fragment
+  )>>, billing_address?: Maybe<CartAddress_BillingCartAddress_Fragment> }
+);
+
 export type ConfigurableProductOptionsDataFragment = { configurable_options?: Maybe<Array<Maybe<(
     Pick<ConfigurableProductOptions, 'attribute_code' | 'attribute_uid' | 'label' | 'position' | 'uid' | 'use_default'>
     & { values?: Maybe<Array<Maybe<(
@@ -8071,7 +8142,7 @@ export type ConfigurableProductOptionsDataFragment = { configurable_options?: Ma
     )>>> }
   )>>>, variants?: Maybe<Array<Maybe<{ product?: Maybe<(
       { __typename: 'SimpleProduct' }
-      & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'new' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'sale'>
+      & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
       & ProductThumbnailData_SimpleProduct_Fragment
       & ProductPriceRangeData_SimpleProduct_Fragment
       & ProductUrlFragmentData_SimpleProduct_Fragment
@@ -8081,6 +8152,82 @@ export type CustomerDataFragment = (
   Pick<Customer, 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat' | 'default_billing' | 'default_shipping'>
   & { addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }
 );
+
+type InvoiceItemData_BundleInvoiceItem_Fragment = (
+  Pick<BundleInvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type InvoiceItemData_DownloadableInvoiceItem_Fragment = (
+  Pick<DownloadableInvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type InvoiceItemData_InvoiceItem_Fragment = (
+  Pick<InvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+export type InvoiceItemDataFragment = InvoiceItemData_BundleInvoiceItem_Fragment | InvoiceItemData_DownloadableInvoiceItem_Fragment | InvoiceItemData_InvoiceItem_Fragment;
+
+export type InvoiceTotalDataFragment = { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, base_grand_total: Pick<Money, 'currency' | 'value'>, shipping_handling?: Maybe<{ amount_excluding_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, amount_including_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, discounts?: Maybe<Array<Maybe<{ amount: Pick<Money, 'currency' | 'value'> }>>>, taxes?: Maybe<Array<Maybe<(
+      Pick<TaxItem, 'rate' | 'title'>
+      & { amount: Pick<Money, 'currency' | 'value'> }
+    )>>>, total_amount: Pick<Money, 'currency' | 'value'> }>, subtotal: Pick<Money, 'currency' | 'value'>, taxes?: Maybe<Array<Maybe<(
+    Pick<TaxItem, 'rate' | 'title'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, total_shipping: Pick<Money, 'currency' | 'value'>, total_tax: Pick<Money, 'currency' | 'value'> };
+
+export type OrderAddressDataFragment = Pick<OrderAddress, 'city' | 'country_code' | 'firstname' | 'lastname' | 'postcode' | 'prefix' | 'region' | 'street' | 'suffix' | 'telephone'>;
+
+type OrderItemData_BundleOrderItem_Fragment = (
+  Pick<BundleOrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+type OrderItemData_DownloadableOrderItem_Fragment = (
+  Pick<DownloadableOrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+type OrderItemData_OrderItem_Fragment = (
+  Pick<OrderItem, 'id' | 'product_name' | 'product_sku' | 'product_type' | 'product_url_key' | 'quantity_canceled' | 'quantity_invoiced' | 'quantity_ordered' | 'quantity_refunded' | 'quantity_returned' | 'quantity_shipped' | 'status'>
+  & { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, entered_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>>, product_sale_price: Pick<Money, 'currency' | 'value'>, selected_options?: Maybe<Array<Maybe<Pick<OrderItemOption, 'label' | 'value'>>>> }
+);
+
+export type OrderItemDataFragment = OrderItemData_BundleOrderItem_Fragment | OrderItemData_DownloadableOrderItem_Fragment | OrderItemData_OrderItem_Fragment;
+
+export type OrderTotalDataFragment = { discounts?: Maybe<Array<Maybe<(
+    Pick<Discount, 'label'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, base_grand_total: Pick<Money, 'currency' | 'value'>, shipping_handling?: Maybe<{ amount_excluding_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, amount_including_tax?: Maybe<Pick<Money, 'currency' | 'value'>>, discounts?: Maybe<Array<Maybe<{ amount: Pick<Money, 'currency' | 'value'> }>>>, taxes?: Maybe<Array<Maybe<(
+      Pick<TaxItem, 'rate' | 'title'>
+      & { amount: Pick<Money, 'currency' | 'value'> }
+    )>>>, total_amount: Pick<Money, 'currency' | 'value'> }>, subtotal: Pick<Money, 'currency' | 'value'>, taxes?: Maybe<Array<Maybe<(
+    Pick<TaxItem, 'rate' | 'title'>
+    & { amount: Pick<Money, 'currency' | 'value'> }
+  )>>>, total_shipping: Pick<Money, 'currency' | 'value'>, total_tax: Pick<Money, 'currency' | 'value'> };
 
 type ProductCategoriesData_BundleProduct_Fragment = { categories?: Maybe<Array<Maybe<(
     Pick<CategoryTree, 'uid' | 'name' | 'url_suffix' | 'url_path'>
@@ -8296,3 +8443,15 @@ type ProductUrlFragmentData_VirtualProduct_Fragment = (
 );
 
 export type ProductUrlFragmentDataFragment = ProductUrlFragmentData_BundleProduct_Fragment | ProductUrlFragmentData_ConfigurableProduct_Fragment | ProductUrlFragmentData_DownloadableProduct_Fragment | ProductUrlFragmentData_GroupedProduct_Fragment | ProductUrlFragmentData_SimpleProduct_Fragment | ProductUrlFragmentData_VirtualProduct_Fragment;
+
+type ShipmentItemData_BundleShipmentItem_Fragment = (
+  Pick<BundleShipmentItem, 'id' | 'product_name' | 'product_sku' | 'quantity_shipped'>
+  & { product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+type ShipmentItemData_ShipmentItem_Fragment = (
+  Pick<ShipmentItem, 'id' | 'product_name' | 'product_sku' | 'quantity_shipped'>
+  & { product_sale_price: Pick<Money, 'currency' | 'value'> }
+);
+
+export type ShipmentItemDataFragment = ShipmentItemData_BundleShipmentItem_Fragment | ShipmentItemData_ShipmentItem_Fragment;

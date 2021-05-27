@@ -236,11 +236,7 @@ export default {
     };
 
     const handleSearch = debounce(async (paramValue) => {
-      if (!paramValue.target) {
-        term.value = paramValue;
-      } else {
-        term.value = paramValue.target.value;
-      }
+      term.value = !paramValue.target ? paramValue : paramValue.target.value;
 
       await Promise.all([
         productsSearch({

@@ -1,13 +1,22 @@
 /* istanbul ignore file */
-import { useUserFactory, UseUserFactoryParams, Context } from '@vue-storefront/core';
+import {
+  Context,
+  useUserFactory,
+  UseUserFactoryParams,
+} from '@vue-storefront/core';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
-import { RegisterUserParams, UpdateUserParams, User } from '../../types';
+import {
+  RegisterUserParams,
+  UpdateUserParams,
+  User,
+} from '../../types';
+import useCart from '../useCart';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
     email: userData.email,
-    firstname: userData.firstName,
-    lastname: userData.lastName,
+    firstname: userData.firstName || userData.firstname,
+    lastname: userData.lastName || userData.lastname,
   } as CustomerUpdateParameters;
 
   if (userData.dateOfBirth) {
@@ -33,7 +42,12 @@ const generateUserData = (userData): CustomerUpdateParameters => {
 };
 
 const factoryParams: UseUserFactoryParams<User, any, any> = {
-  load: async (context: Context, parameters) => {
+  provide() {
+    return {
+      cart: useCart(),
+    };
+  },
+  load: async (context: Context) => {
     const apiState = context.$magento.config.state;
 
     if (!apiState.getCustomerToken()) {
@@ -42,9 +56,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     try {
       const response = await context.$magento.api.customer();
       return response.data.customer;
-    } catch (e) {
+    } catch {
       // eslint-disable-next-line no-void
-      void factoryParams.logOut(context, parameters);
+      await factoryParams.logOut(context);
     }
 
     return null;
@@ -52,9 +66,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   logOut: async (context: Context) => {
     const apiState = context.$magento.config.state;
 
-    if (apiState.getCustomerToken()) {
-      await context.$magento.api.revokeCustomerToken();
-    }
+    await context.$magento.api.revokeCustomerToken();
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
@@ -78,8 +90,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     const cart = await context.$magento.api.customerCart();
     const newCartId = cart.data.customerCart.id;
     if (newCartId && currentCartId && currentCartId !== newCartId) {
-      const newCart = await context.$magento.api.mergeCarts(currentCartId, newCartId);
-      apiState.setCartId(newCart.data.mergeCarts.id);
+      const { data } = await context.$magento.api.mergeCarts(currentCartId, newCartId);
+      context.cart.setCart(data.mergeCarts);
+      apiState.setCartId(data.mergeCarts.id);
     }
 
     return factoryParams.load(context, { username, password });

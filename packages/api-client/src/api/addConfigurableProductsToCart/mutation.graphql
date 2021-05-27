@@ -1,9 +1,9 @@
-#import "../../fragments/cartFragment.graphql"
+#import "../../fragments/completeCartFragment.graphql"
 
 mutation addConfigurableProductsToCart($input: AddConfigurableProductsToCartInput) {
   addConfigurableProductsToCart(input: $input) {
     cart {
-      ...CartData
+      ...CompleteCartData
     }
   }
 }

@@ -193,7 +193,7 @@ export default {
 
     const downloadFile = (file, name) => {
       const a = document.createElement('a');
-      document.body.appendChild(a);
+      document.body.append(a);
       a.style = 'display: none';
 
       const url = window.URL.createObjectURL(file);

@@ -16,8 +16,8 @@ module.exports = {
         },
         defaultStore: 'default',
         externalCheckout: {
-          enable: true,
-          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT,
+          enable: JSON.parse(process.env.MAGENTO_EXTERNAL_CHECKOUT),
+          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL,
           syncUrlPath: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
           stores: {
             default: process.env.MAGENTO_EXTERNAL_CHECKOUT,
