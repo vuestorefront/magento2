@@ -9,7 +9,7 @@ on:
 jobs:
   publishing:
     name: Package Publishing
-    if: contains(github.event.pull_request.labels.*.name, 'release')
+    if: contains(github.event.pull_request.labels.*.name, 'release') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -23,32 +23,18 @@ jobs:
           node-version: '14'
           registry-url: 'https://registry.npmjs.org/'
           scope: '@vue-storefront'
-
-      - run: echo "registry=https://npm.pkg.github.com/@vue-storefront" >> .npmrc
-
-      - name: Get cached dependencies
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: yarn
-
-      - name: Build - API-Client
-        run: yarn build:api-client
-
-      - name: Build - Composeables
-        run: yarn build:composables
-
-      - name: Publish Packages
-        shell: bash
-        run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NPM_TOKEN"
+      - run: echo "" >> .npmrc && echo "@vue-storefront:registry=https://registry.npmjs.org/" >> .npmrc
+      - run: yarn
+      - run: yarn build:api-client
+      - run: yarn build:composables
+      - run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   automerge:
     needs: publishing
     name: GitFlow AutoMerge
-    if: contains(github.event.pull_request.labels.*.name, 'release')
+    if: contains(github.event.pull_request.labels.*.name, 'release') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

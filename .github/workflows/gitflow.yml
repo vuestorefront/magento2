@@ -8,7 +8,7 @@ on:
     types: [ opened, ready_for_review, edited, synchronize ]
 jobs:
   automerge:
-    if: contains(github.event.pull_request.labels.*.name, 'gitflow')
+    if: contains(github.event.pull_request.labels.*.name, 'gitflow') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
