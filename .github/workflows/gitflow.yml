@@ -5,7 +5,6 @@ on:
       - release/*
       - master
       - develop
-    types: [ opened, ready_for_review, edited, synchronize ]
 jobs:
   automerge:
     if: contains(github.event.pull_request.labels.*.name, 'gitflow') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
@@ -21,6 +20,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.extract_branch.outputs.branch }}
-          develop_branch: 'develop'
-          main_branch: 'master'
+          develop_branch: "develop"
+          main_branch: "master"
           tag: ${{ steps.extract_tag.outputs.tag }}
