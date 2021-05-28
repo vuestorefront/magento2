@@ -22,8 +22,8 @@ const publishPackages = (labels) => {
     return new Promise((res, rej) => {
       exec(`npm publish ${p} --access public --tag ${npmTag}`, (code, stdout, stderr) => {
         if (code !== 0) {
-          console.error(`error: ${error.message}`);
-          return rej(error);
+          console.error(`error: ${code.message}`);
+          return rej(code);
         }
 
         console.log(`stdout: ${stdout}`);
