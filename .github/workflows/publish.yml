@@ -8,7 +8,7 @@ on:
 jobs:
   publishing:
     name: Package Publishing
-    if: contains(github.event.pull_request.labels.*.name, 'release') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
+    if: contains(github.event.pull_request.labels.*.name, 'release') && contains('bloodf|', github.actor)
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -33,7 +33,7 @@ jobs:
   automerge:
     needs: publishing
     name: GitFlow AutoMerge
-    if: contains(github.event.pull_request.labels.*.name, 'release') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
+    if: contains(github.event.pull_request.labels.*.name, 'release') && contains('bloodf|', github.actor)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

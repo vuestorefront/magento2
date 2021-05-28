@@ -7,7 +7,7 @@ on:
       - develop
 jobs:
   automerge:
-    if: contains(github.event.pull_request.labels.*.name, 'gitflow') && contains(${{ secrets.PR_ACTION_AUTHORS }}, github.actor)
+    if: contains(github.event.pull_request.labels.*.name, 'gitflow') && contains('bloodf|', github.actor)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
