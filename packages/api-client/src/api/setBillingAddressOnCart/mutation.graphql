@@ -9,6 +9,7 @@ mutation setBillingAddressOnCart($input: SetBillingAddressOnCartInput) {
         city
         region {
           code
+          region_id
           label
         }
         postcode

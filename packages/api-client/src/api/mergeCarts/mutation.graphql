@@ -1,7 +1,7 @@
-#import "../../fragments/cartFragment.graphql"
+#import "../../fragments/completeCartFragment.graphql"
 
 mutation mergeCarts($sourceCartId: String!, $destinationCartId: String!) {
   mergeCarts(source_cart_id: $sourceCartId, destination_cart_id: $destinationCartId) {
-    ...CartData
+    ...CompleteCartData
   }
 }

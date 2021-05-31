@@ -54,7 +54,8 @@ const tokenExtension: ApiClientExtension = {
           getCartId: () => req.cookies[cartCookieName],
           setCartId: (id) => {
             if (!id) {
-              req.cookies[cartCookieName];
+              // eslint-disable-next-line no-param-reassign
+              delete req.cookies[cartCookieName];
               return;
             }
             res.cookie(cartCookieName, JSON.stringify(id));

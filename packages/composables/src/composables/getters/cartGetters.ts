@@ -4,9 +4,11 @@ import {
 import {
   Discount,
   Cart,
-  CartItem, Product,
+  CartItem,
+  Product, ShippingMethod, SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
+import { AgnosticPaymentMethod } from '../../types';
 
 export const getCartItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {
@@ -42,6 +44,8 @@ export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
     total: product.prices?.row_total?.value,
   };
 };
+
+export const productHasSpecialPrice = (product: CartItem): boolean => getCartItemPrice(product).regular < getCartItemPrice(product).special;
 
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
@@ -110,24 +114,55 @@ export const getCartTotalItems = (cart: Cart): number => {
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
-export const getCoupons = (cart: Cart): AgnosticCoupon[] => cart.applied_coupons as AgnosticCoupon[] || [];
+export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
+  id: c.code,
+  name: c.code,
+  value: 0,
+  code: c.code,
+} as AgnosticCoupon)) : []);
 
-export const getDiscounts = (_cart: Cart): AgnosticDiscount[] => [];
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
+  id: c.code,
+  name: c.code,
+  description: c.code,
+  value: 0,
+  code: c.code,
+} as AgnosticDiscount)) : []);
+
+export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
+  id: cart.applied_coupons[0].code,
+  name: cart.applied_coupons[0].code,
+  value: 0,
+  code: cart.applied_coupons[0].code,
+} : null);
+
+export const getSelectedShippingMethod = (cart: Cart): SelectedShippingMethod | null => (cart?.shipping_addresses?.length > 0
+  ? cart?.shipping_addresses[0]?.selected_shipping_method
+  : null);
+
+export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] => cart?.available_payment_methods.map((p) => ({
+  label: p.title,
+  value: p.code,
+}));
 
 const cartGetters: CartGetters<Cart, CartItem> = {
-  getItems: getCartItems,
-  getItemName: getCartItemName,
-  getItemImage: getCartItemImage,
-  getItemPrice: getCartItemPrice,
-  getItemQty: getCartItemQty,
-  getItemAttributes: getCartItemAttributes,
-  getItemSku: getCartItemSku,
-  getTotals: getCartTotals,
-  getShippingPrice: getCartShippingPrice,
-  getTotalItems: getCartTotalItems,
-  getFormattedPrice,
+  getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
+  getFormattedPrice,
+  getItemAttributes: getCartItemAttributes,
+  getItemImage: getCartItemImage,
+  getItemName: getCartItemName,
+  getItemPrice: getCartItemPrice,
+  getItemQty: getCartItemQty,
+  getItems: getCartItems,
+  getItemSku: getCartItemSku,
+  getSelectedShippingMethod,
+  getShippingPrice: getCartShippingPrice,
+  getTotalItems: getCartTotalItems,
+  getTotals: getCartTotals,
+  productHasSpecialPrice,
+  getAppliedCoupon,
 };
 
 export default cartGetters;

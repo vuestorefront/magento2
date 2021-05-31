@@ -4,8 +4,8 @@ import {
   useUserShippingFactory,
   UseUserShippingFactoryParams,
 } from '@vue-storefront/core';
-import { CustomerAddressInput } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
+import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '../../helpers/userAddressManipulator';
 
 const factoryParams: UseUserShippingFactoryParams<any, any> = {
   provide() {
@@ -16,11 +16,8 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   addAddress: async (context: Context, params?) => {
     Logger.debug('[Magento]: addAddress', params.address);
-    const createParams: CustomerAddressInput = {
-      ...params.address,
-    };
 
-    const { data } = await context.$magento.api.createCustomerAddress(createParams);
+    const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
 
     return data.createCustomerAddress;
   },
@@ -34,15 +31,8 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   updateAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] updateAddress', params);
-    const updateAddressParams: {
-      addressId: number;
-      input: CustomerAddressInput;
-    } = {
-      addressId: params.address.id,
-      input: params.address,
-    };
 
-    const { data } = await context.$magento.api.updateCustomerAddress(updateAddressParams);
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
     return data.updateCustomerAddress;
   },
@@ -60,19 +50,8 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   setDefaultAddress: async (context: Context, params) => {
     Logger.debug('[Magento] setDefaultAddress');
-    const customerAddressParams: {
-      addressId: number;
-      input: CustomerAddressInput;
-    } = {
-      // @ts-ignore
-      addressId: params.address.id,
-      input: {
-        ...params.address,
-        default_shipping: true,
-      },
-    };
 
-    const { data } = await context.$magento.api.updateCustomerAddress(customerAddressParams);
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
     return data.updateCustomerAddress;
   },

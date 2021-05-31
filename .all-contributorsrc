@@ -1,5 +1,5 @@
 {
-  "projectName": "vue-storefront",
+  "projectName": "magento2",
   "projectOwner": "vuestorefront",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -89,6 +89,16 @@
         "question",
         "mentoring",
         "review"
+      ]
+    },
+    {
+      "login": "renanoliveira0",
+      "name": "Renan Oliveira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1081576?v=4",
+      "profile": "https://github.com/renanoliveira0",
+      "contributions": [
+        "tool",
+        "plugin"
       ]
     }
   ],

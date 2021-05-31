@@ -7,9 +7,13 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
+  [k: string]: any;
+}
+
 export default async (
   { client }: Context,
-  input: SetPaymentMethodOnCartInput,
+  input: SetPaymentMethodOnCartInputs,
 ): Promise<FetchResult<SetPaymentMethodOnCartMutation>> => client
   .mutate<
 SetPaymentMethodOnCartMutation,

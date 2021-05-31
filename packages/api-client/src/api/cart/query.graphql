@@ -1,7 +1,7 @@
-#import "../../fragments/cartFragment.graphql"
+#import "../../fragments/completeCartFragment.graphql"
 
 query cart($cartId: String!) {
   cart(cart_id:$cartId) {
-    ...CartData
+    ...CompleteCartData
   }
 }

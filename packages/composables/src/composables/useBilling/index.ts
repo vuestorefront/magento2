@@ -1,13 +1,21 @@
-import { Context, Logger } from '@vue-storefront/core';
-import { BillingAddressInput, BillingCartAddress, CartAddressInput } from '@vue-storefront/magento-api';
-import { useBillingFactory, UseBillingParams } from '../../factories/useBillingFactory';
+import {
+  Context,
+  Logger,
+  useBillingFactory,
+  UseBillingParams,
+} from '@vue-storefront/core';
+import {
+  SetBillingAddressOnCartInput,
+} from '@vue-storefront/magento-api';
 import useCart from '../useCart';
+import useShippingProvider from '../useShippingProvider';
 
-const factoryParams: UseBillingParams<BillingCartAddress, any> = {
+const factoryParams: UseBillingParams<any, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   provide() {
     return {
       cart: useCart(),
+      useShippingProvider: useShippingProvider(),
     };
   },
 
@@ -28,20 +36,44 @@ const factoryParams: UseBillingParams<BillingCartAddress, any> = {
     const id = context.$magento.config.state.getCartId();
     Logger.debug(id);
     Logger.debug(typeof id);
-    const address = params.billingDetails as unknown as CartAddressInput;
+    const {
+      apartment,
+      sameAsShipping,
+      ...address
+    } = params.billingDetails;
 
-    const billingAddress: BillingAddressInput = {
-      address,
-      same_as_shipping: true,
-    };
     // const { id } = context.cart.cart.value;
-    const { data } = await context.$magento.api.setBillingAddressOnCart({
+    const setBillingAddressOnCartInput: SetBillingAddressOnCartInput = {
       cart_id: id,
-      billing_address: billingAddress,
+      billing_address: {
+        address: {
+          ...address,
+          street: [address.street, apartment],
+        },
+        same_as_shipping: sameAsShipping,
+      },
+    };
+
+    const { data } = await context.$magento.api.setBillingAddressOnCart(setBillingAddressOnCartInput);
+
+    /**
+     * This is a workaround needed due to Magento GraphQL API
+     * cleaning the Shipping method after defining the billing address
+     */
+    const shippingMethod = context.useShippingProvider.state.value;
+
+    await context.useShippingProvider.save({
+      shippingMethod: {
+        carrier_code: shippingMethod.carrier_code,
+        method_code: shippingMethod.method_code,
+      },
     });
+    /**
+     * End of GraphQL Workaround
+     */
 
     return data.setBillingAddressOnCart.cart.billing_address;
   },
 };
 
-export default useBillingFactory<BillingCartAddress, any>(factoryParams);
+export default useBillingFactory<any, any>(factoryParams);

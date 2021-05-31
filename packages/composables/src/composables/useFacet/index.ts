@@ -54,9 +54,9 @@ const constructFilterObject = (inputFilters: Object) => {
 };
 
 const constructSortObject = (sortData: string) => {
-  const baseData = sortData.split(/_/ig);
+  const baseData = sortData.split(/_/gi);
 
-  return baseData.length ? Object.fromEntries([baseData]) : {};
+  return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
 };
 
 const factoryParams = {
@@ -64,7 +64,13 @@ const factoryParams = {
   search: async (context: Context, params: FacetSearchResult<any>) => {
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
-    const categoryId = (params.input.categoryId) ? { category_uid: { eq: params.input.categoryId } } : {};
+    const categoryId = (params.input.categoryId) ? {
+      category_uid: {
+        ...(Array.isArray(params.input.categoryId)
+          ? { in: params.input.categoryId }
+          : { eq: params.input.categoryId }),
+      },
+    } : {};
     const productParams: ProductsSearchParams = {
       filter: {
         ...categoryId,

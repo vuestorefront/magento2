@@ -20,12 +20,12 @@ import {
   CategoryTree,
   CmsPage,
   CmsPageQuery,
-  ConfigurableProduct, ConfigurableProductDetailQuery,
+  ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
   CreateCustomerAddressMutation,
   CreateEmptyCartMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
-  CustomerAvailablePaymentMethodsQuery,
+  CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
   CustomerCartQuery, CustomerCreateInput,
   CustomerDataFragment as CustomerFragment,
   CustomerOrder as CustomerOrderInterface,
@@ -35,7 +35,7 @@ import {
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GetMenuCategoryQuery,
-  GuestAvailablePaymentMethodsQuery,
+  GuestAvailablePaymentMethodsQuery, GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
   Order as OrderInterface,
   PlaceOrderInput,
@@ -55,7 +55,6 @@ import {
   SetBillingAddressOnCartMutation,
   SetGuestEmailOnCartInput,
   SetGuestEmailOnCartMutation,
-  SetPaymentMethodOnCartInput,
   SetPaymentMethodOnCartMutation,
   SetShippingAddressesOnCartInput,
   SetShippingAddressesOnCartMutation,
@@ -72,6 +71,7 @@ import {
   WishlistQuery,
   WishlistQueryVariables,
 } from './GraphQL';
+import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 
 export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
 export type AddressOnCart = ShippingCartAddress;
@@ -79,6 +79,7 @@ export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
 export type Category = CategoryTree;
 export type CategoryFilter = CategoryFilterInput;
+export type Countries = CountriesListQuery['countries'][0];
 export type CategoryMenu = CategoryTree;
 export type Coupon = AppliedCoupon;
 export type Customer = CustomerFragment;
@@ -139,6 +140,10 @@ export interface MagentoApiMethods {
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 
+  countries(): Promise<ApolloQueryResult<CountriesListQuery>>;
+
+  country(id: string): Promise<ApolloQueryResult<CountryInformationQuery>>;
+
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
   customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
@@ -149,9 +154,13 @@ export interface MagentoApiMethods {
 
   getMenuCategory(params: CategoryFilterInput, customQuery?: CustomQuery): Promise<GetMenuCategoryQuery>;
 
-  getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<
-  ApolloQueryResult<GuestAvailablePaymentMethodsQuery | CustomerAvailablePaymentMethodsQuery>
-  >;
+  getAvailableCustomerPaymentMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>>;
+
+  getAvailableCustomerShippingMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>>;
+
+  getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
+
+  getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 
@@ -181,9 +190,7 @@ export interface MagentoApiMethods {
 
   setGuestEmailOnCart(input: SetGuestEmailOnCartInput): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
 
-  setPaymentMethodOnCart(input: SetPaymentMethodOnCartInput): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
-
-  setPaymentMethodOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
+  setPaymentMethodOnCart(input: SetPaymentMethodOnCartInputs): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
 
   setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
 

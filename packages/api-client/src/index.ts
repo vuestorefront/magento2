@@ -1,6 +1,7 @@
 export * from './types/setup';
 export * from './types/API';
 export * from './types/context';
+export { SetPaymentMethodOnCartInputs } from './api/setPaymentMethodOnCart';
 export {
   AddBundleProductsToCartInput,
   AddBundleProductsToCartOutput,
@@ -519,4 +520,12 @@ export {
   UpsellProductsQueryVariables,
   CategorySearchQuery,
   CategorySearchQueryVariables,
+  CountriesListQuery,
+  CountryInformationQuery,
+  CountryInformationQueryVariables,
+  CountriesListQueryVariables,
+  GuestAvailableShippingMethodsQueryVariables,
+  CustomerAvailableShippingMethodsQuery,
+  GuestAvailableShippingMethodsQuery,
+  CustomerAvailableShippingMethodsQueryVariables,
 } from './types/GraphQL';
