@@ -7141,6 +7141,14 @@ export type ProductReviewQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     )>>> }> };
 
+export type ProductReviewRatingsMetadataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductReviewRatingsMetadataQuery = { productReviewRatingsMetadata: { items: Array<Maybe<(
+      Pick<ProductReviewRatingMetadata, 'id' | 'name'>
+      & { values: Array<Maybe<Pick<ProductReviewRatingValueMetadata, 'value_id' | 'value'>>> }
+    )>> } };
+
 export type ProductsListQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   filter?: Maybe<ProductAttributeFilterInput>;

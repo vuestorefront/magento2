@@ -44,7 +44,7 @@ import {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductInterface,
-  ProductReviewQuery,
+  ProductReviewQuery, ProductReviewRatingsMetadataQuery,
   ProductsListQuery, RelatedProductQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -179,6 +179,8 @@ export interface MagentoApiMethods {
   upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<UpsellProductsQuery>>;
 
   productReview(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewQuery>>;
+
+  productReviewRatingsMetadata(): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>>;
 
   products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductsListQuery>>;
 
