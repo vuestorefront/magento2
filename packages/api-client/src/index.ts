@@ -528,4 +528,6 @@ export {
   CustomerAvailableShippingMethodsQuery,
   GuestAvailableShippingMethodsQuery,
   CustomerAvailableShippingMethodsQueryVariables,
+  CreateProductReviewMutation,
+  CreateProductReviewMutationVariables,
 } from './types/GraphQL';

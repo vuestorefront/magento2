@@ -6904,6 +6904,16 @@ export type CreateEmptyCartMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type CreateEmptyCartMutation = Pick<Mutation, 'createEmptyCart'>;
 
+export type CreateProductReviewMutationVariables = Exact<{
+  input: CreateProductReviewInput;
+}>;
+
+
+export type CreateProductReviewMutation = { createProductReview: { review: (
+      Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    ) } };
+
 export type CustomerQueryVariables = Exact<{ [key: string]: never; }>;
 
 

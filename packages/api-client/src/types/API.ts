@@ -22,7 +22,7 @@ import {
   CmsPageQuery,
   ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
   CreateCustomerAddressMutation,
-  CreateEmptyCartMutation,
+  CreateEmptyCartMutation, CreateProductReviewMutation, CreateProductReviewMutationVariables,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
@@ -137,6 +137,8 @@ export interface MagentoApiMethods {
   createCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
+
+  createProductReview(input: CreateProductReviewMutationVariables): Promise<FetchResult<CreateProductReviewMutation>>;
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 
