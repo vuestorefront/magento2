@@ -5,7 +5,10 @@ import {
   useReviewFactory,
   UseReviewFactoryParams,
 } from '@vue-storefront/core';
-import { GetProductSearchParams } from '@vue-storefront/magento-api';
+import {
+  GetProductSearchParams,
+  CreateProductReviewMutationVariables,
+} from '@vue-storefront/magento-api';
 
 const factoryParams: UseReviewFactoryParams<any, any, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -16,10 +19,14 @@ const factoryParams: UseReviewFactoryParams<any, any, any> = {
 
     return data.products.items;
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  addReview: async (context: Context, params) => {
-    Logger.debug('Mocked: addReview');
-    return {};
+  addReview: async (context: Context, params: CreateProductReviewMutationVariables) => {
+    Logger.debug('[Magento] addReview');
+    Logger.debug('[Magento] review params input:');
+    Logger.debug(JSON.stringify(params, null, 2));
+
+    const { data } = await context.$magento.createProductReview(params);
+
+    return data.createProductReview.review;
   },
 };
 
