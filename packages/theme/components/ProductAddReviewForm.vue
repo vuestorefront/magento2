@@ -177,7 +177,7 @@ export default defineComponent({
 
     const form = ref(BASE_FORM(id));
 
-    const ratingMetadata = computed(() => reviewGetters.getReviewMetadata(metadata.value));
+    const ratingMetadata = computed(() => reviewGetters.getReviewMetadata([...metadata.value]));
 
     const formSubmitValue = computed(() => {
       const nickname = isAuthenticated.value
@@ -196,7 +196,7 @@ export default defineComponent({
       };
     });
 
-    const submitForm = (reset) => async () => {
+    const submitForm = (reset) => () => {
       if (!(
         formSubmitValue.value.ratings[0].value_id
         || formSubmitValue.value.ratings[0].id
