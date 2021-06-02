@@ -22,7 +22,6 @@ import {
   CmsPageQuery,
   ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
   CreateCustomerAddressMutation,
-  CreateEmptyCartMutation, CreateProductReviewMutation, CreateProductReviewMutationVariables,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
@@ -70,6 +69,7 @@ import {
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
+  CreateProductReviewInput, CreateEmptyCartMutation, CreateProductReviewMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 
@@ -96,6 +96,7 @@ export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Wishlist = WishlistInterface;
 export type WishlistProduct = WishlistItemInterface;
+export type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
 
 export const enum ProductsQueryType {
   List = 'LIST',
@@ -138,7 +139,7 @@ export interface MagentoApiMethods {
 
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
 
-  createProductReview(input: CreateProductReviewMutationVariables): Promise<FetchResult<CreateProductReviewMutation>>;
+  createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 
