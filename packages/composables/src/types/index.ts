@@ -8,7 +8,7 @@ import {
   Country,
   Customer,
   MagentoCustomerGender,
-  Product,
+  Product, ProductReviewRatingMetadata,
 } from '@vue-storefront/magento-api';
 
 export type User = Customer;
@@ -59,6 +59,7 @@ export interface AddressGetter {
     englishLabel: string;
     abbreviation: string;
   }[];
+
   regionList(country: Country): {
     id: number;
     label: string;
@@ -69,4 +70,13 @@ export interface AddressGetter {
 export interface AgnosticPaymentMethod {
   label: string;
   value: string;
+}
+
+export interface AgnosticReviewMetadata {
+  id: string;
+  name: string;
+  values: {
+    label: string | number;
+    id: string;
+  }[];
 }
