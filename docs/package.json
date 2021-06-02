@@ -5,8 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "authors": {
-    "name": "Dominik Deimel",
-    "email": "@domideimel"
+    "name": "Alef Barbeli",
+    "email": "alefbarbeli@gmail.com"
   },
   "repository": "https://github.com/vuestorefront/salesforce-commerce-cloud/docs",
   "scripts": {

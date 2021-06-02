@@ -1,7 +1,15 @@
-## Getting Started
+# Getting Started
 
-### Configuring your Magento 2 integration
+## How to start if you want to try out the integration
 
-If you generated your project from our CLI your shop will be connected to our demo Magento instance.
+```
+yarn global add @vue-storefront/cli
+```
+```
+vsf init <project_name> && cd <project_name> && yarn && yarn dev
+```
 
-If you haven't generated your project just to play with Vue Storefront and understand its capabilities the first thing you should do after setting it up is changing the credentials to point into your instance.
+## How to start if you want to contribute?
+
+Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
+

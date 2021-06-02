@@ -2,64 +2,28 @@
 
 Magento 2 configuration is located in two places:
 
-- nuxt.config.js is a place where you're configuring properties related only to the frontend part of your application.
+## Requirements:
+- NodeJS v14 or later
+- Magento >= v2.4.2 instance for GraphQL endpoint
 
-- middleware.config.js is a place where you're configuring Apollo and extensions. You will put there API keys, integration configurations, custom GraphQL queries and new API endpoints.
-
-## Nuxt Magento configuration
-
-```js
-// nuxt.config.js
-['@vue-storefront/magento/nuxt', {
-  i18n: {
-    useNuxtI18nConfig: true
-  },
-  api: 'https://your-magento-instance.tld/graphql',
-  tax: {
-    displayCartSubtotalIncludingTax: true
-  },
-  websites: {
-    base: {
-      code: 'base',
-      defaultStoreGroup: 'main_website_store',
-      storeGroups: {
-        // eslint-disable-next-line @typescript-eslint/camelcase,camelcase
-        main_website_store: {
-          code: 'main_website_store',
-          defaultStore: 'default',
-          stores: {
-            default: {
-              code: 'default'
-            },
-            de: {
-              code: 'de'
-            },
-            fr: {
-              code: 'fr'
-            }
-          }
-        }
-      }
-    }
-  },
-  defaultStore: 'default'
-}]
-```
-
-- `useNuxtI18nConfig` - when this property is set to true, `@vue-storefront/magento/nuxt` package will use `i18n` 
-  config object provided in `nuxt.config.js`. When set to false, `i18n` config should be declared directly inside this package configuration. You can read more about `i18n` config in Vue Storefront [here](../advanced/internationalization.md)
-
-## Middleware Magento configuration
-
-You can read more about middleware configuration in Vue Storefront [here](../advanced/server-middleware.md#configuration)
-
-```js
-// middleware.config.js
-module.exports = {
-  integrations: {
-    magento: {
-      ...
-    }
-  }
-};
-```
+## Steps
+1. Fork the repo
+2. Clone your fork of the repo
+    ```
+    example:
+    git clone https://github.com/vuestorefront/magento2.git
+    cd magento2
+    ```
+3. Checkout develop branch `git checkout develop`
+4. Run `yarn` to install dependencies
+5. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
+    ```
+    cp packages/theme/config/example.json packages/theme/config/dev.json
+    ```
+6. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
+    ```
+    "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
+    ```
+7. Build dependencies `yarn build:api-client && yarn build:composables`
+8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+- If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.

@@ -29,6 +29,7 @@ module.exports = {
           ['/', 'Introduction'],
           ['/guide/getting-started', 'Getting started'],
           ['/guide/configuration', 'Configuration'],
+          ['/guide/about', 'About'],
         ]
       },
       {
