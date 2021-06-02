@@ -110,9 +110,11 @@ export interface UseReviewErrors {
   search: Error;
   addReview: Error;
   loadReviewMetadata: Error;
+  loadCustomerReviews: Error;
 }
-export interface UseReview<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA> {
+export interface UseReview<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA> {
   search(params: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>): Promise<void>;
+  loadCustomerReviews(params: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void>;
   addReview(params: ComposableFunctionArgs<REVIEW_ADD_PARAMS>): Promise<void>;
   loadReviewMetadata(): Promise<void>;
   error: ComputedProperty<UseReviewErrors>;

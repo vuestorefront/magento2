@@ -39,8 +39,11 @@ export const getReviewMetadata = (reviewData: ProductReviewRatingMetadata[]): Ag
   })),
 }));
 
+export const getProductName = (review: ProductReview): string => review?.product?.name || '';
+
 interface MagentoReviewGetters extends ReviewGetters<ProductReviews, ProductReview> {
   getReviewMetadata(reviewData: ReviewMetadata[]): AgnosticReviewMetadata[];
+  getProductName(reviewData: ProductReview): string;
 }
 
 const reviewGetters: MagentoReviewGetters = {
@@ -55,6 +58,7 @@ const reviewGetters: MagentoReviewGetters = {
   getReviewRating,
   getReviewsPage,
   getTotalReviews,
+  getProductName,
 };
 
 export default reviewGetters;
