@@ -2,6 +2,7 @@ export * from './types/setup';
 export * from './types/API';
 export * from './types/context';
 export { SetPaymentMethodOnCartInputs } from './api/setPaymentMethodOnCart';
+export { CustomerProductReviewParams } from './api/customerProductReview';
 export {
   AddBundleProductsToCartInput,
   AddBundleProductsToCartOutput,
@@ -171,6 +172,8 @@ export {
   CustomerOrdersQueryVariables,
   CustomerOutput,
   CustomerPaymentTokens,
+  CustomerProductReviewQuery,
+  CustomerProductReviewQueryVariables,
   CustomerQuery,
   CustomerQueryVariables,
   CustomerReviewsArgs,

@@ -69,11 +69,14 @@ import {
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
-  CreateProductReviewInput, CreateEmptyCartMutation, CreateProductReviewMutation,
+  CreateProductReviewInput, CreateEmptyCartMutation, CreateProductReviewMutation, CustomerProductReviewQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
+import { CustomerProductReviewParams } from '../api/customerProductReview';
 
-export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
+export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {
+}
+
 export type AddressOnCart = ShippingCartAddress;
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
@@ -142,6 +145,8 @@ export interface MagentoApiMethods {
   createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
+
+  customerProductReview(input: CustomerProductReviewParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
 
   countries(): Promise<ApolloQueryResult<CountriesListQuery>>;
 
