@@ -4,36 +4,24 @@
 `useCategory` composable is responsible for fetching a list of categories. A common usage scenario for this composable is navigation.
 
 ## API
-The `useCategory` composable implements `useCategoryFactory` from `@vue-storefront/core` wich exports return the `UseCategory` interface:
-
 ```typescript
-interface UseCategory<CATEGORY, CATEGORY_SEARCH_PARAMS> {
-  categories: ComputedProperty<CATEGORY[]>;
-  search(params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>): Promise<void>;
+interface UseCategory<Category, CategoryListQueryVariables> {
+  categories: ComputedProperty<Category[]>;
+  search(params: ComposableFunctionArgs<CategoryListQueryVariables>): Promise<void>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseCategoryErrors>;
 }
-```
-### `search`
-Function that takes `CategoryListQueryVariables` and `CustomQuery` as optional params and gets the `categories` accordingly
-``` typescript
+
 export type CategoryListQueryVariables = Exact<{ [key: string]: never; }>;
 
-type CustomQuery = Record<string, string>;
-```
-
-### `categories`
-Returns an array of categories fetched by `search` method as a `computed` property.
-
-``` typescript
-interface Category {
+export interface Category {
   available_sort_by?: Maybe<Array<Maybe<Scalars['String']>>>;
   /** Breadcrumbs, parent categories info. */
   breadcrumbs?: Maybe<Array<Maybe<Breadcrumb>>>;
   /** Relative canonical URL. This value is returned only if the system setting 'Use Canonical Link Meta Tag For Categories' is enabled */
   canonical_url?: Maybe<Scalars['String']>;
   /** Child categories tree. */
-  children?: Maybe<Array<Maybe<CategoryTree>>>;
+  children?: Maybe<Array<Maybe<Category>>>;
   children_count?: Maybe<Scalars['String']>;
   /** Category CMS Block. */
   cms_block?: Maybe<CmsBlock>;
@@ -91,6 +79,12 @@ interface Category {
 }
 ```
 
+### `search`
+Function that takes `CategoryListQueryVariables`as optional param and gets the `categories` accordingly
+
+### `categories`
+Returns an array of categories fetched by `search` method as a `computed` property.
+
 ### `loading`
 Returns the current state of `search` as `computed` boolean property
 
@@ -99,14 +93,28 @@ Reactive object containing the error message, if search failed for any reason.
 
 ## Getters
 ````typescript
-interface CategoryGetters<CATEGORY> {
-  getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
-  getBreadcrumbs: (category: CATEGORY) => AgnosticBreadcrumb[];
+interface CategoryGetters<Category> {
+  getTree: (category: Category) => AgnosticCategoryTree | null;
+  getBreadcrumbs: (category: Category) => AgnosticBreadcrumb[];
   getCategoryTree?: (
-    category: CATEGORY,
+    category: Category,
     currentCategory: string,
     withProducts: boolean,
   ) => AgnosticCategoryTree | null;
+}
+
+export interface AgnosticBreadcrumb {
+  text: string;
+  link: string;
+}
+
+export interface AgnosticCategoryTree {
+  label: string;
+  slug?: string;
+  items: AgnosticCategoryTree[];
+  isCurrent: boolean;
+  count?: number;
+  [x: string]: unknown;
 }
 ````
 ## Example
@@ -117,10 +125,12 @@ import { useCategory } from '@vue-storefront/magento';
 
 export default {
   setup () {
-    const { categories, search, loading } = useCategory('category-id');
+    const { categories, search, loading } = useCategory('AppHeader:Categories');
 
     onSSR(async () => {
-      await search({});
+      await search({
+        pageSize: 100,
+      });
     });
 
     return {

@@ -7,25 +7,13 @@
 * modify and delete existing billing addresses.
 
 ## API
-The `useBilling` composable implements `useBillingFactory` from `@vue-storefront/core` wich exports return the `UseBilling` interface:
-
-```typescript
-interface UseBilling<BILLING, BILLING_PARAMS> {
-  billing: ComputedProperty<BILLING>;
-  error: ComputedProperty<UseBillingErrors>;
-  load(): Promise<void>;
-  load(params: { customQuery?: CustomQuery }): Promise<void>;
-  loading: ComputedProperty<boolean>;
-  save: (params: { params: BILLING_PARAMS; billingDetails: BILLING; customQuery?: CustomQuery }) => Promise<void>;
-}
-```
 
 ### `load`
 Function that takes in `CustomQuery` as optional params and gets the `billing` accordingly
 
 ### `billing`
 Returns `billing` as a `computed` property
-``` typescript
+```typescript
 // packages/composables/src/composables/useBilling/index.ts
 export default useBillingFactory<BillingCartAddress, any>(factoryParams);
 
@@ -53,29 +41,6 @@ Returns the `loading` state of `search`
 reactive object containing the error message, if search failed for any reason.
 
 ## Getters
-
-```typescript
-interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
-    getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
-    getDefault: (billing: USER_BILLING) => USER_BILLING_ITEM;
-    getTotal: (billing: USER_BILLING) => number;
-    getPostCode: (address: USER_BILLING_ITEM) => string;
-    getStreetName: (address: USER_BILLING_ITEM) => string;
-    getStreetNumber: (address: USER_BILLING_ITEM) => string | number;
-    getCity: (address: USER_BILLING_ITEM) => string;
-    getFirstName: (address: USER_BILLING_ITEM) => string;
-    getLastName: (address: USER_BILLING_ITEM) => string;
-    getCountry: (address: USER_BILLING_ITEM) => string;
-    getPhone: (address: USER_BILLING_ITEM) => string;
-    getEmail: (address: USER_BILLING_ITEM) => string;
-    getProvince: (address: USER_BILLING_ITEM) => string;
-    getCompanyName: (address: USER_BILLING_ITEM) => string;
-    getTaxNumber: (address: USER_BILLING_ITEM) => string;
-    getId: (address: USER_BILLING_ITEM) => string;
-    getApartmentNumber: (address: USER_BILLING_ITEM) => string | number;
-    isDefault: (address: USER_BILLING_ITEM) => boolean;
-}
-```
 * `getAddresses` - returns list of billing addresses.
 * `getDefault` - returns a default billing address.
 * `getTotal` - returns total number of billing addresses user has.
@@ -94,6 +59,29 @@ interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
 * `getTaxNumber` - returns tax number from an individual address.
 * `getApartmentNumber` - returns apartment number from an individual address.
 * `isDefault` - return information if address is current default.
+
+```typescript
+interface UserBillingGetters {
+    getAddresses: (billing, criteria?: Record<string, any>) => any[];
+    getDefault: (billing) => any;
+    getTotal: (billing) => number;
+    getPostCode: (address) => string;
+    getStreetName: (address) => string;
+    getStreetNumber: (address) => string | number;
+    getCity: (address) => string;
+    getFirstName: (address) => string;
+    getLastName: (address) => string;
+    getCountry: (address) => string;
+    getPhone: (address) => string;
+    getEmail: (address) => string;
+    getProvince: (address) => string;
+    getCompanyName: (address) => string;
+    getTaxNumber: (address) => string;
+    getId: (address) => string;
+    getApartmentNumber: (address) => string | number;
+    isDefault: (address) => boolean;
+}
+```
 
 ## Example
 

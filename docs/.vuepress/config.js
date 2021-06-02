@@ -39,20 +39,19 @@ module.exports = {
           ['/guide/composables/use-billing', 'useBilling'],
           ['/guide/composables/use-cart', 'useCart'],
           ['/guide/composables/use-category', 'useCategory'],
-          ['/guide/composables/use-checkout', 'useCheckout'],
+          ['/guide/composables/use-category-search', 'useCategorySearch'],
           ['/guide/composables/use-config', 'useConfig'],
+          ['/guide/composables/use-country-search', 'useCountrySearch'],
+          ['/guide/composables/use-external-checkout', 'useExternalCheckout'],
           ['/guide/composables/use-facet', 'useFacet'],
+          ['/guide/composables/use-get-shipping-methods', 'useGetShippingMethods'],
+          ['/guide/composables/use-guest-user', 'useGuestUser'],
           ['/guide/composables/use-make-oder', 'useMakeOrder'],
+          ['/guide/composables/use-menu-category', 'useMenuCategory'],
           ['/guide/composables/use-page', 'usePage'],
+          ['/guide/composables/use-payment-provider', 'usePaymentProvider'],
           ['/guide/composables/use-product', 'useProduct'],
           ['/guide/composables/use-router', 'useRouter'],
-          ['/guide/composables/use-shipping', 'useShipping'],
-          ['/guide/composables/use-shipping-provider', 'useShippingProvider'],
-          ['/guide/composables/use-user', 'useUser'],
-          ['/guide/composables/use-user-billing', 'useUserBilling'],
-          ['/guide/composables/use-user-order', 'useUserOrder'],
-          ['/guide/composables/use-user-shipping', 'useUserShipping'],
-          ['/guide/composables/use-user-wishlist', 'useUserWishlist']
         ]
       }
     ]

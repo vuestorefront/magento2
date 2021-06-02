@@ -4,30 +4,16 @@
 `usePage` is the alias used by `useContent` composable, and can be used to fetch content pages.
 
 ## API
-The `useContent` composable implements `usePageFactory` located in `packages/composables/src/factories/usePageFactory.ts` wich exports return the `UsePage` interface:
+The `useContent` composable implements custom factory `useContentFactory` located in `packages/composables/src/factories/useContentFactory.ts` and returns `UsePage` interface:
 
 ```typescript
-interface UsePage<PAGE> {
-  page: ComputedProperty<PAGE>;
+interface UseContent<CmsPage> {
+  page: ComputedProperty<CmsPage>;
   loadPage: (identifier: string) => Promise<void>;
   loading: ComputedProperty<boolean>;
 }
-```
 
-### `loadPage`
-Function that takes in `identifier` as param and gets the `page` accordingly
-
-### `page`
-Returns `page` as a `computed` property
-``` typescript
-// packages/composables/src/composables/useContent/index.ts
-export default usePageFactory<Page>(factoryParams);
-
-// packages/api-client/src/types/API.ts
-type Page = CmsPage;
-
-// packages/api-client/src/types/GraphQL.ts
-interface CmsPage {
+export interface CmsPage {
   /** CMS page content */
   content?: Maybe<Scalars['String']>;
   /** CMS page content heading */
@@ -48,6 +34,12 @@ interface CmsPage {
   url_key?: Maybe<Scalars['String']>;
 }
 ```
+
+### `loadPage`
+Function that takes in `identifier` as param and gets the `page` accordingly
+
+### `page`
+Returns `page` as a `computed` property
 
 ### `loading`
 Returns the `loading` state of `loadPage`

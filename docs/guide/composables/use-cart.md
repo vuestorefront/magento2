@@ -8,26 +8,24 @@
 * checking if product is already added to the cart.
 
 ## API
-The `useCart` composable implements `useCartFactory` from `@vue-storefront/core` wich exports return the `UseCart` interface:
-
 ```typescript
-interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
-  cart: ComputedProperty<CART>;
-  setCart(cart: CART): void;
+interface UseCart<Cart, CartItem, Product, Coupon> {
+  cart: ComputedProperty<Cart>;
+  setCart(cart: Cart): void;
   addItem(params: {
-    product: PRODUCT;
+    product: Product;
     quantity: number;
     customQuery?: CustomQuery;
   }): Promise<void>;
-  isInCart: ({ product: PRODUCT }: {
+  isInCart: ({ product: Product }: {
     product: any;
   }) => boolean;
   removeItem(params: {
-    product: CART_ITEM;
+    product: CartItem;
     customQuery?: CustomQuery;
   }): Promise<void>;
   updateItemQty(params: {
-    product: CART_ITEM;
+    product: CartItem;
     quantity?: number;
     customQuery?: CustomQuery;
   }): Promise<void>;
@@ -37,7 +35,7 @@ interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
     customQuery?: CustomQuery;
   }): Promise<void>;
   removeCoupon(params: {
-    coupon: COUPON;
+    coupon: Coupon;
     customQuery?: CustomQuery;
   }): Promise<void>;
   load(): Promise<void>;
@@ -47,46 +45,107 @@ interface UseCart<CART, CART_ITEM, PRODUCT, COUPON> {
   error: ComputedProperty<UseCartErrors>;
   loading: ComputedProperty<boolean>;
 }
-```
 
-* `cart` - Returns the Items in the Cart as a `computed` property
-* `setCart` - set new Cart
-* `addItem` - Function that takes in a `product` and its `quantaty` and adds it to the cart
-* `isOnCart` - Function that takes in a `product` and returns `true` or `false`
-* `removeItem` - Function that takes in a `product` and removes it from the `cart`
-* `updateItemQty` - Function that takes in a `product` and its new `quantaty` and updates it accordingly
-* `clear` - Function that clears cart
-* `applyCoupon` - Function that takes in a `coupon` and applies it to the cart
-* `removeCoupon` - Function that removes all applied coupons
-* `load` - Function that loads the current `cart`
-* `error` - reactive object containing the error message, if some properties failed for any reason.
-* `loading` - a reactive object containing information about loading state of the cart.
+export interface Cart {
+  /**
+   * An array of coupons that have been applied to the cart
+   * @deprecated Use applied_coupons instead
+   */
+  applied_coupon?: Maybe<AppliedCoupon>;
+  /** An array of `AppliedCoupon` objects. Each object contains the `code` text attribute, which specifies the coupon code */
+  applied_coupons?: Maybe<Array<Maybe<AppliedCoupon>>>;
+  /** Available payment methods */
+  available_payment_methods?: Maybe<Array<Maybe<AvailablePaymentMethod>>>;
+  billing_address?: Maybe<BillingCartAddress>;
+  email?: Maybe<Scalars['String']>;
+  /** The entered gift message for the cart */
+  gift_message?: Maybe<GiftMessage>;
+  /** The unique ID for a `Cart` object */
+  id: Scalars['ID'];
+  is_virtual: Scalars['Boolean'];
+  items?: Maybe<Array<Maybe<CartItemInterface>>>;
+  prices?: Maybe<CartPrices>;
+  selected_payment_method?: Maybe<SelectedPaymentMethod>;
+  shipping_addresses: Array<Maybe<ShippingCartAddress>>;
+  total_quantity: Scalars['Float'];
+}
+
+export interface CartItem {
+  prices?: Maybe<CartItemPrices>;
+  product: ProductInterface;
+  quantity: Scalars['Float'];
+  /** The unique ID for a `CartItemInterface` object */
+  uid: Scalars['ID'];
+}
+
+export interface Coupon {
+  code: Scalars['String'];
+}
+
+```
+> For more information on [Product interface](use-product) visit the dedicated documentation.
+
+
+### `cart`
+Returns the Items in the Cart as a `computed` property
+
+### `setCart`
+set new Cart
+
+### `addItem`
+Function that takes in a `product` and its `quantity` and adds it to the cart
+
+### `isInCart`
+Function that takes in a `product` and returns `true` or `false`
+
+### `removeItem`
+Function that takes in a `product` and removes it from the `cart`
+
+### `updateItemQty`
+Function that takes in a `product` and its new `quantaty` and updates it accordingly
+
+### `clear`
+Function that clears cart
+
+### `applyCoupon`
+Function that takes in a `coupon` and applies it to the cart
+
+### `removeCoupon`
+Function that removes all applied coupons
+
+### `load`
+Function that loads the current `cart`
+
+### `error`
+reactive object containing the error message, if some properties failed for any reason.
+
+### `loading`
+a reactive object containing information about loading state of the cart.
+
 
 ## Getters
 
 ````typescript
-interface CartGetters<CART, CART_ITEM> {
-    getItems: (cart: CART) => CART_ITEM[];
-    getItemName: (cartItem: CART_ITEM) => string;
-    getItemImage: (cartItem: CART_ITEM) => string;
-    getItemPrice: (cartItem: CART_ITEM) => AgnosticPrice;
-    getItemQty: (cartItem: CART_ITEM) => number;
+interface CartGetters<Cart, CartItem> {
+    getItems: (cart: Cart) => CartItem[];
+    getItemName: (cartItem: CartItem) => string;
+    getItemImage: (cartItem: CartItem) => string;
+    getItemPrice: (cartItem: CartItem) => AgnosticPrice;
+    getItemQty: (cartItem: CartItem) => number;
     getItemAttributes: (
-      cartItem: CART_ITEM,
+      cartItem: CartItem,
       _filterByAttributeName?: Array<string>,
     ) => Record<string, AgnosticAttribute | string>;
-    getItemSku: (cartItem: CART_ITEM) => string;
-    getTotals: (cart: CART) => AgnosticTotals;
-    getShippingPrice: (cart: CART) => number;
-    getTotalItems: (cart: CART) => number;
+    getItemSku: (cartItem: CartItem) => string;
+    getTotals: (cart: Cart) => AgnosticTotals;
+    getShippingPrice: (cart: Cart) => number;
+    getTotalItems: (cart: Cart) => number;
     getFormattedPrice: (price: number) => string;
-    getCoupons: (cart: CART) => AgnosticCoupon[];
-    getDiscounts: (cart: CART) => AgnosticDiscount[];
+    getCoupons: (cart: Cart) => AgnosticCoupon[];
+    getDiscounts: (cart: Cart) => AgnosticDiscount[];
 }
 ````
 
-* `getTotals` - returns cart totals.
-* `getShippingPrice` - returns current shipping price.
 * `getItems` - returns all items from cart.
 * `getItemName` - returns product name.
 * `getItemImage` - returns product image.
@@ -94,6 +153,8 @@ interface CartGetters<CART, CART_ITEM> {
 * `getItemQty` - returns product quantity.
 * `getItemAttributes` - returns product attribute.
 * `getItemSku` - returns product SKU.
+* `getTotals` - returns cart totals.
+* `getShippingPrice` - returns current shipping price.
 * `getTotalItems` - returns products amount.
 * `getFormattedPrice` - returns product price with currency sign.
 * `getCoupons` - returns applied coupons.

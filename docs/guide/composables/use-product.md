@@ -4,45 +4,24 @@
 `useProduct` composable is responsible for fetching a list of products.
 
 ## API
-The `useProduct` composable implements `useProductFactory` from `@vue-storefront/core` wich exports return the `UseProduct` interface:
-
 ```typescript
-interface UseProduct<PRODUCTS, PRODUCT_SEARCH_PARAMS> {
-  products: ComputedProperty<PRODUCTS>;
+interface UseProduct<Products, ProductsSearchParams> {
+  products: ComputedProperty<Products>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseProductErrors>;
-  search(params: ComposableFunctionArgs<PRODUCT_SEARCH_PARAMS>): Promise<void>;
+  search(params: ComposableFunctionArgs<ProductsSearchParams>): Promise<void>;
+}
+
+export interface ProductsSearchParams {
+  perPage?: number;
+  page?: number;
+  sort?: any;
+  term?: any;
+  filters?: any;
   [x: string]: any;
 }
-```
 
-### `search`
-Function that takes in `ProductsSearchParams` and `CustomQuery` as optional params and gets the `products` accordingly
-``` typescript
-interface ProductsSearchParams {
-    perPage?: number;
-    page?: number;
-    sort?: any;
-    term?: any;
-    filters?: any;
-    [x: string]: any;
-}
-
-type CustomQuery = Record<string, string>;
-```
-
-### `products`
-Returns `products` as a `computed` property
-``` typescript
-type ProductsListQuery = { products?: Maybe<(
-    Pick<Products, 'total_count'>
-    & { aggregations?: Maybe<Array<Maybe<(
-      Pick<Aggregation, 'attribute_code' | 'label'>
-      & { options?: Maybe<Array<Maybe<Pick<AggregationOption, 'label' | 'value' | 'count'>>>> }
-    )>>>, items?: Maybe<Array<Maybe<ProductData_BundleProduct_Fragment | ProductData_ConfigurableProduct_Fragment | ProductData_DownloadableProduct_Fragment | ProductData_GroupedProduct_Fragment | ProductData_SimpleProduct_Fragment | ProductData_VirtualProduct_Fragment>>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }
-  )> }
-
-interface Products {
+export interface Products {
   /** Layered navigation aggregations. */
   aggregations?: Maybe<Array<Maybe<Aggregation>>>;
   /**
@@ -60,7 +39,7 @@ interface Products {
   total_count?: Maybe<Scalars['Int']>;
 }
 
-interface ProductInterface {
+export interface ProductInterface {
   activity?: Maybe<Scalars['String']>;
   /**
    * The attribute set assigned to the product.
@@ -220,7 +199,17 @@ interface ProductInterface {
    */
   websites?: Maybe<Array<Maybe<Website>>>;
 }
+
+export interface UseProductErrors {
+  search: Error;
+}
 ```
+
+### `search`
+Function that takes in `ProductsSearchParams` as optional params and gets the `products` accordingly
+
+### `products`
+Returns `products` as a `computed` property
 
 ### `loading`
 Returns the `loading` state of `search`
@@ -232,40 +221,40 @@ reactive object containing the error message, if search failed for any reason.
 ## Getters
 
 ```typescript
-interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
+interface ProductGetters<Products, ProductsSearchParams> {
   getAttributes: (
-    products: PRODUCT,
+    products: Product,
     _filterByAttributeName?: string[],
   ) => Record<string, AgnosticAttribute | string>,
   getAverageRating: () => number,
   getBreadcrumbs: (
-    product: PRODUCT,
+    product: Product,
     category?: Category,
   ) => AgnosticBreadcrumb[],
   getCategory: (
-    product: PRODUCT,
+    product: Product,
     currentUrlPath: string,
   ) => Category | null,
-  getCategoryIds: (product: PRODUCT) => string[],
-  getCoverImage: (product: PRODUCT) => string,
-  getDescription: (product: PRODUCT) => string,
+  getCategoryIds: (product: Product) => string[],
+  getCoverImage: (product: Product) => string,
+  getDescription: (product: Product) => string,
   getFiltered: (
-    products: PRODUCT[],
-    _filters: PRODUCT_FILTER,
-  ) => PRODUCT[],
+    products: Product[],
+    _filters: ProductsSearchParams,
+  ) => Product[],
   getFormattedPrice: (price: number) => string | null,
-  getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[],
-  getId: (product: PRODUCT) => string,
-  getName: (product: PRODUCT) => string,
-  getPrice: (product: PRODUCT) => AgnosticPrice,
-  getProductRelatedProduct: (product: PRODUCT) => PRODUCT[] | [],
-  getProductUpsellProduct: (product: PRODUCT) => PRODUCT[] | [],
-  getProductSku: (product: PRODUCT) => string,
-  getProductThumbnailImage: (product: PRODUCT) => string,
-  getShortDescription: (product: PRODUCT) => string,
-  getSlug: (product: PRODUCT, category?: Category) => string,
+  getGallery: (product: Product) => AgnosticMediaGalleryItem[],
+  getId: (product: Product) => string,
+  getName: (product: Product) => string,
+  getPrice: (product: Product) => AgnosticPrice,
+  getProductRelatedProduct: (product: Product) => Product[] | [],
+  getProductUpsellProduct: (product: Product) => Product[] | [],
+  getProductSku: (product: Product) => string,
+  getProductThumbnailImage: (product: Product) => string,
+  getShortDescription: (product: Product) => string,
+  getSlug: (product: Product, category?: Category) => string,
   getTotalReviews: () => number,
-  getTypeId: (product: PRODUCT) => string,
+  getTypeId: (product: Product) => string,
 }
 ```
 * `getAttributes` - returns product attributes.

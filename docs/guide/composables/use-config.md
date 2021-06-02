@@ -4,20 +4,14 @@
 `useConfig` composable is responsible, as its name suggests, for interactions with the configuration in your eCommerce.
 
 ## API
-The `useConfig` composable implements `useConfigFactory` located in `packages/composables/src/factories/useConfigFactory.ts` wich exports return the `UseConfig` interface:
-
+The `useConfig` composable implements custom factory `useConfigFactory` located in `packages/composables/src/factories/useConfigFactory.ts`  and returns `UseConfig` interface:
 ```typescript
-interface UseConfig<CONFIG> {
-  config: ComputedRef<CONFIG>;
+interface UseConfig<StoreConfig> {
+  config: ComputedRef<StoreConfig>;
   loadConfig: () => Promise<void>;
   loading: ComputedRef<boolean>;
 }
-```
 
-### `config`
-Returns the loaded `config` as `computed` property
-
-``` typescript
 export interface StoreConfig {
   /** Footer Miscellaneous HTML */
   absolute_footer?: Maybe<Scalars['String']>;
@@ -179,6 +173,9 @@ export interface StoreConfig {
   welcome?: Maybe<Scalars['String']>;
 }
 ```
+
+### `config`
+Returns the loaded `config` as `computed` property
 
 ### `loadConfig`
 Function to load the `config`

@@ -9,11 +9,9 @@
 What makes it powerful is the ability to accept multiple filters, allowing to narrow down the results to a specific category, search term, etc.
 
 ## API
-The `useFacet` composable implements `useFacetFactory` from `@vue-storefront/core` wich exports return the `UseFacet` interface:
-
-``` typescript
-export interface UseFacet<SEARCH_DATA> {
-  result: ComputedProperty<FacetSearchResult<SEARCH_DATA>>;
+```typescript
+interface UseFacet<any> {
+  result: ComputedProperty<FacetSearchResult<any>>;
   loading: ComputedProperty<boolean>;
   search: (params?: AgnosticFacetSearchParams) => Promise<void>;
   error: ComputedProperty<UseFacetErrors>;
@@ -22,7 +20,7 @@ export interface UseFacet<SEARCH_DATA> {
 
 ### `search`
 Function for searching and classifying records, allowing users to browse the catalog data. It accepts a single object as a parameter
-``` typescript
+```typescript
 interface AgnosticFacetSearchParams {
     categorySlug?: string;
     rootCatSlug?: string;
