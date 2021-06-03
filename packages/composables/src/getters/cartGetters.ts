@@ -40,7 +40,7 @@ export const getItemPrice = (product: CartItem): AgnosticPrice => {
   if (product.prices) {
     return {
       regular: product.prices.row_total.value || 0,
-      special: product.prices.total_item_discount.value || 0,
+      special: product.prices.total_item_discount.value ? product.prices.row_total.value - product.prices.total_item_discount.value : 0,
     };
   }
   const regularPrice = product.product?.price_range?.minimum_price?.regular_price?.value;
@@ -105,7 +105,9 @@ export const getTotals = (cart: Cart): AgnosticTotals => {
   const subtotal = cart.prices.subtotal_including_tax.value;
   return {
     total: cart.prices.grand_total.value,
-    subtotal: cart.prices.subtotal_including_tax.value,
+    subtotal: cart.prices.subtotal_excluding_tax.value,
+    subtotal_including_tax: cart.prices.subtotal_including_tax.value,
+    tax: (cart.prices.applied_taxes) ? calculateDiscounts(cart.prices.applied_taxes) : 0,
     special: (cart.prices.discounts) ? subtotal - calculateDiscounts(cart.prices.discounts) : subtotal,
   } as AgnosticTotals;
 };

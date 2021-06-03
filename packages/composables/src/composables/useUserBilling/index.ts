@@ -49,7 +49,7 @@ const factoryParams: UseUserBillingFactoryParams<any, CustomerAddress> = {
   load: async (context: Context, _params?) => {
     Logger.debug('[Magento] load user address');
 
-    if (!context.user.user?.value?.id) {
+    if (!context.user.user?.value?.email) {
       await context.user.load();
     }
 

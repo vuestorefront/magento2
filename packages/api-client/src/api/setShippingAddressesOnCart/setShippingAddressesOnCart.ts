@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import cartAddressFragment from '../../fragments/cartAddressFragment';
+import cartPricesFragment from '../../fragments/cartPricesFragment';
 
 export default gql`
 mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {
@@ -27,6 +28,9 @@ mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {
             value
           }
         }
+      }
+      prices {
+        ${cartPricesFragment}
       }
     }
   }

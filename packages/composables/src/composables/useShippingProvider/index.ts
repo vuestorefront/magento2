@@ -45,7 +45,25 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
     const { cart } = data
       .setShippingMethodsOnCart;
 
-    context.cart.setCart(cart);
+    // workaround to save shipping method to the cart,
+    // so in case load() will be called shipping method will be populated correctly
+    const shippingAddresses = context.cart.cart?.value?.shipping_addresses;
+    const prices = context.cart.cart?.value?.prices;
+
+    if (shippingAddresses && shippingAddresses[0]) {
+      shippingAddresses[0].selected_shipping_method = cart.shipping_addresses[0].selected_shipping_method;
+    }
+
+    // end workaround
+
+    context.cart.setCart({
+      ...cart,
+      shipping_addresses: shippingAddresses,
+      prices: {
+        ...prices,
+        ...cart.prices,
+      },
+    });
 
     return cart
       .shipping_addresses[0]

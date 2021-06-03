@@ -3,7 +3,7 @@ import { CustomQuery } from '@absolute-web/vsf-core';
 import setShippingMethodsOnCart from './setShippingMethodsOnCart';
 import {
   SetShippingMethodsOnCartInput,
-  SetShippingMethodsOnCartMutation,
+  SetShippingMethodsOnCartMutationFocus,
   SetShippingMethodsOnCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
@@ -12,7 +12,7 @@ export default async (
   context: Context,
   input: SetShippingMethodsOnCartInput,
   customQuery: CustomQuery = { setShippingMethodsOnCart: 'setShippingMethodsOnCart' },
-): Promise<FetchResult<SetShippingMethodsOnCartMutation>> => {
+): Promise<FetchResult<SetShippingMethodsOnCartMutationFocus>> => {
   const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(
     customQuery,
     {
@@ -23,7 +23,7 @@ export default async (
     },
   );
 
-  return context.client.mutate<SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables>({
+  return context.client.mutate<SetShippingMethodsOnCartMutationFocus, SetShippingMethodsOnCartMutationVariables>({
     mutation: setShippingMethodsOnCartGQL.query,
     variables: setShippingMethodsOnCartGQL.variables,
   });

@@ -68,4 +68,8 @@ shipping_addresses {
 billing_address {
   ${cartAddressFragment}
 }
+selected_payment_method {
+  code
+  title
+}
 `;

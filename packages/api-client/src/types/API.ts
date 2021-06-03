@@ -68,9 +68,9 @@ import {
   SetGuestEmailOnCartMutation,
   SetPaymentMethodOnCartMutation,
   SetShippingAddressesOnCartInput,
-  SetShippingAddressesOnCartMutation,
+  SetShippingAddressesOnCartMutationFocus,
   SetShippingMethodsOnCartInput,
-  SetShippingMethodsOnCartMutation,
+  SetShippingMethodsOnCartMutationFocus,
   ShippingCartAddress,
   StoreConfigQuery,
   UpdateCartItemsInput,
@@ -392,12 +392,12 @@ export interface MagentoApiMethods {
   setShippingAddressesOnCart(
     input: SetShippingAddressesOnCartInput,
     customQuery?: CustomQuery
-  ): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
+  ): Promise<FetchResult<SetShippingAddressesOnCartMutationFocus>>;
 
   setShippingMethodsOnCart(
     input: SetShippingMethodsOnCartInput,
     customQuery?: CustomQuery
-  ): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
+  ): Promise<FetchResult<SetShippingMethodsOnCartMutationFocus>>;
 
   storeConfig(customQuery?: CustomQuery): Promise<ApolloQueryResult<StoreConfigQuery>>;
 

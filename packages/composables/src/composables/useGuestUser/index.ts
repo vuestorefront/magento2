@@ -17,6 +17,13 @@ const factoryParams: UseGuestUserFactoryParams<any, SetGuestEmailOnCartInput> = 
       cart_id: context.cart.cart.value.id,
     };
 
+    // workaround to save email to the cart,
+    // so in case load() will be called email will be populated correctly
+    context.cart.setCart({
+      ...context.cart.cart.value,
+      email: params.email,
+    });
+
     await context.$magento.api.setGuestEmailOnCart({
       ...emailOnCartInput,
     });

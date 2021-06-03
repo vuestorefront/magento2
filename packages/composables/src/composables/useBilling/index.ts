@@ -71,17 +71,26 @@ const factoryParams: UseBillingParams<any, any> = {
      */
     const shippingMethod = context.useShippingProvider.state.value;
 
-    Logger.debug('[Magento]: Defining the shipping method as:', JSON.stringify(shippingMethod, null, 2));
+    if (shippingMethod) {
+      Logger.debug('[Magento]: Defining the shipping method as:', JSON.stringify(shippingMethod, null, 2));
 
-    await context.useShippingProvider.save({
-      shippingMethod: {
-        carrier_code: shippingMethod.carrier_code,
-        method_code: shippingMethod.method_code,
-      },
-    });
+      await context.useShippingProvider.save({
+        shippingMethod: {
+          carrier_code: shippingMethod.carrier_code,
+          method_code: shippingMethod.method_code,
+        },
+      });
+    }
     /**
      * End of GraphQL Workaround
      */
+
+    // workaround to save billing address to the cart,
+    // so in case load() will be called billing address will be populated correctly
+    context.cart.setCart({
+      ...context.cart.cart.value,
+      billing_address: data.setBillingAddressOnCart.cart.billing_address
+    });
 
     return data.setBillingAddressOnCart.cart.billing_address;
   },
