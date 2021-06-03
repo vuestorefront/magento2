@@ -22,7 +22,6 @@ import {
   CmsPageQuery,
   ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
   CreateCustomerAddressMutation,
-  CreateEmptyCartMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
@@ -44,7 +43,7 @@ import {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductInterface,
-  ProductReviewQuery,
+  ProductReviewQuery, ProductReviewRatingsMetadataQuery,
   ProductsListQuery, RelatedProductQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -70,10 +69,14 @@ import {
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
+  CreateProductReviewInput, CreateEmptyCartMutation, CreateProductReviewMutation, CustomerProductReviewQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
+import { CustomerProductReviewParams } from '../api/customerProductReview';
 
-export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {}
+export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {
+}
+
 export type AddressOnCart = ShippingCartAddress;
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
@@ -96,6 +99,7 @@ export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
 export type Wishlist = WishlistInterface;
 export type WishlistProduct = WishlistItemInterface;
+export type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
 
 export const enum ProductsQueryType {
   List = 'LIST',
@@ -138,7 +142,11 @@ export interface MagentoApiMethods {
 
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
 
+  createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
+
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
+
+  customerProductReview(input: CustomerProductReviewParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
 
   countries(): Promise<ApolloQueryResult<CountriesListQuery>>;
 
@@ -177,6 +185,8 @@ export interface MagentoApiMethods {
   upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<UpsellProductsQuery>>;
 
   productReview(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewQuery>>;
+
+  productReviewRatingsMetadata(): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>>;
 
   products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductsListQuery>>;
 

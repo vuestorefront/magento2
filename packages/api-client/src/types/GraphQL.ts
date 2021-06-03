@@ -6904,6 +6904,16 @@ export type CreateEmptyCartMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type CreateEmptyCartMutation = Pick<Mutation, 'createEmptyCart'>;
 
+export type CreateProductReviewMutationVariables = Exact<{
+  input: CreateProductReviewInput;
+}>;
+
+
+export type CreateProductReviewMutation = { createProductReview: { review: (
+      Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    ) } };
+
 export type CustomerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -6934,6 +6944,17 @@ export type CustomerOrdersQuery = { customer?: Maybe<{ orders?: Maybe<{ items: A
           & { comments?: Maybe<Array<Maybe<Pick<SalesCommentItem, 'message' | 'timestamp'>>>>, tracking?: Maybe<Array<Maybe<Pick<ShipmentTracking, 'carrier' | 'number' | 'title'>>>>, items?: Maybe<Array<Maybe<ShipmentItemData_BundleShipmentItem_Fragment | ShipmentItemData_ShipmentItem_Fragment>>> }
         )>>>, shipping_address?: Maybe<OrderAddressDataFragment> }
       )>> }> }> };
+
+export type CustomerProductReviewQueryVariables = Exact<{
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type CustomerProductReviewQuery = { customer?: Maybe<{ reviews: { items: Array<Maybe<(
+        Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
+        & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
+      )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }> };
 
 export type DeleteCustomerAddressMutationVariables = Exact<{
   id: Scalars['Int'];
@@ -7097,39 +7118,47 @@ export type ProductReviewQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<
       Pick<BundleProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     ) | (
       Pick<ConfigurableProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     ) | (
       Pick<DownloadableProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     ) | (
       Pick<GroupedProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     ) | (
       Pick<SimpleProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     ) | (
       Pick<VirtualProduct, 'review_count'>
       & { reviews: { items: Array<Maybe<(
           Pick<ProductReview, 'average_rating' | 'nickname' | 'summary' | 'text' | 'created_at'>
-          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+          & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>>, product: Pick<BundleProduct, 'name' | 'uid'> | Pick<ConfigurableProduct, 'name' | 'uid'> | Pick<DownloadableProduct, 'name' | 'uid'> | Pick<GroupedProduct, 'name' | 'uid'> | Pick<SimpleProduct, 'name' | 'uid'> | Pick<VirtualProduct, 'name' | 'uid'> }
         )>>, page_info: Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'> } }
     )>>> }> };
+
+export type ProductReviewRatingsMetadataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductReviewRatingsMetadataQuery = { productReviewRatingsMetadata: { items: Array<Maybe<(
+      Pick<ProductReviewRatingMetadata, 'id' | 'name'>
+      & { values: Array<Maybe<Pick<ProductReviewRatingValueMetadata, 'value_id' | 'value'>>> }
+    )>> } };
 
 export type ProductsListQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;

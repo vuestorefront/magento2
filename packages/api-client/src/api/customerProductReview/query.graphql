@@ -1,7 +1,5 @@
-query productReview($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
-  products(search: $search, filter: $filter, sort: $sort) {
-    items {
-      review_count
+query customerProductReview($pageSize: Int = 20, $currentPage: Int = 1) {
+  customer {
       reviews(pageSize: $pageSize, currentPage: $currentPage) {
         items {
           average_rating
@@ -9,14 +7,14 @@ query productReview($search: String = "", $filter: ProductAttributeFilterInput, 
             name
             value
           }
-          product {
-            name
-            uid
-          }
           nickname
           summary
           text
           created_at
+          product {
+            name
+            uid
+          }
         }
         page_info {
           current_page
@@ -24,6 +22,5 @@ query productReview($search: String = "", $filter: ProductAttributeFilterInput, 
           total_pages
         }
       }
-    }
   }
 }

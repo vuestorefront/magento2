@@ -31,8 +31,7 @@ export const getProductSlug = (product: Product, category?: Category): string =>
   }
 
   url = `/${rewrites[0].url}`;
-  for (let i = 0; i < rewrites.length; i += 1) {
-    const rewrite = rewrites[i];
+  for (const rewrite of rewrites) {
     if (category && category.uid) {
       url = `/${rewrite.url}`;
       break;
@@ -109,8 +108,7 @@ export const getProductAttributes = (
   const attributes = {};
   const configurableOptions = products.configurable_options;
 
-  for (let i = 0; i < configurableOptions.length; i += 1) {
-    const option = configurableOptions[i];
+  for (const option of configurableOptions) {
     attributes[option.attribute_code] = {
       name: option.attribute_code,
       label: option.label,

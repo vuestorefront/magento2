@@ -49,8 +49,18 @@
                 ({{ totalReviews }})
               </a>
             </div>
-            <SfButton class="sf-button--text">
+            <SfButton
+              class="sf-button--text"
+              @click="changeTab(2)"
+            >
               {{ $t('Read all reviews') }}
+            </SfButton>
+            |
+            <SfButton
+              class="sf-button--text"
+              @click="changeNewReview"
+            >
+              Add a review
             </SfButton>
           </div>
         </div>
@@ -106,8 +116,10 @@
 
         <LazyHydrate when-idle>
           <SfTabs
-            :open-tab="1"
+            id="tabs"
+            :open-tab="openTab"
             class="product__tabs"
+            @click:tab="changeTab"
           >
             <SfTab title="Description">
               <div
@@ -134,8 +146,13 @@
               </SfProperty>-->
             </SfTab>
             <SfTab title="Read reviews">
+              <div v-show="reviewsLoading">
+                <SfLoader />
+              </div>
+
               <SfReview
                 v-for="review in reviews"
+                v-show="!reviewsLoading"
                 :key="reviewGetters.getReviewId(review)"
                 :author="reviewGetters.getReviewAuthor(review)"
                 :date="reviewGetters.getReviewDate(review)"
@@ -147,6 +164,14 @@
                 hide-full-text="Read less"
                 class="product__review"
               />
+              <div
+                v-show="!reviewsLoading"
+                id="addReview"
+              >
+                <ProductAddReviewForm
+                  @add-review="successAddReview"
+                />
+              </div>
             </SfTab>
             <SfTab
               title="Additional Information"
@@ -206,6 +231,7 @@
   </div>
 </template>
 <script>
+import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfAddToCart,
   SfAlert,
@@ -226,9 +252,6 @@ import {
   SfSticky,
   SfTabs,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@vue/composition-api';
-import { onSSR } from '@vue-storefront/core';
-import LazyHydrate from 'vue-lazy-hydration';
 import {
   useProduct,
   useCart,
@@ -236,9 +259,12 @@ import {
   useReview,
   reviewGetters,
 } from '@vue-storefront/magento';
-import InstagramFeed from '~/components/InstagramFeed.vue';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import { onSSR } from '@vue-storefront/core';
+import { ref, computed } from '@vue/composition-api';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import ProductAddReviewForm from '../components/ProductAddReviewForm.vue';
+import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
 export default {
@@ -247,6 +273,7 @@ export default {
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
+    ProductAddReviewForm,
     ProductsCarousel,
     SfAddToCart,
     SfAlert,
@@ -268,22 +295,29 @@ export default {
     SfTabs,
   },
   transition: 'fade',
-  setup(props, context) {
+  setup() {
     const qty = ref(1);
-    const { route } = useVueRouter();
+    const { route, router } = useVueRouter();
     const { id } = route.params;
     const { products, search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
-    const { reviews: productReviews, search: searchReviews, loading: reviewsLoading } = useReview(`productReviews-${id}`);
+    const {
+      reviews: productReviews,
+      search: searchReviews,
+      loading: reviewsLoading,
+      addReview,
+    } = useReview(`productReviews-${id}`);
 
-    const productDataIsLoading = computed(() => reviewsLoading.value || productLoading.value);
+    const openTab = ref(1);
+
+    const productDataIsLoading = computed(() => productLoading.value);
 
     const product = computed(() => {
       const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
 
       return productGetters.getFiltered(baseProduct, {
         master: true,
-        attributes: context.root.$route.query,
+        attributes: route.query,
       });
     });
 
@@ -299,13 +333,17 @@ export default {
     });
 
     const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
-    const configuration = computed(() => productGetters.getAttributes(product.value, ['color', 'size']));
+    const configuration = computed(() => productGetters.getAttributes(product.value,
+      ['color', 'size']));
     const categories = computed(() => productGetters.getCategoryIds(product.value));
 
     const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
     const upsellProducts = computed(() => productGetters.getProductUpsellProduct(product.value));
 
-    const baseReviews = computed(() => [...productReviews.value].shift());
+    const baseReviews = computed(() => (Array.isArray(productReviews.value)
+      ? [...productReviews.value].shift()
+      : productReviews.value));
+
     const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
     const totalReviews = computed(() => reviewGetters.getTotalReviews(baseReviews.value));
     const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
@@ -321,8 +359,35 @@ export default {
         mobile: { url: img.small },
         desktop: { url: img.normal },
         big: { url: img.big },
+        // eslint-disable-next-line no-underscore-dangle
         alt: product.value._name || product.value.name,
       })));
+
+    const changeTab = (tabNumber, callback) => {
+      document
+        .querySelector('#tabs')
+        .scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+      openTab.value = tabNumber;
+
+      if (callback && typeof callback === 'function') callback();
+    };
+
+    const changeNewReview = () => {
+      changeTab(2, () => {
+        setTimeout(() => document
+          .querySelector('#addReview')
+          .scrollIntoView({ behavior: 'smooth', block: 'end' }), 500);
+      });
+    };
+
+    const successAddReview = async (reviewData) => {
+      await addReview(reviewData);
+
+      document
+        .querySelector('#tabs')
+        .scrollIntoView({ behavior: 'smooth', block: 'end' });
+    };
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -342,8 +407,8 @@ export default {
     });
 
     const updateFilter = (filter) => {
-      context.root.$router.push({
-        path: context.root.$route.path,
+      router.push({
+        path: route.path,
         query: {
           ...configuration.value,
           ...filter,
@@ -353,23 +418,29 @@ export default {
 
     return {
       addItem,
+      changeNewReview,
+      successAddReview,
       averageRating,
       breadcrumbs,
       canAddToCart,
       categories,
+      changeTab,
       configuration,
       loading,
+      openTab,
       options,
       product,
+      productDataIsLoading,
       productDescription,
       productGallery,
       productGetters,
-      productDataIsLoading,
+      productReviews,
       productShortDescription,
       qty,
       relatedProducts,
       reviewGetters,
       reviews,
+      reviewsLoading,
       totalReviews,
       updateFilter,
       upsellProducts,
@@ -388,7 +459,8 @@ export default {
 }
 
 .product-loader {
-  height: 38px; margin: var(--spacer-base) auto var(--spacer-lg)
+  height: 38px;
+  margin: var(--spacer-base) auto var(--spacer-lg)
 }
 
 .product {

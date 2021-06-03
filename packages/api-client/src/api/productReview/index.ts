@@ -44,7 +44,7 @@ export default async (
     customQuery, {
       reviews: {
         query: reviewQuery,
-        variables: defaultParams,
+        variables,
       },
     },
   );

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const fs = require('fs');
 const convict = require('convict');
 
 convict.addFormat(require('convict-format-with-validator').url);
@@ -39,8 +40,14 @@ const config = convict({
 });
 
 const env = config.get('env');
-
-config.loadFile(`./config/${env}.json`);
+const filePath = `./config/${env}.json`;
+fs.access(filePath, fs.F_OK, (err) => {
+  if (err) {
+    console.warn('[Magento: Middleware Config] Not found any configuration file, will use the ENV variable or default configuration.');
+    return;
+  }
+  config.loadFile(filePath);
+});
 
 // Perform validation
 config.validate({ allowed: 'strict' });
