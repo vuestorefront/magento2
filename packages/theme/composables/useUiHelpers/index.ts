@@ -3,10 +3,10 @@ import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
 import { getInstance } from '~/helpers/hooks/getInstance';
 
-const nonFilters = ['page', 'sort', 'term', 'itemsPerPage'];
+const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
 const reduceFilters = (query) => (prev, curr) => {
-  const makeArray = Array.isArray(query[curr]) || nonFilters.includes(curr);
+  const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
   return {
     ...prev,
@@ -18,7 +18,7 @@ const getFiltersDataFromUrl = (context, onlyFilters) => {
   const { query } = context.$router.history.current;
 
   return Object.keys(query)
-    .filter((f) => (onlyFilters ? !nonFilters.includes(f) : nonFilters.includes(f)))
+    .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
     .reduce(reduceFilters(query), {});
 };
 
@@ -43,10 +43,10 @@ const useUiHelpers = () => {
     const { query } = instance.$router.history.current;
 
     return {
-      page: parseInt(query.page, 10) || 1,
+      page: Number.parseInt(query.page, 10) || 1,
       sort: query.sort || '',
       filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: parseInt(query.itemsPerPage, 10) || 20,
+      itemsPerPage: Number.parseInt(query.itemsPerPage, 10) || 20,
       term: query.term,
     };
   };

@@ -222,7 +222,6 @@
                 <SfButton
                   class="sf-button--text desktop-only"
                   style="margin: 0 0 1rem auto; display: block;"
-                  @click="() => {}"
                 >
                   {{ $t('Save for later') }}
                 </SfButton>
@@ -293,10 +292,10 @@
               <SfColor
                 v-for="option in facet.options"
                 :key="`${facet.id}-${option.value}`"
-                :color="option.value"
+                :color="option.attrName"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__color"
-                @click="() => selectFilter(facet, option)"
+                @click="selectFilter(facet, option)"
               />
             </div>
             <div v-else>
@@ -306,7 +305,7 @@
                 :label="option.id + `${option.count ? ` (${option.count})` : ''}`"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="() => selectFilter(facet, option)"
+                @change="selectFilter(facet, option)"
               />
             </div>
           </div>
@@ -327,7 +326,7 @@
                 :label="option.id"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="() => selectFilter(facet, option)"
+                @change="selectFilter(facet, option)"
               />
             </SfAccordionItem>
           </div>
@@ -336,13 +335,13 @@
           <div class="filters__buttons">
             <SfButton
               class="sf-button--full-width"
-              @click="applyFilters"
+              @click="applyFilters()"
             >
               {{ $t('Done') }}
             </SfButton>
             <SfButton
               class="sf-button--full-width filters__button-clear"
-              @click="clearFilters"
+              @click="applyFilters({})"
             >
               {{ $t('Clear all') }}
             </SfButton>
@@ -420,21 +419,37 @@ export default {
     const { addItem: addItemToCartBase, isInCart } = useCart();
     const { addItem: addItemToWishlist } = useWishlist();
     const { result, search, loading } = useFacet(`facetId:${path}`);
-    const { categories, search: categoriesSearch, loading: categoriesLoading } = useCategory(`categoryList:${path}`);
+    const { changeFilters, isFacetColor } = useUiHelpers();
+    const { toggleFilterSidebar } = useUiState();
+    const {
+      categories,
+      search: categoriesSearch,
+      loading: categoriesLoading,
+    } = useCategory(`categoryList:${path}`);
 
-    const { search: routeSearch, result: routeData } = useUrlResolver(`router:${path}`);
+    const { search: routeSearch, result: routeData } = useUrlResolver(
+      `router:${path}`
+    );
+
+    const selectedFilters = ref({});
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(
-      categories.value?.[0],
-      routeData.value.entity_uid,
-      true,
-    ));
-    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
+    const categoryTree = computed(() =>
+      categoryGetters.getCategoryTree(
+        categories.value?.[0],
+        routeData.value.entity_uid,
+        true
+      )
+    );
+    const breadcrumbs = computed(() =>
+      facetGetters.getBreadcrumbs(result.value)
+    );
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size']));
+    const facets = computed(() =>
+      facetGetters.getGrouped(result.value, ['color', 'size', 'price'])
+    );
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -445,7 +460,9 @@ export default {
         return '';
       }
 
-      const category = items.find((cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent));
+      const category = items.find(
+        (cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent)
+      );
 
       return category?.label || items[0]?.label;
     });
@@ -462,73 +479,44 @@ export default {
         (value, key, parentValue, _deepCtx) => {
           const hasUid = key === '0' && value && Array.isArray(parentValue);
 
-          return (hasUid) ? value === (categoryUid) : false;
-        },
+          return hasUid ? value === categoryUid : false;
+        }
       );
 
-      const categoryUidResult = categoryDeep?.parent.length === 1
-        ? categoryDeep?.parent[0]
-        : categoryDeep?.parent;
+      const categoryUidResult =
+        categoryDeep?.parent.length === 1
+          ? categoryDeep?.parent[0]
+          : categoryDeep?.parent;
 
       return categoryUidResult || items[0]?.uid;
     };
 
-    onSSR(async () => {
-      await Promise.all([
-        await routeSearch(path),
-        categoriesSearch({
-          pageSize: 100,
-        }),
-      ]);
-
-      await Promise.all([
-        search({
-          ...th.getFacetsFromURL(),
-          categoryId: activeCategoryUid(routeData.value.entity_uid),
-        }),
-      ]);
-    });
-
-    const { changeFilters, isFacetColor } = useUiHelpers();
-    const { toggleFilterSidebar } = useUiState();
-    const selectedFilters = ref({});
-
-    onMounted(() => {
-      context.root.$scrollTo(context.root.$el, 2000);
-      if (facets.value.length === 0) return;
-      selectedFilters.value = facets.value.reduce((prev, curr) => ({
-        ...prev,
-        [curr.id]: curr.options
-          .filter((o) => o.selected)
-          .map((o) => o.id),
-      }), {});
-    });
-
-    const isFilterSelected = (facet, option) => (selectedFilters.value[facet.id] || []).includes(
-      option.id,
-    );
+    const isFilterSelected = (facet, option) =>
+      (selectedFilters.value[facet.id] || []).includes(option.value);
 
     const selectFilter = (facet, option) => {
       if (!selectedFilters.value[facet.id]) {
-        Vue.set(selectedFilters.value, facet.id, []);
+        selectedFilters.value[facet.id] = [];
       }
 
-      if (selectedFilters.value[facet.id].find((f) => f === option.id)) {
-        selectedFilters.value[facet.id] = selectedFilters.value[facet.id].filter((f) => f !== option.id);
+      if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
+        selectedFilters.value[facet.id] = selectedFilters.value[
+          facet.id
+        ].filter((f) => f !== option.value);
+
         return;
       }
 
-      selectedFilters.value[facet.id].push(option.id);
+      selectedFilters.value[facet.id].push(option.value);
     };
 
-    const clearFilters = () => {
+    const applyFilters = (filters) => {
       toggleFilterSidebar();
-      selectedFilters.value = {};
-      changeFilters(selectedFilters.value);
-    };
 
-    const applyFilters = () => {
-      toggleFilterSidebar();
+      if (filters) {
+        selectedFilters.value = filters;
+      }
+
       changeFilters(selectedFilters.value);
     };
 
@@ -542,12 +530,46 @@ export default {
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
+          await router.push(
+            `/p/${productGetters.getProductSku(
+              product
+            )}${productGetters.getSlug(product, product.categories[0])}`
+          );
           break;
         default:
-          throw new Error(`Product Type ${productType} not supported in add to cart yet`);
+          throw new Error(
+            `Product Type ${productType} not supported in add to cart yet`
+          );
       }
     };
+
+    onSSR(async () => {
+      await Promise.all([
+        routeSearch(path),
+        categoriesSearch({
+          pageSize: 100,
+        }),
+      ]);
+
+      await search({
+        ...th.getFacetsFromURL(),
+        categoryId: activeCategoryUid(routeData.value.entity_uid),
+      });
+    });
+
+    onMounted(() => {
+      context.root.$scrollTo(context.root.$el, 2000);
+
+      if (facets.value.length === 0) return;
+
+      selectedFilters.value = facets.value.reduce(
+        (prev, curr) => ({
+          ...prev,
+          [curr.id]: curr.options.filter((o) => o.selected).map((o) => o.value),
+        }),
+        {}
+      );
+    });
 
     return {
       ...uiState,
@@ -559,7 +581,6 @@ export default {
       categoryTree,
       categories,
       categoriesLoading,
-      clearFilters,
       facets,
       isFacetColor,
       isFilterSelected,
@@ -742,7 +763,8 @@ export default {
 
     &-label {
       margin: 0 var(--spacer-sm) 0 0;
-      font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
+      font: var(--font-weight--normal) var(--font-size--base) / 1.6
+        var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
     }
