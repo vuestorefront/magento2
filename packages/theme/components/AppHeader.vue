@@ -125,7 +125,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeader,
   SfImage,
@@ -134,8 +134,6 @@ import {
   SfBadge,
   SfSearchBar,
   SfOverlay,
-  SfMenuItem,
-  SfLink,
 } from '@storefront-ui/vue';
 import {
   cartGetters,
@@ -148,7 +146,11 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import {
-  computed, ref, onBeforeUnmount, watch,
+  computed,
+  ref,
+  onBeforeUnmount,
+  watch,
+  defineComponent,
 } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
@@ -157,11 +159,15 @@ import {
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import debounce from 'lodash.debounce';
-import { useUiHelpers, useUiState } from '~/composables';
-import LocaleSelector from './LocaleSelector';
-import SearchResults from '~/components/SearchResults';
+import {
+  useUiHelpers,
+  useUiState,
+} from '~/composables';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import LocaleSelector from './LocaleSelector.vue';
+import SearchResults from '~/components/SearchResults.vue';
 
-export default {
+export default defineComponent({
   components: {
     SfHeader,
     SfImage,
@@ -172,11 +178,10 @@ export default {
     SfSearchBar,
     SearchResults,
     SfOverlay,
-    SfMenuItem,
-    SfLink,
   },
   directives: { clickOutside },
-  setup(props, { root }) {
+  setup() {
+    const { router } = useVueRouter();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
@@ -185,7 +190,7 @@ export default {
     const {
       result: searchResult,
       search: productsSearch,
-      loading: productsLoading,
+      // loading: productsLoading,
     } = useFacet('AppHeader:Products');
     const {
       result: categories,
@@ -195,6 +200,7 @@ export default {
       categories: categoryList,
       search: categoriesListSearch,
     } = useCategory('AppHeader:CategoryList');
+
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
@@ -206,15 +212,15 @@ export default {
     });
 
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
+
     const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
 
-    // TODO: https://github.com/DivanteLtd/vue-storefront/issues/4927
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        return root.$router.push('/my-account');
+        await router.push('/my-account');
+      } else {
+        toggleLoginModal();
       }
-
-      toggleLoginModal();
     };
 
     onSSR(async () => {
@@ -241,16 +247,17 @@ export default {
       await Promise.all([
         productsSearch({
           itemsPerPage: 12,
-          term: term.value,
+          term: term.value as string,
         }),
         categoriesSearch({
-          term: term.value,
+          term: term.value as string,
         }),
       ]);
 
       result.value = {
         products: searchResult.value?.data?.items,
-        categories: categories.value.map(categoryGetters.getCategoryTree),
+        categories: categories.value
+          .map((element) => categoryGetters.getCategoryTree(element)),
       };
     }, 1000);
 
@@ -267,7 +274,8 @@ export default {
     watch(() => term.value, (newVal, oldVal) => {
       const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0)
         && ((!oldVal && newVal)
-          || (newVal.length !== oldVal.length && isSearchOpen.value === false));
+          || (newVal.length !== oldVal.length
+            && isSearchOpen.value === false));
 
       if (shouldSearchBeOpened) isSearchOpen.value = true;
     });
@@ -300,7 +308,7 @@ export default {
       toggleWishlistSidebar,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

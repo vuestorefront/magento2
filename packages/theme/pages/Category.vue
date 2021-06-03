@@ -353,7 +353,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfSidebar,
   SfButton,
@@ -372,7 +372,12 @@ import {
   SfColor,
   SfProperty,
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted } from '@vue/composition-api';
+import {
+  ref,
+  computed,
+  onMounted,
+  defineComponent,
+} from '@vue/composition-api';
 import {
   useCart,
   useWishlist,
@@ -388,10 +393,10 @@ import LazyHydrate from 'vue-lazy-hydration';
 import Vue from 'vue';
 import findDeep from 'deepdash/findDeep';
 import { useUiHelpers, useUiState } from '~/composables';
-import { useVueRouter } from '../helpers/hooks/useVueRouter';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
-export default {
+export default defineComponent({
   components: {
     SfButton,
     SfSidebar,
@@ -494,6 +499,7 @@ export default {
     const selectedFilters = ref({});
 
     onMounted(() => {
+      // @ts-ignore
       context.root.$scrollTo(context.root.$el, 2000);
       if (facets.value.length === 0) return;
       selectedFilters.value = facets.value.reduce((prev, curr) => ({
@@ -574,7 +580,7 @@ export default {
       th,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

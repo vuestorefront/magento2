@@ -59,12 +59,12 @@
   </ValidationObserver>
 </template>
 
-<script>
-import { ref } from '@vue/composition-api';
+<script lang="ts">
+import { defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 
-export default {
+export default defineComponent({
   name: 'PasswordResetForm',
 
   components: {
@@ -101,7 +101,7 @@ export default {
       submitForm,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

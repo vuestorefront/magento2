@@ -81,13 +81,13 @@
   </ValidationObserver>
 </template>
 
-<script>
-import { ref } from '@vue/composition-api';
+<script lang="ts">
+import { defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { useUser, userGetters } from '@vue-storefront/magento';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
 
-export default {
+export default defineComponent({
   name: 'ProfileUpdateForm',
   components: {
     SfInput,
@@ -114,7 +114,12 @@ export default {
       email: userGetters.getEmailAddress(user.value),
     });
 
-    const form = ref(resetForm());
+    const form = ref<{
+      firstname: string;
+      lastname: string;
+      email: string;
+      password?: string;
+    }>(resetForm());
 
     const submitForm = (resetValidationFn) => () => {
       const onComplete = () => {
@@ -151,7 +156,7 @@ export default {
       submitForm,
     };
   },
-};
+});
 </script>
 <style lang='scss' scoped>
 .form {

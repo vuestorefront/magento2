@@ -278,7 +278,7 @@ import {
   onMounted,
   watch,
 } from '@vue/composition-api';
-import { addressFromApiToForm, formatAddressReturnToData } from '../../helpers/checkout/address';
+import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 const NOT_SELECTED_ADDRESS = '';

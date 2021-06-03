@@ -81,19 +81,19 @@
     </SfTabs>
   </transition>
 </template>
-<script>
+<script lang="ts">
 import {
   SfTabs,
   SfButton,
   SfIcon,
 } from '@storefront-ui/vue';
 import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import BillingAddressForm from '~/components/MyAccount/BillingAddressForm';
-import UserBillingAddress from '~/components/UserBillingAddress';
+import BillingAddressForm from '~/components/MyAccount/BillingAddressForm.vue';
+import UserBillingAddress from '~/components/UserBillingAddress.vue';
 
-export default {
+export default defineComponent({
   name: 'BillingDetails',
   components: {
     SfTabs,
@@ -156,7 +156,7 @@ export default {
       isNewAddress,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

@@ -117,14 +117,14 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
   SfButton, SfCheckbox,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@vue/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
@@ -153,7 +153,7 @@ extend('password', {
   },
 });
 
-export default {
+export default defineComponent({
   name: 'UserAccount',
   components: {
     SfHeading,
@@ -243,7 +243,7 @@ export default {
       user,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

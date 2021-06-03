@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script>
+<script lant="ts">
 import {
   SfHeading,
   SfTable,
@@ -141,14 +141,12 @@ import {
   SfButton,
   SfDivider,
   SfImage,
-  SfIcon,
   SfPrice,
   SfProperty,
-  SfAccordion,
   SfLink,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@vue/composition-api';
 import {
   useMakeOrder,
   useCart,
@@ -157,8 +155,8 @@ import {
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
-export default {
-  name: 'ReviewOrder',
+export default defineComponent({
+  name: 'ReviewOrderAndPayment',
   components: {
     SfHeading,
     SfTable,
@@ -166,10 +164,8 @@ export default {
     SfButton,
     SfDivider,
     SfImage,
-    SfIcon,
     SfPrice,
     SfProperty,
-    SfAccordion,
     SfLink,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
@@ -204,7 +200,7 @@ export default {
       totals: computed(() => cartGetters.getTotals(cart.value)),
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

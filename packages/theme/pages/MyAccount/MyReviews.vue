@@ -43,7 +43,7 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfTabs,
   SfLoader,
@@ -51,9 +51,9 @@ import {
   SfRating,
 } from '@storefront-ui/vue';
 import { reviewGetters, useReview } from '@vue-storefront/magento';
-import { computed, onBeforeMount } from '@vue/composition-api';
+import { computed, defineComponent, onBeforeMount } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'MyReviews',
   components: {
     SfLoader,
@@ -68,10 +68,11 @@ export default {
       loadCustomerReviews,
     } = useReview('productReviews-my-reviews');
 
+    // @ts-ignore
     const userReviews = computed(() => reviewGetters.getItems(reviews.value));
 
     onBeforeMount(async () => {
-      await loadCustomerReviews({});
+      await loadCustomerReviews();
     });
 
     return {
@@ -81,7 +82,7 @@ export default {
       loadCustomerReviews,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

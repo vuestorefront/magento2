@@ -61,7 +61,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfButton,
@@ -70,7 +70,11 @@ import {
   SfInput,
 } from '@storefront-ui/vue';
 import {
-  computed, onMounted, watch, ref,
+  computed,
+  onMounted,
+  watch,
+  ref,
+  defineComponent,
 } from '@vue/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
@@ -94,7 +98,7 @@ const CHARACTERISTICS = [
   },
 ];
 
-export default {
+export default defineComponent({
   name: 'CartPreview',
   components: {
     SfHeading,
@@ -135,6 +139,8 @@ export default {
     const handleCoupon = async () => {
       await (
         promoIsApplied.value
+          // @TODO - Remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5966 is applied
+          // @ts-ignore
           ? removeCoupon({ currentCart: cart.value })
           : applyCoupon({ couponCode: promoCode.value })
       );
@@ -159,7 +165,7 @@ export default {
       hasSpecialPrice,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

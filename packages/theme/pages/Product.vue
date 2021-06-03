@@ -234,22 +234,17 @@
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfAddToCart,
-  SfAlert,
-  SfBanner,
   SfBreadcrumbs,
   SfButton,
   SfColor,
   SfGallery,
   SfHeading,
   SfIcon,
-  SfImage,
   SfLoader,
   SfPrice,
-  SfProperty,
   SfRating,
   SfReview,
   SfSelect,
-  SfSticky,
   SfTabs,
 } from '@storefront-ui/vue';
 import {
@@ -262,10 +257,10 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import { ref, computed } from '@vue/composition-api';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import ProductAddReviewForm from '../components/ProductAddReviewForm.vue';
+import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
-import { useVueRouter } from '../helpers/hooks/useVueRouter';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default {
   name: 'Product',
@@ -276,22 +271,17 @@ export default {
     ProductAddReviewForm,
     ProductsCarousel,
     SfAddToCart,
-    SfAlert,
-    SfBanner,
     SfBreadcrumbs,
     SfButton,
     SfColor,
     SfGallery,
     SfHeading,
     SfIcon,
-    SfImage,
     SfLoader,
     SfPrice,
-    SfProperty,
     SfRating,
     SfReview,
     SfSelect,
-    SfSticky,
     SfTabs,
   },
   transition: 'fade',
