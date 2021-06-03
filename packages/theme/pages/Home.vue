@@ -59,19 +59,12 @@
     </LazyHydrate>
   </div>
 </template>
-<script type="module">
+<script lang="ts" type="module">
 import {
   SfHero,
   SfBanner,
   SfCallToAction,
-  SfSection,
-  SfCarousel,
-  SfProductCard,
-  SfImage,
   SfBannerGrid,
-  SfHeading,
-  SfArrow,
-  SfButton,
 } from '@storefront-ui/vue';
 import {
   useProduct,
@@ -80,6 +73,7 @@ import {
 } from '@vue-storefront/magento';
 import {
   computed,
+  defineComponent,
 } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
@@ -87,17 +81,17 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
-export default {
+export default defineComponent({
   name: 'Home',
   components: {
     InstagramFeed,
-    SfHero,
+    LazyHydrate,
+    MobileStoreBanner,
     ProductsCarousel,
     SfBanner,
-    SfCallToAction,
     SfBannerGrid,
-    MobileStoreBanner,
-    LazyHydrate,
+    SfCallToAction,
+    SfHero,
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
@@ -114,6 +108,7 @@ export default {
       isInCart,
     } = useCart();
 
+    // @ts-ignore
     const newProducts = computed(() => productGetters.getFiltered(newProductsResult.value?.items, { master: true }));
 
     onSSR(async () => {
@@ -251,7 +246,7 @@ export default {
       this.products[index].isInWishlist = !this.products[index].isInWishlist;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

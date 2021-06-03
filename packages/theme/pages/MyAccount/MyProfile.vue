@@ -28,16 +28,19 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import { extend } from 'vee-validate';
 import {
-  email, required, min, confirmed,
+  required,
+  min,
+  confirmed,
 } from 'vee-validate/dist/rules';
 import { SfTabs } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { useUser } from '@vue-storefront/magento';
-import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm';
-import PasswordResetForm from '~/components/MyAccount/PasswordResetForm';
+import { defineComponent } from '@vue/composition-api';
+import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
+import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
 
 extend('required', {
   ...required,
@@ -50,9 +53,11 @@ extend('min', {
 });
 
 extend('password', {
-  validate: (value) => String(value).length >= 8 && String(value).match(/[A-Za-z]/gi) && String(value)
-    .match(/[0-9]/gi),
-  message: 'Password must have at least 8 characters including one letter and a number',
+  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
+  validate: (value) => {
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])(?=.{8,})');
+    return strongRegex.test(value);
+  },
 });
 
 extend('confirmed', {
@@ -60,7 +65,7 @@ extend('confirmed', {
   message: 'Passwords don\'t match',
 });
 
-export default {
+export default defineComponent({
   name: 'PersonalDetails',
 
   components: {
@@ -112,7 +117,7 @@ export default {
       updatePassword,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

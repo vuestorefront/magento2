@@ -33,21 +33,20 @@
     </template>
   </SfBanner>
 </template>
-<script type="module">
+<script lang="ts" type="module">
 import {
   SfBanner,
-  SfImage,
   SfButton,
 } from '@storefront-ui/vue';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'AppStoreBanner',
   components: {
     SfBanner,
-    SfImage,
     SfButton,
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 

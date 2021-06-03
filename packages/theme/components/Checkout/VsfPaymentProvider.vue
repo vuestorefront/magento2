@@ -18,16 +18,20 @@
   </div>
 </template>
 
-<script>
-import { SfButton, SfRadio } from '@storefront-ui/vue';
-import { ref, onMounted, computed } from '@vue/composition-api';
+<script lang="ts">
+import { SfRadio } from '@storefront-ui/vue';
+import {
+  ref,
+  onMounted,
+  computed,
+  defineComponent,
+} from '@vue/composition-api';
 import { usePaymentProvider } from '@vue-storefront/magento';
 
-export default {
+export default defineComponent({
   name: 'VsfPaymentProvider',
 
   components: {
-    SfButton,
     SfRadio,
   },
 
@@ -69,7 +73,7 @@ export default {
       definePaymentMethods,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,10 @@
 import {
-  CartGetters, AgnosticPrice, AgnosticTotals, AgnosticAttribute, AgnosticCoupon, AgnosticDiscount,
+  CartGetters as CartGettersBase,
+  AgnosticPrice,
+  AgnosticTotals,
+  AgnosticAttribute,
+  AgnosticCoupon,
+  AgnosticDiscount,
 } from '@vue-storefront/core';
 import {
   Discount,
@@ -145,7 +150,15 @@ export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] 
   value: p.code,
 }));
 
-const cartGetters: CartGetters<Cart, CartItem> = {
+export interface CartGetters extends CartGettersBase<Cart, CartItem>{
+  getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
+  getAvailablePaymentMethods(cart: Cart): AgnosticPaymentMethod[];
+  getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
+  productHasSpecialPrice(product: CartItem): boolean;
+}
+
+const cartGetters: CartGetters = {
+  getAppliedCoupon,
   getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
@@ -162,7 +175,6 @@ const cartGetters: CartGetters<Cart, CartItem> = {
   getTotalItems: getCartTotalItems,
   getTotals: getCartTotals,
   productHasSpecialPrice,
-  getAppliedCoupon,
 };
 
 export default cartGetters;

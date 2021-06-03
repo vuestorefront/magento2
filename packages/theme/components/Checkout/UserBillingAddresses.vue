@@ -25,15 +25,21 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfCheckbox,
   SfAddressPicker,
 } from '@storefront-ui/vue';
-import { useUserBilling, userBillingGetters } from '@vue-storefront/magento';
-import UserBillingAddress from '~/components/UserBillingAddress';
+import {
+  useUserBilling,
+  userBillingGetters,
+} from '@vue-storefront/magento';
+import {
+  defineComponent,
+} from '@vue/composition-api';
+import UserBillingAddress from '~/components/UserBillingAddress.vue';
 
-export default {
+export default defineComponent({
   name: 'UserBillingAddresses',
   components: {
     SfCheckbox,
@@ -70,7 +76,7 @@ export default {
       userBillingGetters,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

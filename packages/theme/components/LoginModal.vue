@@ -215,15 +215,19 @@
     </transition>
   </SfModal>
 </template>
-<script>
-import { ref, watch, reactive } from '@vue/composition-api';
+<script lang="ts">
+import {
+  ref,
+  watch,
+  reactive,
+  defineComponent,
+} from '@vue/composition-api';
 import {
   SfModal,
   SfInput,
   SfButton,
   SfCheckbox,
   SfLoader,
-  SfAlert,
   SfBar,
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
@@ -249,7 +253,7 @@ extend('password', {
   },
 });
 
-export default {
+export default defineComponent({
   name: 'LoginModal',
   components: {
     SfModal,
@@ -257,7 +261,6 @@ export default {
     SfButton,
     SfCheckbox,
     SfLoader,
-    SfAlert,
     ValidationProvider,
     ValidationObserver,
     SfBar,
@@ -326,7 +329,7 @@ export default {
       setIsLoginValue,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

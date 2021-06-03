@@ -125,33 +125,34 @@
     </SfSidebar>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfSidebar,
   SfHeading,
   SfButton,
-  SfIcon,
   SfProperty,
   SfPrice,
   SfCollectedProduct,
   SfImage,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
-import { computed } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 import {
-  useCart, useUser, cartGetters, useExternalCheckout,
+  useCart,
+  useUser,
+  cartGetters,
+  useExternalCheckout,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { useUiState } from '~/composables';
-import { useVueRouter } from '../helpers/hooks/useVueRouter';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
-export default {
+export default defineComponent({
   name: 'CartSidebar',
   components: {
     SfSidebar,
     SfButton,
     SfHeading,
-    SfIcon,
     SfProperty,
     SfPrice,
     SfCollectedProduct,
@@ -197,7 +198,7 @@ export default {
       cartGetters,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

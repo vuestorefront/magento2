@@ -37,7 +37,7 @@ export function useReviewFactory<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEA
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const search = async (searchParams): Promise<void> => {
+    const search = async (searchParams?: REVIEWS_SEARCH_PARAMS): Promise<void> => {
       Logger.debug(`useReview/${id}/search`, searchParams);
 
       try {
@@ -52,7 +52,7 @@ export function useReviewFactory<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEA
       }
     };
 
-    const loadCustomerReviews = async (searchParams): Promise<void> => {
+    const loadCustomerReviews = async (searchParams?: REVIEWS_USER_SEARCH_PARAMS): Promise<void> => {
       Logger.debug(`useReview/${id}/loadCustomerReviews`, searchParams);
 
       try {

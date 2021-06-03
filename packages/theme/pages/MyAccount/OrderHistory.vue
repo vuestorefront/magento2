@@ -86,14 +86,14 @@
               {{ tableHeader }}
             </SfTableHeader>
             <SfTableHeader class="orders__element--right">
-              <span class="smartphone-only">{{ $t('Download') }}</span>
+              <!--              <span class="smartphone-only">{{ $t('Download') }}</span>
               <SfButton
                 data-cy="order-history-btn_download-all"
-                class="desktop-only sf-button--text orders__download-all"
+                class="desktop-only sf-button&#45;&#45;text orders__download-all"
                 @click="downloadOrders()"
               >
                 {{ $t('Download all') }}
-              </SfButton>
+              </SfButton>-->
             </SfTableHeader>
           </SfTableHeading>
           <SfTableRow
@@ -145,31 +145,33 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfTabs,
   SfTable,
   SfButton,
   SfProperty,
+  SfLink,
 } from '@storefront-ui/vue';
-import { computed, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@vue/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/magento';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 
-export default {
+export default defineComponent({
   name: 'PersonalDetails',
   components: {
     SfTabs,
     SfTable,
     SfButton,
     SfProperty,
+    SfLink,
   },
   setup() {
     const { orders, search } = useUserOrder();
     const currentOrder = ref(null);
 
     onSSR(async () => {
-      await search();
+      await search({});
     });
 
     const tableHeaders = [
@@ -191,24 +193,26 @@ export default {
       }
     };
 
-    const downloadFile = (file, name) => {
+    const downloadFile = (file, name) => new Promise((resolve) => {
       const a = document.createElement('a');
       document.body.append(a);
-      a.style = 'display: none';
+      a.style.display = 'none';
 
       const url = window.URL.createObjectURL(file);
       a.href = url;
       a.download = name;
       a.click();
       window.URL.revokeObjectURL(url);
-    };
+
+      resolve(url);
+    });
 
     const downloadOrders = async () => {
-      downloadFile(new Blob([JSON.stringify(orders.value)], { type: 'application/json' }), 'orders.json');
+      await downloadFile(new Blob([JSON.stringify(orders.value)], { type: 'application/json' }), 'orders.json');
     };
 
     const downloadOrder = async (order) => {
-      downloadFile(new Blob([JSON.stringify(order)], { type: 'application/json' }), `order ${orderGetters.getId(order)}.json`);
+      await downloadFile(new Blob([JSON.stringify(order)], { type: 'application/json' }), `order ${orderGetters.getId(order)}.json`);
     };
 
     return {
@@ -221,7 +225,7 @@ export default {
       currentOrder,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

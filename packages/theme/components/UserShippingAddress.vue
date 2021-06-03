@@ -21,11 +21,15 @@
   </div>
 </template>
 
-<script>
-import { toRef, computed } from '@vue/composition-api';
+<script lang="ts">
+import {
+  toRef,
+  computed,
+  defineComponent,
+} from '@vue/composition-api';
 import { userShippingGetters } from '@vue-storefront/magento';
 
-export default {
+export default defineComponent({
   name: 'UserShippingAddress',
   props: {
     address: {
@@ -54,7 +58,7 @@ export default {
       userShippingAddress,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

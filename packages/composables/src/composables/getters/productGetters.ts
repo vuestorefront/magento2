@@ -3,7 +3,7 @@ import {
   AgnosticBreadcrumb,
   AgnosticMediaGalleryItem,
   AgnosticPrice,
-  ProductGetters,
+  ProductGetters as ProductGettersBase,
 } from '@vue-storefront/core';
 import {
   Category,
@@ -15,7 +15,7 @@ import { htmlDecode } from '../../helpers/htmlDecoder';
 
 type ProductVariantFilters = any;
 
-export const getProductName = (product: Product): string => {
+export const getName = (product: Product): string => {
   if (!product) {
     return '';
   }
@@ -23,7 +23,7 @@ export const getProductName = (product: Product): string => {
   return htmlDecode(product.name);
 };
 
-export const getProductSlug = (product: Product, category?: Category): string => {
+export const getSlug = (product: Product, category?: Category): string => {
   const rewrites = product.url_rewrites;
   let url = `/p/${product.sku}`;
   if (!rewrites || rewrites.length === 0) {
@@ -41,7 +41,7 @@ export const getProductSlug = (product: Product, category?: Category): string =>
   return url;
 };
 
-export const getProductPrice = (product: Product): AgnosticPrice => {
+export const getPrice = (product: Product): AgnosticPrice => {
   let regular = 0;
   let special = null;
 
@@ -60,7 +60,7 @@ export const getProductPrice = (product: Product): AgnosticPrice => {
   };
 };
 
-export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] => {
+export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
   const images = [];
 
   if (!product?.media_gallery) {
@@ -79,7 +79,7 @@ export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] 
   return images;
 };
 
-export const getProductCoverImage = (product: Product): string => {
+export const getCoverImage = (product: Product): string => {
   if (!product || !product.image) {
     return null;
   }
@@ -95,9 +95,9 @@ export const getProductThumbnailImage = (product: Product): string => {
   return product.thumbnail.url;
 };
 
-export const getProductFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
+export const getFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
 
-export const getProductAttributes = (
+export const getAttributes = (
   products: Product,
   _filterByAttributeName?: string[],
 ): Record<string, AgnosticAttribute | string> => {
@@ -122,7 +122,7 @@ export const getProductAttributes = (
   return attributes;
 };
 
-export const getProductDescription = (product: Product): string => {
+export const getDescription = (product: Product): string => {
   if (!product || !product?.description) {
     return '';
   }
@@ -130,7 +130,7 @@ export const getProductDescription = (product: Product): string => {
   return product.description.html;
 };
 
-export const getProductShortDescription = (product: Product): string => {
+export const getShortDescription = (product: Product): string => {
   if (!product || !product.short_description) {
     return '';
   }
@@ -138,7 +138,7 @@ export const getProductShortDescription = (product: Product): string => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getProductCategoryIds = (product: Product): string[] => {
+export const getCategoryIds = (product: Product): string[] => {
   const categoryIds = [];
 
   if (!product?.categories) {
@@ -148,7 +148,7 @@ export const getProductCategoryIds = (product: Product): string[] => {
   return product.categories.map((category) => category.uid);
 };
 
-export const getProductCategory = (product: Product, currentUrlPath: string): Category | null => {
+export const getCategory = (product: Product, currentUrlPath: string): Category | null => {
   if (!product?.categories || product?.categories.length === 0) {
     return null;
   }
@@ -171,13 +171,13 @@ export const getProductCategory = (product: Product, currentUrlPath: string): Ca
   return null;
 };
 
-export const getProductId = (product: Product): string => product.uid;
+export const getId = (product: Product): string => product.uid;
 
 export const getProductSku = (product: Product): string => product.sku;
 
 // @ts-ignore
 // eslint-disable-next-line no-underscore-dangle
-export const getProductTypeId = (product: Product): string => product.__typename;
+export const getTypeId = (product: Product): string => product.__typename;
 
 export const getFormattedPrice = (price: number) => {
   if (price === null) {
@@ -195,7 +195,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getProductBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -207,45 +207,56 @@ export const getProductBreadcrumbs = (product: Product, category?: Category): Ag
   }
 
   breadcrumbs.push({
-    text: getProductName(product),
+    text: getName(product),
     route: {
-      path: getProductSlug(product),
+      path: getSlug(product),
     },
   });
 
   return breadcrumbs;
 };
 
-export const getProductTotalReviews = (): number => 0;
+export const getTotalReviews = (): number => 0;
 
-export const getProductAverageRating = (): number => 0;
+export const getAverageRating = (): number => 0;
 
-export const getProductRelatedProduct = (product: Product) => product?.related_products?.filter((p) => p.name && p.uid) || [];
+export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products?.filter((p) => p.name && p.uid) || [];
 
-export const getProductUpsellProduct = (product: Product) => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
+export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
 
-const productGetters: ProductGetters<Product, ProductVariantFilters> = {
-  getAttributes: getProductAttributes,
-  getAverageRating: getProductAverageRating,
-  getBreadcrumbs: getProductBreadcrumbs,
-  getCategory: getProductCategory,
-  getCategoryIds: getProductCategoryIds,
-  getCoverImage: getProductCoverImage,
-  getDescription: getProductDescription,
-  getFiltered: getProductFiltered,
+export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
+  getCategory(product: Product, currentUrlPath: string): Category | null;
+  getProductRelatedProduct(product: Product): Product[];
+  getProductSku(product: Product): string;
+  getProductThumbnailImage(product: Product): string;
+  getProductUpsellProduct(product: Product): Product[];
+  getShortDescription(product: Product): string;
+  getSlug(product: Product, category?: Category): string;
+  getTypeId(product: Product): string;
+}
+
+const productGetters: ProductGetters = {
+  getAttributes,
+  getAverageRating,
+  getBreadcrumbs,
+  getCategory,
+  getCategoryIds,
+  getCoverImage,
+  getDescription,
+  getFiltered,
   getFormattedPrice,
-  getGallery: getProductGallery,
-  getId: getProductId,
-  getName: getProductName,
-  getPrice: getProductPrice,
+  getGallery,
+  getId,
+  getName,
+  getPrice,
   getProductRelatedProduct,
-  getProductUpsellProduct,
   getProductSku,
   getProductThumbnailImage,
-  getShortDescription: getProductShortDescription,
-  getSlug: getProductSlug,
-  getTotalReviews: getProductTotalReviews,
-  getTypeId: getProductTypeId,
+  getProductUpsellProduct,
+  getShortDescription,
+  getSlug,
+  getTotalReviews,
+  getTypeId,
 };
 
 export default productGetters;

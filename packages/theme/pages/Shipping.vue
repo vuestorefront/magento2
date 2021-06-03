@@ -186,14 +186,18 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
   SfButton,
   SfSelect,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@vue/composition-api';
+import {
+  ref,
+  computed,
+  defineComponent,
+} from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
@@ -212,7 +216,7 @@ extend('digits', {
   message: 'Please provide a valid phone number',
 });
 
-export default {
+export default defineComponent({
   name: 'Shipping',
   components: {
     SfHeading,
@@ -241,6 +245,8 @@ export default {
     });
 
     const handleFormSubmit = async () => {
+      // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
+      // @ts-ignore
       await save({ shippingDetails: form.value });
       isFormSubmitted.value = true;
     };
@@ -251,7 +257,7 @@ export default {
         load(),
       ]);
     });
-
+    // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
     return {
@@ -262,7 +268,7 @@ export default {
       handleFormSubmit,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

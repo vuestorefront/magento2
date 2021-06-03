@@ -238,7 +238,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
@@ -249,7 +249,7 @@ import {
   ref,
   computed,
   watch,
-  onMounted,
+  onMounted, defineComponent,
 } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import {
@@ -262,7 +262,7 @@ import {
 } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { addressFromApiToForm } from '../../helpers/checkout/address';
+import { addressFromApiToForm } from '~/helpers/checkout/address';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -279,7 +279,7 @@ extend('digits', {
   message: 'Please provide a valid phone number',
 });
 
-export default {
+export default defineComponent({
   name: 'Shipping',
   components: {
     SfHeading,
@@ -331,13 +331,15 @@ export default {
       const addresses = userShippingGetters.getAddresses(userShipping.value);
       return Boolean(addresses?.length);
     });
-
+    // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
+      // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
+      // @ts-ignore
       await save({ shippingDetails: shippingDetails.value });
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userShippingGetters.getAddresses(userShipping.value,
@@ -439,7 +441,7 @@ export default {
       shippingDetails,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

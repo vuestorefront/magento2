@@ -39,8 +39,9 @@ import {
 } from '@storefront-ui/vue';
 
 import { productGetters } from '@vue-storefront/magento';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'ProductsCarousel',
   components: {
     SfCarousel,
@@ -49,14 +50,22 @@ export default {
     SfLoader,
   },
   props: {
-    title: String,
-    products: Array,
+    title: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    products: {
+      type: Array,
+      required: false,
+      default: () => ([]),
+    },
     loading: Boolean,
   },
   setup() {
     return { productGetters };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

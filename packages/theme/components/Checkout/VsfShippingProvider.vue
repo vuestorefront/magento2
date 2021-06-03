@@ -71,8 +71,12 @@
   </div>
 </template>
 
-<script>
-import { useCart, useShippingProvider, cartGetters } from '@vue-storefront/magento';
+<script lang="ts">
+import {
+  useCart,
+  useShippingProvider,
+  cartGetters,
+} from '@vue-storefront/magento';
 import {
   SfHeading,
   SfButton,
@@ -80,10 +84,10 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import { useGetShippingMethods } from '@vue-storefront/magento/src';
-import { computed } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
-export default {
+export default defineComponent({
   name: 'VsfShippingProvider',
   components: {
     SfHeading,
@@ -135,7 +139,7 @@ export default {
       totals,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
