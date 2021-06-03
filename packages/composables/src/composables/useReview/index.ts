@@ -18,7 +18,7 @@ ComposableFunctionArgs<CustomerProductReviewParams>,
 CreateProductReviewInput,
 ProductReviewRatingMetadata> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  searchReviews: async (context: Context, params: ComposableFunctionArgs<GetProductSearchParams>) => {
+  searchReviews: async (context: Context, params?: ComposableFunctionArgs<GetProductSearchParams>) => {
     Logger.debug('[Magento] searchReviews');
     Logger.debug('[Magento] search review params input:');
     Logger.debug(JSON.stringify(params, null, 2));
@@ -45,7 +45,7 @@ ProductReviewRatingMetadata> = {
   },
   loadCustomerReviews: async (
     context: Context,
-    params: ComposableFunctionArgs<CustomerProductReviewParams>,
+    params?: ComposableFunctionArgs<CustomerProductReviewParams>,
   ) => {
     Logger.debug('[Magento] loadCustomerReviews');
 

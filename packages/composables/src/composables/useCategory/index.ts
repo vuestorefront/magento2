@@ -5,10 +5,9 @@ import {
 } from '@vue-storefront/core';
 import {
   Category,
-  CategoryListQueryVariables,
 } from '@vue-storefront/magento-api';
 
-const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariables> = {
+const factoryParams: UseCategoryFactoryParams<Category, any> = {
   categorySearch: async (context: Context, params) => {
     const { data } = await context.$magento.api.categoryList(params);
 
@@ -16,4 +15,4 @@ const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariabl
   },
 };
 
-export default useCategoryFactory<Category, CategoryListQueryVariables>(factoryParams);
+export default useCategoryFactory<Category, any>(factoryParams);
