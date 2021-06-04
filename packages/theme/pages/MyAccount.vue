@@ -47,7 +47,7 @@
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@vue/composition-api';
 import { useUser } from '@vue-storefront/magento';
-import MyProfile from './MyAccount/MyProfile';
+import MyProfile from './MyAccount/MyProfile.vue';
 import ShippingDetails from './MyAccount/ShippingDetails.vue';
 import BillingDetails from './MyAccount/BillingDetails.vue';
 // import MyNewsletter from './MyAccount/MyNewsletter';
