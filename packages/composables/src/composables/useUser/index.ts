@@ -19,21 +19,34 @@ const generateUserData = (userData): CustomerUpdateParameters => {
     lastname: userData.lastName || userData.lastname,
   } as CustomerUpdateParameters;
 
+  if (userData.is_subscribed) {
+    baseData.is_subscribed = userData.is_subscribed;
+  }
+
   if (userData.dateOfBirth) {
     baseData.date_of_birth = userData.dateOfBirth;
   }
+
+  if (userData.allow_remote_shopping_assistance) {
+    baseData.allow_remote_shopping_assistance = userData.allow_remote_shopping_assistance;
+  }
+
   if (userData.gender) {
     baseData.gender = userData.gender;
   }
+
   if (userData.taxvat) {
     baseData.taxvat = userData.taxvat;
   }
+
   if (userData.prefix) {
     baseData.prefix = userData.prefix;
   }
+
   if (userData.suffix) {
     baseData.suffix = userData.suffix;
   }
+
   if (userData.password) {
     baseData.password = userData.password;
   }

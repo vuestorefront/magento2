@@ -1,4 +1,6 @@
-import { ComposableFunctionArgs, ComputedProperty, CustomQuery } from '@vue-storefront/core';
+import {
+  ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
+} from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 
 export interface UseUrlResolver<ROUTE> {
@@ -61,7 +63,9 @@ export interface UseContent<PAGE> {
 
 export interface UseGetShippingMethods<SHIPPING_METHOD> {
   state: ComputedProperty<SHIPPING_METHOD[]>;
+
   setState(state: SHIPPING_METHOD[]): void;
+
   load: (params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;
   result: ComputedProperty<SHIPPING_METHOD[]>;
   error: ComputedProperty<UseGetShippingMethodsErrors>;
@@ -76,13 +80,18 @@ export interface UsePaymentProviderErrors {
   load: Error;
   save: Error;
 }
+
 export interface UsePaymentProvider<STATE, PAYMENT_METHOD> {
   error: ComputedProperty<UsePaymentProviderErrors>;
   loading: ComputedProperty<boolean>;
   state: ComputedProperty<STATE>;
+
   setState(state: STATE): void;
+
   load(): Promise<void>;
+
   load(params: { customQuery?: CustomQuery }): Promise<void>;
+
   save(params: { paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }): Promise<void>;
 }
 
@@ -95,6 +104,7 @@ export interface UseGuestUserRegisterParams {
   password: string;
   firstName?: string;
   lastName?: string;
+
   [x: string]: any;
 }
 
@@ -112,14 +122,30 @@ export interface UseReviewErrors {
   loadReviewMetadata: Error;
   loadCustomerReviews: Error;
 }
+
 export interface UseReview<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA> {
   search(params?: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>): Promise<void>;
+
   loadCustomerReviews(params?: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void>;
+
   addReview(params: ComposableFunctionArgs<REVIEW_ADD_PARAMS>): Promise<void>;
+
   loadReviewMetadata(): Promise<void>;
+
   error: ComputedProperty<UseReviewErrors>;
   reviews: ComputedProperty<REVIEW>;
   metadata: ComputedProperty<REVIEW_METADATA[]>;
   loading: ComputedProperty<boolean>;
+
   [x: string]: any;
+}
+
+export interface UseNewsletterErrors {
+  updateSubscription: Error;
+}
+
+export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS> {
+  error: ComputedProperty<UseNewsletterErrors>;
+  loading: ComputedProperty<boolean>;
+  updateSubscription: (params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<void>;
 }
