@@ -24,9 +24,9 @@
           <BillingDetails />
         </SfContentPage>
 
-        <!--        <SfContentPage title="My newsletter">
+        <SfContentPage title="My newsletter">
           <MyNewsletter />
-        </SfContentPage>-->
+        </SfContentPage>
       </SfContentCategory>
 
       <SfContentCategory title="Order details">
@@ -50,7 +50,7 @@ import { useUser } from '@vue-storefront/magento';
 import MyProfile from './MyAccount/MyProfile.vue';
 import ShippingDetails from './MyAccount/ShippingDetails.vue';
 import BillingDetails from './MyAccount/BillingDetails.vue';
-// import MyNewsletter from './MyAccount/MyNewsletter';
+import MyNewsletter from './MyAccount/MyNewsletter.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 import MyReviews from './MyAccount/MyReviews.vue';
 
@@ -62,7 +62,7 @@ export default defineComponent({
     MyProfile,
     ShippingDetails,
     BillingDetails,
-    // MyNewsletter,
+    MyNewsletter,
     OrderHistory,
     MyReviews,
   },
