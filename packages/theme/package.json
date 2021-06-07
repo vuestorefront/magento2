@@ -40,7 +40,6 @@
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "nuxt": "^2.15.6",
-    "nuxt-build-optimisations": "^1.0.3",
     "nuxt-i18n": "^6.27.0",
     "vee-validate": "^3.4.9",
     "vue": "2.6.12",

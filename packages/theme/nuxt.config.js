@@ -75,7 +75,6 @@ export default {
     // to core
     '@nuxt/typescript-build',
     '@nuxtjs/style-resources',
-    'nuxt-build-optimisations',
     '@nuxtjs/pwa',
     ['@vue-storefront/nuxt', {
       // @core-development-only-start
