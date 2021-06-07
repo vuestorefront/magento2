@@ -5,11 +5,6 @@ import {
   UseUserFactoryParams,
 } from '@vue-storefront/core';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
-import {
-  RegisterUserParams,
-  UpdateUserParams,
-  User,
-} from '../../types';
 import useCart from '../useCart';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
@@ -19,42 +14,42 @@ const generateUserData = (userData): CustomerUpdateParameters => {
     lastname: userData.lastName || userData.lastname,
   } as CustomerUpdateParameters;
 
-  if (userData.is_subscribed) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'is_subscribed')) {
     baseData.is_subscribed = userData.is_subscribed;
   }
 
-  if (userData.dateOfBirth) {
-    baseData.date_of_birth = userData.dateOfBirth;
+  if (Object.prototype.hasOwnProperty.call(userData, 'dateOfBirth') || Object.prototype.hasOwnProperty.call(userData, 'date_of_birth')) {
+    baseData.date_of_birth = userData.dateOfBirth || userData.date_of_birth;
   }
 
-  if (userData.allow_remote_shopping_assistance) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'allow_remote_shopping_assistance')) {
     baseData.allow_remote_shopping_assistance = userData.allow_remote_shopping_assistance;
   }
 
-  if (userData.gender) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'gender')) {
     baseData.gender = userData.gender;
   }
 
-  if (userData.taxvat) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'taxvat')) {
     baseData.taxvat = userData.taxvat;
   }
 
-  if (userData.prefix) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'prefix')) {
     baseData.prefix = userData.prefix;
   }
 
-  if (userData.suffix) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'suffix')) {
     baseData.suffix = userData.suffix;
   }
 
-  if (userData.password) {
+  if (Object.prototype.hasOwnProperty.call(userData, 'password')) {
     baseData.password = userData.password;
   }
 
   return baseData;
 };
 
-const factoryParams: UseUserFactoryParams<User, any, any> = {
+const factoryParams: UseUserFactoryParams<any, any, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -67,8 +62,8 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       return null;
     }
     try {
-      const response = await context.$magento.api.customer();
-      return response.data.customer;
+      const { data } = await context.$magento.api.customer();
+      return data.customer;
     } catch {
       // eslint-disable-next-line no-void
       await factoryParams.logOut(context);
@@ -84,7 +79,11 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
   },
-  updateUser: async (context: Context, { updatedUserData }) => context.$magento.api.updateCustomer(generateUserData(updatedUserData)),
+  updateUser: async (context: Context, { updatedUserData }) => {
+    const userData = generateUserData(updatedUserData);
+
+    return context.$magento.api.updateCustomer(userData);
+  },
   register: async (context: Context, registerParams) => {
     const { email, password, ...baseData } = generateUserData(registerParams);
 
@@ -94,18 +93,22 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   },
   logIn: async (context: Context, { username, password }) => {
     const apiState = context.$magento.config.state;
-    const response = await context.$magento.api.generateCustomerToken(username, password);
 
-    apiState.setCustomerToken(response.data.generateCustomerToken.token);
+    const { data } = await context.$magento.api.generateCustomerToken(username, password);
+
+    apiState.setCustomerToken(data.generateCustomerToken.token);
 
     // merge existing cart with customer cart
     const currentCartId = apiState.getCartId();
     const cart = await context.$magento.api.customerCart();
     const newCartId = cart.data.customerCart.id;
+
     if (newCartId && currentCartId && currentCartId !== newCartId) {
-      const { data } = await context.$magento.api.mergeCarts(currentCartId, newCartId);
-      context.cart.setCart(data.mergeCarts);
-      apiState.setCartId(data.mergeCarts.id);
+      const { data: dataMergeCart } = await context.$magento.api.mergeCarts(currentCartId, newCartId);
+
+      context.cart.setCart(dataMergeCart.mergeCarts);
+
+      apiState.setCartId(dataMergeCart.mergeCarts.id);
     }
 
     return factoryParams.load(context, { username, password });
@@ -115,4 +118,4 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   },
 };
 
-export default useUserFactory<User, UpdateUserParams, RegisterUserParams>(factoryParams);
+export default useUserFactory<any, any, any>(factoryParams);
