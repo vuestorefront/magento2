@@ -50,7 +50,7 @@ import {
   SfTabs, SfCheckbox, SfButton, SfLink,
 } from '@storefront-ui/vue';
 import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
-import { useNewsletter, useUser } from '@vue-storefront/magento';
+import { useUser } from '@vue-storefront/magento';
 
 export default defineComponent({
   name: 'MyNewsletter',
@@ -64,13 +64,11 @@ export default defineComponent({
     const {
       user,
       load,
+      updateUser,
       isAuthenticated,
     } = useUser();
-    const {
-      updateSubscription,
-    } = useNewsletter();
 
-    const isSubscribed = ref(!!user.value.is_subscribed);
+    const isSubscribed = ref<boolean>(!!user.value.is_subscribed);
 
     onBeforeMount(async () => {
       await load();
@@ -78,8 +76,10 @@ export default defineComponent({
 
     const saveForm = async () => {
       if (isAuthenticated.value && !!user.value.email) {
-        await updateSubscription({
-          email: user.value.email,
+        await updateUser({
+          user: {
+            is_subscribed: isSubscribed.value,
+          },
         });
       }
     };
