@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -22,15 +22,15 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/magento-api": "^1.0.0-beta.10",
+    "@vue-storefront/magento-api": "^1.0.0-beta.11",
     "@vue-storefront/core": "^2.3.3",
-    "vue": "^2.6.x",
+    "vue": "^2.6.12",
     "vue-demi": "latest"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
     "@vue/test-utils": "^1.2.0",
-    "vue-template-compiler": "^2.6.x"
+    "vue-template-compiler": "^2.6.12"
   },
   "peerDependencies": {
     "@vue/composition-api": "1.0.0-beta.21",

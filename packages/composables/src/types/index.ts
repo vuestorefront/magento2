@@ -6,8 +6,11 @@ import {
   Category,
   Countries,
   Country,
+  Customer,
   Product,
 } from '@vue-storefront/magento-api';
+
+export type User = Customer;
 
 export type Filter = Record<string, any>;
 
