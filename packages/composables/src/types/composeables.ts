@@ -1,5 +1,5 @@
 import {
-  ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
+  ComposableFunctionArgs, ComputedProperty, CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 

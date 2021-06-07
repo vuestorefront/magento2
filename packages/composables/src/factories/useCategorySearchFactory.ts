@@ -26,6 +26,7 @@ export function useCategorySearchFactory<CATEGORY>(
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
+    // eslint-disable-next-line consistent-return
     const search = async (params: { term: string }): Promise<CATEGORY[]> => {
       Logger.debug(`useCategorySearch/${ssrKey}/search`);
 

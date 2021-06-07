@@ -9,7 +9,6 @@ import {
 } from '@vue-storefront/core';
 
 import {
-  buildBreadcrumbs,
   buildFacets,
   reduceForGroupedFacets,
   reduceForFacets,
@@ -45,7 +44,7 @@ const getCategoryTree = (searchData): AgnosticCategoryTree => {
   const buildTree = (category: any): AgnosticCategoryTree => ({
     label: category.name,
     slug: category.url_path,
-    items: (category.children) ? category.children.map(buildTree) : [],
+    items: (category.children) ? category.children.map((element) => buildTree(element)) : [],
     isCurrent: (category.name === searchData.data.category.name),
   });
 
