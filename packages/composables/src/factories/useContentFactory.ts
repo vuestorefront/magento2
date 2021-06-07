@@ -15,8 +15,7 @@ export interface UseContentFactoryParams<CONTENT> extends FactoryParams{
 export function useContentFactory<CONTENT>(
   factoryParams: UseContentFactoryParams<CONTENT>,
 ) {
-  return function useContent(cacheId: string): UseContent<CONTENT> {
-    const ssrKey = cacheId || 'useConfigFactory';
+  return function useContent(ssrKey = 'useConfigFactory'): UseContent<CONTENT> {
     // @ts-ignore
     const page = sharedRef<CONTENT>({}, `useContent-content-${ssrKey}`);
     const loading = sharedRef<boolean>(false, `useContent-loading-${ssrKey}`);

@@ -29,20 +29,19 @@
     </div>
   </div>
 </template>
-<script>
-import { SfSteps, SfButton } from '@storefront-ui/vue';
-import { computed, ref } from '@vue/composition-api';
-import CartPreview from '~/components/Checkout/CartPreview';
+<script lang="ts">
+import { SfSteps } from '@storefront-ui/vue';
+import { computed, defineComponent, ref } from '@vue/composition-api';
+import CartPreview from '~/components/Checkout/CartPreview.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
-export default {
+export default defineComponent({
   name: 'Checkout',
   components: {
-    SfButton,
     SfSteps,
     CartPreview,
   },
-  setup(props, context) {
+  setup() {
     const { route, router } = useVueRouter();
     const currentStep = computed(() => route.path.split('/').pop());
     const STEPS = ref({
@@ -68,7 +67,7 @@ export default {
       currentStep,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

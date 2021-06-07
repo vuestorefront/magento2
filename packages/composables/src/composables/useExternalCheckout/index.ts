@@ -1,6 +1,5 @@
 import { Context } from '@vue-storefront/core';
 import { useExternalCheckoutFactory, UseExternalCheckoutFactoryParams } from '../../factories/useExternalCheckoutFactory';
-import useUser from '../useUser';
 import useCart from '../useCart';
 // import useConfig from '../useConfig';
 

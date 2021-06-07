@@ -169,6 +169,21 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <SfCheckbox
+              v-model="form.is_subscribed"
+              v-e2e="'sign-up-newsletter'"
+              label="Sign Up for Newsletter"
+              name="signupNewsletter"
+              class="form__element"
+            />
+            <SfCheckbox
+              v-model="form.allow_remote_shopping_assistance"
+              v-e2e="'remote-assistance'"
+              label="Allow remote shopping assistance"
+              name="allowRemoteShoppingAssistance"
+              info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
+              class="form__element"
+            />
             <ValidationProvider
               v-slot="{ errors }"
               :rules="{ required: { allowFalse: false } }"
@@ -215,15 +230,19 @@
     </transition>
   </SfModal>
 </template>
-<script>
-import { ref, watch, reactive } from '@vue/composition-api';
+<script lang="ts">
+import {
+  ref,
+  watch,
+  reactive,
+  defineComponent,
+} from '@vue/composition-api';
 import {
   SfModal,
   SfInput,
   SfButton,
   SfCheckbox,
   SfLoader,
-  SfAlert,
   SfBar,
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
@@ -249,7 +268,7 @@ extend('password', {
   },
 });
 
-export default {
+export default defineComponent({
   name: 'LoginModal',
   components: {
     SfModal,
@@ -257,7 +276,6 @@ export default {
     SfButton,
     SfCheckbox,
     SfLoader,
-    SfAlert,
     ValidationProvider,
     ValidationObserver,
     SfBar,
@@ -269,7 +287,10 @@ export default {
     const createAccount = ref(false);
     const rememberMe = ref(false);
     const {
-      register, login, loading, error: userError,
+      register,
+      login,
+      loading,
+      error: userError,
     } = useUser();
 
     const error = reactive({
@@ -326,7 +347,7 @@ export default {
       setIsLoginValue,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

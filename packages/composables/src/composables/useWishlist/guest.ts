@@ -22,7 +22,7 @@ export default {
   },
 
   removeItem(id: number): void {
-    this.items = this.items.filter((product) => product.id != id);
+    this.items = this.items.filter((product) => product.id !== id);
     this.save();
   },
 

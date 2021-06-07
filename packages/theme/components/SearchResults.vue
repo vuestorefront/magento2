@@ -132,27 +132,30 @@
     </SfMegaMenu>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfMegaMenu,
   SfList,
-  SfBanner,
   SfProductCard,
   SfScrollable,
   SfMenuItem,
   SfButton,
   SfImage,
 } from '@storefront-ui/vue';
-import { ref, watch, computed } from '@vue/composition-api';
+import {
+  ref,
+  watch,
+  computed,
+  defineComponent,
+} from '@vue/composition-api';
 import { productGetters } from '@vue-storefront/magento';
 import { useUiHelpers } from '~/composables';
 
-export default {
+export default defineComponent({
   name: 'SearchResults',
   components: {
     SfMegaMenu,
     SfList,
-    SfBanner,
     SfProductCard,
     SfScrollable,
     SfMenuItem,
@@ -166,6 +169,7 @@ export default {
     },
     result: {
       type: Object,
+      default: () => ({}),
     },
   },
   setup(props, { emit }) {
@@ -192,7 +196,7 @@ export default {
       categories,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .search {

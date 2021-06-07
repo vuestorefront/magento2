@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "1.0.0-beta.10",
+  "version": "1.0.0-beta.11",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -48,7 +48,7 @@
     "graphql-tools": "^7.0.5",
     "jest-transform-graphql": "^2.1.0",
     "node-fetch": "^2.6.1",
-    "rollup": "^2.50.1",
+    "rollup": "^2.51.0",
     "typescript": "^4.3.2",
     "webpack": "^4.46.0"
   },

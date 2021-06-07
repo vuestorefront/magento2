@@ -1,3 +1,6 @@
+// @core-development-only-start
+/* eslint-disable unicorn/prefer-module */
+// @core-development-only-end
 import webpack from 'webpack';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
@@ -126,28 +129,6 @@ export default {
   i18n: {
     currency: 'USD',
     country: 'US',
-    countries: [
-      {
-        name: 'US',
-        label: 'United States',
-        states: [
-          'California',
-          'Nevada',
-        ],
-      },
-      {
-        name: 'AT',
-        label: 'Austria',
-      },
-      {
-        name: 'DE',
-        label: 'Germany',
-      },
-      {
-        name: 'NL',
-        label: 'Netherlands',
-      },
-    ],
     currencies: [
       {
         name: 'EUR',

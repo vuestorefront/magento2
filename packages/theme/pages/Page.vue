@@ -7,19 +7,20 @@
         :level="1"
         class="sf-heading--no-underline sf-heading--left"
       />
-      <div v-html="page.content" />
+      <div v-dompurify-html="page.content" />
     </div>
   </SfLoader>
 </template>
-<script>
+<script lang="ts">
 import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   components: {
     SfLoader,
     SfHeading,
@@ -27,12 +28,13 @@ export default {
   props: {
     identifier: {
       type: [String],
+      default: '',
     },
   },
   setup(props) {
-    const { page, loadPage, loading } = useContent('cmsPage');
+    const { page, loadContent, loading } = useContent('cmsPage');
     onSSR(async () => {
-      await loadPage(props.identifier);
+      await loadContent(props.identifier);
     });
     return {
       page,
@@ -50,5 +52,5 @@ export default {
       meta,
     };
   },
-};
+});
 </script>

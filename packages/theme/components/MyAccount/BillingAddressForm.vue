@@ -181,7 +181,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfInput,
   SfButton,
@@ -191,7 +191,12 @@ import {
 import { addressGetter, useCountrySearch, useUserBilling } from '@vue-storefront/magento';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { reactive, computed, onBeforeMount } from '@vue/composition-api';
+import {
+  reactive,
+  computed,
+  onBeforeMount,
+  defineComponent,
+} from '@vue/composition-api';
 
 extend('required', {
   ...required,
@@ -208,7 +213,7 @@ extend('oneOf', {
   message: 'Invalid country',
 });
 
-export default {
+export default defineComponent({
   name: 'BillingAddressForm',
 
   components: {
@@ -274,6 +279,7 @@ export default {
       default_billing: props.address.default_billing,
     });
 
+    // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
@@ -304,7 +310,7 @@ export default {
       searchCountry,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

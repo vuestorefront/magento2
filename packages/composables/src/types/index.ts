@@ -7,29 +7,10 @@ import {
   Countries,
   Country,
   Customer,
-  MagentoCustomerGender,
   Product,
 } from '@vue-storefront/magento-api';
 
 export type User = Customer;
-
-export type UpdateUserParams = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  dateOfBirth?: string;
-  gender?: MagentoCustomerGender,
-  taxvat?: string;
-  prefix?: string
-  suffix?: string
-};
-
-export type RegisterUserParams = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
 
 export type Filter = Record<string, any>;
 
@@ -59,6 +40,7 @@ export interface AddressGetter {
     englishLabel: string;
     abbreviation: string;
   }[];
+
   regionList(country: Country): {
     id: number;
     label: string;
@@ -69,4 +51,13 @@ export interface AddressGetter {
 export interface AgnosticPaymentMethod {
   label: string;
   value: string;
+}
+
+export interface AgnosticReviewMetadata {
+  id: string;
+  name: string;
+  values: {
+    label: string | number;
+    id: string;
+  }[];
 }

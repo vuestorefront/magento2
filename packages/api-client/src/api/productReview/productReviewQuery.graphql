@@ -9,6 +9,10 @@ query productReview($search: String = "", $filter: ProductAttributeFilterInput, 
             name
             value
           }
+          product {
+            name
+            uid
+          }
           nickname
           summary
           text

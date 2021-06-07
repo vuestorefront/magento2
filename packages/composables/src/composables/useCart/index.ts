@@ -95,6 +95,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
           const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
 
+          // eslint-disable-next-line consistent-return
           return simpleProduct
             .data
             .addSimpleProductsToCart
@@ -116,6 +117,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
           const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
 
+          // eslint-disable-next-line consistent-return
           return configurableProduct
             .data
             .addConfigurableProductsToCart
@@ -154,6 +156,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
     const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
 
+    // eslint-disable-next-line consistent-return
     return data
       .removeItemFromCart
       .cart as unknown as Cart;

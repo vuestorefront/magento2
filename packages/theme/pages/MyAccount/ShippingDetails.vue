@@ -81,19 +81,19 @@
     </SfTabs>
   </transition>
 </template>
-<script>
+<script lang="ts">
 import {
   SfTabs,
   SfButton,
   SfIcon,
 } from '@storefront-ui/vue';
 import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm';
-import UserShippingAddress from '~/components/UserShippingAddress';
+import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm.vue';
+import UserShippingAddress from '~/components/UserShippingAddress.vue';
 
-export default {
+export default defineComponent({
   name: 'ShippingDetails',
   components: {
     SfTabs,
@@ -155,7 +155,7 @@ export default {
       isNewAddress,
     };
   },
-};
+});
 </script>
 
 <style lang='scss' scoped>

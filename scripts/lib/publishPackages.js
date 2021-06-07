@@ -3,38 +3,34 @@ const path = require('path');
 const labelsToRemove = ['release'];
 const npmLabelBase = 'NPM:';
 
-const publishPackages = (labels, token) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const npmTagBase = [...labels]
-      .filter((l) => !labelsToRemove.includes(l))
-      .find((l) => l.startsWith(npmLabelBase));
+const publishPackages = (labels) => {
+  const npmTagBase = [...labels]
+    .filter((l) => !labelsToRemove.includes(l))
+    .find((l) => l.startsWith(npmLabelBase));
 
-      if (npmTagBase) {
-        const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
+  if (!npmTagBase) {
+    throw new Error('Without tag base');
+  }
 
-        const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
+  const npmTag = npmTagBase.replace(new RegExp(`${npmLabelBase}`), '');
 
-        const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
+  const baseApiClientPath = path.join(process.cwd(), 'packages', 'api-client');
 
-        [baseApiClientPath, baseComposablesPath].forEach((p) => {
-          exec(`npm publish ${p} --access public --tag ${npmTag}`, (error, stdout, stderr) => {
-            if (error) {
-              console.log(`error: ${error.message}`);
-              return;
-            }
-            if (stderr) {
-              console.log(`stderr: ${stderr}`);
-              return;
-            }
-            console.log(`stdout: ${stdout}`);
-          });
-        });
-      }
-    } catch(e){
-      reject(e);
-    }
-  });
+  const baseComposablesPath = path.join(process.cwd(), 'packages', 'composables');
+
+  return Promise.all([baseApiClientPath, baseComposablesPath].map((p) => {
+    return new Promise((res, rej) => {
+      exec(`npm publish ${p} --access public --tag ${npmTag}`, (code, stdout, stderr) => {
+        if (code !== 0) {
+          console.error(`error: ${code.message}`);
+          return rej(code);
+        }
+
+        console.log(`stdout: ${stdout}`);
+        res();
+      });
+    });
+  }));
 }
 
 module.exports = {
