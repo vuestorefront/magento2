@@ -86,7 +86,7 @@ import {
   CreateEmptyCartMutation,
   CreateProductReviewMutation,
   CustomerProductReviewQuery,
-  SubscribeEmailToNewsletterMutationVariables, SubscribeEmailToNewsletterMutation,
+  SubscribeEmailToNewsletterMutationVariables, SubscribeEmailToNewsletterMutation, UpdateCustomerMutation, CreateCustomerMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -151,9 +151,9 @@ export interface MagentoApiMethods {
 
   changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
 
-  cmsPage(indentifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
+  cmsPage(identifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
 
-  createCustomer(input: CustomerCreateInput): Promise<CustomerFragment>;
+  createCustomer(input: CustomerCreateInput): Promise<FetchResult<CreateCustomerMutation>>;
 
   createCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
@@ -229,7 +229,7 @@ export interface MagentoApiMethods {
 
   updateCartItems(input: UpdateCartItemsInput): Promise<FetchResult<UpdateCartItemsMutation>>;
 
-  updateCustomer(input: CustomerUpdateInput): Promise<CustomerFragment>;
+  updateCustomer(input: CustomerUpdateInput): Promise<FetchResult<UpdateCustomerMutation>>;
 
   updateCustomerAddress(input: {
     addressId: number;
