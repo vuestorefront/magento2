@@ -5,15 +5,25 @@ const { getTag } = require('./getTags');
 
 const publishPackages = (labels) => {
   return new Promise((res, rej) => {
-    exec(`npm publish ${path.join(process.cwd(), 'packages', 'composables')} --access public --tag ${getTag(labels)}`, (code, stdout, stderr) => {
-      if (code !== 0) {
-        console.error(`error: ${code}`);
-        return rej(code);
-      }
+    try {
+      const command = `npm publish ${path.join(process.cwd(), 'packages', 'composables')} --access public --tag ${getTag(labels)}`;
 
-      console.log(`stdout: ${stdout}`);
-      res();
-    });
+      console.log(command)
+
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+      });
+    } catch (e) {
+      console.error(e);
+    }
   });
 }
 
