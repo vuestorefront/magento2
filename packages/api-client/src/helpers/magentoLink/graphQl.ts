@@ -59,6 +59,7 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     delay: () => 0,
   });
 
+  // eslint-disable-next-line unicorn/prefer-spread
   return ApolloLink.from([onErrorLink, errorRetry, baseAuthLink.concat(httpLink)]);
 };
 

@@ -36,13 +36,10 @@ export default async (
       },
     },
   );
-  try {
-    return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-      query: reviews.query,
-      variables: reviews.variables,
-      fetchPolicy: 'no-cache',
-    });
-  } catch (e) {
-    console.error(e);
-  }
+
+  return context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
+    query: reviews.query,
+    variables: reviews.variables,
+    fetchPolicy: 'no-cache',
+  });
 };

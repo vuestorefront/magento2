@@ -15,8 +15,7 @@ export interface UseExternalCheckoutFactoryParams extends FactoryParams {
 export const useExternalCheckoutFactory = (
   factoryParams: UseExternalCheckoutFactoryParams,
 ) => {
-  function useExternalCheckout(id?: string): UseExternalCheckout {
-    const ssrKey = id || 'useExternalCheckout';
+  function useExternalCheckout(ssrKey = 'useExternalCheckout'): UseExternalCheckout {
     const loading = sharedRef(false, `${ssrKey}-loading`);
     const error = sharedRef({
       search: null,
@@ -24,6 +23,7 @@ export const useExternalCheckoutFactory = (
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
+    // eslint-disable-next-line @typescript-eslint/require-await,consistent-return
     const initializeCheckout = async (baseUrl: string): Promise<string> => {
       Logger.debug(`useExternalCheckout/${ssrKey}/initializeCheckout`);
       loading.value = true;

@@ -16,25 +16,35 @@ import {
   CartItemInterface,
   CartQuery,
   CategoryFilterInput,
-  CategoryListQuery, CategoryListQueryVariables, CategorySearchQuery, CategorySearchQueryVariables,
+  CategoryListQuery,
+  CategoryListQueryVariables,
+  CategorySearchQuery,
+  CategorySearchQueryVariables,
   CategoryTree,
   CmsPage,
   CmsPageQuery,
-  ConfigurableProduct, ConfigurableProductDetailQuery, CountriesListQuery, CountryInformationQuery,
+  ConfigurableProduct,
+  ConfigurableProductDetailQuery,
+  CountriesListQuery,
+  CountryInformationQuery,
   CreateCustomerAddressMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
-  CustomerAvailablePaymentMethodsQuery, CustomerAvailableShippingMethodsQuery,
-  CustomerCartQuery, CustomerCreateInput,
+  CustomerAvailablePaymentMethodsQuery,
+  CustomerAvailableShippingMethodsQuery,
+  CustomerCartQuery,
+  CustomerCreateInput,
   CustomerDataFragment as CustomerFragment,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
-  CustomerQuery, CustomerUpdateInput,
+  CustomerQuery,
+  CustomerUpdateInput,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GetMenuCategoryQuery,
-  GuestAvailablePaymentMethodsQuery, GuestAvailableShippingMethodsQuery,
+  GuestAvailablePaymentMethodsQuery,
+  GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
   Order as OrderInterface,
   PlaceOrderInput,
@@ -43,8 +53,10 @@ import {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductInterface,
-  ProductReviewQuery, ProductReviewRatingsMetadataQuery,
-  ProductsListQuery, RelatedProductQuery,
+  ProductReviewQuery,
+  ProductReviewRatingsMetadataQuery,
+  ProductsListQuery,
+  RelatedProductQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
   RemoveItemFromCartInput,
@@ -63,13 +75,18 @@ import {
   StoreConfigQuery,
   UpdateCartItemsInput,
   UpdateCartItemsMutation,
-  UpdateCustomerAddressMutation, UpsellProductsQuery,
+  UpdateCustomerAddressMutation,
+  UpsellProductsQuery,
   UrlResloverQuery,
   Wishlist as WishlistInterface,
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
-  CreateProductReviewInput, CreateEmptyCartMutation, CreateProductReviewMutation, CustomerProductReviewQuery,
+  CreateProductReviewInput,
+  CreateEmptyCartMutation,
+  CreateProductReviewMutation,
+  CustomerProductReviewQuery,
+  SubscribeEmailToNewsletterMutationVariables, SubscribeEmailToNewsletterMutation, UpdateCustomerMutation, CreateCustomerMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -134,9 +151,9 @@ export interface MagentoApiMethods {
 
   changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
 
-  cmsPage(indentifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
+  cmsPage(identifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
 
-  createCustomer(input: CustomerCreateInput): Promise<CustomerFragment>;
+  createCustomer(input: CustomerCreateInput): Promise<FetchResult<CreateCustomerMutation>>;
 
   createCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
@@ -206,11 +223,13 @@ export interface MagentoApiMethods {
 
   setShippingAddressesOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
 
+  subscribeEmailToNewsletter(input: SubscribeEmailToNewsletterMutationVariables): Promise<FetchResult<SubscribeEmailToNewsletterMutation>>;
+
   storeConfig(): Promise<ApolloQueryResult<StoreConfigQuery>>;
 
   updateCartItems(input: UpdateCartItemsInput): Promise<FetchResult<UpdateCartItemsMutation>>;
 
-  updateCustomer(input: CustomerUpdateInput): Promise<CustomerFragment>;
+  updateCustomer(input: CustomerUpdateInput): Promise<FetchResult<UpdateCustomerMutation>>;
 
   updateCustomerAddress(input: {
     addressId: number;

@@ -1,5 +1,4 @@
 import { CustomQuery } from '@vue-storefront/core';
-import { ApolloQueryResult } from '@apollo/client';
 import { Context } from '../../types/context';
 import {
   CategoryFilterInput,
@@ -17,7 +16,7 @@ export default async (
     ids: params.ids,
     name: params.name,
     url_key: params.url_key,
-  } : { };
+  } : {};
 
   const { categories } = context.extendQuery(customQuery,
     {

@@ -8,32 +8,32 @@ const config = convict({
   env: {
     doc: 'Current Store Running Environment',
     format: String,
-    default: 'dev',
+    default: process.env.STORE_ENV || '',
     env: 'STORE_ENV',
   },
   // region Magento 2 VueStorefront
   magentoGraphQl: {
     doc: 'The Magento GraphQL API URL',
     format: 'url',
-    default: 'https://localhost/graphql',
+    default: process.env.MAGENTO_GRAPHQL || '',
     env: 'MAGENTO_GRAPHQL',
   },
   enableMagentoExternalCheckout: {
     doc: 'Enable the usage of Magento External Checkout flow.',
     format: Boolean,
-    default: 'false',
+    default: process.env.MAGENTO_EXTERNAL_CHECKOUT || false,
     env: 'MAGENTO_EXTERNAL_CHECKOUT',
   },
   externalCheckoutUrl: {
     doc: 'The Magento External Checkout URL',
     format: 'url',
-    default: 'https://localhost',
+    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL || '',
     env: 'MAGENTO_EXTERNAL_CHECKOUT_URL',
   },
   externalCheckoutSyncPath: {
     doc: 'The Magento External Checkout Sync Path',
     format: String,
-    default: '/vue/cart/sync',
+    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH || '',
     env: 'MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH',
   },
   // endregion

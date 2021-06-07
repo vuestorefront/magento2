@@ -14,8 +14,7 @@ export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
 
 export const useUrlResolverFactory = <ROUTER>(
   factoryParams: UseUrlResolverFactoryParams<ROUTER>,
-) => function useRouter(id?: string): UseUrlResolver<ROUTER> {
-  const ssrKey = id || 'useRouter';
+) => function useRouter(ssrKey = 'useRouter'): UseUrlResolver<ROUTER> {
   // @ts-ignore
   const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);
@@ -25,6 +24,7 @@ export const useUrlResolverFactory = <ROUTER>(
   // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
 
+  // eslint-disable-next-line consistent-return
   const search = async (url: string) => {
     Logger.debug(`useRouter/${ssrKey}/search`);
     loading.value = true;

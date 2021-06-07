@@ -3,7 +3,7 @@ import { Category } from '@vue-storefront/magento-api';
 import { htmlDecode } from '../../helpers/htmlDecoder';
 
 const buildTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
-  const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length;
+  const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;
   const isCurrent = rootCategory.uid === currentCategory;
   const label = htmlDecode(rootCategory.name);
   const slug = `/${rootCategory.url_path}${rootCategory.url_suffix || ''}`;

@@ -103,44 +103,42 @@
                 :key="i"
                 :header="cat.label"
               >
-                <template>
-                  <SfList class="list">
-                    <SfListItem class="list__item">
-                      <SfMenuItem
-                        :count="cat.count || ''"
-                        :label="cat.label"
-                      >
-                        <template #label>
-                          <nuxt-link
-                            :to="localePath(th.getAgnosticCatLink(cat))"
-                            :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            All
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                    <SfListItem
-                      v-for="(subCat, j) in cat.items"
-                      :key="j"
-                      class="list__item"
+                <SfList class="list">
+                  <SfListItem class="list__item">
+                    <SfMenuItem
+                      :count="cat.count || ''"
+                      :label="cat.label"
                     >
-                      <SfMenuItem
-                        :count="subCat.count || ''"
-                        :label="subCat.label"
-                      >
-                        <template #label="{ label }">
-                          <nuxt-link
-                            :to="localePath(th.getAgnosticCatLink(subCat))"
-                            :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                          >
-                            {{ label }}
-                          </nuxt-link>
-                        </template>
-                      </SfMenuItem>
-                    </SfListItem>
-                  </SfList>
-                </template>
+                      <template #label>
+                        <nuxt-link
+                          :to="localePath(th.getAgnosticCatLink(cat))"
+                          :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
+                        >
+                          All
+                        </nuxt-link>
+                      </template>
+                    </SfMenuItem>
+                  </SfListItem>
+                  <SfListItem
+                    v-for="(subCat, j) in cat.items"
+                    :key="j"
+                    class="list__item"
+                  >
+                    <SfMenuItem
+                      :count="subCat.count || ''"
+                      :label="subCat.label"
+                    >
+                      <template #label="{ label }">
+                        <nuxt-link
+                          :to="localePath(th.getAgnosticCatLink(subCat))"
+                          :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
+                        >
+                          {{ label }}
+                        </nuxt-link>
+                      </template>
+                    </SfMenuItem>
+                  </SfListItem>
+                </SfList>
               </SfAccordionItem>
             </SfAccordion>
           </SfLoader>

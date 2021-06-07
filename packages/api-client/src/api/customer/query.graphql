@@ -3,5 +3,6 @@
 query customer {
   customer {
     ...CustomerData
+    is_subscribed
   }
 }

@@ -46,3 +46,4 @@ export { default as updateCustomerAddress } from './updateCustomerAddress';
 export { default as upsellProduct } from './upsellProduct';
 export { default as urlResolver } from './urlResolver';
 export { default as wishlist } from './wishlist';
+export { default as subscribeEmailToNewsletter } from './subscribeEmailToNewsletter';

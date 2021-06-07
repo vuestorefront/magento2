@@ -26,6 +26,7 @@ export function useGetShippingMethodsFactory<SHIPPING_METHOD>(
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
+    // eslint-disable-next-line consistent-return
     const load = async (params: { cartId: string }): Promise<SHIPPING_METHOD[]> => {
       Logger.debug(`useGetShippingMethods/${ssrKey}/load`);
 

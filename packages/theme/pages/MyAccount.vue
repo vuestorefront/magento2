@@ -24,9 +24,9 @@
           <BillingDetails />
         </SfContentPage>
 
-        <!--        <SfContentPage title="My newsletter">
+        <SfContentPage title="My newsletter">
           <MyNewsletter />
-        </SfContentPage>-->
+        </SfContentPage>
       </SfContentCategory>
 
       <SfContentCategory title="Order details">
@@ -50,9 +50,10 @@ import { useUser } from '@vue-storefront/magento';
 import MyProfile from './MyAccount/MyProfile.vue';
 import ShippingDetails from './MyAccount/ShippingDetails.vue';
 import BillingDetails from './MyAccount/BillingDetails.vue';
-// import MyNewsletter from './MyAccount/MyNewsletter';
+import MyNewsletter from './MyAccount/MyNewsletter.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 import MyReviews from './MyAccount/MyReviews.vue';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
   name: 'MyAccount',
@@ -62,21 +63,21 @@ export default defineComponent({
     MyProfile,
     ShippingDetails,
     BillingDetails,
-    // MyNewsletter,
+    MyNewsletter,
     OrderHistory,
     MyReviews,
   },
   middleware: [
     'is-authenticated',
   ],
-  setup(props, context) {
-    const { $router, $route } = context.root;
+  setup() {
+    const { router, route } = useVueRouter();
     const { logout } = useUser();
     const activePage = computed(() => {
-      const { pageName } = $route.params;
+      const { pageName } = route.params;
 
       if (pageName) {
-        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
+        return (`${pageName.charAt(0).toUpperCase()}${pageName.slice(1)}`).replace('-', ' ');
       }
 
       return 'My profile';
@@ -85,11 +86,11 @@ export default defineComponent({
     const changeActivePage = async (title) => {
       if (title === 'Log out') {
         await logout();
-        $router.push('/');
+        await router.push('/');
         return;
       }
 
-      $router.push(`/my-account/${(title || '').toLowerCase().replace(' ', '-')}`);
+      await router.push(`/my-account/${(title || '').toLowerCase().replace(' ', '-')}`);
     };
 
     return { changeActivePage, activePage };

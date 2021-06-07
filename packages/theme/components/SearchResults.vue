@@ -169,6 +169,7 @@ export default defineComponent({
     },
     result: {
       type: Object,
+      default: () => ({}),
     },
   },
   setup(props, { emit }) {

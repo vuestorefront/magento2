@@ -169,6 +169,21 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <SfCheckbox
+              v-model="form.is_subscribed"
+              v-e2e="'sign-up-newsletter'"
+              label="Sign Up for Newsletter"
+              name="signupNewsletter"
+              class="form__element"
+            />
+            <SfCheckbox
+              v-model="form.allow_remote_shopping_assistance"
+              v-e2e="'remote-assistance'"
+              label="Allow remote shopping assistance"
+              name="allowRemoteShoppingAssistance"
+              info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
+              class="form__element"
+            />
             <ValidationProvider
               v-slot="{ errors }"
               :rules="{ required: { allowFalse: false } }"
@@ -272,7 +287,10 @@ export default defineComponent({
     const createAccount = ref(false);
     const rememberMe = ref(false);
     const {
-      register, login, loading, error: userError,
+      register,
+      login,
+      loading,
+      error: userError,
     } = useUser();
 
     const error = reactive({

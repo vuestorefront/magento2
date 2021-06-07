@@ -22,10 +22,10 @@ const timeToLive = 3000;
 
 const useUiNotification = () => {
   const send = (notification: UiNotification) => {
-    const id = Symbol();
+    const id = Symbol('id');
 
     const dismiss = () => {
-      const index = state.notifications.findIndex((notification) => notification.id === id);
+      const index = state.notifications.findIndex((n) => n.id === id);
 
       if (index !== -1) state.notifications.splice(index, 1);
     };

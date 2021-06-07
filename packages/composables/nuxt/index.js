@@ -1,11 +1,10 @@
-import path from 'path';
+/* eslint-disable unicorn/prefer-module */
+const path = require('path');
 
 const mapI18nSettings = (i18n) => ({
   locale: i18n.defaultLocale,
   currency: i18n.currency,
-  country: i18n.country,
   acceptLanguage: i18n.locales.map(({ code }) => code),
-  countries: i18n.countries,
   currencies: i18n.currencies,
   locales: i18n.locales.map(({ label, code }) => ({ name: code, label })),
 });
@@ -15,9 +14,7 @@ const isNuxtI18nUsed = (moduleOptions) => moduleOptions.i18n && moduleOptions.i1
 const getMissingFields = (options) => [
   'locale',
   'currency',
-  'country',
   'acceptLanguage',
-  'countries',
   'currencies',
   'locales',
 ].filter((o) => options[o] === undefined);

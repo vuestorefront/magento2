@@ -6,30 +6,8 @@ import {
   Category,
   Countries,
   Country,
-  Customer,
-  MagentoCustomerGender,
-  Product, ProductReviewRatingMetadata,
+  Product,
 } from '@vue-storefront/magento-api';
-
-export type User = Customer;
-
-export type UpdateUserParams = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  dateOfBirth?: string;
-  gender?: MagentoCustomerGender,
-  taxvat?: string;
-  prefix?: string
-  suffix?: string
-};
-
-export type RegisterUserParams = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
 
 export type Filter = Record<string, any>;
 
