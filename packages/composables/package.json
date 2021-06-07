@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.13",
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -22,7 +22,7 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/magento-api": "^1.0.0-beta.11",
+    "@vue-storefront/magento-api": "^1.0.0-beta.13",
     "@vue-storefront/core": "^2.3.3",
     "vue": "^2.6.12",
     "vue-demi": "latest"

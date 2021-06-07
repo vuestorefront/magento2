@@ -24,9 +24,12 @@ jobs:
           scope: "@vue-storefront"
       - run: echo "" >> .npmrc && echo "@vue-storefront:registry=https://registry.npmjs.org/" >> .npmrc
       - run: yarn
-      - run: yarn build:api-client
-      - run: yarn build:composables
-      - run: yarn publish:packages "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn build:api-client && yarn publish:api-client "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn build:composables && yarn publish:composables "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
