@@ -257,7 +257,6 @@ import {
   SfInput,
   SfButton,
   SfSelect,
-  SfRadio,
   SfCheckbox,
 } from '@storefront-ui/vue';
 import {
@@ -303,7 +302,6 @@ export default {
     SfInput,
     SfButton,
     SfSelect,
-    SfRadio,
     SfCheckbox,
     ValidationProvider,
     ValidationObserver,

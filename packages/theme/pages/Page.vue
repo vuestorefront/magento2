@@ -7,7 +7,7 @@
         :level="1"
         class="sf-heading--no-underline sf-heading--left"
       />
-      <div v-html="page.content" />
+      <div v-dompurify-html="page.content" />
     </div>
   </SfLoader>
 </template>

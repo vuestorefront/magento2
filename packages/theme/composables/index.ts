@@ -5,5 +5,5 @@ import useUiNotification from './useUiNotification';
 export {
   useUiHelpers,
   useUiState,
-  useUiNotification
+  useUiNotification,
 };
