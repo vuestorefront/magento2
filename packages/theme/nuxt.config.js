@@ -106,7 +106,9 @@ export default {
     }],
     // @core-development-only-end
     /* project-only-start
-    ['@vue-storefront/nuxt-theme'],
+    ['@vue-storefront/nuxt-theme', {
+      routes: false,
+    }],
     project-only-end */
     ['@vue-storefront/magento/nuxt', {
       i18n: {
