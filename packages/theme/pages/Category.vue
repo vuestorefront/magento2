@@ -298,6 +298,19 @@
                 @click="selectFilter(facet, option)"
               />
             </div>
+            <div v-else-if="facet.id === 'price'">
+              <SfRadio
+                v-for="option in facet.options"
+                :key="`${facet.id}-${option.value}`"
+                :label="
+                  option.id + `${option.count ? ` (${option.count})` : ''}`
+                "
+                :value="option.value"
+                :selected="isFilterSelected(facet, option)"
+                name="priceFilter"
+                @change="selectFilter(facet, option)"
+              />
+            </div>
             <div v-else>
               <SfFilter
                 v-for="option in facet.options"
@@ -353,6 +366,8 @@
 </template>
 
 <script>
+import findDeep from 'deepdash/findDeep';
+import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfSidebar,
   SfButton,
@@ -361,6 +376,7 @@ import {
   SfHeading,
   SfMenuItem,
   SfFilter,
+  SfRadio,
   SfProductCard,
   SfProductCardHorizontal,
   SfPagination,
@@ -371,7 +387,7 @@ import {
   SfColor,
   SfProperty,
 } from '@storefront-ui/vue';
-import { ref, computed, onMounted } from '@vue/composition-api';
+import { ref, computed } from '@vue/composition-api';
 import {
   useCart,
   useWishlist,
@@ -383,9 +399,6 @@ import {
   useUrlResolver,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import LazyHydrate from 'vue-lazy-hydration';
-import Vue from 'vue';
-import findDeep from 'deepdash/findDeep';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '../helpers/hooks/useVueRouter';
 
@@ -397,6 +410,7 @@ export default {
     SfIcon,
     SfList,
     SfFilter,
+    SfRadio,
     SfProductCard,
     SfProductCardHorizontal,
     SfPagination,
@@ -411,7 +425,7 @@ export default {
     LazyHydrate,
   },
   transition: 'fade',
-  setup(props, context) {
+  setup() {
     const { router, route } = useVueRouter();
     const { path } = route;
     const th = useUiHelpers();
@@ -491,10 +505,19 @@ export default {
       return categoryUidResult || items[0]?.uid;
     };
 
-    const isFilterSelected = (facet, option) =>
-      (selectedFilters.value[facet.id] || []).includes(option.value);
+    const isFilterSelected = (facet, option) => {
+      if (facet.id === 'price') {
+        return selectedFilters.value[facet.id];
+      }
+      return (selectedFilters.value[facet.id] || []).includes(option.value);
+    };
 
     const selectFilter = (facet, option) => {
+      if (facet.id === 'price') {
+        selectedFilters.value[facet.id] = option.value;
+        return;
+      }
+
       if (!selectedFilters.value[facet.id]) {
         selectedFilters.value[facet.id] = [];
       }
@@ -555,20 +578,23 @@ export default {
         ...th.getFacetsFromURL(),
         categoryId: activeCategoryUid(routeData.value.entity_uid),
       });
-    });
 
-    onMounted(() => {
-      context.root.$scrollTo(context.root.$el, 2000);
-
-      if (facets.value.length === 0) return;
-
-      selectedFilters.value = facets.value.reduce(
-        (prev, curr) => ({
-          ...prev,
-          [curr.id]: curr.options.filter((o) => o.selected).map((o) => o.value),
-        }),
-        {}
-      );
+      if (facets.value.length > 0) {
+        selectedFilters.value = facets.value.reduce(
+          (prev, curr) => (curr.id === 'price'
+            ? {
+              ...prev,
+              [curr.id]: curr.options.filter((o) => o.selected).value,
+            }
+            : {
+              ...prev,
+              [curr.id]: curr.options
+                .filter((o) => o.selected)
+                .map((o) => o.value),
+            }),
+          {},
+        );
+      }
     });
 
     return {
