@@ -36,16 +36,20 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
     ```
 3. Checkout develop branch `git checkout develop`
 4. Run `yarn` to install dependencies
-5. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
+5. Define a store running environment by adding a `STORE_ENV` to your running project or execute the code
+    ```bash
+    $ echo "STORE_ENV=dev" >> .env
     ```
-    cp packages/theme/config/example.json packages/theme/config/dev.json
+6. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
+    ```bash
+    $ cp packages/theme/config/example.json packages/theme/config/dev.json
     ```
-6. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
+7. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
     "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
     ```
-7. Build dependencies `yarn build:api-client && yarn build:composables`
-8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+8. Build dependencies `yarn build:api-client && yarn build:composables`
+9. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
 - If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
 ## Resources
