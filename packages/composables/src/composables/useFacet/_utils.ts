@@ -18,7 +18,7 @@ export const buildBreadcrumbs = (rootCat) => buildBreadcrumbsList(rootCat, [])
     }]),
   []);
 
-const filterFacets = (criteria) => (f) => (criteria ? criteria.includes(f) : true);
+const filterFacets = (criteria) => (f) => (criteria ? criteria.includes(f.attribute_code) : true);
 
 const getFacetTypeByCode = (code) => {
   if (code === 'type_of_stones') {
@@ -27,21 +27,21 @@ const getFacetTypeByCode = (code) => {
   return 'checkbox';
 };
 
-const createFacetsFromOptions = (facets, filters, filterKey) => {
-  const options = facets[filterKey]?.options || [];
-  const selectedList = filters && filters[filterKey] ? filters[filterKey] : [];
-
+const createFacetsFromOptions = (facets, filters, facet) => {
+  const options = facet.options || [];
+  const selectedList = filters && filters[facet.attribute_code] ? filters[facet.attribute_code] : [];
   return options
     .map(({
       label,
       value,
+      count,
     }) => ({
-      type: getFacetTypeByCode(facets[filterKey]?.attribute_code),
-      id: value,
+      type: getFacetTypeByCode(facet.attribute_code),
+      id: label,
       attrName: label,
       value,
       selected: selectedList.includes(value),
-      count: null,
+      count,
     }));
 };
 
@@ -53,8 +53,8 @@ export const reduceForFacets = (facets, filters) => (prev, curr) => ([
 export const reduceForGroupedFacets = (facets, filters) => (prev, curr) => ([
   ...prev,
   {
-    id: facets[curr].attribute_code,
-    label: facets[curr].default_frontend_label,
+    id: curr.attribute_code,
+    label: curr.label,
     options: createFacetsFromOptions(facets, filters, curr),
     count: null,
   },
@@ -69,8 +69,14 @@ export const buildFacets = (searchData: SearchData, reduceFn, criteria?: string[
     data: { availableFilters: facets },
     input: { filters },
   } = searchData;
+  // console.clear();
+  // console.log(facets);
+  const filteredFacets = facets.filter(filterFacets(criteria));
+  // console.log(filteredFacets);
+  // console.log(JSON.parse(JSON.stringify(filters)));
+  const reducedFacets = filteredFacets.reduce(reduceFn(facets, filters), []);
+  // console.log(reducedFacets);
+  return reducedFacets;
 
-  return Object.keys(facets || [])
-    .filter(filterFacets(criteria))
-    .reduce(reduceFn(facets, filters), []);
+  // .reduce(reduceFn(facets, filters), []);
 };
