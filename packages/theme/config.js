@@ -8,14 +8,14 @@ const config = convict({
   env: {
     doc: 'Current Store Running Environment',
     format: String,
-    default: process.env.STORE_ENV || '',
+    default: process.env.STORE_ENV || 'dev',
     env: 'STORE_ENV',
   },
   // region Magento 2 VueStorefront
   magentoGraphQl: {
     doc: 'The Magento GraphQL API URL',
     format: 'url',
-    default: process.env.MAGENTO_GRAPHQL || '',
+    default: process.env.MAGENTO_GRAPHQL || 'http://localhost:8080/graphql',
     env: 'MAGENTO_GRAPHQL',
   },
   enableMagentoExternalCheckout: {
@@ -27,13 +27,13 @@ const config = convict({
   externalCheckoutUrl: {
     doc: 'The Magento External Checkout URL',
     format: 'url',
-    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL || '',
+    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL || 'http://localhost:8080',
     env: 'MAGENTO_EXTERNAL_CHECKOUT_URL',
   },
   externalCheckoutSyncPath: {
     doc: 'The Magento External Checkout Sync Path',
     format: String,
-    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH || '',
+    default: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH || '/vue/cart/sync',
     env: 'MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH',
   },
   // endregion
@@ -41,13 +41,12 @@ const config = convict({
 
 const env = config.get('env');
 const filePath = `./config/${env}.json`;
-fs.access(filePath, fs.F_OK, (err) => {
-  if (err) {
-    console.warn('[Magento: Middleware Config] Not found any configuration file, will use the ENV variable or default configuration.');
-    return;
-  }
+try {
+  fs.readFileSync(filePath, { encoding: 'utf8' });
   config.loadFile(filePath);
-});
+} catch {
+  console.warn('[Magento: Middleware Config] Not found any configuration file, will use the ENV variable or default configuration.');
+}
 
 // Perform validation
 config.validate({ allowed: 'strict' });
