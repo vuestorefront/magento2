@@ -1,4 +1,5 @@
 export { default as addConfigurableProductsToCart } from './addConfigurableProductsToCart';
+export { default as addProductToWishList } from './addProductToWishList';
 export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
 export { default as cart } from './cart';
@@ -40,10 +41,10 @@ export { default as setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 export { default as setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 export { default as setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 export { default as storeConfig } from './storeConfig';
+export { default as subscribeEmailToNewsletter } from './subscribeEmailToNewsletter';
 export { default as updateCartItems } from './updateCartItems';
 export { default as updateCustomer } from './updateCustomer';
 export { default as updateCustomerAddress } from './updateCustomerAddress';
 export { default as upsellProduct } from './upsellProduct';
 export { default as urlResolver } from './urlResolver';
 export { default as wishlist } from './wishlist';
-export { default as subscribeEmailToNewsletter } from './subscribeEmailToNewsletter';
