@@ -69,14 +69,7 @@ export const buildFacets = (searchData: SearchData, reduceFn, criteria?: string[
     data: { availableFilters: facets },
     input: { filters },
   } = searchData;
-  // console.clear();
-  // console.log(facets);
-  const filteredFacets = facets.filter(filterFacets(criteria));
-  // console.log(filteredFacets);
-  // console.log(JSON.parse(JSON.stringify(filters)));
-  const reducedFacets = filteredFacets.reduce(reduceFn(facets, filters), []);
-  // console.log(reducedFacets);
-  return reducedFacets;
-
-  // .reduce(reduceFn(facets, filters), []);
+  return Object.keys(facets || [])
+    .filter(filterFacets(criteria))
+    .reduce(reduceFn(facets, filters), []);
 };

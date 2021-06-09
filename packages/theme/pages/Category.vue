@@ -54,13 +54,9 @@
         </div>
 
         <div class="navbar__counter">
-          <span class="navbar__label desktop-only"
-            >{{ $t('Products found') }}:
-          </span>
+          <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
           <span class="desktop-only">{{ pagination.totalItems }}</span>
-          <span class="navbar__label smartphone-only"
-            >{{ pagination.totalItems }} {{ $t('Items') }}</span
-          >
+          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t('Items') }}</span>
         </div>
 
         <div class="navbar__view">
@@ -96,7 +92,10 @@
             :class="{ 'loading--categories': categoriesLoading }"
             :loading="categoriesLoading"
           >
-            <SfAccordion :open="activeCategory" :show-chevron="true">
+            <SfAccordion
+              :open="activeCategory"
+              :show-chevron="true"
+            >
               <SfAccordionItem
                 v-for="(cat, i) in categoryTree && categoryTree.items"
                 :key="i"
@@ -104,7 +103,10 @@
               >
                 <SfList class="list">
                   <SfListItem class="list__item">
-                    <SfMenuItem :count="cat.count || ''" :label="cat.label">
+                    <SfMenuItem
+                      :count="cat.count || ''"
+                      :label="cat.label"
+                    >
                       <template #label>
                         <nuxt-link
                           :to="localePath(th.getAgnosticCatLink(cat))"
@@ -127,9 +129,7 @@
                       <template #label="{ label }">
                         <nuxt-link
                           :to="localePath(th.getAgnosticCatLink(subCat))"
-                          :class="
-                            subCat.isCurrent ? 'sidebar--cat-selected' : ''
-                          "
+                          :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
                         >
                           {{ label }}
                         </nuxt-link>
@@ -142,8 +142,14 @@
           </SfLoader>
         </LazyHydrate>
       </div>
-      <SfLoader :class="{ loading }" :loading="loading">
-        <div v-if="!loading" class="products">
+      <SfLoader
+        :class="{ loading }"
+        :loading="loading"
+      >
+        <div
+          v-if="!loading"
+          class="products"
+        >
           <transition-group
             v-if="isCategoryGridView"
             appear
@@ -159,13 +165,8 @@
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
               :image="productGetters.getProductThumbnailImage(product)"
-              :regular-price="
-                $n(productGetters.getPrice(product).regular, 'currency')
-              "
-              :special-price="
-                productGetters.getPrice(product).special &&
-                $n(productGetters.getPrice(product).special, 'currency')
-              "
+              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
               :max-rating="5"
               :score-rating="productGetters.getAverageRating(product)"
               :show-add-to-cart-button="true"
@@ -197,13 +198,8 @@
               :title="productGetters.getName(product)"
               :description="productGetters.getDescription(product)"
               :image="productGetters.getProductThumbnailImage(product)"
-              :regular-price="
-                $n(productGetters.getPrice(product).regular, 'currency')
-              "
-              :special-price="
-                productGetters.getPrice(product).special &&
-                $n(productGetters.getPrice(product).special, 'currency')
-              "
+              :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+              :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
               :max-rating="5"
               :score-rating="3"
               :is-on-wishlist="false"
@@ -224,7 +220,11 @@
                   value="XS"
                   style="margin: 0 0 1rem 0"
                 />
-                <SfProperty class="desktop-only" name="Color" value="white" />
+                <SfProperty
+                  class="desktop-only"
+                  name="Color"
+                  value="white"
+                />
               </template>
               <template #actions>
                 <SfButton
@@ -252,9 +252,7 @@
             v-show="pagination.totalPages > 1"
             class="products__show-on-page"
           >
-            <span class="products__show-on-page__label">{{
-              $t('Show on page')
-            }}</span>
+            <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
             <LazyHydrate on-interaction>
               <SfSelect
                 :value="pagination.itemsPerPage.toString()"
@@ -284,7 +282,10 @@
         @close="toggleFilterSidebar"
       >
         <div class="filters desktop-only">
-          <div v-for="(facet, i) in facets" :key="i">
+          <div
+            v-for="(facet, i) in facets"
+            :key="i"
+          >
             <SfHeading
               :key="`filter-title-${facet.id}`"
               :level="4"
@@ -333,7 +334,10 @@
           </div>
         </div>
         <SfAccordion class="filters smartphone-only">
-          <div v-for="(facet, i) in facets" :key="i">
+          <div
+            v-for="(facet, i) in facets"
+            :key="i"
+          >
             <SfAccordionItem
               :key="`filter-title-${facet.id}`"
               :header="facet.label"
@@ -352,7 +356,10 @@
         </SfAccordion>
         <template #content-bottom>
           <div class="filters__buttons">
-            <SfButton class="sf-button--full-width" @click="applyFilters()">
+            <SfButton
+              class="sf-button--full-width"
+              @click="applyFilters()"
+            >
               {{ $t('Done') }}
             </SfButton>
             <SfButton
@@ -393,7 +400,6 @@ import {
 import {
   ref,
   computed,
-  onMounted,
   defineComponent,
 } from '@vue/composition-api';
 import {
@@ -449,29 +455,21 @@ export default defineComponent({
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
 
-    const { search: routeSearch, result: routeData } = useUrlResolver(
-      `router:${path}`
-    );
+    const { search: routeSearch, result: routeData } = useUrlResolver(`router:${path}`);
 
     const selectedFilters = ref({});
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
-    const categoryTree = computed(() =>
-      categoryGetters.getCategoryTree(
-        categories.value?.[0],
-        routeData.value.entity_uid,
-        true
-      )
-    );
-    const breadcrumbs = computed(() =>
-      facetGetters.getBreadcrumbs(result.value)
-    );
+    const categoryTree = computed(() => categoryGetters.getCategoryTree(
+      categories.value?.[0],
+      routeData.value.entity_uid,
+      true,
+    ));
+    const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() =>
-      facetGetters.getGrouped(result.value, ['color', 'size', 'price'])
-    );
+    const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size', 'price']));
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -482,9 +480,7 @@ export default defineComponent({
         return '';
       }
 
-      const category = items.find(
-        (cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent)
-      );
+      const category = items.find((cat) => cat.isCurrent || cat.items.find((c) => c.isCurrent));
 
       return category?.label || items[0]?.label;
     });
@@ -502,13 +498,12 @@ export default defineComponent({
           const hasUid = key === '0' && value && Array.isArray(parentValue);
 
           return hasUid ? value === categoryUid : false;
-        }
+        },
       );
 
-      const categoryUidResult =
-        categoryDeep?.parent.length === 1
-          ? categoryDeep?.parent[0]
-          : categoryDeep?.parent;
+      const categoryUidResult = categoryDeep?.parent.length === 1
+        ? categoryDeep?.parent[0]
+        : categoryDeep?.parent;
 
       return categoryUidResult || items[0]?.uid;
     };
@@ -561,16 +556,10 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          await router.push(
-            `/p/${productGetters.getProductSku(
-              product
-            )}${productGetters.getSlug(product, product.categories[0])}`
-          );
+          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
           break;
         default:
-          throw new Error(
-            `Product Type ${productType} not supported in add to cart yet`
-          );
+          throw new Error(`Product Type ${productType} not supported in add to cart yet`);
       }
     };
 
