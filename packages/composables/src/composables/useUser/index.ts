@@ -6,6 +6,7 @@ import {
 } from '@vue-storefront/core';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
+import { User } from '../../types';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
@@ -49,7 +50,7 @@ const generateUserData = (userData): CustomerUpdateParameters => {
   return baseData;
 };
 
-const factoryParams: UseUserFactoryParams<any, any, any> = {
+const factoryParams: UseUserFactoryParams<User, any, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -82,7 +83,9 @@ const factoryParams: UseUserFactoryParams<any, any, any> = {
   updateUser: async (context: Context, { updatedUserData }) => {
     const userData = generateUserData(updatedUserData);
 
-    return context.$magento.api.updateCustomer(userData);
+    const { data } = await context.$magento.api.updateCustomer(userData);
+
+    return data.updateCustomerV2.customer;
   },
   register: async (context: Context, registerParams) => {
     const { email, password, ...baseData } = generateUserData(registerParams);
@@ -118,4 +121,4 @@ const factoryParams: UseUserFactoryParams<any, any, any> = {
   },
 };
 
-export default useUserFactory<any, any, any>(factoryParams);
+export default useUserFactory<User, any, any>(factoryParams);
