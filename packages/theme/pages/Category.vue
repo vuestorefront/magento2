@@ -56,7 +56,9 @@
         <div class="navbar__counter">
           <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
           <span class="desktop-only">{{ pagination.totalItems }}</span>
-          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t('Items') }}</span>
+          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
+            $t('Items')
+          }}</span>
         </div>
 
         <div class="navbar__view">
@@ -167,8 +169,8 @@
               :image="productGetters.getProductThumbnailImage(product)"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :max-rating="5"
               :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
               :show-add-to-cart-button="true"
               :is-on-wishlist="false"
               :is-added-to-cart="isInCart({ product })"
@@ -200,8 +202,8 @@
               :image="productGetters.getProductThumbnailImage(product)"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :max-rating="5"
-              :score-rating="3"
+              :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
               :is-on-wishlist="false"
               :link="
                 localePath(
@@ -469,7 +471,8 @@ export default defineComponent({
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size', 'price']));
+    const facets = computed(() => facetGetters.getGrouped(result.value,
+      ['color', 'size', 'price']));
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -556,7 +559,10 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
+          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
+            product,
+            product.categories[0],
+          )}`);
           break;
         default:
           throw new Error(`Product Type ${productType} not supported in add to cart yet`);
@@ -601,9 +607,9 @@ export default defineComponent({
       addItemToWishlist,
       applyFilters,
       breadcrumbs,
-      categoryTree,
       categories,
       categoriesLoading,
+      categoryTree,
       facets,
       isFacetColor,
       isFilterSelected,
@@ -786,8 +792,7 @@ export default defineComponent({
 
     &-label {
       margin: 0 var(--spacer-sm) 0 0;
-      font: var(--font-weight--normal) var(--font-size--base) / 1.6
-        var(--font-family--secondary);
+      font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
     }

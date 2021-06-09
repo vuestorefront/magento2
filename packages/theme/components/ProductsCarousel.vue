@@ -23,6 +23,9 @@
             :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
             :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
             :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+            :max-rating="5"
+            :score-rating="productGetters.getAverageRating(product)"
+            :reviews-count="productGetters.getTotalReviews(product)"
           />
         </SfCarouselItem>
       </SfCarousel>
@@ -63,7 +66,9 @@ export default defineComponent({
     loading: Boolean,
   },
   setup() {
-    return { productGetters };
+    return {
+      productGetters,
+    };
   },
 });
 </script>
@@ -74,10 +79,11 @@ export default defineComponent({
 }
 
 .carousel {
-    margin: 0 calc(var(--spacer-sm) * -1) 0 0;
+  margin: 0 calc(var(--spacer-sm) * -1) 0 0;
   @include for-desktop {
     margin: 0;
   }
+
   &__item {
     margin: 1.9375rem 0 2.4375rem 0;
   }
