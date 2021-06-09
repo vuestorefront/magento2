@@ -7,14 +7,14 @@ import {
 } from '@vue-storefront/core';
 import {
   Wishlist,
-  Product,
   WishlistProduct,
   WishlistQueryVariables,
+  WishlistItemInput,
 } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 
 // @ts-ignore
-const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product> = {
+const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, WishlistItemInput> = {
   provide() {
     return {
       user: useUser(),
@@ -35,10 +35,17 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Product
 
     return [];
   },
-  addItem: async ({ currentWishlist, product }) => ({}),
+  addItem: async (context, params) => {
+    const { data } = await context.$magento.api.addProductToWishList({
+      id: '0',
+      items: [params.product],
+    });
+
+    return data.addProductsToWishlist.wishlist;
+  },
   removeItem: async ({ currentWishlist, product }) => ({}),
   clear: async ({ currentWishlist }) => ({}),
   isInWishlist: ({ currentWishlist }) => false,
 };
 
-export default useWishlistFactory<Wishlist, WishlistProduct, Product>(factoryParams);
+export default useWishlistFactory<Wishlist, WishlistProduct, WishlistItemInput>(factoryParams);
