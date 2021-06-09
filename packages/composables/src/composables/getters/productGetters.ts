@@ -12,6 +12,7 @@ import {
 
 import categoryGetters from './categoryGetters';
 import { htmlDecode } from '../../helpers/htmlDecoder';
+import reviewGetters from './reviewGetters';
 
 type ProductVariantFilters = any;
 
@@ -216,9 +217,9 @@ export const getBreadcrumbs = (product: Product, category?: Category): AgnosticB
   return breadcrumbs;
 };
 
-export const getTotalReviews = (): number => 0;
+export const { getTotalReviews } = reviewGetters;
 
-export const getAverageRating = (): number => 0;
+export const { getAverageRating } = reviewGetters;
 
 export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products?.filter((p) => p.name && p.uid) || [];
 
