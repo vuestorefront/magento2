@@ -90,7 +90,11 @@ import {
   SubscribeEmailToNewsletterMutation,
   UpdateCustomerMutation,
   CreateCustomerMutation,
-  AddProductsToWishlistMutationVariables, WishlistItemInput, AddProductsToWishlistMutation, WishlistdataFragment,
+  AddProductsToWishlistMutationVariables,
+  WishlistItemInput,
+  AddProductsToWishlistMutation,
+  WishlistdataFragment,
+  UpdateCustomerEmailMutationVariables,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -241,6 +245,9 @@ export interface MagentoApiMethods {
   updateCustomer(input: CustomerUpdateInput): Promise<FetchResult<UpdateCustomerMutation>>;
 
   updateCustomerAddress(input: { addressId: number; input: CustomerAddressInput; }):
+  Promise<FetchResult<UpdateCustomerAddressMutation>>;
+
+  updateCustomerEmail(input: UpdateCustomerEmailMutationVariables):
   Promise<FetchResult<UpdateCustomerAddressMutation>>;
 
   upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery):

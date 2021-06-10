@@ -7572,6 +7572,14 @@ export type UpdateCustomerAddressMutation = { updateCustomerAddress?: Maybe<(
     & { extension_attributes?: Maybe<Array<Maybe<Pick<CustomerAddressAttribute, 'attribute_code' | 'value'>>>>, region?: Maybe<Pick<CustomerAddressRegion, 'region' | 'region_code' | 'region_id'>> }
   )> };
 
+export type UpdateCustomerEmailMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type UpdateCustomerEmailMutation = { updateCustomerEmail?: Maybe<{ customer: CustomerDataFragment }> };
+
 export type UpsellProductsQueryVariables = Exact<{
   search?: Maybe<Scalars['String']>;
   filter?: Maybe<ProductAttributeFilterInput>;
@@ -8073,8 +8081,11 @@ export type ProductCategoriesDataFragment = ProductCategoriesData_BundleProduct_
 
 type ProductData_BundleProduct_Fragment = (
   { __typename: 'BundleProduct' }
-  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<BundleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_BundleProduct_Fragment
   & ProductPriceRangeData_BundleProduct_Fragment
   & ProductUrlFragmentData_BundleProduct_Fragment
@@ -8083,8 +8094,11 @@ type ProductData_BundleProduct_Fragment = (
 
 type ProductData_ConfigurableProduct_Fragment = (
   { __typename: 'ConfigurableProduct' }
-  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_ConfigurableProduct_Fragment
   & ProductPriceRangeData_ConfigurableProduct_Fragment
   & ProductUrlFragmentData_ConfigurableProduct_Fragment
@@ -8094,8 +8108,11 @@ type ProductData_ConfigurableProduct_Fragment = (
 
 type ProductData_DownloadableProduct_Fragment = (
   { __typename: 'DownloadableProduct' }
-  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<DownloadableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_DownloadableProduct_Fragment
   & ProductPriceRangeData_DownloadableProduct_Fragment
   & ProductUrlFragmentData_DownloadableProduct_Fragment
@@ -8104,8 +8121,11 @@ type ProductData_DownloadableProduct_Fragment = (
 
 type ProductData_GroupedProduct_Fragment = (
   { __typename: 'GroupedProduct' }
-  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_GroupedProduct_Fragment
   & ProductPriceRangeData_GroupedProduct_Fragment
   & ProductUrlFragmentData_GroupedProduct_Fragment
@@ -8114,8 +8134,11 @@ type ProductData_GroupedProduct_Fragment = (
 
 type ProductData_SimpleProduct_Fragment = (
   { __typename: 'SimpleProduct' }
-  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_SimpleProduct_Fragment
   & ProductPriceRangeData_SimpleProduct_Fragment
   & ProductUrlFragmentData_SimpleProduct_Fragment
@@ -8124,8 +8147,11 @@ type ProductData_SimpleProduct_Fragment = (
 
 type ProductData_VirtualProduct_Fragment = (
   { __typename: 'VirtualProduct' }
-  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary'>
-  & { reviews: { items: Array<Maybe<Pick<ProductReview, 'average_rating'>>> } }
+  & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
+  & { reviews: { items: Array<Maybe<(
+      Pick<ProductReview, 'average_rating'>
+      & { ratings_breakdown: Array<Maybe<Pick<ProductReviewRating, 'name' | 'value'>>> }
+    )>> } }
   & ProductThumbnailData_VirtualProduct_Fragment
   & ProductPriceRangeData_VirtualProduct_Fragment
   & ProductUrlFragmentData_VirtualProduct_Fragment

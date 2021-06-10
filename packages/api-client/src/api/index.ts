@@ -45,6 +45,7 @@ export { default as subscribeEmailToNewsletter } from './subscribeEmailToNewslet
 export { default as updateCartItems } from './updateCartItems';
 export { default as updateCustomer } from './updateCustomer';
 export { default as updateCustomerAddress } from './updateCustomerAddress';
+export { default as updateCustomerEmail } from './updateCustomerEmail';
 export { default as upsellProduct } from './upsellProduct';
 export { default as urlResolver } from './urlResolver';
 export { default as wishlist } from './wishlist';
