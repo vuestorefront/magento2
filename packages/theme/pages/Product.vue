@@ -112,6 +112,12 @@
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
+          <SfButton
+            class="sf-button--text desktop-only product__save"
+            @click="addItemToWishlist"
+          >
+            Add to wishlist
+          </SfButton>
         </div>
 
         <LazyHydrate when-idle>
@@ -253,6 +259,8 @@ import {
   productGetters,
   useReview,
   reviewGetters,
+  useUser,
+  useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { ref, computed } from '@vue/composition-api';
@@ -297,6 +305,8 @@ export default {
       loading: reviewsLoading,
       addReview,
     } = useReview(`productReviews-${id}`);
+    const { isAuthenticated } = useUser();
+    const { isInWishlist, addItem: addToWishlist } = useWishlist();
 
     const openTab = ref(1);
 
@@ -353,6 +363,10 @@ export default {
         alt: product.value._name || product.value.name,
       })));
 
+    const addItemToWishlist = async () => {
+      await addToWishlist({ product: product.value });
+    };
+
     const changeTab = (tabNumber, callback) => {
       document
         .querySelector('#tabs')
@@ -408,14 +422,16 @@ export default {
 
     return {
       addItem,
-      changeNewReview,
-      successAddReview,
+      addItemToWishlist,
       averageRating,
       breadcrumbs,
       canAddToCart,
       categories,
+      changeNewReview,
       changeTab,
       configuration,
+      isAuthenticated,
+      isInWishlist,
       loading,
       openTab,
       options,
@@ -431,6 +447,7 @@ export default {
       reviewGetters,
       reviews,
       reviewsLoading,
+      successAddReview,
       totalReviews,
       updateFilter,
       upsellProducts,
