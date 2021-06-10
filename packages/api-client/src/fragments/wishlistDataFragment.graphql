@@ -1,4 +1,8 @@
 #import "./productMediaConfigurationFragment.graphql"
+#import "./productThumbnailFragment.graphql"
+#import "./productPriceRangeFragment.graphql"
+#import "./productUrlFragment.graphql"
+#import "./configurableProductOptionsFragment.graphql"
 
 fragment Wishlistdata on Wishlist {
   id
@@ -12,35 +16,25 @@ fragment Wishlistdata on Wishlist {
       added_at
       product {
         uid
-        name
+        __typename
         sku
-        special_price
-        attribute_set_id
-        image{
-          url,
-          label
-        }
-        price_tiers{
-          discount {
-            amount_off
-            percent_off
+        name
+        stock_status
+        only_x_left_in_stock
+        rating_summary
+        ...ProductThumbnailData
+        ...ProductPriceRangeData
+        ...ProductUrlFragmentData
+        ...ConfigurableProductOptionsData
+        review_count
+        reviews {
+          items {
+            average_rating
+            ratings_breakdown {
+              name
+              value
+            }
           }
-          final_price {
-            currency
-            value
-          }
-          quantity
-        }
-        type_id
-        manufacturer
-        categories{
-          id
-          name
-          path
-        }
-        canonical_url
-        media_gallery {
-          ...ProductMediaConfigurationData
         }
       }
     }
