@@ -80,8 +80,18 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
   },
-  updateUser: async (context: Context, { updatedUserData }) => {
-    const userData = generateUserData(updatedUserData);
+  updateUser: async (context: Context, params) => {
+    const { email: oldEmail } = params.currentUser;
+    const { email, password, ...updateData } = params.updatedUserData;
+
+    const userData = generateUserData(updateData);
+
+    if (email !== oldEmail) {
+      await context.$magento.api.updateCustomerEmail({
+        email,
+        password,
+      });
+    }
 
     const { data } = await context.$magento.api.updateCustomer(userData);
 
