@@ -8312,6 +8312,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8322,6 +8323,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8333,6 +8335,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8343,6 +8346,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8353,6 +8357,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8363,6 +8368,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     ) | (
       Pick<ConfigurableWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -8376,6 +8382,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8386,6 +8393,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8397,6 +8405,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8407,6 +8416,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8417,6 +8427,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8427,6 +8438,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     ) | (
       Pick<DownloadableWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -8440,6 +8452,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8450,6 +8463,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8461,6 +8475,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8471,6 +8486,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8481,6 +8497,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8491,6 +8508,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     ) | (
       Pick<GroupedProductWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -8504,6 +8522,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8514,6 +8533,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8525,6 +8545,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8535,6 +8556,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8545,6 +8567,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8555,6 +8578,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     ) | (
       Pick<SimpleWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -8568,6 +8592,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8578,6 +8603,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8589,6 +8615,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8599,6 +8626,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8609,6 +8637,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8619,6 +8648,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     ) | (
       Pick<VirtualWishlistItem, 'id' | 'quantity' | 'description' | 'added_at'>
@@ -8632,6 +8662,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_BundleProduct_Fragment
         & ProductPriceRangeData_BundleProduct_Fragment
         & ProductUrlFragmentData_BundleProduct_Fragment
+        & ProductCategoriesData_BundleProduct_Fragment
       ) | (
         { __typename: 'ConfigurableProduct' }
         & Pick<ConfigurableProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8642,6 +8673,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_ConfigurableProduct_Fragment
         & ProductPriceRangeData_ConfigurableProduct_Fragment
         & ProductUrlFragmentData_ConfigurableProduct_Fragment
+        & ProductCategoriesData_ConfigurableProduct_Fragment
         & ConfigurableProductOptionsDataFragment
       ) | (
         { __typename: 'DownloadableProduct' }
@@ -8653,6 +8685,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_DownloadableProduct_Fragment
         & ProductPriceRangeData_DownloadableProduct_Fragment
         & ProductUrlFragmentData_DownloadableProduct_Fragment
+        & ProductCategoriesData_DownloadableProduct_Fragment
       ) | (
         { __typename: 'GroupedProduct' }
         & Pick<GroupedProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8663,6 +8696,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_GroupedProduct_Fragment
         & ProductPriceRangeData_GroupedProduct_Fragment
         & ProductUrlFragmentData_GroupedProduct_Fragment
+        & ProductCategoriesData_GroupedProduct_Fragment
       ) | (
         { __typename: 'SimpleProduct' }
         & Pick<SimpleProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8673,6 +8707,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_SimpleProduct_Fragment
         & ProductPriceRangeData_SimpleProduct_Fragment
         & ProductUrlFragmentData_SimpleProduct_Fragment
+        & ProductCategoriesData_SimpleProduct_Fragment
       ) | (
         { __typename: 'VirtualProduct' }
         & Pick<VirtualProduct, 'uid' | 'sku' | 'name' | 'stock_status' | 'only_x_left_in_stock' | 'rating_summary' | 'review_count'>
@@ -8683,6 +8718,7 @@ export type WishlistdataFragment = (
         & ProductThumbnailData_VirtualProduct_Fragment
         & ProductPriceRangeData_VirtualProduct_Fragment
         & ProductUrlFragmentData_VirtualProduct_Fragment
+        & ProductCategoriesData_VirtualProduct_Fragment
       )> }
     )>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }> }
 );
