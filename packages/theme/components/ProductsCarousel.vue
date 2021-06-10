@@ -26,6 +26,8 @@
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
+            :wishlist-icon="isAuthenticated ? 'heart' : false"
+            @click:wishlist="addItemToWishlist(product)"
           />
         </SfCarouselItem>
       </SfCarousel>
@@ -41,7 +43,7 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 
-import { productGetters } from '@vue-storefront/magento';
+import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
@@ -66,8 +68,17 @@ export default defineComponent({
     loading: Boolean,
   },
   setup() {
+    const { isAuthenticated } = useUser();
+    const { isInWishlist, addItem } = useWishlist();
+    const addItemToWishlist = async (product) => {
+      await addItem({ product });
+    };
+
     return {
+      addItemToWishlist,
       productGetters,
+      isInWishlist,
+      isAuthenticated,
     };
   },
 });
