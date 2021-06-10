@@ -27,6 +27,10 @@
         <SfContentPage title="My newsletter">
           <MyNewsletter />
         </SfContentPage>
+
+        <SfContentPage title="My wishlist">
+          <MyWishlist />
+        </SfContentPage>
       </SfContentCategory>
 
       <SfContentCategory title="Order details">
@@ -51,6 +55,7 @@ import MyProfile from './MyAccount/MyProfile.vue';
 import ShippingDetails from './MyAccount/ShippingDetails.vue';
 import BillingDetails from './MyAccount/BillingDetails.vue';
 import MyNewsletter from './MyAccount/MyNewsletter.vue';
+import MyWishlist from './MyAccount/MyWishlist.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 import MyReviews from './MyAccount/MyReviews.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
@@ -58,14 +63,15 @@ import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 export default defineComponent({
   name: 'MyAccount',
   components: {
-    SfBreadcrumbs,
-    SfContentPages,
-    MyProfile,
-    ShippingDetails,
     BillingDetails,
     MyNewsletter,
-    OrderHistory,
+    MyProfile,
     MyReviews,
+    MyWishlist,
+    OrderHistory,
+    SfBreadcrumbs,
+    SfContentPages,
+    ShippingDetails,
   },
   middleware: [
     'is-authenticated',
@@ -135,5 +141,14 @@ export default defineComponent({
 }
 .breadcrumbs {
   margin: var(--spacer-base) 0 var(--spacer-lg);
+}
+.sf-content-pages {
+  height: auto;
+}
+::v-deep .sf-content-pages__content {
+  height: auto;
+}
+.sf-content-pages__content {
+  height: auto;
 }
 </style>
