@@ -36,12 +36,29 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, WishlistProduct, Wishlis
     return [];
   },
   addItem: async (context, params) => {
-    const { data } = await context.$magento.api.addProductToWishList({
-      id: '0',
-      items: [params.product],
-    });
+    if (!context.user.isAuthenticated.value) {
+      throw new Error('Need to be authenticated to add a product to wishlist');
+    }
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    switch (params.product.__typename) {
+      case 'SimpleProduct':
+        const { data } = await context.$magento.api.addProductToWishList({
+          id: '0',
+          items: [{
+            sku: params.product.sku,
+            quantity: 1,
+          }],
+        });
 
-    return data.addProductsToWishlist.wishlist;
+        return data.addProductsToWishlist.wishlist;
+      case 'ConfigurableProduct':
+      default:
+        // todo implement other options
+        // @ts-ignore
+        // eslint-disable-next-line no-underscore-dangle
+        throw new Error(`Product Type ${product.__typename} not supported in add to wishlist yet`);
+    }
   },
   removeItem: async ({ currentWishlist, product }) => ({}),
   clear: async ({ currentWishlist }) => ({}),
