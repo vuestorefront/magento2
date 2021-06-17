@@ -51,19 +51,30 @@ const getPagination = (wishlistData: WishlistdataFragment): AgnosticPagination =
   pageOptions: [10, 50, 100],
 });
 
-const getProducts = (wishlistData: WishlistdataFragment[]): {
+const getProducts = (wishlistData: WishlistdataFragment[] | WishlistdataFragment): {
   product: WishlistProduct;
   quantity: number;
   added_at: string;
 }[] => {
-  if (!wishlistData || wishlistData.length === 0) {
+  if (!wishlistData || (Array.isArray(wishlistData) && wishlistData.length === 0)) {
     return [];
   }
-  return wishlistData.reduce((acc, curr) => [...acc, ...curr.items_v2.items.map((item) => ({
+
+  const reducer = (acc, curr) => [...acc, ...curr.items_v2.items.map((item) => ({
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
-  }))], []);
+  }))];
+
+  const mapper = (item) => ({
+    product: item.product,
+    quantity: item.quantity,
+    added_at: item.added_at,
+  });
+
+  return Array.isArray(wishlistData)
+    ? wishlistData.reduce((acc, curr) => reducer(acc, curr), [])
+    : wishlistData.items_v2.items.map((e) => mapper(e));
 };
 
 export interface WishlistGetters extends BaseWishlistGetters<Wishlist, WishlistProduct> {
