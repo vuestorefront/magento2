@@ -7483,6 +7483,14 @@ export type RemoveItemFromCartMutationVariables = Exact<{
 
 export type RemoveItemFromCartMutation = { removeItemFromCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
+export type RemoveProductsFromWishlistMutationVariables = Exact<{
+  id: Scalars['ID'];
+  items: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist?: Maybe<{ wishlist: WishlistdataFragment }> };
+
 export type RevokeCustomerTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 

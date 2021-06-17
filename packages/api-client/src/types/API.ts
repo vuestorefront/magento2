@@ -94,7 +94,7 @@ import {
   WishlistItemInput,
   AddProductsToWishlistMutation,
   WishlistdataFragment,
-  UpdateCustomerEmailMutationVariables,
+  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -220,6 +220,8 @@ export interface MagentoApiMethods {
   removeCouponFromCart(input: RemoveCouponFromCartInput): Promise<FetchResult<RemoveCouponFromCartMutation>>;
 
   removeItemFromCart(input: RemoveItemFromCartInput): Promise<FetchResult<RemoveItemFromCartMutation>>;
+
+  removeProductsFromWishlist(input: RemoveProductsFromWishlistMutationVariables): Promise<FetchResult<RemoveProductsFromWishlistMutation>>;
 
   revokeCustomerToken(): Promise<FetchResult<RevokeCustomerTokenMutation>>;
 

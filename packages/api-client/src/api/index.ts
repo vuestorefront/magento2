@@ -34,6 +34,7 @@ export { default as products } from './products';
 export { default as relatedProduct } from './relatedProduct';
 export { default as removeCouponFromCart } from './removeCouponFromCart';
 export { default as removeItemFromCart } from './removeItemFromCart';
+export { default as removeProductsFromWishlist } from './removeProductsFromWishlist';
 export { default as revokeCustomerToken } from './revokeCustomerToken';
 export { default as setBillingAddressOnCart } from './setBillingAddressOnCart';
 export { default as setGuestEmailOnCart } from './setGuestEmailOnCart';
