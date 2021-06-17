@@ -172,8 +172,8 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :show-add-to-cart-button="true"
-              :is-on-wishlist="false"
               :is-added-to-cart="isInCart({ product })"
+              :is-on-wishlist="product.isInWishlist"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -181,7 +181,7 @@
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-              @click:wishlist="addItemToWishlist({ product })"
+              @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             />
           </transition-group>
@@ -204,7 +204,7 @@
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
-              :is-on-wishlist="false"
+              :is-on-wishlist="product.isInWishlist"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -212,7 +212,7 @@
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-              @click:wishlist="addItemToWishlist({ product })"
+              @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             >
               <template #configuration>
@@ -447,7 +447,11 @@ export default defineComponent({
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
-    const { addItem: addItemToWishlist } = useWishlist();
+    const {
+      addItem: addItemToWishlistBase,
+      isInWishlist,
+      removeItem: removeItemFromWishlist,
+    } = useWishlist();
     const { result, search, loading } = useFacet(`facetId:${path}`);
     const { changeFilters, isFacetColor } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
@@ -461,7 +465,12 @@ export default defineComponent({
 
     const selectedFilters = ref({});
 
-    const products = computed(() => facetGetters.getProducts(result.value));
+    const products = computed(() => facetGetters
+      .getProducts(result.value)
+      .map((product) => ({
+        ...product,
+        isInWishlist: isInWishlist({ product }),
+      })));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
@@ -569,6 +578,14 @@ export default defineComponent({
       }
     };
 
+    const addItemToWishlist = async (product) => {
+      await (
+        isInWishlist({ product })
+          ? removeItemFromWishlist({ product })
+          : addItemToWishlistBase({ product })
+      );
+    };
+
     onSSR(async () => {
       await Promise.all([
         routeSearch(path),
@@ -614,6 +631,7 @@ export default defineComponent({
       isFacetColor,
       isFilterSelected,
       isInCart,
+      isInWishlist,
       loading,
       pagination,
       productGetters,

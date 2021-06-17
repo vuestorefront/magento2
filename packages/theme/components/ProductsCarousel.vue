@@ -13,7 +13,7 @@
         class="carousel"
       >
         <SfCarouselItem
-          v-for="(product, i) in products"
+          v-for="(product, i) in mappedProducts"
           :key="i"
           class="carousel__item"
         >
@@ -27,6 +27,7 @@
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
             :wishlist-icon="isAuthenticated ? 'heart' : false"
+            :is-on-wishlist="product.isInWishlist"
             @click:wishlist="addItemToWishlist(product)"
           />
         </SfCarouselItem>
@@ -44,7 +45,7 @@ import {
 } from '@storefront-ui/vue';
 
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -67,14 +68,26 @@ export default defineComponent({
     },
     loading: Boolean,
   },
-  setup() {
+  setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist();
+
+    const mappedProducts = computed(() => props.products.map((product) => ({
+      // @ts-ignore
+      ...product,
+      isInWishlist: isInWishlist({ product }),
+    })));
+
     const addItemToWishlist = async (product) => {
-      await addItem({ product });
+      await (
+        isInWishlist({ product })
+          ? removeItem({ product })
+          : addItem({ product })
+      );
     };
 
     return {
+      mappedProducts,
       addItemToWishlist,
       productGetters,
       isInWishlist,
