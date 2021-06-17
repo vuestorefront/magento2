@@ -35,8 +35,8 @@
     "update:update": "ncu -u && lerna run update:update --stream && yarn install --force"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/plugin-proposal-private-methods": "^7.13.0",
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-private-methods": "^7.14.5",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@commitlint/config-lerna-scopes": "^12.1.4",
@@ -51,7 +51,7 @@
     "@types/jsdom": "^16.2.11",
     "@types/node": "^15.12.2",
     "@types/webpack": "^5.28.0",
-    "@typescript-eslint/parser": "^4.26.1",
+    "@typescript-eslint/parser": "^4.27.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "all-contributors-cli": "^6.20.0",
     "babel-eslint": "^10.1.0",
@@ -77,12 +77,12 @@
     "majestic": "^1.8.0",
     "npm-check-updates": "^11.6.0",
     "rimraf": "^3.0.2",
-    "rollup": "^2.51.1",
+    "rollup": "^2.52.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
-    "tslib": "^2.2.0",
-    "typescript": "^4.3.2",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.3",
     "vue-eslint-parser": "^7.6.0"
   },
   "engines": {
