@@ -109,7 +109,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
                 parent_sku: product.sku,
                 data: {
                   quantity,
-                  sku: product.sku,
+                  sku: product.configurable_product_options_selection?.variant?.sku || '',
                 },
               },
             ],

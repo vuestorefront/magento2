@@ -73,37 +73,48 @@
           <SfButton class="sf-button--text desktop-only product__guide">
             {{ $t('Size guide') }}
           </SfButton>
-          <SfSelect
-            v-if="options.size"
-            :value="configuration.size"
-            label="Size"
-            class="sf-select--underlined product__select-size"
-            :required="true"
-            @input="size => updateFilter({ size })"
+
+          <template
+            v-if="configurableOptions.length"
+            v-for="option in configurableOptions"
           >
-            <SfSelectOption
-              v-for="size in options.size"
-              :key="size.value"
-              :value="size.value"
+            <div
+              v-if="option.attribute_code === 'color'"
+              class="product__colors desktop-only"
             >
-              {{ size.label }}
-            </SfSelectOption>
-          </SfSelect>
-          <div
-            v-if="options.color && options.color.length > 1"
-            class="product__colors desktop-only"
-          >
-            <p class="product__color-label">
-              {{ $t('Color') }}:
-            </p>
-            <SfColor
-              v-for="(color, i) in options.color"
-              :key="i"
-              :color="color.value"
-              class="product__color"
-              @click="updateFilter({color})"
-            />
-          </div>
+              <p class="product__color-label">
+                {{ option.label }}:
+              </p>
+
+              <SfColor
+                v-for="(color, i) in option.values"
+                :key="color.uid"
+                :color="color.swatch_data.value"
+                :selected="productConfiguration[option.attribute_uid] === color.uid"
+                class="product__color"
+                @click="() => updateProductConfiguration(option.attribute_uid, color.uid)"
+              />
+            </div>
+
+            <SfSelect
+              v-else
+              :value="productConfiguration[option.attribute_uid]"
+              :label="option.label"
+              class="sf-select--underlined product__select-size"
+              :required="true"
+              @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
+            >
+              <SfSelectOption
+                v-if="option.values"
+                v-for="attribute in option.values"
+                :key="attribute.uid"
+                :value="attribute.uid"
+              >
+                {{ attribute.label }}
+              </SfSelectOption>
+            </SfSelect>
+          </template>
+
           <SfAddToCart
             v-model="qty"
             v-e2e="'product_add-to-cart'"
@@ -255,7 +266,7 @@ import {
   reviewGetters,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed, onBeforeMount } from '@vue/composition-api';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
@@ -322,9 +333,6 @@ export default {
       return inStock && stockLeft;
     });
 
-    const options = computed(() => productGetters.getAttributes(products.value, ['color', 'size']));
-    const configuration = computed(() => productGetters.getAttributes(product.value,
-      ['color', 'size']));
     const categories = computed(() => productGetters.getCategoryIds(product.value));
 
     const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
@@ -396,15 +404,39 @@ export default {
       await searchReviews({ ...baseSearchQuery });
     });
 
-    const updateFilter = (filter) => {
-      router.push({
-        path: route.path,
-        query: {
-          ...configuration.value,
-          ...filter,
+    const configurableOptions = computed(() => product.value.configurable_options);
+
+    // @TODO: add productConfiguration type
+    let productConfiguration = ref({});
+
+    const updateProductConfiguration = async (label, value) => {
+      productConfiguration.value[label] = value;
+      const configurations = Object.entries(productConfiguration.value).map(config => config[1]);
+      await search({
+        queryType: 'DETAIL',
+        filter: {
+          sku: {
+            eq: id,
+          },
         },
+        configurations,
+      });
+
+      // router.replace({});
+      router.push({
+        path: route.fullPath,
+        query: productConfiguration.value,
       });
     };
+
+    const loadProductConfiguration = () => {
+      const { query } = route;
+      productConfiguration.value = query;
+    }
+
+    onBeforeMount(async () => {
+      loadProductConfiguration();
+    })
 
     return {
       addItem,
@@ -415,10 +447,10 @@ export default {
       canAddToCart,
       categories,
       changeTab,
-      configuration,
+      productConfiguration,
+      configurableOptions,
       loading,
       openTab,
-      options,
       product,
       productDataIsLoading,
       productDescription,
@@ -432,7 +464,7 @@ export default {
       reviews,
       reviewsLoading,
       totalReviews,
-      updateFilter,
+      updateProductConfiguration,
       upsellProducts,
     };
   },
