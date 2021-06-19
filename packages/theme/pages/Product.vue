@@ -116,7 +116,7 @@
             class="sf-button--text desktop-only product__save"
             @click="addItemToWishlist"
           >
-            Add to wishlist
+            {{ isInWishlist ? $t('Remove from Wishlist') : $t('Add to Wishlist') }}
           </SfButton>
         </div>
 
@@ -431,7 +431,7 @@ export default {
       changeTab,
       configuration,
       isAuthenticated,
-      isInWishlist,
+      isInWishlist: computed(() => isInWishlist({ product: product.value })),
       loading,
       openTab,
       options,
