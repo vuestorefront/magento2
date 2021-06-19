@@ -1,0 +1,50 @@
+#import "./productMediaConfigurationFragment.graphql"
+#import "./productThumbnailFragment.graphql"
+#import "./productPriceRangeFragment.graphql"
+#import "./productUrlFragment.graphql"
+#import "./configurableProductOptionsFragment.graphql"
+#import "./productCategoriesFragment.graphql"
+
+
+fragment Wishlistdata on Wishlist {
+  id
+  items_count
+  sharing_code
+  items_v2 {
+    items {
+      id
+      quantity
+      description
+      added_at
+      product {
+        uid
+        __typename
+        sku
+        name
+        stock_status
+        only_x_left_in_stock
+        rating_summary
+        ...ProductThumbnailData
+        ...ProductPriceRangeData
+        ...ProductUrlFragmentData
+        ...ProductCategoriesData
+        ...ConfigurableProductOptionsData
+        review_count
+        reviews {
+          items {
+            average_rating
+            ratings_breakdown {
+              name
+              value
+            }
+          }
+        }
+      }
+    }
+    page_info {
+      current_page
+      page_size
+      total_pages
+    }
+  }
+}
