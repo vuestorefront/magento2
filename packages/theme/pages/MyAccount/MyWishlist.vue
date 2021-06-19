@@ -66,16 +66,9 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
-                  :style="{ '--index': i }"
-                  :title="productGetters.getName(product.product)"
                   :image="productGetters.getProductThumbnailImage(product.product)"
-                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
-                  :special-price="productGetters.getPrice(product.product).special && $n(productGetters.getPrice(product.product).special, 'currency')"
-                  :score-rating="productGetters.getAverageRating(product.product)"
-                  :reviews-count="productGetters.getTotalReviews(product.product)"
-                  :show-add-to-cart-button="true"
-                  :is-on-wishlist="true"
                   :is-added-to-cart="isInCart({ product: product.product })"
+                  :is-on-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -83,7 +76,16 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  @click:wishlist="removeItemFromWishlist({ product: product.product })"
+                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
+                  :reviews-count="productGetters.getTotalReviews(product.product)"
+                  :score-rating="productGetters.getAverageRating(product.product)"
+                  :show-add-to-cart-button="true"
+                  :special-price="productGetters.getPrice(product.product).special
+                    && $n(productGetters.getPrice(product.product).special, 'currency')"
+                  :style="{ '--index': i }"
+                  :title="productGetters.getName(product.product)"
+                  wishlist-icon
+                  @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 />
               </transition-group>
@@ -98,14 +100,8 @@
                   v-for="(product, i) in products"
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
-                  :style="{ '--index': i }"
-                  :title="productGetters.getName(product.product)"
                   :description="productGetters.getDescription(product.product)"
                   :image="productGetters.getProductThumbnailImage(product.product)"
-                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
-                  :special-price="productGetters.getPrice(product.product).special && $n(productGetters.getPrice(product.product).special, 'currency')"
-                  :score-rating="productGetters.getAverageRating(product.product)"
-                  :reviews-count="productGetters.getTotalReviews(product.product)"
                   :is-on-wishlist="true"
                   :link="
                     localePath(
@@ -114,7 +110,15 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  @click:wishlist="removeItemFromWishlist({ product: product.product })"
+                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
+                  :reviews-count="productGetters.getTotalReviews(product.product)"
+                  :score-rating="productGetters.getAverageRating(product.product)"
+                  :special-price="productGetters.getPrice(product.product).special
+                    && $n(productGetters.getPrice(product.product).special, 'currency')"
+                  :style="{ '--index': i }"
+                  :title="productGetters.getName(product.product)"
+                  wishlist-icon
+                  @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
                   <template #configuration>
@@ -134,8 +138,9 @@
                     <SfButton
                       class="sf-button--text desktop-only"
                       style="margin: 0 0 1rem auto; display: block"
+                      @click="removeItemFromWishlist(product.product)"
                     >
-                      {{ $t('Save for later') }}
+                      {{ $t('Remove from Wishlist') }}
                     </SfButton>
                   </template>
                 </SfProductCardHorizontal>
