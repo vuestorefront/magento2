@@ -14,7 +14,7 @@
       "login": "bloodf",
       "name": "Heitor Ramon Ribeiro",
       "avatar_url": "https://avatars.githubusercontent.com/u/1626923?v=4",
-      "profile": "http://heitorramon.com/",
+      "profile": "https://github.com/bloodf",
       "contributions": [
         "code",
         "maintenance",
@@ -25,7 +25,7 @@
       "login": "domideimel",
       "name": "Dominik Deimel",
       "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
-      "profile": "https://dominikdeimel.com/",
+      "profile": "https://github.com/domideimel",
       "contributions": [
         "code",
         "doc"
@@ -35,7 +35,7 @@
       "login": "LiorLindvor",
       "name": "Lior Lindvor",
       "avatar_url": "https://avatars.githubusercontent.com/u/6757942?v=4",
-      "profile": "http://cyberfuze.com/",
+      "profile": "https://github.com/LiorLindvor",
       "contributions": [
         "code"
       ]
@@ -55,6 +55,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
       "profile": "https://github.com/hcmlopes",
       "contributions": [
+        "code",
         "doc"
       ]
     },
@@ -62,7 +63,7 @@
       "login": "filrak",
       "name": "Filip Rakowski",
       "avatar_url": "https://avatars.githubusercontent.com/u/15185752?v=4",
-      "profile": "https://rakowski.dev/",
+      "profile": "https://github.com/filrak",
       "contributions": [
         "question",
         "mentoring",
@@ -102,5 +103,5 @@
       ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 6
 }
