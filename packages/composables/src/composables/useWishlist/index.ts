@@ -21,9 +21,13 @@ const compareWishlistProduct = (
   return equalSku && equalUid;
 };
 
-const findItemOnWishlist = (currentWishlist, product) => currentWishlist
-  ?.items_v2
-  ?.items?.find((item) => compareWishlistProduct(item.product, product));
+const findItemOnWishlist = (currentWishlist, product) => {
+  const wishlist = Array.isArray(currentWishlist) ? currentWishlist[0] : currentWishlist;
+
+  return wishlist
+    ?.items_v2
+    ?.items?.find((item) => compareWishlistProduct(item.product, product));
+};
 
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
@@ -106,7 +110,6 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
       currentWishlist,
       product,
     } = params;
-
     return !!findItemOnWishlist(currentWishlist, product);
   },
 };
