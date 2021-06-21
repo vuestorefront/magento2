@@ -27,8 +27,7 @@ export const transformUserUpdateAddressInput = (addressInputParams): {
   };
 
   return {
-    // @ts-ignore
-    addressId: params.address.id,
+    addressId: addressInputParams.address.id,
     input: {
       ...addressParams,
       default_shipping: true,
