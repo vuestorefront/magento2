@@ -49,6 +49,14 @@
           :error-message="errors[0]"
         />
       </ValidationProvider>
+      <SfCheckbox
+        v-model="form.allow_remote_shopping_assistance"
+        v-e2e="'remote-assistance'"
+        label="Allow remote shopping assistance"
+        name="allowRemoteShoppingAssistance"
+        info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
+        class="form__element"
+      />
       <SfModal
         :visible="requirePassword"
         :title="$t('Attention!')"
@@ -85,7 +93,12 @@
 import { defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { useUser, userGetters } from '@vue-storefront/magento';
-import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
+import {
+  SfInput,
+  SfButton,
+  SfModal,
+  SfCheckbox,
+} from '@storefront-ui/vue';
 
 export default defineComponent({
   name: 'ProfileUpdateForm',
@@ -93,6 +106,7 @@ export default defineComponent({
     SfInput,
     SfButton,
     SfModal,
+    SfCheckbox,
     ValidationProvider,
     ValidationObserver,
   },
@@ -108,16 +122,24 @@ export default defineComponent({
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
-    const resetForm = () => ({
+    const resetForm = (): {
+      firstname: string;
+      lastname: string;
+      email: string;
+      allow_remote_shopping_assistance: boolean;
+      password?: string;
+    } => ({
       firstname: userGetters.getFirstName(user.value),
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
+      allow_remote_shopping_assistance: userGetters.getRemoteShoppingAssistance(user.value),
     });
 
     const form = ref<{
       firstname: string;
       lastname: string;
       email: string;
+      allow_remote_shopping_assistance: boolean;
       password?: string;
     }>(resetForm());
 

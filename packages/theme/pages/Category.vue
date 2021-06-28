@@ -56,7 +56,9 @@
         <div class="navbar__counter">
           <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
           <span class="desktop-only">{{ pagination.totalItems }}</span>
-          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{ $t('Items') }}</span>
+          <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
+            $t('Items')
+          }}</span>
         </div>
 
         <div class="navbar__view">
@@ -167,11 +169,11 @@
               :image="productGetters.getProductThumbnailImage(product)"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :max-rating="5"
               :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
               :show-add-to-cart-button="true"
-              :is-on-wishlist="false"
               :is-added-to-cart="isInCart({ product })"
+              :is-on-wishlist="product.isInWishlist"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -179,7 +181,7 @@
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-              @click:wishlist="addItemToWishlist({ product })"
+              @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             />
           </transition-group>
@@ -200,9 +202,9 @@
               :image="productGetters.getProductThumbnailImage(product)"
               :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-              :max-rating="5"
-              :score-rating="3"
-              :is-on-wishlist="false"
+              :score-rating="productGetters.getAverageRating(product)"
+              :reviews-count="productGetters.getTotalReviews(product)"
+              :is-on-wishlist="product.isInWishlist"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -210,7 +212,7 @@
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-              @click:wishlist="addItemToWishlist({ product })"
+              @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             >
               <template #configuration>
@@ -445,7 +447,11 @@ export default defineComponent({
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
-    const { addItem: addItemToWishlist } = useWishlist();
+    const {
+      addItem: addItemToWishlistBase,
+      isInWishlist,
+      removeItem: removeItemFromWishlist,
+    } = useWishlist();
     const { result, search, loading } = useFacet(`facetId:${path}`);
     const { changeFilters, isFacetColor } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
@@ -459,7 +465,12 @@ export default defineComponent({
 
     const selectedFilters = ref({});
 
-    const products = computed(() => facetGetters.getProducts(result.value));
+    const products = computed(() => facetGetters
+      .getProducts(result.value)
+      .map((product) => ({
+        ...product,
+        isInWishlist: isInWishlist({ product }),
+      })));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
@@ -469,7 +480,8 @@ export default defineComponent({
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() => facetGetters.getGrouped(result.value, ['color', 'size', 'price']));
+    const facets = computed(() => facetGetters.getGrouped(result.value,
+      ['color', 'size', 'price']));
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -556,11 +568,22 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`);
+          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
+            product,
+            product.categories[0],
+          )}`);
           break;
         default:
           throw new Error(`Product Type ${productType} not supported in add to cart yet`);
       }
+    };
+
+    const addItemToWishlist = async (product) => {
+      await (
+        isInWishlist({ product })
+          ? removeItemFromWishlist({ product })
+          : addItemToWishlistBase({ product })
+      );
     };
 
     onSSR(async () => {
@@ -601,13 +624,14 @@ export default defineComponent({
       addItemToWishlist,
       applyFilters,
       breadcrumbs,
-      categoryTree,
       categories,
       categoriesLoading,
+      categoryTree,
       facets,
       isFacetColor,
       isFilterSelected,
       isInCart,
+      isInWishlist,
       loading,
       pagination,
       productGetters,
@@ -786,8 +810,7 @@ export default defineComponent({
 
     &-label {
       margin: 0 var(--spacer-sm) 0 0;
-      font: var(--font-weight--normal) var(--font-size--base) / 1.6
-        var(--font-family--secondary);
+      font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
     }

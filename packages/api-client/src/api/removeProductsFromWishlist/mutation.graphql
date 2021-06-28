@@ -1,0 +1,9 @@
+#import "../../fragments/wishlistDataFragment.graphql"
+
+mutation removeProductsFromWishlist($id: ID!, $items: [ID!]!) {
+  removeProductsFromWishlist(wishlistId: $id, wishlistItemsIds: $items) {
+    wishlist {
+      ...Wishlistdata
+    }
+  }
+}
