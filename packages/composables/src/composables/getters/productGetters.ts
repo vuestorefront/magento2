@@ -63,12 +63,16 @@ export const getPrice = (product: Product): AgnosticPrice => {
 export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
   const images = [];
 
-  if (!product?.media_gallery) {
+  if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
     return images;
   }
 
-  for (let i = 0; i < product.media_gallery.length; i += 1) {
-    const galleryItem = product.media_gallery[i];
+  const selectedGallery = product.configurable_product_options_selection?.media_gallery
+    ? product.configurable_product_options_selection.media_gallery
+    : product.media_gallery;
+
+  for (let i = 0; i < selectedGallery.length; i += 1) {
+    const galleryItem = selectedGallery[i];
     images.push({
       small: galleryItem.url,
       normal: galleryItem.url,

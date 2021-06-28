@@ -12,9 +12,10 @@ query configurableProductDetail($search: String = "", $filter: ProductAttributeF
             option_value_uids
           }
           media_gallery {
-            url
+            disabled
             label
             position
+            url
           }
           variant {
             uid

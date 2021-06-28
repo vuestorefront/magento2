@@ -118,8 +118,7 @@
           <SfAddToCart
             v-model="qty"
             v-e2e="'product_add-to-cart'"
-            :disabled="loading"
-            :can-add-to-cart="canAddToCart"
+            :disabled="loading || !canAddToCart"
             class="product__add-to-cart"
             @click="addItem({ product, quantity: parseInt(qty) })"
           />
@@ -138,7 +137,6 @@
                 v-dompurify-html="productDescription"
                 class="product__description"
               />
-              <!-- @TODO: Check Property in Configurable Products              -->
               <!--              <SfProperty
                 v-for="(property, i) in properties"
                 :key="i"
@@ -241,6 +239,7 @@
     </LazyHydrate>
   </div>
 </template>
+
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import {
@@ -326,6 +325,10 @@ export default {
     const productDescription = computed(() => product.value.description?.html || '');
 
     const canAddToCart = computed(() => {
+      if (product.value.__typename === "ConfigurableProduct") {
+        return !!product.value.configurable_product_options_selection.variant?.uid;
+      }
+
       const inStock = product.value.stock_status || '';
 
       const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
