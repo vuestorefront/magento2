@@ -5,7 +5,7 @@ import {
   Logger,
   configureFactoryParams, FactoryParams,
 } from '@vue-storefront/core';
-import { UseConfig } from '../types/composeables';
+import { UseConfig } from '../types/composables';
 
 export interface UseConfigFactoryParams<CONFIG> extends FactoryParams{
   loadConfig: (context: Context) => Promise<CONFIG>;

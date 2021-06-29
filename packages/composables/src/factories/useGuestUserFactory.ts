@@ -6,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseGuestUser, UseGuestUserErrors } from '../types/composeables';
+import { UseGuestUser, UseGuestUserErrors } from '../types/composables';
 
 export interface UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS> extends FactoryParams {
   attachToCart: (context: Context, params: REGISTER_GUEST_USER_PARAMS) => Promise<GUEST_USER>;

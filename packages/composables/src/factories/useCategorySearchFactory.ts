@@ -6,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseCategorySearch, UseCategorySearchErrors } from '../types/composeables';
+import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables';
 
 export interface UseCategorySearchFactory<CATEGORY> extends FactoryParams {
   search: (context: Context, params: { term: string }) => Promise<CATEGORY[]>;
