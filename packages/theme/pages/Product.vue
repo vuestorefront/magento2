@@ -1,12 +1,10 @@
 <template>
   <div id="product">
     <SfBreadcrumbs
-      v-if="!productDataIsLoading"
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
     <div
-      v-if="!productDataIsLoading"
       class="product"
     >
       <LazyHydrate when-idle>
@@ -75,10 +73,10 @@
           <template
             v-if="configurableOptions.length"
             v-for="option in configurableOptions"
-            :key="option.label"
           >
             <div
               v-if="option.attribute_code === 'color'"
+              :key="option.uid"
               class="product__colors desktop-only"
             >
               <p class="product__color-label">
@@ -95,6 +93,7 @@
             </div>
             <SfSelect
               v-else
+              :key="option.uid"
               :value="productConfiguration[option.attribute_uid]"
               :label="option.label"
               class="sf-select--underlined product__select-size"
@@ -196,12 +195,6 @@
           </SfTabs>
         </LazyHydrate>
       </div>
-    </div>
-    <div
-      v-else
-      class="product-loader"
-    >
-      <SfLoader />
     </div>
     <LazyHydrate
       v-if="relatedProducts.length"
