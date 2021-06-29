@@ -27,26 +27,26 @@
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab title="Shipping details">
+      <SfTab title="Addresses details">
         <p class="message">
-          {{ $t('Manage shipping addresses') }}
+          {{ $t('Manage addresses') }}
         </p>
         <transition-group
           tag="div"
           name="fade"
-          class="shipping-list"
+          class="addresses-list"
         >
           <div
-            v-for="address in addresses"
-            :key="userShippingGetters.getId(address)"
-            class="shipping"
+            v-for="address in userAddresses"
+            :key="userAddressesGetters.getId(address)"
+            class="addresses"
           >
-            <div class="shipping__content">
-              <div class="shipping__address">
+            <div class="addresses__content">
+              <div class="addresses__address">
                 <UserShippingAddress :address="address" />
               </div>
             </div>
-            <div class="shipping__actions">
+            <div class="addresses__actions">
               <SfIcon
                 icon="cross"
                 color="gray"
@@ -62,8 +62,8 @@
               </SfButton>
 
               <SfButton
-                v-if="!userShippingGetters.isDefault(address)"
-                class="color-light shipping__button-delete desktop-only"
+                v-if="!userAddressesGetters.isDefault(address)"
+                class="color-light addresses__button-delete desktop-only"
                 @click="removeAddress(address)"
               >
                 {{ $t('Delete') }}
@@ -87,7 +87,7 @@ import {
   SfButton,
   SfIcon,
 } from '@storefront-ui/vue';
-import { useUserShipping, userShippingGetters } from '@vue-storefront/magento';
+import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm.vue';
@@ -104,13 +104,13 @@ export default defineComponent({
   },
   setup() {
     const {
-      shipping,
-      load: loadUserShipping,
-      addAddress,
-      deleteAddress,
-      updateAddress,
-    } = useUserShipping();
-    const addresses = computed(() => userShippingGetters.getAddresses(shipping.value));
+      addresses,
+      load,
+      remove,
+      update,
+      save,
+    } = useAddresses();
+    const userAddresses = computed(() => userAddressesGetters.getAddresses(addresses.value));
     const editingAddress = ref(false);
     const activeAddress = ref();
     const isNewAddress = computed(() => !activeAddress.value);
@@ -121,15 +121,15 @@ export default defineComponent({
     };
 
     const removeAddress = async (address) => {
-      const isDefault = userShippingGetters.isDefault(address);
+      const isDefault = userAddressesGetters.isDefault(address);
       if (!isDefault) {
-        await deleteAddress({ address });
+        await remove({ address });
       }
     };
 
     const saveAddress = async ({ form, onComplete, onError }) => {
       try {
-        const actionMethod = isNewAddress.value ? addAddress : updateAddress;
+        const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         editingAddress.value = false;
         activeAddress.value = undefined;
@@ -140,16 +140,16 @@ export default defineComponent({
     };
 
     onSSR(async () => {
-      await loadUserShipping();
+      await load({});
     });
 
     return {
       changeAddress,
-      updateAddress,
+      update,
       removeAddress,
       saveAddress,
-      userShippingGetters,
-      addresses,
+      userAddressesGetters,
+      userAddresses,
       editingAddress,
       activeAddress,
       isNewAddress,
@@ -167,11 +167,11 @@ export default defineComponent({
   margin: 0 0 var(--spacer-base);
 }
 
-.shipping-list {
+.addresses-list {
   margin-bottom: var(--spacer-base);
 }
 
-.shipping {
+.addresses {
   display: flex;
   padding: var(--spacer-xl) 0;
   border-top: 1px solid var(--c-light);
