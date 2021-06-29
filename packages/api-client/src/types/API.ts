@@ -94,7 +94,7 @@ import {
   WishlistItemInput,
   AddProductsToWishlistMutation,
   WishlistdataFragment,
-  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation,
+  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation, GetCustomerAddressesQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -179,6 +179,8 @@ export interface MagentoApiMethods {
   createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
+
+  getCustomerAddresses(customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>>;
 
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 

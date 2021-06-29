@@ -7012,6 +7012,11 @@ export type GuestAvailableShippingMethodsQuery = { cart?: Maybe<{ shipping_addre
         & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
       )>>> }>> }> };
 
+export type GetCustomerAddressesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCustomerAddressesQuery = { customer?: Maybe<{ addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }> };
+
 export type GetMenuCategoryQueryVariables = Exact<{
   filters?: Maybe<CategoryFilterInput>;
 }>;

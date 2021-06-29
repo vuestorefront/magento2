@@ -24,6 +24,7 @@ export { default as getAvailableCustomerPaymentMethods } from './getAvailableCus
 export { default as getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
 export { default as getAvailablePaymentMethods } from './getAvailablePaymentMethods';
 export { default as getAvailableShippingMethods } from './getAvailableShippingMethods';
+export { default as getCustomerAddresses } from './getCustomerAddresses';
 export { default as getMenuCategory } from './getMenuCategory';
 export { default as mergeCarts } from './mergeCarts';
 export { default as placeOrder } from './placeOrder';
