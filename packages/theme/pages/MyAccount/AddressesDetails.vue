@@ -43,7 +43,7 @@
           >
             <div class="addresses__content">
               <div class="addresses__address">
-                <UserShippingAddress :address="address" />
+                <UserAddressDetails :address="address" />
               </div>
             </div>
             <div class="addresses__actions">
@@ -91,7 +91,7 @@ import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm.vue';
-import UserShippingAddress from '~/components/UserShippingAddress.vue';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'ShippingDetails',
@@ -99,7 +99,7 @@ export default defineComponent({
     SfTabs,
     SfButton,
     SfIcon,
-    UserShippingAddress,
+    UserAddressDetails,
     ShippingAddressForm,
   },
   setup() {
