@@ -385,7 +385,6 @@ export default {
         },
         configurations,
       });
-      // router.replace({});
       router.push({
         path: route.fullPath,
         query: productConfiguration.value,

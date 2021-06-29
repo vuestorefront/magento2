@@ -10,7 +10,9 @@ import {
   Discount,
   Cart,
   CartItem,
-  Product, ShippingMethod, SelectedShippingMethod,
+  Product,
+  // ShippingMethod,
+  SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../../types';
@@ -61,9 +63,9 @@ export const getCartItemAttributes = (product: CartItem, _filterByAttributeName?
     return attributes;
   }
   // @ts-ignore
-  product.configurable_options.forEach((option) => {
-    attributes[option.option_label] = option.value_label as AgnosticAttribute;
-  });
+  // product.configurable_options.forEach((option) => {
+  //   attributes[option.option_label] = option.value_label as AgnosticAttribute;
+  // });
 
   return attributes;
 };
