@@ -2,6 +2,9 @@ import {
   ComposableFunctionArgs, ComputedProperty, CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
+import { computed } from 'vue-demi';
+
+export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
 export interface UseUrlResolver<ROUTE> {
   search: (url: string) => Promise<void>;
@@ -148,4 +151,25 @@ export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS> {
   error: ComputedProperty<UseNewsletterErrors>;
   loading: ComputedProperty<boolean>;
   updateSubscription: (params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<void>;
+}
+
+export interface UseAddressesErrors {
+  load: Error;
+  save: Error;
+  remove: Error;
+  update: Error;
+}
+
+export interface UseAddresses<ADDRESS,
+  LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
+  SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
+  UPDATE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
+  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams> {
+  error: ComputedProperty<UseAddressesErrors>;
+  loading: ComputedProperty<boolean>;
+  addresses: ComputedProperty<ADDRESS[]>;
+  load: (loadParams?: LOAD_ADDRESS_PARAMS) => Promise<void>,
+  save: (saveParams: SAVE_ADDRESS_PARAMS) => Promise<void>,
+  remove: (removeParams: REMOVE_ADDRESS_PARAMS) => Promise<void>,
+  update: (updateParams: UPDATE_ADDRESS_PARAMS) => Promise<void>,
 }

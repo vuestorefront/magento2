@@ -3,6 +3,7 @@ import { track } from '@vue-storefront/core';
 
 track('VSFMagento');
 
+export { default as useAddresses } from './composables/useAddresses';
 export { default as useBilling } from './composables/useBilling';
 export { default as useCart } from './composables/useCart';
 export { default as useCategory } from './composables/useCategory';
