@@ -1,28 +1,28 @@
 <template>
   <div>
     <p
-      :style="userShippingAddress.isDefault ? 'font-weight: bold;' : ''"
+      :style="userAddress.isDefault ? 'font-weight: bold;' : ''"
     >
-      {{ userShippingAddress.firstName }} {{ userShippingAddress.lastName }}
+      {{ userAddress.firstName }} {{ userAddress.lastName }}
       <small
         v-if="addressDefaultText"
       >
         - {{ addressDefaultText }}
       </small>
     </p>
-    <p>{{ userShippingAddress.street }}, {{ userShippingAddress.streetNumber }}</p>
+    <p>{{ userAddress.street }}, {{ userAddress.streetNumber }}</p>
 
     <p>
-      {{ userShippingAddress.city }}, {{ userShippingAddress.province }} -
-      {{ userShippingAddress.postalCode }}
+      {{ userAddress.city }}, {{ userAddress.province }} -
+      {{ userAddress.postalCode }}
     </p>
 
-    <p>{{ userShippingAddress.country }}</p>
+    <p>{{ userAddress.country }}</p>
     <p
-      v-if="userShippingAddress.phone"
+      v-if="userAddress.phone"
       class="phone"
     >
-      {{ userShippingAddress.phone }}
+      {{ userAddress.phone }}
     </p>
   </div>
 </template>
@@ -36,7 +36,7 @@ import {
 import { userAddressesGetters } from '@vue-storefront/magento';
 
 export default defineComponent({
-  name: 'UserShippingAddress',
+  name: 'UserAddressDetails',
   props: {
     address: {
       type: Object,
@@ -47,7 +47,7 @@ export default defineComponent({
   setup(props) {
     const address = toRef(props, 'address');
 
-    const userShippingAddress = computed(() => ({
+    const userAddress = computed(() => ({
       firstName: userAddressesGetters.getFirstName(address.value),
       lastName: userAddressesGetters.getLastName(address.value),
       street: userAddressesGetters.getStreetName(address.value),
@@ -63,13 +63,13 @@ export default defineComponent({
     }));
 
     const addressDefaultText = computed(() => {
-      if (userShippingAddress.value.isDefaultShipping) return 'Default Shipping Address';
-      if (userShippingAddress.value.isDefaultBilling) return 'Default Billing Address';
+      if (userAddress.value.isDefaultShipping) return 'Default Shipping Address';
+      if (userAddress.value.isDefaultBilling) return 'Default Billing Address';
       return '';
     });
 
     return {
-      userShippingAddress,
+      userAddress,
       addressDefaultText,
     };
   },
