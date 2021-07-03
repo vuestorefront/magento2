@@ -13,7 +13,7 @@
           {{ $t('Contact details updated') }}
         </p>
 
-        <ShippingAddressForm
+        <AddressForm
           :address="activeAddress"
           :is-new="isNewAddress"
           @submit="saveAddress"
@@ -90,7 +90,7 @@ import {
 import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import ShippingAddressForm from '~/components/MyAccount/ShippingAddressForm.vue';
+import AddressForm from '~/components/MyAccount/AddressForm.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -100,7 +100,7 @@ export default defineComponent({
     SfButton,
     SfIcon,
     UserAddressDetails,
-    ShippingAddressForm,
+    AddressForm,
   },
   setup() {
     const {
