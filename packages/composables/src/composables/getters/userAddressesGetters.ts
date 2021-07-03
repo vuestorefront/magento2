@@ -2,24 +2,27 @@ import {
   Logger,
 } from '@vue-storefront/core';
 import { UserAddressesGetters } from '../../types/getters';
+import { transformUserGetter } from '../../helpers/userAddressManipulator';
 
 const userAddressesGetters: UserAddressesGetters<any, any> = {
-  getAddresses: (shipping, criteria?: Record<string, any>) => {
-    Logger.debug(shipping);
-    if (!shipping || shipping.length === 0) return [] as Record<string, any>;
+  getAddresses: (addresses, criteria?: Record<string, any>) => {
+    Logger.debug(addresses);
+    if (!addresses || addresses.length === 0) return [] as Record<string, any>;
+
+    const addressesData = addresses.map((a) => transformUserGetter(a));
 
     if (!criteria || Object.keys(criteria).length === 0) {
-      return shipping;
+      return addressesData;
     }
 
     const entries = Object.entries(criteria);
-    return shipping.filter((address) => entries.every(([key, value]) => address[key] === value));
+    return addressesData.filter((address) => entries.every(([key, value]) => address[key] === value));
   },
-  getDefault: (shipping) => shipping.find(({ isDefault }) => isDefault),
-  getTotal: (shipping) => shipping.length,
+  getDefault: (addresses) => addresses.find(({ isDefault }) => isDefault),
+  getTotal: (addresses) => addresses.length,
 
   getPostCode: (address) => address?.postcode || '',
-  getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : ''),
+  getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : address?.street),
   getStreetNumber: (address) => address?.streetNumber || '',
   getCity: (address) => address?.city || '',
   getFirstName: (address) => address?.firstname || '',
@@ -32,7 +35,7 @@ const userAddressesGetters: UserAddressesGetters<any, any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTaxNumber: (address) => '',
   getId: (address) => address?.id || '',
-  getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : ''),
+  getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : address?.apartment),
   isDefault: (address) => (address?.default_shipping || address?.default_billing) || false,
   isDefaultShipping: (address) => address?.default_shipping || false,
   isDefaultBilling: (address) => address?.default_billing || false,
