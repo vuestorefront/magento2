@@ -77,11 +77,11 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="region"
-          :rules="!form.country_code || !regionInformation.length ? null : 'required|min:2'"
+          :rules="!form.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
           slim
         >
           <SfInput
-            v-if="!form.country_code || !regionInformation.length"
+            v-if="!form.country_code || regionInformation.length === 0"
             v-model="form.region.region"
             v-e2e="'shipping-state'"
             label="State/Province"
@@ -196,8 +196,8 @@ import {
 } from '@storefront-ui/vue';
 import {
   addressGetter,
+  useAddresses,
   useCountrySearch,
-  useUserShipping,
 } from '@vue-storefront/magento';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
 import {
@@ -211,6 +211,7 @@ import {
   onBeforeMount,
   defineComponent,
 } from '@vue/composition-api';
+import omitDeep from 'omit-deep';
 
 extend('required', {
   ...required,
@@ -274,8 +275,8 @@ export default defineComponent({
     } = useCountrySearch('my-account-shipping');
 
     const {
-      load: loadUserShipping,
-    } = useUserShipping();
+      load,
+    } = useAddresses();
 
     const form = reactive({
       id: props.address.id,
@@ -305,9 +306,9 @@ export default defineComponent({
       }
 
       emit('submit', {
-        form,
+        form: omitDeep(form, ['__typename']),
         onComplete: async () => {
-          await loadUserShipping();
+          await load();
         },
         // TODO: Handle Error
         onError: () => {},
@@ -316,6 +317,9 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       await loadCountries();
+      if (props.address.country_code) {
+        await searchCountry({ id: props.address.country_code });
+      }
     });
 
     return {
