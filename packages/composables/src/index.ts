@@ -16,7 +16,6 @@ export { default as useFacet } from './composables/useFacet';
 export { default as useGetShippingMethods } from './composables/useGetShippingMethods';
 export { default as useGuestUser } from './composables/useGuestUser';
 export { default as useMakeOrder } from './composables/useMakeOrder';
-export { default as useMenuCategory } from './composables/useMenuCategory';
 export { default as useNewsletter } from './composables/useNewsletter';
 export { default as usePaymentProvider } from './composables/usePaymentProvider';
 export { default as useProduct } from './composables/useProduct';
