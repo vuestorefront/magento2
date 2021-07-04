@@ -7017,30 +7017,6 @@ export type GetCustomerAddressesQueryVariables = Exact<{ [key: string]: never; }
 
 export type GetCustomerAddressesQuery = { customer?: Maybe<{ addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }> };
 
-export type GetMenuCategoryQueryVariables = Exact<{
-  filters?: Maybe<CategoryFilterInput>;
-}>;
-
-
-export type GetMenuCategoryQuery = { categories?: Maybe<(
-    Pick<CategoryResult, 'total_count'>
-    & { items?: Maybe<Array<Maybe<(
-      Pick<CategoryTree, 'children_count'>
-      & { children?: Maybe<Array<Maybe<(
-        Pick<CategoryTree, 'children_count'>
-        & { children?: Maybe<Array<Maybe<(
-          Pick<CategoryTree, 'children_count'>
-          & CategoryDataFragment
-          & CategoryUrlDataFragment
-        )>>> }
-        & CategoryDataFragment
-        & CategoryUrlDataFragment
-      )>>> }
-      & CategoryDataFragment
-      & CategoryUrlDataFragment
-    )>>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }
-  )> };
-
 export type MergeCartsMutationVariables = Exact<{
   sourceCartId: Scalars['String'];
   destinationCartId: Scalars['String'];

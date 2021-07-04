@@ -42,7 +42,6 @@ import {
   CustomerUpdateInput,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
-  GetMenuCategoryQuery,
   GuestAvailablePaymentMethodsQuery,
   GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
@@ -78,7 +77,6 @@ import {
   UpdateCustomerAddressMutation,
   UpsellProductsQuery,
   UrlResloverQuery,
-  Wishlist as WishlistInterface,
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
@@ -91,7 +89,6 @@ import {
   UpdateCustomerMutation,
   CreateCustomerMutation,
   AddProductsToWishlistMutationVariables,
-  WishlistItemInput,
   AddProductsToWishlistMutation,
   WishlistdataFragment,
   UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation, GetCustomerAddressesQuery,
@@ -200,8 +197,6 @@ export interface MagentoApiMethods {
   getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
 
   getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
-
-  getMenuCategory(params: CategoryFilterInput, customQuery?: CustomQuery): Promise<GetMenuCategoryQuery>;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 

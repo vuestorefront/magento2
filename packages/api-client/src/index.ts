@@ -238,8 +238,6 @@ export {
   GenerateCustomerTokenMutationVariables,
   GetCustomerAddressesQuery,
   GetCustomerAddressesQueryVariables,
-  GetMenuCategoryQuery,
-  GetMenuCategoryQueryVariables,
   GiftMessage,
   GiftMessageInput,
   GroupedProduct,
