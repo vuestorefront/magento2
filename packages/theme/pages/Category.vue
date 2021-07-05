@@ -305,7 +305,7 @@
                 :color="option.attrName"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__color"
-                @click="selectFilter(facet, option)"
+                @click="() => selectFilter(facet, option)"
               />
             </div>
             <div v-else-if="facet.id === 'price'">
@@ -316,19 +316,17 @@
                 :value="option.value"
                 :selected="isFilterSelected(facet, option)"
                 name="priceFilter"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </div>
             <div v-else>
               <SfFilter
                 v-for="option in facet.options"
                 :key="`${facet.id}-${option.value}`"
-                :label="
-                  option.id + `${option.count ? ` (${option.count})` : ''}`
-                "
+                :label="option.id + `${option.count ? ` (${option.count})` : ''}`"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </div>
           </div>
@@ -349,7 +347,7 @@
                 :label="option.id"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </SfAccordionItem>
           </div>
@@ -440,19 +438,32 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
-    const { router, route } = useVueRouter();
+    const {
+      router,
+      route,
+    } = useVueRouter();
     const { path } = route;
     const th = useUiHelpers();
     const uiState = useUiState();
     const { $magento: { config: magentoConfig } } = useVSFContext();
-    const { addItem: addItemToCartBase, isInCart } = useCart();
+    const {
+      addItem: addItemToCartBase,
+      isInCart,
+    } = useCart();
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
     } = useWishlist();
-    const { result, search, loading } = useFacet(`facetId:${path}`);
-    const { changeFilters, isFacetColor } = useUiHelpers();
+    const {
+      result,
+      search,
+      loading,
+    } = useFacet(`facetId:${path}`);
+    const {
+      changeFilters,
+      isFacetColor,
+    } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
@@ -460,9 +471,15 @@ export default defineComponent({
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
 
-    const { search: routeSearch, result: routeData } = useUrlResolver(`router:${path}`);
+    const {
+      search: routeSearch,
+      result: routeData,
+    } = useUrlResolver(`router:${path}`);
 
-    const selectedFilters = ref({});
+    const selectedFilters = ref((magentoConfig.facets.available).reduce((acc, curr) => ({
+      ...acc,
+      [curr]: (curr === 'price' ? '' : []),
+    }), {}));
 
     const products = computed(() => facetGetters
       .getProducts(result.value)
@@ -556,13 +573,19 @@ export default defineComponent({
       changeFilters(selectedFilters.value);
     };
 
-    const addItemToCart = async ({ product, quantity }) => {
+    const addItemToCart = async ({
+      product,
+      quantity,
+    }) => {
       // eslint-disable-next-line no-underscore-dangle
       const productType = product.__typename;
 
       switch (productType) {
         case 'SimpleProduct':
-          await addItemToCartBase({ product, quantity });
+          await addItemToCartBase({
+            product,
+            quantity,
+          });
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
@@ -602,7 +625,7 @@ export default defineComponent({
           (prev, curr) => (curr.id === 'price'
             ? {
               ...prev,
-              [curr.id]: curr.options.find((o) => o.selected),
+              [curr.id]: curr.options.find((o) => o.selected)?.value,
             }
             : {
               ...prev,
