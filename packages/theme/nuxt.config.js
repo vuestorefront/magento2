@@ -14,6 +14,7 @@ const {
         tax,
         defaultStore,
         websites,
+        facets,
       },
     },
   },
@@ -119,7 +120,7 @@ export default {
       tax,
       defaultStore,
       websites,
-
+      facets,
     }],
   ],
   modules: [
