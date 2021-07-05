@@ -6,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseGetShippingMethods, UseGetShippingMethodsErrors } from '../types/composeables';
+import { UseGetShippingMethods, UseGetShippingMethodsErrors } from '../types/composables';
 
 export interface UseGetShippingMethodsFactory<SHIPPING_METHOD> extends FactoryParams {
   load: (context: Context, params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;

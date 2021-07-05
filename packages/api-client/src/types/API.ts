@@ -42,7 +42,6 @@ import {
   CustomerUpdateInput,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
-  GetMenuCategoryQuery,
   GuestAvailablePaymentMethodsQuery,
   GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
@@ -78,7 +77,6 @@ import {
   UpdateCustomerAddressMutation,
   UpsellProductsQuery,
   UrlResloverQuery,
-  Wishlist as WishlistInterface,
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
@@ -91,10 +89,9 @@ import {
   UpdateCustomerMutation,
   CreateCustomerMutation,
   AddProductsToWishlistMutationVariables,
-  WishlistItemInput,
   AddProductsToWishlistMutation,
   WishlistdataFragment,
-  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation,
+  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation, GetCustomerAddressesQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -180,6 +177,8 @@ export interface MagentoApiMethods {
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 
+  getCustomerAddresses(customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>>;
+
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
   customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
@@ -198,8 +197,6 @@ export interface MagentoApiMethods {
   getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
 
   getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
-
-  getMenuCategory(params: CategoryFilterInput, customQuery?: CustomQuery): Promise<GetMenuCategoryQuery>;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 

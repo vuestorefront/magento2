@@ -77,11 +77,11 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="region"
-          :rules="!form.country_code || !regionInformation.length ? null : 'required|min:2'"
+          :rules="!form.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
           slim
         >
           <SfInput
-            v-if="!form.country_code || !regionInformation.length"
+            v-if="!form.country_code || regionInformation.length === 0"
             v-model="form.region.region"
             v-e2e="'shipping-state'"
             label="State/Province"
@@ -170,9 +170,15 @@
       </ValidationProvider>
       <SfCheckbox
         v-model="form.default_shipping"
-        name="isDefault"
-        label="Set as default"
-        class="form__checkbox-isDefault"
+        name="isDefaultShipping"
+        label="Set as default shipping"
+        class="form__checkbox-isDefaultShipping"
+      />
+      <SfCheckbox
+        v-model="form.default_billing"
+        name="isDefaultBilling"
+        label="Set as default billing"
+        class="form__checkbox-isDefaultBilling"
       />
       <SfButton class="form__button">
         {{ isNew ? "Add the address" : "Update the address" }}
@@ -190,8 +196,8 @@ import {
 } from '@storefront-ui/vue';
 import {
   addressGetter,
+  useAddresses,
   useCountrySearch,
-  useUserShipping,
 } from '@vue-storefront/magento';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
 import {
@@ -205,6 +211,7 @@ import {
   onBeforeMount,
   defineComponent,
 } from '@vue/composition-api';
+import omitDeep from 'omit-deep';
 
 extend('required', {
   ...required,
@@ -222,7 +229,7 @@ extend('oneOf', {
 });
 
 export default defineComponent({
-  name: 'ShippingAddressForm',
+  name: 'AddressForm',
 
   components: {
     SfInput,
@@ -266,9 +273,11 @@ export default defineComponent({
       search: searchCountry,
       country,
     } = useCountrySearch('my-account-shipping');
+
     const {
-      load: loadUserShipping,
-    } = useUserShipping();
+      load,
+    } = useAddresses();
+
     const form = reactive({
       id: props.address.id,
       apartment: props.address.apartment,
@@ -285,6 +294,7 @@ export default defineComponent({
       street: props.address.street,
       telephone: props.address.telephone,
       default_shipping: props.address.default_shipping,
+      default_billing: props.address.default_billing,
     });
     // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
@@ -296,9 +306,9 @@ export default defineComponent({
       }
 
       emit('submit', {
-        form,
+        form: omitDeep(form, ['__typename']),
         onComplete: async () => {
-          await loadUserShipping();
+          await load();
         },
         // TODO: Handle Error
         onError: () => {},
@@ -307,6 +317,9 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       await loadCountries();
+      if (props.address.country_code) {
+        await searchCountry({ id: props.address.country_code });
+      }
     });
 
     return {

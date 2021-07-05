@@ -34,3 +34,9 @@ export const transformUserUpdateAddressInput = (addressInputParams): {
     },
   };
 };
+
+export const transformUserGetter = (addressInput) => ({
+  ...addressInput,
+  street: addressInput.street[0],
+  apartment: addressInput.street[1],
+});

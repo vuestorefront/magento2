@@ -8,7 +8,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseReview, UseReviewErrors } from '../types/composeables';
+import { UseReview, UseReviewErrors } from '../types/composables';
 
 export interface UseReviewFactoryParams<REVIEW,
   REVIEWS_SEARCH_PARAMS,

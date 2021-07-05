@@ -3,7 +3,7 @@ import {
 } from '@vue-storefront/core';
 import { Category } from '@vue-storefront/magento-api';
 import { UseCategorySearchFactory, useCategorySearchFactory } from '../../factories/useCategorySearchFactory';
-import { UseCategorySearch } from '../../types/composeables';
+import { UseCategorySearch } from '../../types/composables';
 
 const factoryParams: UseCategorySearchFactory<Category> = {
   search: async (context: Context, params): Promise<Category[]> => {

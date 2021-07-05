@@ -41,7 +41,7 @@ import {
   computed,
   defineComponent,
 } from '@vue/composition-api';
-import UserShippingAddress from '~/components/UserShippingAddress.vue';
+import UserShippingAddress from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'UserShippingAddresses',
