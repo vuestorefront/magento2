@@ -312,9 +312,7 @@
               <SfRadio
                 v-for="option in facet.options"
                 :key="`${facet.id}-${option.value}`"
-                :label="
-                  option.id + `${option.count ? ` (${option.count})` : ''}`
-                "
+                :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
                 :value="option.value"
                 :selected="isFilterSelected(facet, option)"
                 name="priceFilter"
@@ -414,7 +412,7 @@ import {
   facetGetters,
   useUrlResolver,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
+import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
@@ -446,6 +444,7 @@ export default defineComponent({
     const { path } = route;
     const th = useUiHelpers();
     const uiState = useUiState();
+    const { $magento: { config: magentoConfig } } = useVSFContext();
     const { addItem: addItemToCartBase, isInCart } = useCart();
     const {
       addItem: addItemToWishlistBase,
@@ -480,8 +479,7 @@ export default defineComponent({
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() => facetGetters.getGrouped(result.value,
-      ['color', 'size', 'price']));
+    const facets = computed(() => facetGetters.getGrouped(result.value, magentoConfig.facets.available));
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -604,7 +602,7 @@ export default defineComponent({
           (prev, curr) => (curr.id === 'price'
             ? {
               ...prev,
-              [curr.id]: curr.options.find((o) => o.selected).value,
+              [curr.id]: curr.options.find((o) => o.selected),
             }
             : {
               ...prev,
