@@ -22,6 +22,8 @@ const knownAuthors = [
   'filrak',
   'filipsobol',
   'andrzejewsky',
+  'hcmlopes',
+  'renanoliveira0',
 ];
 
 const isKnownAuthor = (name) => Boolean(knownAuthors.find((n) => name.toLowerCase().includes(n)));
@@ -87,7 +89,7 @@ function parseCommits(commits) {
     // Extract references from message
     message = message.replace(/\((fixes) #\d+\)/g, '');
     const references = [];
-    const referencesRegex = /#[0-9]+/g;
+    const referencesRegex = /#\d+/g;
     let m;
     while (m = referencesRegex.exec(message)) { // eslint-disable-line no-cond-assign
       references.push(m[0]);
@@ -123,7 +125,7 @@ function generateMarkDown(commits) {
 
   for (const type of allowedTypes) {
     const group = typeGroups[type];
-    if (!group || !group.length) {
+    if (!group || group.length === 0) {
       continue;
     }
 
@@ -134,14 +136,14 @@ function generateMarkDown(commits) {
     for (const scopeName in scopeGroups) {
       markdown += `- \`${scopeName}\`` + '\n';
       for (const commit of scopeGroups[scopeName]) {
-        markdown += `  - ${commit.references.join(', ')}${commit.references.length ? ' ' : ''}${commit.message.replace(/^(.)/,
+        markdown += `  - ${commit.references.join(', ')}${commit.references.length > 0 ? ' ' : ''}${commit.message.replace(/^(.)/,
           (v) => v.toUpperCase())}\n`;
       }
     }
   }
 
   const authors = sortBy(uniq(commits.map((commit) => commit.authorName).filter((an) => !isKnownAuthor(an))));
-  if (authors.length) {
+  if (authors.length > 0) {
     markdown += '\n\n' + '### ' + '💖 Thanks to' + '\n\n';
     markdown += authors.map((name) => `- ${name}`).join('\n');
   }
