@@ -68,6 +68,7 @@ export default {
   'Make an order': 'Make an order',
   'Manage billing addresses': 'Manage all the billing addresses you want (work place, home address...) This way you won"t have to enter the billing address manually with each order.',
   'Manage shipping addresses': 'Manage all the shipping addresses you want (work place, home address...) This way you won"t have to enter the shipping address manually with each order.',
+  'Manage addresses': 'Manage all the addresses you want (work place, home address...) This way you won"t have to enter the address manually with each order.',
   'Match it with': 'Match it with',
   'Men fashion': 'Men fashion',
   'My Cart': 'My Cart',

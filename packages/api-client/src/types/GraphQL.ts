@@ -7012,29 +7012,10 @@ export type GuestAvailableShippingMethodsQuery = { cart?: Maybe<{ shipping_addre
         & { amount: Pick<Money, 'currency' | 'value'>, price_excl_tax: Pick<Money, 'currency' | 'value'>, price_incl_tax: Pick<Money, 'currency' | 'value'> }
       )>>> }>> }> };
 
-export type GetMenuCategoryQueryVariables = Exact<{
-  filters?: Maybe<CategoryFilterInput>;
-}>;
+export type GetCustomerAddressesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMenuCategoryQuery = { categories?: Maybe<(
-    Pick<CategoryResult, 'total_count'>
-    & { items?: Maybe<Array<Maybe<(
-      Pick<CategoryTree, 'children_count'>
-      & { children?: Maybe<Array<Maybe<(
-        Pick<CategoryTree, 'children_count'>
-        & { children?: Maybe<Array<Maybe<(
-          Pick<CategoryTree, 'children_count'>
-          & CategoryDataFragment
-          & CategoryUrlDataFragment
-        )>>> }
-        & CategoryDataFragment
-        & CategoryUrlDataFragment
-      )>>> }
-      & CategoryDataFragment
-      & CategoryUrlDataFragment
-    )>>>, page_info?: Maybe<Pick<SearchResultPageInfo, 'current_page' | 'page_size' | 'total_pages'>> }
-  )> };
+export type GetCustomerAddressesQuery = { customer?: Maybe<{ addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }> };
 
 export type MergeCartsMutationVariables = Exact<{
   sourceCartId: Scalars['String'];

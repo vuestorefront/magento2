@@ -2,7 +2,7 @@ import {
   Context,
 } from '@vue-storefront/core';
 import { ShippingMethod } from '@vue-storefront/magento-api';
-import { UseGetShippingMethods } from '../../types/composeables';
+import { UseGetShippingMethods } from '../../types/composables';
 import { UseGetShippingMethodsFactory, useGetShippingMethodsFactory } from '../../factories/useGetShippingMethodsFactory';
 
 const factoryParams: UseGetShippingMethodsFactory<ShippingMethod> = {

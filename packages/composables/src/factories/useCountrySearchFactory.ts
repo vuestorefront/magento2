@@ -5,7 +5,7 @@ import {
   Logger,
   configureFactoryParams, FactoryParams,
 } from '@vue-storefront/core';
-import { UseCountrySearch, UseCountrySearchErrors } from '../types/composeables';
+import { UseCountrySearch, UseCountrySearchErrors } from '../types/composables';
 
 export interface UseCountryFactoryParams<COUNTRIES, COUNTRY> extends FactoryParams{
   load: (context: Context) => Promise<COUNTRIES[]>;

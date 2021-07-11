@@ -305,32 +305,28 @@
                 :color="option.attrName"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__color"
-                @click="selectFilter(facet, option)"
+                @click="() => selectFilter(facet, option)"
               />
             </div>
             <div v-else-if="facet.id === 'price'">
               <SfRadio
                 v-for="option in facet.options"
                 :key="`${facet.id}-${option.value}`"
-                :label="
-                  option.id + `${option.count ? ` (${option.count})` : ''}`
-                "
+                :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
                 :value="option.value"
                 :selected="isFilterSelected(facet, option)"
                 name="priceFilter"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </div>
             <div v-else>
               <SfFilter
                 v-for="option in facet.options"
                 :key="`${facet.id}-${option.value}`"
-                :label="
-                  option.id + `${option.count ? ` (${option.count})` : ''}`
-                "
+                :label="option.id + `${option.count ? ` (${option.count})` : ''}`"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </div>
           </div>
@@ -351,7 +347,7 @@
                 :label="option.id"
                 :selected="isFilterSelected(facet, option)"
                 class="filters__item"
-                @change="selectFilter(facet, option)"
+                @change="() => selectFilter(facet, option)"
               />
             </SfAccordionItem>
           </div>
@@ -414,7 +410,7 @@ import {
   facetGetters,
   useUrlResolver,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
+import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
@@ -442,18 +438,32 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
-    const { router, route } = useVueRouter();
+    const {
+      router,
+      route,
+    } = useVueRouter();
     const { path } = route;
     const th = useUiHelpers();
     const uiState = useUiState();
-    const { addItem: addItemToCartBase, isInCart } = useCart();
+    const { $magento: { config: magentoConfig } } = useVSFContext();
+    const {
+      addItem: addItemToCartBase,
+      isInCart,
+    } = useCart();
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
     } = useWishlist();
-    const { result, search, loading } = useFacet(`facetId:${path}`);
-    const { changeFilters, isFacetColor } = useUiHelpers();
+    const {
+      result,
+      search,
+      loading,
+    } = useFacet(`facetId:${path}`);
+    const {
+      changeFilters,
+      isFacetColor,
+    } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
@@ -461,9 +471,15 @@ export default defineComponent({
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
 
-    const { search: routeSearch, result: routeData } = useUrlResolver(`router:${path}`);
+    const {
+      search: routeSearch,
+      result: routeData,
+    } = useUrlResolver(`router:${path}`);
 
-    const selectedFilters = ref({});
+    const selectedFilters = ref((magentoConfig.facets.available).reduce((acc, curr) => ({
+      ...acc,
+      [curr]: (curr === 'price' ? '' : []),
+    }), {}));
 
     const products = computed(() => facetGetters
       .getProducts(result.value)
@@ -480,8 +496,7 @@ export default defineComponent({
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
-    const facets = computed(() => facetGetters.getGrouped(result.value,
-      ['color', 'size', 'price']));
+    const facets = computed(() => facetGetters.getGrouped(result.value, magentoConfig.facets.available));
 
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
@@ -558,13 +573,19 @@ export default defineComponent({
       changeFilters(selectedFilters.value);
     };
 
-    const addItemToCart = async ({ product, quantity }) => {
+    const addItemToCart = async ({
+      product,
+      quantity,
+    }) => {
       // eslint-disable-next-line no-underscore-dangle
       const productType = product.__typename;
 
       switch (productType) {
         case 'SimpleProduct':
-          await addItemToCartBase({ product, quantity });
+          await addItemToCartBase({
+            product,
+            quantity,
+          });
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
@@ -604,7 +625,7 @@ export default defineComponent({
           (prev, curr) => (curr.id === 'price'
             ? {
               ...prev,
-              [curr.id]: curr.options.find((o) => o.selected).value,
+              [curr.id]: curr.options.find((o) => o.selected)?.value,
             }
             : {
               ...prev,

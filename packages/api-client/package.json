@@ -33,8 +33,8 @@
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
     "apollo-link-retry": "^2.2.16",
-    "graphql": "^15.5.0",
-    "graphql-tag": "^2.12.4",
+    "graphql": "^15.5.1",
+    "graphql-tag": "^2.12.5",
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
@@ -48,8 +48,8 @@
     "graphql-tools": "^7.0.5",
     "jest-transform-graphql": "^2.1.0",
     "node-fetch": "^2.6.1",
-    "rollup": "^2.52.1",
-    "typescript": "^4.3.4",
+    "rollup": "^2.52.7",
+    "typescript": "^4.3.5",
     "webpack": "^4.46.0"
   },
   "files": [

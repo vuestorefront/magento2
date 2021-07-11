@@ -16,12 +16,8 @@
           <MyProfile />
         </SfContentPage>
 
-        <SfContentPage title="Shipping details">
-          <ShippingDetails />
-        </SfContentPage>
-
-        <SfContentPage title="Billing details">
-          <BillingDetails />
+        <SfContentPage title="Addresses details">
+          <AddressesDetails />
         </SfContentPage>
 
         <SfContentPage title="My newsletter">
@@ -52,8 +48,7 @@ import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@vue/composition-api';
 import { useUser } from '@vue-storefront/magento';
 import MyProfile from './MyAccount/MyProfile.vue';
-import ShippingDetails from './MyAccount/ShippingDetails.vue';
-import BillingDetails from './MyAccount/BillingDetails.vue';
+import AddressesDetails from './MyAccount/AddressesDetails.vue';
 import MyNewsletter from './MyAccount/MyNewsletter.vue';
 import MyWishlist from './MyAccount/MyWishlist.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
@@ -63,7 +58,7 @@ import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 export default defineComponent({
   name: 'MyAccount',
   components: {
-    BillingDetails,
+    AddressesDetails,
     MyNewsletter,
     MyProfile,
     MyReviews,
@@ -71,7 +66,6 @@ export default defineComponent({
     OrderHistory,
     SfBreadcrumbs,
     SfContentPages,
-    ShippingDetails,
   },
   middleware: [
     'is-authenticated',

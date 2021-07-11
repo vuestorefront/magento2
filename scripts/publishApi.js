@@ -1,10 +1,11 @@
-/* eslint-disable unicorn/prefer-module */
-const { publishPackages } = require('./lib/publishApi');
+/* eslint-disable unicorn/no-process-exit, unicorn/prefer-module */
+const path = require('path');
+const { publishPackages } = require('./lib/publishNpm');
 
 const myArgs = process.argv.slice(2);
 const labels = myArgs[0].split('|');
 
-publishPackages(labels)
+publishPackages(path.join(process.cwd(), 'packages', 'api-client'), labels)
   .then(console.log)
   .catch((e) => {
     console.error(e);
