@@ -11,7 +11,6 @@ import {
   Cart,
   CartItem,
   Product,
-  // ShippingMethod,
   SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
@@ -56,16 +55,14 @@ export const productHasSpecialPrice = (product: CartItem): boolean => getCartIte
 
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
-export const getCartItemAttributes = (product: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
-  const attributes = {};
+export const getCartItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
   // @ts-ignore
-  if (!product || !product.product.configurable_options) {
-    return attributes;
+  if (!product || !product.configurable_options) {
+    return {};
   }
-  // @ts-ignore
-  // product.configurable_options.forEach((option) => {
-  //   attributes[option.option_label] = option.value_label as AgnosticAttribute;
-  // });
+
+  const attributes = {};
+  // @TODO: add correct attribute getters
 
   return attributes;
 };

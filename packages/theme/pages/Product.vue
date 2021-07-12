@@ -249,7 +249,7 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed, onBeforeMount } from '@vue/composition-api';
+import { ref, computed } from '@vue/composition-api';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
@@ -356,23 +356,8 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
-    onSSR(async () => {
-      const baseSearchQuery = {
-        filter: {
-          sku: {
-            eq: id,
-          },
-        },
-      };
-      await search({
-        queryType: 'DETAIL',
-        ...baseSearchQuery,
-      });
-      await searchReviews({ ...baseSearchQuery });
-    });
     const configurableOptions = computed(() => product.value.configurable_options);
-    // @TODO: add productConfiguration type
-    let productConfiguration = ref({});
+    const productConfiguration = ref({});
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
       const configurations = Object.entries(productConfiguration.value).map(config => config[1]);
@@ -393,10 +378,22 @@ export default {
     const loadProductConfiguration = () => {
       const { query } = route;
       productConfiguration.value = query;
-    }
-    onBeforeMount(async () => {
+    };
+    onSSR(async () => {
+      const baseSearchQuery = {
+        filter: {
+          sku: {
+            eq: id,
+          },
+        },
+      };
+      await search({
+        queryType: 'DETAIL',
+        ...baseSearchQuery,
+      });
+      await searchReviews({ ...baseSearchQuery });
       loadProductConfiguration();
-    })
+    });
     return {
       addItem,
       addItemToWishlist,
