@@ -1,4 +1,6 @@
-<img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="100px" />
+<img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="80px" style="padding-right: 15px; border-right: solid 2px #a0a0a0"/>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px" style="margin-left: 15px;" />
 
 ## Vue Storefront 2 integration with Magento (WIP)
 
