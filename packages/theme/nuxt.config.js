@@ -182,6 +182,7 @@ export default {
     extend(config, ctx) {
       // eslint-disable-next-line no-param-reassign
       config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
+
       if (ctx && ctx.isClient) {
         // eslint-disable-next-line no-param-reassign
         config.optimization = {
@@ -223,7 +224,8 @@ export default {
   },
   router: {
     extendRoutes(routes) {
-      getRoutes(`${__dirname}/_theme`).forEach((route) => routes.unshift(route));
+      getRoutes(`${__dirname}/_theme`)
+        .forEach((route) => routes.unshift(route));
     },
   },
 };
