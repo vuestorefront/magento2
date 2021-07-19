@@ -708,7 +708,7 @@ export interface CartItemInterface {
   /** @deprecated Use `uid` instead */
   id: Scalars['String'];
   prices?: Maybe<CartItemPrices>;
-  product: ProductInterface;
+  product: ConfigurableProduct;
   quantity: Scalars['Float'];
   /** The unique ID for a `CartItemInterface` object */
   uid: Scalars['ID'];

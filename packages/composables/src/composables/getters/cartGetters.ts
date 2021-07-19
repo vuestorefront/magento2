@@ -10,7 +10,8 @@ import {
   Discount,
   Cart,
   CartItem,
-  Product, ShippingMethod, SelectedShippingMethod,
+  Product,
+  SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../../types';
@@ -54,17 +55,26 @@ export const productHasSpecialPrice = (product: CartItem): boolean => getCartIte
 
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
-export const getCartItemAttributes = (product: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
+export const getCartItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
   const attributes = {};
-  // @ts-ignore
-  if (!product || !product.product.configurable_options) {
+
+  if (!product || !product.configurable_options) {
     return attributes;
   }
-  // @ts-ignore
-  product.configurable_options.forEach((option) => {
-    attributes[option.option_label] = option.value_label as AgnosticAttribute;
-  });
 
+  const configurableOptions = product.configurable_options;
+
+  for (const option of configurableOptions) {
+    attributes[option.attribute_code] = {
+      name: option.attribute_code,
+      label: option.label,
+      value: option.values.map((value) => {
+        const obj = {};
+        obj[value.value_index] = value.label;
+        return obj;
+      }),
+    } as AgnosticAttribute;
+  }
   return attributes;
 };
 

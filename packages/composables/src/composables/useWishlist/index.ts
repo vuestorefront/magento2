@@ -85,6 +85,16 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
 
         return data.addProductsToWishlist.wishlist;
       case 'ConfigurableProduct':
+        const { data: configurableProductData } = await context.$magento.api.addProductToWishList({
+          id: '0',
+          items: [{
+            sku: product.configurable_product_options_selection.variant.sku,
+            quantity: 1,
+            parent_sku: product.sku,
+          }],
+        });
+
+        return configurableProductData.addProductsToWishlist.wishlist;
       default:
         // todo implement other options
         // @ts-ignore

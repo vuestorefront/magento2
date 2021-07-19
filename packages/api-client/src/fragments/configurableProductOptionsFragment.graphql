@@ -1,7 +1,3 @@
-#import "./productThumbnailFragment.graphql"
-#import "./productPriceRangeFragment.graphql"
-#import "./productUrlFragment.graphql"
-
 fragment ConfigurableProductOptionsData on ConfigurableProduct{
   configurable_options {
     attribute_code
@@ -16,26 +12,6 @@ fragment ConfigurableProductOptionsData on ConfigurableProduct{
         value
       }
       uid
-    }
-  }
-  variants {
-    product {
-      __typename
-      uid
-      sku
-      name
-      stock_status
-      only_x_left_in_stock
-      rating_summary
-      ...ProductThumbnailData
-      ...ProductPriceRangeData
-      ...ProductUrlFragmentData
-    }
-    attributes {
-      uid
-      value_index
-      label
-      code
     }
   }
 }
