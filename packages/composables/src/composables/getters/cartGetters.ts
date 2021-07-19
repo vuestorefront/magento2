@@ -56,14 +56,25 @@ export const productHasSpecialPrice = (product: CartItem): boolean => getCartIte
 export const getCartItemQty = (product: CartItem): number => product.quantity;
 
 export const getCartItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
-  // @ts-ignore
+  const attributes = {};
+
   if (!product || !product.configurable_options) {
-    return {};
+    return attributes;
   }
 
-  const attributes = {};
-  // @TODO: add correct attribute getters
+  const configurableOptions = product.configurable_options;
 
+  for (const option of configurableOptions) {
+    attributes[option.attribute_code] = {
+      name: option.attribute_code,
+      label: option.label,
+      value: option.values.map((value) => {
+        const obj = {};
+        obj[value.value_index] = value.label;
+        return obj;
+      }),
+    } as AgnosticAttribute;
+  }
   return attributes;
 };
 
