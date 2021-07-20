@@ -2,16 +2,16 @@
 <img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
-## Vue Storefront 2 integration with Magento (WIP)
+## Vue Storefront 2 integration with Magento 2
 
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration is being developed by superheroes from [Cyberfuze](https://cyberfuze.com/), [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
-
-------
+This integration is being developed by superheroes from [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+------
 
 ## How to start if you want to try out the integration
 
@@ -26,8 +26,8 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
 ### Requirements:
-  - NodeJS v14 or later
-  - Magento >= v2.4.2 instance for GraphQL endpoint
+- NodeJS v14 or later
+- Magento >= v2.4.2 instance for GraphQL endpoint
 ### Steps
 1. Fork the repo
 2. Clone your fork of the repo
@@ -65,6 +65,9 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
 If you have any questions about this integration we will be happy to answer them on  `magento2-vsf2` channel on [our Discord](discord.vuestorefront.io).
 
 ## Contributors ✨
+
+### Honorable mentions:
+- [Cyberfuze](https://cyberfuze.com/)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
