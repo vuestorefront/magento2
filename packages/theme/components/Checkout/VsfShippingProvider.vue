@@ -19,7 +19,7 @@
               'There was some error while trying to select this shipping method. We are sorry, please try with different shipping method or later.')
           }}
         </div>
-        <div v-else-if="!shippingMethods.length">
+        <div v-else-if="shippingMethods.length === 0">
           {{
             $t(
               'There are no shipping methods available for this country. We are sorry, please try with different country or later.')
@@ -62,7 +62,7 @@
           class="form__action-button"
           type="button"
           :disabled="!isShippingMethodStepCompleted || isLoading || loadingShippingProvider.save"
-          @click.native="$emit('submit')"
+          @click="$emit('submit')"
         >
           {{ $t('Continue to billing') }}
         </SfButton>
