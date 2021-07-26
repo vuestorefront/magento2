@@ -1,5 +1,6 @@
 export { default as addConfigurableProductsToCart } from './addConfigurableProductsToCart';
 export { default as addProductToWishList } from './addProductToWishList';
+export { default as addProductsToCart } from './addProductsToCart';
 export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
 export { default as cart } from './cart';

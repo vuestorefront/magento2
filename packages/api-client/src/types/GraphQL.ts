@@ -4002,7 +4002,7 @@ export interface MutationAddDownloadableProductsToCartArgs {
   input?: Maybe<AddDownloadableProductsToCartInput>;
 }
 
-export interface MutationAddProductsToCartArgs {
+export interface AddProductsToCartInput {
   cartId: Scalars['String'];
   cartItems: Array<CartItemInput>;
 }
@@ -6721,7 +6721,7 @@ export type AddProductsToWishlistMutationVariables = Exact<{
 export type AddProductsToWishlistMutation = { addProductsToWishlist?: Maybe<{ wishlist: WishlistdataFragment }> };
 
 export type AddProductsToCartMutationVariables = Exact<{
-  input?: Maybe<MutationAddProductsToCartArgs>;
+  input?: Maybe<AddProductsToCartInput>;
 }>;
 
 export type AddSimpleProductsToCartMutationVariables = Exact<{
@@ -6729,6 +6729,7 @@ export type AddSimpleProductsToCartMutationVariables = Exact<{
 }>;
 
 export type AddProductsToCartMutation = { addProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }>; };
+
 export type AddSimpleProductsToCartMutation = { addSimpleProductsToCart?: Maybe<{ cart: CompleteCartDataFragment }> };
 
 export type ApplyCouponToCartMutationVariables = Exact<{
