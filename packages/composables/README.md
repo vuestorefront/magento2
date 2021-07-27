@@ -1,10 +1,10 @@
-<img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="100px" />
-
-## Vue Storefront 2 integration with Magento (WIP)
+<div align="center">
+<img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
+</div>
+## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration is being developed by superheroes from [Cyberfuze](https://cyberfuze.com/), [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
-
+This integration developed by superheroes from [Caravel Solutions](https://github.com/caravelsolutions) and [Leonex](https://www.leonex.de/) ❤️
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
@@ -59,7 +59,10 @@ If you have any questions about this integration we will be happy to answer them
 
 ## Contributors ✨
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+### Honorable Mentions
+- [Cyberfuze](https://cyberfuze.com/)
+
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
