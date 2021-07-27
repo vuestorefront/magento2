@@ -40,7 +40,7 @@
   "devDependencies": {
     "@rollup/plugin-graphql": "^1.0.0",
     "rollup-plugin-typescript2": "^0.30.0",
-    "@rollup/plugin-node-resolve": "^13.0.2",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-json": "^4.1.0",
     "@types/isomorphic-fetch": "^0.0.35",
     "apollo-link-schema": "^1.2.5",
@@ -48,7 +48,7 @@
     "graphql-tools": "^7.0.5",
     "jest-transform-graphql": "^2.1.0",
     "node-fetch": "^2.6.1",
-    "rollup": "^2.53.2",
+    "rollup": "^2.54.0",
     "typescript": "^4.3.5",
     "webpack": "^4.46.0"
   },
