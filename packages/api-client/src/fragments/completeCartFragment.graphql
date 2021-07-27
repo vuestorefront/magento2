@@ -32,6 +32,14 @@ fragment CompleteCartData on Cart {
   }
   items {
     ...CartProductData
+    ... on ConfigurableCartItem{
+      configurable_options {
+        configurable_product_option_uid
+        option_label
+        configurable_product_option_value_uid
+        value_label
+      }
+    }
   }
   total_quantity
   shipping_addresses {

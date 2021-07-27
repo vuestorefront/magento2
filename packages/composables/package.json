@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.7",
-    "@vue/test-utils": "^1.2.1"
+    "@vue/test-utils": "^1.2.2"
 
   },
   "peerDependencies": {

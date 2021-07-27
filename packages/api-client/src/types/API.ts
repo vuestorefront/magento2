@@ -91,7 +91,12 @@ import {
   AddProductsToWishlistMutationVariables,
   AddProductsToWishlistMutation,
   WishlistdataFragment,
-  UpdateCustomerEmailMutationVariables, RemoveProductsFromWishlistMutationVariables, RemoveProductsFromWishlistMutation, GetCustomerAddressesQuery,
+  UpdateCustomerEmailMutationVariables,
+  RemoveProductsFromWishlistMutationVariables,
+  RemoveProductsFromWishlistMutation,
+  GetCustomerAddressesQuery,
+  AddProductsToCartInput,
+  AddProductsToCartMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -147,6 +152,8 @@ export interface MagentoApiMethods {
   addConfigurableProductsToCart(input: AddConfigurableProductsToCartInput): Promise<FetchResult<AddConfigurableProductsToCartMutation>>;
 
   addSimpleProductsToCart(input: AddSimpleProductsToCartInput): Promise<FetchResult<AddSimpleProductsToCartMutation>>;
+
+  addProductsToCart(input: AddProductsToCartInput): Promise<FetchResult<AddProductsToCartMutation>>;
 
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
 

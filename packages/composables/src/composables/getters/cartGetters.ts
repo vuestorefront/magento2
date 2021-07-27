@@ -16,7 +16,7 @@ import {
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../../types';
 
-export const getCartItems = (cart: Cart): CartItem[] => {
+export const getItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {
     return [];
   }
@@ -24,11 +24,11 @@ export const getCartItems = (cart: Cart): CartItem[] => {
   return cart.items;
 };
 
-export const getCartItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
+export const getItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
 
-export const getCartItemImage = (product: CartItem): string => productGetters.getProductThumbnailImage(product.product as Product);
+export const getItemImage = (product: CartItem): string => productGetters.getProductThumbnailImage(product.product as Product);
 
-export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
+export const getItemPrice = (product: CartItem): AgnosticPrice => {
   if (!product || !product.prices) {
     return {
       regular: 0,
@@ -51,11 +51,11 @@ export const getCartItemPrice = (product: CartItem): AgnosticPrice => {
   };
 };
 
-export const productHasSpecialPrice = (product: CartItem): boolean => getCartItemPrice(product).regular < getCartItemPrice(product).special;
+export const productHasSpecialPrice = (product: CartItem): boolean => getItemPrice(product).regular < getItemPrice(product).special;
 
-export const getCartItemQty = (product: CartItem): number => product.quantity;
+export const getItemQty = (product: CartItem): number => product.quantity;
 
-export const getCartItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
+export const getItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
   const attributes = {};
 
   if (!product || !product.configurable_options) {
@@ -78,7 +78,7 @@ export const getCartItemAttributes = ({ product }: CartItem, _filterByAttributeN
   return attributes;
 };
 
-export const getCartItemSku = (product: CartItem): string => {
+export const getItemSku = (product: CartItem): string => {
   if (!product.product) {
     return '';
   }
@@ -88,7 +88,7 @@ export const getCartItemSku = (product: CartItem): string => {
 
 const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((a, b) => Number.parseFloat(`${a}`) + Number.parseFloat(`${b.amount.value}`), 0);
 
-export const getCartTotals = (cart: Cart): AgnosticTotals => {
+export const getTotals = (cart: Cart): AgnosticTotals => {
   if (!cart || !cart.prices) return {} as AgnosticTotals;
 
   return {
@@ -98,7 +98,7 @@ export const getCartTotals = (cart: Cart): AgnosticTotals => {
   } as AgnosticTotals;
 };
 
-export const getCartShippingPrice = (cart: Cart): number => {
+export const getShippingPrice = (cart: Cart): number => {
   if (!cart.shipping_addresses) {
     return 0;
   }
@@ -119,7 +119,7 @@ export const getCartShippingPrice = (cart: Cart): number => {
     }, 0);
 };
 
-export const getCartTotalItems = (cart: Cart): number => {
+export const getTotalItems = (cart: Cart): number => {
   if (!cart) {
     return 0;
   }
@@ -173,17 +173,17 @@ const cartGetters: CartGetters = {
   getCoupons,
   getDiscounts,
   getFormattedPrice,
-  getItemAttributes: getCartItemAttributes,
-  getItemImage: getCartItemImage,
-  getItemName: getCartItemName,
-  getItemPrice: getCartItemPrice,
-  getItemQty: getCartItemQty,
-  getItems: getCartItems,
-  getItemSku: getCartItemSku,
+  getItemAttributes,
+  getItemImage,
+  getItemName,
+  getItemPrice,
+  getItemQty,
+  getItems,
+  getItemSku,
   getSelectedShippingMethod,
-  getShippingPrice: getCartShippingPrice,
-  getTotalItems: getCartTotalItems,
-  getTotals: getCartTotals,
+  getShippingPrice,
+  getTotalItems,
+  getTotals,
   productHasSpecialPrice,
 };
 

@@ -1,11 +1,14 @@
 <div align="center">
 <img src="https://blog.vuestorefront.io/wp-content/uploads/2020/01/1QU9F6hQlFyHsJIbsdmt6FA.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
-
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration is being developed by superheroes from [Ecritel](https://www.ecritel.com/) and [Leonex](https://www.leonex.de/) ❤️
+This integration developed by superheroes from [Caravel Solutions](https://github.com/caravelsolutions) and [Leonex](https://www.leonex.de/) ❤️
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>  <img src="https://user-images.githubusercontent.com/1626923/127100001-7607c515-474d-449d-b9df-1c710f966f0a.png" height="80px"/>
+</div>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
@@ -25,7 +28,7 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
 ### Requirements:
   - NodeJS v14 or later
-  - Magento >= v2.4.2 instance for GraphQL endpoint
+  - Magento >= v2.4 instance for GraphQL endpoint
 ### Steps
 1. Fork the repo
 2. Clone your fork of the repo
@@ -60,10 +63,10 @@ If you have any questions about this integration we will be happy to answer them
 
 ## Contributors ✨
 
-### Honorable mentions:
+### Honorable Mentions
 - [Cyberfuze](https://cyberfuze.com/)
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Thanks go to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -88,5 +91,4 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
