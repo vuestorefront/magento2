@@ -8,6 +8,10 @@
 
 This theme developed by superheroes from [Caravel Solutions](https://github.com/caravelsolutions) and [Leonex](https://www.leonex.de/) ❤️
 
+<div align="center">
+<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>  <img src="https://user-images.githubusercontent.com/1626923/127100001-7607c515-474d-449d-b9df-1c710f966f0a.png" height="80px"/>
+</div>
+
 ### Build Setup
 
 ``` bash
