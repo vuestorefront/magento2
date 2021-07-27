@@ -179,6 +179,18 @@ export default {
         ['@babel/plugin-proposal-private-methods', { loose: true }],
       ],
     },
+    transpile: [
+      'vee-validate/dist/rules',
+    ],
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.VERSION': JSON.stringify({
+          // eslint-disable-next-line global-require
+          version: require('./package.json').version,
+          lastCommit: process.env.LAST_COMMIT || '',
+        }),
+      }),
+    ],
     extend(config, ctx) {
       // eslint-disable-next-line no-param-reassign
       config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
@@ -209,18 +221,6 @@ export default {
         };
       }
     },
-    transpile: [
-      'vee-validate/dist/rules',
-    ],
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.VERSION': JSON.stringify({
-          // eslint-disable-next-line global-require
-          version: require('./package.json').version,
-          lastCommit: process.env.LAST_COMMIT || '',
-        }),
-      }),
-    ],
   },
   router: {
     extendRoutes(routes) {
