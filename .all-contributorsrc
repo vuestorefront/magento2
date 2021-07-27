@@ -22,6 +22,17 @@
       ]
     },
     {
+          "login": "alefbarbeli",
+          "name": "Alef Barbeli",
+          "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
+          "profile": "https://github.com/alefbarbeli",
+          "contributions": [
+          "code",
+            "doc"
+          ]
+        },
+
+    {
       "login": "domideimel",
       "name": "Dominik Deimel",
       "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
@@ -40,25 +51,16 @@
         "code"
       ]
     },
-    {
-      "login": "alefbarbeli",
-      "name": "Alef Barbeli",
-      "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
-      "profile": "https://github.com/alefbarbeli",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "hcmlopes",
-      "name": "Henrique Lopes",
-      "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
-      "profile": "https://github.com/hcmlopes",
-      "contributions": [
-        "code",
-        "doc"
-      ]
-    },
+     {
+              "login": "hcmlopes",
+              "name": "Henrique Lopes",
+              "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
+              "profile": "https://github.com/hcmlopes",
+              "contributions": [
+                "code",
+                "doc"
+              ]
+            },
     {
       "login": "filrak",
       "name": "Filip Rakowski",
