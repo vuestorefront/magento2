@@ -6,7 +6,7 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed } from 'vue-demi';
-import { UseUrlResolver } from '../types/composeables';
+import { UseUrlResolver } from '../types/composables';
 
 export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
   search: (context: Context, url: string) => Promise<ROUTER>;

@@ -55,14 +55,11 @@
                   </div>
                 </template>
                 <template #configuration>
-                  <div class="collected-product__properties">
-                    <SfProperty
-                      v-for="(attribute, key) in cartGetters.getItemAttributes(product, ['color', 'size'])"
-                      :key="key"
-                      :name="key"
-                      :value="attribute"
-                    />
-                  </div>
+                  <SfProperty
+                    v-for="attr in getAttributes(product)"
+                    :name="attr.option_label"
+                    :value="attr.value_label"
+                  />
                 </template>
               </SfCollectedProduct>
             </transition-group>
@@ -174,6 +171,7 @@ export default defineComponent({
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+    const getAttributes = (product) => product.configurable_options || [];
 
     onSSR(async () => {
       await loadCart();
@@ -196,6 +194,7 @@ export default defineComponent({
       totals,
       totalItems,
       cartGetters,
+      getAttributes,
     };
   },
 });

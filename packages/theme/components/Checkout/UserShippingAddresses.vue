@@ -11,7 +11,7 @@
         class="shipping__address"
         :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
-        <UserShippingAddress
+        <UserAddressDetails
           :address="shippingAddress"
         />
       </SfAddress>
@@ -41,14 +41,14 @@ import {
   computed,
   defineComponent,
 } from '@vue/composition-api';
-import UserShippingAddress from '~/components/UserShippingAddress.vue';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'UserShippingAddresses',
   components: {
     SfCheckbox,
     SfAddressPicker,
-    UserShippingAddress,
+    UserAddressDetails,
   },
   props: {
     currentAddressId: {
@@ -93,6 +93,9 @@ export default defineComponent({
     margin-bottom: var(--spacer-base);
     @include for-desktop {
       margin-right: var(--spacer-sm);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
     }
   }
 
@@ -100,8 +103,6 @@ export default defineComponent({
     margin-bottom: var(--spacer-xl);
     @include for-desktop {
       display: flex;
-      width: 100%;
-      flex-direction: column;
     }
   }
 

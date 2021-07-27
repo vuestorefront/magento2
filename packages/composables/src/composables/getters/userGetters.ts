@@ -1,19 +1,27 @@
 /* istanbul ignore file */
-import { UserGetters } from '@vue-storefront/core';
+import { UserGetters as BaseUserGetters } from '@vue-storefront/core';
 import { User } from '../../types';
 
-export const getUserFirstName = (user: User): string => (user ? user.firstname : '');
+export const getFirstName = (user: User): string => (user ? user.firstname : '');
 
-export const getUserLastName = (user: User): string => (user ? user.lastname : '');
-export const getUserEmail = (user: User): string => (user ? user.email : '');
+export const getLastName = (user: User): string => (user ? user.lastname : '');
 
-export const getUserFullName = (user: User): string => (user ? `${user.firstname} ${user.lastname}` : '');
+export const getEmailAddress = (user: User): string => (user ? user.email : '');
 
-const userGetters: UserGetters<User> = {
-  getFirstName: getUserFirstName,
-  getLastName: getUserLastName,
-  getEmailAddress: getUserEmail,
-  getFullName: getUserFullName,
+export const getRemoteShoppingAssistance = (user: User): boolean => (user ? user.allow_remote_shopping_assistance : false);
+
+export const getFullName = (user: User): string => (user ? `${user.firstname} ${user.lastname}` : '');
+
+export interface UserGetters extends BaseUserGetters<User>{
+  getRemoteShoppingAssistance(user: User): boolean;
+}
+
+const userGetters: UserGetters = {
+  getFirstName,
+  getLastName,
+  getEmailAddress,
+  getFullName,
+  getRemoteShoppingAssistance,
 };
 
 export default userGetters;

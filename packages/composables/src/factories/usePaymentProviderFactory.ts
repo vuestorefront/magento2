@@ -7,7 +7,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composeables';
+import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
 export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD> extends FactoryParams {
   load: (context: Context, params: { state: Ref<STATE>, customQuery?: CustomQuery }) => Promise<STATE>;

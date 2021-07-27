@@ -164,7 +164,7 @@ import {
   useUiState,
 } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
-import LocaleSelector from './LocaleSelector.vue';
+import LocaleSelector from '~/components/LocaleSelector.vue';
 import SearchResults from '~/components/SearchResults.vue';
 
 export default defineComponent({

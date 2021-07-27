@@ -12,6 +12,7 @@ import {
 
 import categoryGetters from './categoryGetters';
 import { htmlDecode } from '../../helpers/htmlDecoder';
+import reviewGetters from './reviewGetters';
 
 type ProductVariantFilters = any;
 
@@ -63,12 +64,16 @@ export const getPrice = (product: Product): AgnosticPrice => {
 export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
   const images = [];
 
-  if (!product?.media_gallery) {
+  if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
     return images;
   }
 
-  for (let i = 0; i < product.media_gallery.length; i += 1) {
-    const galleryItem = product.media_gallery[i];
+  const selectedGallery = product.configurable_product_options_selection?.media_gallery
+    ? product.configurable_product_options_selection.media_gallery
+    : product.media_gallery;
+
+  for (let i = 0; i < selectedGallery.length; i += 1) {
+    const galleryItem = selectedGallery[i];
     images.push({
       small: galleryItem.url,
       normal: galleryItem.url,
@@ -216,13 +221,15 @@ export const getBreadcrumbs = (product: Product, category?: Category): AgnosticB
   return breadcrumbs;
 };
 
-export const getTotalReviews = (): number => 0;
+export const { getTotalReviews } = reviewGetters;
 
-export const getAverageRating = (): number => 0;
+export const { getAverageRating } = reviewGetters;
 
 export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products?.filter((p) => p.name && p.uid) || [];
 
 export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
+
+export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value
 
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getCategory(product: Product, currentUrlPath: string): Category | null;
@@ -233,6 +240,7 @@ export interface ProductGetters extends ProductGettersBase<Product, ProductVaria
   getShortDescription(product: Product): string;
   getSlug(product: Product, category?: Category): string;
   getTypeId(product: Product): string;
+  getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
 }
 
 const productGetters: ProductGetters = {
@@ -257,6 +265,7 @@ const productGetters: ProductGetters = {
   getSlug,
   getTotalReviews,
   getTypeId,
+  getSwatchData,
 };
 
 export default productGetters;

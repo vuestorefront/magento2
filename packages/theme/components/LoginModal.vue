@@ -170,14 +170,14 @@
               />
             </ValidationProvider>
             <SfCheckbox
-              v-model="form.is_subscribed"
+              v-model="isSubscribed"
               v-e2e="'sign-up-newsletter'"
               label="Sign Up for Newsletter"
               name="signupNewsletter"
               class="form__element"
             />
             <SfCheckbox
-              v-model="form.allow_remote_shopping_assistance"
+              v-model="allowRemoteShoppingAssistance"
               v-e2e="'remote-assistance'"
               label="Allow remote shopping assistance"
               name="allowRemoteShoppingAssistance"
@@ -282,6 +282,8 @@ export default defineComponent({
   },
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
+    const isSubscribed = ref(false);
+    const allowRemoteShoppingAssistance = ref(false);
     const form = ref({});
     const isLogin = ref(false);
     const createAccount = ref(false);
@@ -317,7 +319,13 @@ export default defineComponent({
 
     const handleForm = (fn) => async () => {
       resetErrorValues();
-      await fn({ user: form.value });
+      await fn({
+        user: {
+          ...form.value,
+          is_subscribed: isSubscribed.value,
+          allow_remote_shopping_assistance: allowRemoteShoppingAssistance.value,
+        },
+      });
 
       const hasUserErrors = userError.value.register || userError.value.login;
       if (hasUserErrors) {
@@ -333,6 +341,8 @@ export default defineComponent({
     const handleLogin = async () => handleForm(login)();
 
     return {
+      isSubscribed,
+      allowRemoteShoppingAssistance,
       form,
       error,
       userError,

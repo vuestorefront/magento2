@@ -11,7 +11,7 @@
         :name="`${userBillingGetters.getId(billingAddress)}`"
         class="billing__address"
       >
-        <UserBillingAddress :address="billingAddress" />
+        <UserAddressDetails :address="billingAddress" />
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
@@ -37,14 +37,14 @@ import {
 import {
   defineComponent,
 } from '@vue/composition-api';
-import UserBillingAddress from '~/components/UserBillingAddress.vue';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'UserBillingAddresses',
   components: {
     SfCheckbox,
     SfAddressPicker,
-    UserBillingAddress,
+    UserAddressDetails,
   },
   props: {
     currentAddressId: {

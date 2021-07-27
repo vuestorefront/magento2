@@ -6,7 +6,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { UseNewsletter, UseNewsletterErrors } from '../types/composeables';
+import { UseNewsletter, UseNewsletterErrors } from '../types/composables';
 
 export interface UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS> extends FactoryParams {
   updateSubscription: (context: Context, params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<NEWSLETTER>;

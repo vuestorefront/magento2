@@ -43,6 +43,9 @@ module.exports = {
             },
           },
         },
+        facets: {
+          available: ['color', 'size', 'price'],
+        },
       },
     },
   },

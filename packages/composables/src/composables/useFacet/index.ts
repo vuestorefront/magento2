@@ -34,19 +34,16 @@ const constructFilterObject = (inputFilters: Object) => {
   Object.keys(inputFilters).forEach((key) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
-      const [priceFrom, priceTo] = inputFilters[key].split('-');
+      const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_')).sort();
 
-      price.from = priceFrom;
-
-      if (priceTo) {
-        price.to = priceTo;
-      }
+      [price.from] = flatPrices;
+      price.to = flatPrices[flatPrices.length - 1];
 
       filter[key] = price;
     } else if (typeof inputFilters[key] === 'string') {
-      filter[key] = { finset: [inputFilters[key]] };
+      filter[key] = { in: [inputFilters[key]] };
     } else {
-      filter[key] = { finset: inputFilters[key] };
+      filter[key] = { in: inputFilters[key] };
     }
   });
 

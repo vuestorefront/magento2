@@ -17,4 +17,14 @@ fragment ProductData on ProductInterface {
   ...ProductUrlFragmentData
   ...ProductCategoriesData
   ...ConfigurableProductOptionsData
+  review_count
+  reviews {
+    items {
+      average_rating
+      ratings_breakdown {
+        name
+        value
+      }
+    }
+  }
 }

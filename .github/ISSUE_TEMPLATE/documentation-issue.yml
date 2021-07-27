@@ -1,0 +1,20 @@
+name: "📚 Documentation Issue"
+description: Report issues in our documentation
+labels:
+  - documentation
+  - triage-needed
+body:
+  - type: textarea
+    attributes:
+      label: Provide a description of requested docs changes
+      placeholder: Briefly describe which document needs to be corrected and why.
+    validations:
+      required: true
+  - type: checkboxes
+      id: terms
+      attributes:
+        label: Code of Conduct
+        description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/vuestorefront/magento2/blob/master/CODE_OF_CONDUCT.md)
+        options:
+          - label: I agree to follow this project's Code of Conduct
+            required: true

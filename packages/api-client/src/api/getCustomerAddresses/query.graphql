@@ -1,0 +1,9 @@
+#import "../../fragments/addressFragment.graphql"
+
+query getCustomerAddresses {
+  customer {
+    addresses {
+      ...CustomerAddressData
+    }
+  }
+}
