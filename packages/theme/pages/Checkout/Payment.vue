@@ -39,11 +39,11 @@
           </div>
         </SfTableData>
         <SfTableData
-          v-for="(value, key) in cartGetters.getItemAttributes(product, ['size', 'color'])"
-          :key="key"
+          v-for="attr in getAttributes(product)"
+          :key="attr.option_label"
           class="table__data"
         >
-          {{ value }}
+          {{ `${attr.option_label}: ${attr.value_label}` }}
         </SfTableData>
         <SfTableData class="table__data">
           {{ cartGetters.getItemQty(product) }}
@@ -175,6 +175,7 @@ export default defineComponent({
     const { router } = useVueRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
+    const getAttributes = (product) => product.configurable_options || [];
 
     onSSR(async () => {
       await load();
@@ -195,9 +196,10 @@ export default defineComponent({
       processOrder,
       products: computed(() => cartGetters.getItems(cart.value)),
       selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
-      tableHeaders: ['Description', 'Colour', 'Size', 'Quantity', 'Amount'],
+      tableHeaders: ['Description', 'Configurations', 'Quantity', 'Amount'],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
+      getAttributes,
     };
   },
 });
