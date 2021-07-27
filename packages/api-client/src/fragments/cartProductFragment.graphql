@@ -1,15 +1,9 @@
 #import "./productFragment.graphql"
 
-fragment CartProductData on ConfigurableCartItem {
+fragment CartProductData on CartItemInterface {
   uid
   product {
     ...ProductData
-  }
-  configurable_options {
-    configurable_product_option_uid
-    option_label
-    configurable_product_option_value_uid
-    value_label
   }
   prices {
     row_total {
