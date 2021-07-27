@@ -8,13 +8,13 @@ import {
 } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
-  AddSimpleProductsToCartInput,
+  AddProductsToCartInput,
   Cart,
   CartItem,
   Coupon,
   Product,
   RemoveItemFromCartInput,
-  UpdateCartItemsInput,
+  UpdateCartItemsInput
 } from '@vue-storefront/magento-api';
 
 const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
@@ -81,38 +81,38 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.__typename) {
         case 'SimpleProduct':
-          const simpleCartInput: AddSimpleProductsToCartInput = {
-            cart_id: currentCartId,
-            cart_items: [
+          const simpleCartInput: AddProductsToCartInput = {
+            cartId: currentCartId,
+            cartItems: [
               {
-                data: {
-                  quantity,
-                  sku: product.sku,
-                },
+                quantity,
+                sku: product.sku,
               },
             ],
           };
 
-          const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
+          const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
 
           // eslint-disable-next-line consistent-return
           return simpleProduct
             .data
-            .addSimpleProductsToCart
+            .addProductsToCart
             .cart as unknown as Cart;
 
         case 'ConfigurableProduct':
+          const cartItems = [
+            {
+              parent_sku: product.sku,
+              data: {
+                quantity,
+                sku: product.configurable_product_options_selection?.variant?.sku || '',
+              },
+            },
+          ];
+
           const configurableCartInput: AddConfigurableProductsToCartInput = {
             cart_id: currentCartId,
-            cart_items: [
-              {
-                parent_sku: product.sku,
-                data: {
-                  quantity,
-                  sku: product.configurable_product_options_selection?.variant?.sku || '',
-                },
-              },
-            ],
+            cart_items: cartItems,
           };
 
           const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
@@ -223,7 +223,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     },
   ) => !!currentCart
     .items
-    .find((cartItem) => cartItem.product.uid === product.uid),
+    .find((cartItem) => cartItem.product?.uid === product.uid),
 };
 
 export default useCartFactory<Cart, CartItem, Product, Coupon>(factoryParams);

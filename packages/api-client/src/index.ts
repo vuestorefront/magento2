@@ -276,7 +276,7 @@ export {
   MutationAddBundleProductsToCartArgs,
   MutationAddConfigurableProductsToCartArgs,
   MutationAddDownloadableProductsToCartArgs,
-  MutationAddProductsToCartArgs,
+  AddProductsToCartInput,
   MutationAddProductsToCompareListArgs,
   MutationAddProductsToWishlistArgs,
   MutationAddSimpleProductsToCartArgs,

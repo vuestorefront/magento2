@@ -229,6 +229,8 @@ export const getProductRelatedProduct = (product: Product): Product[] => product
 
 export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
 
+export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value
+
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getCategory(product: Product, currentUrlPath: string): Category | null;
   getProductRelatedProduct(product: Product): Product[];
@@ -238,6 +240,7 @@ export interface ProductGetters extends ProductGettersBase<Product, ProductVaria
   getShortDescription(product: Product): string;
   getSlug(product: Product, category?: Category): string;
   getTypeId(product: Product): string;
+  getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
 }
 
 const productGetters: ProductGetters = {
@@ -262,6 +265,7 @@ const productGetters: ProductGetters = {
   getSlug,
   getTotalReviews,
   getTypeId,
+  getSwatchData,
 };
 
 export default productGetters;
