@@ -19,14 +19,14 @@ body:
     validations:
       required: false
   - type: textarea
-      id: suggestion
-      attributes:
-        label: How the project can be improved?
-        description: Can you tell us, how we can improve this project event more?
-        placeholder: Feature request
-        value: ""
-      validations:
-        required: true
+    id: suggestion
+    attributes:
+      label: How the project can be improved?
+      description: Can you tell us, how we can improve this project event more?
+      placeholder: Feature request
+      value: ""
+    validations:
+      required: true
   - type: checkboxes
     id: terms
     attributes:
