@@ -7,13 +7,14 @@ import {
   UseCartFactoryParams,
 } from '@vue-storefront/core';
 import {
+  AddConfigurableProductsToCartInput,
   AddProductsToCartInput,
   Cart,
   CartItem,
   Coupon,
   Product,
   RemoveItemFromCartInput,
-  UpdateCartItemsInput,
+  UpdateCartItemsInput
 } from '@vue-storefront/magento-api';
 
 const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
@@ -101,23 +102,25 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
         case 'ConfigurableProduct':
           const cartItems = [
             {
-              quantity,
-              sku: product.configurable_product_options_selection?.variant?.sku || '',
               parent_sku: product.sku,
+              data: {
+                quantity,
+                sku: product.configurable_product_options_selection?.variant?.sku || '',
+              },
             },
           ];
 
-          const configurableCartInput: AddProductsToCartInput = {
-            cartId: currentCartId,
-            cartItems,
+          const configurableCartInput: AddConfigurableProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: cartItems,
           };
 
-          const configurableProduct = await context.$magento.api.addProductsToCart(configurableCartInput);
+          const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
 
           // eslint-disable-next-line consistent-return
           return configurableProduct
             .data
-            .addProductsToCart
+            .addConfigurableProductsToCart
             .cart as unknown as Cart;
         default:
           // todo implement other options
