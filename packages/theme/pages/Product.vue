@@ -85,7 +85,7 @@
               <SfColor
                 v-for="(color, i) in option.values"
                 :key="color.uid"
-                :color="color.swatch_data.value"
+                :color="productGetters.getSwatchData(color.swatch_data)"
                 :selected="productConfiguration[option.attribute_uid] === color.uid"
                 class="product__color"
                 @click="() => updateProductConfiguration(option.attribute_uid, color.uid)"

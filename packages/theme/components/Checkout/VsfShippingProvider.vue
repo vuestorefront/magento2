@@ -62,7 +62,7 @@
           class="form__action-button"
           type="button"
           :disabled="!isShippingMethodStepCompleted || isLoading || loadingShippingProvider.save"
-          @click.native="$emit('submit')"
+          @click="$emit('submit')"
         >
           {{ $t('Continue to billing') }}
         </SfButton>
