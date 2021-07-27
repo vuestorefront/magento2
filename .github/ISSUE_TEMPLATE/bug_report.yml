@@ -22,7 +22,6 @@ body:
     attributes:
       label: Expected Behavior
       placeholder: What were you expecting?
-      value: ""
     validations:
       required: false
   - type: textarea
@@ -30,7 +29,6 @@ body:
     attributes:
       label: Actual Behavior
       placeholder: What happened instead??
-      value: ""
     validations:
       required: true
   - type: textarea
@@ -39,7 +37,6 @@ body:
       label: Possible Solution
       description: Also, if possible provide the information on how to implement the solution.
       placeholder: Do you have any possible solution or fix for this bug?
-      value: ""
     validations:
       required: false
   - type: textarea
@@ -48,7 +45,6 @@ body:
       label: Steps to reproduce
       description: Please provide detailed instructions on how to reproduce.
       placeholder: How we can reproduce this bug?
-      value: ""
     validations:
       required: false
   - type: dropdown

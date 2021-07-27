@@ -24,7 +24,6 @@ body:
       label: How the project can be improved?
       description: Can you tell us, how we can improve this project event more?
       placeholder: Feature request
-      value: ""
     validations:
       required: true
   - type: checkboxes
