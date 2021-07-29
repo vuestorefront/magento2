@@ -1,15 +1,11 @@
-import {
-  Logger,
-} from '@vue-storefront/core';
 import { UserAddressesGetters } from '../../types/getters';
 import { transformUserGetter } from '../../helpers/userAddressManipulator';
 
 const userAddressesGetters: UserAddressesGetters<any, any> = {
   getAddresses: (addresses, criteria?: Record<string, any>) => {
-    Logger.debug(addresses);
-    if (!addresses || addresses.length === 0) return [] as Record<string, any>;
+    if (!addresses || addresses.length === 0 || !Array.isArray(addresses)) return [];
 
-    const addressesData = addresses.map((a) => transformUserGetter(a));
+    const addressesData = addresses?.map((a) => transformUserGetter(a));
 
     if (!criteria || Object.keys(criteria).length === 0) {
       return addressesData;

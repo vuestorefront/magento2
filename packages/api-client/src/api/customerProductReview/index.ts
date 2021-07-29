@@ -1,3 +1,4 @@
+import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
 import { CustomQuery } from '@vue-storefront/core';
 import {
@@ -37,9 +38,15 @@ export default async (
     },
   );
 
-  return context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-    query: reviews.query,
-    variables: reviews.variables,
-    fetchPolicy: 'no-cache',
-  });
+  const query = customQuery ? gql`${reviews.query}` : reviews.query;
+
+  try {
+    return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
+      query,
+      variables: reviews.variables,
+      fetchPolicy: 'no-cache',
+    });
+  } catch (error) {
+    throw error.graphQLErrors?.[0] || error.networkError?.result || error;
+  }
 };

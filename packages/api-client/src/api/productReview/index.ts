@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { CustomQuery } from '@vue-storefront/core';
+import gql from 'graphql-tag';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
@@ -49,9 +50,15 @@ export default async (
     },
   );
 
-  return context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
-    query: reviews.query,
-    variables: reviews.variables,
-    fetchPolicy: 'no-cache',
-  });
+  const query = customQuery ? gql`${reviews.query}` : reviews.query;
+
+  try {
+    return await context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
+      query,
+      variables: reviews.variables,
+      fetchPolicy: 'no-cache',
+    });
+  } catch (error) {
+    throw error.graphQLErrors?.[0] || error.networkError?.result || error;
+  }
 };
