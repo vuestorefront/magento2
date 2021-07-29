@@ -18,6 +18,7 @@ export const transformUserUpdateAddressInput = (addressInputParams): {
 } => {
   const {
     apartment,
+    id,
     ...address
   } = addressInputParams.address;
 
@@ -27,7 +28,7 @@ export const transformUserUpdateAddressInput = (addressInputParams): {
   };
 
   return {
-    addressId: addressInputParams.address.id,
+    addressId: id,
     input: {
       ...addressParams,
       default_shipping: true,
