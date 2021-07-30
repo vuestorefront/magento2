@@ -22,21 +22,19 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     const apiState = context.$magento.config.state;
     Logger.debug('[Magento Storefront]: Loading Cart');
     const customerToken = apiState.getCustomerToken();
+    let cartId = apiState.getCartId();
 
-    if (customerToken) { // is user authenticated.
-      try { // get cart ID
+    if (customerToken) {
+      try {
         const result = await context.$magento.api.customerCart();
 
         return result.data.customerCart as unknown as Cart;
-      } catch { // Signed up user don't have a cart.
-        apiState.setCartId(null);
-        apiState.setCustomerToken(null);
-
-        return await factoryParams.load(context, {}) as unknown as Cart;
+      } catch (e) {
+        apiState.setCartId(null)
+        apiState.setCustomerToken(null)
+        cartId = null
       }
     }
-
-    let cartId = apiState.getCartId(); // if guest user have a cart ID
 
     if (!cartId) {
       const { data } = await context.$magento.api.createEmptyCart();
@@ -52,7 +50,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       Logger.debug(cartResponse);
 
       return cartResponse.data.cart as unknown as Cart;
-    } catch {
+    } catch (e) {
       apiState.setCartId(null);
 
       return await factoryParams.load(context, {}) as unknown as Cart;
