@@ -1,10 +1,10 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { ProductReviewRatingsMetadataQuery } from '../../types/GraphQL';
-import query from './query.graphql';
+import productReviewRatingsMetadata from './productReviewRatingsMetadata';
 import { Context } from '../../types/context';
 
 export default async ({ client }: Context): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> => client
   .query<ProductReviewRatingsMetadataQuery>({
-  query,
+  query: productReviewRatingsMetadata,
   fetchPolicy: 'no-cache',
 });

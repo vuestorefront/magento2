@@ -4,8 +4,7 @@ import {
   AgnosticPrice,
   AgnosticTotals, AgnosticPagination,
 } from '@vue-storefront/core';
-import { WishlistOutput, WishlistItem } from '@vue-storefront/magento-api';
-import { WishlistdataFragment } from '@vue-storefront/magento-api/lib/types/GraphQL';
+import { WishlistOutput, WishlistItem, WishlistDataFragment } from '@vue-storefront/magento-api';
 
 type Wishlist = WishlistOutput;
 type WishlistProduct = WishlistItem;
@@ -43,7 +42,7 @@ export const getTotalItems = (wishlist: Wishlist): number => ((wishlist) ? wishl
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getFormattedPrice = (price: number): string => '';
 
-const getPagination = (wishlistData: WishlistdataFragment): AgnosticPagination => ({
+const getPagination = (wishlistData: WishlistDataFragment): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
   totalItems: wishlistData?.items_count || 0,
@@ -51,7 +50,7 @@ const getPagination = (wishlistData: WishlistdataFragment): AgnosticPagination =
   pageOptions: [10, 50, 100],
 });
 
-const getProducts = (wishlistData: WishlistdataFragment[] | WishlistdataFragment): {
+const getProducts = (wishlistData: WishlistDataFragment[] | WishlistDataFragment): {
   product: WishlistProduct;
   quantity: number;
   added_at: string;

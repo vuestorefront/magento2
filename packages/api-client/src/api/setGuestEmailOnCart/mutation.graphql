@@ -1,7 +1,0 @@
-mutation setGuestEmailOnCart($input: SetGuestEmailOnCartInput) {
-  setGuestEmailOnCart(input: $input) {
-    cart {
-      email
-    }
-  }
-}

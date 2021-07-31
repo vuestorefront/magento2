@@ -1,18 +1,17 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import addSimpleProductsToCart from './addSimpleProductsToCart';
 import {
   AddSimpleProductsToCartInput,
   AddSimpleProductsToCartMutation,
   AddSimpleProductsToCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
-// @TODO : Add Mutation FROM CodeGEN
 
 export default async (
   { client }: Context,
   input: AddSimpleProductsToCartInput,
 ): Promise<FetchResult<AddSimpleProductsToCartMutation>> => client
   .mutate<AddSimpleProductsToCartMutation, AddSimpleProductsToCartMutationVariables>({
-  mutation,
+  mutation: addSimpleProductsToCart,
   variables: { input },
 });

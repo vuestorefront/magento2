@@ -1,8 +1,8 @@
+import { ApolloQueryResult } from '@apollo/client';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
-import { ApolloQueryResult } from '@apollo/client';
 import { Context } from '../../types/context';
-import guestQuery from './GuestShippingMethods.graphql';
+import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
 import {
   GuestAvailableShippingMethodsQuery,
   GuestAvailableShippingMethodsQueryVariables,
@@ -22,17 +22,15 @@ export default async (
   const { shippingMethods } = context.extendQuery(customQuery,
     {
       shippingMethods: {
-        query: guestQuery,
+        query: GuestAvailableShippingMethods,
         variables: defaultVariables,
       },
     });
 
-  const query = customQuery ? gql`${shippingMethods.query}` : shippingMethods.query;
-
   try {
     return await context.client.query<GuestAvailableShippingMethodsQuery,
     GuestAvailableShippingMethodsQueryVariables>({
-      query,
+      query: gql`${shippingMethods.query}`,
       variables: shippingMethods.variables,
       fetchPolicy: 'no-cache',
     });

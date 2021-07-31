@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import placeOrder from './placeOrder';
 import {
   PlaceOrderInput,
   PlaceOrderMutation,
@@ -12,6 +12,6 @@ export default async (
   input: PlaceOrderInput,
 ): Promise<FetchResult<PlaceOrderMutation>> => client
   .mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
-  mutation,
+  mutation: placeOrder,
   variables: { input },
 });

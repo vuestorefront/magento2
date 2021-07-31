@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import subscribeEmailToNewsletter from './subscribeEmailToNewsletter';
 import {
   SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables,
 } from '../../types/GraphQL';
@@ -12,7 +12,7 @@ export default async (
   .mutate<
 SubscribeEmailToNewsletterMutation,
 SubscribeEmailToNewsletterMutationVariables>({
-  mutation,
+  mutation: subscribeEmailToNewsletter,
   variables: {
     email,
   },

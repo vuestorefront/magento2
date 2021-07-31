@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import updateCartItems from './updateCartItems';
 import {
   UpdateCartItemsInput,
   UpdateCartItemsMutation,
@@ -14,6 +14,6 @@ export default async (
   .mutate<
 UpdateCartItemsMutation,
 UpdateCartItemsMutationVariables>({
-  mutation,
+  mutation: updateCartItems,
   variables: { input },
 });

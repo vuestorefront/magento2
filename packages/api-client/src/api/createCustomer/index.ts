@@ -4,7 +4,7 @@ import {
   CreateCustomerMutationVariables,
   CustomerCreateInput,
 } from '../../types/GraphQL';
-import mutation from './mutation.graphql';
+import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
 
 export default async (
@@ -13,7 +13,7 @@ export default async (
 ): Promise<FetchResult<CreateCustomerMutation>> => context
   .client
   .mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
-  mutation,
+  mutation: createCustomer,
   variables: { input },
   fetchPolicy: 'no-cache',
 });

@@ -11,6 +11,8 @@
     "sourceMap": true,
     "importHelpers": true,
     "allowJs": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "declarationMap": true,
+  },
+  "files": ["types/shims-graphql.d.ts"]
 }

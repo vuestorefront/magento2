@@ -1,42 +1,53 @@
 import { integrationPlugin } from '@vue-storefront/core'
 import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
 import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
+import cookie from '@vue-storefront/magento/nuxt/cookie';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
-export default integrationPlugin(({ app, integration }) => {
+export default integrationPlugin(({ app, res, req, integration }) => {
   const cartCookieName = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
   const customerCookieName = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;
   const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
 
-  const getCartId = () => app.$cookies.get(cartCookieName);
+  const {
+    setCookie,
+    removeCookie,
+    getCookies,
+  } = cookie(req, res);
+
+  const getCartId = () => getCookies(cartCookieName);
 
   const setCartId = (id) => {
     if (!id) {
-      app.$cookies.remove(cartCookieName);
+      removeCookie(cartCookieName)
+      // eslint-disable-next-line no-param-reassign
       return;
     }
-    app.$cookies.set(cartCookieName, id);
+    setCookie(cartCookieName, id);
   };
 
-  const getCustomerToken = () => app.$cookies.get(customerCookieName);
+  const getCustomerToken = () => getCookies(customerCookieName);
 
   const setCustomerToken = (token) => {
     if (!token) {
-      app.$cookies.remove(customerCookieName);
+      removeCookie(customerCookieName);
       return;
     }
-    app.$cookies.set(customerCookieName, token);
+
+    setCookie(customerCookieName, token);
   };
 
-  const getStore = () => app.$cookies.get(storeCookieName);
+  const getStore = () => getCookies(storeCookieName);
 
   const setStore = (id) => {
     if (!id) {
-      app.$cookies.remove(storeCookieName);
+      // eslint-disable-next-line no-param-reassign
+      removeCookie(storeCookieName);
       return;
     }
-    app.$cookies.set(storeCookieName, id);
+
+    setCookie(storeCookieName, id);
   };
 
   const settings = mapConfigToSetupObject({
