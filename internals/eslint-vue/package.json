@@ -29,7 +29,7 @@
     "rules"
   ],
   "dependencies": {
-    "eslint-plugin-vue": "^7.14.0"
+    "eslint-plugin-vue": "^7.15.0"
   },
   "main": "index.js"
 }
