@@ -55,7 +55,10 @@ export const productHasSpecialPrice = (product: CartItem): boolean => getItemPri
 
 export const getItemQty = (product: CartItem): number => product.quantity;
 
-export const getItemAttributes = ({ product }: CartItem, _filterByAttributeName?: Array<string>): Record<string, AgnosticAttribute | string> => {
+export const getItemAttributes = (
+  { product }: CartItem & { product: Product },
+  _filterByAttributeName?: Array<string>,
+): Record<string, AgnosticAttribute | string> => {
   const attributes = {};
 
   if (!product || !product.configurable_options) {
@@ -64,6 +67,7 @@ export const getItemAttributes = ({ product }: CartItem, _filterByAttributeName?
 
   const configurableOptions = product.configurable_options;
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const option of configurableOptions) {
     attributes[option.attribute_code] = {
       name: option.attribute_code,
@@ -112,6 +116,7 @@ export const getShippingPrice = (cart: Cart): number => {
       const { selected_shipping_method } = shippingAddress;
 
       if (selected_shipping_method) {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         return acc + selected_shipping_method.amount.value;
       }
 
@@ -160,10 +165,13 @@ export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] 
   value: p.code,
 }));
 
-export interface CartGetters extends CartGettersBase<Cart, CartItem>{
+export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
+
   getAvailablePaymentMethods(cart: Cart): AgnosticPaymentMethod[];
+
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
+
   productHasSpecialPrice(product: CartItem): boolean;
 }
 
