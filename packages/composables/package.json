@@ -24,6 +24,7 @@
   "dependencies": {
     "@vue-storefront/magento-api": "1.0.0-rc.1",
     "@vue-storefront/core": "^2.3.4",
+    "cookie-universal": "^2.1.5",
     "vue": "^2.6.12",
     "vue-demi": "latest"
   },
@@ -43,7 +44,8 @@
   },
   "files": [
     "lib/**/*",
-    "nuxt/**/*"
+    "nuxt/**/*",
+    "types/**/*"
   ],
   "publishConfig": {
     "access": "public",
