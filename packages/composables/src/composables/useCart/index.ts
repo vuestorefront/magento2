@@ -8,7 +8,7 @@ import {
 } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
-  AddSimpleProductsToCartInput,
+  AddProductsToCartInput,
   Cart,
   CartItem,
   Coupon,
@@ -22,7 +22,47 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     const apiState = context.$magento.config.state;
     Logger.debug('[Magento Storefront]: Loading Cart');
     const customerToken = apiState.getCustomerToken();
-    let cartId = apiState.getCartId();
+
+    const createNewCart = async (): Promise<string> => {
+      Logger.debug('[Magento Storefront]: useCart.load.createNewCart');
+
+      apiState.setCartId();
+
+      const { data } = await context.$magento.api.createEmptyCart();
+
+      apiState.setCartId(data.createEmptyCart);
+
+      return data.createEmptyCart;
+    };
+
+    const generateCart = async (id?: string) => {
+      const cartId = await createNewCart();
+
+      return getCartData(id || apiState.getCartId() || cartId);
+    };
+
+    const getCartData = async (id?: string) => {
+      const fetchData = async (cartId = id) => {
+        apiState.setCartId(cartId);
+        const cartResponse = await context.$magento.api.cart(cartId);
+
+        Logger.debug(cartResponse);
+
+        return cartResponse.data.cart as unknown as Cart;
+      };
+
+      try {
+        Logger.debug('[Magento Storefront]: useCart.load.getCartData ID->', id);
+
+        return await fetchData();
+      } catch {
+        apiState.setCartId();
+
+        const cartId = await createNewCart();
+
+        return await fetchData(cartId);
+      }
+    };
 
     if (customerToken) {
       try {
@@ -30,30 +70,22 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
         return result.data.customerCart as unknown as Cart;
       } catch {
-        apiState.setCartId(null);
-        apiState.setCustomerToken(null);
-        cartId = null;
+        apiState.setCustomerToken();
+
+        return await generateCart();
       }
     }
 
-    if (!cartId) {
-      const { data } = await context.$magento.api.createEmptyCart();
-
-      cartId = data.createEmptyCart;
-
-      apiState.setCartId(cartId);
-    }
+    const cartId = apiState.getCartId();
 
     try {
-      const cartResponse = await context.$magento.api.cart(cartId);
+      if (!cartId) {
+        return await generateCart();
+      }
 
-      Logger.debug(cartResponse);
-
-      return cartResponse.data.cart as unknown as Cart;
+      return await getCartData(cartId);
     } catch {
-      apiState.setCartId(null);
-
-      return await factoryParams.load(context, {}) as unknown as Cart;
+      return generateCart();
     }
   },
   addItem: async (context: Context, {
@@ -79,38 +111,38 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.__typename) {
         case 'SimpleProduct':
-          const simpleCartInput: AddSimpleProductsToCartInput = {
-            cart_id: currentCartId,
-            cart_items: [
+          const simpleCartInput: AddProductsToCartInput = {
+            cartId: currentCartId,
+            cartItems: [
               {
-                data: {
-                  quantity,
-                  sku: product.sku,
-                },
+                quantity,
+                sku: product.sku,
               },
             ],
           };
 
-          const simpleProduct = await context.$magento.api.addSimpleProductsToCart(simpleCartInput);
+          const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
 
           // eslint-disable-next-line consistent-return
           return simpleProduct
             .data
-            .addSimpleProductsToCart
+            .addProductsToCart
             .cart as unknown as Cart;
 
         case 'ConfigurableProduct':
+          const cartItems = [
+            {
+              parent_sku: product.sku,
+              data: {
+                quantity,
+                sku: product.configurable_product_options_selection?.variant?.sku || '',
+              },
+            },
+          ];
+
           const configurableCartInput: AddConfigurableProductsToCartInput = {
             cart_id: currentCartId,
-            cart_items: [
-              {
-                parent_sku: product.sku,
-                data: {
-                  quantity,
-                  sku: product.sku,
-                },
-              },
-            ],
+            cart_items: cartItems,
           };
 
           const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
