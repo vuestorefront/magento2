@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { WishlistQuery, WishlistQueryVariables } from '../../types/GraphQL';
-import query from './query.graphql';
+import wishlist from './wishlist';
 import { Context } from '../../types/context';
 
 export default async (
@@ -8,7 +8,7 @@ export default async (
   queryParams: WishlistQueryVariables,
 ): Promise<ApolloQueryResult<WishlistQuery>> => client
   .query<WishlistQuery, WishlistQueryVariables>({
-  query,
+  query: wishlist,
   fetchPolicy: 'no-cache',
   variables: queryParams,
 });

@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client';
 import { CreateProductReviewMutation, CreateProductReviewMutationVariables } from '../../types/GraphQL';
-import mutation from './mutation.graphql';
+import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
 
 export default async ({ client }: Context, input: CreateProductReviewMutationVariables): Promise<FetchResult<CreateProductReviewMutation>> => client
   .mutate<CreateProductReviewMutation, { input: CreateProductReviewMutationVariables }>({
-  mutation,
+  mutation: createProductReview,
   variables: {
     input,
   },

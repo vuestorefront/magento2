@@ -7,7 +7,7 @@ import {
   ProductAttributeSortInput,
   ConfigurableProductDetailQueryVariables,
 } from '../../types/GraphQL';
-import detailQuery from './configurableProductDetailQuery.graphql';
+import configurableProductDetailQuery from './configurableProductDetailQuery';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -44,17 +44,15 @@ export default async (
   const { products } = context.extendQuery(
     customQuery, {
       products: {
-        query: detailQuery,
+        query: configurableProductDetailQuery,
         variables: defaultParams,
       },
     },
   );
 
-  const query = customQuery ? gql`${products.query}` : products.query;
-
   try {
     return await context.client.query<ConfigurableProductDetailQuery, ConfigurableProductDetailQueryVariables>({
-      query,
+      query: gql`${products.query}`,
       variables: products.variables,
       fetchPolicy: 'no-cache',
     });

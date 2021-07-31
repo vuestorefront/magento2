@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import mergeCarts from './mergeCarts';
 import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
@@ -9,7 +9,7 @@ export default async (
   destinationCartId: string,
 ): Promise<FetchResult<MergeCartsMutation>> => client
   .mutate<MergeCartsMutation, MergeCartsMutationVariables>({
-  mutation,
+  mutation: mergeCarts,
   variables: {
     sourceCartId,
     destinationCartId,

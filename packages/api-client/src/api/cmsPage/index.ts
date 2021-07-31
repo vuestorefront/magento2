@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
-import query from './query.graphql';
+import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
 
 export default async (
@@ -8,7 +8,7 @@ export default async (
   identifier: string,
 ): Promise<ApolloQueryResult<CmsPageQuery>> => client
   .query<CmsPageQuery, CmsPageQueryVariables>({
-  query,
+  query: cmsPage,
   variables: { identifier },
   fetchPolicy: 'no-cache',
 });

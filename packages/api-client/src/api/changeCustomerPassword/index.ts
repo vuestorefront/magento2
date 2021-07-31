@@ -1,4 +1,4 @@
-import mutation from './mutation.graphql';
+import changeCustomerPassword from './changeCustomerPassword';
 import {
   ChangeCustomerPasswordMutation,
   ChangeCustomerPasswordMutationVariables,
@@ -13,7 +13,7 @@ export default async (
 ): Promise<Customer> => {
   const { data } = await client
     .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
-    mutation,
+    mutation: changeCustomerPassword,
     variables: {
       currentPassword,
       newPassword,

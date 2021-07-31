@@ -7,7 +7,7 @@ import {
   RelatedProductQuery,
   RelatedProductQueryVariables,
 } from '../../types/GraphQL';
-import relatedProductQuery from './relatedProductQuery.graphql';
+import relatedProduct from './relatedProduct';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -44,17 +44,15 @@ export default async (
   const { products } = context.extendQuery(
     customQuery, {
       products: {
-        query: relatedProductQuery,
+        query: relatedProduct,
         variables: defaultParams,
       },
     },
   );
 
-  const query = customQuery ? gql`${products.query}` : products.query;
-
   try {
     return await context.client.query<RelatedProductQuery, RelatedProductQueryVariables>({
-      query,
+      query: gql`${products.query}`,
       variables: products.variables,
       fetchPolicy: 'no-cache',
     });

@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
 import { CustomQuery } from '@vue-storefront/core';
 import { GetCustomerAddressesQuery } from '../../types/GraphQL';
-import getCustomerAddressesQuery from './getCustomerAddresses.graphql';
+import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';
 
 export default async (context: Context, customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> => {

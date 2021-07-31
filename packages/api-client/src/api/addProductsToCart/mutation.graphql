@@ -1,9 +1,0 @@
-#import "../../fragments/completeCartFragment.graphql"
-
-mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {
-  addProductsToCart(cartId,: $cartId, cartItems,: $cartItems) {
-    cart {
-      ...CompleteCartData
-    }
-  }
-}
