@@ -36,11 +36,11 @@ export type Store = {
 
 export type ConfigState = {
   getCartId(): string;
-  setCartId(id: string): void;
+  setCartId(id?: string | null): void;
   getCustomerToken(): string;
-  setCustomerToken(token: string): void;
+  setCustomerToken(token?: string | null): void;
   getStore(): string;
-  setStore(id: string): void;
+  setStore(id?: string | null): void;
 };
 
 export interface ClientConfig {
