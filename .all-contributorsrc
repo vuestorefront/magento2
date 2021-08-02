@@ -22,16 +22,15 @@
       ]
     },
     {
-          "login": "alefbarbeli",
-          "name": "Alef Barbeli",
-          "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
-          "profile": "https://github.com/alefbarbeli",
-          "contributions": [
-          "code",
-            "doc"
-          ]
-        },
-
+      "login": "alefbarbeli",
+      "name": "Alef Barbeli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7727647?v=4",
+      "profile": "https://github.com/alefbarbeli",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
     {
       "login": "domideimel",
       "name": "Dominik Deimel",
@@ -51,16 +50,25 @@
         "code"
       ]
     },
-     {
-              "login": "hcmlopes",
-              "name": "Henrique Lopes",
-              "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
-              "profile": "https://github.com/hcmlopes",
-              "contributions": [
-                "code",
-                "doc"
-              ]
-            },
+    {
+      "login": "hcmlopes",
+      "name": "Henrique Lopes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
+      "profile": "https://github.com/hcmlopes",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "DaiLoc5698",
+      "name": "Đại Lộc Lê Quang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/76195735?v=4",
+      "profile": "https://github.com/DaiLoc5698",
+      "contributions": [
+        "code"
+      ]
+    },
     {
       "login": "filrak",
       "name": "Filip Rakowski",
