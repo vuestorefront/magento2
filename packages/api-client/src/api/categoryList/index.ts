@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { CategoryListQuery, CategoryListQueryVariables } from '../../types/GraphQL';
-import query from './query.graphql';
+import categoryList from './categoryList';
 import { Context } from '../../types/context';
 
 export default async (
@@ -8,7 +8,7 @@ export default async (
   params: CategoryListQueryVariables,
 ): Promise<ApolloQueryResult<CategoryListQuery>> => client
   .query<CategoryListQuery, CategoryListQueryVariables>({
-  query,
+  query: categoryList,
   variables: { ...params },
   fetchPolicy: 'cache-first',
 });

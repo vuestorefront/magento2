@@ -1,7 +1,7 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 
-const extensions = ['.ts', '.js'];
+const extensions = ['.js', '.jsx', '.es6', '.es', '.mjs', '.ts', '.graphql'];
 
 export function generateBaseConfig(pkg) {
   return {
@@ -25,7 +25,12 @@ export function generateBaseConfig(pkg) {
       nodeResolve({
         extensions,
       }),
-      typescript({ useTsconfigDeclarationDir: true }),
+      typescript({
+        rollupCommonJSResolveHack: false,
+        useTsconfigDeclarationDir: true,
+        // eslint-disable-next-line unicorn/prefer-module
+        tslib: require.resolve('typescript'),
+      }),
       // terser(),
     ],
   };

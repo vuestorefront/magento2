@@ -7,7 +7,7 @@ import {
   ProductDetailsQuery,
   ProductDetailsQueryVariables,
 } from '../../types/GraphQL';
-import detailQuery from './productDetailsQuery.graphql';
+import detailQuery from './productDetailsQuery';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 

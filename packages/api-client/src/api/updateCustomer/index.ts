@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import updateCustomer from './updateCustomer';
 import {
   CustomerUpdateInput,
   UpdateCustomerMutation,
@@ -11,7 +11,7 @@ export default async ({ client }: Context, input: CustomerUpdateInput): Promise<
   .mutate<
 UpdateCustomerMutation,
 UpdateCustomerMutationVariables>({
-  mutation,
+  mutation: updateCustomer,
   variables: { input },
   fetchPolicy: 'no-cache',
 });

@@ -1,10 +1,10 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { CountriesListQuery } from '../../types/GraphQL';
-import query from './query.graphql';
+import countriesList from './countriesList';
 import { Context } from '../../types/context';
 
 export default async ({ client }: Context): Promise<ApolloQueryResult<CountriesListQuery>> => client
   .query<CountriesListQuery>({
-  query,
+  query: countriesList,
   fetchPolicy: 'no-cache',
 });

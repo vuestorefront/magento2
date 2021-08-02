@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from 'apollo-client';
 import { CustomerOrdersQuery, CustomerOrdersQueryVariables } from '../../types/GraphQL';
-import query from './query.graphql';
+import customerOrders from './customerOrders';
 import { Context } from '../../types/context';
 
 export default async (
@@ -8,7 +8,7 @@ export default async (
   orderParams: CustomerOrdersQueryVariables,
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => client
   .query<CustomerOrdersQuery, CustomerOrdersQueryVariables>({
-  query,
+  query: customerOrders,
   variables: orderParams,
   fetchPolicy: 'no-cache',
 });

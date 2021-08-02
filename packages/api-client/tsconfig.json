@@ -2,13 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "include": ["src"],
   "exclude": ["node_modules", "lib"],
-  "files": ["typings.d.ts"],
   "compilerOptions": {
     "lib": ["ESNext"],
     "resolveJsonModule": true,
     "rootDir": "./src",
     "declaration": true,
     "declarationDir": "./lib",
+    "declarationMap": true,
     "sourceMap": true
-  }
+  },
+  "files": ["types/shims-graphql.d.ts"]
 }

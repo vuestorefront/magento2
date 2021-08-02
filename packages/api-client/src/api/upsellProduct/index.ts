@@ -5,7 +5,7 @@ import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput, UpsellProductsQuery, UpsellProductsQueryVariables,
 } from '../../types/GraphQL';
-import upsellProductsQuery from './upsellProductsQuery.graphql';
+import upsellProducts from './upsellProducts';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -42,17 +42,15 @@ export default async (
   const { products } = context.extendQuery(
     customQuery, {
       products: {
-        query: upsellProductsQuery,
+        query: upsellProducts,
         variables: defaultParams,
       },
     },
   );
 
-  const query = customQuery ? gql`${products.query}` : products.query;
-
   try {
     return await context.client.query<UpsellProductsQuery, UpsellProductsQueryVariables>({
-      query,
+      query: gql`${products.query}`,
       variables: products.variables,
       fetchPolicy: 'no-cache',
     });

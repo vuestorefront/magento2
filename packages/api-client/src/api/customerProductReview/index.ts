@@ -5,7 +5,7 @@ import {
   CustomerProductReviewQuery,
   CustomerProductReviewQueryVariables,
 } from '../../types/GraphQL';
-import reviewQuery from './query.graphql';
+import customerProductReview from './customerProductReview';
 import { Context } from '../../types/context';
 
 export type CustomerProductReviewParams = {
@@ -32,17 +32,15 @@ export default async (
   const { reviews } = context.extendQuery(
     customQuery, {
       reviews: {
-        query: reviewQuery,
+        query: customerProductReview,
         variables,
       },
     },
   );
 
-  const query = customQuery ? gql`${reviews.query}` : reviews.query;
-
   try {
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-      query,
+      query: gql`${reviews.query}`,
       variables: reviews.variables,
       fetchPolicy: 'no-cache',
     });

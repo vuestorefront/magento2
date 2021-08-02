@@ -1,9 +1,0 @@
-#import "../../fragments/wishlistDataFragment.graphql"
-
-query wishlist($currentPage: Int = 1, $pageSize: Int = 20) {
-  customer {
-    wishlists(currentPage: $currentPage, pageSize: $pageSize) {
-      ...Wishlistdata
-    }
-  }
-}

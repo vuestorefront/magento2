@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import createCustomerAddress from './createCustomerAddress';
 import {
   CreateCustomerAddressMutation,
   CreateCustomerAddressMutationVariables,
@@ -12,6 +12,6 @@ export default async (
   input: CustomerAddressInput,
 ): Promise<FetchResult<CreateCustomerAddressMutation>> => client
   .mutate<CreateCustomerAddressMutation, CreateCustomerAddressMutationVariables>({
-  mutation,
+  mutation: createCustomerAddress,
   variables: { input },
 });

@@ -276,7 +276,6 @@ export {
   MutationAddBundleProductsToCartArgs,
   MutationAddConfigurableProductsToCartArgs,
   MutationAddDownloadableProductsToCartArgs,
-  AddProductsToCartInput,
   MutationAddProductsToCompareListArgs,
   MutationAddProductsToWishlistArgs,
   MutationAddSimpleProductsToCartArgs,
@@ -530,8 +529,8 @@ export {
   UpdateProductsInWishlistOutput,
   UpsellProductsQuery,
   UpsellProductsQueryVariables,
-  UrlResloverQuery,
-  UrlResloverQueryVariables,
+  UrlResolverQuery,
+  UrlResolverQueryVariables,
   UrlRewrite,
   UrlRewriteEntityTypeEnum,
   VaultTokenInput,
@@ -540,7 +539,7 @@ export {
   VirtualProductCartItemInput,
   VirtualProductReviewsArgs,
   VirtualWishlistItem,
-  WishlistdataFragment,
+  WishlistDataFragment,
   WishlistItem,
   WishlistItemInput,
   WishlistItemInterface,
@@ -553,3 +552,5 @@ export {
   WishListUserInputError,
   WishListUserInputErrorType,
 } from './types/GraphQL';
+
+export { AddProductsToCartInput } from './api/addProductsToCart';

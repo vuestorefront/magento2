@@ -14,7 +14,7 @@ import {
   Coupon,
   Product,
   RemoveItemFromCartInput,
-  UpdateCartItemsInput
+  UpdateCartItemsInput,
 } from '@vue-storefront/magento-api';
 
 const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
@@ -23,39 +23,69 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     Logger.debug('[Magento Storefront]: Loading Cart');
     const customerToken = apiState.getCustomerToken();
 
-    if (customerToken) { // is user authenticated.
-      try { // get cart ID
+    const createNewCart = async (): Promise<string> => {
+      Logger.debug('[Magento Storefront]: useCart.load.createNewCart');
+
+      apiState.setCartId();
+
+      const { data } = await context.$magento.api.createEmptyCart();
+
+      apiState.setCartId(data.createEmptyCart);
+
+      return data.createEmptyCart;
+    };
+
+    const generateCart = async (id?: string) => {
+      const cartId = await createNewCart();
+
+      return getCartData(id || apiState.getCartId() || cartId);
+    };
+
+    const getCartData = async (id?: string) => {
+      const fetchData = async (cartId = id) => {
+        apiState.setCartId(cartId);
+        const cartResponse = await context.$magento.api.cart(cartId);
+
+        Logger.debug(cartResponse);
+
+        return cartResponse.data.cart as unknown as Cart;
+      };
+
+      try {
+        Logger.debug('[Magento Storefront]: useCart.load.getCartData ID->', id);
+
+        return await fetchData();
+      } catch {
+        apiState.setCartId();
+
+        const cartId = await createNewCart();
+
+        return await fetchData(cartId);
+      }
+    };
+
+    if (customerToken) {
+      try {
         const result = await context.$magento.api.customerCart();
 
         return result.data.customerCart as unknown as Cart;
-      } catch { // Signed up user don't have a cart.
-        apiState.setCartId(null);
-        apiState.setCustomerToken(null);
+      } catch {
+        apiState.setCustomerToken();
 
-        return await factoryParams.load(context, {}) as unknown as Cart;
+        return await generateCart();
       }
     }
 
-    let cartId = apiState.getCartId(); // if guest user have a cart ID
-
-    if (!cartId) {
-      const { data } = await context.$magento.api.createEmptyCart();
-
-      cartId = data.createEmptyCart;
-
-      apiState.setCartId(cartId);
-    }
+    const cartId = apiState.getCartId();
 
     try {
-      const cartResponse = await context.$magento.api.cart(cartId);
+      if (!cartId) {
+        return await generateCart();
+      }
 
-      Logger.debug(cartResponse);
-
-      return cartResponse.data.cart as unknown as Cart;
+      return await getCartData(cartId);
     } catch {
-      apiState.setCartId(null);
-
-      return await factoryParams.load(context, {}) as unknown as Cart;
+      return generateCart();
     }
   },
   addItem: async (context: Context, {
@@ -223,7 +253,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     },
   ) => !!currentCart
     .items
-    .find((cartItem) => cartItem.product?.uid === product.uid),
+    .find((cartItem) => cartItem.product.uid === product.uid),
 };
 
 export default useCartFactory<Cart, CartItem, Product, Coupon>(factoryParams);

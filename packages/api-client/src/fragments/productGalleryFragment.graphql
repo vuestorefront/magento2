@@ -1,7 +1,0 @@
-#import "./productMediaConfigurationFragment.graphql"
-
-fragment ProductGalleryData on ProductInterface {
-  media_gallery {
-    ...ProductMediaConfigurationData
-  }
-}

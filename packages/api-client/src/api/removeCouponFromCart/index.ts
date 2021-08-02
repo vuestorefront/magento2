@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client';
-import mutation from './mutation.graphql';
+import removeCouponFromCart from './removeCouponFromCart';
 import {
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -12,6 +12,6 @@ export default async (
   input: RemoveCouponFromCartInput,
 ): Promise<FetchResult<RemoveCouponFromCartMutation>> => client
   .mutate<RemoveCouponFromCartMutation, RemoveCouponFromCartMutationVariables>({
-  mutation,
+  mutation: removeCouponFromCart,
   variables: { input },
 });
