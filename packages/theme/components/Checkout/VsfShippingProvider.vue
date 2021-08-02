@@ -76,6 +76,7 @@ import {
   useCart,
   useShippingProvider,
   cartGetters,
+  useGetShippingMethods,
 } from '@vue-storefront/magento';
 import {
   SfHeading,
@@ -83,7 +84,7 @@ import {
   SfRadio,
   SfLoader,
 } from '@storefront-ui/vue';
-import { useGetShippingMethods } from '@vue-storefront/magento/src';
+
 import { computed, defineComponent } from '@vue/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
