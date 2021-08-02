@@ -53,6 +53,7 @@ body:
       label: Version
       description: What version of the Magento 2 integration you are using?
       options:
+        - 1.0.0-rc.2
         - 1.0.0-rc.1
         - 1.0.0-beta.14
     validations:
