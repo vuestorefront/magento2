@@ -9,14 +9,6 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report, please make sure to [search for existing issues](https://github.com/vuestorefront/magento2/issues) before filing a new one!
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
     id: whattoexpect
     attributes:
@@ -47,40 +39,30 @@ body:
       placeholder: How we can reproduce this bug?
     validations:
       required: false
-  - type: dropdown
-    id: version
+  - type: input
     attributes:
-      label: Version
-      description: What version of the Magento 2 integration you are using?
-      options:
-        - 1.0.0-rc.2
-        - 1.0.0-rc.1
-        - 1.0.0-beta.14
+      label: What version of Magento 2 integration are you using?
+      description: 'For example: 1.0.0'
     validations:
       required: true
-  - type: dropdown
-    id: browsers
-    attributes:
-      label: What browsers are you seeing the problem on?
-      multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
-  - type: dropdown
-    id: node
-    attributes:
-      label: What node version you were using?
-      multiple: false
-      options:
-        - 16.x
-        - 15.x
-        - 14.x
-        - 13.x
-        - 12.x
-        - 11.x
-        - 10.x
+    - type: input
+      attributes:
+        label: What version of Node.js are you using?
+        description: 'For example: 12.0.0'
+      validations:
+        required: true
+    - type: input
+      attributes:
+        label: What browser (and version) are you using?
+        description: 'For example: Chrome, Safari'
+      validations:
+        required: true
+    - type: input
+        attributes:
+          label: What operating system (and version) are you using?
+          description: 'For example: macOS, Windows'
+        validations:
+          required: true
   - type: textarea
     id: logs
     attributes:

@@ -1,5 +1,6 @@
 name: "📚 Documentation Issue"
-description: Report issues in our documentation
+description: |
+  Report issues in our documentation
 labels:
   - documentation
   - triage-needed
@@ -7,9 +8,19 @@ body:
   - type: textarea
     attributes:
       label: Provide a description of requested docs changes
-      placeholder: Briefly describe which document needs to be corrected and why.
+      placeholder: Briefly describe which document needs to be corrected.
     validations:
       required: true
+  - type: checkboxes
+    id: fixthebug
+    attributes:
+      label: Able to fix / change the documentation?
+      description: Can you handle this change and create a Pull Request?
+      options:
+        - label: 'Yes'
+          required: false
+        - label: 'No'
+          required: false
   - type: checkboxes
     id: terms
     attributes:

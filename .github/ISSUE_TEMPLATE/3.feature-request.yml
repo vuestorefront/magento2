@@ -1,8 +1,9 @@
-name: "🎉 Feature Request"
+name: "🚀 Feature Request"
 description: Sugest a new feature request or improvement on the project
 title: '[Feature]: '
 labels:
   - feature
+  - enhancement
   - triage-needed
 
 body:
@@ -10,22 +11,25 @@ body:
     attributes:
       value: |
         Please, provide as many information, and knowledge so the feature can be correctly designed and developed.
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
     id: suggestion
     attributes:
       label: How the project can be improved?
-      description: Can you tell us, how we can improve this project event more?
-      placeholder: Feature request
+      description: What is the motivation for adding / enhancing this feature? Can you describe a concrete use case for this feature or why one of current ones should be enhanced.
+      placeholder: Describe the motivation or the concrete use case
     validations:
       required: true
+  - type: textarea
+    id: acceptcriterea
+    attributes:
+      label: What are the acceptance criteria?
+      description: List the acceptance criteria for this task in a form of a list.
+      value: '- [ ]'
+  - type: textarea
+    id: additionalinfo
+    attributes:
+      label: Additional information
+      description: If you think that any additional information would be useful please provide them here.
   - type: checkboxes
     id: terms
     attributes:
