@@ -2,12 +2,13 @@ import { computed, reactive } from '@vue/composition-api';
 
 interface UiNotification {
   message: string;
-  action: { text: string; onClick: (...args: any) => void };
+  title?: string;
+  action?: { text: string; onClick: (...args: any) => void };
   type: 'danger' | 'success' | 'info';
   icon: string;
-  persist: boolean;
+  persist?: boolean;
   id: symbol;
-  dismiss: () => void;
+  dismiss?: () => void;
 }
 
 interface Notifications {
