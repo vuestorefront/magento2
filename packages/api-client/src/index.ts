@@ -551,6 +551,10 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
+  CmsBlockQuery,
+  CmsBlockQueryVariables,
+  AddProductsToCartMutation,
+  AddProductsToCartMutationVariables,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';
