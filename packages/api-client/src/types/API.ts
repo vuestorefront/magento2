@@ -95,7 +95,7 @@ import {
   RemoveProductsFromWishlistMutationVariables,
   RemoveProductsFromWishlistMutation,
   GetCustomerAddressesQuery,
-  AddProductsToCartMutation,
+  AddProductsToCartMutation, CmsBlockQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -164,6 +164,8 @@ export interface MagentoApiMethods {
   categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;
 
   changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
+
+  cmsBlocks(identifiers: string[]): Promise<ApolloQueryResult<CmsBlockQuery>>;
 
   cmsPage(identifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
 

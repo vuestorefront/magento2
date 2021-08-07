@@ -6680,6 +6680,13 @@ export type ChangeCustomerPasswordMutationVariables = Exact<{
 
 export type ChangeCustomerPasswordMutation = { changeCustomerPassword?: Maybe<CustomerDataFragment> };
 
+export type CmsBlockQueryVariables = Exact<{
+  identifiers?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
+
+
+export type CmsBlockQuery = { cmsBlocks?: Maybe<{ items?: Maybe<Array<Maybe<Pick<CmsBlock, 'content' | 'identifier' | 'title'>>>> }> };
+
 export type CmsPageQueryVariables = Exact<{
   identifier?: Maybe<Scalars['String']>;
 }>;
