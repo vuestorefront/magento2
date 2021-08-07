@@ -11,29 +11,27 @@ import useCart from '../useCart';
 import useShippingProvider from '../useShippingProvider';
 
 const factoryParams: UseBillingParams<any, any> = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   provide() {
     return {
-      cart: useCart(),
       useShippingProvider: useShippingProvider(),
+      cart: useCart(),
     };
   },
 
   load: async (context: Context, { customQuery }) => {
     Logger.debug('[Magento] loadBilling');
+
     if (!context.cart.cart?.value?.billing_address) {
       await context.cart.load({ customQuery });
     }
+
     return context.cart.cart.value.billing_address;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  save: async (
-    context: Context,
-    params,
-  ) => {
+  save: async (context: Context, params) => {
     Logger.debug('[Magento] setBillingAddress');
-    const id = context.$magento.config.state.getCartId();
+    const { id } = context.cart.cart.value;
     Logger.debug(id);
     Logger.debug(typeof id);
     const {
@@ -42,7 +40,6 @@ const factoryParams: UseBillingParams<any, any> = {
       ...address
     } = params.billingDetails;
 
-    // const { id } = context.cart.cart.value;
     const setBillingAddressOnCartInput: SetBillingAddressOnCartInput = {
       cart_id: id,
       billing_address: {
