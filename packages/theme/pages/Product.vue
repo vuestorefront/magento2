@@ -71,7 +71,6 @@
             {{ $t('Size guide') }}
           </SfButton>
           <template
-            v-if="configurableOptions.length"
             v-for="option in configurableOptions"
           >
             <div
@@ -83,7 +82,7 @@
                 {{ option.label }}:
               </p>
               <SfColor
-                v-for="(color, i) in option.values"
+                v-for="color in option.values"
                 :key="color.uid"
                 :color="productGetters.getSwatchData(color.swatch_data)"
                 :selected="productConfiguration[option.attribute_uid] === color.uid"
@@ -101,7 +100,6 @@
               @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
             >
               <SfSelectOption
-                v-if="option.values"
                 v-for="attribute in option.values"
                 :key="attribute.uid"
                 :value="attribute.uid"
@@ -110,7 +108,41 @@
               </SfSelectOption>
             </SfSelect>
           </template>
+          <template>
+            <SfList class="grouped_items">
+              <SfListItem
+                v-for="(groupedItem, index) in groupedItems"
+                :key="index"
+                class="grouped_items--item"
+              >
+                <SfImage
+                  :src="productGetters.getProductThumbnailImage(groupedItem.product)"
+                  :width="60"
+                />
+                <div>
+                  <p>{{ productGetters.getName(groupedItem.product) }}</p>
+                  <SfPrice
+                    :regular="$n(productGetters.getPrice(product).regular, 'currency')"
+                    :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                  />
+                </div>
+                <SfQuantitySelector
+                  v-model="groupedItem.qty"
+                  :disabled="loading || !canAddToCart"
+                />
+              </SfListItem>
+            </SfList>
+            <button
+              v-e2e="'product_add-to-cart'"
+              :disabled="loading || !canAddToCart"
+              class="color-primary sf-button grouped_items--add-to-cart"
+              @click="addGroupedToCart"
+            >
+              Add to Cart
+            </button>
+          </template>
           <SfAddToCart
+            v-if="product.__typename !== 'GroupedProduct'"
             v-model="qty"
             v-e2e="'product_add-to-cart'"
             :disabled="loading || !canAddToCart"
@@ -197,7 +229,7 @@
       </div>
     </div>
     <LazyHydrate
-      v-if="relatedProducts.length"
+      v-if="relatedProducts.length > 0"
       when-visible
     >
       <ProductsCarousel
@@ -206,7 +238,7 @@
       />
     </LazyHydrate>
     <LazyHydrate
-      v-if="upsellProducts.length"
+      v-if="upsellProducts.length > 0"
       when-visible
     >
       <ProductsCarousel
@@ -234,10 +266,13 @@ import {
   SfIcon,
   SfLoader,
   SfPrice,
+  SfQuantitySelector,
   SfRating,
   SfReview,
   SfSelect,
   SfTabs,
+  SfList,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   useProduct,
@@ -255,12 +290,14 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+
 export default {
   name: 'Product',
   components: {
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
+    SfImage,
     ProductAddReviewForm,
     ProductsCarousel,
     SfAddToCart,
@@ -272,10 +309,12 @@ export default {
     SfIcon,
     SfLoader,
     SfPrice,
+    SfQuantitySelector,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
+    SfList,
   },
   transition: 'fade',
   setup() {
@@ -292,7 +331,9 @@ export default {
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
+
     const openTab = ref(1);
+
     const productDataIsLoading = computed(() => productLoading.value);
     const product = computed(() => {
       const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
@@ -304,7 +345,8 @@ export default {
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
     const canAddToCart = computed(() => {
-      if (product.value.__typename === "ConfigurableProduct") {
+      // eslint-disable-next-line no-underscore-dangle
+      if (product.value.__typename === 'ConfigurableProduct') {
         return !!product.value.configurable_product_options_selection.variant?.uid;
       }
       const inStock = product.value.stock_status || '';
@@ -333,6 +375,10 @@ export default {
         // eslint-disable-next-line no-underscore-dangle
         alt: product.value._name || product.value.name,
       })));
+    const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
+    const configurableOptions = computed(() => product.value.configurable_options);
+    const productConfiguration = ref({});
+
     const addItemToWishlist = async () => {
       await addToWishlist({ product: product.value });
     };
@@ -356,11 +402,10 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
-    const configurableOptions = computed(() => product.value.configurable_options);
-    const productConfiguration = ref({});
+
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
-      const configurations = Object.entries(productConfiguration.value).map(config => config[1]);
+      const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
       await search({
         queryType: 'DETAIL',
         filter: {
@@ -379,6 +424,16 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
+
+    const addGroupedToCart = () => {
+      const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
+      if (groupedItemsFiltered.length > 0) {
+        groupedItemsFiltered.forEach(async (p) => {
+          await addItem({ product: p.product, quantity: p.qty });
+        });
+      }
+    };
+
     onSSR(async () => {
       const baseSearchQuery = {
         filter: {
@@ -394,8 +449,10 @@ export default {
       await searchReviews({ ...baseSearchQuery });
       loadProductConfiguration();
     });
+
     return {
       addItem,
+      addGroupedToCart,
       addItemToWishlist,
       averageRating,
       breadcrumbs,
@@ -404,6 +461,7 @@ export default {
       changeNewReview,
       changeTab,
       configurableOptions,
+      groupedItems,
       isAuthenticated,
       isInWishlist: computed(() => isInWishlist({ product: product.value })),
       loading,
@@ -437,14 +495,40 @@ export default {
     margin: 0 auto;
   }
 }
+
+.grouped_items {
+  padding: 0 10px;
+  &--item {
+    display: grid;
+    grid-template-columns: fit-content(70px) auto fit-content(100%);
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: start;
+    column-gap: var(--spacer-base);
+    padding: var(--spacer-base) 0;
+    border-bottom: 1px solid var(--c-text-muted);
+
+    .sf-quantity-selector {
+      justify-self: end;
+    }
+  }
+
+  &--add-to-cart {
+    width: 100%;
+    margin-top: var(--spacer-lg);
+  }
+}
+
 .product-loader {
   height: 38px;
   margin: var(--spacer-base) auto var(--spacer-lg)
 }
+
 .product {
   @include for-desktop {
     display: flex;
   }
+
   &__info {
     margin: var(--spacer-sm) auto;
     @include for-desktop {
@@ -452,6 +536,7 @@ export default {
       margin: 0 0 0 7.5rem;
     }
   }
+
   &__header {
     --heading-title-color: var(--c-link);
     --heading-title-font-weight: var(--font-weight--bold);
@@ -464,9 +549,11 @@ export default {
       margin: 0 auto;
     }
   }
+
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
   }
+
   &__price-and-rating {
     margin: 0 var(--spacer-sm) var(--spacer-base);
     align-items: center;
@@ -476,12 +563,14 @@ export default {
       margin: var(--spacer-sm) 0 var(--spacer-lg) 0;
     }
   }
+
   &__rating {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin: var(--spacer-xs) 0 var(--spacer-xs);
   }
+
   &__count {
     @include font(
         --count-font,
@@ -494,6 +583,7 @@ export default {
     text-decoration: none;
     margin: 0 0 0 var(--spacer-xs);
   }
+
   &__description {
     @include font(
         --product-description-font,
@@ -503,12 +593,14 @@ export default {
         var(--font-family--primary)
     );
   }
+
   &__select-size {
     margin: 0 var(--spacer-sm);
     @include for-desktop {
       margin: 0;
     }
   }
+
   &__colors {
     @include font(
         --product-color-font,
@@ -521,27 +613,33 @@ export default {
     align-items: center;
     margin-top: var(--spacer-xl);
   }
+
   &__color-label {
     margin: 0 var(--spacer-lg) 0 0;
   }
+
   &__color {
     margin: 0 var(--spacer-2xs);
   }
+
   &__add-to-cart {
     margin: var(--spacer-base) var(--spacer-sm) 0;
     @include for-desktop {
       margin-top: var(--spacer-2xl);
     }
   }
+
   &__guide,
   &__compare,
   &__save {
     display: block;
     margin: var(--spacer-xl) 0 var(--spacer-base) auto;
   }
+
   &__compare {
     margin-top: 0;
   }
+
   &__tabs {
     --tabs-title-z-index: 0;
     margin: var(--spacer-lg) auto var(--spacer-2xl);
@@ -550,17 +648,21 @@ export default {
       margin-top: var(--spacer-2xl);
     }
   }
+
   &__property {
     margin: var(--spacer-base) 0;
+
     &__button {
       --button-font-size: var(--font-size--base);
     }
   }
+
   &__review {
     padding-bottom: 24px;
     border-bottom: var(--c-light) solid 1px;
     margin-bottom: var(--spacer-base);
   }
+
   &__additional-info {
     color: var(--c-link);
     @include font(
@@ -570,25 +672,31 @@ export default {
         1.6,
         var(--font-family--primary)
     );
+
     &__title {
       font-weight: var(--font-weight--normal);
       font-size: var(--font-size--base);
       margin: 0 0 var(--spacer-sm);
+
       &:not(:first-child) {
         margin-top: 3.5rem;
       }
     }
+
     &__paragraph {
       margin: 0;
     }
   }
+
   &__gallery {
     flex: 1;
   }
 }
+
 .breadcrumbs {
   margin: var(--spacer-base) auto var(--spacer-lg);
 }
+
 @keyframes moveicon {
   0% {
     transform: translate3d(0, 0, 0);
