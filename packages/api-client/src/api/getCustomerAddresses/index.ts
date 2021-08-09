@@ -23,6 +23,6 @@ export default async (context: Context, customQuery?: CustomQuery): Promise<Apol
       fetchPolicy: 'no-cache',
     });
   } catch (error) {
-    throw error.graphQLErrors?.[0] || error.networkError?.result || error;
+    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
 };

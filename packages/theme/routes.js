@@ -58,5 +58,10 @@ export function getRoutes(themeDir = __dirname) {
       },
     ],
   },
+  {
+    name: 'page',
+    path: '/:slug+',
+    component: path.resolve(themeDir, 'pages/Page.vue'),
+  },
   ];
 }
