@@ -95,13 +95,13 @@ import {
   RemoveProductsFromWishlistMutationVariables,
   RemoveProductsFromWishlistMutation,
   GetCustomerAddressesQuery,
-  AddProductsToCartMutation, CmsBlockQuery,
+  AddProductsToCartMutation, CmsBlockQuery, GroupedProductDetailQuery, GroupedProduct,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
 import { AddProductsToCartInput } from '../api/addProductsToCart';
 
-export interface Product extends ProductInterface, ConfigurableProduct, BundleProduct {
+export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'> {
 }
 
 export type AddressOnCart = ShippingCartAddress;
@@ -206,6 +206,8 @@ export interface MagentoApiMethods {
   getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
 
   getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
+
+  groupedProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<GroupedProductDetailQuery>>;
 
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
 

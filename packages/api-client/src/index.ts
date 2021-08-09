@@ -12,6 +12,8 @@ export {
   AddConfigurableProductsToCartOutput,
   AddDownloadableProductsToCartInput,
   AddDownloadableProductsToCartOutput,
+  AddProductsToCartMutation,
+  AddProductsToCartMutationVariables,
   AddProductsToCartOutput,
   AddProductsToCompareListInput,
   AddProductsToWishlistMutation,
@@ -97,6 +99,8 @@ export {
   CheckoutUserInputError,
   CheckoutUserInputErrorCodes,
   CmsBlock,
+  CmsBlockQuery,
+  CmsBlockQueryVariables,
   CmsBlocks,
   CmsPage,
   CmsPageQuery,
@@ -241,6 +245,8 @@ export {
   GiftMessage,
   GiftMessageInput,
   GroupedProduct,
+  GroupedProductDetailQuery,
+  GroupedProductDetailQueryVariables,
   GroupedProductItem,
   GroupedProductReviewsArgs,
   GroupedProductWishlistItem,
@@ -551,10 +557,6 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
-  CmsBlockQuery,
-  CmsBlockQueryVariables,
-  AddProductsToCartMutation,
-  AddProductsToCartMutationVariables,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';
