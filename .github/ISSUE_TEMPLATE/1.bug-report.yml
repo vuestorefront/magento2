@@ -45,24 +45,24 @@ body:
       description: 'For example: 1.0.0'
     validations:
       required: true
-    - type: input
-      attributes:
-        label: What version of Node.js are you using?
-        description: 'For example: 12.0.0'
-      validations:
-        required: true
-    - type: input
-      attributes:
-        label: What browser (and version) are you using?
-        description: 'For example: Chrome, Safari'
-      validations:
-        required: true
-    - type: input
-        attributes:
-          label: What operating system (and version) are you using?
-          description: 'For example: macOS, Windows'
-        validations:
-          required: true
+  - type: input
+    attributes:
+      label: What version of Node.js are you using?
+      description: 'For example: 12.0.0'
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: What browser (and version) are you using?
+      description: 'For example: Chrome, Safari'
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: What operating system (and version) are you using?
+      description: 'For example: macOS, Windows'
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
