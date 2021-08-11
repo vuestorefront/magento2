@@ -1,4 +1,4 @@
-name: Gitflow Merge & Publish Packages on NPM
+name: Publish Packages on NPM
 on:
   workflow_dispatch:
     inputs:
