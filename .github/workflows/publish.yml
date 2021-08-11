@@ -1,14 +1,15 @@
 name: Gitflow Merge & Publish Packages on NPM
 on:
-  pull_request:
-    branches:
-      - release/*
-      - master
-      - develop
+  workflow_dispatch:
+    inputs:
+      npmTag:
+        description: 'NPM Tag'
+        required: true
+        default: 'latest'
+
 jobs:
   publishing:
     name: Package Publishing
-    if: contains(github.event.pull_request.labels.*.name, 'release') && contains('bloodf|alefbarbeli|domideimel|LiorLindvor|filrak|filipsobol|andrzejewsky|', github.actor)
     runs-on: ubuntu-latest
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -26,40 +27,9 @@ jobs:
       - run: yarn
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: yarn build:api-client && yarn publish:api-client "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
+      - run: yarn build:api-client && yarn publish:api-client "${{ github.event.inputs.npmTag }}" "$NODE_AUTH_TOKEN"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: yarn build:composables && yarn publish:composables "${{ join(github.event.pull_request.labels.*.name, '|') }}" "$NODE_AUTH_TOKEN"
+      - run: yarn build:composables && yarn publish:composables "${{ github.event.inputs.npmTag }}" "$NODE_AUTH_TOKEN"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  automerge:
-    needs: publishing
-    name: GitFlow AutoMerge
-    if: contains(github.event.pull_request.labels.*.name, 'release') && contains('bloodf|alefbarbeli|domideimel|LiorLindvor|filrak|filipsobol|andrzejewsky|', github.actor)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v1
-
-      - name: Extract branch name
-        uses: mdecoleman/pr-branch-name@1.0.0
-        id: extract_branch
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract tag name
-        shell: bash
-        run: |
-          branch=${{ steps.extract_branch.outputs.branch }}
-          echo "##[set-output name=tag;]$(echo ${branch#release/})"
-        id: extract_tag
-
-      - name: Gitflow AutoMerge Branches
-        uses: yanamura/git-flow-merge-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.extract_branch.outputs.branch }}
-          develop_branch: "develop"
-          main_branch: "master"
-          tag: ${{ steps.extract_tag.outputs.tag }}
