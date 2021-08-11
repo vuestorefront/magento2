@@ -1,11 +1,10 @@
 /* eslint-disable unicorn/no-process-exit, unicorn/prefer-module */
 const { exec } = require("child_process");
-const { getTag } = require('./getTags');
 
 const publishPackages = (pkgPath, labels) => {
-  return new Promise((res, rej) => {
+  return new Promise((_res, _rej) => {
     try {
-      const command = `npm publish ${pkgPath} --access public --tag ${getTag(labels)}`;
+      const command = `npm publish ${pkgPath} --access public --tag ${labels}`;
 
       console.log(command)
 
