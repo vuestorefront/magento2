@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@absolute-web/vsf-core';
-import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
+import { CmsPageQueryVariables, CmsPageQuery, CachedQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
 
@@ -8,7 +8,7 @@ export default async (
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: 'cmsPage' },
-): Promise<ApolloQueryResult<CmsPageQuery>> => {
+): Promise<ApolloQueryResult<CachedQuery<CmsPageQuery>>> => {
   try {
     const { cmsPage: cmsPageGQL } = context.extendQuery(
       customQuery,
@@ -21,7 +21,7 @@ export default async (
     );
 
     return await context.client
-      .query<CmsPageQuery, CmsPageQueryVariables>({
+      .query<CachedQuery<CmsPageQuery>, CmsPageQueryVariables>({
       query: cmsPageGQL.query,
       variables: cmsPageGQL.variables,
     });

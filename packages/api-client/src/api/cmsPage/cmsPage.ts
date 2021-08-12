@@ -10,4 +10,5 @@ query cmsPage($identifier: String) {
     meta_description
     content_heading
   }
+  cacheTags @client
 }`;

@@ -5,6 +5,7 @@ import {
   ProductAttributeSortInput,
   RelatedProductQuery,
   RelatedProductQueryVariables,
+  CachedQuery,
 } from '../../types/GraphQL';
 import relatedProduct from './relatedProduct';
 import { Context } from '../../types/context';
@@ -22,7 +23,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { relatedProduct: 'relatedProduct' },
-): Promise<ApolloQueryResult<RelatedProductQuery>> => {
+): Promise<ApolloQueryResult<CachedQuery<RelatedProductQuery>>> => {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -48,7 +49,7 @@ export default async (
   });
 
   try {
-    return await context.client.query<RelatedProductQuery, RelatedProductQueryVariables>({
+    return await context.client.query<CachedQuery<RelatedProductQuery>, RelatedProductQueryVariables>({
       query: relatedProductGQL.query,
       variables: relatedProductGQL.variables,
     });

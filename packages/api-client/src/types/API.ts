@@ -108,6 +108,7 @@ import {
   CreateCustomerAddressMutation,
   DownloadableProduct,
   VirtualProduct, CustomerOrdersFilterInput,
+  CachedQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -205,7 +206,7 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<FetchResult<ApplyCouponToCartMutation>>;
 
-  availableStores(customQuery?: CustomQuery): Promise<ApolloQueryResult<AvailableStoresQuery>>;
+  availableStores(customQuery?: CustomQuery): Promise<ApolloQueryResult<CachedQuery<AvailableStoresQuery>>>;
 
   cart(
     cartId: string,
@@ -215,12 +216,12 @@ export interface MagentoApiMethods {
   categoryList(
     categoryFilter?: CategoryListQueryVariables,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<CategoryListQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<CategoryListQuery>>>;
 
   categorySearch(
     categoryFilter?: CategorySearchQueryVariables,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<CategorySearchQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<CategorySearchQuery>>>;
 
   changeCustomerPassword(
     params: { currentPassword: string; newPassword: string },
@@ -230,19 +231,19 @@ export interface MagentoApiMethods {
   cmsBlocks(
     identifiers: string[],
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<CmsBlockQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<CmsBlockQuery>>>;
 
   cmsPage(
     identifier: string,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<CmsPageQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<CmsPageQuery>>>;
 
-  countries(customQuery?: CustomQuery): Promise<ApolloQueryResult<CountriesListQuery>>;
+  countries(customQuery?: CustomQuery): Promise<ApolloQueryResult<CachedQuery<CountriesListQuery>>>;
 
   country(
     id: string,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<CountryInformationQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<CountryInformationQuery>>>;
 
   createCustomer(
     input: CustomerCreateInput,
@@ -276,7 +277,7 @@ export interface MagentoApiMethods {
     query: QUERY,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
-  }): Promise<ApolloQueryResult<QUERY>>;
+  }): Promise<ApolloQueryResult<CachedQuery<QUERY>>>;
 
   customMutation<MUTATION = any, MUTATION_VARIABLES = any>(params: {
     mutation: MUTATION,
@@ -328,7 +329,7 @@ export interface MagentoApiMethods {
   productDetail(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<ProductDetailsQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<ProductDetailsQuery>>>;
 
   productReview(
     searchParams: GetProductSearchParams,
@@ -340,12 +341,12 @@ export interface MagentoApiMethods {
   products(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<ProductsListQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<ProductsListQuery>>>;
 
   relatedProduct(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<RelatedProductQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<RelatedProductQuery>>>;
 
   removeCouponFromCart(
     input: RemoveCouponFromCartInput,
@@ -428,12 +429,12 @@ export interface MagentoApiMethods {
   upsellProduct(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<UpsellProductsQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<UpsellProductsQuery>>>;
 
   urlResolver(
     url: string,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<UrlResolverQuery>>;
+  ): Promise<ApolloQueryResult<CachedQuery<UrlResolverQuery>>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,

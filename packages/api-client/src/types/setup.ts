@@ -58,6 +58,9 @@ export interface ClientConfig {
     customerCookieName: string;
     storeCookieName: string;
   },
+  headers: {
+    cacheTagsHeaderName: string;
+  },
   externalCheckout: {
     enable: boolean;
     cmsUrl: string;

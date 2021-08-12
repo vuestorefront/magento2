@@ -295,5 +295,6 @@ export default gql`
         }
       }
     }
+    cacheTags @client
   }
 `;

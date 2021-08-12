@@ -79,5 +79,6 @@ export default gql`
       }
       total_count
     }
+    cacheTags @client
   }
 `;

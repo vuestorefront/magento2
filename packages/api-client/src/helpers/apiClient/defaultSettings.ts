@@ -10,6 +10,9 @@ export const defaultSettings: ClientConfig = {
     customerCookieName: 'vsf-customer',
     storeCookieName: 'vsf-store',
   },
+  headers: {
+    cacheTagsHeaderName: 'x-cache-tags',
+  },
   state: {
     getCartId: () => '',
     setCartId: () => {},

@@ -39,6 +39,7 @@
   },
   "peerDependencies": {
     "@absolute-web/magento-api": "~0.0.1",
+    "@absolute-web/vsf-cache": "~0.0.1",
     "@absolute-web/vsf-core": "~0.0.1",
     "@vue/composition-api": "^1.4.3",
     "vue": "^2.6.14",

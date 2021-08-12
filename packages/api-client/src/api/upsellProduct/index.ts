@@ -3,6 +3,7 @@ import { CustomQuery } from '@absolute-web/vsf-core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput, UpsellProductsQuery, UpsellProductsQueryVariables,
+  CachedQuery,
 } from '../../types/GraphQL';
 import upsellProducts from './upsellProducts';
 import { Context } from '../../types/context';
@@ -20,7 +21,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { upsellProducts: 'upsellProducts' },
-): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
+): Promise<ApolloQueryResult<CachedQuery<UpsellProductsQuery>>> => {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -46,7 +47,7 @@ export default async (
   });
 
   try {
-    return await context.client.query<UpsellProductsQuery, UpsellProductsQueryVariables>({
+    return await context.client.query<CachedQuery<UpsellProductsQuery>, UpsellProductsQueryVariables>({
       query: upsellProductsGQL.query,
       variables: upsellProductsGQL.variables,
     });

@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@absolute-web/vsf-core';
-import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/GraphQL';
+import { CategorySearchQuery, CategorySearchQueryVariables, CachedQuery } from '../../types/GraphQL';
 import categorySearch from './categorySearch';
 import { Context } from '../../types/context';
 
@@ -8,7 +8,7 @@ export default async (
   context: Context,
   filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
-): Promise<ApolloQueryResult<CategorySearchQuery>> => {
+): Promise<ApolloQueryResult<CachedQuery<CategorySearchQuery>>> => {
   const { categorySearch: categorySearchGQL } = context.extendQuery(
     customQuery,
     {
@@ -19,7 +19,7 @@ export default async (
     },
   );
 
-  return context.client.query<CategorySearchQuery, CategorySearchQueryVariables>({
+  return context.client.query<CachedQuery<CategorySearchQuery>, CategorySearchQueryVariables>({
     query: categorySearchGQL.query,
     variables: categorySearchGQL.variables,
   });

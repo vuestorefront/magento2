@@ -25,6 +25,10 @@ export default useCustomQueryFactory({
 
     Logger.debug('[Custom Query -> Result]:', result);
 
+    if (result?.data?.cacheTags) {
+      context.cache.addTagsFromString(result.data.cacheTags);
+    }
+
     return result;
   },
 });

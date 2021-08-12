@@ -9,4 +9,5 @@ export default gql`
                 title
             }
         }
+        cacheTags @client
     }`;

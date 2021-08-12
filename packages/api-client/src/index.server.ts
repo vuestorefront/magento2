@@ -91,6 +91,13 @@ const tokenExtension: ApiClientExtension = {
         },
       };
     },
+    afterCall: ({ configuration, response }) => {
+      if (response.data.cacheTags) {
+        const cacheTagsHeaderName = configuration.headers?.cacheTagsHeaderName || defaultSettings.headers.cacheTagsHeaderName;
+        res.header(cacheTagsHeaderName, response.data.cacheTags);
+      }
+      return response;
+    },
   }),
 };
 

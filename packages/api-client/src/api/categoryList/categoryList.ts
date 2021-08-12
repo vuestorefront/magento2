@@ -42,5 +42,6 @@ export default gql`
         uid
       }
     }
+    cacheTags @client
   }
 `;

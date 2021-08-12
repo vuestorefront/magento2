@@ -9,4 +9,5 @@ query urlResolver($url: String!) {
     type
     entity_uid
   }
+  cacheTags @client
 }`;

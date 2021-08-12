@@ -8,6 +8,7 @@ import {
   GetProductSearchParams,
   RelatedProductQuery,
 } from '@absolute-web/magento-api';
+import { useCache } from '@absolute-web/vsf-cache';
 import { UseRelatedProducts } from '../../types/composables';
 import {
   useRelatedProductsFactory,
@@ -15,6 +16,11 @@ import {
 } from '../../factories/useRelatedProductsFactory';
 
 const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['products']['items'][0]['related_products'], ProductsSearchParams> = {
+  provide() {
+    return {
+      cache: useCache(),
+    };
+  },
   productsSearch: async (
     context: Context,
     params: ComposableFunctionArgs<GetProductSearchParams>,
@@ -32,6 +38,10 @@ const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['produc
       .relatedProduct(searchParams as GetProductSearchParams);
 
     Logger.debug('[Result]:', { data });
+
+    if (data?.cacheTags) {
+      context.cache.addTagsFromString(data.cacheTags);
+    }
 
     return data.products?.items[0]?.related_products;
   },
