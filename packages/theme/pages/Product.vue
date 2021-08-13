@@ -117,6 +117,7 @@
               >
                 <SfImage
                   :src="productGetters.getProductThumbnailImage(groupedItem.product)"
+                  :alt="productGetters.getName(groupedItem.product)"
                   :width="60"
                 />
                 <div>
@@ -425,12 +426,13 @@ export default {
       productConfiguration.value = query;
     };
 
-    const addGroupedToCart = () => {
+    const addGroupedToCart = async () => {
       const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
       if (groupedItemsFiltered.length > 0) {
-        groupedItemsFiltered.forEach(async (p) => {
+        for (const p of groupedItemsFiltered) {
+          // eslint-disable-next-line no-await-in-loop
           await addItem({ product: p.product, quantity: p.qty });
-        });
+        }
       }
     };
 
