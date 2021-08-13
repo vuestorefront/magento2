@@ -557,6 +557,7 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
+  MutationAddProductsToCartArgs,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';
