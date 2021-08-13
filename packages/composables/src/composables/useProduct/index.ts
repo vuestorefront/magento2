@@ -57,6 +57,19 @@ const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], Prod
           };
         }
 
+        // eslint-disable-next-line no-underscore-dangle
+        if (productDetailsResults.data.products.items[0].__typename === 'GroupedProduct') {
+          const groupedProduct = await context
+            .$magento
+            .api
+            .groupedProductDetail(searchParams as GetProductSearchParams, (customQuery || {}));
+
+          productDetailsResults.data.products.items[0] = {
+            ...productDetailsResults.data.products.items[0],
+            ...groupedProduct.data.products.items[0],
+          };
+        }
+
         return productDetailsResults.data.products;
 
       case ProductsQueryType.List:

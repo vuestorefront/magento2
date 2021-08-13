@@ -6852,6 +6852,21 @@ export type GetCustomerAddressesQueryVariables = Exact<{ [key: string]: never; }
 
 export type GetCustomerAddressesQuery = { customer?: Maybe<{ addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }> };
 
+export type GroupedProductDetailQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+  filter?: Maybe<ProductAttributeFilterInput>;
+  pageSize?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  sort?: Maybe<ProductAttributeSortInput>;
+  configurations?: Maybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type GroupedProductDetailQuery = { products?: Maybe<{ items?: Maybe<Array<Maybe<Pick<BundleProduct, 'uid'> | Pick<ConfigurableProduct, 'uid'> | Pick<DownloadableProduct, 'uid'> | (
+      Pick<GroupedProduct, 'uid'>
+      & GroupedProductOptionsDataFragment
+    ) | Pick<SimpleProduct, 'uid'> | Pick<VirtualProduct, 'uid'>>>> }> };
+
 export type MergeCartsMutationVariables = Exact<{
   sourceCartId: Scalars['String'];
   destinationCartId: Scalars['String'];
@@ -7287,6 +7302,41 @@ export type CustomerDataFragment = (
   Pick<Customer, 'allow_remote_shopping_assistance' | 'date_of_birth' | 'default_billing' | 'default_shipping' | 'email' | 'firstname' | 'is_subscribed' | 'lastname' | 'middlename' | 'prefix' | 'suffix' | 'taxvat'>
   & { addresses?: Maybe<Array<Maybe<CustomerAddressDataFragment>>> }
 );
+
+export type GroupedProductOptionsDataFragment = { items?: Maybe<Array<Maybe<(
+    Pick<GroupedProductItem, 'position' | 'qty'>
+    & { product?: Maybe<(
+      ProductData_BundleProduct_Fragment
+      & ProductPriceRangeData_BundleProduct_Fragment
+      & ProductImagesData_BundleProduct_Fragment
+      & ProductThumbnailData_BundleProduct_Fragment
+    ) | (
+      ProductData_ConfigurableProduct_Fragment
+      & ProductPriceRangeData_ConfigurableProduct_Fragment
+      & ProductImagesData_ConfigurableProduct_Fragment
+      & ProductThumbnailData_ConfigurableProduct_Fragment
+    ) | (
+      ProductData_DownloadableProduct_Fragment
+      & ProductPriceRangeData_DownloadableProduct_Fragment
+      & ProductImagesData_DownloadableProduct_Fragment
+      & ProductThumbnailData_DownloadableProduct_Fragment
+    ) | (
+      ProductData_GroupedProduct_Fragment
+      & ProductPriceRangeData_GroupedProduct_Fragment
+      & ProductImagesData_GroupedProduct_Fragment
+      & ProductThumbnailData_GroupedProduct_Fragment
+    ) | (
+      ProductData_SimpleProduct_Fragment
+      & ProductPriceRangeData_SimpleProduct_Fragment
+      & ProductImagesData_SimpleProduct_Fragment
+      & ProductThumbnailData_SimpleProduct_Fragment
+    ) | (
+      ProductData_VirtualProduct_Fragment
+      & ProductPriceRangeData_VirtualProduct_Fragment
+      & ProductImagesData_VirtualProduct_Fragment
+      & ProductThumbnailData_VirtualProduct_Fragment
+    )> }
+  )>>> };
 
 type InvoiceItemData_BundleInvoiceItem_Fragment = (
   Pick<BundleInvoiceItem, 'id' | 'product_name' | 'product_sku' | 'quantity_invoiced'>
