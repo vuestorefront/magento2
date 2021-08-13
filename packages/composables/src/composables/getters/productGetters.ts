@@ -234,7 +234,7 @@ export const getProductUpsellProduct = (product: Product): Product[] => product?
 
 export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value;
 
-export const getGroupedProducts = (product: GroupedProduct): GroupedProduct['items'] | undefined => product?.items.sort((a, b) => a.position - b.position);
+export const getGroupedProducts = (product: GroupedProduct): GroupedProduct['items'] | undefined => product?.items?.sort((a, b) => a.position - b.position);
 
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getCategory(product: Product, currentUrlPath: string): Category | null;
