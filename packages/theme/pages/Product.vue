@@ -108,7 +108,9 @@
               </SfSelectOption>
             </SfSelect>
           </template>
-          <template>
+          <template
+            v-if="product.__typename === 'GroupedProduct'"
+          >
             <SfList class="grouped_items">
               <SfListItem
                 v-for="(groupedItem, index) in groupedItems"
@@ -143,7 +145,7 @@
             </button>
           </template>
           <SfAddToCart
-            v-if="product.__typename !== 'GroupedProduct'"
+            v-else
             v-model="qty"
             v-e2e="'product_add-to-cart'"
             :disabled="loading || !canAddToCart"
