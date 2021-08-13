@@ -145,7 +145,7 @@ import {
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
+import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import {
   useMakeOrder,
@@ -172,6 +172,7 @@ export default defineComponent({
   setup() {
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
+    const { $magento } = useVSFContext();
     const { router } = useVueRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
@@ -183,8 +184,10 @@ export default defineComponent({
 
     const processOrder = async () => {
       await make();
-      router.push(`/checkout/thank-you?order=${order.value.order_number}`);
       setCart(null);
+      $magento.config.state.setCartId();
+      await load();
+      await router.push(`/checkout/thank-you?order=${order.value.order_number}`);
     };
 
     return {
