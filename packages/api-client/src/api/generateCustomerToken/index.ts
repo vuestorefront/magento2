@@ -1,13 +1,10 @@
 import { FetchResult } from '@apollo/client';
 import generateCustomerToken from './generateCustomerToken';
 import {
-  CreateCustomerMutation,
-  CreateCustomerMutationVariables,
   GenerateCustomerTokenMutation,
   GenerateCustomerTokenMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
-import createCustomer from '../createCustomer/createCustomer';
 
 export default async (
   { client }: Context,
@@ -25,6 +22,13 @@ export default async (
       fetchPolicy: 'no-cache',
     });
   } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
+    // For error in data we don't throw 500, because it's not server error
+    if (error.graphQLErrors) {
+      return {
+        errors: error.graphQLErrors,
+        data: null,
+      };
+    }
+    throw error.networkError?.result || error;
   }
 };
