@@ -476,10 +476,7 @@ export default defineComponent({
       result: routeData,
     } = useUrlResolver(`router:${path}`);
 
-    const selectedFilters = ref((magentoConfig.facets.available).reduce((acc, curr) => ({
-      ...acc,
-      [curr]: (curr === 'price' ? '' : []),
-    }), {}));
+    const selectedFilters = ref(Object.fromEntries((magentoConfig.facets.available).map((curr) => [curr, (curr === 'price' ? '' : [])])));
 
     const products = computed(() => facetGetters
       .getProducts(result.value)
@@ -491,7 +488,7 @@ export default defineComponent({
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
       routeData.value.entity_uid,
-      true,
+      false,
     ));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
