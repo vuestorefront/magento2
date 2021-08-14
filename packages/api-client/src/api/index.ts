@@ -1,8 +1,10 @@
+export { default as addBundleProductsToCart } from './addBundleProductsToCart';
 export { default as addConfigurableProductsToCart } from './addConfigurableProductsToCart';
-export { default as addProductToWishList } from './addProductToWishList';
 export { default as addProductsToCart } from './addProductsToCart';
+export { default as addProductToWishList } from './addProductToWishList';
 export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
+export { default as bundledProductDetail } from './bundledProductDetail';
 export { default as cart } from './cart';
 export { default as categoryList } from './categoryList';
 export { default as categorySearch } from './categorySearch';
