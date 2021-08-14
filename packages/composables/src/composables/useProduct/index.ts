@@ -70,6 +70,19 @@ const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], Prod
           };
         }
 
+        // eslint-disable-next-line no-underscore-dangle
+        if (productDetailsResults.data.products.items[0].__typename === 'BundleProduct') {
+          const bundledProduct = await context
+            .$magento
+            .api
+            .bundledProductDetail(searchParams as GetProductSearchParams, (customQuery || {}));
+
+          productDetailsResults.data.products.items[0] = {
+            ...productDetailsResults.data.products.items[0],
+            ...bundledProduct.data.products.items[0],
+          };
+        }
+
         return productDetailsResults.data.products;
 
       case ProductsQueryType.List:
