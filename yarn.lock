@@ -3549,7 +3549,7 @@
   resolved "https://registry.yarnpkg.com/@storefront-ui/shared/-/shared-0.10.8.tgz#1717f528a073dcebbd6115f587c3cf57a94ee86a"
   integrity sha512-lRVqxs5QAOtXV129uNDSn0BYvjix0VXNZu2ChnQAu8jNKC/Q10cN1XrDiOEiL8hDpx7py+6DUka1WZ5K8dn+jQ==
 
-"@storefront-ui/vue@^0.10.8":
+"@storefront-ui/vue@>=0.10.8 <0.10.71 || ^0.10.72":
   version "0.10.8"
   resolved "https://registry.yarnpkg.com/@storefront-ui/vue/-/vue-0.10.8.tgz#9d3e999a4beb2188cca397dcb7cc7b3d5d9a6207"
   integrity sha512-+ePyaXITmGxWfDs4capCoTQoq76a38Q4UA9PEYgcBiCPeSOBXtAQ6NGOKooTK27y4m+2NLOyeh+kdsPSXlFVYg==
