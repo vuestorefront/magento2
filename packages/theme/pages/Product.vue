@@ -147,58 +147,9 @@
           <template
             v-else-if="product.__typename === 'BundleProduct'"
           >
-            <SfList class="bundle_products">
-              <SfListItem
-                v-for="(bundle, index) in bundleProduct"
-                :key="index"
-                class="bundle_product--item"
-              >
-                <p
-                  :class="{'bundle_product--item-required': bundle.required }"
-                >
-                  {{ bundle.title }}
-                </p>
-                <SfList
-                  class="bundle_product--options"
-                >
-                  <SfListItem
-                    v-for="(option, index) in bundle.options"
-                    :key="index"
-                    class="bundle_product--option"
-                  >
-                    <template
-                      v-if="bundle.options.length === 1"
-                    >
-                      {{ productGetters.getName(option.product) }}
-                      <SfPrice
-                        :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                        :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
-                      />
-                    </template>
-                    <template
-                      v-else
-                    >
-                      <SfRadio
-                        :name="bundle.uid"
-                        :value="option.uid"
-                        :label="productGetters.getName(option.product)"
-                        :selected="option.is_default"
-                      >
-                        <template #description>
-                          <SfPrice
-                            :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                            :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
-                          />
-                        </template>
-                      </SfRadio>
-                    </template>
-                  </SfListItem>
-                </SfList>
-                <p>
-                  Quantity
-                </p>
-              </SfListItem>
-            </SfList>
+            <BundleProductSelector
+              :bundles="bundleProduct"
+            />
           </template>
           <SfAddToCart
             v-else
@@ -328,7 +279,6 @@ import {
   SfLoader,
   SfPrice,
   SfQuantitySelector,
-  SfRadio,
   SfRating,
   SfReview,
   SfSelect,
@@ -350,10 +300,12 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
 
 export default {
   name: 'Product',
   components: {
+    BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
@@ -371,7 +323,6 @@ export default {
     SfLoader,
     SfPrice,
     SfQuantitySelector,
-    SfRadio,
     SfRating,
     SfReview,
     SfSelect,
