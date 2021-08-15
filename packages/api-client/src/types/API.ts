@@ -99,9 +99,8 @@ import {
   CmsBlockQuery,
   GroupedProductDetailQuery,
   GroupedProduct,
-  BundledProductDetailQuery,
   AddBundleProductsToCartInput,
-  AddBundleProductsToCartMutation,
+  AddBundleProductsToCartMutation, BundleProductDetailQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -159,7 +158,7 @@ export interface MagentoApiMethods {
   addProductToWishList(input: AddProductsToWishlistMutationVariables): Promise<FetchResult<AddProductsToWishlistMutation>>;
   addSimpleProductsToCart(input: AddSimpleProductsToCartInput): Promise<FetchResult<AddSimpleProductsToCartMutation>>;
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
-  bundledProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<BundledProductDetailQuery>>;
+  bundleProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<BundleProductDetailQuery>>;
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
   categoryList(categoryFilter?: CategoryListQueryVariables): Promise<ApolloQueryResult<CategoryListQuery>>;
   categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;

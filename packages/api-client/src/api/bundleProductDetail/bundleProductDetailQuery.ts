@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query bundledProductDetail($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
+  query bundleProductDetail($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
     products(
       search: $search
       filter: $filter
@@ -24,13 +24,10 @@ export default gql`
               __typename
               can_change_quantity
               is_default
-              label
               position
-              price
-              price_type
+              uid
               product {
                 uid
-                __typename
                 sku
                 name
                 stock_status
@@ -57,15 +54,7 @@ export default gql`
                     }
                   }
                 }
-                thumbnail {
-                  url
-                  position
-                  disabled
-                  label
-                }
               }
-              quantity
-              uid
             }
           }
         }
