@@ -75,7 +75,7 @@ const factoryParams: UseProductFactoryParams<ProductsListQuery['products'], Prod
           const bundledProduct = await context
             .$magento
             .api
-            .bundledProductDetail(searchParams as GetProductSearchParams, (customQuery || {}));
+            .bundleProductDetail(searchParams as GetProductSearchParams, (customQuery || {}));
 
           productDetailsResults.data.products.items[0] = {
             ...productDetailsResults.data.products.items[0],
