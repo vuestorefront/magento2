@@ -169,7 +169,7 @@
                     <template
                       v-if="bundle.options.length === 1"
                     >
-                      {{ option.label }}
+                      {{ productGetters.getName(option.product) }}
                       <SfPrice
                         :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
                         :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
@@ -181,7 +181,7 @@
                       <SfRadio
                         :name="bundle.uid"
                         :value="option.uid"
-                        :label="option.label"
+                        :label="productGetters.getName(option.product)"
                         :selected="option.is_default"
                       >
                         <template #description>
