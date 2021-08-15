@@ -29,8 +29,8 @@
         </div>
         <div class="product__price-and-rating">
           <SfPrice
-            :regular="$n(productGetters.getPrice(product).regular, 'currency')"
-            :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :regular="$n(productPrice, 'currency')"
+            :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
           />
           <div>
             <div class="product__rating">
@@ -143,6 +143,62 @@
             >
               Add to Cart
             </button>
+          </template>
+          <template
+            v-else-if="product.__typename === 'BundleProduct'"
+          >
+            <SfList class="bundle_products">
+              <SfListItem
+                v-for="(bundle, index) in bundleProduct"
+                :key="index"
+                class="bundle_product--item"
+              >
+                <p
+                  :class="{'bundle_product--item-required': bundle.required }"
+                >
+                  {{ bundle.title }}
+                </p>
+                <SfList
+                  class="bundle_product--options"
+                >
+                  <SfListItem
+                    v-for="(option, index) in bundle.options"
+                    :key="index"
+                    class="bundle_product--option"
+                  >
+                    <template
+                      v-if="bundle.options.length === 1"
+                    >
+                      {{ option.label }}
+                      <SfPrice
+                        :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
+                        :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
+                      />
+                    </template>
+                    <template
+                      v-else
+                    >
+                      <SfRadio
+                        :name="bundle.uid"
+                        :value="option.uid"
+                        :label="option.label"
+                        :selected="option.is_default"
+                      >
+                        <template #description>
+                          <SfPrice
+                            :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
+                            :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
+                          />
+                        </template>
+                      </SfRadio>
+                    </template>
+                  </SfListItem>
+                </SfList>
+                <p>
+                  Quantity
+                </p>
+              </SfListItem>
+            </SfList>
           </template>
           <SfAddToCart
             v-else
@@ -267,15 +323,16 @@ import {
   SfGallery,
   SfHeading,
   SfIcon,
+  SfImage,
+  SfList,
   SfLoader,
   SfPrice,
   SfQuantitySelector,
+  SfRadio,
   SfRating,
   SfReview,
   SfSelect,
   SfTabs,
-  SfList,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   useProduct,
@@ -300,7 +357,6 @@ export default {
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
-    SfImage,
     ProductAddReviewForm,
     ProductsCarousel,
     SfAddToCart,
@@ -310,14 +366,16 @@ export default {
     SfGallery,
     SfHeading,
     SfIcon,
+    SfImage,
+    SfList,
     SfLoader,
     SfPrice,
     SfQuantitySelector,
+    SfRadio,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
-    SfList,
   },
   transition: 'fade',
   setup() {
@@ -379,8 +437,25 @@ export default {
         alt: product.value._name || product.value.name,
       })));
     const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
+    const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
     const configurableOptions = computed(() => product.value.configurable_options);
     const productConfiguration = ref({});
+    const productPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).regular;
+      }
+    });
+    const productSpecialPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).special;
+      }
+    });
 
     const addItemToWishlist = async () => {
       await addToWishlist({ product: product.value });
@@ -405,7 +480,6 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
-
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
       const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
@@ -427,7 +501,6 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
-
     const addGroupedToCart = async () => {
       const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
       if (groupedItemsFiltered.length > 0) {
@@ -455,11 +528,12 @@ export default {
     });
 
     return {
-      addItem,
       addGroupedToCart,
+      addItem,
       addItemToWishlist,
       averageRating,
       breadcrumbs,
+      bundleProduct,
       canAddToCart,
       categories,
       changeNewReview,
@@ -476,8 +550,10 @@ export default {
       productDescription,
       productGallery,
       productGetters,
+      productPrice,
       productReviews,
       productShortDescription,
+      productSpecialPrice,
       qty,
       relatedProducts,
       reviewGetters,
@@ -502,6 +578,7 @@ export default {
 
 .grouped_items {
   padding: 0 10px;
+
   &--item {
     display: grid;
     grid-template-columns: fit-content(70px) auto fit-content(100%);
