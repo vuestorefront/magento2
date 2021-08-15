@@ -26,6 +26,7 @@ export default gql`
               is_default
               position
               uid
+              quantity
               product {
                 uid
                 sku
