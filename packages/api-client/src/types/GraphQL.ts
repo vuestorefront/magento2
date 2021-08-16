@@ -4555,10 +4555,20 @@ export interface OrderItemOption {
   value: Scalars['String'];
 }
 
+/** Contains credit card type and credit card last 4 numbers */
+export interface CardData {
+  /** Credit card type */
+  card_type: Scalars['String'];
+  /** Credit card last 4 numbers */
+  card_last_4: Scalars['String'];
+}
+
 /** Contains details about the payment method used to pay for the order */
 export interface OrderPaymentMethod {
   /** Additional data per payment method type */
   additional_data?: Maybe<Array<Maybe<KeyValue>>>;
+  /** Credit card data */
+  card_data?: Maybe<CardData>;
   /** The label that describes the payment method */
   name: Scalars['String'];
   /** The payment method code that indicates how the order was paid for */
@@ -7633,3 +7643,11 @@ export interface FocusUpdateCartGroupMutationVariables {
 export interface FocusUpdateCartGroupMutation {
   focusUpdateCartGroup: Cart;
 };
+
+export type FocusTrackedOrdersQueryVariables = Exact<{
+  orderId?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+}>;
+
+export type FocusTrackedOrdersQuery = { trackedOrder?: { items?: Array<CustomerOrder | null | undefined> | null | undefined } | null | undefined };

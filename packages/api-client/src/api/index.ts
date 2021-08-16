@@ -37,6 +37,7 @@ export { default as getAvailableShippingMethods } from './getAvailableShippingMe
 export { default as getCustomerAddresses } from './getCustomerAddresses';
 export { default as giftCardAccount } from './giftCardAccount';
 export { default as mergeCarts } from './mergeCarts';
+export { default as orderTracker } from './orderTracker';
 export { default as pickupLocations } from './pickupLocations';
 export { default as placeOrder } from './placeOrder';
 export { default as productDetail } from './productDetail';

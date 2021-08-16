@@ -197,6 +197,10 @@ export default gql`
           payment_methods {
             name
             type
+            card_data {
+              card_type
+              card_last_4
+            }
             additional_data {
               name
               value
@@ -238,6 +242,18 @@ export default gql`
             telephone
           }
           shipping_method
+          billing_address {
+            city
+            country_code
+            firstname
+            lastname
+            postcode
+            prefix
+            region
+            street
+            suffix
+            telephone
+          }
         }
         page_info {
             current_page
