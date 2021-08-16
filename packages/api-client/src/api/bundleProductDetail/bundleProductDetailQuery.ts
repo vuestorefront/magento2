@@ -31,8 +31,6 @@ export default gql`
                 uid
                 sku
                 name
-                stock_status
-                only_x_left_in_stock
                 price_range {
                   maximum_price {
                     final_price {
