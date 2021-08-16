@@ -111,6 +111,15 @@
         "tool",
         "plugin"
       ]
+    },
+    {
+      "login": "zfmaster",
+      "name": "Bogdan Podlesnii",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10129233?v=4",
+      "profile": "https://mediabridge.solutions/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 6
