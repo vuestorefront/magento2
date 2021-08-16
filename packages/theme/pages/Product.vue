@@ -148,7 +148,7 @@
             v-else-if="product.__typename === 'BundleProduct'"
           >
             <BundleProductSelector
-              :bundles="bundleProduct"
+              @update-price="basePrice = $event"
             />
           </template>
           <SfAddToCart
@@ -301,6 +301,7 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import { productData } from '~/helpers/product/productData';
 
 export default {
   name: 'Product',
@@ -331,9 +332,9 @@ export default {
   transition: 'fade',
   setup() {
     const qty = ref(1);
+    const { product, id } = productData();
     const { route, router } = useVueRouter();
-    const { id } = route.params;
-    const { products, search, loading: productLoading } = useProduct(`product-${id}`);
+    const { search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
     const {
       reviews: productReviews,
@@ -343,17 +344,9 @@ export default {
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
-
+    const basePrice = ref(0);
     const openTab = ref(1);
-
     const productDataIsLoading = computed(() => productLoading.value);
-    const product = computed(() => {
-      const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
-      return productGetters.getFiltered(baseProduct, {
-        master: true,
-        attributes: route.query,
-      });
-    });
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
     const canAddToCart = computed(() => {
@@ -388,12 +381,14 @@ export default {
         alt: product.value._name || product.value.name,
       })));
     const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
-    const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
+
     const configurableOptions = computed(() => product.value.configurable_options);
     const productConfiguration = ref({});
     const productPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
+        case 'BundleProduct':
+          return basePrice.value || productGetters.getPrice(product.value).regular;
         case 'SimpleProduct':
         default:
           return productGetters.getPrice(product.value).regular;
@@ -483,8 +478,8 @@ export default {
       addItem,
       addItemToWishlist,
       averageRating,
+      basePrice,
       breadcrumbs,
-      bundleProduct,
       canAddToCart,
       categories,
       changeNewReview,

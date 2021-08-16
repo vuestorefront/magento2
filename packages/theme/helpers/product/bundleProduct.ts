@@ -3,7 +3,7 @@ import { BundleProduct } from '@vue-storefront/magento-api';
 import { productGetters } from '@vue-storefront/magento';
 
 // eslint-disable-next-line unicorn/prefer-object-from-entries
-export const bundleProductInitialSelector = (bundles: BundleProduct['items']) => (bundles ? bundles.reduce((acc, curr) => {
+export const bundleProductInitialSelector = (bundles: BundleProduct['items']) => (Array.isArray(bundles) ? bundles.reduce((acc, curr) => {
   const defaultValue = curr.options.find((o) => o.is_default);
 
   acc[curr.uid] = {
