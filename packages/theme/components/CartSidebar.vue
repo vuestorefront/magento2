@@ -127,6 +127,16 @@
                       :value="attr.value_label"
                     />
                   </div>
+                  <div
+                    v-if="getBundles(product).length > 0"
+                  >
+                    <SfProperty
+                      v-for="(bundle, i) in getBundles(product)"
+                      :key="i"
+                      :name="`${bundle.quantity}x`"
+                      :value="bundle.label"
+                    />
+                  </div>
                   <div v-else />
                 </template>
               </SfCollectedProduct>
@@ -252,6 +262,7 @@ export default defineComponent({
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
+    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
     const visible = ref(false);
     const isLoaderVisible = ref(false);
     const tempProduct = ref();
@@ -311,6 +322,7 @@ export default defineComponent({
       totalItems,
       cartGetters,
       getAttributes,
+      getBundles,
     };
   },
 });

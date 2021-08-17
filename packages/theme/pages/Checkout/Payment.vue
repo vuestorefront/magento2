@@ -37,13 +37,28 @@
           <div class="product-sku">
             {{ cartGetters.getItemSku(product) }}
           </div>
-        </SfTableData>
-        <SfTableData
-          v-for="attr in getAttributes(product)"
-          :key="attr.option_label"
-          class="table__data"
-        >
-          {{ `${attr.option_label}: ${attr.value_label}` }}
+          <template
+            v-if="getAttributes(product).length > 0"
+          >
+            <p
+              v-for="attr in getAttributes(product)"
+              :key="attr.option_label"
+              class="detail-information"
+            >
+              <strong>{{ `${attr.option_label}:` }}</strong>{{ `${attr.value_label}` }}
+            </p>
+          </template>
+          <template
+            v-if="getBundles(product).length > 0"
+          >
+            <p
+              v-for="bundle in getBundles(product)"
+              :key="bundle.label"
+              class="detail-information"
+            >
+              {{ `${bundle.quantity}x ${bundle.label}` }}
+            </p>
+          </template>
         </SfTableData>
         <SfTableData class="table__data">
           {{ cartGetters.getItemQty(product) }}
@@ -51,8 +66,7 @@
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-            :special="cartGetters.getItemPrice(product).regular > cartGetters.getItemPrice(product).special
-              && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
             class="product-price"
           />
         </SfTableData>
@@ -177,6 +191,7 @@ export default defineComponent({
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const getAttributes = (product) => product.configurable_options || [];
+    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
 
     onSSR(async () => {
       await load();
@@ -199,10 +214,11 @@ export default defineComponent({
       processOrder,
       products: computed(() => cartGetters.getItems(cart.value)),
       selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
-      tableHeaders: ['Description', 'Configurations', 'Quantity', 'Amount'],
+      tableHeaders: ['Description', 'Quantity', 'Amount'],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
+      getBundles,
     };
   },
 });
@@ -242,7 +258,10 @@ export default defineComponent({
     }
   }
 }
-
+.detail-information {
+  margin: 0 !important;
+  font-size: var(--font-size--sm);
+}
 .product-sku {
   color: var(--c-text-muted);
   font-size: var(--font-size--sm);
