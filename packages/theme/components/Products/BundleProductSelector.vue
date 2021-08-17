@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isMounted"
+    v-if="!productLoading"
   >
     <SfList class="bundle_products">
       <SfListItem
@@ -34,6 +34,7 @@
               v-else
             >
               <SfRadio
+                v-if="selectedOptions[bundle.uid]"
                 v-model="selectedOptions[bundle.uid].uid"
                 :name="bundle.uid"
                 :value="option.uid"
@@ -54,6 +55,7 @@
           Quantity
         </p>
         <SfQuantitySelector
+          v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
           :disabled="canChangeQuantity(bundle)"
         />
@@ -63,6 +65,7 @@
       v-e2e="'product_add-to-cart'"
       :disabled="loading"
       class="color-primary sf-button bundle_products--add-to-cart"
+      @click="addToCart"
     >
       Add to Cart
     </button>
@@ -70,13 +73,12 @@
 </template>
 <script>
 import {
-  SfList,
-  SfPrice,
-  SfQuantitySelector,
-  SfRadio,
+  SfList, SfPrice, SfQuantitySelector, SfRadio,
 } from '@storefront-ui/vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
-import { ref, watch, computed } from '@vue/composition-api';
+import {
+  computed, onBeforeMount, ref, watch,
+} from '@vue/composition-api';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
 import { productData } from '~/helpers/product/productData';
 
@@ -90,12 +92,11 @@ export default {
   },
   emits: ['update-bundle', 'update-price'],
   setup(props, { emit }) {
-    const { product } = productData();
-    const { loading } = useCart();
-    const selectedOptions = computed(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
+    const { product, loading: productLoading } = productData();
+    const { loading, addItem } = useCart();
+    const selectedOptions = ref(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
 
     const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
-    const isMounted = computed(() => Object.keys(selectedOptions).length > 0);
     /*   const canAddToCart = computed(() => {
       const inStock = product.value.stock_status || '';
       const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
@@ -103,7 +104,7 @@ export default {
     }); */
 
     const canChangeQuantity = (bundle) => {
-      const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid].uid);
+      const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid]?.uid);
 
       return !selectedOption.can_change_quantity;
     };
@@ -111,17 +112,45 @@ export default {
     const price = computed(() => Object.keys(selectedOptions.value)
       .reduce((s, k) => s + (Number.parseFloat(selectedOptions.value[k].price) * selectedOptions.value[k].quantity), 0));
 
+    const addToCart = async () => {
+      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((k, i) => {
+        const selectedOption = selectedOptions.value[k];
+        return {
+          uid: selectedOption.uid,
+          value: selectedOption.quantity,
+        };
+      }));
+
+      await addItem({
+        product: {
+          ...product.value,
+          bundle_options: bundleProductData.value,
+        },
+        quantity: 1,
+      });
+    };
+
+    onBeforeMount(() => {
+      selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
+    });
+
+    watch(bundleProduct, (newVal) => {
+      selectedOptions.value = newVal;
+    }, { deep: true });
+
     watch(computed(() => selectedOptions.value), () => {
       emit('update-bundle', selectedOptions.value);
       emit('update-price', price.value);
     }, { deep: true });
 
     return {
+      addToCart,
       bundleProduct,
       canChangeQuantity,
-      isMounted,
       loading,
+      productLoading,
       price,
+      product,
       productGetters,
       selectedOptions,
     };

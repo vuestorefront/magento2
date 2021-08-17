@@ -6,11 +6,13 @@ import { productGetters } from '@vue-storefront/magento';
 export const bundleProductInitialSelector = (bundles: BundleProduct['items']) => (Array.isArray(bundles) ? bundles.reduce((acc, curr) => {
   const defaultValue = curr.options.find((o) => o.is_default);
 
-  acc[curr.uid] = {
-    uid: defaultValue.uid,
-    quantity: defaultValue.quantity || 1,
-    price: productGetters.getPrice(defaultValue.product).regular,
-  };
+  if (defaultValue) {
+    acc[curr.uid] = {
+      uid: defaultValue.uid,
+      quantity: defaultValue.quantity || 1,
+      price: productGetters.getPrice(defaultValue.product).regular,
+    };
+  }
 
   return acc;
 }, {}) : {});
