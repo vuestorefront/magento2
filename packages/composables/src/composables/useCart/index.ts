@@ -7,7 +7,6 @@ import {
   UseCartFactoryParams,
 } from '@vue-storefront/core';
 import {
-  AddBundleProductsToCartInput,
   AddConfigurableProductsToCartInput,
   AddProductsToCartInput,
   Cart,
@@ -153,19 +152,26 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
             .addConfigurableProductsToCart
             .cart as unknown as Cart;
         case 'BundleProduct':
-          const bundleCartInput: AddBundleProductsToCartInput = {
-            cart_id: currentCartId,
-            cart_items: [
-
+          const bundleCartInput: AddProductsToCartInput = {
+            cartId: currentCartId,
+            cartItems: [
+              {
+                quantity,
+                sku: product.sku,
+                entered_options: [
+                  // @ts-ignore
+                  ...product.bundle_options,
+                ],
+              },
             ],
           };
 
-          const bundleProduct = await context.$magento.api.addBundleProductsToCart(bundleCartInput);
+          const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
 
           // eslint-disable-next-line consistent-return
           return bundleProduct
             .data
-            .addBundleProductsToCart
+            .addProductsToCart
             .cart as unknown as Cart;
         default:
           // todo implement other options
