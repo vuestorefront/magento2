@@ -2,7 +2,7 @@ import { FetchResult } from '@apollo/client';
 import {
   CreateCustomerMutation,
   CreateCustomerMutationVariables,
-  CustomerCreateInput, ProductDetailsQuery, ProductDetailsQueryVariables,
+  CustomerCreateInput,
 } from '../../types/GraphQL';
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
@@ -20,6 +20,13 @@ export default async (
       fetchPolicy: 'no-cache',
     });
   } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
+    // For error in data we don't throw 500, because it's not server error
+    if (error.graphQLErrors) {
+      return {
+        errors: error.graphQLErrors,
+        data: null,
+      };
+    }
+    throw error.networkError?.result || error;
   }
 };
