@@ -350,7 +350,7 @@ export default {
     const canAddToCart = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       if (product.value.__typename === 'ConfigurableProduct') {
-        return !!product.value.configurable_product_options_selection.variant?.uid;
+        return !!product.value.configurable_product_options_selection?.variant?.uid;
       }
       const inStock = product.value.stock_status || '';
       const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
@@ -431,6 +431,7 @@ export default {
     const addGroupedToCart = async () => {
       const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
       if (groupedItemsFiltered.length > 0) {
+        // eslint-disable-next-line no-restricted-syntax
         for (const p of groupedItemsFiltered) {
           // eslint-disable-next-line no-await-in-loop
           await addItem({ product: p.product, quantity: p.qty });
