@@ -63,8 +63,14 @@
         <div class="summary__total">
           <SfProperty
             name="Subtotal"
-            :value="$n(totals.special > 0 ? totals.special : totals.subtotal, 'currency')"
+            :value="$n(totals.subtotal, 'currency')"
             class="sf-property--full-width property"
+          />
+          <SfProperty
+            v-if="hasDiscounts"
+            :name="$t('Discount')"
+            :value="$n(discountsAmount, 'currency')"
+            class="sf-property--full-width sf-property--small property"
           />
         </div>
         <div
@@ -190,9 +196,16 @@ export default defineComponent({
       await router.push(`/checkout/thank-you?order=${order.value.order_number}`);
     };
 
+    const discounts = computed(() => cartGetters.getDiscounts(cart.value));
+    const hasDiscounts = computed(() => discounts.value.length > 0);
+    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
+
     return {
       cart,
       cartGetters,
+      discounts,
+      hasDiscounts,
+      discountsAmount,
       getShippingMethodPrice,
       isPaymentReady,
       loading,

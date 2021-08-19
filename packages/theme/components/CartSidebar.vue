@@ -163,7 +163,7 @@
               <template #value>
                 <SfPrice
                   :regular="$n(totals.subtotal, 'currency')"
-                  :special="totals.subtotal > totals.special ? '' : $n(totals.special, 'currency')"
+                  :special="totals.subtotal <= totals.special ? '' : $n(totals.special, 'currency')"
                 />
               </template>
             </SfProperty>

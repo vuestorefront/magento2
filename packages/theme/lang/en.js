@@ -32,6 +32,7 @@ export default {
   'Departments': 'Departments',
   'Description': 'Description',
   'Details and status orders': 'Check the details and status of your orders in the online store. You can also cancel your order or request a return.',
+  'Discount': 'Discount',
   'Done': 'Done',
   'Download all': 'Download all',
   'Download': 'Download',
