@@ -224,19 +224,4 @@ export default defineComponent({
   }
 }
 
-.discounted {
-  &::v-deep .sf-property__value {
-    color: var(--c-danger);
-    text-decoration: line-through;
-  }
-}
-
-.special-price {
-  justify-content: flex-end;
-
-  &::v-deep .sf-property__name {
-    display: none;
-  }
-}
-
 </style>
