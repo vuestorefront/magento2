@@ -95,10 +95,11 @@ const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((
 export const getTotals = (cart: Cart): AgnosticTotals => {
   if (!cart || !cart.prices) return {} as AgnosticTotals;
 
+  const subtotal = cart.prices.subtotal_including_tax.value;
   return {
     total: cart.prices.grand_total.value,
     subtotal: cart.prices.subtotal_including_tax.value,
-    special: (cart.prices.discounts) ? calculateDiscounts(cart.prices.discounts) : 0,
+    special: (cart.prices.discounts) ? subtotal - calculateDiscounts(cart.prices.discounts) : subtotal,
   } as AgnosticTotals;
 };
 
@@ -141,12 +142,12 @@ export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?
   code: c.code,
 } as AgnosticCoupon)) : []);
 
-export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
-  id: c.code,
-  name: c.code,
-  description: c.code,
-  value: 0,
-  code: c.code,
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.prices.discounts) ? cart.prices.discounts.map((d) => ({
+  id: d.label,
+  name: d.label,
+  description: '',
+  value: d.amount.value,
+  code: d.label,
 } as AgnosticDiscount)) : []);
 
 export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
