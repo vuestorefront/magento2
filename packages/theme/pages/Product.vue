@@ -29,8 +29,8 @@
         </div>
         <div class="product__price-and-rating">
           <SfPrice
-            :regular="$n(productGetters.getPrice(product).regular, 'currency')"
-            :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :regular="$n(productPrice, 'currency')"
+            :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
           />
           <div>
             <div class="product__rating">
@@ -143,6 +143,13 @@
             >
               Add to Cart
             </button>
+          </template>
+          <template
+            v-else-if="product.__typename === 'BundleProduct'"
+          >
+            <BundleProductSelector
+              @update-price="basePrice = $event"
+            />
           </template>
           <SfAddToCart
             v-else
@@ -267,6 +274,8 @@ import {
   SfGallery,
   SfHeading,
   SfIcon,
+  SfImage,
+  SfList,
   SfLoader,
   SfPrice,
   SfQuantitySelector,
@@ -274,8 +283,6 @@ import {
   SfReview,
   SfSelect,
   SfTabs,
-  SfList,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   useProduct,
@@ -293,14 +300,16 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import { productData } from '~/helpers/product/productData';
 
 export default {
   name: 'Product',
   components: {
+    BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
-    SfImage,
     ProductAddReviewForm,
     ProductsCarousel,
     SfAddToCart,
@@ -310,6 +319,8 @@ export default {
     SfGallery,
     SfHeading,
     SfIcon,
+    SfImage,
+    SfList,
     SfLoader,
     SfPrice,
     SfQuantitySelector,
@@ -317,14 +328,13 @@ export default {
     SfReview,
     SfSelect,
     SfTabs,
-    SfList,
   },
   transition: 'fade',
   setup() {
     const qty = ref(1);
+    const { product, id } = productData();
     const { route, router } = useVueRouter();
-    const { id } = route.params;
-    const { products, search, loading: productLoading } = useProduct(`product-${id}`);
+    const { search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
     const {
       reviews: productReviews,
@@ -334,17 +344,9 @@ export default {
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
-
+    const basePrice = ref(0);
     const openTab = ref(1);
-
     const productDataIsLoading = computed(() => productLoading.value);
-    const product = computed(() => {
-      const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
-      return productGetters.getFiltered(baseProduct, {
-        master: true,
-        attributes: route.query,
-      });
-    });
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
     const canAddToCart = computed(() => {
@@ -379,8 +381,27 @@ export default {
         alt: product.value._name || product.value.name,
       })));
     const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
+
     const configurableOptions = computed(() => product.value.configurable_options);
     const productConfiguration = ref({});
+    const productPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'BundleProduct':
+          return basePrice.value || productGetters.getPrice(product.value).regular;
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).regular;
+      }
+    });
+    const productSpecialPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).special;
+      }
+    });
 
     const addItemToWishlist = async () => {
       await addToWishlist({ product: product.value });
@@ -405,7 +426,6 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
-
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
       const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
@@ -427,7 +447,6 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
-
     const addGroupedToCart = async () => {
       const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
       if (groupedItemsFiltered.length > 0) {
@@ -456,10 +475,11 @@ export default {
     });
 
     return {
-      addItem,
       addGroupedToCart,
+      addItem,
       addItemToWishlist,
       averageRating,
+      basePrice,
       breadcrumbs,
       canAddToCart,
       categories,
@@ -477,8 +497,10 @@ export default {
       productDescription,
       productGallery,
       productGetters,
+      productPrice,
       productReviews,
       productShortDescription,
+      productSpecialPrice,
       qty,
       relatedProducts,
       reviewGetters,
@@ -503,6 +525,7 @@ export default {
 
 .grouped_items {
   padding: 0 10px;
+
   &--item {
     display: grid;
     grid-template-columns: fit-content(70px) auto fit-content(100%);

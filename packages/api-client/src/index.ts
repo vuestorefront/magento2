@@ -5,6 +5,8 @@ export { SetPaymentMethodOnCartInputs } from './api/setPaymentMethodOnCart';
 export { CustomerProductReviewParams } from './api/customerProductReview';
 export {
   AddBundleProductsToCartInput,
+  AddBundleProductsToCartMutation,
+  AddBundleProductsToCartMutationVariables,
   AddBundleProductsToCartOutput,
   AddConfigurableProductsToCartInput,
   AddConfigurableProductsToCartMutation,
@@ -48,6 +50,8 @@ export {
   Breadcrumb,
   BundleCartItem,
   BundleCreditMemoItem,
+  BundleProductDetailQuery,
+  BundleProductDetailQueryVariables,
   BundleInvoiceItem,
   BundleItem,
   BundleItemOption,
@@ -282,6 +286,7 @@ export {
   MutationAddBundleProductsToCartArgs,
   MutationAddConfigurableProductsToCartArgs,
   MutationAddDownloadableProductsToCartArgs,
+  MutationAddProductsToCartArgs,
   MutationAddProductsToCompareListArgs,
   MutationAddProductsToWishlistArgs,
   MutationAddSimpleProductsToCartArgs,
@@ -557,7 +562,6 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
-  MutationAddProductsToCartArgs,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';

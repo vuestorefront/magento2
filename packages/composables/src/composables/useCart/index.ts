@@ -128,7 +128,6 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
             .data
             .addProductsToCart
             .cart as unknown as Cart;
-
         case 'ConfigurableProduct':
           const cartItems = [
             {
@@ -151,6 +150,28 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
           return configurableProduct
             .data
             .addConfigurableProductsToCart
+            .cart as unknown as Cart;
+        case 'BundleProduct':
+          const bundleCartInput: AddProductsToCartInput = {
+            cartId: currentCartId,
+            cartItems: [
+              {
+                quantity,
+                sku: product.sku,
+                entered_options: [
+                  // @ts-ignore
+                  ...product.bundle_options,
+                ],
+              },
+            ],
+          };
+
+          const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
+
+          // eslint-disable-next-line consistent-return
+          return bundleProduct
+            .data
+            .addProductsToCart
             .cart as unknown as Cart;
         default:
           // todo implement other options

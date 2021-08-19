@@ -1,12 +1,10 @@
 import gql from 'graphql-tag';
-import ConfigurableProductOptionsData from './configurableProductOptionsFragment';
 import ProductCategoriesData from './productCategoriesFragment';
 import ProductPriceRangeData from './productPriceRangeFragment';
 import ProductThumbnailData from './productThumbnailFragment';
 import ProductUrlFragmentData from './productUrlFragment';
 
 export default gql`
-  ${ConfigurableProductOptionsData}
   ${ProductCategoriesData}
   ${ProductPriceRangeData}
   ${ProductThumbnailData}
@@ -23,6 +21,39 @@ export default gql`
       description
       added_at
       product {
+        ...on ConfigurableProduct {
+          configurable_options {
+            attribute_code
+            attribute_uid
+            label
+            position
+            uid
+            use_default
+            values {
+              label
+              swatch_data {
+                value
+              }
+              uid
+            }
+          }
+        }
+        ... on BundleProduct {
+          items {
+            sku
+            title
+            options {
+              uid
+              quantity
+              product {
+                uid
+                sku
+                name
+                ...ProductPriceRangeData
+              }
+            }
+          }
+        }
         uid
         __typename
         sku
@@ -30,7 +61,6 @@ export default gql`
         stock_status
         only_x_left_in_stock
         rating_summary
-        ...ConfigurableProductOptionsData
         ...ProductCategoriesData
         ...ProductPriceRangeData
         ...ProductThumbnailData

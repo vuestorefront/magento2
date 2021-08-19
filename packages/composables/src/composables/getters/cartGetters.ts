@@ -35,7 +35,12 @@ export const getItemPrice = (product: CartItem): AgnosticPrice => {
       special: 0,
     };
   }
-
+  if (product.prices) {
+    return {
+      regular: product.prices.row_total.value || 0,
+      special: product.prices.total_item_discount.value || 0,
+    };
+  }
   const regularPrice = product.product?.price_range?.minimum_price?.regular_price?.value;
   const specialPrice = product.product?.price_range?.minimum_price?.final_price?.value;
 
