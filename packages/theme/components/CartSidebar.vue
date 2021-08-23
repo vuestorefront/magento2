@@ -40,6 +40,13 @@
                   : ''"
                 :stock="99999"
                 :qty="cartGetters.getItemQty(product)"
+                :link="
+                  localePath(
+                    `/p/${cartGetters.getItemSku(
+                      product
+                    )}${cartGetters.getSlug(product)}`
+                  )
+                "
                 class="collected-product"
                 @input="updateItemQty({ product, quantity: $event })"
                 @click:remove="removeItem({ product })"
