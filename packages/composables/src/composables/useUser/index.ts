@@ -6,6 +6,7 @@ import {
 } from '@vue-storefront/core';
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
+import useWishlist from '../useWishlist';
 import { User } from '../../types';
 
 const generateUserData = (userData): CustomerUpdateParameters => {
@@ -54,6 +55,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   provide() {
     return {
       cart: useCart(),
+      wishlist: useWishlist(),
     };
   },
   load: async (context: Context) => {
@@ -136,6 +138,8 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
 
       apiState.setCartId(dataMergeCart.mergeCarts.id);
     }
+
+    await context.wishlist.load();
 
     return factoryParams.load(context);
   },
