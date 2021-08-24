@@ -46,6 +46,7 @@
               :image="wishlistGetters.getItemImage(product)"
               :title="wishlistGetters.getItemName(product)"
               :regular-price="$n(wishlistGetters.getItemPrice(product).regular, 'currency')"
+              :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
               :special-price="wishlistGetters.getItemPrice(product).special && $n(wishlistGetters.getItemPrice(product).special, 'currency')"
               :stock="99999"
               class="collected-product"
@@ -53,6 +54,21 @@
             >
               <template #input>
                 <div />
+              </template>
+              <template #image>
+                <SfLink
+                  :link="
+                    localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
+                  "
+                >
+                  <SfImage
+                    :src="wishlistGetters.getItemImage(product)"
+                    :alt="wishlistGetters.getItemName(product)"
+                    :width="140"
+                    :height="200"
+                    class="sf-collected-product__image"
+                  />
+                </SfLink>
               </template>
               <template #configuration>
                 <div
@@ -136,9 +152,15 @@ import {
   SfPrice,
   SfCollectedProduct,
   SfImage,
+  SfLink,
 } from '@storefront-ui/vue';
 import { computed } from '@vue/composition-api';
-import { useWishlist, useUser, wishlistGetters } from '@vue-storefront/magento';
+import {
+  useWishlist,
+  useUser,
+  wishlistGetters,
+  productGetters,
+} from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { useUiState } from '~/composables';
 
@@ -153,6 +175,7 @@ export default {
     SfPrice,
     SfCollectedProduct,
     SfImage,
+    SfLink,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
@@ -181,6 +204,7 @@ export default {
       totals,
       wishlistGetters,
       wishlist,
+      productGetters,
     };
   },
 };

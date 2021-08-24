@@ -44,13 +44,15 @@ export const getItemQty = (product: WishlistProduct): number => product.quantity
 export const getItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({ '': '' });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemSku = (product: WishlistProduct): string => '';
+export const getItemSku = (product: WishlistProduct): string => product?.product?.sku || '';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTotals = (wishlist: Wishlist): AgnosticTotals => {
   if (Array.isArray(wishlist)) {
     return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       total: acc.total + getItemPrice(curr).special,
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       subtotal: acc.subtotal + getItemPrice(curr).regular,
     }), ({ total: 0, subtotal: 0 }));
   }
