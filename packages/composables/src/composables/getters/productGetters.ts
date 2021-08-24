@@ -6,7 +6,8 @@ import {
   ProductGetters as ProductGettersBase,
 } from '@vue-storefront/core';
 import {
-  Category,
+  BundleProduct,
+  Category, GroupedProduct,
   Product,
 } from '@vue-storefront/magento-api';
 
@@ -234,6 +235,14 @@ export const getProductUpsellProduct = (product: Product): Product[] => product?
 
 export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value;
 
+const sortProduct = (a, b) => a.position - b.position;
+
+// eslint-disable-next-line no-underscore-dangle
+export const getGroupedProducts = (product: GroupedProduct & { __typename: string }): GroupedProduct['items'] | undefined => product.__typename === 'GroupedProduct' && product?.items?.sort(sortProduct);
+
+// eslint-disable-next-line no-underscore-dangle
+export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
+
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getCategory(product: Product, currentUrlPath: string): Category | null;
   getProductRelatedProduct(product: Product): Product[];
@@ -244,6 +253,8 @@ export interface ProductGetters extends ProductGettersBase<Product, ProductVaria
   getSlug(product: Product, category?: Category): string;
   getTypeId(product: Product): string;
   getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
+  getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
+  getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
 }
 
 const productGetters: ProductGetters = {
@@ -269,6 +280,8 @@ const productGetters: ProductGetters = {
   getTotalReviews,
   getTypeId,
   getSwatchData,
+  getGroupedProducts,
+  getBundleProducts,
 };
 
 export default productGetters;

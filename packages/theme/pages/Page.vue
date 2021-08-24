@@ -19,6 +19,7 @@ import {
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent } from '@vue/composition-api';
+import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
   components: {
@@ -32,9 +33,15 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { page, loadContent, loading } = useContent('cmsPage');
+    const {
+      page,
+      loadContent,
+      loading,
+    } = useContent('cmsPage');
+    const { route } = useVueRouter();
+
     onSSR(async () => {
-      await loadContent(props.identifier);
+      await loadContent(route.params.slug || props.identifier);
     });
     return {
       page,
@@ -45,7 +52,11 @@ export default defineComponent({
     const title = this.page.meta_title ? this.page.meta_title : this.page.title;
     const meta = [];
     if (this.page.meta_description) {
-      meta.push({ hid: 'description', name: 'description', content: this.page.meta_description });
+      meta.push({
+        hid: 'description',
+        name: 'description',
+        content: this.page.meta_description,
+      });
     }
     return {
       title,

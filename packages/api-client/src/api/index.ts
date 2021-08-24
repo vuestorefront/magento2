@@ -1,12 +1,15 @@
+export { default as addBundleProductsToCart } from './addBundleProductsToCart';
 export { default as addConfigurableProductsToCart } from './addConfigurableProductsToCart';
-export { default as addProductToWishList } from './addProductToWishList';
 export { default as addProductsToCart } from './addProductsToCart';
+export { default as addProductToWishList } from './addProductToWishList';
 export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
+export { default as bundleProductDetail } from './bundleProductDetail';
 export { default as cart } from './cart';
 export { default as categoryList } from './categoryList';
 export { default as categorySearch } from './categorySearch';
 export { default as changeCustomerPassword } from './changeCustomerPassword';
+export { default as cmsBlocks } from './cmsBlocks';
 export { default as cmsPage } from './cmsPage';
 export { default as configurableProductDetail } from './configurableProductDetail';
 export { default as countries } from './countries';
@@ -26,6 +29,7 @@ export { default as getAvailableCustomerShippingMethods } from './getAvailableCu
 export { default as getAvailablePaymentMethods } from './getAvailablePaymentMethods';
 export { default as getAvailableShippingMethods } from './getAvailableShippingMethods';
 export { default as getCustomerAddresses } from './getCustomerAddresses';
+export { default as groupedProductDetail } from './groupedProductDetail';
 export { default as mergeCarts } from './mergeCarts';
 export { default as placeOrder } from './placeOrder';
 export { default as productDetail } from './productDetail';

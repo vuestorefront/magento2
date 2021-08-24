@@ -6,7 +6,7 @@
   "files": [
     "README.md"
   ],
-  "imageSize": 100,
+  "imageSize": 80,
   "commit": true,
   "commitConvention": "angular",
   "contributors": [
@@ -70,6 +70,15 @@
       ]
     },
     {
+      "login": "zfmaster",
+      "name": "Bogdan Podlesnii",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10129233?v=4",
+      "profile": "https://mediabridge.solutions/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "filrak",
       "name": "Filip Rakowski",
       "avatar_url": "https://avatars.githubusercontent.com/u/15185752?v=4",
@@ -113,5 +122,5 @@
       ]
     }
   ],
-  "contributorsPerLine": 6
+  "contributorsPerLine": 5
 }

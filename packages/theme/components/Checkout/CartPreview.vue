@@ -16,12 +16,13 @@
       <SfProperty
         :name="$t('Subtotal')"
         :value="$n(totals.subtotal, 'currency')"
-        :class="['sf-property--full-width', 'sf-property--large property', { discounted: hasSpecialPrice }]"
+        :class="['sf-property--full-width', 'sf-property--large property']"
       />
       <SfProperty
-        v-if="hasSpecialPrice"
-        :value="$n(totals.special, 'currency')"
-        class="sf-property--full-width sf-property--small property special-price"
+        v-if="hasDiscounts"
+        :name="$t('Discount')"
+        :value="$n(discountsAmount, 'currency')"
+        class="sf-property--full-width sf-property--small property"
       />
       <SfProperty
         v-if="selectedShippingMethod"
@@ -125,7 +126,8 @@ export default defineComponent({
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
-    const hasSpecialPrice = computed(() => totals.value.special > 0 && totals.value.special < totals.value.subtotal);
+    const hasDiscounts = computed(() => discounts.value.length > 0);
+    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
     const selectedShippingMethod = computed(() => cartGetters.getSelectedShippingMethod(cart.value));
 
     const setCartCoupon = () => {
@@ -149,6 +151,8 @@ export default defineComponent({
     return {
       cart,
       discounts,
+      discountsAmount,
+      hasDiscounts,
       totalItems,
       listIsHidden,
       products,
@@ -162,7 +166,6 @@ export default defineComponent({
       handleCoupon,
       characteristics: CHARACTERISTICS,
       selectedShippingMethod,
-      hasSpecialPrice,
     };
   },
 });
@@ -218,21 +221,6 @@ export default defineComponent({
   &__input {
     --input-background: var(--c-white);
     flex: 1;
-  }
-}
-
-.discounted {
-  &::v-deep .sf-property__value {
-    color: var(--c-danger);
-    text-decoration: line-through;
-  }
-}
-
-.special-price {
-  justify-content: flex-end;
-
-  &::v-deep .sf-property__name {
-    display: none;
   }
 }
 

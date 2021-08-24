@@ -37,13 +37,28 @@
           <div class="product-sku">
             {{ cartGetters.getItemSku(product) }}
           </div>
-        </SfTableData>
-        <SfTableData
-          v-for="attr in getAttributes(product)"
-          :key="attr.option_label"
-          class="table__data"
-        >
-          {{ `${attr.option_label}: ${attr.value_label}` }}
+          <template
+            v-if="getAttributes(product).length > 0"
+          >
+            <p
+              v-for="attr in getAttributes(product)"
+              :key="attr.option_label"
+              class="detail-information"
+            >
+              <strong>{{ `${attr.option_label}:` }}</strong>{{ `${attr.value_label}` }}
+            </p>
+          </template>
+          <template
+            v-if="getBundles(product).length > 0"
+          >
+            <p
+              v-for="bundle in getBundles(product)"
+              :key="bundle.label"
+              class="detail-information"
+            >
+              {{ `${bundle.quantity}x ${bundle.label}` }}
+            </p>
+          </template>
         </SfTableData>
         <SfTableData class="table__data">
           {{ cartGetters.getItemQty(product) }}
@@ -51,8 +66,7 @@
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-            :special="cartGetters.getItemPrice(product).regular > cartGetters.getItemPrice(product).special
-              && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
             class="product-price"
           />
         </SfTableData>
@@ -63,8 +77,14 @@
         <div class="summary__total">
           <SfProperty
             name="Subtotal"
-            :value="$n(totals.special > 0 ? totals.special : totals.subtotal, 'currency')"
+            :value="$n(totals.subtotal, 'currency')"
             class="sf-property--full-width property"
+          />
+          <SfProperty
+            v-if="hasDiscounts"
+            :name="$t('Discount')"
+            :value="$n(discountsAmount, 'currency')"
+            class="sf-property--full-width sf-property--small property"
           />
         </div>
         <div
@@ -145,7 +165,7 @@ import {
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
+import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { ref, computed, defineComponent } from '@vue/composition-api';
 import {
   useMakeOrder,
@@ -172,10 +192,12 @@ export default defineComponent({
   setup() {
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
+    const { $magento } = useVSFContext();
     const { router } = useVueRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const getAttributes = (product) => product.configurable_options || [];
+    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
 
     onSSR(async () => {
       await load();
@@ -183,23 +205,33 @@ export default defineComponent({
 
     const processOrder = async () => {
       await make();
-      router.push(`/checkout/thank-you?order=${order.value.order_number}`);
       setCart(null);
+      $magento.config.state.setCartId();
+      await load();
+      await router.push(`/checkout/thank-you?order=${order.value.order_number}`);
     };
+
+    const discounts = computed(() => cartGetters.getDiscounts(cart.value));
+    const hasDiscounts = computed(() => discounts.value.length > 0);
+    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
 
     return {
       cart,
       cartGetters,
+      discounts,
+      hasDiscounts,
+      discountsAmount,
       getShippingMethodPrice,
       isPaymentReady,
       loading,
       processOrder,
       products: computed(() => cartGetters.getItems(cart.value)),
       selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
-      tableHeaders: ['Description', 'Configurations', 'Quantity', 'Amount'],
+      tableHeaders: ['Description', 'Quantity', 'Amount'],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
+      getBundles,
     };
   },
 });
@@ -239,7 +271,10 @@ export default defineComponent({
     }
   }
 }
-
+.detail-information {
+  margin: 0 !important;
+  font-size: var(--font-size--sm);
+}
 .product-sku {
   color: var(--c-text-muted);
   font-size: var(--font-size--sm);

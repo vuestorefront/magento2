@@ -1,5 +1,5 @@
 import {
-  ComposableFunctionArgs, ComputedProperty, CustomQuery,
+  ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 import { computed } from 'vue-demi';
@@ -58,9 +58,11 @@ export interface UseConfig<CONFIG> {
   loading: ComputedRef<boolean>;
 }
 
-export interface UseContent<PAGE> {
+export interface UseContent<PAGE, BLOCK> {
   page: ComputedProperty<PAGE>;
+  blocks: ComputedProperty<BLOCK[]>
   loadContent: (identifier: string) => Promise<void>;
+  loadBlocks: (identifiers: string[]) => Promise<void>;
   loading: ComputedProperty<boolean>;
 }
 

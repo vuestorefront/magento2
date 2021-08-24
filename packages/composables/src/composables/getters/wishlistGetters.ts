@@ -4,25 +4,41 @@ import {
   AgnosticPrice,
   AgnosticTotals, AgnosticPagination,
 } from '@vue-storefront/core';
-import { WishlistOutput, WishlistItem, WishlistDataFragment } from '@vue-storefront/magento-api';
+import {
+  Wishlist,
+  WishlistDataFragment,
+} from '@vue-storefront/magento-api';
 
-type Wishlist = WishlistOutput;
-type WishlistProduct = WishlistItem;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItems = (wishlist: Wishlist): WishlistProduct[] => wishlist.items;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemName = (product: WishlistProduct): string => '';
+type WishlistProduct = WishlistDataFragment['items_v2']['items'][0];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemImage = (product: WishlistProduct): string => '';
+export const getItems = (wishlist: Wishlist): WishlistProduct[] => wishlist.items_v2.items;
+
+export const getItemName = (product: WishlistProduct): string => product?.product?.name || '';
+
+export const getItemImage = (product: WishlistProduct): string => product?.product?.thumbnail.url || '';
+
+export const getItemPrice = (product: WishlistProduct): AgnosticPrice => {
+  let regular = 0;
+  let special = null;
+
+  if (product?.product?.price_range) {
+    regular = product?.product?.price_range.minimum_price.regular_price.value;
+    const final = product?.product?.price_range.minimum_price.final_price.value;
+
+    if (final < regular) {
+      special = final;
+    }
+  }
+
+  return {
+    regular,
+    special,
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemPrice = (product: WishlistProduct): AgnosticPrice => ({ regular: 0, special: 0 });
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemQty = (product: WishlistProduct): number => 1;
+export const getItemQty = (product: WishlistProduct): number => product.quantity;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({ '': '' });
@@ -31,13 +47,24 @@ export const getItemAttributes = (product: WishlistProduct, filterByAttributeNam
 export const getItemSku = (product: WishlistProduct): string => '';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotals = (wishlist: Wishlist): AgnosticTotals => ({ total: 0, subtotal: 0 });
+export const getTotals = (wishlist: Wishlist): AgnosticTotals => {
+  if (Array.isArray(wishlist)) {
+    return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
+      total: acc.total + getItemPrice(curr).special,
+      subtotal: acc.subtotal + getItemPrice(curr).regular,
+    }), ({ total: 0, subtotal: 0 }));
+  }
+  return wishlist?.items_v2?.items.reduce((acc, curr) => ({
+    total: acc.total + getItemPrice(curr).special,
+    subtotal: acc.subtotal + getItemPrice(curr).regular,
+  }), ({ total: 0, subtotal: 0 }));
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getShippingPrice = (wishlist: Wishlist): number => 0;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotalItems = (wishlist: Wishlist): number => ((wishlist) ? wishlist.items_count : 0);
+export const getTotalItems = (wishlist: Wishlist): number => (Array.isArray(wishlist) ? wishlist[0]?.items_count : (wishlist?.items_count || 0));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getFormattedPrice = (price: number): string => '';
@@ -63,17 +90,19 @@ const getProducts = (wishlistData: WishlistDataFragment[] | WishlistDataFragment
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
+    id: item.id,
   }))];
 
   const mapper = (item) => ({
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
+    id: item.id,
   });
 
   return Array.isArray(wishlistData)
     ? wishlistData.reduce((acc, curr) => reducer(acc, curr), [])
-    : wishlistData.items_v2.items.map((e) => mapper(e));
+    : wishlistData?.items_v2?.items.map((e) => mapper(e));
 };
 
 export interface WishlistGetters extends BaseWishlistGetters<Wishlist, WishlistProduct> {
