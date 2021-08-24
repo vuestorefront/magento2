@@ -7,8 +7,9 @@ import {
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resetPassword: async (context: Context, { email, customQuery }) => {
-    console.log('Mocked: resetPassword');
-    return {};
+    const { data } = await context.$magento.api.requestPasswordResetEmail({ email });
+
+    return data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
