@@ -1,12 +1,14 @@
 import {
+  Composable,
   ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 import { computed } from 'vue-demi';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
-export interface UseUrlResolver<ROUTE> {
+export interface UseUrlResolver<ROUTE, API extends PlatformApi = any> extends Composable<API>{
   search: (url: string) => Promise<void>;
   result: ComputedProperty<ROUTE>;
   error: ComputedProperty<UseRouterErrors>;
@@ -17,7 +19,7 @@ export interface UseRouterErrors {
   search: Error;
 }
 
-export interface UseExternalCheckout {
+export interface UseExternalCheckout<API extends PlatformApi = any> extends Composable<API>{
   initializeCheckout: (baseUrl: string) => Promise<string>;
   error: ComputedProperty<UseExternalCheckoutErrors>;
   loading: ComputedProperty<boolean>;
@@ -27,7 +29,7 @@ export interface UseExternalCheckoutErrors {
   initializeCheckout: Error;
 }
 
-export interface UseCategorySearch<CATEGORY> {
+export interface UseCategorySearch<CATEGORY, API extends PlatformApi = any> extends Composable<API>{
   search: (params: { term: string }) => Promise<CATEGORY[]>;
   result: ComputedProperty<CATEGORY[]>;
   error: ComputedProperty<UseCategorySearchErrors>;
@@ -38,7 +40,7 @@ export interface UseCategorySearchErrors {
   search: Error;
 }
 
-export interface UseCountrySearch<COUNTRIES, COUNTRY> {
+export interface UseCountrySearch<COUNTRIES, COUNTRY, API extends PlatformApi = any> extends Composable<API> {
   load: () => Promise<COUNTRIES[]>;
   search: (params: { id: string }) => Promise<COUNTRY>;
   countries: ComputedProperty<COUNTRIES[]>;
@@ -52,13 +54,13 @@ export interface UseCountrySearchErrors {
   search: Error;
 }
 
-export interface UseConfig<CONFIG> {
+export interface UseConfig<CONFIG, API extends PlatformApi = any> extends Composable<API> {
   config: ComputedRef<CONFIG>;
   loadConfig: () => Promise<void>;
   loading: ComputedRef<boolean>;
 }
 
-export interface UseContent<PAGE, BLOCK> {
+export interface UseContent<PAGE, BLOCK, API extends PlatformApi = any> extends Composable<API>{
   page: ComputedProperty<PAGE>;
   blocks: ComputedProperty<BLOCK[]>
   loadContent: (identifier: string) => Promise<void>;
@@ -66,7 +68,7 @@ export interface UseContent<PAGE, BLOCK> {
   loading: ComputedProperty<boolean>;
 }
 
-export interface UseGetShippingMethods<SHIPPING_METHOD> {
+export interface UseGetShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API>{
   state: ComputedProperty<SHIPPING_METHOD[]>;
 
   setState(state: SHIPPING_METHOD[]): void;
@@ -86,7 +88,7 @@ export interface UsePaymentProviderErrors {
   save: Error;
 }
 
-export interface UsePaymentProvider<STATE, PAYMENT_METHOD> {
+export interface UsePaymentProvider<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends Composable<API>{
   error: ComputedProperty<UsePaymentProviderErrors>;
   loading: ComputedProperty<boolean>;
   state: ComputedProperty<STATE>;
@@ -113,7 +115,7 @@ export interface UseGuestUserRegisterParams {
   [x: string]: any;
 }
 
-export interface UseGuestUser<GUEST_USER> {
+export interface UseGuestUser<GUEST_USER, API extends PlatformApi = any> extends Composable<API>{
   guestUser: ComputedProperty<GUEST_USER>;
   setGuestUser: (user: GUEST_USER) => void;
   attachToCart: (params: { user: UseGuestUserRegisterParams }) => Promise<void>;
@@ -128,7 +130,12 @@ export interface UseReviewErrors {
   loadCustomerReviews: Error;
 }
 
-export interface UseReview<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA> {
+export interface UseReview<REVIEW,
+  REVIEWS_SEARCH_PARAMS,
+  REVIEWS_USER_SEARCH_PARAMS,
+  REVIEW_ADD_PARAMS,
+  REVIEW_METADATA,
+  API extends PlatformApi = any> extends Composable<API>{
   search(params?: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>): Promise<void>;
 
   loadCustomerReviews(params?: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void>;
@@ -149,7 +156,7 @@ export interface UseNewsletterErrors {
   updateSubscription: Error;
 }
 
-export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS> {
+export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends Composable<API>{
   error: ComputedProperty<UseNewsletterErrors>;
   loading: ComputedProperty<boolean>;
   updateSubscription: (params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<void>;
@@ -166,7 +173,9 @@ export interface UseAddresses<ADDRESS,
   LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
   SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
   UPDATE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
-  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams> {
+  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
+  API extends PlatformApi = any,
+> extends Composable<API> {
   error: ComputedProperty<UseAddressesErrors>;
   loading: ComputedProperty<boolean>;
   addresses: ComputedProperty<ADDRESS[]>;

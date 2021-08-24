@@ -6,17 +6,18 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseContent } from '../types/composables';
 
-export interface UseContentFactoryParams<CONTENT, BLOCK> extends FactoryParams{
+export interface UseContentFactoryParams<CONTENT, BLOCK, API extends PlatformApi = any> extends FactoryParams<API>{
   loadContent: (context: Context, identifier: string) => Promise<CONTENT>;
   loadBlocks: (context: Context, identifiers: string[]) => Promise<BLOCK[]>;
 }
 
-export function useContentFactory<CONTENT, BLOCK>(
-  factoryParams: UseContentFactoryParams<CONTENT, BLOCK>,
+export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>(
+  factoryParams: UseContentFactoryParams<CONTENT, BLOCK, API>,
 ) {
-  return function useContent(ssrKey = 'useConfigFactory'): UseContent<CONTENT, BLOCK> {
+  return function useContent(ssrKey = 'useConfigFactory'): UseContent<CONTENT, BLOCK, API> {
     // @ts-ignore
     const page = sharedRef<CONTENT>({}, `useContent-content-${ssrKey}`);
     const blocks = sharedRef<BLOCK[]>([], `useContent-blocks-${ssrKey}`);

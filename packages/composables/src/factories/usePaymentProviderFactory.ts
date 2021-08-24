@@ -7,16 +7,17 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
-export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD> extends FactoryParams {
+export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: { state: Ref<STATE>, customQuery?: CustomQuery }) => Promise<STATE>;
   save: (context: Context, params: { state: Ref<STATE>, paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }) => Promise<STATE>;
 }
 
-export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD>(
-  factoryParams: UsePaymentProviderParams<STATE, PAYMENT_METHOD>,
-) => function usePaymentProvider(): UsePaymentProvider<STATE, PAYMENT_METHOD> {
+export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends PlatformApi = any>(
+  factoryParams: UsePaymentProviderParams<STATE, PAYMENT_METHOD, API>,
+) => function usePaymentProvider(): UsePaymentProvider<STATE, PAYMENT_METHOD, API> {
   const loading: Ref<boolean> = sharedRef(false, 'usePaymentProvider-loading');
   const state: Ref<STATE> = sharedRef(null, 'usePaymentProvider-response');
   // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle

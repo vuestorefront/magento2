@@ -6,16 +6,17 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseGetShippingMethods, UseGetShippingMethodsErrors } from '../types/composables';
 
-export interface UseGetShippingMethodsFactory<SHIPPING_METHOD> extends FactoryParams {
+export interface UseGetShippingMethodsFactory<SHIPPING_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;
 }
 
-export function useGetShippingMethodsFactory<SHIPPING_METHOD>(
-  factoryParams: UseGetShippingMethodsFactory<SHIPPING_METHOD>,
+export function useGetShippingMethodsFactory<SHIPPING_METHOD, API extends PlatformApi = any>(
+  factoryParams: UseGetShippingMethodsFactory<SHIPPING_METHOD, API>,
 ) {
-  return function useGetShippingMethods(id: string = ''): UseGetShippingMethods<SHIPPING_METHOD> {
+  return function useGetShippingMethods(id: string = ''): UseGetShippingMethods<SHIPPING_METHOD, API> {
     // @ts-ignore
     const state: Ref<SHIPPING_METHOD[]> = sharedRef(null, 'UseGetShippingMethods-response');
     const ssrKey = id || 'useGetShippingMethods';

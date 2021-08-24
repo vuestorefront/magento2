@@ -6,16 +6,17 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables';
 
-export interface UseCategorySearchFactory<CATEGORY> extends FactoryParams {
+export interface UseCategorySearchFactory<CATEGORY, API extends PlatformApi = any> extends FactoryParams<API> {
   search: (context: Context, params: { term: string }) => Promise<CATEGORY[]>;
 }
 
-export function useCategorySearchFactory<CATEGORY>(
-  factoryParams: UseCategorySearchFactory<CATEGORY>,
+export function useCategorySearchFactory<CATEGORY, API extends PlatformApi = any>(
+  factoryParams: UseCategorySearchFactory<CATEGORY, API>,
 ) {
-  return function useCategorySearch(id: string = ''): UseCategorySearch<CATEGORY> {
+  return function useCategorySearch(id: string = ''): UseCategorySearch<CATEGORY, API> {
     const ssrKey = id || 'useCategorySearch';
     // @ts-ignore
     const result = sharedRef<CATEGORY>([], `${ssrKey}-result`);
