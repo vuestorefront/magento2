@@ -302,6 +302,7 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
 import { productData } from '~/helpers/product/productData';
+import cacheControl from '~/helpers/cacheControl';
 
 export default {
   name: 'Product',
@@ -329,8 +330,12 @@ export default {
     SfSelect,
     SfTabs,
   },
+  middleware: cacheControl({
+    'max-age': 60,
+    'stale-when-revalidate': 5,
+  }),
   transition: 'fade',
-  setup() {
+  setup(props, context) {
     const qty = ref(1);
     const { product, id } = productData();
     const { route, router } = useVueRouter();
@@ -472,6 +477,8 @@ export default {
       });
       await searchReviews({ ...baseSearchQuery });
       loadProductConfiguration();
+
+      if (product?.value?.length === 0) context.root.$nuxt.error({ statusCode: 404 });
     });
 
     return {
