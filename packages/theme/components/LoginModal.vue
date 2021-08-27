@@ -3,14 +3,14 @@
     v-e2e="'login-modal'"
     :visible="isLoginModalOpen"
     class="modal"
-    @close="toggleLoginModal"
+    @close="closeModal"
   >
     <template #modal-bar>
       <SfBar
         class="sf-modal__bar smartphone-only"
         :close="true"
-        :title="isLogin ? 'Log in' : 'Sign in'"
-        @click:close="toggleLoginModal"
+        :title="barTitle"
+        @click:close="closeModal"
       />
     </template>
     <transition
@@ -82,7 +82,10 @@
           </form>
         </ValidationObserver>
         <div class="action">
-          <SfButton class="sf-button--text">
+          <SfButton
+            class="sf-button--text"
+            @click="setIsForgottenValue(true)"
+          >
             {{ $t('Forgotten password?') }}
           </SfButton>
         </div>
@@ -97,6 +100,64 @@
             {{ $t('Register today') }}
           </SfButton>
         </div>
+      </div>
+      <div v-else-if="isForgotten">
+        <p>{{ $t('Forgot Password') }}</p>
+        <ValidationObserver
+          v-slot="{ handleSubmit }"
+          key="log-in"
+        >
+          <form
+            class="form"
+            @submit.prevent="handleSubmit(handleForgotten)"
+          >
+            <ValidationProvider
+              v-slot="{ errors }"
+              rules="required|email"
+            >
+              <SfInput
+                v-model="form.username"
+                v-e2e="'forgot-modal-email'"
+                :valid="!errors[0]"
+                :error-message="errors[0]"
+                name="email"
+                :label="$t('Forgot Password Modal Email')"
+                class="form__element"
+              />
+            </ValidationProvider>
+            <div v-if="forgotPasswordError.request">
+              {{ $t('It was not possible to request a new password, please check the entered email address.') }}
+            </div>
+            <SfButton
+              v-e2e="'forgot-modal-submit'"
+              type="submit"
+              class="sf-button--full-width form__button"
+              :disabled="forgotPasswordLoading"
+            >
+              <SfLoader
+                :class="{ loader: forgotPasswordLoading }"
+                :loading="forgotPasswordLoading"
+              >
+                <div>{{ $t('Reset Password') }}</div>
+              </SfLoader>
+            </SfButton>
+          </form>
+        </ValidationObserver>
+      </div>
+      <div
+        v-else-if="isThankYouAfterForgotten"
+        class="thank-you"
+      >
+        <i18n
+          tag="p"
+          class="thank-you__paragraph"
+          path="forgotPasswordConfirmation"
+        >
+          <span class="thank-you__paragraph--bold">{{ userEmail }}</span>
+        </i18n>
+        <p class="thank-you__paragraph">
+          {{ $t('Thank You Inbox') }}
+        </p>
       </div>
       <div
         v-else
@@ -236,6 +297,7 @@ import {
   watch,
   reactive,
   defineComponent,
+  computed,
 } from '@vue/composition-api';
 import {
   SfModal,
@@ -247,7 +309,7 @@ import {
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { useUser } from '@vue-storefront/magento';
+import { useUser, useForgotPassword } from '@vue-storefront/magento';
 import { useUiState } from '~/composables';
 
 extend('email', {
@@ -285,15 +347,28 @@ export default defineComponent({
     const isSubscribed = ref(false);
     const allowRemoteShoppingAssistance = ref(false);
     const form = ref({});
-    const isLogin = ref(false);
+    const isLogin = ref(true);
     const createAccount = ref(false);
     const rememberMe = ref(false);
+    const isForgotten = ref(false);
+    const isThankYouAfterForgotten = ref(false);
+    const userEmail = ref('');
     const {
       register,
       login,
       loading,
       error: userError,
     } = useUser();
+    const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
+
+    const barTitle = computed(() => {
+      if (isLogin.value) {
+        return 'Sign in';
+      } if (isForgotten.value || isThankYouAfterForgotten.value) {
+        return 'Reset Password';
+      }
+      return 'Register';
+    });
 
     const error = reactive({
       login: null,
@@ -315,6 +390,18 @@ export default defineComponent({
     const setIsLoginValue = (value) => {
       resetErrorValues();
       isLogin.value = value;
+    };
+
+    const setIsForgottenValue = (value) => {
+      resetErrorValues();
+      isForgotten.value = value;
+      isLogin.value = !value;
+    };
+
+    const closeModal = () => {
+      setIsForgottenValue(false);
+      setIsLoginValue(true);
+      toggleLoginModal();
     };
 
     const handleForm = (fn) => async () => {
@@ -340,21 +427,39 @@ export default defineComponent({
 
     const handleLogin = async () => handleForm(login)();
 
+    const handleForgotten = async () => {
+      userEmail.value = form.value.username;
+      await request({ email: userEmail.value });
+
+      if (!forgotPasswordError.value.request) {
+        isThankYouAfterForgotten.value = true;
+        isForgotten.value = false;
+      }
+    };
+
     return {
-      isSubscribed,
       allowRemoteShoppingAssistance,
-      form,
-      error,
-      userError,
-      loading,
-      isLogin,
+      barTitle,
+      closeModal,
       createAccount,
-      rememberMe,
-      isLoginModalOpen,
-      toggleLoginModal,
+      error,
+      forgotPasswordError,
+      forgotPasswordLoading,
+      form,
+      handleForgotten,
       handleLogin,
       handleRegister,
+      isForgotten,
+      isLogin,
+      isLoginModalOpen,
+      isSubscribed,
+      isThankYouAfterForgotten,
+      loading,
+      rememberMe,
+      setIsForgottenValue,
       setIsLoginValue,
+      userEmail,
+      userError,
     };
   },
 });
@@ -407,6 +512,13 @@ export default defineComponent({
     margin: 0 0 var(--spacer-base) 0;
     @include for-desktop {
       margin: 0;
+    }
+  }
+}
+.thank-you {
+  &__paragraph {
+    &--bold {
+      font-weight: var(--font-weight--semibold);
     }
   }
 }

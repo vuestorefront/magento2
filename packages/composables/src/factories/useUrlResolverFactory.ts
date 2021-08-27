@@ -6,15 +6,16 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed } from 'vue-demi';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseUrlResolver } from '../types/composables';
 
-export interface UseUrlResolverFactoryParams<ROUTER> extends FactoryParams {
+export interface UseUrlResolverFactoryParams<ROUTER, API extends PlatformApi = any> extends FactoryParams<API> {
   search: (context: Context, url: string) => Promise<ROUTER>;
 }
 
-export const useUrlResolverFactory = <ROUTER>(
-  factoryParams: UseUrlResolverFactoryParams<ROUTER>,
-) => function useRouter(ssrKey = 'useRouter'): UseUrlResolver<ROUTER> {
+export const useUrlResolverFactory = <ROUTER, API extends PlatformApi = any>(
+  factoryParams: UseUrlResolverFactoryParams<ROUTER, API>,
+) => function useRouter(ssrKey = 'useRouter'): UseUrlResolver<ROUTER, API> {
   // @ts-ignore
   const result = sharedRef<ROUTER>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);

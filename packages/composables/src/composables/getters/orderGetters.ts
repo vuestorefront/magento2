@@ -1,6 +1,4 @@
 /* istanbul ignore file */
-import { UserOrderGetters } from '@vue-storefront/core';
-import { Order, OrderItem } from '@vue-storefront/magento-api';
 
 export const getDate = (order: any): string => new Date(order?.created_at).toLocaleDateString() || '';
 
@@ -22,7 +20,7 @@ export const getItemPrice = (item: any): number => item?.product_sale_price?.val
 
 export const getFormattedPrice = (price: number) => String(price);
 
-const orderGetters: UserOrderGetters<Order, OrderItem> = {
+const orderGetters = {
   getDate,
   getId,
   getStatus,

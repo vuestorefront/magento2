@@ -7,13 +7,16 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed, Ref } from 'vue-demi';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { CustomQueryParams, UseAddresses, UseAddressesErrors } from '../types/composables';
 
 export interface UseAddressesParams<ADDRESS,
   LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery } =CustomQueryParams,
   SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
   UPDATE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
-  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams> extends FactoryParams {
+  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
+  API extends PlatformApi = any,
+> extends FactoryParams<API> {
   load: (context: Context, params?: LOAD_ADDRESS_PARAMS) => Promise<ADDRESS[]>;
   save: (context: Context, params: SAVE_ADDRESS_PARAMS) => Promise<ADDRESS>;
   update: (context: Context, params: UPDATE_ADDRESS_PARAMS) => Promise<ADDRESS>;
@@ -24,17 +27,21 @@ export const useAddressesFactory = <ADDRESS,
   LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
   SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
   UPDATE_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
-  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery }>(
+  REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
+  API extends PlatformApi = any,
+>(
   factoryParams: UseAddressesParams<ADDRESS,
   LOAD_ADDRESS_PARAMS,
   SAVE_ADDRESS_PARAMS,
   UPDATE_ADDRESS_PARAMS,
-  REMOVE_ADDRESS_PARAMS>,
+  REMOVE_ADDRESS_PARAMS,
+  API>,
 ) => function useAddresses(): UseAddresses<ADDRESS,
 LOAD_ADDRESS_PARAMS,
 SAVE_ADDRESS_PARAMS,
 UPDATE_ADDRESS_PARAMS,
-REMOVE_ADDRESS_PARAMS> {
+REMOVE_ADDRESS_PARAMS,
+API> {
   const loading: Ref<boolean> = sharedRef(false, 'useAddresses-loading');
   const addresses: Ref<ADDRESS[]> = sharedRef(null, 'useAddresses-shipping');
   const error: Ref<UseAddressesErrors> = sharedRef({

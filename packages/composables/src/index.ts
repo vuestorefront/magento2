@@ -13,6 +13,7 @@ export { default as useContent } from './composables/useContent';
 export { default as useCountrySearch } from './composables/useCountrySearch';
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
 export { default as useFacet } from './composables/useFacet';
+export { default as useForgotPassword } from './composables/useForgotPassword';
 export { default as useGetShippingMethods } from './composables/useGetShippingMethods';
 export { default as useGuestUser } from './composables/useGuestUser';
 export { default as useMakeOrder } from './composables/useMakeOrder';

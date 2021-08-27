@@ -67,6 +67,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       return data.customer;
     } catch {
       // eslint-disable-next-line no-void
+      // @ts-ignore
       await factoryParams.logOut(context);
     }
 
@@ -136,7 +137,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       apiState.setCartId(dataMergeCart.mergeCarts.id);
     }
 
-    return factoryParams.load(context, { username, password });
+    await context.$magento.api.wishlist({});
+
+    return factoryParams.load(context);
   },
   changePassword: async function changePassword(context: Context, { currentPassword, newPassword }) {
     return context.$magento.api.changeCustomerPassword(currentPassword, newPassword);

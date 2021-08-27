@@ -32,9 +32,10 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, context) {
     const {
       page,
+      error,
       loadContent,
       loading,
     } = useContent('cmsPage');
@@ -42,6 +43,7 @@ export default defineComponent({
 
     onSSR(async () => {
       await loadContent(route.params.slug || props.identifier);
+      if (error?.value?.content) context.root.$nuxt.error({ statusCode: 404 });
     });
     return {
       page,

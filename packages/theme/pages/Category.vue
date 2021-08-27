@@ -413,6 +413,7 @@ import {
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import cacheControl from '~/helpers/cacheControl';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -436,8 +437,12 @@ export default defineComponent({
     SfProperty,
     LazyHydrate,
   },
+  middleware: cacheControl({
+    'max-age': 60,
+    'stale-when-revalidate': 5,
+  }),
   transition: 'fade',
-  setup() {
+  setup(props, context) {
     const {
       router,
       route,
@@ -487,7 +492,7 @@ export default defineComponent({
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
-      routeData.value.entity_uid,
+      routeData.value?.entity_uid,
       false,
     ));
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
@@ -605,33 +610,36 @@ export default defineComponent({
     };
 
     onSSR(async () => {
-      await Promise.all([
-        routeSearch(path),
-        categoriesSearch({
+      await routeSearch(path);
+
+      if (!routeData?.value) context.root.$nuxt.error({ statusCode: 404 });
+
+      if (routeData?.value) {
+        await categoriesSearch({
           pageSize: 100,
-        }),
-      ]);
+        });
 
-      await search({
-        ...th.getFacetsFromURL(),
-        categoryId: activeCategoryUid(routeData.value.entity_uid),
-      });
+        await search({
+          ...th.getFacetsFromURL(),
+          categoryId: activeCategoryUid(routeData.value?.entity_uid),
+        });
 
-      if (facets.value.length > 0) {
-        selectedFilters.value = facets.value.reduce(
-          (prev, curr) => (curr.id === 'price'
-            ? {
-              ...prev,
-              [curr.id]: curr.options.find((o) => o.selected)?.value,
-            }
-            : {
-              ...prev,
-              [curr.id]: curr.options
-                .filter((o) => o.selected)
-                .map((o) => o.value),
-            }),
-          {},
-        );
+        if (facets.value.length > 0) {
+          selectedFilters.value = facets.value.reduce(
+            (prev, curr) => (curr.id === 'price'
+              ? {
+                ...prev,
+                [curr.id]: curr.options.find((o) => o.selected)?.value,
+              }
+              : {
+                ...prev,
+                [curr.id]: curr.options
+                  .filter((o) => o.selected)
+                  .map((o) => o.value),
+              }),
+            {},
+          );
+        }
       }
     });
 

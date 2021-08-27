@@ -6,15 +6,20 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseGuestUser, UseGuestUserErrors } from '../types/composables';
 
-export interface UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS> extends FactoryParams {
+export interface UseGuestUserFactoryParams<GUEST_USER,
+  REGISTER_GUEST_USER_PARAMS,
+  API extends PlatformApi = any> extends FactoryParams<API> {
   attachToCart: (context: Context, params: REGISTER_GUEST_USER_PARAMS) => Promise<GUEST_USER>;
 }
 
-export const useGuestUserFactory = <GUEST_USER, REGISTER_GUEST_USER_PARAMS extends { email: string; password: string }>(
-  factoryParams: UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS>,
-) => function useGuestUser(): UseGuestUser<GUEST_USER> {
+export const useGuestUserFactory = <GUEST_USER,
+  REGISTER_GUEST_USER_PARAMS extends { email: string; password: string },
+  API extends PlatformApi = any>(
+  factoryParams: UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API>,
+) => function useGuestUser(): UseGuestUser<GUEST_USER, API> {
   const errorsFactory = (): UseGuestUserErrors => ({
     attachToCart: null,
   });

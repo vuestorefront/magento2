@@ -6,16 +6,17 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed } from 'vue-demi';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseExternalCheckout } from '../types/composables';
 
-export interface UseExternalCheckoutFactoryParams extends FactoryParams {
+export interface UseExternalCheckoutFactoryParams<API extends PlatformApi = any> extends FactoryParams<API> {
   initializeCheckout: (context: Context, baseUrl: string) => Promise<string>;
 }
 
-export const useExternalCheckoutFactory = (
-  factoryParams: UseExternalCheckoutFactoryParams,
+export const useExternalCheckoutFactory = <API extends PlatformApi = any>(
+  factoryParams: UseExternalCheckoutFactoryParams<API>,
 ) => {
-  function useExternalCheckout(ssrKey = 'useExternalCheckout'): UseExternalCheckout {
+  function useExternalCheckout(ssrKey = 'useExternalCheckout'): UseExternalCheckout<API> {
     const loading = sharedRef(false, `${ssrKey}-loading`);
     const error = sharedRef({
       search: null,

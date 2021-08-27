@@ -5,15 +5,18 @@ import {
   Logger,
   configureFactoryParams, FactoryParams,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCountrySearch, UseCountrySearchErrors } from '../types/composables';
 
-export interface UseCountryFactoryParams<COUNTRIES, COUNTRY> extends FactoryParams{
+export interface UseCountryFactoryParams<COUNTRIES, COUNTRY, API extends PlatformApi = any> extends FactoryParams<API>{
   load: (context: Context) => Promise<COUNTRIES[]>;
   search: (context: Context, params: { id: string }) => Promise<COUNTRY>;
 }
 
-export function useCountrySearchFactory<COUNTRIES, COUNTRY>(factoryParams: UseCountryFactoryParams<COUNTRIES, COUNTRY>) {
-  return function useCountrySearch(cacheId: string = ''): UseCountrySearch<COUNTRIES, COUNTRY> {
+export function useCountrySearchFactory<COUNTRIES,
+  COUNTRY,
+  API extends PlatformApi = any>(factoryParams: UseCountryFactoryParams<COUNTRIES, COUNTRY, API>) {
+  return function useCountrySearch(cacheId: string = ''): UseCountrySearch<COUNTRIES, COUNTRY, API> {
     const ssrKey = cacheId || 'useCountrySearchFactory';
     const countries = sharedRef<COUNTRIES[]>([], `${ssrKey}-countries`);
     // @ts-ignore
