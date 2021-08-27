@@ -60,12 +60,18 @@ export interface UseConfig<CONFIG, API extends PlatformApi = any> extends Compos
   loading: ComputedRef<boolean>;
 }
 
+export interface UseContentErrors {
+  content: Error;
+  blocks: Error;
+}
+
 export interface UseContent<PAGE, BLOCK, API extends PlatformApi = any> extends Composable<API>{
   page: ComputedProperty<PAGE>;
   blocks: ComputedProperty<BLOCK[]>
   loadContent: (identifier: string) => Promise<void>;
   loadBlocks: (identifiers: string[]) => Promise<void>;
   loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseContentErrors>;
 }
 
 export interface UseGetShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API>{

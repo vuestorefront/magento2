@@ -1,4 +1,4 @@
-import { computed } from 'vue-demi';
+import { computed, Ref } from 'vue-demi';
 import {
   configureFactoryParams,
   Context,
@@ -7,7 +7,7 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
-import { UseContent } from '../types/composables';
+import { UseContentErrors, UseContent } from '../types/composables';
 
 export interface UseContentFactoryParams<CONTENT, BLOCK, API extends PlatformApi = any> extends FactoryParams<API>{
   loadContent: (context: Context, identifier: string) => Promise<CONTENT>;
@@ -20,6 +20,10 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
   return function useContent(ssrKey = 'useConfigFactory'): UseContent<CONTENT, BLOCK, API> {
     // @ts-ignore
     const page = sharedRef<CONTENT>({}, `useContent-content-${ssrKey}`);
+    const errors: Ref<UseContentErrors> = sharedRef({
+      content: null,
+      blocks: null,
+    }, 'useContent-error');
     const blocks = sharedRef<BLOCK[]>([], `useContent-blocks-${ssrKey}`);
     const loading = sharedRef<boolean>(false, `useContent-loading-${ssrKey}`);
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
@@ -30,7 +34,10 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
       loading.value = true;
 
       try {
+        errors.value.content = null;
         page.value = await _factoryParams.loadContent(identifier);
+      } catch (error) {
+        errors.value.content = error;
       } finally {
         loading.value = false;
       }
@@ -41,7 +48,10 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
       loading.value = true;
 
       try {
+        errors.value.blocks = null;
         blocks.value = await _factoryParams.loadBlocks(identifiers);
+      } catch (error) {
+        errors.value.blocks = error;
       } finally {
         loading.value = false;
       }
@@ -53,6 +63,7 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
       loading: computed(() => loading.value),
       page: computed(() => page.value),
       blocks: computed(() => blocks.value),
+      error: computed(() => errors.value),
     };
   };
 }
