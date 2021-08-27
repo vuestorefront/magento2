@@ -19,7 +19,7 @@ export default async (
       variables: input,
     });
 
-    if (!result.data.requestPasswordResetEmail) return await Promise.reject(false);
+    if (!result.data.requestPasswordResetEmail) throw new Error('Email was not found, or not available.');
 
     return result;
   } catch (error) {
