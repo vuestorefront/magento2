@@ -126,7 +126,7 @@
               />
             </ValidationProvider>
             <div v-if="forgotPasswordError.request">
-              {{ forgotPasswordError.request.message }}
+              {{ $t('It was not possible to request a new password, please check the entered email address.') }}
             </div>
             <SfButton
               v-e2e="'forgot-modal-submit'"
@@ -347,7 +347,7 @@ export default defineComponent({
     const isSubscribed = ref(false);
     const allowRemoteShoppingAssistance = ref(false);
     const form = ref({});
-    const isLogin = ref(false);
+    const isLogin = ref(true);
     const createAccount = ref(false);
     const rememberMe = ref(false);
     const isForgotten = ref(false);
@@ -400,6 +400,7 @@ export default defineComponent({
 
     const closeModal = () => {
       setIsForgottenValue(false);
+      setIsLoginValue(true);
       toggleLoginModal();
     };
 
