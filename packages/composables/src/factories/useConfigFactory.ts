@@ -5,14 +5,15 @@ import {
   Logger,
   configureFactoryParams, FactoryParams,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseConfig } from '../types/composables';
 
-export interface UseConfigFactoryParams<CONFIG> extends FactoryParams{
+export interface UseConfigFactoryParams<CONFIG, API extends PlatformApi = any> extends FactoryParams<API>{
   loadConfig: (context: Context) => Promise<CONFIG>;
 }
 
-export function useConfigFactory<CONFIG>(factoryParams: UseConfigFactoryParams<CONFIG>) {
-  return function useConfig(cacheId: string = ''): UseConfig<CONFIG> {
+export function useConfigFactory<CONFIG, API extends PlatformApi = any>(factoryParams: UseConfigFactoryParams<CONFIG, API>) {
+  return function useConfig(cacheId: string = ''): UseConfig<CONFIG, API> {
     const ssrKey = cacheId || 'useConfigFactory';
     // @ts-ignore
     const config = sharedRef<CONFIG>({}, `${ssrKey}-config`);

@@ -11,13 +11,12 @@ import {
   AddProductsToCartInput,
   Cart,
   CartItem,
-  Coupon,
   Product,
   RemoveItemFromCartInput,
   UpdateCartItemsInput,
 } from '@vue-storefront/magento-api';
 
-const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
+const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
   load: async (context: Context) => {
     const apiState = context.$magento.config.state;
     Logger.debug('[Magento Storefront]: Loading Cart');
@@ -33,12 +32,6 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       apiState.setCartId(data.createEmptyCart);
 
       return data.createEmptyCart;
-    };
-
-    const generateCart = async (id?: string) => {
-      const cartId = await createNewCart();
-
-      return getCartData(id || apiState.getCartId() || cartId);
     };
 
     const getCartData = async (id?: string) => {
@@ -62,6 +55,12 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
 
         return await fetchData(cartId);
       }
+    };
+
+    const generateCart = async (id?: string) => {
+      const cartId = await createNewCart();
+
+      return getCartData(id || apiState.getCartId() || cartId);
     };
 
     if (customerToken) {
@@ -128,7 +127,6 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
             .data
             .addProductsToCart
             .cart as unknown as Cart;
-
         case 'ConfigurableProduct':
           const cartItems = [
             {
@@ -151,6 +149,28 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
           return configurableProduct
             .data
             .addConfigurableProductsToCart
+            .cart as unknown as Cart;
+        case 'BundleProduct':
+          const bundleCartInput: AddProductsToCartInput = {
+            cartId: currentCartId,
+            cartItems: [
+              {
+                quantity,
+                sku: product.sku,
+                entered_options: [
+                  // @ts-ignore
+                  ...product.bundle_options,
+                ],
+              },
+            ],
+          };
+
+          const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
+
+          // eslint-disable-next-line consistent-return
+          return bundleProduct
+            .data
+            .addProductsToCart
             .cart as unknown as Cart;
         default:
           // todo implement other options
@@ -214,7 +234,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
       .cart as unknown as Cart;
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  clear: async (context: Context, _params = null) => {
+  clear: (context: Context, _params = null) => {
     context.$magento.config.state.setCartId(null);
 
     return factoryParams.load(context, {});
@@ -256,4 +276,4 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
     .find((cartItem) => cartItem.product.uid === product.uid),
 };
 
-export default useCartFactory<Cart, CartItem, Product, Coupon>(factoryParams);
+export default useCartFactory<Cart, CartItem, Product>(factoryParams);

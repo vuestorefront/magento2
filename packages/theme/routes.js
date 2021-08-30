@@ -58,5 +58,15 @@ export function getRoutes(themeDir = __dirname) {
       },
     ],
   },
+  {
+    name: 'reset-password',
+    path: '/reset-password',
+    component: path.resolve(themeDir, 'pages/ResetPassword.vue'),
+  },
+  {
+    name: 'page',
+    path: '/:slug+',
+    component: path.resolve(themeDir, 'pages/Page.vue'),
+  },
   ];
 }

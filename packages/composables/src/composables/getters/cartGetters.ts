@@ -26,6 +26,8 @@ export const getItems = (cart: Cart): CartItem[] => {
 
 export const getItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
 
+export const getSlug = (product: CartItem): string => productGetters.getSlug(product.product as Product);
+
 export const getItemImage = (product: CartItem): string => productGetters.getProductThumbnailImage(product.product as Product);
 
 export const getItemPrice = (product: CartItem): AgnosticPrice => {
@@ -35,7 +37,12 @@ export const getItemPrice = (product: CartItem): AgnosticPrice => {
       special: 0,
     };
   }
-
+  if (product.prices) {
+    return {
+      regular: product.prices.row_total.value || 0,
+      special: product.prices.total_item_discount.value || 0,
+    };
+  }
   const regularPrice = product.product?.price_range?.minimum_price?.regular_price?.value;
   const specialPrice = product.product?.price_range?.minimum_price?.final_price?.value;
 
@@ -95,10 +102,11 @@ const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((
 export const getTotals = (cart: Cart): AgnosticTotals => {
   if (!cart || !cart.prices) return {} as AgnosticTotals;
 
+  const subtotal = cart.prices.subtotal_including_tax.value;
   return {
     total: cart.prices.grand_total.value,
     subtotal: cart.prices.subtotal_including_tax.value,
-    special: (cart.prices.discounts) ? calculateDiscounts(cart.prices.discounts) : 0,
+    special: (cart.prices.discounts) ? subtotal - calculateDiscounts(cart.prices.discounts) : subtotal,
   } as AgnosticTotals;
 };
 
@@ -141,12 +149,12 @@ export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?
   code: c.code,
 } as AgnosticCoupon)) : []);
 
-export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
-  id: c.code,
-  name: c.code,
-  description: c.code,
-  value: 0,
-  code: c.code,
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.prices.discounts) ? cart.prices.discounts.map((d) => ({
+  id: d.label,
+  name: d.label,
+  description: '',
+  value: d.amount.value,
+  code: d.label,
 } as AgnosticDiscount)) : []);
 
 export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
@@ -184,6 +192,7 @@ const cartGetters: CartGetters = {
   getItemAttributes,
   getItemImage,
   getItemName,
+  getSlug,
   getItemPrice,
   getItemQty,
   getItems,

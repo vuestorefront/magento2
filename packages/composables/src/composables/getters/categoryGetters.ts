@@ -30,7 +30,7 @@ const buildTree = (rootCategory: Category, currentCategory: string, withProducts
     label,
     slug,
     uid: [rootCategory.uid, ...childrenUid],
-    items,
+    items: items.filter((c) => c.count > 0),
     count: childProductCount || rootCategory.product_count,
     isCurrent,
   };

@@ -37,13 +37,26 @@ export default gql`
   }
   items {
     ...CartProductData
-    ... on ConfigurableCartItem{
+    ... on ConfigurableCartItem {
       configurable_options {
         configurable_product_option_uid
         option_label
         configurable_product_option_value_uid
         value_label
       }
+    }
+    ... on BundleCartItem {
+        bundle_options {
+          uid
+          label
+          type
+          values {
+            id
+            label
+            price
+            quantity
+          }
+        }
     }
   }
   total_quantity

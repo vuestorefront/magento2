@@ -29,8 +29,8 @@
         </div>
         <div class="product__price-and-rating">
           <SfPrice
-            :regular="$n(productGetters.getPrice(product).regular, 'currency')"
-            :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :regular="$n(productPrice, 'currency')"
+            :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
           />
           <div>
             <div class="product__rating">
@@ -71,7 +71,6 @@
             {{ $t('Size guide') }}
           </SfButton>
           <template
-            v-if="configurableOptions.length"
             v-for="option in configurableOptions"
           >
             <div
@@ -83,7 +82,7 @@
                 {{ option.label }}:
               </p>
               <SfColor
-                v-for="(color, i) in option.values"
+                v-for="color in option.values"
                 :key="color.uid"
                 :color="productGetters.getSwatchData(color.swatch_data)"
                 :selected="productConfiguration[option.attribute_uid] === color.uid"
@@ -101,7 +100,6 @@
               @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
             >
               <SfSelectOption
-                v-if="option.values"
                 v-for="attribute in option.values"
                 :key="attribute.uid"
                 :value="attribute.uid"
@@ -110,7 +108,51 @@
               </SfSelectOption>
             </SfSelect>
           </template>
+          <template
+            v-if="product.__typename === 'GroupedProduct'"
+          >
+            <SfList class="grouped_items">
+              <SfListItem
+                v-for="(groupedItem, index) in groupedItems"
+                :key="index"
+                class="grouped_items--item"
+              >
+                <SfImage
+                  :src="productGetters.getProductThumbnailImage(groupedItem.product)"
+                  :alt="productGetters.getName(groupedItem.product)"
+                  :width="60"
+                />
+                <div>
+                  <p>{{ productGetters.getName(groupedItem.product) }}</p>
+                  <SfPrice
+                    :regular="$n(productGetters.getPrice(product).regular, 'currency')"
+                    :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                  />
+                </div>
+                <SfQuantitySelector
+                  v-model="groupedItem.qty"
+                  :disabled="loading || !canAddToCart"
+                />
+              </SfListItem>
+            </SfList>
+            <button
+              v-e2e="'product_add-to-cart'"
+              :disabled="loading || !canAddToCart"
+              class="color-primary sf-button grouped_items--add-to-cart"
+              @click="addGroupedToCart"
+            >
+              Add to Cart
+            </button>
+          </template>
+          <template
+            v-else-if="product.__typename === 'BundleProduct'"
+          >
+            <BundleProductSelector
+              @update-price="basePrice = $event"
+            />
+          </template>
           <SfAddToCart
+            v-else
             v-model="qty"
             v-e2e="'product_add-to-cart'"
             :disabled="loading || !canAddToCart"
@@ -197,7 +239,7 @@
       </div>
     </div>
     <LazyHydrate
-      v-if="relatedProducts.length"
+      v-if="relatedProducts.length > 0"
       when-visible
     >
       <ProductsCarousel
@@ -206,7 +248,7 @@
       />
     </LazyHydrate>
     <LazyHydrate
-      v-if="upsellProducts.length"
+      v-if="upsellProducts.length > 0"
       when-visible
     >
       <ProductsCarousel
@@ -232,8 +274,11 @@ import {
   SfGallery,
   SfHeading,
   SfIcon,
+  SfImage,
+  SfList,
   SfLoader,
   SfPrice,
+  SfQuantitySelector,
   SfRating,
   SfReview,
   SfSelect,
@@ -255,9 +300,14 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import { productData } from '~/helpers/product/productData';
+import cacheControl from '~/helpers/cacheControl';
+
 export default {
   name: 'Product',
   components: {
+    BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
@@ -270,19 +320,26 @@ export default {
     SfGallery,
     SfHeading,
     SfIcon,
+    SfImage,
+    SfList,
     SfLoader,
     SfPrice,
+    SfQuantitySelector,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
   },
+  middleware: cacheControl({
+    'max-age': 60,
+    'stale-when-revalidate': 5,
+  }),
   transition: 'fade',
-  setup() {
+  setup(props, context) {
     const qty = ref(1);
+    const { product, id } = productData();
     const { route, router } = useVueRouter();
-    const { id } = route.params;
-    const { products, search, loading: productLoading } = useProduct(`product-${id}`);
+    const { search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
     const {
       reviews: productReviews,
@@ -292,20 +349,15 @@ export default {
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
+    const basePrice = ref(0);
     const openTab = ref(1);
     const productDataIsLoading = computed(() => productLoading.value);
-    const product = computed(() => {
-      const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : {};
-      return productGetters.getFiltered(baseProduct, {
-        master: true,
-        attributes: route.query,
-      });
-    });
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
     const canAddToCart = computed(() => {
-      if (product.value.__typename === "ConfigurableProduct") {
-        return !!product.value.configurable_product_options_selection.variant?.uid;
+      // eslint-disable-next-line no-underscore-dangle
+      if (product.value.__typename === 'ConfigurableProduct') {
+        return !!product.value.configurable_product_options_selection?.variant?.uid;
       }
       const inStock = product.value.stock_status || '';
       const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
@@ -333,6 +385,29 @@ export default {
         // eslint-disable-next-line no-underscore-dangle
         alt: product.value._name || product.value.name,
       })));
+    const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
+
+    const configurableOptions = computed(() => product.value.configurable_options);
+    const productConfiguration = ref({});
+    const productPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'BundleProduct':
+          return basePrice.value || productGetters.getPrice(product.value).regular;
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).regular;
+      }
+    });
+    const productSpecialPrice = computed(() => {
+      // eslint-disable-next-line no-underscore-dangle
+      switch (product.value.__typename) {
+        case 'SimpleProduct':
+        default:
+          return productGetters.getPrice(product.value).special;
+      }
+    });
+
     const addItemToWishlist = async () => {
       await addToWishlist({ product: product.value });
     };
@@ -356,11 +431,9 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
-    const configurableOptions = computed(() => product.value.configurable_options);
-    const productConfiguration = ref({});
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
-      const configurations = Object.entries(productConfiguration.value).map(config => config[1]);
+      const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
       await search({
         queryType: 'DETAIL',
         filter: {
@@ -379,6 +452,17 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
+    const addGroupedToCart = async () => {
+      const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
+      if (groupedItemsFiltered.length > 0) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const p of groupedItemsFiltered) {
+          // eslint-disable-next-line no-await-in-loop
+          await addItem({ product: p.product, quantity: p.qty });
+        }
+      }
+    };
+
     onSSR(async () => {
       const baseSearchQuery = {
         filter: {
@@ -393,17 +477,23 @@ export default {
       });
       await searchReviews({ ...baseSearchQuery });
       loadProductConfiguration();
+
+      if (product?.value?.length === 0) context.root.$nuxt.error({ statusCode: 404 });
     });
+
     return {
+      addGroupedToCart,
       addItem,
       addItemToWishlist,
       averageRating,
+      basePrice,
       breadcrumbs,
       canAddToCart,
       categories,
       changeNewReview,
       changeTab,
       configurableOptions,
+      groupedItems,
       isAuthenticated,
       isInWishlist: computed(() => isInWishlist({ product: product.value })),
       loading,
@@ -414,8 +504,10 @@ export default {
       productDescription,
       productGallery,
       productGetters,
+      productPrice,
       productReviews,
       productShortDescription,
+      productSpecialPrice,
       qty,
       relatedProducts,
       reviewGetters,
@@ -437,14 +529,41 @@ export default {
     margin: 0 auto;
   }
 }
+
+.grouped_items {
+  padding: 0 10px;
+
+  &--item {
+    display: grid;
+    grid-template-columns: fit-content(70px) auto fit-content(100%);
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: start;
+    column-gap: var(--spacer-base);
+    padding: var(--spacer-base) 0;
+    border-bottom: 1px solid var(--c-text-muted);
+
+    .sf-quantity-selector {
+      justify-self: end;
+    }
+  }
+
+  &--add-to-cart {
+    width: 100%;
+    margin-top: var(--spacer-lg);
+  }
+}
+
 .product-loader {
   height: 38px;
   margin: var(--spacer-base) auto var(--spacer-lg)
 }
+
 .product {
   @include for-desktop {
     display: flex;
   }
+
   &__info {
     margin: var(--spacer-sm) auto;
     @include for-desktop {
@@ -452,6 +571,7 @@ export default {
       margin: 0 0 0 7.5rem;
     }
   }
+
   &__header {
     --heading-title-color: var(--c-link);
     --heading-title-font-weight: var(--font-weight--bold);
@@ -464,9 +584,11 @@ export default {
       margin: 0 auto;
     }
   }
+
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
   }
+
   &__price-and-rating {
     margin: 0 var(--spacer-sm) var(--spacer-base);
     align-items: center;
@@ -476,12 +598,14 @@ export default {
       margin: var(--spacer-sm) 0 var(--spacer-lg) 0;
     }
   }
+
   &__rating {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin: var(--spacer-xs) 0 var(--spacer-xs);
   }
+
   &__count {
     @include font(
         --count-font,
@@ -494,6 +618,7 @@ export default {
     text-decoration: none;
     margin: 0 0 0 var(--spacer-xs);
   }
+
   &__description {
     @include font(
         --product-description-font,
@@ -503,12 +628,14 @@ export default {
         var(--font-family--primary)
     );
   }
+
   &__select-size {
     margin: 0 var(--spacer-sm);
     @include for-desktop {
       margin: 0;
     }
   }
+
   &__colors {
     @include font(
         --product-color-font,
@@ -521,27 +648,33 @@ export default {
     align-items: center;
     margin-top: var(--spacer-xl);
   }
+
   &__color-label {
     margin: 0 var(--spacer-lg) 0 0;
   }
+
   &__color {
     margin: 0 var(--spacer-2xs);
   }
+
   &__add-to-cart {
     margin: var(--spacer-base) var(--spacer-sm) 0;
     @include for-desktop {
       margin-top: var(--spacer-2xl);
     }
   }
+
   &__guide,
   &__compare,
   &__save {
     display: block;
     margin: var(--spacer-xl) 0 var(--spacer-base) auto;
   }
+
   &__compare {
     margin-top: 0;
   }
+
   &__tabs {
     --tabs-title-z-index: 0;
     margin: var(--spacer-lg) auto var(--spacer-2xl);
@@ -550,17 +683,21 @@ export default {
       margin-top: var(--spacer-2xl);
     }
   }
+
   &__property {
     margin: var(--spacer-base) 0;
+
     &__button {
       --button-font-size: var(--font-size--base);
     }
   }
+
   &__review {
     padding-bottom: 24px;
     border-bottom: var(--c-light) solid 1px;
     margin-bottom: var(--spacer-base);
   }
+
   &__additional-info {
     color: var(--c-link);
     @include font(
@@ -570,25 +707,31 @@ export default {
         1.6,
         var(--font-family--primary)
     );
+
     &__title {
       font-weight: var(--font-weight--normal);
       font-size: var(--font-size--base);
       margin: 0 0 var(--spacer-sm);
+
       &:not(:first-child) {
         margin-top: 3.5rem;
       }
     }
+
     &__paragraph {
       margin: 0;
     }
   }
+
   &__gallery {
     flex: 1;
   }
 }
+
 .breadcrumbs {
   margin: var(--spacer-base) auto var(--spacer-lg);
 }
+
 @keyframes moveicon {
   0% {
     transform: translate3d(0, 0, 0);

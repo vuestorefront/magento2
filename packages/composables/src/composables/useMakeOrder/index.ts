@@ -15,7 +15,7 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
   make: async (context: Context, { customQuery }): Promise<Order> => {
     Logger.debug('[Magento] Make Order');
     const { id } = context.cart.cart.value;
-    const { data } = await context.$magento.api.placeOrder({ cart_id: id });
+    const { data } = await context.$magento.api.placeOrder({ cart_id: id }, customQuery);
 
     return data.placeOrder.order;
   },

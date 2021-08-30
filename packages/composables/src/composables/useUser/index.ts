@@ -67,6 +67,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       return data.customer;
     } catch {
       // eslint-disable-next-line no-void
+      // @ts-ignore
       await factoryParams.logOut(context);
     }
 
@@ -100,15 +101,27 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
   register: async (context: Context, registerParams) => {
     const { email, password, ...baseData } = generateUserData(registerParams);
 
-    await context.$magento.api.createCustomer({ email, password, ...baseData });
+    const { data, errors } = await context.$magento.api.createCustomer({ email, password, ...baseData });
+
+    if (errors) {
+      throw new Error(errors.map((e) => e.message).join(','));
+    }
+    if (!data.createCustomerV2 || !data.createCustomerV2.customer) {
+      throw new Error('Customer registration error');
+    }
 
     return factoryParams.logIn(context, { username: email, password });
   },
   logIn: async (context: Context, { username, password }) => {
     const apiState = context.$magento.config.state;
 
-    const { data } = await context.$magento.api.generateCustomerToken(username, password);
-
+    const { data, errors } = await context.$magento.api.generateCustomerToken(username, password);
+    if (errors) {
+      throw new Error(errors.map((e) => e.message).join(','));
+    }
+    if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
+      throw new Error('Customer sign-in error');
+    }
     apiState.setCustomerToken(data.generateCustomerToken.token);
 
     // merge existing cart with customer cart
@@ -124,7 +137,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
       apiState.setCartId(dataMergeCart.mergeCarts.id);
     }
 
-    return factoryParams.load(context, { username, password });
+    await context.$magento.api.wishlist({});
+
+    return factoryParams.load(context);
   },
   changePassword: async function changePassword(context: Context, { currentPassword, newPassword }) {
     return context.$magento.api.changeCustomerPassword(currentPassword, newPassword);

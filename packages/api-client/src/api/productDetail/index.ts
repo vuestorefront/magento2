@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { ApolloQueryResult } from 'apollo-client';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery, Logger } from '@vue-storefront/core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
@@ -53,12 +53,27 @@ export default async (
   const query = customQuery ? gql`${products.query}` : products.query;
 
   try {
-    return await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
+    const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query,
       variables: products.variables,
       fetchPolicy: 'no-cache',
     });
+
+    if (result.data.products.items.length === 0) throw new Error('No products found');
+
+    return result;
   } catch (error) {
-    throw error.graphQLErrors?.[0] || error.networkError?.result || error;
+    // For error in data we don't throw 500, because it's not server error
+    if (error.graphQLErrors) {
+      Logger.debug(error);
+
+      return {
+        ...error,
+        errors: error.graphQLErrors,
+        data: null,
+      };
+    }
+    Logger.error(error);
+    throw error.networkError?.result || error;
   }
 };

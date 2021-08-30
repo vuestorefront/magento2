@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 import ConfigurableProductOptionsData from '../../fragments/configurableProductOptionsFragment';
+import ProductPriceRangeData from '../../fragments/productPriceRangeFragment';
 
 export default gql`
   ${ConfigurableProductOptionsData}
-  
+  ${ProductPriceRangeData}
 query configurableProductDetail($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput, $configurations: [ID!] ) {
   products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
     items {
@@ -25,6 +26,7 @@ query configurableProductDetail($search: String = "", $filter: ProductAttributeF
             uid
             sku
             name
+            ...ProductPriceRangeData
           }
         }
       }

@@ -6,15 +6,16 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseNewsletter, UseNewsletterErrors } from '../types/composables';
 
-export interface UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS> extends FactoryParams {
+export interface UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {
   updateSubscription: (context: Context, params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<NEWSLETTER>;
 }
 
-export const useNewsletterFactory = <NEWSLETTER, UPDATE_NEWSLETTER_PARAMS>(
-  factoryParams: UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS>,
-) => function useNewsletter(): UseNewsletter<UPDATE_NEWSLETTER_PARAMS> {
+export const useNewsletterFactory = <NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any>(
+  factoryParams: UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API>,
+) => function useNewsletter(): UseNewsletter<UPDATE_NEWSLETTER_PARAMS, API> {
   const errorsFactory = (): UseNewsletterErrors => ({
     updateSubscription: null,
   });

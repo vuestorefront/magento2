@@ -74,6 +74,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
     // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     switch (product.__typename) {
+      case 'BundleProduct':
       case 'SimpleProduct':
         const { data } = await context.$magento.api.addProductToWishList({
           id: '0',

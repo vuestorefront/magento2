@@ -8,23 +8,41 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseReview, UseReviewErrors } from '../types/composables';
 
 export interface UseReviewFactoryParams<REVIEW,
   REVIEWS_SEARCH_PARAMS,
   REVIEWS_USER_SEARCH_PARAMS,
   REVIEW_ADD_PARAMS,
-  REVIEW_METADATA> extends FactoryParams {
+  REVIEW_METADATA,
+  API extends PlatformApi = any> extends FactoryParams<API> {
   searchReviews: (context: Context, params: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>) => Promise<REVIEW>;
   addReview: (context: Context, params: REVIEW_ADD_PARAMS & { customQuery?: CustomQuery }) => Promise<REVIEW>;
   loadReviewMetadata: (context: Context) => Promise<REVIEW_METADATA[]>;
   loadCustomerReviews: (context: Context, params: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>) => Promise<REVIEW>;
 }
 
-export function useReviewFactory<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA>(
-  factoryParams: UseReviewFactoryParams<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA>,
+export function useReviewFactory<
+  REVIEW,
+  REVIEWS_SEARCH_PARAMS,
+  REVIEWS_USER_SEARCH_PARAMS,
+  REVIEW_ADD_PARAMS,
+  REVIEW_METADATA,
+  API extends PlatformApi = any>(
+  factoryParams: UseReviewFactoryParams<REVIEW,
+  REVIEWS_SEARCH_PARAMS,
+  REVIEWS_USER_SEARCH_PARAMS,
+  REVIEW_ADD_PARAMS,
+  REVIEW_METADATA,
+  API>,
 ) {
-  return function useReview(id: string): UseReview<REVIEW, REVIEWS_SEARCH_PARAMS, REVIEWS_USER_SEARCH_PARAMS, REVIEW_ADD_PARAMS, REVIEW_METADATA> {
+  return function useReview(id: string): UseReview<REVIEW,
+  REVIEWS_SEARCH_PARAMS,
+  REVIEWS_USER_SEARCH_PARAMS,
+  REVIEW_ADD_PARAMS,
+  REVIEW_METADATA,
+  API> {
     const reviews: Ref<REVIEW> = sharedRef([], `useReviews-reviews-${id}`);
     const metadatas: Ref<REVIEW_METADATA[]> = sharedRef([], `useReviews-metadata-${id}`);
     const loading: Ref<boolean> = sharedRef(false, `useReviews-loading-${id}`);
