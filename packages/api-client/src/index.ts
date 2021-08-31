@@ -378,7 +378,7 @@ export {
   ProductAttribute,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductDetailsQuery,
+  ProductDetailsQueryFocus as ProductDetailsQuery,
   ProductDetailsQueryVariables,
   ProductDiscount,
   ProductFilterInput,

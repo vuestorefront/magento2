@@ -2,6 +2,7 @@ import baseProductFragment from './baseProductFragment';
 
 export default `
 ${baseProductFragment}
+pdp_data
 small_image {
   url
   position

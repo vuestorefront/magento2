@@ -76,6 +76,8 @@ export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
     ? product.configurable_product_options_selection.media_gallery
     : product.media_gallery;
 
+  selectedGallery.sort((a, b) => a.position - b.position);
+
   // eslint-disable-next-line no-restricted-syntax
   for (const galleryItem of selectedGallery) {
     images.push({
@@ -94,6 +96,14 @@ export const getCoverImage = (product: Product): string => {
   }
 
   return product.image.url;
+};
+
+export const getProductSmallImage = (product: Product): string => {
+  if (!product || !product.small_image) {
+    return null;
+  }
+
+  return product.small_image.url;
 };
 
 export const getProductThumbnailImage = (product: Product): string => {
@@ -226,7 +236,7 @@ export const getBreadcrumbs = (product: any, category?: Category): AgnosticBread
   breadcrumbs.push({
     text: getName(product),
     route: {
-      path: getSlug(product),
+      path: getSlug(product, category),
     },
   });
 
@@ -252,9 +262,11 @@ export const getGroupedProducts = (product: GroupedProduct & { __typename: strin
 export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
 
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
+  getBreadcrumbs(product: Product, category?: Category): AgnosticBreadcrumb[];
   getCategory(product: Product, currentUrlPath: string): Category | null;
   getProductRelatedProduct(product: Product): Product[];
   getProductSku(product: Product): string;
+  getProductSmallImage(product: Product): string;
   getProductThumbnailImage(product: Product): string;
   getProductUpsellProduct(product: Product): Product[];
   getShortDescription(product: Product): string;
@@ -281,6 +293,7 @@ const productGetters: ProductGetters = {
   getPrice,
   getProductRelatedProduct,
   getProductSku,
+  getProductSmallImage,
   getProductThumbnailImage,
   getProductUpsellProduct,
   getShortDescription,

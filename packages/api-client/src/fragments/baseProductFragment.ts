@@ -1,8 +1,11 @@
 export default `
 __typename
+id
 uid
 sku
+manufacturer_sku
 name
+brand
 stock_status
 only_x_left_in_stock
 categories {

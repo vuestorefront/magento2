@@ -52,7 +52,7 @@ import {
   PlaceOrderMutation,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductDetailsQuery,
+  ProductDetailsQueryFocus as ProductDetailsQuery,
   ProductInterface,
   ProductReviewQuery,
   ProductReviewRatingsMetadataQuery,

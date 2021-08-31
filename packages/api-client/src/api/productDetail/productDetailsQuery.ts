@@ -14,6 +14,14 @@ export default gql`
       items {
         ${productDetailsFragment}
       }
+      aggregations {
+        attribute_code
+        label
+        options {
+          label
+          value
+        }
+      }
     }
     cacheTags @client
   }

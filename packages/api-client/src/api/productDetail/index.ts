@@ -3,7 +3,7 @@ import { CustomQuery, Logger } from '@absolute-web/vsf-core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  ProductDetailsQuery,
+  ProductDetailsQueryFocus as ProductDetailsQuery,
   ProductDetailsQueryVariables,
   CachedQuery,
 } from '../../types/GraphQL';
