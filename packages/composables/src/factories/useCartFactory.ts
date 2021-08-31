@@ -1,9 +1,10 @@
 import {
-  CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
+  CustomQuery, Context, FactoryParams, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
 } from '@absolute-web/vsf-core';
 import { computed, Ref } from '@vue/composition-api';
+import { UseCart, UseCartErrors, CartCompliance } from '../types/composables';
 
-export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {
+export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<CART>;
   addItem: (
     context: Context,
@@ -11,6 +12,7 @@ export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends Plat
       currentCart: CART;
       product: PRODUCT;
       quantity: any;
+      enteredOptions?: any;
     }>
   ) => Promise<CART>;
   removeItem: (context: Context, params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM; }>) => Promise<CART>;
@@ -24,12 +26,21 @@ export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends Plat
     context: Context,
     params: ComposableFunctionArgs<{ currentCart: CART; couponCode: string; }>
   ) => Promise<{ updatedCart: CART }>;
+  checkGiftCard: (context: Context, params: { giftCardCode: string }) => Promise<GIFT_CARD_ACCOUNT>;
+  applyGiftCard: (context: Context, params: { currentCart: CART; giftCardCode: string; customQuery?: CustomQuery }) => Promise<{ updatedCart: CART }>;
+  removeGiftCard: (
+    context: Context,
+    params: { currentCart: CART; giftCardCode: string; customQuery?: CustomQuery }
+  ) => Promise<{ updatedCart: CART }>;
   isInCart: (context: Context, params: { currentCart: CART; product: PRODUCT }) => boolean;
+  focusSetGroupOnItem: (context: Context, params: { currentCart: CART; product: CART_ITEM; groupType: string; }) => Promise<{ updatedCart: CART }>;
+  focusUpdateCartGroup: (context: Context, params: { currentCart: CART; groupType: string; data: any }) => Promise<{ updatedCart: CART }>;
+  focusUnsetPickupDate: (context: Context, params: { currentCart: CART }) => Promise<{ updatedCart: CART }>;
 }
 
-export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi = any>(
-  factoryParams: UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API>,
-) => function useCart(): UseCart<CART, CART_ITEM, PRODUCT, API> {
+export const useCartFactory = <CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API extends PlatformApi = any>(
+  factoryParams: UseCartFactoryParams<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API>,
+) => function useCart(): UseCart<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API> {
   const loading: Ref<boolean> = sharedRef(false, 'useCart-loading');
   const cart: Ref<CART> = sharedRef(null, 'useCart-cart');
   const error: Ref<UseCartErrors> = sharedRef({
@@ -40,7 +51,18 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     clear: null,
     applyCoupon: null,
     removeCoupon: null,
+    checkGiftCard: null,
+    applyGiftCard: null,
+    removeGiftCard: null,
+    focusSetGroupOnItem: null,
+    focusUpdateCartGroup: null,
+    focusUnsetPickupDate: null,
   }, 'useCart-error');
+
+  const compliance: Ref<CartCompliance> = sharedRef({
+    itar: false,
+    twenty_one_and_over: false,
+  }, 'useCart-compliance');
 
   // eslint-disable-next-line no-underscore-dangle,@typescript-eslint/naming-convention
   const _factoryParams = configureFactoryParams(
@@ -58,14 +80,23 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     Logger.debug('useCartFactory.setCart', newCart);
   };
 
+  const setCompliance = (value: CartCompliance) => {
+    compliance.value = {
+      ...compliance.value,
+      ...value,
+    };
+  };
+
   const addItem = async ({
     product,
     quantity,
+    enteredOptions,
     customQuery,
   }) => {
     Logger.debug('useCart.addItem', {
       product,
       quantity,
+      enteredOptions,
     });
 
     try {
@@ -74,6 +105,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
         currentCart: cart.value,
         product,
         quantity,
+        enteredOptions,
         customQuery,
       });
       error.value.addItem = null;
@@ -139,10 +171,10 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     }
   };
 
-  const load = async ({ customQuery } = { customQuery: undefined }) => {
+  const load = async ({ forceReload, customQuery } = { forceReload: false, customQuery: undefined }) => {
     Logger.debug('useCart.load');
 
-    if (cart.value) {
+    if (!forceReload && cart.value) {
       /**
          * Triggering change for hydration purpose,
          * temporary issue related with cpapi plugin
@@ -232,10 +264,133 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     }
   };
 
+  const checkGiftCard = async ({ giftCardCode }) => {
+    Logger.debug('useCart.checkGiftCard');
+
+    try {
+      loading.value = true;
+      const result = await _factoryParams.checkGiftCard({
+        giftCardCode,
+      });
+      error.value.checkGiftCard = null;
+      return result;
+    } catch (err) {
+      error.value.checkGiftCard = err;
+      Logger.error('useCart/checkGiftCard', err);
+    } finally {
+      loading.value = false;
+    }
+    return null;
+  };
+
+  const applyGiftCard = async ({ giftCardCode, customQuery }) => {
+    Logger.debug('useCart.applyGiftCard');
+
+    try {
+      loading.value = true;
+      const { updatedCart } = await _factoryParams.applyGiftCard({
+        currentCart: cart.value,
+        giftCardCode,
+        customQuery,
+      });
+      error.value.applyGiftCard = null;
+      cart.value = updatedCart;
+    } catch (err) {
+      error.value.applyGiftCard = err;
+      Logger.error('useCart/applyGiftCard', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const removeGiftCard = async ({ giftCardCode, customQuery }) => {
+    Logger.debug('useCart.removeGiftCard');
+
+    try {
+      loading.value = true;
+      const { updatedCart } = await _factoryParams.removeGiftCard({
+        currentCart: cart.value,
+        giftCardCode,
+        customQuery,
+      });
+      error.value.removeGiftCard = null;
+      cart.value = updatedCart;
+      loading.value = false;
+    } catch (err) {
+      error.value.removeGiftCard = err;
+      Logger.error('useCart/removeGiftCard', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const focusSetGroupOnItem = async ({ product, groupType }) => {
+    Logger.debug('useCart.focusSetGroupOnItem');
+
+    try {
+      loading.value = true;
+      const { updatedCart } = await _factoryParams.focusSetGroupOnItem({
+        currentCart: cart.value,
+        product,
+        groupType,
+      });
+      error.value.focusSetGroupOnItem = null;
+      cart.value = updatedCart;
+      loading.value = false;
+    } catch (err) {
+      error.value.focusSetGroupOnItem = err;
+      Logger.error('useCart/focusSetGroupOnItem', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const focusUpdateCartGroup = async ({ groupType, data }) => {
+    Logger.debug('useCart.focusUpdateCartGroup');
+
+    try {
+      loading.value = true;
+      const { updatedCart } = await _factoryParams.focusUpdateCartGroup({
+        currentCart: cart.value,
+        groupType,
+        data,
+      });
+      error.value.focusUpdateCartGroup = null;
+      cart.value = updatedCart;
+      loading.value = false;
+    } catch (err) {
+      error.value.focusUpdateCartGroup = err;
+      Logger.error('useCart/focusUpdateCartGroup', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const focusUnsetPickupDate = async () => {
+    Logger.debug('useCart.focusUnsetPickupDate');
+
+    try {
+      loading.value = true;
+      const { updatedCart } = await _factoryParams.focusUnsetPickupDate({
+        currentCart: cart.value,
+      });
+      error.value.focusUnsetPickupDate = null;
+      cart.value = updatedCart;
+      loading.value = false;
+    } catch (err) {
+      error.value.focusUnsetPickupDate = err;
+      Logger.error('useCart/focusUnsetPickupDate', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     api: _factoryParams.api,
     setCart,
     cart: computed(() => cart.value),
+    setCompliance,
+    compliance: computed(() => compliance.value),
     isInCart,
     addItem,
     load,
@@ -244,6 +399,12 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     updateItemQty,
     applyCoupon,
     removeCoupon,
+    checkGiftCard,
+    applyGiftCard,
+    removeGiftCard,
+    focusSetGroupOnItem,
+    focusUpdateCartGroup,
+    focusUnsetPickupDate,
     loading: computed(() => loading.value),
     error: computed(() => error.value),
   };

@@ -12,6 +12,8 @@ import {
   CartItem,
   Product,
   SelectedShippingMethod,
+  AppliedGiftCard,
+  FocusItemGroup,
 } from '@absolute-web/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../types';
@@ -159,6 +161,8 @@ export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(c
   code: d.label,
 } as AgnosticDiscount)) : []);
 
+export const getGiftCards = (cart: Cart): AppliedGiftCard[] => (Array.isArray(cart?.applied_gift_cards) ? cart.applied_gift_cards : []);
+
 export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
   id: cart.applied_coupons[0].code,
   name: cart.applied_coupons[0].code,
@@ -175,14 +179,50 @@ export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] 
   value: p.code,
 }));
 
+export const getItemGroups = (cart: Cart): FocusItemGroup[] => {
+  if (!cart || !cart.item_groups) {
+    return [];
+  }
+
+  return cart.item_groups.filter((group) => group.item_uids?.length);
+};
+
+export const isPickupDateSelected = (cart: Cart): Boolean => cart?.item_groups?.some(({ group_type, additional_data }) => group_type === 'pickup' && Boolean(additional_data?.pickup_date));
+
+export const isItarComplianceRequired = (cart: Cart): Boolean => {
+  if (!cart || !cart.items) {
+    return false;
+  }
+
+  return cart.items.some(({ product: { itar_compliance } }) => Boolean(itar_compliance));
+};
+
+export const isAgeCheckRequired = (cart: Cart): Boolean => {
+  if (!cart || !cart.items) {
+    return false;
+  }
+
+  return cart.items.some(({ product: { required_age_verification } }) => Boolean(required_age_verification));
+};
+
 export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
 
   getAvailablePaymentMethods(cart: Cart): AgnosticPaymentMethod[];
 
+  getGiftCards(cart: Cart): AppliedGiftCard[];
+
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
 
   productHasSpecialPrice(product: CartItem): boolean;
+
+  getItemGroups(cart: Cart): FocusItemGroup[];
+
+  isPickupDateSelected(cart: Cart): Boolean;
+
+  isItarComplianceRequired(cart: Cart): Boolean;
+
+  isAgeCheckRequired(cart: Cart): Boolean;
 }
 
 const cartGetters: CartGetters = {
@@ -190,6 +230,7 @@ const cartGetters: CartGetters = {
   getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
+  getGiftCards,
   getFormattedPrice,
   getItemAttributes,
   getItemImage,
@@ -204,6 +245,10 @@ const cartGetters: CartGetters = {
   getTotalItems,
   getTotals,
   productHasSpecialPrice,
+  getItemGroups,
+  isPickupDateSelected,
+  isItarComplianceRequired,
+  isAgeCheckRequired,
 };
 
 export default cartGetters;

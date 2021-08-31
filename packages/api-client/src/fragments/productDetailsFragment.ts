@@ -1,8 +1,12 @@
 import baseProductFragment from './baseProductFragment';
+import freeGiftRuleFragment from './freeGiftRuleFragment';
 
 export default `
 ${baseProductFragment}
 pdp_data
+free_gift_data {
+  ${freeGiftRuleFragment}
+}
 small_image {
   url
   position

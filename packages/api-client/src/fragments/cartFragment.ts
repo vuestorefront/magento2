@@ -9,6 +9,18 @@ is_virtual
 applied_coupons {
   code
 }
+applied_gift_cards {
+  applied_balance {
+    value
+    currency
+  }
+  code
+  current_balance {
+    value
+    currency
+  }
+  expiration_date
+}
 prices {
   ${cartPricesFragment}
 }
@@ -16,6 +28,8 @@ items {
   uid
   product {
     ${productFragment}
+    itar_compliance
+    required_age_verification
   }
   prices {
     row_total {
@@ -50,6 +64,13 @@ items {
       }
     }
   }
+  group_type
+  mp_free_gifts {
+    is_free_gift
+    rule_id
+    free_gift_message
+    allow_notice
+  }
 }
 total_quantity
 shipping_addresses {
@@ -71,5 +92,14 @@ billing_address {
 selected_payment_method {
   code
   title
+}
+item_groups {
+  group_id
+  group_type
+  item_uids
+  additional_data {
+    location_code
+    pickup_date
+  }
 }
 `;

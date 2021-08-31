@@ -33,6 +33,7 @@ interface CartItemInterface {
     quantity: Float!
     "The unique ID for a `CartItemInterface` object"
     uid: ID!
+    group_type: String
 }
 
 "CategoryInterface contains the full set of attributes that can be returned in a category search."
@@ -478,7 +479,18 @@ type AppliedCoupon {
     code: String!
 }
 
+type AppliedGiftCard {
+    code: String!
+    applied_balance: Money!
+    current_balance: Money!
+    expiration_date: String
+}
+
 type ApplyCouponToCartOutput {
+    cart: Cart!
+}
+
+type ApplyGiftCardToCartOutput {
     cart: Cart!
 }
 
@@ -892,6 +904,8 @@ type Cart {
     applied_coupon: AppliedCoupon @deprecated(reason : "Use applied_coupons instead")
     "An array of `AppliedCoupon` objects. Each object contains the `code` text attribute, which specifies the coupon code"
     applied_coupons: [AppliedCoupon]
+    "An array of `AppliedGiftCard` objects. Each object contains the `code` text attribute, which specifies the gift card code"
+    applied_gift_cards: [AppliedGiftCard]
     "Available payment methods"
     available_payment_methods: [AvailablePaymentMethod]
     billing_address: BillingCartAddress
@@ -906,6 +920,7 @@ type Cart {
     selected_payment_method: SelectedPaymentMethod
     shipping_addresses: [ShippingCartAddress]!
     total_quantity: Float!
+    item_groups: [FocusItemGroup]
 }
 
 type CartAddressCountry {
@@ -2742,6 +2757,7 @@ type Mutation {
         wishlistItemIds: [ID!]
     ): AddWishlistItemsToCartOutput
     applyCouponToCart(input: ApplyCouponToCartInput): ApplyCouponToCartOutput
+    applyGiftCardToCart(input: ApplyGiftCardToCartInput): ApplyGiftCardToCartOutput
     "Assign the specified compare list to the logged in customer"
     assignCompareListToCustomer(uid: ID!): AssignCompareListToCustomerOutput
     "Changes the password for the logged-in customer"
@@ -2782,6 +2798,7 @@ type Mutation {
     mergeCarts(destination_cart_id: String, source_cart_id: String!): Cart!
     placeOrder(input: PlaceOrderInput): PlaceOrderOutput
     removeCouponFromCart(input: RemoveCouponFromCartInput): RemoveCouponFromCartOutput
+    removeGiftCardFromCart(input: RemoveGiftCardFromCartInput): RemoveGiftCardFromCartOutput
     removeItemFromCart(input: RemoveItemFromCartInput): RemoveItemFromCartOutput
     "Remove products from the specified compare list"
     removeProductsFromCompareList(input: RemoveProductsFromCompareListInput): CompareList
@@ -2819,6 +2836,8 @@ type Mutation {
     updateProductsInWishlist(wishlistId: ID!, wishlistItems: [WishlistItemUpdateInput!]!): UpdateProductsInWishlistOutput
     "Updates the email address of a quote."
     updateQuoteEmail(cartId: String!, email: String!): Boolean
+    focusSetGroupOnItem(input: focusSetGroupOnItemInput): Cart
+    focusUpdateCartGroup(input: focusUpdateCartGroupInput): Cart
 }
 
 "Contains details about the requested order"
@@ -3030,6 +3049,8 @@ type PickupLocation {
     region: String
     region_id: Int
     street: String
+    min_pickup_date_threshold: Int
+    max_pickup_date_threshold: Int
 }
 
 "Top level object returned in a pickup locations search."
@@ -3327,6 +3348,7 @@ type Query {
     getHostedProUrl(input: HostedProUrlInput!): HostedProUrl
     "Retrieve payment credentials for transaction. Use this query for Payflow Link and Payments Advanced payment methods."
     getPayflowLinkToken(input: PayflowLinkTokenInput!): PayflowLinkToken
+    giftCardAccount(input: GiftCardAccountInput!): GiftCardAccount
     isEmailAvailable(
         "The new customer email"
         email: String!
@@ -3383,6 +3405,10 @@ type Region {
 }
 
 type RemoveCouponFromCartOutput {
+    cart: Cart
+}
+
+type RemoveGiftCardFromCartOutput {
     cart: Cart
 }
 
@@ -5119,6 +5145,11 @@ input ApplyCouponToCartInput {
     coupon_code: String!
 }
 
+input ApplyGiftCardToCartInput {
+    cart_id: String!
+    gift_card_code: String!
+}
+
 "AreaInput defines the parameters which will be used for filter by specified location."
 input AreaInput {
     "The radius for the search in KM."
@@ -5701,6 +5732,8 @@ input PickupLocationSortInput {
 
 input PlaceOrderInput {
     cart_id: String!
+    itar: Boolean
+    twenty_one_and_over: Boolean
 }
 
 "ProductAttributeFilterInput defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for."
@@ -5944,6 +5977,11 @@ input RemoveCouponFromCartInput {
     cart_id: String!
 }
 
+input RemoveGiftCardFromCartInput {
+    cart_id: String!
+    gift_card_code: String!
+}
+
 input RemoveItemFromCartInput {
     cart_id: String!
     "Deprecated. Use `cart_item_uid` instead."
@@ -6074,4 +6112,115 @@ input createEmptyCartInput {
 
 input createKlarnaPaymentsSessionInput {
     cart_id: String!
+}
+
+input focusSetGroupOnItemInput {
+    cart_id: String!
+    item_uid: String!
+    group_type: String!
+}
+
+input focusGroupAdditionalDataInput {
+    location_code: String
+    pickup_date: String
+}
+
+input focusUpdateCartGroupInput {
+    cart_id: String!
+    group_type: String!
+    additional_data: focusGroupAdditionalDataInput
+}
+
+type FocusItemGroup {
+    group_id: Int
+    group_type: String!
+    item_uids: [String]
+    additional_data: focusGroupAdditionalData
+}
+
+type focusGroupAdditionalData {
+    location_code: String
+    pickup_date: String
+}
+
+input FocusInventoryFilterInput {
+  id: FilterEqualTypeInput
+  uid: FilterEqualTypeInput
+  sku: FilterEqualTypeInput
+}
+
+type focusProductInventory {
+  items: [focusProductInventoryItem]
+}
+
+type focusProductInventoryItem {
+  sku: String
+  salable_qty: Float
+  manage_stock: Boolean
+  is_backorder: Boolean
+  is_preorder: Boolean
+  custom_stock_status: String
+  sources: [focusInventorySource]
+}
+
+type focusInventorySource {
+  sku: String
+  source_code: String
+  quantity: Float
+  status: Int
+}
+
+input focusEstimateShippingMethodsAddressInput {
+    firstname: String
+    lastname: String
+    company: String
+    street: [String!]
+    city: String
+    region: String
+    region_id: Int
+    postcode: String
+    country_code: String!
+    telephone: String
+}
+
+input focusEstimateShippingMethodsInput {
+    id: String!
+    address: focusEstimateShippingMethodsAddressInput!
+}
+
+input focusIDmeVerifyInput {
+    code: String!
+}
+
+type focusIDmeCustomerGroupSpecificData {
+    handle: String!
+    name: String
+    value: String
+}
+
+type focusIDmeCustomerDatInputError {
+    message: String
+}
+
+type focusIDmeCustomerData {
+    uuid: String
+    first_name: String
+    last_name: String
+    email: String
+    zip: String
+    is_verified: Boolean
+    group: String
+    subgroup: String
+    user_errors: [focusIDmeCustomerDatInputError]
+    group_data: [FocusIDmeCustomerGroupSpecificData]
+}
+
+input GiftCardAccountInput {
+  gift_card_code: String!
+}
+
+type GiftCardAccount {
+  code: String!
+  balance: Money!
+  expiration_date: String
 }

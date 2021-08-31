@@ -4,6 +4,8 @@ import {
   ComputedProperty,
   CustomQuery,
   PlatformApi,
+  UseCart as UseCartBase,
+  UseCartErrors as UseCartErrorsBase,
 } from '@absolute-web/vsf-core';
 import { ComputedRef } from '@vue/composition-api';
 import { FetchPolicy } from './index';
@@ -329,4 +331,66 @@ export interface UseWishlist<WISHLIST,
   isInWishlist({ product: PRODUCT }): boolean;
 
   error: ComputedProperty<UseWishlistErrors>;
+}
+
+export interface UseCartErrors extends UseCartErrorsBase {
+  checkGiftCard: Error;
+  applyGiftCard: Error;
+  removeGiftCard: Error;
+  focusSetGroupOnItem: Error;
+  focusUpdateCartGroup: Error;
+  focusUnsetPickupDate: Error;
+}
+
+export interface CartCompliance {
+  itar?: boolean;
+  twenty_one_and_over?: boolean;
+}
+
+export interface UseCart<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API extends PlatformApi = any>
+  extends UseCartBase<CART, CART_ITEM, PRODUCT, API> {
+  compliance: ComputedProperty<CartCompliance>;
+  setCompliance: (compliance: CartCompliance) => void;
+  load(): Promise<void>;
+  load(params: ComposableFunctionArgs<{
+    forceReload?: boolean;
+  }>): Promise<void>;
+  addItem: (
+    params: ComposableFunctionArgs<{
+      product: PRODUCT;
+      quantity: any;
+      enteredOptions?: any;
+    }>
+  ) => Promise<void>;
+  checkGiftCard(params: {
+    giftCardCode: string;
+  }): Promise<GIFT_CARD_ACCOUNT>;
+  applyGiftCard(params: ComposableFunctionArgs<{
+    giftCardCode: string;
+  }>): Promise<void>;
+  removeGiftCard(params: ComposableFunctionArgs<{
+    giftCardCode: string;
+  }>): Promise<void>;
+  focusSetGroupOnItem(params: {
+    product: CART_ITEM;
+    groupType: string;
+  }): Promise<void>;
+  focusUpdateCartGroup(params: {
+    groupType: string; data: any
+  }): Promise<void>;
+  focusUnsetPickupDate: (params: {
+    currentCart: CART
+  }) => Promise<void>;
+  error: ComputedProperty<UseCartErrors>;
+}
+
+export interface UsePickupLocationErrors {
+  search: Error;
+}
+
+export interface UsePickupLocation<PICKUP_LOCATION, PICKUP_LOCATION_SEARCH_PARAMS> {
+  search: (params: PICKUP_LOCATION_SEARCH_PARAMS) => Promise<PICKUP_LOCATION[]>;
+  result: ComputedProperty<PICKUP_LOCATION[]>;
+  error: ComputedProperty<UsePickupLocationErrors>;
+  loading: ComputedProperty<boolean>;
 }

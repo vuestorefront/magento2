@@ -14,8 +14,8 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   make: async (context: Context, params): Promise<Order> => {
     Logger.debug('[Magento] Make Order', { params });
-    const { id } = context.cart.cart.value;
-    const { data } = await context.$magento.api.placeOrder({ cart_id: id });
+    const { compliance: { value: compliance }, cart: { value: { id } } } = context.cart;
+    const { data } = await context.$magento.api.placeOrder({ cart_id: id, ...compliance });
 
     Logger.debug('[Result]:', { data });
 
