@@ -6,6 +6,7 @@ name
 stock_status
 only_x_left_in_stock
 categories {
+  id
   uid
   name
   url_suffix
@@ -57,6 +58,10 @@ thumbnail {
 url_key
 url_rewrites {
   url
+  parameters {
+    name
+    value
+  }
 }
 short_description {
   html

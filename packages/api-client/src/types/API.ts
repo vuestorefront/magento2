@@ -19,6 +19,7 @@ import {
   Cart as CartInterface,
   CartItemInterface,
   CartQuery,
+  CategoryQuery,
   CategoryFilterInput,
   CategoryListQuery,
   CategoryListQueryVariables,
@@ -212,6 +213,11 @@ export interface MagentoApiMethods {
     cartId: string,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CartQuery>>;
+
+  category(
+    categoryInput?: CategorySearchQueryVariables,
+    customQuery?: CustomQuery
+  ): Promise<ApolloQueryResult<CachedQuery<CategoryQuery>>>;
 
   categoryList(
     categoryFilter?: CategoryListQueryVariables,

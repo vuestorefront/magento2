@@ -30,13 +30,13 @@ export const getCategoryBreadcrumbs = (category: any): AgnosticBreadcrumb[] => {
   if (Array.isArray(category?.breadcrumbs)) {
     breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
       text: breadcrumb.category_name,
-      link: `/c/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
+      link: `/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
     } as AgnosticBreadcrumb));
   }
 
   breadcrumbs.push({
     text: category.name,
-    link: `/c/${category.url_path}${category.url_suffix || ''}`,
+    link: `/${category.url_path}${category.url_suffix || ''}`,
   } as AgnosticBreadcrumb);
 
   return breadcrumbs;

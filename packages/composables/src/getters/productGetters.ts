@@ -27,17 +27,19 @@ export const getName = (product: Product): string => {
 
 export const getSlug = (product: Product, category?: Category): string => {
   const rewrites = product.url_rewrites;
-  let url = `/p/${product.sku}`;
+  let url = `/${product.sku}`;
   if (!rewrites || rewrites.length === 0) {
     return url;
   }
 
   url = `/${rewrites[0].url}`;
-  // eslint-disable-next-line no-restricted-syntax
-  for (const rewrite of rewrites) {
-    if (category && category.uid) {
-      url = `/${rewrite.url}`;
-      break;
+  if (category && category.id) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const rewrite of rewrites) {
+      if (rewrite.parameters.some((param) => param.name === 'category' && param.value === String(category.id))) {
+        url = `/${rewrite.url}`;
+        break;
+      }
     }
   }
 

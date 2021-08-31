@@ -5,10 +5,10 @@ import {
 } from '@absolute-web/vsf-core';
 import { useCache } from '@absolute-web/vsf-cache';
 import {
-  Category, CategoryListQueryVariables,
+  CategoryTree as Category, CategorySearchQueryVariables,
 } from '@absolute-web/magento-api';
 
-const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariables> = {
+const factoryParams: UseCategoryFactoryParams<Category, CategorySearchQueryVariables> = {
   provide() {
     return {
       cache: useCache(),
@@ -17,7 +17,7 @@ const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariabl
   categorySearch: async (context: Context, params) => {
     Logger.debug('[Magento]: List available categories', { params });
 
-    const { data } = await context.$magento.getApi.categoryList(params);
+    const { data } = await context.$magento.getApi.category(params);
 
     if (data?.cacheTags) {
       context.cache.addTagsFromString(data.cacheTags);
@@ -25,8 +25,8 @@ const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariabl
 
     Logger.debug('[Result]:', { data });
 
-    return data.categories.items;
+    return data.categoryList;
   },
 };
 
-export default useCategoryFactory<Category, CategoryListQueryVariables>(factoryParams);
+export default useCategoryFactory<Category, CategorySearchQueryVariables>(factoryParams);
