@@ -394,3 +394,14 @@ export interface UsePickupLocation<PICKUP_LOCATION, PICKUP_LOCATION_SEARCH_PARAM
   error: ComputedProperty<UsePickupLocationErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseInventoryErrors {
+  search: Error;
+}
+
+export interface UseInventory<INVENTORY_ITEM> {
+  search: (params: any) => Promise<INVENTORY_ITEM[]>;
+  result: ComputedProperty<INVENTORY_ITEM[]>;
+  error: ComputedProperty<UseInventoryErrors>;
+  loading: ComputedProperty<boolean>;
+}

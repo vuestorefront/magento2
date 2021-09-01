@@ -9,6 +9,7 @@ import {
   BundleProduct,
   Category, GroupedProduct,
   Product,
+  FocusProductInventoryItem,
 } from '@absolute-web/magento-api';
 
 import categoryGetters from './categoryGetters';
@@ -120,6 +121,21 @@ export const getFiltered = (products: Product[], filters: ProductVariantFilters 
   }
 
   return products;
+};
+
+export const getFilteredWithInventory = (products: Product[],
+  _filters: ProductVariantFilters | any = {},
+  inventory: readonly FocusProductInventoryItem[]): Product[] => {
+  let results = getFiltered(products, _filters);
+
+  if (inventory && inventory.length > 0) {
+    results = results.map((product) => ({
+      ...product,
+      inventory: inventory.find(({ sku }) => sku === product.sku),
+    }));
+  }
+
+  return results;
 };
 
 export const getAttributes = (
@@ -264,6 +280,7 @@ export const getBundleProducts = (product: BundleProduct & { __typename: string 
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getBreadcrumbs(product: Product, category?: Category): AgnosticBreadcrumb[];
   getCategory(product: Product, currentUrlPath: string): Category | null;
+  getFilteredWithInventory(products: Product[], _filters: ProductVariantFilters | any, inventory: readonly FocusProductInventoryItem[]): Product[];
   getProductRelatedProduct(product: Product): Product[];
   getProductSku(product: Product): string;
   getProductSmallImage(product: Product): string;
@@ -286,6 +303,7 @@ const productGetters: ProductGetters = {
   getCoverImage,
   getDescription,
   getFiltered,
+  getFilteredWithInventory,
   getFormattedPrice,
   getGallery,
   getId,

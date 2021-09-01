@@ -14,6 +14,7 @@ import {
   SelectedShippingMethod,
   AppliedGiftCard,
   FocusItemGroup,
+  FocusProductInventoryItem,
 } from '@absolute-web/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../types';
@@ -24,6 +25,22 @@ export const getItems = (cart: Cart): CartItem[] => {
   }
 
   return cart.items;
+};
+
+export const getItemsWithInventory = (cart: Cart, inventory: readonly FocusProductInventoryItem[]): CartItem[] => {
+  let results = getItems(cart);
+
+  if (inventory && inventory.length > 0) {
+    results = results.map((item) => ({
+      ...item,
+      product: {
+        ...item.product,
+        inventory: inventory.find(({ sku }) => sku === item.product.sku),
+      },
+    }));
+  }
+
+  return results;
 };
 
 export const getItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
@@ -223,6 +240,8 @@ export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   isItarComplianceRequired(cart: Cart): Boolean;
 
   isAgeCheckRequired(cart: Cart): Boolean;
+
+  getItemsWithInventory(cart: Cart, inventory: readonly FocusProductInventoryItem[]): CartItem[];
 }
 
 const cartGetters: CartGetters = {
@@ -249,6 +268,7 @@ const cartGetters: CartGetters = {
   isPickupDateSelected,
   isItarComplianceRequired,
   isAgeCheckRequired,
+  getItemsWithInventory,
 };
 
 export default cartGetters;
