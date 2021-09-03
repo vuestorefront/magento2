@@ -291,7 +291,7 @@
     </transition>
   </SfModal>
 </template>
-<script lang="ts">
+<script>
 import {
   ref,
   watch,

@@ -174,6 +174,7 @@
               :show-add-to-cart-button="true"
               :is-added-to-cart="isInCart({ product })"
               :is-on-wishlist="product.isInWishlist"
+              :wishlist-icon="isAuthenticated ? 'heart' : false"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -205,6 +206,7 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :is-on-wishlist="product.isInWishlist"
+              :wishlist-icon="isAuthenticated ? 'heart' : false"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -408,7 +410,7 @@ import {
   useCategory,
   categoryGetters,
   facetGetters,
-  useUrlResolver,
+  useUrlResolver, useUser,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useUiHelpers, useUiState } from '~/composables';
@@ -451,6 +453,7 @@ export default defineComponent({
     const th = useUiHelpers();
     const uiState = useUiState();
     const { $magento: { config: magentoConfig } } = useVSFContext();
+    const { isAuthenticated } = useUser();
     const {
       addItem: addItemToCartBase,
       isInCart,
@@ -654,6 +657,7 @@ export default defineComponent({
       categoriesLoading,
       categoryTree,
       facets,
+      isAuthenticated,
       isFacetColor,
       isFilterSelected,
       isInCart,

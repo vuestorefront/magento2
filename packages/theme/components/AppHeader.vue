@@ -43,6 +43,7 @@
             />
           </SfButton>
           <SfButton
+            v-if="isAuthenticated"
             class="sf-button--pure sf-header__action"
             @click="toggleWishlistSidebar"
           >
@@ -297,6 +298,7 @@ export default defineComponent({
       getAgnosticCatLink,
       handleAccountClick,
       handleSearch,
+      isAuthenticated,
       isMobile,
       isSearchOpen,
       removeSearchResults,
