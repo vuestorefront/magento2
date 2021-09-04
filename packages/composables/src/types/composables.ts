@@ -190,3 +190,16 @@ export interface UseAddresses<ADDRESS,
   remove: (removeParams: REMOVE_ADDRESS_PARAMS) => Promise<void>,
   update: (updateParams: UPDATE_ADDRESS_PARAMS) => Promise<void>,
 }
+
+export interface UseForgotPasswordErrors {
+  request: Error;
+  setNew: Error;
+}
+
+export interface UseForgotPassword<RESULT> {
+  result: ComputedProperty<RESULT>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseForgotPasswordErrors>;
+  setNew(params: ComposableFunctionArgs<{ tokenValue: string, newPassword: string, email: string }>): Promise<void>;
+  request(params: ComposableFunctionArgs<{ email: string }>): Promise<void>;
+}
