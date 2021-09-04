@@ -19,7 +19,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
     email,
     customQuery,
   }) => {
-    const { data } = await context.$magento.resetPassword({
+    const { data } = await context.$magento.api.resetPassword({
       email,
       newPassword,
       resetPasswordToken: tokenValue,
