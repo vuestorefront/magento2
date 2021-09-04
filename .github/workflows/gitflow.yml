@@ -8,7 +8,7 @@ on:
 jobs:
   automerge:
     name: GitFlow AutoMerge
-    if: contains(github.event.pull_request.labels.*.name, 'gitflow') && contains('bloodf|alefbarbeli|domideimel|LiorLindvor|filrak|filipsobol|andrzejewsky|', github.actor)
+    if: contains(github.event.pull_request.labels.*.name, 'gitflow')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -26,7 +26,7 @@ jobs:
           tag: ${{ steps.extract_tag.outputs.tag }}
   release:
     name: GitFlow Release AutoMerge
-    if: contains(github.event.pull_request.labels.*.name, 'release') && contains('bloodf|alefbarbeli|domideimel|LiorLindvor|filrak|filipsobol|andrzejewsky|', github.actor)
+    if: contains(github.event.pull_request.labels.*.name, 'release')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
