@@ -187,7 +187,8 @@
   </SfTabs>
 </template>
 
-<script lang="ts">
+<script>
+import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfLoader,
@@ -202,7 +203,6 @@ import {
 } from '@storefront-ui/vue';
 import {
   computed,
-  onBeforeMount,
   defineComponent,
 } from '@vue/composition-api';
 import {
@@ -267,7 +267,7 @@ export default defineComponent({
       await removeItem({ product });
     };
 
-    onBeforeMount(async () => {
+    onSSR(async () => {
       await load();
     });
 
