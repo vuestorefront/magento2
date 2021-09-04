@@ -87,7 +87,7 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
 
     const userData = generateUserData(updateData);
 
-    if (email !== oldEmail) {
+    if (email && email !== oldEmail) {
       await context.$magento.api.updateCustomerEmail({
         email,
         password,

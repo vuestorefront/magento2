@@ -81,7 +81,7 @@
     </SfTabs>
   </transition>
 </template>
-<script lang="ts">
+<script>
 import {
   SfTabs,
   SfButton,

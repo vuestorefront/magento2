@@ -564,6 +564,8 @@ export {
   WishListUserInputErrorType,
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';

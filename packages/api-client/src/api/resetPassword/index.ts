@@ -1,22 +1,22 @@
-import gql from 'graphql-tag';
 import { FetchResult } from '@apollo/client';
 import { CustomQuery, Logger } from '@vue-storefront/core';
-import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
+import gql from 'graphql-tag';
+import resetPasswordMutation from './resetPassword';
 import {
-  RequestPasswordResetEmailMutation,
-  RequestPasswordResetEmailMutationVariables,
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  input: RequestPasswordResetEmailMutationVariables,
+  input: ResetPasswordMutationVariables,
   customQuery?: CustomQuery,
-): Promise<FetchResult<RequestPasswordResetEmailMutation>> => {
-  const { requestPasswordResetEmail } = context.extendQuery(
+): Promise<FetchResult<ResetPasswordMutation>> => {
+  const { resetPassword } = context.extendQuery(
     customQuery, {
-      requestPasswordResetEmail: {
-        query: requestPasswordResetEmailMutation,
+      resetPassword: {
+        query: resetPasswordMutation,
         variables: input,
       },
     },
@@ -25,12 +25,12 @@ export default async (
   try {
     Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
     const result = await context.client
-      .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
-      mutation: gql`${requestPasswordResetEmail.query}`,
-      variables: requestPasswordResetEmail.variables,
+      .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
+      mutation: gql`${resetPassword.query}`,
+      variables: resetPassword.variables,
     });
 
-    if (!result.data.requestPasswordResetEmail) throw new Error('Email was not found, or not available.');
+    if (!result.data.resetPassword) throw new Error('It was not possible to change the user password.');
 
     return result;
   } catch (error) {

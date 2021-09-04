@@ -45,11 +45,12 @@
   </SfTabs>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfTabs, SfCheckbox, SfButton, SfLink,
 } from '@storefront-ui/vue';
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
+import { onSSR } from '@vue-storefront/core';
+import { defineComponent, ref } from '@vue/composition-api';
 import { useUser } from '@vue-storefront/magento';
 
 export default defineComponent({
@@ -68,9 +69,9 @@ export default defineComponent({
       isAuthenticated,
     } = useUser();
 
-    const isSubscribed = ref<boolean>(!!user.value.is_subscribed);
+    const isSubscribed = ref(!!user.value.is_subscribed);
 
-    onBeforeMount(async () => {
+    onSSR(async () => {
       await load();
     });
 

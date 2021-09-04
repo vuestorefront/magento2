@@ -10,6 +10,7 @@
       <LazyHydrate when-idle>
         <SfGallery
           :images="productGallery"
+          :enable-zoom="true"
           class="product__gallery"
         />
       </LazyHydrate>
