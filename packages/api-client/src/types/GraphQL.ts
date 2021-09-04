@@ -6924,6 +6924,15 @@ export type RequestPasswordResetEmailMutationVariables = Exact<{
 
 export type RequestPasswordResetEmailMutation = { requestPasswordResetEmail?: Maybe<boolean> };
 
+export type ResetPasswordMutationVariables = Exact<{
+  email: Scalars['String'];
+  newPassword: Scalars['String'];
+  resetPasswordToken: Scalars['String'];
+}>;
+
+
+export type ResetPasswordMutation = { resetPassword?: Maybe<boolean> };
+
 export type RevokeCustomerTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 

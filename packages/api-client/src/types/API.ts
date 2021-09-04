@@ -104,6 +104,8 @@ import {
   BundleProductDetailQuery,
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
+  ResetPasswordMutationVariables,
+  ResetPasswordMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -199,7 +201,8 @@ export interface MagentoApiMethods {
   removeItemFromCart(input: RemoveItemFromCartInput): Promise<FetchResult<RemoveItemFromCartMutation>>;
   removeProductsFromWishlist(input: RemoveProductsFromWishlistMutationVariables): Promise<FetchResult<RemoveProductsFromWishlistMutation>>;
   revokeCustomerToken(): Promise<FetchResult<RevokeCustomerTokenMutation>>;
-  requestPasswordResetEmail(input: RequestPasswordResetEmailMutationVariables): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
+  requestPasswordResetEmail(input: RequestPasswordResetEmailMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
+  resetPassword(input: ResetPasswordMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<ResetPasswordMutation>>;
   setBillingAddressOnCart(input: SetBillingAddressOnCartInput): Promise<FetchResult<SetBillingAddressOnCartMutation>>;
   setGuestEmailOnCart(input: SetGuestEmailOnCartInput): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
   setPaymentMethodOnCart(input: SetPaymentMethodOnCartInputs): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;

@@ -41,6 +41,7 @@ export { default as removeCouponFromCart } from './removeCouponFromCart';
 export { default as removeItemFromCart } from './removeItemFromCart';
 export { default as removeProductsFromWishlist } from './removeProductsFromWishlist';
 export { default as requestPasswordResetEmail } from './requestPasswordResetEmail';
+export { default as resetPassword } from './resetPassword';
 export { default as revokeCustomerToken } from './revokeCustomerToken';
 export { default as setBillingAddressOnCart } from './setBillingAddressOnCart';
 export { default as setGuestEmailOnCart } from './setGuestEmailOnCart';
