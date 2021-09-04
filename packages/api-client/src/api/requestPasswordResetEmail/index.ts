@@ -1,3 +1,4 @@
+import gql from 'graphql-tag';
 import { FetchResult } from '@apollo/client';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
@@ -14,7 +15,7 @@ export default async (
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> => {
   const { requestPasswordResetEmail } = context.extendQuery(
     customQuery, {
-      products: {
+      requestPasswordResetEmail: {
         query: requestPasswordResetEmailMutation,
         variables: input,
       },
@@ -25,7 +26,7 @@ export default async (
     Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
     const result = await context.client
       .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
-      mutation: requestPasswordResetEmail.query,
+      mutation: gql`${requestPasswordResetEmail.query}`,
       variables: requestPasswordResetEmail.variables,
     });
 
