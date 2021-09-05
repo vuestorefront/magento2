@@ -42,7 +42,6 @@ const factoryParams: UseShippingProviderParams<any, any> = {
     const { cart } = data
       .setShippingMethodsOnCart;
 
-    console.log('Shipping provider save', data);
     context.cart.setCart(cart);
 
     return cart
