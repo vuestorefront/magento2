@@ -39,10 +39,13 @@ const factoryParams: UseShippingProviderParams<any, any> = {
     };
 
     const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
+    const { cart } = data
+      .setShippingMethodsOnCart;
 
-    return data
-      .setShippingMethodsOnCart
-      .cart
+    console.log('Shipping provider save', data);
+    context.cart.setCart(cart);
+
+    return cart
       .shipping_addresses[0]
       .selected_shipping_method;
   },
