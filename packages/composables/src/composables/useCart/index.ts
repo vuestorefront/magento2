@@ -66,6 +66,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     if (customerToken) {
       try {
         const result = await context.$magento.api.customerCart();
+        apiState.setCartId(result.data.customerCart.id);
 
         return result.data.customerCart as unknown as Cart;
       } catch {
