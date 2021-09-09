@@ -122,43 +122,16 @@
               <template
                 v-if="product.__typename === 'GroupedProduct'"
               >
-                <SfList class="grouped_items">
-                  <SfListItem
-                    v-for="(groupedItem, index) in groupedItems"
-                    :key="index"
-                    class="grouped_items--item"
-                  >
-                    <SfImage
-                      :src="productGetters.getProductThumbnailImage(groupedItem.product)"
-                      :alt="productGetters.getName(groupedItem.product)"
-                      :width="60"
-                    />
-                    <div>
-                      <p>{{ productGetters.getName(groupedItem.product) }}</p>
-                      <SfPrice
-                        :regular="$n(productGetters.getPrice(product).regular, 'currency')"
-                        :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
-                      />
-                    </div>
-                    <SfQuantitySelector
-                      v-model="groupedItem.qty"
-                      :disabled="loading || !canAddToCart"
-                    />
-                  </SfListItem>
-                </SfList>
-                <button
-                  v-e2e="'product_add-to-cart'"
-                  :disabled="loading || !canAddToCart"
-                  class="color-primary sf-button grouped_items--add-to-cart"
-                  @click="addGroupedToCart"
-                >
-                  Add to Cart
-                </button>
+                <grouped-product-selector
+                  :can-add-to-cart="canAddToCart"
+                  @update-price="basePrice = $event"
+                />
               </template>
               <template
                 v-else-if="product.__typename === 'BundleProduct'"
               >
                 <BundleProductSelector
+                  :can-add-to-cart="canAddToCart"
                   @update-price="basePrice = $event"
                 />
               </template>
@@ -287,11 +260,8 @@ import {
   SfGallery,
   SfHeading,
   SfIcon,
-  SfImage,
-  SfList,
   SfLoader,
   SfPrice,
-  SfQuantitySelector,
   SfRating,
   SfReview,
   SfSelect,
@@ -308,18 +278,20 @@ import {
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { ref, computed } from '@vue/composition-api';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
+import InstagramFeed from '~/components/InstagramFeed.vue';
+import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
+import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
 export default {
   name: 'Product',
   components: {
+    GroupedProductSelector,
     BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
@@ -333,11 +305,8 @@ export default {
     SfGallery,
     SfHeading,
     SfIcon,
-    SfImage,
-    SfList,
     SfLoader,
     SfPrice,
-    SfQuantitySelector,
     SfRating,
     SfReview,
     SfSelect,
@@ -398,20 +367,21 @@ export default {
         // eslint-disable-next-line no-underscore-dangle
         alt: product.value._name || product.value.name,
       })));
-    const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
 
     const configurableOptions = computed(() => product.value.configurable_options);
     const productConfiguration = ref({});
-    const productPrice = computed(() => {
+    const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
         case 'BundleProduct':
-          return basePrice.value || productGetters.getPrice(product.value).regular;
-        case 'SimpleProduct':
+          return basePrice.value;
+        case 'GroupedProduct':
+          return basePrice.value;
         default:
-          return productGetters.getPrice(product.value).regular;
+          return 0;
       }
     });
+    const productPrice = computed(() => productTypedPrice.value || productGetters.getPrice(product.value).regular);
     const productSpecialPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
@@ -465,16 +435,6 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
-    const addGroupedToCart = async () => {
-      const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
-      if (groupedItemsFiltered.length > 0) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const p of groupedItemsFiltered) {
-          // eslint-disable-next-line no-await-in-loop
-          await addItem({ product: p.product, quantity: p.qty });
-        }
-      }
-    };
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -495,7 +455,6 @@ export default {
     });
 
     return {
-      addGroupedToCart,
       addItem,
       addItemToWishlist,
       averageRating,
@@ -506,7 +465,6 @@ export default {
       changeNewReview,
       changeTab,
       configurableOptions,
-      groupedItems,
       isAuthenticated,
       isInWishlist: computed(() => isInWishlist({ product: product.value })),
       loading,
@@ -541,30 +499,6 @@ export default {
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
-  }
-}
-
-.grouped_items {
-  padding: 0 10px;
-
-  &--item {
-    display: grid;
-    grid-template-columns: fit-content(70px) auto fit-content(100%);
-    grid-template-rows: auto;
-    align-items: center;
-    justify-items: start;
-    column-gap: var(--spacer-base);
-    padding: var(--spacer-base) 0;
-    border-bottom: 1px solid var(--c-text-muted);
-
-    .sf-quantity-selector {
-      justify-self: end;
-    }
-  }
-
-  &--add-to-cart {
-    width: 100%;
-    margin-top: var(--spacer-lg);
   }
 }
 
