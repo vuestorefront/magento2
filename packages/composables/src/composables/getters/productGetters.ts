@@ -21,9 +21,8 @@ export const getName = (product: Product): string => {
   if (!product) {
     return '';
   }
-  const name = htmlDecode(product.name);
 
-  return name === 'undefined' ? '' : name;
+  return htmlDecode(product.name);
 };
 
 export const getSlug = (product: Product, category?: Category): string => {
