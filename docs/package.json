@@ -8,12 +8,29 @@
     "name": "Alef Barbeli",
     "email": "alefbarbeli@gmail.com"
   },
-  "repository": "https://github.com/vuestorefront/salesforce-commerce-cloud/docs",
+  "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build"
+    "build": "vuepress build",
+    "api-extract": "yarn api-ref && yarn comp-ref && yarn ref-md",
+    "api-ref": "cd ../packages/api-client && api-extractor run --local",
+    "comp-ref": "cd ../packages/composables && api-extractor run --local",
+    "ref-md": "api-documenter markdown --i api-reference --o api-reference"
   },
   "devDependencies": {
-    "vuepress": "^1.5.3"
+    "@microsoft/api-documenter": "^7.13.7",
+    "@microsoft/api-extractor": "^7.18.3",
+    "@vue-storefront/commercetools-api": "~1.2.0",
+    "@vuepress/plugin-active-header-links": "^1.8.2",
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "@vuepress/plugin-search": "^1.8.2",
+    "handlebars": "^4.7.7",
+    "typescript": "^3.6.4",
+    "vuepress": "^1.2.0"
+  },
+  "dependencies": {
+    "sass-loader": "^8.0.2",
+    "vue-multiselect": "^2.1.6"
   }
 }
