@@ -12,10 +12,10 @@
   "scripts": {
     "dev": "vuepress dev",
     "build": "vuepress build",
-    "api-extract": "yarn api-ref && yarn comp-ref && yarn ref-md"
+    "api-extract": "yarn api-ref && yarn comp-ref && yarn ref-md",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
     "comp-ref": "cd ../packages/composables && api-extractor run --local",
-    "ref-md": "api-documenter markdown --i magento2/api-reference --o magento2/api-reference",
+    "ref-md": "api-documenter markdown --i api-reference --o api-reference"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.13.7",

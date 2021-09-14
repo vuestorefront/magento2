@@ -80,6 +80,13 @@ module.exports = {
           ['/guide/composables/use-product', 'useProduct'],
           ['/guide/composables/use-router', 'useRouter'],
         ]
+      },
+      {
+        title: 'Reference',
+        collapsable: false,
+        children: [
+          ['/magento2/api-reference/', 'API Reference'],
+        ]
       }
     ]
   }
