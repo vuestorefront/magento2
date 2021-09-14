@@ -85,7 +85,7 @@ module.exports = {
         title: 'Reference',
         collapsable: false,
         children: [
-          ['/magento2/api-reference/', 'API Reference'],
+          ['/api-reference/', 'API Reference'],
         ]
       }
     ]
