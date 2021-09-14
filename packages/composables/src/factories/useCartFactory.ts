@@ -15,6 +15,17 @@ export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUN
       enteredOptions?: any;
     }>
   ) => Promise<CART>;
+  addItems: (
+    context: Context,
+    params: ComposableFunctionArgs<{
+      currentCart: CART;
+      products: {
+        product: PRODUCT;
+        quantity: any;
+        enteredOptions?: any;
+      }[];
+    }>
+  ) => Promise<CART>;
   removeItem: (context: Context, params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM; }>) => Promise<CART>;
   updateItemQty: (
     context: Context,
@@ -45,6 +56,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API 
   const cart: Ref<CART> = sharedRef(null, 'useCart-cart');
   const error: Ref<UseCartErrors> = sharedRef({
     addItem: null,
+    addItems: null,
     removeItem: null,
     updateItemQty: null,
     load: null,
@@ -113,6 +125,26 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API 
     } catch (err) {
       error.value.addItem = err;
       Logger.error('useCart/addItem', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const addItems = async ({ products, customQuery }) => {
+    Logger.debug('useCart.addItems', { products });
+
+    try {
+      loading.value = true;
+      const updatedCart = await _factoryParams.addItems({
+        currentCart: cart.value,
+        products,
+        customQuery,
+      });
+      error.value.addItems = null;
+      cart.value = updatedCart;
+    } catch (err) {
+      error.value.addItems = err;
+      Logger.error('useCart/addItems', err);
     } finally {
       loading.value = false;
     }
@@ -393,6 +425,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API 
     compliance: computed(() => compliance.value),
     isInCart,
     addItem,
+    addItems,
     load,
     removeItem,
     clear,

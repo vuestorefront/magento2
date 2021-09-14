@@ -2,11 +2,11 @@
 import {
   Context,
   Logger,
-  useUserOrderFactory,
   UseUserOrderFactoryParams,
 } from '@absolute-web/vsf-core';
 import { GetOrdersSearchParams } from '@absolute-web/magento-api';
 import useUser from '../useUser';
+import { useUserOrderFactory } from '../../factories/useUserOrderFactory';
 
 const factoryParams: UseUserOrderFactoryParams<any, GetOrdersSearchParams> = {
   provide() {

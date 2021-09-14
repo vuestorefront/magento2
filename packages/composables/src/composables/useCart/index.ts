@@ -268,6 +268,80 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, GiftCardAccou
         throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
     }
   },
+  addItems: async (context: Context, {
+    products,
+    currentCart,
+    customQuery,
+  }) => {
+    const apiState = context.$magento.config.state;
+    let currentCartId = apiState.getCartId();
+
+    if (!currentCartId) {
+      await factoryParams.load(context, {});
+
+      currentCartId = apiState.getCartId();
+    }
+
+    if (!products) {
+      return;
+    }
+    try {
+      await factoryParams.focusUnsetPickupDate(context, { currentCart });
+
+      const cartInput: AddProductsToCartInput = {
+        cartId: currentCartId,
+        cartItems: [],
+      };
+
+      for (const {product, quantity, enteredOptions} of products) {
+      // @ts-ignore
+      // eslint-disable-next-line no-underscore-dangle
+        switch (product.__typename) {
+          case 'SimpleProduct':
+            cartInput.cartItems.push( {
+              quantity,
+              sku: product.sku,
+              entered_options: enteredOptions,
+            });
+            break;
+          case 'ConfigurableProduct':
+            cartInput.cartItems.push({
+              parent_sku: product.sku,
+              quantity,
+              sku: product.configurable_product_options_selection?.variant?.sku || '',
+              entered_options: enteredOptions,
+            });
+            break;
+          case 'BundleProduct':
+            cartInput.cartItems.push({
+              quantity,
+              sku: product.sku,
+              entered_options: [
+                // @ts-ignore
+                ...product.bundle_options,
+              ],
+            });
+            break;
+          default:
+            // todo implement other options
+            // @ts-ignore
+            // eslint-disable-next-line no-underscore-dangle
+            throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
+        }
+      }
+
+      const response = await context.$magento.api.addProductsToCart(cartInput);
+
+      // eslint-disable-next-line consistent-return
+      return response
+        .data
+        .addProductsToCart
+        .cart as unknown as Cart;
+
+    } catch (err) {
+      throw err;
+    }
+  },
   removeItem: async (context: Context, {
     currentCart,
     product,

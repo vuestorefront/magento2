@@ -334,6 +334,7 @@ export interface UseWishlist<WISHLIST,
 }
 
 export interface UseCartErrors extends UseCartErrorsBase {
+  addItems: Error;
   checkGiftCard: Error;
   applyGiftCard: Error;
   removeGiftCard: Error;
@@ -355,11 +356,21 @@ export interface UseCart<CART, CART_ITEM, PRODUCT, GIFT_CARD_ACCOUNT, API extend
   load(params: ComposableFunctionArgs<{
     forceReload?: boolean;
   }>): Promise<void>;
+  /** @deprecated Use `addItems`. */
   addItem: (
     params: ComposableFunctionArgs<{
       product: PRODUCT;
       quantity: any;
       enteredOptions?: any;
+    }>
+  ) => Promise<void>;
+  addItems: (
+    params: ComposableFunctionArgs<{
+      products: {
+        product: PRODUCT;
+        quantity: any;
+        enteredOptions?: any;
+      }[];
     }>
   ) => Promise<void>;
   checkGiftCard(params: {
