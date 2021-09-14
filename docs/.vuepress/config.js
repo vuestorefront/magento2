@@ -20,7 +20,27 @@ module.exports = {
       }))
     }))
   },
+  /**
+   * Ref：https://v1.vuepress.vuejs.org/plugin/
+   */
+  plugins: [
+    '@vuepress/plugin-back-to-top',
+    [
+      '@vuepress/plugin-medium-zoom',
+      {
+        // This selector excludes images from the "Integrations" page
+        selector: 'main :not(.tile-image) > img'
+      }
+    ],
+    '@vuepress/active-header-links',
+    '@vuepress/search'
+  ],
   themeConfig: {
+    repo: 'https://github.com/vuestorefront/magento2/',
+    editLinks: true,
+    docsDir: 'docs',
+    docsBranch: 'develop',
+    editLinkText: 'Edit this page',
     nav: [
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
