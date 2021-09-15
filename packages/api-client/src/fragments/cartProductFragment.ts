@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
-import ProductData from './productFragment';
+import BaseProductData from './baseProductFragment';
 
 export default gql`
-  ${ProductData}
+  ${BaseProductData}
   
   fragment CartProductData on CartItemInterface {
   uid
   product {
-    ...ProductData
+    ...BaseProductData
   }
   prices {
     row_total {

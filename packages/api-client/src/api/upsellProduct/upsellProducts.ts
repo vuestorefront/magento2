@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
-import ProductData from '../../fragments/productFragment';
+import BaseProductData from '../../fragments/baseProductFragment';
 
 export default gql`
-  ${ProductData}
+  ${BaseProductData}
   
 query upsellProducts(
   $search: String = ""
@@ -20,7 +20,7 @@ query upsellProducts(
   ){
     items {
       upsell_products {
-        ...ProductData
+        ...BaseProductData
       }
       uid
     }

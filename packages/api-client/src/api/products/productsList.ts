@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
-import ProductData from '../../fragments/productFragment';
+import BaseProductData from '../../fragments/baseProductFragment';
 
 export default gql`
-  ${ProductData}
+  ${BaseProductData}
+  
 query productsList($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 20, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
   products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
     aggregations {
@@ -15,7 +16,7 @@ query productsList($search: String = "", $filter: ProductAttributeFilterInput, $
       }
     }
     items {
-      ...ProductData
+      ...BaseProductData
     }
     page_info {
       current_page
