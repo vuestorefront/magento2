@@ -241,6 +241,8 @@ export interface AvailableShippingMethod {
   method_title?: Maybe<Scalars['String']>;
   price_excl_tax: Money;
   price_incl_tax: Money;
+  additional_data?: Scalars['String'];
+  description?: Scalars['String'];
 }
 
 export interface BillingAddressInput {
@@ -7658,6 +7660,28 @@ export type FocusTrackedOrdersQueryVariables = Exact<{
 
 export type FocusTrackedOrdersQuery = { trackedOrder?: { items?: Array<CustomerOrder | null | undefined> | null | undefined } | null | undefined };
 
+export type CustomerAvailableShippingMethodsAdditionalDataQueryFocus = {
+  customerCart: {
+    shipping_addresses: Array<Maybe<{
+      available_shipping_methods?: Maybe<Array<Maybe<{
+        additional_data?: Maybe<string>,
+        description?: Maybe<string>
+      }>>>
+    }>>
+  }
+};
+
+export type GuestAvailableShippingMethodsAdditionalDataQueryFocus = {
+  cart?: Maybe<{
+    shipping_addresses: Array<Maybe<{
+      available_shipping_methods?: Maybe<Array<Maybe<{
+        additional_data?: Maybe<string>,
+        description?: Maybe<string>
+      }>>>
+    }>>
+  }>
+};
+
 export interface FocusInventoryFilterInput {
   id?: Maybe<FilterEqualTypeInput>;
   uid?: Maybe<FilterEqualTypeInput>;
@@ -7691,4 +7715,30 @@ export type FocusInventoryQuery = {
 
 export interface FocusInventoryQueryVariables {
   filter: FocusInventoryFilterInput;
+};
+
+export interface FocusEstimateShippingMethodsAddressInput {
+  firstname?: Scalars['String'];
+  lastname?: Scalars['String'];
+  company?: Scalars['String'];
+  street?: Array<Maybe<Scalars['String']>>;
+  city?: Scalars['String']
+  region?: Maybe<Scalars['String']>;
+  region_id?: Maybe<Scalars['Int']>;
+  postcode?: Maybe<Scalars['String']>;
+  country_code: Scalars['String'];
+  telephone?: Maybe<Scalars['String']>;
+};
+
+export interface FocusEstimateShippingMethodsInput {
+  cart_id: Scalars['String'];
+  address: Maybe<FocusEstimateShippingMethodsAddressInput>;
+};
+
+export interface FocusEstimateShippingMethodsMutationVariables {
+  input: FocusEstimateShippingMethodsInput;
+};
+
+export interface FocusEstimateShippingMethodsMutation {
+  focusEstimateShippingMethods: Array<AvailableShippingMethod>;
 };

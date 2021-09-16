@@ -17,6 +17,7 @@ export { default as useCountrySearch } from './composables/useCountrySearch';
 export { default as useCurrency } from './composables/useCurrency';
 export { default as useCustomMutation } from './composables/useCustomMutation';
 export { default as useCustomQuery } from './composables/useCustomQuery';
+export { default as useEstimateShippingMethods } from './composables/useEstimateShippingMethods';
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
 export { default as useFacet } from './composables/useFacet';
 export { default as useForgotPassword } from './composables/useForgotPassword';

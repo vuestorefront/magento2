@@ -69,3 +69,4 @@ export { default as wishlist } from './wishlist';
 export { default as focusSetGroupOnItem } from './focusSetGroupOnItem';
 export { default as focusUpdateCartGroup } from './focusUpdateCartGroup';
 export { default as focusInventory } from './focusInventory';
+export { default as focusEstimateShippingMethods } from './focusEstimateShippingMethods';

@@ -128,6 +128,8 @@ import {
   FocusTrackedOrdersQueryVariables,
   FocusInventoryQuery,
   FocusInventoryQueryVariables,
+  FocusEstimateShippingMethodsInput,
+  FocusEstimateShippingMethodsMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -482,4 +484,6 @@ export interface MagentoApiMethods {
   focusUpdateCartGroup(input: FocusUpdateCartGroupInput): Promise<FetchResult<FocusUpdateCartGroupMutation>>;
 
   focusInventory(filter: FocusInventoryQueryVariables): Promise<ApolloQueryResult<CachedQuery<FocusInventoryQuery>>>;
+
+  focusEstimateShippingMethods(input: FocusEstimateShippingMethodsInput): Promise<FetchResult<FocusEstimateShippingMethodsMutation>>;
 }

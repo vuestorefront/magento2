@@ -416,3 +416,18 @@ export interface UseInventory<INVENTORY_ITEM> {
   error: ComputedProperty<UseInventoryErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseEstimateShippingMethodsErrors {
+  load: Error;
+}
+
+export interface UseEstimateShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API>{
+  estimatedShippingMethods: ComputedProperty<SHIPPING_METHOD[]>;
+  lowerEstimatedShippingMethod: ComputedProperty<SHIPPING_METHOD>;
+  setEstimatedShippingMethods(estimatedShippingMethods: SHIPPING_METHOD[]): void;
+  setLowerEstimatedShippingMethod(lowerEstimatedShippingMethod: SHIPPING_METHOD): void;
+  load: (params) => Promise<SHIPPING_METHOD[]>;
+  result: ComputedProperty<SHIPPING_METHOD[]>;
+  error: ComputedProperty<UseEstimateShippingMethodsErrors>;
+  loading: ComputedProperty<boolean>;
+}

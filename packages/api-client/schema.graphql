@@ -551,6 +551,8 @@ type AvailableShippingMethod {
     method_title: String
     price_excl_tax: Money!
     price_incl_tax: Money!
+    additional_data: String
+    description: String
 }
 
 type BillingCartAddress implements CartAddressInterface {
@@ -2838,6 +2840,7 @@ type Mutation {
     updateQuoteEmail(cartId: String!, email: String!): Boolean
     focusSetGroupOnItem(input: focusSetGroupOnItemInput): Cart
     focusUpdateCartGroup(input: focusUpdateCartGroupInput): Cart
+    focusEstimateShippingMethods(input: focusEstimateShippingMethodsInput): [AvailableShippingMethod]
 }
 
 "Contains details about the requested order"
