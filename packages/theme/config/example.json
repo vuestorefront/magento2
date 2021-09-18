@@ -2,5 +2,7 @@
   "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
   "enableMagentoExternalCheckout": false,
   "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}",
-  "externalCheckoutSyncPath": "/vue/cart/sync"
+  "externalCheckoutSyncPath": "/vue/cart/sync",
+  "nuxtAppEnvironment": "development",
+  "nuxtAppPort": 3000
 }

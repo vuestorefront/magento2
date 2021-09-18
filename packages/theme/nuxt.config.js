@@ -2,6 +2,7 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
+import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
@@ -22,9 +23,9 @@ const {
 
 export default {
   ssr: true,
-  dev: process.env.NODE_ENV !== 'production',
+  dev: config.get('nuxtAppEnvironment') !== 'production',
   server: {
-    port: 3000,
+    port: config.get('nuxtAppPort'),
     host: '0.0.0.0',
   },
   head: {
@@ -191,23 +192,17 @@ export default {
         }),
       }),
     ],
-    extend(config, ctx) {
+    extend(cfg, ctx) {
       // eslint-disable-next-line no-param-reassign
-      config.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
+      cfg.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
 
       if (ctx && ctx.isClient) {
         // eslint-disable-next-line no-param-reassign
-        config.optimization = {
-          ...config.optimization,
+        cfg.optimization = {
+          ...cfg.optimization,
           mergeDuplicateChunks: true,
           splitChunks: {
-            ...config.optimization.splitChunks,
-            chunks: 'all',
-            automaticNameDelimiter: '.',
-            maxSize: 128_000,
-            maxInitialRequests: Number.POSITIVE_INFINITY,
-            minSize: 0,
-            maxAsyncRequests: 10,
+            ...cfg.optimization.splitChunks,
             cacheGroups: {
               vendor: {
                 test: /[/\\]node_modules[/\\]/,
