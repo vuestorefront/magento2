@@ -4,10 +4,6 @@
   "description": "Documentation for the Magento integration for Vue Storefront",
   "main": "index.js",
   "license": "MIT",
-  "authors": {
-    "name": "Alef Barbeli",
-    "email": "alefbarbeli@gmail.com"
-  },
   "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",

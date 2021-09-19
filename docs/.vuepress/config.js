@@ -54,9 +54,15 @@ module.exports = {
         collapsable: false,
         children: [
           ['/', 'Introduction'],
-          ['/guide/getting-started', 'Getting started'],
-          ['/guide/configuration', 'Configuration'],
           ['/guide/about', 'About'],
+        ]
+      },
+      {
+        title: 'Creating a Storefront',
+        collapsable: false,
+        children: [
+          ['/guide/creating-a-store', 'Creating a Store'],
+          ['/guide/configuration', 'Configuration'],
         ]
       },
       {
