@@ -5,8 +5,8 @@ WORKDIR /var/www
 COPY . .
 
 RUN npm install \
-  && sed -i "s/base: '\/',/base: '\/magento\/',/g" ./.vuepress/config.js \
-  && cat ./.vuepress/config.js \
+  && sed -i "s/base: '\/',/base: '\/magento\/',/g" ./docs/.vuepress/config.js \
+  && cat ./docs/.vuepress/config.js \
   && npm run build
 
 FROM nginx
