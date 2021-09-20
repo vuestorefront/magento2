@@ -27,7 +27,7 @@ jobs:
           username: ${{ secrets.DOCS_CLOUD_USERNAME }}
           password: ${{ secrets.DOCS_CLOUD_PASSWORD }}
           workdir: docs
-          dockerfile: ../.vuestorefrontcloud/docker/docs/Dockerfile
+          dockerfile: ./.vuestorefrontcloud/docker/docs/Dockerfile
           buildoptions: "--compress"
 
   deploy:
