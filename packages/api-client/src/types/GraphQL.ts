@@ -4149,6 +4149,7 @@ export interface Mutation {
   /** FOCUS */
   focusSetGroupOnItem?: Maybe<FocusSetGroupOnItemMutation>;
   focusUpdateCartGroup?: Maybe<FocusUpdateCartGroupMutation>;
+  focusIDmeVerify?: Maybe<FocusIDmeVerifyMutation>;
 }
 
 
@@ -7741,4 +7742,39 @@ export interface FocusEstimateShippingMethodsMutationVariables {
 
 export interface FocusEstimateShippingMethodsMutation {
   focusEstimateShippingMethods: Array<AvailableShippingMethod>;
+};
+
+export interface FocusIDmeCustomerGroupSpecificData {
+  handle: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export interface FocusIDmeCustomerDatInputError {
+  message: Scalars['String']
+};
+
+export interface FocusIDmeCustomerData {
+  uuid: Scalars['String'];
+  first_name: Scalars['String'];
+  last_name: Scalars['String'];
+  email: Scalars['String'];
+  zip: Scalars['String'];
+  is_verified: Scalars['Boolean'];
+  group: Scalars['String'];
+  subgroup: Maybe<Scalars['String']>;
+  user_errors: Array<Maybe<FocusIDmeCustomerDatInputError>>;
+  group_data: Array<Maybe<FocusIDmeCustomerGroupSpecificData>>;
+};
+
+export interface FocusIDmeVerifyInput {
+  code: Scalars['String'];
+};
+
+export interface FocusIDmeVerifyMutationVariables {
+  input: FocusIDmeVerifyInput;
+};
+
+export interface FocusIDmeVerifyMutation {
+  focusIDmeVerify: FocusIDmeCustomerData;
 };

@@ -431,3 +431,14 @@ export interface UseEstimateShippingMethods<SHIPPING_METHOD, API extends Platfor
   error: ComputedProperty<UseEstimateShippingMethodsErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseIDmeVerifyErrors {
+  load: Error;
+}
+
+export interface UseIDmeVerify<CUSTOMER_DATA> {
+  load: (params: any) => Promise<CUSTOMER_DATA>;
+  result: ComputedProperty<CUSTOMER_DATA>;
+  error: ComputedProperty<UseIDmeVerifyErrors>;
+  loading: ComputedProperty<boolean>;
+}

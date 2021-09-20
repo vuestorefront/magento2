@@ -2841,6 +2841,7 @@ type Mutation {
     focusSetGroupOnItem(input: focusSetGroupOnItemInput): Cart
     focusUpdateCartGroup(input: focusUpdateCartGroupInput): Cart
     focusEstimateShippingMethods(input: focusEstimateShippingMethodsInput): [AvailableShippingMethod]
+    focusIDmeVerify(input: focusIDmeVerifyInput): focusIDmeCustomerData
 }
 
 "Contains details about the requested order"

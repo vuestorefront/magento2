@@ -23,6 +23,7 @@ export { default as useFacet } from './composables/useFacet';
 export { default as useForgotPassword } from './composables/useForgotPassword';
 export { default as useGetShippingMethods } from './composables/useGetShippingMethods';
 export { default as useGuestUser } from './composables/useGuestUser';
+export { default as useIDmeVerify } from './composables/useIDmeVerify';
 export { default as useInventory } from './composables/useInventory';
 export { default as useMakeOrder } from './composables/useMakeOrder';
 export { default as useNewsletter } from './composables/useNewsletter';
