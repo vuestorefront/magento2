@@ -46,7 +46,7 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/v2
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento
           environment: production
           initial_status: in_progress
       - name: Deploy on docs.europe-west1.gcp.storefrontcloud.io/magento2
@@ -62,7 +62,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/v2
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento2
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -71,7 +71,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/v2
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento2
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
