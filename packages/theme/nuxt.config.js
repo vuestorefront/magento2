@@ -208,9 +208,19 @@ export default {
           mergeDuplicateChunks: true,
           splitChunks: {
             ...cfg.optimization.splitChunks,
+            automaticNameDelimiter: '.',
+            chunks: 'all',
+            enforceSizeThreshold: 40_000,
+            maxAsyncRequests: 30,
+            maxInitialRequests: 30,
+            maxSize: 128_000,
+            minChunks: 1,
+            minSize: 0,
             cacheGroups: {
+              ...cfg.optimization.splitChunks.cacheGroups,
               vendor: {
                 test: /[/\\]node_modules[/\\]/,
+                reuseExistingChunk: true,
                 name: (module) => `${module
                   .context
                   .match(/[/\\]node_modules[/\\](.*?)([/\\]|$)/)[1]
