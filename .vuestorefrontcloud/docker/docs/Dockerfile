@@ -4,7 +4,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN npm install \
+RUN npx yarn \
   && sed -i "s/base: '\/',/base: '\/magento\/',/g" ./docs/.vuepress/config.js \
   && cat ./docs/.vuepress/config.js \
   && npm run build
