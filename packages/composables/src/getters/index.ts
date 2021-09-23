@@ -3,6 +3,7 @@ export { default as addressGetter } from './addressGetter';
 export { default as cartGetters } from './cartGetters';
 export { default as categoryGetters } from './categoryGetters';
 export { default as checkoutGetters } from './checkoutGetters';
+export { default as compareListGetters } from './compareListGetters';
 export { default as facetGetters } from './facetGetters';
 export { default as forgotPasswordGetters } from './forgotPasswordGetters';
 export { default as idMeGetters } from './idMeGetters';

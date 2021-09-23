@@ -4,6 +4,8 @@ import { CustomQuery } from '@absolute-web/vsf-core';
 import {
   AddConfigurableProductsToCartInput,
   AddConfigurableProductsToCartMutation,
+  AddProductsToCompareListInput,
+  AddProductsToCompareListMutation,
   AddSimpleProductsToCartInput,
   AddSimpleProductsToCartMutation,
   AddDownloadableProductsToCartInput,
@@ -16,6 +18,7 @@ import {
   ApplyCouponToCartMutation,
   ApplyGiftCardToCartInput,
   ApplyGiftCardToCartMutation,
+  AssignCompareListToCustomerMutation,
   AvailableShippingMethod,
   AvailableStoresQuery,
   BundleProduct,
@@ -31,20 +34,26 @@ import {
   CategoryTree,
   CmsPage,
   CmsPageQuery,
+  CompareList as CompareListInterface,
+  CompareListQuery,
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
+  CreateCompareListInput,
+  CreateCompareListMutation,
   CurrencyQuery,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
   CustomerAvailableShippingMethodsQuery,
   CustomerCartQuery,
+  CustomerCompareListQuery,
   CustomerCreateInput,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
   CustomerQuery,
   CustomerUpdateInput,
+  DeleteCompareListMutation,
   DeleteCustomerAddressMutation,
   GenerateCustomerTokenMutation,
   GiftCardAccount as GiftCardAccountInterface,
@@ -102,6 +111,8 @@ import {
   AddProductsToWishlistMutationVariables,
   AddProductsToWishlistMutation,
   UpdateCustomerEmailMutationVariables,
+  RemoveProductsFromCompareListInput,
+  RemoveProductsFromCompareListMutation,
   RemoveProductsFromWishlistMutationVariables,
   RemoveProductsFromWishlistMutation,
   GetCustomerAddressesQuery,
@@ -147,6 +158,7 @@ export type CartItem = CartItemInterface;
 export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
 export type CategoryFilter = CategoryFilterInput;
 export type CategoryMenu = CategoryTree;
+export type CompareList = CompareListInterface;
 export type Countries = CountriesListQuery['countries'][0];
 export type Coupon = AppliedCoupon;
 export type CustomerAddress = CustomerAddressInterface;
@@ -206,6 +218,8 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<FetchResult<AddProductsToCartMutation>>;
 
+  addProductsToCompareList(input: AddProductsToCompareListInput): Promise<FetchResult<AddProductsToCompareListMutation>>;
+
   addProductToWishList(
     input: AddProductsToWishlistMutationVariables,
     customQuery?: CustomQuery
@@ -232,6 +246,8 @@ export interface MagentoApiMethods {
   ): Promise<FetchResult<ApplyCouponToCartMutation>>;
 
   applyGiftCardToCart(input: ApplyGiftCardToCartInput): Promise<FetchResult<ApplyGiftCardToCartMutation>>;
+
+  assignCompareListToCustomer(uid: string): Promise<FetchResult<AssignCompareListToCustomerMutation>>;
 
   availableStores(customQuery?: CustomQuery): Promise<ApolloQueryResult<CachedQuery<AvailableStoresQuery>>>;
 
@@ -270,12 +286,16 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CachedQuery<CmsPageQuery>>>;
 
+  compareList(uid: string): Promise<ApolloQueryResult<CompareListQuery>>;
+
   countries(customQuery?: CustomQuery): Promise<ApolloQueryResult<CachedQuery<CountriesListQuery>>>;
 
   country(
     id: string,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CachedQuery<CountryInformationQuery>>>;
+
+  createCompareList(input: CreateCompareListInput): Promise<FetchResult<CreateCompareListMutation>>;
 
   createCustomer(
     input: CustomerCreateInput,
@@ -300,6 +320,8 @@ export interface MagentoApiMethods {
 
   customerCart(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
+  customerCompareList(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerCompareListQuery>>;
+
   customerOrders(
     searchParams: GetOrdersSearchParams,
     customQuery?: CustomQuery,
@@ -321,6 +343,8 @@ export interface MagentoApiMethods {
     input: CustomerProductReviewParams,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
+
+  deleteCompareList(uid: string): Promise<FetchResult<DeleteCompareListMutation>>;
 
   deleteCustomerAddress(
     addressId: number,
@@ -397,6 +421,8 @@ export interface MagentoApiMethods {
     input: RemoveItemFromCartInput,
     customQuery?: CustomQuery
   ): Promise<FetchResult<RemoveItemFromCartMutation>>;
+
+  removeProductsFromCompareList(input: RemoveProductsFromCompareListInput): Promise<FetchResult<RemoveProductsFromCompareListMutation>>;
 
   removeProductsFromWishlist(
     input: RemoveProductsFromWishlistMutationVariables,

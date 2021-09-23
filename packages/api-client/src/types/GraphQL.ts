@@ -5653,6 +5653,7 @@ export interface Query {
   customer?: Maybe<Customer>;
   /** Returns information about the customer shopping cart */
   customerCart: Cart;
+  customerCompareList?: Maybe<CompareList>;
   /** The query returns the contents of a customer's downloadable products */
   customerDownloadableProducts?: Maybe<CustomerDownloadableProducts>;
   /** @deprecated Use orders from customer instead */
@@ -7777,4 +7778,34 @@ export interface FocusIDmeVerifyMutationVariables {
 
 export interface FocusIDmeVerifyMutation {
   focusIDmeVerify: FocusIDmeCustomerData;
+};
+
+export type CompareListQuery = {
+  compareList: Maybe<CompareList>;
+};
+
+export type CustomerCompareListQuery = {
+  customer: {
+    compare_list: Maybe<CompareList>;
+  }
+};
+
+export interface AddProductsToCompareListMutation {
+  addProductsToCompareList: CompareList;
+};
+
+export interface AssignCompareListToCustomerMutation {
+  assignCompareListToCustomer: AssignCompareListToCustomerOutput;
+};
+
+export interface CreateCompareListMutation {
+  createCompareList: CompareList;
+};
+
+export interface DeleteCompareListMutation {
+  deleteCompareList: DeleteCompareListOutput;
+};
+
+export interface RemoveProductsFromCompareListMutation {
+  removeProductsFromCompareList: CompareList;
 };

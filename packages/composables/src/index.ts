@@ -11,6 +11,7 @@ export { default as useBilling } from './composables/useBilling';
 export { default as useCart } from './composables/useCart';
 export { default as useCategory } from './composables/useCategory';
 export { default as useCategorySearch } from './composables/useCategorySearch';
+export { default as useCompareList } from './composables/useCompareList';
 export { default as useConfig } from './composables/useConfig';
 export { default as useContent } from './composables/useContent';
 export { default as useCountrySearch } from './composables/useCountrySearch';

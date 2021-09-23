@@ -442,3 +442,33 @@ export interface UseIDmeVerify<CUSTOMER_DATA> {
   error: ComputedProperty<UseIDmeVerifyErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseCompareListErrors {
+  load: Error;
+  loadCustomerCompareList: Error;
+  create: Error;
+  clear: Error;
+  assignToCustomer: Error;
+  addItems: Error;
+  removeItems: Error;
+}
+
+export interface UseCompareList<COMPARE_LIST, PRODUCT> {
+  compareList: ComputedProperty<COMPARE_LIST>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseCompareListErrors>;
+  reset: () => void;
+  load: (params: { uid: string; customQuery?: any }) => Promise<void>;
+  loadCustomerCompareList: (params?: { customQuery?: any }) => Promise<void>;
+  create: (params: { products: PRODUCT[]; customQuery?: any }) => Promise<void>;
+  clear: (params?: { customQuery?: any }) => Promise<boolean>;
+  assignToCustomer: (params?: { customQuery?: any }) => Promise<void>;
+  addItems: (
+    params: {
+      products: PRODUCT[];
+      customQuery?: CustomQuery;
+    }
+  ) => Promise<void>;
+  removeItems: (params: { products: PRODUCT[]; customQuery?: CustomQuery }) => Promise<void>;
+  isInCompareList: (params: { product: PRODUCT }) => boolean;
+}
