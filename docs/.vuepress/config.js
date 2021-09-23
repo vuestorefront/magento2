@@ -67,7 +67,6 @@ module.exports = {
       },
       {
         title: 'Composables',
-        collapsable: false,
         children: [
           ['/guide/composables/use-billing', 'useBilling'],
           ['/guide/composables/use-cart', 'useCart'],
@@ -89,9 +88,17 @@ module.exports = {
       },
       {
         title: 'Reference',
-        collapsable: false,
         children: [
           ['/api-reference/', 'API Reference'],
+        ]
+      },
+      {
+        title: 'Nuxt Tips  & Tricks',
+        children: [
+          ['/improvements/optimization/', 'Optimization'],
+          ['/improvements/security/', 'Security'],
+          ['/improvements/logging/', 'Logging'],
+          ['/improvements/analytics/', 'Analytics'],
         ]
       }
     ]
