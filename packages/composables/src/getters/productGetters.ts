@@ -12,7 +12,7 @@ import {
 } from '@vue-storefront/magento-api';
 
 import categoryGetters from './categoryGetters';
-import { htmlDecode } from '../../helpers/htmlDecoder';
+import { htmlDecode } from '../helpers/htmlDecoder';
 import reviewGetters from './reviewGetters';
 
 type ProductVariantFilters = any;
@@ -102,7 +102,13 @@ export const getProductThumbnailImage = (product: Product): string => {
   return product.thumbnail.url;
 };
 
-export const getFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => products;
+export const getFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
+  if (!products) {
+    return [];
+  }
+
+  return products;
+};
 
 export const getAttributes = (
   products: Product,
