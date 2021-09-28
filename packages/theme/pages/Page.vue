@@ -11,7 +11,7 @@
     </div>
   </SfLoader>
 </template>
-<script lang="ts">
+<script>
 import {
   SfLoader,
   SfHeading,
