@@ -1,5 +1,5 @@
-import { UserAddressesGetters } from '../../types/getters';
-import { transformUserGetter } from '../../helpers/userAddressManipulator';
+import { UserAddressesGetters } from '../types/getters';
+import { transformUserGetter } from '../helpers/userAddressManipulator';
 
 const userAddressesGetters: UserAddressesGetters<any, any> = {
   getAddresses: (addresses, criteria?: Record<string, any>) => {

@@ -12,11 +12,11 @@ import {
   buildFacets,
   reduceForGroupedFacets,
   reduceForFacets,
-} from '../useFacet/_utils';
+} from '../composables/useFacet/_utils';
 
 import {
   SearchData,
-} from '../../types';
+} from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);

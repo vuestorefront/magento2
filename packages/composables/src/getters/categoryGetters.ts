@@ -1,6 +1,6 @@
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
 import { Category } from '@vue-storefront/magento-api';
-import { htmlDecode } from '../../helpers/htmlDecoder';
+import { htmlDecode } from '../helpers/htmlDecoder';
 
 const buildTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
   const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;

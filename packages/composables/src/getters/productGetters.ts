@@ -235,9 +235,9 @@ export const { getTotalReviews } = reviewGetters;
 
 export const { getAverageRating } = reviewGetters;
 
-export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products?.filter((p) => p.name && p.uid) || [];
+export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products || [];
 
-export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products?.filter((p) => p.name && p.uid) || [];
+export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products || [];
 
 export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value;
 

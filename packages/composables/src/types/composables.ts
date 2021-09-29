@@ -4,7 +4,7 @@ import {
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 import { computed } from 'vue-demi';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
@@ -202,4 +202,28 @@ export interface UseForgotPassword<RESULT> {
   error: ComputedProperty<UseForgotPasswordErrors>;
   setNew(params: ComposableFunctionArgs<{ tokenValue: string, newPassword: string, email: string }>): Promise<void>;
   request(params: ComposableFunctionArgs<{ email: string }>): Promise<void>;
+}
+
+export interface UseRelatedProducts<PRODUCTS, RELATED_PRODUCT_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseRelatedProductsErrors>;
+  search(params: ComposableFunctionArgs<RELATED_PRODUCT_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
+}
+
+export interface UseRelatedProductsErrors {
+  search: Error;
+}
+
+export interface UseUpsellProducts<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  search(params: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  search: Error;
 }

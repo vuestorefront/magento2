@@ -14,7 +14,7 @@ import {
   SelectedShippingMethod,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
-import { AgnosticPaymentMethod } from '../../types';
+import { AgnosticPaymentMethod } from '../types';
 
 export const getItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {
