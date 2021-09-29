@@ -9,5 +9,7 @@ generates:
       - "typescript"
       - "typescript-operations"
     config:
+      preResolveTypes: true
+      flattenGeneratedTypes: true
       skipTypename: true
       declarationKind: 'interface'
