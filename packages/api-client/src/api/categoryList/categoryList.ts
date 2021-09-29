@@ -1,25 +1,60 @@
 import gql from 'graphql-tag';
-import CategoryData from '../../fragments/categoryDataFragment';
-import CategoryUrlData from '../../fragments/categoryUrlData';
 
 export default gql`
-  ${CategoryData}
-  ${CategoryUrlData}
-  
-query categoryList {
-  categories {
-    items {
-      children {
-        ...CategoryData
-        ...CategoryUrlData
+  query categoryList {
+    categories {
+      items {
         children {
-          ...CategoryData
-          ...CategoryUrlData
+          image
+          include_in_menu
+          is_anchor
+          level
+          name
+          position
+          product_count
+          uid
+          url_path
+          url_suffix
+          children {
+            image
+            include_in_menu
+            is_anchor
+            level
+            name
+            position
+            product_count
+            uid
+            url_path
+            url_suffix
+            children {
+              image
+              include_in_menu
+              is_anchor
+              level
+              name
+              position
+              product_count
+              uid
+              url_path
+              url_suffix
+              children {
+                image
+                include_in_menu
+                is_anchor
+                level
+                name
+                position
+                product_count
+                uid
+                url_path
+                url_suffix
+              }
+            }
+          }
         }
+        product_count
+        name
+        uid
       }
-      product_count
-      name
-      uid
     }
-  }
-}`;
+  }`;
