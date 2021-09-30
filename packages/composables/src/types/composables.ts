@@ -472,3 +472,14 @@ export interface UseCompareList<COMPARE_LIST, PRODUCT> {
   removeItems: (params: { products: PRODUCT[]; customQuery?: CustomQuery }) => Promise<void>;
   isInCompareList: (params: { product: PRODUCT }) => boolean;
 }
+
+export interface UseProductAttributeErrors {
+  load: Error;
+}
+
+export interface UseProductAttribute<PRODUCT_ATTRIBUTE> {
+  load: (code: string) => Promise<void>;
+  result: ComputedProperty<PRODUCT_ATTRIBUTE>;
+  error: ComputedProperty<UseProductAttributeErrors>;
+  loading: ComputedProperty<boolean>;
+}

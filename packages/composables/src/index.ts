@@ -32,6 +32,7 @@ export { default as useOrderTracker } from './composables/useOrderTracker';
 export { default as usePaymentProvider } from './composables/usePaymentProvider';
 export { default as usePickupLocation } from './composables/usePickupLocation';
 export { default as useProduct } from './composables/useProduct';
+export { default as useProductAttribute } from './composables/useProductAttribute';
 export { default as useRelatedProducts } from './composables/useRelatedProducts';
 export { default as useReview } from './composables/useReview';
 export { default as useShipping } from './composables/useShipping';
