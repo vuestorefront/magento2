@@ -26,7 +26,6 @@ import {
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
-  CreateCustomerAddressMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
@@ -100,7 +99,7 @@ import {
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
   ResetPasswordMutationVariables,
-  ResetPasswordMutation, ChangeCustomerPasswordMutation,
+  ResetPasswordMutation, ChangeCustomerPasswordMutation, CreateCustomerAddressMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -168,7 +167,7 @@ export interface MagentoApiMethods {
 
   categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;
 
-  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<ChangeCustomerPasswordMutation['changeCustomerPassword']>;
+  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<ApolloQueryResult<ChangeCustomerPasswordMutation>>;
 
   cmsBlocks(identifiers: string[]): Promise<ApolloQueryResult<CmsBlockQuery>>;
 
