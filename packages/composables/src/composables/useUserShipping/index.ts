@@ -19,7 +19,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.createCustomerAddress;
   },
@@ -55,7 +55,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.updateCustomerAddress;
   },

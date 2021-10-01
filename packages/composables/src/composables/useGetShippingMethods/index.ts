@@ -13,7 +13,7 @@ const factoryParams: UseGetShippingMethodsFactory<ShippingMethod> = {
     if (isGuest) {
       const { data } = await context.$magento.api.getAvailableShippingMethods({ cartId: params.cartId });
 
-      Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+      Logger.debug('[Result]:', { data });
 
       const hasAddresses = data.cart.shipping_addresses.length > 0;
 
@@ -22,7 +22,7 @@ const factoryParams: UseGetShippingMethodsFactory<ShippingMethod> = {
 
     const { data } = await context.$magento.api.getAvailableCustomerShippingMethods();
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     const hasAddresses = data.customerCart.shipping_addresses.length > 0;
 

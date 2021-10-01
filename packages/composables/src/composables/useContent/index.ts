@@ -8,7 +8,7 @@ const factoryParams: UseContentFactoryParams<Page, CmsBlock> = {
 
     const { data } = await context.$magento.api.cmsPage(identifier);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.cmsPage;
   },
@@ -17,7 +17,7 @@ const factoryParams: UseContentFactoryParams<Page, CmsBlock> = {
 
     const { data } = await context.$magento.api.cmsBlocks(identifiers);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.cmsBlocks.items;
   },

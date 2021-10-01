@@ -22,7 +22,7 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
       .api
       .getAvailablePaymentMethods({ cartId }, customQuery);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data
       .cart
@@ -44,7 +44,7 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
       .api
       .setPaymentMethodOnCart(paymentMethodParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data
       .setPaymentMethodOnCart

@@ -29,7 +29,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
       const { data } = await context.$magento.api.createEmptyCart();
 
-      Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+      Logger.debug('[Result]:', { data });
 
       apiState.setCartId(data.createEmptyCart);
 
@@ -41,7 +41,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
         apiState.setCartId(cartId);
         const cartResponse = await context.$magento.api.cart(cartId);
 
-        Logger.debug('[Result]:', JSON.stringify(cartResponse, null, 2));
+        Logger.debug('[Result]:', { data: cartResponse });
 
         return cartResponse.data.cart as unknown as Cart;
       };
@@ -127,7 +127,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
           const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
 
-          Logger.debug('[Result]:', JSON.stringify(simpleProduct, null, 2));
+          Logger.debug('[Result]:', { data: simpleProduct });
 
           // eslint-disable-next-line consistent-return
           return simpleProduct
@@ -152,7 +152,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
           const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
 
-          Logger.debug('[Result]:', JSON.stringify(configurableProduct, null, 2));
+          Logger.debug('[Result]:', { data: configurableProduct });
 
           // eslint-disable-next-line consistent-return
           return configurableProduct
@@ -176,7 +176,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
           const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
 
-          Logger.debug('[Result]:', JSON.stringify(bundleProduct, null, 2));
+          Logger.debug('[Result]:', { data: bundleProduct });
 
           // eslint-disable-next-line consistent-return
           return bundleProduct
@@ -219,7 +219,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
     const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     // eslint-disable-next-line consistent-return
     return data
@@ -246,7 +246,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
     const { data } = await context.$magento.api.updateCartItems(updateCartParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data
       .updateCartItems
@@ -269,7 +269,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
       coupon_code: couponCode,
     });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return {
       updatedCart: data.applyCouponToCart.cart as unknown as Cart,
@@ -284,7 +284,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
       cart_id: currentCart.id,
     });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return {
       updatedCart: data.removeCouponFromCart.cart as unknown as Cart,

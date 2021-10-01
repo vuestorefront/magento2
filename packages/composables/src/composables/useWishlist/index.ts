@@ -13,7 +13,7 @@ import useUser from '../useUser';
 import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
 
 // @ts-ignore
-const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
+const factoryParams: UseWishlistFactoryParams<any, any, any> = {
   provide() {
     return {
       user: useUser(),
@@ -29,7 +29,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
       };
       const { data } = await context.$magento.api.wishlist(wishlistParams);
 
-      Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+      Logger.debug('[Result]:', { data });
 
       return data.customer.wishlists;
     }
@@ -69,7 +69,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
           }],
         });
 
-        Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+        Logger.debug('[Result]:', { data });
 
         return data.addProductsToWishlist.wishlist;
       case 'ConfigurableProduct':
@@ -82,7 +82,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
           }],
         });
 
-        Logger.debug('[Result]:', JSON.stringify(configurableProductData, null, 2));
+        Logger.debug('[Result]:', { data: configurableProductData });
 
         return configurableProductData.addProductsToWishlist.wishlist;
       default:
@@ -102,7 +102,7 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
       items: [itemOnWishlist.id],
     });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.removeProductsFromWishlist.wishlist;
   },
@@ -116,4 +116,4 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
   },
 };
 
-export default useWishlistFactory<Wishlist, any, any>(factoryParams);
+export default useWishlistFactory<any, any, any>(factoryParams);

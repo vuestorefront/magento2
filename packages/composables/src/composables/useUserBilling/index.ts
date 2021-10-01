@@ -20,7 +20,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.createCustomerAddress;
   },
@@ -30,7 +30,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.deleteCustomerAddress;
   },
@@ -40,7 +40,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.updateCustomerAddress;
   },
@@ -61,7 +61,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.updateCustomerAddress;
   },

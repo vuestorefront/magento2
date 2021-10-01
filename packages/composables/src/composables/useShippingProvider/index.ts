@@ -40,7 +40,7 @@ const factoryParams: UseShippingProviderParams<any, any> = {
 
     const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     const { cart } = data
       .setShippingMethodsOnCart;

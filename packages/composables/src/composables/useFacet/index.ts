@@ -95,7 +95,7 @@ const factoryParams = {
 
     const { data } = await context.$magento.api.products(productSearchParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return {
       items: data?.products?.items || [],

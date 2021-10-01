@@ -4,11 +4,10 @@ import {
   useUserFactory,
   UseUserFactoryParams,
 } from '@vue-storefront/core';
-import { Customer } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
 
-const factoryParams: UseUserFactoryParams<Customer, any, any> = {
+const factoryParams: UseUserFactoryParams<any, any, any> = {
   provide() {
     return {
       cart: useCart(),
@@ -24,7 +23,7 @@ const factoryParams: UseUserFactoryParams<Customer, any, any> = {
     try {
       const { data } = await context.$magento.api.customer();
 
-      Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+      Logger.debug('[Result]:', { data });
 
       return data.customer;
     } catch {
@@ -60,7 +59,7 @@ const factoryParams: UseUserFactoryParams<Customer, any, any> = {
 
     const { data } = await context.$magento.api.updateCustomer(userData);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.updateCustomerV2.customer;
   },
@@ -69,7 +68,7 @@ const factoryParams: UseUserFactoryParams<Customer, any, any> = {
 
     const { data, errors } = await context.$magento.api.createCustomer({ email, password, ...baseData });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     if (errors) {
       Logger.error(errors);
@@ -88,7 +87,7 @@ const factoryParams: UseUserFactoryParams<Customer, any, any> = {
 
     const { data, errors } = await context.$magento.api.generateCustomerToken(username, password);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     if (errors) {
       Logger.error(errors);
@@ -123,4 +122,4 @@ const factoryParams: UseUserFactoryParams<Customer, any, any> = {
   }) => context.$magento.api.changeCustomerPassword(currentPassword, newPassword),
 };
 
-export default useUserFactory<Customer, any, any>(factoryParams);
+export default useUserFactory<any, any, any>(factoryParams);

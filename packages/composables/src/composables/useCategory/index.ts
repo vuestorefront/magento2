@@ -13,7 +13,7 @@ const factoryParams: UseCategoryFactoryParams<Category, any> = {
 
     const { data } = await context.$magento.api.categoryList(params);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.categories.items;
   },

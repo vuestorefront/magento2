@@ -30,7 +30,7 @@ const factoryParams: UseUpsellProductsFactoryParams<UpsellProductsQuery['product
       .api
       .upsellProduct(searchParams as GetProductSearchParams, (customQuery || {}));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.products?.items[0]?.upsell_products;
   },

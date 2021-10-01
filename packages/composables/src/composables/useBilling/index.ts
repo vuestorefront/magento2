@@ -52,7 +52,7 @@ const factoryParams: UseBillingParams<any, any> = {
 
     const { data } = await context.$magento.api.setBillingAddressOnCart(setBillingAddressOnCartInput);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     /**
      * This is a workaround needed due to Magento GraphQL API

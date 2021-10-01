@@ -32,7 +32,7 @@ ProductsSearchParams> = {
           .api
           .productDetail(searchParams as GetProductSearchParams, (customQuery || {}));
 
-        Logger.debug('[Result]:', JSON.stringify(productDetailsResults, null, 2));
+        Logger.debug('[Result]:', { data: productDetailsResults });
 
         return productDetailsResults.data.products;
 
@@ -43,7 +43,7 @@ ProductsSearchParams> = {
           .api
           .products(searchParams as GetProductSearchParams, (customQuery || {}));
 
-        Logger.debug('[Result]:', JSON.stringify(productListResults, null, 2));
+        Logger.debug('[Result]:', { data: productListResults });
 
         return productListResults.data.products;
     }

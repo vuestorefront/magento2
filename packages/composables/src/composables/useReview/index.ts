@@ -23,7 +23,7 @@ ProductReviewRatingMetadata> = {
 
     const { data } = await context.$magento.api.productReview(params as GetProductSearchParams);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.products.items;
   },
@@ -32,7 +32,7 @@ ProductReviewRatingMetadata> = {
 
     const { data } = await context.$magento.api.createProductReview(params);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.createProductReview.review;
   },
@@ -41,7 +41,7 @@ ProductReviewRatingMetadata> = {
 
     const { data } = await context.$magento.api.productReviewRatingsMetadata();
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.productReviewRatingsMetadata.items;
   },
@@ -53,7 +53,7 @@ ProductReviewRatingMetadata> = {
 
     const { data } = await context.$magento.api.customerProductReview(params);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.customer;
   },

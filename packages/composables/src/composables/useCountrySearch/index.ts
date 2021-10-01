@@ -11,7 +11,7 @@ const factoryParams: UseCountryFactoryParams<Countries, Country> = {
 
     const { data } = await context.$magento.api.countries();
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.countries;
   },
@@ -20,7 +20,7 @@ const factoryParams: UseCountryFactoryParams<Countries, Country> = {
 
     const { data } = await context.$magento.api.country(params.id);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.country;
   },

@@ -30,7 +30,7 @@ const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['produc
       .api
       .relatedProduct(searchParams as GetProductSearchParams, (customQuery || {}));
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.products?.items[0]?.related_products;
   },

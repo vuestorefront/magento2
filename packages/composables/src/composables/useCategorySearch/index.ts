@@ -11,7 +11,7 @@ const factoryParams: UseCategorySearchFactory<Category> = {
 
     const { data } = await context.$magento.api.categorySearch({ filters: { name: { match: `${params.term}` } } });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.categoryList;
   },

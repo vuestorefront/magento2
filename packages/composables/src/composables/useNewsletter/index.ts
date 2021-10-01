@@ -18,7 +18,7 @@ const factoryParams: UseNewsletterFactoryParams<any, any> = {
       email,
     });
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.subscribeEmailToNewsletter.status;
   },

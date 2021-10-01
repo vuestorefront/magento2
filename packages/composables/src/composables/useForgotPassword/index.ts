@@ -11,7 +11,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
 
     const { data } = await context.$magento.api.requestPasswordResetEmail({ email }, customQuery);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data;
   },
@@ -31,7 +31,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
       resetPasswordToken: tokenValue,
     }, customQuery);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data;
   },

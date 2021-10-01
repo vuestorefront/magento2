@@ -10,7 +10,7 @@ const factoryParams: UseUrlResolverFactoryParams<Route> = {
 
     const { data } = await context.$magento.api.urlResolver(clearUrl);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     return data.urlResolver;
   },

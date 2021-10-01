@@ -56,7 +56,7 @@ const factoryParams: UseShippingParams<any, any> = {
       .api
       .setShippingAddressesOnCart(shippingAddressInput);
 
-    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+    Logger.debug('[Result]:', { data });
 
     context.useGetShippingMethods.setState(data
       .setShippingAddressesOnCart
