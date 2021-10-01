@@ -8,7 +8,7 @@ import {
 } from '@vue-storefront/magento-api';
 import { AgnosticReviewMetadata } from '../types';
 
-export const getItems = (review: ProductReviews): ProductReview[] => review?.reviews?.items || [];
+export const getItems = (review): ProductReview[] => review?.reviews?.items || [];
 
 export const getReviewId = (item: ProductReview): string => `${item.nickname}_${item.created_at}_${item.average_rating}`;
 
@@ -23,7 +23,7 @@ export const getReviewDate = (item: ProductReview): string => item.created_at;
 
 export const getTotalReviews = (review: ProductReviews): number => review?.review_count || 0;
 
-export const getAverageRating = (review: ProductReviews): number => (review?.reviews?.items?.reduce((
+export const getAverageRating = (review): number => (review?.reviews?.items?.reduce((
   acc, curr,
 ) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
 

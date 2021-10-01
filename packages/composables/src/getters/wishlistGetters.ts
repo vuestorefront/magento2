@@ -5,14 +5,13 @@ import {
   AgnosticTotals, AgnosticPagination,
 } from '@vue-storefront/core';
 import {
-  Wishlist,
-  WishlistDataFragment,
+  Wishlist, WishlistQuery,
 } from '@vue-storefront/magento-api';
 
-type WishlistProduct = WishlistDataFragment['items_v2']['items'][0];
+type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItems = (wishlist: Wishlist): WishlistProduct[] => wishlist.items_v2.items;
+export const getItems = (wishlist): WishlistProduct[] => wishlist.items_v2.items;
 
 export const getItemName = (product: WishlistProduct): string => product?.product?.name || '';
 
@@ -47,7 +46,7 @@ export const getItemAttributes = (product: WishlistProduct, filterByAttributeNam
 export const getItemSku = (product: WishlistProduct): string => product?.product?.sku || '';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotals = (wishlist: Wishlist): AgnosticTotals => {
+export const getTotals = (wishlist): AgnosticTotals => {
   if (Array.isArray(wishlist)) {
     return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -71,7 +70,7 @@ export const getTotalItems = (wishlist: Wishlist): number => (Array.isArray(wish
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getFormattedPrice = (price: number): string => '';
 
-const getPagination = (wishlistData: WishlistDataFragment): AgnosticPagination => ({
+const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
   totalItems: wishlistData?.items_count || 0,
@@ -79,7 +78,7 @@ const getPagination = (wishlistData: WishlistDataFragment): AgnosticPagination =
   pageOptions: [10, 50, 100],
 });
 
-const getProducts = (wishlistData: WishlistDataFragment[] | WishlistDataFragment): {
+const getProducts = (wishlistData: Wishlist[] | Wishlist): {
   product: WishlistProduct;
   quantity: number;
   added_at: string;
