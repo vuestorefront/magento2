@@ -1,6 +1,6 @@
 import {
   Context,
-  CustomQuery,
+  CustomQuery, Logger,
   ProductsSearchParams,
 } from '@vue-storefront/core';
 import {
@@ -18,17 +18,21 @@ const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['produc
     params: GetProductSearchParams & {
       customQuery?: CustomQuery;
     }) => {
+    Logger.debug('[Magento] Load related products based on ', { params });
+
     const {
       customQuery,
       ...searchParams
     } = params;
 
-    const relatedProductsResults = await context
+    const { data } = await context
       .$magento
       .api
       .relatedProduct(searchParams as GetProductSearchParams, (customQuery || {}));
 
-    return relatedProductsResults.data.products?.items[0]?.related_products;
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+
+    return data.products?.items[0]?.related_products;
   },
 };
 

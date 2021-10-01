@@ -32,8 +32,7 @@ const factoryParams: UseBillingParams<any, any> = {
   save: async (context: Context, params) => {
     Logger.debug('[Magento] setBillingAddress');
     const { id } = context.cart.cart.value;
-    Logger.debug(id);
-    Logger.debug(typeof id);
+
     const {
       apartment,
       sameAsShipping,
@@ -53,11 +52,15 @@ const factoryParams: UseBillingParams<any, any> = {
 
     const { data } = await context.$magento.api.setBillingAddressOnCart(setBillingAddressOnCartInput);
 
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+
     /**
      * This is a workaround needed due to Magento GraphQL API
      * cleaning the Shipping method after defining the billing address
      */
     const shippingMethod = context.useShippingProvider.state.value;
+
+    Logger.debug('[Magento]: Defining the shipping method as:', JSON.stringify(shippingMethod, null, 2));
 
     await context.useShippingProvider.save({
       shippingMethod: {

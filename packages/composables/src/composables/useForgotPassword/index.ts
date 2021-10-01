@@ -1,5 +1,5 @@
 import {
-  Context,
+  Context, Logger,
   useForgotPasswordFactory,
 } from '@vue-storefront/core';
 import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
@@ -7,7 +7,11 @@ import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswor
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resetPassword: async (context: Context, { email, customQuery }) => {
+    Logger.debug('[Magento]: Reset user password', { email, customQuery });
+
     const { data } = await context.$magento.api.requestPasswordResetEmail({ email }, customQuery);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data;
   },
@@ -19,11 +23,15 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
     email,
     customQuery,
   }) => {
+    Logger.debug('[Magento]: Define new user password', { tokenValue, email, customQuery });
+
     const { data } = await context.$magento.api.resetPassword({
       email,
       newPassword,
       resetPasswordToken: tokenValue,
     }, customQuery);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data;
   },

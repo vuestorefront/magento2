@@ -3,7 +3,7 @@ import {
   Context,
   Logger,
 } from '@vue-storefront/core';
-import { CustomerAddressDataFragment, CustomerAddressInput } from '@vue-storefront/magento-api';
+import { CustomerAddress, CustomerAddressInput } from '@vue-storefront/magento-api';
 import {
   transformUserCreateAddressInput,
   transformUserUpdateAddressInput,
@@ -25,7 +25,7 @@ type RemoveAddressInput = {
   }
 } & CustomQueryParams;
 
-const factoryParams: UseAddressesParams<CustomerAddressDataFragment,
+const factoryParams: UseAddressesParams<CustomerAddress,
 CustomQueryParams,
 SaveAddressInput,
 UpdateAddressInput,
@@ -41,6 +41,8 @@ RemoveAddressInput> = {
     Logger.debug('[Magento] save user address:', saveParams.address);
     const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(saveParams));
 
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+
     return data.createCustomerAddress;
   },
   remove: async (context: Context, params) => {
@@ -48,12 +50,16 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
+
     return !!data.deleteCustomerAddress;
   },
   update: async (context: Context, params) => {
     Logger.debug('[Magento] update user addresses', params);
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data.updateCustomerAddress;
   },

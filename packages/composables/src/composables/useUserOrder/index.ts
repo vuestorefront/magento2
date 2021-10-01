@@ -16,13 +16,15 @@ const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQu
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchOrders: async (context: Context, param): Promise<CustomerOrder[]> => {
-    Logger.debug('[Magento] searchOrders');
+    Logger.debug('[Magento] search user orders', { param });
 
     if (!context.user.user?.value?.id) {
       await context.user.load();
     }
 
     const { data } = await context.$magento.api.customerOrders(param);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return (data.customer.orders.items || []) as unknown as CustomerOrder[];
   },

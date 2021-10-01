@@ -19,27 +19,29 @@ CreateProductReviewInput,
 ProductReviewRatingMetadata> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchReviews: async (context: Context, params?: ComposableFunctionArgs<GetProductSearchParams>) => {
-    Logger.debug('[Magento] searchReviews');
-    Logger.debug('[Magento] search review params input:');
-    Logger.debug(JSON.stringify(params, null, 2));
+    Logger.debug('[Magento] search review params input:', JSON.stringify(params, null, 2));
 
     const { data } = await context.$magento.api.productReview(params as GetProductSearchParams);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data.products.items;
   },
   addReview: async (context: Context, params: CreateProductReviewInput) => {
-    Logger.debug('[Magento] addReview');
-    Logger.debug('[Magento] review params input:');
-    Logger.debug(JSON.stringify(params, null, 2));
+    Logger.debug('[Magento] add review params input:', JSON.stringify(params, null, 2));
 
     const { data } = await context.$magento.api.createProductReview(params);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data.createProductReview.review;
   },
   loadReviewMetadata: async (context: Context) => {
-    Logger.debug('[Magento] loadReviewMetadata');
+    Logger.debug('[Magento] load review metadata');
 
     const { data } = await context.$magento.api.productReviewRatingsMetadata();
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data.productReviewRatingsMetadata.items;
   },
@@ -47,9 +49,11 @@ ProductReviewRatingMetadata> = {
     context: Context,
     params?: ComposableFunctionArgs<CustomerProductReviewParams>,
   ) => {
-    Logger.debug('[Magento] loadCustomerReviews');
+    Logger.debug('[Magento] load customer review based on:', { params });
 
     const { data } = await context.$magento.api.customerProductReview(params);
+
+    Logger.debug('[Result]:', JSON.stringify(data, null, 2));
 
     return data.customer;
   },

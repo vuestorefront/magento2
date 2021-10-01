@@ -1,6 +1,6 @@
 import {
   Context,
-  CustomQuery,
+  CustomQuery, Logger,
   ProductsSearchParams,
   UseProduct,
   useProductFactory,
@@ -16,6 +16,8 @@ ProductsSearchParams> = {
     customQuery?: CustomQuery;
     configurations?: Scalars['ID']
   }) => {
+    Logger.debug('[Magento]: Load product based on ', { params });
+
     const {
       queryType,
       customQuery,
@@ -30,6 +32,8 @@ ProductsSearchParams> = {
           .api
           .productDetail(searchParams as GetProductSearchParams, (customQuery || {}));
 
+        Logger.debug('[Result]:', JSON.stringify(productDetailsResults, null, 2));
+
         return productDetailsResults.data.products;
 
       case ProductsQueryType.List:
@@ -38,6 +42,8 @@ ProductsSearchParams> = {
           .$magento
           .api
           .products(searchParams as GetProductSearchParams, (customQuery || {}));
+
+        Logger.debug('[Result]:', JSON.stringify(productListResults, null, 2));
 
         return productListResults.data.products;
     }
