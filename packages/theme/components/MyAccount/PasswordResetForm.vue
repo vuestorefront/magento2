@@ -59,7 +59,7 @@
   </ValidationObserver>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';

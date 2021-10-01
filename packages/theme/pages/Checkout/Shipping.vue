@@ -111,11 +111,11 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="region"
-          :rules="!shippingDetails.country_code || !regionInformation.length ? null : 'required|min:2'"
+          :rules="!shippingDetails.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
           slim
         >
           <SfInput
-            v-if="!shippingDetails.country_code || !regionInformation.length"
+            v-if="!shippingDetails.country_code || regionInformation.length === 0"
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
             label="State/Province"
@@ -238,7 +238,7 @@
   </ValidationObserver>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfHeading,
   SfInput,

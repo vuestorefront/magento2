@@ -59,7 +59,7 @@
     </LazyHydrate>
   </div>
 </template>
-<script lang="ts" type="module">
+<script type="module">
 import {
   SfHero,
   SfBanner,

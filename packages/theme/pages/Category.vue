@@ -375,7 +375,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import findDeep from 'deepdash/findDeep';
 import LazyHydrate from 'vue-lazy-hydration';
 import {

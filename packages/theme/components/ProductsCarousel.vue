@@ -36,7 +36,7 @@
   </SfSection>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfCarousel,
   SfProductCard,

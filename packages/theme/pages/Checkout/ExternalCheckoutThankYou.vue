@@ -89,7 +89,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { defineComponent, ref } from '@vue/composition-api';
 

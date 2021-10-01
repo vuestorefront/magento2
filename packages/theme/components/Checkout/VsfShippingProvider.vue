@@ -71,7 +71,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   useCart,
   useShippingProvider,

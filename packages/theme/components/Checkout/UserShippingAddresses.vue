@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfCheckbox,
   SfAddressPicker,

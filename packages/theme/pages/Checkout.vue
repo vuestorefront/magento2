@@ -29,7 +29,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+<script>
 import { SfSteps } from '@storefront-ui/vue';
 import { computed, defineComponent, ref } from '@vue/composition-api';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
