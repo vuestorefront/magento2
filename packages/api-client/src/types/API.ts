@@ -2,6 +2,7 @@ import { ApolloQueryResult } from 'apollo-client';
 import { ExecutionResult } from 'graphql';
 import { FetchResult } from '@apollo/client';
 import { CustomQuery } from '@vue-storefront/core';
+import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 import {
   AddConfigurableProductsToCartInput,
   AddConfigurableProductsToCartMutation,
@@ -191,6 +192,26 @@ export interface MagentoApiMethods {
 
   customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
+  customQuery<QUERY = any, QUERY_VARIABLES = any>({
+    query,
+    queryVariables,
+    fetchPolicy,
+  }: {
+    query: QUERY,
+    queryVariables?: QUERY_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+  }): Promise<ApolloQueryResult<QUERY>>;
+
+  customMutation<MUTATION = any, MUTATION_VARIABLES = any>({
+    mutation,
+    mutationVariables,
+    fetchPolicy,
+  }: {
+    mutation: MUTATION,
+    mutationVariables: MUTATION_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+  }): Promise<FetchResult<MUTATION>>;
+
   customerProductReview(input: CustomerProductReviewParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
 
   deleteCustomerAddress(addressId: number): Promise<ExecutionResult<DeleteCustomerAddressMutation>>;
@@ -229,7 +250,9 @@ export interface MagentoApiMethods {
 
   revokeCustomerToken(): Promise<FetchResult<RevokeCustomerTokenMutation>>;
 
-  requestPasswordResetEmail(input: RequestPasswordResetEmailMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
+  requestPasswordResetEmail(
+    input: RequestPasswordResetEmailMutationVariables,
+    customQuery?: CustomQuery): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
 
   resetPassword(input: ResetPasswordMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<ResetPasswordMutation>>;
 

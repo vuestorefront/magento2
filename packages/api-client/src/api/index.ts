@@ -20,6 +20,8 @@ export { default as customer } from './customer';
 export { default as customerCart } from './customerCart';
 export { default as customerOrders } from './customerOrders';
 export { default as customerProductReview } from './customerProductReview';
+export { default as customMutation } from './customMutation';
+export { default as customQuery } from './customQuery';
 export { default as deleteCustomerAddress } from './deleteCustomerAddress';
 export { default as generateCustomerToken } from './generateCustomerToken';
 export { default as getAvailableCustomerPaymentMethods } from './getAvailableCustomerPaymentMethods';
