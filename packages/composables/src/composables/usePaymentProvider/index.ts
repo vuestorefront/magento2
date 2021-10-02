@@ -15,12 +15,14 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
     };
   },
   load: async (context: Context, { customQuery }) => {
-    Logger.debug('[Magento] loadPaymentProvider');
+    Logger.debug('[Magento] loadPaymentProvider', { customQuery });
     const cartId = context.cart.cart.value.id;
     const { data } = await context
       .$magento
       .api
       .getAvailablePaymentMethods({ cartId }, customQuery);
+
+    Logger.debug('[Result]:', { data });
 
     return data
       .cart
@@ -28,7 +30,7 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
   },
 
   save: async (context: Context, { paymentMethod }) => {
-    Logger.debug('[Magento] savePaymentProvider');
+    Logger.debug('[Magento] savePaymentProvider', { paymentMethod });
 
     const paymentMethodParams: SetPaymentMethodOnCartInputs = {
       cart_id: context.cart.cart.value.id,
@@ -41,6 +43,8 @@ const factoryParams: UsePaymentProviderParams<any, any> = {
       .$magento
       .api
       .setPaymentMethodOnCart(paymentMethodParams);
+
+    Logger.debug('[Result]:', { data });
 
     return data
       .setPaymentMethodOnCart

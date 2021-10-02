@@ -92,7 +92,7 @@
     </div>
   </SfSection>
 </template>
-<script lang="ts">
+<script>
 import {
   SfSection,
   SfImage,

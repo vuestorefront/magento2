@@ -24,17 +24,14 @@ import {
   CmsPage,
   CmsPageQuery,
   ConfigurableProduct,
-  ConfigurableProductDetailQuery,
   CountriesListQuery,
   CountryInformationQuery,
-  CreateCustomerAddressMutation,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
   CustomerAvailableShippingMethodsQuery,
   CustomerCartQuery,
   CustomerCreateInput,
-  CustomerDataFragment as CustomerFragment,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
@@ -90,22 +87,19 @@ import {
   CreateCustomerMutation,
   AddProductsToWishlistMutationVariables,
   AddProductsToWishlistMutation,
-  WishlistDataFragment,
   UpdateCustomerEmailMutationVariables,
   RemoveProductsFromWishlistMutationVariables,
   RemoveProductsFromWishlistMutation,
   GetCustomerAddressesQuery,
   AddProductsToCartMutation,
   CmsBlockQuery,
-  GroupedProductDetailQuery,
   GroupedProduct,
   AddBundleProductsToCartInput,
   AddBundleProductsToCartMutation,
-  BundleProductDetailQuery,
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
   ResetPasswordMutationVariables,
-  ResetPasswordMutation,
+  ResetPasswordMutation, ChangeCustomerPasswordMutation, CreateCustomerAddressMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -122,7 +116,6 @@ export type CategoryFilter = CategoryFilterInput;
 export type CategoryMenu = CategoryTree;
 export type Countries = CountriesListQuery['countries'][0];
 export type Coupon = AppliedCoupon;
-export type Customer = CustomerFragment;
 export type CustomerAddress = CustomerAddressInterface;
 export type CustomerOrder = CustomerOrderInterface;
 export type CustomerUpdateParameters = CustomerCreateInput;
@@ -135,7 +128,6 @@ export type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRat
 export type Route = UrlResolverQuery['urlResolver'];
 export type ShippingMethod = AvailableShippingMethod;
 export type StoreConfig = StoreConfigQuery['storeConfig'];
-export type Wishlist = WishlistDataFragment;
 export type WishlistProduct = WishlistItemInterface;
 
 export const enum ProductsQueryType {
@@ -158,63 +150,114 @@ export enum MagentoCustomerGender {
 
 export interface MagentoApiMethods {
   addBundleProductsToCart(input: AddBundleProductsToCartInput): Promise<FetchResult<AddBundleProductsToCartMutation>>;
+
   addConfigurableProductsToCart(input: AddConfigurableProductsToCartInput): Promise<FetchResult<AddConfigurableProductsToCartMutation>>;
+
   addProductsToCart(input: AddProductsToCartInput): Promise<FetchResult<AddProductsToCartMutation>>;
+
   addProductToWishList(input: AddProductsToWishlistMutationVariables): Promise<FetchResult<AddProductsToWishlistMutation>>;
+
   addSimpleProductsToCart(input: AddSimpleProductsToCartInput): Promise<FetchResult<AddSimpleProductsToCartMutation>>;
+
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
-  bundleProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<BundleProductDetailQuery>>;
+
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
+
   categoryList(categoryFilter?: CategoryListQueryVariables): Promise<ApolloQueryResult<CategoryListQuery>>;
+
   categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;
-  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<CustomerFragment>;
+
+  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<ApolloQueryResult<ChangeCustomerPasswordMutation>>;
+
   cmsBlocks(identifiers: string[]): Promise<ApolloQueryResult<CmsBlockQuery>>;
+
   cmsPage(identifier: string): Promise<ApolloQueryResult<CmsPageQuery>>;
-  configurableProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery):
-  Promise<ApolloQueryResult<ConfigurableProductDetailQuery>>;
+
   countries(): Promise<ApolloQueryResult<CountriesListQuery>>;
+
   country(id: string): Promise<ApolloQueryResult<CountryInformationQuery>>;
+
   createCustomer(input: CustomerCreateInput): Promise<FetchResult<CreateCustomerMutation>>;
+
   createCustomerAddress(input: CustomerAddressInput): Promise<FetchResult<CreateCustomerAddressMutation>>;
+
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
+
   createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
+
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
+
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
+
   customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
+
   customerProductReview(input: CustomerProductReviewParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
+
   deleteCustomerAddress(addressId: number): Promise<ExecutionResult<DeleteCustomerAddressMutation>>;
+
   generateCustomerToken(email: string, password: string): Promise<FetchResult<GenerateCustomerTokenMutation>>;
+
   getAvailableCustomerPaymentMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>>;
+
   getAvailableCustomerShippingMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>>;
+
   getAvailablePaymentMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
+
   getAvailableShippingMethods(params: { cartId: string }, customQuery?: CustomQuery): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
+
   getCustomerAddresses(customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>>;
-  groupedProductDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<GroupedProductDetailQuery>>;
+
   mergeCarts(sourceCartId: string, destinationCartId: string): Promise<FetchResult<MergeCartsMutation>>;
+
   placeOrder(input: PlaceOrderInput): Promise<FetchResult<PlaceOrderMutation>>;
+
   productDetail(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductDetailsQuery>>;
+
   productReview(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewQuery>>;
+
   productReviewRatingsMetadata(): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>>;
+
   products(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductsListQuery>>;
+
   relatedProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<RelatedProductQuery>>;
+
   removeCouponFromCart(input: RemoveCouponFromCartInput): Promise<FetchResult<RemoveCouponFromCartMutation>>;
+
   removeItemFromCart(input: RemoveItemFromCartInput): Promise<FetchResult<RemoveItemFromCartMutation>>;
+
   removeProductsFromWishlist(input: RemoveProductsFromWishlistMutationVariables): Promise<FetchResult<RemoveProductsFromWishlistMutation>>;
+
   revokeCustomerToken(): Promise<FetchResult<RevokeCustomerTokenMutation>>;
+
   requestPasswordResetEmail(input: RequestPasswordResetEmailMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
+
   resetPassword(input: ResetPasswordMutationVariables, customQuery?: CustomQuery,): Promise<FetchResult<ResetPasswordMutation>>;
+
   setBillingAddressOnCart(input: SetBillingAddressOnCartInput): Promise<FetchResult<SetBillingAddressOnCartMutation>>;
+
   setGuestEmailOnCart(input: SetGuestEmailOnCartInput): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
+
   setPaymentMethodOnCart(input: SetPaymentMethodOnCartInputs): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
-  setShippingAddressesOnCart(input: SetShippingAddressesOnCartInput):Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
-  setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput):Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
+
+  setShippingAddressesOnCart(input: SetShippingAddressesOnCartInput): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
+
+  setShippingMethodsOnCart(input: SetShippingMethodsOnCartInput): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
+
   storeConfig(): Promise<ApolloQueryResult<StoreConfigQuery>>;
+
   subscribeEmailToNewsletter(input: SubscribeEmailToNewsletterMutationVariables): Promise<FetchResult<SubscribeEmailToNewsletterMutation>>;
+
   updateCartItems(input: UpdateCartItemsInput): Promise<FetchResult<UpdateCartItemsMutation>>;
+
   updateCustomer(input: CustomerUpdateInput): Promise<FetchResult<UpdateCustomerMutation>>;
+
   updateCustomerAddress(input: { addressId: number; input: CustomerAddressInput; }): Promise<FetchResult<UpdateCustomerAddressMutation>>;
+
   updateCustomerEmail(input: UpdateCustomerEmailMutationVariables): Promise<FetchResult<UpdateCustomerAddressMutation>>;
-  upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery):Promise<ApolloQueryResult<UpsellProductsQuery>>;
+
+  upsellProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<UpsellProductsQuery>>;
+
   urlResolver(url: string): Promise<ApolloQueryResult<UrlResolverQuery>>;
+
   wishlist(queryParams: WishlistQueryVariables): Promise<ApolloQueryResult<WishlistQuery>>;
 }

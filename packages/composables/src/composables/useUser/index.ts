@@ -1,62 +1,20 @@
 /* istanbul ignore file */
 import {
-  Context,
+  Context, Logger,
   useUserFactory,
   UseUserFactoryParams,
 } from '@vue-storefront/core';
-import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
-import { User } from '../../types';
+import { generateUserData } from '../../helpers/userDataGenerator';
 
-const generateUserData = (userData): CustomerUpdateParameters => {
-  const baseData = {
-    email: userData.email,
-    firstname: userData.firstName || userData.firstname,
-    lastname: userData.lastName || userData.lastname,
-  } as CustomerUpdateParameters;
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'is_subscribed')) {
-    baseData.is_subscribed = userData.is_subscribed;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'dateOfBirth') || Object.prototype.hasOwnProperty.call(userData, 'date_of_birth')) {
-    baseData.date_of_birth = userData.dateOfBirth || userData.date_of_birth;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'allow_remote_shopping_assistance')) {
-    baseData.allow_remote_shopping_assistance = userData.allow_remote_shopping_assistance;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'gender')) {
-    baseData.gender = userData.gender;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'taxvat')) {
-    baseData.taxvat = userData.taxvat;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'prefix')) {
-    baseData.prefix = userData.prefix;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'suffix')) {
-    baseData.suffix = userData.suffix;
-  }
-
-  if (Object.prototype.hasOwnProperty.call(userData, 'password')) {
-    baseData.password = userData.password;
-  }
-
-  return baseData;
-};
-
-const factoryParams: UseUserFactoryParams<User, any, any> = {
+const factoryParams: UseUserFactoryParams<any, any, any> = {
   provide() {
     return {
       cart: useCart(),
     };
   },
   load: async (context: Context) => {
+    Logger.debug('[Magento] Load user information');
     const apiState = context.$magento.config.state;
 
     if (!apiState.getCustomerToken()) {
@@ -64,6 +22,9 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     }
     try {
       const { data } = await context.$magento.api.customer();
+
+      Logger.debug('[Result]:', { data });
+
       return data.customer;
     } catch {
       // eslint-disable-next-line no-void
@@ -82,6 +43,8 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     apiState.setCartId(null);
   },
   updateUser: async (context: Context, params) => {
+    Logger.debug('[Magento] Update user information', { params });
+
     const { email: oldEmail } = params.currentUser;
     const { email, password, ...updateData } = params.updatedUserData;
 
@@ -96,6 +59,8 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
 
     const { data } = await context.$magento.api.updateCustomer(userData);
 
+    Logger.debug('[Result]:', { data });
+
     return data.updateCustomerV2.customer;
   },
   register: async (context: Context, registerParams) => {
@@ -103,7 +68,11 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
 
     const { data, errors } = await context.$magento.api.createCustomer({ email, password, ...baseData });
 
+    Logger.debug('[Result]:', { data });
+
     if (errors) {
+      Logger.error(errors);
+
       throw new Error(errors.map((e) => e.message).join(','));
     }
     if (!data.createCustomerV2 || !data.createCustomerV2.customer) {
@@ -113,10 +82,16 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
     return factoryParams.logIn(context, { username: email, password });
   },
   logIn: async (context: Context, { username, password }) => {
+    Logger.debug('[Magento] Authenticate user', { username });
     const apiState = context.$magento.config.state;
 
     const { data, errors } = await context.$magento.api.generateCustomerToken(username, password);
+
+    Logger.debug('[Result]:', { data });
+
     if (errors) {
+      Logger.error(errors);
+
       throw new Error(errors.map((e) => e.message).join(','));
     }
     if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
@@ -141,9 +116,10 @@ const factoryParams: UseUserFactoryParams<User, any, any> = {
 
     return factoryParams.load(context);
   },
-  changePassword: async function changePassword(context: Context, { currentPassword, newPassword }) {
-    return context.$magento.api.changeCustomerPassword(currentPassword, newPassword);
-  },
+  changePassword: async (context: Context, {
+    currentPassword,
+    newPassword,
+  }) => context.$magento.api.changeCustomerPassword(currentPassword, newPassword),
 };
 
-export default useUserFactory<User, any, any>(factoryParams);
+export default useUserFactory<any, any, any>(factoryParams);

@@ -28,7 +28,7 @@
   </SfTabs>
 </template>
 
-<script lang="ts">
+<script>
 import { extend } from 'vee-validate';
 import {
   required,

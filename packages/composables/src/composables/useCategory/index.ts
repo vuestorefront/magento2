@@ -1,7 +1,7 @@
 import {
   useCategoryFactory,
   Context,
-  UseCategoryFactoryParams,
+  UseCategoryFactoryParams, Logger,
 } from '@vue-storefront/core';
 import {
   Category,
@@ -9,7 +9,11 @@ import {
 
 const factoryParams: UseCategoryFactoryParams<Category, any> = {
   categorySearch: async (context: Context, params) => {
+    Logger.debug('[Magento]: List available categories', { params });
+
     const { data } = await context.$magento.api.categoryList(params);
+
+    Logger.debug('[Result]:', { data });
 
     return data.categories.items;
   },

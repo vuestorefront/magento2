@@ -15,22 +15,24 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   },
 
   addAddress: async (context: Context, params?) => {
-    Logger.debug('[Magento]: addAddress', params.address);
+    Logger.debug('[Magento]: add shipping address', { params });
 
     const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
+
+    Logger.debug('[Result]:', { data });
 
     return data.createCustomerAddress;
   },
 
   deleteAddress: async (context: Context, params?) => {
-    Logger.debug('[Magento] deleteAddress', params);
+    Logger.debug('[Magento] delete shipping address', { params });
     const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
     return data.deleteCustomerAddress;
   },
 
   updateAddress: async (context: Context, params?) => {
-    Logger.debug('[Magento] updateAddress', params);
+    Logger.debug('[Magento] update shipping address', { params });
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
@@ -39,7 +41,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, _params?) => {
-    Logger.debug('[Magento] load address');
+    Logger.debug('[Magento] load user address');
 
     if (!context.user.user?.value?.id) {
       await context.user.load();
@@ -49,9 +51,11 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   },
 
   setDefaultAddress: async (context: Context, params) => {
-    Logger.debug('[Magento] setDefaultAddress');
+    Logger.debug('[Magento] set default shipping address');
 
     const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+
+    Logger.debug('[Result]:', { data });
 
     return data.updateCustomerAddress;
   },

@@ -187,7 +187,7 @@
   </ValidationObserver>
 </template>
 
-<script lang="ts" type="module">
+<script type="module">
 import {
   SfInput,
   SfButton,
@@ -295,7 +295,7 @@ export default defineComponent({
       telephone: props.address.telephone,
       default_shipping: props.address.default_shipping,
       default_billing: props.address.default_billing,
-      ...(props.isNew ? {} : {id: props.address.id}),
+      ...(props.isNew ? {} : { id: props.address.id }),
     });
     // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));

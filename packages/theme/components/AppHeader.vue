@@ -126,7 +126,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfHeader,
   SfImage,
@@ -248,10 +248,10 @@ export default defineComponent({
       await Promise.all([
         productsSearch({
           itemsPerPage: 12,
-          term: term.value as string,
+          term: term.value,
         }),
         categoriesSearch({
-          term: term.value as string,
+          term: term.value,
         }),
       ]);
 

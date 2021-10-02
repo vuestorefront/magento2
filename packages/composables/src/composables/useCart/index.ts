@@ -29,6 +29,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
       const { data } = await context.$magento.api.createEmptyCart();
 
+      Logger.debug('[Result]:', { data });
+
       apiState.setCartId(data.createEmptyCart);
 
       return data.createEmptyCart;
@@ -39,7 +41,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
         apiState.setCartId(cartId);
         const cartResponse = await context.$magento.api.cart(cartId);
 
-        Logger.debug(cartResponse);
+        Logger.debug('[Result]:', { data: cartResponse });
 
         return cartResponse.data.cart as unknown as Cart;
       };
@@ -94,6 +96,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     customQuery,
   }) => {
+    Logger.debug('[Magento]: Add item to cart', { product, quantity, currentCart });
+
     const apiState = context.$magento.config.state;
     let currentCartId = apiState.getCartId();
 
@@ -123,6 +127,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
           const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
 
+          Logger.debug('[Result]:', { data: simpleProduct });
+
           // eslint-disable-next-line consistent-return
           return simpleProduct
             .data
@@ -146,6 +152,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
           const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
 
+          Logger.debug('[Result]:', { data: configurableProduct });
+
           // eslint-disable-next-line consistent-return
           return configurableProduct
             .data
@@ -167,6 +175,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
           };
 
           const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
+
+          Logger.debug('[Result]:', { data: bundleProduct });
 
           // eslint-disable-next-line consistent-return
           return bundleProduct
@@ -194,6 +204,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     product,
   }) => {
+    Logger.debug('[Magento]: Remove item from cart', { product, currentCart });
+
     const item = currentCart.items.find((cartItem) => cartItem.uid === product.uid);
 
     if (!item) {
@@ -207,6 +219,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
     const { data } = await context.$magento.api.removeItemFromCart(removeItemParams);
 
+    Logger.debug('[Result]:', { data });
+
     // eslint-disable-next-line consistent-return
     return data
       .removeItemFromCart
@@ -218,6 +232,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     product,
     quantity,
   }) => {
+    Logger.debug('[Magento]: Update product quantity on cart', { product, quantity, currentCart });
+
     const updateCartParams: UpdateCartItemsInput = {
       cart_id: currentCart.id,
       cart_items: [
@@ -229,6 +245,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     };
 
     const { data } = await context.$magento.api.updateCartItems(updateCartParams);
+
+    Logger.debug('[Result]:', { data });
 
     return data
       .updateCartItems
@@ -244,24 +262,32 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     couponCode,
   }) => {
-    const response = await context.$magento.api.applyCouponToCart({
+    Logger.debug('[Magento]: Apply coupon on cart', { couponCode, currentCart });
+
+    const { data } = await context.$magento.api.applyCouponToCart({
       cart_id: currentCart.id,
       coupon_code: couponCode,
     });
 
+    Logger.debug('[Result]:', { data });
+
     return {
-      updatedCart: response.data.applyCouponToCart.cart as unknown as Cart,
+      updatedCart: data.applyCouponToCart.cart as unknown as Cart,
       updatedCoupon: { code: couponCode },
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeCoupon: async (context: Context, { currentCart }) => {
-    const response = await context.$magento.api.removeCouponFromCart({
+    Logger.debug('[Magento]: Remove coupon from cart', { currentCart });
+
+    const { data } = await context.$magento.api.removeCouponFromCart({
       cart_id: currentCart.id,
     });
 
+    Logger.debug('[Result]:', { data });
+
     return {
-      updatedCart: response.data.removeCouponFromCart.cart as unknown as Cart,
+      updatedCart: data.removeCouponFromCart.cart as unknown as Cart,
       updatedCoupon: { code: '' },
     };
   },
