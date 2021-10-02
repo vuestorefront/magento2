@@ -29,7 +29,33 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io)!
 ### Requirements:
   - NodeJS v14 or later
-  - Magento >= v2.4.2 instance for GraphQL endpoint
+  - Magento >= v2.4.3 instance for GraphQL endpoint
+- Change Magento GraphQL Query Complexity and Depth values
+
+::: warning Don't forget to change the Magento GraphQL Query Complexity and Depth values
+Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
+
+The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
+
+To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
+:::
+
+To install the Magento 2 GraphQL Config module, on your Magento installation execute:
+
+```bash
+composer require caravelx/module-graphql-config
+
+php bin/magento module:enable Caravel_GraphQlConfig
+
+php bin/magento setup:upgrade
+
+php bin/magento setup:di:compile
+
+php bin/magento setup:static-content:deploy
+```
+
+Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
+
 ### Steps
 1. Fork the repo
 2. Clone your fork of the repo
