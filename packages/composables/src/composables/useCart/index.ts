@@ -3,8 +3,6 @@
 import {
   Context,
   Logger,
-  useCartFactory,
-  UseCartFactoryParams,
 } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
@@ -15,16 +13,21 @@ import {
   RemoveItemFromCartInput,
   UpdateCartItemsInput,
 } from '@vue-storefront/magento-api';
+import {
+  UseCartFactoryParams,
+  useCartFactory,
+} from '../../factories/useCartFactory';
 
 const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
   load: async (context: Context, params: {
     customQuery?: any;
+    realCart?: boolean;
   }) => {
     const apiState = context.$magento.config.state;
     Logger.debug('[Magento Storefront]: Loading Cart');
 
     const customerToken = apiState.getCustomerToken();
-    const virtual = !params.customQuery?.real;
+    const virtual = !params.realCart;
 
     const createVirtualCart = () => (null as Cart);
 
@@ -97,9 +100,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     let currentCartId = apiState.getCartId();
     if (!currentCartId) {
       await factoryParams.load(context, {
-        customQuery: {
-          real: true,
-        },
+        realCart: true,
       });
 
       currentCartId = apiState.getCartId();
@@ -253,9 +254,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     } catch {
       // If we can't change quantity, the card could be expired on Magento side, try to reload
       return await factoryParams.load(context, {
-        customQuery: {
-          real: true,
-        },
+        realCart: true,
       });
     }
   },
