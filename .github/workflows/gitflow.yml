@@ -22,8 +22,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.extract_branch.outputs.branch }}
           develop_branch: "develop"
-          main_branch: "master"
+          main_branch: "main"
           tag: ${{ steps.extract_tag.outputs.tag }}
+
   release:
     name: GitFlow Release AutoMerge
     if: contains(github.event.pull_request.labels.*.name, 'release')
@@ -51,5 +52,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ steps.extract_branch.outputs.branch }}
           develop_branch: "develop"
-          main_branch: "master"
+          main_branch: "main"
           tag: ${{ steps.extract_tag.outputs.tag }}

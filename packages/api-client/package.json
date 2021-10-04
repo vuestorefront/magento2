@@ -46,7 +46,7 @@
     "dotenv": "^10.0.0",
     "graphql-tools": "^8.2.0",
     "jest-transform-graphql": "^2.1.0",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^2.6.5",
     "typescript": "^4.4.3",
     "webpack": "^4.46.0"
   },

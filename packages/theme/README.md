@@ -6,10 +6,10 @@
 
 ### Vue Storefront 2 integration with Magento
 
-This theme developed by superheroes from [Caravel](https://github.com/caravelx) and [Leonex](https://www.leonex.de/) ❤️
+This theme developed by superheroes from [Caravel](https://github.com/caravelx) ❤️
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>  <img src="https://user-images.githubusercontent.com/1626923/127100001-7607c515-474d-449d-b9df-1c710f966f0a.png" height="80px"/>
+<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>
 </div>
 
 ### Requirements:
@@ -63,6 +63,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ### Honorable Mentions
 - [Cyberfuze](https://cyberfuze.com/)
+- [Leonex](https://www.leonex.de/)
 
 Thanks go to these wonderful people 🙌:
 
