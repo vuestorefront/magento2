@@ -11,6 +11,7 @@
 
 export * from './index';
 export * from './factories/useAddressesFactory';
+export * from './factories/useCartFactory';
 export * from './factories/useCategorySearchFactory';
 export * from './factories/useConfigFactory';
 export * from './factories/useContentFactory';
