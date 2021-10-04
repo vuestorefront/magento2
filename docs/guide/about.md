@@ -14,6 +14,7 @@ If you have any questions about this integration we will be happy to answer them
 
 ### Honorable Mentions
 - [Cyberfuze](https://cyberfuze.com/)
+- [Leonex](https://www.leonex.de/)
 
 Thanks go to these wonderful people 🙌:
 
