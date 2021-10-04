@@ -124,6 +124,7 @@ export default defineComponent({
       const isDefault = userAddressesGetters.isDefault(address);
       if (!isDefault) {
         await remove({ address });
+        await load({});
       }
     };
 
