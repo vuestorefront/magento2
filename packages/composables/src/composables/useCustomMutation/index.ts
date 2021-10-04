@@ -21,7 +21,7 @@ export default useCustomMutationFactory({
       fetchPolicy,
     });
 
-    Logger.debug('[Result]:', result);
+    Logger.debug('[Custom Mutation -> Result]:', result);
 
     return result;
   },

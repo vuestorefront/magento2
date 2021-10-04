@@ -23,7 +23,7 @@ export default useCustomQueryFactory({
       fetchPolicy,
     });
 
-    Logger.debug('[Result]:', result);
+    Logger.debug('[Custom Query -> Result]:', result);
 
     return result;
   },
