@@ -44,7 +44,7 @@ module.exports = {
     nav: [
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
-      //{ text: 'Demo', link: 'https://vsf-next-demo.storefrontcloud.io' },
+      { text: 'Demo', link: 'http://m2-vsf.caravelx.com/' },
       { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2'},
       { text: 'Roadmap', link: 'https://github.com/vuestorefront/magento2/projects/5'}
     ],
