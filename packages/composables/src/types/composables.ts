@@ -5,6 +5,7 @@ import {
 import { ComputedRef } from '@vue/composition-api';
 import { computed } from 'vue-demi';
 import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
+import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
@@ -226,4 +227,46 @@ export interface UseUpsellProducts<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API 
 
 export interface UseUpsellProductsErrors {
   search: Error;
+}
+
+export interface UseCustomQuery<QUERY, QUERY_VARIABLES, QUERY_RETURN, API extends PlatformApi = any> extends Composable<API> {
+  setQueryString: (newQueryString: string) => void;
+  queryString: ComputedProperty<QUERY>;
+  query: ({
+    variables,
+    fetchPolicy,
+  }: {
+    variables: QUERY_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+    // eslint-disable-next-line consistent-return
+  }) => Promise<QUERY_RETURN>;
+  result: ComputedProperty<QUERY_RETURN>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  query: Error;
+}
+
+export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN, API extends PlatformApi = any> extends Composable<API> {
+  setMutationString: (newMutationString: string) => void;
+  mutationString: ComputedProperty<MUTATION>;
+  mutation: ({
+    variables,
+    fetchPolicy,
+  }: {
+    variables: MUTATION_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+    // eslint-disable-next-line consistent-return
+  }) => Promise<MUTATION_RETURN>;
+  result: ComputedProperty<MUTATION_RETURN>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  query: Error;
 }

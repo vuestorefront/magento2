@@ -3,6 +3,8 @@ import { track } from '@vue-storefront/core';
 
 track('VSFMagento');
 
+export * from './getters';
+
 export { default as useAddresses } from './composables/useAddresses';
 export { default as useBilling } from './composables/useBilling';
 export { default as useCart } from './composables/useCart';
@@ -11,6 +13,8 @@ export { default as useCategorySearch } from './composables/useCategorySearch';
 export { default as useConfig } from './composables/useConfig';
 export { default as useContent } from './composables/useContent';
 export { default as useCountrySearch } from './composables/useCountrySearch';
+export { default as useCustomMutation } from './composables/useCustomMutation';
+export { default as useCustomQuery } from './composables/useCustomQuery';
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
 export { default as useFacet } from './composables/useFacet';
 export { default as useForgotPassword } from './composables/useForgotPassword';
@@ -31,5 +35,3 @@ export { default as useUserBilling } from './composables/useUserBilling';
 export { default as useUserOrder } from './composables/useUserOrder';
 export { default as useUserShipping } from './composables/useUserShipping';
 export { default as useWishlist } from './composables/useWishlist';
-
-export * from './getters';

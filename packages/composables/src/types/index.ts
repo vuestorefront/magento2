@@ -58,3 +58,5 @@ export interface AgnosticReviewMetadata {
     id: string;
   }[];
 }
+
+export declare type FetchPolicy = 'cache-first' | 'network-only' | 'cache-only' | 'no-cache' | 'standby';

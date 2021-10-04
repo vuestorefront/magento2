@@ -20,14 +20,12 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [addProductToWishList](./magento-api.addproducttowishlist.md) |  |
 |  [addSimpleProductsToCart](./magento-api.addsimpleproductstocart.md) |  |
 |  [applyCouponToCart](./magento-api.applycoupontocart.md) |  |
-|  [bundleProductDetail](./magento-api.bundleproductdetail.md) |  |
 |  [cart](./magento-api.cart.md) |  |
 |  [categoryList](./magento-api.categorylist.md) |  |
 |  [categorySearch](./magento-api.categorysearch.md) |  |
 |  [changeCustomerPassword](./magento-api.changecustomerpassword.md) |  |
 |  [cmsBlocks](./magento-api.cmsblocks.md) |  |
 |  [cmsPage](./magento-api.cmspage.md) |  |
-|  [configurableProductDetail](./magento-api.configurableproductdetail.md) |  |
 |  [countries](./magento-api.countries.md) |  |
 |  [country](./magento-api.country.md) |  |
 |  [createCustomer](./magento-api.createcustomer.md) |  |
@@ -38,6 +36,8 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [customerCart](./magento-api.customercart.md) |  |
 |  [customerOrders](./magento-api.customerorders.md) |  |
 |  [customerProductReview](./magento-api.customerproductreview.md) |  |
+|  [customMutation](./magento-api.custommutation.md) |  |
+|  [customQuery](./magento-api.customquery.md) |  |
 |  [deleteCustomerAddress](./magento-api.deletecustomeraddress.md) |  |
 |  [generateCustomerToken](./magento-api.generatecustomertoken.md) |  |
 |  [getAvailableCustomerPaymentMethods](./magento-api.getavailablecustomerpaymentmethods.md) |  |
@@ -45,7 +45,6 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [getAvailablePaymentMethods](./magento-api.getavailablepaymentmethods.md) |  |
 |  [getAvailableShippingMethods](./magento-api.getavailableshippingmethods.md) |  |
 |  [getCustomerAddresses](./magento-api.getcustomeraddresses.md) |  |
-|  [groupedProductDetail](./magento-api.groupedproductdetail.md) |  |
 |  [mergeCarts](./magento-api.mergecarts.md) |  |
 |  [placeOrder](./magento-api.placeorder.md) |  |
 |  [productDetail](./magento-api.productdetail.md) |  |

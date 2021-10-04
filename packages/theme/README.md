@@ -12,6 +12,34 @@ This theme developed by superheroes from [Caravel](https://github.com/caravelx) 
 <img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>  <img src="https://user-images.githubusercontent.com/1626923/127100001-7607c515-474d-449d-b9df-1c710f966f0a.png" height="80px"/>
 </div>
 
+### Requirements:
+
+- NodeJS v14 or later
+- Yarn
+- Magento >= v2.4.3 instance for GraphQL endpoint
+- Change Magento GraphQL Query Complexity and Depth values
+
+> [WARNING] Don't forget to change the Magento GraphQL Query Complexity and Depth values
+Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
+The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
+To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
+
+To install the Magento 2 GraphQL Config module, on your Magento installation execute:
+
+```bash
+composer require caravelx/module-graphql-config
+
+php bin/magento module:enable Caravel_GraphQlConfig
+
+php bin/magento setup:upgrade
+
+php bin/magento setup:di:compile
+
+php bin/magento setup:static-content:deploy
+```
+
+Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
+
 ### Build Setup
 
 ``` bash
@@ -43,7 +71,7 @@ Thanks go to these wonderful people 🙌:
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/bloodf"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/bloodf"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Documentation">📖</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/alefbarbeli"><img src="https://avatars.githubusercontent.com/u/7727647?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Alef Barbeli</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=alefbarbeli" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=alefbarbeli" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/domideimel"><img src="https://avatars.githubusercontent.com/u/32941053?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Dominik Deimel</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/LiorLindvor"><img src="https://avatars.githubusercontent.com/u/6757942?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Lior Lindvor</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=LiorLindvor" title="Code">💻</a></td>
