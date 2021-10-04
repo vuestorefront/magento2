@@ -29,6 +29,7 @@ export const useCustomMutationFactory = <MUTATION, MUTATION_VARIABLES, MUTATION_
   // @ts-ignore
   const mutationString = sharedRef<MUTATION>('', `${ssrKey}-mutationString`);
   const mutationStringComputed = computed(() => mutationString.value);
+  // @ts-ignore
   const result = sharedRef<MUTATION_RETURN>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);
   const error = sharedRef({

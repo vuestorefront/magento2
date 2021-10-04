@@ -27,6 +27,7 @@ export const useCustomQueryFactory = <QUERY, QUERY_VARIABLES, QUERY_RETURN = any
   // @ts-ignore
   const queryString = sharedRef<QUERY>('', `${ssrKey}-queryString`);
   const queryStringComputed = computed(() => queryString.value);
+  // @ts-ignore
   const result = sharedRef<QUERY_RETURN>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);
   const error = sharedRef({
