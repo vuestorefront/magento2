@@ -36,7 +36,7 @@ Reactive object containing the result information from query method.
 Reactive object containing the loading state of the query function.
 
 ### `error`
-Reactive object containing the error message, if search failed for any reason.
+Reactive object containing the error message, if query failed for any reason.
 
 ## Example
 `customQueryExample.ts`
@@ -73,7 +73,7 @@ export const customQuery = (id?: string) => {
 };
 ```
 
-`Any Vue File`
+`Any File`
 ```typescript
 import { customQuery } from '~/composables/customQueryExample.ts';
 
