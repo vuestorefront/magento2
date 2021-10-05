@@ -162,7 +162,7 @@ export const getCategoryIds = (product: Product): string[] => {
   return product.categories.map((category) => category.uid);
 };
 
-export const getCategory = (product: Product, currentUrlPath: string): Category | null => {
+export const getCategory = (product: any, currentUrlPath: string): Category | null => {
   if (!product?.categories || product?.categories.length === 0) {
     return null;
   }
@@ -210,7 +210,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: any, category?: Category): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -235,9 +235,9 @@ export const { getTotalReviews } = reviewGetters;
 
 export const { getAverageRating } = reviewGetters;
 
-export const getProductRelatedProduct = (product: Product): Product[] => product?.related_products || [];
+export const getProductRelatedProduct = (product: any): Product[] => product?.related_products || [];
 
-export const getProductUpsellProduct = (product: Product): Product[] => product?.upsell_products || [];
+export const getProductUpsellProduct = (product: any): Product[] => product?.upsell_products || [];
 
 export const getSwatchData = (swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined => swatchData?.value;
 

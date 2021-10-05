@@ -2,7 +2,7 @@ import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree } from '@vue-storefront/core';
 import { htmlDecode } from './htmlDecoder';
 
-export const buildCategoryTree = (rootCategory: Category, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
+export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
   const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;
   const isCurrent = rootCategory.uid === currentCategory;
   const label = htmlDecode(rootCategory.name);

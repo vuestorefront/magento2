@@ -112,7 +112,7 @@ export interface Product extends ProductInterface, ConfigurableProduct, Omit<Bun
 export type AddressOnCart = ShippingCartAddress;
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
-export type Category = CategoryTree;
+export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
 export type CategoryFilter = CategoryFilterInput;
 export type CategoryMenu = CategoryTree;
 export type Countries = CountriesListQuery['countries'][0];
@@ -121,7 +121,7 @@ export type CustomerAddress = CustomerAddressInterface;
 export type CustomerOrder = CustomerOrderInterface;
 export type CustomerUpdateParameters = CustomerCreateInput;
 export type Order = OrderInterface;
-export type Page = CmsPage;
+export type Page = CmsPage | CmsPageQuery['cmsPage'];
 export type ProductAttributeFilter = ProductAttributeFilterInput;
 export type ProductReview = ProductReviewQuery['products']['items'][0]['reviews']['items'][0];
 export type ProductReviews = ProductReviewQuery['products']['items'][0];

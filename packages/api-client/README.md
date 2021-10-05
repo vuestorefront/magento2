@@ -44,6 +44,7 @@ Magento 2 by default has a lower value for the complexity of 300, and a higher v
 >The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
 
 >To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
+
 To install the Magento 2 GraphQL Config module, on your Magento installation execute:
 
 ```bash
