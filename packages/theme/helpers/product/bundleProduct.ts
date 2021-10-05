@@ -10,6 +10,7 @@ export const bundleProductInitialSelector = (bundles: BundleProduct['items']) =>
     acc[curr.uid] = {
       uid: defaultValue.uid,
       quantity: defaultValue.quantity || 1,
+      // @ts-ignore
       price: productGetters.getPrice(defaultValue.product).regular,
     };
   }
