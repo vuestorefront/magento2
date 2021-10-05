@@ -4,7 +4,8 @@ import {
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
 import { computed } from 'vue-demi';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
+import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
@@ -189,4 +190,83 @@ export interface UseAddresses<ADDRESS,
   save: (saveParams: SAVE_ADDRESS_PARAMS) => Promise<void>,
   remove: (removeParams: REMOVE_ADDRESS_PARAMS) => Promise<void>,
   update: (updateParams: UPDATE_ADDRESS_PARAMS) => Promise<void>,
+}
+
+export interface UseForgotPasswordErrors {
+  request: Error;
+  setNew: Error;
+}
+
+export interface UseForgotPassword<RESULT> {
+  result: ComputedProperty<RESULT>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseForgotPasswordErrors>;
+  setNew(params: ComposableFunctionArgs<{ tokenValue: string, newPassword: string, email: string }>): Promise<void>;
+  request(params: ComposableFunctionArgs<{ email: string }>): Promise<void>;
+}
+
+export interface UseRelatedProducts<PRODUCTS, RELATED_PRODUCT_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseRelatedProductsErrors>;
+  search(params: ComposableFunctionArgs<RELATED_PRODUCT_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
+}
+
+export interface UseRelatedProductsErrors {
+  search: Error;
+}
+
+export interface UseUpsellProducts<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  search(params: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  search: Error;
+}
+
+export interface UseCustomQuery<QUERY, QUERY_VARIABLES, QUERY_RETURN, API extends PlatformApi = any> extends Composable<API> {
+  setQueryString: (newQueryString: string) => void;
+  queryString: ComputedProperty<QUERY>;
+  query: ({
+    variables,
+    fetchPolicy,
+  }: {
+    variables: QUERY_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+    // eslint-disable-next-line consistent-return
+  }) => Promise<QUERY_RETURN>;
+  result: ComputedProperty<QUERY_RETURN>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  query: Error;
+}
+
+export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN, API extends PlatformApi = any> extends Composable<API> {
+  setMutationString: (newMutationString: string) => void;
+  mutationString: ComputedProperty<MUTATION>;
+  mutation: ({
+    variables,
+    fetchPolicy,
+  }: {
+    variables: MUTATION_VARIABLES,
+    fetchPolicy?: FetchPolicy,
+    // eslint-disable-next-line consistent-return
+  }) => Promise<MUTATION_RETURN>;
+  result: ComputedProperty<MUTATION_RETURN>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUpsellProductsErrors>;
+  [x: string]: any;
+}
+
+export interface UseUpsellProductsErrors {
+  query: Error;
 }

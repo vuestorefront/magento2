@@ -1,16 +1,10 @@
 <template>
-  <SfModal
-    v-e2e="'login-modal'"
-    visible
-    class="modal"
-    :cross="false"
-  >
-    <template #modal-bar>
-      <SfBar
-        class="sf-modal__bar"
-        :title="$t('Reset Password')"
-      />
-    </template>
+  <div id="reset-password">
+    <SfHeading
+      :title="$t('Reset Password')"
+      :level="3"
+      class="heading sf-heading--no-underline"
+    />
     <div v-if="!isPasswordChanged">
       <ValidationObserver
         v-slot="{ handleSubmit }"
@@ -22,7 +16,21 @@
         >
           <ValidationProvider
             v-slot="{ errors }"
-            rules="required"
+            rules="required|email"
+          >
+            <SfInput
+              v-model="form.email"
+              v-e2e="'login-modal-email'"
+              :valid="!errors[0]"
+              :error-message="errors[0]"
+              name="email"
+              label="Your email"
+              class="form__element"
+            />
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ errors }"
+            rules="required|password"
           >
             <SfInput
               v-model="form.password"
@@ -72,40 +80,54 @@
     <div v-else>
       <p>{{ $t('Password Changed') }}</p>
       <SfButton
-        class="sf-button--text"
+        class="sf-button"
         link="/"
       >
         {{ $t('Back to home') }}
       </SfButton>
     </div>
-  </SfModal>
+  </div>
 </template>
 <script>
 import {
-  SfModal, SfButton, SfLoader, SfBar, SfInput,
+  SfButton,
+  SfLoader,
+  SfInput,
+  SfHeading,
 } from '@storefront-ui/vue';
 import { ref, computed } from '@vue/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
+import { email, required } from 'vee-validate/dist/rules';
+
+extend('email', {
+  ...email,
+  message: 'Invalid email',
+});
 
 extend('required', {
   ...required,
   message: 'This field is required',
 });
 
+extend('password', {
+  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
+  validate: (value) => {
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])(?=.{8,})');
+    return strongRegex.test(value);
+  },
+});
+
 export default {
   name: 'ResetPassword',
   components: {
     SfButton,
-    SfModal,
+    SfHeading,
     SfLoader,
-    SfBar,
     SfInput,
     ValidationProvider,
     ValidationObserver,
   },
-  layout: 'blank',
   middleware({ redirect, route }) {
     if (!route.query.token) {
       return redirect('/');
@@ -113,7 +135,10 @@ export default {
   },
   setup(props, context) {
     const {
-      result, setNew, error: forgotPasswordError, loading: forgotPasswordLoading,
+      result,
+      setNew,
+      error: forgotPasswordError,
+      loading: forgotPasswordLoading,
     } = useForgotPassword();
     const passwordMatchError = ref(false);
     const form = ref({});
@@ -128,7 +153,11 @@ export default {
         return;
       }
 
-      await setNew({ tokenValue: token, newPassword: form.value.password });
+      await setNew({
+        tokenValue: token,
+        newPassword: form.value.password,
+        email: form.value.email,
+      });
     };
 
     return {
@@ -138,19 +167,31 @@ export default {
       forgotPasswordLoading,
       forgotPasswordError,
       passwordMatchError,
+      token,
+      result,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
-.modal {
-  --modal-index: 3;
-  --overlay-z-index: 3;
+#reset-password {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 var(--spacer-sm);
+  margin: var(--spacer-xl) 0;
+  @include for-desktop {
+    max-width: 77.5rem;
+  }
 }
+
 .form {
   margin-top: var(--spacer-sm);
+  min-width: 350px;
   &__element {
     margin: 0 0 var(--spacer-xl) 0;
   }

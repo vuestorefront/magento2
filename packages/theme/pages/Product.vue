@@ -1,261 +1,247 @@
 <template>
   <div id="product">
-    <SfBreadcrumbs
-      class="breadcrumbs desktop-only"
-      :breadcrumbs="breadcrumbs"
-    />
-    <div
-      class="product"
+    <SfLoader
+      :class="{ 'loading--product': productDataIsLoading }"
+      :loading="productDataIsLoading"
     >
-      <LazyHydrate when-idle>
-        <SfGallery
-          :images="productGallery"
-          class="product__gallery"
+      <div>
+        <SfBreadcrumbs
+          class="breadcrumbs desktop-only"
+          :breadcrumbs="breadcrumbs"
         />
-      </LazyHydrate>
-      <div class="product__info">
-        <div class="product__header">
-          <SfHeading
-            :title="productGetters.getName(product)"
-            :level="3"
-            class="sf-heading--no-underline sf-heading--left"
-          />
-          <SfIcon
-            icon="drag"
-            size="xxl"
-            color="var(--c-text-disabled)"
-            class="product__drag-icon smartphone-only"
-          />
-        </div>
-        <div class="product__price-and-rating">
-          <SfPrice
-            :regular="$n(productPrice, 'currency')"
-            :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
-          />
-          <div>
-            <div class="product__rating">
-              <SfRating
-                :score="averageRating"
-                :max="5"
+        <div
+          class="product"
+        >
+          <LazyHydrate when-idle>
+            <SfLoader
+              :class="{ 'loading--product-gallery': productLoading }"
+              :loading="productLoading"
+            >
+              <SfGallery
+                :images="productGallery"
+                :enable-zoom="true"
+                class="product__gallery"
               />
-              <a
-                v-if="!!totalReviews"
-                href="#"
-                class="product__count"
-              >
-                ({{ totalReviews }})
-              </a>
-            </div>
-            <SfButton
-              class="sf-button--text"
-              @click="changeTab(2)"
-            >
-              {{ $t('Read all reviews') }}
-            </SfButton>
-            |
-            <SfButton
-              class="sf-button--text"
-              @click="changeNewReview"
-            >
-              Add a review
-            </SfButton>
-          </div>
-        </div>
-        <div>
-          <p
-            v-if="productShortDescription"
-            v-dompurify-html="productShortDescription"
-            class="product__description desktop-only"
-          />
-          <SfButton class="sf-button--text desktop-only product__guide">
-            {{ $t('Size guide') }}
-          </SfButton>
-          <template
-            v-for="option in configurableOptions"
-          >
-            <div
-              v-if="option.attribute_code === 'color'"
-              :key="option.uid"
-              class="product__colors desktop-only"
-            >
-              <p class="product__color-label">
-                {{ option.label }}:
-              </p>
-              <SfColor
-                v-for="color in option.values"
-                :key="color.uid"
-                :color="productGetters.getSwatchData(color.swatch_data)"
-                :selected="productConfiguration[option.attribute_uid] === color.uid"
-                class="product__color"
-                @click="() => updateProductConfiguration(option.attribute_uid, color.uid)"
+            </SfLoader>
+          </LazyHydrate>
+          <div class="product__info">
+            <div class="product__header">
+              <SfHeading
+                :title="productGetters.getName(product)"
+                :level="3"
+                class="sf-heading--no-underline sf-heading--left"
+              />
+              <SfIcon
+                icon="drag"
+                size="xxl"
+                color="var(--c-text-disabled)"
+                class="product__drag-icon smartphone-only"
               />
             </div>
-            <SfSelect
-              v-else
-              :key="option.uid"
-              :value="productConfiguration[option.attribute_uid]"
-              :label="option.label"
-              class="sf-select--underlined product__select-size"
-              :required="true"
-              @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
-            >
-              <SfSelectOption
-                v-for="attribute in option.values"
-                :key="attribute.uid"
-                :value="attribute.uid"
+            <div class="product__price-and-rating">
+              <SfPrice
+                :regular="$n(productPrice, 'currency')"
+                :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
+              />
+              <div>
+                <div class="product__rating">
+                  <SfRating
+                    :score="averageRating"
+                    :max="5"
+                  />
+                  <a
+                    v-if="!!totalReviews"
+                    href="#"
+                    class="product__count"
+                  >
+                    ({{ totalReviews }})
+                  </a>
+                </div>
+                <SfButton
+                  class="sf-button--text"
+                  @click="changeTab(2)"
+                >
+                  {{ $t('Read all reviews') }}
+                </SfButton>
+                |
+                <SfButton
+                  class="sf-button--text"
+                  @click="changeNewReview"
+                >
+                  Add a review
+                </SfButton>
+              </div>
+            </div>
+            <div>
+              <p
+                v-if="productShortDescription"
+                v-dompurify-html="productShortDescription"
+                class="product__description desktop-only"
+              />
+              <SfButton class="sf-button--text desktop-only product__guide">
+                {{ $t('Size guide') }}
+              </SfButton>
+              <template
+                v-for="option in configurableOptions"
               >
-                {{ attribute.label }}
-              </SfSelectOption>
-            </SfSelect>
-          </template>
-          <template
-            v-if="product.__typename === 'GroupedProduct'"
-          >
-            <SfList class="grouped_items">
-              <SfListItem
-                v-for="(groupedItem, index) in groupedItems"
-                :key="index"
-                class="grouped_items--item"
-              >
-                <SfImage
-                  :src="productGetters.getProductThumbnailImage(groupedItem.product)"
-                  :alt="productGetters.getName(groupedItem.product)"
-                  :width="60"
-                />
-                <div>
-                  <p>{{ productGetters.getName(groupedItem.product) }}</p>
-                  <SfPrice
-                    :regular="$n(productGetters.getPrice(product).regular, 'currency')"
-                    :special="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+                <div
+                  v-if="option.attribute_code === 'color'"
+                  :key="option.uid"
+                  class="product__colors desktop-only"
+                >
+                  <p class="product__color-label">
+                    {{ option.label }}:
+                  </p>
+                  <SfColor
+                    v-for="color in option.values"
+                    :key="color.uid"
+                    :color="productGetters.getSwatchData(color.swatch_data)"
+                    :selected="productConfiguration[option.attribute_uid] === color.uid"
+                    class="product__color"
+                    @click="() => updateProductConfiguration(option.attribute_uid, color.uid)"
                   />
                 </div>
-                <SfQuantitySelector
-                  v-model="groupedItem.qty"
-                  :disabled="loading || !canAddToCart"
-                />
-              </SfListItem>
-            </SfList>
-            <button
-              v-e2e="'product_add-to-cart'"
-              :disabled="loading || !canAddToCart"
-              class="color-primary sf-button grouped_items--add-to-cart"
-              @click="addGroupedToCart"
-            >
-              Add to Cart
-            </button>
-          </template>
-          <template
-            v-else-if="product.__typename === 'BundleProduct'"
-          >
-            <BundleProductSelector
-              @update-price="basePrice = $event"
-            />
-          </template>
-          <SfAddToCart
-            v-else
-            v-model="qty"
-            v-e2e="'product_add-to-cart'"
-            :disabled="loading || !canAddToCart"
-            class="product__add-to-cart"
-            @click="addItem({ product, quantity: parseInt(qty) })"
-          />
-        </div>
-        <LazyHydrate when-idle>
-          <SfTabs
-            id="tabs"
-            :open-tab="openTab"
-            class="product__tabs"
-            @click:tab="changeTab"
-          >
-            <SfTab title="Description">
-              <div
-                v-if="productDescription"
-                v-dompurify-html="productDescription"
-                class="product__description"
-              />
-              <!-- @TODO: Check Property in Configurable Products              -->
-              <!--              <SfProperty
-                v-for="(property, i) in properties"
-                :key="i"
-                :name="property.name"
-                :value="property.value"
-                class="product__property"
-              >
-                <template
-                  v-if="property.name === 'Category'"
-                  #value
+                <SfSelect
+                  v-else
+                  :key="option.uid"
+                  :value="productConfiguration[option.attribute_uid]"
+                  :label="option.label"
+                  class="sf-select--underlined product__select-size"
+                  :required="true"
+                  @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
                 >
-                  <SfButton class="product__property__button sf-button&#45;&#45;text">
-                    {{ property.value }}
-                  </SfButton>
-                </template>
-              </SfProperty>-->
-            </SfTab>
-            <SfTab title="Read reviews">
-              <div v-show="reviewsLoading">
-                <SfLoader />
-              </div>
-              <SfReview
-                v-for="review in reviews"
-                v-show="!reviewsLoading"
-                :key="reviewGetters.getReviewId(review)"
-                :author="reviewGetters.getReviewAuthor(review)"
-                :date="reviewGetters.getReviewDate(review)"
-                :message="reviewGetters.getReviewMessage(review)"
-                :max-rating="5"
-                :rating="reviewGetters.getReviewRating(review)"
-                :char-limit="250"
-                read-more-text="Read more"
-                hide-full-text="Read less"
-                class="product__review"
-              />
-              <div
-                v-show="!reviewsLoading"
-                id="addReview"
+                  <SfSelectOption
+                    v-for="attribute in option.values"
+                    :key="attribute.uid"
+                    :value="attribute.uid"
+                  >
+                    {{ attribute.label }}
+                  </SfSelectOption>
+                </SfSelect>
+              </template>
+              <template
+                v-if="product.__typename === 'GroupedProduct'"
               >
-                <ProductAddReviewForm
-                  @add-review="successAddReview"
+                <grouped-product-selector
+                  :can-add-to-cart="canAddToCart"
+                  @update-price="basePrice = $event"
                 />
-              </div>
-            </SfTab>
-            <SfTab
-              title="Additional Information"
-              class="product__additional-info"
-            >
-              <div class="product__additional-info">
-                <p class="product__additional-info__title">
-                  {{ $t('Instruction1') }}
-                </p>
-                <p class="product__additional-info__paragraph">
-                  {{ $t('Instruction2') }}
-                </p>
-                <p class="product__additional-info__paragraph">
-                  {{ $t('Instruction3') }}
-                </p>
-              </div>
-            </SfTab>
-          </SfTabs>
+              </template>
+              <template
+                v-else-if="product.__typename === 'BundleProduct'"
+              >
+                <BundleProductSelector
+                  :can-add-to-cart="canAddToCart"
+                  @update-price="basePrice = $event"
+                />
+              </template>
+              <SfAddToCart
+                v-else
+                v-model="qty"
+                v-e2e="'product_add-to-cart'"
+                :disabled="loading || !canAddToCart"
+                class="product__add-to-cart"
+                @click="addItem({ product, quantity: parseInt(qty) })"
+              />
+            </div>
+            <LazyHydrate when-idle>
+              <SfTabs
+                id="tabs"
+                :open-tab="openTab"
+                class="product__tabs"
+                @click:tab="changeTab"
+              >
+                <SfTab title="Description">
+                  <div
+                    v-if="productDescription"
+                    v-dompurify-html="productDescription"
+                    class="product__description"
+                  />
+                  <!-- @TODO: Check Property in Configurable Products              -->
+                  <!--              <SfProperty
+                    v-for="(property, i) in properties"
+                    :key="i"
+                    :name="property.name"
+                    :value="property.value"
+                    class="product__property"
+                  >
+                    <template
+                      v-if="property.name === 'Category'"
+                      #value
+                    >
+                      <SfButton class="product__property__button sf-button&#45;&#45;text">
+                        {{ property.value }}
+                      </SfButton>
+                    </template>
+                  </SfProperty>-->
+                </SfTab>
+                <SfTab title="Read reviews">
+                  <div v-show="reviewsLoading">
+                    <SfLoader />
+                  </div>
+                  <SfReview
+                    v-for="review in reviews"
+                    v-show="!reviewsLoading"
+                    :key="reviewGetters.getReviewId(review)"
+                    :author="reviewGetters.getReviewAuthor(review)"
+                    :date="reviewGetters.getReviewDate(review)"
+                    :message="reviewGetters.getReviewMessage(review)"
+                    :max-rating="5"
+                    :rating="reviewGetters.getReviewRating(review)"
+                    :char-limit="250"
+                    read-more-text="Read more"
+                    hide-full-text="Read less"
+                    class="product__review"
+                  />
+                  <div
+                    v-show="!reviewsLoading"
+                    id="addReview"
+                  >
+                    <ProductAddReviewForm
+                      @add-review="successAddReview"
+                    />
+                  </div>
+                </SfTab>
+                <SfTab
+                  title="Additional Information"
+                  class="product__additional-info"
+                >
+                  <div class="product__additional-info">
+                    <p class="product__additional-info__title">
+                      {{ $t('Instruction1') }}
+                    </p>
+                    <p class="product__additional-info__paragraph">
+                      {{ $t('Instruction2') }}
+                    </p>
+                    <p class="product__additional-info__paragraph">
+                      {{ $t('Instruction3') }}
+                    </p>
+                  </div>
+                </SfTab>
+              </SfTabs>
+            </LazyHydrate>
+          </div>
+        </div>
+        <LazyHydrate
+          v-if="relatedProducts.length > 0"
+          when-visible
+        >
+          <ProductsCarousel
+            :products="relatedProducts"
+            :title="$t('Match it with')"
+          />
+        </LazyHydrate>
+        <LazyHydrate
+          v-if="upsellProducts.length > 0"
+          when-visible
+        >
+          <ProductsCarousel
+            :products="upsellProducts"
+            :title="$t('Other products you might like')"
+          />
         </LazyHydrate>
       </div>
-    </div>
-    <LazyHydrate
-      v-if="relatedProducts.length > 0"
-      when-visible
-    >
-      <ProductsCarousel
-        :products="relatedProducts"
-        :title="$t('Match it with')"
-      />
-    </LazyHydrate>
-    <LazyHydrate
-      v-if="upsellProducts.length > 0"
-      when-visible
-    >
-      <ProductsCarousel
-        :products="upsellProducts"
-        :title="$t('Other products you might like')"
-      />
-    </LazyHydrate>
+    </SfLoader>
     <LazyHydrate when-visible>
       <InstagramFeed />
     </LazyHydrate>
@@ -274,11 +260,8 @@ import {
   SfGallery,
   SfHeading,
   SfIcon,
-  SfImage,
-  SfList,
   SfLoader,
   SfPrice,
-  SfQuantitySelector,
   SfRating,
   SfReview,
   SfSelect,
@@ -295,18 +278,20 @@ import {
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { ref, computed } from '@vue/composition-api';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
+import InstagramFeed from '~/components/InstagramFeed.vue';
+import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
+import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
+import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
 export default {
   name: 'Product',
   components: {
+    GroupedProductSelector,
     BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
@@ -320,11 +305,8 @@ export default {
     SfGallery,
     SfHeading,
     SfIcon,
-    SfImage,
-    SfList,
     SfLoader,
     SfPrice,
-    SfQuantitySelector,
     SfRating,
     SfReview,
     SfSelect,
@@ -351,7 +333,7 @@ export default {
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
     const basePrice = ref(0);
     const openTab = ref(1);
-    const productDataIsLoading = computed(() => productLoading.value);
+    const productDataIsLoading = computed(() => productLoading.value && !productGetters.getName(product.value));
     const productShortDescription = computed(() => product.value.short_description?.html || '');
     const productDescription = computed(() => product.value.description?.html || '');
     const canAddToCart = computed(() => {
@@ -385,20 +367,21 @@ export default {
         // eslint-disable-next-line no-underscore-dangle
         alt: product.value._name || product.value.name,
       })));
-    const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
 
     const configurableOptions = computed(() => product.value.configurable_options);
     const productConfiguration = ref({});
-    const productPrice = computed(() => {
+    const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
         case 'BundleProduct':
-          return basePrice.value || productGetters.getPrice(product.value).regular;
-        case 'SimpleProduct':
+          return basePrice.value;
+        case 'GroupedProduct':
+          return basePrice.value;
         default:
-          return productGetters.getPrice(product.value).regular;
+          return 0;
       }
     });
+    const productPrice = computed(() => productTypedPrice.value || productGetters.getPrice(product.value).regular);
     const productSpecialPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
@@ -452,16 +435,6 @@ export default {
       const { query } = route;
       productConfiguration.value = query;
     };
-    const addGroupedToCart = async () => {
-      const groupedItemsFiltered = groupedItems.value.filter((p) => p.qty);
-      if (groupedItemsFiltered.length > 0) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const p of groupedItemsFiltered) {
-          // eslint-disable-next-line no-await-in-loop
-          await addItem({ product: p.product, quantity: p.qty });
-        }
-      }
-    };
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -482,7 +455,6 @@ export default {
     });
 
     return {
-      addGroupedToCart,
       addItem,
       addItemToWishlist,
       averageRating,
@@ -493,7 +465,6 @@ export default {
       changeNewReview,
       changeTab,
       configurableOptions,
-      groupedItems,
       isAuthenticated,
       isInWishlist: computed(() => isInWishlist({ product: product.value })),
       loading,
@@ -504,6 +475,7 @@ export default {
       productDescription,
       productGallery,
       productGetters,
+      productLoading,
       productPrice,
       productReviews,
       productShortDescription,
@@ -527,30 +499,6 @@ export default {
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
-  }
-}
-
-.grouped_items {
-  padding: 0 10px;
-
-  &--item {
-    display: grid;
-    grid-template-columns: fit-content(70px) auto fit-content(100%);
-    grid-template-rows: auto;
-    align-items: center;
-    justify-items: start;
-    column-gap: var(--spacer-base);
-    padding: var(--spacer-base) 0;
-    border-bottom: 1px solid var(--c-text-muted);
-
-    .sf-quantity-selector {
-      justify-self: end;
-    }
-  }
-
-  &--add-to-cart {
-    width: 100%;
-    margin-top: var(--spacer-lg);
   }
 }
 
@@ -741,6 +689,22 @@ export default {
   }
   100% {
     transform: translate3d(0, 0, 0);
+  }
+}
+.loading {
+  &--product {
+    padding: var(--spacer-3xl) auto;
+    @include for-desktop {
+      padding-top: 3.75rem;
+      padding-bottom: 3.75rem;
+    }
+  }
+  &--product-gallery {
+    padding: var(--spacer-3xl) auto;
+    @include for-desktop {
+      padding-top: 3.75rem;
+      padding-bottom: 3.75rem;
+    }
   }
 }
 </style>

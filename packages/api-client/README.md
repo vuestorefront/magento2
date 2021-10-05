@@ -8,19 +8,16 @@
 
 This is only the **api-client** package, you need to install the other dependencies also.
 
-------
-
 This project is a Magento 2 integration for Vue Storefront 2.
-This integration developed by superheroes from [Caravel](https://github.com/caravelx) and [Leonex](https://www.leonex.de/) ❤️
-
+This integration developed by superheroes from [Caravel](https://github.com/caravelx) ❤️
 <div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>  <img src="https://user-images.githubusercontent.com/1626923/127100001-7607c515-474d-449d-b9df-1c710f966f0a.png" height="80px"/>
+<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>
 </div>
+<hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-
 
 ## How to start if you want to try out the integration
 
@@ -33,10 +30,38 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 
 ## How to start if you want to contribute?
 
-Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://discord.vuestorefront.io)!
+Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io)!
+
 ### Requirements:
-  - NodeJS v14 or later
-  - Magento >= v2.4 instance for GraphQL endpoint
+- NodeJS v14 or later
+- Yarn
+- Magento >= v2.4.3 instance for GraphQL endpoint
+- Change Magento GraphQL Query Complexity and Depth values
+
+::: warning Don't forget to change the Magento GraphQL Query Complexity and Depth values
+Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
+
+The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
+
+To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
+:::
+
+To install the Magento 2 GraphQL Config module, on your Magento installation execute:
+
+```bash
+composer require caravelx/module-graphql-config
+
+php bin/magento module:enable Caravel_GraphQlConfig
+
+php bin/magento setup:upgrade
+
+php bin/magento setup:di:compile
+
+php bin/magento setup:static-content:deploy
+```
+
+Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
+
 ### Steps
 1. Fork the repo
 2. Clone your fork of the repo
@@ -47,32 +72,37 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](https://
     ```
 3. Checkout develop branch `git checkout develop`
 4. Run `yarn` to install dependencies
-5. Copy .env.example and update GraphQL Endpoint
+5. Define a store running environment by adding a `STORE_ENV` to your running project or execute the code
+    ```bash
+    $ echo "STORE_ENV=dev" >> .env
     ```
-    cp packages/theme/.env.example .env
+6. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
+    ```bash
+    $ cp packages/theme/config/example.json packages/theme/config/dev.json
     ```
-6. Update `MAGENTO_GRAPHQL=` with url to Magento 2.4 GrapgQL endpoint
+7. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
-    MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql
+    "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
     ```
-7. Build dependencies `yarn build:api-client && yarn build:composables`
-8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+8. Build dependencies `yarn build:api-client && yarn build:composables`
+9. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
 - If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
 ## Resources
 
 - [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
 - [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
-- [Community Chat](https://discord.vuestorefront.io)
+- [Community Chat](http://discord.vuestorefront.io)
 
 ## Support
 
-If you have any questions about this integration we will be happy to answer them on  `magento2-vsf2` channel on [our Discord](discord.vuestorefront.io).
+If you have any questions about this integration we will be happy to answer them on  `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io).
 
 ## Contributors ✨
 
 ### Honorable Mentions
 - [Cyberfuze](https://cyberfuze.com/)
+- [Leonex](https://www.leonex.de/)
 
 Thanks go to these wonderful people 🙌:
 
@@ -81,7 +111,7 @@ Thanks go to these wonderful people 🙌:
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/bloodf"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/bloodf"><img src="https://avatars.githubusercontent.com/u/1626923?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Heitor Ramon Ribeiro</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Code">💻</a> <a href="#maintenance-bloodf" title="Maintenance">🚧</a> <a href="https://github.com/vuestorefront/magento2/commits?author=bloodf" title="Documentation">📖</a> <a href="#projectManagement-bloodf" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/alefbarbeli"><img src="https://avatars.githubusercontent.com/u/7727647?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Alef Barbeli</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=alefbarbeli" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=alefbarbeli" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/domideimel"><img src="https://avatars.githubusercontent.com/u/32941053?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Dominik Deimel</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/LiorLindvor"><img src="https://avatars.githubusercontent.com/u/6757942?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Lior Lindvor</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=LiorLindvor" title="Code">💻</a></td>
@@ -106,3 +136,4 @@ Thanks go to these wonderful people 🙌:
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+

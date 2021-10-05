@@ -57,23 +57,27 @@
         <SfQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
-          :disabled="canChangeQuantity(bundle)"
+          :disabled="canChangeQuantity(bundle) || !canAddToCart"
         />
       </SfListItem>
     </SfList>
-    <button
+    <SfButton
       v-e2e="'product_add-to-cart'"
-      :disabled="loading"
+      :disabled="loading || !canAddToCart"
       class="color-primary sf-button bundle_products--add-to-cart"
       @click="addToCart"
     >
       Add to Cart
-    </button>
+    </SfButton>
   </div>
 </template>
 <script>
 import {
-  SfList, SfPrice, SfQuantitySelector, SfRadio,
+  SfList,
+  SfPrice,
+  SfQuantitySelector,
+  SfRadio,
+  SfButton,
 } from '@storefront-ui/vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
@@ -85,10 +89,18 @@ import { productData } from '~/helpers/product/productData';
 export default {
   name: 'BundleProductSelector',
   components: {
+    SfButton,
     SfList,
     SfPrice,
     SfQuantitySelector,
     SfRadio,
+  },
+  props: {
+    canAddToCart: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   emits: ['update-bundle', 'update-price'],
   setup(props, { emit }) {
@@ -97,11 +109,6 @@ export default {
     const selectedOptions = ref(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
 
     const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
-    /*   const canAddToCart = computed(() => {
-      const inStock = product.value.stock_status || '';
-      const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
-      return inStock && stockLeft;
-    }); */
 
     const canChangeQuantity = (bundle) => {
       const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid]?.uid);

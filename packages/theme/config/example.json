@@ -1,4 +1,7 @@
 {
+  "storeUrl": "http://localhost:3000",
+  "nuxtAppEnvironment": "development",
+  "nuxtAppPort": 3000,
   "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
   "enableMagentoExternalCheckout": false,
   "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}",

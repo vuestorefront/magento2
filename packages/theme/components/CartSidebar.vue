@@ -207,7 +207,7 @@
     </SfSidebar>
   </div>
 </template>
-<script lang="ts">
+<script>
 import {
   SfLoader,
   SfNotification,

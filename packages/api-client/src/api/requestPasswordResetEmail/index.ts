@@ -1,6 +1,7 @@
+import gql from 'graphql-tag';
 import { FetchResult } from '@apollo/client';
-import { Logger } from '@vue-storefront/core';
-import requestPasswordResetEmail from './requestPasswordResetEmail';
+import { CustomQuery, Logger } from '@vue-storefront/core';
+import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
 import {
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
@@ -8,15 +9,25 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   input: RequestPasswordResetEmailMutationVariables,
+  customQuery?: CustomQuery,
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> => {
+  const { requestPasswordResetEmail } = context.extendQuery(
+    customQuery, {
+      requestPasswordResetEmail: {
+        query: requestPasswordResetEmailMutation,
+        variables: input,
+      },
+    },
+  );
+
   try {
     Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
-    const result = await client
+    const result = await context.client
       .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
-      mutation: requestPasswordResetEmail,
-      variables: input,
+      mutation: gql`${requestPasswordResetEmail.query}`,
+      variables: requestPasswordResetEmail.variables,
     });
 
     if (!result.data.requestPasswordResetEmail) throw new Error('Email was not found, or not available.');

@@ -145,7 +145,7 @@
   </SfTabs>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfTabs,
   SfTable,

@@ -1,6 +1,6 @@
 import {
   Context,
-  FacetSearchResult,
+  FacetSearchResult, Logger,
   ProductsSearchParams,
   useFacetFactory,
 } from '@vue-storefront/core';
@@ -59,6 +59,8 @@ const constructSortObject = (sortData: string) => {
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: FacetSearchResult<any>) => {
+    Logger.debug('[Magento] Load product facets', { params });
+
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
     const inputFilters = (params.input.filters) ? params.input.filters : {};
     const categoryId = (params.input.categoryId) ? {
@@ -68,6 +70,7 @@ const factoryParams = {
           : { eq: params.input.categoryId }),
       },
     } : {};
+
     const productParams: ProductsSearchParams = {
       filter: {
         ...categoryId,
@@ -90,19 +93,19 @@ const factoryParams = {
       currentPage: productParams.page,
     };
 
-    const productResponse = await context.$magento.api.products(productSearchParams);
+    const { data } = await context.$magento.api.products(productSearchParams);
 
-    const data = {
-      items: productResponse?.data?.products?.items || [],
-      total: productResponse?.data?.products?.total_count,
-      availableFilters: productResponse?.data?.products?.aggregations,
+    Logger.debug('[Result]:', { data });
+
+    return {
+      items: data?.products?.items || [],
+      total: data?.products?.total_count,
+      availableFilters: data?.products?.aggregations,
       category: { id: params.input.categoryId },
       availableSortingOptions,
       perPageOptions: [10, 20, 50],
       itemsPerPage,
     };
-
-    return data;
   },
 };
 

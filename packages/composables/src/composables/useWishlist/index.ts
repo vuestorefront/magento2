@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
 /* istanbul ignore file */
 import {
-  Context,
+  Context, Logger,
   useWishlistFactory,
   UseWishlistFactoryParams,
 } from '@vue-storefront/core';
@@ -10,27 +10,10 @@ import {
   WishlistQueryVariables,
 } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
-
-const compareWishlistProduct = (
-  productA,
-  productB,
-): boolean => {
-  const equalSku = productA?.sku === productB?.sku;
-  const equalUid = productA?.uid === productB?.uid;
-
-  return equalSku && equalUid;
-};
-
-const findItemOnWishlist = (currentWishlist, product) => {
-  const wishlist = Array.isArray(currentWishlist) ? currentWishlist[0] : currentWishlist;
-
-  return wishlist
-    ?.items_v2
-    ?.items?.find((item) => compareWishlistProduct(item.product, product));
-};
+import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
 
 // @ts-ignore
-const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
+const factoryParams: UseWishlistFactoryParams<any, any, any> = {
   provide() {
     return {
       user: useUser(),
@@ -42,9 +25,11 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
 
     if (apiState.getCustomerToken()) {
       const wishlistParams: WishlistQueryVariables = {
-        ...(params.customQuery || {}),
+        ...params.customQuery,
       };
       const { data } = await context.$magento.api.wishlist(wishlistParams);
+
+      Logger.debug('[Result]:', { data });
 
       return data.customer.wishlists;
     }
@@ -84,6 +69,8 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
           }],
         });
 
+        Logger.debug('[Result]:', { data });
+
         return data.addProductsToWishlist.wishlist;
       case 'ConfigurableProduct':
         const { data: configurableProductData } = await context.$magento.api.addProductToWishList({
@@ -94,6 +81,8 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
             parent_sku: product.sku,
           }],
         });
+
+        Logger.debug('[Result]:', { data: configurableProductData });
 
         return configurableProductData.addProductsToWishlist.wishlist;
       default:
@@ -113,6 +102,8 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
       items: [itemOnWishlist.id],
     });
 
+    Logger.debug('[Result]:', { data });
+
     return data.removeProductsFromWishlist.wishlist;
   },
   clear: async ({ currentWishlist }) => ({}),
@@ -125,4 +116,4 @@ const factoryParams: UseWishlistFactoryParams<Wishlist, any, any> = {
   },
 };
 
-export default useWishlistFactory<Wishlist, any, any>(factoryParams);
+export default useWishlistFactory<any, any, any>(factoryParams);

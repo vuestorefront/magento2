@@ -2,7 +2,6 @@ import changeCustomerPassword from './changeCustomerPassword';
 import {
   ChangeCustomerPasswordMutation,
   ChangeCustomerPasswordMutationVariables,
-  CustomerDataFragment as Customer,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
@@ -10,7 +9,7 @@ export default async (
   { client }: Context,
   currentPassword: string,
   newPassword: string,
-): Promise<Customer> => {
+): Promise<ChangeCustomerPasswordMutation['changeCustomerPassword']> => {
   const { data } = await client
     .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
     mutation: changeCustomerPassword,

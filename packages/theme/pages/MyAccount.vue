@@ -43,7 +43,7 @@
     </SfContentPages>
   </div>
 </template>
-<script lang="ts">
+<script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@vue/composition-api';
 import { useUser } from '@vue-storefront/magento';

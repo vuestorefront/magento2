@@ -37,6 +37,24 @@ const config = convict({
     env: 'MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH',
   },
   // endregion
+  storeUrl: {
+    doc: 'Store base URL',
+    format: String,
+    default: process.env.STORE_URL || 'http://localhost:3000',
+    env: 'STORE_URL',
+  },
+  nuxtAppEnvironment: {
+    doc: 'Nuxt Store environment',
+    format: String,
+    default: process.env.NUXT_APP_ENV || 'development',
+    env: 'NUXT_APP_ENV',
+  },
+  nuxtAppPort: {
+    doc: 'Nuxt Store Application Port',
+    format: Number,
+    default: process.env.NUXT_APP_PORT || 3000,
+    env: 'NUXT_APP_PORT',
+  },
 });
 
 const env = config.get('env');

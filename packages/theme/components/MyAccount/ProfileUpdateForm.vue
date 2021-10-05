@@ -89,7 +89,7 @@
   </ValidationObserver>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { useUser, userGetters } from '@vue-storefront/magento';
@@ -122,26 +122,14 @@ export default defineComponent({
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
-    const resetForm = (): {
-      firstname: string;
-      lastname: string;
-      email: string;
-      allow_remote_shopping_assistance: boolean;
-      password?: string;
-    } => ({
+    const resetForm = () => ({
       firstname: userGetters.getFirstName(user.value),
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
       allow_remote_shopping_assistance: userGetters.getRemoteShoppingAssistance(user.value),
     });
 
-    const form = ref<{
-      firstname: string;
-      lastname: string;
-      email: string;
-      allow_remote_shopping_assistance: boolean;
-      password?: string;
-    }>(resetForm());
+    const form = ref(resetForm());
 
     const submitForm = (resetValidationFn) => () => {
       const onComplete = () => {

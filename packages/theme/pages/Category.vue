@@ -89,59 +89,8 @@
 
     <div class="main section">
       <div class="sidebar desktop-only">
-        <LazyHydrate when-idle>
-          <SfLoader
-            :class="{ 'loading--categories': categoriesLoading }"
-            :loading="categoriesLoading"
-          >
-            <SfAccordion
-              :open="activeCategory"
-              :show-chevron="true"
-            >
-              <SfAccordionItem
-                v-for="(cat, i) in categoryTree && categoryTree.items"
-                :key="i"
-                :header="cat.label"
-              >
-                <SfList class="list">
-                  <SfListItem class="list__item">
-                    <SfMenuItem
-                      :count="cat.count || ''"
-                      :label="cat.label"
-                    >
-                      <template #label>
-                        <nuxt-link
-                          :to="localePath(th.getAgnosticCatLink(cat))"
-                          :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                        >
-                          All
-                        </nuxt-link>
-                      </template>
-                    </SfMenuItem>
-                  </SfListItem>
-                  <SfListItem
-                    v-for="(subCat, j) in cat.items"
-                    :key="j"
-                    class="list__item"
-                  >
-                    <SfMenuItem
-                      :count="subCat.count || ''"
-                      :label="subCat.label"
-                    >
-                      <template #label="{ label }">
-                        <nuxt-link
-                          :to="localePath(th.getAgnosticCatLink(subCat))"
-                          :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                        >
-                          {{ label }}
-                        </nuxt-link>
-                      </template>
-                    </SfMenuItem>
-                  </SfListItem>
-                </SfList>
-              </SfAccordionItem>
-            </SfAccordion>
-          </SfLoader>
+        <LazyHydrate when-visible>
+          <CategorySidebarMenu />
         </LazyHydrate>
       </div>
       <SfLoader
@@ -174,6 +123,7 @@
               :show-add-to-cart-button="true"
               :is-added-to-cart="isInCart({ product })"
               :is-on-wishlist="product.isInWishlist"
+              :wishlist-icon="isAuthenticated ? 'heart' : false"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -205,6 +155,7 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :is-on-wishlist="product.isInWishlist"
+              :wishlist-icon="isAuthenticated ? 'heart' : false"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -373,16 +324,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import findDeep from 'deepdash/findDeep';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfSidebar,
   SfButton,
-  SfList,
   SfIcon,
   SfHeading,
-  SfMenuItem,
   SfFilter,
   SfRadio,
   SfProductCard,
@@ -408,9 +357,11 @@ import {
   useCategory,
   categoryGetters,
   facetGetters,
-  useUrlResolver,
+  useUser,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
+import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
+import { useRoute } from '~/helpers/route/useRoute.ts';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import cacheControl from '~/helpers/cacheControl';
@@ -418,16 +369,15 @@ import cacheControl from '~/helpers/cacheControl';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   components: {
+    CategorySidebarMenu,
     SfButton,
     SfSidebar,
     SfIcon,
-    SfList,
     SfFilter,
     SfRadio,
     SfProductCard,
     SfProductCardHorizontal,
     SfPagination,
-    SfMenuItem,
     SfAccordion,
     SfSelect,
     SfBreadcrumbs,
@@ -443,14 +393,18 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup(props, context) {
-    const {
-      router,
-      route,
-    } = useVueRouter();
-    const { path } = route;
     const th = useUiHelpers();
     const uiState = useUiState();
+    const {
+      router,
+    } = useVueRouter();
+    const {
+      path,
+      result: routeData,
+      search: resolveUrl,
+    } = useRoute(context);
     const { $magento: { config: magentoConfig } } = useVSFContext();
+    const { isAuthenticated } = useUser();
     const {
       addItem: addItemToCartBase,
       isInCart,
@@ -472,14 +426,8 @@ export default defineComponent({
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
-      search: categoriesSearch,
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
-
-    const {
-      search: routeSearch,
-      result: routeData,
-    } = useUrlResolver(`router:${path}`);
 
     const selectedFilters = ref(Object.fromEntries((magentoConfig.facets.available).map((curr) => [curr, (curr === 'price' ? '' : [])])));
 
@@ -609,20 +557,18 @@ export default defineComponent({
       );
     };
 
-    onSSR(async () => {
-      await routeSearch(path);
+    const searchCategoryProduct = async () => {
+      await search({
+        ...th.getFacetsFromURL(),
+        categoryId: activeCategoryUid(routeData.value?.entity_uid) || routeData.value?.entity_uid,
+      });
+    };
 
-      if (!routeData?.value) context.root.$nuxt.error({ statusCode: 404 });
+    onSSR(async () => {
+      await resolveUrl();
 
       if (routeData?.value) {
-        await categoriesSearch({
-          pageSize: 100,
-        });
-
-        await search({
-          ...th.getFacetsFromURL(),
-          categoryId: activeCategoryUid(routeData.value?.entity_uid),
-        });
+        await searchCategoryProduct();
 
         if (facets.value.length > 0) {
           selectedFilters.value = facets.value.reduce(
@@ -644,6 +590,7 @@ export default defineComponent({
     });
 
     return {
+      routeData,
       ...uiState,
       activeCategory,
       addItemToCart,
@@ -654,6 +601,7 @@ export default defineComponent({
       categoriesLoading,
       categoryTree,
       facets,
+      isAuthenticated,
       isFacetColor,
       isFilterSelected,
       isInCart,
@@ -866,20 +814,6 @@ export default defineComponent({
   @include for-desktop {
     --sidebar-content-padding: 0 var(--spacer-xl);
     --sidebar-bottom-padding: 0 var(--spacer-xl);
-  }
-}
-
-.list {
-  --menu-item-font-size: var(--font-size--sm);
-
-  &__item {
-    &:not(:last-of-type) {
-      --list-item-margin: 0 0 var(--spacer-sm) 0;
-    }
-
-    .nuxt-link-exact-active {
-      text-decoration: underline;
-    }
   }
 }
 

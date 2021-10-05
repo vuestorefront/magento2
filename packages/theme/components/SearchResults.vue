@@ -21,7 +21,6 @@
             <template #title="{title}">
               <SfMenuItem
                 :label="title"
-                @click="megaMenu.changeActive(title)"
               >
                 <template #mobile-nav-icon>
                   &#8203;
@@ -29,7 +28,7 @@
               </SfMenuItem>
             </template>
             <SfList
-              v-if="categories.length"
+              v-if="categories.length > 0"
             >
               <SfListItem
                 v-for="(category, key) in categories"
@@ -71,12 +70,16 @@
                   :key="index"
                   class="result-card"
                   :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                  :max-rating="5"
                   :score-rating="productGetters.getAverageRating(product)"
-                  :reviews-count="7"
+                  :reviews-count="productGetters.getTotalReviews(product)"
                   :image="productGetters.getProductThumbnailImage(product)"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
                   :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
+                  :wishlist-icon="isAuthenticated ? 'heart' : false"
+                  :is-on-wishlist="product.isInWishlist"
+                  @click:wishlist="addItemToWishlist(product)"
                 />
               </div>
             </SfScrollable>
@@ -86,12 +89,16 @@
                 :key="index"
                 class="result-card"
                 :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                :max-rating="5"
                 :score-rating="productGetters.getAverageRating(product)"
-                :reviews-count="7"
+                :reviews-count="productGetters.getTotalReviews(product)"
                 :image="productGetters.getProductThumbnailImage(product)"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
                 :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
+                :wishlist-icon="isAuthenticated ? 'heart' : false"
+                :is-on-wishlist="product.isInWishlist"
+                @click:wishlist="addItemToWishlist(product)"
               />
             </div>
           </SfMegaMenuColumn>
@@ -132,7 +139,7 @@
     </SfMegaMenu>
   </div>
 </template>
-<script lang="ts">
+<script>
 import {
   SfMegaMenu,
   SfList,
@@ -148,7 +155,7 @@ import {
   computed,
   defineComponent,
 } from '@vue/composition-api';
-import { productGetters } from '@vue-storefront/magento';
+import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers } from '~/composables';
 
 export default defineComponent({
@@ -173,6 +180,9 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const { isAuthenticated } = useUser();
+    const { isInWishlist, addItem, removeItem } = useWishlist();
+
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
@@ -188,12 +198,23 @@ export default defineComponent({
       }
     });
 
+    const addItemToWishlist = async (product) => {
+      await (
+        isInWishlist({ product })
+          ? removeItem({ product })
+          : addItem({ product })
+      );
+    };
+
     return {
       th,
       isSearchOpen,
       productGetters,
       products,
       categories,
+      addItemToWishlist,
+      isInWishlist,
+      isAuthenticated,
     };
   },
 });

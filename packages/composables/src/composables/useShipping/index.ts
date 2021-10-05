@@ -19,7 +19,7 @@ const factoryParams: UseShippingParams<any, any> = {
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
-    Logger.debug('[Magento] loadShipping');
+    Logger.debug('[Magento] loadShipping', { customQuery });
 
     if (!context.cart.cart?.value?.shipping_addresses) {
       await context.cart.load({ customQuery });
@@ -30,10 +30,10 @@ const factoryParams: UseShippingParams<any, any> = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   save: async (context: Context, saveParams) => {
-    Logger.debug('[Magento] setShippingAddress');
-    Logger.debug(context);
+    Logger.debug('[Magento] save user shipping address', { saveParams });
 
     const { id } = context.cart.cart.value;
+
     const {
       apartment,
       ...address
@@ -55,6 +55,8 @@ const factoryParams: UseShippingParams<any, any> = {
       .$magento
       .api
       .setShippingAddressesOnCart(shippingAddressInput);
+
+    Logger.debug('[Result]:', { data });
 
     context.useGetShippingMethods.setState(data
       .setShippingAddressesOnCart

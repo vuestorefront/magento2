@@ -43,6 +43,7 @@
             />
           </SfButton>
           <SfButton
+            v-if="isAuthenticated"
             class="sf-button--pure sf-header__action"
             @click="toggleWishlistSidebar"
           >
@@ -125,7 +126,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfHeader,
   SfImage,
@@ -247,10 +248,10 @@ export default defineComponent({
       await Promise.all([
         productsSearch({
           itemsPerPage: 12,
-          term: term.value as string,
+          term: term.value,
         }),
         categoriesSearch({
-          term: term.value as string,
+          term: term.value,
         }),
       ]);
 
@@ -297,6 +298,7 @@ export default defineComponent({
       getAgnosticCatLink,
       handleAccountClick,
       handleSearch,
+      isAuthenticated,
       isMobile,
       isSearchOpen,
       removeSearchResults,

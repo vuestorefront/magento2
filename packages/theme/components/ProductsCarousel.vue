@@ -36,7 +36,7 @@
   </SfSection>
 </template>
 
-<script lang="ts">
+<script>
 import {
   SfCarousel,
   SfProductCard,
@@ -103,7 +103,7 @@ export default defineComponent({
 }
 
 .carousel {
-  margin: 0 calc(var(--spacer-sm) * -1) 0 0;
+  margin: 0 calc(-1 * var(--spacer-sm)) 0 0;
   @include for-desktop {
     margin: 0;
   }

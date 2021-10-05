@@ -6,11 +6,8 @@ import {
   Category,
   Countries,
   Country,
-  Customer,
   Product,
 } from '@vue-storefront/magento-api';
-
-export type User = Customer;
 
 export type Filter = Record<string, any>;
 
@@ -61,3 +58,5 @@ export interface AgnosticReviewMetadata {
     id: string;
   }[];
 }
+
+export declare type FetchPolicy = 'cache-first' | 'network-only' | 'cache-only' | 'no-cache' | 'standby';

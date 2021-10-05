@@ -1,9 +1,6 @@
 import gql from 'graphql-tag';
-import ProductData from '../../fragments/productFragment';
 
 export default gql`
-  ${ProductData}
-  
 query upsellProducts(
   $search: String = ""
   $filter: ProductAttributeFilterInput
@@ -20,7 +17,65 @@ query upsellProducts(
   ){
     items {
       upsell_products {
-        ...ProductData
+        uid
+  __typename
+  sku
+  name
+  stock_status
+  only_x_left_in_stock
+  rating_summary
+  thumbnail {
+    url
+    position
+    disabled
+    label
+  }
+  url_key
+  url_rewrites {
+    url
+  }
+  price_range {
+    maximum_price {
+      final_price {
+        currency
+        value
+      }
+      regular_price {
+        currency
+        value
+      }
+    }
+    minimum_price {
+      final_price {
+        currency
+        value
+      }
+      regular_price {
+        currency
+        value
+      }
+    }
+  }
+  categories {
+    uid
+    name
+    url_suffix
+    url_path
+    breadcrumbs {
+      category_name,
+      category_url_path
+    }
+  }
+  review_count
+  reviews {
+    items {
+      average_rating
+      ratings_breakdown {
+        name
+        value
+      }
+    }
+  }
       }
       uid
     }

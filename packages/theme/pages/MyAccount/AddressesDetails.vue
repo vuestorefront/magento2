@@ -81,7 +81,7 @@
     </SfTabs>
   </transition>
 </template>
-<script lang="ts">
+<script>
 import {
   SfTabs,
   SfButton,
@@ -124,6 +124,7 @@ export default defineComponent({
       const isDefault = userAddressesGetters.isDefault(address);
       if (!isDefault) {
         await remove({ address });
+        await load({});
       }
     };
 

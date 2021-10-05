@@ -1,14 +1,17 @@
 import gql from 'graphql-tag';
-import CategoryData from '../../fragments/categoryDataFragment';
-import CategoryUrlData from '../../fragments/categoryUrlData';
 
 export default gql`
-  ${CategoryData}
-  ${CategoryUrlData}
-  
-query categorySearch($filters: CategoryFilterInput) {
-  categoryList(filters: $filters) {
-    ...CategoryData
-    ...CategoryUrlData
-  }
-}`;
+  query categorySearch($filters: CategoryFilterInput) {
+    categoryList(filters: $filters) {
+      image
+      include_in_menu
+      is_anchor
+      level
+      name
+      position
+      product_count
+      uid
+      url_path
+      url_suffix
+    }
+  }`;

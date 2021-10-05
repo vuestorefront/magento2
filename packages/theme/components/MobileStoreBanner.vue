@@ -33,7 +33,7 @@
     </template>
   </SfBanner>
 </template>
-<script lang="ts" type="module">
+<script type="module">
 import {
   SfBanner,
   SfButton,

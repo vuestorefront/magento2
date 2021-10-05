@@ -28,7 +28,7 @@
   </SfTabs>
 </template>
 
-<script lang="ts">
+<script>
 import { extend } from 'vee-validate';
 import {
   required,
@@ -37,10 +37,11 @@ import {
 } from 'vee-validate/dist/rules';
 import { SfTabs } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { useUser } from '@vue-storefront/magento';
+import { cartGetters, useUser } from '@vue-storefront/magento';
 import { defineComponent } from '@vue/composition-api';
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
+import { useUiNotification } from '~/composables';
 
 extend('required', {
   ...required,
@@ -81,6 +82,9 @@ export default defineComponent({
       load,
       loading,
     } = useUser();
+    const {
+      send: sendNotification,
+    } = useUiNotification();
 
     const formHandler = async (fn, onComplete, onError) => {
       try {
@@ -95,17 +99,37 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(() => updateUser({ user: form.value }),
-      onComplete,
-      onError);
+    }) => formHandler(async () => {
+      await updateUser({ user: form.value });
+      sendNotification({
+        id: Symbol('user_updated'),
+        message: 'The user account data was successfully updated!',
+        type: 'success',
+        icon: 'check',
+        persist: false,
+        title: 'User Account',
+      });
+    },
+    onComplete,
+    onError);
     const updatePassword = ({
       form,
       onComplete,
       onError,
-    }) => formHandler(() => changePassword({
-      current: form.value.currentPassword,
-      new: form.value.newPassword,
-    }), onComplete, onError);
+    }) => formHandler(async () => {
+      await changePassword({
+        current: form.value.currentPassword,
+        new: form.value.newPassword,
+      });
+      sendNotification({
+        id: Symbol('password_updated'),
+        message: 'The user password was changed successfully updated!',
+        type: 'success',
+        icon: 'check',
+        persist: false,
+        title: 'User Account',
+      });
+    }, onComplete, onError);
 
     onSSR(async () => {
       await load();
