@@ -20,7 +20,7 @@ export const getCategoryTree = (
     : null
 );
 
-export const getCategoryBreadcrumbs = (category: Category): AgnosticBreadcrumb[] => {
+export const getCategoryBreadcrumbs = (category: any): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!category) {
