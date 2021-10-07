@@ -5695,6 +5695,7 @@ export interface Query {
    */
   wishlist?: Maybe<WishlistOutput>;
   focusInventory?: Maybe<FocusProductInventory>;
+  customerReturns?: Maybe<CustomerReturnsQuery>;
 }
 
 
@@ -7824,3 +7825,117 @@ export interface FocusProductAttribute {
 export type FocusProductAttributeQuery = {
   focusProductAttribute: Maybe<FocusProductAttribute>;
 };
+
+export enum ReturnStatus {
+  Pending = 'PENDING',
+  Authorized = 'AUTHORIZED',
+  PartiallyAuthorized = 'PARTIALLY_AUTHORIZED',
+  Received = 'RECEIVED',
+  PartiallyReceived = 'PARTIALLY_RECEIVED',
+  Approved = 'APPROVED',
+  PartiallyApproved = 'PARTIALLY_APPROVED',
+  Rejected = 'REJECTED',
+  PartiallyRejected = 'PARTIALLY_REJECTED',
+  Denied = 'DENIED',
+  ProcessedAndClosed = 'PROCESSED_AND_CLOSED',
+  Closed = 'CLOSED'
+};
+
+export enum ReturnItemStatus {
+  Pending = 'PENDING',
+  Authorized = 'AUTHORIZED',
+  Received = 'RECEIVED',
+  Approved = 'APPROVED',
+  Rejected = 'REJECTED',
+  Denied = 'DENIED'
+};
+
+export type ReturnCustomAttribute = {
+  uid: Scalars['ID'];
+  label: Scalars['String'];
+  value: Scalars['String'];
+};
+
+export type ReturnItem = {
+  uid: Scalars['ID'];
+  order_item?: Maybe<OrderItemInterface>;
+  custom_attributes?: Maybe<Array<Maybe<ReturnCustomAttribute>>>;
+  request_quantity: Scalars['Float'];
+  quantity: Scalars['Float'];
+  status: ReturnItemStatus;
+  sellercloud_resolutions: Scalars['String'];
+};
+
+export type CustomerReturnOrder = {
+  number: Scalars['String'];
+};
+
+export type ReturnCustomer = {
+  email: Scalars['String'];
+  firstname?: Maybe<Scalars['String']>;
+  lastname?: Maybe<Scalars['String']>;
+};
+
+export type ReturnComment = {
+  uid: Scalars['ID'];
+  created_at: Scalars['String'];
+  author_name: Scalars['String'];
+  text: Scalars['String'];
+};
+
+export type ReturnShippingAddress = {
+  contact_name?: Maybe<Scalars['String']>;
+  street: Array<Maybe<Scalars['String']>>;
+  city: Scalars['String'];
+  region: Region;
+  postcode: Scalars['String'];
+  country: Country;
+  telephone?: Maybe<Scalars['String']>;
+};
+
+export type ReturnShipping = {
+  address?: Maybe<ReturnShippingAddress>;
+};
+
+export type Return = {
+  uid: Scalars['ID'];
+  number: Scalars['String'];
+  created_at: Scalars['String'];
+  status?: Maybe<ReturnStatus>;
+  order?: Maybe<CustomerReturnOrder>;
+  items?: Maybe<Array<Maybe<ReturnItem>>>;
+  customer: ReturnCustomer;
+  shipping?: Maybe<ReturnShipping>;
+  comments?: Maybe<Array<Maybe<ReturnComment>>>;
+};
+
+export type Returns = {
+  items: Array<Maybe<Return>>;
+  page_info?: Maybe<SearchResultPageInfo>;
+  total_count?: Maybe<Scalars['Int']>;
+};
+
+export type CustomerReturnsData = {
+  returns?: Maybe<Returns>;
+};
+
+export type CustomerReturnsQuery = {
+  customer?: Maybe<CustomerReturnsData>;
+};
+
+export type CustomerReturnsQueryVariables = Exact<{
+  currentPage?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+}>;
+
+export type CustomerReturnData = {
+  return?: Maybe<Return>;
+};
+
+export type CustomerReturnQuery = {
+  customer?: Maybe<CustomerReturnData>;
+};
+
+export type CustomerReturnQueryVariables = Exact<{
+  uid: Scalars['ID'];
+}>;

@@ -3400,6 +3400,8 @@ type Query {
     "The wishlist query returns the contents of a customer's wish list"
     wishlist: WishlistOutput @deprecated(reason : "Moved under `Customer` `wishlist`")
     focusInventory(filter: FocusInventoryFilterInput!): focusProductInventory
+    customerReturns(currentPage: Int = 1, pageSize: Int = 20): CustomerReturnsQuery
+    customerReturn(uid: ID!): CustomerReturnsQuery
 }
 
 type Region {
@@ -6217,7 +6219,7 @@ type focusIDmeCustomerData {
     group: String
     subgroup: String
     user_errors: [focusIDmeCustomerDatInputError]
-    group_data: [FocusIDmeCustomerGroupSpecificData]
+    group_data: [focusIDmeCustomerGroupSpecificData]
 }
 
 input GiftCardAccountInput {
@@ -6228,4 +6230,111 @@ type GiftCardAccount {
   code: String!
   balance: Money!
   expiration_date: String
+}
+
+enum ReturnStatus {
+    PENDING
+    AUTHORIZED
+    PARTIALLY_AUTHORIZED
+    RECEIVED
+    PARTIALLY_RECEIVED
+    APPROVED
+    PARTIALLY_APPROVED
+    REJECTED
+    PARTIALLY_REJECTED
+    DENIED
+    PROCESSED_AND_CLOSED
+    CLOSE
+}
+
+enum ReturnItemStatus {
+    PENDING
+    AUTHORIZED
+    RECEIVED
+    APPROVED
+    REJECTED
+    DENIED
+}
+
+type ReturnCustomAttribute {
+  uid: ID!
+  label: String!
+  value: String!
+}
+
+type ReturnItem {
+  uid: ID!
+  order_item: OrderItemInterface
+  custom_attributes: [ReturnCustomAttribute]
+  request_quantity: Float!
+  quantity: Float!
+  status: ReturnItemStatus!
+}
+
+type CustomerReturnOrder {
+    number: String!
+}
+
+type ReturnCustomer {
+    email: String!
+    firstname: String
+    lastname: String
+}
+
+type ReturnComment {
+    uid: ID!
+    created_at: String!
+    author_name: String!
+    text: String!
+}
+
+type ReturnShippingAddress {
+    contact_name: String
+    street: [String]!
+    city: String!
+    region: Region!
+    postcode: String!
+    country: Country!
+    telephone: String
+}
+
+type ReturnShipping {
+    address: ReturnShippingAddress
+}
+
+type Return {
+    uid: ID!
+    number: String!
+    created_at: String!
+    status: ReturnStatus
+    order: CustomerReturnOrder
+    items: [ReturnItem]
+    customer: ReturnCustomer!
+    shipping: ReturnShipping
+    comments: [ReturnComment]
+}
+
+type Returns {
+    items: [Return]!
+    page_info: SearchResultPageInfo
+    total_count: Int
+}
+
+type CustomerReturnsData {
+    returns: Returns
+}
+
+type CustomerReturnsQuery {
+    customer: CustomerReturnsData
+}
+
+type CustomerReturnsQueryVariables {
+    currentPage: Int
+    pageSize: Int
+    uid: ID!
+    singleReturn: Boolean
+}
+
+type CustomerReturnData {
+    return: Return
 }
