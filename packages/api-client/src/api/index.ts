@@ -3,6 +3,7 @@ export { default as addConfigurableProductsToCart } from './addConfigurableProdu
 export { default as addProductsToCart } from './addProductsToCart';
 export { default as addProductToWishList } from './addProductToWishList';
 export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
+export { default as addDownloadableProductsToCart } from './addDownloadableProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
 export { default as cart } from './cart';
 export { default as categoryList } from './categoryList';
