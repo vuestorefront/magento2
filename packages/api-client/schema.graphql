@@ -6075,3 +6075,5 @@ input createEmptyCartInput {
 input createKlarnaPaymentsSessionInput {
   cart_id: String!
 }
+
+input DownloadableProductCartItemInput
