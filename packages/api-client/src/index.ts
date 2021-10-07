@@ -14,6 +14,8 @@ export {
   AddConfigurableProductsToCartOutput,
   AddDownloadableProductsToCartInput,
   AddDownloadableProductsToCartOutput,
+  AddDownloadableProductsToCartMutation,
+  AddDownloadableProductsToCartMutationVariables,
   AddProductsToCartMutation,
   AddProductsToCartMutationVariables,
   AddProductsToCartOutput,
