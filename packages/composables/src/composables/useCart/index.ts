@@ -7,6 +7,7 @@ import {
 import {
   AddConfigurableProductsToCartInput,
   AddDownloadableProductsToCartInput,
+  AddVirtualProductsToCartInput,
   AddProductsToCartInput,
   Cart,
   CartItem,
@@ -211,6 +212,28 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
           return downloadableProduct
             .data
             .addDownloadableProductsToCart
+            .cart as unknown as Cart;
+        case 'VirtualProduct':
+          const virtualCartInput: AddVirtualProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: [
+              {
+                data: {
+                  quantity,
+                  sku: product.sku,
+                },
+              },
+            ],
+          };
+          debugger;
+          const virtualProduct = await context.$magento.api.addVirtualProductsToCart(virtualCartInput);
+
+          Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
+
+          // eslint-disable-next-line consistent-return
+          return virtualProduct
+            .data
+            .addVirtualProductsToCart
             .cart as unknown as Cart;
         default:
           // todo implement other options
