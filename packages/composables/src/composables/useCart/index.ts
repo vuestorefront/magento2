@@ -6,6 +6,8 @@ import {
 } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
+  AddDownloadableProductsToCartInput,
+  AddVirtualProductsToCartInput,
   AddProductsToCartInput,
   Cart,
   CartItem,
@@ -94,7 +96,11 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     customQuery,
   }) => {
-    Logger.debug('[Magento]: Add item to cart', { product, quantity, currentCart });
+    Logger.debug('[Magento]: Add item to cart', {
+      product,
+      quantity,
+      currentCart,
+    });
 
     const apiState = context.$magento.config.state;
     let currentCartId = apiState.getCartId();
@@ -182,6 +188,53 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
             .data
             .addProductsToCart
             .cart as unknown as Cart;
+        case 'DownloadableProduct':
+          const downloadableCartItems = [
+            {
+              data: {
+                quantity,
+                sku: product.sku,
+              },
+              downloadable_product_links: product.downloadable_product_links.map((dpl) => ({ link_id: dpl.id })),
+            },
+          ];
+
+          const downloadableCartInput: AddDownloadableProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: downloadableCartItems,
+          };
+
+          const downloadableProduct = await context.$magento.api.addDownloadableProductsToCart(downloadableCartInput);
+
+          Logger.debug('[Result DownloadableProduct]:', { data: downloadableProduct });
+
+          // eslint-disable-next-line consistent-return
+          return downloadableProduct
+            .data
+            .addDownloadableProductsToCart
+            .cart as unknown as Cart;
+        case 'VirtualProduct':
+          const virtualCartInput: AddVirtualProductsToCartInput = {
+            cart_id: currentCartId,
+            cart_items: [
+              {
+                data: {
+                  quantity,
+                  sku: product.sku,
+                },
+              },
+            ],
+          };
+          debugger;
+          const virtualProduct = await context.$magento.api.addVirtualProductsToCart(virtualCartInput);
+
+          Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
+
+          // eslint-disable-next-line consistent-return
+          return virtualProduct
+            .data
+            .addVirtualProductsToCart
+            .cart as unknown as Cart;
         default:
           // todo implement other options
           // @ts-ignore
@@ -203,7 +256,10 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     product,
   }) => {
-    Logger.debug('[Magento]: Remove item from cart', { product, currentCart });
+    Logger.debug('[Magento]: Remove item from cart', {
+      product,
+      currentCart,
+    });
 
     const item = currentCart.items.find((cartItem) => cartItem.uid === product.uid);
 
@@ -231,7 +287,11 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     product,
     quantity,
   }) => {
-    Logger.debug('[Magento]: Update product quantity on cart', { product, quantity, currentCart });
+    Logger.debug('[Magento]: Update product quantity on cart', {
+      product,
+      quantity,
+      currentCart,
+    });
 
     const updateCartParams: UpdateCartItemsInput = {
       cart_id: currentCart.id,
@@ -268,7 +328,10 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     currentCart,
     couponCode,
   }) => {
-    Logger.debug('[Magento]: Apply coupon on cart', { couponCode, currentCart });
+    Logger.debug('[Magento]: Apply coupon on cart', {
+      couponCode,
+      currentCart,
+    });
 
     const { data } = await context.$magento.api.applyCouponToCart({
       cart_id: currentCart.id,
