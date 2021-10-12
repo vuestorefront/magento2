@@ -225,7 +225,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
               },
             ],
           };
-          debugger;
+
           const virtualProduct = await context.$magento.api.addVirtualProductsToCart(virtualCartInput);
 
           Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
