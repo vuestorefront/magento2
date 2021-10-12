@@ -15,7 +15,7 @@ const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVaria
   search: async (context: Context, params): Promise<Category[]> => {
     Logger.debug('[Magento]: Search for category using', { params });
     const { filters } = params;
-    const { data } = await context.$magento.api.categorySearch({ filters });
+    const { data } = await context.$magento.getApi.categorySearch({ filters });
 
     if (data?.cacheTags) {
       context.cache.addTagsFromString(data.cacheTags);

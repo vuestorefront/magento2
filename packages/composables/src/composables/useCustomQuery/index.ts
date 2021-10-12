@@ -17,7 +17,7 @@ export default useCustomQueryFactory({
   }) => {
     Logger.debug('[Magento] Custom API Query', { variables });
 
-    const result = await context.$magento.api.customQuery({
+    const result = await context.$magento.getApi.customQuery({
       query,
       queryVariables: variables,
       fetchPolicy,

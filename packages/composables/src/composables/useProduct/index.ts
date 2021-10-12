@@ -36,7 +36,7 @@ ProductsSearchParams> = {
       case ProductsQueryType.Detail:
         const productDetailsResults = await context
           .$magento
-          .api
+          .getApi
           .productDetail({
             ...searchParams,
           } as GetProductSearchParams);
@@ -53,7 +53,7 @@ ProductsSearchParams> = {
       default:
         const productListResults = await context
           .$magento
-          .api
+          .getApi
           .products(searchParams as GetProductSearchParams);
 
         if (productListResults?.data?.cacheTags) {

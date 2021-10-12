@@ -9,7 +9,7 @@ const factoryParams: UseCountryFactoryParams<Countries, Country> = {
   load: async (context: Context, _params): Promise<Countries[]> => {
     Logger.debug('[Magento]: Load available countries on store');
 
-    const { data } = await context.$magento.api.countries();
+    const { data } = await context.$magento.getApi.countries();
 
     Logger.debug('[Result]:', { data });
 
@@ -18,7 +18,7 @@ const factoryParams: UseCountryFactoryParams<Countries, Country> = {
   search: async (context: Context, params): Promise<Country> => {
     Logger.debug('[Magento]: Search country information based on', { params });
 
-    const { data } = await context.$magento.api.country(params.id);
+    const { data } = await context.$magento.getApi.country(params.id);
 
     Logger.debug('[Result]:', { data });
 

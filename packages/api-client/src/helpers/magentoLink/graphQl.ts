@@ -57,6 +57,7 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   }));
 
   const httpLink = new HttpLink({
+    useGETForQueries: true,
     uri: settings.api,
     // @ts-ignore
     fetch: (url, options) => fetch(standardURL(url), options),

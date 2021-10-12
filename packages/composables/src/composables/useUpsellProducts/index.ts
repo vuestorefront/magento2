@@ -36,7 +36,7 @@ const factoryParams: UseUpsellProductsFactoryParams<UpsellProductsQuery['product
 
     const { data } = await context
       .$magento
-      .api
+      .getApi
       .upsellProduct(searchParams as GetProductSearchParams);
 
     Logger.debug('[Result]:', { data });
