@@ -30,7 +30,7 @@ Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://d
 
 ### Requirements:
   - NodeJS v14 or later
-  - Yarn
+  - Yarn (npm is not supprted yet)
   - Magento >= v2.4.3 instance for GraphQL endpoint
   - Change Magento GraphQL Query Complexity and Depth values
 
@@ -59,29 +59,40 @@ php bin/magento setup:static-content:deploy
 Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
 
 ### Steps
-1. Fork the repo
+(<b>Note: Currently only yarn is supported because of workspaces resolving. Do not use npm to install or build the project.</b>)
+1. [Fork the repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 2. Clone your fork of the repo
+    ```bash
+    git clone https://github.com/vuestorefront/magento2.git && cd magento2
     ```
-    example:
-    git clone https://github.com/vuestorefront/magento2.git
-    cd magento2
+3. Checkout `develop` branch
+    ```bash
+    git checkout develop
     ```
-3. Checkout develop branch `git checkout develop`
 4. Run `yarn` to install dependencies
+    ```bash
+    yarn install
+    ```
 5. Define a store running environment by adding a `STORE_ENV` to your running project or execute the code
     ```bash
-    $ echo "STORE_ENV=dev" >> .env
+    echo "STORE_ENV=dev" >> .env
     ```
 6. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
     ```bash
-    $ cp packages/theme/config/example.json packages/theme/config/dev.json
+    cp packages/theme/config/example.json packages/theme/config/dev.json
     ```
 7. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
     "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
     ```
 8. Build dependencies `yarn build:api-client && yarn build:composables`
+    ```bash
+    yarn build:api-client && yarn build:composables
+    ```
 9. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+    ```bash
+    yarn dev:theme
+    ```
 - If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
 
 ## Resources
