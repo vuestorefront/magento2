@@ -8,6 +8,10 @@ import {
   AddConfigurableProductsToCartMutation,
   AddSimpleProductsToCartInput,
   AddSimpleProductsToCartMutation,
+  AddDownloadableProductsToCartInput,
+  AddDownloadableProductsToCartMutation,
+  AddVirtualProductsToCartInput,
+  AddVirtualProductsToCartMutation,
   AppliedCoupon,
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
@@ -101,12 +105,14 @@ import {
   RequestPasswordResetEmailMutationVariables,
   ResetPasswordMutationVariables,
   ResetPasswordMutation, ChangeCustomerPasswordMutation, CreateCustomerAddressMutation,
+  DownloadableProduct,
+  VirtualProduct,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
 import { AddProductsToCartInput } from '../api/addProductsToCart';
 
-export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'> {
+export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> {
 }
 
 export type AddressOnCart = ShippingCartAddress;
@@ -159,6 +165,10 @@ export interface MagentoApiMethods {
   addProductToWishList(input: AddProductsToWishlistMutationVariables): Promise<FetchResult<AddProductsToWishlistMutation>>;
 
   addSimpleProductsToCart(input: AddSimpleProductsToCartInput): Promise<FetchResult<AddSimpleProductsToCartMutation>>;
+
+  addDownloadableProductsToCart(input: AddDownloadableProductsToCartInput): Promise<FetchResult<AddDownloadableProductsToCartMutation>>;
+
+  addVirtualProductsToCart(input: AddVirtualProductsToCartInput): Promise<FetchResult<AddVirtualProductsToCartMutation>>;
 
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
 

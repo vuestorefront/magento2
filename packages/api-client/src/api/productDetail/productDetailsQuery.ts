@@ -277,6 +277,7 @@ export default gql`
             title
           }
           downloadable_product_links {
+            id
             price
             title
             uid
