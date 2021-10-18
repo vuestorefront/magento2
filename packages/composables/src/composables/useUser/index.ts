@@ -41,6 +41,7 @@ const factoryParams: UseUserFactoryParams<any, any, any> = {
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
+    context.cart.setCart(null);
   },
   updateUser: async (context: Context, params) => {
     Logger.debug('[Magento] Update user information', { params });
@@ -110,6 +111,8 @@ const factoryParams: UseUserFactoryParams<any, any, any> = {
       context.cart.setCart(dataMergeCart.mergeCarts);
 
       apiState.setCartId(dataMergeCart.mergeCarts.id);
+    } else {
+      context.cart.setCart(cart.data.customerCart);
     }
 
     await context.$magento.api.wishlist({});
