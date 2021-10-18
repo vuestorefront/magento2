@@ -19,12 +19,25 @@ export const transformUserUpdateAddressInput = (addressInputParams): {
   const {
     apartment,
     id,
+    // @ts-ignore
+    // eslint-disable-next-line
+    extension_attributes,
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    __typename: typenameAddress,
     ...address
   } = addressInputParams.address;
 
+  const {
+    // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
+    __typename: typenameRegion,
+    ...region
+  } = address.region;
   const addressParams: CustomerAddressInput = {
     ...address,
-    street: [address.street, apartment],
+    region,
+    street: (Array.isArray(address.street) ? [...address.street, apartment] : [address.street, apartment]).filter(Boolean),
   };
 
   return {

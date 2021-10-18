@@ -36,18 +36,25 @@ const factoryParams: UseBillingParams<any, any> = {
     const {
       apartment,
       sameAsShipping,
+      customerAddressId,
       ...address
     } = params.billingDetails;
 
-    const setBillingAddressOnCartInput: SetBillingAddressOnCartInput = {
-      cart_id: id,
-      billing_address: {
+    const billingData = customerAddressId
+      ? ({
+        customer_address_id: customerAddressId,
+      })
+      : ({
         address: {
           ...address,
           street: [address.street, apartment],
         },
         same_as_shipping: sameAsShipping,
-      },
+      });
+
+    const setBillingAddressOnCartInput: SetBillingAddressOnCartInput = {
+      cart_id: id,
+      billing_address: billingData,
     };
 
     const { data } = await context.$magento.api.setBillingAddressOnCart(setBillingAddressOnCartInput);

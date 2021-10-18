@@ -125,7 +125,7 @@
           slim
         >
           <SfInput
-            v-if="!billingDetails.country_code || !regionInformation.length"
+            v-if="!billingDetails.country_code || regionInformation.length === 0"
             v-model="billingDetails.region"
             v-e2e="'state'"
             label="State/Province"
@@ -363,6 +363,7 @@ export default {
       await save({
         billingDetails: {
           ...billingDetails.value,
+          customerAddressId: addressId,
           sameAsShipping: sameAsShipping.value,
         },
       });
