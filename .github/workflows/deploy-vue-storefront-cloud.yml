@@ -12,7 +12,7 @@ jobs:
     - name: Setup node
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
     - name: Build and publish docker image
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
