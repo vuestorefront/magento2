@@ -97,6 +97,7 @@ import {
   UpdateCustomerAddressMutation,
   UpsellProductsQuery,
   UrlResolverQuery,
+  UsedProductsQuery,
   WishlistItemInterface,
   WishlistQuery,
   WishlistQueryVariables,
@@ -506,6 +507,8 @@ export interface MagentoApiMethods {
     url: string,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CachedQuery<UrlResolverQuery>>>;
+
+  usedProduct(searchParams: GetProductSearchParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<UsedProductsQuery>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,

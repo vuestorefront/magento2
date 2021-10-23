@@ -72,6 +72,7 @@ export { default as updateCustomerAddress } from './updateCustomerAddress';
 export { default as updateCustomerEmail } from './updateCustomerEmail';
 export { default as upsellProduct } from './upsellProduct';
 export { default as urlResolver } from './urlResolver';
+export { default as usedProduct } from './usedProduct';
 export { default as wishlist } from './wishlist';
 export { default as focusSetGroupOnItem } from './focusSetGroupOnItem';
 export { default as focusUpdateCartGroup } from './focusUpdateCartGroup';

@@ -41,6 +41,7 @@ export { default as useShippingProvider } from './composables/useShippingProvide
 export { default as useStore } from './composables/useStore';
 export { default as useUpsellProducts } from './composables/useUpsellProducts';
 export { default as useUrlResolver } from './composables/useUrlResolver';
+export { default as useUsedProducts } from './composables/useUsedProducts';
 export { default as useUser } from './composables/useUser';
 export { default as useUserBilling } from './composables/useUserBilling';
 export { default as useUserOrder } from './composables/useUserOrder';

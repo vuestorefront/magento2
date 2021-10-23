@@ -236,6 +236,18 @@ export interface UseUpsellProductsErrors {
   search: Error;
 }
 
+export interface UseUsedProducts<PRODUCTS, USED_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  products: ComputedProperty<PRODUCTS>;
+  loading: ComputedProperty<boolean>;
+  error: ComputedProperty<UseUsedProductsErrors>;
+  search(params: ComposableFunctionArgs<USED_PRODUCTS_SEARCH_PARAMS>): Promise<void>;
+  [x: string]: any;
+}
+
+export interface UseUsedProductsErrors {
+  search: Error;
+}
+
 export interface UseCustomQuery<QUERY, QUERY_VARIABLES, QUERY_RETURN, API extends PlatformApi = any> extends Composable<API> {
   setQueryString: (newQueryString: string) => void;
   queryString: ComputedProperty<QUERY>;

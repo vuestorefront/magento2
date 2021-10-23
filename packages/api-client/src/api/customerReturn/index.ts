@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomerReturnQuery, CustomerReturnQueryVariables } from '../../types/GraphQL';
 import customerReturn from './customerReturn';
 import { Context } from '../../types/context';
