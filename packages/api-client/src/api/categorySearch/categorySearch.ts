@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 export default gql`
   query categorySearch($filters: CategoryFilterInput) {
     categoryList(filters: $filters) {
-      image
       include_in_menu
       is_anchor
       level
