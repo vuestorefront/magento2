@@ -385,16 +385,22 @@ export default {
         if (!shippingDetails.value) {
           await loadShipping();
 
-          await searchCountry({ id: shippingDetails.value.country.code });
+          await searchCountry({ id: shippingDetails.value.country_code });
         }
         oldBilling = { ...billingDetails.value };
         billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         canAddNewAddress.value = true;
         setAsDefault.value = false;
+        if (billingDetails.value.country_code) {
+          await searchCountry({ id: billingDetails?.value.country_code });
+        }
         return;
       }
       billingDetails.value = oldBilling;
+      if (billingDetails.value.country_code) {
+        await searchCountry({ id: billingDetails?.value.country_code });
+      }
     };
 
     const handleAddNewAddressBtnClick = () => {
@@ -445,6 +451,10 @@ export default {
     });
 
     onMounted(async () => {
+      if (billingDetails.value?.country_code) {
+        await searchCountry({ id: billingDetails.value.country_code });
+      }
+
       if (!userBilling.value?.addresses && isAuthenticated.value) {
         await loadUserBilling();
       }
