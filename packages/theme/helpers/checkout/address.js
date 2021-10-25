@@ -19,7 +19,7 @@ export const addressFromApiToForm = (address) => {
       street: Array.isArray(address.street) ? address.street[0] : '',
       apartment: Array.isArray(address.street) ? (address.street[1] || '') : '',
       city: address.city,
-      region: address?.region?.region_code || address?.region?.region,
+      region: address?.region?.code || address?.region?.region,
       country_code: address?.country?.code || address.country_code,
       postcode: address.postcode,
       telephone: address.telephone,

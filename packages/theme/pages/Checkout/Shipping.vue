@@ -6,6 +6,7 @@
       :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <UserShippingAddresses
         v-if="isAuthenticated && hasSavedShippingAddress"
@@ -404,6 +405,10 @@ export default defineComponent({
     });
 
     onMounted(async () => {
+      if (shippingDetails.value?.country_code) {
+        await searchCountry({ id: shippingDetails.value.country_code });
+      }
+
       if (!userShipping.value?.addresses && isAuthenticated.value) {
         await loadUserShipping();
       }
