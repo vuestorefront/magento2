@@ -2,7 +2,6 @@ overwrite: true
 schema: "packages/api-client/schema.graphql"
 documents:
   - "packages/api-client/src/api/**/!(*.d).{ts,tsx}"
-  - "packages/api-client/src/fragments/**/!(*.d).{ts,tsx}"
 generates:
   packages/api-client/src/types/GraphQL.ts:
     plugins:
