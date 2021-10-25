@@ -1,4 +1,3 @@
-import { CheckoutGetters } from '@vue-storefront/core';
 import { ShippingMethod } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 
@@ -17,7 +16,7 @@ export const getShippingMethodPrice = (shippingMethod: ShippingMethod): number =
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
-const checkoutGetters: CheckoutGetters<ShippingMethod> = {
+const checkoutGetters = {
   getShippingMethodId,
   getShippingMethodName,
   getShippingMethodDescription,
