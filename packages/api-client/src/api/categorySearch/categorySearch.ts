@@ -13,4 +13,5 @@ export default gql`
       url_path
       url_suffix
     }
-  }`;
+  }
+`;

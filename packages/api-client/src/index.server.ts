@@ -44,9 +44,10 @@ const tokenExtension: ApiClientExtension = {
   name: 'tokenExtension',
   hooks: (req, res) => ({
     beforeCreate: ({ configuration }) => {
-      const cartCookieName = configuration.cookies?.cartCookieName || defaultSettings.cookies.cartCookieName;
-      const customerCookieName = configuration.cookies?.customerCookieName || defaultSettings.cookies.customerCookieName;
-      const storeCookieName = configuration.cookies?.storeCookieName || defaultSettings.cookies.storeCookieName;
+      const cartCookieName: string = configuration.cookies?.cartCookieName || defaultSettings.cookies.cartCookieName;
+      const customerCookieName: string = configuration.cookies?.customerCookieName || defaultSettings.cookies.customerCookieName;
+      const storeCookieName: string = configuration.cookies?.storeCookieName || defaultSettings.cookies.storeCookieName;
+      const currencyCookieName: string = configuration.cookies?.currencyCookieName || defaultSettings.cookies.currencyCookieName;
 
       return {
         ...configuration,
@@ -77,6 +78,15 @@ const tokenExtension: ApiClientExtension = {
               return;
             }
             res.cookie(storeCookieName, JSON.stringify(id));
+          },
+          getCurrency: () => req.cookies[currencyCookieName],
+          setCurrency: (id) => {
+            if (!id) {
+              // eslint-disable-next-line no-param-reassign
+              delete req.cookies[currencyCookieName];
+              return;
+            }
+            res.cookie(currencyCookieName, JSON.stringify(id));
           },
         },
       };
