@@ -96,17 +96,22 @@
                 :key="`${cartGetters.getItemSku(product)}-${Math.random()}`"
                 :image="cartGetters.getItemImage(product)"
                 :title="cartGetters.getItemName(product)"
-                :regular-price="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-                :special-price="cartGetters.productHasSpecialPrice(product)
-                  ? getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')
-                  : ''"
+                :regular-price="
+                  $n(cartGetters.getItemPrice(product).regular, 'currency')
+                "
+                :special-price="
+                  cartGetters.productHasSpecialPrice(product)
+                    ? getItemPrice(product).special &&
+                      $n(cartGetters.getItemPrice(product).special, 'currency')
+                    : ''
+                "
                 :stock="99999"
                 :qty="cartGetters.getItemQty(product)"
                 :link="
                   localePath(
-                    `/p/${cartGetters.getItemSku(
+                    `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
                       product
-                    )}${cartGetters.getSlug(product)}`
+                    )}`
                   )
                 "
                 class="collected-product"
@@ -124,9 +129,7 @@
                   </div>
                 </template>
                 <template #configuration>
-                  <div
-                    v-if="getAttributes(product).length > 0"
-                  >
+                  <div v-if="getAttributes(product).length > 0">
                     <SfProperty
                       v-for="(attr, index) in getAttributes(product)"
                       :key="index"
@@ -134,9 +137,7 @@
                       :value="attr.value_label"
                     />
                   </div>
-                  <div
-                    v-if="getBundles(product).length > 0"
-                  >
+                  <div v-if="getBundles(product).length > 0">
                     <SfProperty
                       v-for="(bundle, i) in getBundles(product)"
                       :key="i"
@@ -165,7 +166,11 @@
               title="Your cart is empty"
               :level="2"
               class="empty-cart__heading"
-              :description="$t('Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.')"
+              :description="
+                $t(
+                  'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.'
+                )
+              "
             />
           </div>
         </div>
@@ -175,15 +180,23 @@
           <div v-if="totalItems">
             <SfProperty
               :name="$t('Subtotal price')"
-              class="sf-property--full-width sf-property--large my-cart__total-price"
+              class="
+                sf-property--full-width sf-property--large
+                my-cart__total-price
+              "
             >
               <template #value>
                 <SfPrice
                   :regular="$n(totals.subtotal, 'currency')"
-                  :special="totals.subtotal <= totals.special ? '' : $n(totals.special, 'currency')"
+                  :special="
+                    totals.subtotal <= totals.special
+                      ? ''
+                      : $n(totals.special, 'currency')
+                  "
                 />
               </template>
             </SfProperty>
+            <CouponCode />
             <a @click="goToCheckout">
               <SfButton
                 v-e2e="'go-to-checkout-btn'"
@@ -230,6 +243,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import { useUiState, useUiNotification } from '~/composables';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -244,13 +258,11 @@ export default defineComponent({
     SfCollectedProduct,
     SfImage,
     SfQuantitySelector,
+    CouponCode,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
-    const {
-      isCartSidebarOpen,
-      toggleCartSidebar,
-    } = useUiState();
+    const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const { router } = useVueRouter();
     const {
       cart,
@@ -260,10 +272,7 @@ export default defineComponent({
       loading,
     } = useCart();
     const { isAuthenticated } = useUser();
-    const {
-      send: sendNotification,
-      notifications,
-    } = useUiNotification();
+    const { send: sendNotification, notifications } = useUiNotification();
 
     const products = computed(() => cartGetters.getItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
@@ -302,7 +311,9 @@ export default defineComponent({
 
       sendNotification({
         id: Symbol('product_removed'),
-        message: `${cartGetters.getItemName(product)} has been successfully removed from your cart.`,
+        message: `${cartGetters.getItemName(
+          product,
+        )} has been successfully removed from your cart.`,
         type: 'success',
         icon: 'check',
         persist: false,
@@ -347,12 +358,12 @@ export default defineComponent({
   }
 }
 @include for-mobile {
-  .close-icon{
+  .close-icon {
     display: none;
   }
 }
 
-.close-icon{
+.close-icon {
   position: fixed;
   right: 10px;
   top: 10px;
