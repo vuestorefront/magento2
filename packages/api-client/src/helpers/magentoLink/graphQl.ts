@@ -44,13 +44,14 @@ const createErrorHandler = () => onError(({
 });
 
 export const apolloLinkFactory = (settings: Config, handlers?: {
-  authLink?: ApolloLink;
+  apolloLink?: ApolloLink;
 }) => {
-  const baseAuthLink = handlers?.authLink || setContext((apolloReq, { headers }) => ({
+  const baseLink = handlers?.apolloLink || setContext((apolloReq, { headers }) => ({
     headers: {
       ...headers,
     },
   }));
+
   const httpLink = createHttpLink({ uri: settings.api, fetch });
 
   const onErrorLink = createErrorHandler();
@@ -61,7 +62,11 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   });
 
   // eslint-disable-next-line unicorn/prefer-spread
-  return ApolloLink.from([onErrorLink, errorRetry, baseAuthLink.concat(httpLink)]);
+  return ApolloLink.from([
+    onErrorLink,
+    errorRetry,
+    baseLink.concat(httpLink),
+  ]);
 };
 
 export const apolloClientFactory = (customOptions: Record<string, any>) => {

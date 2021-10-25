@@ -37,6 +37,8 @@ export const defaultSettings: ClientConfig = {
     setCustomerToken: () => {},
     getStore: () => '',
     setStore: () => {},
+    getCurrency: () => '',
+    setCurrency: () => {},
   },
   externalCheckout: {
     enable: false,

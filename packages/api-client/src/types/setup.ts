@@ -41,6 +41,8 @@ export type ConfigState = {
   setCustomerToken(token?: string | null): void;
   getStore(): string;
   setStore(id?: string | null): void;
+  getCurrency(): string;
+  setCurrency(id?: string | null): void;
 };
 
 export interface ClientConfig {
