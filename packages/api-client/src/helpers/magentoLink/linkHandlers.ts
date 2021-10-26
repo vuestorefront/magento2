@@ -16,12 +16,22 @@ export const handleRetry = () => (count, operation, error) => {
   return false;
 };
 
-export const authLinkFactory = ({ state }: {
+export const linkFactory = ({ state }: {
   state: ConfigState;
 }) => setContext((apolloReq, { headers }) => {
-  Logger.debug('Apollo authLinkFactory', apolloReq.operationName);
+  Logger.debug('Apollo linkFactory', apolloReq.operationName);
 
+  const Store: string = state.getStore();
   const token: string = state.getCustomerToken();
+  const currency: string = state.getCurrency();
+
+  if (currency) {
+    Logger.debug('Apollo currencyLinkFactory, finished, currency: ', currency);
+  }
+
+  if (Store) {
+    Logger.debug('Apollo storeLinkFactory, finished, storeId: ', Store);
+  }
 
   if (token) {
     Logger.debug('Apollo authLinkFactory, finished, token: ', token);
@@ -30,7 +40,9 @@ export const authLinkFactory = ({ state }: {
   return {
     headers: {
       ...headers,
+      ...(currency ? { 'Content-Currency': currency } : {}),
       ...(token ? { authorization: `Bearer ${token}` } : {}),
+      ...(Store ? { Store } : {}),
     },
   };
 });
