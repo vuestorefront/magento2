@@ -4,10 +4,11 @@ import {
   CustomQuery,
   FactoryParams,
   Logger,
+  ComposableFunctionArgs,
+  PlatformApi,
   sharedRef,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import { computed, Ref } from '@vue/composition-api';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { CustomQueryParams, UseAddresses, UseAddressesErrors } from '../types/composables';
 
 export interface UseAddressesParams<ADDRESS,

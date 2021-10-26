@@ -3,13 +3,13 @@ import {
   ComposableFunctionArgs,
   Context,
   Logger,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   GetProductSearchParams,
   ProductReviewRatingMetadata,
   CreateProductReviewInput,
   CustomerProductReviewParams,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import { useReviewFactory, UseReviewFactoryParams } from '../../factories/useReviewFactory';
 
 const factoryParams: UseReviewFactoryParams<any,

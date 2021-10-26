@@ -5,9 +5,9 @@ import {
   Context,
   FactoryParams,
   Logger,
+  PlatformApi,
   sharedRef,
-} from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
 import { UseGetShippingMethods, UseGetShippingMethodsErrors } from '../types/composables';
 
 export interface UseGetShippingMethodsFactory<SHIPPING_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {

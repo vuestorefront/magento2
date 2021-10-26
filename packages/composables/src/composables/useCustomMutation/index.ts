@@ -1,4 +1,4 @@
-import { Context, Logger } from '@vue-storefront/core';
+import { Context, Logger } from '@absolute-web/vsf-core';
 import { FetchPolicy } from '../../types';
 import { useCustomMutationFactory } from '../../factories/useMutationQueryFactory';
 

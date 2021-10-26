@@ -1,6 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import gql from 'graphql-tag';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import {
   WishlistQuery,
   WishlistQueryVariables,

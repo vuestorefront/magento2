@@ -4,10 +4,11 @@ import {
   FactoryParams,
   Logger,
   Context,
+  PlatformApi,
+  ComposableFunctionArgs,
   ProductsSearchParams,
   sharedRef, UseProductFactoryParams,
-} from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
 import { UseUpsellProducts, UseUpsellProductsErrors } from '../types/composables';
 
 export interface UseUpsellProductsFactoryParams<

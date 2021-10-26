@@ -3,9 +3,11 @@ import {
   Context,
   sharedRef,
   Logger,
-  configureFactoryParams, FactoryParams, ComposableFunctionArgs,
-} from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+  configureFactoryParams,
+  PlatformApi,
+  FactoryParams,
+  ComposableFunctionArgs,
+} from '@absolute-web/vsf-core';
 import { UseConfig } from '../types/composables';
 
 export interface UseConfigFactoryParams<CONFIG, API extends PlatformApi = any> extends FactoryParams<API>{

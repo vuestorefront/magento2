@@ -1,6 +1,5 @@
-import gql from 'graphql-tag';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput, UpsellProductsQuery, UpsellProductsQueryVariables,

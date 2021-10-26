@@ -3,10 +3,10 @@ import {
   WishlistGetters as BaseWishlistGetters,
   AgnosticPrice,
   AgnosticTotals, AgnosticPagination,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   Wishlist, WishlistQuery,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 
 export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };
 

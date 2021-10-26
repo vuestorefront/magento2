@@ -1,5 +1,5 @@
-import { Category } from '@vue-storefront/magento-api';
-import { AgnosticCategoryTree } from '@vue-storefront/core';
+import { Category } from '@absolute-web/magento-api';
+import { AgnosticCategoryTree } from '@absolute-web/vsf-core';
 import { htmlDecode } from './htmlDecoder';
 
 export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): AgnosticCategoryTree => {

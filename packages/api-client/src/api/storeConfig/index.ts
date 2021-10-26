@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import { StoreConfigQuery } from '../../types/GraphQL';
 import storeConfig from './storeConfig';
 import { Context } from '../../types/context';

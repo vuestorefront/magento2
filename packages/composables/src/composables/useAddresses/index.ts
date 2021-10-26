@@ -2,8 +2,8 @@
 import {
   Context,
   Logger,
-} from '@vue-storefront/core';
-import { CustomerAddress, CustomerAddressInput } from '@vue-storefront/magento-api';
+} from '@absolute-web/vsf-core';
+import { CustomerAddress, CustomerAddressInput } from '@absolute-web/magento-api';
 import {
   transformUserCreateAddressInput,
   transformUserUpdateAddressInput,

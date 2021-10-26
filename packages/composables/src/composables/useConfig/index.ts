@@ -1,5 +1,5 @@
-import { Context } from '@vue-storefront/core';
-import { StoreConfig } from '@vue-storefront/magento-api';
+import { Context } from '@absolute-web/vsf-core';
+import { StoreConfig } from '@absolute-web/magento-api';
 import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';
 import { UseConfig } from '../../types/composables';
 

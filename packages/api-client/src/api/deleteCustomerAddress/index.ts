@@ -1,5 +1,5 @@
 import { ExecutionResult } from 'graphql';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import deleteCustomerAddress from './deleteCustomerAddress';
 import { Context } from '../../types/context';
 import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '../../types/GraphQL';

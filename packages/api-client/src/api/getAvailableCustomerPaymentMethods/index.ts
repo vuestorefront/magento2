@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import { Context } from '../../types/context';
 import CustomerAvailablePaymentMethods from './CustomerPaymentMethods';
 import { CustomerAvailablePaymentMethodsQuery } from '../../types/GraphQL';

@@ -6,7 +6,7 @@ import {
   AgnosticSort,
   AgnosticBreadcrumb,
   AgnosticFacet,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 
 import {
   buildFacets,

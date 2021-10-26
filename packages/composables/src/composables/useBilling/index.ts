@@ -3,10 +3,10 @@ import {
   Logger,
   useBillingFactory,
   UseBillingParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   SetBillingAddressOnCartInput,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import useCart from '../useCart';
 import useShippingProvider from '../useShippingProvider';
 

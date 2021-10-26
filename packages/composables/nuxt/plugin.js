@@ -1,7 +1,7 @@
-import { integrationPlugin } from '@vue-storefront/core'
-import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
-import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
-import cookie from '@vue-storefront/magento/nuxt/cookie';
+import { integrationPlugin } from '@absolute-web/vsf-core'
+import { mapConfigToSetupObject } from '@absolute-web/magento/nuxt/helpers';
+import defaultConfig from '@absolute-web/magento/nuxt/defaultConfig';
+import cookie from '@absolute-web/magento/nuxt/cookie';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 

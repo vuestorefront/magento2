@@ -1,7 +1,7 @@
 import {
   Context, Logger,
-} from '@vue-storefront/core';
-import { Category, CategorySearchQueryVariables } from '@vue-storefront/magento-api';
+} from '@absolute-web/vsf-core';
+import { Category, CategorySearchQueryVariables } from '@absolute-web/magento-api';
 import { UseCategorySearchFactory, useCategorySearchFactory } from '../../factories/useCategorySearchFactory';
 import { UseCategorySearch } from '../../types/composables';
 

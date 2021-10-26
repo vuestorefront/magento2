@@ -1,5 +1,5 @@
-import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-api';
-import { Logger } from '@vue-storefront/core';
+import { SetGuestEmailOnCartInput } from '@absolute-web/magento-api';
+import { Logger } from '@absolute-web/vsf-core';
 import { useGuestUserFactory, UseGuestUserFactoryParams } from '../../factories/useGuestUserFactory';
 import useCart from '../useCart';
 

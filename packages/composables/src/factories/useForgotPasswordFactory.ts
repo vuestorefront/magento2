@@ -7,7 +7,7 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import { UseForgotPassword, UseForgotPasswordErrors } from '../types/composables';
 
 interface SetNewPasswordParams {

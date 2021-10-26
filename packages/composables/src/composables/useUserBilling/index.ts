@@ -3,9 +3,9 @@ import {
   Logger,
   useUserBillingFactory,
   UseUserBillingFactoryParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 
-import { CustomerAddress } from '@vue-storefront/magento-api';
+import { CustomerAddress } from '@absolute-web/magento-api';
 import useUser from '../useUser';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '../../helpers/userAddressManipulator';
 

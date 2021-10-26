@@ -4,10 +4,11 @@ import {
   CustomQuery,
   FactoryParams,
   Logger,
+  PlatformApi,
+  ComposableFunctionArgs,
   ProductsSearchParams,
   sharedRef,
-} from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
 export interface UseRelatedProductsFactoryParams<

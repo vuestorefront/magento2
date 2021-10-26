@@ -9,8 +9,8 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
-} from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
+import { ComposableFunctionArgs, PlatformApi } from '@absolute-web/vsf-core/lib/src/types';
 import { UseWishlist, UseWishlistErrors } from '../types/composables';
 
 export interface UseWishlistFactoryParams<WISHLIST,

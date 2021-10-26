@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import placeOrderQuery from './placeOrder';
 import {
   PlaceOrderInput,

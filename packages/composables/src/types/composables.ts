@@ -3,9 +3,9 @@ import {
   ComposableFunctionArgs,
   ComputedProperty,
   CustomQuery,
-} from '@vue-storefront/core';
+  PlatformApi,
+} from '@absolute-web/vsf-core';
 import { ComputedRef } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from './index';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [k: string]: any };

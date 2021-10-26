@@ -1,6 +1,6 @@
 import {
   CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import { computed, Ref } from '@vue/composition-api';
 
 export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {

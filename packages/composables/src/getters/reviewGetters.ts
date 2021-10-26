@@ -1,11 +1,11 @@
 /* istanbul ignore file */
-import { ReviewGetters, AgnosticRateCount } from '@vue-storefront/core';
+import { ReviewGetters, AgnosticRateCount } from '@absolute-web/vsf-core';
 import {
   ProductReview,
   ProductReviewRatingMetadata,
   ProductReviews,
   ReviewMetadata,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import { AgnosticReviewMetadata } from '../types';
 
 export const getItems = (review): ProductReview[] => review?.reviews?.items || [];

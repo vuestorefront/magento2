@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import { CategoryListQuery, CategoryListQueryVariables } from '../../types/GraphQL';
 import categoryList from './categoryList';
 import { Context } from '../../types/context';

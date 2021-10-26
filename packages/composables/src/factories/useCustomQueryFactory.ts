@@ -3,10 +3,10 @@ import {
   Context,
   FactoryParams,
   Logger,
+  PlatformApi,
   sharedRef,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import { computed } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from '../types';
 import { UseCustomQuery } from '../types/composables';
 

@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@absolute-web/vsf-core';
 import { CreateProductReviewMutation, CreateProductReviewMutationVariables } from '../../types/GraphQL';
 import createProductReview from './createProductReview';
 import { Context } from '../../types/context';

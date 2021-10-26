@@ -1,4 +1,4 @@
-import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
+import defaultConfig from '@absolute-web/magento/nuxt/defaultConfig';
 
 export const getLocaleSettings = (app, moduleOptions) => {
   let localeSettings = {};

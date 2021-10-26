@@ -1,4 +1,4 @@
-import { ApiClientMethods, IntegrationContext } from '@vue-storefront/core';
+import { ApiClientMethods, IntegrationContext } from '@absolute-web/vsf-core';
 import { ClientInstance, Config } from './setup';
 import { MagentoApiMethods } from './API';
 

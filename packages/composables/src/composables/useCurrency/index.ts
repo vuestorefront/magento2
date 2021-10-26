@@ -1,5 +1,5 @@
-import { Context } from '@vue-storefront/core';
-import { Currency } from '@vue-storefront/magento-api';
+import { Context } from '@absolute-web/vsf-core';
+import { Currency } from '@absolute-web/magento-api';
 import { useCurrencyFactory, UseCurrencyFactoryParams } from '../../factories/useCurrencyFactory';
 import { UseCurrency } from '../../types/composables';
 

@@ -5,8 +5,8 @@ import {
   Logger,
   configureFactoryParams,
   FactoryParams, ComposableFunctionArgs,
-} from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
+import { PlatformApi } from '@absolute-web/vsf-core/lib/src/types';
 import { UseCurrency } from '../types/composables';
 
 export interface UseCurrencyFactoryParams<CURRENCY, API extends PlatformApi = any> extends FactoryParams<API> {

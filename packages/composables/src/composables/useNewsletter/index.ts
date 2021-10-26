@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import {
   Context, Logger,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import useUser from '../useUser';
 import { useNewsletterFactory, UseNewsletterFactoryParams } from '../../factories/useNewsletterFactory';
 

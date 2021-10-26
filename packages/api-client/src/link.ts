@@ -5,7 +5,7 @@ import {
   createHttpLink,
 } from '@apollo/client/core';
 import fetch from 'isomorphic-fetch';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '@absolute-web/vsf-core';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
 import { Config } from './types/setup';

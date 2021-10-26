@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-import { UserGetters as BaseUserGetters } from '@vue-storefront/core';
-import { Customer } from '@vue-storefront/magento-api';
+import { UserGetters as BaseUserGetters } from '@absolute-web/vsf-core';
+import { Customer } from '@absolute-web/magento-api';
 
 export const getFirstName = (user: Customer): string => (user ? user.firstname : '');
 

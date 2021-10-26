@@ -1,5 +1,5 @@
-import { Context } from '@vue-storefront/core';
-import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
+import { Context } from '@absolute-web/vsf-core';
+import { AvailableStores, StoreConfig } from '@absolute-web/magento-api';
 import { useStoreFactory, UseStoreFactoryParams } from '../../factories/useStoreFactory';
 import { UseStore } from '../../types/composables';
 import useCart from '../useCart';

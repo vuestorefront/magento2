@@ -1,7 +1,7 @@
 import {
   Context, Logger,
   useForgotPasswordFactory,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
 
 const factoryParams: UseForgotPasswordFactoryParams<any> = {

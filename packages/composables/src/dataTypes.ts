@@ -14,5 +14,5 @@ export {
   Wishlist,
   AvailableStores,
   Currency,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 export { WishlistProduct } from './getters/wishlistGetters';

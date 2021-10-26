@@ -1,4 +1,4 @@
-import { CustomerAddressInput } from '@vue-storefront/magento-api';
+import { CustomerAddressInput } from '@absolute-web/magento-api';
 
 export const transformUserCreateAddressInput = (addressInputParams): CustomerAddressInput => {
   const {

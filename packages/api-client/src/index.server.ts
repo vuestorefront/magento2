@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { ApiClientExtension, apiClientFactory } from '@vue-storefront/core';
+import { ApiClientExtension, apiClientFactory } from '@absolute-web/vsf-core';
 import * as api from './api';
 import { ClientInstance, Config } from './types/setup';
 import { createMagentoConnection } from './helpers/magentoLink';

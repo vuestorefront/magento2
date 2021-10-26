@@ -5,9 +5,9 @@ import {
   Context,
   FactoryParams,
   Logger,
+  PlatformApi,
   sharedRef,
-} from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
 import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
 export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {

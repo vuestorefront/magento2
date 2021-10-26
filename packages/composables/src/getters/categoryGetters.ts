@@ -1,5 +1,5 @@
-import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
-import { Category } from '@vue-storefront/magento-api';
+import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@absolute-web/vsf-core';
+import { Category } from '@absolute-web/magento-api';
 import { buildCategoryTree } from '../helpers/buildCategoryTree';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

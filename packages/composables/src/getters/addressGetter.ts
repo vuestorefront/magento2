@@ -1,4 +1,4 @@
-import { Countries, Country } from '@vue-storefront/magento-api';
+import { Countries, Country } from '@absolute-web/magento-api';
 import { AddressGetter } from '../types';
 
 const countriesList: AddressGetter['countriesList'] = (countries: Countries[]) => countries

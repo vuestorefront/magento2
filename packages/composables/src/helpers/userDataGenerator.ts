@@ -1,4 +1,4 @@
-import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
+import { CustomerUpdateParameters } from '@absolute-web/magento-api';
 
 export const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {

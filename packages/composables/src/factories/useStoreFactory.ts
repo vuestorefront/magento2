@@ -5,8 +5,8 @@ import {
   Logger,
   configureFactoryParams,
   FactoryParams,
-} from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
+import { ComposableFunctionArgs, PlatformApi } from '@absolute-web/vsf-core/lib/src/types';
 import { UseStore } from '../types/composables';
 
 export interface UseStoreFactoryParams<STORES, STORE, API extends PlatformApi = any> extends FactoryParams<API> {

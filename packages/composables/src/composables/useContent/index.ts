@@ -1,5 +1,5 @@
-import { Context, Logger } from '@vue-storefront/core';
-import { Page, CmsBlock } from '@vue-storefront/magento-api';
+import { Context, Logger } from '@absolute-web/vsf-core';
+import { Page, CmsBlock } from '@absolute-web/magento-api';
 import { useContentFactory, UseContentFactoryParams } from '../../factories/useContentFactory';
 
 const factoryParams: UseContentFactoryParams<Page, CmsBlock> = {

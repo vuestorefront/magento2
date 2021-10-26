@@ -5,14 +5,14 @@ import {
   AgnosticAttribute,
   AgnosticCoupon,
   AgnosticDiscount,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   Discount,
   Cart,
   CartItem,
   Product,
   SelectedShippingMethod,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../types';
 

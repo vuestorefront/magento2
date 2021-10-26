@@ -1,4 +1,4 @@
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '@absolute-web/vsf-core';
 import { Config } from '../../types/setup';
 import { apolloLinkFactory } from './graphQl';
 import { linkFactory } from './linkHandlers';

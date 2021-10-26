@@ -6,9 +6,9 @@ import {
   UseProduct,
   useProductFactory,
   UseProductFactoryParams,
-} from '@vue-storefront/core';
-import { ProductsListQuery, GetProductSearchParams, ProductsQueryType } from '@vue-storefront/magento-api';
-import { Scalars } from '@vue-storefront/magento-api/lib/types/GraphQL';
+} from '@absolute-web/vsf-core';
+import { ProductsListQuery, GetProductSearchParams, ProductsQueryType } from '@absolute-web/magento-api';
+import { Scalars } from '@absolute-web/magento-api/lib/types/GraphQL';
 
 const factoryParams: UseProductFactoryParams<ProductsListQuery['products'],
 ProductsSearchParams> = {

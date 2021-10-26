@@ -1,4 +1,4 @@
-import { Context, Logger } from '@vue-storefront/core';
+import { Context, Logger } from '@absolute-web/vsf-core';
 import { useExternalCheckoutFactory, UseExternalCheckoutFactoryParams } from '../../factories/useExternalCheckoutFactory';
 import useCart from '../useCart';
 // import useConfig from '../useConfig';

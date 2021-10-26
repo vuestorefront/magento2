@@ -1,10 +1,10 @@
 {
-  "name": "@vue-storefront/magento-api",
-  "version": "1.0.0-rc.5.2.2",
+  "name": "@absolute-web/magento-api",
+  "version": "0.0.1",
   "sideEffects": false,
-  "homepage": "https://github.com/vuestorefront/magento2",
+  "homepage": "https://github.com/absolutewebservices/magento2",
   "bugs": {
-    "url": "https://github.com/vuestorefront/magento2/issues"
+    "url": "https://github.com/absolutewebservices/magento2/issues"
   },
   "license": "MIT",
   "server": "server/index.js",
@@ -33,16 +33,20 @@
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-graphql": "^1.1.0",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.1",
     "@types/isomorphic-fetch": "^0.0.35",
     "cross-fetch": "^3.1.4",
     "dotenv": "^10.0.0",
     "graphql-tools": "^8.2.0",
     "jest-transform-graphql": "^2.1.0",
+    "rollup": "^2.2.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.31.1",
     "typescript": "^4.5.4",
     "webpack": "4.46.0"
   },
   "peerDependencies": {
-    "@vue-storefront/core": "~2.5.3"
+    "@absolute-web/vsf-core": "~0.0.1"
   },
   "files": [
     "lib/**/*",
@@ -52,6 +56,10 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/absolutewebservices/magento2.git"
   },
   "engines": {
     "node": ">=16.x"

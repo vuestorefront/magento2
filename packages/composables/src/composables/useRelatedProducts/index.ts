@@ -3,11 +3,11 @@ import {
   Context,
   Logger,
   ProductsSearchParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   GetProductSearchParams,
   RelatedProductQuery,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import { UseRelatedProducts } from '../../types/composables';
 import {
   useRelatedProductsFactory,

@@ -1,5 +1,5 @@
-import { Context, Logger } from '@vue-storefront/core';
-import { Route } from '@vue-storefront/magento-api';
+import { Context, Logger } from '@absolute-web/vsf-core';
+import { Route } from '@absolute-web/magento-api';
 import { useUrlResolverFactory, UseUrlResolverFactoryParams } from '../../factories/useUrlResolverFactory';
 import { UseUrlResolver } from '../../types/composables';
 

@@ -3,7 +3,7 @@ import {
   Logger,
   useUserShippingFactory,
   UseUserShippingFactoryParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import useUser from '../useUser';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '../../helpers/userAddressManipulator';
 

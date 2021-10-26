@@ -1,4 +1,4 @@
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '@absolute-web/vsf-core';
 import { setContext } from '@apollo/client/link/context';
 import { ConfigState } from '../../types/setup';
 

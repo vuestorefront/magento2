@@ -3,10 +3,10 @@ import {
   Logger,
   useShippingFactory,
   UseShippingParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   SetShippingAddressesOnCartInput,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import useCart from '../useCart';
 import useGetShippingMethods from '../useGetShippingMethods';
 

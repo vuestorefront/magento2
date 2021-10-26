@@ -1,4 +1,4 @@
-import { Logger, UserShippingGetters } from '@vue-storefront/core';
+import { Logger, UserShippingGetters } from '@absolute-web/vsf-core';
 
 const userShippingGetters: UserShippingGetters<any, any> = {
   getAddresses: (shipping, criteria?: Record<string, any>) => {

@@ -3,10 +3,10 @@ import {
   Logger,
   useShippingProviderFactory,
   UseShippingProviderParams,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   SetShippingMethodsOnCartInput, ShippingMethodInput,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 import useCart from '../useCart';
 
 const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {

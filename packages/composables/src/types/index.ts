@@ -1,13 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   FacetSearchResult,
-} from '@vue-storefront/core';
+} from '@absolute-web/vsf-core';
 import {
   Category,
   Countries,
   Country,
   Product,
-} from '@vue-storefront/magento-api';
+} from '@absolute-web/magento-api';
 
 export type Filter = Record<string, any>;
 

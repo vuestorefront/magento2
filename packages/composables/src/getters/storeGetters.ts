@@ -1,4 +1,4 @@
-import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
+import { AvailableStores, StoreConfig } from '@absolute-web/magento-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(stores: AvailableStores, criteria: any = {}): AvailableStores {

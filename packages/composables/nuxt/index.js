@@ -27,7 +27,7 @@ export default function (moduleOptions) {
 
   this.extendBuild((config) => {
     // eslint-disable-next-line no-param-reassign
-    config.resolve.alias['@vue-storefront/magento-api$'] = require.resolve('@vue-storefront/magento-api');
+    config.resolve.alias['@absolute-web/magento-api$'] = require.resolve('@absolute-web/magento-api');
   });
 
   this.addPlugin({

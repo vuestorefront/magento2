@@ -6,9 +6,9 @@ import {
   CustomQuery,
   FactoryParams,
   Logger,
+  PlatformApi,
   sharedRef,
-} from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+} from '@absolute-web/vsf-core';
 import { UseReview, UseReviewErrors } from '../types/composables';
 
 export interface UseReviewFactoryParams<REVIEW,

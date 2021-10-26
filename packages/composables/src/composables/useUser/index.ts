@@ -3,8 +3,8 @@ import {
   Context, Logger,
   useUserFactory,
   UseUserFactoryParams,
-} from '@vue-storefront/core';
-import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-api';
+} from '@absolute-web/vsf-core';
+import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@absolute-web/magento-api';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
 

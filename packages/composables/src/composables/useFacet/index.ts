@@ -4,8 +4,8 @@ import {
   FacetSearchResult, Logger,
   ProductsSearchParams,
   useFacetFactory,
-} from '@vue-storefront/core';
-import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
+} from '@absolute-web/vsf-core';
+import { GetProductSearchParams } from '@absolute-web/magento-api';
 
 const availableSortingOptions = [
   {
