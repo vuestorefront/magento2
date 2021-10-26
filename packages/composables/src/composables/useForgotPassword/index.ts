@@ -1,8 +1,7 @@
 import {
   Context, Logger,
-  useForgotPasswordFactory,
 } from '@absolute-web/vsf-core';
-import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
+import { useForgotPasswordFactory, UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
 
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
