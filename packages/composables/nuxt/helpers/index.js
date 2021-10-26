@@ -6,8 +6,8 @@ export const getLocaleSettings = (app, moduleOptions) => {
   if (moduleOptions.cookies) {
     localeSettings = {
       locale: app.$cookies.get(moduleOptions.cookies.localeCookieName),
-      country: app.$cookies.get(moduleOptions.cookies.currencyCookieName),
-      currency: app.$cookies.get(moduleOptions.cookies.countryCookieName),
+      country: app.$cookies.get(moduleOptions.cookies.countryCookieName),
+      currency: app.$cookies.get(moduleOptions.cookies.currencyCookieName),
     };
   }
 
