@@ -5,6 +5,7 @@ mutation placeOrder($input: PlaceOrderInput) {
   placeOrder(input: $input) {
     order {
       order_number
+      split_order_numbers
     }
   }
 }`;
