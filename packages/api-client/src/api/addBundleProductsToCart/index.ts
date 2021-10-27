@@ -27,5 +27,6 @@ export default async (
     .mutate<any, AddBundleProductsToCartMutationVariables>({
     mutation: addBundleProductsToCartGQL.query,
     variables: addBundleProductsToCartGQL.variables,
+    errorPolicy: 'all',
   });
 };

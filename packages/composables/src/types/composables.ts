@@ -6,6 +6,7 @@ import {
   PlatformApi,
   UseCart as UseCartBase,
   UseCartErrors as UseCartErrorsBase,
+  UseUserErrors as UseUserErrorsBase,
 } from '@absolute-web/vsf-core';
 import { ComputedRef } from '@vue/composition-api';
 import { FetchPolicy } from './index';
@@ -507,4 +508,8 @@ export interface UseCustomerReturns<CUSTOMER_RETURNS_DATA, CUSTOMER_RETURN_DATA,
   customerReturns: ComputedProperty<CUSTOMER_RETURNS_DATA>;
   error: ComputedProperty<UseCustomerReturnsErrors>;
   loading: ComputedProperty<boolean>;
+}
+
+export interface UseUserErrors extends UseUserErrorsBase {
+  cart: Error;
 }

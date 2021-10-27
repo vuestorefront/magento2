@@ -25,5 +25,6 @@ export default async (
   return context.client.mutate<any, AddConfigurableProductsToCartMutationVariables>({
     mutation: addConfigurableProductsToCartGQL.query,
     variables: addConfigurableProductsToCartGQL.variables,
+    errorPolicy: 'all',
   });
 };

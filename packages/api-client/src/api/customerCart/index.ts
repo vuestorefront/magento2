@@ -19,5 +19,6 @@ export default async (
 
   return context.client.query<CustomerCartQuery>({
     query: customerCartGQL.query,
+    errorPolicy: 'all',
   });
 };

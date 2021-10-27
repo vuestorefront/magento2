@@ -14,4 +14,5 @@ export default async (
   .mutate<FocusSetGroupOnItemMutation, FocusSetGroupOnItemMutationVariables>({
   mutation: focusSetGroupOnItem,
   variables: { input },
+  errorPolicy: 'all',
 });

@@ -15,4 +15,5 @@ export default async (
   .mutate<ApplyGiftCardToCartMutation, ApplyGiftCardToCartMutationVariables>({
   mutation: ApplyGiftCardToCart,
   variables: { input },
+  errorPolicy: 'all',
 });

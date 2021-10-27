@@ -773,6 +773,7 @@ export interface CartItemInterface {
   uid: Scalars['ID'];
   mp_free_gifts?: Maybe<FreeGiftItem>;
   group_type?: Maybe<Scalars['String']>;
+  stock_error?: FocusCartItemStockError | null | undefined;
 }
 
 export interface CartItemPrices {
@@ -7941,3 +7942,8 @@ export type CustomerReturnQueryVariables = Exact<{
 }>;
 
 export type UsedProductsQuery = { products?: { items?: Array<{ uid: string, used_products?: Array<ProductInterface>; }> } };
+
+export type FocusCartItemStockError = {
+  error_code: string;
+  message: string;
+};

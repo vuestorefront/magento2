@@ -71,6 +71,10 @@ items {
     free_gift_message
     allow_notice
   }
+  stock_error {
+    error_code
+    message
+  }
 }
 total_quantity
 shipping_addresses {

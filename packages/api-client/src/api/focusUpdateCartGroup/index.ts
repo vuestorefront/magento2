@@ -14,4 +14,5 @@ export default async (
   .mutate<FocusUpdateCartGroupMutation, FocusUpdateCartGroupMutationVariables>({
   mutation: focusUpdateCartGroup,
   variables: { input },
+  errorPolicy: 'all',
 });
