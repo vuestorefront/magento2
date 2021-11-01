@@ -26,7 +26,7 @@
     "@vue-storefront/core": "~2.4.5",
     "cookie-universal": "^2.1.5",
     "vue": "^2.6.12",
-    "vue-demi": "latest"
+    "vue-demi": "0.11.4"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.0",

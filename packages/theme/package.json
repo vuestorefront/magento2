@@ -44,7 +44,7 @@
     "omit-deep": "^0.3.0",
     "pm2": "^5.1.2",
     "vee-validate": "^3.4.13",
-    "vue-demi": "latest",
+    "vue-demi": "0.11.4",
     "vue-dompurify-html": "^2.3.0",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0"
