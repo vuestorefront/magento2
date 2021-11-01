@@ -10,6 +10,7 @@ import {
   Category, GroupedProduct,
   Product,
   FocusProductInventoryItem,
+  MediaGalleryInterface,
 } from '@absolute-web/magento-api';
 
 import categoryGetters from './categoryGetters';
@@ -66,30 +67,25 @@ export const getPrice = (product: Product): AgnosticPrice => {
   };
 };
 
-export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
-  const images = [];
-
+export const getMediaGallery = (product: Product): MediaGalleryInterface[] => {
   if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
-    return images;
+    return [];
   }
 
   const selectedGallery = product.configurable_product_options_selection?.media_gallery
-    ? product.configurable_product_options_selection.media_gallery
-    : product.media_gallery;
+    ? [...product.configurable_product_options_selection.media_gallery]
+    : [...product.media_gallery];
 
   selectedGallery.sort((a, b) => a.position - b.position);
 
-  // eslint-disable-next-line no-restricted-syntax
-  for (const galleryItem of selectedGallery) {
-    images.push({
-      small: galleryItem.url,
-      normal: galleryItem.url,
-      big: galleryItem.url,
-    });
-  }
-
-  return images;
+  return selectedGallery;
 };
+
+export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => getMediaGallery(product).map(galleryItem => ({
+  small: galleryItem.url,
+  normal: galleryItem.url,
+  big: galleryItem.url,
+}));
 
 export const getCoverImage = (product: Product): string => {
   if (!product || !product.image) {
@@ -292,6 +288,7 @@ export interface ProductGetters extends ProductGettersBase<Product, ProductVaria
   getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
   getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
   getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
+  getMediaGallery(product: Product): MediaGalleryInterface[];
 }
 
 const productGetters: ProductGetters = {
@@ -321,6 +318,7 @@ const productGetters: ProductGetters = {
   getSwatchData,
   getGroupedProducts,
   getBundleProducts,
+  getMediaGallery,
 };
 
 export default productGetters;

@@ -24,6 +24,16 @@ media_gallery {
   position
   disabled
   label
+  ... on ProductVideo {
+    video_content {
+      media_type
+      video_provider
+      video_url
+      video_title
+      video_description
+      video_metadata
+    }
+  }
 }
 meta_description
 meta_keyword
@@ -101,6 +111,16 @@ description {
       label
       position
       url
+      ... on ProductVideo {
+        video_content {
+          media_type
+          video_provider
+          video_url
+          video_title
+          video_description
+          video_metadata
+        }
+      }
     }
     variant {
       uid
