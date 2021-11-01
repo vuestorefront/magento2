@@ -116,15 +116,21 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
             cartItems: [
               {
                 quantity,
-                sku: product.sku,
-                entered_options: product.options.map((option) => ({
-                  uid: option.uid,
-                  // @ts-ignore
-                  value: option.entered_value,
-                })),
+                sku: product.sku
               },
             ],
           };
+
+          if (product.options) {
+            simpleCartInput.cartItems[0] = {
+              ...simpleCartInput.cartItems[0],
+              entered_options: product.options.map((option) => ({
+                uid: option.uid,
+                // @ts-ignore
+                value: option.entered_value,
+              })),
+            }
+          }
 
           const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
 
