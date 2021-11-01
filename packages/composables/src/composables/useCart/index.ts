@@ -117,6 +117,11 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product, Coupon> = {
               {
                 quantity,
                 sku: product.sku,
+                entered_options: product.options.map((option) => ({
+                  uid: option.uid,
+                  // @ts-ignore
+                  value: option.entered_value,
+                })),
               },
             ],
           };

@@ -108,9 +108,23 @@
               </SfSelectOption>
             </SfSelect>
           </template>
-          <template
-            v-if="product.__typename === 'GroupedProduct'"
-          >
+          <template v-for="option in product.options">
+            <div
+              v-if="option.__typename === 'CustomizableAreaOption'"
+              :key="option.uid"
+            >
+              <SfTextarea
+                v-model="option.entered_value"
+                class="form__element"
+                :label="option.title"
+                :name="option.title"
+                minlength="10"
+                wrap="soft"
+                required
+              />
+            </div>
+          </template>
+          <template v-if="product.__typename === 'GroupedProduct'">
             <SfList class="grouped_items">
               <SfListItem
                 v-for="(groupedItem, index) in groupedItems"
@@ -283,6 +297,7 @@ import {
   SfReview,
   SfSelect,
   SfTabs,
+  SfTextarea,
 } from '@storefront-ui/vue';
 import {
   useProduct,
@@ -328,6 +343,7 @@ export default {
     SfReview,
     SfSelect,
     SfTabs,
+    SfTextarea,
   },
   transition: 'fade',
   setup() {

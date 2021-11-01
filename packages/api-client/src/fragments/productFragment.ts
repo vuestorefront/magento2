@@ -4,6 +4,7 @@ import ProductPriceRangeData from './productPriceRangeFragment';
 import ProductUrlFragmentData from './productUrlFragment';
 import ProductCategoriesData from './productCategoriesFragment';
 import ConfigurableProductOptionsData from './configurableProductOptionsFragment';
+import productCustomOptionsFragment from './productCustomOptionsFragment';
 
 export default gql`
   ${ProductThumbnailData}
@@ -11,6 +12,7 @@ export default gql`
   ${ProductUrlFragmentData}
   ${ProductCategoriesData}
   ${ConfigurableProductOptionsData}
+  ${productCustomOptionsFragment}
 
 fragment ProductData on ProductInterface {
   uid
@@ -25,6 +27,7 @@ fragment ProductData on ProductInterface {
   ...ProductUrlFragmentData
   ...ProductCategoriesData
   ...ConfigurableProductOptionsData
+  ...ProductCustomOptionsFragment
   review_count
   reviews {
     items {
