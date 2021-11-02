@@ -19,7 +19,7 @@ export default async (
   customQuery?: CustomQuery,
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     ...searchParams,
   };

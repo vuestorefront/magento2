@@ -39,7 +39,6 @@ import {
   CustomerCreateInput,
   CustomerOrder as CustomerOrderInterface,
   CustomerOrdersQuery,
-  CustomerOrdersQueryVariables,
   CustomerQuery,
   CustomerUpdateInput,
   DeleteCustomerAddressMutation,
@@ -106,7 +105,7 @@ import {
   ResetPasswordMutationVariables,
   ResetPasswordMutation, ChangeCustomerPasswordMutation, CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct,
+  VirtualProduct, CustomerOrdersFilterInput,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -148,6 +147,12 @@ export type GetProductSearchParams = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
+};
+
+export type GetOrdersSearchParams = {
+  pageSize?: number;
+  currentPage?: number;
+  filter?: CustomerOrdersFilterInput;
 };
 
 export enum MagentoCustomerGender {
@@ -200,7 +205,10 @@ export interface MagentoApiMethods {
 
   customerCart(): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
-  customerOrders(orderParams: CustomerOrdersQueryVariables): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
+  customerOrders(
+    searchParams: GetOrdersSearchParams,
+    customQuery?: CustomQuery,
+  ): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
   customQuery<QUERY = any, QUERY_VARIABLES = any>({
     query,
@@ -292,5 +300,8 @@ export interface MagentoApiMethods {
 
   urlResolver(url: string): Promise<ApolloQueryResult<UrlResolverQuery>>;
 
-  wishlist(queryParams: WishlistQueryVariables): Promise<ApolloQueryResult<WishlistQuery>>;
+  wishlist(
+    searchParams: WishlistQueryVariables,
+    customQuery?: CustomQuery,
+  ): Promise<ApolloQueryResult<WishlistQuery>>;
 }
