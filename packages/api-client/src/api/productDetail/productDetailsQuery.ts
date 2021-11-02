@@ -4,7 +4,7 @@ export default gql`
   query productDetails(
     $search: String = "",
     $filter: ProductAttributeFilterInput,
-    $pageSize: Int = 20,
+    $pageSize: Int = 10,
     $currentPage: Int = 1,
     $sort: ProductAttributeSortInput
     $configurations: [ID!]
@@ -295,4 +295,5 @@ export default gql`
         }
       }
     }
-  }`;
+  }
+`;
