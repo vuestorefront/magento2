@@ -22,7 +22,6 @@ export default async (
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
       query: gql`${shippingMethods.query}`,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

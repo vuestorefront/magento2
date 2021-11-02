@@ -32,7 +32,6 @@ export default async (
     GuestAvailableShippingMethodsQueryVariables>({
       query: gql`${shippingMethods.query}`,
       variables: shippingMethods.variables,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

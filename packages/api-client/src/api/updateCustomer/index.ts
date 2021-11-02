@@ -13,5 +13,4 @@ UpdateCustomerMutation,
 UpdateCustomerMutationVariables>({
   mutation: updateCustomer,
   variables: { input },
-  fetchPolicy: 'no-cache',
 });

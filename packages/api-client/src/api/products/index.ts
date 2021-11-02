@@ -45,7 +45,7 @@ export default async (
     customQuery, {
       products: {
         query: productsList,
-        variables: defaultParams,
+        variables,
       },
     },
   );
@@ -54,7 +54,6 @@ export default async (
     return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
       query: gql`${products.query}`,
       variables: products.variables,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
