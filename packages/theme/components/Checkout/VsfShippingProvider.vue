@@ -10,19 +10,22 @@
         <div v-if="errorUseGetShippingMethods.load">
           {{
             $t(
-              'There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details or later.')
+              'There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details or later.'
+            )
           }}
         </div>
         <div v-else-if="errorShippingProvider.save">
           {{
             $t(
-              'There was some error while trying to select this shipping method. We are sorry, please try with different shipping method or later.')
+              'There was some error while trying to select this shipping method. We are sorry, please try with different shipping method or later.'
+            )
           }}
         </div>
         <div v-else-if="shippingMethods.length === 0">
           {{
             $t(
-              'There are no shipping methods available for this country. We are sorry, please try with different country or later.')
+              'There are no shipping methods available for this country. We are sorry, please try with different country or later.'
+            )
           }}
         </div>
       </SfLoader>
@@ -33,7 +36,10 @@
           v-e2e="'shipping-method-label'"
           :label="method.method_title"
           :value="method.method_code"
-          :selected="selectedShippingMethod && selectedShippingMethod.method_code"
+          :selected="
+            selectedShippingMethod &&
+            selectedShippingMethod.method_code
+          "
           name="shippingMethod"
           :description="method.carrier_title"
           class="form__radio shipping"
@@ -61,7 +67,11 @@
           v-e2e="'continue-to-billing'"
           class="form__action-button"
           type="button"
-          :disabled="!isShippingMethodStepCompleted || isLoading || loadingShippingProvider.save"
+          :disabled="
+            !isShippingMethodStepCompleted ||
+            isLoading ||
+            loadingShippingProvider.save
+          "
           @click="$emit('submit')"
         >
           {{ $t('Continue to billing') }}
@@ -78,12 +88,7 @@ import {
   cartGetters,
   useGetShippingMethods,
 } from '@vue-storefront/magento';
-import {
-  SfHeading,
-  SfButton,
-  SfRadio,
-  SfLoader,
-} from '@storefront-ui/vue';
+import { SfHeading, SfButton, SfRadio, SfLoader } from '@storefront-ui/vue';
 
 import { computed, defineComponent } from '@vue/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
@@ -107,22 +112,24 @@ export default defineComponent({
       state,
       error: errorShippingProvider,
       loading: loadingShippingProvider,
-      save,
+      setState,
     } = useShippingProvider();
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
-    const isLoading = computed(() => loadingShippingMethods.value || loadingShippingProvider.value);
-    const isShippingMethodStepCompleted = computed(() => state.value?.method_code && !isLoading.value);
+    const isLoading = computed(
+      () => loadingShippingMethods.value || loadingShippingProvider.value
+    );
+    const isShippingMethodStepCompleted = computed(
+      () => state.value?.method_code && !isLoading.value
+    );
     /**
      * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
      * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
      */
     const selectShippingMethod = async (method) => {
-      await save({
-        shippingMethod: {
-          carrier_code: method.carrier_code,
-          method_code: method.method_code,
-        },
+      await setState({
+        carrier_code: method.carrier_code,
+        method_code: method.method_code,
       });
     };
 
@@ -190,7 +197,6 @@ export default defineComponent({
     @include for-desktop {
       margin: 0 0 var(--spacer-2xl) 0;
     }
-
   }
 }
 </style>
