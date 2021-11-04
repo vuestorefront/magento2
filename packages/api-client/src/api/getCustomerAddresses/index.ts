@@ -20,7 +20,6 @@ export default async (context: Context, customQuery?: CustomQuery): Promise<Apol
   try {
     return await context.client.query<GetCustomerAddressesQuery>({
       query,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

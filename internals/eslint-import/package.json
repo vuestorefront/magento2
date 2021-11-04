@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "2.24.2"
+    "eslint-plugin-import": "2.25.2"
   },
   "main": "index.js"
 }

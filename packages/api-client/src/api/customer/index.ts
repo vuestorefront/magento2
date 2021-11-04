@@ -6,5 +6,4 @@ import { Context } from '../../types/context';
 export default async ({ client }: Context): Promise<ApolloQueryResult<CustomerQuery>> => client
   .query<CustomerQuery>({
   query: customer,
-  fetchPolicy: 'no-cache',
 });

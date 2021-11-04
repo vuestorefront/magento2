@@ -32,7 +32,7 @@ const useUiHelpers = () => {
 
     return {
       filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 20,
+      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
       page: Number.parseInt(query.page as string, 10) || 1,
       sort: query.sort as string || '',
       term: query.term as string,
@@ -48,7 +48,7 @@ const useUiHelpers = () => {
       page: Number.parseInt(query.page as string, 10) || 1,
       sort: query.sort || '',
       filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 20,
+      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
       term: query.term,
     };
   };

@@ -10,5 +10,4 @@ export default async (
   .query<CartQuery, CartQueryVariables>({
   query: cart,
   variables: { cartId },
-  fetchPolicy: 'no-cache',
 });

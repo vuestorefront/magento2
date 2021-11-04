@@ -19,7 +19,7 @@ export default async (
   customQuery?: CustomQuery,
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     ...searchParams,
   };
@@ -42,7 +42,6 @@ export default async (
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
       query: gql`${reviews.query}`,
       variables: reviews.variables,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

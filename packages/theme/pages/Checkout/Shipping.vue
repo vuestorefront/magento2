@@ -6,6 +6,7 @@
       :title="$t('Shipping')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <UserShippingAddresses
         v-if="isAuthenticated && hasSavedShippingAddress"
@@ -338,9 +339,13 @@ export default defineComponent({
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
+      const shippingDetailsData = {
+        ...shippingDetails.value,
+        customerAddressId: addressId,
+      };
       // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
       // @ts-ignore
-      await save({ shippingDetails: shippingDetails.value });
+      await save({ shippingDetails: shippingDetailsData });
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userShippingGetters.getAddresses(userShipping.value,
           { id: addressId });
@@ -400,6 +405,10 @@ export default defineComponent({
     });
 
     onMounted(async () => {
+      if (shippingDetails.value?.country_code) {
+        await searchCountry({ id: shippingDetails.value.country_code });
+      }
+
       if (!userShipping.value?.addresses && isAuthenticated.value) {
         await loadUserShipping();
       }

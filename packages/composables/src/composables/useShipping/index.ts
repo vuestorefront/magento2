@@ -36,17 +36,26 @@ const factoryParams: UseShippingParams<any, any> = {
 
     const {
       apartment,
+      customerAddressId,
       ...address
     } = saveParams.shippingDetails;
+
+    const shippingData = customerAddressId
+      ? ({
+        customer_address_id: customerAddressId,
+      })
+      : ({
+        address: {
+          ...address,
+          street: [address.street, apartment],
+        },
+      });
 
     const shippingAddressInput: SetShippingAddressesOnCartInput = {
       cart_id: id,
       shipping_addresses: [
         {
-          address: {
-            ...address,
-            street: [address.street, apartment],
-          },
+          ...shippingData,
         },
       ],
     };

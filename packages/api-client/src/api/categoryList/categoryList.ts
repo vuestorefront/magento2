@@ -5,7 +5,6 @@ export default gql`
     categories {
       items {
         children {
-          image
           include_in_menu
           is_anchor
           level
@@ -16,7 +15,6 @@ export default gql`
           url_path
           url_suffix
           children {
-            image
             include_in_menu
             is_anchor
             level
@@ -27,7 +25,6 @@ export default gql`
             url_path
             url_suffix
             children {
-              image
               include_in_menu
               is_anchor
               level
@@ -37,18 +34,6 @@ export default gql`
               uid
               url_path
               url_suffix
-              children {
-                image
-                include_in_menu
-                is_anchor
-                level
-                name
-                position
-                product_count
-                uid
-                url_path
-                url_suffix
-              }
             }
           }
         }
@@ -57,4 +42,5 @@ export default gql`
         uid
       }
     }
-  }`;
+  }
+`;

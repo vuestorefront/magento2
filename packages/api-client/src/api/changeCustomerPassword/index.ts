@@ -17,7 +17,6 @@ export default async (
       currentPassword,
       newPassword,
     },
-    fetchPolicy: 'no-cache',
   });
 
   return data?.changeCustomerPassword;

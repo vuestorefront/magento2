@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("../../types/composables").UseAddresses<CustomerAddress, CustomQueryParams, SaveAddressInput, UpdateAddressInput, RemoveAddressInput, any>
+_default: () => import("../../types/composables").UseAddresses<CustomerAddressDataFragment, CustomQueryParams, SaveAddressInput, UpdateAddressInput, RemoveAddressInput, any>
 ```

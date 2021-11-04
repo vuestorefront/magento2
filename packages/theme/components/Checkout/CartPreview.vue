@@ -36,20 +36,7 @@
         class="sf-property--full-width sf-property--large property-total"
       />
     </div>
-    <div class="highlighted promo-code">
-      <SfInput
-        v-model="promoCode"
-        name="promoCode"
-        :label="$t('Enter promo code')"
-        class="sf-input--filled promo-code__input"
-      />
-      <SfButton
-        class="promo-code__button"
-        @click="handleCoupon"
-      >
-        {{ promoIsApplied ? $t('Remove') : $t('Apply') }}
-      </SfButton>
-    </div>
+    <CouponCode class="highlighted" />
     <div class="highlighted">
       <SfCharacteristic
         v-for="characteristic in characteristics"
@@ -63,22 +50,11 @@
   </div>
 </template>
 <script>
-import {
-  SfHeading,
-  SfButton,
-  SfProperty,
-  SfCharacteristic,
-  SfInput,
-} from '@storefront-ui/vue';
-import {
-  computed,
-  onMounted,
-  watch,
-  ref,
-  defineComponent,
-} from '@vue/composition-api';
+import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
+import { computed, ref, defineComponent } from '@vue/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import CouponCode from '../CouponCode.vue';
 
 const CHARACTERISTICS = [
   {
@@ -88,8 +64,7 @@ const CHARACTERISTICS = [
   },
   {
     title: 'Easy shipping',
-    description:
-      'You’ll receive dispatch confirmation and an arrival date',
+    description: 'You’ll receive dispatch confirmation and an arrival date',
     icon: 'shipping',
   },
   {
@@ -103,50 +78,24 @@ export default defineComponent({
   name: 'CartPreview',
   components: {
     SfHeading,
-    SfButton,
     SfProperty,
     SfCharacteristic,
-    SfInput,
+    CouponCode,
   },
   setup() {
-    const {
-      cart,
-      removeItem,
-      updateItemQty,
-      applyCoupon,
-      removeCoupon,
-    } = useCart();
+    const { cart, removeItem, updateItemQty } = useCart();
 
     const listIsHidden = ref(false);
-    const promoCode = ref('');
-
-    const promoIsApplied = computed(() => cartGetters.getAppliedCoupon(cart.value)?.code);
 
     const products = computed(() => cartGetters.getItems(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
     const hasDiscounts = computed(() => discounts.value.length > 0);
-    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
+    const discountsAmount = computed(
+      () => -1 * discounts.value.reduce((a, el) => el.value + a, 0),
+    );
     const selectedShippingMethod = computed(() => cartGetters.getSelectedShippingMethod(cart.value));
-
-    const setCartCoupon = () => {
-      promoCode.value = promoIsApplied.value;
-    };
-
-    onMounted(setCartCoupon);
-
-    watch(promoIsApplied, setCartCoupon);
-
-    const handleCoupon = async () => {
-      await (
-        promoIsApplied.value
-          // @TODO - Remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5966 is applied
-          // @ts-ignore
-          ? removeCoupon({ currentCart: cart.value })
-          : applyCoupon({ couponCode: promoCode.value })
-      );
-    };
 
     return {
       cart,
@@ -157,13 +106,10 @@ export default defineComponent({
       listIsHidden,
       products,
       totals,
-      promoCode,
       removeItem,
       updateItemQty,
       cartGetters,
       getShippingMethodPrice,
-      promoIsApplied,
-      handleCoupon,
       characteristics: CHARACTERISTICS,
       selectedShippingMethod,
     };
@@ -208,20 +154,4 @@ export default defineComponent({
     margin-bottom: var(--spacer-base);
   }
 }
-
-.promo-code {
-  display: flex;
-  align-items: flex-start;
-
-  &__button {
-    --button-width: 6.3125rem;
-    --button-height: var(--spacer-lg);
-  }
-
-  &__input {
-    --input-background: var(--c-white);
-    flex: 1;
-  }
-}
-
 </style>

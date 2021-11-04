@@ -22,7 +22,7 @@ export default async (
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
       query: gql`${paymentMethods.query}`,
-      fetchPolicy: 'no-cache',
+
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

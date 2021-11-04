@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query wishlist($currentPage: Int = 1, $pageSize: Int = 20) {
+  query wishlist($currentPage: Int = 1, $pageSize: Int = 10) {
     customer {
       wishlists(currentPage: $currentPage, pageSize: $pageSize) {
         id
@@ -137,4 +137,5 @@ export default gql`
         }
       }
     }
-  }`;
+  }
+`;

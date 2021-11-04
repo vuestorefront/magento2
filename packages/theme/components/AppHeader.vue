@@ -35,6 +35,7 @@
           <SfButton
             v-e2e="'app-header-account'"
             class="sf-button--pure sf-header__action"
+            aria-label="Open account button"
             @click="handleAccountClick"
           >
             <SfIcon
@@ -45,6 +46,7 @@
           <SfButton
             v-if="isAuthenticated"
             class="sf-button--pure sf-header__action"
+            aria-label="Toggle wishlist sidebar"
             @click="toggleWishlistSidebar"
           >
             <SfIcon
@@ -56,6 +58,7 @@
           <SfButton
             v-e2e="'app-header-cart'"
             class="sf-button--pure sf-header__action"
+            aria-label="Toggle cart sidebar"
             @click="toggleCartSidebar"
           >
             <SfIcon
@@ -89,6 +92,7 @@
             <SfButton
               v-if="!!term"
               class="sf-search-bar__button sf-button--pure"
+              aria-label="Close search"
               @click="closeOrFocusSearchBar"
             >
               <span class="sf-search-bar__icon">
@@ -102,6 +106,7 @@
             <SfButton
               v-else
               class="sf-search-bar__button sf-button--pure"
+              aria-label="Open search"
               @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
             >
               <span class="sf-search-bar__icon">
@@ -135,6 +140,8 @@ import {
   SfBadge,
   SfSearchBar,
   SfOverlay,
+  SfMenuItem,
+  SfLink,
 } from '@storefront-ui/vue';
 import {
   cartGetters,
@@ -179,6 +186,8 @@ export default defineComponent({
     SfSearchBar,
     SearchResults,
     SfOverlay,
+    SfMenuItem,
+    SfLink,
   },
   directives: { clickOutside },
   setup() {
@@ -230,7 +239,7 @@ export default defineComponent({
         loadCart(),
         loadWishlist(),
         categoriesListSearch({
-          pageSize: 100,
+          pageSize: 20,
         }),
       ]);
     });

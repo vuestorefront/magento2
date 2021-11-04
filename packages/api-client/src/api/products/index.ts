@@ -25,13 +25,13 @@ export default async (
   customQuery?: CustomQuery,
 ): Promise<ApolloQueryResult<ProductsListQuery>> => {
   const defaultParams = {
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     ...searchParams,
   };
 
   const variables: Variables = {
-    pageSize: defaultParams.pageSize <= 0 ? 20 : defaultParams.pageSize,
+    pageSize: defaultParams.pageSize <= 0 ? 10 : defaultParams.pageSize,
     currentPage: defaultParams.currentPage <= 0 ? 1 : defaultParams.currentPage,
   };
 
@@ -45,7 +45,7 @@ export default async (
     customQuery, {
       products: {
         query: productsList,
-        variables: defaultParams,
+        variables,
       },
     },
   );
@@ -54,7 +54,6 @@ export default async (
     return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
       query: gql`${products.query}`,
       variables: products.variables,
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

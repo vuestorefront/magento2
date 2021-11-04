@@ -9,5 +9,4 @@ export default async ({ client }: Context, id: string): Promise<ApolloQueryResul
   variables: {
     id,
   },
-  fetchPolicy: 'no-cache',
 });

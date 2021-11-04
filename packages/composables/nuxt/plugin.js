@@ -9,6 +9,7 @@ export default integrationPlugin(({ app, res, req, integration }) => {
   const cartCookieName = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
   const customerCookieName = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;
   const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
+  const currencyCookieName = moduleOptions.cookies?.currencyCookieName || defaultConfig.cookies.currencyCookieName;
 
   const {
     setCookie,
@@ -50,6 +51,18 @@ export default integrationPlugin(({ app, res, req, integration }) => {
     setCookie(storeCookieName, id);
   };
 
+  const getCurrency = () => getCookies(currencyCookieName);
+
+  const setCurrency = (id) => {
+    if (!id) {
+      // eslint-disable-next-line no-param-reassign
+      removeCookie(currencyCookieName);
+      return;
+    }
+
+    setCookie(currencyCookieName, id);
+  };
+
   const settings = mapConfigToSetupObject({
     moduleOptions,
     app,
@@ -61,6 +74,8 @@ export default integrationPlugin(({ app, res, req, integration }) => {
         setCustomerToken,
         getStore,
         setStore,
+        getCurrency,
+        setCurrency,
       },
     }
   });

@@ -25,7 +25,7 @@ export default async (
   customQuery?: CustomQuery,
 ): Promise<ApolloQueryResult<ProductDetailsQuery>> => {
   const defaultParams = {
-    pageSize: 20,
+    pageSize: 10,
     currentPage: 1,
     ...searchParams,
   };
@@ -45,7 +45,7 @@ export default async (
     customQuery, {
       products: {
         query: detailQuery,
-        variables: defaultParams,
+        variables,
       },
     },
   );
@@ -56,7 +56,7 @@ export default async (
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query,
       variables: products.variables,
-      fetchPolicy: 'no-cache',
+
     });
 
     if (result.data.products.items.length === 0) throw new Error('No products found');

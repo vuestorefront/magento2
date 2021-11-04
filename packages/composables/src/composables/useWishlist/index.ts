@@ -59,7 +59,10 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
     // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     switch (product.__typename) {
-      case 'BundleProduct':
+      case 'VirtualProduct':
+      case 'DownloadableProduct':
+      case 'GroupedProduct':
+      case 'GiftCard':
       case 'SimpleProduct':
         const { data } = await context.$magento.api.addProductToWishList({
           id: '0',
@@ -76,7 +79,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
         const { data: configurableProductData } = await context.$magento.api.addProductToWishList({
           id: '0',
           items: [{
-            sku: product.configurable_product_options_selection.variant.sku,
+            sku: product.configurable_product_options_selection?.variant?.sku || product.sku,
             quantity: 1,
             parent_sku: product.sku,
           }],
@@ -85,6 +88,19 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
         Logger.debug('[Result]:', { data: configurableProductData });
 
         return configurableProductData.addProductsToWishlist.wishlist;
+      case 'BundleProduct':
+        const { data: bundleProductData } = await context.$magento.api.addProductToWishList({
+          id: '0',
+          items: [{
+            sku: product.sku,
+            quantity: 1,
+            entered_options: product.bundle_options ? [...product.bundle_options] : [],
+          }],
+        });
+
+        Logger.debug('[Result]:', { data: bundleProductData });
+
+        return bundleProductData.addProductsToWishlist.wishlist;
       default:
         // todo implement other options
         // @ts-ignore
