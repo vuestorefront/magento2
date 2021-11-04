@@ -551,7 +551,6 @@ export {
   MutationAddWishlistItemsToCartArgs,
   MutationUpdateChatProfileArgs,
   MutationUpdateQuoteEmailArgs,
-  ProductReviews,
   WishlistCartUserInputError,
   WishlistCartUserInputErrorType,
   UseInLayeredNavigationOptions,
