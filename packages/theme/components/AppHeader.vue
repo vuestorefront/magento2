@@ -239,7 +239,7 @@ export default defineComponent({
         loadCart(),
         loadWishlist(),
         categoriesListSearch({
-          pageSize: 100,
+          pageSize: 20,
         }),
       ]);
     });

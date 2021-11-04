@@ -13,7 +13,6 @@ export default async (
       .query<CmsPageQuery, CmsPageQueryVariables>({
       query: cmsPage,
       variables: { identifier },
-      fetchPolicy: 'no-cache',
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

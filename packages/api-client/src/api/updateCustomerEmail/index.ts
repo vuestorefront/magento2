@@ -8,5 +8,4 @@ export default async ({ client }: Context, input: UpdateCustomerEmailMutationVar
 UpdateCustomerEmailMutationVariables>({
   mutation: updateCustomerEmail,
   variables: { ...input },
-  fetchPolicy: 'no-cache',
 });

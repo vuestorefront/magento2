@@ -10,5 +10,4 @@ export default async (
   .query<CmsBlockQuery, CmsBlockQueryVariables>({
   query: cmsBlocks,
   variables: { identifiers },
-  fetchPolicy: 'no-cache',
 });

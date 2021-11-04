@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query customerOrders($currentPage: Int = 1, $filter: CustomerOrdersFilterInput = {}, $pageSize: Int = 20) {
+  query customerOrders($currentPage: Int = 1, $filter: CustomerOrdersFilterInput = {}, $pageSize: Int = 10) {
     customer {
       orders(currentPage: $currentPage, filter: $filter, pageSize: $pageSize) {
         items {
@@ -241,4 +241,5 @@ export default gql`
         }
       }
     }
-  }`;
+  }
+`;
