@@ -12,7 +12,7 @@ This integration developed by superheroes from [Caravel](https://github.com/cara
 <hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
@@ -29,10 +29,10 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io)!
 
 ### Requirements:
-  - NodeJS v14 or later
-  - Yarn (npm is not supprted yet)
-  - Magento >= v2.4.3 instance for GraphQL endpoint
-  - Change Magento GraphQL Query Complexity and Depth values
+- NodeJS v14 or later
+- Yarn (npm is not supprted yet)
+- Magento >= v2.4.3 instance for GraphQL endpoint
+- Change Magento GraphQL Query Complexity and Depth values
 
 > Don't forget to change the Magento GraphQL Query Complexity and Depth values
 Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
