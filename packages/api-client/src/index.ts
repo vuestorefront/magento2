@@ -541,6 +541,8 @@ export {
   SortEnum,
   SortField,
   SortFields,
+  StagingPreviewParams,
+  StagingPreviewQueryVariables,
   StoreConfig,
   StoreConfigQuery,
   StoreConfigQueryVariables,

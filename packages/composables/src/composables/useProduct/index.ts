@@ -8,7 +8,7 @@ import {
   UseProductFactoryParams,
 } from '@absolute-web/vsf-core';
 import {
-  GetProductSearchParams, ProductsQueryType, Product, Products, Aggregation,
+  GetProductSearchParams, ProductsQueryType, Product, Products, Aggregation, StagingPreviewParams,
 } from '@absolute-web/magento-api';
 import { Scalars } from '@absolute-web/magento-api/lib/types/GraphQL';
 import { useCache } from '@absolute-web/vsf-cache';
@@ -91,13 +91,14 @@ ProductsSearchParams> = {
   },
   productsSearch: async (context: Context, params: ComposableFunctionArgs<GetProductSearchParams & {
     queryType: ProductsQueryType;
-    configurations?: Scalars['ID']
+    configurations?: Scalars['ID'];
+    preview?: StagingPreviewParams;
   }>) => {
     Logger.debug('[Magento]: Load product based on ', { params });
 
     const {
       queryType,
-      customQuery,
+      preview,
       ...searchParams
     } = {
       ...params,
@@ -110,7 +111,8 @@ ProductsSearchParams> = {
           .getApi
           .productDetail({
             ...searchParams,
-          } as GetProductSearchParams);
+            preview,
+          });
 
         if (productDetailsResults?.data?.cacheTags) {
           context.cache.addTagsFromString(productDetailsResults.data.cacheTags);

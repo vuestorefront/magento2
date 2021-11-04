@@ -6,9 +6,10 @@ import {
 import { useCache } from '@absolute-web/vsf-cache';
 import {
   CategoryTree as Category, CategorySearchQueryVariables,
+  StagingPreviewQueryVariables,
 } from '@absolute-web/magento-api';
 
-const factoryParams: UseCategoryFactoryParams<Category, CategorySearchQueryVariables> = {
+const factoryParams: UseCategoryFactoryParams<Category, StagingPreviewQueryVariables<CategorySearchQueryVariables>> = {
   provide() {
     return {
       cache: useCache(),
@@ -29,4 +30,4 @@ const factoryParams: UseCategoryFactoryParams<Category, CategorySearchQueryVaria
   },
 };
 
-export default useCategoryFactory<Category, CategorySearchQueryVariables>(factoryParams);
+export default useCategoryFactory<Category, StagingPreviewQueryVariables<CategorySearchQueryVariables>>(factoryParams);

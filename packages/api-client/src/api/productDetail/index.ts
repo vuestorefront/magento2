@@ -6,8 +6,10 @@ import {
   ProductDetailsQueryFocus as ProductDetailsQuery,
   ProductDetailsQueryVariables,
   CachedQuery,
+  StagingPreviewQueryVariables,
 } from '../../types/GraphQL';
 import detailQuery from './productDetailsQuery';
+import previewDetailQuery from './productDetailsQueryPreview';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -21,7 +23,10 @@ type Variables = {
 
 export default async (
   context: Context,
-  searchParams?: GetProductSearchParams,
+  {
+    preview,
+    ...searchParams
+  }: StagingPreviewQueryVariables<GetProductSearchParams>,
   customQuery: CustomQuery = { productDetail: 'productDetail' },
 ): Promise<ApolloQueryResult<CachedQuery<ProductDetailsQuery>>> => {
   const defaultParams = {
@@ -44,32 +49,21 @@ export default async (
 
   const { productDetail } = context.extendQuery(customQuery, {
     productDetail: {
-      query: detailQuery,
+      query: preview ? previewDetailQuery : detailQuery,
       variables,
     },
   });
 
-  try {
-    const result = await context.client.query<CachedQuery<ProductDetailsQuery>, ProductDetailsQueryVariables>({
-      query: productDetail.query,
-      variables: productDetail.variables,
-    });
-
-    if (result.data.products.items.length === 0) throw new Error('No products found');
-
-    return result;
-  } catch (error) {
-    // For error in data we don't throw 500, because it's not server error
-    if (error.graphQLErrors) {
-      Logger.debug(error);
-
-      return {
-        ...error,
-        errors: error.graphQLErrors,
-        data: null,
-      };
-    }
-    Logger.error(error);
-    throw error.networkError?.result || error;
-  }
+  return context.client.query<CachedQuery<ProductDetailsQuery>, ProductDetailsQueryVariables>({
+    query: productDetail.query,
+    variables: productDetail.variables,
+    ...(preview ? {
+      context: {
+        headers: {
+          Authorization: `Bearer ${preview.accessToken}`,
+          'Preview-Version': preview.version,
+        },
+      },
+    } : {}),
+  });
 };
