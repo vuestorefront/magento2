@@ -7956,3 +7956,7 @@ export interface StagingPreviewParams {
 export type StagingPreviewQueryVariables<QUERY> = QUERY & {
   preview?: StagingPreviewParams;
 };
+
+export type PaypalExpressTokenMutation = {
+  createPaypalExpressToken: PaypalExpressTokenOutput;
+};

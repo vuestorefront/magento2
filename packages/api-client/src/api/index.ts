@@ -24,6 +24,7 @@ export { default as createCustomer } from './createCustomer';
 export { default as createCompareList } from './createCompareList';
 export { default as createCustomerAddress } from './createCustomerAddress';
 export { default as createEmptyCart } from './createEmptyCart';
+export { default as createPaypalExpressToken } from './createPaypalExpressToken';
 export { default as createProductReview } from './createProductReview';
 export { default as currency } from './currency';
 export { default as customer } from './customer';

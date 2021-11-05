@@ -31,6 +31,7 @@ export { default as useMakeOrder } from './composables/useMakeOrder';
 export { default as useNewsletter } from './composables/useNewsletter';
 export { default as useOrderTracker } from './composables/useOrderTracker';
 export { default as usePaymentProvider } from './composables/usePaymentProvider';
+export { default as usePaypalExpress } from './composables/usePaypalExpress';
 export { default as usePickupLocation } from './composables/usePickupLocation';
 export { default as useProduct } from './composables/useProduct';
 export { default as useProductAttribute } from './composables/useProductAttribute';

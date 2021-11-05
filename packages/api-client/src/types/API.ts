@@ -62,6 +62,8 @@ import {
   GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
   Order as OrderInterface,
+  PaypalExpressTokenInput,
+  PaypalExpressTokenMutation,
   PickupLocationsQuery,
   PlaceOrderInput,
   PlaceOrderMutation,
@@ -315,6 +317,8 @@ export interface MagentoApiMethods {
   ): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
   createEmptyCart(customQuery?: CustomQuery): Promise<FetchResult<CreateEmptyCartMutation>>;
+
+  createPaypalExpressToken(input: PaypalExpressTokenInput): Promise<FetchResult<PaypalExpressTokenMutation>>;
 
   createProductReview(
     input: CreateProductReviewInput,
