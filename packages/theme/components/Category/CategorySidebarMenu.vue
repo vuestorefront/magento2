@@ -137,7 +137,7 @@ export default defineComponent({
         return '';
       }
       const categoryLabel = ref();
-      const { parent: category } = findDeep(items, (value, key, parentValue, _deepCtx) => {
+      const parent = findDeep(items, (value, key, parentValue, _deepCtx) => {
         if (key === 'isCurrent' && value) {
           // eslint-disable-next-line no-underscore-dangle
           categoryLabel.value = _deepCtx.obj[_deepCtx._item.path[0]].label;
@@ -145,7 +145,7 @@ export default defineComponent({
         return key === 'isCurrent' && value;
       });
 
-      return categoryLabel.value || category?.label || items[0]?.label;
+      return categoryLabel.value || parent?.category?.label || items[0]?.label;
     });
 
     onSSR(async () => {
