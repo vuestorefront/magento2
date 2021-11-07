@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-rc.4.1",
+  "version": "1.0.0-rc.4.3",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -29,7 +29,7 @@
     "@nuxtjs/style-resources": "^1.2.1",
     "@storefront-ui/vue": "^0.11.0",
     "@vue-storefront/core": "~2.4.5",
-    "@vue-storefront/magento": "1.0.0-rc.4.1",
+    "@vue-storefront/magento": "1.0.0-rc.4.3",
     "@vue-storefront/middleware": "~2.4.5",
     "@vue-storefront/nuxt": "~2.4.5",
     "@vue-storefront/nuxt-theme": "~2.4.5",
@@ -83,8 +83,8 @@
     "webpack": "^4.46.0"
   },
   "peerDependencies": {
-    "@vue/composition-api": "1.2.4",
-    "vue": "^2.6.14"
+    "@vue/composition-api": "1.0.0-beta.21",
+    "vue": "^2.0.0 || >=3.0.0-rc.0"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {

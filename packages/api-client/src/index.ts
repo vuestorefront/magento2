@@ -542,6 +542,20 @@ export {
   WishlistQueryVariables,
   WishListUserInputError,
   WishListUserInputErrorType,
+  AddWishlistItemsToCartOutput,
+  ChatData,
+  ConfigurableProductOption,
+  ConfigurableProductOptionValue,
+  CustomerOrder,
+  IsConfigSettingEnabledOutput,
+  MutationAddWishlistItemsToCartArgs,
+  MutationUpdateChatProfileArgs,
+  MutationUpdateQuoteEmailArgs,
+  WishlistCartUserInputError,
+  WishlistCartUserInputErrorType,
+  UseInLayeredNavigationOptions,
+  TrackingData,
+  RoutableInterface,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';

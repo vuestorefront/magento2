@@ -103,9 +103,11 @@ import {
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
   ResetPasswordMutationVariables,
-  ResetPasswordMutation, ChangeCustomerPasswordMutation, CreateCustomerAddressMutation,
+  ResetPasswordMutation,
+  ChangeCustomerPasswordMutation,
+  CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct, CustomerOrdersFilterInput,
+  VirtualProduct,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';

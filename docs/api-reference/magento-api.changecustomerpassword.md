@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, currentPassword: string, newPassword: string) => Promise<ChangeCustomerPasswordMutation['changeCustomerPassword']>
+_default: ({ client }: Context, currentPassword: string, newPassword: string) => Promise<Customer>
 ```

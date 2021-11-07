@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseWishlist<any, any, any, any>
+_default: () => import("@vue-storefront/core").UseWishlist<import("@vue-storefront/magento-api").WishlistDataFragment, any, any, any>
 ```
