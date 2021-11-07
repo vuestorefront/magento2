@@ -107,7 +107,7 @@ import {
   ChangeCustomerPasswordMutation,
   CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct,
+  VirtualProduct, CustomerOrdersFilterInput,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
