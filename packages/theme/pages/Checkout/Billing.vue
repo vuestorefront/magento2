@@ -67,7 +67,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="street"
-          rules="required|min:2"
+          rules="required"
           slim
         >
           <SfInput

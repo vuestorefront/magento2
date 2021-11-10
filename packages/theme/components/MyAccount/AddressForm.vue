@@ -39,7 +39,7 @@
       </div>
       <ValidationProvider
         v-slot="{ errors }"
-        rules="required|min:5"
+        rules="required"
         name="street"
         class="form__element"
       >
