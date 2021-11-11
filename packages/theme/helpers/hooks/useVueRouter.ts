@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { reactive, watch } from '@vue/composition-api';
+import { reactive, watch } from '@nuxtjs/composition-api';
 import { getInstance } from '~/helpers/hooks/getInstance';
 
 export const useVueRouter = () => {

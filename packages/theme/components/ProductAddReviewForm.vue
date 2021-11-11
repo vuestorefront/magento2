@@ -115,7 +115,7 @@ import {
   ref,
   onBeforeMount,
   computed,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   reviewGetters, useReview, userGetters, useUser,
 } from '@vue-storefront/magento';

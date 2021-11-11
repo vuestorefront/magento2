@@ -298,7 +298,7 @@ import {
   reactive,
   defineComponent,
   computed,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   SfModal,
   SfInput,

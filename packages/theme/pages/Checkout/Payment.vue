@@ -166,7 +166,7 @@ import {
   SfLink,
 } from '@storefront-ui/vue';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
-import { ref, computed, defineComponent } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
   useCart,

@@ -45,7 +45,7 @@
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/magento';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';

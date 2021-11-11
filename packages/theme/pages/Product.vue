@@ -277,7 +277,7 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed } from '@nuxtjs/composition-api';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';

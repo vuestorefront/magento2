@@ -38,7 +38,7 @@
           :value="method.method_code"
           :selected="
             selectedShippingMethod &&
-            selectedShippingMethod.method_code
+              selectedShippingMethod.method_code
           "
           name="shippingMethod"
           :description="method.carrier_title"
@@ -69,8 +69,8 @@
           type="button"
           :disabled="
             !isShippingMethodStepCompleted ||
-            isLoading ||
-            loadingShippingProvider.save
+              isLoading ||
+              loadingShippingProvider.save
           "
           @click="$emit('submit')"
         >
@@ -88,9 +88,11 @@ import {
   cartGetters,
   useGetShippingMethods,
 } from '@vue-storefront/magento';
-import { SfHeading, SfButton, SfRadio, SfLoader } from '@storefront-ui/vue';
+import {
+  SfHeading, SfButton, SfRadio, SfLoader,
+} from '@storefront-ui/vue';
 
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default defineComponent({
@@ -117,10 +119,10 @@ export default defineComponent({
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const isLoading = computed(
-      () => loadingShippingMethods.value || loadingShippingProvider.value
+      () => loadingShippingMethods.value || loadingShippingProvider.value,
     );
     const isShippingMethodStepCompleted = computed(
-      () => state.value?.method_code && !isLoading.value
+      () => state.value?.method_code && !isLoading.value,
     );
     /**
      * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.

@@ -348,7 +348,7 @@ import {
   ref,
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   useCart,
   useWishlist,

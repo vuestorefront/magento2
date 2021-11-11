@@ -233,7 +233,7 @@ import {
   SfImage,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 import {
   useCart,
   useUser,

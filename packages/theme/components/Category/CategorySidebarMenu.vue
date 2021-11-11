@@ -91,7 +91,7 @@ import {
   computed,
   defineComponent,
   ref,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   categoryGetters,
   useCategory,

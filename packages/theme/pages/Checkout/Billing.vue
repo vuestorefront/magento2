@@ -276,7 +276,7 @@ import {
   computed,
   onMounted,
   watch,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 

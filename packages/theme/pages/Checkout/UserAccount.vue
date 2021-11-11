@@ -141,7 +141,7 @@ import {
   SfButton, SfCheckbox,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed, defineComponent } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,

@@ -18,7 +18,7 @@ import {
 } from '@storefront-ui/vue';
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({

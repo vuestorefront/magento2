@@ -31,7 +31,7 @@
 </template>
 <script>
 import { SfSteps } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 

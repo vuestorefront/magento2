@@ -1,4 +1,4 @@
-import { computed } from '@vue/composition-api';
+import { computed } from '@nuxtjs/composition-api';
 import { productGetters, useProduct } from '@vue-storefront/magento';
 import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 

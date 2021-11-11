@@ -47,7 +47,7 @@ import {
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed, watch, ref,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 
 export default {

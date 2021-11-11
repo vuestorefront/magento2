@@ -36,7 +36,7 @@ import {
 } from '@vue-storefront/magento';
 import {
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
