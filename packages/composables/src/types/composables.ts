@@ -3,7 +3,7 @@ import {
   ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef } from '@vue/composition-api';
-import { computed } from 'vue-demi';
+import { computed } from '@nuxtjs/composition-api'; // Vue-Demi
 import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 

@@ -5,7 +5,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { computed } from 'vue-demi';
+import { computed } from '@nuxtjs/composition-api'; // Vue-Demi
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseExternalCheckout } from '../types/composables';
 

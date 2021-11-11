@@ -1,4 +1,4 @@
-import { computed, Ref } from 'vue-demi';
+import { computed, Ref } from '@nuxtjs/composition-api'; // Vue-Demi
 import {
   configureFactoryParams, Context,
   CustomQuery,
