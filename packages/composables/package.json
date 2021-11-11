@@ -23,26 +23,17 @@
   },
   "dependencies": {
     "@vue-storefront/magento-api": "1.0.0-rc.4.3",
-    "@vue-storefront/core": "~2.4.5",
+    "@vue-storefront/core": "~2.5.0",
     "cookie-universal": "^2.1.5",
-    "vue": "^2.6.12",
-    "vue-demi": "0.11.4"
+    "vue": "^2.6.12"
   },
   "devDependencies": {
+    "@nuxtjs/composition-api": "^0.29.3",
     "@types/js-cookie": "^3.0.0",
     "@vue/test-utils": "^1.2.2",
-    "jsdom": "^18.0.0",
+    "jsdom": "^18.0.1",
     "jsdom-global": "^3.0.2",
     "vue-template-compiler": "^2.6.x"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21",
-    "vue": "^2.0.0 || >=3.0.0-rc.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
   },
   "files": [
     "lib/**/*",
