@@ -159,6 +159,7 @@ import {
   onBeforeUnmount,
   watch,
   defineComponent,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
@@ -171,7 +172,6 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import LocaleSelector from '~/components/LocaleSelector.vue';
 import SearchResults from '~/components/SearchResults.vue';
 
@@ -186,12 +186,10 @@ export default defineComponent({
     SfSearchBar,
     SearchResults,
     SfOverlay,
-    SfMenuItem,
-    SfLink,
   },
   directives: { clickOutside },
   setup() {
-    const { router } = useVueRouter();
+    const router = useRouter();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();

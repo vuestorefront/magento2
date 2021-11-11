@@ -138,16 +138,21 @@
 import {
   SfHeading,
   SfInput,
-  SfButton, SfCheckbox,
+  SfButton,
+  SfCheckbox,
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
+import {
+  ref,
+  computed,
+  defineComponent,
+  useRouter,
+} from '@nuxtjs/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 extend('required', {
   ...required,
@@ -181,7 +186,7 @@ export default defineComponent({
     ValidationObserver,
   },
   setup() {
-    const { router } = useVueRouter();
+    const router = useRouter();
     const {
       attachToCart,
       loading: loadingGuestUser,

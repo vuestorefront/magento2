@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
+import { useRoute, useRouter } from '@nuxtjs/composition-api';
 import { getInstance } from '~/helpers/hooks/getInstance';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -16,19 +16,21 @@ const reduceFilters = (query) => (prev, curr) => {
 };
 
 const getFiltersDataFromUrl = (context, onlyFilters) => {
-  const { query } = context.$router.history.current;
+  const route = useRoute();
+  const { query } = route.value;
 
   return Object.keys(query)
     .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
+    // eslint-disable-next-line unicorn/prefer-object-from-entries
     .reduce(reduceFilters(query), {});
 };
 
 const useUiHelpers = () => {
-  const { route } = useVueRouter();
+  const route = useRoute();
   const instance = getInstance();
 
   const getFacetsFromURL = () => {
-    const { query } = route;
+    const { query } = route.value;
 
     return {
       filters: getFiltersDataFromUrl(instance, true),
@@ -42,7 +44,7 @@ const useUiHelpers = () => {
   const changeSearchTerm = (term: string) => term;
 
   const getSearchTermFromUrl = () => {
-    const { query } = route;
+    const { query } = route.value;
 
     return {
       page: Number.parseInt(query.page as string, 10) || 1,
@@ -57,14 +59,17 @@ const useUiHelpers = () => {
 
   const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
 
-  const changeSorting = (sort: string) => {
-    // @ts-ignore
-    const { query } = route;
-    instance.$router.push({ query: { ...query, sort } });
+  const changeSorting = async (sort: string) => {
+    const { query } = route.value;
+    const router = useRouter();
+
+    await router.push({ query: { ...query, sort } });
   };
 
-  const changeFilters = (filters: any) => {
-    instance.$router.push({
+  const changeFilters = async (filters: any) => {
+    const router = useRouter();
+
+    await router.push({
       query: {
         ...getFiltersDataFromUrl(instance, false),
         ...filters,
@@ -72,8 +77,10 @@ const useUiHelpers = () => {
     });
   };
 
-  const changeItemsPerPage = (itemsPerPage: number) => {
-    instance.$router.push({
+  const changeItemsPerPage = async (itemsPerPage: number) => {
+    const router = useRouter();
+
+    await router.push({
       query: {
         ...getFiltersDataFromUrl(instance, false),
         itemsPerPage,
@@ -81,8 +88,10 @@ const useUiHelpers = () => {
     });
   };
 
-  const setTermForUrl = (term: string) => {
-    instance.$router.push({
+  const setTermForUrl = async (term: string) => {
+    const router = useRouter();
+
+    await router.push({
       query: {
         ...getFiltersDataFromUrl(instance, false),
         term: term || undefined,
