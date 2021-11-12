@@ -5,7 +5,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { computed } from '@nuxtjs/composition-api'; // Vue-Demi
+import { computed } from '@vue/composition-api';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from '../types';
 import { UseCustomQuery } from '../types/composables';
