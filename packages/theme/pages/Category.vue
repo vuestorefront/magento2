@@ -347,8 +347,8 @@ import {
 import {
   ref,
   computed,
-  defineComponent,
-} from '@vue/composition-api';
+  defineComponent, useRoute, useRouter,
+} from '@nuxtjs/composition-api';
 import {
   useCart,
   useWishlist,
@@ -361,9 +361,8 @@ import {
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
-import { useRoute } from '~/helpers/route/useRoute.ts';
+import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState } from '~/composables';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import cacheControl from '~/helpers/cacheControl';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
@@ -392,17 +391,15 @@ export default defineComponent({
     'stale-when-revalidate': 5,
   }),
   transition: 'fade',
-  setup(props, context) {
+  setup() {
     const th = useUiHelpers();
     const uiState = useUiState();
-    const {
-      router,
-    } = useVueRouter();
+    const router = useRouter();
     const {
       path,
       result: routeData,
       search: resolveUrl,
-    } = useRoute(context);
+    } = useUrlResolver();
     const { $magento: { config: magentoConfig } } = useVSFContext();
     const { isAuthenticated } = useUser();
     const {

@@ -51,7 +51,7 @@
 </template>
 <script>
 import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
-import { computed, ref, defineComponent } from '@vue/composition-api';
+import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import CouponCode from '../CouponCode.vue';

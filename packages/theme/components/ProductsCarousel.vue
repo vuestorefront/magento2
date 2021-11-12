@@ -45,7 +45,7 @@ import {
 } from '@storefront-ui/vue';
 
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'ProductsCarousel',

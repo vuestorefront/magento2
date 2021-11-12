@@ -1,4 +1,4 @@
-import { Ref, computed } from 'vue-demi';
+import { Ref, computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,

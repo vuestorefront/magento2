@@ -210,7 +210,7 @@ import {
   computed,
   onBeforeMount,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
 
 extend('required', {

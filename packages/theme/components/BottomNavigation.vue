@@ -52,6 +52,7 @@
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon } from '@storefront-ui/vue';
 import { useUser } from '@vue-storefront/magento';
+import { useRouter } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 
 export default {
@@ -60,7 +61,7 @@ export default {
     SfIcon,
     SfCircleIcon,
   },
-  setup(props, { root }) {
+  setup() {
     const {
       toggleCartSidebar,
       toggleWishlistSidebar,
@@ -69,10 +70,11 @@ export default {
       isMobileMenuOpen,
     } = useUiState();
     const { isAuthenticated } = useUser();
+    const router = useRouter();
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        return root.$router.push('/my-account');
+        return router.push('/my-account');
       }
       toggleLoginModal();
     };

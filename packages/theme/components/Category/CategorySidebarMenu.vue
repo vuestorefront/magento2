@@ -91,13 +91,13 @@ import {
   computed,
   defineComponent,
   ref,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   categoryGetters,
   useCategory,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { useRoute } from '~/helpers/route/useRoute.ts';
+import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers } from '~/composables';
 
 export default defineComponent({
@@ -111,13 +111,13 @@ export default defineComponent({
   props: {
     resolveUrl: Boolean,
   },
-  setup(props, context) {
+  setup(props) {
     const th = useUiHelpers();
     const {
       path,
       result,
       search: resolveUrl,
-    } = useRoute(context);
+    } = useUrlResolver();
     const {
       categories,
       search,

@@ -49,7 +49,7 @@ import {
   SfBottomModal,
   SfCharacteristic,
 } from '@storefront-ui/vue';
-import { ref, computed, defineComponent } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { useI18n } from '~/helpers/hooks/usei18n';
 
 export default defineComponent({

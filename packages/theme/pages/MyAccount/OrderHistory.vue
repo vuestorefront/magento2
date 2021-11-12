@@ -153,7 +153,7 @@ import {
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/magento';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
 

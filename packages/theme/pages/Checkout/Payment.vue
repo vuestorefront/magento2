@@ -153,7 +153,7 @@
   </div>
 </template>
 
-<script lant="ts">
+<script>
 import {
   SfHeading,
   SfTable,
@@ -166,14 +166,18 @@ import {
   SfLink,
 } from '@storefront-ui/vue';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
-import { ref, computed, defineComponent } from '@vue/composition-api';
+import {
+  ref,
+  computed,
+  defineComponent,
+  useRouter,
+} from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
   useCart,
   cartGetters,
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -193,7 +197,7 @@ export default defineComponent({
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
     const { $magento } = useVSFContext();
-    const { router } = useVueRouter();
+    const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
     const getAttributes = (product) => product.configurable_options || [];

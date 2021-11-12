@@ -88,7 +88,7 @@ import {
   SfIcon,
 } from '@storefront-ui/vue';
 import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
-import { ref, computed, defineComponent } from '@vue/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import AddressForm from '~/components/MyAccount/AddressForm.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';

@@ -82,7 +82,7 @@ import {
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed, onBeforeMount, ref, watch,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
 import { productData } from '~/helpers/product/productData';
 

@@ -1,7 +1,7 @@
 import {
   CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams,
 } from '@vue-storefront/core';
-import { computed, Ref } from 'vue-demi';
+import { computed, Ref } from '@vue/composition-api';
 
 export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: { customQuery?: any; realCart?: boolean; }) => Promise<CART>;

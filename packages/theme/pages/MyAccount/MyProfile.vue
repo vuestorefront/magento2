@@ -38,7 +38,7 @@ import {
 import { SfTabs } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { cartGetters, useUser } from '@vue-storefront/magento';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
 import { useUiNotification } from '~/composables';

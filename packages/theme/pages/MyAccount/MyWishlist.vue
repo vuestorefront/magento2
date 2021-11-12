@@ -204,7 +204,8 @@ import {
 import {
   computed,
   defineComponent,
-} from '@vue/composition-api';
+  useRouter,
+} from '@nuxtjs/composition-api';
 import {
   useCart,
   useWishlist,
@@ -212,7 +213,6 @@ import {
   wishlistGetters,
 } from '@vue-storefront/magento';
 import { useUiHelpers, useUiState } from '~/composables';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -235,7 +235,7 @@ export default defineComponent({
       wishlist,
       removeItem,
     } = useWishlist();
-    const { router } = useVueRouter();
+    const router = useRouter();
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();

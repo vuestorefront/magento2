@@ -46,6 +46,9 @@ module.exports = {
         facets: {
           available: ['color', 'size', 'price'],
         },
+        customApolloHttpLinkOptions: {
+          useGETForQueries: false,
+        },
       },
     },
   },
