@@ -2,7 +2,6 @@
 import { Category } from '@vue-storefront/magento-api';
 import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import { getInstance } from '~/helpers/hooks/getInstance';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -15,85 +14,64 @@ const reduceFilters = (query) => (prev, curr) => {
   };
 };
 
-const getFiltersDataFromUrl = (context, onlyFilters) => {
-  const route = useRoute();
-  const { query } = route.value;
-
-  return Object.keys(query)
-    .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
-    // eslint-disable-next-line unicorn/prefer-object-from-entries
-    .reduce(reduceFilters(query), {});
-};
-
 const useUiHelpers = () => {
   const route = useRoute();
-  const instance = getInstance();
+  const router = useRouter();
+  const { query } = route.value;
 
-  const getFacetsFromURL = () => {
-    const { query } = route.value;
+  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(query)
+    .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
+  // eslint-disable-next-line unicorn/prefer-object-from-entries
+    .reduce(reduceFilters(query), {});
 
-    return {
-      filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-      page: Number.parseInt(query.page as string, 10) || 1,
-      sort: query.sort as string || '',
-      term: query.term as string,
-    };
-  };
+  const getFacetsFromURL = () => ({
+    filters: getFiltersDataFromUrl(true),
+    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
+    page: Number.parseInt(query.page as string, 10) || 1,
+    sort: query.sort as string || '',
+    term: query.term as string,
+  });
 
   const changeSearchTerm = (term: string) => term;
 
-  const getSearchTermFromUrl = () => {
-    const { query } = route.value;
-
-    return {
-      page: Number.parseInt(query.page as string, 10) || 1,
-      sort: query.sort || '',
-      filters: getFiltersDataFromUrl(instance, true),
-      itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-      term: query.term,
-    };
-  };
+  const getSearchTermFromUrl = () => ({
+    page: Number.parseInt(query.page as string, 10) || 1,
+    sort: query.sort || '',
+    filters: getFiltersDataFromUrl(true),
+    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
+    term: query.term,
+  });
 
   const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
 
   const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
 
   const changeSorting = async (sort: string) => {
-    const { query } = route.value;
-    const router = useRouter();
-
     await router.push({ query: { ...query, sort } });
   };
 
   const changeFilters = async (filters: any) => {
-    const router = useRouter();
-
     await router.push({
       query: {
-        ...getFiltersDataFromUrl(instance, false),
+        ...getFiltersDataFromUrl(false),
         ...filters,
       },
     });
   };
 
   const changeItemsPerPage = async (itemsPerPage: number) => {
-    const router = useRouter();
-
     await router.push({
       query: {
-        ...getFiltersDataFromUrl(instance, false),
+        ...getFiltersDataFromUrl(false),
         itemsPerPage,
       },
     });
   };
 
   const setTermForUrl = async (term: string) => {
-    const router = useRouter();
-
     await router.push({
       query: {
-        ...getFiltersDataFromUrl(instance, false),
+        ...getFiltersDataFromUrl(false),
         term: term || undefined,
       },
     });
