@@ -55,7 +55,6 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   const httpLink = createHttpLink({
     uri: settings.api,
     fetch,
-    useGETForQueries: true,
     ...settings.customApolloHttpLinkOptions,
   });
 
