@@ -7,5 +7,11 @@
 <b>Signature:</b>
 
 ```typescript
-checkoutGetters: CheckoutGetters<ShippingMethod>
+checkoutGetters: {
+    getShippingMethodId: (shippingMethod: ShippingMethod) => string;
+    getShippingMethodName: (shippingMethod: ShippingMethod) => string;
+    getShippingMethodDescription: (shippingMethod: ShippingMethod) => string;
+    getFormattedPrice: (price: number) => string;
+    getShippingMethodPrice: (shippingMethod: ShippingMethod) => number;
+}
 ```

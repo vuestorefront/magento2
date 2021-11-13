@@ -91,6 +91,7 @@ module.exports = {
           ['/guide/composables/use-product', 'useProduct'],
           ['/guide/composables/use-related-products', 'useRelatedProducts'],
           ['/guide/composables/use-review', 'useReview'],
+          ['/guide/composables/use-store', 'useStore'],
           ['/guide/composables/use-upsell-products', 'useUpsellProducts'],
           ['/guide/composables/use-url-resolver', 'useUrlResolver'],
           ['/guide/composables/use-wishlist', 'useWishlist'],

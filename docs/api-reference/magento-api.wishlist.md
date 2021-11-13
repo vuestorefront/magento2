@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, queryParams: WishlistQueryVariables) => Promise<ApolloQueryResult<WishlistQuery>>
+_default: (context: Context, searchParams: WishlistQueryVariables, customQuery?: CustomQuery) => Promise<ApolloQueryResult<WishlistQuery>>
 ```
