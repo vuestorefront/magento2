@@ -37,11 +37,10 @@ import {
 } from 'vee-validate/dist/rules';
 import { SfTabs } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
-import { cartGetters, useUser } from '@vue-storefront/magento';
+import { useUser } from '@vue-storefront/magento';
 import { defineComponent } from '@nuxtjs/composition-api';
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
-import { useUiNotification } from '~/composables';
 import { customerPasswordRegExp } from '../../helpers/customer/regex';
 
 extend('required', {
@@ -75,18 +74,17 @@ export default defineComponent({
 
   setup() {
     const {
-      updateUser,
       changePassword,
+      errors,
       load,
       loading,
+      updateUser,
     } = useUser();
-    const {
-      send: sendNotification,
-    } = useUiNotification();
 
     const formHandler = async (fn, onComplete, onError) => {
       try {
         const data = await fn();
+        if (!data) throw new Error('API Error');
         await onComplete(data);
       } catch (error) {
         onError(error);
@@ -98,17 +96,7 @@ export default defineComponent({
       onComplete,
       onError,
     }) => formHandler(
-      async () => {
-        await updateUser({ user: form.value });
-        sendNotification({
-          id: Symbol('user_updated'),
-          message: 'The user account data was successfully updated!',
-          type: 'success',
-          icon: 'check',
-          persist: false,
-          title: 'User Account',
-        });
-      },
+      async () => updateUser({ user: form.value }),
       onComplete,
       onError,
     );
@@ -116,20 +104,10 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(async () => {
-      await changePassword({
-        current: form.value.currentPassword,
-        new: form.value.newPassword,
-      });
-      sendNotification({
-        id: Symbol('password_updated'),
-        message: 'The user password was changed successfully updated!',
-        type: 'success',
-        icon: 'check',
-        persist: false,
-        title: 'User Account',
-      });
-    }, onComplete, onError);
+    }) => formHandler(async () => changePassword({
+      current: form.value.currentPassword,
+      new: form.value.newPassword,
+    }), onComplete, onError);
 
     onSSR(async () => {
       await load();
@@ -137,6 +115,7 @@ export default defineComponent({
 
     return {
       loading,
+      errors,
       updatePersonalData,
       updatePassword,
     };
