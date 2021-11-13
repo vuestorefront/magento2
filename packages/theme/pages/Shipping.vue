@@ -197,7 +197,7 @@ import {
   ref,
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useShipping, useCountrySearch, addressGetter } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';

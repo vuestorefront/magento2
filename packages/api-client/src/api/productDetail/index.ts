@@ -31,6 +31,7 @@ export default async (
   };
 
   const variables: Variables = {
+    ...defaultParams,
     pageSize: defaultParams.pageSize,
     currentPage: defaultParams.currentPage,
   };
@@ -41,14 +42,12 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { products } = context.extendQuery(
-    customQuery, {
-      products: {
-        query: detailQuery,
-        variables,
-      },
+  const { products } = context.extendQuery(customQuery, {
+    products: {
+      query: detailQuery,
+      variables,
     },
-  );
+  });
 
   const query = customQuery ? gql`${products.query}` : products.query;
 
@@ -56,7 +55,6 @@ export default async (
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query,
       variables: products.variables,
-
     });
 
     if (result.data.products.items.length === 0) throw new Error('No products found');

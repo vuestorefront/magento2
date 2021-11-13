@@ -39,7 +39,7 @@
       </div>
       <ValidationProvider
         v-slot="{ errors }"
-        rules="required|min:5"
+        rules="required"
         name="street"
         class="form__element"
       >
@@ -210,7 +210,7 @@ import {
   computed,
   onBeforeMount,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
 
 extend('required', {

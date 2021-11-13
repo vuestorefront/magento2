@@ -1,4 +1,5 @@
 import ApolloClient, { ApolloClientOptions } from 'apollo-client';
+import { FetchOptions } from 'apollo-link-http';
 import { MagentoApiMethods } from './API';
 
 export interface Storage {
@@ -76,6 +77,7 @@ export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
   storage: Storage;
   customOptions?: ApolloClientOptions<any>;
+  customApolloHttpLinkOptions?: FetchOptions;
   overrides: MagentoApiMethods;
 }
 

@@ -45,7 +45,9 @@
 </template>
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
-import { computed, defineComponent } from '@vue/composition-api';
+import {
+  computed, defineComponent, useRoute, useRouter,
+} from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/magento';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';
@@ -53,7 +55,6 @@ import MyNewsletter from './MyAccount/MyNewsletter.vue';
 import MyWishlist from './MyAccount/MyWishlist.vue';
 import OrderHistory from './MyAccount/OrderHistory.vue';
 import MyReviews from './MyAccount/MyReviews.vue';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
   name: 'MyAccount',
@@ -71,11 +72,14 @@ export default defineComponent({
     'is-authenticated',
   ],
   setup() {
-    const { router, route } = useVueRouter();
+    const route = useRoute();
+    const router = useRouter();
     const { logout } = useUser();
-    const activePage = computed(() => {
-      const { pageName } = route.params;
 
+    const { params } = route.value;
+    const { pageName } = params;
+
+    const activePage = computed(() => {
       if (pageName) {
         return (`${pageName.charAt(0).toUpperCase()}${pageName.slice(1)}`).replace('-', ' ');
       }

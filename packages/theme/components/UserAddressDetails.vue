@@ -32,7 +32,7 @@ import {
   toRef,
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { userAddressesGetters } from '@vue-storefront/magento';
 
 export default defineComponent({

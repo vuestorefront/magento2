@@ -60,9 +60,10 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
+import { useUiNotification } from '~/composables';
 
 export default defineComponent({
   name: 'PasswordResetForm',
@@ -80,17 +81,35 @@ export default defineComponent({
       newPassword: '',
       repeatPassword: '',
     });
+    const {
+      send: sendNotification,
+    } = useUiNotification();
 
     const form = ref(resetForm());
 
     const submitForm = (resetValidationFn) => () => {
       const onComplete = () => {
         form.value = resetForm();
+        sendNotification({
+          id: Symbol('password_updated'),
+          message: 'The user password was changed successfully updated!',
+          type: 'success',
+          icon: 'check',
+          persist: false,
+          title: 'User Account',
+        });
         resetValidationFn();
       };
 
       const onError = () => {
-        // TODO: Handle error
+        sendNotification({
+          id: Symbol('password_not_updated'),
+          message: 'It was not possible to update your password.',
+          type: 'danger',
+          icon: 'cross',
+          persist: false,
+          title: 'User Account',
+        });
       };
 
       emit('submit', { form, onComplete, onError });

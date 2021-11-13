@@ -40,7 +40,7 @@ import {
 import {
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({

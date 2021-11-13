@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseUser<import("@vue-storefront/magento-api").CustomerDataFragment, any, any>
+_default: () => import("@vue-storefront/core").UseUser<any, any, any>
 ```

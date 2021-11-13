@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { useUser, userGetters } from '@vue-storefront/magento';
 import {
@@ -99,6 +99,7 @@ import {
   SfModal,
   SfCheckbox,
 } from '@storefront-ui/vue';
+import { useUiNotification } from '~/composables';
 
 export default defineComponent({
   name: 'ProfileUpdateForm',
@@ -128,6 +129,9 @@ export default defineComponent({
       email: userGetters.getEmailAddress(user.value),
       allow_remote_shopping_assistance: userGetters.getRemoteShoppingAssistance(user.value),
     });
+    const {
+      send: sendNotification,
+    } = useUiNotification();
 
     const form = ref(resetForm());
 
@@ -136,6 +140,14 @@ export default defineComponent({
         form.value = resetForm();
         requirePassword.value = false;
         currentPassword.value = '';
+        sendNotification({
+          id: Symbol('user_updated'),
+          message: 'The user account data was successfully updated!',
+          type: 'success',
+          icon: 'check',
+          persist: false,
+          title: 'User Account',
+        });
         resetValidationFn();
       };
 

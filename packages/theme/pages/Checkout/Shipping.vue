@@ -58,7 +58,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="street"
-          rules="required|min:2"
+          rules="required"
           slim
         >
           <SfInput
@@ -251,7 +251,7 @@ import {
   computed,
   watch,
   onMounted, defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import {
   addressGetter,
@@ -281,7 +281,7 @@ extend('digits', {
 });
 
 export default defineComponent({
-  name: 'Shipping',
+  name: 'ShippingStep',
   components: {
     SfHeading,
     SfInput,
@@ -347,8 +347,10 @@ export default defineComponent({
       // @ts-ignore
       await save({ shippingDetails: shippingDetailsData });
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userShippingGetters.getAddresses(userShipping.value,
-          { id: addressId });
+        const chosenAddress = userShippingGetters.getAddresses(
+          userShipping.value,
+          { id: addressId },
+        );
         if (chosenAddress && chosenAddress.length > 0) {
           await setDefaultAddress({ address: chosenAddress[0] });
         }
@@ -381,8 +383,10 @@ export default defineComponent({
     };
 
     const selectDefaultAddress = () => {
-      const defaultAddress = userShippingGetters.getAddresses(userShipping.value,
-        { default_shipping: true });
+      const defaultAddress = userShippingGetters.getAddresses(
+        userShipping.value,
+        { default_shipping: true },
+      );
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }

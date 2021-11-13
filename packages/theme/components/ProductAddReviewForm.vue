@@ -115,7 +115,8 @@ import {
   ref,
   onBeforeMount,
   computed,
-} from '@vue/composition-api';
+  useRoute,
+} from '@nuxtjs/composition-api';
 import {
   reviewGetters, useReview, userGetters, useUser,
 } from '@vue-storefront/magento';
@@ -127,7 +128,6 @@ import {
   SfSelect,
   SfTextarea,
 } from '@storefront-ui/vue';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 extend('required', {
   ...required,
@@ -163,8 +163,8 @@ export default defineComponent({
   },
   emits: ['add-review'],
   setup(_, { emit }) {
-    const { route } = useVueRouter();
-    const { id } = route.params;
+    const route = useRoute();
+    const { params: { id } } = route.value;
     const {
       loading,
       loadReviewMetadata,

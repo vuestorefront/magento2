@@ -18,8 +18,7 @@ import {
 } from '@storefront-ui/vue';
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { defineComponent } from '@vue/composition-api';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   components: {
@@ -32,18 +31,20 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props, context) {
+  setup(props) {
     const {
       page,
       error,
       loadContent,
       loading,
     } = useContent('cmsPage');
-    const { route } = useVueRouter();
+    const route = useRoute();
+    const { error: nuxtError } = useContext();
+    const { params } = route.value;
 
     onSSR(async () => {
-      await loadContent(route.params.slug || props.identifier);
-      if (error?.value?.content) context.root.$nuxt.error({ statusCode: 404 });
+      await loadContent(params.slug || props.identifier);
+      if (error?.value?.content) nuxtError({ statusCode: 404 });
     });
     return {
       page,

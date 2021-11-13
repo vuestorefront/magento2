@@ -233,7 +233,12 @@ import {
   SfImage,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import {
+  computed,
+  defineComponent,
+  ref,
+  useRouter,
+} from '@nuxtjs/composition-api';
 import {
   useCart,
   useUser,
@@ -242,7 +247,6 @@ import {
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { useUiState, useUiNotification } from '~/composables';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
@@ -263,7 +267,7 @@ export default defineComponent({
   setup() {
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const { router } = useVueRouter();
+    const router = useRouter();
     const {
       cart,
       removeItem,

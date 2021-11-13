@@ -31,19 +31,22 @@
 </template>
 <script>
 import { SfSteps } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import {
+  computed, defineComponent, ref, useRoute, useRouter,
+} from '@nuxtjs/composition-api';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export default defineComponent({
-  name: 'Checkout',
+  name: 'CheckoutPage',
   components: {
     SfSteps,
     CartPreview,
   },
   setup() {
-    const { route, router } = useVueRouter();
-    const currentStep = computed(() => route.path.split('/').pop());
+    const route = useRoute();
+    const { path } = route.value;
+    const router = useRouter();
+    const currentStep = computed(() => path.split('/').pop());
     const STEPS = ref({
       'user-account': 'User Account',
       shipping: 'Shipping',
@@ -54,9 +57,9 @@ export default defineComponent({
       .indexOf(currentStep.value));
     const isThankYou = computed(() => currentStep.value === 'thank-you');
 
-    const handleStepClick = (stepIndex) => {
+    const handleStepClick = async (stepIndex) => {
       const key = Object.keys(STEPS.value)[stepIndex];
-      router.push(`/checkout/${key}`);
+      await router.push(`/checkout/${key}`);
     };
 
     return {

@@ -154,7 +154,7 @@ import {
   watch,
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers } from '~/composables';
 

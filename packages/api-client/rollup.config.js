@@ -42,6 +42,6 @@ const server = {
 };
 
 export default [
-  generateBaseConfig(pkg),
+  generateBaseConfig(pkg, true),
   server,
 ];

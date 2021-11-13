@@ -28,6 +28,7 @@ export { default as useRelatedProducts } from './composables/useRelatedProducts'
 export { default as useReview } from './composables/useReview';
 export { default as useShipping } from './composables/useShipping';
 export { default as useShippingProvider } from './composables/useShippingProvider';
+export { default as useStore } from './composables/useStore';
 export { default as useUpsellProducts } from './composables/useUpsellProducts';
 export { default as useUrlResolver } from './composables/useUrlResolver';
 export { default as useUser } from './composables/useUser';

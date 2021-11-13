@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (id: string) => import("@vue-storefront/core").UseCategory<import("@vue-storefront/magento-api").CategoryTree, any, any>
+_default: (id: string) => import("@vue-storefront/core").UseCategory<Category, any, any>
 ```

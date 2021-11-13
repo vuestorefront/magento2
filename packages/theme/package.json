@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-rc.4.3",
+  "version": "1.0.0-rc.4.4",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -24,15 +24,16 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
+    "@nuxtjs/composition-api": "^0.30.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/google-fonts": "^1.3.0",
     "@nuxtjs/style-resources": "^1.2.1",
-    "@storefront-ui/vue": "^0.11.0",
-    "@vue-storefront/core": "~2.4.5",
-    "@vue-storefront/magento": "1.0.0-rc.4.3",
-    "@vue-storefront/middleware": "~2.4.5",
-    "@vue-storefront/nuxt": "~2.4.5",
-    "@vue-storefront/nuxt-theme": "~2.4.5",
+    "@storefront-ui/vue": "^0.11.2",
+    "@vue-storefront/core": "~2.5.0",
+    "@vue-storefront/magento": "1.0.0-rc.4.4",
+    "@vue-storefront/middleware": "~2.5.0",
+    "@vue-storefront/nuxt": "~2.5.0",
+    "@vue-storefront/nuxt-theme": "~2.5.0",
     "convict": "^6.2.1",
     "convict-format-with-validator": "^6.2.0",
     "cookie-universal-nuxt": "^2.1.5",
@@ -43,8 +44,7 @@
     "nuxt-i18n": "^6.28.0",
     "omit-deep": "^0.3.0",
     "pm2": "^5.1.2",
-    "vee-validate": "^3.4.13",
-    "vue-demi": "0.11.4",
+    "vee-validate": "^3.4.14",
     "vue-dompurify-html": "^2.3.0",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0"
@@ -55,7 +55,7 @@
     "@vue/test-utils": "^1.2.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^27.3.1",
-    "cypress": "^8.6.0",
+    "cypress": "^9.0.0",
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
     "dotenv": "^10.0.0",
@@ -68,28 +68,19 @@
     "jest-transform-stub": "^2.0.0",
     "jest-watch-toggle-config": "^2.0.1",
     "jest-watch-typeahead": "^1.0.0",
-    "lint-staged": "^11.2.4",
+    "lint-staged": "^11.2.6",
     "majestic": "^1.8.1",
-    "mochawesome": "^6.3.1",
+    "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.0",
-    "mochawesome-report-generator": "^5.2.0",
-    "npm-check-updates": "^11.8.5",
+    "mochawesome-report-generator": "^6.0.1",
+    "npm-check-updates": "^12.0.2",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.0.7",
     "ts-loader": "^8.1.0",
     "tslib": "^2.3.1",
     "typescript": "^4.4.4",
     "vue-jest": "^4.0.0-0",
-    "webpack": "^4.46.0"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "1.0.0-beta.21",
-    "vue": "^2.0.0 || >=3.0.0-rc.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "webpack": "4.46.0"
   },
   "engines": {
     "node": ">=14.x"

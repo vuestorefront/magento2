@@ -101,7 +101,7 @@ import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'InstagramFeed',

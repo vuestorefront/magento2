@@ -67,7 +67,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="street"
-          rules="required|min:2"
+          rules="required"
           slim
         >
           <SfInput
@@ -276,9 +276,9 @@ import {
   computed,
   onMounted,
   watch,
-} from '@vue/composition-api';
+  useRouter,
+} from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -296,7 +296,7 @@ extend('digits', {
 });
 
 export default {
-  name: 'Billing',
+  name: 'BillingStep',
   components: {
     SfHeading,
     SfInput,
@@ -308,7 +308,7 @@ export default {
     UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
   },
   setup() {
-    const { router } = useVueRouter();
+    const router = useRouter();
     const {
       load,
       save,
@@ -368,8 +368,10 @@ export default {
         },
       });
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userBillingGetters.getAddresses(userBilling.value,
-          { id: addressId });
+        const chosenAddress = userBillingGetters.getAddresses(
+          userBilling.value,
+          { id: addressId },
+        );
         if (chosenAddress && chosenAddress.length > 0) {
           await setDefaultAddress({ address: chosenAddress[0] });
         }
@@ -427,8 +429,10 @@ export default {
     };
 
     const selectDefaultAddress = () => {
-      const defaultAddress = userBillingGetters.getAddresses(userBilling.value,
-        { default_billing: true });
+      const defaultAddress = userBillingGetters.getAddresses(
+        userBilling.value,
+        { default_billing: true },
+      );
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }

@@ -91,13 +91,13 @@ import {
   computed,
   defineComponent,
   ref,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import {
   categoryGetters,
   useCategory,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { useRoute } from '~/helpers/route/useRoute.ts';
+import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers } from '~/composables';
 
 export default defineComponent({
@@ -110,14 +110,15 @@ export default defineComponent({
   },
   props: {
     resolveUrl: Boolean,
+    noFetch: Boolean,
   },
-  setup(props, context) {
+  setup(props) {
     const th = useUiHelpers();
     const {
       path,
       result,
       search: resolveUrl,
-    } = useRoute(context);
+    } = useUrlResolver();
     const {
       categories,
       search,
@@ -137,7 +138,7 @@ export default defineComponent({
         return '';
       }
       const categoryLabel = ref();
-      const { parent: category } = findDeep(items, (value, key, parentValue, _deepCtx) => {
+      const parent = findDeep(items, (value, key, parentValue, _deepCtx) => {
         if (key === 'isCurrent' && value) {
           // eslint-disable-next-line no-underscore-dangle
           categoryLabel.value = _deepCtx.obj[_deepCtx._item.path[0]].label;
@@ -145,7 +146,7 @@ export default defineComponent({
         return key === 'isCurrent' && value;
       });
 
-      return categoryLabel.value || category?.label || items[0]?.label;
+      return categoryLabel.value || parent?.category?.label || items[0]?.label;
     });
 
     onSSR(async () => {
@@ -153,9 +154,11 @@ export default defineComponent({
         await resolveUrl();
       }
 
-      await search({
-        pageSize: 20,
-      });
+      if (!props.noFetch) {
+        await search({
+          pageSize: 20,
+        });
+      }
     });
 
     return {

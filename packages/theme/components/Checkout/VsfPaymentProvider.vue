@@ -25,7 +25,7 @@ import {
   onMounted,
   computed,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 import { usePaymentProvider } from '@vue-storefront/magento';
 
 export default defineComponent({

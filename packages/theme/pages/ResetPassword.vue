@@ -95,10 +95,11 @@ import {
   SfInput,
   SfHeading,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@vue/composition-api';
+import { ref, computed } from '@nuxtjs/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
+import { customerPasswordRegExp } from '../helpers/customer/regex';
 
 extend('email', {
   ...email,
@@ -111,11 +112,8 @@ extend('required', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
-  validate: (value) => {
-    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])(?=.{8,})');
-    return strongRegex.test(value);
-  },
+  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  validate: (value) => customerPasswordRegExp.test(value),
 });
 
 export default {

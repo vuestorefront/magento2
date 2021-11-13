@@ -34,7 +34,7 @@ import {
   watch,
   ref,
   defineComponent,
-} from '@vue/composition-api';
+} from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'CouponCode',

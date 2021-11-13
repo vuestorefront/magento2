@@ -1,10 +1,9 @@
-import { computed } from '@vue/composition-api';
+import { computed, useRoute } from '@nuxtjs/composition-api';
 import { productGetters, useProduct } from '@vue-storefront/magento';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
 
 export const productData = () => {
-  const { route } = useVueRouter();
-  const { id } = route.params;
+  const route = useRoute();
+  const { params: { id }, query } = route.value;
 
   const { products, loading } = useProduct(`product-${id}`);
 
@@ -16,7 +15,7 @@ export const productData = () => {
       // @ts-ignore
       return productGetters.getFiltered(baseProduct, {
         master: true,
-        attributes: route.query,
+        attributes: query,
       });
     }),
   };

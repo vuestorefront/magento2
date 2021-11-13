@@ -1,4 +1,4 @@
-import { computed } from 'vue-demi';
+import { computed } from '@vue/composition-api';
 import {
   Context,
   sharedRef,

@@ -5,7 +5,7 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { computed } from 'vue-demi';
+import { computed } from '@vue/composition-api';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCustomMutation } from '../types/composables';
 import { FetchPolicy } from '../types';

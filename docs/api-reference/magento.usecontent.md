@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (ssrKey?: string) => import("../../types/composables").UseContent<import("@vue-storefront/magento-api").CmsPage, CmsBlock, any>
+_default: (ssrKey?: string) => import("../../types/composables").UseContent<Page, CmsBlock, any>
 ```

@@ -2,8 +2,7 @@ import {
   Composable,
   ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
 } from '@vue-storefront/core';
-import { ComputedRef } from '@vue/composition-api';
-import { computed } from 'vue-demi';
+import { ComputedRef, computed } from '@vue/composition-api';
 import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 

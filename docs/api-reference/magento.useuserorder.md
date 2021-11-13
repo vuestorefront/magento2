@@ -7,7 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseUserOrder<import("@vue-storefront/magento-api/lib/types/GraphQL").CustomerOrder[], import("@vue-storefront/magento-api/lib/types/GraphQL").Exact<{
+_default: () => import("@vue-storefront/core").UseUserOrder<CustomerOrder[], import("@vue-storefront/magento-api/lib/types/GraphQL").Exact<{
     currentPage?: number;
     filter?: import("@vue-storefront/magento-api").CustomerOrdersFilterInput;
     pageSize?: number;

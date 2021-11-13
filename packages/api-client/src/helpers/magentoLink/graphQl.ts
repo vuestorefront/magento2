@@ -52,7 +52,11 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     },
   }));
 
-  const httpLink = createHttpLink({ uri: settings.api, fetch });
+  const httpLink = createHttpLink({
+    uri: settings.api,
+    fetch,
+    ...settings.customApolloHttpLinkOptions,
+  });
 
   const onErrorLink = createErrorHandler();
 

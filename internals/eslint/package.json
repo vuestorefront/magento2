@@ -31,10 +31,10 @@
   "dependencies": {
     "babel-eslint": "^10.0.1",
     "eslint-plugin-promise": "^5.1.1",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^15.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-unicorn": "37.0.1"
+    "eslint-plugin-unicorn": "38.0.1"
   },
   "main": "index.js"
 }

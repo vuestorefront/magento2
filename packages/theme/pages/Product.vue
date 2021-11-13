@@ -277,8 +277,13 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import { ref, computed } from '@vue/composition-api';
-import { useVueRouter } from '~/helpers/hooks/useVueRouter';
+import {
+  ref,
+  computed,
+  useContext,
+  useRoute,
+  useRouter,
+} from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
@@ -289,7 +294,7 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
 export default {
-  name: 'Product',
+  name: 'ProductPage',
   components: {
     GroupedProductSelector,
     BundleProductSelector,
@@ -317,10 +322,11 @@ export default {
     'stale-when-revalidate': 5,
   }),
   transition: 'fade',
-  setup(props, context) {
+  setup() {
     const qty = ref(1);
     const { product, id } = productData();
-    const { route, router } = useVueRouter();
+    const route = useRoute();
+    const router = useRouter();
     const { search, loading: productLoading } = useProduct(`product-${id}`);
     const { addItem, loading } = useCart();
     const {
@@ -331,6 +337,7 @@ export default {
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem: addToWishlist } = useWishlist();
+    const { error: nuxtError } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
     const productDataIsLoading = computed(() => productLoading.value && !productGetters.getName(product.value));
@@ -356,8 +363,10 @@ export default {
     const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
     const breadcrumbs = computed(() => {
       const productCategories = product.value.categories;
-      return productGetters.getBreadcrumbs(product.value,
-        Array.isArray(productCategories) ? [...productCategories].pop() : []);
+      return productGetters.getBreadcrumbs(
+        product.value,
+        Array.isArray(productCategories) ? [...productCategories].pop() : [],
+      );
     });
     const productGallery = computed(() => productGetters.getGallery(product.value)
       .map((img) => ({
@@ -414,9 +423,12 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
+
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
+
       const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
+
       await search({
         queryType: 'DETAIL',
         filter: {
@@ -426,13 +438,18 @@ export default {
         },
         configurations,
       });
-      router.push({
-        path: route.fullPath,
-        query: productConfiguration.value,
+
+      await router.push({
+        path: route.value.fullPath,
+        query: {
+          ...productConfiguration.value,
+        },
       });
     };
+
     const loadProductConfiguration = () => {
-      const { query } = route;
+      const { query } = route.value;
+
       productConfiguration.value = query;
     };
 
@@ -444,14 +461,17 @@ export default {
           },
         },
       };
+
       await search({
         queryType: 'DETAIL',
         ...baseSearchQuery,
       });
+
       await searchReviews({ ...baseSearchQuery });
+
       loadProductConfiguration();
 
-      if (product?.value?.length === 0) context.root.$nuxt.error({ statusCode: 404 });
+      if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
     });
 
     return {
