@@ -99,7 +99,7 @@ sub process_graphql_headers {
 ```
 > Query results should not be cached for logged in customers, because it cannot be guaranteed that these results are applicable to all customers. For example, you can create multiple customer groups and set up different product prices for each group. Caching results like these might cause customers to see the prices of another customer group.
 
-You can find more information about this topic at https://devdocs.magento.com/guides/v2.4/graphql/caching.html#caching-with-varnish
+You can find more information about this topic at [https://devdocs.magento.com/guides/v2.4/graphql/caching.html#caching-with-varnish](https://devdocs.magento.com/guides/v2.4/graphql/caching.html#caching-with-varnish)
 
 3. Open the `middleware.config.js` file, it should be located on the root folder of your store, there you will change the flag `useGETForQueries` to `true` to enable the usage of GET request for queries
 
