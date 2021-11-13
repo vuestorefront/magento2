@@ -42,6 +42,7 @@ import { defineComponent } from '@nuxtjs/composition-api';
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
 import { useUiNotification } from '~/composables';
+import { customerPasswordRegExp } from '../../helpers/customer/regex';
 
 extend('required', {
   ...required,
@@ -54,11 +55,8 @@ extend('min', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)',
-  validate: (value) => {
-    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])(?=.{8,})');
-    return strongRegex.test(value);
-  },
+  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  validate: (value) => customerPasswordRegExp.test(value),
 });
 
 extend('confirmed', {
@@ -99,19 +97,21 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(async () => {
-      await updateUser({ user: form.value });
-      sendNotification({
-        id: Symbol('user_updated'),
-        message: 'The user account data was successfully updated!',
-        type: 'success',
-        icon: 'check',
-        persist: false,
-        title: 'User Account',
-      });
-    },
-    onComplete,
-    onError);
+    }) => formHandler(
+      async () => {
+        await updateUser({ user: form.value });
+        sendNotification({
+          id: Symbol('user_updated'),
+          message: 'The user account data was successfully updated!',
+          type: 'success',
+          icon: 'check',
+          persist: false,
+          title: 'User Account',
+        });
+      },
+      onComplete,
+      onError,
+    );
     const updatePassword = ({
       form,
       onComplete,
