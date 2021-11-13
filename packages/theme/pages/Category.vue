@@ -478,7 +478,7 @@ export default defineComponent({
         },
       );
 
-      const categoryUidResult = categoryDeep?.parent.length === 1
+      const categoryUidResult = categoryDeep?.parent && categoryDeep?.parent.length === 1
         ? categoryDeep?.parent[0]
         : categoryDeep?.parent;
 
@@ -505,7 +505,7 @@ export default defineComponent({
       if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-        ].filter((f) => f !== option.value);
+        ]?.filter((f) => f !== option.value);
 
         return;
       }
@@ -577,8 +577,8 @@ export default defineComponent({
       if (routeData?.value) {
         await searchCategoryProduct();
 
-        if (facets.value.length > 0) {
-          selectedFilters.value = facets.value.reduce(
+        if (facets.value && facets.value.length > 0) {
+          selectedFilters.value = facets.value?.reduce(
             (prev, curr) => (curr.id === 'price'
               ? {
                 ...prev,
@@ -587,8 +587,8 @@ export default defineComponent({
               : {
                 ...prev,
                 [curr.id]: curr.options
-                  .filter((o) => o.selected)
-                  .map((o) => o.value),
+                  ?.filter((o) => o.selected)
+                  ?.map((o) => o.value),
               }),
             {},
           );
