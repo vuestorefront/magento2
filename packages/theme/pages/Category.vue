@@ -575,8 +575,6 @@ export default defineComponent({
       });
 
       if (routeData?.value) {
-        await searchCategoryProduct();
-
         if (facets.value && facets.value.length > 0) {
           selectedFilters.value = facets.value?.reduce(
             (prev, curr) => (curr.id === 'price'
@@ -593,6 +591,8 @@ export default defineComponent({
             {},
           );
         }
+
+        await searchCategoryProduct();
       }
     });
 
