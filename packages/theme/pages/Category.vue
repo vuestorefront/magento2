@@ -555,9 +555,12 @@ export default defineComponent({
     };
 
     const searchCategoryProduct = async () => {
+      const categoryId = activeCategoryUid(routeData.value?.entity_uid)
+        ? activeCategoryUid(routeData.value?.entity_uid)
+        : routeData.value?.entity_uid;
       await search({
         ...th.getFacetsFromURL(),
-        categoryId: activeCategoryUid(routeData.value?.entity_uid) || routeData.value?.entity_uid,
+        categoryId,
       });
     };
 
