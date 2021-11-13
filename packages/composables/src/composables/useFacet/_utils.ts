@@ -10,13 +10,15 @@ const buildBreadcrumbsList = (rootCat, bc) => {
 
 export const buildBreadcrumbs = (rootCat) => buildBreadcrumbsList(rootCat, [])
   .reverse()
-  .reduce((prev, curr, index) => ([
-    ...prev,
-    {
-      ...curr,
-      link: `${prev[index - 1]?.link || ''}/${curr.link}`,
-    }]),
-  []);
+  .reduce(
+    (prev, curr, index) => ([
+      ...prev,
+      {
+        ...curr,
+        link: `${prev[index - 1]?.link || ''}/${curr.link}`,
+      }]),
+    [],
+  );
 
 const filterFacets = (criteria) => (f) => (criteria ? criteria.includes(f.attribute_code) : true);
 
@@ -70,5 +72,5 @@ export const buildFacets = (searchData: SearchData, reduceFn, criteria?: string[
     input: { filters },
   } = searchData;
 
-  return facets.filter(filterFacets(criteria)).reduce(reduceFn(facets, filters), []);
+  return facets?.filter(filterFacets(criteria)).reduce(reduceFn(facets, filters), []);
 };

@@ -90,7 +90,9 @@
     <div class="main section">
       <div class="sidebar desktop-only">
         <LazyHydrate when-visible>
-          <CategorySidebarMenu />
+          <CategorySidebarMenu
+            :no-fetch="true"
+          />
         </LazyHydrate>
       </div>
       <SfLoader
@@ -122,8 +124,9 @@
               :reviews-count="productGetters.getTotalReviews(product)"
               :show-add-to-cart-button="true"
               :is-added-to-cart="isInCart({ product })"
-              :is-on-wishlist="product.isInWishlist"
+              :is-in-wishlist="isInWishlist({ product })"
               :wishlist-icon="isAuthenticated ? 'heart' : false"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -154,7 +157,8 @@
               :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
-              :is-on-wishlist="product.isInWishlist"
+              :is-in-wishlist="isInWishlist({product})"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
               :wishlist-icon="isAuthenticated ? 'heart' : false"
               :link="
                 localePath(
@@ -347,7 +351,8 @@ import {
 import {
   ref,
   computed,
-  defineComponent, useRoute, useRouter,
+  defineComponent,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -423,23 +428,20 @@ export default defineComponent({
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
+      search: categoriesSearch,
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
 
     const selectedFilters = ref(Object.fromEntries((magentoConfig.facets.available).map((curr) => [curr, (curr === 'price' ? '' : [])])));
 
-    const products = computed(() => facetGetters
-      .getProducts(result.value)
-      .map((product) => ({
-        ...product,
-        isInWishlist: isInWishlist({ product }),
-      })));
+    const products = computed(() => facetGetters.getProducts(result.value));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
       routeData.value?.entity_uid,
       false,
     ));
+
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
 
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
@@ -475,7 +477,7 @@ export default defineComponent({
         },
       );
 
-      const categoryUidResult = categoryDeep?.parent.length === 1
+      const categoryUidResult = categoryDeep?.parent && categoryDeep?.parent.length === 1
         ? categoryDeep?.parent[0]
         : categoryDeep?.parent;
 
@@ -502,7 +504,7 @@ export default defineComponent({
       if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-        ].filter((f) => f !== option.value);
+        ]?.filter((f) => f !== option.value);
 
         return;
       }
@@ -555,20 +557,25 @@ export default defineComponent({
     };
 
     const searchCategoryProduct = async () => {
+      const categoryId = activeCategoryUid(routeData.value?.entity_uid)
+        ? activeCategoryUid(routeData.value?.entity_uid)
+        : routeData.value?.entity_uid;
       await search({
         ...th.getFacetsFromURL(),
-        categoryId: activeCategoryUid(routeData.value?.entity_uid) || routeData.value?.entity_uid,
+        categoryId,
       });
     };
 
     onSSR(async () => {
       await resolveUrl();
 
-      if (routeData?.value) {
-        await searchCategoryProduct();
+      await categoriesSearch({
+        pageSize: 20,
+      });
 
-        if (facets.value.length > 0) {
-          selectedFilters.value = facets.value.reduce(
+      if (routeData?.value) {
+        if (facets.value && facets.value.length > 0) {
+          selectedFilters.value = facets.value?.reduce(
             (prev, curr) => (curr.id === 'price'
               ? {
                 ...prev,
@@ -577,12 +584,14 @@ export default defineComponent({
               : {
                 ...prev,
                 [curr.id]: curr.options
-                  .filter((o) => o.selected)
-                  .map((o) => o.value),
+                  ?.filter((o) => o.selected)
+                  ?.map((o) => o.value),
               }),
             {},
           );
         }
+
+        await searchCategoryProduct();
       }
     });
 

@@ -149,6 +149,7 @@ export type GetProductSearchParams = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
+  configurations?: string[];
 };
 
 export type GetOrdersSearchParams = {
@@ -185,7 +186,7 @@ export interface MagentoApiMethods {
 
   categorySearch(categoryFilter?: CategorySearchQueryVariables): Promise<ApolloQueryResult<CategorySearchQuery>>;
 
-  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<ApolloQueryResult<ChangeCustomerPasswordMutation>>;
+  changeCustomerPassword(currentPassword: string, newPassword: string): Promise<FetchResult<ChangeCustomerPasswordMutation>>;
 
   cmsBlocks(identifiers: string[]): Promise<ApolloQueryResult<CmsBlockQuery>>;
 

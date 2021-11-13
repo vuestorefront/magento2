@@ -278,7 +278,11 @@ import {
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import {
-  ref, computed, useContext, useRoute, useRouter,
+  ref,
+  computed,
+  useContext,
+  useRoute,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -419,9 +423,12 @@ export default {
         .querySelector('#tabs')
         .scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
+
     const updateProductConfiguration = async (label, value) => {
       productConfiguration.value[label] = value;
+
       const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
+
       await search({
         queryType: 'DETAIL',
         filter: {
@@ -431,13 +438,18 @@ export default {
         },
         configurations,
       });
+
       await router.push({
         path: route.value.fullPath,
-        query: productConfiguration.value,
+        query: {
+          ...productConfiguration.value,
+        },
       });
     };
+
     const loadProductConfiguration = () => {
       const { query } = route.value;
+
       productConfiguration.value = query;
     };
 
@@ -449,11 +461,14 @@ export default {
           },
         },
       };
+
       await search({
         queryType: 'DETAIL',
         ...baseSearchQuery,
       });
+
       await searchReviews({ ...baseSearchQuery });
+
       loadProductConfiguration();
 
       if (product?.value?.length === 0) nuxtError({ statusCode: 404 });

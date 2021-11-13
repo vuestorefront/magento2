@@ -22,7 +22,7 @@ import {
 const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);
 
 const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
-  .filter((facet) => facet.options.length > 0);
+  ?.filter((facet) => facet.options && facet.options.length > 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getSortOptions = (searchData): AgnosticSort => {
@@ -64,13 +64,21 @@ const getProducts = (searchData): any => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getPagination = (searchData): AgnosticPagination => ({
-  currentPage: searchData.input?.page || 1,
-  totalPages: (searchData.data) ? Math.ceil(searchData.data.total / searchData.input.itemsPerPage) : 0,
-  totalItems: (searchData.data) ? searchData.data.total : 0,
-  itemsPerPage: searchData.input?.itemsPerPage || 20,
-  pageOptions: [10, 50, 100],
-});
+const getPagination = (searchData): AgnosticPagination => {
+  const totalPages = (searchData?.data) ? (
+    Number.isNaN(Math.ceil(searchData.data.total / searchData.input.itemsPerPage))
+      ? 1
+      : Math.ceil(searchData.data.total / searchData.input.itemsPerPage)
+  ) : 1;
+
+  return {
+    currentPage: (searchData?.input?.page > totalPages ? 1 : searchData?.input?.page) || 1,
+    totalPages,
+    totalItems: (searchData?.data?.total) ? searchData.data.total : 0,
+    itemsPerPage: searchData?.input?.itemsPerPage || 20,
+    pageOptions: [10, 50, 100],
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getBreadcrumbs = (searchData): AgnosticBreadcrumb[] => [];
