@@ -129,7 +129,6 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
       product,
     } = params;
     const wishlistProduct = findItemOnWishlist(currentWishlist, product);
-    console.log(!!(wishlistProduct?.id && wishlistProduct?.quantity), product.name);
     return !!(wishlistProduct?.id && wishlistProduct?.quantity);
   },
 };
