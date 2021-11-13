@@ -90,7 +90,9 @@
     <div class="main section">
       <div class="sidebar desktop-only">
         <LazyHydrate when-visible>
-          <CategorySidebarMenu />
+          <CategorySidebarMenu
+            :no-fetch="true"
+          />
         </LazyHydrate>
       </div>
       <SfLoader
@@ -423,6 +425,7 @@ export default defineComponent({
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
+      search: categoriesSearch,
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
 
@@ -566,6 +569,10 @@ export default defineComponent({
 
     onSSR(async () => {
       await resolveUrl();
+
+      await categoriesSearch({
+        pageSize: 20,
+      });
 
       if (routeData?.value) {
         await searchCategoryProduct();

@@ -110,6 +110,7 @@ export default defineComponent({
   },
   props: {
     resolveUrl: Boolean,
+    noFetch: Boolean,
   },
   setup(props) {
     const th = useUiHelpers();
@@ -153,9 +154,11 @@ export default defineComponent({
         await resolveUrl();
       }
 
-      await search({
-        pageSize: 20,
-      });
+      if (!props.noFetch) {
+        await search({
+          pageSize: 20,
+        });
+      }
     });
 
     return {
