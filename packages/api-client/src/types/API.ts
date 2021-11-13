@@ -149,6 +149,7 @@ export type GetProductSearchParams = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
+  configurations?: string[];
 };
 
 export type GetOrdersSearchParams = {

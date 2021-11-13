@@ -26,11 +26,12 @@ ProductsSearchParams> = {
 
     switch (queryType) {
       case ProductsQueryType.Detail:
-
         const productDetailsResults = await context
           .$magento
           .api
-          .productDetail(searchParams as GetProductSearchParams, (customQuery || {}));
+          .productDetail({
+            ...searchParams,
+          } as GetProductSearchParams, (customQuery || {}));
 
         Logger.debug('[Result]:', { data: productDetailsResults });
 
