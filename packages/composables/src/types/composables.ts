@@ -524,3 +524,14 @@ export interface UsePaypalExpress<OUTPUT, PARAMS, API extends PlatformApi = any>
   error: ComputedProperty<UsePaypalExpressErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseGuestRequestReturnErrors {
+  requestReturn: Error;
+}
+
+export interface UseGuestRequestReturn<REQUEST_RETURN_DATA, REQUEST_RETURN_PARAMS> {
+  requestReturn: (params: REQUEST_RETURN_PARAMS) => Promise<void>;
+  result: ComputedProperty<REQUEST_RETURN_DATA>;
+  error: ComputedProperty<UseGuestRequestReturnErrors>;
+  loading: ComputedProperty<boolean>;
+}

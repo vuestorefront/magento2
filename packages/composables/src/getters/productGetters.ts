@@ -210,7 +210,7 @@ export const getCategory = (product: any, currentUrlPath: string): Category | nu
   return null;
 };
 
-export const getId = (product: Product): string => product.uid;
+export const getId = (product: Product): string => (product?.uid ? product?.uid : '');
 
 export const getProductSku = (product: Product): string => product.sku;
 

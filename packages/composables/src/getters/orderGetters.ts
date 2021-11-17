@@ -6,11 +6,15 @@ export const getDate = (order: any): string => new Date(order?.created_at).toLoc
 
 export const getId = (order: any): string => String(Number.parseInt(order?.order_number, 10) || Math.floor(Math.random() * 100));
 
+export const getUid = (order: any): string => (order?.id ? order?.id : '');
+
 export const getStatus = (order: any): string => order?.status || 'Failed';
 
 export const getPrice = (order: any): number | null => order?.grand_total || 0;
 
 export const getItems = (order: any): any[] => order?.items || [];
+
+export const getItemId = (item: any): string => (item?.id ? item?.id : '');
 
 export const getItemSku = (item: any): string => item?.product_sku || 0;
 
@@ -33,9 +37,11 @@ const getPagination = (orders: any): AgnosticPagination => ({
 const orderGetters = {
   getDate,
   getId,
+  getUid,
   getStatus,
   getPrice,
   getItems,
+  getItemId,
   getItemSku,
   getItemName,
   getItemQty,

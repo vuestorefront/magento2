@@ -27,6 +27,7 @@ export const useCustomerReturnsFactory = <CUSTOMER_RETURNS_DATA, CUSTOMER_RETURN
   const error: Ref<UseCustomerReturnsErrors> = sharedRef(
     {
       loadReturns: null,
+      loadReturn: null,
     },
     `${ssrKey}-error`,
   );
