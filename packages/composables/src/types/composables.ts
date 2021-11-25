@@ -270,6 +270,17 @@ export interface UseUpsellProductsErrors {
   query: Error;
 }
 
+export interface UseStore<STORES, STORE, API extends PlatformApi = any> extends Composable<API> {
+  load: () => Promise<void>;
+  change: (params: ComposableFunctionArgs<STORE>) => void;
+  stores: ComputedRef<STORES>;
+  loading: ComputedRef<boolean>;
+}
+
+export interface UseStoreErrors {
+  stores: Error;
+}
+
 export interface UseWishlist<
   WISHLIST,
   WISHLIST_SEARCH_PARAMS,
