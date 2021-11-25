@@ -2,8 +2,8 @@ import {
   Composable,
   ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
 } from '@vue-storefront/core';
-import { ComputedRef, computed } from '@vue/composition-api';
-import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
+import { ComputedRef } from '@vue/composition-api';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
@@ -268,4 +268,28 @@ export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN
 
 export interface UseUpsellProductsErrors {
   query: Error;
+}
+
+export interface UseWishlist<
+  WISHLIST,
+  WISHLIST_SEARCH_PARAMS,
+  ADD_TO_WISHLIST,
+  REMOVE_FROM_WISHLIST, PRODUCT, API extends PlatformApi = any> extends Composable<API> {
+  addItem: (params: ADD_TO_WISHLIST) => Promise<void>;
+  clear: () => Promise<void>;
+  isInWishlist: (context: Context, params: {
+    currentWishlist: WISHLIST;
+    product: PRODUCT;
+  }) => boolean;
+  load: (
+    params?: {
+      customQuery?: CustomQuery,
+      searchParams?: WISHLIST_SEARCH_PARAMS
+    },
+  ) => Promise<void>;
+  loading: ComputedProperty<boolean>;
+  removeItem: (
+    params?: REMOVE_FROM_WISHLIST
+  ) => Promise<void>;
+  wishlist: ComputedProperty<WISHLIST>;
 }

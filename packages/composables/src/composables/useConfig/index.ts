@@ -14,3 +14,8 @@ const factoryParams: UseConfigFactoryParams<StoreConfig> = {
 const useConfig: (cacheId?: string) => UseConfig<StoreConfig> = useConfigFactory<StoreConfig>(factoryParams);
 
 export default useConfig;
+
+
+
+
+
