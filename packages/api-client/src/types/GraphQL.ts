@@ -6474,6 +6474,18 @@ export interface StorefrontProperties {
   visible_on_catalog_pages?: Maybe<Scalars['Boolean']>;
 }
 
+export interface AvailableStores extends Array<StoreConfig>{};
+
+export type AvailableStoresQuery = { availableStores?: Array<{ absolute_footer?: string | null | undefined, base_currency_code?: string | null | undefined, catalog_default_sort_by?: string | null | undefined, category_url_suffix?: string | null | undefined, cms_home_page?: string | null | undefined, cms_no_cookies?: string | null | undefined, code?: string | null | undefined, copyright?: string | null | undefined, default_description?: string | null | undefined, default_display_currency_code?: string | null | undefined, default_keywords?: string | null | undefined, default_title?: string | null | undefined, grid_per_page?: number | null | undefined, grid_per_page_values?: string | null | undefined, head_shortcut_icon?: string | null | undefined, header_logo_src?: string | null | undefined, id?: number | null | undefined, list_per_page?: number | null | undefined, list_per_page_values?: string | null | undefined, locale?: string | null | undefined, logo_alt?: string | null | undefined, logo_height?: number | null | undefined, logo_width?: number | null | undefined, magento_wishlist_general_is_enabled?: string | null | undefined, no_route?: string | null | undefined, product_url_suffix?: string | null | undefined, root_category_id?: number | null | undefined, show_cms_breadcrumbs?: number | null | undefined, store_name?: string | null | undefined, timezone?: string | null | undefined, title_prefix?: string | null | undefined, title_separator?: string | null | undefined, title_suffix?: string | null | undefined, website_id?: number | null | undefined, welcome?: string | null | undefined, allow_guests_to_write_product_reviews?: string | null | undefined, head_includes?: string | null | undefined }> | null | undefined };
+
+export type AvailableStoresQueryVariables = Exact<{
+  useCurrentGroup?: Maybe<Scalars['Boolean']>;
+}>;
+
+export interface AvailableStoresQueryArgs {
+  useCurrentGroup?: Maybe<Scalars['Boolean']>;
+}
+
 export interface SubscribeEmailToNewsletterOutput {
   /** Returns the status of the subscription request */
   status?: Maybe<SubscriptionStatusesEnum>;

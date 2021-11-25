@@ -6,6 +6,7 @@ export { default as addSimpleProductsToCart } from './addSimpleProductsToCart';
 export { default as addDownloadableProductsToCart } from './addDownloadableProductsToCart';
 export { default as addVirtualProductsToCart } from './addVirtualProductsToCart';
 export { default as applyCouponToCart } from './applyCouponToCart';
+export { default as availableStores } from './availableStores';
 export { default as cart } from './cart';
 export { default as categoryList } from './categoryList';
 export { default as categorySearch } from './categorySearch';

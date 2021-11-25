@@ -16,6 +16,8 @@ import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
   AvailableShippingMethod,
+  AvailableStores as AvailableStoresInterface,
+  AvailableStoresQuery,
   BundleProduct,
   Cart as CartInterface,
   CartItemInterface,
@@ -117,6 +119,7 @@ export interface Product extends ProductInterface, ConfigurableProduct, Omit<Bun
 }
 
 export type AddressOnCart = ShippingCartAddress;
+export type AvailableStores = AvailableStoresInterface;
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
 export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
@@ -179,6 +182,8 @@ export interface MagentoApiMethods {
   addVirtualProductsToCart(input: AddVirtualProductsToCartInput): Promise<FetchResult<AddVirtualProductsToCartMutation>>;
 
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
+
+  availableStores(): Promise<ApolloQueryResult<AvailableStoresQuery>>;
 
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
 
