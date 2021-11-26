@@ -9,13 +9,14 @@ import {
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCurrency } from '../types/composables';
 
-export interface UseCurrencyFactoryParams<CURRENCIES, API extends PlatformApi = any> extends FactoryParams<API> {
+export interface UseCurrencyFactoryParams<CURRENCIES, CURRENCY_PARAM, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context) => Promise<CURRENCIES>;
+  change: (context: Context, params: CURRENCY_PARAM) => void
 }
 
 export function useCurrencyFactory<CURRENCIES,
   API extends PlatformApi = any>(factoryParams: UseCurrencyFactoryParams<CURRENCIES, API>) {
-  return function useCurrency(cacheId: string = ''): UseCurrency<CURRENCIES, API> {
+  return function useCurrency(cacheId: string = ''): UseCurrency<CURRENCIES, CURRENCY_PARAM, API> {
     const ssrKey = cacheId || 'useCurrencyFactory';
     // @ts-ignore
     const currencies = sharedRef<CURRENCIES>([], `${ssrKey}-currencies`);
@@ -25,7 +26,7 @@ export function useCurrencyFactory<CURRENCIES,
     const _factoryParams = configureFactoryParams(factoryParams);
 
     const load = async () => {
-      Logger.debug(`useCurrency/${ssrKey}/currencies`);
+      Logger.debug(`useCurrency/${ssrKey}/load`);
       loading.value = true;
       try {
         currencies.value = await _factoryParams.load();
@@ -34,8 +35,19 @@ export function useCurrencyFactory<CURRENCIES,
       }
     };
 
+    const change = async (params: CURRENCY_PARAM) => {
+      Logger.debug(`useCurrency/${ssrKey}/change`);
+      loading.value = true;
+      try {
+        await _factoryParams.change(params);
+      } finally {
+        loading.value = false;
+      }
+    };
+
     return {
       load,
+      change,
       currencies: computed(() => currencies.value),
       loading: computed(() => loading.value)
     };

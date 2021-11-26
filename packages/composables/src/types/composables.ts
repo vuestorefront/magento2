@@ -305,8 +305,9 @@ export interface UseWishlist<
   wishlist: ComputedProperty<WISHLIST>;
 }
 
-export interface UseCurrency<CURRENCIES, API extends PlatformApi = any> extends Composable<API> {
-  currencies: ComputedRef<CURRENCIES>;
+export interface UseCurrency<CURRENCIES, CURRENCY, API extends PlatformApi = any> extends Composable<API> {
   load: () => Promise<void>;
+  change: (params: ComposableFunctionArgs<CURRENCY>) => void;
+  currencies: ComputedRef<CURRENCIES>;
   loading: ComputedRef<boolean>;
 }
