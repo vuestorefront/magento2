@@ -2283,6 +2283,22 @@ export enum CurrencyEnum {
   Zwd = 'ZWD'
 }
 
+export type CurrencyQuery = {
+  currency?: {
+    available_currency_codes?: Maybe<Array<Scalars['String']>>,
+    base_currency_code?: Maybe<Scalars['String']>,
+    base_currency_symbol?: Maybe<Scalars['String']>,
+    default_display_currecy_code?: Maybe<Scalars['String']> | null | undefined,
+    default_display_currecy_symbol?: Maybe<Scalars['String']> | null | undefined,
+    default_display_currency_code?: Maybe<Scalars['String']> | null | undefined,
+    default_display_currency_symbol?: Maybe<Scalars['String']> | null | undefined,
+    exchange_rates?: Maybe<Array<{
+      currency_to?: Maybe<Scalars['String']>,
+      rate?: Maybe<Scalars['Float']>,
+    }>>,
+  }
+};
+
 /** CustomAttributeMetadata defines an array of attribute_codes and entity_types */
 export interface CustomAttributeMetadata {
   /** An array of attributes */

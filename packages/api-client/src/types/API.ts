@@ -33,6 +33,8 @@ import {
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
+  Currency,
+  CurrencyQuery,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
@@ -208,6 +210,8 @@ export interface MagentoApiMethods {
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
 
   createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
+
+  currency(): Promise<FetchResult<CurrencyQuery>>
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 

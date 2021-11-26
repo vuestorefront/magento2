@@ -19,6 +19,7 @@ export { default as createCustomer } from './createCustomer';
 export { default as createCustomerAddress } from './createCustomerAddress';
 export { default as createEmptyCart } from './createEmptyCart';
 export { default as createProductReview } from './createProductReview';
+export { default as currency } from './currency';
 export { default as customer } from './customer';
 export { default as customerCart } from './customerCart';
 export { default as customerOrders } from './customerOrders';
