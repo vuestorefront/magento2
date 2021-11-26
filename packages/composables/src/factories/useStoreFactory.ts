@@ -11,7 +11,7 @@ import { UseStore } from '../types/composables';
 
 export interface UseStoreFactoryParams<STORES, STORE, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context) => Promise<STORES>;
-  change: (context: Context, params: STORE) => Promise<void>;
+  change: (context: Context, params: STORE) => void;
 }
 
 export function useStoreFactory<STORES,
@@ -26,10 +26,10 @@ export function useStoreFactory<STORES,
     const _factoryParams = configureFactoryParams(factoryParams);
 
     const load = async () => {
-      Logger.debug(`useStore/${ssrKey}/loadStores`);
+      Logger.debug(`useStore/${ssrKey}/load`);
       loading.value = true;
       try {
-        stores.value = await _factoryParams.loadStores();
+        stores.value = await _factoryParams.load();
       } finally {
         loading.value = false;
       }
@@ -38,7 +38,7 @@ export function useStoreFactory<STORES,
     const change = async (store): Promise<void> => {
       loading.value = true;
       try {
-        await _factoryParams.changeStore(store)
+        await _factoryParams.change(store)
       } finally {
         loading.value = false;
       }
