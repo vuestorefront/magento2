@@ -23,6 +23,7 @@ export { default as useCategorySearch } from './composables/useCategorySearch';
 export { default as useConfig } from './composables/useConfig';
 export { default as useContent } from './composables/useContent';
 export { default as useCountrySearch } from './composables/useCountrySearch';
+export { default as useCurrency } from './composables/useCurrency';
 export { default as useCustomMutation } from './composables/useCustomMutation';
 export { default as useCustomQuery } from './composables/useCustomQuery';
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
