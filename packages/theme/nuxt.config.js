@@ -234,6 +234,7 @@ export default {
     },
   },
   router: {
+    // middleware: 'store-configuration',
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
