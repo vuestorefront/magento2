@@ -1,21 +1,21 @@
 import { Context } from '@vue-storefront/core';
+import { Currency } from '@vue-storefront/magento-api';
 import { useCurrencyFactory, UseCurrencyFactoryParams } from '../../factories/useCurrencyFactory';
 import { UseCurrency } from '../../types/composables';
 
-const factoryParams: UseCurrencyFactoryParams<Currencies, CurrencyParam> = {
-  load: async (context: Context): Promise<Currencies> => {
+const factoryParams: UseCurrencyFactoryParams<Currency, null> = {
+  load: async (context: Context): Promise<Currency> => {
     const { data } = await context.$magento.api.currency();
 
     return data.currency || {};
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  change: (context: Context, params: CurrencyParam) => {
-    // await context.$magento.api.changeCurrency(params);
-    return null;
+  change: (context: Context, currency) => {
+    context.$magento.config.state.setCurrency(currency);
+    window.location.reload();
   },
 };
 
-const useCurrency: () => UseCurrency<Currencies, CurrencyParam> = useCurrencyFactory<Currencies, CurrencyParam>(factoryParams);
+const useCurrency: () => UseCurrency<Currency> = useCurrencyFactory<Currency>(factoryParams);
 
 export default useCurrency;

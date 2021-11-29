@@ -11,10 +11,9 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  change: async (context: Context, { store_code }) => {
-    // const a = await context.$magento.config.state.setStore(store_code);
-
-    return Promise.resolve();
+  change: (context: Context, store) => {
+    context.$magento.config.state.setStore(store.store_code);
+    window.location.reload();
   },
 };
 

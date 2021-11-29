@@ -9,17 +9,17 @@ import {
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCurrency } from '../types/composables';
 
-export interface UseCurrencyFactoryParams<CURRENCIES, CURRENCY_PARAM, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context) => Promise<CURRENCIES>;
-  change: (context: Context, params: CURRENCY_PARAM) => void
+export interface UseCurrencyFactoryParams<CURRENCY, API extends PlatformApi = any> extends FactoryParams<API> {
+  load: (context: Context) => Promise<CURRENCY>;
+  change: (context: Context, params) => void
 }
 
-export function useCurrencyFactory<CURRENCIES,
-  API extends PlatformApi = any>(factoryParams: UseCurrencyFactoryParams<CURRENCIES, API>) {
-  return function useCurrency(cacheId: string = ''): UseCurrency<CURRENCIES, CURRENCY_PARAM, API> {
+export function useCurrencyFactory<CURRENCY,
+  API extends PlatformApi = any>(factoryParams: UseCurrencyFactoryParams<CURRENCY, API>) {
+  return function useCurrency(cacheId: string = ''): UseCurrency<CURRENCY, API> {
     const ssrKey = cacheId || 'useCurrencyFactory';
     // @ts-ignore
-    const currencies = sharedRef<CURRENCIES>([], `${ssrKey}-currencies`);
+    const currencies = sharedRef<CURRENCY>([], `${ssrKey}-currencies`);
     const loading = sharedRef<boolean>(false, `${ssrKey}-loading`);
 
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
@@ -35,7 +35,7 @@ export function useCurrencyFactory<CURRENCIES,
       }
     };
 
-    const change = async (params: CURRENCY_PARAM) => {
+    const change = async (params) => {
       Logger.debug(`useCurrency/${ssrKey}/change`);
       loading.value = true;
       try {
