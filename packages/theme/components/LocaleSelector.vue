@@ -127,7 +127,7 @@ export default defineComponent({
     const handleChangeStore = async (store) => {
       // isLangModalOpen.value = false;
       if (cart?.value) await clear(cart);
-      changeStore({store});
+      changeStore(store);
     };
 
     const isStoreSelected = (store) => selectedStore.value?.id === store.id;
