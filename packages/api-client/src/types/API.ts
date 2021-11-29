@@ -16,6 +16,8 @@ import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
   AvailableShippingMethod,
+  AvailableStores as AvailableStoresInterface,
+  AvailableStoresQuery,
   BundleProduct,
   Cart as CartInterface,
   CartItemInterface,
@@ -31,6 +33,8 @@ import {
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
+  Currency,
+  CurrencyQuery,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
@@ -117,6 +121,7 @@ export interface Product extends ProductInterface, ConfigurableProduct, Omit<Bun
 }
 
 export type AddressOnCart = ShippingCartAddress;
+export type AvailableStores = AvailableStoresInterface;
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
 export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
@@ -180,6 +185,8 @@ export interface MagentoApiMethods {
 
   applyCouponToCart(input: ApplyCouponToCartInput): Promise<FetchResult<ApplyCouponToCartMutation>>;
 
+  availableStores(): Promise<ApolloQueryResult<AvailableStoresQuery>>;
+
   cart(cartId: string): Promise<ApolloQueryResult<CartQuery>>;
 
   categoryList(categoryFilter?: CategoryListQueryVariables): Promise<ApolloQueryResult<CategoryListQuery>>;
@@ -203,6 +210,8 @@ export interface MagentoApiMethods {
   createEmptyCart(): Promise<FetchResult<CreateEmptyCartMutation>>;
 
   createProductReview(input: CreateProductReviewInput): Promise<FetchResult<CreateProductReviewMutation>>;
+
+  currency(): Promise<FetchResult<CurrencyQuery>>
 
   customer(): Promise<ApolloQueryResult<CustomerQuery>>;
 

@@ -1,19 +1,22 @@
-import { Context, Logger, useStoreFactory } from '@vue-storefront/core';
+import { Context } from '@vue-storefront/core';
+import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
+import { useStoreFactory, UseStoreFactoryParams } from '../../factories/useStoreFactory';
+import { UseStore } from '../../types/composables';
 
-const useStore = useStoreFactory<any>({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  load(context: Context, params) {
-    Logger.debug('Mocked: useStore.load');
+const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
+  load: async (context: Context): Promise<AvailableStores> => {
+    const { data } = await context.$magento.api.availableStores();
 
-    return Promise.resolve({});
+    return data.availableStores || [];
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  change(context: Context, params) {
-    Logger.debug('Mocked: useStore.change');
-
-    return Promise.resolve({});
+  change: (context: Context, store) => {
+    context.$magento.config.state.setStore(store.store_code);
+    window.location.reload();
   },
-});
+};
+
+const useStore: () => UseStore<AvailableStores, StoreConfig> = useStoreFactory<AvailableStores>(factoryParams);
 
 export default useStore;

@@ -12,26 +12,45 @@
     </SfButton>
     <SfBottomModal
       :is-open="isLangModalOpen"
-      title="Choose language"
+      :title="availableStores.length > 0 ? 'Change language': ''"
       @click:close="isLangModalOpen = !isLangModalOpen"
     >
       <SfList>
-        <SfListItem
-          v-for="lang in availableLocales"
-          :key="lang.code"
-        >
-          <a :href="switchLocalePath(lang.code)">
+        <SfListItem v-for="store in availableStores" :key="store.id">
+          <a
+            href="/"
+            class="container__store--link"
+            :class="isStoreSelected(store) ? 'container__store--selected' : ''"
+            @click="handleChangeStore(store)"
+          >
             <SfCharacteristic class="language">
               <template #title>
-                <span>{{ lang.label }}</span>
+                <span>{{ store.store_name }} - {{ store.locale }}</span>
               </template>
               <template #icon>
-                <SfImage
-                  :src="`/icons/langs/${lang.code}.webp`"
-                  width="20"
-                  alt="Flag"
-                  class="language__flag"
-                />
+                <SfImage :src="`/icons/langs/${getStoreLocale(store)}.webp`" width="20" alt="Flag" class="language__flag" />
+              </template>
+            </SfCharacteristic>
+          </a>
+        </SfListItem>
+      </SfList>
+
+      <SfHeading
+        :level="3"
+        title="Choose Currency"
+        class="container__lang--title"
+      />
+
+      <SfList>
+        <SfListItem
+          v-for="currency in availableCurrencies"
+          :key="currency"
+        >
+          <a href="/"
+             @click.prevent="changeCurrency(currency)">
+            <SfCharacteristic class="currency">
+              <template #title>
+                <span>{{ currency }}</span>
               </template>
             </SfCharacteristic>
           </a>
@@ -43,32 +62,88 @@
 
 <script>
 import {
+  useConfig,
+  useStore,
+  useCurrency,
+  useCart,
+} from '@vue-storefront/magento';
+import {
   SfImage,
   SfButton,
   SfList,
+  SfHeading,
   SfBottomModal,
   SfCharacteristic,
 } from '@storefront-ui/vue';
 import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { useI18n } from '~/helpers/hooks/usei18n';
+import { onSSR } from '@vue-storefront/core';
 
 export default defineComponent({
   components: {
     SfImage,
     SfButton,
     SfList,
+    SfHeading,
     SfBottomModal,
     SfCharacteristic,
   },
   setup() {
+    const {
+      loadConfig,
+      config,
+    } = useConfig();
+
+    const {
+      load: loadStores,
+      stores,
+      change: changeStore,
+    } = useStore();
+
+    const {
+      load: loadCurrencies,
+      currencies,
+      change: changeCurrency,
+    } = useCurrency();
+
+    const { clear, cart } = useCart();
+
     const { locales, locale } = useI18n();
     const isLangModalOpen = ref(false);
     const availableLocales = computed(() => [...locales].filter((i) => (Object.keys(i).length > 0 && typeof i === 'object' ? i.code !== locale : i !== locale)));
 
+    onSSR(async () => {
+      await Promise.all([
+        loadConfig(),
+        loadStores(),
+        loadCurrencies(),
+      ]);
+    });
+
+    const availableStores = computed(() => stores.value ?? []);
+    const selectedStore = computed(() => config.value?.store_code);
+    const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
+
+    const handleChangeStore = async (store) => {
+      // isLangModalOpen.value = false;
+      if (cart?.value) await clear(cart);
+      changeStore(store);
+    };
+
+    const isStoreSelected = (store) => selectedStore.value?.id === store.id;
+    const getStoreLocale = (store) => store?.locale ?? locale;
+
     return {
+      availableStores,
+      selectedStore,
       availableLocales,
       locale,
       isLangModalOpen,
+      handleChangeStore,
+      isStoreSelected,
+      getStoreLocale,
+      changeCurrency,
+      availableCurrencies,
     };
   },
 });
