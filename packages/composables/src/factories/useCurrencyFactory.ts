@@ -1,4 +1,4 @@
-import { computed } from 'vue-demi';
+import { computed } from '@vue/composition-api';
 import {
   Context,
   sharedRef,
@@ -49,7 +49,7 @@ export function useCurrencyFactory<CURRENCY,
       load,
       change,
       currencies: computed(() => currencies.value),
-      loading: computed(() => loading.value)
+      loading: computed(() => loading.value),
     };
   };
 }

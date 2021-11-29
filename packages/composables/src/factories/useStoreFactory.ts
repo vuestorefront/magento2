@@ -1,4 +1,4 @@
-import { computed } from 'vue-demi';
+import { computed } from '@vue/composition-api';
 import {
   Context,
   sharedRef,
@@ -38,7 +38,7 @@ export function useStoreFactory<STORES,
     const change = async (store): Promise<void> => {
       loading.value = true;
       try {
-        await _factoryParams.change(store)
+        await _factoryParams.change(store);
       } finally {
         loading.value = false;
       }
