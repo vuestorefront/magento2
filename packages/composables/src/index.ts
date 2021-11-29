@@ -3,15 +3,6 @@ import { track } from '@vue-storefront/core';
 
 track('VSFMagento');
 
-export {
-  App,
-  markRaw,
-  effectScope,
-  EffectScope,
-  reactive,
-  isVue2,
-} from 'vue-demi';
-
 export * from './getters';
 export * from './getVueContext';
 
