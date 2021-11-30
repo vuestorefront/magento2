@@ -14,3 +14,4 @@ export { default as userBillingGetters } from './userBillingGetters';
 export { default as userGetters } from './userGetters';
 export { default as userShippingGetters } from './userShippingGetters';
 export { default as wishlistGetters } from './wishlistGetters';
+export { default as storeConfigGetters } from './storeConfigGetters';
