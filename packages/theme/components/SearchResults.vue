@@ -77,7 +77,7 @@
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
                   :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
-                  :wishlist-icon="isAuthenticated ? 'heart' : false"
+                  :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-on-wishlist="product.isInWishlist"
                   @click:wishlist="addItemToWishlist(product)"
                 />
@@ -96,7 +96,7 @@
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
                 :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
-                :wishlist-icon="isAuthenticated ? 'heart' : false"
+                :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-on-wishlist="product.isInWishlist"
                 @click:wishlist="addItemToWishlist(product)"
               />

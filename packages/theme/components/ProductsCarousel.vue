@@ -26,7 +26,7 @@
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
-            :wishlist-icon="isAuthenticated ? 'heart' : false"
+            :wishlist-icon="isAuthenticated ? 'heart' : ''"
             :is-on-wishlist="product.isInWishlist"
             @click:wishlist="addItemToWishlist(product)"
           />
