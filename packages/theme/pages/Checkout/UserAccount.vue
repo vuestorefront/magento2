@@ -153,7 +153,7 @@ import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { customerPasswordRegExp } from '../../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 
 extend('required', {
   ...required,
@@ -169,7 +169,7 @@ extend('email', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
