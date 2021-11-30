@@ -26,8 +26,9 @@
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
-            :wishlist-icon="isAuthenticated ? 'heart' : false"
-            :is-on-wishlist="product.isInWishlist"
+            :is-in-wishlist="isInWishlist({ product })"
+            :wishlist-icon="isAuthenticated ? 'heart' : ''"
+            :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
           />
         </SfCarouselItem>

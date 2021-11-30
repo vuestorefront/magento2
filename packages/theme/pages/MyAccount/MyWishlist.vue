@@ -68,7 +68,7 @@
                   class="products__product-card"
                   :image="productGetters.getProductThumbnailImage(product.product)"
                   :is-added-to-cart="isInCart({ product: product.product })"
-                  :is-on-wishlist="true"
+                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -102,7 +102,7 @@
                   class="products__product-card-horizontal"
                   :description="productGetters.getDescription(product.product)"
                   :image="productGetters.getProductThumbnailImage(product.product)"
-                  :is-on-wishlist="true"
+                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(

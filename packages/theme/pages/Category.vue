@@ -125,8 +125,8 @@
               :show-add-to-cart-button="true"
               :is-added-to-cart="isInCart({ product })"
               :is-in-wishlist="isInWishlist({ product })"
-              :wishlist-icon="isAuthenticated ? 'heart' : false"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -158,8 +158,8 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :is-in-wishlist="isInWishlist({product})"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
-              :wishlist-icon="isAuthenticated ? 'heart' : false"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
