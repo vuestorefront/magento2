@@ -56,8 +56,6 @@ export interface ClientConfig {
     customerCookieName: string;
     storeCookieName: string;
   },
-  currency: string;
-  defaultStore: string;
   externalCheckout: {
     enable: boolean;
     cmsUrl: string;
@@ -70,7 +68,6 @@ export interface ClientConfig {
   tax: {
     displayCartSubtotalIncludingTax: boolean;
   };
-  websites: Record<string, Website>;
 }
 
 export interface Config<T = any> extends ClientConfig {
