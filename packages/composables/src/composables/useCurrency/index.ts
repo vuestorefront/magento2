@@ -12,7 +12,6 @@ const factoryParams: UseCurrencyFactoryParams<Currency, null> = {
 
   change: (context: Context, currency) => {
     context.$magento.config.state.setCurrency(currency);
-    window.location.reload();
   },
 };
 
