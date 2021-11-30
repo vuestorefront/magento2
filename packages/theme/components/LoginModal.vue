@@ -311,7 +311,7 @@ import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import { useUser, useForgotPassword } from '@vue-storefront/magento';
 import { useUiState } from '~/composables';
-import { customerPasswordRegExp } from '~/helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('email', {
   ...email,
@@ -324,7 +324,7 @@ extend('required', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
