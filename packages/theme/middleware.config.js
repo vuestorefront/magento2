@@ -1,4 +1,5 @@
 const config = require('./config.js');
+const cookieNames = require('./enums/cookieNameEnum');
 
 module.exports = {
   integrations: {
@@ -7,12 +8,7 @@ module.exports = {
       configuration: {
         api: config.get('magentoGraphQl'),
         cookies: {
-          currencyCookieName: 'vsf-currency',
-          countryCookieName: 'vsf-country',
-          localeCookieName: 'vsf-locale',
-          cartCookieName: 'vsf-cart',
-          customerCookieName: 'vsf-customer',
-          storeCookieName: 'vsf-store',
+          ...cookieNames,
         },
         defaultStore: 'default',
         externalCheckout: {
@@ -25,23 +21,6 @@ module.exports = {
         },
         tax: {
           displayCartSubtotalIncludingTax: true,
-        },
-        websites: {
-          base: {
-            code: 'base',
-            defaultStoreGroup: 'main_website_store',
-            storeGroups: {
-              main_website_store: {
-                code: 'main_website_store',
-                defaultStore: 'default',
-                stores: {
-                  default: { code: 'default' },
-                  de: { code: 'de' },
-                  fr: { code: 'fr' },
-                },
-              },
-            },
-          },
         },
         facets: {
           available: ['color', 'size', 'price'],
