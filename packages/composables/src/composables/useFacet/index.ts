@@ -34,7 +34,7 @@ const constructFilterObject = (inputFilters: Object) => {
   Object.keys(inputFilters).forEach((key) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
-      const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_')).sort();
+      const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str))).sort((a, b) => a - b);
 
       [price.from] = flatPrices;
       price.to = flatPrices[flatPrices.length - 1];
