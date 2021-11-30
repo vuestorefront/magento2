@@ -183,7 +183,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);

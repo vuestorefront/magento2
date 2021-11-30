@@ -336,7 +336,7 @@ export default {
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem: addToWishlist } = useWishlist();
+    const { isInWishlist, addItem: addToWishlist } = useWishlist('GlobalWishlist');
     const { error: nuxtError } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);

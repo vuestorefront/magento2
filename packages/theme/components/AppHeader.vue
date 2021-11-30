@@ -140,8 +140,6 @@ import {
   SfBadge,
   SfSearchBar,
   SfOverlay,
-  SfMenuItem,
-  SfLink,
 } from '@storefront-ui/vue';
 import {
   cartGetters,
@@ -151,7 +149,6 @@ import {
   useCategorySearch,
   useFacet,
   useUser,
-  useWishlist,
 } from '@vue-storefront/magento';
 import {
   computed,
@@ -194,7 +191,6 @@ export default defineComponent({
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart, load: loadCart } = useCart();
-    const { load: loadWishlist } = useWishlist();
     const {
       result: searchResult,
       search: productsSearch,
@@ -235,7 +231,6 @@ export default defineComponent({
       await Promise.all([
         loadUser(),
         loadCart(),
-        loadWishlist(),
         categoriesListSearch({
           pageSize: 20,
         }),

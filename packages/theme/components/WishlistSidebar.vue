@@ -179,7 +179,7 @@ export default {
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem, load: loadWishlist } = useWishlist();
+    const { wishlist, removeItem } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
@@ -187,10 +187,6 @@ export default {
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
-
-    onSSR(async () => {
-      await loadWishlist();
-    });
 
     return {
       getAttributes,
