@@ -122,20 +122,20 @@ export default {
     country: 'US',
     locales: [
       {
-        code: 'en',
+        code: 'en-US',
         label: 'English',
         file: 'en.js',
-        iso: 'en',
+        iso: 'en_US',
       },
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'en-US',
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en',
+      fallbackLocale: 'en-US',
       numberFormats: {
-        en: {
+        'en-US': {
           currency: {
             style: 'currency',
             currency: 'USD',
