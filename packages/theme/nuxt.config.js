@@ -119,18 +119,7 @@ export default {
     '@vue-storefront/middleware/nuxt',
   ],
   i18n: {
-    currency: 'USD',
     country: 'US',
-    currencies: [
-      {
-        name: 'EUR',
-        label: 'Euro',
-      },
-      {
-        name: 'USD',
-        label: 'Dollar',
-      },
-    ],
     locales: [
       {
         code: 'en',
@@ -234,7 +223,6 @@ export default {
     },
   },
   router: {
-    // middleware: 'store-configuration',
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
