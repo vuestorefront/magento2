@@ -283,6 +283,7 @@ import {
   useContext,
   useRoute,
   useRouter,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -293,7 +294,7 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 
-export default {
+export default defineComponent({
   name: 'ProductPage',
   components: {
     GroupedProductSelector,
@@ -511,7 +512,7 @@ export default {
       upsellProducts,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 #product {
