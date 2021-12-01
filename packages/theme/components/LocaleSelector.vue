@@ -45,14 +45,16 @@
         </SfListItem>
       </SfList>
 
-      <SfHeading
+      <!--
+The currency switch is commented, until the Core package
+enables the switch of currency without returning to the browser one with i18n.   -->
+      <!--  <SfHeading
         title="Choose Currency"
-        class="container__lang--title temp_hide"
-        v-if="!hideCurrency"
+        class="container__lang&#45;&#45;title temp_hide"
       />
 
       <SfList
-        v-if="availableCurrencies.length > 1 && !hideCurrency"
+        v-if="availableCurrencies.length > 1"
       >
         <SfListItem
           v-for="currency in availableCurrencies"
@@ -60,7 +62,7 @@
         >
           <a
             href="/"
-            :class="selectedCurrency === currency ? 'container__currency--selected' : ''"
+            :class="selectedCurrency === currency ? 'container__currency&#45;&#45;selected' : ''"
             @click.prevent="handleChanges(() => changeCurrency(currency), false, true)"
           >
             <SfCharacteristic class="currency">
@@ -71,6 +73,7 @@
           </a>
         </SfListItem>
       </SfList>
+      -->
 
       <SfHeading
         v-if="availableLocales.length > 1"
@@ -110,8 +113,7 @@
 import {
   useConfig,
   useStore,
-  useCurrency,
-  useCart,
+  // useCurrency,
   storeConfigGetters,
 } from '@vue-storefront/magento';
 import {
@@ -156,11 +158,15 @@ export default defineComponent({
       change: changeStore,
     } = useStore();
 
-    // Currency switcher isn't working yet
-    const {
+    /**
+     * The currency switch is commented, until the Core package
+     * enables the switch of currency without returning to the browser one with i18n
+     */
+    /* const {
       currencies,
       change: changeCurrency,
     } = useCurrency();
+    */
 
     const route = useRoute();
     const router = useRouter();
@@ -178,7 +184,7 @@ export default defineComponent({
     const availableLocales = computed(() => [...locales].filter((i) => (Object.keys(i).length > 0 && typeof i === 'object' ? i.code !== locale : i !== locale)));
     const availableStores = computed(() => stores.value ?? []);
 
-    const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
+    // const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
     const handleChanges = async (cb, redirect = true, refresh = false) => {
       if (cb) {
         await cb();
@@ -193,16 +199,17 @@ export default defineComponent({
     };
 
     return {
-      availableCurrencies,
+      /*
+        availableCurrencies,
+        changeCurrency,
+      */
       availableLocales,
       availableStores,
-      changeCurrency,
       changeStore,
       handleChanges,
       isLangModalOpen,
       locale,
       selectedCurrency,
-      hideCurrency: true,
       selectedLocale,
       storeConfig: config,
       storeConfigGetters,
