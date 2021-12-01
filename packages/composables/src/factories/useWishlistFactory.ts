@@ -125,8 +125,6 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
       customQuery?: CustomQuery,
     }) => {
       Logger.debug(`useWishlist/${ssrKey}/load`);
-      if (wishlist.value) return;
-
       try {
         loading.value = true;
         wishlist.value = await _factoryParams.load(params);
