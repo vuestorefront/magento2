@@ -71,7 +71,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
     const mappedProducts = computed(() => props.products.map((product) => ({
       // @ts-ignore

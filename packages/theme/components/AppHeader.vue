@@ -30,30 +30,48 @@
       <template #aside>
         <LocaleSelector class="smartphone-only" />
       </template>
-      <template #header-icons>
+      <template
+        #header-icons="{activeIcon}"
+      >
         <div class="sf-header__icons">
           <SfButton
             v-e2e="'app-header-account'"
             class="sf-button--pure sf-header__action"
-            aria-label="Open account button"
+            data-testid="accountIcon"
+            aria-label="Account"
             @click="handleAccountClick"
           >
             <SfIcon
               :icon="accountIcon"
               size="1.25rem"
+              :class="{
+                'sf-header__icon is-active': activeIcon === 'account',
+              }"
             />
           </SfButton>
           <SfButton
             v-if="isAuthenticated"
             class="sf-button--pure sf-header__action"
-            aria-label="Toggle wishlist sidebar"
+            data-testid="wishlistIcon"
+            aria-label="Wishlist"
             @click="toggleWishlistSidebar"
           >
             <SfIcon
               class="sf-header__icon"
-              icon="heart"
+              :icon="wishlistHasProducts ? 'heart_fill' : 'heart'"
+              :has-badge="wishlistHasProducts"
+              :badge-label="wishlistItemsQty"
               size="1.25rem"
+              :class="{
+                'sf-header__icon is-active': activeIcon === 'wishlist',
+              }"
             />
+            <SfBadge
+              v-if="wishlistHasProducts"
+              class="sf-badge--number cart-badge"
+            >
+              {{ wishlistItemsQty }}
+            </SfBadge>
           </SfButton>
           <SfButton
             v-e2e="'app-header-cart'"
@@ -65,6 +83,9 @@
               class="sf-header__icon"
               icon="empty_cart"
               size="1.25rem"
+              :class="{
+                'sf-header__icon is-active': activeIcon === 'cart',
+              }"
             />
             <SfBadge
               v-if="cartTotalItems"
@@ -148,7 +169,7 @@ import {
   useCategory,
   useCategorySearch,
   useFacet,
-  useUser,
+  useUser, useWishlist, wishlistGetters,
 } from '@vue-storefront/magento';
 import {
   computed,
@@ -191,6 +212,7 @@ export default defineComponent({
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart, load: loadCart } = useCart();
+    const { wishlist } = useWishlist('GlobalWishlist');
     const {
       result: searchResult,
       search: productsSearch,
@@ -209,6 +231,9 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const searchBarRef = ref(null);
     const result = ref(null);
+
+    const wishlistHasProducts = computed(() => wishlistGetters.getTotalItems(wishlist.value) > 0);
+    const wishlistItemsQty = computed(() => wishlistGetters.getTotalItems(wishlist.value));
 
     const cartTotalItems = computed(() => {
       const count = cartGetters.getTotalItems(cart.value);
@@ -310,6 +335,8 @@ export default defineComponent({
       term,
       toggleCartSidebar,
       toggleWishlistSidebar,
+      wishlistHasProducts,
+      wishlistItemsQty,
     };
   },
 });
