@@ -65,8 +65,10 @@ export default defineComponent({
     const { shipping: userShipping } = useUserShipping();
 
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userShippingGetters.getAddresses(userShipping.value,
-        { id: Number.parseInt(addressId, 10) });
+      const selectedAddress = userShippingGetters.getAddresses(
+        userShipping.value,
+        { id: Number.parseInt(addressId, 10) },
+      );
 
       if (!selectedAddress) {
         return;
