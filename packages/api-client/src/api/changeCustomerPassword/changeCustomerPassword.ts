@@ -6,7 +6,6 @@ export default gql`
       currentPassword: $currentPassword
       newPassword: $newPassword
     ) {
-      allow_remote_shopping_assistance
       date_of_birth
       default_billing
       default_shipping
@@ -42,4 +41,5 @@ export default gql`
         telephone
       }
     }
-  }`;
+  }
+`;
