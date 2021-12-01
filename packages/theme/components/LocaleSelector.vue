@@ -46,13 +46,13 @@
       </SfList>
 
       <SfHeading
-        :level="3"
         title="Choose Currency"
-        class="container__lang--title"
+        class="container__lang--title temp_hide"
+        v-if="!hideCurrency"
       />
 
       <SfList
-        v-if="availableCurrencies.length > 1"
+        v-if="availableCurrencies.length > 1 && !hideCurrency"
       >
         <SfListItem
           v-for="currency in availableCurrencies"
@@ -156,6 +156,7 @@ export default defineComponent({
       change: changeStore,
     } = useStore();
 
+    // Currency switcher isn't working yet
     const {
       currencies,
       change: changeCurrency,
@@ -201,6 +202,7 @@ export default defineComponent({
       isLangModalOpen,
       locale,
       selectedCurrency,
+      hideCurrency: true,
       selectedLocale,
       storeConfig: config,
       storeConfigGetters,
@@ -210,6 +212,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
 .container {
   margin: 0 -5px;
   display: flex;
