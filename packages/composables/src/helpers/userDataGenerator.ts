@@ -15,10 +15,6 @@ export const generateUserData = (userData): CustomerUpdateParameters => {
     baseData.date_of_birth = userData.dateOfBirth || userData.date_of_birth;
   }
 
-  if (Object.prototype.hasOwnProperty.call(userData, 'allow_remote_shopping_assistance')) {
-    baseData.allow_remote_shopping_assistance = userData.allow_remote_shopping_assistance;
-  }
-
   if (Object.prototype.hasOwnProperty.call(userData, 'gender')) {
     baseData.gender = userData.gender;
   }
