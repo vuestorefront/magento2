@@ -237,14 +237,6 @@
               name="signupNewsletter"
               class="form__element"
             />
-            <SfCheckbox
-              v-model="allowRemoteShoppingAssistance"
-              v-e2e="'remote-assistance'"
-              label="Allow remote shopping assistance"
-              name="allowRemoteShoppingAssistance"
-              info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
-              class="form__element"
-            />
             <ValidationProvider
               v-slot="{ errors }"
               :rules="{ required: { allowFalse: false } }"
@@ -343,7 +335,6 @@ export default defineComponent({
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const isSubscribed = ref(false);
-    const allowRemoteShoppingAssistance = ref(false);
     const form = ref({});
     const isLogin = ref(true);
     const createAccount = ref(false);
@@ -408,7 +399,6 @@ export default defineComponent({
         user: {
           ...form.value,
           is_subscribed: isSubscribed.value,
-          allow_remote_shopping_assistance: allowRemoteShoppingAssistance.value,
         },
       });
 
@@ -436,7 +426,6 @@ export default defineComponent({
     };
 
     return {
-      allowRemoteShoppingAssistance,
       barTitle,
       closeModal,
       createAccount,

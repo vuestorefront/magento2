@@ -24,8 +24,8 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.17",
-    "@vue-storefront/core": "~2.5.0",
+    "@apollo/client": "^3.5.5",
+    "@vue-storefront/core": "~2.5.1",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-graphql": "^1.0.0",
+    "@rollup/plugin-graphql": "^1.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@types/isomorphic-fetch": "^0.0.35",
     "apollo-link-schema": "^1.2.5",
@@ -47,7 +47,7 @@
     "graphql-tools": "^8.2.0",
     "jest-transform-graphql": "^2.1.0",
     "node-fetch": "^2.6.5",
-    "typescript": "^4.4.4",
+    "typescript": "^4.5.2",
     "webpack": "4.46.0"
   },
   "files": [

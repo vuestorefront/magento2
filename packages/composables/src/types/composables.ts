@@ -269,3 +269,31 @@ export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN
 export interface UseUpsellProductsErrors {
   query: Error;
 }
+
+export interface UseWishlistErrors {
+  addItem: Error;
+  removeItem: Error;
+  load: Error;
+  clear: Error;
+}
+
+export interface UseWishlist
+<
+  WISHLIST,
+  WISHLIST_ITEM,
+  PRODUCT,
+  API extends PlatformApi = any,
+> extends Composable<API> {
+  wishlist: ComputedProperty<WISHLIST>;
+  loading: ComputedProperty<boolean>;
+  addItem(params: { product: PRODUCT; customQuery?: CustomQuery }): Promise<void>;
+  removeItem(params: { product: WISHLIST_ITEM; customQuery?: CustomQuery }): Promise<void>;
+  load(params: { searchParams?: Partial<{
+    currentPage: number;
+    pageSize: number;
+  }>, customQuery?: CustomQuery }): Promise<void>;
+  clear(): Promise<void>;
+  setWishlist: (wishlist: WISHLIST) => void;
+  isInWishlist({ product: PRODUCT }): boolean;
+  error: ComputedProperty<UseWishlistErrors>;
+}

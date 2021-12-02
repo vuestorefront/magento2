@@ -4,7 +4,6 @@ export default gql`
   mutation updateCustomer($input: CustomerUpdateInput!) {
     updateCustomerV2(input: $input) {
       customer {
-        allow_remote_shopping_assistance
         date_of_birth
         default_billing
         default_shipping
@@ -41,4 +40,5 @@ export default gql`
         }
       }
     }
-  }`;
+  }
+`;

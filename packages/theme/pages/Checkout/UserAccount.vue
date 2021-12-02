@@ -90,15 +90,6 @@
           name="signupNewsletter"
           class="form__element"
         />
-        <SfCheckbox
-          v-if="createUserAccount"
-          v-model="form.allow_remote_shopping_assistance"
-          v-e2e="'remote-assistance'"
-          label="Allow remote shopping assistance"
-          name="allowRemoteShoppingAssistance"
-          info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
-          class="form__element"
-        />
       </div>
       <SfCheckbox
         v-if="!isAuthenticated"
@@ -214,7 +205,6 @@ export default defineComponent({
       email: '',
       password: '',
       is_subscribed: false,
-      allow_remote_shopping_assistance: false,
     });
 
     const handleFormSubmit = (reset) => async () => {
