@@ -68,7 +68,7 @@
                   class="products__product-card"
                   :image="productGetters.getProductThumbnailImage(product.product)"
                   :is-added-to-cart="isInCart({ product: product.product })"
-                  :is-on-wishlist="true"
+                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -102,7 +102,7 @@
                   class="products__product-card-horizontal"
                   :description="productGetters.getDescription(product.product)"
                   :image="productGetters.getProductThumbnailImage(product.product)"
-                  :is-on-wishlist="true"
+                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -205,6 +205,7 @@ import {
   computed,
   defineComponent,
   useRouter,
+  useRoute,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -234,22 +235,38 @@ export default defineComponent({
       loading,
       wishlist,
       removeItem,
-    } = useWishlist();
+    } = useWishlist('MyWishlistPage');
+    const route = useRoute();
+    const {
+      query: {
+        page,
+        itemsPerPage,
+      },
+    } = route.value;
     const router = useRouter();
     const th = useUiHelpers();
     const uiState = useUiState();
-    const { addItem: addItemToCartBase, isInCart } = useCart();
+    const {
+      addItem: addItemToCartBase,
+      isInCart,
+    } = useCart();
 
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const pagination = computed(() => wishlistGetters.getPagination(wishlist.value[0]));
 
-    const addItemToCart = async ({ product, quantity }) => {
+    const addItemToCart = async ({
+      product,
+      quantity,
+    }) => {
       // eslint-disable-next-line no-underscore-dangle
       const productType = product.__typename;
 
       switch (productType) {
         case 'SimpleProduct':
-          await addItemToCartBase({ product, quantity });
+          await addItemToCartBase({
+            product,
+            quantity,
+          });
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
@@ -268,7 +285,12 @@ export default defineComponent({
     };
 
     onSSR(async () => {
-      await load();
+      await load({
+        searchParams: {
+          currentPage: Number.parseInt(page, 10) || 1,
+          pageSize: Number.parseInt(itemsPerPage, 10) || 10,
+        },
+      });
     });
 
     return {
@@ -287,7 +309,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .tab-orphan {
   @include for-mobile {
     --tabs-title-display: none;

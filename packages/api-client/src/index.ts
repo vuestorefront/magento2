@@ -45,7 +45,6 @@ export {
   Attribute,
   AttributeInput,
   AttributeOption,
-  AvailableStores,
   AvailableStoresQuery,
   AvailableStoresQueryVariables,
   AvailablePaymentMethod,
@@ -559,6 +558,9 @@ export {
   UseInLayeredNavigationOptions,
   TrackingData,
   RoutableInterface,
+  CurrencyQuery,
+  CurrencyQueryVariables,
+  StorefrontProperties,
 } from './types/GraphQL';
 
 export { AddProductsToCartInput } from './api/addProductsToCart';

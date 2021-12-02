@@ -78,7 +78,8 @@
                   :title="productGetters.getName(product)"
                   :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                  :is-on-wishlist="product.isInWishlist"
+                  :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+                  :is-in-wishlist="product.isInWishlist"
                   @click:wishlist="addItemToWishlist(product)"
                 />
               </div>
@@ -97,7 +98,8 @@
                 :title="productGetters.getName(product)"
                 :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                :is-on-wishlist="product.isInWishlist"
+                :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+                :is-in-wishlist="product.isInWishlist"
                 @click:wishlist="addItemToWishlist(product)"
               />
             </div>
@@ -181,7 +183,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);

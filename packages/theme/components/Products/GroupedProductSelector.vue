@@ -46,11 +46,11 @@ import {
 } from '@storefront-ui/vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
-  computed, watch, ref,
+  computed, watch, ref, defineComponent,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 
-export default {
+export default defineComponent({
   name: 'GroupedProductSelector',
   components: {
     SfList,
@@ -114,7 +114,7 @@ export default {
       productGetters,
     };
   },
-};
+});
 </script>
 <style lang="scss">
 .grouped_items {

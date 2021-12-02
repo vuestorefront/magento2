@@ -1,32 +1,32 @@
 <template>
   <div class="container">
     <SfButton
-      class="container__lang container__lang--selected"
-      @click="isLangModalOpen = !isLangModalOpen"
+        class="container__lang container__lang--selected"
+        @click="isLangModalOpen = !isLangModalOpen"
     >
       <SfImage
-        :src="`/icons/langs/${locale}.webp`"
-        width="20"
-        alt="Flag"
+          :src="`/icons/langs/${locale}.webp`"
+          width="20"
+          alt="Flag"
       />
     </SfButton>
     <SfBottomModal
-      :is-open="isLangModalOpen"
-      :title="availableStores.length > 0 ? 'Change Store': ''"
-      @click:close="isLangModalOpen = !isLangModalOpen"
+        :is-open="isLangModalOpen"
+        :title="availableStores.length > 0 ? 'Change Store': ''"
+        @click:close="isLangModalOpen = !isLangModalOpen"
     >
       <SfList
-        v-if="availableStores.length > 1"
+          v-if="availableStores.length > 1"
       >
         <SfListItem
-          v-for="store in availableStores"
-          :key="store.id"
+            v-for="store in availableStores"
+            :key="store.id"
         >
           <a
-            href="/"
-            class="container__store--link"
-            :class="storeConfigGetters.isSelectedStore(storeConfig)(store) ? 'container__store--selected' : ''"
-            @click="handleChanges(() => changeStore(store))"
+              href="/"
+              class="container__store--link"
+              :class="storeConfigGetters.isSelectedStore(storeConfig)(store) ? 'container__store--selected' : ''"
+              @click="handleChanges(() => changeStore(store))"
           >
             <SfCharacteristic class="language">
               <template #title>
@@ -34,10 +34,10 @@
               </template>
               <template #icon>
                 <SfImage
-                  :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
-                  width="20"
-                  alt="Flag"
-                  class="language__flag"
+                    :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+                    width="20"
+                    alt="Flag"
+                    class="language__flag"
                 />
               </template>
             </SfCharacteristic>
@@ -76,17 +76,17 @@ enables the switch of currency without returning to the browser one with i18n.  
       -->
 
       <SfHeading
-        v-if="availableLocales.length > 1"
-        :level="3"
-        title="Choose language"
-        class="container__lang--title"
+          v-if="availableLocales.length > 1"
+          :level="3"
+          title="Choose language"
+          class="container__lang--title"
       />
       <SfList
-        v-if="availableLocales.length > 1"
+          v-if="availableLocales.length > 1"
       >
         <SfListItem
-          v-for="lang in availableLocales"
-          :key="lang.code"
+            v-for="lang in availableLocales"
+            :key="lang.code"
         >
           <nuxt-link :to="switchLocalePath(lang.code)">
             <SfCharacteristic class="language">
@@ -95,10 +95,10 @@ enables the switch of currency without returning to the browser one with i18n.  
               </template>
               <template #icon>
                 <SfImage
-                  :src="`/icons/langs/${lang.code}.webp`"
-                  width="20"
-                  alt="Flag"
-                  class="language__flag"
+                    :src="`/icons/langs/${lang.code}.webp`"
+                    width="20"
+                    alt="Flag"
+                    class="language__flag"
                 />
               </template>
             </SfCharacteristic>

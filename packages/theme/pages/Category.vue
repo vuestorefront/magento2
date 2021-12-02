@@ -415,7 +415,7 @@ export default defineComponent({
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-    } = useWishlist();
+    } = useWishlist('GlobalWishlist');
     const {
       result,
       search,

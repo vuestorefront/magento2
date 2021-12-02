@@ -16,7 +16,6 @@ import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
   AvailableShippingMethod,
-  AvailableStores as AvailableStoresInterface,
   AvailableStoresQuery,
   BundleProduct,
   Cart as CartInterface,
@@ -33,7 +32,6 @@ import {
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
-  Currency,
   CurrencyQuery,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
@@ -121,7 +119,7 @@ export interface Product extends ProductInterface, ConfigurableProduct, Omit<Bun
 }
 
 export type AddressOnCart = ShippingCartAddress;
-export type AvailableStores = AvailableStoresInterface;
+export type AvailableStores = AvailableStoresQuery['availableStores'];
 export type Cart = CartInterface;
 export type CartItem = CartItemInterface;
 export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];

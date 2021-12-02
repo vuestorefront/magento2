@@ -223,22 +223,14 @@
           </div>
         </div>
         <LazyHydrate
-          v-if="relatedProducts.length > 0"
           when-visible
         >
-          <ProductsCarousel
-            :products="relatedProducts"
-            :title="$t('Match it with')"
-          />
+          <RelatedProducts />
         </LazyHydrate>
         <LazyHydrate
-          v-if="upsellProducts.length > 0"
           when-visible
         >
-          <ProductsCarousel
-            :products="upsellProducts"
-            :title="$t('Other products you might like')"
-          />
+          <UpsellProducts />
         </LazyHydrate>
       </div>
     </SfLoader>
@@ -292,18 +284,20 @@ import GroupedProductSelector from '~/components/Products/GroupedProductSelector
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import UpsellProducts from '~/components/UpsellProducts';
+import RelatedProducts from '~/components/RelatedProducts';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
+    UpsellProducts,
     GroupedProductSelector,
     BundleProductSelector,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
     ProductAddReviewForm,
-    ProductsCarousel,
+    RelatedProducts,
     SfAddToCart,
     SfBreadcrumbs,
     SfButton,
@@ -337,7 +331,7 @@ export default defineComponent({
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem: addToWishlist } = useWishlist();
+    const { isInWishlist, addItem: addToWishlist } = useWishlist('GlobalWishlist');
     const { error: nuxtError } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
@@ -354,8 +348,6 @@ export default defineComponent({
       return inStock && stockLeft;
     });
     const categories = computed(() => productGetters.getCategoryIds(product.value));
-    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
-    const upsellProducts = computed(() => productGetters.getProductUpsellProduct(product.value));
     const baseReviews = computed(() => (Array.isArray(productReviews.value)
       ? [...productReviews.value].shift()
       : productReviews.value));
@@ -502,14 +494,12 @@ export default defineComponent({
       productShortDescription,
       productSpecialPrice,
       qty,
-      relatedProducts,
       reviewGetters,
       reviews,
       reviewsLoading,
       successAddReview,
       totalReviews,
       updateProductConfiguration,
-      upsellProducts,
     };
   },
 });

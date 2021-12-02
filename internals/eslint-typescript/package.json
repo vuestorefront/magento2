@@ -29,8 +29,8 @@
     "rules"
   ],
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.3.1",
-    "@typescript-eslint/parser": "^5.3.1"
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0"
   },
   "main": "index.js"
 }

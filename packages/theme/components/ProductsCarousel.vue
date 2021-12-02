@@ -26,8 +26,9 @@
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
+            :is-in-wishlist="isInWishlist({ product })"
             :wishlist-icon="isAuthenticated ? 'heart' : ''"
-            :is-on-wishlist="product.isInWishlist"
+            :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
           />
         </SfCarouselItem>
@@ -70,7 +71,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
     const mappedProducts = computed(() => props.products.map((product) => ({
       // @ts-ignore

@@ -46,9 +46,19 @@
 <script>
 import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, useRoute, useRouter,
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+  ref,
+  useContext,
+  useRoute,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import { useUser } from '@vue-storefront/magento';
+import {
+  mapMobileObserver,
+  unMapMobileObserver,
+} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';
 import MyNewsletter from './MyAccount/MyNewsletter.vue';
@@ -75,43 +85,52 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const { logout } = useUser();
-
-    const { params } = route.value;
-    const { pageName } = params;
+    const { localePath } = useContext();
+    const isMobile = computed(() => mapMobileObserver().isMobile.get());
+    const breadcrumbs = ref([
+      {
+        text: 'Home',
+        route: { link: '#' },
+      },
+      {
+        text: 'My Account',
+        route: { link: '#' },
+      },
+    ]);
 
     const activePage = computed(() => {
+      const { pageName } = route.value.params;
       if (pageName) {
-        return (`${pageName.charAt(0).toUpperCase()}${pageName.slice(1)}`).replace('-', ' ');
+        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
+      } if (!isMobile.value) {
+        return 'My profile';
       }
-
-      return 'My profile';
+      return '';
     });
 
     const changeActivePage = async (title) => {
       if (title === 'Log out') {
         await logout();
-        await router.push('/');
+        await router.push(localePath({ name: 'home' }));
+
         return;
       }
 
-      await router.push(`/my-account/${(title || '').toLowerCase().replace(' ', '-')}`);
+      const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
+      const transformedPath = `/my-account/${slugifiedTitle}`;
+
+      const localeTransformedPath = localePath(transformedPath);
+      await router.push(localeTransformedPath);
     };
 
-    return { changeActivePage, activePage };
-  },
+    onBeforeUnmount(() => {
+      unMapMobileObserver();
+    });
 
-  data() {
     return {
-      breadcrumbs: [
-        {
-          text: 'Home',
-          route: { link: '#' },
-        },
-        {
-          text: 'My Account',
-          route: { link: '#' },
-        },
-      ],
+      activePage,
+      breadcrumbs,
+      changeActivePage,
     };
   },
 });

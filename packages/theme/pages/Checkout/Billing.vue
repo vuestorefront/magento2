@@ -276,7 +276,8 @@ import {
   computed,
   onMounted,
   watch,
-  useRouter, defineComponent,
+  useRouter,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 

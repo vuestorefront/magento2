@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseWishlist<any, any, any, any>
+_default: (ssrKey?: string) => import("../../types/composables").UseWishlist<any, any, any, any>
 ```
