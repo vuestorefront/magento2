@@ -12,7 +12,9 @@
   </div>
 </template>
 <script>
-export default {
+import { defineComponent } from '@nuxtjs/composition-api';
+
+export default defineComponent({
   name: 'ContentBlock',
   props: {
     title: {
@@ -26,5 +28,5 @@ export default {
       default: '',
     },
   },
-};
+});
 </script>

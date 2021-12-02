@@ -277,6 +277,7 @@ import {
   onMounted,
   watch,
   useRouter,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 
@@ -295,7 +296,7 @@ extend('digits', {
   message: 'Please provide a valid phone number',
 });
 
-export default {
+export default defineComponent({
   name: 'BillingStep',
   components: {
     SfHeading,
@@ -502,7 +503,7 @@ export default {
       sameAsShipping,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .title {

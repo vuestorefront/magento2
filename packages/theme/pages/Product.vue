@@ -275,6 +275,7 @@ import {
   useContext,
   useRoute,
   useRouter,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -286,7 +287,7 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 
-export default {
+export default defineComponent({
   name: 'ProductPage',
   components: {
     UpsellProducts,
@@ -501,7 +502,7 @@ export default {
       updateProductConfiguration,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 #product {

@@ -95,7 +95,7 @@ import {
   SfInput,
   SfHeading,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@nuxtjs/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
@@ -116,7 +116,7 @@ extend('password', {
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
-export default {
+export default defineComponent({
   name: 'ResetPassword',
   components: {
     SfButton,
@@ -169,7 +169,7 @@ export default {
       result,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

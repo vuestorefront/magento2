@@ -24,9 +24,10 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
-import { defineComponent, useRoute } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent } from '@nuxtjs/composition-api';
 import {
-  useCart, useStore, useUser, useWishlist,
+  useCart,
+  useUser,
 } from '@vue-storefront/magento';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
@@ -36,6 +37,7 @@ import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
 import Notification from '~/components/Notification';
+import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 
 export default defineComponent({
   name: 'DefaultLayout',
@@ -54,21 +56,16 @@ export default defineComponent({
 
   setup() {
     const route = useRoute();
-    const { load: loadStores } = useStore();
     const { load: loadUser } = useUser();
     const { load: loadCart } = useCart();
-    const { load: loadWishlist } = useWishlist('GlobalWishlist');
+
+    const { loadConfiguration } = useMagentoConfiguration();
 
     onSSR(async () => {
+      await loadConfiguration();
       await Promise.all([
-        loadStores(),
         loadUser(),
         loadCart(),
-        loadWishlist({
-          searchParams: {
-            pageSize: 200,
-          },
-        }),
       ]);
     });
 

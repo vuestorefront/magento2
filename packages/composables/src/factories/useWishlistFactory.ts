@@ -72,9 +72,9 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
     };
 
     const addItem = async ({
-      product,
-      customQuery,
-    }) => {
+                             product,
+                             customQuery,
+                           }) => {
       Logger.debug(`useWishlist/${ssrKey}/addItem`, product);
 
       try {
@@ -95,9 +95,9 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
     };
 
     const removeItem = async ({
-      product,
-      customQuery,
-    }) => {
+                                product,
+                                customQuery,
+                              }) => {
       Logger.debug(`useWishlist/${ssrKey}/removeItem`, product);
 
       try {

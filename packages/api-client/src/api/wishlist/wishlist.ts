@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
   query wishlist($currentPage: Int = 1, $pageSize: Int = 10) {
     customer {
-      wishlists(currentPage: $currentPage, pageSize: $pageSize) {
+      wishlists {
         id
         items_count
         sharing_code

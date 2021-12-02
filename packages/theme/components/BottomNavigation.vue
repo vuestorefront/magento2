@@ -52,10 +52,10 @@
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon } from '@storefront-ui/vue';
 import { useUser } from '@vue-storefront/magento';
-import { useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, useRouter } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 
-export default {
+export default defineComponent({
   components: {
     SfBottomNavigation,
     SfIcon,
@@ -88,7 +88,7 @@ export default {
       handleAccountClick,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .navigation-bottom {

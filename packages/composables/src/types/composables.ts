@@ -1,6 +1,9 @@
 import {
   Composable,
-  ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
+  ComposableFunctionArgs,
+  ComputedProperty,
+  Context,
+  CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef, computed } from '@vue/composition-api';
 import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
@@ -270,6 +273,24 @@ export interface UseUpsellProductsErrors {
   query: Error;
 }
 
+export interface UseStore<STORES, STORE, API extends PlatformApi = any> extends Composable<API> {
+  load: () => Promise<void>;
+  change: (params: ComposableFunctionArgs<STORE>) => void;
+  stores: ComputedRef<STORES>;
+  loading: ComputedRef<boolean>;
+}
+
+export interface UseStoreErrors {
+  stores: Error;
+}
+
+export interface UseCurrency<CURRENCY, API extends PlatformApi = any> extends Composable<API> {
+  load: () => Promise<void>;
+  change: (params: ComposableFunctionArgs<any>) => void;
+  currencies: ComputedRef<CURRENCY>;
+  loading: ComputedRef<boolean>;
+}
+
 export interface UseWishlistErrors {
   addItem: Error;
   removeItem: Error;
@@ -283,15 +304,15 @@ export interface UseWishlist
   WISHLIST_ITEM,
   PRODUCT,
   API extends PlatformApi = any,
-> extends Composable<API> {
+  > extends Composable<API> {
   wishlist: ComputedProperty<WISHLIST>;
   loading: ComputedProperty<boolean>;
   addItem(params: { product: PRODUCT; customQuery?: CustomQuery }): Promise<void>;
   removeItem(params: { product: WISHLIST_ITEM; customQuery?: CustomQuery }): Promise<void>;
   load(params: { searchParams?: Partial<{
-    currentPage: number;
-    pageSize: number;
-  }>, customQuery?: CustomQuery }): Promise<void>;
+      currentPage: number;
+      pageSize: number;
+    }>, customQuery?: CustomQuery }): Promise<void>;
   clear(): Promise<void>;
   setWishlist: (wishlist: WISHLIST) => void;
   isInWishlist({ product: PRODUCT }): boolean;

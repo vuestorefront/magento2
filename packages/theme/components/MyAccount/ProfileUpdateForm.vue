@@ -89,7 +89,6 @@ import {
   SfInput,
   SfButton,
   SfModal,
-  SfCheckbox,
 } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
 
@@ -99,7 +98,6 @@ export default defineComponent({
     SfInput,
     SfButton,
     SfModal,
-    SfCheckbox,
     ValidationProvider,
     ValidationObserver,
   },

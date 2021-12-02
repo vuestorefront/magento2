@@ -154,7 +154,7 @@ import {
   SfImage,
   SfLink,
 } from '@storefront-ui/vue';
-import { computed } from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import {
   useWishlist,
   useUser,
@@ -164,7 +164,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import { useUiState } from '~/composables';
 
-export default {
+export default defineComponent({
   name: 'WishlistSidebar',
   components: {
     SfSidebar,
@@ -203,7 +203,7 @@ export default {
       productGetters,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
