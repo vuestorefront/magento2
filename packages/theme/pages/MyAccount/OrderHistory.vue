@@ -85,16 +85,7 @@
             >
               {{ tableHeader }}
             </SfTableHeader>
-            <SfTableHeader class="orders__element--right">
-              <!--              <span class="smartphone-only">{{ $t('Download') }}</span>
-              <SfButton
-                data-cy="order-history-btn_download-all"
-                class="desktop-only sf-button&#45;&#45;text orders__download-all"
-                @click="downloadOrders()"
-              >
-                {{ $t('Download all') }}
-              </SfButton>-->
-            </SfTableHeader>
+            <SfTableHeader class="orders__element--right" />
           </SfTableHeading>
           <SfTableRow
             v-for="order in orders"
@@ -124,6 +115,39 @@
             </SfTableData>
           </SfTableRow>
         </SfTable>
+        <LazyHydrate on-interaction>
+          <SfPagination
+            v-if="!loading"
+            v-show="pagination.totalPages > 1"
+            class="products__pagination desktop-only"
+            :current="pagination.currentPage"
+            :total="pagination.totalPages"
+            :visible="5"
+          />
+        </LazyHydrate>
+
+        <div
+          v-show="pagination.totalPages > 1"
+          class="products__show-on-page"
+        >
+          <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
+          <LazyHydrate on-interaction>
+            <SfSelect
+              :value="pagination.itemsPerPage.toString()"
+              class="products__items-per-page"
+              @input="th.changeItemsPerPage"
+            >
+              <SfSelectOption
+                v-for="option in pagination.pageOptions"
+                :key="option"
+                :value="option"
+                class="products__items-per-page__option"
+              >
+                {{ option }}
+              </SfSelectOption>
+            </SfSelect>
+          </LazyHydrate>
+        </div>
       </div>
     </SfTab>
     <SfTab
@@ -137,7 +161,7 @@
           class="message__link"
           href="#"
         >
-          https://github.com/DivanteLtd/vue-storefront/issues
+          https://github.com/vuestorefront/magento2/projects/5
         </SfLink>
         for our Roadmap!
       </p>
@@ -151,27 +175,47 @@ import {
   SfTable,
   SfButton,
   SfProperty,
-  SfLink,
+  SfLink, SfPagination, SfSelect,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
+import {
+  computed, defineComponent, ref, useRoute,
+} from '@nuxtjs/composition-api';
 import { useUserOrder, orderGetters } from '@vue-storefront/magento';
 import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
+import LazyHydrate from 'vue-lazy-hydration';
+import { useUiHelpers } from '~/composables';
 
 export default defineComponent({
   name: 'PersonalDetails',
   components: {
-    SfTabs,
-    SfTable,
+    LazyHydrate,
     SfButton,
-    SfProperty,
     SfLink,
+    SfPagination,
+    SfProperty,
+    SfSelect,
+    SfTable,
+    SfTabs,
   },
   setup() {
-    const { orders, search } = useUserOrder();
+    const { orders, search, loading } = useUserOrder();
     const currentOrder = ref(null);
+    const th = useUiHelpers();
+    const route = useRoute();
+    const {
+      query: {
+        page,
+        itemsPerPage,
+      },
+    } = route.value;
 
     onSSR(async () => {
-      await search({});
+      await search({
+        searchParams: {
+          currentPage: Number.parseInt(page, 10) || 1,
+          pageSize: Number.parseInt(itemsPerPage, 10) || 10,
+        },
+      });
     });
 
     const tableHeaders = [
@@ -193,6 +237,8 @@ export default defineComponent({
       }
     };
 
+    const pagination = computed(() => orderGetters.getPagination(orders.value));
+
     const downloadFile = (file, name) => new Promise((resolve) => {
       const a = document.createElement('a');
       document.body.append(a);
@@ -207,22 +253,15 @@ export default defineComponent({
       resolve(url);
     });
 
-    const downloadOrders = async () => {
-      await downloadFile(new Blob([JSON.stringify(orders.value)], { type: 'application/json' }), 'orders.json');
-    };
-
-    const downloadOrder = async (order) => {
-      await downloadFile(new Blob([JSON.stringify(order)], { type: 'application/json' }), `order ${orderGetters.getId(order)}.json`);
-    };
-
     return {
-      tableHeaders,
-      orders: computed(() => (orders ? orders.value : [])),
-      getStatusTextClass,
-      orderGetters,
-      downloadOrder,
-      downloadOrders,
       currentOrder,
+      getStatusTextClass,
+      loading,
+      orderGetters,
+      orders: computed(() => orderGetters.getItems(orders.value)),
+      pagination,
+      tableHeaders,
+      th,
     };
   },
 });
@@ -325,4 +364,29 @@ export default defineComponent({
   }
 }
 
+.products {
+  box-sizing: border-box;
+  flex: 1;
+  margin: 0;
+
+  @include for-desktop {
+
+    &__pagination {
+      display: flex;
+      justify-content: flex-start;
+      margin: var(--spacer-xl) 0 0 0;
+    }
+  }
+
+  &__show-on-page {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    &__label {
+      font-family: var(--font-family--secondary);
+      font-size: var(--font-size--sm);
+    }
+  }
+}
 </style>
