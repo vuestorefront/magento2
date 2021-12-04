@@ -75,7 +75,7 @@ const getPagination = (searchData): AgnosticPagination => {
     currentPage: (searchData?.input?.page > totalPages ? 1 : searchData?.input?.page) || 1,
     totalPages,
     totalItems: (searchData?.data?.total) ? searchData.data.total : 0,
-    itemsPerPage: searchData?.input?.itemsPerPage || 20,
+    itemsPerPage: searchData?.input?.itemsPerPage || 10,
     pageOptions: [10, 50, 100],
   };
 };
