@@ -1,32 +1,32 @@
 <template>
   <div class="container">
     <SfButton
-        class="container__lang container__lang--selected"
-        @click="isLangModalOpen = !isLangModalOpen"
+      class="container__lang container__lang--selected"
+      @click="isLangModalOpen = !isLangModalOpen"
     >
       <SfImage
-          :src="`/icons/langs/${locale}.webp`"
-          width="20"
-          alt="Flag"
+        :src="`/icons/langs/${locale}.webp`"
+        width="20"
+        alt="Flag"
       />
     </SfButton>
     <SfBottomModal
-        :is-open="isLangModalOpen"
-        :title="availableStores.length > 0 ? 'Change Store': ''"
-        @click:close="isLangModalOpen = !isLangModalOpen"
+      :is-open="isLangModalOpen"
+      :title="availableStores.length > 0 ? 'Change Store': ''"
+      @click:close="isLangModalOpen = !isLangModalOpen"
     >
       <SfList
-          v-if="availableStores.length > 1"
+        v-if="availableStores.length > 1"
       >
         <SfListItem
-            v-for="store in availableStores"
-            :key="store.id"
+          v-for="store in availableStores"
+          :key="store.id"
         >
           <a
-              href="/"
-              class="container__store--link"
-              :class="storeConfigGetters.isSelectedStore(storeConfig)(store) ? 'container__store--selected' : ''"
-              @click="handleChanges(() => changeStore(store))"
+            href="/"
+            class="container__store--link"
+            :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
+            @click="handleChanges(() => changeStore(store))"
           >
             <SfCharacteristic class="language">
               <template #title>
@@ -34,10 +34,10 @@
               </template>
               <template #icon>
                 <SfImage
-                    :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
-                    width="20"
-                    alt="Flag"
-                    class="language__flag"
+                  :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+                  width="20"
+                  alt="Flag"
+                  class="language__flag"
                 />
               </template>
             </SfCharacteristic>
@@ -45,48 +45,18 @@
         </SfListItem>
       </SfList>
 
-      <!--
-The currency switch is commented, until the Core package
-enables the switch of currency without returning to the browser one with i18n.   -->
-      <!--  <SfHeading
-        title="Choose Currency"
-        class="container__lang&#45;&#45;title temp_hide"
-      />
-
-      <SfList
-        v-if="availableCurrencies.length > 1"
-      >
-        <SfListItem
-          v-for="currency in availableCurrencies"
-          :key="currency"
-        >
-          <a
-            href="/"
-            :class="selectedCurrency === currency ? 'container__currency&#45;&#45;selected' : ''"
-            @click.prevent="handleChanges(() => changeCurrency(currency), false, true)"
-          >
-            <SfCharacteristic class="currency">
-              <template #title>
-                <span>{{ currency }}</span>
-              </template>
-            </SfCharacteristic>
-          </a>
-        </SfListItem>
-      </SfList>
-      -->
-
       <SfHeading
-          v-if="availableLocales.length > 1"
-          :level="3"
-          title="Choose language"
-          class="container__lang--title"
+        v-if="availableLocales.length > 1"
+        :level="3"
+        title="Choose language"
+        class="container__lang--title"
       />
       <SfList
-          v-if="availableLocales.length > 1"
+        v-if="availableLocales.length > 1"
       >
         <SfListItem
-            v-for="lang in availableLocales"
-            :key="lang.code"
+          v-for="lang in availableLocales"
+          :key="lang.code"
         >
           <nuxt-link :to="switchLocalePath(lang.code)">
             <SfCharacteristic class="language">
@@ -95,10 +65,10 @@ enables the switch of currency without returning to the browser one with i18n.  
               </template>
               <template #icon>
                 <SfImage
-                    :src="`/icons/langs/${lang.code}.webp`"
-                    width="20"
-                    alt="Flag"
-                    class="language__flag"
+                  :src="`/icons/langs/${lang.code}.webp`"
+                  width="20"
+                  alt="Flag"
+                  class="language__flag"
                 />
               </template>
             </SfCharacteristic>
@@ -113,8 +83,8 @@ enables the switch of currency without returning to the browser one with i18n.  
 import {
   useConfig,
   useStore,
-  // useCurrency,
   storeConfigGetters,
+  storeGetters,
 } from '@vue-storefront/magento';
 import {
   SfImage,
@@ -128,13 +98,13 @@ import {
   ref,
   computed,
   defineComponent,
-  useRoute,
-  useRouter,
 } from '@nuxtjs/composition-api';
 import { useI18n } from '~/helpers/hooks/usei18n';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
+  name: 'LocaleSelector',
   components: {
     SfImage,
     SfButton,
@@ -157,24 +127,8 @@ export default defineComponent({
       stores,
       change: changeStore,
     } = useStore();
+    const { handleChanges } = useHandleChanges();
 
-    /**
-     * The currency switch is commented, until the Core package
-     * enables the switch of currency without returning to the browser one with i18n
-     */
-    /* const {
-      currencies,
-      change: changeCurrency,
-    } = useCurrency();
-    */
-
-    const route = useRoute();
-    const router = useRouter();
-
-    const {
-      path,
-      fullPath,
-    } = route.value;
     const {
       locales,
       locale,
@@ -184,25 +138,7 @@ export default defineComponent({
     const availableLocales = computed(() => [...locales].filter((i) => (Object.keys(i).length > 0 && typeof i === 'object' ? i.code !== locale : i !== locale)));
     const availableStores = computed(() => stores.value ?? []);
 
-    // const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
-    const handleChanges = async (cb, redirect = true, refresh = false) => {
-      if (cb) {
-        await cb();
-      }
-      if (redirect) {
-        await router.replace(path);
-      }
-
-      if (refresh) {
-        router.go(fullPath);
-      }
-    };
-
     return {
-      /*
-        availableCurrencies,
-        changeCurrency,
-      */
       availableLocales,
       availableStores,
       changeStore,
@@ -213,6 +149,7 @@ export default defineComponent({
       selectedLocale,
       storeConfig: config,
       storeConfigGetters,
+      storeGetters,
     };
   },
 });
@@ -256,11 +193,6 @@ export default defineComponent({
   }
 
   &__store {
-    &--selected {
-      font-weight: bold;
-    }
-  }
-  &__currency {
     &--selected {
       font-weight: bold;
     }
