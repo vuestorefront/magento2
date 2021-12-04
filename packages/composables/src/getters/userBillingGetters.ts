@@ -1,6 +1,11 @@
-import { UserBillingGetters } from '@vue-storefront/core';
+import { UserBillingGetters as BaseGetters } from '@vue-storefront/core';
 
-const userBillingGetters: UserBillingGetters<any, any> = {
+interface UserBillingGetters extends BaseGetters<any, any>{
+  getNeighborhood: (address: any) => string
+  getAddressExtra: (address: any) => string
+}
+
+const userBillingGetters: UserBillingGetters = {
   getAddresses: (billing, criteria?: Record<string, any>) => {
     if (!criteria || Object.keys(criteria).length === 0) {
       return billing.addresses;
@@ -23,8 +28,10 @@ const userBillingGetters: UserBillingGetters<any, any> = {
   getEmail: (address) => address?.email || '',
   getProvince: (address) => (address?.region?.region_code || address?.region?.region) || '',
   getCompanyName: (address) => address?.company || '',
+  getNeighborhood: (address) => (Array.isArray(address?.street) ? address?.street[2] : address?.neighborhood),
+  getAddressExtra: (address) => (Array.isArray(address?.street) ? address?.street[3] : address?.extra),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getTaxNumber: (address) => '',
+  getTaxNumber: (address) => address.vat_id || '',
   getId: (address) => address?.id || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : ''),
   isDefault: (address) => address?.default_billing || false,

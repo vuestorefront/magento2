@@ -1,7 +1,12 @@
-import { UserAddressesGetters } from '../types/getters';
+import { UserAddressesGetters as BaseGetters } from '../types/getters';
 import { transformUserGetter } from '../helpers/userAddressManipulator';
 
-const userAddressesGetters: UserAddressesGetters<any, any> = {
+interface UserAddressesGetters extends BaseGetters<any, any>{
+  getNeighborhood: (address: any) => string
+  getAddressExtra: (address: any) => string
+}
+
+const userAddressesGetters: UserAddressesGetters = {
   getAddresses: (addresses, criteria?: Record<string, any>) => {
     if (!addresses || addresses.length === 0 || !Array.isArray(addresses)) return [];
 
@@ -29,9 +34,11 @@ const userAddressesGetters: UserAddressesGetters<any, any> = {
   getProvince: (address) => (address?.region?.region_code || address?.region?.region) || '',
   getCompanyName: (address) => address?.company || '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getTaxNumber: (address) => '',
+  getTaxNumber: (address) => address?.vat_id || '',
   getId: (address) => address?.id || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : address?.apartment),
+  getNeighborhood: (address) => (Array.isArray(address?.street) ? address?.street[2] : address?.neighborhood),
+  getAddressExtra: (address) => (Array.isArray(address?.street) ? address?.street[3] : address?.extra),
   isDefault: (address) => (address?.default_shipping || address?.default_billing) || false,
   isDefaultShipping: (address) => address?.default_shipping || false,
   isDefaultBilling: (address) => address?.default_billing || false,
