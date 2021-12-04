@@ -17,8 +17,8 @@
        * The currency switch is commented, until the Core package
        * enables the switch of currency without returning to the browser one with i18n
        */
+        <CurrencySelector />
       -->
-      <CurrencySelector />
       <LocaleSelector />
     </template>
   </SfTopBar>
@@ -26,12 +26,12 @@
 
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import CurrencySelector from './CurrencySelector';
+// import CurrencySelector from './CurrencySelector';
 import LocaleSelector from './LocaleSelector';
 
 export default {
   components: {
-    CurrencySelector,
+    // CurrencySelector,
     SfTopBar,
     SfButton,
     LocaleSelector,
