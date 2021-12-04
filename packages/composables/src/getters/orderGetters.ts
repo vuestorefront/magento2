@@ -1,5 +1,7 @@
 /* istanbul ignore file */
 
+import { AgnosticPagination } from '@vue-storefront/core';
+
 export const getDate = (order: any): string => new Date(order?.created_at).toLocaleDateString() || '';
 
 export const getId = (order: any): string => String(Number.parseInt(order?.order_number, 10) || Math.floor(Math.random() * 100));
@@ -20,6 +22,14 @@ export const getItemPrice = (item: any): number => item?.product_sale_price?.val
 
 export const getFormattedPrice = (price: number) => String(price);
 
+const getPagination = (orders: any): AgnosticPagination => ({
+  currentPage: orders?.page_info?.current_page || 1,
+  totalPages: orders?.page_info?.total_pages || 1,
+  totalItems: orders?.total_count || 0,
+  itemsPerPage: orders?.page_info?.page_size || 10,
+  pageOptions: [10, 50, 100],
+});
+
 const orderGetters = {
   getDate,
   getId,
@@ -31,6 +41,7 @@ const orderGetters = {
   getItemQty,
   getItemPrice,
   getFormattedPrice,
+  getPagination,
 };
 
 export default orderGetters;
