@@ -38,3 +38,4 @@ export { default as useUserBilling } from './composables/useUserBilling';
 export { default as useUserOrder } from './composables/useUserOrder';
 export { default as useUserShipping } from './composables/useUserShipping';
 export { default as useWishlist } from './composables/useWishlist';
+export * from './dataTypes';
