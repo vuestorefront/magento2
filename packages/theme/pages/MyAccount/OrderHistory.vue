@@ -4,7 +4,10 @@
       data-cy="order-history-tab_my-orders"
       title="My orders"
     >
-      <div v-if="currentOrder">
+      <div v-if="loading">
+        <SfLoader />
+      </div>
+      <div v-else-if="currentOrder">
         <SfButton
           data-cy="order-history-btn_orders"
           class="sf-button--text all-orders"
@@ -175,7 +178,10 @@ import {
   SfTable,
   SfButton,
   SfProperty,
-  SfLink, SfPagination, SfSelect,
+  SfLink,
+  SfPagination,
+  SfSelect,
+  SfLoader,
 } from '@storefront-ui/vue';
 import {
   computed, defineComponent, ref, useRoute,
@@ -196,6 +202,7 @@ export default defineComponent({
     SfSelect,
     SfTable,
     SfTabs,
+    SfLoader,
   },
   setup() {
     const { orders, search, loading } = useUserOrder();
@@ -211,10 +218,8 @@ export default defineComponent({
 
     onSSR(async () => {
       await search({
-        searchParams: {
-          currentPage: Number.parseInt(page, 10) || 1,
-          pageSize: Number.parseInt(itemsPerPage, 10) || 10,
-        },
+        currentPage: Number.parseInt(page, 10) || 1,
+        pageSize: Number.parseInt(itemsPerPage, 10) || 10,
       });
     });
 
@@ -238,20 +243,6 @@ export default defineComponent({
     };
 
     const pagination = computed(() => orderGetters.getPagination(orders.value));
-
-    const downloadFile = (file, name) => new Promise((resolve) => {
-      const a = document.createElement('a');
-      document.body.append(a);
-      a.style.display = 'none';
-
-      const url = window.URL.createObjectURL(file);
-      a.href = url;
-      a.download = name;
-      a.click();
-      window.URL.revokeObjectURL(url);
-
-      resolve(url);
-    });
 
     return {
       currentOrder,
