@@ -169,7 +169,7 @@
                       v-if="property.name === 'Category'"
                       #value
                     >
-                      <SfButton class="product__property__button sf-button&#45;&#45;text">
+                      <SfButton class="product__property__button sf-button--text">
                         {{ property.value }}
                       </SfButton>
                     </template>
