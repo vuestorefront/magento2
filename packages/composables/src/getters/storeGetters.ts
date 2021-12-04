@@ -1,16 +1,15 @@
-import { AgnosticStore, UseStoreGetters } from '@vue-storefront/core';
+import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getItems(stores: any, criteria: any = {}): AgnosticStore[] {
-  return [];
+function getItems(stores: AvailableStores, criteria: any = {}): AvailableStores {
+  return stores;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getSelected(stores: any): AgnosticStore | undefined {
-  return null;
+function getSelected(config: StoreConfig, store: StoreConfig): boolean {
+  return config.store_code === store.store_code;
 }
 
-const storeGetters: UseStoreGetters<any, any> = {
+const storeGetters = {
   getItems,
   getSelected,
 };
