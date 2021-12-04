@@ -3,7 +3,7 @@
     <SfHeading
       :level="3"
       :title="$t('Shipping method')"
-      class="sf-heading&#45;&#45;left sf-heading&#45;&#45;no-underline title"
+      class="sf-heading--left sf-heading--no-underline title"
     />
     <div class="form">
       <SfLoader :loading="isLoading">

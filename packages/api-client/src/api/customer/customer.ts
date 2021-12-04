@@ -36,6 +36,7 @@ export default gql`
         street
         suffix
         telephone
+        vat_id
       }
       is_subscribed
     }

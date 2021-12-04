@@ -8,7 +8,7 @@ import {
   Wishlist, WishlistQuery,
 } from '@vue-storefront/magento-api';
 
-type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
+export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getItems = (wishlist): WishlistProduct[] => wishlist.items_v2.items;
@@ -74,7 +74,7 @@ const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
   totalItems: wishlistData?.items_count || 0,
-  itemsPerPage: wishlistData?.items_v2?.page_info?.page_size || 20,
+  itemsPerPage: wishlistData?.items_v2?.page_info?.page_size || 10,
   pageOptions: [10, 50, 100],
 });
 

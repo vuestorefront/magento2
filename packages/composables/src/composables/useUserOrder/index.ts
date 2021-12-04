@@ -5,17 +5,16 @@ import {
   useUserOrderFactory,
   UseUserOrderFactoryParams,
 } from '@vue-storefront/core';
-import { CustomerOrder, CustomerOrdersQueryVariables } from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 
-const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQueryVariables> = {
+const factoryParams: UseUserOrderFactoryParams<any, any> = {
   provide() {
     return {
       user: useUser(),
     };
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  searchOrders: async (context: Context, param): Promise<CustomerOrder[]> => {
+  searchOrders: async (context: Context, param) => {
     Logger.debug('[Magento] search user orders', { param });
 
     if (!context.user.user?.value?.id) {
@@ -26,8 +25,8 @@ const factoryParams: UseUserOrderFactoryParams<CustomerOrder[], CustomerOrdersQu
 
     Logger.debug('[Result]:', { data });
 
-    return (data.customer.orders.items || []) as unknown as CustomerOrder[];
+    return data.customer.orders;
   },
 };
 
-export default useUserOrderFactory<CustomerOrder[], CustomerOrdersQueryVariables>(factoryParams);
+export default useUserOrderFactory<any, any>(factoryParams);
