@@ -25,7 +25,7 @@
           <a
             href="/"
             class="container__store--link"
-            :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
+            :class="storeGetters.isSelected(storeConfig, store) ? 'container__store--selected' : ''"
             @click="handleChanges(() => changeStore(store))"
           >
             <SfCharacteristic class="language">
