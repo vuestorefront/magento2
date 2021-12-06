@@ -1,6 +1,9 @@
 import {
   Composable,
-  ComposableFunctionArgs, ComputedProperty, Context, CustomQuery,
+  ComposableFunctionArgs,
+  ComputedProperty,
+  Context,
+  CustomQuery,
 } from '@vue-storefront/core';
 import { ComputedRef, computed } from '@vue/composition-api';
 import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
@@ -281,33 +284,37 @@ export interface UseStoreErrors {
   stores: Error;
 }
 
-export interface UseWishlist<
-  WISHLIST,
-  WISHLIST_SEARCH_PARAMS,
-  ADD_TO_WISHLIST,
-  REMOVE_FROM_WISHLIST, PRODUCT, API extends PlatformApi = any> extends Composable<API> {
-  addItem: (params: ADD_TO_WISHLIST) => Promise<void>;
-  clear: () => Promise<void>;
-  isInWishlist: (context: Context, params: {
-    currentWishlist: WISHLIST;
-    product: PRODUCT;
-  }) => boolean;
-  load: (
-    params?: {
-      customQuery?: CustomQuery,
-      searchParams?: WISHLIST_SEARCH_PARAMS
-    },
-  ) => Promise<void>;
-  loading: ComputedProperty<boolean>;
-  removeItem: (
-    params?: REMOVE_FROM_WISHLIST
-  ) => Promise<void>;
-  wishlist: ComputedProperty<WISHLIST>;
-}
-
 export interface UseCurrency<CURRENCY, API extends PlatformApi = any> extends Composable<API> {
   load: () => Promise<void>;
   change: (params: ComposableFunctionArgs<any>) => void;
   currencies: ComputedRef<CURRENCY>;
   loading: ComputedRef<boolean>;
+}
+
+export interface UseWishlistErrors {
+  addItem: Error;
+  removeItem: Error;
+  load: Error;
+  clear: Error;
+}
+
+export interface UseWishlist
+<
+  WISHLIST,
+  WISHLIST_ITEM,
+  PRODUCT,
+  API extends PlatformApi = any,
+  > extends Composable<API> {
+  wishlist: ComputedProperty<WISHLIST>;
+  loading: ComputedProperty<boolean>;
+  addItem(params: { product: PRODUCT; customQuery?: CustomQuery }): Promise<void>;
+  removeItem(params: { product: WISHLIST_ITEM; customQuery?: CustomQuery }): Promise<void>;
+  load(params: { searchParams?: Partial<{
+      currentPage: number;
+      pageSize: number;
+    }>, customQuery?: CustomQuery }): Promise<void>;
+  clear(): Promise<void>;
+  setWishlist: (wishlist: WISHLIST) => void;
+  isInWishlist({ product: PRODUCT }): boolean;
+  error: ComputedProperty<UseWishlistErrors>;
 }

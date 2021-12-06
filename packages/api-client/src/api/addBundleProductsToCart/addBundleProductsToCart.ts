@@ -179,4 +179,5 @@ export default gql`
         }
       }
     }
-  }`;
+  }
+`;

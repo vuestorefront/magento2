@@ -24,9 +24,10 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
-import { useRoute } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent } from '@nuxtjs/composition-api';
 import {
-  useCart, useUser,
+  useCart,
+  useUser,
 } from '@vue-storefront/magento';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
@@ -38,7 +39,7 @@ import LoginModal from '~/components/LoginModal.vue';
 import Notification from '~/components/Notification';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 
-export default {
+export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
@@ -72,7 +73,7 @@ export default {
       route,
     };
   },
-};
+});
 </script>
 
 <style lang="scss">

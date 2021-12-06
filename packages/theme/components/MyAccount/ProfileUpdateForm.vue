@@ -49,14 +49,6 @@
           :error-message="errors[0]"
         />
       </ValidationProvider>
-      <SfCheckbox
-        v-model="form.allow_remote_shopping_assistance"
-        v-e2e="'remote-assistance'"
-        label="Allow remote shopping assistance"
-        name="allowRemoteShoppingAssistance"
-        info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
-        class="form__element"
-      />
       <SfModal
         :visible="requirePassword"
         :title="$t('Attention!')"
@@ -97,7 +89,6 @@ import {
   SfInput,
   SfButton,
   SfModal,
-  SfCheckbox,
 } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
 
@@ -107,7 +98,6 @@ export default defineComponent({
     SfInput,
     SfButton,
     SfModal,
-    SfCheckbox,
     ValidationProvider,
     ValidationObserver,
   },
@@ -127,7 +117,6 @@ export default defineComponent({
       firstname: userGetters.getFirstName(user.value),
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
-      allow_remote_shopping_assistance: userGetters.getRemoteShoppingAssistance(user.value),
     });
     const {
       send: sendNotification,

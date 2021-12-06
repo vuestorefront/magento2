@@ -49,10 +49,14 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     const getCartData = async (id: string) => {
       Logger.debug('[Magento Storefront]: useCart.load.getCartData ID->', id);
 
-      const cartResponse = await context.$magento.api.cart(id);
-      Logger.debug('[Result]:', { data: cartResponse });
+      const { data, errors } = await context.$magento.api.cart(id);
+      Logger.debug('[Result]:', { data });
 
-      return cartResponse.data.cart as unknown as Cart;
+      if (!data?.cart && errors?.length) {
+        throw errors[0];
+      }
+
+      return data.cart as unknown as Cart;
     };
 
     const getCart = async (virtualCart: boolean, cartId?: string) => {
@@ -71,10 +75,16 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     // Try to load cart for existing customer, clean customer token if not possible
     if (customerToken) {
       try {
-        const result = await context.$magento.api.customerCart();
-        apiState.setCartId(result.data.customerCart.id);
+        const { data, errors } = await context.$magento.api.customerCart();
+        Logger.debug('[Result]:', { data, errors });
 
-        return result.data.customerCart as unknown as Cart;
+        if (!data?.customerCart && errors?.length) {
+          throw errors[0];
+        }
+
+        apiState.setCartId(data.customerCart.id);
+
+        return data.customerCart as unknown as Cart;
       } catch {
         apiState.setCustomerToken();
       }

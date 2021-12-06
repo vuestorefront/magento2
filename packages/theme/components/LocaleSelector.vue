@@ -25,7 +25,7 @@
           <a
             href="/"
             class="container__store--link"
-            :class="storeConfigGetters.isSelectedStore(storeConfig)(store) ? 'container__store--selected' : ''"
+            :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
             @click="handleChanges(() => changeStore(store))"
           >
             <SfCharacteristic class="language">
@@ -39,33 +39,6 @@
                   alt="Flag"
                   class="language__flag"
                 />
-              </template>
-            </SfCharacteristic>
-          </a>
-        </SfListItem>
-      </SfList>
-
-      <SfHeading
-        title="Choose Currency"
-        class="container__lang--title temp_hide"
-        v-if="!hideCurrency"
-      />
-
-      <SfList
-        v-if="availableCurrencies.length > 1 && !hideCurrency"
-      >
-        <SfListItem
-          v-for="currency in availableCurrencies"
-          :key="currency"
-        >
-          <a
-            href="/"
-            :class="selectedCurrency === currency ? 'container__currency--selected' : ''"
-            @click.prevent="handleChanges(() => changeCurrency(currency), false, true)"
-          >
-            <SfCharacteristic class="currency">
-              <template #title>
-                <span>{{ currency }}</span>
               </template>
             </SfCharacteristic>
           </a>
@@ -110,9 +83,8 @@
 import {
   useConfig,
   useStore,
-  useCurrency,
-  useCart,
   storeConfigGetters,
+  storeGetters,
 } from '@vue-storefront/magento';
 import {
   SfImage,
@@ -126,13 +98,13 @@ import {
   ref,
   computed,
   defineComponent,
-  useRoute,
-  useRouter,
 } from '@nuxtjs/composition-api';
 import { useI18n } from '~/helpers/hooks/usei18n';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
+  name: 'LocaleSelector',
   components: {
     SfImage,
     SfButton,
@@ -155,20 +127,8 @@ export default defineComponent({
       stores,
       change: changeStore,
     } = useStore();
+    const { handleChanges } = useHandleChanges();
 
-    // Currency switcher isn't working yet
-    const {
-      currencies,
-      change: changeCurrency,
-    } = useCurrency();
-
-    const route = useRoute();
-    const router = useRouter();
-
-    const {
-      path,
-      fullPath,
-    } = route.value;
     const {
       locales,
       locale,
@@ -178,34 +138,18 @@ export default defineComponent({
     const availableLocales = computed(() => [...locales].filter((i) => (Object.keys(i).length > 0 && typeof i === 'object' ? i.code !== locale : i !== locale)));
     const availableStores = computed(() => stores.value ?? []);
 
-    const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
-    const handleChanges = async (cb, redirect = true, refresh = false) => {
-      if (cb) {
-        await cb();
-      }
-      if (redirect) {
-        await router.replace(path);
-      }
-
-      if (refresh) {
-        router.go(fullPath);
-      }
-    };
-
     return {
-      availableCurrencies,
       availableLocales,
       availableStores,
-      changeCurrency,
       changeStore,
       handleChanges,
       isLangModalOpen,
       locale,
       selectedCurrency,
-      hideCurrency: true,
       selectedLocale,
       storeConfig: config,
       storeConfigGetters,
+      storeGetters,
     };
   },
 });
@@ -249,11 +193,6 @@ export default defineComponent({
   }
 
   &__store {
-    &--selected {
-      font-weight: bold;
-    }
-  }
-  &__currency {
     &--selected {
       font-weight: bold;
     }

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-userGetters: UserGetters
+userGetters: BaseUserGetters<Customer>
 ```

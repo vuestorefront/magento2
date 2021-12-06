@@ -23,7 +23,7 @@ interface CartAddressInterface {
     postcode: String
     region: CartAddressRegion
     street: [String]!
-    telephone: String
+    telephone: String!
 }
 
 interface CartItemInterface {
@@ -551,7 +551,7 @@ type BillingCartAddress implements CartAddressInterface {
     postcode: String
     region: CartAddressRegion
     street: [String]!
-    telephone: String
+    telephone: String!
 }
 
 "Breadcrumb item."
@@ -3584,7 +3584,7 @@ type ShippingCartAddress implements CartAddressInterface {
     region: CartAddressRegion
     selected_shipping_method: SelectedShippingMethod
     street: [String]!
-    telephone: String
+    telephone: String!
 }
 
 "Defines an individual shipping discount. This discount can be applied to shipping."
@@ -5182,7 +5182,7 @@ input CartAddressInput {
     "Determines whether to save the address in the customer's address book. The default value is true"
     save_in_address_book: Boolean
     street: [String]!
-    telephone: String
+    telephone: String!
 }
 
 input CartItemInput {

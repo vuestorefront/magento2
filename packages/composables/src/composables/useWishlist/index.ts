@@ -1,16 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
 /* istanbul ignore file */
 import {
-  Context, Logger,
-  useWishlistFactory,
-  UseWishlistFactoryParams,
+  Context,
+  Logger,
 } from '@vue-storefront/core';
-import {
-  Wishlist,
-  WishlistQueryVariables,
-} from '@vue-storefront/magento-api';
 import useUser from '../useUser';
 import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
+import { useWishlistFactory, UseWishlistFactoryParams } from '../../factories/useWishlistFactory';
 
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<any, any, any> = {
@@ -21,13 +17,11 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
   },
   // @ts-ignore
   load: async (context: Context, params) => {
+    Logger.debug('[Magento Storefront]: useWishlist.load params->', params);
     const apiState = context.$magento.config.state;
 
     if (apiState.getCustomerToken()) {
-      const wishlistParams: WishlistQueryVariables = {
-        ...params.customQuery,
-      };
-      const { data } = await context.$magento.api.wishlist(wishlistParams);
+      const { data } = await context.$magento.api.wishlist(params?.searchParams, params?.customQuery);
 
       Logger.debug('[Result]:', { data });
 
@@ -41,7 +35,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
       currentWishlist,
       product,
     } = params;
-
+    Logger.debug('[Magento Storefront]: useWishlist.addItem params->', params);
     if (!currentWishlist) await factoryParams.load(context, {});
 
     const itemOnWishlist = findItemOnWishlist(currentWishlist, params.product);
@@ -109,8 +103,11 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
     }
   },
   removeItem: async (context, params) => {
-    const { product, currentWishlist } = params;
-
+    const {
+      product,
+      currentWishlist,
+    } = params;
+    Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', params);
     const itemOnWishlist = findItemOnWishlist(currentWishlist, params.product);
 
     const { data } = await context.$magento.api.removeProductsFromWishlist({

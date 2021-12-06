@@ -81,12 +81,16 @@ import {
 } from '@storefront-ui/vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
-  computed, onBeforeMount, ref, watch,
+  computed,
+  defineComponent,
+  onBeforeMount,
+  ref,
+  watch,
 } from '@nuxtjs/composition-api';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
 import { productData } from '~/helpers/product/productData';
 
-export default {
+export default defineComponent({
   name: 'BundleProductSelector',
   components: {
     SfButton,
@@ -162,7 +166,7 @@ export default {
       selectedOptions,
     };
   },
-};
+});
 </script>
 <style lang="scss">
 .bundle_products {

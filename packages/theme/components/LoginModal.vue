@@ -237,14 +237,6 @@
               name="signupNewsletter"
               class="form__element"
             />
-            <SfCheckbox
-              v-model="allowRemoteShoppingAssistance"
-              v-e2e="'remote-assistance'"
-              label="Allow remote shopping assistance"
-              name="allowRemoteShoppingAssistance"
-              info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
-              class="form__element"
-            />
             <ValidationProvider
               v-slot="{ errors }"
               :rules="{ required: { allowFalse: false } }"
@@ -311,7 +303,7 @@ import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import { useUser, useForgotPassword } from '@vue-storefront/magento';
 import { useUiState } from '~/composables';
-import { customerPasswordRegExp } from '~/helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('email', {
   ...email,
@@ -324,7 +316,7 @@ extend('required', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -343,7 +335,6 @@ export default defineComponent({
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const isSubscribed = ref(false);
-    const allowRemoteShoppingAssistance = ref(false);
     const form = ref({});
     const isLogin = ref(true);
     const createAccount = ref(false);
@@ -408,7 +399,6 @@ export default defineComponent({
         user: {
           ...form.value,
           is_subscribed: isSubscribed.value,
-          allow_remote_shopping_assistance: allowRemoteShoppingAssistance.value,
         },
       });
 
@@ -436,7 +426,6 @@ export default defineComponent({
     };
 
     return {
-      allowRemoteShoppingAssistance,
       barTitle,
       closeModal,
       createAccount,

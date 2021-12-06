@@ -90,15 +90,6 @@
           name="signupNewsletter"
           class="form__element"
         />
-        <SfCheckbox
-          v-if="createUserAccount"
-          v-model="form.allow_remote_shopping_assistance"
-          v-e2e="'remote-assistance'"
-          label="Allow remote shopping assistance"
-          name="allowRemoteShoppingAssistance"
-          info-message="This allows merchants to 'see what you see' and take actions on your behalf in order to provide better assistance."
-          class="form__element"
-        />
       </div>
       <SfCheckbox
         v-if="!isAuthenticated"
@@ -153,7 +144,7 @@ import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { customerPasswordRegExp } from '../../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 
 extend('required', {
   ...required,
@@ -169,7 +160,7 @@ extend('email', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -214,7 +205,6 @@ export default defineComponent({
       email: '',
       password: '',
       is_subscribed: false,
-      allow_remote_shopping_assistance: false,
     });
 
     const handleFormSubmit = (reset) => async () => {
