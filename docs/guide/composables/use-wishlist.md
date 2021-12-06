@@ -1,12 +1,12 @@
 # useWishlist
 
-`useWishlist` composable is responsible, for integrating with wishlist from Commercetools. It allows to:
+`useWishlist` composable is responsible, for integrating with wishlist from Magento. It allows to:
 * fetch products from wishlist
 * add products to wishlist
 * remove products from wishlist
 * check if product is on wishlist
 
-## API 
+## API
 ```typescript
  interface UseWishlist<WISHLIST, WISHLIST_ITEM, PRODUCT> {
   wishlist: ComputedProperty<WISHLIST>;
