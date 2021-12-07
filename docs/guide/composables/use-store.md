@@ -26,7 +26,7 @@ export interface AvailableStores = {
 `storeGetter` object contains following methods:
 
 * `getItems` - returns list of available stores.
-* `isSelected` - returns if the selected store is equal to the config store.
+* `getSelected` - returns if the selected store is equal to the config store.
 
 
 ## Example
@@ -45,7 +45,7 @@ export default {
 
     return {
       stores: storesGetters.getItems(stores.value),
-      isStoreActive: storesGetters.isSelected(stores.value)
+      selectedStore: storesGetters.getSelected(stores.value)
     };
   }
 }
