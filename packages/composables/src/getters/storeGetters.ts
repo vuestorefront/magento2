@@ -5,13 +5,13 @@ function getItems(stores: AvailableStores, criteria: any = {}): AvailableStores 
   return stores;
 }
 
-function isSelected(config: StoreConfig, store: StoreConfig): boolean {
+function getSelected(config: StoreConfig, store: StoreConfig): boolean {
   return config.store_code === store.store_code;
 }
 
 const storeGetters = {
   getItems,
-  isSelected,
+  getSelected,
 };
 
 export default storeGetters;
