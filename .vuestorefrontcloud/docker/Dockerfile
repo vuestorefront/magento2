@@ -19,4 +19,6 @@ RUN yarn install --network-concurrency 1 && yarn build && yarn cache clean --all
 
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
+RUN chmod a+x /usr/local/bin/vue-storefront.sh
+
 ENTRYPOINT ["vue-storefront.sh"]
