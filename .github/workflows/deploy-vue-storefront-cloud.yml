@@ -2,7 +2,8 @@ name: Deploy to Vue Storefront Cloud
 on:
   push:
     branches:
-    - develop
+    - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,7 +42,7 @@ jobs:
         environment: production
         initial_status: in_progress
     - name: Deploy on demo-magento2.europe-west1.gcp.storefrontcloud.io
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/main'
       run: |
         if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
             "code":"demo-magento2",
