@@ -7,7 +7,9 @@
         :level="1"
         class="sf-heading--no-underline sf-heading--left"
       />
-      <div v-dompurify-html="page.content" />
+      <HTMLContent
+        :content="page.content"
+      />
     </div>
   </SfLoader>
 </template>
@@ -19,9 +21,11 @@ import {
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
+import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
   components: {
+    HTMLContent,
     SfLoader,
     SfHeading,
   },

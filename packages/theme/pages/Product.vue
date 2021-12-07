@@ -73,9 +73,10 @@
               </div>
             </div>
             <div>
-              <p
+              <HTMLContent
                 v-if="productShortDescription"
-                v-dompurify-html="productShortDescription"
+                :content="productShortDescription"
+                tag="p"
                 class="product__description desktop-only"
               />
               <SfButton class="sf-button--text desktop-only product__guide">
@@ -152,9 +153,10 @@
                 @click:tab="changeTab"
               >
                 <SfTab title="Description">
-                  <div
+                  <HTMLContent
                     v-if="productDescription"
-                    v-dompurify-html="productDescription"
+                    :content="productDescription"
+                    tag="div"
                     class="product__description"
                   />
                   <!-- @TODO: Check Property in Configurable Products              -->
@@ -286,13 +288,14 @@ import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
+import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
-    UpsellProducts,
-    GroupedProductSelector,
     BundleProductSelector,
+    GroupedProductSelector,
+    HTMLContent,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
@@ -311,6 +314,7 @@ export default defineComponent({
     SfReview,
     SfSelect,
     SfTabs,
+    UpsellProducts,
   },
   middleware: cacheControl({
     'max-age': 60,
