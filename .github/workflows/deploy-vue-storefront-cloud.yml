@@ -30,11 +30,11 @@ jobs:
           NPM_PASS: ${{ secrets.CLOUD_PASSWORD }}
           NPM_USER: ${{ secrets.CLOUD_USERNAME }}
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
-          STORE_URL: ${{ env.STORE_URL }}
-          MAGENTO_GRAPHQL: ${{ env.MAGENTO_GRAPHQL }}
-          MAGENTO_EXTERNAL_CHECKOUT: ${{ env.MAGENTO_EXTERNAL_CHECKOUT }}
-          MAGENTO_EXTERNAL_CHECKOUT_URL: ${{ env.MAGENTO_EXTERNAL_CHECKOUT_URL }}
-          MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH: ${{ env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH }}
+          STORE_URL: ${{ secrets.STORE_URL }}
+          MAGENTO_GRAPHQL: ${{ secrets.MAGENTO_GRAPHQL }}
+          MAGENTO_EXTERNAL_CHECKOUT: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT }}
+          MAGENTO_EXTERNAL_CHECKOUT_URL: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT_URL }}
+          MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH }}
   deploy:
     runs-on: ubuntu-latest
     needs: build
