@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.CLOUD_PASSWORD }}
           dockerfile: .vuestorefrontcloud/docker/Dockerfile
           buildoptions: --compress
-          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,STORE_URL,MAGENTO_GRAPHQL,MAGENTO_EXTERNAL_CHECKOUT,MAGENTO_EXTERNAL_CHECKOUT_URL,MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH
         env:
           NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
           NPM_PASS: ${{ secrets.CLOUD_PASSWORD }}
