@@ -24,9 +24,9 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@nuxtjs/composition-api": "^0.30.0",
-    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/composition-api": "^0.29.3",
     "@nuxtjs/google-fonts": "^1.3.0",
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
     "@storefront-ui/vue": "^0.11.2",
     "@vue-storefront/core": "~2.5.0",
@@ -79,7 +79,7 @@
     "ts-loader": "^8.1.0",
     "tslib": "^2.3.1",
     "typescript": "^4.4.4",
-    "vue-jest": "^4.0.0-0",
+    "vue-jest": "^3.0.7",
     "webpack": "4.46.0"
   },
   "engines": {
