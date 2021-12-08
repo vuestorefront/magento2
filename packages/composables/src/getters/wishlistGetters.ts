@@ -8,7 +8,7 @@ import {
   Wishlist, WishlistQuery,
 } from '@vue-storefront/magento-api';
 
-export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0];
+export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getItems = (wishlist): WishlistProduct[] => wishlist.items_v2.items;
