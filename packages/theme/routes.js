@@ -18,7 +18,7 @@ export function getRoutes(themeDir = __dirname) {
   },
   {
     name: 'my-account',
-    path: '/my-account/:pageName?/:addressId?',
+    path: '/my-account/:pageName?',
     component: path.resolve(themeDir, 'pages/MyAccount.vue'),
   },
   {

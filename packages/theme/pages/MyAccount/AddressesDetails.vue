@@ -115,14 +115,14 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const activeAddress = computed(
-      () => userAddresses.value.filter((address) => address?.id == route.value.params.addressId).pop()
+      () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop()
     );
 
     const isNewAddress = computed(() => !activeAddress.value);
-    const editingAddress = computed(() => !!route.value.params.addressId);
+    const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push({ path: `/my-account/addresses-details/${addressId}` });
+      await router.push({ path: '/my-account/addresses-details', query: { id: addressId } });
     };
 
     const removeAddress = async (address) => {
