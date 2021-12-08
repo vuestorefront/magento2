@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    v-html="content"
+    v-html="sanitizedContent"
   />
 </template>
 <script>
@@ -18,10 +18,8 @@ export default defineComponent({
     content: String,
   },
   setup(props) {
-    const contentData = computed(() => DOMPurify.sanitize(props.content));
-
     return {
-      contentData,
+      sanitizedContent: computed(() => DOMPurify.sanitize(props.content)),
     };
   },
 });
