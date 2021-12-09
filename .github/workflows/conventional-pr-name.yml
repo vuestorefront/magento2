@@ -23,6 +23,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
-        run: yarn --network-concurrency 1 --frozen-lockfile
+        run: yarn
 
       - uses: JulienKode/pull-request-name-linter-action@v0.1.2
