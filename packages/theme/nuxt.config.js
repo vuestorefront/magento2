@@ -51,12 +51,6 @@ export default {
     ],
   },
   loading: { color: '#fff' },
-  plugins: [
-    {
-      src: '~/plugins/domPurify.js',
-      ssr: false,
-    },
-  ],
   buildModules: [
     // to core
     '@nuxtjs/composition-api/module',
