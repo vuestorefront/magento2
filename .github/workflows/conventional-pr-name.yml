@@ -9,6 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
       - name: Install Dependencies
-        run: npm install @commitlint/config-conventional
+        run: yarn
+
       - uses: JulienKode/pull-request-name-linter-action@v0.2.0
