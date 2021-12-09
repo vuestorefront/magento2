@@ -60,7 +60,7 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
-      - name: Deploy on demo-magento2.europe-west1.gcp.storefrontcloud.io
+      - name: Deploy on demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/
         if: github.ref == 'refs/heads/develop'
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
@@ -73,7 +73,7 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
-      - name: Deploy on demo-magento2.europe-west1.gcp.storefrontcloud.io
+      - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
         if: github.ref == 'refs/heads/somebranch'
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
