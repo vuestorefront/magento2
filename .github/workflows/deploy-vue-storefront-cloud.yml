@@ -116,4 +116,4 @@ jobs:
           DEPLOY_URL: ${{ steps.deploy.outputs.deploy_url }}
         with:
           message: |
-            Your deployment is done! Check it at ${DEPLOY_URL}
+            Your deployment is done! Check it at $DEPLOY_URL
