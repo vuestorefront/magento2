@@ -74,7 +74,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-        if: github.ref == 'refs/heads/release/1.0.0-rc.5'
+        if: startsWith(github.ref, 'refs/heads/release')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-dev",
