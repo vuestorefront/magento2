@@ -50,6 +50,15 @@ price_range {
       currency
       value
     }
+    focus_catalog_rules {
+      name
+      description
+      discount_type
+      amount {
+        value
+        currency
+      }
+    }
   }
 }
 thumbnail {

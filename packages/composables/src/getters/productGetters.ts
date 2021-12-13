@@ -11,6 +11,7 @@ import {
   Product,
   FocusProductInventoryItem,
   MediaGalleryInterface,
+  FocusCatalogRulePriceData,
 } from '@absolute-web/magento-api';
 
 import categoryGetters from './categoryGetters';
@@ -273,6 +274,14 @@ export const getGroupedProducts = (product: GroupedProduct & { __typename: strin
 // eslint-disable-next-line no-underscore-dangle
 export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
 
+export const getCatalogPriceRules = (product: Product): FocusCatalogRulePriceData[] => {
+  if (!product?.price_range) {
+    return [];
+  }
+
+  return product.price_range.minimum_price.focus_catalog_rules || [];
+};
+
 export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
   getBreadcrumbs(product: Product, category?: Category): AgnosticBreadcrumb[];
   getCategory(product: Product, currentUrlPath: string): Category | null;
@@ -289,6 +298,7 @@ export interface ProductGetters extends ProductGettersBase<Product, ProductVaria
   getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
   getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
   getMediaGallery(product: Product): MediaGalleryInterface[];
+  getCatalogPriceRules(product: Product): FocusCatalogRulePriceData[];
 }
 
 const productGetters: ProductGetters = {
@@ -319,6 +329,7 @@ const productGetters: ProductGetters = {
   getGroupedProducts,
   getBundleProducts,
   getMediaGallery,
+  getCatalogPriceRules,
 };
 
 export default productGetters;

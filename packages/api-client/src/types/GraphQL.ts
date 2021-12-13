@@ -5402,6 +5402,7 @@ export interface ProductPrice {
   fixed_product_taxes?: Maybe<Array<Maybe<FixedProductTax>>>;
   /** The regular price of the product. */
   regular_price: Money;
+  focus_catalog_rules?: Maybe<Array<Maybe<FocusCatalogRulePriceData>>>;
 }
 
 /** ProductPrices is deprecated, replaced by PriceRange. The ProductPrices object contains the regular price of an item, as well as its minimum and maximum prices. Only composite products, which include bundle, configurable, and grouped products, can contain a minimum and maximum price. */
@@ -8007,4 +8008,18 @@ export interface FocusGuestRequestReturnMutation {
 
 export interface FocusGuestRequestReturnMutationVariables {
   input: FocusGuestRequestReturnInput;
+};
+
+export enum FocusCatalogRuleDiscountTypeEnum {
+  ByPercent = 'BY_PERCENT',
+  ByFixed = 'BY_FIXED',
+  ToPercent = 'TO_PERCENT',
+  ToFixed = 'TO_FIXED',
+};
+
+export interface FocusCatalogRulePriceData {
+  name: string;
+  description?: string;
+  discount_type: FocusCatalogRuleDiscountTypeEnum;
+  amount: Money;
 };
