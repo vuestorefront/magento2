@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "1.0.0-rc.4.5",
+  "version": "1.0.0-rc.5",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -57,7 +57,7 @@
   ],
   "publishConfig": {
     "access": "public",
-    "registry":"https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org"
   },
   "engines": {
     "node": ">=14.x"
