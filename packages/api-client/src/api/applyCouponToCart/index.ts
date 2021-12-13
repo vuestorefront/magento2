@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import applyCouponToCart from './applyCouponToCart';
 import {
   ApplyCouponToCartInput,
@@ -9,10 +10,21 @@ import { Context } from '../../types/context';
 // @TODO : Add Mutation FROM CodeGEN
 
 export default async (
-  { client }: Context,
+  context: Context,
   input: ApplyCouponToCartInput,
-): Promise<FetchResult<ApplyCouponToCartMutation>> => client
-  .mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
-  mutation: applyCouponToCart,
-  variables: { input },
-});
+  customQuery: CustomQuery = { applyCouponToCart: 'applyCouponToCart' },
+): Promise<FetchResult<ApplyCouponToCartMutation>> => {
+  const { applyCouponToCart: applyCouponToCartGQL } = context.extendQuery(
+    customQuery,
+    {
+      applyCouponToCart: {
+        query: applyCouponToCart,
+        variables: { input },
+      },
+    },
+  );
+  return context.client.mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
+    mutation: applyCouponToCartGQL.query,
+    variables: { input },
+  });
+};

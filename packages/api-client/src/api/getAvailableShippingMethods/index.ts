@@ -13,19 +13,21 @@ export default async (
   params: {
     cartId: string;
   },
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
   const defaultVariables = params ? {
     cart_id: params.cartId,
   } : {};
 
-  const { shippingMethods } = context.extendQuery(customQuery,
+  const { shippingMethods } = context.extendQuery(
+    customQuery,
     {
       shippingMethods: {
         query: GuestAvailableShippingMethods,
         variables: defaultVariables,
       },
-    });
+    },
+  );
 
   try {
     return await context.client.query<GuestAvailableShippingMethodsQuery,
