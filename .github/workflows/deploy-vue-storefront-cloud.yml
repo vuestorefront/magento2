@@ -110,10 +110,7 @@ jobs:
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
       - name: Comment on PR
         if: success()
-        uses: mshick/add-pr-comment@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEPLOY_URL: ${{ steps.deploy.outputs.deploy_url }}
+        uses: JoseThen/comment-pr@v1.1.1
         with:
-          message: |
-            Your deployment is done! Check it at $DEPLOY_URL
+          comment: 'Your deployment is done! Check it at ${{ steps.deploy.outputs.deploy_url }}'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
