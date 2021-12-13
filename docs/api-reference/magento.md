@@ -12,11 +12,13 @@
 |  [cartGetters](./magento.cartgetters.md) |  |
 |  [categoryGetters](./magento.categorygetters.md) |  |
 |  [checkoutGetters](./magento.checkoutgetters.md) |  |
+|  [extendScopeContext](./magento.extendscopecontext.md) |  |
 |  [facetGetters](./magento.facetgetters.md) |  |
 |  [forgotPasswordGetters](./magento.forgotpasswordgetters.md) |  |
 |  [orderGetters](./magento.ordergetters.md) |  |
 |  [productGetters](./magento.productgetters.md) |  |
 |  [reviewGetters](./magento.reviewgetters.md) |  |
+|  [storeConfigGetters](./magento.storeconfiggetters.md) |  |
 |  [storeGetters](./magento.storegetters.md) |  |
 |  [useAddresses](./magento.useaddresses.md) |  |
 |  [useBilling](./magento.usebilling.md) |  |
@@ -26,6 +28,7 @@
 |  [useConfig](./magento.useconfig.md) |  |
 |  [useContent](./magento.usecontent.md) |  |
 |  [useCountrySearch](./magento.usecountrysearch.md) |  |
+|  [useCurrency](./magento.usecurrency.md) |  |
 |  [useCustomMutation](./magento.usecustommutation.md) |  |
 |  [useCustomQuery](./magento.usecustomquery.md) |  |
 |  [useExternalCheckout](./magento.useexternalcheckout.md) |  |
@@ -54,4 +57,10 @@
 |  [useUserShipping](./magento.useusershipping.md) |  |
 |  [useWishlist](./magento.usewishlist.md) |  |
 |  [wishlistGetters](./magento.wishlistgetters.md) |  |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [WishlistProduct](./magento.wishlistproduct.md) |  |
 

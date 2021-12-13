@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-storeGetters: UseStoreGetters<any, any>
+storeGetters: {
+    getItems: typeof getItems;
+    getSelected: typeof getSelected;
+}
 ```

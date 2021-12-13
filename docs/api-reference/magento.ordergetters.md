@@ -18,5 +18,6 @@ orderGetters: {
     getItemQty: (item: any) => number;
     getItemPrice: (item: any) => number;
     getFormattedPrice: (price: number) => string;
+    getPagination: (orders: any) => AgnosticPagination;
 }
 ```
