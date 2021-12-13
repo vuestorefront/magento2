@@ -33,7 +33,7 @@ export const useCustomMutationFactory = <MUTATION, MUTATION_VARIABLES, MUTATION_
   const result = sharedRef<MUTATION_RETURN>({}, `${ssrKey}-result`);
   const loading = sharedRef(false, `${ssrKey}-loading`);
   const error = sharedRef({
-    query: null,
+    mutation: null,
   }, `${ssrKey}-error`);
   // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
@@ -61,7 +61,7 @@ export const useCustomMutationFactory = <MUTATION, MUTATION_VARIABLES, MUTATION_
 
       return data;
     } catch (err) {
-      error.value.search = err;
+      error.value.mutation = err;
 
       Logger.error(`useCustomMutation/${ssrKey}/mutation`, err);
     } finally {
@@ -70,7 +70,7 @@ export const useCustomMutationFactory = <MUTATION, MUTATION_VARIABLES, MUTATION_
   };
 
   return {
-    setMutationString: (newMutationString: string) => {
+    setMutationString: (newMutationString: MUTATION) => {
       mutationString.value = newMutationString;
     },
     mutationString: mutationStringComputed,

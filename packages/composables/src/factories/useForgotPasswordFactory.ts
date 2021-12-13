@@ -2,6 +2,7 @@ import { Ref, computed } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
   configureFactoryParams,
+  ForgotPasswordResult,
   Context,
   CustomQuery,
   FactoryParams,
@@ -29,7 +30,7 @@ export function useForgotPasswordFactory<RESULT>(
   factoryParams: UseForgotPasswordFactoryParams<RESULT>,
 ) {
   return function useForgotPassword(): UseForgotPassword<RESULT> {
-    const result: Ref<RESULT> = sharedRef({
+    const result: Ref<ForgotPasswordResult<RESULT>> = sharedRef({
       resetPasswordResult: null,
       setNewPasswordResult: null,
     }, 'useForgotPassword-result');

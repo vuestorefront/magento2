@@ -5,7 +5,7 @@ import {
 } from '@absolute-web/vsf-core';
 import {
   GetProductSearchParams,
-  UsedProductsQuery,
+  Product,
 } from '@absolute-web/magento-api';
 import {
   useUsedProductsFactory,
@@ -13,7 +13,7 @@ import {
 } from '../../factories/useUsedProductsFactory';
 import { UseUsedProducts } from '../../types/composables';
 
-const factoryParams: UseUsedProductsFactoryParams<UsedProductsQuery['products']['items'][0]['used_products'], ProductsSearchParams> = {
+const factoryParams: UseUsedProductsFactoryParams<Product[], ProductsSearchParams> = {
   productsSearch: async (context: Context,
     params: GetProductSearchParams & {
       customQuery?: CustomQuery;
@@ -32,13 +32,13 @@ const factoryParams: UseUsedProductsFactoryParams<UsedProductsQuery['products'][
 
     Logger.debug('[Result]:', { data });
 
-    return data.products?.items[0]?.used_products;
+    return data.products?.items[0]?.used_products as unknown as Product[];
   },
 };
 
 const useUsedProducts:
-(cacheId?: string) => UseUsedProducts<UsedProductsQuery['products']['items'][0]['used_products'],
-ProductsSearchParams> = useUsedProductsFactory<UsedProductsQuery['products']['items'][0]['used_products'],
+(cacheId?: string) => UseUsedProducts<Product[],
+ProductsSearchParams> = useUsedProductsFactory<Product[],
 ProductsSearchParams>(factoryParams);
 
 export default useUsedProducts;

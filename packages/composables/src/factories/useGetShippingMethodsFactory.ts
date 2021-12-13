@@ -39,11 +39,11 @@ export function useGetShippingMethodsFactory<SHIPPING_METHOD, API extends Platfo
 
         state.value = data;
 
-        error.value.search = null;
+        error.value.load = null;
 
         return data;
       } catch (err) {
-        error.value.search = err;
+        error.value.load = err;
         Logger.error(`useGetShippingMethods/${ssrKey}/load`, err);
       } finally {
         loading.value = false;

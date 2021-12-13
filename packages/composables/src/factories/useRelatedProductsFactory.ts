@@ -23,7 +23,7 @@ export function useRelatedProductsFactory<PRODUCTS, RELATED_PRODUCTS_SEARCH_PARA
   factoryParams: UseRelatedProductsFactoryParams<PRODUCTS, RELATED_PRODUCTS_SEARCH_PARAMS, API>,
 ) {
   return function useRelatedProduct(id: string): UseRelatedProducts<PRODUCTS, RELATED_PRODUCTS_SEARCH_PARAMS, API> {
-    const products: Ref<PRODUCTS> = sharedRef([], `useRelatedProducts-products-${id}`);
+    const products: Ref<PRODUCTS> = sharedRef(null, `useRelatedProducts-products-${id}`);
     const loading = sharedRef(false, `useRelatedProducts-loading-${id}`);
     const error: Ref<UseRelatedProductsErrors> = sharedRef({
       search: null,

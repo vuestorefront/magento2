@@ -17,12 +17,11 @@ export function useUserOrderFactory<
   API extends PlatformApi = any,
 >(factoryParams: UseUserOrderFactoryParams<ORDERS, ORDER_SEARCH_PARAMS, API>) {
   return function useUserOrder(ssrKey = 'useUserOrders'): UseUserOrder<ORDERS, ORDER_SEARCH_PARAMS, API> {
-    const orders: Ref<ORDERS> = sharedRef({
-      results: [],
-      total: 0,
-    }, `${ssrKey}-orders`);
+    const orders: Ref<ORDERS> = sharedRef(null, `${ssrKey}-orders`);
     const loading: Ref<boolean> = sharedRef(false, `${ssrKey}-loading`);
-    const error: Ref<UseUserOrderErrors> = sharedRef({}, `${ssrKey}-error`);
+    const error: Ref<UseUserOrderErrors> = sharedRef({
+      search: null,
+    }, `${ssrKey}-error`);
 
     // eslint-disable-next-line no-underscore-dangle, @typescript-eslint/naming-convention
     const _factoryParams = configureFactoryParams(

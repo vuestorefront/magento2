@@ -20,7 +20,7 @@ export function useCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API e
   return function useCategorySearch(id: string = ''): UseCategorySearch<CATEGORY, CATEGORY_SEARCH_PARAMS, API> {
     const ssrKey = id || 'useCategorySearch';
     // @ts-ignore
-    const result = sharedRef<CATEGORY>([], `${ssrKey}-result`);
+    const result = sharedRef<CATEGORY[]>([], `${ssrKey}-result`);
     const loading = sharedRef(false, `${ssrKey}-loading`);
     const error = sharedRef<UseCategorySearchErrors>({
       search: null,

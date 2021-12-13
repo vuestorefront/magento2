@@ -23,7 +23,7 @@ export function useUpsellProductsFactory<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS
   factoryParams: UseProductFactoryParams<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API>,
 ) {
   return function useUpsellProducts(id: string): UseUpsellProducts<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API> {
-    const products: Ref<PRODUCTS> = sharedRef([], `useUpsellProducts-products-${id}`);
+    const products: Ref<PRODUCTS> = sharedRef(null, `useUpsellProducts-products-${id}`);
     const loading = sharedRef(false, `useUpsellProducts-loading-${id}`);
     const error: Ref<UseUpsellProductsErrors> = sharedRef({
       search: null,

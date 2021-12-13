@@ -3,7 +3,7 @@ import { Logger } from '@absolute-web/vsf-core';
 import { useGuestUserFactory, UseGuestUserFactoryParams } from '../../factories/useGuestUserFactory';
 import useCart from '../useCart';
 
-const factoryParams: UseGuestUserFactoryParams<any, SetGuestEmailOnCartInput> = {
+const factoryParams: UseGuestUserFactoryParams<any, { email:string }> = {
   provide() {
     return {
       cart: useCart(),
@@ -30,4 +30,4 @@ const factoryParams: UseGuestUserFactoryParams<any, SetGuestEmailOnCartInput> = 
   },
 };
 
-export default useGuestUserFactory<any, SetGuestEmailOnCartInput & { email:string;password:string }>(factoryParams);
+export default useGuestUserFactory<any, { email:string }>(factoryParams);

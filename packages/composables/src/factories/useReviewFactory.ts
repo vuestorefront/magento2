@@ -43,7 +43,7 @@ export function useReviewFactory<
   REVIEW_ADD_PARAMS,
   REVIEW_METADATA,
   API> {
-    const reviews: Ref<REVIEW> = sharedRef([], `useReviews-reviews-${id}`);
+    const reviews: Ref<REVIEW> = sharedRef(null, `useReviews-reviews-${id}`);
     const metadatas: Ref<REVIEW_METADATA[]> = sharedRef([], `useReviews-metadata-${id}`);
     const loading: Ref<boolean> = sharedRef(false, `useReviews-loading-${id}`);
     const error: Ref<UseReviewErrors> = sharedRef({

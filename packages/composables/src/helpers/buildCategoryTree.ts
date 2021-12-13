@@ -1,4 +1,4 @@
-import { Category } from '@absolute-web/magento-api';
+import { CategoryTree as Category } from '@absolute-web/magento-api';
 import { AgnosticCategoryTree } from '@absolute-web/vsf-core';
 import { htmlDecode } from './htmlDecoder';
 

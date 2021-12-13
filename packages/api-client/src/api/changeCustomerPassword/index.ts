@@ -12,29 +12,18 @@ export default async (
   params: { currentPassword: string; newPassword: string; },
   customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
-  try {
-    const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(
-      customQuery,
-      {
-        changeCustomerPassword: {
-          query: changeCustomerPassword,
-          variables: { ...params },
-        },
+  const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(
+    customQuery,
+    {
+      changeCustomerPassword: {
+        query: changeCustomerPassword,
+        variables: { ...params },
       },
-    );
-    return await context.client
-      .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
-      mutation: changeCustomerPasswordGQL.query,
-      variables: changeCustomerPasswordGQL.variables,
-    });
-  } catch (error) {
-  // For error in data we don't throw 500, because it's not server error
-    if (error.graphQLErrors) {
-      return {
-        errors: error.graphQLErrors,
-        data: null,
-      };
-    }
-    throw error.networkError?.result || error;
-  }
+    },
+  );
+  return await context.client
+    .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
+    mutation: changeCustomerPasswordGQL.query,
+    variables: changeCustomerPasswordGQL.variables,
+  });
 };

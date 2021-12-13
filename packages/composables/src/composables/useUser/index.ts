@@ -2,15 +2,15 @@
 import {
   Context, Logger,
 } from '@absolute-web/vsf-core';
-import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@absolute-web/magento-api';
+import { Customer, CustomerCreateInput, CustomerUpdateInput } from '@absolute-web/magento-api';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
 import { UseUserFactoryParams, useUserFactory } from '../../factories/useUserFactory';
 
 const factoryParams: UseUserFactoryParams<
-any,
-UpdateCustomerEmailMutationVariables,
-CustomerCreateInput
+Customer,
+CustomerUpdateInput & { email?: string; password?: string },
+CustomerCreateInput & { email: string; password: string }
 > = {
   provide() {
     return {
@@ -29,7 +29,7 @@ CustomerCreateInput
 
       Logger.debug('[Result]:', { data });
 
-      return data.customer;
+      return data.customer as unknown as Customer;
     } catch {
       // eslint-disable-next-line no-void
       // @ts-ignore
@@ -41,7 +41,7 @@ CustomerCreateInput
   logOut: async (context: Context, params) => {
     const apiState = context.$magento.config.state;
 
-    await context.$magento.api.revokeCustomerToken(params);
+    await context.$magento.api.revokeCustomerToken(params.customQuery);
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
@@ -66,7 +66,7 @@ CustomerCreateInput
 
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerV2.customer;
+    return data.updateCustomerV2.customer as unknown as Customer;
   },
   register: async (context: Context, params) => {
     const { email, password, ...baseData } = generateUserData(params);
@@ -167,12 +167,12 @@ CustomerCreateInput
 
     Logger.debug('[Result] ', { data });
 
-    return data?.changeCustomerPassword;
+    return data?.changeCustomerPassword as unknown as Customer;
   },
 };
 
 export default useUserFactory<
-any,
-UpdateCustomerEmailMutationVariables,
+Customer,
+CustomerUpdateInput & { email?: string; password?: string },
 CustomerCreateInput & { email: string; password: string }
 >(factoryParams);

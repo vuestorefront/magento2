@@ -6,7 +6,7 @@ import {
 } from '@absolute-web/vsf-core';
 import {
   GetProductSearchParams,
-  RelatedProductQuery,
+  Product,
 } from '@absolute-web/magento-api';
 import { useCache } from '@absolute-web/vsf-cache';
 import { UseRelatedProducts } from '../../types/composables';
@@ -15,7 +15,7 @@ import {
   UseRelatedProductsFactoryParams,
 } from '../../factories/useRelatedProductsFactory';
 
-const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['products']['items'][0]['related_products'], ProductsSearchParams> = {
+const factoryParams: UseRelatedProductsFactoryParams<Product[], ProductsSearchParams> = {
   provide() {
     return {
       cache: useCache(),
@@ -43,13 +43,13 @@ const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['produc
       context.cache.addTagsFromString(data.cacheTags);
     }
 
-    return data.products?.items[0]?.related_products;
+    return data.products?.items[0]?.related_products as unknown as Product[];
   },
 };
 
 const useRelatedProducts:
-(cacheId?: string) => UseRelatedProducts<RelatedProductQuery['products']['items'][0]['related_products'],
-ProductsSearchParams> = useRelatedProductsFactory<RelatedProductQuery['products']['items'][0]['related_products'],
+(cacheId?: string) => UseRelatedProducts<Product[],
+ProductsSearchParams> = useRelatedProductsFactory<Product[],
 ProductsSearchParams>(factoryParams);
 
 export default useRelatedProducts;

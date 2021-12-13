@@ -7,7 +7,7 @@ import {
 } from '@absolute-web/vsf-core';
 import {
   BundleProduct,
-  Category, GroupedProduct,
+  CategoryTree as Category, GroupedProduct,
   Product,
   FocusProductInventoryItem,
   MediaGalleryInterface,

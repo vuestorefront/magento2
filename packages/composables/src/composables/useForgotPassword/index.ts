@@ -5,18 +5,21 @@ import { useForgotPasswordFactory, UseForgotPasswordFactoryParams } from '../../
 
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  resetPassword: async (context: Context, params) => {
+  resetPassword: async (context: Context, { currentResult, ...params }) => {
     Logger.debug('[Magento]: Reset user password', { params });
 
     const { data } = await context.$magento.api.requestPasswordResetEmail({ email: params.email });
 
     Logger.debug('[Result]:', { data });
 
-    return data;
+    return {
+      ...currentResult,
+      resetPasswordResult: data.requestPasswordResetEmail,
+    };
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setNewPassword: async (context: Context, params) => {
+  setNewPassword: async (context: Context, { currentResult, ...params }) => {
     Logger.debug('[Magento]: Define new user password', { params });
 
     const { data } = await context.$magento.api.resetPassword({
@@ -27,7 +30,10 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data;
+    return {
+      ...currentResult,
+      setNewPasswordResult: data.resetPassword,
+    };
   },
 };
 

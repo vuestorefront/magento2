@@ -59,7 +59,7 @@ export const useCustomQueryFactory = <QUERY, QUERY_VARIABLES, QUERY_RETURN = any
 
       return data;
     } catch (err) {
-      error.value.search = err;
+      error.value.query = err;
 
       Logger.error(`useCustomQuery/${ssrKey}/query`, err);
     } finally {
@@ -68,7 +68,7 @@ export const useCustomQueryFactory = <QUERY, QUERY_VARIABLES, QUERY_RETURN = any
   };
 
   return {
-    setQueryString: (newQueryString: string) => {
+    setQueryString: (newQueryString: QUERY) => {
       queryString.value = newQueryString;
     },
     queryString: queryStringComputed,

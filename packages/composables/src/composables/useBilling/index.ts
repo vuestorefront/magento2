@@ -42,6 +42,14 @@ const factoryParams: UseBillingParams<any, any> = {
       ...address
     } = params.billingDetails;
 
+    const street = [address.street];
+
+    if (apartment) street.push(apartment);
+
+    if (neighborhood) street.push(neighborhood);
+
+    if (extra) street.push(extra);
+
     const billingData = customerAddressId
       ? ({
         customer_address_id: customerAddressId,
@@ -49,7 +57,7 @@ const factoryParams: UseBillingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment, neighborhood, extra],
+          street,
         },
         same_as_shipping: sameAsShipping,
       });

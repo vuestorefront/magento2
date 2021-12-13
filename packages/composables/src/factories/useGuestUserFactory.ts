@@ -1,4 +1,4 @@
-import { Ref, computed } from '@vue/composition-api';
+import { computed } from '@vue/composition-api';
 import {
   Context,
   configureFactoryParams,
@@ -17,7 +17,7 @@ export interface UseGuestUserFactoryParams<GUEST_USER,
 }
 
 export const useGuestUserFactory = <GUEST_USER,
-  REGISTER_GUEST_USER_PARAMS extends { email: string; password: string },
+  REGISTER_GUEST_USER_PARAMS extends { email: string },
   API extends PlatformApi = any>(
   factoryParams: UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API>,
 ) => function useGuestUser(): UseGuestUser<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API> {
@@ -25,11 +25,11 @@ export const useGuestUserFactory = <GUEST_USER,
     attachToCart: null,
   });
 
-  const guestUser: Ref<GUEST_USER> = sharedRef(null, 'useGuestUser-user');
-  const loading: Ref<boolean> = sharedRef(false, 'useGuestUser-loading');
+  const guestUser = sharedRef<GUEST_USER>(null, 'useGuestUser-user');
+  const loading = sharedRef<boolean>(false, 'useGuestUser-loading');
   // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
-  const error: Ref<UseGuestUserErrors> = sharedRef(errorsFactory(), 'useGuestUser-error');
+  const error = sharedRef<UseGuestUserErrors>(errorsFactory(), 'useGuestUser-error');
 
   const setGuestUser = (newUser: GUEST_USER) => {
     guestUser.value = newUser;

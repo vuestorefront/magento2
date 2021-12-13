@@ -20,12 +20,7 @@ export default async (
     },
   );
 
-  try {
-    return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
-      query: paymentMethods.query,
-
-    });
-  } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
-  }
+  return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
+    query: paymentMethods.query,
+  });
 };

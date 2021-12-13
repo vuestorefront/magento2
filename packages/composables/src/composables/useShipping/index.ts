@@ -42,6 +42,14 @@ const factoryParams: UseShippingParams<any, any> = {
       ...address
     } = params.shippingDetails;
 
+    const street = [address.street];
+
+    if (apartment) street.push(apartment);
+
+    if (neighborhood) street.push(neighborhood);
+
+    if (extra) street.push(extra);
+
     const shippingData = customerAddressId
       ? ({
         customer_address_id: customerAddressId,
@@ -49,7 +57,7 @@ const factoryParams: UseShippingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment, neighborhood, extra],
+          street,
         },
       });
 

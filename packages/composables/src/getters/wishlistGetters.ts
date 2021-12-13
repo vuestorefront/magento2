@@ -5,10 +5,10 @@ import {
   AgnosticTotals, AgnosticPagination,
 } from '@absolute-web/vsf-core';
 import {
-  Wishlist, WishlistQuery,
+  Product, Wishlist,
 } from '@absolute-web/magento-api';
 
-export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };
+export type WishlistProduct = Product;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getItems = (wishlist): WishlistProduct[] => wishlist.items_v2.items;
@@ -46,18 +46,18 @@ export const getItemAttributes = (product: WishlistProduct, filterByAttributeNam
 export const getItemSku = (product: WishlistProduct): string => product?.product?.sku || '';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotals = (wishlist): AgnosticTotals => {
+export const getTotals = (wishlist: Wishlist): AgnosticTotals => {
   if (Array.isArray(wishlist)) {
     return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      total: acc.total + getItemPrice(curr).special,
+      total: acc.total + getItemPrice(curr as unknown as WishlistProduct).special,
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-      subtotal: acc.subtotal + getItemPrice(curr).regular,
+      subtotal: acc.subtotal + getItemPrice(curr as unknown as WishlistProduct).regular,
     }), ({ total: 0, subtotal: 0 }));
   }
   return wishlist?.items_v2?.items.reduce((acc, curr) => ({
-    total: acc.total + getItemPrice(curr).special,
-    subtotal: acc.subtotal + getItemPrice(curr).regular,
+    total: acc.total + getItemPrice(curr as unknown as WishlistProduct).special,
+    subtotal: acc.subtotal + getItemPrice(curr as unknown as WishlistProduct).regular,
   }), ({ total: 0, subtotal: 0 }));
 };
 
