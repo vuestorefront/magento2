@@ -10,14 +10,16 @@ export default async (
   params: {
     cartId: string;
   },
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
 ): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
-  const { paymentMethods } = context.extendQuery(customQuery,
+  const { paymentMethods } = context.extendQuery(
+    customQuery,
     {
       paymentMethods: {
         query: CustomerAvailablePaymentMethods,
       },
-    });
+    },
+  );
 
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({

@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import subscribeEmailToNewsletter from './subscribeEmailToNewsletter';
 import {
   SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables,
@@ -6,14 +7,26 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
-): Promise<FetchResult<SubscribeEmailToNewsletterMutation>> => client
-  .mutate<
-SubscribeEmailToNewsletterMutation,
-SubscribeEmailToNewsletterMutationVariables>({
-  mutation: subscribeEmailToNewsletter,
-  variables: {
-    email,
-  },
-});
+  customQuery: CustomQuery = { subscribeEmailToNewsletter: 'subscribeEmailToNewsletter' },
+): Promise<FetchResult<SubscribeEmailToNewsletterMutation>> => {
+  const { subscribeEmailToNewsletter: subscribeEmailToNewsletterGQL } = context.extendQuery(
+    customQuery,
+    {
+      subscribeEmailToNewsletter: {
+        query: subscribeEmailToNewsletter,
+        variables: {
+          email,
+        },
+      },
+    },
+  );
+
+  return context.client.mutate<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>({
+    mutation: subscribeEmailToNewsletterGQL.query,
+    variables: {
+      email,
+    },
+  });
+};
