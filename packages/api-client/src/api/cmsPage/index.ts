@@ -1,17 +1,28 @@
 import { ApolloQueryResult } from 'apollo-client';
-import { Logger } from '@vue-storefront/core';
+import { CustomQuery, Logger } from '@vue-storefront/core';
 import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   identifier: string,
+  customQuery: CustomQuery = { cmsPage: 'cmsPage' },
 ): Promise<ApolloQueryResult<CmsPageQuery>> => {
   try {
-    return await client
+    const { cmsPage: cmsPageGQL } = context.extendQuery(
+      customQuery,
+      {
+        cmsPage: {
+          query: cmsPage,
+          variables: { identifier },
+        },
+      },
+    );
+
+    return await context.client
       .query<CmsPageQuery, CmsPageQueryVariables>({
-      query: cmsPage,
+      query: cmsPageGQL.query,
       variables: { identifier },
     });
   } catch (error) {

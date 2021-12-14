@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import updateCartItems from './updateCartItems';
 import {
   UpdateCartItemsInput,
@@ -8,12 +9,24 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   input: UpdateCartItemsInput,
-): Promise<FetchResult<UpdateCartItemsMutation>> => client
-  .mutate<
-UpdateCartItemsMutation,
-UpdateCartItemsMutationVariables>({
-  mutation: updateCartItems,
-  variables: { input },
-});
+  customQuery: CustomQuery = { updateCartItems: 'updateCartItems' },
+): Promise<FetchResult<UpdateCartItemsMutation>> => {
+  const { updateCartItems: updateCartItemsGQL } = context.extendQuery(
+    customQuery,
+    {
+      updateCartItems: {
+        query: updateCartItems,
+        variables: {
+          input,
+        },
+      },
+    },
+  );
+
+  return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
+    mutation: updateCartItemsGQL.query,
+    variables: { input },
+  });
+};

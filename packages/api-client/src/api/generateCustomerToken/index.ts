@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import generateCustomerToken from './generateCustomerToken';
 import {
   GenerateCustomerTokenMutation,
@@ -7,14 +8,28 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   email: string,
   password: string,
+  customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
-    return await client
+    const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(
+      customQuery,
+      {
+        generateCustomerToken: {
+          query: generateCustomerToken,
+          variables: {
+            email,
+            password,
+          },
+        },
+      },
+    );
+
+    return await context.client
       .mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
-      mutation: generateCustomerToken,
+      mutation: generateCustomerTokenGQL.query,
       variables: {
         email,
         password,

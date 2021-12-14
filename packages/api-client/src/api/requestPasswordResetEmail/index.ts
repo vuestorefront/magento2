@@ -11,7 +11,7 @@ import { Context } from '../../types/context';
 export default async (
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { requestPasswordResetEmail: 'requestPasswordResetEmail' },
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> => {
   const { requestPasswordResetEmail } = context.extendQuery(customQuery, {
     requestPasswordResetEmail: {
