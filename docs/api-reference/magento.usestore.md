@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-useStore: import("@vue-storefront/core").UseStore<any>
+useStore: () => UseStore<AvailableStores, StoreConfig>
 ```
