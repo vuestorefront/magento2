@@ -33,25 +33,6 @@
       ]
     },
     {
-      "login": "domideimel",
-      "name": "Dominik Deimel",
-      "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
-      "profile": "https://github.com/domideimel",
-      "contributions": [
-        "code",
-        "doc"
-      ]
-    },
-    {
-      "login": "LiorLindvor",
-      "name": "Lior Lindvor",
-      "avatar_url": "https://avatars.githubusercontent.com/u/6757942?v=4",
-      "profile": "https://github.com/LiorLindvor",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
       "login": "hcmlopes",
       "name": "Henrique Lopes",
       "avatar_url": "https://avatars.githubusercontent.com/u/20449158?v=4",
@@ -77,6 +58,43 @@
       "profile": "https://github.com/zfmaster",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "patrickmonteiro",
+      "name": "Patrick Monteiro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13258255?v=4",
+      "profile": "https://github.com/patrickmonteiro",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kevingorjan",
+      "name": "Kevin Gorjan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/789614?v=4",
+      "profile": "https://github.com/KevinGorjan",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bartoszherba",
+      "name": "Bartosz Herba",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16045377?v=4",
+      "profile": "https://github.com/bartoszherba",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Frodigo",
+      "name": "Marcin Kwiatkowski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11998249?v=4",
+      "profile": "https://github.com/Frodigo",
+      "contributions": [
+        "code",
+        "projectManagement"
       ]
     },
     {
@@ -123,28 +141,20 @@
       ]
     },
     {
-      "login": "patrickmonteiro",
-      "name": "Patrick Monteiro",
-      "avatar_url": "https://avatars.githubusercontent.com/u/13258255?v=4",
-      "profile": "https://github.com/patrickmonteiro",
+      "login": "domideimel",
+      "name": "Dominik Deimel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32941053?v=4",
+      "profile": "https://github.com/domideimel",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
-      "login": "kevingorjan",
-      "name": "Kevin Gorjan",
-      "avatar_url": "https://avatars.githubusercontent.com/u/789614?v=4",
-      "profile": "https://github.com/KevinGorjan",
-      "contributions": [
-        "code"
-      ]
-    },
-    {
-      "login": "bartoszherba",
-      "name": "Bartosz Herba",
-      "avatar_url": "https://avatars.githubusercontent.com/u/16045377?v=4",
-      "profile": "https://github.com/bartoszherba",
+      "login": "LiorLindvor",
+      "name": "Lior Lindvor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6757942?v=4",
+      "profile": "https://github.com/LiorLindvor",
       "contributions": [
         "code"
       ]

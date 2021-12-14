@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-userAddressesGetters: UserAddressesGetters<any, any>
+userAddressesGetters: UserAddressesGetters
 ```
