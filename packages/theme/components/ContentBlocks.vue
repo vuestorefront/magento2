@@ -9,11 +9,12 @@
   </div>
 </template>
 <script>
+import { defineComponent } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { useContent } from '@vue-storefront/magento';
 import ContentBlock from './ContentBlock';
 
-export default {
+export default defineComponent({
   name: 'ContentBlocks',
   components: {
     ContentBlock,
@@ -38,5 +39,5 @@ export default {
       blocks,
     };
   },
-};
+});
 </script>

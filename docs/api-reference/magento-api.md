@@ -22,6 +22,7 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [addSimpleProductsToCart](./magento-api.addsimpleproductstocart.md) |  |
 |  [addVirtualProductsToCart](./magento-api.addvirtualproductstocart.md) |  |
 |  [applyCouponToCart](./magento-api.applycoupontocart.md) |  |
+|  [availableStores](./magento-api.availablestores.md) |  |
 |  [cart](./magento-api.cart.md) |  |
 |  [categoryList](./magento-api.categorylist.md) |  |
 |  [categorySearch](./magento-api.categorysearch.md) |  |
@@ -34,6 +35,7 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [createCustomerAddress](./magento-api.createcustomeraddress.md) |  |
 |  [createEmptyCart](./magento-api.createemptycart.md) |  |
 |  [createProductReview](./magento-api.createproductreview.md) |  |
+|  [currency](./magento-api.currency.md) |  |
 |  [customer](./magento-api.customer.md) |  |
 |  [customerCart](./magento-api.customercart.md) |  |
 |  [customerOrders](./magento-api.customerorders.md) |  |

@@ -51,12 +51,6 @@ export default {
     ],
   },
   loading: { color: '#fff' },
-  plugins: [
-    {
-      src: '~/plugins/domPurify.js',
-      ssr: false,
-    },
-  ],
   buildModules: [
     // to core
     '@nuxtjs/composition-api/module',
@@ -119,34 +113,23 @@ export default {
     '@vue-storefront/middleware/nuxt',
   ],
   i18n: {
-    currency: 'USD',
     country: 'US',
-    currencies: [
-      {
-        name: 'EUR',
-        label: 'Euro',
-      },
-      {
-        name: 'USD',
-        label: 'Dollar',
-      },
-    ],
     locales: [
       {
-        code: 'en',
+        code: 'en-US',
         label: 'English',
         file: 'en.js',
-        iso: 'en',
+        iso: 'en_US',
       },
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'en-US',
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en',
+      fallbackLocale: 'en-US',
       numberFormats: {
-        en: {
+        'en-US': {
           currency: {
             style: 'currency',
             currency: 'USD',

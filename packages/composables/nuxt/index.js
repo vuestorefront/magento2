@@ -2,20 +2,12 @@
 const path = require('path');
 
 const mapI18nSettings = (i18n) => ({
-  locale: i18n.defaultLocale,
-  currency: i18n.currency,
-  acceptLanguage: i18n.locales.map(({ code }) => code),
-  currencies: i18n.currencies,
   locales: i18n.locales.map(({ label, code }) => ({ name: code, label })),
 });
 
 const isNuxtI18nUsed = (moduleOptions) => moduleOptions.i18n && moduleOptions.i18n.useNuxtI18nConfig;
 
 const getMissingFields = (options) => [
-  'locale',
-  'currency',
-  'acceptLanguage',
-  'currencies',
   'locales',
 ].filter((o) => options[o] === undefined);
 

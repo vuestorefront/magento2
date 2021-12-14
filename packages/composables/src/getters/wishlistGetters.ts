@@ -74,7 +74,7 @@ const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
   totalItems: wishlistData?.items_count || 0,
-  itemsPerPage: wishlistData?.items_v2?.page_info?.page_size || 20,
+  itemsPerPage: wishlistData?.items_v2?.page_info?.page_size || 10,
   pageOptions: [10, 50, 100],
 });
 

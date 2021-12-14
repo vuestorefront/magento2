@@ -48,7 +48,7 @@ const createMagentoConnection = (settings: Config): ApolloClient<any> => {
     uri: settings.api,
     fetch,
     headers: {
-      Store: storeCode,
+      ...(storeCode ? { Store: storeCode } : {}),
     },
   });
 

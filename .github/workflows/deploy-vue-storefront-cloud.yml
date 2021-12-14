@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - develop
+      - release/*
 
 jobs:
   build:
@@ -48,7 +49,7 @@ jobs:
           environment: production
           initial_status: in_progress
       - name: Deploy on demo-magento2.europe-west1.gcp.storefrontcloud.io
-        if: github.ref == 'refs/heads/main'
+        if: startsWith(github.ref, 'refs/heads/main')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2",
@@ -61,7 +62,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/
-        if: github.ref == 'refs/heads/develop'
+        if: startsWith(github.ref, 'refs/heads/develop')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-canary",
@@ -74,7 +75,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-        if: github.ref == 'refs/heads/somebranch'
+        if: startsWith(github.ref, 'refs/heads/release')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-dev",

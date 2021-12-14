@@ -95,11 +95,11 @@ import {
   SfInput,
   SfHeading,
 } from '@storefront-ui/vue';
-import { ref, computed } from '@nuxtjs/composition-api';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
-import { customerPasswordRegExp } from '../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '../helpers/customer/regex';
 
 extend('email', {
   ...email,
@@ -112,11 +112,11 @@ extend('required', {
 });
 
 extend('password', {
-  message: 'The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)',
+  message: invalidPasswordMsg,
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
-export default {
+export default defineComponent({
   name: 'ResetPassword',
   components: {
     SfButton,
@@ -169,7 +169,7 @@ export default {
       result,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

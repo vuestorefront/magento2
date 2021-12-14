@@ -217,7 +217,7 @@ extend('digits', {
 });
 
 export default defineComponent({
-  name: 'Shipping',
+  name: 'ShippingPage',
   components: {
     SfHeading,
     SfInput,

@@ -154,7 +154,7 @@ import {
   SfImage,
   SfLink,
 } from '@storefront-ui/vue';
-import { computed } from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import {
   useWishlist,
   useUser,
@@ -164,7 +164,7 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import { useUiState } from '~/composables';
 
-export default {
+export default defineComponent({
   name: 'WishlistSidebar',
   components: {
     SfSidebar,
@@ -179,7 +179,7 @@ export default {
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem, load: loadWishlist } = useWishlist();
+    const { wishlist, removeItem } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
@@ -187,10 +187,6 @@ export default {
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
-
-    onSSR(async () => {
-      await loadWishlist();
-    });
 
     return {
       getAttributes,
@@ -207,7 +203,7 @@ export default {
       productGetters,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

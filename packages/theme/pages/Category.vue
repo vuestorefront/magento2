@@ -125,8 +125,8 @@
               :show-add-to-cart-button="true"
               :is-added-to-cart="isInCart({ product })"
               :is-in-wishlist="isInWishlist({ product })"
-              :wishlist-icon="isAuthenticated ? 'heart' : false"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -158,8 +158,8 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :is-in-wishlist="isInWishlist({product})"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : false"
-              :wishlist-icon="isAuthenticated ? 'heart' : false"
+              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+              :wishlist-icon="isAuthenticated ? 'heart' : ''"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -352,23 +352,22 @@ import {
   ref,
   computed,
   defineComponent,
-  useRouter,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
-  useWishlist,
-  productGetters,
-  useFacet,
-  useCategory,
   categoryGetters,
   facetGetters,
+  productGetters,
+  useCategory,
+  useFacet,
   useUser,
+  useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
+import { useAddToCart } from '~/helpers/cart/addToCart';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -399,7 +398,6 @@ export default defineComponent({
   setup() {
     const th = useUiHelpers();
     const uiState = useUiState();
-    const router = useRouter();
     const {
       path,
       result: routeData,
@@ -407,15 +405,12 @@ export default defineComponent({
     } = useUrlResolver();
     const { $magento: { config: magentoConfig } } = useVSFContext();
     const { isAuthenticated } = useUser();
-    const {
-      addItem: addItemToCartBase,
-      isInCart,
-    } = useCart();
+
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-    } = useWishlist();
+    } = useWishlist('GlobalWishlist');
     const {
       result,
       search,
@@ -431,6 +426,10 @@ export default defineComponent({
       search: categoriesSearch,
       loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
+    const {
+      addItemToCart,
+      isInCart,
+    } = useAddToCart();
 
     const selectedFilters = ref(Object.fromEntries((magentoConfig.facets.available).map((curr) => [curr, (curr === 'price' ? '' : [])])));
 
@@ -520,32 +519,6 @@ export default defineComponent({
       }
 
       changeFilters(selectedFilters.value);
-    };
-
-    const addItemToCart = async ({
-      product,
-      quantity,
-    }) => {
-      // eslint-disable-next-line no-underscore-dangle
-      const productType = product.__typename;
-
-      switch (productType) {
-        case 'SimpleProduct':
-          await addItemToCartBase({
-            product,
-            quantity,
-          });
-          break;
-        case 'BundleProduct':
-        case 'ConfigurableProduct':
-          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
-            product,
-            product.categories[0],
-          )}`);
-          break;
-        default:
-          throw new Error(`Product Type ${productType} not supported in add to cart yet`);
-      }
     };
 
     const addItemToWishlist = async (product) => {

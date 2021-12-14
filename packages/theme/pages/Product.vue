@@ -73,9 +73,10 @@
               </div>
             </div>
             <div>
-              <p
+              <HTMLContent
                 v-if="productShortDescription"
-                v-dompurify-html="productShortDescription"
+                :content="productShortDescription"
+                tag="p"
                 class="product__description desktop-only"
               />
               <SfButton class="sf-button--text desktop-only product__guide">
@@ -152,9 +153,10 @@
                 @click:tab="changeTab"
               >
                 <SfTab title="Description">
-                  <div
+                  <HTMLContent
                     v-if="productDescription"
-                    v-dompurify-html="productDescription"
+                    :content="productDescription"
+                    tag="div"
                     class="product__description"
                   />
                   <!-- @TODO: Check Property in Configurable Products              -->
@@ -169,7 +171,7 @@
                       v-if="property.name === 'Category'"
                       #value
                     >
-                      <SfButton class="product__property__button sf-button&#45;&#45;text">
+                      <SfButton class="product__property__button sf-button--text">
                         {{ property.value }}
                       </SfButton>
                     </template>
@@ -223,22 +225,14 @@
           </div>
         </div>
         <LazyHydrate
-          v-if="relatedProducts.length > 0"
           when-visible
         >
-          <ProductsCarousel
-            :products="relatedProducts"
-            :title="$t('Match it with')"
-          />
+          <RelatedProducts />
         </LazyHydrate>
         <LazyHydrate
-          v-if="upsellProducts.length > 0"
           when-visible
         >
-          <ProductsCarousel
-            :products="upsellProducts"
-            :title="$t('Other products you might like')"
-          />
+          <UpsellProducts />
         </LazyHydrate>
       </div>
     </SfLoader>
@@ -283,6 +277,7 @@ import {
   useContext,
   useRoute,
   useRouter,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -291,18 +286,21 @@ import GroupedProductSelector from '~/components/Products/GroupedProductSelector
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import UpsellProducts from '~/components/UpsellProducts';
+import RelatedProducts from '~/components/RelatedProducts';
+import HTMLContent from '~/components/HTMLContent';
 
-export default {
+export default defineComponent({
   name: 'ProductPage',
   components: {
-    GroupedProductSelector,
     BundleProductSelector,
+    GroupedProductSelector,
+    HTMLContent,
     InstagramFeed,
     LazyHydrate,
     MobileStoreBanner,
     ProductAddReviewForm,
-    ProductsCarousel,
+    RelatedProducts,
     SfAddToCart,
     SfBreadcrumbs,
     SfButton,
@@ -316,6 +314,7 @@ export default {
     SfReview,
     SfSelect,
     SfTabs,
+    UpsellProducts,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -324,11 +323,20 @@ export default {
   transition: 'fade',
   setup() {
     const qty = ref(1);
-    const { product, id } = productData();
+    const {
+      product,
+      id,
+    } = productData();
     const route = useRoute();
     const router = useRouter();
-    const { search, loading: productLoading } = useProduct(`product-${id}`);
-    const { addItem, loading } = useCart();
+    const {
+      search,
+      loading: productLoading,
+    } = useProduct(`product-${id}`);
+    const {
+      addItem,
+      loading,
+    } = useCart();
     const {
       reviews: productReviews,
       search: searchReviews,
@@ -336,7 +344,10 @@ export default {
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem: addToWishlist } = useWishlist();
+    const {
+      isInWishlist,
+      addItem: addToWishlist,
+    } = useWishlist('GlobalWishlist');
     const { error: nuxtError } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
@@ -353,8 +364,6 @@ export default {
       return inStock && stockLeft;
     });
     const categories = computed(() => productGetters.getCategoryIds(product.value));
-    const relatedProducts = computed(() => productGetters.getProductRelatedProduct(product.value));
-    const upsellProducts = computed(() => productGetters.getProductUpsellProduct(product.value));
     const baseReviews = computed(() => (Array.isArray(productReviews.value)
       ? [...productReviews.value].shift()
       : productReviews.value));
@@ -378,7 +387,7 @@ export default {
       })));
 
     const configurableOptions = computed(() => product.value.configurable_options);
-    const productConfiguration = ref({});
+    const productConfiguration = ref(Object.entries(route.value.query));
     const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
@@ -406,7 +415,10 @@ export default {
     const changeTab = (tabNumber, callback) => {
       document
         .querySelector('#tabs')
-        .scrollIntoView({ behavior: 'smooth', block: 'end' });
+        .scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
       openTab.value = tabNumber;
       if (callback && typeof callback === 'function') callback();
     };
@@ -414,43 +426,31 @@ export default {
       changeTab(2, () => {
         setTimeout(() => document
           .querySelector('#addReview')
-          .scrollIntoView({ behavior: 'smooth', block: 'end' }), 500);
+          .scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          }), 500);
       });
     };
     const successAddReview = async (reviewData) => {
       await addReview(reviewData);
       document
         .querySelector('#tabs')
-        .scrollIntoView({ behavior: 'smooth', block: 'end' });
+        .scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
     };
 
     const updateProductConfiguration = async (label, value) => {
-      productConfiguration.value[label] = value;
-
-      const configurations = Object.entries(productConfiguration.value).map((config) => config[1]);
-
-      await search({
-        queryType: 'DETAIL',
-        filter: {
-          sku: {
-            eq: id,
-          },
-        },
-        configurations,
-      });
+      productConfiguration.value.push([label, value]);
 
       await router.push({
         path: route.value.fullPath,
         query: {
-          ...productConfiguration.value,
+          ...Object.fromEntries(productConfiguration.value),
         },
       });
-    };
-
-    const loadProductConfiguration = () => {
-      const { query } = route.value;
-
-      productConfiguration.value = query;
     };
 
     onSSR(async () => {
@@ -460,6 +460,9 @@ export default {
             eq: id,
           },
         },
+        ...(productConfiguration.value.length > 0
+          ? { configurations: productConfiguration.value.map((config) => config[1]) }
+          : {}),
       };
 
       await search({
@@ -467,11 +470,9 @@ export default {
         ...baseSearchQuery,
       });
 
-      await searchReviews({ ...baseSearchQuery });
-
-      loadProductConfiguration();
-
       if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
+
+      await searchReviews(baseSearchQuery);
     });
 
     return {
@@ -490,7 +491,7 @@ export default {
       loading,
       openTab,
       product,
-      productConfiguration,
+      productConfiguration: computed(() => Object.fromEntries(productConfiguration.value)),
       productDataIsLoading,
       productDescription,
       productGallery,
@@ -501,17 +502,15 @@ export default {
       productShortDescription,
       productSpecialPrice,
       qty,
-      relatedProducts,
       reviewGetters,
       reviews,
       reviewsLoading,
       successAddReview,
       totalReviews,
       updateProductConfiguration,
-      upsellProducts,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 #product {
@@ -576,11 +575,11 @@ export default {
 
   &__count {
     @include font(
-        --count-font,
-        var(--font-weight--normal),
-        var(--font-size--sm),
-        1.4,
-        var(--font-family--secondary)
+            --count-font,
+            var(--font-weight--normal),
+            var(--font-size--sm),
+            1.4,
+            var(--font-family--secondary)
     );
     color: var(--c-text);
     text-decoration: none;
@@ -589,11 +588,11 @@ export default {
 
   &__description {
     @include font(
-        --product-description-font,
-        var(--font-weight--light),
-        var(--font-size--base),
-        1.6,
-        var(--font-family--primary)
+            --product-description-font,
+            var(--font-weight--light),
+            var(--font-size--base),
+            1.6,
+            var(--font-family--primary)
     );
   }
 
@@ -606,11 +605,11 @@ export default {
 
   &__colors {
     @include font(
-        --product-color-font,
-        var(--font-weight--normal),
-        var(--font-size--lg),
-        1.6,
-        var(--font-family--secondary)
+            --product-color-font,
+            var(--font-weight--normal),
+            var(--font-size--lg),
+            1.6,
+            var(--font-family--secondary)
     );
     display: flex;
     align-items: center;
@@ -669,11 +668,11 @@ export default {
   &__additional-info {
     color: var(--c-link);
     @include font(
-        --additional-info-font,
-        var(--font-weight--light),
-        var(--font-size--sm),
-        1.6,
-        var(--font-family--primary)
+            --additional-info-font,
+            var(--font-weight--light),
+            var(--font-size--sm),
+            1.6,
+            var(--font-family--primary)
     );
 
     &__title {
@@ -711,6 +710,7 @@ export default {
     transform: translate3d(0, 0, 0);
   }
 }
+
 .loading {
   &--product {
     padding: var(--spacer-3xl) auto;
@@ -719,6 +719,7 @@ export default {
       padding-bottom: 3.75rem;
     }
   }
+
   &--product-gallery {
     padding: var(--spacer-3xl) auto;
     @include for-desktop {

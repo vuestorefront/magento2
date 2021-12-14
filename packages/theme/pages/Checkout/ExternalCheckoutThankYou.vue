@@ -94,6 +94,7 @@ import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 
 export default defineComponent({
+  name: 'ExternalCheckoutThankYou',
   components: {
     SfHeading,
     SfButton,

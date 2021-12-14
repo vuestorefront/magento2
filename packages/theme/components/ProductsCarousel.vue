@@ -26,9 +26,12 @@
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
-            :wishlist-icon="isAuthenticated ? 'heart' : false"
-            :is-on-wishlist="product.isInWishlist"
+            :is-in-wishlist="isInWishlist({ product })"
+            :is-added-to-cart="isInCart({ product })"
+            :wishlist-icon="isAuthenticated ? 'heart' : ''"
+            :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
+            @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           />
         </SfCarouselItem>
       </SfCarousel>
@@ -44,8 +47,11 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
+import {
+  productGetters, useUser, useWishlist,
+} from '@vue-storefront/magento';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { useAddToCart } from '~/helpers/cart/addToCart';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -70,7 +76,11 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const {
+      addItemToCart,
+      isInCart,
+    } = useAddToCart();
 
     const mappedProducts = computed(() => props.products.map((product) => ({
       // @ts-ignore
@@ -87,11 +97,13 @@ export default defineComponent({
     };
 
     return {
-      mappedProducts,
+      addItemToCart,
       addItemToWishlist,
-      productGetters,
-      isInWishlist,
       isAuthenticated,
+      isInCart,
+      isInWishlist,
+      mappedProducts,
+      productGetters,
     };
   },
 });

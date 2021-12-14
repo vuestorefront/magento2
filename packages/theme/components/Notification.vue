@@ -28,11 +28,12 @@
 </template>
 
 <script>
+import { defineComponent } from '@nuxtjs/composition-api';
 import { SfNotification, SfIcon } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
 
-export default {
-  name: 'Notification',
+export default defineComponent({
+  name: 'NotificationBar',
   components: {
     SfNotification,
     SfIcon,
@@ -44,7 +45,7 @@ export default {
       notifications,
     };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

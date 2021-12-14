@@ -8,12 +8,18 @@
         {{ title }}
       </h3>
     </div>
-    <div v-dompurify-html="content" />
+    <HTMLContent
+      :content="content"
+    />
   </div>
 </template>
 <script>
-export default {
+import { defineComponent } from '@nuxtjs/composition-api';
+import HTMLContent from '~/components/HTMLContent';
+
+export default defineComponent({
   name: 'ContentBlock',
+  components: { HTMLContent },
   props: {
     title: {
       type: String,
@@ -26,5 +32,5 @@ export default {
       default: '',
     },
   },
-};
+});
 </script>

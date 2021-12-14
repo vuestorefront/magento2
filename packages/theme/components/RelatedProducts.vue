@@ -2,23 +2,28 @@
   <ProductsCarousel
     v-if="!loading && products.length > 0"
     :products="products"
-    :title="$t('Other products you might like')"
+    :title="$t('Match it with')"
   />
 </template>
 <script>
-import { useUpsellProducts } from '@vue-storefront/magento';
+import { defineComponent } from '@nuxtjs/composition-api';
+import { useRelatedProducts } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import { productData } from '~/helpers/product/productData';
 
-export default {
-  name: 'UpsellProducts',
+export default defineComponent({
+  name: 'RelatedProducts',
   components: {
     ProductsCarousel,
   },
   setup() {
     const { id } = productData();
-    const { search, products, loading } = useUpsellProducts(id);
+    const {
+      search,
+      products,
+      loading,
+    } = useRelatedProducts(id);
 
     onSSR(async () => {
       const baseSearchQuery = {
@@ -28,7 +33,6 @@ export default {
           },
         },
       };
-
       await search(baseSearchQuery);
     });
 
@@ -37,5 +41,5 @@ export default {
       loading,
     };
   },
-};
+});
 </script>
