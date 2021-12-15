@@ -64,7 +64,7 @@
     <SfButton
       v-e2e="'product_add-to-cart'"
       :disabled="loading || !canAddToCart"
-      class="color-primary sf-button bundle_products--add-to-cart"
+      class="color-primary bundle_products--add-to-cart"
       @click="addToCart"
     >
       Add to Cart
@@ -110,8 +110,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const { product, loading: productLoading } = productData();
     const { loading, addItem } = useCart();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const selectedOptions = ref(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
 
     const canChangeQuantity = (bundle) => {
@@ -121,10 +123,11 @@ export default defineComponent({
     };
 
     const price = computed(() => Object.keys(selectedOptions.value)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .reduce((s, k) => s + (Number.parseFloat(selectedOptions.value[k].price) * selectedOptions.value[k].quantity), 0));
 
     const addToCart = async () => {
-      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((k, i) => {
+      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((k) => {
         const selectedOption = selectedOptions.value[k];
         return {
           uid: selectedOption.uid,
@@ -197,7 +200,11 @@ export default defineComponent({
         &:before{
           content: '+';
           margin-right: 5px;
-          font: var(--price-regular-font, var(--price-regular-font-weight, var(--font-weight--medium)) var(--price-regular-font-size, var(--font-size--lg))/var(--price-regular-font-line-height, 1.6) var(--price-regular-font-family, var(--font-family--secondary)));
+          font: var(--price-regular-font,
+                var(--price-regular-font-weight,
+                var(--font-weight--medium)) var(--price-regular-font-size,
+                var(--font-size--lg))/var(--price-regular-font-line-height, 1.6) var(--price-regular-font-family,
+                var(--font-family--secondary)));
           color: var(--price-regular-color, var(--c-text));
         }
       }
