@@ -128,8 +128,8 @@ export default defineComponent({
       .reduce((s, k) => s + (Number.parseFloat(selectedOptions.value[k].price) * selectedOptions.value[k].quantity), 0));
 
     const addToCart = async () => {
-      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((k) => {
-        const selectedOption = selectedOptions.value[k];
+      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((selectedOptionKey) => {
+        const selectedOption = selectedOptions.value[selectedOptionKey];
         return {
           uid: selectedOption.uid,
           value: selectedOption.quantity,
