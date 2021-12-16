@@ -7,7 +7,7 @@ To create a new Vue Storefront Magento 2 store, there are two available options:
 
 ## Requirements
 
-- Node.Js 14+
+- Node.Js 16+
 - Magento 2.4.3+ instance for GraphQL endpoint
 - Change Magento GraphQL Query Complexity and Depth values
 

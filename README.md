@@ -29,7 +29,7 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io)!
 
 ### Requirements:
-- NodeJS v14 or later
+- NodeJS v16 or later
 - Yarn (npm is not supprted yet)
 - Magento >= v2.4.3 instance for GraphQL endpoint
 - Change Magento GraphQL Query Complexity and Depth values
