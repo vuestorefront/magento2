@@ -10,14 +10,16 @@ import {
 
 export default async (
   context: Context,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
 ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> => {
-  const { shippingMethods } = context.extendQuery(customQuery,
+  const { shippingMethods } = context.extendQuery(
+    customQuery,
     {
       shippingMethods: {
         query: CustomerAvailableShippingMethods,
       },
-    });
+    },
+  );
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({

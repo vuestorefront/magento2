@@ -9,10 +9,16 @@ export const useHandleChanges = () => {
     fullPath,
   } = route.value;
 
-  const handleChanges = async (cb, redirect = true, refresh = false) => {
-    if (cb) {
-      await cb();
+  const handleChanges = async ({
+    callback,
+    redirect = true,
+    refresh = false,
+    windowRefresh = false,
+  }) => {
+    if (callback) {
+      await callback();
     }
+
     if (redirect) {
       await router.replace(path);
     }
@@ -20,6 +26,10 @@ export const useHandleChanges = () => {
     if (refresh) {
       // @ts-ignore
       router.go(fullPath);
+    }
+
+    if (windowRefresh) {
+      window.location.reload();
     }
   };
 

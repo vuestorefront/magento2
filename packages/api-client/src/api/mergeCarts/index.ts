@@ -1,17 +1,33 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import mergeCarts from './mergeCarts';
 import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   sourceCartId: string,
   destinationCartId: string,
-): Promise<FetchResult<MergeCartsMutation>> => client
-  .mutate<MergeCartsMutation, MergeCartsMutationVariables>({
-  mutation: mergeCarts,
-  variables: {
-    sourceCartId,
-    destinationCartId,
-  },
-});
+  customQuery: CustomQuery = { mergeCarts: 'mergeCarts' },
+): Promise<FetchResult<MergeCartsMutation>> => {
+  const { mergeCarts: mergeCartsGQL } = context.extendQuery(
+    customQuery,
+    {
+      mergeCarts: {
+        query: mergeCarts,
+        variables: {
+          sourceCartId,
+          destinationCartId,
+        },
+      },
+    },
+  );
+
+  return context.client.mutate<MergeCartsMutation, MergeCartsMutationVariables>({
+    mutation: mergeCartsGQL.query,
+    variables: {
+      sourceCartId,
+      destinationCartId,
+    },
+  });
+};

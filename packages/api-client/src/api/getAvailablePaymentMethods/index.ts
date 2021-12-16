@@ -13,19 +13,21 @@ export default async (
   params: {
     cartId: string;
   },
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> => {
   const defaultVariables = {
     cartId: params.cartId || '',
   };
 
-  const { paymentMethods } = context.extendQuery(customQuery,
+  const { paymentMethods } = context.extendQuery(
+    customQuery,
     {
       paymentMethods: {
         query: GuestAvailablePaymentMethods,
         variables: defaultVariables,
       },
-    });
+    },
+  );
 
   try {
     return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({

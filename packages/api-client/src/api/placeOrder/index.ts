@@ -12,16 +12,14 @@ import { Context } from '../../types/context';
 export default async (
   context: Context,
   input: PlaceOrderInput,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { placeOrder: 'placeOrder' },
 ): Promise<FetchResult<PlaceOrderMutation>> => {
-  const { placeOrder } = context.extendQuery(
-    customQuery, {
-      placeOrder: {
-        query: placeOrderQuery,
-        variables: input,
-      },
+  const { placeOrder } = context.extendQuery(customQuery, {
+    placeOrder: {
+      query: placeOrderQuery,
+      variables: input,
     },
-  );
+  });
 
   try {
     return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({

@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import changeCustomerPassword from './changeCustomerPassword';
 import {
   ChangeCustomerPasswordMutation,
@@ -7,14 +8,27 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   currentPassword: string,
   newPassword: string,
+  customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
   try {
-    return await client
+    const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(
+      customQuery,
+      {
+        changeCustomerPassword: {
+          query: changeCustomerPassword,
+          variables: {
+            currentPassword,
+            newPassword,
+          },
+        },
+      },
+    );
+    return await context.client
       .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
-      mutation: changeCustomerPassword,
+      mutation: changeCustomerPasswordGQL.query,
       variables: {
         currentPassword,
         newPassword,

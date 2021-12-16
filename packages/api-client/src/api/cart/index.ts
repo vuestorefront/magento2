@@ -1,13 +1,25 @@
 import { ApolloQueryResult } from 'apollo-client';
+import { CustomQuery } from '@vue-storefront/core';
 import { CartQuery, CartQueryVariables } from '../../types/GraphQL';
 import cart from './cart';
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   cartId: string,
-): Promise<ApolloQueryResult<CartQuery>> => client
-  .query<CartQuery, CartQueryVariables>({
-  query: cart,
-  variables: { cartId },
-});
+  customQuery: CustomQuery = { cart: 'cart' },
+): Promise<ApolloQueryResult<CartQuery>> => {
+  const { cart: cartGQL } = context.extendQuery(
+    customQuery,
+    {
+      cart: {
+        query: cart,
+        variables: { cartId },
+      },
+    },
+  );
+  return context.client.query<CartQuery, CartQueryVariables>({
+    query: cartGQL,
+    variables: { cartId },
+  });
+};

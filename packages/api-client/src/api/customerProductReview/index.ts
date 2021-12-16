@@ -16,7 +16,7 @@ export type CustomerProductReviewParams = {
 export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { reviews: 'reviews' },
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -29,14 +29,12 @@ export default async (
     currentPage: defaultParams.currentPage,
   };
 
-  const { reviews } = context.extendQuery(
-    customQuery, {
-      reviews: {
-        query: customerProductReview,
-        variables,
-      },
+  const { reviews } = context.extendQuery(customQuery, {
+    reviews: {
+      query: customerProductReview,
+      variables,
     },
-  );
+  });
 
   try {
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({

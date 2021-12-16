@@ -16,7 +16,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams: WishlistQueryVariables,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { wishlist: 'wishlist' },
 ): Promise<ApolloQueryResult<WishlistQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -29,14 +29,12 @@ export default async (
     currentPage: defaultParams.currentPage <= 0 ? 1 : defaultParams.currentPage,
   };
 
-  const { wishlist } = context.extendQuery(
-    customQuery, {
-      wishlist: {
-        query: wishlistQuery,
-        variables,
-      },
+  const { wishlist } = context.extendQuery(customQuery, {
+    wishlist: {
+      query: wishlistQuery,
+      variables,
     },
-  );
+  });
   try {
     return await context.client
       .query<WishlistQuery, WishlistQueryVariables>({
