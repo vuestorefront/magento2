@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, cartId: string) => Promise<ApolloQueryResult<CartQuery>>
+_default: (context: Context, cartId: string, customQuery?: CustomQuery) => Promise<ApolloQueryResult<CartQuery>>
 ```
