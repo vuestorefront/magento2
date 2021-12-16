@@ -19,6 +19,8 @@ export const defaultSettings: ClientConfig = {
     setStore: () => {},
     getCurrency: () => '',
     setCurrency: () => {},
+    getLocale: () => '',
+    setLocale: () => {},
   },
   externalCheckout: {
     enable: false,

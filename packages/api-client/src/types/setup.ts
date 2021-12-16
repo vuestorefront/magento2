@@ -44,6 +44,8 @@ export type ConfigState = {
   setStore(id?: string | null): void;
   getCurrency(): string;
   setCurrency(id?: string | null): void;
+  getLocale(): string;
+  setLocale(id?: string | null): void;
 };
 
 export interface ClientConfig {
