@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import {
   CreateCustomerMutation,
   CreateCustomerMutationVariables,
@@ -10,12 +11,23 @@ import { Context } from '../../types/context';
 export default async (
   context: Context,
   input: CustomerCreateInput,
+  customQuery: CustomQuery = { createCustomer: 'createCustomer' },
 ): Promise<FetchResult<CreateCustomerMutation>> => {
   try {
+    const { createCustomer: createCustomerGQL } = context.extendQuery(
+      customQuery,
+      {
+        createCustomer: {
+          query: createCustomer,
+          variables: { input },
+        },
+      },
+    );
+
     return await context
       .client
       .mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
-      mutation: createCustomer,
+      mutation: createCustomerGQL.query,
       variables: { input },
     });
   } catch (error) {

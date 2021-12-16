@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (context: Context, input: CustomerCreateInput) => Promise<FetchResult<CreateCustomerMutation>>
+_default: (context: Context, input: CustomerCreateInput, customQuery?: CustomQuery) => Promise<FetchResult<CreateCustomerMutation>>
 ```

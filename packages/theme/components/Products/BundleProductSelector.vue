@@ -4,8 +4,8 @@
   >
     <SfList class="bundle_products">
       <SfListItem
-        v-for="(bundle, index) in bundleProduct"
-        :key="index"
+        v-for="(bundle) in bundleProduct"
+        :key="`${bundle.uid}`"
         class="bundle_products--item"
       >
         <p
@@ -17,8 +17,8 @@
           class="bundle_products--options"
         >
           <SfListItem
-            v-for="(option, i) in bundle.options"
-            :key="i"
+            v-for="(option) in bundle.options"
+            :key="`${option.uid}`"
             class="bundle_products--options-option"
           >
             <template
@@ -57,14 +57,14 @@
         <SfQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
-          :disabled="canChangeQuantity(bundle) || !canAddToCart"
+          :disabled="!canChangeQuantity || !canAddToCart"
         />
       </SfListItem>
     </SfList>
     <SfButton
       v-e2e="'product_add-to-cart'"
       :disabled="loading || !canAddToCart"
-      class="color-primary sf-button bundle_products--add-to-cart"
+      class="color-primary bundle_products--add-to-cart"
       @click="addToCart"
     >
       Add to Cart
@@ -83,7 +83,6 @@ import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed,
   defineComponent,
-  onBeforeMount,
   ref,
   watch,
 } from '@nuxtjs/composition-api';
@@ -110,9 +109,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const { product, loading: productLoading } = productData();
     const { loading, addItem } = useCart();
-    const selectedOptions = ref(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const selectedOptions = ref(() => []);
+    selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
 
     const canChangeQuantity = (bundle) => {
       const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid]?.uid);
@@ -121,11 +124,12 @@ export default defineComponent({
     };
 
     const price = computed(() => Object.keys(selectedOptions.value)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .reduce((s, k) => s + (Number.parseFloat(selectedOptions.value[k].price) * selectedOptions.value[k].quantity), 0));
 
     const addToCart = async () => {
-      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((k, i) => {
-        const selectedOption = selectedOptions.value[k];
+      const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((selectedOptionKey) => {
+        const selectedOption = selectedOptions.value[selectedOptionKey];
         return {
           uid: selectedOption.uid,
           value: selectedOption.quantity,
@@ -140,10 +144,6 @@ export default defineComponent({
         quantity: 1,
       });
     };
-
-    onBeforeMount(() => {
-      selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
-    });
 
     watch(bundleProduct, (newVal) => {
       selectedOptions.value = newVal;
@@ -197,7 +197,11 @@ export default defineComponent({
         &:before{
           content: '+';
           margin-right: 5px;
-          font: var(--price-regular-font, var(--price-regular-font-weight, var(--font-weight--medium)) var(--price-regular-font-size, var(--font-size--lg))/var(--price-regular-font-line-height, 1.6) var(--price-regular-font-family, var(--font-family--secondary)));
+          font: var(--price-regular-font,
+                var(--price-regular-font-weight,
+                var(--font-weight--medium)) var(--price-regular-font-size,
+                var(--font-size--lg))/var(--price-regular-font-line-height, 1.6) var(--price-regular-font-family,
+                var(--font-family--secondary)));
           color: var(--price-regular-color, var(--c-text));
         }
       }

@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.5.1",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -26,11 +26,12 @@
   "dependencies": {
     "@nuxtjs/composition-api": "^0.31.0",
     "@nuxtjs/google-fonts": "^1.3.0",
+    "@nuxtjs/html-validator": "^0.6.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
     "@storefront-ui/vue": "^0.11.3",
     "@vue-storefront/core": "~2.5.2",
-    "@vue-storefront/magento": "1.0.0-rc.5",
+    "@vue-storefront/magento": "1.0.0-rc.5.1",
     "@vue-storefront/middleware": "~2.5.2",
     "@vue-storefront/nuxt": "~2.5.2",
     "@vue-storefront/nuxt-theme": "~2.5.2",

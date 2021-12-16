@@ -42,7 +42,7 @@
             </ValidationProvider>
             <ValidationProvider
               v-slot="{ errors }"
-              rules="required|password"
+              rules="required"
             >
               <SfInput
                 v-model="form.password"

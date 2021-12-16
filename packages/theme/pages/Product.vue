@@ -144,6 +144,13 @@
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
+              <div class="product__additional-actions">
+                <AddToWishlist
+                  :is-in-wishlist="isInWishlist"
+                  :is-show="isAuthenticated"
+                  @addToWishlist="addItemToWishlist({product})"
+                />
+              </div>
             </div>
             <LazyHydrate when-idle>
               <SfTabs
@@ -289,6 +296,7 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
+import AddToWishlist from '~/components/AddToWishlist';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -315,6 +323,7 @@ export default defineComponent({
     SfSelect,
     SfTabs,
     UpsellProducts,
+    AddToWishlist,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -344,10 +353,7 @@ export default defineComponent({
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
-    const {
-      isInWishlist,
-      addItem: addToWishlist,
-    } = useWishlist('GlobalWishlist');
+    const { addItem: addItemToWishlist, isInWishlist } = useWishlist('GlobalWishlist');
     const { error: nuxtError } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
@@ -408,10 +414,7 @@ export default defineComponent({
           return productGetters.getPrice(product.value).special;
       }
     });
-
-    const addItemToWishlist = async () => {
-      await addToWishlist({ product: product.value });
-    };
+    
     const changeTab = (tabNumber, callback) => {
       document
         .querySelector('#tabs')
@@ -688,6 +691,11 @@ export default defineComponent({
     &__paragraph {
       margin: 0;
     }
+  }
+
+  &__additional-actions {
+    display: flex;
+    justify-content: flex-start;
   }
 
   &__gallery {

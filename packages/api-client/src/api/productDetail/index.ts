@@ -22,7 +22,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { productDetail: 'productDetail' },
 ): Promise<ApolloQueryResult<ProductDetailsQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -42,19 +42,19 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { products } = context.extendQuery(customQuery, {
-    products: {
+  const { productDetail } = context.extendQuery(customQuery, {
+    productDetail: {
       query: detailQuery,
       variables,
     },
   });
 
-  const query = customQuery ? gql`${products.query}` : products.query;
+  const query = customQuery ? gql`${productDetail.query}` : productDetail.query;
 
   try {
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query,
-      variables: products.variables,
+      variables: productDetail.variables,
     });
 
     if (result.data.products.items.length === 0) throw new Error('No products found');

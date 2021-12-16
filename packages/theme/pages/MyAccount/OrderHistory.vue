@@ -73,6 +73,7 @@
           <SfButton
             data-cy="order-history-btn_start"
             class="no-orders__button"
+            @click="$router.push('/')"
           >
             {{ $t('Start shopping') }}
           </SfButton>
