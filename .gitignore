@@ -117,3 +117,4 @@ dist
 .history/
 .graphqlconfig
 .idea
+.yarn/
