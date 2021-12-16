@@ -4,8 +4,8 @@
   >
     <SfList class="bundle_products">
       <SfListItem
-        v-for="(bundle, index) in bundleProduct"
-        :key="index"
+        v-for="(bundle) in bundleProduct"
+        :key="`${bundle.uid}`"
         class="bundle_products--item"
       >
         <p
@@ -17,8 +17,8 @@
           class="bundle_products--options"
         >
           <SfListItem
-            v-for="(option, i) in bundle.options"
-            :key="i"
+            v-for="(option) in bundle.options"
+            :key="`${option.uid}`"
             class="bundle_products--options-option"
           >
             <template
@@ -57,7 +57,7 @@
         <SfQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
-          :disabled="canChangeQuantity(bundle) || !canAddToCart"
+          :disabled="!canChangeQuantity || !canAddToCart"
         />
       </SfListItem>
     </SfList>
@@ -83,7 +83,6 @@ import { productGetters, useCart } from '@vue-storefront/magento';
 import {
   computed,
   defineComponent,
-  onBeforeMount,
   ref,
   watch,
 } from '@nuxtjs/composition-api';
@@ -110,11 +109,13 @@ export default defineComponent({
   setup(props, { emit }) {
     const { product, loading: productLoading } = productData();
     const { loading, addItem } = useCart();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const selectedOptions = ref(() => bundleProductInitialSelector(productGetters.getBundleProducts(product.value)));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const selectedOptions = ref(() => []);
+    selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
 
     const canChangeQuantity = (bundle) => {
       const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid]?.uid);
@@ -143,10 +144,6 @@ export default defineComponent({
         quantity: 1,
       });
     };
-
-    onBeforeMount(() => {
-      selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
-    });
 
     watch(bundleProduct, (newVal) => {
       selectedOptions.value = newVal;
