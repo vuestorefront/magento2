@@ -87,8 +87,5 @@
   },
   "engines": {
     "node": ">=14.x"
-  },
-  "dependencies": {
-    "@nuxtjs/html-validator": "^0.6.0"
   }
 }
