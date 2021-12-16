@@ -65,9 +65,6 @@ export interface ClientConfig {
     }>;
   };
   state: ConfigState;
-  tax: {
-    displayCartSubtotalIncludingTax: boolean;
-  };
 }
 
 export interface Config<T = any> extends ClientConfig {

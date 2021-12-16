@@ -8,9 +8,6 @@ const onSetup = (settings: Config): {
 } => {
   const defaultSettings = {
     api: '',
-    tax: {
-      displayCartSubtotalIncludingTax: true,
-    },
     externalCheckout: {
       enable: false,
     },
@@ -19,7 +16,7 @@ const onSetup = (settings: Config): {
   const config = {
     ...defaultSettings,
     ...settings,
-  } as any;
+  } as Config;
 
   if (settings.client) {
     return {
