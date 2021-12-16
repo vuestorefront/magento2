@@ -175,16 +175,21 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
             .addConfigurableProductsToCart
             .cart as unknown as Cart;
         case 'BundleProduct':
+          const createEnteredOptions = () =>
+            // @ts-ignore
+            // eslint-disable-next-line implicit-arrow-linebreak
+            product.bundle_options.map((bundleOption) => ({
+              ...bundleOption,
+              value: bundleOption.value.toString(),
+            }));
+
           const bundleCartInput: AddProductsToCartInput = {
             cartId: currentCartId,
             cartItems: [
               {
                 quantity,
                 sku: product.sku,
-                entered_options: [
-                  // @ts-ignore
-                  ...product.bundle_options,
-                ],
+                entered_options: createEnteredOptions(),
               },
             ],
           };
