@@ -131,6 +131,7 @@ export default defineComponent({
       stores,
       change: changeStore,
     } = useStore();
+
     const { handleChanges } = useHandleChanges();
 
     const {

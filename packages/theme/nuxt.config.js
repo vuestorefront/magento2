@@ -137,11 +137,23 @@ export default {
             currencyDisplay: 'symbol',
           },
         },
+        'de-DE': {
+          currency: {
+            style: 'currency',
+            currency: 'EUR',
+            currencyDisplay: 'symbol',
+          },
+        },
+        'nl-NL': {
+          currency: {
+            style: 'currency',
+            currency: 'EUR',
+            currencyDisplay: 'symbol',
+          },
+        },
       },
     },
-    detectBrowserLanguage: {
-      cookieKey: 'vsf-locale',
-    },
+    detectBrowserLanguage: false,
   },
   pwa: {
     meta: {
