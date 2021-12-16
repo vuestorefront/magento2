@@ -19,7 +19,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { customerOrders: 'customerOrders' },
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -34,14 +34,12 @@ export default async (
 
   if (defaultParams.filter) variables.filter = defaultParams.filter;
 
-  const { customerOrders } = context.extendQuery(
-    customQuery, {
-      customerOrders: {
-        query: customerOrdersQuery,
-        variables,
-      },
+  const { customerOrders } = context.extendQuery(customQuery, {
+    customerOrders: {
+      query: customerOrdersQuery,
+      variables,
     },
-  );
+  });
 
   try {
     return await context.client
