@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, url: string) => Promise<ApolloQueryResult<UrlResolverQuery>>
+_default: (context: Context, url: string, customQuery?: CustomQuery) => Promise<ApolloQueryResult<UrlResolverQuery>>
 ```

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, input: AddConfigurableProductsToCartInput) => Promise<FetchResult<AddConfigurableProductsToCartMutation>>
+_default: (context: Context, input: AddConfigurableProductsToCartInput, customQuery?: CustomQuery) => Promise<FetchResult<AddConfigurableProductsToCartMutation>>
 ```

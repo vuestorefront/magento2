@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, input: RemoveCouponFromCartInput) => Promise<FetchResult<RemoveCouponFromCartMutation>>
+_default: (context: Context, input: RemoveCouponFromCartInput, customQuery?: CustomQuery) => Promise<FetchResult<RemoveCouponFromCartMutation>>
 ```
