@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, addressId: number) => Promise<ExecutionResult<DeleteCustomerAddressMutation>>
+_default: (context: Context, addressId: number, customQuery?: CustomQuery) => Promise<ExecutionResult<DeleteCustomerAddressMutation>>
 ```
