@@ -5,7 +5,7 @@ import {
   HttpLink,
   InMemoryCache,
   from,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import fetch from 'isomorphic-fetch';
 import { Logger } from '@vue-storefront/core';
 import { onError } from '@apollo/client/link/error';

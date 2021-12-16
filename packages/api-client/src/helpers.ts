@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { Config } from './types/setup';
 import createMagentoConnection from './link';
 

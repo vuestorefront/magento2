@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import {
   ProductAttributeFilterInput,

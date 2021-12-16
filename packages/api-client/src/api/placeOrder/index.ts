@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 import placeOrderQuery from './placeOrder';

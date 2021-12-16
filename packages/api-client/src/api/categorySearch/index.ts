@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/GraphQL';
 import categorySearch from './categorySearch';

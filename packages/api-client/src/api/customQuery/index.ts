@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
+import { ApolloQueryResult, FetchPolicy } from '@apollo/client/core';
 import { Context } from '../../types/context';
 
 export default async <QUERY = any, QUERY_VARIABLES = any>(

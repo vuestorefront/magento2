@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 

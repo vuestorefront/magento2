@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloClientOptions } from '@apollo/client';
+import { ApolloClient, ApolloClientOptions } from '@apollo/client/core';
 import { HttpOptions } from '@apollo/client/link/http/selectHttpOptionsAndBody';
 import { MagentoApiMethods } from './API';
 

@@ -1,4 +1,4 @@
-import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client';
+import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client/core';
 import { ExecutionResult } from 'graphql';
 import { CustomQuery } from '@vue-storefront/core';
 import {
