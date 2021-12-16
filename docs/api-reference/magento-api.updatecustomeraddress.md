@@ -7,8 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, params: {
+_default: (context: Context, params: {
     addressId: number;
     input: CustomerAddressInput;
-}) => Promise<FetchResult<UpdateCustomerAddressMutation>>
+}, customQuery?: CustomQuery) => Promise<FetchResult<UpdateCustomerAddressMutation>>
 ```

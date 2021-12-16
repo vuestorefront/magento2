@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: ({ client }: Context, { email }: SubscribeEmailToNewsletterMutationVariables) => Promise<FetchResult<SubscribeEmailToNewsletterMutation>>
+_default: (context: Context, { email }: SubscribeEmailToNewsletterMutationVariables, customQuery?: CustomQuery) => Promise<FetchResult<SubscribeEmailToNewsletterMutation>>
 ```
