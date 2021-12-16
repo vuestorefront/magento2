@@ -52,8 +52,6 @@ export {
   AvailableStoresQueryVariables,
   BillingAddressInput,
   BillingCartAddress,
-  BraintreeCcVaultInput,
-  BraintreeInput,
   Breadcrumb,
   BundleCartItem,
   BundleCreditMemoItem,
