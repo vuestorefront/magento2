@@ -5,7 +5,7 @@
       @click="isLangModalOpen = !isLangModalOpen"
     >
       <SfImage
-        :src="`/icons/langs/${locale}.webp`"
+        :src="`/icons/langs/${selectedLocale}.webp`"
         width="20"
         alt="Flag"
       />
