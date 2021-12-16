@@ -26,7 +26,11 @@
             href="/"
             class="container__store--link"
             :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
-            @click="handleChanges(() => changeStore(store))"
+            @click="handleChanges({
+              callback: () => changeStore(store),
+              redirect: false,
+              windowRefresh: true,
+            })"
           >
             <SfCharacteristic class="language">
               <template #title>
