@@ -64,6 +64,7 @@ module.exports = {
         children: [
           ['/guide/creating-a-store', 'Creating a Store'],
           ['/guide/configuration', 'Configuration'],
+          ['/guide/override-queries', 'Override queries']
         ]
       },
       {

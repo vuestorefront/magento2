@@ -1,9 +1,22 @@
 import { ApolloQueryResult } from 'apollo-client';
+import { CustomQuery } from '@vue-storefront/core';
 import { CountriesListQuery } from '../../types/GraphQL';
 import countriesList from './countriesList';
 import { Context } from '../../types/context';
 
-export default async ({ client }: Context): Promise<ApolloQueryResult<CountriesListQuery>> => client
-  .query<CountriesListQuery>({
-  query: countriesList,
-});
+export default async (
+  context: Context,
+  customQuery: CustomQuery = { countries: 'countries' },
+): Promise<ApolloQueryResult<CountriesListQuery>> => {
+  const { countries: countriesGQL } = context.extendQuery(
+    customQuery,
+    {
+      countries: {
+        query: countriesList,
+      },
+    },
+  );
+  return context.client.query<CountriesListQuery>({
+    query: countriesGQL.query,
+  });
+};

@@ -5,7 +5,10 @@ import { GetCustomerAddressesQuery } from '../../types/GraphQL';
 import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';
 
-export default async (context: Context, customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> => {
+export default async (
+  context: Context,
+  customQuery: CustomQuery = { getCustomerAddresses: 'getCustomerAddresses' },
+): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> => {
   const { getCustomerAddresses } = context.extendQuery(
     customQuery,
     {

@@ -20,7 +20,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { upsellProducts: 'upsellProducts' },
 ): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -39,19 +39,17 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { products } = context.extendQuery(
-    customQuery, {
-      products: {
-        query: upsellProducts,
-        variables,
-      },
+  const { upsellProducts: upsellProductsGQL } = context.extendQuery(customQuery, {
+    upsellProducts: {
+      query: upsellProducts,
+      variables,
     },
-  );
+  });
 
   try {
     return await context.client.query<UpsellProductsQuery, UpsellProductsQueryVariables>({
-      query: gql`${products.query}`,
-      variables: products.variables,
+      query: gql`${upsellProductsGQL.query}`,
+      variables: upsellProductsGQL.variables,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

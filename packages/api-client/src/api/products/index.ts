@@ -22,7 +22,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery?: CustomQuery,
+  customQuery: CustomQuery = { products: 'products' },
 ): Promise<ApolloQueryResult<ProductsListQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -42,7 +42,8 @@ export default async (
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
   const { products } = context.extendQuery(
-    customQuery, {
+    customQuery,
+    {
       products: {
         query: productsList,
         variables,

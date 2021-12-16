@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client';
+import { CustomQuery } from '@vue-storefront/core';
 import removeItemFromCart from './removeItemFromCart';
 import {
   RemoveItemFromCartInput,
@@ -8,10 +9,22 @@ import {
 import { Context } from '../../types/context';
 
 export default async (
-  { client }: Context,
+  context: Context,
   input: RemoveItemFromCartInput,
-): Promise<FetchResult<RemoveItemFromCartMutation>> => client
-  .mutate<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>({
-  mutation: removeItemFromCart,
-  variables: { input },
-});
+  customQuery: CustomQuery = { removeItemFromCart: 'removeItemFromCart' },
+): Promise<FetchResult<RemoveItemFromCartMutation>> => {
+  const { removeItemFromCart: removeItemFromCartGQL } = context.extendQuery(
+    customQuery,
+    {
+      removeItemFromCart: {
+        query: removeItemFromCart,
+        variables: { input },
+      },
+    },
+  );
+
+  return context.client.mutate<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>({
+    mutation: removeItemFromCartGQL.query,
+    variables: { input },
+  });
+};
