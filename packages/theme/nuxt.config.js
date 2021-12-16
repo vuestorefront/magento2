@@ -111,6 +111,7 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
+    '@nuxtjs/html-validator',
   ],
   i18n: {
     country: 'US',

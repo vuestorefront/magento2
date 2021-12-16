@@ -21,7 +21,11 @@
           <a
             href="/"
             :class="selectedCurrency === currency ? 'container__currency--selected-label' : ''"
-            @click.prevent="handleChanges(() => changeCurrency(currency), false, true)"
+            @click.prevent="handleChanges({
+              callback: () => changeCurrency(currency),
+              redirect: false,
+              refresh: true
+            })"
           >
             <SfCharacteristic class="currency">
               <template #title>
@@ -86,7 +90,8 @@ export default defineComponent({
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
       },
-    ).replace(/\d/g, '')
+    )
+      .replace(/\d/g, '')
       .trim());
 
     const { handleChanges } = useHandleChanges();
@@ -143,10 +148,12 @@ export default defineComponent({
       display: flex;
     }
   }
+
   &__currency {
     &--selected-label {
       font-weight: bold;
     }
+
     width: 20px;
     --button-box-shadow: none;
     padding: 0px;
