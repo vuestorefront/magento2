@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import {
-  InMemoryCache,
   ApolloClient,
   ApolloLink,
-  createHttpLink,
-} from '@apollo/client';
+  HttpLink,
+  InMemoryCache,
+  from,
+} from '@apollo/client/core';
 import fetch from 'isomorphic-fetch';
 import { Logger } from '@vue-storefront/core';
 import { onError } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
-import { setContext } from 'apollo-link-context';
+import { setContext } from '@apollo/client/link/context';
 import { handleRetry } from './linkHandlers';
 import { Config } from '../../types/setup';
 import possibleTypes from '../../types/possibleTypes.json';
+import standardURL from '../url/standardURL';
 
 const createErrorHandler = () => onError(({
   graphQLErrors,
@@ -54,9 +56,9 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     },
   }));
 
-  const httpLink = createHttpLink({
+  const httpLink = new HttpLink({
     uri: settings.api,
-    fetch,
+    fetch: (url, options) => fetch(standardURL(url), options),
     ...settings.customApolloHttpLinkOptions,
   });
 
@@ -67,10 +69,10 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     delay: () => 0,
   });
 
-  // eslint-disable-next-line unicorn/prefer-spread
-  return ApolloLink.from([
+  return from([
     onErrorLink,
     errorRetry,
+    // eslint-disable-next-line unicorn/prefer-spread
     baseLink.concat(httpLink),
   ]);
 };

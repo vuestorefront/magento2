@@ -1,8 +1,6 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client';
 import { ExecutionResult } from 'graphql';
-import { FetchResult } from '@apollo/client';
 import { CustomQuery } from '@vue-storefront/core';
-import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 import {
   AddConfigurableProductsToCartInput,
   AddConfigurableProductsToCartMutation,
@@ -237,7 +235,7 @@ export interface MagentoApiMethods {
   }: {
     mutation: MUTATION,
     mutationVariables: MUTATION_VARIABLES,
-    fetchPolicy?: FetchPolicy,
+    fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
   }): Promise<FetchResult<MUTATION>>;
 
   customerProductReview(input: CustomerProductReviewParams, customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
