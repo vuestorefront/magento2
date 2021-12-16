@@ -13,7 +13,6 @@ export default gql`
       base_media_url
       base_static_url
       base_url
-      braintree_cc_vault_active
       catalog_default_sort_by
       category_fixed_product_tax_display_setting
       category_url_suffix
@@ -27,7 +26,6 @@ export default gql`
       default_display_currency_code
       default_keywords
       default_title
-      demonotice
       front
       grid_per_page
       grid_per_page_values
@@ -76,4 +74,5 @@ export default gql`
       weight_unit
       welcome
     }
-  }`;
+  }
+`;
