@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import ApolloClient from 'apollo-client';
+import {
+  InMemoryCache,
+  ApolloClient,
+  ApolloLink,
+  createHttpLink,
+} from '@apollo/client';
 import fetch from 'isomorphic-fetch';
-import { ApolloLink } from 'apollo-link';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import { Logger } from '@vue-storefront/core';
-import { onError } from 'apollo-link-error';
-import { RetryLink } from 'apollo-link-retry';
+import { onError } from '@apollo/client/link/error';
+import { RetryLink } from '@apollo/client/link/retry';
 import { setContext } from 'apollo-link-context';
 import { handleRetry } from './linkHandlers';
 import { Config } from '../../types/setup';
-import introspectionQueryResultData from '../../types/fragmentTypes.json';
+import possibleTypes from '../../types/possibleTypes.json';
 
 const createErrorHandler = () => onError(({
   graphQLErrors,
@@ -73,18 +75,12 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   ]);
 };
 
-export const apolloClientFactory = (customOptions: Record<string, any>) => {
-  const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData,
-  });
-
-  return new ApolloClient({
-    cache: new InMemoryCache({
-      fragmentMatcher,
-      resultCaching: true,
-    }),
-    queryDeduplication: true,
-    ssrMode: true,
-    ...customOptions,
-  });
-};
+export const apolloClientFactory = (customOptions: Record<string, any>) => new ApolloClient({
+  cache: new InMemoryCache({
+    possibleTypes,
+    resultCaching: true,
+  }),
+  queryDeduplication: true,
+  ssrMode: true,
+  ...customOptions,
+});
