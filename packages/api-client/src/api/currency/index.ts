@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 import { CustomQuery } from '@vue-storefront/core';
 import {
   CurrencyQuery,

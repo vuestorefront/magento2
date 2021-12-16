@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
 import { Context } from '../../types/context';
 
