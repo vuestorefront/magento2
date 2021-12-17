@@ -7,7 +7,7 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { CustomQueryParams, UseAddresses, UseAddressesErrors } from '../types/composables';
 
 export interface UseAddressesParams<ADDRESS,
@@ -17,10 +17,10 @@ export interface UseAddressesParams<ADDRESS,
   REMOVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery } = CustomQueryParams,
   API extends PlatformApi = any,
 > extends FactoryParams<API> {
-  load: (context: Context, params?: LOAD_ADDRESS_PARAMS) => Promise<ADDRESS[]>;
-  save: (context: Context, params: SAVE_ADDRESS_PARAMS) => Promise<ADDRESS>;
-  update: (context: Context, params: UPDATE_ADDRESS_PARAMS) => Promise<ADDRESS>;
-  remove: (context: Context, params: REMOVE_ADDRESS_PARAMS) => Promise<boolean>;
+  load: (context: Context, params?: ComposableFunctionArgs<LOAD_ADDRESS_PARAMS>) => Promise<ADDRESS[]>;
+  save: (context: Context, params: ComposableFunctionArgs<SAVE_ADDRESS_PARAMS>) => Promise<ADDRESS>;
+  update: (context: Context, params: ComposableFunctionArgs<UPDATE_ADDRESS_PARAMS>) => Promise<ADDRESS>;
+  remove: (context: Context, params: ComposableFunctionArgs<REMOVE_ADDRESS_PARAMS>) => Promise<boolean>;
 }
 
 export const useAddressesFactory = <ADDRESS,
@@ -54,7 +54,7 @@ API> {
   // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
   const _factoryParams = configureFactoryParams(factoryParams);
 
-  const load = async (loadParams?: LOAD_ADDRESS_PARAMS & { customQuery?: CustomQuery }) => {
+  const load = async (loadParams?: ComposableFunctionArgs<LOAD_ADDRESS_PARAMS>) => {
     Logger.debug('useAddresses.load');
 
     try {
@@ -70,7 +70,7 @@ API> {
     }
   };
 
-  const save = async (saveParams: SAVE_ADDRESS_PARAMS & { customQuery?: CustomQuery }) => {
+  const save = async (saveParams: ComposableFunctionArgs<SAVE_ADDRESS_PARAMS>) => {
     Logger.debug('useAddresses.save');
 
     try {
@@ -86,7 +86,7 @@ API> {
     }
   };
 
-  const update = async (updateParams: UPDATE_ADDRESS_PARAMS & { customQuery?: CustomQuery }) => {
+  const update = async (updateParams: ComposableFunctionArgs<UPDATE_ADDRESS_PARAMS>) => {
     Logger.debug('useAddresses.update');
 
     try {
@@ -106,7 +106,7 @@ API> {
     }
   };
 
-  const remove = async (removeParams: REMOVE_ADDRESS_PARAMS & { customQuery?: CustomQuery }) => {
+  const remove = async (removeParams: ComposableFunctionArgs<REMOVE_ADDRESS_PARAMS>) => {
     Logger.debug('useAddresses.remove');
 
     try {

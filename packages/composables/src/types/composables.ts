@@ -2,12 +2,11 @@ import {
   Composable,
   ComposableFunctionArgs,
   ComputedProperty,
-  Context,
   CustomQuery,
 } from '@vue-storefront/core';
-import { ComputedRef, computed } from '@vue/composition-api';
-import { PlatformApi, UseProductErrors } from '@vue-storefront/core/lib/src/types';
-import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
+import { ComputedRef } from '@vue/composition-api';
+import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { FetchPolicy } from './index';
 
 export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
 
@@ -188,10 +187,10 @@ export interface UseAddresses<ADDRESS,
   error: ComputedProperty<UseAddressesErrors>;
   loading: ComputedProperty<boolean>;
   addresses: ComputedProperty<ADDRESS[]>;
-  load: (loadParams?: LOAD_ADDRESS_PARAMS) => Promise<void>,
-  save: (saveParams: SAVE_ADDRESS_PARAMS) => Promise<void>,
-  remove: (removeParams: REMOVE_ADDRESS_PARAMS) => Promise<void>,
-  update: (updateParams: UPDATE_ADDRESS_PARAMS) => Promise<void>,
+  load: (loadParams?: ComposableFunctionArgs<LOAD_ADDRESS_PARAMS>) => Promise<void>,
+  save: (saveParams: ComposableFunctionArgs<SAVE_ADDRESS_PARAMS>) => Promise<void>,
+  remove: (removeParams: ComposableFunctionArgs<REMOVE_ADDRESS_PARAMS>) => Promise<void>,
+  update: (updateParams: ComposableFunctionArgs<UPDATE_ADDRESS_PARAMS>) => Promise<void>,
 }
 
 export interface UseForgotPasswordErrors {
@@ -260,7 +259,7 @@ export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN
     fetchPolicy,
   }: {
     variables: MUTATION_VARIABLES,
-    fetchPolicy?: FetchPolicy,
+    fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
     // eslint-disable-next-line consistent-return
   }) => Promise<MUTATION_RETURN>;
   result: ComputedProperty<MUTATION_RETURN>;
@@ -304,15 +303,15 @@ export interface UseWishlist
   WISHLIST_ITEM,
   PRODUCT,
   API extends PlatformApi = any,
-  > extends Composable<API> {
+> extends Composable<API> {
   wishlist: ComputedProperty<WISHLIST>;
   loading: ComputedProperty<boolean>;
   addItem(params: { product: PRODUCT; customQuery?: CustomQuery }): Promise<void>;
   removeItem(params: { product: WISHLIST_ITEM; customQuery?: CustomQuery }): Promise<void>;
   load(params: { searchParams?: Partial<{
-      currentPage: number;
-      pageSize: number;
-    }>, customQuery?: CustomQuery }): Promise<void>;
+    currentPage: number;
+    pageSize: number;
+  }>, customQuery?: CustomQuery }): Promise<void>;
   clear(): Promise<void>;
   setWishlist: (wishlist: WISHLIST) => void;
   isInWishlist({ product: PRODUCT }): boolean;
