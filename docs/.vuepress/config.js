@@ -55,6 +55,7 @@ module.exports = {
         collapsable: false,
         children: [
           ['/', 'Introduction'],
+          ['/guide/environments', 'Environments'],
           ['/guide/about', 'About'],
         ]
       },
