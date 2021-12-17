@@ -56,6 +56,7 @@ module.exports = {
         children: [
           ['/', 'Introduction'],
           ['/guide/environments', 'Environments'],
+          ['/guide/functional-catalog', 'Functional catalog'],
           ['/guide/about', 'About'],
         ]
       },
