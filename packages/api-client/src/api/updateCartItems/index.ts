@@ -27,6 +27,6 @@ export default async (
 
   return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
     mutation: updateCartItemsGQL.query,
-    variables: { input },
+    variables: updateCartItemsGQL.variables,
   });
 };

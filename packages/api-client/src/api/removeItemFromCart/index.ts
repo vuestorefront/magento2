@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>({
     mutation: removeItemFromCartGQL.query,
-    variables: { input },
+    variables: removeItemFromCartGQL.variables,
   });
 };

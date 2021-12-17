@@ -20,8 +20,6 @@ export default async (
   );
   return context.client.query<CountryInformationQuery, CountryInformationQueryVariables>({
     query: countryGQL.query,
-    variables: {
-      id,
-    },
+    variables: countryGQL.variables,
   });
 };

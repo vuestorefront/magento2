@@ -24,6 +24,6 @@ export default async (
   );
   return context.client.mutate<AddVirtualProductsToCartMutation, AddVirtualProductsToCartMutationVariables>({
     mutation: addVirtualProductsToCartGQL.query,
-    variables: { input },
+    variables: addVirtualProductsToCartGQL.variables,
   });
 };

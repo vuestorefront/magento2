@@ -20,6 +20,6 @@ export default async (
   );
   return context.client.query<CategoryListQuery, CategoryListQueryVariables>({
     query: categoryListGQL.query,
-    variables: { ...params },
+    variables: categoryListGQL.variables,
   });
 };

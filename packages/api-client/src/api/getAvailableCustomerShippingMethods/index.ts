@@ -23,7 +23,7 @@ export default async (
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
-      query: gql`${shippingMethods.query}`,
+      query: shippingMethods.query,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<UpdateCustomerMutation, UpdateCustomerMutationVariables>({
     mutation: updateCustomerGQL.query,
-    variables: { input },
+    variables: updateCustomerGQL.variables,
   });
 };

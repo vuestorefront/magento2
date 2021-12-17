@@ -23,7 +23,7 @@ export default async (
 
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
-      query: gql`${paymentMethods.query}`,
+      query: paymentMethods.query,
 
     });
   } catch (error) {

@@ -18,11 +18,9 @@ export default async (
     },
   );
 
-  const query = customQuery ? gql`${getCustomerAddresses.query}` : getCustomerAddresses.query;
-
   try {
     return await context.client.query<GetCustomerAddressesQuery>({
-      query,
+      query: getCustomerAddresses.query,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

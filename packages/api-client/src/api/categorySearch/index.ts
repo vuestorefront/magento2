@@ -18,8 +18,9 @@ export default async (
       },
     },
   );
+
   return context.client.query<CategorySearchQuery, CategorySearchQueryVariables>({
-    query: categorySearchGQL,
-    variables: { ...params },
+    query: categorySearchGQL.query,
+    variables: categorySearchGQL.variables,
   });
 };

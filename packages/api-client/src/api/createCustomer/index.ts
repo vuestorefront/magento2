@@ -28,7 +28,7 @@ export default async (
       .client
       .mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
       mutation: createCustomerGQL.query,
-      variables: { input },
+      variables: createCustomerGQL.variables,
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

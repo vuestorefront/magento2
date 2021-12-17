@@ -25,8 +25,6 @@ export default async (
 
   return context.client.mutate<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>({
     mutation: subscribeEmailToNewsletterGQL.query,
-    variables: {
-      email,
-    },
+    variables: subscribeEmailToNewsletterGQL.variables,
   });
 };

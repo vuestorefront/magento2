@@ -32,7 +32,7 @@ export default async (
   try {
     return await context.client.query<GuestAvailableShippingMethodsQuery,
     GuestAvailableShippingMethodsQueryVariables>({
-      query: gql`${shippingMethods.query}`,
+      query: shippingMethods.query,
       variables: shippingMethods.variables,
     });
   } catch (error) {

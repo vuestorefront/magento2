@@ -24,6 +24,6 @@ export default async (
 
   return context.client.mutate<RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables>({
     mutation: removeProductsFromWishlistGQL.query,
-    variables: input,
+    variables: removeProductsFromWishlistGQL.variables,
   });
 };

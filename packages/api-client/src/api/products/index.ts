@@ -53,7 +53,7 @@ export default async (
 
   try {
     return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
-      query: gql`${products.query}`,
+      query: products.query,
       variables: products.variables,
     });
   } catch (error) {

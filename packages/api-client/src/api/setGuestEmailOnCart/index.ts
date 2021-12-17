@@ -23,6 +23,6 @@ export default async (
 
   return context.client.mutate<SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables>({
     mutation: setGuestEmailOnCartGQL.query,
-    variables: { input },
+    variables: setGuestEmailOnCartGQL.variables,
   });
 };

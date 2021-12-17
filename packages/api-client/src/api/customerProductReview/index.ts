@@ -38,7 +38,7 @@ export default async (
 
   try {
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-      query: gql`${reviews.query}`,
+      query: reviews.query,
       variables: reviews.variables,
     });
   } catch (error) {

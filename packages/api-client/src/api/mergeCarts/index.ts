@@ -25,9 +25,6 @@ export default async (
 
   return context.client.mutate<MergeCartsMutation, MergeCartsMutationVariables>({
     mutation: mergeCartsGQL.query,
-    variables: {
-      sourceCartId,
-      destinationCartId,
-    },
+    variables: mergeCartsGQL.variables,
   });
 };

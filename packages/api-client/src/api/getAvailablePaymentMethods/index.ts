@@ -31,7 +31,7 @@ export default async (
 
   try {
     return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({
-      query: gql`${paymentMethods.query}`,
+      query: paymentMethods.query,
       variables: paymentMethods.variables,
     });
   } catch (error) {

@@ -23,6 +23,6 @@ export default async (
   );
   return context.client.mutate<AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables>({
     mutation: addProductsToWishlistGQL.query,
-    variables: input,
+    variables: addProductsToWishlistGQL.variables,
   });
 };

@@ -19,7 +19,7 @@ export default async (
     },
   );
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
-    query: cmsBlocksGQL,
-    variables: { identifiers },
+    query: cmsBlocksGQL.query,
+    variables: cmsBlocksGQL.variables,
   });
 };

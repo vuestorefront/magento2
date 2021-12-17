@@ -38,7 +38,7 @@ export default async (
   try {
     return await context.client
       .query<WishlistQuery, WishlistQueryVariables>({
-      query: gql`${wishlist.query}`,
+      query: wishlist.query,
       variables: wishlist.variables,
     });
   } catch (error) {

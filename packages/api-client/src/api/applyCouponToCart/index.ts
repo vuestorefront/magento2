@@ -25,6 +25,6 @@ export default async (
   );
   return context.client.mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
     mutation: applyCouponToCartGQL.query,
-    variables: { input },
+    variables: applyCouponToCartGQL.variables,
   });
 };

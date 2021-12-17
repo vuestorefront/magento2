@@ -26,6 +26,6 @@ export default async (
   return context.client
     .mutate<any, AddBundleProductsToCartMutationVariables>({
     mutation: addBundleProductsToCartGQL.query,
-    variables: { input },
+    variables: addBundleProductsToCartGQL.variables,
   });
 };

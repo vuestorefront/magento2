@@ -19,7 +19,7 @@ export default async (
     },
   );
   return context.client.query<CartQuery, CartQueryVariables>({
-    query: cartGQL,
-    variables: { cartId },
+    query: cartGQL.query,
+    variables: cartGQL.variables,
   });
 };

@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<SetShippingAddressesOnCartMutation, SetShippingAddressesOnCartMutationVariables>({
     mutation: setShippingAddressesOnCartGQL.query,
-    variables: { input },
+    variables: setShippingAddressesOnCartGQL.variables,
   });
 };

@@ -29,6 +29,6 @@ export default async (
 
   return context.client.mutate<SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables>({
     mutation: setPaymentMethodOnCartGQL.query,
-    variables: { input },
+    variables: setPaymentMethodOnCartGQL.variables,
   });
 };

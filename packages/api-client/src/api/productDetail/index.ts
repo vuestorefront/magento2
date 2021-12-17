@@ -49,11 +49,9 @@ export default async (
     },
   });
 
-  const query = customQuery ? gql`${productDetail.query}` : productDetail.query;
-
   try {
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
-      query,
+      query: productDetail.query,
       variables: productDetail.variables,
     });
 

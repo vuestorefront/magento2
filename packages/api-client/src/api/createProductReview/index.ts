@@ -21,8 +21,6 @@ export default async (
 
   return context.client.mutate<CreateProductReviewMutation, { input: CreateProductReviewMutationVariables }>({
     mutation: createProductReviewGQL.query,
-    variables: {
-      input,
-    },
+    variables: createProductReviewGQL.variables,
   });
 };
