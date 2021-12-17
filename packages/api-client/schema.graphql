@@ -208,6 +208,16 @@ interface OrderItemInterface {
     selected_options: [OrderItemOption]
     "The status of the order item"
     status: String
+    "Item Price With Tax And Discount"
+    focus_price_with_tax_and_discount: Money!
+    "List Of Children Items"
+    focus_child_items: [FocusReturnChildItem]!
+    "Parent Item Uid"
+    focus_parent_item_uid: String
+    "Type of this item (bundle, free_gift, etc)"
+    focus_child_type: String
+    "Can this item be added to RMA without parent item or not"
+    focus_can_add_to_rma_without_parent: Boolean!
 }
 
 "PhysicalProductInterface contains attributes specific to tangible products."
@@ -1638,6 +1648,8 @@ type Customer {
         "Specifies the maximum number of results to return at once. This attribute is optional."
         pageSize: Int = 20
     ): [Wishlist]!
+    "IDme Customer Data"
+    idme_data: focusIDmeCustomerData
 }
 
 "CustomerAddress contains detailed information about a customer's billing and shipping addresses"
@@ -1756,7 +1768,7 @@ type CustomerOrder {
     "Contains details about the calculated totals for this order"
     total: OrderTotal
     "Show whether RMA creation is possible for this order"
-    focus_can_create_rma: Boolean
+    focus_can_create_rma: FocusCanCreateRma
 }
 
 "The collection of orders that match the conditions defined in the filter"
@@ -6273,6 +6285,7 @@ type ReturnItem {
   request_quantity: Float!
   quantity: Float!
   status: ReturnItemStatus!
+  reason: Int
 }
 
 type CustomerReturnOrder {
@@ -6306,6 +6319,17 @@ type ReturnShipping {
     address: ReturnShippingAddress
 }
 
+type FocusCanCreateRma {
+    result: Boolean!
+    reason: String
+}
+
+type FocusRmaShippingLabel {
+    skus: [String!]!
+    download_url: String!
+    label_uid: String!
+}
+
 type Return {
     uid: ID!
     number: String!
@@ -6316,6 +6340,7 @@ type Return {
     customer: ReturnCustomer!
     shipping: ReturnShipping
     comments: [ReturnComment]
+    labels: [FocusRmaShippingLabel]
 }
 
 type Returns {

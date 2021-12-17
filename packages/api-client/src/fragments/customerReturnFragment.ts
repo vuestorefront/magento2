@@ -11,11 +11,16 @@ items {
   order_item {
     product_sku
     product_name
+    product_sale_price {
+      currency
+      value
+    }
   }
   custom_attributes {
     label
     value
   }
+  reason
   request_quantity
   quantity
   sellercloud_resolutions
@@ -49,5 +54,10 @@ comments {
   created_at
   author_name
   text
+}
+labels {
+  skus
+  download_url
+  label_uid
 }
 `;

@@ -265,6 +265,7 @@ export {
   FocusProductInventory,
   FocusProductInventoryItem,
   FocusRmaAccessParamsInput,
+  FocusRmaShippingLabel,
   FocusTrackedOrdersQuery,
   FocusTrackedOrdersQueryVariables,
   GenerateCustomerTokenAsAdminInput,

@@ -192,6 +192,17 @@ export default gql`
                 value
               }
               status
+              focus_price_with_tax_and_discount {
+                value
+                currency
+              }
+              focus_child_items {
+                item_uid
+                item_type
+              }
+              focus_parent_item_uid
+              focus_child_type
+              focus_can_add_to_rma_without_parent
             }
             payment_methods {
               name
@@ -253,7 +264,10 @@ export default gql`
               suffix
               telephone
             }
-            focus_can_create_rma
+            focus_can_create_rma {
+              result
+              reason
+            }
           }
       }
   }

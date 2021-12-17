@@ -2392,6 +2392,8 @@ export interface Customer {
   wishlist_v2?: Maybe<Wishlist>;
   /** An array of wishlists. In Magento Open Source, customers are limited to one wish list. The number of wish lists is configurable for Magento Commerce */
   wishlists: Array<Maybe<Wishlist>>;
+  /** IDme Customer Data */
+  idme_data?: Maybe<FocusIDmeCustomerData>;
 }
 
 
@@ -2661,7 +2663,7 @@ export interface CustomerOrder {
   /** Contains details about the calculated totals for this order */
   total?: Maybe<OrderTotal>;
   /** Show whether RMA creation is possible for this order */
-  focus_can_create_rma?: Maybe<Scalars['Boolean']>;
+  focus_can_create_rma?: Maybe<FocusCanCreateRma>;
 }
 
 /** The collection of orders that match the conditions defined in the filter */
@@ -4556,6 +4558,16 @@ export interface OrderItemInterface {
   selected_options?: Maybe<Array<Maybe<OrderItemOption>>>;
   /** The status of the order item */
   status?: Maybe<Scalars['String']>;
+  /** Item Price With Tax And Discount */
+  focus_price_with_tax_and_discount: Money;
+  /** List Of Children Items */
+  focus_child_items: Array<Maybe<FocusReturnChildItem>>;
+  /** Parent Item Uid */
+  focus_parent_item_uid?: Maybe<Scalars['String']>;
+  /** Type of this item (bundle, free_gift, etc) */
+  focus_child_type?: Maybe<Scalars['String']>;
+  /** Can this item be added to RMA without parent item or not */
+  focus_can_add_to_rma_without_parent: Scalars['Boolean'];
 }
 
 /** Represents order item options like selected or entered */
@@ -6560,6 +6572,8 @@ export interface StoreConfig {
   weight_unit?: Maybe<Scalars['String']>;
   /** Welcome Text */
   welcome?: Maybe<Scalars['String']>;
+  /** RMA contact phone number */
+  focus_rma_phone_number?: Maybe<Scalars['String']>;
 }
 
 export interface StorefrontProperties {
@@ -7870,6 +7884,7 @@ export type ReturnItem = {
   quantity: Scalars['Float'];
   status: ReturnItemStatus;
   sellercloud_resolutions: Scalars['String'];
+  reason?: Maybe<Scalars['Int']>;
 };
 
 export type CustomerReturnOrder = {
@@ -7903,6 +7918,17 @@ export type ReturnShipping = {
   address?: Maybe<ReturnShippingAddress>;
 };
 
+export type FocusCanCreateRma = {
+  result: Scalars['Boolean'];
+  reason?: Maybe<Scalars['String']>;
+};
+
+export type FocusRmaShippingLabel = {
+  skus: Array<Scalars['String']>;
+  download_url: Scalars['String'];
+  label_uid: Scalars['String'];
+};
+
 export type Return = {
   uid: Scalars['ID'];
   number: Scalars['String'];
@@ -7913,6 +7939,7 @@ export type Return = {
   customer: ReturnCustomer;
   shipping?: Maybe<ReturnShipping>;
   comments?: Maybe<Array<Maybe<ReturnComment>>>;
+  labels?: Maybe<Array<Maybe<FocusRmaShippingLabel>>>;
 };
 
 export type Returns = {
@@ -8009,6 +8036,11 @@ export interface FocusGuestRequestReturnMutation {
 
 export interface FocusGuestRequestReturnMutationVariables {
   input: FocusGuestRequestReturnInput;
+};
+
+export interface FocusReturnChildItem {
+  item_uid: Scalars['String'];
+  item_type: Scalars['String'];
 };
 
 export enum FocusCatalogRuleDiscountTypeEnum {
