@@ -1,5 +1,5 @@
-import ApolloClient, { ApolloClientOptions } from 'apollo-client';
-import { FetchOptions } from 'apollo-link-http';
+import { ApolloClient, ApolloClientOptions } from '@apollo/client/core';
+import { HttpOptions } from '@apollo/client/link/http/selectHttpOptionsAndBody';
 import { MagentoApiMethods } from './API';
 
 export interface Storage {
@@ -44,6 +44,8 @@ export type ConfigState = {
   setStore(id?: string | null): void;
   getCurrency(): string;
   setCurrency(id?: string | null): void;
+  getLocale(): string;
+  setLocale(id?: string | null): void;
 };
 
 export interface ClientConfig {
@@ -65,16 +67,13 @@ export interface ClientConfig {
     }>;
   };
   state: ConfigState;
-  tax: {
-    displayCartSubtotalIncludingTax: boolean;
-  };
 }
 
 export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
   storage: Storage;
   customOptions?: ApolloClientOptions<any>;
-  customApolloHttpLinkOptions?: FetchOptions;
+  customApolloHttpLinkOptions?: HttpOptions;
   overrides: MagentoApiMethods;
 }
 

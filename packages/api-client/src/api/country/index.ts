@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CountryInformationQuery, CountryInformationQueryVariables } from '../../types/GraphQL';
 import countryInformation from './countryInformation';
@@ -20,8 +20,6 @@ export default async (
   );
   return context.client.query<CountryInformationQuery, CountryInformationQueryVariables>({
     query: countryGQL.query,
-    variables: {
-      id,
-    },
+    variables: countryGQL.variables,
   });
 };

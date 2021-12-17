@@ -5,7 +5,7 @@
       @click="isLangModalOpen = !isLangModalOpen"
     >
       <SfImage
-        :src="`/icons/langs/${locale}.webp`"
+        :src="`/icons/langs/${selectedLocale}.webp`"
         width="20"
         alt="Flag"
       />
@@ -131,6 +131,7 @@ export default defineComponent({
       stores,
       change: changeStore,
     } = useStore();
+
     const { handleChanges } = useHandleChanges();
 
     const {

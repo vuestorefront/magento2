@@ -10,9 +10,6 @@ export const defaultSettings: ClientConfig = {
     customerCookieName: 'vsf-customer',
     storeCookieName: 'vsf-store',
   },
-  tax: {
-    displayCartSubtotalIncludingTax: true,
-  },
   state: {
     getCartId: () => '',
     setCartId: () => {},
@@ -22,6 +19,8 @@ export const defaultSettings: ClientConfig = {
     setStore: () => {},
     getCurrency: () => '',
     setCurrency: () => {},
+    getLocale: () => '',
+    setLocale: () => {},
   },
   externalCheckout: {
     enable: false,

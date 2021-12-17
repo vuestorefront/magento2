@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import gql from 'graphql-tag';
 import {
@@ -44,7 +44,7 @@ export default async (
   try {
     return await context.client
       .query<CustomerOrdersQuery, CustomerOrdersQueryVariables>({
-      query: gql`${customerOrders.query}`,
+      query: customerOrders.query,
       variables: customerOrders.variables,
     });
   } catch (error) {

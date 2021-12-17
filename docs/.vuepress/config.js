@@ -63,6 +63,7 @@ module.exports = {
         collapsable: false,
         children: [
           ['/guide/creating-a-store', 'Creating a Store'],
+          ['/guide/graphql-get', 'Use GET for GraphQL Queries'],
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries']
         ]

@@ -1,5 +1,4 @@
-import ApolloClient from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { Config } from './types/setup';
 import createMagentoConnection from './link';
 
@@ -9,9 +8,6 @@ const onSetup = (settings: Config): {
 } => {
   const defaultSettings = {
     api: '',
-    tax: {
-      displayCartSubtotalIncludingTax: true,
-    },
     externalCheckout: {
       enable: false,
     },
@@ -20,7 +16,7 @@ const onSetup = (settings: Config): {
   const config = {
     ...defaultSettings,
     ...settings,
-  } as any;
+  } as Config;
 
   if (settings.client) {
     return {

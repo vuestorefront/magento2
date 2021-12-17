@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
@@ -31,7 +31,7 @@ export default async (
 
   try {
     return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({
-      query: gql`${paymentMethods.query}`,
+      query: paymentMethods.query,
       variables: paymentMethods.variables,
     });
   } catch (error) {

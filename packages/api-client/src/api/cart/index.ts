@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CartQuery, CartQueryVariables } from '../../types/GraphQL';
 import cart from './cart';
@@ -19,7 +19,7 @@ export default async (
     },
   );
   return context.client.query<CartQuery, CartQueryVariables>({
-    query: cartGQL,
-    variables: { cartId },
+    query: cartGQL.query,
+    variables: cartGQL.variables,
   });
 };

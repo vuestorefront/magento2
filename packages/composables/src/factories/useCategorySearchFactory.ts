@@ -6,11 +6,11 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables';
 
 export interface UseCategorySearchFactory<CATEGORY, API extends PlatformApi = any> extends FactoryParams<API> {
-  search: (context: Context, params: { term: string }) => Promise<CATEGORY[]>;
+  search: (context: Context, params: ComposableFunctionArgs<{ term: string }>) => Promise<CATEGORY[]>;
 }
 
 export function useCategorySearchFactory<CATEGORY, API extends PlatformApi = any>(
@@ -28,7 +28,7 @@ export function useCategorySearchFactory<CATEGORY, API extends PlatformApi = any
     const _factoryParams = configureFactoryParams(factoryParams);
 
     // eslint-disable-next-line consistent-return
-    const search = async (params: { term: string }): Promise<CATEGORY[]> => {
+    const search = async (params: ComposableFunctionArgs<{ term: string }>): Promise<CATEGORY[]> => {
       Logger.debug(`useCategorySearch/${ssrKey}/search`);
 
       try {

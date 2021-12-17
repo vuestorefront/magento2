@@ -20,6 +20,6 @@ export default async (
   );
   return context.client.mutate<DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables>({
     mutation: deleteCustomerAddressGQL.query,
-    variables: { id: addressId },
+    variables: deleteCustomerAddressGQL.variables,
   });
 };

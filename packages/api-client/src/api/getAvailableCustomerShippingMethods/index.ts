@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 
@@ -23,7 +23,7 @@ export default async (
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
-      query: gql`${shippingMethods.query}`,
+      query: shippingMethods.query,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

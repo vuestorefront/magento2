@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
 import cmsBlocks from './cmsBlocks';
@@ -19,7 +19,7 @@ export default async (
     },
   );
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
-    query: cmsBlocksGQL,
-    variables: { identifiers },
+    query: cmsBlocksGQL.query,
+    variables: cmsBlocksGQL.variables,
   });
 };

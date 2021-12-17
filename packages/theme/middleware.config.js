@@ -19,9 +19,6 @@ module.exports = {
             default: config.get('enableMagentoExternalCheckout'),
           },
         },
-        tax: {
-          displayCartSubtotalIncludingTax: true,
-        },
         facets: {
           available: ['color', 'size', 'price'],
         },

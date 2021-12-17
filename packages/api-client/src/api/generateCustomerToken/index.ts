@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import generateCustomerToken from './generateCustomerToken';
 import {
@@ -30,10 +30,7 @@ export default async (
     return await context.client
       .mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
       mutation: generateCustomerTokenGQL.query,
-      variables: {
-        email,
-        password,
-      },
+      variables: generateCustomerTokenGQL.variables,
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

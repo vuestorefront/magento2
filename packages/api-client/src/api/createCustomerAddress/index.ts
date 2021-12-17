@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import createCustomerAddress from './createCustomerAddress';
 import {
@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<CreateCustomerAddressMutation, CreateCustomerAddressMutationVariables>({
     mutation: createCustomerAddressGQL.query,
-    variables: { input },
+    variables: createCustomerAddressGQL.variables,
   });
 };

@@ -30,23 +30,34 @@ export const useMagentoConfiguration = () => {
 
   const selectedStore = computed(() => app.$cookies.get(cookieNames.storeCookieName));
 
-  const loadConfiguration = async () => {
+  const loadConfiguration = async (params = {
+    updateCookies: false,
+    updateLocale: false,
+  }) => {
+    const {
+      updateCookies,
+      updateLocale,
+    } = params;
     await Promise.all([
       loadConfig(),
       loadStores(),
       loadCurrencies(),
     ]);
 
-    if (!app.$cookies.get(cookieNames.storeCookieName)) {
+    if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
       app.$cookies.set(cookieNames.storeCookieName, storeConfigGetters.getCode(storeConfig.value));
     }
 
-    if (!app.$cookies.get(cookieNames.localeCookieName)) {
+    if (!app.$cookies.get(cookieNames.localeCookieName) || updateCookies) {
       app.$cookies.set(cookieNames.localeCookieName, storeConfigGetters.getLocale(storeConfig.value));
     }
 
-    if (!app.$cookies.get(cookieNames.currencyCookieName)) {
+    if (!app.$cookies.get(cookieNames.currencyCookieName) || updateCookies) {
       app.$cookies.set(cookieNames.currencyCookieName, storeConfigGetters.getCurrency(storeConfig.value));
+    }
+
+    if (updateLocale) {
+      app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
     }
   };
 

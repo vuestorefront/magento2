@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
@@ -23,7 +23,7 @@ export default async (
     return await context.client
       .query<CmsPageQuery, CmsPageQueryVariables>({
       query: cmsPageGQL.query,
-      variables: { identifier },
+      variables: cmsPageGQL.variables,
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

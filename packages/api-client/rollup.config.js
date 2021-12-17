@@ -20,15 +20,11 @@ const server = {
   ],
   external: [
     '@apollo/client/utilities',
+    'node:url',
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
   ],
   plugins: [
-    nodeResolve({
-      extensions,
-    }),
-    graphql(),
-    json(),
     typescript({
       rollupCommonJSResolveHack: false,
       useTsconfigDeclarationDir: true,
@@ -38,6 +34,11 @@ const server = {
     commonjs({
       extensions,
     }),
+    nodeResolve({
+      extensions,
+    }),
+    json(),
+    graphql(),
   ],
 };
 

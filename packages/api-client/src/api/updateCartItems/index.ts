@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import updateCartItems from './updateCartItems';
 import {
@@ -27,6 +27,6 @@ export default async (
 
   return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
     mutation: updateCartItemsGQL.query,
-    variables: { input },
+    variables: updateCartItemsGQL.variables,
   });
 };

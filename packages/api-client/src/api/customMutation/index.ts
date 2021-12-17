@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
-import { FetchResult } from 'apollo-link';
-import { FetchPolicy } from 'apollo-client/core/watchQueryOptions';
+import { FetchPolicy, FetchResult } from '@apollo/client/core';
 import { Context } from '../../types/context';
 
 export default async <MUTATION = any, MUTATION_VARIABLES = any>(
@@ -12,7 +11,7 @@ export default async <MUTATION = any, MUTATION_VARIABLES = any>(
   }: {
     mutation: MUTATION,
     mutationVariables: MUTATION_VARIABLES,
-    fetchPolicy?: FetchPolicy,
+    fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
   },
 ): Promise<FetchResult<MUTATION>> => client
   .mutate<MUTATION, MUTATION_VARIABLES>({
