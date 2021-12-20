@@ -18,7 +18,7 @@ export default async (
     {
       addBundleProductsToCart: {
         query: addBundleProductsToCart,
-        variables: { input },
+        variables: input,
       },
     },
   );

@@ -14,7 +14,7 @@ export default async (
     {
       createProductReview: {
         query: createProductReview,
-        variables: { input },
+        variables: input,
       },
     },
   );
