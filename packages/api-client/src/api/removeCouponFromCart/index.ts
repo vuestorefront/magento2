@@ -18,7 +18,7 @@ export default async (
     {
       removeCouponFromCart: {
         query: removeCouponFromCart,
-        variables: { input },
+        variables: input,
       },
     },
   );
