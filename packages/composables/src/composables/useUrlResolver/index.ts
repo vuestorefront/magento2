@@ -8,7 +8,7 @@ const factoryParams: UseUrlResolverFactoryParams<Route> = {
     Logger.debug('[Magento] Find information based on URL', { params });
     const clearUrl = params.url.replace(/\/[cp|]\//gi, '');
 
-    const { data } = await context.$magento.api.urlResolver(clearUrl, params.customQuery || {});
+    const { data } = await context.$magento.api.urlResolver(clearUrl, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

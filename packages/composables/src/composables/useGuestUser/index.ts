@@ -19,7 +19,7 @@ const factoryParams: UseGuestUserFactoryParams<any, SetGuestEmailOnCartInput> = 
 
     await context.$magento.api.setGuestEmailOnCart({
       ...emailOnCartInput,
-    }, params.customQuery || {});
+    }, params?.customQuery || {});
   },
 };
 

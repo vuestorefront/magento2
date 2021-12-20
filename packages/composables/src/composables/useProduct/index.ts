@@ -1,7 +1,7 @@
 import {
   ComposableFunctionArgs,
   Context,
-  CustomQuery, Logger,
+  Logger,
   ProductsSearchParams,
   UseProduct,
   useProductFactory,
@@ -22,7 +22,10 @@ ProductsSearchParams> = {
       queryType,
       customQuery,
       ...searchParams
-    } = params;
+    } = {
+      ...params,
+      customQuery: params?.customQuery || {},
+    };
 
     switch (queryType) {
       case ProductsQueryType.Detail:

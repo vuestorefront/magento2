@@ -41,7 +41,7 @@ RemoveAddressInput> = {
     Logger.debug('[Magento] save user address:', saveParams.address);
     const { data } = await context.$magento.api.createCustomerAddress(
       transformUserCreateAddressInput(saveParams),
-      saveParams.customQuery || {},
+      saveParams?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -53,7 +53,7 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.deleteCustomerAddress(
       params.address.id,
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -65,7 +65,7 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(
       transformUserUpdateAddressInput(params),
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });

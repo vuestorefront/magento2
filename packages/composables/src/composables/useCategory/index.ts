@@ -11,7 +11,7 @@ const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariabl
   categorySearch: async (context: Context, params) => {
     Logger.debug('[Magento]: List available categories', { params });
 
-    const { data } = await context.$magento.api.categoryList(params, params.customQuery || {});
+    const { data } = await context.$magento.api.categoryList(params, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

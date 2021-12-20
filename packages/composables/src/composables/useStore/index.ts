@@ -12,7 +12,7 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
     };
   },
   load: async (context: Context, params): Promise<AvailableStores> => {
-    const { data } = await context.$magento.api.availableStores(params.customQuery || {});
+    const { data } = await context.$magento.api.availableStores(params?.customQuery || {});
 
     return data.availableStores || [];
   },

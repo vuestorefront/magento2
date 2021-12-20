@@ -47,7 +47,7 @@ ProductReviewRatingMetadata> = {
   loadReviewMetadata: async (context: Context, params) => {
     Logger.debug('[Magento] load review metadata');
 
-    const { data } = await context.$magento.api.productReviewRatingsMetadata(params.customQuery || {});
+    const { data } = await context.$magento.api.productReviewRatingsMetadata(params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

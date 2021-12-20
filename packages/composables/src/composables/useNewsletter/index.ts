@@ -18,7 +18,7 @@ const factoryParams: UseNewsletterFactoryParams<any, string> = {
       {
         email: params.email,
       },
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });

@@ -64,7 +64,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
             sku: product.sku,
             quantity: 1,
           }],
-        }, params.customQuery || {});
+        }, params?.customQuery || {});
 
         Logger.debug('[Result]:', { data });
 
@@ -77,7 +77,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
             quantity: 1,
             parent_sku: product.sku,
           }],
-        }, params.customQuery || {});
+        }, params?.customQuery || {});
 
         Logger.debug('[Result]:', { data: configurableProductData });
 
@@ -90,7 +90,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
             quantity: 1,
             entered_options: product.bundle_options ? [...product.bundle_options] : [],
           }],
-        }, params.customQuery || {});
+        }, params?.customQuery || {});
 
         Logger.debug('[Result]:', { data: bundleProductData });
 
@@ -113,7 +113,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
     const { data } = await context.$magento.api.removeProductsFromWishlist({
       id: '0',
       items: [itemOnWishlist.id],
-    }, params.customQuery || {});
+    }, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

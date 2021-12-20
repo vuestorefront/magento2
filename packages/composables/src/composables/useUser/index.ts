@@ -26,7 +26,7 @@ CustomerCreateInput
       return null;
     }
     try {
-      const { data } = await context.$magento.api.customer(params.customQuery || {});
+      const { data } = await context.$magento.api.customer(params?.customQuery || {});
 
       Logger.debug('[Result]:', { data });
 
@@ -60,10 +60,10 @@ CustomerCreateInput
       await context.$magento.api.updateCustomerEmail({
         email,
         password,
-      }, params.customQuery || {});
+      }, params?.customQuery || {});
     }
 
-    const { data } = await context.$magento.api.updateCustomer(userData, params.customQuery || {});
+    const { data } = await context.$magento.api.updateCustomer(userData, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -74,7 +74,7 @@ CustomerCreateInput
 
     const { data, errors } = await context.$magento.api.createCustomer(
       { email, password, ...baseData },
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -99,7 +99,7 @@ CustomerCreateInput
         email: params.username,
         password: params.password,
       },
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -116,7 +116,7 @@ CustomerCreateInput
 
     // merge existing cart with customer cart
     const currentCartId = apiState.getCartId();
-    const cart = await context.$magento.api.customerCart(params.customQuery || {});
+    const cart = await context.$magento.api.customerCart(params?.customQuery || {});
     const newCartId = cart.data.customerCart.id;
 
     if (newCartId && currentCartId && currentCartId !== newCartId) {
@@ -125,7 +125,7 @@ CustomerCreateInput
           sourceCartId: currentCartId,
           destinationCartId: newCartId,
         },
-        params.customQuery || {},
+        params?.customQuery || {},
       );
 
       context.cart.setCart(dataMergeCart.mergeCarts);
@@ -135,13 +135,13 @@ CustomerCreateInput
       context.cart.setCart(cart.data.customerCart);
     }
 
-    await context.$magento.api.wishlist({}, params.customQuery || {});
+    await context.$magento.api.wishlist({}, params?.customQuery || {});
 
     return factoryParams.load(context);
   },
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
-    const { data, errors } = await context.$magento.api.changeCustomerPassword(params, params.customQuery || {});
+    const { data, errors } = await context.$magento.api.changeCustomerPassword(params, params?.customQuery || {});
 
     if (errors) {
       Logger.error(errors);

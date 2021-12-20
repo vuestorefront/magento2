@@ -19,7 +19,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.createCustomerAddress(
       transformUserCreateAddressInput(params),
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -31,7 +31,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
     Logger.debug('[Magento] delete shipping address', { params });
     const { data } = await context.$magento.api.deleteCustomerAddress(
       params.address.id,
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     return data.deleteCustomerAddress;
@@ -42,7 +42,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(
       transformUserUpdateAddressInput(params),
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     return data.updateCustomerAddress;
@@ -64,7 +64,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(
       transformUserUpdateAddressInput(params),
-      params.customQuery || {},
+      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
