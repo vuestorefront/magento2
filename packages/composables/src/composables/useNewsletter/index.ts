@@ -5,18 +5,21 @@ import {
 import useUser from '../useUser';
 import { useNewsletterFactory, UseNewsletterFactoryParams } from '../../factories/useNewsletterFactory';
 
-const factoryParams: UseNewsletterFactoryParams<any, any> = {
+const factoryParams: UseNewsletterFactoryParams<any, string> = {
   provide() {
     return {
       user: useUser(),
     };
   },
-  updateSubscription: async (context: Context, { email }) => {
-    Logger.debug('[Magento]: Update user newsletter subscription', { email });
+  updateSubscription: async (context: Context, params) => {
+    Logger.debug('[Magento]: Update user newsletter subscription', { params });
 
-    const { data } = await context.$magento.api.subscribeEmailToNewsletter({
-      email,
-    });
+    const { data } = await context.$magento.api.subscribeEmailToNewsletter(
+      {
+        email: params.email,
+      },
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 
@@ -24,4 +27,4 @@ const factoryParams: UseNewsletterFactoryParams<any, any> = {
   },
 };
 
-export default useNewsletterFactory<any, any>(factoryParams);
+export default useNewsletterFactory<any, string>(factoryParams);

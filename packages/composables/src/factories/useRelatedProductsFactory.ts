@@ -7,7 +7,7 @@ import {
   ProductsSearchParams,
   sharedRef,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
 export interface UseRelatedProductsFactoryParams<
@@ -15,7 +15,7 @@ export interface UseRelatedProductsFactoryParams<
   RELATED_PRODUCTS_SEARCH_PARAMS extends ProductsSearchParams,
   API extends PlatformApi = any,
 > extends FactoryParams<API> {
-  productsSearch: (context: Context, params: RELATED_PRODUCTS_SEARCH_PARAMS & { customQuery?: CustomQuery }) => Promise<PRODUCTS>;
+  productsSearch: (context: Context, params: ComposableFunctionArgs<RELATED_PRODUCTS_SEARCH_PARAMS>) => Promise<PRODUCTS>;
 }
 
 export function useRelatedProductsFactory<PRODUCTS, RELATED_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any>(
@@ -36,7 +36,7 @@ export function useRelatedProductsFactory<PRODUCTS, RELATED_PRODUCTS_SEARCH_PARA
       },
     );
 
-    const search = async (searchParams) => {
+    const search = async (searchParams: ComposableFunctionArgs<RELATED_PRODUCTS_SEARCH_PARAMS>) => {
       Logger.debug(`useRelatedProducts/${id}/search`, searchParams);
 
       try {

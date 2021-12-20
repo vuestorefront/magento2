@@ -8,10 +8,10 @@ import { ComputedRef } from '@vue/composition-api';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from './index';
 
-export type CustomQueryParams = { customQuery?: CustomQuery; [ k: string]: any };
+export type CustomQueryParams = { customQuery?: CustomQuery; [k: string]: any };
 
-export interface UseUrlResolver<ROUTE, API extends PlatformApi = any> extends Composable<API>{
-  search: (url: string) => Promise<void>;
+export interface UseUrlResolver<ROUTE, API extends PlatformApi = any> extends Composable<API> {
+  search: (params: ComposableFunctionArgs<{ url: string }>) => Promise<void>;
   result: ComputedProperty<ROUTE>;
   error: ComputedProperty<UseRouterErrors>;
   loading: ComputedProperty<boolean>;
@@ -21,8 +21,8 @@ export interface UseRouterErrors {
   search: Error;
 }
 
-export interface UseExternalCheckout<API extends PlatformApi = any> extends Composable<API>{
-  initializeCheckout: (baseUrl: string) => Promise<string>;
+export interface UseExternalCheckout<API extends PlatformApi = any> extends Composable<API> {
+  initializeCheckout: (params: ComposableFunctionArgs<{ baseUrl: string }>) => Promise<string>;
   error: ComputedProperty<UseExternalCheckoutErrors>;
   loading: ComputedProperty<boolean>;
 }
@@ -31,8 +31,8 @@ export interface UseExternalCheckoutErrors {
   initializeCheckout: Error;
 }
 
-export interface UseCategorySearch<CATEGORY, API extends PlatformApi = any> extends Composable<API>{
-  search: (params: { term: string }) => Promise<CATEGORY[]>;
+export interface UseCategorySearch<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  search: (params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>) => Promise<CATEGORY[]>;
   result: ComputedProperty<CATEGORY[]>;
   error: ComputedProperty<UseCategorySearchErrors>;
   loading: ComputedProperty<boolean>;
@@ -43,8 +43,8 @@ export interface UseCategorySearchErrors {
 }
 
 export interface UseCountrySearch<COUNTRIES, COUNTRY, API extends PlatformApi = any> extends Composable<API> {
-  load: () => Promise<COUNTRIES[]>;
-  search: (params: { id: string }) => Promise<COUNTRY>;
+  load: (params?: ComposableFunctionArgs<{}>) => Promise<COUNTRIES[]>;
+  search: (params: ComposableFunctionArgs<{ id: string }>) => Promise<COUNTRY>;
   countries: ComputedProperty<COUNTRIES[]>;
   country: ComputedProperty<COUNTRY>;
   error: ComputedProperty<UseCountrySearchErrors>;
@@ -58,7 +58,7 @@ export interface UseCountrySearchErrors {
 
 export interface UseConfig<CONFIG, API extends PlatformApi = any> extends Composable<API> {
   config: ComputedRef<CONFIG>;
-  loadConfig: () => Promise<void>;
+  loadConfig: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
   loading: ComputedRef<boolean>;
 }
 
@@ -67,21 +67,21 @@ export interface UseContentErrors {
   blocks: Error;
 }
 
-export interface UseContent<PAGE, BLOCK, API extends PlatformApi = any> extends Composable<API>{
+export interface UseContent<PAGE, BLOCK, API extends PlatformApi = any> extends Composable<API> {
   page: ComputedProperty<PAGE>;
   blocks: ComputedProperty<BLOCK[]>
-  loadContent: (identifier: string) => Promise<void>;
-  loadBlocks: (identifiers: string[]) => Promise<void>;
+  loadContent: (params: ComposableFunctionArgs<{ identifier: string }>) => Promise<void>;
+  loadBlocks: (params: ComposableFunctionArgs<{ identifiers: string[] }>) => Promise<void>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseContentErrors>;
 }
 
-export interface UseGetShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API>{
+export interface UseGetShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API> {
   state: ComputedProperty<SHIPPING_METHOD[]>;
 
   setState(state: SHIPPING_METHOD[]): void;
 
-  load: (params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;
+  load: (params: ComposableFunctionArgs<{ cartId: string }>) => Promise<SHIPPING_METHOD[]>;
   result: ComputedProperty<SHIPPING_METHOD[]>;
   error: ComputedProperty<UseGetShippingMethodsErrors>;
   loading: ComputedProperty<boolean>;
@@ -96,18 +96,16 @@ export interface UsePaymentProviderErrors {
   save: Error;
 }
 
-export interface UsePaymentProvider<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends Composable<API>{
+export interface UsePaymentProvider<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends Composable<API> {
   error: ComputedProperty<UsePaymentProviderErrors>;
   loading: ComputedProperty<boolean>;
   state: ComputedProperty<STATE>;
 
   setState(state: STATE): void;
 
-  load(): Promise<void>;
+  load(params?: ComposableFunctionArgs<{}>): Promise<void>;
 
-  load(params: { customQuery?: CustomQuery }): Promise<void>;
-
-  save(params: { paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }): Promise<void>;
+  save(params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>): Promise<void>;
 }
 
 export interface UseGuestUserErrors {
@@ -123,10 +121,10 @@ export interface UseGuestUserRegisterParams {
   [x: string]: any;
 }
 
-export interface UseGuestUser<GUEST_USER, API extends PlatformApi = any> extends Composable<API>{
+export interface UseGuestUser<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API extends PlatformApi = any> extends Composable<API> {
   guestUser: ComputedProperty<GUEST_USER>;
   setGuestUser: (user: GUEST_USER) => void;
-  attachToCart: (params: { user: UseGuestUserRegisterParams }) => Promise<void>;
+  attachToCart: (params: ComposableFunctionArgs<REGISTER_GUEST_USER_PARAMS>) => Promise<void>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseGuestUserErrors>;
 }
@@ -143,14 +141,14 @@ export interface UseReview<REVIEW,
   REVIEWS_USER_SEARCH_PARAMS,
   REVIEW_ADD_PARAMS,
   REVIEW_METADATA,
-  API extends PlatformApi = any> extends Composable<API>{
+  API extends PlatformApi = any> extends Composable<API> {
   search(params?: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>): Promise<void>;
 
   loadCustomerReviews(params?: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void>;
 
   addReview(params: ComposableFunctionArgs<REVIEW_ADD_PARAMS>): Promise<void>;
 
-  loadReviewMetadata(): Promise<void>;
+  loadReviewMetadata(params?: ComposableFunctionArgs<{}>): Promise<void>;
 
   error: ComputedProperty<UseReviewErrors>;
   reviews: ComputedProperty<REVIEW>;
@@ -164,10 +162,10 @@ export interface UseNewsletterErrors {
   updateSubscription: Error;
 }
 
-export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends Composable<API>{
+export interface UseNewsletter<UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends Composable<API> {
   error: ComputedProperty<UseNewsletterErrors>;
   loading: ComputedProperty<boolean>;
-  updateSubscription: (params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<void>;
+  updateSubscription: (params: ComposableFunctionArgs<{ email: UPDATE_NEWSLETTER_PARAMS }>) => Promise<void>;
 }
 
 export interface UseAddressesErrors {
@@ -202,7 +200,9 @@ export interface UseForgotPassword<RESULT> {
   result: ComputedProperty<RESULT>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseForgotPasswordErrors>;
+
   setNew(params: ComposableFunctionArgs<{ tokenValue: string, newPassword: string, email: string }>): Promise<void>;
+
   request(params: ComposableFunctionArgs<{ email: string }>): Promise<void>;
 }
 
@@ -210,7 +210,9 @@ export interface UseRelatedProducts<PRODUCTS, RELATED_PRODUCT_SEARCH_PARAMS, API
   products: ComputedProperty<PRODUCTS>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseRelatedProductsErrors>;
+
   search(params: ComposableFunctionArgs<RELATED_PRODUCT_SEARCH_PARAMS>): Promise<void>;
+
   [x: string]: any;
 }
 
@@ -222,7 +224,9 @@ export interface UseUpsellProducts<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API 
   products: ComputedProperty<PRODUCTS>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseUpsellProductsErrors>;
+
   search(params: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>): Promise<void>;
+
   [x: string]: any;
 }
 
@@ -244,6 +248,7 @@ export interface UseCustomQuery<QUERY, QUERY_VARIABLES, QUERY_RETURN, API extend
   result: ComputedProperty<QUERY_RETURN>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseUpsellProductsErrors>;
+
   [x: string]: any;
 }
 
@@ -265,6 +270,7 @@ export interface UseCustomMutation<MUTATION, MUTATION_VARIABLES, MUTATION_RETURN
   result: ComputedProperty<MUTATION_RETURN>;
   loading: ComputedProperty<boolean>;
   error: ComputedProperty<UseUpsellProductsErrors>;
+
   [x: string]: any;
 }
 
@@ -273,7 +279,7 @@ export interface UseUpsellProductsErrors {
 }
 
 export interface UseStore<STORES, STORE, API extends PlatformApi = any> extends Composable<API> {
-  load: () => Promise<void>;
+  load: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
   change: (params: ComposableFunctionArgs<STORE>) => void;
   stores: ComputedRef<STORES>;
   loading: ComputedRef<boolean>;
@@ -284,8 +290,8 @@ export interface UseStoreErrors {
 }
 
 export interface UseCurrency<CURRENCY, API extends PlatformApi = any> extends Composable<API> {
-  load: () => Promise<void>;
-  change: (params: ComposableFunctionArgs<any>) => void;
+  load: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
+  change: (params: ComposableFunctionArgs<{ id: string }>) => void;
   currencies: ComputedRef<CURRENCY>;
   loading: ComputedRef<boolean>;
 }
@@ -297,23 +303,30 @@ export interface UseWishlistErrors {
   clear: Error;
 }
 
-export interface UseWishlist
-<
-  WISHLIST,
+export interface UseWishlist<WISHLIST,
   WISHLIST_ITEM,
   PRODUCT,
   API extends PlatformApi = any,
 > extends Composable<API> {
   wishlist: ComputedProperty<WISHLIST>;
   loading: ComputedProperty<boolean>;
-  addItem(params: { product: PRODUCT; customQuery?: CustomQuery }): Promise<void>;
-  removeItem(params: { product: WISHLIST_ITEM; customQuery?: CustomQuery }): Promise<void>;
-  load(params: { searchParams?: Partial<{
-    currentPage: number;
-    pageSize: number;
-  }>, customQuery?: CustomQuery }): Promise<void>;
+
+  addItem(params: ComposableFunctionArgs<{ product: PRODUCT; }>): Promise<void>;
+
+  removeItem(params: ComposableFunctionArgs<{ product: WISHLIST_ITEM; }>): Promise<void>;
+
+  load(params: ComposableFunctionArgs<{
+    searchParams?: Partial<{
+      currentPage: number;
+      pageSize: number;
+    }>,
+  }>): Promise<void>;
+
   clear(): Promise<void>;
+
   setWishlist: (wishlist: WISHLIST) => void;
+
   isInWishlist({ product: PRODUCT }): boolean;
+
   error: ComputedProperty<UseWishlistErrors>;
 }

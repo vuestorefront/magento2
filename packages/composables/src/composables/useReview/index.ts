@@ -20,26 +20,34 @@ ProductReviewRatingMetadata> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchReviews: async (context: Context, params?: ComposableFunctionArgs<GetProductSearchParams>) => {
     Logger.debug('[Magento] search review params input:', JSON.stringify(params, null, 2));
+    const {
+      customQuery,
+      ...input
+    } = params;
 
-    const { data } = await context.$magento.api.productReview(params as GetProductSearchParams);
+    const { data } = await context.$magento.api.productReview(input as GetProductSearchParams, customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
     return data.products.items;
   },
-  addReview: async (context: Context, params: CreateProductReviewInput) => {
+  addReview: async (context: Context, params: ComposableFunctionArgs<CreateProductReviewInput>) => {
     Logger.debug('[Magento] add review params input:', JSON.stringify(params, null, 2));
+    const {
+      customQuery,
+      ...input
+    } = params;
 
-    const { data } = await context.$magento.api.createProductReview(params);
+    const { data } = await context.$magento.api.createProductReview(input, customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
     return data.createProductReview.review;
   },
-  loadReviewMetadata: async (context: Context) => {
+  loadReviewMetadata: async (context: Context, params) => {
     Logger.debug('[Magento] load review metadata');
 
-    const { data } = await context.$magento.api.productReviewRatingsMetadata();
+    const { data } = await context.$magento.api.productReviewRatingsMetadata(params.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -50,8 +58,12 @@ ProductReviewRatingMetadata> = {
     params?: ComposableFunctionArgs<CustomerProductReviewParams>,
   ) => {
     Logger.debug('[Magento] load customer review based on:', { params });
+    const {
+      customQuery,
+      ...input
+    } = params;
 
-    const { data } = await context.$magento.api.customerProductReview(params);
+    const { data } = await context.$magento.api.customerProductReview(input, customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

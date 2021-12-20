@@ -3,7 +3,7 @@ import { Logger } from '@vue-storefront/core';
 import { useGuestUserFactory, UseGuestUserFactoryParams } from '../../factories/useGuestUserFactory';
 import useCart from '../useCart';
 
-const factoryParams: UseGuestUserFactoryParams<any, any> = {
+const factoryParams: UseGuestUserFactoryParams<any, SetGuestEmailOnCartInput> = {
   provide() {
     return {
       cart: useCart(),
@@ -17,8 +17,10 @@ const factoryParams: UseGuestUserFactoryParams<any, any> = {
       cart_id: context.cart.cart.value.id,
     };
 
-    await context.$magento.api.setGuestEmailOnCart(emailOnCartInput);
+    await context.$magento.api.setGuestEmailOnCart({
+      ...emailOnCartInput,
+    }, params.customQuery || {});
   },
 };
 
-export default useGuestUserFactory<any, any>(factoryParams);
+export default useGuestUserFactory<any, SetGuestEmailOnCartInput & { email:string;password:string }>(factoryParams);

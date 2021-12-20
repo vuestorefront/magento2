@@ -4,14 +4,14 @@ import {
   sharedRef,
   Logger,
   configureFactoryParams,
-  FactoryParams,
+  FactoryParams, ComposableFunctionArgs,
 } from '@vue-storefront/core';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCurrency } from '../types/composables';
 
 export interface UseCurrencyFactoryParams<CURRENCY, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context) => Promise<CURRENCY>;
-  change: (context: Context, params) => void
+  load: (context: Context, params?: ComposableFunctionArgs<{}>) => Promise<CURRENCY>;
+  change: (context: Context, params: ComposableFunctionArgs<{ id: string }>) => void
 }
 
 export function useCurrencyFactory<CURRENCY,
@@ -25,17 +25,17 @@ export function useCurrencyFactory<CURRENCY,
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const load = async () => {
+    const load = async (params?: ComposableFunctionArgs<{}>) => {
       Logger.debug(`useCurrency/${ssrKey}/load`);
       loading.value = true;
       try {
-        currencies.value = await _factoryParams.load();
+        currencies.value = await _factoryParams.load(params);
       } finally {
         loading.value = false;
       }
     };
 
-    const change = async (params) => {
+    const change = async (params: ComposableFunctionArgs<{ id: string }>) => {
       Logger.debug(`useCurrency/${ssrKey}/change`);
       loading.value = true;
       try {

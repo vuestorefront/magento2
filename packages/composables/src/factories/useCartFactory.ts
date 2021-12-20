@@ -1,29 +1,28 @@
 import {
-  CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams,
+  CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
 
 export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context, params: { customQuery?: any; realCart?: boolean; }) => Promise<CART>;
+  load: (context: Context, params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<CART>;
   addItem: (
     context: Context,
-    params: {
+    params: ComposableFunctionArgs<{
       currentCart: CART;
       product: PRODUCT;
       quantity: any;
-      customQuery?: CustomQuery;
-    }
+    }>
   ) => Promise<CART>;
-  removeItem: (context: Context, params: { currentCart: CART; product: CART_ITEM; customQuery?: CustomQuery }) => Promise<CART>;
+  removeItem: (context: Context, params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM; }>) => Promise<CART>;
   updateItemQty: (
     context: Context,
-    params: { currentCart: CART; product: CART_ITEM; quantity: number; customQuery?: CustomQuery }
+    params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM; quantity: number; }>
   ) => Promise<CART>;
   clear: (context: Context, params: { currentCart: CART }) => Promise<CART>;
-  applyCoupon: (context: Context, params: { currentCart: CART; couponCode: string; customQuery?: CustomQuery }) => Promise<{ updatedCart: CART }>;
+  applyCoupon: (context: Context, params: ComposableFunctionArgs<{ currentCart: CART; couponCode: string; }>) => Promise<{ updatedCart: CART }>;
   removeCoupon: (
     context: Context,
-    params: { currentCart: CART; couponCode: string; customQuery?: CustomQuery }
+    params: ComposableFunctionArgs<{ currentCart: CART; couponCode: string; }>
   ) => Promise<{ updatedCart: CART }>;
   isInCart: (context: Context, params: { currentCart: CART; product: PRODUCT }) => boolean;
 }

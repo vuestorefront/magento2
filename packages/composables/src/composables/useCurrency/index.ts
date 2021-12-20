@@ -4,14 +4,14 @@ import { useCurrencyFactory, UseCurrencyFactoryParams } from '../../factories/us
 import { UseCurrency } from '../../types/composables';
 
 const factoryParams: UseCurrencyFactoryParams<Currency, null> = {
-  load: async (context: Context): Promise<Currency> => {
-    const { data } = await context.$magento.api.currency();
+  load: async (context: Context, params): Promise<Currency> => {
+    const { data } = await context.$magento.api.currency(params.customQuery || {});
 
     return data.currency || {};
   },
 
-  change: (context: Context, currency) => {
-    context.$magento.config.state.setCurrency(currency);
+  change: (context: Context, params) => {
+    context.$magento.config.state.setCurrency(params.id);
   },
 };
 

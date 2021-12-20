@@ -4,8 +4,8 @@ import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useCon
 import { UseConfig } from '../../types/composables';
 
 const factoryParams: UseConfigFactoryParams<StoreConfig> = {
-  loadConfig: async (context: Context) => {
-    const { data } = await context.$magento.api.storeConfig();
+  loadConfig: async (context: Context, params) => {
+    const { data } = await context.$magento.api.storeConfig(params.customQuery || {});
 
     return data.storeConfig || {};
   },
@@ -14,8 +14,3 @@ const factoryParams: UseConfigFactoryParams<StoreConfig> = {
 const useConfig: (cacheId?: string) => UseConfig<StoreConfig> = useConfigFactory<StoreConfig>(factoryParams);
 
 export default useConfig;
-
-
-
-
-

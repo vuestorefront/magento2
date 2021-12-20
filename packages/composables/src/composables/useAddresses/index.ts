@@ -39,7 +39,10 @@ RemoveAddressInput> = {
   },
   save: async (context: Context, saveParams) => {
     Logger.debug('[Magento] save user address:', saveParams.address);
-    const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(saveParams));
+    const { data } = await context.$magento.api.createCustomerAddress(
+      transformUserCreateAddressInput(saveParams),
+      saveParams.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 
@@ -48,7 +51,10 @@ RemoveAddressInput> = {
   remove: async (context: Context, params) => {
     Logger.debug('[Magento] remove user addresses');
 
-    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
+    const { data } = await context.$magento.api.deleteCustomerAddress(
+      params.address.id,
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 
@@ -57,7 +63,10 @@ RemoveAddressInput> = {
   update: async (context: Context, params) => {
     Logger.debug('[Magento] update user addresses', params);
 
-    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+    const { data } = await context.$magento.api.updateCustomerAddress(
+      transformUserUpdateAddressInput(params),
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 

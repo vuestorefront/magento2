@@ -9,8 +9,8 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
       cart: useCart(),
     };
   },
-  initializeCheckout: async (context: Context, baseUrl: string) => {
-    Logger.debug('[Magento]: Initialize external checkout', { baseUrl });
+  initializeCheckout: async (context: Context, params) => {
+    Logger.debug('[Magento]: Initialize external checkout', { params });
 
     const { externalCheckout, state } = context.$magento.config;
 
@@ -33,7 +33,7 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
       return Promise.resolve('');
     }
 
-    return Promise.resolve(baseUrl);
+    return Promise.resolve(params.baseUrl);
   },
 };
 

@@ -17,7 +17,10 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   addAddress: async (context: Context, params?) => {
     Logger.debug('[Magento]: add shipping address', { params });
 
-    const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
+    const { data } = await context.$magento.api.createCustomerAddress(
+      transformUserCreateAddressInput(params),
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 
@@ -26,7 +29,10 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   deleteAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] delete shipping address', { params });
-    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
+    const { data } = await context.$magento.api.deleteCustomerAddress(
+      params.address.id,
+      params.customQuery || {},
+    );
 
     return data.deleteCustomerAddress;
   },
@@ -34,7 +40,10 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   updateAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] update shipping address', { params });
 
-    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+    const { data } = await context.$magento.api.updateCustomerAddress(
+      transformUserUpdateAddressInput(params),
+      params.customQuery || {},
+    );
 
     return data.updateCustomerAddress;
   },
@@ -53,7 +62,10 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   setDefaultAddress: async (context: Context, params) => {
     Logger.debug('[Magento] set default shipping address');
 
-    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+    const { data } = await context.$magento.api.updateCustomerAddress(
+      transformUserUpdateAddressInput(params),
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 

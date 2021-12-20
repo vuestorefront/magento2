@@ -1,8 +1,8 @@
 import { Ref, computed } from '@vue/composition-api';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
-  CustomQuery,
   FactoryParams,
   Logger,
   sharedRef,
@@ -11,8 +11,8 @@ import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
 export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context, params: { state: Ref<STATE>, customQuery?: CustomQuery }) => Promise<STATE>;
-  save: (context: Context, params: { state: Ref<STATE>, paymentMethod: PAYMENT_METHOD, customQuery?: CustomQuery }) => Promise<STATE>;
+  load: (context: Context, params?: ComposableFunctionArgs<{ }>) => Promise<STATE>;
+  save: (context: Context, params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>) => Promise<STATE>;
 }
 
 export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends PlatformApi = any>(
@@ -32,12 +32,16 @@ export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends Pla
     Logger.debug('usePaymentProvider.setState', newState);
   };
 
-  const save = async ({ paymentMethod, customQuery = null }) => {
+  const save = async (params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>) => {
     Logger.debug('usePaymentProvider.save');
 
     try {
       loading.value = true;
-      state.value = await _factoryParams.save({ paymentMethod, customQuery, state });
+      state.value = await _factoryParams.save({
+        paymentMethod: params.paymentMethod || {},
+        customQuery: params.customQuery || {},
+        state,
+      });
       error.value.save = null;
     } catch (err) {
       error.value.save = err;
@@ -47,12 +51,15 @@ export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends Pla
     }
   };
 
-  const load = async ({ customQuery = null } = {}) => {
+  const load = async (params?: ComposableFunctionArgs<{}>) => {
     Logger.debug('usePaymentProvider.load');
 
     try {
       loading.value = true;
-      state.value = await _factoryParams.load({ customQuery, state });
+      state.value = await _factoryParams.load({
+        customQuery: params.customQuery || {},
+        state,
+      });
       error.value.load = null;
     } catch (err) {
       error.value.load = err;

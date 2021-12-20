@@ -35,6 +35,8 @@ const factoryParams: UseBillingParams<any, any> = {
 
     const {
       apartment,
+      neighborhood,
+      extra,
       sameAsShipping,
       customerAddressId,
       ...address
@@ -47,7 +49,7 @@ const factoryParams: UseBillingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment],
+          street: [address.street, apartment, neighborhood, extra],
         },
         same_as_shipping: sameAsShipping,
       });
@@ -57,7 +59,10 @@ const factoryParams: UseBillingParams<any, any> = {
       billing_address: billingData,
     };
 
-    const { data } = await context.$magento.api.setBillingAddressOnCart(setBillingAddressOnCartInput);
+    const { data } = await context.$magento.api.setBillingAddressOnCart(
+      setBillingAddressOnCartInput,
+      params.customQuery || {},
+    );
 
     Logger.debug('[Result]:', { data });
 

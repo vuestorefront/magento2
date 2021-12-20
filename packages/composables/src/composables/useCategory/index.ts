@@ -4,14 +4,14 @@ import {
   UseCategoryFactoryParams, Logger,
 } from '@vue-storefront/core';
 import {
-  Category,
+  Category, CategoryListQueryVariables,
 } from '@vue-storefront/magento-api';
 
-const factoryParams: UseCategoryFactoryParams<Category, any> = {
+const factoryParams: UseCategoryFactoryParams<Category, CategoryListQueryVariables> = {
   categorySearch: async (context: Context, params) => {
     Logger.debug('[Magento]: List available categories', { params });
 
-    const { data } = await context.$magento.api.categoryList(params);
+    const { data } = await context.$magento.api.categoryList(params, params.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -19,4 +19,4 @@ const factoryParams: UseCategoryFactoryParams<Category, any> = {
   },
 };
 
-export default useCategoryFactory<Category, any>(factoryParams);
+export default useCategoryFactory<Category, CategoryListQueryVariables>(factoryParams);

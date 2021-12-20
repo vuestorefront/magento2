@@ -1,4 +1,5 @@
 import {
+  ComposableFunctionArgs,
   Context,
   FacetSearchResult, Logger,
   ProductsSearchParams,
@@ -58,7 +59,7 @@ const constructSortObject = (sortData: string) => {
 
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  search: async (context: Context, params: FacetSearchResult<any>) => {
+  search: async (context: Context, params: ComposableFunctionArgs<FacetSearchResult<any>>) => {
     Logger.debug('[Magento] Load product facets', { params });
 
     const itemsPerPage = (params.input.itemsPerPage) ? params.input.itemsPerPage : 20;
@@ -93,7 +94,7 @@ const factoryParams = {
       currentPage: productParams.page,
     };
 
-    const { data } = await context.$magento.api.products(productSearchParams);
+    const { data } = await context.$magento.api.products(productSearchParams, params.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

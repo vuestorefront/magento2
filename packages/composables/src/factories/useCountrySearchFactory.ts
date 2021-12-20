@@ -3,14 +3,14 @@ import {
   Context,
   sharedRef,
   Logger,
-  configureFactoryParams, FactoryParams,
+  configureFactoryParams, FactoryParams, ComposableFunctionArgs,
 } from '@vue-storefront/core';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCountrySearch, UseCountrySearchErrors } from '../types/composables';
 
 export interface UseCountryFactoryParams<COUNTRIES, COUNTRY, API extends PlatformApi = any> extends FactoryParams<API>{
-  load: (context: Context) => Promise<COUNTRIES[]>;
-  search: (context: Context, params: { id: string }) => Promise<COUNTRY>;
+  load: (context: Context, params?: ComposableFunctionArgs<{}>) => Promise<COUNTRIES[]>;
+  search: (context: Context, params: ComposableFunctionArgs<{ id: string }>) => Promise<COUNTRY>;
 }
 
 export function useCountrySearchFactory<COUNTRIES,
@@ -30,13 +30,13 @@ export function useCountrySearchFactory<COUNTRIES,
     const _factoryParams = configureFactoryParams(factoryParams);
 
     // eslint-disable-next-line consistent-return
-    const load = async (): Promise<COUNTRIES[]> => {
+    const load = async (params?: ComposableFunctionArgs<{}>): Promise<COUNTRIES[]> => {
       Logger.debug(`useCountrySearch/${ssrKey}/load`);
 
       try {
         loading.value = true;
 
-        const data = await _factoryParams.load();
+        const data = await _factoryParams.load(params);
 
         countries.value = data;
 
@@ -52,7 +52,7 @@ export function useCountrySearchFactory<COUNTRIES,
     };
 
     // eslint-disable-next-line consistent-return
-    const search = async (params: { id: string }): Promise<COUNTRY> => {
+    const search = async (params: ComposableFunctionArgs<{ id: string }>): Promise<COUNTRY> => {
       Logger.debug(`useCountrySearch/${ssrKey}/search`);
 
       try {
