@@ -18,7 +18,7 @@ export default async (
     {
       setShippingAddressesOnCart: {
         query: setShippingAddressesOnCart,
-        variables: { input },
+        variables: input,
       },
     },
   );

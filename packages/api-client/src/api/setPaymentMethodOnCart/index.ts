@@ -22,7 +22,7 @@ export default async (
     {
       setPaymentMethodOnCart: {
         query: setPaymentMethodOnCart,
-        variables: { input },
+        variables: input,
       },
     },
   );

@@ -18,7 +18,7 @@ export default async (
     {
       addDownloadableProductsToCart: {
         query: addDownloadableProductsToCart,
-        variables: { input },
+        variables: input,
       },
     },
   );
