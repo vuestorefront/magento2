@@ -18,7 +18,7 @@ export default async (
     {
       createCustomerAddress: {
         query: createCustomerAddress,
-        variables: { input },
+        variables: input,
       },
     },
   );

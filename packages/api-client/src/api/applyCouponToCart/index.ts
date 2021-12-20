@@ -19,7 +19,7 @@ export default async (
     {
       applyCouponToCart: {
         query: applyCouponToCart,
-        variables: { input },
+        variables: input,
       },
     },
   );

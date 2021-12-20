@@ -17,7 +17,7 @@ export default async (
     {
       removeProductsFromWishlist: {
         query: removeProductsFromWishlist,
-        variables: { input },
+        variables: input,
       },
     },
   );
