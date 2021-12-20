@@ -1,0 +1,34 @@
+import { render } from '~/test-utils';
+// @ts-ignore
+import AddToWishlist from '../AddToWishlist';
+
+describe('<AddToWishlist>', () => {
+  test('Should not render add to wishlist button because isShow prop equals false by default', () => {
+    const { queryByText } = render(AddToWishlist);
+
+    expect(queryByText('Add to wishlist')).toBeNull();
+  });
+
+  test('Should render add to wishlist button', () => {
+    const { getByText } = render(AddToWishlist, {
+      props: {
+        isShow: true,
+      },
+    });
+
+    const button = getByText('Add to wishlist');
+    expect(button).toBeInTheDocument();
+  });
+
+  test('Should render remove from wishlist button', () => {
+    const { getByText } = render(AddToWishlist, {
+      props: {
+        isShow: true,
+        isInWishlist: true,
+      },
+    });
+
+    const button = getByText('Remove from wishlist');
+    expect(button).toBeInTheDocument();
+  });
+});

@@ -1,4 +1,4 @@
-'use strict'
+/* eslint-disable unicorn/prefer-module */
 module.exports = {
   globals: {
     __DEV__: true,
@@ -21,24 +21,25 @@ module.exports = {
 
   coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
   collectCoverage: true,
-  testEnvironment: 'jest-environment-jsdom-sixteen',
+  testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
-    '^vue$': 'vue/dist/vue.common.js'
+    '^vue$': 'vue/dist/vue.common.js',
   },
   moduleFileExtensions: ['js', 'vue', 'json'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
-    '.*\\.(vue)$': 'vue-jest'
+    '^.+\\.vue$': 'vue-jest',
+    '^.+\\.(css|svg)': 'jest-transform-stub',
   },
 
   coverageDirectory: './coverage/',
 
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue'
+    '<rootDir>/pages/**/*.vue',
   ],
 
   setupFiles: [
@@ -46,9 +47,11 @@ module.exports = {
     'jest-localstorage-mock',
   ],
 
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+
   transformIgnorePatterns: [
-    'node_modules',
-    '<rootDir>/node_modules',
+    'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
+
   ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
