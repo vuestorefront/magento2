@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { render } from '~/test-utils';
 // @ts-ignore
 import AddToWishlist from '../AddToWishlist';
@@ -30,5 +31,19 @@ describe('<AddToWishlist>', () => {
 
     const button = getByText('Remove from wishlist');
     expect(button).toBeInTheDocument();
+  });
+
+  test('Should emit clock event when add to wishlist button is clicked', () => {
+    const { getByText, emitted } = render(AddToWishlist, {
+      props: {
+        isShow: true,
+      },
+    });
+
+    const button = getByText('Add to wishlist');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    userEvent.click(button);
+
+    expect(emitted()).toHaveProperty('addToWishlist');
   });
 });
