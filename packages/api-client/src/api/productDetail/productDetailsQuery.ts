@@ -8,7 +8,6 @@ export default gql`
     $pageSize: Int = 10,
     $currentPage: Int = 1,
     $sort: ProductAttributeSortInput
-    $configurations: [ID!]
   ) {
     products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
       items {

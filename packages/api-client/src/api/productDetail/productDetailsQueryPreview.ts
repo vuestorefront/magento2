@@ -3,8 +3,7 @@ import productDetailsFragment from '../../fragments/productDetailsFragment';
 
 export default gql`
   query productDetailsPreview(
-    $filter: ProductAttributeFilterInput,
-    $configurations: [ID!]
+    $filter: ProductAttributeFilterInput
   ) {
     products(filter: $filter) {
       items {

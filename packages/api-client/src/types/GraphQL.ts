@@ -7576,6 +7576,7 @@ export interface ProductInterfaceFocus {
   required_age_verification?: Maybe<Scalars['Boolean']>;
   free_gift_data?: Array<FreeGiftRule | null | undefined> | null | undefined;
   inventory?: Maybe<FocusProductInventoryItem>;
+  focus_parent_configurable?: Maybe<{ product?: Maybe<ConfigurableProduct> }>;
   [key: string]: any;
 };
 

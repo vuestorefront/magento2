@@ -85,66 +85,90 @@ description {
     }
   }
 }
-... on ConfigurableProduct {
-  configurable_options {
-    attribute_code
-    attribute_uid
-    label
-    position
+focus_parent_configurable {
+  product {
     uid
-    use_default
-    values {
-      label
-      swatch_data {
-        value
-      }
-      uid
-    }
-  }
-  configurable_product_options_selection(configurableOptionValueUids: $configurations) {
-    options_available_for_selection {
-      attribute_code
-      option_value_uids
-    }
-    media_gallery {
-      disabled
-      label
-      position
-      url
-      ... on ProductVideo {
-        video_content {
-          media_type
-          video_provider
-          video_url
-          video_title
-          video_description
-          video_metadata
+    ... on ConfigurableProduct {
+      configurable_options {
+        attribute_code
+        attribute_uid
+        label
+        position
+        uid
+        use_default
+        values {
+          label
+          swatch_data {
+            value
+          }
+          uid
         }
       }
-    }
-    variant {
-      uid
-      sku
-      name
-      price_range {
-        maximum_price {
-          final_price {
-            currency
-            value
-          }
-          regular_price {
-            currency
-            value
-          }
+      variants {
+        attributes {
+          uid
+          label
+          code
+          value_index
         }
-        minimum_price {
-          final_price {
-            currency
-            value
+        product {
+          uid
+          sku
+          name
+          price_range {
+            maximum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+            minimum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
           }
-          regular_price {
-            currency
-            value
+          thumbnail {
+            url
+            position
+            disabled
+            label
+          }
+          media_gallery {
+            url
+            position
+            disabled
+            label
+            ... on ProductVideo {
+              video_content {
+                media_type
+                video_provider
+                video_url
+                video_title
+                video_description
+                video_metadata
+              }
+            }
+          }
+          short_description {
+            html
+          }
+          url_key
+          url_rewrites {
+            url
+            parameters {
+              name
+              value
+            }
           }
         }
       }
