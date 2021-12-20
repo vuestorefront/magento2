@@ -6,8 +6,10 @@ import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  sourceCartId: string,
-  destinationCartId: string,
+  params: {
+    sourceCartId: string;
+    destinationCartId: string;
+  },
   customQuery: CustomQuery = { mergeCarts: 'mergeCarts' },
 ): Promise<FetchResult<MergeCartsMutation>> => {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(
@@ -16,8 +18,8 @@ export default async (
       mergeCarts: {
         query: mergeCarts,
         variables: {
-          sourceCartId,
-          destinationCartId,
+          sourceCartId: params.sourceCartId,
+          destinationCartId: params.destinationCartId,
         },
       },
     },
