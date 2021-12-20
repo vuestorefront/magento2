@@ -22,7 +22,7 @@
             href="/"
             :class="selectedCurrency === currency ? 'container__currency--selected-label' : ''"
             @click.prevent="handleChanges({
-              callback: () => changeCurrency(currency),
+              callback: () => changeCurrency({id: currency}),
               redirect: false,
               refresh: true
             })"

@@ -105,8 +105,8 @@ export default defineComponent({
       onComplete,
       onError,
     }) => formHandler(async () => changePassword({
-      current: form.value.currentPassword,
-      new: form.value.newPassword,
+      currentPassword: form.value.currentPassword,
+      newPassword: form.value.newPassword,
     }), onComplete, onError);
 
     onSSR(async () => {
