@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:16
 
 ARG COMMIT
 ARG NPM_USER
@@ -29,7 +29,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN yarn install --network-concurrency 1 && yarn build && yarn cache clean --all
+RUN yarn install && yarn build && yarn cache clean --all
 
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
