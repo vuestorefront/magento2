@@ -17,6 +17,7 @@
     "precommit": "lint-staged",
     "start": "nuxt start",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:e2e": "cypress open --config-file tests/e2e/cypress.json",
     "test:e2e:generate:report": "yarn -s mochawesome-merge \"tests/e2e/report/*.json\" > \"tests/e2e/report.json\" && yarn -s marge tests/e2e/report.json -o \"tests/e2e/report\"",
@@ -90,6 +91,9 @@
     "vue-jest": "^3.0.7",
     "vue-template-compiler": "^2.6.14",
     "webpack": "4.46.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.11"
   },
   "engines": {
     "node": ">=14.x"

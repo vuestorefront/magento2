@@ -13,4 +13,5 @@ const customRender = (component, options = {}, callback = null) => render(compon
 }, callback);
 
 export * from '@testing-library/vue';
+export * from '~/test-utils/mocks';
 export { customRender as render };

@@ -20,14 +20,14 @@ module.exports = {
   },
 
   coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
-  collectCoverage: true,
+  collectCoverage: false,
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.common.js',
   },
-  moduleFileExtensions: ['js', 'vue', 'json'],
+  moduleFileExtensions: ['js', 'vue', 'json', 'ts'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
@@ -55,6 +55,8 @@ module.exports = {
   ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
+
+  modulePathIgnorePatterns: ['_theme'],
 
   watchPlugins: [
     'jest-watch-typeahead/filename',

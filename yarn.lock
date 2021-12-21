@@ -5815,6 +5815,8 @@ __metadata:
     vue-scrollto: ^2.20.0
     vue-template-compiler: ^2.6.14
     webpack: 4.46.0
+  peerDependencies:
+    vue: ^2.6.11
   languageName: unknown
   linkType: soft
 
