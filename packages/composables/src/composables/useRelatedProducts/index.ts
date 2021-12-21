@@ -1,6 +1,7 @@
 import {
+  ComposableFunctionArgs,
   Context,
-  CustomQuery, Logger,
+  Logger,
   ProductsSearchParams,
 } from '@vue-storefront/core';
 import {
@@ -14,10 +15,10 @@ import {
 } from '../../factories/useRelatedProductsFactory';
 
 const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['products']['items'][0]['related_products'], ProductsSearchParams> = {
-  productsSearch: async (context: Context,
-    params: GetProductSearchParams & {
-      customQuery?: CustomQuery;
-    }) => {
+  productsSearch: async (
+    context: Context,
+    params: ComposableFunctionArgs<GetProductSearchParams>,
+  ) => {
     Logger.debug('[Magento] Load related products based on ', { params });
 
     const {

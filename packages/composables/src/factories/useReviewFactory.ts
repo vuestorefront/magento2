@@ -18,8 +18,8 @@ export interface UseReviewFactoryParams<REVIEW,
   REVIEW_METADATA,
   API extends PlatformApi = any> extends FactoryParams<API> {
   searchReviews: (context: Context, params: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>) => Promise<REVIEW>;
-  addReview: (context: Context, params: REVIEW_ADD_PARAMS & { customQuery?: CustomQuery }) => Promise<REVIEW>;
-  loadReviewMetadata: (context: Context) => Promise<REVIEW_METADATA[]>;
+  addReview: (context: Context, params: ComposableFunctionArgs<REVIEW_ADD_PARAMS>) => Promise<REVIEW>;
+  loadReviewMetadata: (context: Context, params?: ComposableFunctionArgs<{}>) => Promise<REVIEW_METADATA[]>;
   loadCustomerReviews: (context: Context, params: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>) => Promise<REVIEW>;
 }
 
@@ -55,7 +55,7 @@ export function useReviewFactory<
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const search = async (searchParams?: REVIEWS_SEARCH_PARAMS): Promise<void> => {
+    const search = async (searchParams?: ComposableFunctionArgs<REVIEWS_SEARCH_PARAMS>): Promise<void> => {
       Logger.debug(`useReview/${id}/search`, searchParams);
 
       try {
@@ -70,7 +70,7 @@ export function useReviewFactory<
       }
     };
 
-    const loadCustomerReviews = async (searchParams?: REVIEWS_USER_SEARCH_PARAMS): Promise<void> => {
+    const loadCustomerReviews = async (searchParams?: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void> => {
       Logger.debug(`useReview/${id}/loadCustomerReviews`, searchParams);
 
       try {
@@ -85,12 +85,12 @@ export function useReviewFactory<
       }
     };
 
-    const loadReviewMetadata = async (): Promise<void> => {
+    const loadReviewMetadata = async (params?: ComposableFunctionArgs<{}>): Promise<void> => {
       Logger.debug(`useReview/${id}/loadReviewMetadata`);
 
       try {
         loading.value = true;
-        metadatas.value = await _factoryParams.loadReviewMetadata();
+        metadatas.value = await _factoryParams.loadReviewMetadata(params);
         error.value.loadReviewMetadata = null;
       } catch (err) {
         error.value.loadReviewMetadata = err;
@@ -100,7 +100,7 @@ export function useReviewFactory<
       }
     };
 
-    const addReview = async (params): Promise<void> => {
+    const addReview = async (params: ComposableFunctionArgs<REVIEW_ADD_PARAMS>): Promise<void> => {
       Logger.debug(`useReview/${id}/addReview`, params);
 
       try {

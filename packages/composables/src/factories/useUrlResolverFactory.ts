@@ -6,11 +6,11 @@ import {
   sharedRef,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseUrlResolver } from '../types/composables';
 
 export interface UseUrlResolverFactoryParams<ROUTER, API extends PlatformApi = any> extends FactoryParams<API> {
-  search: (context: Context, url: string) => Promise<ROUTER>;
+  search: (context: Context, params: ComposableFunctionArgs<{ url: string }>) => Promise<ROUTER>;
 }
 
 export const useUrlResolverFactory = <ROUTER, API extends PlatformApi = any>(
@@ -26,12 +26,12 @@ export const useUrlResolverFactory = <ROUTER, API extends PlatformApi = any>(
   const _factoryParams = configureFactoryParams(factoryParams);
 
   // eslint-disable-next-line consistent-return
-  const search = async (url: string) => {
+  const search = async (params: ComposableFunctionArgs<{ url: string }>) => {
     Logger.debug(`useRouter/${ssrKey}/search`);
     loading.value = true;
 
     try {
-      const data = await _factoryParams.search(url);
+      const data = await _factoryParams.search(params);
 
       result.value = data;
 

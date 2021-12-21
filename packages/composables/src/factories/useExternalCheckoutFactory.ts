@@ -1,4 +1,5 @@
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   FactoryParams,
@@ -10,7 +11,7 @@ import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseExternalCheckout } from '../types/composables';
 
 export interface UseExternalCheckoutFactoryParams<API extends PlatformApi = any> extends FactoryParams<API> {
-  initializeCheckout: (context: Context, baseUrl: string) => Promise<string>;
+  initializeCheckout: (context: Context, params: ComposableFunctionArgs<{ baseUrl: string }>) => Promise<string>;
 }
 
 export const useExternalCheckoutFactory = <API extends PlatformApi = any>(
@@ -25,12 +26,12 @@ export const useExternalCheckoutFactory = <API extends PlatformApi = any>(
     const _factoryParams = configureFactoryParams(factoryParams);
 
     // eslint-disable-next-line @typescript-eslint/require-await,consistent-return
-    const initializeCheckout = async (baseUrl: string): Promise<string> => {
+    const initializeCheckout = async (params: ComposableFunctionArgs<{ baseUrl: string }>): Promise<string> => {
       Logger.debug(`useExternalCheckout/${ssrKey}/initializeCheckout`);
       loading.value = true;
 
       try {
-        return _factoryParams.initializeCheckout(baseUrl);
+        return _factoryParams.initializeCheckout(params);
       } catch (err) {
         error.value.search = err;
 

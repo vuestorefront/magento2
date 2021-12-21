@@ -18,7 +18,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
   addAddress: async (context: Context, params?) => {
     Logger.debug('[Magento]: add billing address', { params });
 
-    const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
+    const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params), params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -28,7 +28,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
   deleteAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] delete billing address', { params });
 
-    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
+    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -38,7 +38,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
   updateAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] update billing address', { params });
 
-    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params), params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -59,7 +59,7 @@ const factoryParams: UseUserBillingFactoryParams<any, any> = {
   setDefaultAddress: async (context: Context, params?) => {
     Logger.debug('[Magento] setDefaultAddress');
 
-    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params), params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

@@ -9,8 +9,10 @@ import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  email: string,
-  password: string,
+  params: {
+    email: string;
+    password: string;
+  },
   customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
@@ -20,8 +22,8 @@ export default async (
         generateCustomerToken: {
           query: generateCustomerToken,
           variables: {
-            email,
-            password,
+            email: params.email,
+            password: params.password,
           },
         },
       },

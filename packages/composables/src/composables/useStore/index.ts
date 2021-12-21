@@ -11,8 +11,8 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
       cart: useCart(),
     };
   },
-  load: async (context: Context): Promise<AvailableStores> => {
-    const { data } = await context.$magento.api.availableStores();
+  load: async (context: Context, params): Promise<AvailableStores> => {
+    const { data } = await context.$magento.api.availableStores(params?.customQuery || {});
 
     return data.availableStores || [];
   },
@@ -27,6 +27,6 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
   },
 };
 
-const useStore: () => UseStore<AvailableStores, StoreConfig> = useStoreFactory<AvailableStores>(factoryParams);
+const useStore: () => UseStore<AvailableStores, StoreConfig> = useStoreFactory<AvailableStores, StoreConfig>(factoryParams);
 
 export default useStore;

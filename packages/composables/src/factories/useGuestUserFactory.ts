@@ -4,7 +4,7 @@ import {
   configureFactoryParams,
   FactoryParams,
   Logger,
-  sharedRef,
+  sharedRef, ComposableFunctionArgs,
 } from '@vue-storefront/core';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseGuestUser, UseGuestUserErrors } from '../types/composables';
@@ -12,14 +12,14 @@ import { UseGuestUser, UseGuestUserErrors } from '../types/composables';
 export interface UseGuestUserFactoryParams<GUEST_USER,
   REGISTER_GUEST_USER_PARAMS,
   API extends PlatformApi = any> extends FactoryParams<API> {
-  attachToCart: (context: Context, params: REGISTER_GUEST_USER_PARAMS) => Promise<GUEST_USER>;
+  attachToCart: (context: Context, params: ComposableFunctionArgs<REGISTER_GUEST_USER_PARAMS>) => Promise<GUEST_USER>;
 }
 
 export const useGuestUserFactory = <GUEST_USER,
   REGISTER_GUEST_USER_PARAMS extends { email: string; password: string },
   API extends PlatformApi = any>(
   factoryParams: UseGuestUserFactoryParams<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API>,
-) => function useGuestUser(): UseGuestUser<GUEST_USER, API> {
+) => function useGuestUser(): UseGuestUser<GUEST_USER, REGISTER_GUEST_USER_PARAMS, API> {
   const errorsFactory = (): UseGuestUserErrors => ({
     attachToCart: null,
   });
@@ -39,13 +39,13 @@ export const useGuestUserFactory = <GUEST_USER,
     error.value = errorsFactory();
   };
 
-  const attachToCart = async ({ user: providedUser }) => {
-    Logger.debug('useGuestUserFactory.attachToCart', providedUser);
+  const attachToCart = async (params: ComposableFunctionArgs<REGISTER_GUEST_USER_PARAMS>) => {
+    Logger.debug('useGuestUserFactory.attachToCart', { params });
     resetErrorValue();
 
     try {
       loading.value = true;
-      guestUser.value = await _factoryParams.attachToCart(providedUser);
+      guestUser.value = await _factoryParams.attachToCart(params);
       error.value.attachToCart = null;
     } catch (err) {
       error.value.attachToCart = err;

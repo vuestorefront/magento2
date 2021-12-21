@@ -9,8 +9,7 @@ import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  currentPassword: string,
-  newPassword: string,
+  params: { currentPassword: string; newPassword: string; },
   customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
   try {
@@ -20,8 +19,8 @@ export default async (
         changeCustomerPassword: {
           query: changeCustomerPassword,
           variables: {
-            currentPassword,
-            newPassword,
+            currentPassword: params.currentPassword,
+            newPassword: params.newPassword,
           },
         },
       },

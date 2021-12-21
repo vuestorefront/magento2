@@ -277,9 +277,7 @@ export default defineComponent({
           itemsPerPage: 12,
           term: term.value,
         }),
-        categoriesSearch({
-          term: term.value,
-        }),
+        categoriesSearch({ filters: { name: { match: `${term.value}` } } }),
       ]);
 
       result.value = {

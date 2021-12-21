@@ -1,6 +1,7 @@
 import {
+  ComposableFunctionArgs,
   Context,
-  CustomQuery, Logger,
+  Logger,
   ProductsSearchParams,
   UseProduct,
   useProductFactory,
@@ -11,18 +12,20 @@ import { Scalars } from '@vue-storefront/magento-api/lib/types/GraphQL';
 
 const factoryParams: UseProductFactoryParams<ProductsListQuery['products'],
 ProductsSearchParams> = {
-  productsSearch: async (context: Context, params: GetProductSearchParams & {
+  productsSearch: async (context: Context, params: ComposableFunctionArgs<GetProductSearchParams & {
     queryType: ProductsQueryType;
-    customQuery?: CustomQuery;
     configurations?: Scalars['ID']
-  }) => {
+  }>) => {
     Logger.debug('[Magento]: Load product based on ', { params });
 
     const {
       queryType,
       customQuery,
       ...searchParams
-    } = params;
+    } = {
+      ...params,
+      customQuery: params?.customQuery || {},
+    };
 
     switch (queryType) {
       case ProductsQueryType.Detail:

@@ -1,15 +1,15 @@
 import {
   Context, Logger,
 } from '@vue-storefront/core';
-import { Category } from '@vue-storefront/magento-api';
+import { Category, CategorySearchQueryVariables } from '@vue-storefront/magento-api';
 import { UseCategorySearchFactory, useCategorySearchFactory } from '../../factories/useCategorySearchFactory';
 import { UseCategorySearch } from '../../types/composables';
 
-const factoryParams: UseCategorySearchFactory<Category> = {
+const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVariables> = {
   search: async (context: Context, params): Promise<Category[]> => {
     Logger.debug('[Magento]: Search for category using', { params });
-
-    const { data } = await context.$magento.api.categorySearch({ filters: { name: { match: `${params.term}` } } });
+    const { filters, customQuery } = params;
+    const { data } = await context.$magento.api.categorySearch({ filters }, customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -17,6 +17,6 @@ const factoryParams: UseCategorySearchFactory<Category> = {
   },
 };
 
-const useCategorySearch: (cacheId?: string) => UseCategorySearch<Category> = useCategorySearchFactory<Category>(factoryParams);
+const useCategorySearch: (cacheId?: string) => UseCategorySearch<Category, CategorySearchQueryVariables> = useCategorySearchFactory<Category, CategorySearchQueryVariables>(factoryParams);
 
 export default useCategorySearch;

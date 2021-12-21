@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* eslint-disable no-param-reassign */
 import {
+  ComposableFunctionArgs,
   Context,
   Logger,
 } from '@vue-storefront/core';
@@ -21,10 +22,9 @@ import {
 } from '../../factories/useCartFactory';
 
 const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
-  load: async (context: Context, params: {
-    customQuery?: any;
+  load: async (context: Context, params: ComposableFunctionArgs<{
     realCart?: boolean;
-  }) => {
+  }>) => {
     const apiState = context.$magento.config.state;
     Logger.debug('[Magento Storefront]: Loading Cart');
 
@@ -38,7 +38,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
       apiState.setCartId();
 
-      const { data } = await context.$magento.api.createEmptyCart();
+      const { data } = await context.$magento.api.createEmptyCart(params?.customQuery || {});
       Logger.debug('[Result]:', { data });
 
       apiState.setCartId(data.createEmptyCart);
@@ -49,7 +49,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     const getCartData = async (id: string) => {
       Logger.debug('[Magento Storefront]: useCart.load.getCartData ID->', id);
 
-      const { data, errors } = await context.$magento.api.cart(id);
+      const { data, errors } = await context.$magento.api.cart(id, params?.customQuery || {});
       Logger.debug('[Result]:', { data });
 
       if (!data?.cart && errors?.length) {
@@ -75,7 +75,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     // Try to load cart for existing customer, clean customer token if not possible
     if (customerToken) {
       try {
-        const { data, errors } = await context.$magento.api.customerCart();
+        const { data, errors } = await context.$magento.api.customerCart(params?.customQuery || {});
         Logger.debug('[Result]:', { data, errors });
 
         if (!data?.customerCart && errors?.length) {

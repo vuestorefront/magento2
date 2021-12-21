@@ -10,34 +10,31 @@ import {
   Logger,
   sharedRef,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseWishlist, UseWishlistErrors } from '../types/composables';
 
 export interface UseWishlistFactoryParams<WISHLIST,
   WISHLIST_ITEM,
   PRODUCT,
   API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context, params: {
+  load: (context: Context, params: ComposableFunctionArgs<{
     searchParams?: Partial<{
       currentPage: number;
       pageSize: number;
     }>,
-    customQuery?: CustomQuery,
-  }) => Promise<WISHLIST>;
+  }>) => Promise<WISHLIST>;
   addItem: (
     context: Context,
-    params: {
+    params: ComposableFunctionArgs<{
       currentWishlist: WISHLIST;
       product: PRODUCT;
-      customQuery?: CustomQuery;
-    }) => Promise<WISHLIST>;
+    }>) => Promise<WISHLIST>;
   removeItem: (
     context: Context,
-    params: {
+    params: ComposableFunctionArgs<{
       currentWishlist: WISHLIST;
       product: WISHLIST_ITEM;
-      customQuery?: CustomQuery;
-    }) => Promise<WISHLIST>;
+    }>) => Promise<WISHLIST>;
   clear: (context: Context, params: { currentWishlist: WISHLIST }) => Promise<WISHLIST>;
   isInWishlist: (context: Context, params: { currentWishlist: WISHLIST; product: PRODUCT }) => boolean;
 }
@@ -71,10 +68,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
       Logger.debug(`useWishlistFactory/${ssrKey}/setWishlist`, newWishlist);
     };
 
-    const addItem = async ({
-                             product,
-                             customQuery,
-                           }) => {
+    const addItem = async ({ product, customQuery }) => {
       Logger.debug(`useWishlist/${ssrKey}/addItem`, product);
 
       try {
@@ -94,10 +88,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
       }
     };
 
-    const removeItem = async ({
-                                product,
-                                customQuery,
-                              }) => {
+    const removeItem = async ({ product, customQuery }) => {
       Logger.debug(`useWishlist/${ssrKey}/removeItem`, product);
 
       try {
