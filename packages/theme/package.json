@@ -59,11 +59,12 @@
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/user-event": "^13.5.0",
     "@testing-library/vue": "^5.8.2",
-    "@vue/compiler-sfc": "^3.2.23",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^9.0.0",
     "@vue/test-utils": "^1.3.0",
-    "add": "^2.0.6",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^27.4.5",
+    "chai": "^4.3.4",
     "cypress": "^9.1.1",
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
@@ -79,6 +80,7 @@
     "jest-watch-typeahead": "^1.0.0",
     "lint-staged": "^12.1.2",
     "majestic": "^1.8.1",
+    "mocha": "^9.1.3",
     "mochawesome": "^7.0.1",
     "mochawesome-merge": "^4.2.1",
     "mochawesome-report-generator": "^6.0.1",
@@ -86,16 +88,16 @@
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.1.2",
     "ts-loader": "^8.1.0",
+    "ts-node": "^10.4.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4",
     "vue-jest": "^3.0.7",
-    "vue-template-compiler": "^2.6.14",
     "webpack": "4.46.0"
   },
   "peerDependencies": {
     "vue": "^2.6.11"
   },
   "engines": {
-    "node": ">=14.x"
+    "node": ">=16.x"
   }
 }

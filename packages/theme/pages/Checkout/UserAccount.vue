@@ -186,7 +186,6 @@ export default defineComponent({
       error: errorGuestUser,
     } = useGuestUser();
 
-    console.log(useGuestUser());
     const {
       load,
       loading: loadingUser,
@@ -196,7 +195,6 @@ export default defineComponent({
       isAuthenticated,
       error: errorUser,
     } = useUser();
-    console.log(useUser());
 
     const { send: sendNotification } = useUiNotification();
 
@@ -234,7 +232,6 @@ export default defineComponent({
         });
       }
 
-      console.log('error', hasError.value);
       if (!hasError.value) {
         await router.push('/checkout/shipping');
         reset();
