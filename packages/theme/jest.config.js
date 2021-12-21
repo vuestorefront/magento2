@@ -56,7 +56,7 @@ module.exports = {
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
 
-  modulePathIgnorePatterns: ['_theme'],
+  modulePathIgnorePatterns: ['_theme', 'tests/e2e'],
 
   watchPlugins: [
     'jest-watch-typeahead/filename',
