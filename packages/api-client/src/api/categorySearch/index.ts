@@ -14,7 +14,7 @@ export default async (
     {
       categorySearch: {
         query: categorySearch,
-        variables: { filters },
+        variables: { ...filters },
       },
     },
   );
