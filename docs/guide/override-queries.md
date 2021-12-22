@@ -13,12 +13,12 @@ module.exports = {
   integrations: {
     magento: {
       customQueries: {
-        /********************** 
+        /**********************
         ** HERE : use the default query key to override it.
         ***********************/
         'products': ({ query, variables, metadata }) => {
           query = gql`
-            ... 
+            ...
           `;
           return { query, variables }
         }
