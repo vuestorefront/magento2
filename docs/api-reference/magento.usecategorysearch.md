@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-useCategorySearch: (cacheId?: string) => UseCategorySearch<Category>
+useCategorySearch: (cacheId?: string) => UseCategorySearch<Category, CategorySearchQueryVariables>
 ```

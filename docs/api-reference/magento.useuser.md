@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseUser<any, any, any>
+_default: () => import("@vue-storefront/core").UseUser<any, import("@vue-storefront/magento-api/lib/types/GraphQL").Exact<{
+    email: string;
+    password: string;
+}>, any>
 ```

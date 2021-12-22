@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseUserOrder<any, any, any>
+_default: () => import("@vue-storefront/core").UseUserOrder<any, GetOrdersSearchParams, any>
 ```

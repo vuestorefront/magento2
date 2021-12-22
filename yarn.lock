@@ -5732,7 +5732,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vue-storefront/magento-api@1.0.0-rc.5.1, @vue-storefront/magento-api@workspace:packages/api-client":
+"@vue-storefront/magento-api@1.0.0-rc.5.2, @vue-storefront/magento-api@workspace:packages/api-client":
   version: 0.0.0-use.local
   resolution: "@vue-storefront/magento-api@workspace:packages/api-client"
   dependencies:
@@ -5772,7 +5772,7 @@ __metadata:
     "@testing-library/user-event": ^13.5.0
     "@testing-library/vue": ^5.8.2
     "@vue-storefront/core": ~2.5.3
-    "@vue-storefront/magento": 1.0.0-rc.5.1
+    "@vue-storefront/magento": 1.0.0-rc.5.2
     "@vue-storefront/middleware": ~2.5.3
     "@vue-storefront/nuxt": ~2.5.3
     "@vue-storefront/nuxt-theme": ~2.5.3
@@ -5826,13 +5826,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vue-storefront/magento@1.0.0-rc.5.1, @vue-storefront/magento@workspace:packages/composables":
+"@vue-storefront/magento@1.0.0-rc.5.2, @vue-storefront/magento@workspace:packages/composables":
   version: 0.0.0-use.local
   resolution: "@vue-storefront/magento@workspace:packages/composables"
   dependencies:
     "@types/js-cookie": ^3.0.1
     "@vue-storefront/core": ~2.5.3
-    "@vue-storefront/magento-api": 1.0.0-rc.5.1
+    "@vue-storefront/magento-api": 1.0.0-rc.5.2
     "@vue/composition-api": ^1.4.1
     "@vue/test-utils": ^1.3.0
     cookie-universal: ^2.1.5
