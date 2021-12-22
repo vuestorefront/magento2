@@ -18,10 +18,7 @@ export default async (
       {
         changeCustomerPassword: {
           query: changeCustomerPassword,
-          variables: {
-            currentPassword: params.currentPassword,
-            newPassword: params.newPassword,
-          },
+          variables: { ...params },
         },
       },
     );

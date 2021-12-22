@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { GetCustomerAddressesQuery } from '../../types/GraphQL';

@@ -18,7 +18,7 @@ export default async (
     {
       updateCustomer: {
         query: updateCustomer,
-        variables: input,
+        variables: { input },
       },
     },
   );

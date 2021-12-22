@@ -1,5 +1,4 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
 import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
@@ -15,16 +14,12 @@ export default async (
   },
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
-  const defaultVariables = params ? {
-    cart_id: params.cartId,
-  } : {};
-
   const { shippingMethods } = context.extendQuery(
     customQuery,
     {
       shippingMethods: {
         query: GuestAvailableShippingMethods,
-        variables: defaultVariables,
+        variables: { ...params },
       },
     },
   );

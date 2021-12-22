@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (ssrKey?: string) => import("../../types/composables").UseCustomMutation<unknown, any, import("@apollo/client").FetchResult<unknown, Record<string, any>, Record<string, any>>, any>
+_default: (ssrKey?: string) => import("../../types/composables").UseCustomMutation<unknown, any, import("@apollo/client/core").FetchResult<unknown, Record<string, any>, Record<string, any>>, any>
 ```

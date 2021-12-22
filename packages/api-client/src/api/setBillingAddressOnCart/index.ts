@@ -18,7 +18,7 @@ export default async (
     {
       setBillingAddressOnCart: {
         query: setBillingAddressOnCart,
-        variables: input,
+        variables: { input },
       },
     },
   );

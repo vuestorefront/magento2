@@ -16,7 +16,7 @@ export default async (
     {
       setGuestEmailOnCart: {
         query: setGuestEmailOnCart,
-        variables: input,
+        variables: { input },
       },
     },
   );

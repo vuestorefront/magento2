@@ -16,7 +16,7 @@ export default async (
   const { resetPassword } = context.extendQuery(customQuery, {
     resetPassword: {
       query: resetPasswordMutation,
-      variables: input,
+      variables: { ...input },
     },
   });
 
