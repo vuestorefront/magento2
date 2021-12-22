@@ -6,7 +6,7 @@ import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  params: CategorySearchQueryVariables,
+  filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
 ): Promise<ApolloQueryResult<CategorySearchQuery>> => {
   const { categorySearch: categorySearchGQL } = context.extendQuery(
@@ -14,7 +14,7 @@ export default async (
     {
       categorySearch: {
         query: categorySearch,
-        variables: { ...params },
+        variables: { filters },
       },
     },
   );
