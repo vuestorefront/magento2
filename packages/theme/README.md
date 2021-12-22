@@ -14,7 +14,7 @@ This theme developed by superheroes from [Caravel](https://github.com/caravelx) 
 
 ### Requirements:
 
-- NodeJS v14 or later
+- NodeJS v16 or later
 - Yarn
 - Magento >= v2.4.3 instance for GraphQL endpoint
 - Change Magento GraphQL Query Complexity and Depth values

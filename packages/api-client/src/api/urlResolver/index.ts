@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { UrlResolverQuery, UrlResolverQueryVariables } from '../../types/GraphQL';
 import urlResolver from './urlResolver';
@@ -21,6 +21,6 @@ export default async (
 
   return context.client.query<UrlResolverQuery, UrlResolverQueryVariables>({
     query: urlResolverGQL.query,
-    variables: { url },
+    variables: urlResolverGQL.variables,
   });
 };

@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (ssrKey?: string) => import("../../types/composables").UseCustomQuery<unknown, any, import("apollo-client").ApolloQueryResult<unknown>, any>
+_default: (ssrKey?: string) => import("../../types/composables").UseCustomQuery<unknown, any, import("@apollo/client/core").ApolloQueryResult<unknown>, any>
 ```

@@ -1,6 +1,5 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import gql from 'graphql-tag';
 import {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
@@ -50,7 +49,7 @@ export default async (
 
   try {
     return await context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
-      query: gql`${productReviewGQL.query}`,
+      query: productReviewGQL.query,
       variables: productReviewGQL.variables,
     });
   } catch (error) {

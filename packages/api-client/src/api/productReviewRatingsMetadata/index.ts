@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { ProductReviewRatingsMetadataQuery } from '../../types/GraphQL';
 import productReviewRatingsMetadata from './productReviewRatingsMetadata';

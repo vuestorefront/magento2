@@ -5,21 +5,21 @@ import {
   UseShippingProviderParams,
 } from '@vue-storefront/core';
 import {
-  SetShippingMethodsOnCartInput,
+  SetShippingMethodsOnCartInput, ShippingMethodInput,
 } from '@vue-storefront/magento-api';
 import useCart from '../useCart';
 
-const factoryParams: UseShippingProviderParams<any, any> = {
+const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
   provide() {
     return {
       cart: useCart(),
     };
   },
-  load: async (context: Context, { customQuery }) => {
-    Logger.debug('[Magento] loadShippingProvider', { customQuery });
+  load: async (context: Context, params) => {
+    Logger.debug('[Magento] loadShippingProvider', { params });
 
     if (!context.cart.cart?.value?.shipping_addresses[0]?.selected_shipping_method) {
-      await context.cart.load({ customQuery });
+      await context.cart.load({ customQuery: params?.customQuery || {} });
     }
 
     return context
@@ -28,17 +28,17 @@ const factoryParams: UseShippingProviderParams<any, any> = {
       .value?.shipping_addresses[0]?.selected_shipping_method;
   },
 
-  save: async (context: Context, { shippingMethod }) => {
-    Logger.debug('[Magento] saveShippingProvider', { shippingMethod });
+  save: async (context: Context, params) => {
+    Logger.debug('[Magento] saveShippingProvider', { params });
 
     const shippingMethodParams: SetShippingMethodsOnCartInput = {
       cart_id: context.cart.cart.value.id,
       shipping_methods: [{
-        ...shippingMethod,
+        ...params.shippingMethod,
       }],
     };
 
-    const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
+    const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
@@ -53,4 +53,4 @@ const factoryParams: UseShippingProviderParams<any, any> = {
   },
 };
 
-export default useShippingProviderFactory<any, any>(factoryParams);
+export default useShippingProviderFactory<any, ShippingMethodInput>(factoryParams);

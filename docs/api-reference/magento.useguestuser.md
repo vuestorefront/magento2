@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("../../types/composables").UseGuestUser<any, any>
+_default: () => import("../../types/composables").UseGuestUser<any, SetGuestEmailOnCartInput & {
+    email: string;
+    password: string;
+}, any>
 ```

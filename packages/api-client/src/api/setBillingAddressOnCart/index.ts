@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import setBillingAddressOnCart from './setBillingAddressOnCart';
 import {
@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<SetBillingAddressOnCartMutation, SetBillingAddressOnCartMutationVariables>({
     mutation: setBillingAddressOnCartGQL.query,
-    variables: { input },
+    variables: setBillingAddressOnCartGQL.variables,
   });
 };

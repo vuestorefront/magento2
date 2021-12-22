@@ -10,6 +10,6 @@
 _default: <MUTATION = any, MUTATION_VARIABLES = any>({ client }: Context, { mutation, mutationVariables, fetchPolicy, }: {
     mutation: MUTATION;
     mutationVariables: MUTATION_VARIABLES;
-    fetchPolicy?: FetchPolicy;
+    fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>;
 }) => Promise<FetchResult<MUTATION, Record<string, any>, Record<string, any>>>
 ```

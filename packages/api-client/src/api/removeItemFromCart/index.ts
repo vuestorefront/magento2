@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import removeItemFromCart from './removeItemFromCart';
 import {
@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>({
     mutation: removeItemFromCartGQL.query,
-    variables: { input },
+    variables: removeItemFromCartGQL.variables,
   });
 };

@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 import placeOrderQuery from './placeOrder';
@@ -17,14 +17,14 @@ export default async (
   const { placeOrder } = context.extendQuery(customQuery, {
     placeOrder: {
       query: placeOrderQuery,
-      variables: input,
+      variables: { input },
     },
   });
 
   try {
     return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
-      mutation: gql`${placeOrder.query}`,
-      variables: { input },
+      mutation: placeOrder.query,
+      variables: placeOrder.variables,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

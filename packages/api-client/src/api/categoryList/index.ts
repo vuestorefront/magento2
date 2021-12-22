@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CategoryListQuery, CategoryListQueryVariables } from '../../types/GraphQL';
 import categoryList from './categoryList';
@@ -20,6 +20,6 @@ export default async (
   );
   return context.client.query<CategoryListQuery, CategoryListQueryVariables>({
     query: categoryListGQL.query,
-    variables: { ...params },
+    variables: categoryListGQL.variables,
   });
 };

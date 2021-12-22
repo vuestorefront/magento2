@@ -1,5 +1,6 @@
 import { Ref, computed } from '@vue/composition-api';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   FactoryParams,
@@ -10,7 +11,7 @@ import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseNewsletter, UseNewsletterErrors } from '../types/composables';
 
 export interface UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {
-  updateSubscription: (context: Context, params: { email: UPDATE_NEWSLETTER_PARAMS }) => Promise<NEWSLETTER>;
+  updateSubscription: (context: Context, params: ComposableFunctionArgs<{ email: UPDATE_NEWSLETTER_PARAMS }>) => Promise<NEWSLETTER>;
 }
 
 export const useNewsletterFactory = <NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any>(
@@ -29,7 +30,7 @@ export const useNewsletterFactory = <NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API e
     error.value = errorsFactory();
   };
 
-  const updateSubscription = async (params) => {
+  const updateSubscription = async (params: ComposableFunctionArgs<{ email: UPDATE_NEWSLETTER_PARAMS }>) => {
     Logger.debug('useNewsletterFactory.updateSubscription', params);
     resetErrorValue();
 

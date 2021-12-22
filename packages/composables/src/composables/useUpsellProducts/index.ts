@@ -1,6 +1,7 @@
 import {
+  ComposableFunctionArgs,
   Context,
-  CustomQuery, Logger,
+  Logger,
   ProductsSearchParams,
 } from '@vue-storefront/core';
 import {
@@ -14,16 +15,19 @@ import {
 import { UseUpsellProducts } from '../../types/composables';
 
 const factoryParams: UseUpsellProductsFactoryParams<UpsellProductsQuery['products']['items'][0]['upsell_products'], ProductsSearchParams> = {
-  productsSearch: async (context: Context,
-    params: GetProductSearchParams & {
-      customQuery?: CustomQuery;
-    }) => {
+  productsSearch: async (
+    context: Context,
+    params: ComposableFunctionArgs<GetProductSearchParams>,
+  ) => {
     Logger.debug('[Magento] Find upsell products based on ', { params });
 
     const {
       customQuery,
       ...searchParams
-    } = params;
+    } = {
+      ...params,
+      customQuery: params?.customQuery || {},
+    };
 
     const { data } = await context
       .$magento

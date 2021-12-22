@@ -292,7 +292,7 @@ export default defineComponent({
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout('/checkout/user-account');
+      const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
       await router.push(redirectUrl);
     };
 

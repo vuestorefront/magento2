@@ -1,14 +1,13 @@
 import { computed, Ref } from '@vue/composition-api';
 import {
   configureFactoryParams,
-  CustomQuery,
   FactoryParams,
   Logger,
   Context,
   ProductsSearchParams,
   sharedRef, UseProductFactoryParams,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
+import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseUpsellProducts, UseUpsellProductsErrors } from '../types/composables';
 
 export interface UseUpsellProductsFactoryParams<
@@ -16,7 +15,7 @@ export interface UseUpsellProductsFactoryParams<
   UPSELL_PRODUCTS_SEARCH_PARAMS extends ProductsSearchParams,
   API extends PlatformApi = any,
 > extends FactoryParams<API> {
-  productsSearch: (context: Context, params: UPSELL_PRODUCTS_SEARCH_PARAMS & { customQuery?: CustomQuery }) => Promise<PRODUCTS>;
+  productsSearch: (context: Context, params: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>) => Promise<PRODUCTS>;
 }
 
 export function useUpsellProductsFactory<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any>(
@@ -37,7 +36,7 @@ export function useUpsellProductsFactory<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS
       },
     );
 
-    const search = async (searchParams) => {
+    const search = async (searchParams: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>) => {
       Logger.debug(`useUpsellProducts/${id}/search`, searchParams);
 
       try {

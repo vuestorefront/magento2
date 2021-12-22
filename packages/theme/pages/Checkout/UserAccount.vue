@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{ handleSubmit, reset }">
+  <ValidationObserver v-slot="{ handleSubmit, reset, validate }">
     <SfHeading
       v-e2e="'user-account-heading'"
       :level="3"
@@ -7,7 +7,8 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <form
-      @submit.prevent="handleSubmit(handleFormSubmit(reset))"
+      novalidate
+      @submit.prevent="validate().then(handleSubmit(handleFormSubmit(reset)))"
     >
       <div class="form">
         <ValidationProvider
@@ -145,6 +146,7 @@ import {
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
+import { useUiNotification } from '~/composables';
 
 extend('required', {
   ...required,
@@ -161,6 +163,7 @@ extend('email', {
 
 extend('password', {
   message: invalidPasswordMsg,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -176,11 +179,13 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+
     const {
       attachToCart,
       loading: loadingGuestUser,
       error: errorGuestUser,
     } = useGuestUser();
+
     const {
       load,
       loading: loadingUser,
@@ -191,13 +196,15 @@ export default defineComponent({
       error: errorUser,
     } = useUser();
 
+    const { send: sendNotification } = useUiNotification();
+
     const isFormSubmitted = ref(false);
     const createUserAccount = ref(false);
     const loginUserAccount = ref(false);
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !(loading.value));
-    const hasError = computed(() => !(errorUser.value.register || errorGuestUser.value.attachToCart));
+    const hasError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
 
     const form = ref({
       firstname: '',
@@ -225,10 +232,19 @@ export default defineComponent({
         });
       }
 
-      if (hasError.value) {
+      if (!hasError.value) {
         await router.push('/checkout/shipping');
         reset();
         isFormSubmitted.value = true;
+      } else {
+        sendNotification({
+          id: Symbol('user_form_error'),
+          message: 'Something went wrong during form submission. Please try again later',
+          type: 'error',
+          icon: 'error',
+          persist: false,
+          title: 'Error',
+        });
       }
     };
 

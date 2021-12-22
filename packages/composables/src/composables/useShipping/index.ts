@@ -29,16 +29,18 @@ const factoryParams: UseShippingParams<any, any> = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  save: async (context: Context, saveParams) => {
-    Logger.debug('[Magento] save user shipping address', { saveParams });
+  save: async (context: Context, params) => {
+    Logger.debug('[Magento] save user shipping address', { params });
 
     const { id } = context.cart.cart.value;
 
     const {
       apartment,
+      neighborhood,
+      extra,
       customerAddressId,
       ...address
-    } = saveParams.shippingDetails;
+    } = params.shippingDetails;
 
     const shippingData = customerAddressId
       ? ({
@@ -47,7 +49,7 @@ const factoryParams: UseShippingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment],
+          street: [address.street, apartment, neighborhood, extra],
         },
       });
 
@@ -63,7 +65,7 @@ const factoryParams: UseShippingParams<any, any> = {
     const { data } = await context
       .$magento
       .api
-      .setShippingAddressesOnCart(shippingAddressInput);
+      .setShippingAddressesOnCart(shippingAddressInput, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

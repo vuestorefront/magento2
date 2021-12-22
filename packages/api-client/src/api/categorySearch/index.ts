@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/GraphQL';
 import categorySearch from './categorySearch';
@@ -6,7 +6,7 @@ import { Context } from '../../types/context';
 
 export default async (
   context: Context,
-  params: CategorySearchQueryVariables,
+  filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
 ): Promise<ApolloQueryResult<CategorySearchQuery>> => {
   const { categorySearch: categorySearchGQL } = context.extendQuery(
@@ -14,12 +14,13 @@ export default async (
     {
       categorySearch: {
         query: categorySearch,
-        variables: { ...params },
+        variables: { ...filters },
       },
     },
   );
+
   return context.client.query<CategorySearchQuery, CategorySearchQueryVariables>({
-    query: categorySearchGQL,
-    variables: { ...params },
+    query: categorySearchGQL.query,
+    variables: categorySearchGQL.variables,
   });
 };

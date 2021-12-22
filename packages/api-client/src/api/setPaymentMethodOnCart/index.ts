@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import setPaymentMethodOnCart from './setPaymentMethodOnCart';
 import {
@@ -29,6 +29,6 @@ export default async (
 
   return context.client.mutate<SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables>({
     mutation: setPaymentMethodOnCartGQL.query,
-    variables: { input },
+    variables: setPaymentMethodOnCartGQL.variables,
   });
 };

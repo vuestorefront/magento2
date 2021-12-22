@@ -56,3 +56,14 @@ To make your life easier @vuestorefront/magento2 is commitizen-friendly and prov
 - present tense
 - maximum of 100 characters
 - message format of `$type($scope): $message`
+
+## Definition of done
+Issue is considered complete when:
+1. The issue has precise requirements (acceptance criteria) - if issue description is not clear, please reach us out by adding the comment to the issue
+2. Those requirements are implemented in the code
+3. Code is covered by tests (at least unit or integration)
+4. Code is reviewed and approved by at least 1 person
+5. Code is deployed to the dev environment and tested by the developer
+6. Code is deployed to the stage as a part of a release. (we will be releasing a new version after each sprint) and tested by the Q.A. engineer
+   1. tests including manual regression testing, usability, accessibility, and whether the business requirements are met
+7. Finally, the ticket is approved by the team leader/product owner and marked as done

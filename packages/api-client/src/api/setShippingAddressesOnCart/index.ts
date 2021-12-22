@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import setShippingAddressesOnCart from './setShippingAddressesOnCart';
 import {
@@ -25,6 +25,6 @@ export default async (
 
   return context.client.mutate<SetShippingAddressesOnCartMutation, SetShippingAddressesOnCartMutationVariables>({
     mutation: setShippingAddressesOnCartGQL.query,
-    variables: { input },
+    variables: setShippingAddressesOnCartGQL.variables,
   });
 };

@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import revokeCustomerToken from './revokeCustomerToken';
 import { Context } from '../../types/context';

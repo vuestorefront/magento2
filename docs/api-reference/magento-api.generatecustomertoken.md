@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (context: Context, email: string, password: string, customQuery?: CustomQuery) => Promise<FetchResult<GenerateCustomerTokenMutation>>
+_default: (context: Context, params: {
+    email: string;
+    password: string;
+}, customQuery?: CustomQuery) => Promise<FetchResult<GenerateCustomerTokenMutation>>
 ```

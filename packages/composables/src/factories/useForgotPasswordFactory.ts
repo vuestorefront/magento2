@@ -1,5 +1,6 @@
 import { Ref, computed } from '@vue/composition-api';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   CustomQuery,
@@ -20,8 +21,8 @@ interface ResetPasswordParams {
 }
 
 export interface UseForgotPasswordFactoryParams<RESULT> extends FactoryParams {
-  resetPassword: (context: Context, params: ResetPasswordParams & { currentResult: RESULT, customQuery?: CustomQuery }) => Promise<RESULT>;
-  setNewPassword: (context: Context, params: SetNewPasswordParams & { currentResult: RESULT, customQuery?: CustomQuery }) => Promise<RESULT>;
+  resetPassword: (context: Context, params: ComposableFunctionArgs<ResetPasswordParams & { currentResult: RESULT }>) => Promise<RESULT>;
+  setNewPassword: (context: Context, params: ComposableFunctionArgs<SetNewPasswordParams & { currentResult: RESULT }>) => Promise<RESULT>;
 }
 
 export function useForgotPasswordFactory<RESULT>(
@@ -40,7 +41,7 @@ export function useForgotPasswordFactory<RESULT>(
       setNew: null,
     }, 'useForgotPassword-error');
 
-    const request = async (resetPasswordParams: ResetPasswordParams) => {
+    const request = async (resetPasswordParams: ComposableFunctionArgs<ResetPasswordParams>) => {
       Logger.debug('useForgotPassword/request', resetPasswordParams.email);
 
       try {
@@ -56,7 +57,7 @@ export function useForgotPasswordFactory<RESULT>(
       }
     };
 
-    const setNew = async (setNewPasswordParams: SetNewPasswordParams) => {
+    const setNew = async (setNewPasswordParams: ComposableFunctionArgs<SetNewPasswordParams>) => {
       Logger.debug('useForgotPassword/setNew', setNewPasswordParams);
 
       try {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { el } from '../utils/element';
 
 class Header {
@@ -23,6 +24,7 @@ class Header {
   openCart(): Cypress.Chainable {
     const click = ($el) => $el.click();
     return this.cart.pipe(click).should(() => {
+      // eslint-disable-next-line jest/no-standalone-expect,no-unused-expressions,@typescript-eslint/no-unused-expressions,jest/valid-expect
       expect(Cypress.$('[data-e2e="sidebar-cart"]')).to.exist;
     });
   }
@@ -30,6 +32,7 @@ class Header {
   openLoginModal(): Cypress.Chainable {
     const click = ($el) => $el.click();
     return this.account.pipe(click).should(() => {
+      // eslint-disable-next-line jest/no-standalone-expect,no-unused-expressions,@typescript-eslint/no-unused-expressions,jest/valid-expect
       expect(Cypress.$('[data-e2e="login-modal"]')).to.exist;
     });
   }

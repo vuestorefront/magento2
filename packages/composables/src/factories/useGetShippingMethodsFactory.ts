@@ -1,5 +1,6 @@
 import { computed, Ref } from '@vue/composition-api';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   FactoryParams,
@@ -10,7 +11,7 @@ import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseGetShippingMethods, UseGetShippingMethodsErrors } from '../types/composables';
 
 export interface UseGetShippingMethodsFactory<SHIPPING_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context, params: { cartId: string }) => Promise<SHIPPING_METHOD[]>;
+  load: (context: Context, params: ComposableFunctionArgs<{ cartId: string }>) => Promise<SHIPPING_METHOD[]>;
 }
 
 export function useGetShippingMethodsFactory<SHIPPING_METHOD, API extends PlatformApi = any>(
@@ -28,8 +29,8 @@ export function useGetShippingMethodsFactory<SHIPPING_METHOD, API extends Platfo
     const _factoryParams = configureFactoryParams(factoryParams);
 
     // eslint-disable-next-line consistent-return
-    const load = async (params: { cartId: string }): Promise<SHIPPING_METHOD[]> => {
-      Logger.debug(`useGetShippingMethods/${ssrKey}/load`);
+    const load = async (params: ComposableFunctionArgs<{ cartId: string }>): Promise<SHIPPING_METHOD[]> => {
+      Logger.debug(`useGetShippingMethods/${ssrKey}/load`, { params });
 
       try {
         loading.value = true;

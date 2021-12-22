@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("../../types/composables").UseNewsletter<any, any>
+_default: () => import("../../types/composables").UseNewsletter<string, any>
 ```

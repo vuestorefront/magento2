@@ -1,5 +1,6 @@
 import { computed, Ref } from '@vue/composition-api';
 import {
+  ComposableFunctionArgs,
   configureFactoryParams,
   Context,
   FactoryParams,
@@ -10,8 +11,8 @@ import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseContentErrors, UseContent } from '../types/composables';
 
 export interface UseContentFactoryParams<CONTENT, BLOCK, API extends PlatformApi = any> extends FactoryParams<API>{
-  loadContent: (context: Context, identifier: string) => Promise<CONTENT>;
-  loadBlocks: (context: Context, identifiers: string[]) => Promise<BLOCK[]>;
+  loadContent: (context: Context, params: ComposableFunctionArgs<{ identifier: string }>) => Promise<CONTENT>;
+  loadBlocks: (context: Context, params: ComposableFunctionArgs<{ identifiers: string[] }>) => Promise<BLOCK[]>;
 }
 
 export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>(
@@ -29,13 +30,13 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
     // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
     const _factoryParams = configureFactoryParams(factoryParams);
 
-    const loadContent = async (identifier: string) => {
+    const loadContent = async (params: ComposableFunctionArgs<{ identifier: string }>) => {
       Logger.debug(`useContent/${ssrKey}/loadPage`);
       loading.value = true;
 
       try {
         errors.value.content = null;
-        page.value = await _factoryParams.loadContent(identifier);
+        page.value = await _factoryParams.loadContent(params);
       } catch (error) {
         errors.value.content = error;
       } finally {
@@ -43,13 +44,13 @@ export function useContentFactory<CONTENT, BLOCK, API extends PlatformApi = any>
       }
     };
 
-    const loadBlocks = async (identifiers: string[]) => {
+    const loadBlocks = async (params: ComposableFunctionArgs<{ identifiers: string[] }>) => {
       Logger.debug(`useContent/${ssrKey}/loadBlocks`);
       loading.value = true;
 
       try {
         errors.value.blocks = null;
-        blocks.value = await _factoryParams.loadBlocks(identifiers);
+        blocks.value = await _factoryParams.loadBlocks(params);
       } catch (error) {
         errors.value.blocks = error;
       } finally {

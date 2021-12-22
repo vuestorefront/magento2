@@ -4,11 +4,11 @@ import { useUrlResolverFactory, UseUrlResolverFactoryParams } from '../../factor
 import { UseUrlResolver } from '../../types/composables';
 
 const factoryParams: UseUrlResolverFactoryParams<Route> = {
-  search: async (context: Context, url: string) => {
-    Logger.debug('[Magento] Find information based on URL', { url });
-    const clearUrl = url.replace(/\/[cp|]\//gi, '');
+  search: async (context: Context, params) => {
+    Logger.debug('[Magento] Find information based on URL', { params });
+    const clearUrl = params.url.replace(/\/[cp|]\//gi, '');
 
-    const { data } = await context.$magento.api.urlResolver(clearUrl);
+    const { data } = await context.$magento.api.urlResolver(clearUrl, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

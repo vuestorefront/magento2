@@ -3,19 +3,19 @@ import { Page, CmsBlock } from '@vue-storefront/magento-api';
 import { useContentFactory, UseContentFactoryParams } from '../../factories/useContentFactory';
 
 const factoryParams: UseContentFactoryParams<Page, CmsBlock> = {
-  loadContent: async (context: Context, identifier: string) => {
-    Logger.debug('[Magento]: Load CMS Page content', { identifier });
+  loadContent: async (context: Context, params) => {
+    Logger.debug('[Magento]: Load CMS Page content', { params });
 
-    const { data } = await context.$magento.api.cmsPage(identifier);
+    const { data } = await context.$magento.api.cmsPage(params.identifier, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
     return data.cmsPage;
   },
-  loadBlocks: async (context: Context, identifiers: string[]) => {
-    Logger.debug('[Magento]: Load CMS Blocks content', { identifiers });
+  loadBlocks: async (context: Context, params) => {
+    Logger.debug('[Magento]: Load CMS Blocks content', { params });
 
-    const { data } = await context.$magento.api.cmsBlocks(identifiers);
+    const { data } = await context.$magento.api.cmsBlocks(params.identifiers, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

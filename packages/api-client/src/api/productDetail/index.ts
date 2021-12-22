@@ -1,5 +1,4 @@
-import gql from 'graphql-tag';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import {
   ProductAttributeFilterInput,
@@ -49,11 +48,9 @@ export default async (
     },
   });
 
-  const query = customQuery ? gql`${productDetail.query}` : productDetail.query;
-
   try {
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
-      query,
+      query: productDetail.query,
       variables: productDetail.variables,
     });
 

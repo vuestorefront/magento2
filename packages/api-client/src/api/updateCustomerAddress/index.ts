@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import updateCustomerAddress from './updateCustomerAddress';
 import {
@@ -31,9 +31,6 @@ export default async (
 
   return context.client.mutate<UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables>({
     mutation: updateCustomerAddressGQL.query,
-    variables: {
-      id: params.addressId,
-      input: params.input,
-    },
+    variables: updateCustomerAddressGQL.variables,
   });
 };

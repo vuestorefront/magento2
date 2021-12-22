@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("../../types/composables").UsePaymentProvider<any, any, any>
+_default: () => import("../../types/composables").UsePaymentProvider<any, PaymentMethodInput, any>
 ```

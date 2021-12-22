@@ -10,7 +10,7 @@ export default useCustomMutationFactory({
   }: {
     mutation: string,
     variables: any,
-    fetchPolicy?: FetchPolicy,
+    fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
     // eslint-disable-next-line consistent-return
   }) => {
     Logger.debug('[Magento] Custom API Mutation', { variables });
