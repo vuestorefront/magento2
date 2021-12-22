@@ -4,13 +4,13 @@ import { render } from '~/test-utils';
 import AddToWishlist from '../AddToWishlist';
 
 describe('<AddToWishlist>', () => {
-  test('Should not render add to wishlist button because isShow prop equals false by default', () => {
+  it('Should not render add to wishlist button because isShow prop equals false by default', () => {
     const { queryByText } = render(AddToWishlist);
 
     expect(queryByText('Add to wishlist')).toBeNull();
   });
 
-  test('Should render add to wishlist button', () => {
+  it('Should render add to wishlist button', () => {
     const { getByText } = render(AddToWishlist, {
       props: {
         isShow: true,
@@ -21,7 +21,7 @@ describe('<AddToWishlist>', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('Should render remove from wishlist button', () => {
+  it('Should render remove from wishlist button', () => {
     const { getByText } = render(AddToWishlist, {
       props: {
         isShow: true,
@@ -33,7 +33,7 @@ describe('<AddToWishlist>', () => {
     expect(button).toBeInTheDocument();
   });
 
-  test('Should emit clock event when add to wishlist button is clicked', () => {
+  it('Should emit clock event when add to wishlist button is clicked', () => {
     const { getByText, emitted } = render(AddToWishlist, {
       props: {
         isShow: true,

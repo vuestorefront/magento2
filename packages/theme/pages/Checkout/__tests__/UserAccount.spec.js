@@ -23,7 +23,7 @@ jest.mock('@nuxtjs/composition-api', () => {
 });
 
 describe('<UserAccount/>', () => {
-  test('Form fields are rendered and validated', async () => {
+  it('Form fields are rendered and validated', async () => {
     useUser.mockReturnValue(useUserMock());
     useGuestUser.mockReturnValue(useGuestUserMock());
 
@@ -48,7 +48,7 @@ describe('<UserAccount/>', () => {
     expect(errors).toHaveLength(3);
   });
 
-  test('Email should be validated', async () => {
+  it('Email should be validated', async () => {
     useUser.mockReturnValue(useUserMock());
     useGuestUser.mockReturnValue(useGuestUserMock());
 
@@ -64,7 +64,7 @@ describe('<UserAccount/>', () => {
     expect(validationMessage).toBeInTheDocument();
   });
 
-  test('User can go ahead as guest user', async () => {
+  it('User can go ahead as guest user', async () => {
     const attachToCartMock = jest.fn();
     const routerPushMock = jest.fn();
 

@@ -15,7 +15,7 @@ We have a few type of tests:
 2. Focus on `theme` package testing
 3. Write data-driven tests
 4. Use `describe` block to group tests
-5. Use `test` function to write test cases
+5. Use `it` function to write test cases
 
 ### Toolset
 Tools that we use for unit testing:
@@ -26,7 +26,7 @@ Tools that we use for unit testing:
 5. [TestingPlayground](https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano?hl=en)
 
 #### Before start
-We recommend reading these articles before start write unit tests:
+We recommend reading these articles before starting writing unit tests:
 
 - [Testing implementation details](https://kentcdodds.com/blog/testing-implementation-details)
 - [Avoid nesting during testing](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing)
@@ -52,6 +52,7 @@ function render(Component, options, callbackFunction) {
 ```
 
 #### Parameters
+Take a look at the description of parameters that `render` function has:
 
 ##### Component
 The valid Vue Component to be tested.
@@ -71,7 +72,7 @@ to be installed prior to mount. To see how this works, see the example using [vu
 
 #### Example of use
 
-```
+```js
 import { render } from '~/test-utils';
 import ComponmentToTest from '../ComponentToTest';
 
@@ -84,7 +85,7 @@ test('Should display Hello world', () => {
 
 ##### Passing props
 
-```
+```js
 const { getByText } = render(Component, {
   props: {
     myProps: true,
@@ -93,7 +94,7 @@ const { getByText } = render(Component, {
 ```
 
 ##### Passing mocks
-```
+```js
 const $mock = jesyt.fn();
 
 const { getByText } = render(Component, {
@@ -125,7 +126,7 @@ In case when you can find existing mock, please create a new one:
 
 #### Example of use mock in test
 
-```
+```js
 import { useGuestUser, useUser } from '@vue-storefront/magento';
 import { render, useUserMock, useGuestUserMock } from '~/test-utils';
 
@@ -140,7 +141,7 @@ test('Email should be validated', async () => {
   useUser.mockReturnValue(useUserMock());
   useGuestUser.mockReturnValue(useGuestUserMock());
 
-  (...)
+ // (...)
 });
 ```
 
@@ -148,7 +149,7 @@ test('Email should be validated', async () => {
 You can extend default mock by passing an object with props
 that you want to extend as a argument to mock function:
 
-```
+```js
 const attachToCartMock = jest.fn();
 
 useGuestUser.mockReturnValue(useGuestUserMock({
@@ -161,7 +162,7 @@ Sometimes you need to extend some external composables,
 or extend only one composable returned by whole package.
 Here is the recipe:
 
-```
+```js
 jest.mock('@nuxtjs/composition-api', () => {
   // Require the original module to not be mocked...
   const originalModule = jest.requireActual('@nuxtjs/composition-api');
@@ -178,7 +179,7 @@ jest.mock('@nuxtjs/composition-api', () => {
 In case when something should be set-up before test running, you should use `packages/theme/jest-setup.js` file.
 Take a look at the current implementation:
 
-```
+```js
 import '@testing-library/jest-dom';
 import Vue from 'vue';
 
