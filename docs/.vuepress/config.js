@@ -45,7 +45,7 @@ module.exports = {
     nav: [
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
-      { text: 'Demo', link: 'http://m2-vsf.caravelx.com/' },
+      { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
       { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2'},
       { text: 'Roadmap', link: 'https://github.com/vuestorefront/magento2/projects/5'}
     ],
@@ -67,7 +67,8 @@ module.exports = {
           ['/guide/creating-a-store', 'Creating a Store'],
           ['/guide/graphql-get', 'Use GET for GraphQL Queries'],
           ['/guide/configuration', 'Configuration'],
-          ['/guide/override-queries', 'Override queries']
+          ['/guide/override-queries', 'Override queries'],
+          ['/guide/testing', 'Testing']
         ]
       },
       {
