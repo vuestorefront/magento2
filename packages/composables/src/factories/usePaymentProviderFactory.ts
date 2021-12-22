@@ -39,7 +39,7 @@ export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends Pla
       loading.value = true;
       state.value = await _factoryParams.save({
         paymentMethod: params.paymentMethod || {},
-        customQuery: params.customQuery || {},
+        customQuery: params?.customQuery || {},
         state,
       });
       error.value.save = null;
@@ -57,7 +57,7 @@ export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends Pla
     try {
       loading.value = true;
       state.value = await _factoryParams.load({
-        customQuery: params.customQuery || {},
+        customQuery: params?.customQuery || {},
         state,
       });
       error.value.load = null;

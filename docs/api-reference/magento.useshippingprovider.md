@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseShippingProvider<any, any, any>
+_default: () => import("@vue-storefront/core").UseShippingProvider<any, ShippingMethodInput, any>
 ```

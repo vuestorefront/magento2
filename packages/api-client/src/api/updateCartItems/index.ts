@@ -18,9 +18,7 @@ export default async (
     {
       updateCartItems: {
         query: updateCartItems,
-        variables: {
-          input,
-        },
+        variables: { input },
       },
     },
   );

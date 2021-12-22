@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
@@ -16,7 +15,7 @@ export default async (
   const { requestPasswordResetEmail } = context.extendQuery(customQuery, {
     requestPasswordResetEmail: {
       query: requestPasswordResetEmailMutation,
-      variables: input,
+      variables: { ...input },
     },
   });
 

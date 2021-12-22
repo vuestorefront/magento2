@@ -7,5 +7,7 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (id: string) => import("@vue-storefront/core").UseCategory<Category, any, any>
+_default: (id: string) => import("@vue-storefront/core").UseCategory<Category, import("@vue-storefront/magento-api/lib/types/GraphQL").Exact<{
+    [key: string]: never;
+}>, any>
 ```

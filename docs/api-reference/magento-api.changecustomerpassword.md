@@ -7,5 +7,8 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (context: Context, currentPassword: string, newPassword: string, customQuery?: CustomQuery) => Promise<FetchResult<ChangeCustomerPasswordMutation>>
+_default: (context: Context, params: {
+    currentPassword: string;
+    newPassword: string;
+}, customQuery?: CustomQuery) => Promise<FetchResult<ChangeCustomerPasswordMutation>>
 ```
