@@ -17,7 +17,7 @@ export default async (
   const { placeOrder } = context.extendQuery(customQuery, {
     placeOrder: {
       query: placeOrderQuery,
-      variables: input,
+      variables: { input },
     },
   });
 

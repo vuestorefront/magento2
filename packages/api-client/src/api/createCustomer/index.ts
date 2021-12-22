@@ -19,7 +19,7 @@ export default async (
       {
         createCustomer: {
           query: createCustomer,
-          variables: input,
+          variables: { input },
         },
       },
     );

@@ -17,7 +17,7 @@ export default async (
     {
       addProductsToWishlist: {
         query: addProductsToWishlist,
-        variables: input,
+        variables: { ...input },
       },
     },
   );

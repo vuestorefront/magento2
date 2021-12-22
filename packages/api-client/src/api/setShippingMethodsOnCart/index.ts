@@ -18,7 +18,7 @@ export default async (
     {
       setShippingMethodsOnCart: {
         query: setShippingMethodsOnCart,
-        variables: input,
+        variables: { input },
       },
     },
   );

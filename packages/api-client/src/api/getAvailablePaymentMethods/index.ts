@@ -1,5 +1,4 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import gql from 'graphql-tag';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';

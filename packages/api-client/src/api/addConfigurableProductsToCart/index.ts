@@ -18,7 +18,7 @@ export default async (
     {
       addConfigurableProductsToCart: {
         query: addConfigurableProductsToCart,
-        variables: input,
+        variables: { input },
       },
     },
   );
