@@ -24,7 +24,6 @@ ProductsSearchParams> = {
       ...searchParams
     } = {
       ...params,
-      customQuery: params?.customQuery || {},
     };
 
     switch (queryType) {
@@ -34,7 +33,7 @@ ProductsSearchParams> = {
           .api
           .productDetail({
             ...searchParams,
-          } as GetProductSearchParams, (customQuery || {}));
+          } as GetProductSearchParams);
 
         Logger.debug('[Result]:', { data: productDetailsResults });
 
@@ -45,7 +44,7 @@ ProductsSearchParams> = {
         const productListResults = await context
           .$magento
           .api
-          .products(searchParams as GetProductSearchParams, (customQuery || {}));
+          .products(searchParams as GetProductSearchParams);
 
         Logger.debug('[Result]:', { data: productListResults });
 

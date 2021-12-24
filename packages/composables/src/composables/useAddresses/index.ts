@@ -33,7 +33,7 @@ RemoveAddressInput> = {
   load: async (context: Context, params?: CustomQueryParams) => {
     Logger.debug('[Magento] load user addresses');
 
-    const { data } = await context.$magento.api.getCustomerAddresses(params?.customQuery || {});
+    const { data } = await context.$magento.api.getCustomerAddresses();
 
     return data.customer.addresses;
   },
@@ -41,7 +41,6 @@ RemoveAddressInput> = {
     Logger.debug('[Magento] save user address:', saveParams.address);
     const { data } = await context.$magento.api.createCustomerAddress(
       transformUserCreateAddressInput(saveParams),
-      saveParams?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -53,7 +52,6 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.deleteCustomerAddress(
       params.address.id,
-      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -65,7 +63,6 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.updateCustomerAddress(
       transformUserUpdateAddressInput(params),
-      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });

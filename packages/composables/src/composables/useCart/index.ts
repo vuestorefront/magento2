@@ -38,7 +38,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
 
       apiState.setCartId();
 
-      const { data } = await context.$magento.api.createEmptyCart(params?.customQuery || {});
+      const { data } = await context.$magento.api.createEmptyCart();
       Logger.debug('[Result]:', { data });
 
       apiState.setCartId(data.createEmptyCart);
@@ -49,7 +49,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     const getCartData = async (id: string) => {
       Logger.debug('[Magento Storefront]: useCart.load.getCartData ID->', id);
 
-      const { data, errors } = await context.$magento.api.cart(id, params?.customQuery || {});
+      const { data, errors } = await context.$magento.api.cart(id);
       Logger.debug('[Result]:', { data });
 
       if (!data?.cart && errors?.length) {
@@ -75,7 +75,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     // Try to load cart for existing customer, clean customer token if not possible
     if (customerToken) {
       try {
-        const { data, errors } = await context.$magento.api.customerCart(params?.customQuery || {});
+        const { data, errors } = await context.$magento.api.customerCart();
         Logger.debug('[Result]:', { data, errors });
 
         if (!data?.customerCart && errors?.length) {
