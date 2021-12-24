@@ -1,6 +1,6 @@
 {
   "name": "@absolute-web/magento-api",
-  "version": "0.0.1",
+  "version": "0.3.10",
   "sideEffects": false,
   "homepage": "https://github.com/absolutewebservices/magento2",
   "bugs": {
