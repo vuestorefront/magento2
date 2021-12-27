@@ -3,11 +3,23 @@ import {
   useCurrency,
   useStore,
   storeConfigGetters,
+  Currency,
+  AvailableStores,
+  StoreConfig,
 } from '@vue-storefront/magento';
-import { computed, useContext } from '@nuxtjs/composition-api';
+import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import cookieNames from '~/enums/cookieNameEnum';
 
-export const useMagentoConfiguration = () => {
+type UseMagentoConfiguration = () => {
+  currencies: ComputedRef<Currency>;
+  stores: ComputedRef<AvailableStores>;
+  storeConfig: ComputedRef<StoreConfig>;
+  selectedCurrency: ComputedRef<string | undefined>;
+  selectedLocale: ComputedRef<string | undefined>;
+  selectedStore: ComputedRef<string | undefined>;
+  loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void>;
+};
+export const useMagentoConfiguration: UseMagentoConfiguration = () => {
   const { app } = useContext();
   const {
     config: storeConfig,
@@ -24,13 +36,13 @@ export const useMagentoConfiguration = () => {
     load: loadCurrencies,
   } = useCurrency();
 
-  const selectedCurrency = computed(() => app.$cookies.get(cookieNames.currencyCookieName));
+  const selectedCurrency = computed<string | undefined>(() => app.$cookies.get(cookieNames.currencyCookieName));
 
-  const selectedLocale = computed(() => app.$cookies.get(cookieNames.localeCookieName));
+  const selectedLocale = computed<string | undefined>(() => app.$cookies.get(cookieNames.localeCookieName));
 
-  const selectedStore = computed(() => app.$cookies.get(cookieNames.storeCookieName));
+  const selectedStore = computed<string | undefined>(() => app.$cookies.get(cookieNames.storeCookieName));
 
-  const loadConfiguration = async (params = {
+  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void> = async (params = {
     updateCookies: false,
     updateLocale: false,
   }) => {

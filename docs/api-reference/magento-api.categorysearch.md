@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: (context: Context, params: CategorySearchQueryVariables, customQuery?: CustomQuery) => Promise<ApolloQueryResult<CategorySearchQuery>>
+_default: (context: Context, filters: CategorySearchQueryVariables, customQuery?: CustomQuery) => Promise<ApolloQueryResult<CategorySearchQuery>>
 ```

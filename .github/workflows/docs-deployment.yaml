@@ -1,5 +1,10 @@
 name: Deploy Documentation
 on:
+  push:
+    branches:
+      - main
+      - develop
+      - release/*
   workflow_dispatch:
 
 jobs:
