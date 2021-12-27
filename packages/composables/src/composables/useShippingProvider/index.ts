@@ -15,11 +15,11 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
       cart: useCart(),
     };
   },
-  load: async (context: Context, { customQuery }) => {
-    Logger.debug('[Magento] loadShippingProvider', { customQuery });
+  load: async (context: Context, params) => {
+    Logger.debug('[Magento] loadShippingProvider', { params });
 
     if (!context.cart.cart?.value?.shipping_addresses[0]?.selected_shipping_method) {
-      await context.cart.load({ customQuery });
+      await context.cart.load({ customQuery: params?.customQuery || {} });
     }
 
     return context
@@ -38,7 +38,7 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
       }],
     };
 
-    const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
+    const { data } = await context.$magento.api.setShippingMethodsOnCart(shippingMethodParams, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
