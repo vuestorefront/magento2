@@ -22,7 +22,7 @@ const factoryParams: UseUserOrderFactoryParams<any, GetOrdersSearchParams> = {
       await context.user.load();
     }
 
-    const { data } = await context.$magento.api.customerOrders(params, params?.customQuery || {});
+    const { data } = await context.$magento.api.customerOrders(params);
 
     Logger.debug('[Result]:', { data });
 

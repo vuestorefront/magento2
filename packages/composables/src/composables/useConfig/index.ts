@@ -5,7 +5,7 @@ import { UseConfig } from '../../types/composables';
 
 const factoryParams: UseConfigFactoryParams<StoreConfig> = {
   loadConfig: async (context: Context, params) => {
-    const { data } = await context.$magento.api.storeConfig(params?.customQuery || {});
+    const { data } = await context.$magento.api.storeConfig();
 
     return data.storeConfig || {};
   },
