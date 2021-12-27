@@ -94,7 +94,7 @@ const factoryParams = {
       currentPage: productParams.page,
     };
 
-    const { data } = await context.$magento.api.products(productSearchParams, params?.customQuery || {});
+    const { data } = await context.$magento.api.products(productSearchParams);
 
     Logger.debug('[Result]:', { data });
 
