@@ -18,11 +18,11 @@ const factoryParams: UseBillingParams<any, any> = {
     };
   },
 
-  load: async (context: Context, params) => {
+  load: async (context: Context, { customQuery }) => {
     Logger.debug('[Magento] loadBilling');
 
     if (!context.cart.cart?.value?.billing_address) {
-      await context.cart.load({ customQuery: params?.customQuery || {} });
+      await context.cart.load({ customQuery });
     }
 
     return context.cart.cart.value.billing_address;
@@ -61,7 +61,6 @@ const factoryParams: UseBillingParams<any, any> = {
 
     const { data } = await context.$magento.api.setBillingAddressOnCart(
       setBillingAddressOnCartInput,
-      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });

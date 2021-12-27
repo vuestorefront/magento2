@@ -19,7 +19,6 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
     const { data } = await context.$magento.api.createCustomerAddress(
       transformUserCreateAddressInput(params),
-      params?.customQuery || {},
     );
 
     Logger.debug('[Result]:', { data });
@@ -27,23 +26,17 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
     return data.createCustomerAddress;
   },
 
-  deleteAddress: async (context: Context, params?) => {
+  deleteAddress: async (context: Context, params) => {
     Logger.debug('[Magento] delete shipping address', { params });
-    const { data } = await context.$magento.api.deleteCustomerAddress(
-      params.address.id,
-      params?.customQuery || {},
-    );
+    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
 
     return data.deleteCustomerAddress;
   },
 
-  updateAddress: async (context: Context, params?) => {
+  updateAddress: async (context: Context, params) => {
     Logger.debug('[Magento] update shipping address', { params });
 
-    const { data } = await context.$magento.api.updateCustomerAddress(
-      transformUserUpdateAddressInput(params),
-      params?.customQuery || {},
-    );
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
     return data.updateCustomerAddress;
   },
@@ -62,10 +55,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
   setDefaultAddress: async (context: Context, params) => {
     Logger.debug('[Magento] set default shipping address');
 
-    const { data } = await context.$magento.api.updateCustomerAddress(
-      transformUserUpdateAddressInput(params),
-      params?.customQuery || {},
-    );
+    const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
 
     Logger.debug('[Result]:', { data });
 

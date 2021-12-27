@@ -29,7 +29,7 @@ const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['produc
     const { data } = await context
       .$magento
       .api
-      .relatedProduct(searchParams as GetProductSearchParams, (customQuery || {}));
+      .relatedProduct(searchParams as GetProductSearchParams);
 
     Logger.debug('[Result]:', { data });
 

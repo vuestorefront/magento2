@@ -21,7 +21,7 @@ const factoryParams: UsePaymentProviderParams<any, PaymentMethodInput> = {
     const { data } = await context
       .$magento
       .api
-      .getAvailablePaymentMethods({ cartId }, customQuery);
+      .getAvailablePaymentMethods({ cartId });
 
     Logger.debug('[Result]:', { data });
 

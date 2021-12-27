@@ -8,8 +8,8 @@ import { UseCategorySearch } from '../../types/composables';
 const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVariables> = {
   search: async (context: Context, params): Promise<Category[]> => {
     Logger.debug('[Magento]: Search for category using', { params });
-    const { filters, customQuery } = params;
-    const { data } = await context.$magento.api.categorySearch({ filters }, customQuery || {});
+    const { filters } = params;
+    const { data } = await context.$magento.api.categorySearch({ filters });
 
     Logger.debug('[Result]:', { data });
 
