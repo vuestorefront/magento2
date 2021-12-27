@@ -19,6 +19,7 @@ type UseMagentoConfiguration = () => {
   selectedStore: ComputedRef<string | undefined>;
   loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void>;
 };
+// @ts-ignore
 export const useMagentoConfiguration: UseMagentoConfiguration = () => {
   const { app } = useContext();
   const {
