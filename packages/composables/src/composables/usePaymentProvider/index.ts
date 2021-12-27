@@ -43,7 +43,7 @@ const factoryParams: UsePaymentProviderParams<any, PaymentMethodInput> = {
     const { data } = await context
       .$magento
       .api
-      .setPaymentMethodOnCart(paymentMethodParams);
+      .setPaymentMethodOnCart(paymentMethodParams, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 

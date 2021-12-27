@@ -65,7 +65,7 @@ const factoryParams: UseShippingParams<any, any> = {
     const { data } = await context
       .$magento
       .api
-      .setShippingAddressesOnCart(shippingAddressInput);
+      .setShippingAddressesOnCart(shippingAddressInput, params?.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
