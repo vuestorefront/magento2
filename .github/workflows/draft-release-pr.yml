@@ -23,7 +23,7 @@ jobs:
         run: git checkout -b release/${{ github.event.inputs.version }}
 
       - name: Bump version in package.json
-        run: lerna version "${{ github.event.inputs.version }}" --no-git-tag-version --no-changelog --ignore-changes "internals/**" -y
+        run: lerna version "${{ github.event.inputs.version }}" --no-git-tag-version --no-changelog --ignore-changes "*/internals/**" -y
 
       - name: Commit changelog and manifest files
         id: make-commit
@@ -41,7 +41,7 @@ jobs:
         with:
           head: release/${{ github.event.inputs.version }}
           base: main
-          title: Release version ${{ github.event.inputs.version }}
+          title: "chore: release version ${{ github.event.inputs.version }}"
           reviewers: ${{ github.actor }}
           body: |
             Hey @${{ github.actor }}!
