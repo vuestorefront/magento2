@@ -13,14 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub actions"
+          git config user.email noreply@github.com
 
       - name: Create release branch
         run: git checkout -b release/${{ github.event.inputs.version }}
 
       - name: Bump version in package.json
-        run: lerna version bump "${{ github.event.inputs.version }}" --no-git-tag-version --no-changelog
+        run: lerna version "${{ github.event.inputs.version }}" --no-git-tag-version --no-changelog --ignore-changes "internals/**" -y
 
       - name: Commit changelog and manifest files
         id: make-commit
