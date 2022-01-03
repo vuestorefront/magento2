@@ -58,6 +58,7 @@ module.exports = {
           ['/guide/environments', 'Environments'],
           ['/guide/functional-catalog', 'Functional catalog'],
           ['/guide/about', 'About'],
+          ['/guide/roadmap', 'Roadmap'],
         ]
       },
       {
