@@ -140,7 +140,7 @@ ProductsSearchParams> = {
 
         productDetails = deleteEmptyFields(productDetails);
 
-        return { items: [productDetails], aggregations } as Products;
+        return { items: [productDetails] } as Products;
 
       case ProductsQueryType.List:
       default:
@@ -148,15 +148,6 @@ ProductsSearchParams> = {
           .$magento
           .getApi
           .products(searchParams as GetProductSearchParams);
-
-        const listAggregations = (productListResults.data.products.aggregations || []) as unknown as Aggregation[];
-
-        if (listAggregations.length > 0) {
-          productListResults.data.products.items = productListResults.data.products.items.map((product) => ({
-            ...product,
-            ...extractCustomAttributes(product as unknown as Product, listAggregations),
-          }));
-        }
 
         if (productListResults?.data?.cacheTags) {
           context.cache.addTagsFromString(productListResults.data.cacheTags);

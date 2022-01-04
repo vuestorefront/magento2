@@ -17,6 +17,7 @@ type Variables = {
   search?: string;
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
+  withAggregations?: boolean;
 };
 
 export default async (
@@ -41,6 +42,8 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
+  if (defaultParams.withAggregations) variables.withAggregations = defaultParams.withAggregations;
+
   const { products } = context.extendQuery(
     customQuery,
     {
@@ -51,12 +54,8 @@ export default async (
     },
   );
 
-  try {
-    return await context.client.query<CachedQuery<ProductsListQuery>, ProductsListQueryVariables>({
-      query: products.query,
-      variables: products.variables,
-    });
-  } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
-  }
+  return await context.client.query<CachedQuery<ProductsListQuery>, ProductsListQueryVariables>({
+    query: products.query,
+    variables: products.variables,
+  });
 };

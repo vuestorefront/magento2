@@ -200,6 +200,7 @@ export type GetProductSearchParams = {
   filter?: ProductAttributeFilterInput;
   sort?: ProductAttributeSortInput;
   configurations?: string[];
+  withAggregations?: boolean;
 };
 
 export type GetOrdersSearchParams = {

@@ -99,6 +99,7 @@ const factoryParams = {
       filter: productParams.filter,
       sort: productParams.sort,
       currentPage: productParams.page,
+      withAggregations: true,
     };
 
     const { data } = await context.$magento.getApi.products(productSearchParams);
