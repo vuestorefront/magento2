@@ -2,6 +2,9 @@
 module.exports = {
   globals: {
     __DEV__: true,
+    'ts-jest': {
+      tsconfig: 'tsconfig.test.json',
+    },
   },
   // noStackTrace: true,
   // bail: true,
@@ -51,7 +54,6 @@ module.exports = {
 
   transformIgnorePatterns: [
     'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
-
   ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],

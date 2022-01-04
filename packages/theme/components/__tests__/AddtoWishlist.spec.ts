@@ -1,6 +1,5 @@
 import userEvent from '@testing-library/user-event';
 import { render } from '~/test-utils';
-// @ts-ignore
 import AddToWishlist from '../AddToWishlist';
 
 describe('<AddToWishlist>', () => {

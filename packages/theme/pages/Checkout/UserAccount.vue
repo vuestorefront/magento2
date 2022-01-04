@@ -126,7 +126,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
