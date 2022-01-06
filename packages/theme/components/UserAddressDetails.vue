@@ -26,13 +26,13 @@
         v-if="isDefaultShippingText"
         class="sf-badge--number color-info sf-badge"
       >
-        {{ isDefaultShippingText }}
+        {{ $t(isDefaultShippingText) }}
       </span>
       <span
         v-if="isDefaultBillingText"
         class="sf-badge--number color-info sf-badge"
       >
-        {{ isDefaultBillingText }}
+        {{ $t(isDefaultBillingText) }}
       </span>
     </small>
   </div>
