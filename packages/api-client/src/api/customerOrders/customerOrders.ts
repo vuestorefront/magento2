@@ -254,6 +254,10 @@ export default gql`
             suffix
             telephone
           }
+          focus_can_create_rma {
+            result
+            reason
+          }
         }
         page_info {
             current_page

@@ -25,6 +25,8 @@ export { default as useFacet } from './composables/useFacet';
 export { default as useForgotPassword } from './composables/useForgotPassword';
 export { default as useGetShippingMethods } from './composables/useGetShippingMethods';
 export { default as useGuestRequestReturn } from './composables/useGuestRequestReturn';
+export { default as useGuestRma } from './composables/useGuestRma';
+export { default as useGuestRmaList } from './composables/useGuestRmaList';
 export { default as useGuestUser } from './composables/useGuestUser';
 export { default as useIDmeVerify } from './composables/useIDmeVerify';
 export { default as useInventory } from './composables/useInventory';

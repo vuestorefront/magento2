@@ -6,6 +6,7 @@ export { default as checkoutGetters } from './checkoutGetters';
 export { default as compareListGetters } from './compareListGetters';
 export { default as customerReturnsGetters } from './customerReturnsGetters';
 export { default as facetGetters } from './facetGetters';
+export { default as focusRmaGetters } from './focusRmaGetters';
 export { default as forgotPasswordGetters } from './forgotPasswordGetters';
 export { default as idMeGetters } from './idMeGetters';
 export { default as orderGetters } from './orderGetters';

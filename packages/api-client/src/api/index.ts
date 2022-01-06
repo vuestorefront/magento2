@@ -84,3 +84,5 @@ export { default as focusProductAttribute } from './focusProductAttribute';
 export { default as customerReturns } from './customerReturns';
 export { default as customerReturn } from './customerReturn';
 export { default as focusGuestRequestReturn } from './focusGuestRequestReturn';
+export { default as focusGuestRmaList } from './focusGuestRmaList';
+export { default as focusGuestRma } from './focusGuestRma';

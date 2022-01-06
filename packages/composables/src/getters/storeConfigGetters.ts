@@ -7,6 +7,7 @@ const getCurrency = (config: StoreConfig) => config.default_display_currency_cod
 const getLocale = (config: StoreConfig) => config.locale.replace('_', '-');
 const allowGuestProductReview = (config: StoreConfig) => config.allow_guests_to_write_product_reviews;
 const enabledWishlist = (config: StoreConfig) => config.magento_wishlist_general_is_enabled;
+const getRmaPhoneNumber = (config: StoreConfig) => config.focus_rma_phone_number;
 
 const storeConfigGetters = {
   getCode,
@@ -16,6 +17,7 @@ const storeConfigGetters = {
   getLocale,
   allowGuestProductReview,
   enabledWishlist,
+  getRmaPhoneNumber,
 };
 
 export default storeConfigGetters;

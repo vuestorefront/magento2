@@ -3418,6 +3418,8 @@ type Query {
     focusInventory(filter: FocusInventoryFilterInput!): focusProductInventory
     customerReturns(currentPage: Int = 1, pageSize: Int = 20): CustomerReturnsQuery
     customerReturn(uid: ID!): CustomerReturnsQuery
+    focusGuestRma(input: FocusGuestRmaInput!): FocusGuestRmaOutput
+    focusGuestRmaList(input: FocusGuestRmaListInput!): Returns
 }
 
 type Region {
@@ -6369,59 +6371,87 @@ type CustomerReturnData {
 }
 
 type FocusGuestRequestReturnInput {
-  "Params to verify that the guest have access to the RMA document"
-  access_params: FocusRmaAccessParamsInput!
-  request: RequestReturnInput!
+    "Params to verify that the guest have access to the RMA document"
+    access_params: FocusRmaAccessParamsInput!
+    request: RequestReturnInput!
 }
 
 type RequestReturnInput {
-  "The unique ID for a `Order` object"
-  order_uid: ID!
-  "An email address the buyer enters to receive notifications about the status of the return"
-  contact_email: String
-  "An array of items to be returned"
-  items: [RequestReturnItemInput!]!
-  "Text the buyer entered that describes the reason for the refund request"
-  comment_text: String
+    "The unique ID for a `Order` object"
+    order_uid: ID!
+    "An email address the buyer enters to receive notifications about the status of the return"
+    contact_email: String
+    "An array of items to be returned"
+    items: [RequestReturnItemInput!]!
+    "Text the buyer entered that describes the reason for the refund request"
+    comment_text: String
 }
 
 type FocusRmaAccessParamsInput {
-  "Billing address email"
-  email: String
-  "Billing address zip code"
-  zip_code: String
+    "Billing address email"
+    email: String
+    "Billing address zip code"
+    zip_code: String
 }
 
 type RequestReturnItemInput {
-  "The unique ID for a `OrderItemInterface` object"
-  order_item_uid: ID!
-  "The quantity of the item to be returned"
-  quantity_to_return: Float!
-  "An array of selected custom option IDs associated with the item to be returned. For example, the IDs for the selected color and size of a configurable product"
-  selected_custom_attributes: [SelectedCustomAttributeInput!]
-  "Contains details about a custom attribute that was entered, such as text or a file"
-  entered_custom_attributes: [EnteredCustomAttributeInput!]
-  "Reason Id"
-  reason: ID!
-  "Indicate should create label on Seller Cloud or not"
-  focus_generate_label: Boolean
+    "The unique ID for a `OrderItemInterface` object"
+    order_item_uid: ID!
+    "The quantity of the item to be returned"
+    quantity_to_return: Float!
+    "An array of selected custom option IDs associated with the item to be returned. For example, the IDs for the selected color and size of a configurable product"
+    selected_custom_attributes: [SelectedCustomAttributeInput!]
+    "Contains details about a custom attribute that was entered, such as text or a file"
+    entered_custom_attributes: [EnteredCustomAttributeInput!]
+    "Reason Id"
+    reason: ID!
+    "Indicate should create label on Seller Cloud or not"
+    focus_generate_label: Boolean
 }
 
 type SelectedCustomAttributeInput {
-  "A string that identifies the selected attribute"
-  attribute_code: String!
-  "The unique ID for a `CustomAttribute` object of a selected custom attribute"
-  value: ID!
+    "A string that identifies the selected attribute"
+    attribute_code: String!
+    "The unique ID for a `CustomAttribute` object of a selected custom attribute"
+    value: ID!
 }
 
 type EnteredCustomAttributeInput {
-  "A string that identifies the entered custom attribute"
-  attribute_code: String!
-  "The text or other entered value"
-  value: String!
+    "A string that identifies the entered custom attribute"
+    attribute_code: String!
+    "The text or other entered value"
+    value: String!
 }
 
 type FocusGuestReturnOutput {
-  "Contains details about a single return request"
-  return: Return
+    "Contains details about a single return request"
+    return: Return
+}
+
+input FocusGuestRmaInput {
+    "Params to verify that the guest have access to the RMA document"
+    access_params: FocusRmaAccessParamsInput!
+    "UID of RMA id"
+    rma_uid: String!
+}
+
+type FocusGuestRmaOutput {
+    "Contains details about a single return request"
+    return: Return
+}
+
+input FocusGuestRmaListInput {
+    "Params to verify that the guest have access to the RMA document"
+    access_params: FocusRmaAccessParamsInput!
+    "UID of Order increment id"
+    order_increment_uid: String!
+    "Pagination"
+    pagination: FocusGuestRmaListPagination
+}
+
+input FocusGuestRmaListPagination {
+    "Page Size"
+    PageSize: Int
+    "Page Number"
+    PageNumber: Int
 }

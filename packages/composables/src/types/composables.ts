@@ -536,3 +536,31 @@ export interface UseGuestRequestReturn<REQUEST_RETURN_DATA, REQUEST_RETURN_PARAM
   error: ComputedProperty<UseGuestRequestReturnErrors>;
   loading: ComputedProperty<boolean>;
 }
+
+export interface UseGuestRmaErrors {
+  load: Error;
+}
+
+export interface UseGuestRma<GUEST_RMA_DATA,
+  GUEST_RMA_PARAMS,
+  API extends PlatformApi = any,
+> extends Composable<API> {
+  load: (params: GUEST_RMA_PARAMS) => Promise<void>;
+  result: ComputedProperty<GUEST_RMA_DATA>;
+  error: ComputedProperty<UseGuestRmaErrors>;
+  loading: ComputedProperty<boolean>;
+}
+
+export interface UseGuestRmaListErrors {
+  load: Error;
+}
+
+export interface UseGuestRmaList<GUEST_RMA_LIST_DATA,
+  GUEST_RMA_LIST_PARAMS,
+  API extends PlatformApi = any,
+> extends Composable<API> {
+  load: (params: GUEST_RMA_LIST_PARAMS) => Promise<void>;
+  result: ComputedProperty<GUEST_RMA_LIST_DATA>;
+  error: ComputedProperty<UseGuestRmaListErrors>;
+  loading: ComputedProperty<boolean>;
+}

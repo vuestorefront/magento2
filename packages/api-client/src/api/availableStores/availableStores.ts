@@ -73,7 +73,6 @@ export default gql`
       website_name
       weight_unit
       welcome
-      focus_rma_phone_number
     }
   }
 `;
