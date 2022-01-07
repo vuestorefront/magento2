@@ -218,7 +218,7 @@ export default defineComponent({
       if (!isAuthenticated.value) {
         await (
           !createUserAccount.value
-            ? attachToCart({ user: form.value })
+            ? attachToCart({ email: form.value.email })
             : register({ user: form.value })
         );
       }
