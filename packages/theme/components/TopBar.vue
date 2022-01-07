@@ -19,7 +19,7 @@
        */
         <CurrencySelector />
       -->
-      <LocaleSelector />
+      <StoreSwitcher />
     </template>
   </SfTopBar>
 </template>
@@ -27,14 +27,14 @@
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
 // import CurrencySelector from './CurrencySelector';
-import LocaleSelector from './LocaleSelector';
+import StoreSwitcher from './StoreSwitcher';
 
 export default {
   components: {
     // CurrencySelector,
     SfTopBar,
     SfButton,
-    LocaleSelector,
+    StoreSwitcher,
   },
 };
 

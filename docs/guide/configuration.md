@@ -38,3 +38,28 @@ Then on the `config` folder create a file `dev.json` with your configurations.
   "nuxtAppPort": 3000 // Define nuxt port
 }
 ```
+
+## Languages (i18n)
+
+To properly translate theme content with the usage of i18n library you must add configuration in `nuxt.config.js`. Here is the sample configuration for an English translation. VSF also provides default configuration OOTB which can be overridden if necessary.
+
+By default VSF will map all locales ISO Codes into a locale code, eg. `en_US` will be mapped into `en` code therefore, to properly link the dictionary to Magento 2 store-view, you must set the locale `code` field to be exactly the same as ISO 639-1 alpha-2 code prefix. Mapping is handled by composable `isoToCode.js` helper function which is the extension point for implementing different strategies.
+
+
+```json
+i18n: {
+    ...
+    locales: [
+      {
+        code: 'en', // This must match <iso_a2alpha_prefix>_US from the iso code
+        label: 'English',
+        file: 'en.js', // Points to a file in langDir directory
+        iso: 'en_US',
+      }
+    ],
+    defaultLocale: 'en',
+    langDir: 'lang/',
+    },
+    ...
+  },
+  ```
