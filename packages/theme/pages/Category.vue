@@ -34,7 +34,7 @@
 
         <div class="navbar__sort desktop-only">
           <span class="navbar__label">{{ $t('Sort by') }}:</span>
-          <LazyHydrate on-interaction>
+          <LazyHydrate when-visible>
             <SfSelect
               :value="sortBy.selected"
               placeholder="Select sorting"
@@ -90,7 +90,7 @@
     <div class="main section">
       <div class="sidebar desktop-only">
         <LazyHydrate when-visible>
-          <CategorySidebarMenu
+          <category-sidebar-menu
             :no-fetch="true"
           />
         </LazyHydrate>
@@ -371,6 +371,7 @@ import { useAddToCart } from '~/helpers/cart/addToCart';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
+  name: 'CategoryPage',
   components: {
     CategorySidebarMenu,
     SfButton,
