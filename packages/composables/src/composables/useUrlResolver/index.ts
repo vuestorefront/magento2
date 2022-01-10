@@ -6,7 +6,7 @@ import { UseUrlResolver } from '../../types/composables';
 const factoryParams: UseUrlResolverFactoryParams<Route> = {
   search: async (context: Context, params) => {
     Logger.debug('[Magento] Find information based on URL', { params });
-    const clearUrl = params.url.replace(/\/[cp|]\//gi, '');
+    const clearUrl = params.url.replace(/[a-z]+\/[cp|]\//gi, '');
 
     const { data } = await context.$magento.api.urlResolver(clearUrl);
 
