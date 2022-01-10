@@ -8,5 +8,7 @@
   "externalCheckoutSyncPath": "/vue/cart/sync",
   "imageProvider": "ipx",
   "magentoBaseUrl": "https://magento2-instance.vuestorefront.io/",
-  "imageProviderBaseUrl": "https://res-4.cloudinary.com/{YOUR_CLOUD_ID}/image/upload/"
+  "imageProviderBaseUrl": "https://res-4.cloudinary.com/{YOUR_CLOUD_ID}/image/upload/",
+  "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}",
+  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}"
 }
