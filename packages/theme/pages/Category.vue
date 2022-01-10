@@ -39,7 +39,7 @@
               :value="sortBy.selected"
               placeholder="Select sorting"
               class="navbar__select"
-              @input="th.changeSorting"
+              @input="uiHelpers.changeSorting"
             >
               <SfSelectOption
                 v-for="option in sortBy.options"
@@ -214,7 +214,7 @@
               <SfSelect
                 :value="pagination.itemsPerPage.toString()"
                 class="products__items-per-page"
-                @input="th.changeItemsPerPage"
+                @input="uiHelpers.changeItemsPerPage"
               >
                 <SfSelectOption
                   v-for="option in pagination.pageOptions"
@@ -250,7 +250,7 @@
               class="filters__title sf-heading--left"
             />
             <div
-              v-if="isFacetColor(facet)"
+              v-if="uiHelpers.isFacetColor(facet)"
               :key="`${facet.id}-colors`"
               class="filters__colors"
             >
@@ -397,7 +397,7 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup() {
-    const th = useUiHelpers();
+    const uiHelpers = useUiHelpers();
     const uiState = useUiState();
     const {
       path,
@@ -415,17 +415,11 @@ export default defineComponent({
     const {
       result,
       search,
-      loading,
     } = useFacet(`facetId:${path}`);
-    const {
-      changeFilters,
-      isFacetColor,
-    } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
       search: categoriesSearch,
-      loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
     const {
       addItemToCart,
@@ -519,7 +513,7 @@ export default defineComponent({
         selectedFilters.value = filters;
       }
 
-      changeFilters(selectedFilters.value);
+      uiHelpers.changeFilters(selectedFilters.value);
     };
 
     const addItemToWishlist = async (product) => {
@@ -535,7 +529,7 @@ export default defineComponent({
         ? activeCategoryUid(routeData.value?.entity_uid)
         : routeData.value?.entity_uid;
       await search({
-        ...th.getFacetsFromURL(),
+        ...uiHelpers.getFacetsFromURL(),
         categoryId,
       });
     };
@@ -581,11 +575,9 @@ export default defineComponent({
       applyFilters,
       breadcrumbs,
       categories,
-      categoriesLoading,
       categoryTree,
       facets,
       isAuthenticated,
-      isFacetColor,
       isFilterSelected,
       isInCart,
       isInWishlist,
@@ -596,7 +588,7 @@ export default defineComponent({
       selectedFilters,
       selectFilter,
       sortBy,
-      th,
+      uiHelpers,
     };
   },
 });
