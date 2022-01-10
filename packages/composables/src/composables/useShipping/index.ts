@@ -49,7 +49,7 @@ const factoryParams: UseShippingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment, neighborhood, extra].filter(Boolean), // remove unused attributes
+          street: [address.street, apartment, neighborhood, extra].filter(Boolean),
         },
       });
 
