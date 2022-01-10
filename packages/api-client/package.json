@@ -42,7 +42,7 @@
     "webpack": "4.46.0"
   },
   "peerDependencies": {
-    "@vue-storefront/core": "~2.5.3"
+    "@vue-storefront/core": "~2.5.4"
   },
   "files": [
     "lib/**/*",
