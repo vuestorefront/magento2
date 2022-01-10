@@ -96,11 +96,11 @@
         </LazyHydrate>
       </div>
       <SfLoader
-        :class="{ loading }"
-        :loading="loading"
+        :class="{ loading: isProductsLoading }"
+        :loading="isProductsLoading"
       >
         <div
-          v-if="!loading"
+          v-if="!isProductsLoading"
           class="products"
         >
           <transition-group
@@ -196,7 +196,7 @@
 
           <LazyHydrate on-interaction>
             <SfPagination
-              v-if="!loading"
+              v-if="!isProductsLoading"
               v-show="pagination.totalPages > 1"
               class="products__pagination desktop-only"
               :current="pagination.currentPage"
@@ -540,7 +540,9 @@ export default defineComponent({
       });
     };
 
+    const isProductsLoading = ref(false);
     onSSR(async () => {
+      isProductsLoading.value = true;
       await resolveUrl();
 
       await categoriesSearch({
@@ -566,6 +568,7 @@ export default defineComponent({
         }
 
         await searchCategoryProduct();
+        isProductsLoading.value = false;
       }
     });
 
@@ -586,7 +589,7 @@ export default defineComponent({
       isFilterSelected,
       isInCart,
       isInWishlist,
-      loading,
+      isProductsLoading,
       pagination,
       productGetters,
       products,
