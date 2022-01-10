@@ -13,7 +13,6 @@ const userAddressesGetters: UserAddressesGetters = {
     const addressesData = addresses?.map((a) => transformUserGetter(a))
       ?.sort((a, b) => ((a.default_shipping === b.default_shipping) ? 0 : (a.default_shipping ? -1 : 1)))
       ?.sort((a, b) => ((a.default_billing === b.default_billing) ? 0 : (a.default_billing ? -1 : 1)));
-    console.log(addressesData);
 
     if (!criteria || Object.keys(criteria).length === 0) {
       return addressesData;
