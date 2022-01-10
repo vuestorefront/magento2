@@ -1,4 +1,5 @@
 import { StoreConfig } from '@vue-storefront/magento-api';
+import { isoToCode } from '../helpers/isoToCode';
 
 const getCode = (config: StoreConfig) => config.store_code;
 const getTitle = (config: StoreConfig) => config.default_title;
