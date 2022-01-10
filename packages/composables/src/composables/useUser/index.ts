@@ -18,7 +18,7 @@ CustomerCreateInput
       cart: useCart(),
     };
   },
-  load: async (context: Context, params) => {
+  load: async (context: Context) => {
     Logger.debug('[Magento] Load user information');
     const apiState = context.$magento.config.state;
 
@@ -89,7 +89,7 @@ CustomerCreateInput
 
     return factoryParams.logIn(context, { username: email, password });
   },
-  logIn: async (context: Context, params) => {
+  logIn: async (context: Context, params: any) => {
     Logger.debug('[Magento] Authenticate user');
     const apiState = context.$magento.config.state;
 
@@ -97,6 +97,7 @@ CustomerCreateInput
       {
         email: params.username,
         password: params.password,
+        recaptchaToken: params.recaptchaToken,
       },
     );
 

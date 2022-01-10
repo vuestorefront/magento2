@@ -73,6 +73,18 @@ const config = convict({
     default: process.env.IMAGE_PROVIDER_BASE_URL,
     env: 'IMAGE_PROVIDER_BASE_URL',
   },
+  recaptchaSiteKey: {
+    doc: 'reCaptcha Site Key',
+    format: String,
+    default: process.env.RECAPTCHA_SITE_KEY || '',
+    env: 'RECAPTCHA_SITE_KEY',
+  },
+  recaptchaSecretkey: {
+    doc: 'reCaptcha Secret Key',
+    format: String,
+    default: process.env.RECAPTCHA_SECRET_KEY || '',
+    env: 'RECAPTCHA_SECRET_KEY',
+  },
 });
 
 const env = config.get('env');

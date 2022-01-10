@@ -71,12 +71,18 @@ export interface ClientConfig {
   state: ConfigState;
 }
 
+export interface RecaptchaConfig {
+  sitekey: string,
+  secretkey: string,
+}
+
 export interface Config<T = any> extends ClientConfig {
   client?: ApolloClient<T>;
   storage: Storage;
   customOptions?: ApolloClientOptions<any>;
   customApolloHttpLinkOptions?: HttpOptions;
   overrides: MagentoApiMethods;
+  recaptcha: RecaptchaConfig;
 }
 
 export interface ClientInstance extends ApolloClient<any> {

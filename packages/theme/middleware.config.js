@@ -27,6 +27,10 @@ module.exports = {
         },
         magentoBaseUrl: config.get('magentoBaseUrl'),
         imageProvider: config.get('imageProvider'),
+        recaptcha: {
+          sitekey: config.get('recaptchaSiteKey'),
+          secretkey: config.get('recaptchaSecretkey'),
+        },
       },
     },
   },

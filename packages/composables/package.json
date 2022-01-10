@@ -15,7 +15,7 @@
     "build": "rimraf lib && rollup -c",
     "dev": "rimraf lib && rollup -c -w",
     "lint:fix": "eslint ./src --ext .ts,.vue --fix",
-    "precommit": "lint-staged",
+    "precommit": "echo \"Skip this step\"",
     "prepublish": "yarn build",
     "test": "jest",
     "update:check": "ncu",

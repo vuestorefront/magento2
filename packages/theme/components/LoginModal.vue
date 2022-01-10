@@ -56,6 +56,7 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <recaptcha />
             <div v-if="error.login">
               {{ error.login }}
             </div>
@@ -283,6 +284,7 @@ import {
   reactive,
   defineComponent,
   computed,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   SfModal,
@@ -335,6 +337,7 @@ export default defineComponent({
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
+    const { $recaptcha } = useContext();
     const {
       register,
       login,
@@ -366,6 +369,7 @@ export default defineComponent({
       if (isLoginModalOpen) {
         form.value = {};
         resetErrorValues();
+        $recaptcha.init();
       }
     });
 
@@ -388,10 +392,14 @@ export default defineComponent({
 
     const handleForm = (fn) => async () => {
       resetErrorValues();
+
+      const recaptchaToken = await $recaptcha.getResponse();
+
       await fn({
         user: {
           ...form.value,
           is_subscribed: isSubscribed.value,
+          recaptchaToken,
         },
       });
 
@@ -402,6 +410,8 @@ export default defineComponent({
         return;
       }
       toggleLoginModal();
+      // reset recaptcha
+      $recaptcha.reset();
     };
 
     const handleRegister = async () => handleForm(register)();
