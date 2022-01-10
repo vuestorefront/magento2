@@ -151,6 +151,12 @@ export default {
         iso: 'de_DE',
         defaultCurrency: 'EUR',
       },
+      {
+        code: 'de',
+        label: 'German',
+        file: 'de.js',
+        iso: 'de_DE',
+      },
     ],
     defaultLocale: 'default',
     autoChangeCookie: {
