@@ -11,7 +11,7 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
       cart: useCart(),
     };
   },
-  load: async (context: Context, params): Promise<AvailableStores> => {
+  load: async (context: Context): Promise<AvailableStores> => {
     const { data } = await context.$magento.api.availableStores();
 
     return data.availableStores || [];
@@ -21,7 +21,7 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
   change: (context: Context, store) => {
     context.$magento.config.state.setStore(StoreConfigGetters.getCode(store));
     context.$magento.config.state.setCurrency(StoreConfigGetters.getCurrency(store));
-    context.$magento.config.state.setLocale(StoreConfigGetters.getCurrency(store));
+    context.$magento.config.state.setLocale(StoreConfigGetters.getLocale(store));
 
     context.cart.clear();
   },

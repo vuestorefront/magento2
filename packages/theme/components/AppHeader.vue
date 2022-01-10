@@ -28,7 +28,7 @@
         />
       </template>
       <template #aside>
-        <LocaleSelector class="smartphone-only" />
+        <StoreSwitcher class="smartphone-only" />
       </template>
       <template
         #header-icons="{activeIcon}"
@@ -190,14 +190,14 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import LocaleSelector from '~/components/LocaleSelector.vue';
+import StoreSwitcher from '~/components/StoreSwitcher.vue';
 import SearchResults from '~/components/SearchResults.vue';
 
 export default defineComponent({
   components: {
     SfHeader,
     SfImage,
-    LocaleSelector,
+    StoreSwitcher,
     SfIcon,
     SfButton,
     SfBadge,

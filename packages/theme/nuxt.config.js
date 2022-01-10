@@ -111,36 +111,36 @@ export default {
   ],
   i18n: {
     country: 'US',
+    strategy: 'prefix',
     locales: [
       {
-        code: 'en-US',
+        code: 'en',
         label: 'English',
         file: 'en.js',
         iso: 'en_US',
       },
+      {
+        code: 'de',
+        label: 'German',
+        file: 'de.js',
+        iso: 'de_DE',
+      },
     ],
-    defaultLocale: 'en-US',
+    defaultLocale: 'en',
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en-US',
+      fallbackLocale: 'en',
       numberFormats: {
-        'en-US': {
+        en: {
           currency: {
             style: 'currency',
             currency: 'USD',
             currencyDisplay: 'symbol',
           },
         },
-        'de-DE': {
-          currency: {
-            style: 'currency',
-            currency: 'EUR',
-            currencyDisplay: 'symbol',
-          },
-        },
-        'nl-NL': {
+        de: {
           currency: {
             style: 'currency',
             currency: 'EUR',
