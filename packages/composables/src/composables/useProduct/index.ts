@@ -13,7 +13,7 @@ import {
 import { Scalars } from '@absolute-web/magento-api/lib/types/GraphQL';
 import { useCache } from '@absolute-web/vsf-cache';
 
-const pdpDataBlacklist = new Set(['media_gallery', 'description', 'short_description', 'image', 'small_image', 'thumbnail']);
+const pdpDataBlacklist = new Set(['media_gallery', 'description', 'short_description', 'image', 'small_image', 'thumbnail', 'kit_components']);
 
 const extractPdpData = (productDetails: Product) => {
   let productData = {};
