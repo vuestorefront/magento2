@@ -6,6 +6,13 @@ const $t = (text) => text;
 const customRender = (component, options = {}, callback = null) => render(component, {
   mocks: {
     $t,
+    $nuxt: {
+      context: {
+        app: {
+          localePath: (path) => path,
+        },
+      },
+    },
     ...options?.mocks,
   },
   ...options,
