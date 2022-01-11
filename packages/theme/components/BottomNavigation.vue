@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: create logic with isActive prop for BottomNavigationItems -->
   <SfBottomNavigation class="navigation-bottom smartphone-only">
-    <nuxt-link to="/">
+    <nuxt-link to="localePath('/')">
       <SfBottomNavigationItem
         :class="$route.path == '/' ? 'sf-bottom-navigation__item--active' : ''"
         icon="home"
@@ -52,7 +52,7 @@
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon } from '@storefront-ui/vue';
 import { useUser } from '@vue-storefront/magento';
-import { defineComponent, useRouter } from '@nuxtjs/composition-api';
+import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 
 export default defineComponent({
@@ -71,10 +71,10 @@ export default defineComponent({
     } = useUiState();
     const { isAuthenticated } = useUser();
     const router = useRouter();
-
+    const { app } = useContext();
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        return router.push('/my-account');
+        await router.push(`${app.localePath('/my-account')}`);
       }
       toggleLoginModal();
     };

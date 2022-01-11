@@ -240,7 +240,7 @@
             {{ $t('Continue to payment') }}
           </SfButton>
           <nuxt-link
-            to="/checkout/shipping"
+            to="localePath('/checkout/shipping')"
             class="sf-button sf-button--underlined form__back-button smartphone-only"
           >
             Go back
@@ -278,6 +278,7 @@ import {
   watch,
   useRouter,
   defineComponent,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 
@@ -310,6 +311,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    const { app } = useContext();
     const {
       load,
       save,
@@ -378,7 +380,7 @@ export default defineComponent({
         }
       }
       reset();
-      router.push('/checkout/payment');
+      await router.push(`${app.localePath('/checkout/payment')}`);
       isBillingDetailsStepCompleted.value = true;
     };
 

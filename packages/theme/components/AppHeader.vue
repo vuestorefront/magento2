@@ -178,6 +178,7 @@ import {
   watch,
   defineComponent,
   useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
@@ -208,6 +209,7 @@ export default defineComponent({
   directives: { clickOutside },
   setup() {
     const router = useRouter();
+    const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
@@ -246,7 +248,7 @@ export default defineComponent({
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push('/my-account');
+        await router.push(`${app.localePath('/my-account')}`);
       } else {
         toggleLoginModal();
       }

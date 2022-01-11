@@ -50,7 +50,7 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="'/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item)">
+              <nuxt-link :to="localePath('/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item))">
                 {{ orderGetters.getItemName(item) }}
               </nuxt-link>
             </SfTableData>
@@ -73,7 +73,7 @@
           <SfButton
             data-cy="order-history-btn_start"
             class="no-orders__button"
-            @click="$router.push('/')"
+            @click="$router.push(localePath('/'))"
           >
             {{ $t('Start shopping') }}
           </SfButton>

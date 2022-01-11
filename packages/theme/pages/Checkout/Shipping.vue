@@ -233,7 +233,7 @@
       </div>
       <VsfShippingProvider
         v-if="isShippingDetailsStepCompleted && !dirty"
-        @submit="$router.push('/checkout/billing')"
+        @submit="$router.push(`${localePath('/checkout/billing')}`)"
       />
     </form>
   </ValidationObserver>
@@ -250,7 +250,8 @@ import {
   ref,
   computed,
   watch,
-  onMounted, defineComponent,
+  onMounted,
+  defineComponent,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import {
@@ -311,7 +312,6 @@ export default defineComponent({
       country,
     } = useCountrySearch('Step:Shipping');
     const { isAuthenticated } = useUser();
-
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 

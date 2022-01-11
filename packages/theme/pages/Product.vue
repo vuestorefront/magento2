@@ -354,7 +354,7 @@ export default defineComponent({
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
     const { addItem: addItemToWishlist, isInWishlist } = useWishlist('GlobalWishlist');
-    const { error: nuxtError } = useContext();
+    const { error: nuxtError, app } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
     const productDataIsLoading = computed(() => productLoading.value && !productGetters.getName(product.value));
@@ -414,7 +414,7 @@ export default defineComponent({
           return productGetters.getPrice(product.value).special;
       }
     });
-    
+
     const changeTab = (tabNumber, callback) => {
       document
         .querySelector('#tabs')
@@ -449,7 +449,7 @@ export default defineComponent({
       productConfiguration.value.push([label, value]);
 
       await router.push({
-        path: route.value.fullPath,
+        path: `${app.localePath(route.value.fullPath)}`,
         query: {
           ...Object.fromEntries(productConfiguration.value),
         },

@@ -32,7 +32,7 @@
 <script>
 import { SfSteps } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, ref, useRoute, useRouter,
+  computed, defineComponent, ref, useRoute, useRouter, useContext,
 } from '@nuxtjs/composition-api';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
 
@@ -44,6 +44,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const { app } = useContext();
     const { path } = route.value;
     const router = useRouter();
     const currentStep = computed(() => path.split('/').pop());
@@ -59,7 +60,7 @@ export default defineComponent({
 
     const handleStepClick = async (stepIndex) => {
       const key = Object.keys(STEPS.value)[stepIndex];
-      await router.push(`/checkout/${key}`);
+      await router.push(`${app.localePath(`/checkout/${key}`)}`);
     };
 
     return {

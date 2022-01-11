@@ -206,6 +206,7 @@ import {
   defineComponent,
   useRouter,
   useRoute,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -237,6 +238,7 @@ export default defineComponent({
       removeItem,
     } = useWishlist('MyWishlistPage');
     const route = useRoute();
+    const { app } = useContext();
     const {
       query: {
         page,
@@ -270,10 +272,11 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          await router.push(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
+          const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
             product,
             product.categories[0],
-          )}`);
+          )}`;
+          await router.push(`${app.localePath(path)}`);
           break;
         default:
           throw new Error(`Product Type ${productType} not supported in add to cart yet`);

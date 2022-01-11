@@ -135,7 +135,7 @@
           <SfButton
             type="button"
             class="sf-button color-secondary summary__back-button"
-            @click="$router.push('/checkout/billing')"
+            @click="$router.push(`${localePath('/checkout/billing')}`)"
           >
             {{ $t('Go back') }}
           </SfButton>
@@ -171,6 +171,7 @@ import {
   computed,
   defineComponent,
   useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
@@ -197,6 +198,7 @@ export default defineComponent({
     const { cart, load, setCart } = useCart();
     const { order, make, loading } = useMakeOrder();
     const { $magento } = useVSFContext();
+    const { app } = useContext();
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
@@ -212,7 +214,7 @@ export default defineComponent({
       setCart(null);
       $magento.config.state.setCartId();
       await load();
-      await router.push(`/checkout/thank-you?order=${order.value.order_number}`);
+      await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
