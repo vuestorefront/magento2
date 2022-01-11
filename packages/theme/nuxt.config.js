@@ -226,6 +226,9 @@ export default {
       }
     },
   },
+  plugins: [
+    '~/plugins/token-expired',
+  ],
   router: {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
