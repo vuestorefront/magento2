@@ -15,7 +15,7 @@
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
-    "precommit": "echo \"Skip this step\"",
+    "precommit": "lint-staged",
     "start": "nuxt start",
     "test": "jest",
     "test:watch": "jest --watch",

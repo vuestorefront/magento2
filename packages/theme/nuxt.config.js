@@ -123,6 +123,7 @@ export default {
   },
   i18n: {
     country: 'US',
+    strategy: 'prefix',
     locales: [
       {
         code: 'default',
