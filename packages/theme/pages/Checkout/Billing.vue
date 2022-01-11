@@ -380,7 +380,7 @@ export default defineComponent({
         }
       }
       reset();
-      await router.push(String(app.localePath('/checkout/payment')));
+      await router.push(`${app.localePath('/checkout/payment')}`);
       isBillingDetailsStepCompleted.value = true;
     };
 

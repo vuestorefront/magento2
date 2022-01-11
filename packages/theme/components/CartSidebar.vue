@@ -295,7 +295,7 @@ export default defineComponent({
 
     const goToCheckout = async () => {
       const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(String(app.localePath(redirectUrl)));
+      await router.push(`${app.localePath(redirectUrl)}`);
     };
 
     const sendToRemove = ({ product }) => {

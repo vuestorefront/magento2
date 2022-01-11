@@ -449,7 +449,7 @@ export default defineComponent({
       productConfiguration.value.push([label, value]);
 
       await router.push({
-        path: String(app.localePath(route.value.fullPath)),
+        path: `${app.localePath(route.value.fullPath)}`,
         query: {
           ...Object.fromEntries(productConfiguration.value),
         },

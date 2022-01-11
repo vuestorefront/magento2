@@ -111,7 +111,7 @@ export default defineComponent({
     const changeActivePage = async (title) => {
       if (title === 'Log out') {
         await logout();
-        await router.push(String(localePath({ name: 'home' })));
+        await router.push(`${localePath({ name: 'home' })}`);
 
         return;
       }

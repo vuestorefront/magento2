@@ -60,7 +60,7 @@ export default defineComponent({
 
     const handleStepClick = async (stepIndex) => {
       const key = Object.keys(STEPS.value)[stepIndex];
-      await router.push(String(app.localePath(`/checkout/${key}`)));
+      await router.push(`${app.localePath(`/checkout/${key}`)}`);
     };
 
     return {

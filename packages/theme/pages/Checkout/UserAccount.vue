@@ -234,7 +234,7 @@ export default defineComponent({
       }
 
       if (!hasError.value) {
-        await router.push(String(app.localePath('/checkout/shipping')));
+        await router.push(`${app.localePath('/checkout/shipping')}`);
         reset();
         isFormSubmitted.value = true;
       } else {

@@ -276,7 +276,7 @@ export default defineComponent({
             product,
             product.categories[0],
           )}`;
-          await router.push(String(app.localePath(path)));
+          await router.push(`${app.localePath(path)}`);
           break;
         default:
           throw new Error(`Product Type ${productType} not supported in add to cart yet`);

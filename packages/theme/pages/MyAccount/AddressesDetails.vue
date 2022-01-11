@@ -125,7 +125,7 @@ export default defineComponent({
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(String(app.localePath({ path: '/my-account/addresses-details', query: { id: addressId } })));
+      await router.push(`${app.localePath({ path: '/my-account/addresses-details', query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {

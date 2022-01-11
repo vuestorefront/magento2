@@ -135,7 +135,7 @@
           <SfButton
             type="button"
             class="sf-button color-secondary summary__back-button"
-            @click="$router.push(String(localePath('/checkout/billing')))"
+            @click="$router.push(`${localePath('/checkout/billing')}`)"
           >
             {{ $t('Go back') }}
           </SfButton>
@@ -214,7 +214,7 @@ export default defineComponent({
       setCart(null);
       $magento.config.state.setCartId();
       await load();
-      await router.push(String(app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)));
+      await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
