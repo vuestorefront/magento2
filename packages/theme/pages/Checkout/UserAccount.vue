@@ -139,6 +139,7 @@ import {
   computed,
   defineComponent,
   useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
@@ -179,7 +180,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-
+    const { app } = useContext();
     const {
       attachToCart,
       loading: loadingGuestUser,
@@ -233,7 +234,7 @@ export default defineComponent({
       }
 
       if (!hasError.value) {
-        await router.push('/checkout/shipping');
+        await router.push(String(app.localePath('/checkout/shipping')));
         reset();
         isFormSubmitted.value = true;
       } else {

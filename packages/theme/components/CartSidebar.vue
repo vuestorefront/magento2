@@ -238,6 +238,7 @@ import {
   defineComponent,
   ref,
   useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -268,6 +269,7 @@ export default defineComponent({
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const router = useRouter();
+    const { app } = useContext();
     const {
       cart,
       removeItem,
@@ -293,7 +295,7 @@ export default defineComponent({
 
     const goToCheckout = async () => {
       const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(redirectUrl);
+      await router.push(String(app.localePath(redirectUrl)));
     };
 
     const sendToRemove = ({ product }) => {

@@ -111,7 +111,7 @@ export default defineComponent({
     const changeActivePage = async (title) => {
       if (title === 'Log out') {
         await logout();
-        await router.push(localePath({ name: 'home' }));
+        await router.push(String(localePath({ name: 'home' })));
 
         return;
       }
@@ -119,8 +119,7 @@ export default defineComponent({
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
 
-      const localeTransformedPath = localePath(transformedPath);
-      await router.push(localeTransformedPath);
+      await router.push(String(localePath(transformedPath)));
     };
 
     onBeforeUnmount(() => {
