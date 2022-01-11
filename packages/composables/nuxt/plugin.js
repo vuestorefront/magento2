@@ -11,6 +11,7 @@ export default integrationPlugin(({ app, res, req, integration }) => {
   const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
   const currencyCookieName = moduleOptions.cookies?.currencyCookieName || defaultConfig.cookies.currencyCookieName;
   const localeCookieName = moduleOptions.cookies?.localeCookieName || defaultConfig.cookies.localeCookieName;
+  const countryCookieName = moduleOptions.cookies?.countryCookieName || defaultConfig.cookies.countryCookieName;
 
   const {
     setCookie,
@@ -76,6 +77,18 @@ export default integrationPlugin(({ app, res, req, integration }) => {
     setCookie(localeCookieName, id);
   };
 
+  const getCountry = () => getCookies(countryCookieName);
+
+  const setCountry = (id) => {
+    if (!id) {
+      // eslint-disable-next-line no-param-reassign
+      removeCookie(countryCookieName);
+      return;
+    }
+
+    setCookie(countryCookieName, id);
+  };
+
   const settings = mapConfigToSetupObject({
     moduleOptions,
     app,
@@ -94,6 +107,8 @@ export default integrationPlugin(({ app, res, req, integration }) => {
         setCurrency,
         getLocale,
         setLocale,
+        getCountry,
+        setCountry
       },
     }
   });

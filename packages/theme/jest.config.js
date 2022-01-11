@@ -40,6 +40,8 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue',
+    '<rootDir>/middleware/**/*.js',
+    '<rootDir>/plugins/**/*.js',
   ],
 
   setupFiles: [
