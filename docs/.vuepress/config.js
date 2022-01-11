@@ -69,7 +69,7 @@ module.exports = {
           ['/guide/graphql-get', 'Use GET for GraphQL Queries'],
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries'],
-          ['/guide/testing', 'ReCaptcha'],
+          ['/guide/recaptcha', 'ReCaptcha'],
           ['/guide/testing', 'Testing']
         ]
       },
