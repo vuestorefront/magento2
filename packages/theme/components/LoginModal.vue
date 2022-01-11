@@ -56,7 +56,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha />
+            <recaptcha v-if="isRecaptcha" />
             <div v-if="error.login">
               {{ error.login }}
             </div>
@@ -338,6 +338,7 @@ export default defineComponent({
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
     const { $recaptcha } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
     const {
       register,
       login,
@@ -369,7 +370,9 @@ export default defineComponent({
       if (isLoginModalOpen) {
         form.value = {};
         resetErrorValues();
-        $recaptcha.init();
+        if (isRecaptcha.value) {
+          $recaptcha.init();
+        }
       }
     });
 
@@ -392,16 +395,24 @@ export default defineComponent({
 
     const handleForm = (fn) => async () => {
       resetErrorValues();
+      if (isRecaptcha.value) {
+        const recaptchaToken = await $recaptcha.getResponse();
 
-      const recaptchaToken = await $recaptcha.getResponse();
-
-      await fn({
-        user: {
-          ...form.value,
-          is_subscribed: isSubscribed.value,
-          recaptchaToken,
-        },
-      });
+        await fn({
+          user: {
+            ...form.value,
+            is_subscribed: isSubscribed.value,
+            recaptchaToken,
+          },
+        });
+      } else {
+        await fn({
+          user: {
+            ...form.value,
+            is_subscribed: isSubscribed.value
+          },
+        });
+      }
 
       const hasUserErrors = userError.value.register || userError.value.login;
       if (hasUserErrors) {
@@ -410,8 +421,11 @@ export default defineComponent({
         return;
       }
       toggleLoginModal();
-      // reset recaptcha
-      $recaptcha.reset();
+
+      if (isRecaptcha.value) {
+        // reset recaptcha
+        $recaptcha.reset();
+      }
     };
 
     const handleRegister = async () => handleForm(register)();
@@ -450,6 +464,7 @@ export default defineComponent({
       setIsLoginValue,
       userEmail,
       userError,
+      isRecaptcha,
     };
   },
 });

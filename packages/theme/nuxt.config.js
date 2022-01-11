@@ -113,7 +113,7 @@ export default {
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
     '@nuxt/image',
-    '@nuxtjs/recaptcha',
+    // '@nuxtjs/recaptcha',
   ],
   recaptcha: {
     hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)

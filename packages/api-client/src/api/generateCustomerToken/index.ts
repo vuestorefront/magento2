@@ -19,16 +19,18 @@ export default async (
   customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
-    /**
-     * recaptcha token verification
-     */
-    const response = await recaptchaValidator(context, params.recaptchaToken);
+    if (context.config.recaptcha.secretkey) {
+      /**
+       * recaptcha token verification
+       */
+      const response = await recaptchaValidator(context, params.recaptchaToken);
 
-    if (!response.success) {
-      return {
-        errors: [new GraphQLError('Invalid token')],
-        data: null,
-      };
+      if (!response.success) {
+        return {
+          errors: [new GraphQLError('Invalid token')],
+          data: null,
+        };
+      }
     }
 
     const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(
