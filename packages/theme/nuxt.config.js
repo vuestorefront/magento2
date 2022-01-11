@@ -116,10 +116,10 @@ export default {
     '@nuxtjs/recaptcha',
   ],
   recaptcha: {
-    hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
+    hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
     siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-    version: 2, // Version 2 or 3
-    size: 'invisible', // Size: 'compact', 'normal', 'invisible' (v2)
+    version: config.get('recaptchaVersion'), // Version 2 or 3
+    size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
   },
   i18n: {
     country: 'US',

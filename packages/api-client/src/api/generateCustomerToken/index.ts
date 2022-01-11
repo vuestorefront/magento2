@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { GraphQLError } from 'graphql';
-import recaptchaHelper from '../../helpers/recaptcha/recaptchaHelper';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import generateCustomerToken from './generateCustomerToken';
 import {
   GenerateCustomerTokenMutation,
@@ -22,7 +22,7 @@ export default async (
     /**
      * recaptcha token verification
      */
-    const response = await recaptchaHelper(context.config.recaptcha.secretkey, params.recaptchaToken);
+    const response = await recaptchaValidator(context, params.recaptchaToken);
 
     if (!response.success) {
       return {

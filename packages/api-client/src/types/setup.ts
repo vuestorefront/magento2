@@ -74,6 +74,8 @@ export interface ClientConfig {
 export interface RecaptchaConfig {
   sitekey: string,
   secretkey: string,
+  version: number,
+  score: number,
 }
 
 export interface Config<T = any> extends ClientConfig {
