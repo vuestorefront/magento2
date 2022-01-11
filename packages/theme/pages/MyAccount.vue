@@ -150,7 +150,7 @@ export default defineComponent({
       --font-weight--normal
     );
     --content-pages-sidebar-category-title-margin: var(--spacer-sm)
-      var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
+      var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
   }
   @include for-desktop {
     --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;
