@@ -89,13 +89,7 @@ export const getItemAttributes = (
   return attributes;
 };
 
-export const getItemSku = (product: CartItem): string => {
-  if (!product.product) {
-    return '';
-  }
-
-  return product.product.sku;
-};
+export const getItemSku = (product: CartItem): string => product?.product?.sku || '';
 
 const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((a, b) => Number.parseFloat(`${a}`) + Number.parseFloat(`${b.amount.value}`), 0);
 

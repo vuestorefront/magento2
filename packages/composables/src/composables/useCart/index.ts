@@ -383,7 +383,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
       currentCart,
       product,
     },
-  ) => !!currentCart?.items.find((cartItem) => cartItem.product.uid === product.uid),
+  ) => !!currentCart?.items.find((cartItem) => cartItem?.product?.uid === product.uid),
 };
 
 export default useCartFactory<Cart, CartItem, Product>(factoryParams);

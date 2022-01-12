@@ -248,7 +248,7 @@ import {
   defineComponent,
   ref,
   useRouter,
-  useContext,
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -256,7 +256,6 @@ import {
   cartGetters,
   useExternalCheckout,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
 import { useUiState, useUiNotification } from '~/composables';
 import CouponCode from './CouponCode.vue';
 import stockStatusEnum from '~/enums/stockStatusEnum';
@@ -301,8 +300,9 @@ export default defineComponent({
     const isLoaderVisible = ref(false);
     const tempProduct = ref();
 
-    onSSR(async () => {
-      await loadCart();
+    onMounted(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      loadCart();
     });
 
     const goToCheckout = async () => {
