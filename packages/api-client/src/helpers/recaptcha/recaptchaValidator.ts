@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Context } from '../../types/context';
 
 interface RecaptchaApiResponse {
@@ -14,23 +13,13 @@ export default async (
   token: string,
 ): Promise<RecaptchaApiResponse> => {
   try {
-    const result = await axios({
-      method: 'post',
-      url: 'https://www.google.com/recaptcha/api/siteverify',
-      params: {
-        secret: context.config.recaptcha.secretkey,
-        response: token,
-      },
-    });
+    const { secretkey } = context.config.recaptcha;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretkey}&response=${token}`;
 
-    if (context.config.recaptcha.version === 3
-      && typeof result.data.score !== 'undefined'
-      && result.data.score < context.config.recaptcha.score
-    ) {
-      result.data.success = false;
-    }
+    const result = await fetch(url);
+    const response = await result.json();
 
-    return result.data;
+    return response;
   } catch (error) {
     throw error.message || error;
   }
