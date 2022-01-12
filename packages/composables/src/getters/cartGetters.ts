@@ -173,14 +173,13 @@ export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] 
   value: p.code,
 }));
 
+export const getStockStatus = (product: CartItem): string => product.product.stock_status;
 export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
-
   getAvailablePaymentMethods(cart: Cart): AgnosticPaymentMethod[];
-
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
-
   productHasSpecialPrice(product: CartItem): boolean;
+  getStockStatus(product: CartItem): string;
 }
 
 const cartGetters: CartGetters = {
@@ -202,6 +201,7 @@ const cartGetters: CartGetters = {
   getTotalItems,
   getTotals,
   productHasSpecialPrice,
+  getStockStatus,
 };
 
 export default cartGetters;
