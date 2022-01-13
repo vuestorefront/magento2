@@ -56,7 +56,6 @@
     "@babel/core": "^7.16.5",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
-    "@nuxtjs/html-validator": "^0.6.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/user-event": "^13.5.0",
     "@testing-library/vue": "^5.8.2",
