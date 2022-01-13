@@ -23,22 +23,19 @@ module.exports = {
 
   coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
 
-  testEnvironment: 'jest-environment-jsdom-sixteen',
-
-  transform: {
-    '^.+\\.(ts)$': 'ts-jest',
-  },
-
   coverageDirectory: './coverage/',
 
-  collectCoverageFrom: [
-    'src/**/*.ts',
-  ],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1',
+    '^~/(.*)$': '<rootDir>/$1',
+  },
 
-  setupFiles: [
-    'jest-date-mock',
-    'jest-localstorage-mock',
-  ],
+  testEnvironment: 'jest-environment-jsdom-sixteen',
+  
+  transform: {
+    '^.+\\.(ts)$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
+  },
 
   transformIgnorePatterns: [
     'node_modules',
