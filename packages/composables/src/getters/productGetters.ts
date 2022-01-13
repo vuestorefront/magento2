@@ -26,8 +26,8 @@ export const getName = (product: Product): string => {
 };
 
 export const getSlug = (product: Product, category?: Category): string => {
-  const rewrites = product.url_rewrites;
-  let url = `/p/${product.sku}`;
+  const rewrites = product?.url_rewrites;
+  let url = product?.sku ? `/p/${product.sku}` : '';
   if (!rewrites || rewrites.length === 0) {
     return url;
   }
