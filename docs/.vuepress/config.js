@@ -106,6 +106,7 @@ module.exports = {
       {
         title: 'Reference',
         children: [
+          ['/middlewares/', 'Middlewares'],
           ['/api-reference/', 'API Reference'],
         ]
       },

@@ -32,34 +32,42 @@ Then on the `config` folder create a file `dev.json` with your configurations.
 {
   "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql", // Define Magento GraphQL endpoint
   "enableMagentoExternalCheckout": false, // Flag if VSF will use External Checkout
-  "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}", // External checkout URL 
+  "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}", // External checkout URL
   "externalCheckoutSyncPath": "/vue/cart/sync", // External Checkout synchronization path
   "nuxtAppEnvironment": "development",  // Define nuxt application environment
   "nuxtAppPort": 3000 // Define nuxt port
 }
 ```
 
-## Languages (i18n)
+## Multistore and localization
 
-To properly translate theme content with the usage of i18n library you must add configuration in `nuxt.config.js`. Here is the sample configuration for an English translation. VSF also provides default configuration OOTB which can be overridden if necessary.
+Each Magento Store View need to have corresponding locale configuration object in `i18n.locales` array in `nuxt.config.js`.
 
-By default VSF will map all locales ISO Codes into a locale code, eg. `en_US` will be mapped into `en` code therefore, to properly link the dictionary to Magento 2 store-view, you must set the locale `code` field to be exactly the same as ISO 639-1 alpha-2 code prefix. Mapping is handled by composable `isoToCode.js` helper function which is the extension point for implementing different strategies.
+### Locale configuration object reference
 
+`code` (required) - unique identifier of the locale - corresponding to Magento store view code
+For other properties please follow official [nuxt-i18n docs](https://i18n.nuxtjs.org/options-reference#locales)
+
+### Sample configuration
 
 ```json
-i18n: {
-    ...
-    locales: [
-      {
-        code: 'en', // This must match <iso_a2alpha_prefix>_US from the iso code
-        label: 'English',
-        file: 'en.js', // Points to a file in langDir directory
-        iso: 'en_US',
-      }
-    ],
-    defaultLocale: 'en',
-    langDir: 'lang/',
-    },
-    ...
+locales: [
+  {
+    code: 'default',
+    file: 'en.js',
+    iso: 'en_US',
   },
+  {
+    code: 'german',
+    file: 'de.js',
+    iso: 'de_DE',
+  },
+],
   ```
+So for this configuration you need to have two Magento store views with corresponding store codes: `default` and `german`
+
+## Translations
+
+There are two steps to translate whole storefront:
+1. Add translations in Magento for products and categories if necessary
+2. Add translations to files in the `lang` directory
