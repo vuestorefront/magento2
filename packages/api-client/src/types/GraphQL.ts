@@ -2007,6 +2007,8 @@ export interface CreateProductReviewInput {
   summary: Scalars['String'];
   /** The review text. */
   text: Scalars['String'];
+  /** The reCaptcha Token. */
+  recaptchaToken?: Scalars['String'];
 }
 
 export interface CreateProductReviewOutput {

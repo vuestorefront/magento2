@@ -409,7 +409,7 @@ export default defineComponent({
         await fn({
           user: {
             ...form.value,
-            is_subscribed: isSubscribed.value
+            is_subscribed: isSubscribed.value,
           },
         });
       }
