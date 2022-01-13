@@ -6,7 +6,7 @@ import cookieNames from '~/enums/cookieNameEnum';
  * @param app {NuxtAppOptions} - Nuxt App options object
  * @returns {string} - vsf-store cookie value
  */
-export const readStoreCookie = (app) => app.$cookies.get(cookieNames.storeCookieName);
+const readStoreCookie = (app) => app.$cookies.get(cookieNames.storeCookieName);
 
 /**
  * Find locale code based on magento store code
@@ -14,14 +14,14 @@ export const readStoreCookie = (app) => app.$cookies.get(cookieNames.storeCookie
  * @param locales {array} - array with locales
  * @returns boolean
  */
-export const findLocaleBasedOnStoreCode = (storeCode, locales) => locales.find((locale) => locale.code === storeCode);
+const findLocaleBasedOnStoreCode = (storeCode, locales) => locales.find((locale) => locale.code === storeCode);
 
 /**
  * Set default locale
  * @param i18n {i18n} i18n API
  * @returns {Promise<void>}
  */
-export const setDefaultLocale = async (i18n) => {
+const setDefaultLocale = async (i18n) => {
   await i18n.setLocale(i18n.defaultLocale);
 };
 
@@ -31,7 +31,7 @@ export const setDefaultLocale = async (i18n) => {
  * @param apiState {ConfigState}
  * @returns {string}
  */
-export const prepareNewCookieString = (apiState, newStoreCode) => {
+const prepareNewCookieString = (apiState, newStoreCode) => {
   let cookie = `vsf-store=${newStoreCode}; `;
 
   cookie += `vsf-locale=${newStoreCode}; `;
@@ -50,8 +50,6 @@ export const prepareNewCookieString = (apiState, newStoreCode) => {
     cookie += `vsf-cart=${cartIdCookie} `;
   }
 
-  console.log(cookie)
-
   return cookie;
 };
 
@@ -59,15 +57,8 @@ export default async ({ app }) => {
   const { i18n } = app;
   const currentStoreCode = readStoreCookie(app);
 
-  if (!currentStoreCode) {
-    await setDefaultLocale(i18n);
-
-    return;
-  }
-
-  const i18nLocaleObject = findLocaleBasedOnStoreCode(currentStoreCode, i18n.locales);
-
-  if (!i18nLocaleObject) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  if (!currentStoreCode || !findLocaleBasedOnStoreCode(currentStoreCode, i18n.locales)) {
     await setDefaultLocale(i18n);
 
     return;
