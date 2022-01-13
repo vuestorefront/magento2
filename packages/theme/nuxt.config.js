@@ -152,8 +152,7 @@ export default {
         defaultCurrency: 'EUR',
       },
       {
-        code: 'de',
-        label: 'German',
+        code: 'german',
         file: 'de.js',
         iso: 'de_DE',
       },
@@ -244,6 +243,7 @@ export default {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
     },
+    middleware: ['i18n'],
   },
   image: {
     provider: config.get('imageProvider'),
