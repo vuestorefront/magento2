@@ -14,8 +14,6 @@ module.exports = {
     __DEV__: true,
   },
 
-  bail: true,
-
   // noStackTrace: true,
   // bail: true,
   // cache: false,
