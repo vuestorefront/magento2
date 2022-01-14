@@ -14,6 +14,7 @@ interface SetNewPasswordParams {
   tokenValue: string;
   newPassword: string;
   email: string;
+  recaptchaToken?: string;
 }
 
 interface ResetPasswordParams {

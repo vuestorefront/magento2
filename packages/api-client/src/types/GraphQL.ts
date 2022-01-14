@@ -7323,6 +7323,7 @@ export type ResetPasswordMutationVariables = Exact<{
   email: Scalars['String'];
   newPassword: Scalars['String'];
   resetPasswordToken: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 

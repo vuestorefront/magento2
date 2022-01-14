@@ -24,6 +24,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
       email: params.email,
       newPassword: params.newPassword,
       resetPasswordToken: params.tokenValue,
+      recaptchaToken: params.recaptchaToken,
     });
 
     Logger.debug('[Result]:', { data });

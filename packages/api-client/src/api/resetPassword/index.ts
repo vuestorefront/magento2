@@ -1,22 +1,42 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import gql from 'graphql-tag';
+import { GraphQLError } from 'graphql';
 import resetPasswordMutation from './resetPassword';
 import {
   ResetPasswordMutation,
   ResetPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 
 export default async (
   context: Context,
   input: ResetPasswordMutationVariables,
   customQuery: CustomQuery = { resetPassword: 'resetPassword' },
 ): Promise<FetchResult<ResetPasswordMutation>> => {
+  const {
+    recaptchaToken, ...variables
+  } = input;
+
+  if (context.config.recaptcha.secretkey) {
+    /**
+     * recaptcha token verification
+     */
+    const response = await recaptchaValidator(context, recaptchaToken);
+
+    if (!response.success) {
+      return {
+        errors: [new GraphQLError('Invalid token')],
+        data: null,
+      };
+    }
+  }
+
   const { resetPassword } = context.extendQuery(customQuery, {
     resetPassword: {
       query: resetPasswordMutation,
-      variables: { ...input },
+      variables: { ...variables },
     },
   });
 

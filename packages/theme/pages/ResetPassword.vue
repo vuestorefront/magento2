@@ -61,6 +61,7 @@
           <div v-if="passwordMatchError || forgotPasswordError.setNew">
             {{ passwordMatchError || forgotPasswordError.setNew.message }}
           </div>
+          <recaptcha v-if="isRecaptcha" />
           <SfButton
             v-e2e="'reset-password-modal-submit'"
             type="submit"
@@ -95,7 +96,12 @@ import {
   SfInput,
   SfHeading,
 } from '@storefront-ui/vue';
-import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
+import {
+  ref,
+  computed,
+  defineComponent,
+  useContext,
+} from '@nuxtjs/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
@@ -143,6 +149,8 @@ export default defineComponent({
     const isPasswordChanged = computed(() => forgotPasswordGetters.isPasswordChanged(result.value));
 
     const { token } = context.root.$route.query;
+    const { $recaptcha } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
 
     const setNewPassword = async () => {
       passwordMatchError.value = false;
@@ -151,11 +159,30 @@ export default defineComponent({
         return;
       }
 
-      await setNew({
-        tokenValue: token,
-        newPassword: form.value.password,
-        email: form.value.email,
-      });
+      if (isRecaptcha.value) {
+        $recaptcha.init();
+      }
+
+      if (isRecaptcha.value) {
+        const recaptchaToken = await $recaptcha.getResponse();
+
+        await setNew({
+          tokenValue: token,
+          newPassword: form.value.password,
+          email: form.value.email,
+          recaptchaToken,
+        });
+      } else {
+        await setNew({
+          tokenValue: token,
+          newPassword: form.value.password,
+          email: form.value.email,
+        });
+      }
+
+      if (isRecaptcha.value) {
+        $recaptcha.reset();
+      }
     };
 
     return {
@@ -167,6 +194,7 @@ export default defineComponent({
       passwordMatchError,
       token,
       result,
+      isRecaptcha,
     };
   },
 });
