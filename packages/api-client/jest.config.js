@@ -3,9 +3,9 @@ const baseConfig = require('./../../jest.base.config');
 /* eslint-disable unicorn/prefer-module */
 module.exports = {
   ...baseConfig,
-  
+
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts'
+    '<rootDir>/src/**/*.ts',
   ],
 
   moduleNameMapper: {
@@ -14,11 +14,9 @@ module.exports = {
   },
 
   moduleFileExtensions: ['js', 'json', 'ts'],
-  transform: {
-    ...baseConfig.transform.transform,
-    '\\.(gql|graphql)$': 'jest-transform-graphql'
-  },
 
   testEnvironment: 'jsdom',
+
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
 };
