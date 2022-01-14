@@ -10,6 +10,9 @@ const customRender = (component, options = {}, callback = null) => render(compon
       context: {
         app: {
           localePath: (path) => path,
+          $cookies: {
+            get: jest.fn(),
+          },
         },
       },
     },
