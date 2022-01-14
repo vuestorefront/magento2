@@ -132,7 +132,7 @@
                     v-else
                     class="color-danger sf-badge__absolute"
                   >
-                    <template>
+                    <template #default>
                       <span>{{ $t('Out of stock') }}</span>
                     </template>
                   </SfBadge>
@@ -230,6 +230,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   SfLoader,
   SfNotification,
@@ -344,7 +345,7 @@ export default defineComponent({
     return {
       sendToRemove,
       actionRemoveItem,
-      loading,
+      loading: computed(() => (!!loading.value)),
       isAuthenticated,
       products,
       removeItem,
