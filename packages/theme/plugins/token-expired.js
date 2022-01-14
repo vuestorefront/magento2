@@ -18,7 +18,6 @@ export default ({ app, redirect }) => {
         title: null,
       });
 
-      app.$cookies.remove('lol');
       redirect('/');
     }
 
