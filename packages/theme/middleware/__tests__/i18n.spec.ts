@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 import i18nMiddleware from '~/middleware/i18n';
 
 const localesMock = [
@@ -99,7 +101,7 @@ describe('i18n middleware', () => {
     expect(testCaseAppMock.$vsf.$magento.config.state.setLocale).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.state.setStore).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.axios.headers.cookie).toMatchInlineSnapshot(
-      `"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=USD; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "`
+      '"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=USD; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "',
     );
   });
 });

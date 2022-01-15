@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { useGuestUser, useUser } from '@vue-storefront/magento';
 import { render, useUserMock, useGuestUserMock } from '~/test-utils';
-
+// @ts-ignore
 import UserAccount from '../UserAccount';
 
 jest.mock('@vue-storefront/magento', () => ({
@@ -24,8 +26,8 @@ jest.mock('@nuxtjs/composition-api', () => {
 
 describe('<UserAccount/>', () => {
   it('Form fields are rendered and validated', async () => {
-    useUser.mockReturnValue(useUserMock());
-    useGuestUser.mockReturnValue(useGuestUserMock());
+    (useUser as jest.Mock).mockReturnValue(useUserMock());
+    (useGuestUser as jest.Mock).mockReturnValue(useGuestUserMock());
 
     const { getByRole, findAllByText } = render(UserAccount);
 
@@ -49,8 +51,8 @@ describe('<UserAccount/>', () => {
   });
 
   it('Email should be validated', async () => {
-    useUser.mockReturnValue(useUserMock());
-    useGuestUser.mockReturnValue(useGuestUserMock());
+    (useUser as jest.Mock).mockReturnValue(useUserMock());
+    (useGuestUser as jest.Mock).mockReturnValue(useGuestUserMock());
 
     const { getByRole, findByText } = render(UserAccount);
 
@@ -68,11 +70,11 @@ describe('<UserAccount/>', () => {
     const attachToCartMock = jest.fn();
     const routerPushMock = jest.fn();
 
-    useUser.mockReturnValue(useUserMock());
-    useGuestUser.mockReturnValue(useGuestUserMock({
+    (useUser as jest.Mock).mockReturnValue(useUserMock());
+    (useGuestUser as jest.Mock).mockReturnValue(useGuestUserMock({
       attachToCart: attachToCartMock,
     }));
-    useRouter.mockReturnValue({
+    (useRouter as jest.Mock).mockReturnValue({
       push: routerPushMock,
     });
 

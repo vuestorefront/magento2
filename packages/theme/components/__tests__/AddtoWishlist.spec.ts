@@ -1,3 +1,5 @@
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 import userEvent from '@testing-library/user-event';
 import { render } from '~/test-utils';
 // @ts-ignore
@@ -7,7 +9,7 @@ describe('<AddToWishlist>', () => {
   it('Should not render add to wishlist button because isShow prop equals false by default', () => {
     const { queryByText } = render(AddToWishlist);
 
-    expect(queryByText('Add to wishlist')).toBeNull();
+    expect(queryByText('Add to wishlist')).not.toBeInTheDocument();
   });
 
   it('Should render add to wishlist button', () => {

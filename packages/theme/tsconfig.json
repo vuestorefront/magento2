@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "target": "ES2018",
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
     "lib": [
@@ -10,9 +10,10 @@
       "DOM"
     ],
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "allowJs": true,
     "sourceMap": true,
-    "strict": false,
+    "strict": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
@@ -26,7 +27,9 @@
     "types": [
       "@types/node",
       "@nuxt/types",
-      "nuxt-i18n"
+      "nuxt-i18n",
+      "@types/jest",
+      "@types/testing-library__jest-dom"
     ],
     "resolveJsonModule": true,
     "rootDir": "./",
@@ -34,7 +37,11 @@
     "importHelpers": true,
     "allowSyntheticDefaultImports": true
   },
+  "include": [
+    "./jest-setup.ts"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tests/**/*.*"
   ]
 }

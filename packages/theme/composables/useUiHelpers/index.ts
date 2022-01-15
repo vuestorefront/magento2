@@ -5,7 +5,7 @@ import { useRoute, useRouter } from '@nuxtjs/composition-api';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-const reduceFilters = (query) => (prev, curr) => {
+const reduceFilters = (query: any) => (prev: any, curr: any) => {
   const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
   return {
@@ -19,7 +19,7 @@ const useUiHelpers = () => {
   const router = useRouter();
   const { query } = route.value;
 
-  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(query)
+  const getFiltersDataFromUrl = (onlyFilters: any) => Object.keys(query)
     .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
   // eslint-disable-next-line unicorn/prefer-object-from-entries
     .reduce(reduceFilters(query), {});

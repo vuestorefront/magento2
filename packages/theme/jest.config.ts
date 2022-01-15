@@ -1,8 +1,9 @@
-/* eslint-disable unicorn/prefer-module */
-module.exports = {
-  globals: {
-    __DEV__: true,
-  },
+import type { Config } from '@jest/types';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import tsConfig from './tsconfig.json';
+
+export default (): Config.InitialOptions => ({
+  preset: 'ts-jest',
   // noStackTrace: true,
   // bail: true,
   // cache: false,
@@ -23,13 +24,13 @@ module.exports = {
   collectCoverage: false,
   testEnvironment: 'jsdom',
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
-    '^~/(.*)$': '<rootDir>/$1',
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    ...pathsToModuleNameMapper(tsConfig.compilerOptions.paths, { prefix: '<rootDir>/' }),
     '^vue$': 'vue/dist/vue.common.js',
   },
   moduleFileExtensions: ['js', 'vue', 'json', 'ts'],
   transform: {
-    '^.+\\.(ts)$': 'ts-jest',
+    '^.+\\.ts$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
     '^.+\\.vue$': 'vue-jest',
     '^.+\\.(css|svg)': 'jest-transform-stub',
@@ -49,7 +50,7 @@ module.exports = {
     'jest-localstorage-mock',
   ],
 
-  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
 
   transformIgnorePatterns: [
     'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
@@ -68,4 +69,4 @@ module.exports = {
     ['jest-watch-toggle-config', { setting: 'notify' }],
     ['jest-watch-toggle-config', { setting: 'bail' }],
   ],
-};
+});
