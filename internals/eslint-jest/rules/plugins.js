@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
-    'jest'
+    'jest',
+    'jest-dom'
   ],
 };
