@@ -176,7 +176,7 @@ jest.mock('@nuxtjs/composition-api', () => {
 
 ### Setup
 
-In case when something should be set-up before test running, you should use `packages/theme/jest-setup.js` file.
+In case when something should be set-up before test running, you should use `packages/theme/jest-setup.ts` file.
 Take a look at the current implementation:
 
 ```js
@@ -188,8 +188,8 @@ Vue.directive('e2e', {});
 
 ### Sample test files
 Please take a look at these test files to see the aproach:
-1. `packages/theme/pages/Checkout/__tests__/UserAccount.spec.js`
-2. `packages/theme/components/__tests__/AddtoWishlist.spec.js`
+1. `packages/theme/pages/Checkout/__tests__/UserAccount.spec.ts`
+2. `packages/theme/components/__tests__/AddtoWishlist.spec.ts`
 
 ### Useful links
 [Testing library cheatsheet](https://testing-library.com/docs/vue-testing-library/cheatsheet)
