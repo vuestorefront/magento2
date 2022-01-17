@@ -1,4 +1,4 @@
-import i18nMiddleware from '~/middleware/i18n';
+import i18nPlugin from '~/plugins/i18n';
 
 const localesMock = [
   {
@@ -25,6 +25,10 @@ const apiStateMock = {
   getCustomerToken: () => '12fg45',
 };
 
+const callbackRequest = {
+  headers: {},
+};
+
 const appMock = {
   $cookies: {
     get: jest.fn(),
@@ -36,6 +40,15 @@ const appMock = {
   },
   $vsf: {
     $magento: {
+      client: {
+        interceptors: {
+          request: {
+            use: (callback) => {
+              callback(callbackRequest);
+            },
+          },
+        },
+      },
       config: {
         state: {
           ...apiStateMock,
@@ -52,20 +65,20 @@ const appMock = {
   },
 };
 
-describe('i18n middleware', () => {
+describe('i18n plugin', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
   it('Should read vsf-store cookie value', () => {
-    i18nMiddleware({ app: appMock });
+    i18nPlugin({ app: appMock });
 
     expect(appMock.$cookies.get).toHaveBeenCalledWith('vsf-store');
   });
 
   it('Should find locale based on magento store code', () => {
     appMock.$cookies.get.mockReturnValue('default');
-    i18nMiddleware({ app: appMock });
+    i18nPlugin({ app: appMock });
 
     expect(appMock.i18n.setLocale).not.toHaveBeenCalled();
   });
@@ -78,7 +91,7 @@ describe('i18n middleware', () => {
 
   it('Should set default locale when vsf-store cookie is not exist', () => {
     appMock.$cookies.get.mockReturnValue(null);
-    i18nMiddleware({ app: appMock });
+    i18nPlugin({ app: appMock });
 
     expect(appMock.i18n.setLocale).toHaveBeenCalledWith('en');
   });
@@ -94,11 +107,11 @@ describe('i18n middleware', () => {
 
     testCaseAppMock.$cookies.get.mockReturnValueOnce('de_DE').mockReturnValueOnce('default');
 
-    i18nMiddleware({ app: testCaseAppMock });
+    i18nPlugin({ app: testCaseAppMock });
 
     expect(testCaseAppMock.$vsf.$magento.config.state.setLocale).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.state.setStore).toHaveBeenCalledWith('de_DE');
-    expect(testCaseAppMock.$vsf.$magento.config.axios.headers.cookie).toMatchInlineSnapshot(
+    expect(callbackRequest.headers.cookie).toMatchInlineSnapshot(
       `"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=USD; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "`
     );
   });

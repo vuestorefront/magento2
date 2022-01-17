@@ -53,27 +53,32 @@ const prepareNewCookieString = (apiState, newStoreCode) => {
   return cookie;
 };
 
-export default async ({ app }) => {
-  const { i18n } = app;
-  const currentStoreCode = readStoreCookie(app);
+export default ({ app }) => {
+  app.$vsf.$magento.client.interceptors.request.use(async (request) => {
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  if (!currentStoreCode || !findLocaleBasedOnStoreCode(currentStoreCode, i18n.locales)) {
-    await setDefaultLocale(i18n);
+    const { i18n } = app;
+    const currentStoreCode = readStoreCookie(app);
 
-    return;
-  }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    if (!currentStoreCode || !findLocaleBasedOnStoreCode(currentStoreCode, i18n.locales)) {
+      await setDefaultLocale(i18n);
 
-  const i18nCurrentLocaleCode = i18n.locale;
-  const localeCookie = app.$cookies.get(cookieNames.localeCookieName);
+      return;
+    }
 
-  if (i18nCurrentLocaleCode !== localeCookie) {
-    const apiState = app.$vsf.$magento.config.state;
+    const i18nCurrentLocaleCode = i18n.locale;
+    const localeCookie = app.$cookies.get(cookieNames.localeCookieName);
 
-    apiState.setStore(i18nCurrentLocaleCode);
-    apiState.setLocale(i18nCurrentLocaleCode);
+    if (i18nCurrentLocaleCode !== localeCookie) {
+      const apiState = app.$vsf.$magento.config.state;
 
-    // eslint-disable-next-line no-param-reassign
-    app.$vsf.$magento.config.axios.headers.cookie = prepareNewCookieString(apiState, i18nCurrentLocaleCode);
-  }
+      apiState.setStore(i18nCurrentLocaleCode);
+      apiState.setLocale(i18nCurrentLocaleCode);
+
+      // eslint-disable-next-line no-param-reassign
+      request.headers.cookie = prepareNewCookieString(apiState, i18nCurrentLocaleCode);
+    }
+
+    return request;
+  });
 };
