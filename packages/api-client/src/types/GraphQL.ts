@@ -7590,6 +7590,21 @@ export type FocusProductKitComponent = {
   qty: number;
   product: Maybe<ProductInterface>;
 };
+
+export interface FocusProductAttr {
+  attribute_code: Scalars['String'];
+  frontend_label: Scalars['String'];
+  position?: Maybe<Scalars['Int']>;
+  value?: Maybe<Scalars['Int'] | Scalars['String'] | Scalars['Boolean']>;
+};
+
+export interface FocusProductAttributeGroup {
+  uid: Scalars['String'];
+  attribute_group_name: Scalars['String'];
+  sort_order?: Maybe<Scalars['Int']>;
+  attributes: Array<FocusProductAttr>;
+}
+
 export interface ProductInterfaceFocus {
   manufacturer_sku?: string | null | undefined;
   pdp_data?: string | null | undefined;
@@ -7599,6 +7614,7 @@ export interface ProductInterfaceFocus {
   inventory?: Maybe<FocusProductInventoryItem>;
   focus_parent_configurable?: Maybe<{ product?: Maybe<ConfigurableProduct> }>;
   kit_components?: Maybe<Array<Maybe<FocusProductKitComponent>>>;
+  focus_attribute_groups: Array<FocusProductAttributeGroup>;
   [key: string]: any;
 };
 

@@ -142,6 +142,16 @@ focus_parent_configurable {
     }
   }
 }
+focus_attribute_groups {
+  uid
+  attribute_group_name
+  sort_order
+  attributes {
+    attribute_code
+    frontend_label
+    position
+  }
+}
 ... on DownloadableProduct {
   downloadable_product_samples {
     sample_url
