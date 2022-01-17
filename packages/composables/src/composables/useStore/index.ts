@@ -21,9 +21,7 @@ const factoryParams: UseStoreFactoryParams<AvailableStores, StoreConfig> = {
   change: (context: Context, store) => {
     context.$magento.config.state.setStore(StoreConfigGetters.getCode(store));
     context.$magento.config.state.setCurrency(StoreConfigGetters.getCurrency(store));
-    context.$magento.config.state.setLocale(StoreConfigGetters.getLocale(store));
-
-    context.cart.clear();
+    context.$magento.config.state.setLocale(StoreConfigGetters.getCode(store));
   },
 };
 

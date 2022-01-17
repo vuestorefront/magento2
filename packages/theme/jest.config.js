@@ -25,7 +25,23 @@ module.exports = {
     '^.+\\.(css|svg)': 'jest-transform-stub',
   },
 
-  transformIgnorePatterns: ['node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)'],
+  collectCoverageFrom: [
+    '<rootDir>/components/**/*.vue',
+    '<rootDir>/pages/**/*.vue',
+    '<rootDir>/middleware/**/*.js',
+    '<rootDir>/plugins/**/*.js',
+  ],
+
+  setupFiles: [
+    'jest-date-mock',
+    'jest-localstorage-mock',
+  ],
+
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+
+  transformIgnorePatterns: [
+    'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
+  ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
 
@@ -41,14 +57,6 @@ module.exports = {
   collectCoverage: false,
 
   moduleFileExtensions: ['js', 'vue', 'json', 'ts'],
-
-  collectCoverageFrom: [
-    '<rootDir>/components/**/*.vue',
-    '<rootDir>/pages/**/*.vue'],
-
-  setupFiles: ['jest-date-mock', 'jest-localstorage-mock'],
-
-  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
 
   modulePathIgnorePatterns: ['_theme', 'tests/e2e'],
 };
