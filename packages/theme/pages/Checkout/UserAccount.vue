@@ -110,6 +110,7 @@
         class="form__element"
         :disabled="createUserAccount"
       />
+      <recaptcha v-if="isRecaptcha" />
       <div class="form">
         <div class="form__action">
           <SfButton
@@ -181,7 +182,9 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    const { app } = useContext();
+    const { app, $recaptcha } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
+
     const {
       attachToCart,
       loading: loadingGuestUser,
@@ -217,7 +220,17 @@ export default defineComponent({
     });
 
     const handleFormSubmit = (reset) => async () => {
+      if (isRecaptcha.value) {
+        $recaptcha.init();
+      }
+
       if (!isAuthenticated.value) {
+        if (isRecaptcha.value) {
+          const recaptchaToken = await $recaptcha.getResponse();
+          form.value.recaptchaToken = recaptchaToken;
+          form.value.recaptchaInstance = $recaptcha;
+        }
+
         await (
           !createUserAccount.value
             ? attachToCart({ email: form.value.email })
@@ -226,12 +239,24 @@ export default defineComponent({
       }
 
       if (loginUserAccount.value) {
-        await login({
-          user: {
-            username: form.value.email,
-            password: form.value.password,
-          },
-        });
+        if (isRecaptcha.value) {
+          const recaptchaToken = await $recaptcha.getResponse();
+
+          await login({
+            user: {
+              username: form.value.email,
+              password: form.value.password,
+              recaptchaToken,
+            },
+          });
+        } else {
+          await login({
+            user: {
+              username: form.value.email,
+              password: form.value.password,
+            },
+          });
+        }
       }
 
       if (!hasError.value) {
@@ -248,6 +273,11 @@ export default defineComponent({
           persist: false,
           title: 'Error',
         });
+      }
+
+      if (isRecaptcha.value) {
+        // reset recaptcha
+        $recaptcha.reset();
       }
     };
 
@@ -281,6 +311,7 @@ export default defineComponent({
       loading,
       loginUserAccount,
       user,
+      isRecaptcha,
     };
   },
 });

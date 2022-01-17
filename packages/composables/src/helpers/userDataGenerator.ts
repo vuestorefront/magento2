@@ -35,5 +35,9 @@ export const generateUserData = (userData): CustomerUpdateParameters => {
     baseData.password = userData.password;
   }
 
+  if (Object.prototype.hasOwnProperty.call(userData, 'recaptchaToken')) {
+    baseData.recaptchaToken = userData.recaptchaToken;
+  }
+
   return baseData;
 };

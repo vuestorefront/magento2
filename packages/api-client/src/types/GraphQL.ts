@@ -2534,6 +2534,8 @@ export interface CustomerCreateInput {
   suffix?: InputMaybe<Scalars['String']>;
   /** The customer's Tax/VAT number (for corporate customers) */
   taxvat?: InputMaybe<Scalars['String']>;
+  /** The reCaptcha Token */
+  recaptchaToken?: InputMaybe<Scalars['String']>;
 }
 
 export interface CustomerDownloadableProduct {
@@ -7406,6 +7408,7 @@ export type UpdateCustomerAddressMutation = { updateCustomerAddress?: { id?: num
 export type UpdateCustomerEmailMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 
