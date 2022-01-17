@@ -241,7 +241,6 @@ export default {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
     },
-    middleware: ['i18n'],
   },
   image: {
     provider: config.get('imageProvider'),
