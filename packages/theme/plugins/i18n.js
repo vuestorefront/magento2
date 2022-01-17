@@ -53,12 +53,8 @@ const prepareNewCookieString = (apiState, newStoreCode) => {
   return cookie;
 };
 
-
-export default ({ app, redirect }) => {
-  let once = true;
-
-  app.$vsf.$magento.client.interceptors.request.use(async (r) => {
-
+export default ({ app }) => {
+  app.$vsf.$magento.client.interceptors.request.use(async (request) => {
 
     const { i18n } = app;
     const currentStoreCode = readStoreCookie(app);
@@ -80,11 +76,9 @@ export default ({ app, redirect }) => {
       apiState.setLocale(i18nCurrentLocaleCode);
 
       // eslint-disable-next-line no-param-reassign
-      r.headers.cookie = prepareNewCookieString(apiState, i18nCurrentLocaleCode);
-
+      request.headers.cookie = prepareNewCookieString(apiState, i18nCurrentLocaleCode);
     }
 
-
-    return r;
+    return request;
   });
 };
