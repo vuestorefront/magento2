@@ -30,8 +30,8 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/$1',
   },
 
-  testEnvironment: 'jest-environment-jsdom-sixteen',
-  
+  testEnvironment: 'jsdom',
+
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
