@@ -12,7 +12,13 @@
       </SfButton>
     </template>
     <template #right>
-      <CurrencySelector />
+      <!--
+      /**
+       * The currency switch is commented, until the Core package
+       * enables the switch of currency without returning to the browser one with i18n
+       */
+        <CurrencySelector />
+      -->
       <StoreSwitcher />
     </template>
   </SfTopBar>
@@ -20,12 +26,12 @@
 
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import CurrencySelector from './CurrencySelector';
+// import CurrencySelector from './CurrencySelector';
 import StoreSwitcher from './StoreSwitcher';
 
 export default {
   components: {
-    CurrencySelector,
+    // CurrencySelector,
     SfTopBar,
     SfButton,
     StoreSwitcher,
