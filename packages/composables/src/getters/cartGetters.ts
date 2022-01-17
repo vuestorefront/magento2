@@ -89,13 +89,7 @@ export const getItemAttributes = (
   return attributes;
 };
 
-export const getItemSku = (product: CartItem): string => {
-  if (!product.product) {
-    return '';
-  }
-
-  return product.product.sku;
-};
+export const getItemSku = (product: CartItem): string => product?.product?.sku || '';
 
 const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((a, b) => Number.parseFloat(`${a}`) + Number.parseFloat(`${b.amount.value}`), 0);
 
@@ -173,14 +167,13 @@ export const getAvailablePaymentMethods = (cart: Cart): AgnosticPaymentMethod[] 
   value: p.code,
 }));
 
+export const getStockStatus = (product: CartItem): string => product.product.stock_status;
 export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
-
   getAvailablePaymentMethods(cart: Cart): AgnosticPaymentMethod[];
-
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
-
   productHasSpecialPrice(product: CartItem): boolean;
+  getStockStatus(product: CartItem): string;
 }
 
 const cartGetters: CartGetters = {
@@ -202,6 +195,7 @@ const cartGetters: CartGetters = {
   getTotalItems,
   getTotals,
   productHasSpecialPrice,
+  getStockStatus,
 };
 
 export default cartGetters;
