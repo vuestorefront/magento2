@@ -29,7 +29,7 @@
     "rules"
   ],
   "dependencies": {
-    "eslint-plugin-jest": "^25.3.0"
+    "eslint-plugin-jest": "^25.3.4"
   },
   "main": "index.js"
 }
