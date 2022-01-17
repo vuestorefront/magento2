@@ -341,10 +341,12 @@ export default defineComponent({
     const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
+    const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
+
     return {
       sendToRemove,
       actionRemoveItem,
-      loading,
+      loading: computed(() => (!!loading.value)),
       isAuthenticated,
       products,
       removeItem,
