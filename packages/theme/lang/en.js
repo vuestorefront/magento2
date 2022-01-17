@@ -168,5 +168,5 @@ export default {
   subscribeToNewsletterModalContent: 'After signing up for the newsletter, you will receive special offers and messages from VSF via email. We will not sell or distribute your email to any third party at any time. Please see our {0}.',
   'Default Shipping Address': 'Default Shipping Address',
   'Default Billing Address': 'Default Billing Address',
-  'You are not logged in, or logged out because of inactivity': 'You are not logged in, or logged out because of inactivity'
+  'You are not authorized, please log in': 'You are not authorized, please log in'
 };

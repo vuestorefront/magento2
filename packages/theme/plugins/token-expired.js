@@ -12,7 +12,7 @@ export default ({ app, redirect }) => {
       app.$cookies.remove(cookieNames.cartCookieName);
 
       await app.$cookies.set(cookieNames.messageCookieName, {
-        message: app.i18n.t('You are not logged in, or logged out because of inactivity'),
+        message: app.i18n.t('You are not authorized, please log in.'),
         type: 'warning',
         icon: null,
         persist: true,
