@@ -52,7 +52,7 @@ describe('Token Expired plugin', () => {
 
     const messageMock = {
       icon: null,
-      message: 'You are not logged in, or logged out because of inactivity',
+      message: 'You are not authorized, please log in.',
       persist: true,
       title: null,
       type: 'warning',
