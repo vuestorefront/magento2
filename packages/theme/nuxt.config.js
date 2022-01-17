@@ -227,11 +227,13 @@ export default {
       }
     },
   },
+  plugins: [
+    '~/plugins/i18n',
+  ],
   router: {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
     },
-    middleware: ['i18n'],
   },
 };
