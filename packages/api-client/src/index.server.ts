@@ -36,6 +36,9 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
       query: {
         errorPolicy: 'all',
       },
+      mutate: {
+        errorPolicy: 'all',
+      },
     },
   });
 
