@@ -1,10 +1,10 @@
-# Middlewares
+# Plugins
 
 Here you can find documentation for global Middlewares
 
 ## i18n
 
-i18n middleware is responsible for handling store changes after URL changes.
+i18n plugin is responsible for handling store changes after URL changes.
 
 It checks if locale in i18n module is changes and update `vsf-store` and `vsf-locale` cookie to match new store on both
 client and server side.
@@ -25,4 +25,4 @@ client and server side.
 8. End
 
 
-![i18n flow](./i18n-middleware-diagram.png)
+![i18n flow](./i18n-plugin-diagram.png)

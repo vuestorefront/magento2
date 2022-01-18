@@ -26,7 +26,6 @@ import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
 import { useRoute, defineComponent } from '@nuxtjs/composition-api';
 import {
-  useCart,
   useUser,
 } from '@vue-storefront/magento';
 import AppHeader from '~/components/AppHeader.vue';
@@ -57,16 +56,12 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-    const { load: loadCart } = useCart();
 
     const { loadConfiguration } = useMagentoConfiguration();
 
     onSSR(async () => {
       await loadConfiguration();
-      await Promise.all([
-        loadUser(),
-        loadCart(),
-      ]);
+      await loadUser();
     });
 
     return {

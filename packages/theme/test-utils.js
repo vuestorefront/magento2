@@ -1,15 +1,21 @@
 import { render } from '@testing-library/vue';
 
 const $t = (text) => text;
-
+const $n = (text) => text;
+const localePath = (path) => path;
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 const customRender = (component, options = {}, callback = null) => render(component, {
   mocks: {
     $t,
+    $n,
+    localePath,
     $nuxt: {
       context: {
         app: {
-          localePath: (path) => path,
+          localePath,
+          $cookies: {
+            get: jest.fn(),
+          },
         },
       },
     },

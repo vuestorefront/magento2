@@ -6,5 +6,6 @@ export default {
     cartCookieName: 'vsf-cart',
     customerCookieName: 'vsf-customer',
     storeCookieName: 'vsf-store',
+    messageCookieName: 'vsf-message',
   },
 };
