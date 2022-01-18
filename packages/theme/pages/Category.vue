@@ -89,11 +89,16 @@
 
     <div class="main section">
       <div class="sidebar desktop-only">
-        <LazyHydrate when-visible>
-          <category-sidebar-menu
-            :no-fetch="true"
-          />
-        </LazyHydrate>
+        <SfLoader
+          :class="{ loading: isCategoriesLoading }"
+          :loading="isCategoriesLoading"
+        >
+          <LazyHydrate when-visible>
+            <category-sidebar-menu
+              :no-fetch="true"
+            />
+          </LazyHydrate>
+        </SfLoader>
       </div>
       <SfLoader
         :class="{ loading: isProductsLoading }"
@@ -535,13 +540,16 @@ export default defineComponent({
     };
 
     const isProductsLoading = ref(false);
+    const isCategoriesLoading = ref(false);
     onSSR(async () => {
       isProductsLoading.value = true;
+      isCategoriesLoading.value = true;
       await resolveUrl();
 
       await categoriesSearch({
         pageSize: 20,
       });
+      isCategoriesLoading.value = false;
 
       if (routeData?.value) {
         if (facets.value && facets.value.length > 0) {
@@ -582,6 +590,7 @@ export default defineComponent({
       isInCart,
       isInWishlist,
       isProductsLoading,
+      isCategoriesLoading,
       pagination,
       productGetters,
       products,

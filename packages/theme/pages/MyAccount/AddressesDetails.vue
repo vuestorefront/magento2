@@ -116,7 +116,7 @@ export default defineComponent({
     const userAddresses = computed(() => userAddressesGetters.getAddresses(addresses.value));
     const router = useRouter();
     const route = useRoute();
-    const { app } = useContext;
+    const { app } = useContext();
     const activeAddress = computed(
       () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop(),
     );
@@ -141,7 +141,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(String(app.localePath('/my-account/addresses-details')));
+        await router.push(`${app.localePath('/my-account/addresses-details')}`);
       } catch (error) {
         onError(error);
       }

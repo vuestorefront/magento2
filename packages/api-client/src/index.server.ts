@@ -32,6 +32,11 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
   const client = apolloClientFactory({
     link: apolloLink,
     ...settings.customOptions,
+    defaultOptions: {
+      query: {
+        errorPolicy: 'all',
+      },
+    },
   });
 
   return {
