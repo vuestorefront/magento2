@@ -82,17 +82,23 @@ export default defineComponent({
       change: changeCurrency,
     } = useCurrency();
 
-    const currentCurrencySymbol = computed(() => (0).toLocaleString(
-      selectedLocale.value,
-      {
-        style: 'currency',
-        currency: selectedCurrency.value,
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      },
-    )
-      .replace(/\d/g, '')
-      .trim());
+    const currentCurrencySymbol = computed(() => {
+      try {
+        return (0).toLocaleString(
+          selectedLocale.value.replace(/[!"$-/:-?[\]^_`{-~]/, '-'),
+          {
+            style: 'currency',
+            currency: selectedCurrency.value,
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          },
+        )
+          .replace(/\d/g, '')
+          .trim();
+      } catch {
+        return selectedLocale.value;
+      }
+    });
 
     const { handleChanges } = useHandleChanges();
 
@@ -107,6 +113,7 @@ export default defineComponent({
       handleChanges,
       isCurrencyModalOpen,
       selectedCurrency,
+      selectedLocale,
     };
   },
 });
