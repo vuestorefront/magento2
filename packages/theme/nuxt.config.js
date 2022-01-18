@@ -143,7 +143,9 @@ export default {
     ],
     defaultLocale: 'default',
     autoChangeCookie: {
+      currency: false,
       locale: false,
+      country: false,
     },
     lazy: true,
     seo: true,
