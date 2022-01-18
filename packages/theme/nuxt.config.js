@@ -226,6 +226,7 @@ export default {
     },
   },
   plugins: [
+    '~/plugins/token-expired',
     '~/plugins/i18n',
   ],
   router: {

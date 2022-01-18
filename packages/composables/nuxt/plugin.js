@@ -62,7 +62,7 @@ export default integrationPlugin(({ app, res, req, integration }) => {
         getLocale,
         setLocale,
         getCountry,
-        setCountry
+        setCountry,
       },
     }
   });

@@ -56,13 +56,6 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <SfCheckbox
-              v-model="rememberMe"
-              v-e2e="'login-modal-remember-me'"
-              name="remember-me"
-              label="Remember me"
-              class="form__element checkbox"
-            />
             <div v-if="error.login">
               {{ error.login }}
             </div>
