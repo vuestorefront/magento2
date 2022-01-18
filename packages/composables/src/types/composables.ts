@@ -203,7 +203,7 @@ export interface UseForgotPassword<RESULT> {
 
   setNew(params: ComposableFunctionArgs<{ tokenValue: string, newPassword: string, email: string }>): Promise<void>;
 
-  request(params: ComposableFunctionArgs<{ email: string }>): Promise<void>;
+  request(params: ComposableFunctionArgs<{ email: string, recaptchaToken?: string }>): Promise<void>;
 }
 
 export interface UseRelatedProducts<PRODUCTS, RELATED_PRODUCT_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {

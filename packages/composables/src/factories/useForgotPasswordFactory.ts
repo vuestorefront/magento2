@@ -19,6 +19,7 @@ interface SetNewPasswordParams {
 
 interface ResetPasswordParams {
   email: string;
+  recaptchaToken?: string;
 }
 
 export interface UseForgotPasswordFactoryParams<RESULT> extends FactoryParams {

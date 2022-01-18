@@ -1,5 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
+import { GraphQLError } from 'graphql';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
 import {
   RequestPasswordResetEmailMutation,
@@ -12,10 +14,28 @@ export default async (
   input: RequestPasswordResetEmailMutationVariables,
   customQuery: CustomQuery = { requestPasswordResetEmail: 'requestPasswordResetEmail' },
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> => {
+  const {
+    recaptchaToken, ...variables
+  } = input;
+
+  if (context.config.recaptcha.secretkey) {
+    /**
+     * recaptcha token verification
+     */
+    const response = await recaptchaValidator(context, recaptchaToken);
+
+    if (!response.success) {
+      return {
+        errors: [new GraphQLError('Invalid token')],
+        data: null,
+      };
+    }
+  }
+
   const { requestPasswordResetEmail } = context.extendQuery(customQuery, {
     requestPasswordResetEmail: {
       query: requestPasswordResetEmailMutation,
-      variables: { ...input },
+      variables: { ...variables },
     },
   });
 

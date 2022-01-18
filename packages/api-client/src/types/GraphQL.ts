@@ -7316,6 +7316,7 @@ export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist?: 
 
 export type RequestPasswordResetEmailMutationVariables = Exact<{
   email: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 
