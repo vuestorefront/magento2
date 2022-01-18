@@ -139,15 +139,16 @@ import {
   computed,
   defineComponent,
   useRouter,
-  useContext,
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 import { useUiNotification } from '~/composables';
+import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
+import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 
 extend('required', {
   ...required,
@@ -234,6 +235,7 @@ export default defineComponent({
       }
 
       if (!hasError.value) {
+        await mergeItem('checkout', { 'user-account': form.value });
         await router.push(`${app.localePath('/checkout/shipping')}`);
         reset();
         isFormSubmitted.value = true;
@@ -251,11 +253,20 @@ export default defineComponent({
 
     onSSR(async () => {
       await load();
-
       if (isAuthenticated.value) {
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;
         form.value.email = user.value.email;
+      }
+    });
+
+    onMounted(async () => {
+      const checkout = await getItem('checkout');
+      if (checkout && checkout['user-account']) {
+        const data = checkout['user-account'];
+        form.value.email = data.email;
+        form.value.firstname = data.firstname;
+        form.value.lastname = data.lastname;
       }
     });
 
