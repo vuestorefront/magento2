@@ -171,7 +171,7 @@ import {
   computed,
   defineComponent,
   useRouter,
-  useContext,
+  useContext, onMounted
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
@@ -179,6 +179,8 @@ import {
   cartGetters,
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import { removeItem } from '~/helpers/asyncLocalStorage';
+import { getItem } from '~/helpers/asyncLocalStorage';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -209,11 +211,20 @@ export default defineComponent({
       await load();
     });
 
+    onMounted(async () => {
+      const checkout = await getItem('checkout');
+      if (!checkout || !checkout.billing) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+    });
+
     const processOrder = async () => {
       await make();
       setCart(null);
       $magento.config.state.setCartId();
       await load();
+      await removeItem('checkout');
       await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
     };
 

@@ -281,6 +281,7 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
+import { mergeItem, getItem } from '~/helpers/asyncLocalStorage';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -363,13 +364,14 @@ export default defineComponent({
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
-      await save({
+      const billingDetailsData = {
         billingDetails: {
           ...billingDetails.value,
           customerAddressId: addressId,
           sameAsShipping: sameAsShipping.value,
         },
-      });
+      };
+      await save(billingDetailsData);
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userBillingGetters.getAddresses(
           userBilling.value,
@@ -380,6 +382,7 @@ export default defineComponent({
         }
       }
       reset();
+      await mergeItem('checkout', { billing: billingDetailsData });
       await router.push(`${app.localePath('/checkout/payment')}`);
       isBillingDetailsStepCompleted.value = true;
     };
@@ -458,6 +461,11 @@ export default defineComponent({
     });
 
     onMounted(async () => {
+      const checkout = await getItem('checkout');
+      if (!checkout || !checkout.shipping) {
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });
       }
