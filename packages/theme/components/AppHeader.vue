@@ -213,7 +213,7 @@ export default defineComponent({
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
-    const { cart, load: loadCart } = useCart();
+    const { cart } = useCart();
     const { wishlist } = useWishlist('GlobalWishlist');
     const {
       result: searchResult,
@@ -257,7 +257,6 @@ export default defineComponent({
     onSSR(async () => {
       await Promise.all([
         loadUser(),
-        loadCart(),
         categoriesListSearch({
           pageSize: 20,
         }),
