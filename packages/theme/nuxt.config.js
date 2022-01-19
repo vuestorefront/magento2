@@ -205,12 +205,9 @@ export default {
             ...cfg.optimization.splitChunks,
             automaticNameDelimiter: '.',
             chunks: 'all',
-            enforceSizeThreshold: 40_000,
+            enforceSizeThreshold: 50_000,
             maxAsyncRequests: 30,
             maxInitialRequests: 30,
-            maxSize: 128_000,
-            minChunks: 1,
-            minSize: 0,
             cacheGroups: {
               ...cfg.optimization.splitChunks.cacheGroups,
               vendor: {
