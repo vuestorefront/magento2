@@ -1,4 +1,5 @@
 import cookieNames from '~/enums/cookieNameEnum';
+import formatCurrency from '~/helpers/formatCurrency';
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -9,15 +10,12 @@ declare module 'vue/types/vue' {
 }
 
 export default ({ app }, inject) => {
-  inject('fc', (value: number | string, locale: string = '', options = {}): string => {
-    if (typeof value === 'string') {
-      // eslint-disable-next-line no-param-reassign
-      value = Number(value);
-    }
+  inject('fc', (value: number | string, locale?: string, options = {}): string => {
     // eslint-disable-next-line no-param-reassign
     locale = locale || app.$cookies.get(cookieNames.localeCookieName);
-    const currency: string = app.$cookies.get(cookieNames.currencyCookieName);
+    // eslint-disable-next-line no-param-reassign
+    options = { currency: app.$cookies.get(cookieNames.currencyCookieName), ...options };
 
-    return new Intl.NumberFormat(locale, { style: 'currency', currency, ...options }).format(value);
+    return formatCurrency(value, locale, options);
   });
 };
