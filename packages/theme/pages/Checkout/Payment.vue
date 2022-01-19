@@ -180,7 +180,7 @@ import {
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
-import { getItem } from '~/helpers/asyncLocalStorage';
+import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -212,9 +212,8 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const checkout = await getItem('checkout');
-      if (!checkout || !checkout.billing) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      const validStep = await isPreviousStepValid('billing');
+      if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
     });

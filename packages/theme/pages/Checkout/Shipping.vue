@@ -265,7 +265,8 @@ import {
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
-import { mergeItem, getItem } from '~/helpers/asyncLocalStorage.ts';
+import { mergeItem } from '~/helpers/asyncLocalStorage';
+import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -413,8 +414,8 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const checkout = await getItem('checkout');
-      if (!checkout || !checkout['user-account']) {
+      const validStep = await isPreviousStepValid('user-account');
+      if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
 

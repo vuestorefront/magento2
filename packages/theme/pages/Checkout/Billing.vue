@@ -281,7 +281,8 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
-import { mergeItem, getItem } from '~/helpers/asyncLocalStorage';
+import { mergeItem } from '~/helpers/asyncLocalStorage';
+import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -461,8 +462,8 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const checkout = await getItem('checkout');
-      if (!checkout || !checkout.shipping) {
+      const validStep = await isPreviousStepValid('shipping');
+      if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
 
