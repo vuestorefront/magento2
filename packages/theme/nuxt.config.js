@@ -99,6 +99,7 @@ export default {
       defaultStore,
       facets,
     }],
+    '@nuxt/image',
   ],
   modules: [
     ['nuxt-i18n', {
@@ -107,6 +108,7 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
+    '@nuxt/image',
   ],
   i18n: {
     country: 'US',
