@@ -36,7 +36,7 @@
               >
                 <SfMenuItem
                   :label="category.label"
-                  :link="th.getAgnosticCatLink(category)"
+                  :link="localePath(th.getAgnosticCatLink(category))"
                 >
                   <template #mobile-nav-icon>
                     &#8203;
@@ -76,7 +76,7 @@
                   :image="productGetters.getProductThumbnailImage(product)"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
+                  :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
@@ -96,7 +96,7 @@
                 :image="productGetters.getProductThumbnailImage(product)"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`"
+                :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
