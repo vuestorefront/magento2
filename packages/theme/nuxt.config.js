@@ -230,6 +230,7 @@ export default {
   plugins: [
     '~/plugins/token-expired',
     '~/plugins/i18n',
+    '~/plugins/formatCurrency',
   ],
   router: {
     extendRoutes(routes) {

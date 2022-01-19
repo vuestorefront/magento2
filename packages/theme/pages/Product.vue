@@ -40,8 +40,8 @@
             </div>
             <div class="product__price-and-rating">
               <SfPrice
-                :regular="$n(productPrice, 'currency')"
-                :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
+                :regular="$fc(productPrice)"
+                :special="productSpecialPrice && $fc(productSpecialPrice)"
               />
               <div>
                 <div class="product__rating">

@@ -45,9 +45,9 @@
               :key="i"
               :image="wishlistGetters.getItemImage(product)"
               :title="wishlistGetters.getItemName(product)"
-              :regular-price="$n(wishlistGetters.getItemPrice(product).regular, 'currency')"
+              :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
               :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
-              :special-price="wishlistGetters.getItemPrice(product).special && $n(wishlistGetters.getItemPrice(product).special, 'currency')"
+              :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
               :stock="99999"
               class="collected-product"
               @click:remove="removeItem({ product: product.product })"
@@ -107,7 +107,7 @@
                 <span class="my-wishlist__total-price-label">Total price:</span>
               </template>
               <template #value>
-                <SfPrice :regular="$n(totals.subtotal, 'currency')" />
+                <SfPrice :regular="$fc(totals.subtotal)" />
               </template>
             </SfProperty>
           </div>

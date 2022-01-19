@@ -16,8 +16,8 @@
         <div>
           <p>{{ productGetters.getName(groupedItem.product) }}</p>
           <SfPrice
-            :regular="$n(productGetters.getPrice(groupedItem.product).regular, 'currency')"
-            :special="productGetters.getPrice(groupedItem.product).special && $n(productGetters.getPrice(groupedItem.product).special, 'currency')"
+            :regular="$fc(productGetters.getPrice(groupedItem.product).regular)"
+            :special="productGetters.getPrice(groupedItem.product).special && $fc(productGetters.getPrice(groupedItem.product).special)"
           />
         </div>
         <SfQuantitySelector

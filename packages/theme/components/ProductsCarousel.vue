@@ -20,8 +20,8 @@
           <SfProductCard
             :title="productGetters.getName(product)"
             :image="productGetters.getProductThumbnailImage(product)"
-            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :regular-price="$fc(productGetters.getPrice(product).regular)"
+            :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
             :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
