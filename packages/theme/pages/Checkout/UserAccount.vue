@@ -182,8 +182,8 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    const { app, $recaptcha } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
+    const { app, $recaptcha, $config } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const {
       attachToCart,

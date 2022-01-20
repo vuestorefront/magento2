@@ -339,8 +339,9 @@ export default defineComponent({
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
-    const { $recaptcha } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
+    const { $recaptcha, $config } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+
     const {
       register,
       login,

@@ -72,6 +72,7 @@ export interface ClientConfig {
 }
 
 export interface RecaptchaConfig {
+  isEnabled: boolean,
   sitekey: string,
   secretkey: string,
   version: number,

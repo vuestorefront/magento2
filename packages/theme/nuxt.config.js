@@ -121,6 +121,9 @@ export default {
     version: config.get('recaptchaVersion'), // Version 2 or 3
     size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
   },
+  publicRuntimeConfig: {
+    isRecaptcha: config.get('recaptchaEnabled'),
+  },
   i18n: {
     country: 'US',
     strategy: 'prefix',

@@ -167,8 +167,8 @@ export default defineComponent({
   setup(_, { emit }) {
     const route = useRoute();
     const { params: { id } } = route.value;
-    const { $recaptcha } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
+    const { $recaptcha, $config } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
     const {
       loading,
       loadReviewMetadata,

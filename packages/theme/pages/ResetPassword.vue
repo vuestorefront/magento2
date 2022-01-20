@@ -149,8 +149,8 @@ export default defineComponent({
     const isPasswordChanged = computed(() => forgotPasswordGetters.isPasswordChanged(result.value));
 
     const { token } = context.root.$route.query;
-    const { $recaptcha } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && !!$recaptcha.siteKey);
+    const { $recaptcha, $config } = useContext();
+    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const setNewPassword = async () => {
       passwordMatchError.value = false;

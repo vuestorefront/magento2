@@ -24,11 +24,29 @@ On the `config` folder update the config file (`dev.json` for example) with your
 ```json5
 {
   ...
-  "recaptchaSize": "{YOUR_RECAPTCHA_SIZE}",
-  "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}",
-  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}",
-  "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}",
-  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}"
+  "recaptchaEnabled": "{YOUR_RECAPTCHA_ENABLED}", // true or false, default value is false
+  "recaptchaHideBadge": "{YOUR_RECAPTCHA_HIDE_BADGE}", // true or false, default value is false
+  "recaptchaSize": "{YOUR_RECAPTCHA_SIZE}", // Size: 'compact', 'normal', 'invisible' (v2), default value is 'invisible'
+  "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}", // Site key for requests, default value is ''
+  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}", // Secret key for requests, default value is ''
+  "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}", // Version 2 or 3, default value is 3
+  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}" // The min score used for v3, default value is 0.5
+  ...
+}
+```
+
+### Sample configuration
+
+```json5
+{
+  ...
+  "recaptchaEnabled": true,
+  "recaptchaHideBadge": false,
+  "recaptchaSize": "invisible",
+  "recaptchaSiteKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "recaptchaSecretkey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "recaptchaVersion": 3,
+  "recaptchaMinScore": 0.5
   ...
 }
 ```

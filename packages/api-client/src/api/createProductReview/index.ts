@@ -15,7 +15,7 @@ export default async (
     recaptchaToken, ...variables
   } = input;
 
-  if (context.config.recaptcha.secretkey) {
+  if (context.config.recaptcha.isEnabled) {
     /**
      * recaptcha token verification
      */
@@ -23,7 +23,7 @@ export default async (
 
     if (!response.success) {
       return {
-        errors: [new GraphQLError('Invalid token')],
+        errors: [new GraphQLError('Error during reCaptcha verification. Please try again.')],
         data: null,
       };
     }

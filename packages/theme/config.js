@@ -74,6 +74,12 @@ const config = convict({
     env: 'IMAGE_PROVIDER_BASE_URL',
   },
   // region recaptcha
+  recaptchaEnabled: {
+    doc: 'reCaptcha Enabled',
+    format: Boolean,
+    default: process.env.RECAPTCHA_ENABLED || false,
+    env: 'RECAPTCHA_ENABLED',
+  },
   recaptchaHideBadge: {
     doc: 'reCaptcha Hide Badge',
     format: Boolean,
