@@ -44,7 +44,7 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
 
   const selectedStore = computed<string | undefined>(() => app.$cookies.get(cookieNames.storeCookieName));
 
-  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void> = async (params = {
+  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => void = (params = {
     updateCookies: false,
     updateLocale: false,
   }) => {
@@ -52,11 +52,12 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
       updateCookies,
       updateLocale,
     } = params;
-    await Promise.all([
-      loadConfig(),
-      loadStores(),
-      loadCurrencies(),
-    ]);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    loadConfig();
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    loadStores();
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    loadCurrencies();
 
     if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
       app.$cookies.set(cookieNames.storeCookieName, storeConfigGetters.getCode(storeConfig.value));
@@ -71,6 +72,7 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
     }
 
     if (updateLocale) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
     }
   };

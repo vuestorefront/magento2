@@ -24,7 +24,7 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
-import { useRoute, defineComponent } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
@@ -56,12 +56,11 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onSSR(async () => {
-      await loadConfiguration();
-      await loadUser();
+    onMounted(() => {
+      loadConfiguration();
+      loadUser();
     });
 
     return {
