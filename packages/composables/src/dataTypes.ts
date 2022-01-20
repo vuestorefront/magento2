@@ -14,5 +14,6 @@ export {
   Wishlist,
   AvailableStores,
   Currency,
+  ConfigState,
 } from '@vue-storefront/magento-api';
 export { WishlistProduct } from './getters/wishlistGetters';

@@ -94,13 +94,7 @@ describe('<UserAccount/>', () => {
     await waitFor(() => {
       expect(attachToCartMock).toHaveBeenCalledTimes(1);
       expect(attachToCartMock).toHaveBeenCalledWith({
-        user: {
-          email: 'james@bond.io',
-          firstname: 'James',
-          lastname: 'Bond',
-          password: '',
-          is_subscribed: false,
-        },
+        email: 'james@bond.io',
       });
     });
     expect(routerPushMock).toHaveBeenCalledTimes(1);

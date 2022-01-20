@@ -34,12 +34,12 @@
 
         <div class="navbar__sort desktop-only">
           <span class="navbar__label">{{ $t('Sort by') }}:</span>
-          <LazyHydrate on-interaction>
+          <LazyHydrate when-visible>
             <SfSelect
               :value="sortBy.selected"
               placeholder="Select sorting"
               class="navbar__select"
-              @input="th.changeSorting"
+              @input="uiHelpers.changeSorting"
             >
               <SfSelectOption
                 v-for="option in sortBy.options"
@@ -89,18 +89,23 @@
 
     <div class="main section">
       <div class="sidebar desktop-only">
-        <LazyHydrate when-visible>
-          <CategorySidebarMenu
-            :no-fetch="true"
-          />
-        </LazyHydrate>
+        <SfLoader
+          :class="{ loading: isCategoriesLoading }"
+          :loading="isCategoriesLoading"
+        >
+          <LazyHydrate when-visible>
+            <category-sidebar-menu
+              :no-fetch="true"
+            />
+          </LazyHydrate>
+        </SfLoader>
       </div>
       <SfLoader
-        :class="{ loading }"
-        :loading="loading"
+        :class="{ loading: isProductsLoading }"
+        :loading="isProductsLoading"
       >
         <div
-          v-if="!loading"
+          v-if="!isProductsLoading"
           class="products"
         >
           <transition-group
@@ -196,7 +201,7 @@
 
           <LazyHydrate on-interaction>
             <SfPagination
-              v-if="!loading"
+              v-if="!isProductsLoading"
               v-show="pagination.totalPages > 1"
               class="products__pagination desktop-only"
               :current="pagination.currentPage"
@@ -214,7 +219,7 @@
               <SfSelect
                 :value="pagination.itemsPerPage.toString()"
                 class="products__items-per-page"
-                @input="th.changeItemsPerPage"
+                @input="uiHelpers.changeItemsPerPage"
               >
                 <SfSelectOption
                   v-for="option in pagination.pageOptions"
@@ -250,7 +255,7 @@
               class="filters__title sf-heading--left"
             />
             <div
-              v-if="isFacetColor(facet)"
+              v-if="uiHelpers.isFacetColor(facet)"
               :key="`${facet.id}-colors`"
               class="filters__colors"
             >
@@ -371,6 +376,7 @@ import { useAddToCart } from '~/helpers/cart/addToCart';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
+  name: 'CategoryPage',
   components: {
     CategorySidebarMenu,
     SfButton,
@@ -396,7 +402,7 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup() {
-    const th = useUiHelpers();
+    const uiHelpers = useUiHelpers();
     const uiState = useUiState();
     const {
       path,
@@ -414,17 +420,11 @@ export default defineComponent({
     const {
       result,
       search,
-      loading,
     } = useFacet(`facetId:${path}`);
-    const {
-      changeFilters,
-      isFacetColor,
-    } = useUiHelpers();
     const { toggleFilterSidebar } = useUiState();
     const {
       categories,
       search: categoriesSearch,
-      loading: categoriesLoading,
     } = useCategory(`categoryList:${path}`);
     const {
       addItemToCart,
@@ -518,7 +518,7 @@ export default defineComponent({
         selectedFilters.value = filters;
       }
 
-      changeFilters(selectedFilters.value);
+      uiHelpers.changeFilters(selectedFilters.value);
     };
 
     const addItemToWishlist = async (product) => {
@@ -534,17 +534,22 @@ export default defineComponent({
         ? activeCategoryUid(routeData.value?.entity_uid)
         : routeData.value?.entity_uid;
       await search({
-        ...th.getFacetsFromURL(),
+        ...uiHelpers.getFacetsFromURL(),
         categoryId,
       });
     };
 
+    const isProductsLoading = ref(false);
+    const isCategoriesLoading = ref(false);
     onSSR(async () => {
+      isProductsLoading.value = true;
+      isCategoriesLoading.value = true;
       await resolveUrl();
 
       await categoriesSearch({
         pageSize: 20,
       });
+      isCategoriesLoading.value = false;
 
       if (routeData?.value) {
         if (facets.value && facets.value.length > 0) {
@@ -565,6 +570,7 @@ export default defineComponent({
         }
 
         await searchCategoryProduct();
+        isProductsLoading.value = false;
       }
     });
 
@@ -577,22 +583,21 @@ export default defineComponent({
       applyFilters,
       breadcrumbs,
       categories,
-      categoriesLoading,
       categoryTree,
       facets,
       isAuthenticated,
-      isFacetColor,
       isFilterSelected,
       isInCart,
       isInWishlist,
-      loading,
+      isProductsLoading,
+      isCategoriesLoading,
       pagination,
       productGetters,
       products,
       selectedFilters,
       selectFilter,
       sortBy,
-      th,
+      uiHelpers,
     };
   },
 });

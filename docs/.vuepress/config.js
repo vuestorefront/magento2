@@ -58,6 +58,7 @@ module.exports = {
           ['/guide/environments', 'Environments'],
           ['/guide/functional-catalog', 'Functional catalog'],
           ['/guide/about', 'About'],
+          ['/guide/roadmap', 'Roadmap'],
         ]
       },
       {
@@ -105,6 +106,7 @@ module.exports = {
       {
         title: 'Reference',
         children: [
+          ['/plugins/', 'Plugins'],
           ['/api-reference/', 'API Reference'],
         ]
       },

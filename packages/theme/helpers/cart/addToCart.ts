@@ -1,5 +1,5 @@
 import { Product, productGetters, useCart } from '@vue-storefront/magento';
-import { useRouter } from '@nuxtjs/composition-api';
+import { useRouter, useContext } from '@nuxtjs/composition-api';
 
 export const useAddToCart = () => {
   const {
@@ -7,7 +7,7 @@ export const useAddToCart = () => {
     isInCart,
   } = useCart();
   const router = useRouter();
-
+  const { app } = useContext();
   const addItemToCart = async (params: { product: Product, quantity: number }) => {
     const { product, quantity } = params;
     // eslint-disable-next-line no-underscore-dangle
@@ -23,9 +23,10 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
-        await router.push(`/p/${productGetters.getProductSku(product)}${
+        const path = `/p/${productGetters.getProductSku(product)}${
           productGetters.getSlug(product, product.categories[0])
-        }`);
+        }`;
+        await router.push(String(app.localePath(path)));
         break;
       default:
         throw new Error(`Product Type ${productType} not supported in add to cart yet`);

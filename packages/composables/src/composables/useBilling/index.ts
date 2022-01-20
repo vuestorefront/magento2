@@ -49,7 +49,7 @@ const factoryParams: UseBillingParams<any, any> = {
       : ({
         address: {
           ...address,
-          street: [address.street, apartment, neighborhood, extra],
+          street: [address.street, apartment, neighborhood, extra].filter(Boolean),
         },
         same_as_shipping: sameAsShipping,
       });

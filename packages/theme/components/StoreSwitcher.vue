@@ -4,11 +4,19 @@
       class="container__lang container__lang--selected"
       @click="isLangModalOpen = !isLangModalOpen"
     >
-      <SfImage
-        :src="`/icons/langs/${selectedLocale}.webp`"
-        width="20"
-        alt="Flag"
-      />
+      <SfCharacteristic class="store-switcher">
+        <template #title>
+          <span>{{ storeConfig.store_name }}</span>
+        </template>
+        <template #icon>
+          <SfImage
+            :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
+            width="20"
+            alt="Flag"
+            class="language__flag"
+          />
+        </template>
+      </SfCharacteristic>
     </SfButton>
     <SfBottomModal
       :is-open="isLangModalOpen"
@@ -48,37 +56,6 @@
           </a>
         </SfListItem>
       </SfList>
-
-      <SfHeading
-        v-if="availableLocales.length > 1"
-        :level="3"
-        title="Choose language"
-        class="container__lang--title"
-      />
-      <SfList
-        v-if="availableLocales.length > 1"
-      >
-        <SfListItem
-          v-for="lang in availableLocales"
-          :key="lang.code"
-        >
-          <nuxt-link :to="switchLocalePath(lang.code)">
-            <SfCharacteristic class="language">
-              <template #title>
-                <span>{{ lang.label }}</span>
-              </template>
-              <template #icon>
-                <SfImage
-                  :src="`/icons/langs/${lang.code}.webp`"
-                  width="20"
-                  alt="Flag"
-                  class="language__flag"
-                />
-              </template>
-            </SfCharacteristic>
-          </nuxt-link>
-        </SfListItem>
-      </SfList>
     </SfBottomModal>
   </div>
 </template>
@@ -94,7 +71,6 @@ import {
   SfImage,
   SfButton,
   SfList,
-  SfHeading,
   SfBottomModal,
   SfCharacteristic,
 } from '@storefront-ui/vue';
@@ -103,26 +79,18 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { useI18n } from '~/helpers/hooks/usei18n';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
-  name: 'LocaleSelector',
+  name: 'StoreSwitcher',
   components: {
     SfImage,
     SfButton,
     SfList,
-    SfHeading,
     SfBottomModal,
     SfCharacteristic,
   },
   setup() {
-    const {
-      selectedCurrency,
-      selectedLocale,
-    } = useMagentoConfiguration();
-
     const {
       config,
     } = useConfig();
@@ -133,25 +101,15 @@ export default defineComponent({
     } = useStore();
 
     const { handleChanges } = useHandleChanges();
-
-    const {
-      locales,
-      locale,
-    } = useI18n();
     const isLangModalOpen = ref(false);
 
-    const availableLocales = computed(() => [...locales].filter((i) => (Object.keys(i).length > 0 && typeof i === 'object' ? i.code !== locale : i !== locale)));
     const availableStores = computed(() => stores.value ?? []);
 
     return {
-      availableLocales,
       availableStores,
       changeStore,
       handleChanges,
       isLangModalOpen,
-      locale,
-      selectedCurrency,
-      selectedLocale,
       storeConfig: config,
       storeConfigGetters,
       storeGetters,
@@ -163,7 +121,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .container {
-  margin: 0 -5px;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -183,15 +140,15 @@ export default defineComponent({
     right: var(--spacer-xs);
   }
 
-  .sf-list {
-    .language {
-      padding: var(--spacer-sm);
+  .language {
+    padding: var(--spacer-sm);
 
-      &__flag {
-        margin-right: var(--spacer-sm);
-      }
+    &__flag {
+      margin-right: var(--spacer-sm);
     }
+  }
 
+  .sf-list {
     @include for-desktop {
       display: flex;
     }
@@ -204,7 +161,6 @@ export default defineComponent({
   }
 
   &__lang {
-    width: 20px;
     --button-box-shadow: none;
     background: none;
     padding: 0 5px;
@@ -231,6 +187,16 @@ export default defineComponent({
         --heading-title-font-weight: var(--font-weight--bold);
       }
     }
+  }
+
+  .sf-characteristic__text {
+    color: var(--bottom-modal-title-color, var(--c-text));
+  }
+
+  .store-switcher {
+    text-transform: capitalize;
+    color: var(--bottom-modal-title-color, var(--c-link));
+    font-size: var(--font-size--sm);
   }
 }
 </style>

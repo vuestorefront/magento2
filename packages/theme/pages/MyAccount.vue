@@ -111,7 +111,7 @@ export default defineComponent({
     const changeActivePage = async (title) => {
       if (title === 'Log out') {
         await logout();
-        await router.push(localePath({ name: 'home' }));
+        await router.push(`${localePath({ name: 'home' })}`);
 
         return;
       }
@@ -119,8 +119,7 @@ export default defineComponent({
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
 
-      const localeTransformedPath = localePath(transformedPath);
-      await router.push(localeTransformedPath);
+      await router.push(String(localePath(transformedPath)));
     };
 
     onBeforeUnmount(() => {
@@ -150,7 +149,7 @@ export default defineComponent({
       --font-weight--normal
     );
     --content-pages-sidebar-category-title-margin: var(--spacer-sm)
-      var(--spacer-sm) var(--spacer-sm) var(--spacer-base);
+      var(--spacer-sm) var(--spacer-sm) var(--spacer-sm);
   }
   @include for-desktop {
     --content-pages-sidebar-category-title-margin: var(--spacer-xl) 0 0 0;

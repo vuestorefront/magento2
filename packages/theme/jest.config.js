@@ -1,33 +1,23 @@
 /* eslint-disable unicorn/prefer-module */
 module.exports = {
-  globals: {
-    __DEV__: true,
-  },
-  // noStackTrace: true,
-  // bail: true,
-  // cache: false,
-  // verbose: true,
-  // watch: true,
+  globals: { __DEV__: true },
+
   coverageReporters: ['lcov'],
 
-  coverageThreshold: {
-    global: {
-      //  branches: 50,
-      //  functions: 50,
-      //  lines: 50,
-      //  statements: 50
-    },
-  },
+  coverageThreshold: { global: {} },
 
   coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
-  collectCoverage: false,
-  testEnvironment: 'jsdom',
+
+  coverageDirectory: './coverage/',
+
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
     '^vue$': 'vue/dist/vue.common.js',
   },
-  moduleFileExtensions: ['js', 'vue', 'json', 'ts'],
+
+  testEnvironment: 'jsdom',
+
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
@@ -35,11 +25,11 @@ module.exports = {
     '^.+\\.(css|svg)': 'jest-transform-stub',
   },
 
-  coverageDirectory: './coverage/',
-
   collectCoverageFrom: [
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue',
+    '<rootDir>/middleware/**/*.js',
+    '<rootDir>/plugins/**/*.js',
   ],
 
   setupFiles: [
@@ -51,12 +41,9 @@ module.exports = {
 
   transformIgnorePatterns: [
     'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
-
   ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
-
-  modulePathIgnorePatterns: ['_theme', 'tests/e2e'],
 
   watchPlugins: [
     'jest-watch-typeahead/filename',
@@ -66,4 +53,10 @@ module.exports = {
     ['jest-watch-toggle-config', { setting: 'notify' }],
     ['jest-watch-toggle-config', { setting: 'bail' }],
   ],
+
+  collectCoverage: false,
+
+  moduleFileExtensions: ['js', 'vue', 'json', 'ts'],
+
+  modulePathIgnorePatterns: ['_theme', 'tests/e2e'],
 };

@@ -56,6 +56,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
         throw errors[0];
       }
 
+      data.cart.items = data.cart.items.filter(Boolean);
       return data.cart as unknown as Cart;
     };
 
@@ -83,6 +84,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
         }
 
         apiState.setCartId(data.customerCart.id);
+        data.customerCart.items = data.customerCart.items.filter(Boolean);
 
         return data.customerCart as unknown as Cart;
       } catch {
@@ -381,7 +383,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
       currentCart,
       product,
     },
-  ) => !!currentCart?.items.find((cartItem) => cartItem.product.uid === product.uid),
+  ) => !!currentCart?.items.find((cartItem) => cartItem?.product?.uid === product.uid),
 };
 
 export default useCartFactory<Cart, CartItem, Product>(factoryParams);

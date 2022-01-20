@@ -4,11 +4,6 @@
       :style="userAddress.isDefault ? 'font-weight: bold;' : ''"
     >
       {{ userAddress.firstName }} {{ userAddress.lastName }}
-      <small
-        v-if="addressDefaultText"
-      >
-        - {{ addressDefaultText }}
-      </small>
     </p>
     <p>{{ userAddress.street }}, {{ userAddress.streetNumber }}</p>
 
@@ -24,6 +19,22 @@
     >
       {{ userAddress.phone }}
     </p>
+    <small
+      v-if="isDefaultShippingText || isDefaultBillingText"
+    >
+      <span
+        v-if="isDefaultShippingText"
+        class="sf-badge--number color-info sf-badge"
+      >
+        {{ $t(isDefaultShippingText) }}
+      </span>
+      <span
+        v-if="isDefaultBillingText"
+        class="sf-badge--number color-info sf-badge"
+      >
+        {{ $t(isDefaultBillingText) }}
+      </span>
+    </small>
   </div>
 </template>
 
@@ -62,15 +73,14 @@ export default defineComponent({
       isDefaultBilling: userAddressesGetters.isDefaultBilling(address.value),
     }));
 
-    const addressDefaultText = computed(() => {
-      if (userAddress.value.isDefaultShipping) return 'Default Shipping Address';
-      if (userAddress.value.isDefaultBilling) return 'Default Billing Address';
-      return '';
-    });
+    const isDefaultShippingText = computed(() => (userAddress.value.isDefaultShipping ? 'Default Shipping Address' : ''));
+
+    const isDefaultBillingText = computed(() => (userAddress.value.isDefaultBilling ? 'Default Billing Address' : ''));
 
     return {
       userAddress,
-      addressDefaultText,
+      isDefaultShippingText,
+      isDefaultBillingText,
     };
   },
 });

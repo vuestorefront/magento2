@@ -105,8 +105,6 @@
                       $n(cartGetters.getItemPrice(product).special, 'currency')
                     : ''
                 "
-                :stock="99999"
-                :qty="cartGetters.getItemQty(product)"
                 :link="
                   localePath(
                     `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
@@ -119,7 +117,10 @@
                 @click:remove="sendToRemove({ product })"
               >
                 <template #input>
-                  <div class="sf-collected-product__quantity-wrapper">
+                  <div
+                    v-if="isInStock(product)"
+                    class="sf-collected-product__quantity-wrapper"
+                  >
                     <SfQuantitySelector
                       :disabled="loading"
                       :qty="cartGetters.getItemQty(product)"
@@ -127,6 +128,14 @@
                       @input="updateItemQty({ product, quantity: $event })"
                     />
                   </div>
+                  <SfBadge
+                    v-else
+                    class="color-danger sf-badge__absolute"
+                  >
+                    <template #default>
+                      <span>{{ $t('Out of stock') }}</span>
+                    </template>
+                  </SfBadge>
                 </template>
                 <template #configuration>
                   <div v-if="getAttributes(product).length > 0">
@@ -221,6 +230,7 @@
   </div>
 </template>
 <script>
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   SfLoader,
   SfNotification,
@@ -232,12 +242,14 @@ import {
   SfCollectedProduct,
   SfImage,
   SfQuantitySelector,
+  SfBadge,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
   ref,
   useRouter,
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -245,9 +257,9 @@ import {
   cartGetters,
   useExternalCheckout,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
 import { useUiState, useUiNotification } from '~/composables';
 import CouponCode from './CouponCode.vue';
+import stockStatusEnum from '~/enums/stockStatusEnum';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -262,12 +274,14 @@ export default defineComponent({
     SfCollectedProduct,
     SfImage,
     SfQuantitySelector,
+    SfBadge,
     CouponCode,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const router = useRouter();
+    const { app } = useContext();
     const {
       cart,
       removeItem,
@@ -278,7 +292,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
 
-    const products = computed(() => cartGetters.getItems(cart.value));
+    const products = computed(() => cartGetters.getItems(cart.value).filter(Boolean));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
@@ -287,13 +301,14 @@ export default defineComponent({
     const isLoaderVisible = ref(false);
     const tempProduct = ref();
 
-    onSSR(async () => {
-      await loadCart();
+    onMounted(() => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      loadCart();
     });
 
     const goToCheckout = async () => {
       const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(redirectUrl);
+      await router.push(`${app.localePath(redirectUrl)}`);
     };
 
     const sendToRemove = ({ product }) => {
@@ -325,10 +340,12 @@ export default defineComponent({
       });
     };
 
+    const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
+
     return {
       sendToRemove,
       actionRemoveItem,
-      loading,
+      loading: computed(() => (!!loading.value)),
       isAuthenticated,
       products,
       removeItem,
@@ -345,6 +362,7 @@ export default defineComponent({
       cartGetters,
       getAttributes,
       getBundles,
+      isInStock,
     };
   },
 });
@@ -491,6 +509,10 @@ export default defineComponent({
         display: none;
       }
     }
+  }
+  .sf-badge__absolute {
+    position: absolute;
+    left: 0;
   }
 }
 </style>

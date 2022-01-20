@@ -107,40 +107,42 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
-    '@nuxtjs/html-validator',
   ],
   i18n: {
     country: 'US',
+    strategy: 'prefix',
     locales: [
       {
-        code: 'en-US',
-        label: 'English',
+        code: 'default',
         file: 'en.js',
         iso: 'en_US',
       },
+      {
+        code: 'german',
+        file: 'de.js',
+        iso: 'de_DE',
+      },
     ],
-    defaultLocale: 'en-US',
+    defaultLocale: 'default',
+    autoChangeCookie: {
+      currency: false,
+      locale: false,
+      country: false,
+    },
     lazy: true,
     seo: true,
     langDir: 'lang/',
     vueI18n: {
-      fallbackLocale: 'en-US',
+      fallbackLocale: 'default',
       numberFormats: {
-        'en-US': {
+        default: {
           currency: {
             style: 'currency',
             currency: 'USD',
             currencyDisplay: 'symbol',
           },
         },
-        'de-DE': {
-          currency: {
-            style: 'currency',
-            currency: 'EUR',
-            currencyDisplay: 'symbol',
-          },
-        },
-        'nl-NL': {
+        german: {
           currency: {
             style: 'currency',
             currency: 'EUR',
@@ -225,6 +227,10 @@ export default {
       }
     },
   },
+  plugins: [
+    '~/plugins/token-expired',
+    '~/plugins/i18n',
+  ],
   router: {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)

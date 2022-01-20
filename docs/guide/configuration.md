@@ -32,9 +32,42 @@ Then on the `config` folder create a file `dev.json` with your configurations.
 {
   "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql", // Define Magento GraphQL endpoint
   "enableMagentoExternalCheckout": false, // Flag if VSF will use External Checkout
-  "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}", // External checkout URL 
+  "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}", // External checkout URL
   "externalCheckoutSyncPath": "/vue/cart/sync", // External Checkout synchronization path
   "nuxtAppEnvironment": "development",  // Define nuxt application environment
   "nuxtAppPort": 3000 // Define nuxt port
 }
 ```
+
+## Multistore and localization
+
+Each Magento Store View need to have corresponding locale configuration object in `i18n.locales` array in `nuxt.config.js`.
+
+### Locale configuration object reference
+
+`code` (required) - unique identifier of the locale - corresponding to Magento store view code
+For other properties please follow official [nuxt-i18n docs](https://i18n.nuxtjs.org/options-reference#locales)
+
+### Sample configuration
+
+```json
+locales: [
+  {
+    code: 'default',
+    file: 'en.js',
+    iso: 'en_US',
+  },
+  {
+    code: 'german',
+    file: 'de.js',
+    iso: 'de_DE',
+  },
+],
+  ```
+So for this configuration you need to have two Magento store views with corresponding store codes: `default` and `german`
+
+## Translations
+
+There are two steps to translate whole storefront:
+1. Add translations in Magento for products and categories if necessary
+2. Add translations to files in the `lang` directory

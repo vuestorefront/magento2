@@ -166,4 +166,8 @@ export default {
   'Your current email address is': 'Your current email address is',
   forgotPasswordConfirmation: 'Thanks! If there is an account registered with the {0} email, you will find message with a password reset link in your inbox.',
   subscribeToNewsletterModalContent: 'After signing up for the newsletter, you will receive special offers and messages from VSF via email. We will not sell or distribute your email to any third party at any time. Please see our {0}.',
+  'Default Shipping Address': 'Default Shipping Address',
+  'Default Billing Address': 'Default Billing Address',
+  'You are not authorized, please log in': 'You are not authorized, please log in',
+  'Out of stock': 'Out of stock'
 };

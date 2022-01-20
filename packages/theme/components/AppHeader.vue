@@ -28,7 +28,7 @@
         />
       </template>
       <template #aside>
-        <LocaleSelector class="smartphone-only" />
+        <StoreSwitcher class="smartphone-only" />
       </template>
       <template
         #header-icons="{activeIcon}"
@@ -178,6 +178,7 @@ import {
   watch,
   defineComponent,
   useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
@@ -190,14 +191,14 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import LocaleSelector from '~/components/LocaleSelector.vue';
+import StoreSwitcher from '~/components/StoreSwitcher.vue';
 import SearchResults from '~/components/SearchResults.vue';
 
 export default defineComponent({
   components: {
     SfHeader,
     SfImage,
-    LocaleSelector,
+    StoreSwitcher,
     SfIcon,
     SfButton,
     SfBadge,
@@ -208,6 +209,7 @@ export default defineComponent({
   directives: { clickOutside },
   setup() {
     const router = useRouter();
+    const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
@@ -246,7 +248,7 @@ export default defineComponent({
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push('/my-account');
+        await router.push(`${app.localePath('/my-account')}`);
       } else {
         toggleLoginModal();
       }

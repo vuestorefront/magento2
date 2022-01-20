@@ -88,7 +88,9 @@ import {
   SfIcon,
 } from '@storefront-ui/vue';
 import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
-import { computed, defineComponent, useRouter, useRoute } from '@nuxtjs/composition-api';
+import {
+  computed, defineComponent, useRouter, useRoute, useContext,
+} from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import AddressForm from '~/components/MyAccount/AddressForm.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
@@ -110,19 +112,20 @@ export default defineComponent({
       update,
       save,
     } = useAddresses();
-    
+
     const userAddresses = computed(() => userAddressesGetters.getAddresses(addresses.value));
     const router = useRouter();
     const route = useRoute();
+    const { app } = useContext();
     const activeAddress = computed(
-      () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop()
+      () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop(),
     );
 
     const isNewAddress = computed(() => !activeAddress.value);
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push({ path: '/my-account/addresses-details', query: { id: addressId } });
+      await router.push(`${app.localePath({ path: '/my-account/addresses-details', query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {
@@ -138,7 +141,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push({ path: '/my-account/addresses-details' });
+        await router.push(`${app.localePath('/my-account/addresses-details')}`);
       } catch (error) {
         onError(error);
       }
