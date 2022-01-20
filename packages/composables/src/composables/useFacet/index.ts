@@ -35,6 +35,7 @@ const constructFilterObject = (inputFilters: Object) => {
   Object.keys(inputFilters).forEach((key) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str))).sort((a, b) => a - b);
 
       [price.from] = flatPrices;
@@ -94,7 +95,8 @@ const factoryParams = {
       currentPage: productParams.page,
     };
 
-    const { data } = await context.$magento.api.products(productSearchParams);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const { data } = await context.$magento.api.products(productSearchParams, params?.input.customQuery || {});
 
     Logger.debug('[Result]:', { data });
 
