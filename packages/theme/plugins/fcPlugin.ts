@@ -12,7 +12,7 @@ declare module 'vue/types/vue' {
 export default ({ app }, inject) => {
   inject('fc', (value: number | string, locale?: string, options = {}): string => {
     // eslint-disable-next-line no-param-reassign
-    locale = locale || app.$cookies.get(cookieNames.localeCookieName);
+    locale = locale || app.i18n?.localeProperties?.iso.replace('_', '-');
     // eslint-disable-next-line no-param-reassign
     options = { currency: app.$cookies.get(cookieNames.currencyCookieName), ...options };
 
