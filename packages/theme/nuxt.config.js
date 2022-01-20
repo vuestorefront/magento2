@@ -155,6 +155,7 @@ export default {
         code: 'german',
         file: 'de.js',
         iso: 'de_DE',
+        defaultCurrency: 'EUR',
       },
     ],
     defaultLocale: 'default',
