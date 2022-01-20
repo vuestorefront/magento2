@@ -11,7 +11,7 @@ import {
   Cart,
   CartItem,
   Product,
-  SelectedShippingMethod,
+  SelectedShippingMethod, ConfigurableCartItem, ProductInterface,
 } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../types';
@@ -133,6 +133,8 @@ export const getTotalItems = (cart: Cart): number => {
   return cart.total_quantity;
 };
 
+export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | {} => product?.configured_variant || {};
+
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
 
@@ -196,6 +198,7 @@ const cartGetters: CartGetters = {
   getTotals,
   productHasSpecialPrice,
   getStockStatus,
+  getConfiguredVariant,
 };
 
 export default cartGetters;

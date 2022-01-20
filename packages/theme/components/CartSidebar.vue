@@ -292,7 +292,10 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
 
-    const products = computed(() => cartGetters.getItems(cart.value).filter(Boolean));
+    const products = computed(() => cartGetters
+      .getItems(cart.value)
+      .filter(Boolean)
+      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant } })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
