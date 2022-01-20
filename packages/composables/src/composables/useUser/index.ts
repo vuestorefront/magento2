@@ -46,7 +46,7 @@ CustomerCreateInput
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
-    // context.cart.setCart(null);
+    context.cart.setCart(null);
   },
   updateUser: async (context: Context, params) => {
     Logger.debug('[Magento] Update user information', { params });
