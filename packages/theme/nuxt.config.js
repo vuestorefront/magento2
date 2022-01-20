@@ -227,6 +227,7 @@ export default {
   plugins: [
     '~/plugins/token-expired',
     '~/plugins/i18n',
+    '~/plugins/fcPlugin',
   ],
   router: {
     extendRoutes(routes) {

@@ -65,8 +65,8 @@
         </SfTableData>
         <SfTableData class="table__data price">
           <SfPrice
-            :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-            :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            :regular="$fc(cartGetters.getItemPrice(product).regular)"
+            :special="cartGetters.getItemPrice(product).special && $fc(cartGetters.getItemPrice(product).special)"
             class="product-price"
           />
         </SfTableData>
@@ -77,13 +77,13 @@
         <div class="summary__total">
           <SfProperty
             name="Subtotal"
-            :value="$n(totals.subtotal, 'currency')"
+            :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
           <SfProperty
             v-if="hasDiscounts"
             :name="$t('Discount')"
-            :value="$n(discountsAmount, 'currency')"
+            :value="$fc(discountsAmount)"
             class="sf-property--full-width sf-property--small property"
           />
         </div>
@@ -92,7 +92,7 @@
           class="summary__total"
         >
           <SfProperty
-            :value="$n(getShippingMethodPrice(selectedShippingMethod), 'currency')"
+            :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
             class="sf-property--full-width property"
           >
             <template #name>
@@ -107,7 +107,7 @@
 
         <SfProperty
           name="Total price"
-          :value="$n(totals.total, 'currency')"
+          :value="$fc(totals.total)"
           class="sf-property--full-width sf-property--large summary__property-total"
         />
 

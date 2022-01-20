@@ -49,7 +49,7 @@
             <div class="sf-radio__label shipping__label">
               <div>{{ method.carrier_title }}</div>
               <div v-if="method && (method.amount || method.price_incl_tax)">
-                {{ $n(getShippingMethodPrice(method), 'currency') }}
+                {{ $fc(getShippingMethodPrice(method)) }}
               </div>
             </div>
           </template>

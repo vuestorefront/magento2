@@ -26,8 +26,8 @@
             >
               {{ productGetters.getName(option.product) }}
               <SfPrice
-                :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
+                :regular="$fc(productGetters.getPrice(option.product).regular)"
+                :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
               />
             </template>
             <template
@@ -43,8 +43,8 @@
               >
                 <template #description>
                   <SfPrice
-                    :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                    :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
+                    :regular="$fc(productGetters.getPrice(option.product).regular)"
+                    :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
                   />
                 </template>
               </SfRadio>

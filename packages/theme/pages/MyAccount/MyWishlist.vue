@@ -76,12 +76,12 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
+                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
                   :reviews-count="productGetters.getTotalReviews(product.product)"
                   :score-rating="productGetters.getAverageRating(product.product)"
                   :show-add-to-cart-button="true"
                   :special-price="productGetters.getPrice(product.product).special
-                    && $n(productGetters.getPrice(product.product).special, 'currency')"
+                    && $fc(productGetters.getPrice(product.product).special)"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
@@ -110,11 +110,11 @@
                       )}${productGetters.getSlug(product.product, product.product.categories[0])}`
                     )
                   "
-                  :regular-price="$n(productGetters.getPrice(product.product).regular, 'currency')"
+                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
                   :reviews-count="productGetters.getTotalReviews(product.product)"
                   :score-rating="productGetters.getAverageRating(product.product)"
                   :special-price="productGetters.getPrice(product.product).special
-                    && $n(productGetters.getPrice(product.product).special, 'currency')"
+                    && $fc(productGetters.getPrice(product.product).special)"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon

@@ -97,12 +97,12 @@
                 :image="cartGetters.getItemImage(product)"
                 :title="cartGetters.getItemName(product)"
                 :regular-price="
-                  $n(cartGetters.getItemPrice(product).regular, 'currency')
+                  $fc(cartGetters.getItemPrice(product).regular)
                 "
                 :special-price="
                   cartGetters.productHasSpecialPrice(product)
                     ? getItemPrice(product).special &&
-                      $n(cartGetters.getItemPrice(product).special, 'currency')
+                      $fc(cartGetters.getItemPrice(product).special)
                     : ''
                 "
                 :link="
@@ -196,11 +196,11 @@
             >
               <template #value>
                 <SfPrice
-                  :regular="$n(totals.subtotal, 'currency')"
+                  :regular="$fc(totals.subtotal)"
                   :special="
                     totals.subtotal <= totals.special
                       ? ''
-                      : $n(totals.special, 'currency')
+                      : $fc(totals.special)
                   "
                 />
               </template>

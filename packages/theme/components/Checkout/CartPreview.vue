@@ -15,24 +15,25 @@
       />
       <SfProperty
         :name="$t('Subtotal')"
-        :value="$n(totals.subtotal, 'currency')"
+        :value="$fc(totals.subtotal)"
         :class="['sf-property--full-width', 'sf-property--large property']"
       />
       <SfProperty
         v-if="hasDiscounts"
         :name="$t('Discount')"
-        :value="$n(discountsAmount, 'currency')"
+        :value="$fc(discountsAmount)"
         class="sf-property--full-width sf-property--small property"
       />
       <SfProperty
         v-if="selectedShippingMethod"
         :name="$t('Shipping')"
-        :value="$n(getShippingMethodPrice(selectedShippingMethod), 'currency')"
+        :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
         class="sf-property--full-width sf-property--large property"
       />
+
       <SfProperty
         :name="$t('Total')"
-        :value="$n(totals.total, 'currency')"
+        :value="$fc(totals.total)"
         class="sf-property--full-width sf-property--large property-total"
       />
     </div>
