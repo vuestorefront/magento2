@@ -5,6 +5,7 @@ on:
       - main
       - develop
       - release/*
+      - performance/test-approach
 
 jobs:
   build:
@@ -75,7 +76,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-        if: startsWith(github.ref, 'refs/heads/release')
+        if: startsWith(github.ref, 'refs/heads/performance/test-approach')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-dev",
