@@ -5,6 +5,13 @@ const useImage = () => {
   // @ts-ignore
   const { $vsf } = useContext();
 
+  /**
+   * Extract image path from Magento URL.
+   *
+   * @param fullImageUrl {string}
+   *
+   * @return {string}
+   */
   const getMagentoImage = (fullImageUrl: string) => {
     const { imageProvider, magentoBaseUrl } = $vsf.$magento.config;
 
