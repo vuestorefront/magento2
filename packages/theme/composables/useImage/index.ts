@@ -1,4 +1,5 @@
 import { useContext } from '@nuxtjs/composition-api';
+import imageSizes from '~/enums/imageEnums';
 
 const useImage = () => {
   // @ts-ignore
@@ -19,6 +20,7 @@ const useImage = () => {
 
   return {
     getMagentoImage,
+    imageSizes
   };
 };
 

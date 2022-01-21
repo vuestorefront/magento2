@@ -122,8 +122,8 @@
               class="products__product-card"
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
-              :image-width="216"
-              :image-height="268"
+              :image-width="imageSizes.productCard.width"
+              :image-height="imageSizes.productCard.height"
               :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
               :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
@@ -190,8 +190,8 @@
               :title="productGetters.getName(product)"
               :description="productGetters.getDescription(product)"
               :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
-              image-width="140"
-              image-height="200"
+              :image-width="imageSizes.productCardHorizontal.width"
+              :image-height="imageSizes.productCardHorizontal.height"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
               :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
               :score-rating="productGetters.getAverageRating(product)"
@@ -638,7 +638,7 @@ export default defineComponent({
       }
     });
 
-    const image = useImage();
+    const { getMagentoImage, imageSizes } = useImage();
 
     return {
       routeData,
@@ -664,7 +664,8 @@ export default defineComponent({
       selectFilter,
       sortBy,
       uiHelpers,
-      getMagentoImage: image.getMagentoImage,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });
