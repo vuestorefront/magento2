@@ -8,13 +8,14 @@
 
     <div id="layout">
       <nuxt :key="route.fullPath" />
-    </div>
-    <LazyHydrate when-visible>
+
       <BottomNavigation />
       <CartSidebar />
       <WishlistSidebar />
       <LoginModal />
       <Notification />
+    </div>
+    <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>
   </div>
@@ -23,7 +24,7 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { onSSR } from '@vue-storefront/core';
-import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
@@ -55,11 +56,12 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
+
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onMounted(() => {
-      loadConfiguration();
-      loadUser();
+    onSSR(async () => {
+      await loadConfiguration();
+      await loadUser();
     });
 
     return {
