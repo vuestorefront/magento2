@@ -20,7 +20,7 @@ const useImage = () => {
 
   return {
     getMagentoImage,
-    imageSizes
+    imageSizes,
   };
 };
 
