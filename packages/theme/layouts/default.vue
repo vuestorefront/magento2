@@ -8,14 +8,13 @@
 
     <div id="layout">
       <nuxt :key="route.fullPath" />
-
+    </div>
+    <LazyHydrate when-visible>
       <BottomNavigation />
       <CartSidebar />
       <WishlistSidebar />
       <LoginModal />
       <Notification />
-    </div>
-    <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>
   </div>
