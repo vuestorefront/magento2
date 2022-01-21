@@ -157,7 +157,6 @@
 <script>
 import {
   SfHeader,
-  SfImage,
   SfIcon,
   SfButton,
   SfBadge,
@@ -199,7 +198,6 @@ import SearchResults from '~/components/SearchResults.vue';
 export default defineComponent({
   components: {
     SfHeader,
-    SfImage,
     StoreSwitcher,
     SfIcon,
     SfButton,
