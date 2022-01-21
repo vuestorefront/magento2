@@ -70,7 +70,7 @@ const config = convict({
   imageProviderBaseUrl: {
     doc: 'Image provider base URL',
     format: String,
-    default: process.env.IMAGE_PROVIDER_BASE_URL || 'https://magento2-instance.vuestorefront.io/',
+    default: process.env.IMAGE_PROVIDER_BASE_URL,
     env: 'IMAGE_PROVIDER_BASE_URL',
   },
 });
