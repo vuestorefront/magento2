@@ -90,10 +90,19 @@ By default, we use the `ipx` provider. that means the images are fetched from Ma
    1. `MAGENTO_BASE_URL` - base URL of Magento shop. It's used by the `useImage` composable to extract image's path from full Magento URL.
    2. `IMAGE_PROVIDER` - for example: `cloudinary`. List of available providers is [here](https://image.nuxtjs.org/getting-started/providers)
    3. `IMAGE_PROVIDER_BASE_URL` - the base url of your project in for example cloudinary or other image providers
-2. Sync your Magento images with external provider
+2. Configure your provider in `nuxt.config.js`. Here is the example:
+```javascript
+image: {
+  provider: config.get('imageProvider'),
+  magekit: {
+    baseURL: config.get('imageProviderBaseUrl'),
+  }
+},
+```
+3. Sync your Magento images with external provider
    1. For example if you have anb image in Magento with path `{YOUR_MAGENTO_BASE_URL}o/media/catalog/product/w/g/wg02-bk-0.jpg`
    you should have corresponding image in your external provider: `media/catalog/product/w/g/wg02-bk-0.jpg`
-3. Sync your local images with external provider
+4. Sync your local images with external provider
    1. Upload content of `static` directory to your external media library
 
 ### The useImage composable
