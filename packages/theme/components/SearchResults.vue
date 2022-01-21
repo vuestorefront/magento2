@@ -182,11 +182,12 @@
           key="no-results"
           class="before-results"
         >
-          <SfImage
+          <nuxt-img
             src="/error/error.svg"
             class="before-results__picture"
             alt="error"
-            loading="lazy"
+            width="412"
+            height="412"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -213,7 +214,6 @@ import {
   SfScrollable,
   SfMenuItem,
   SfButton,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -233,7 +233,6 @@ export default defineComponent({
     SfScrollable,
     SfMenuItem,
     SfButton,
-    SfImage,
   },
   props: {
     visible: {
