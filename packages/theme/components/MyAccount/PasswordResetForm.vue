@@ -101,10 +101,10 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = () => {
+      const onError = (msg) => {
         sendNotification({
           id: Symbol('password_not_updated'),
-          message: 'It was not possible to update your password.',
+          message: msg,
           type: 'danger',
           icon: 'cross',
           persist: false,
