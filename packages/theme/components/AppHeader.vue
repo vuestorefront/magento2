@@ -10,10 +10,12 @@
           :to="localePath('/')"
           class="sf-header__logo"
         >
-          <SfImage
-            src="/icons/logo.svg"
+          <nuxt-img
+            src="/icons/logo_icao8u.svg"
             alt="Vue Storefront Next"
             class="sf-header__logo-image"
+            width="35"
+            height="34"
           />
         </nuxt-link>
       </template>
