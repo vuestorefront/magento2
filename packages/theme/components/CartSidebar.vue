@@ -263,6 +263,7 @@ import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
 import stockStatusEnum from '~/enums/stockStatusEnum';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
