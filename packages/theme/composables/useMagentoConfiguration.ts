@@ -44,7 +44,7 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
 
   const selectedStore = computed<string | undefined>(() => app.$cookies.get(cookieNames.storeCookieName));
 
-  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => void = (params = {
+  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void> = async (params = {
     updateCookies: false,
     updateLocale: false,
   }) => {

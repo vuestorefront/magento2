@@ -29,7 +29,4 @@ module.exports = {
     '@vue-storefront/eslint-config-vue',
     '@vue-storefront/eslint-config-jest',
   ],
-  rules: {
-    "@typescript-eslint/no-floating-promises": "off"
-  }
 }

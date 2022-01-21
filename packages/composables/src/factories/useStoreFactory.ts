@@ -38,7 +38,7 @@ export function useStoreFactory<STORES, STORE,
     const change = async (store: ComposableFunctionArgs<STORE>): Promise<void> => {
       loading.value = true;
       try {
-        _factoryParams.change(store);
+        await _factoryParams.change(store);
       } finally {
         loading.value = false;
       }
