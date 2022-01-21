@@ -55,6 +55,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
+
     const { loadConfiguration } = useMagentoConfiguration();
     const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
 
