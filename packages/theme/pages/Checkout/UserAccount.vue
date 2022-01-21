@@ -110,7 +110,7 @@
         class="form__element"
         :disabled="createUserAccount"
       />
-      <recaptcha v-if="isRecaptcha" />
+      <recaptcha v-if="isRecaptchaEnabled" />
       <div class="form">
         <div class="form__action">
           <SfButton
@@ -183,7 +183,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app, $recaptcha, $config } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const {
       attachToCart,
@@ -220,12 +220,12 @@ export default defineComponent({
     });
 
     const handleFormSubmit = (reset) => async () => {
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
 
       if (!isAuthenticated.value) {
-        if (isRecaptcha.value) {
+        if (isRecaptchaEnabled.value) {
           const recaptchaToken = await $recaptcha.getResponse();
           form.value.recaptchaToken = recaptchaToken;
           form.value.recaptchaInstance = $recaptcha;
@@ -239,7 +239,7 @@ export default defineComponent({
       }
 
       if (loginUserAccount.value) {
-        if (isRecaptcha.value) {
+        if (isRecaptchaEnabled.value) {
           const recaptchaToken = await $recaptcha.getResponse();
 
           await login({
@@ -275,7 +275,7 @@ export default defineComponent({
         });
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         // reset recaptcha
         $recaptcha.reset();
       }
@@ -311,7 +311,7 @@ export default defineComponent({
       loading,
       loginUserAccount,
       user,
-      isRecaptcha,
+      isRecaptchaEnabled,
     };
   },
 });

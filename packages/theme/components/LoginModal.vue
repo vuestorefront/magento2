@@ -56,7 +56,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha v-if="isRecaptcha" />
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.login">
               {{ error.login }}
             </div>
@@ -119,7 +119,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha v-if="isRecaptcha" />
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="forgotPasswordError.request">
               {{ $t('It was not possible to request a new password, please check the entered email address.') }}
             </div>
@@ -246,7 +246,7 @@
                 class="form__element"
               />
             </ValidationProvider>
-            <recaptcha v-if="isRecaptcha" />
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.register">
               {{ error.register }}
             </div>
@@ -340,7 +340,7 @@ export default defineComponent({
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
     const { $recaptcha, $config } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const {
       register,
@@ -396,11 +396,11 @@ export default defineComponent({
     const handleForm = (fn) => async () => {
       resetErrorValues();
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         const recaptchaToken = await $recaptcha.getResponse();
         form.value.recaptchaInstance = $recaptcha;
 
@@ -428,7 +428,7 @@ export default defineComponent({
       }
       toggleLoginModal();
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         // reset recaptcha
         $recaptcha.reset();
       }
@@ -441,11 +441,11 @@ export default defineComponent({
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         const recaptchaToken = await $recaptcha.getResponse();
 
         await request({ email: userEmail.value, recaptchaToken });
@@ -458,7 +458,7 @@ export default defineComponent({
         isForgotten.value = false;
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         // reset recaptcha
         $recaptcha.reset();
       }
@@ -486,7 +486,7 @@ export default defineComponent({
       setIsLoginValue,
       userEmail,
       userError,
-      isRecaptcha,
+      isRecaptchaEnabled,
     };
   },
 });

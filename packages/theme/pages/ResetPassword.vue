@@ -61,7 +61,7 @@
           <div v-if="passwordMatchError || forgotPasswordError.setNew">
             {{ passwordMatchError || forgotPasswordError.setNew.message }}
           </div>
-          <recaptcha v-if="isRecaptcha" />
+          <recaptcha v-if="isRecaptchaEnabled" />
           <SfButton
             v-e2e="'reset-password-modal-submit'"
             type="submit"
@@ -150,7 +150,7 @@ export default defineComponent({
 
     const { token } = context.root.$route.query;
     const { $recaptcha, $config } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const setNewPassword = async () => {
       passwordMatchError.value = false;
@@ -159,11 +159,11 @@ export default defineComponent({
         return;
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         const recaptchaToken = await $recaptcha.getResponse();
 
         await setNew({
@@ -180,7 +180,7 @@ export default defineComponent({
         });
       }
 
-      if (isRecaptcha.value) {
+      if (isRecaptchaEnabled.value) {
         $recaptcha.reset();
       }
     };
@@ -194,7 +194,7 @@ export default defineComponent({
       passwordMatchError,
       token,
       result,
-      isRecaptcha,
+      isRecaptchaEnabled,
     };
   },
 });

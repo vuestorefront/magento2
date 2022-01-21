@@ -102,7 +102,7 @@
             />
           </ValidationProvider>
         </div>
-        <recaptcha v-if="isRecaptcha" />
+        <recaptcha v-if="isRecaptchaEnabled" />
         <SfButton class="form__button">
           Add review
         </SfButton>
@@ -168,7 +168,7 @@ export default defineComponent({
     const route = useRoute();
     const { params: { id } } = route.value;
     const { $recaptcha, $config } = useContext();
-    const isRecaptcha = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
     const {
       loading,
       loadReviewMetadata,
@@ -212,11 +212,11 @@ export default defineComponent({
         || formSubmitValue.value.text
       )) return;
       try {
-        if (isRecaptcha.value) {
+        if (isRecaptchaEnabled.value) {
           $recaptcha.init();
         }
 
-        if (isRecaptcha.value) {
+        if (isRecaptchaEnabled.value) {
           const recaptchaToken = await $recaptcha.getResponse();
           formSubmitValue.value.recaptchaToken = recaptchaToken;
         }
@@ -227,7 +227,7 @@ export default defineComponent({
 
         reset();
 
-        if (isRecaptcha.value) {
+        if (isRecaptchaEnabled.value) {
           $recaptcha.reset();
         }
       } catch {
@@ -248,7 +248,7 @@ export default defineComponent({
       ratingMetadata,
       reviewSent,
       submitForm,
-      isRecaptcha,
+      isRecaptchaEnabled,
     };
   },
 });
