@@ -7,4 +7,8 @@ module.exports = {
     width: 140,
     height: 200,
   },
+  cartItem: {
+    width: 100,
+    height: 100,
+  },
 };
