@@ -113,7 +113,7 @@
                   )
                 "
                 class="collected-product"
-                @input="updateItemQty({ product, quantity: $event })"
+                @input="delayedUpdateItemQty({ product, quantity: $event })"
                 @click:remove="sendToRemove({ product })"
               >
                 <template #input>
@@ -125,7 +125,7 @@
                       :disabled="loading"
                       :qty="cartGetters.getItemQty(product)"
                       class="sf-collected-product__quantity-selector"
-                      @input="updateItemQty({ product, quantity: $event })"
+                      @input="delayedUpdateItemQty({ product, quantity: $event })"
                     />
                   </div>
                   <SfBadge
@@ -257,9 +257,10 @@ import {
   cartGetters,
   useExternalCheckout,
 } from '@vue-storefront/magento';
+import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
-import CouponCode from './CouponCode.vue';
 import stockStatusEnum from '~/enums/stockStatusEnum';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -342,7 +343,7 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-
+    const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
@@ -352,7 +353,7 @@ export default defineComponent({
       isAuthenticated,
       products,
       removeItem,
-      updateItemQty,
+      delayedUpdateItemQty,
       isCartSidebarOpen,
       notifications,
       visible,

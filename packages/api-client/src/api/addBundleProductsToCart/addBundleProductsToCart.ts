@@ -115,6 +115,12 @@ export default gql`
               configurable_product_option_value_uid
               value_label
             }
+            configured_variant {
+              sku
+              thumbnail {
+                url
+              }
+            }
           }
           ... on BundleCartItem {
             bundle_options {
