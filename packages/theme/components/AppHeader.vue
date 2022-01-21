@@ -11,7 +11,7 @@
           class="sf-header__logo"
         >
           <nuxt-img
-            src="/icons/logo_icao8u.svg"
+            src="/icons/logo.svg"
             alt="Vue Storefront Next"
             class="sf-header__logo-image"
             width="35"

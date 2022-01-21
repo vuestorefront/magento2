@@ -169,7 +169,7 @@
             <nuxt-img
               alt="Empty bag"
               class="empty-cart__image"
-              src="/icons/empty-cart_x0qael.svg"
+              src="/icons/empty-cart.svg"
               width="211"
               height="143"
             />
