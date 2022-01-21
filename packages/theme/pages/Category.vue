@@ -124,7 +124,7 @@
               :title="productGetters.getName(product)"
               :image-width="216"
               :image-height="268"
-              :image="productGetters.getProductThumbnailImage(product)"
+              :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
               :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
               :score-rating="productGetters.getAverageRating(product)"
@@ -189,7 +189,7 @@
               :style="{ '--index': i }"
               :title="productGetters.getName(product)"
               :description="productGetters.getDescription(product)"
-              :image="productGetters.getProductThumbnailImage(product)"
+              :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
               image-width="140"
               image-height="200"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
@@ -218,7 +218,7 @@
                   "
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
-                    <SfImage
+                    <nuxt-img
                       v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                       :key="key"
                       class="sf-product-card-horizontal__picture"
@@ -228,7 +228,7 @@
                       :height="imageSlotProps.imageHeight"
                     />
                   </template>
-                  <SfImage
+                  <nuxt-img
                     v-else
                     class="sf-product-card-horizontal__image"
                     :src="imageSlotProps.image"
@@ -415,7 +415,6 @@ import {
   SfLoader,
   SfColor,
   SfProperty,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -434,9 +433,10 @@ import {
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
-import { useUiHelpers, useUiState } from '~/composables';
+import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
+
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -459,7 +459,6 @@ export default defineComponent({
     SfHeading,
     SfProperty,
     LazyHydrate,
-    SfImage,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -639,6 +638,8 @@ export default defineComponent({
       }
     });
 
+    const image = useImage();
+
     return {
       routeData,
       ...uiState,
@@ -663,6 +664,7 @@ export default defineComponent({
       selectFilter,
       sortBy,
       uiHelpers,
+      getMagentoImage: image.getMagentoImage,
     };
   },
 });

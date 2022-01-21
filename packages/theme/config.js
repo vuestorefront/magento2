@@ -55,6 +55,24 @@ const config = convict({
     default: process.env.NUXT_APP_PORT || 3000,
     env: 'NUXT_APP_PORT',
   },
+  magentoBaseUrl: {
+    doc: 'Magento base url',
+    format: String,
+    default: process.env.MAGENTO_BASE_URL || 'https://magento2-instance.vuestorefront.io/',
+    env: 'MAGENTO_BASE_URL',
+  },
+  imageProvider: {
+    doc: 'Image provider',
+    format: String,
+    default: process.env.IMAGE_PROVIDER || 'ipx',
+    env: 'IMAGE_PROVIDER',
+  },
+  imageProviderBaseUrl: {
+    doc: 'Image provider base URL',
+    format: String,
+    default: process.env.IMAGE_PROVIDER_BASE_URL || 'https://magento2-instance.vuestorefront.io/',
+    env: 'IMAGE_PROVIDER_BASE_URL',
+  },
 });
 
 const env = config.get('env');

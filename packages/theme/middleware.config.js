@@ -25,6 +25,8 @@ module.exports = {
         customApolloHttpLinkOptions: {
           useGETForQueries: false,
         },
+        magentoBaseUrl: config.get('magentoBaseUrl'),
+        imageProvider: config.get('imageProvider'),
       },
     },
   },

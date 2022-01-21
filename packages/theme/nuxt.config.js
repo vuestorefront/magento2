@@ -14,6 +14,8 @@ const {
         externalCheckout,
         defaultStore,
         facets,
+        magentoBaseUrl,
+        imageProvider,
       },
     },
   },
@@ -98,6 +100,8 @@ export default {
       externalCheckout,
       defaultStore,
       facets,
+      magentoBaseUrl,
+      imageProvider,
     }],
     '@nuxt/image',
   ],
@@ -235,6 +239,12 @@ export default {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
+    },
+  },
+  image: {
+    provider: config.get('imageProvider'),
+    cloudinary: {
+      baseURL: config.get('imageProviderBaseUrl'),
     },
   },
 };
