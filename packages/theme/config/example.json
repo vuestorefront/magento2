@@ -5,5 +5,8 @@
   "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
   "enableMagentoExternalCheckout": false,
   "externalCheckoutUrl": "https://{YOUR_SITE_FRONT_URL}",
-  "externalCheckoutSyncPath": "/vue/cart/sync"
+  "externalCheckoutSyncPath": "/vue/cart/sync",
+  "imageProvider": "ipx",
+  "magentoBaseUrl": "https://magento2-instance.vuestorefront.io/",
+  "imageProviderBaseUrl": "https://res-4.cloudinary.com/{YOUR_CLOUD_ID}/image/upload/"
 }

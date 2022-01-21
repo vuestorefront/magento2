@@ -25,9 +25,11 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <SfImage
-            :src="cartGetters.getItemImage(product)"
+          <nuxt-img
+            :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
+            :width="imageSizes.cartItem.width"
+            :height="imageSizes.cartItem.height"
           />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
@@ -160,7 +162,6 @@ import {
   SfCheckbox,
   SfButton,
   SfDivider,
-  SfImage,
   SfPrice,
   SfProperty,
   SfLink,
@@ -179,6 +180,7 @@ import {
   cartGetters,
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import { useImage } from '~/composables';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -188,7 +190,6 @@ export default defineComponent({
     SfCheckbox,
     SfButton,
     SfDivider,
-    SfImage,
     SfPrice,
     SfProperty,
     SfLink,
@@ -221,6 +222,8 @@ export default defineComponent({
     const hasDiscounts = computed(() => discounts.value.length > 0);
     const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
 
+    const { getMagentoImage, imageSizes } = useImage();
+
     return {
       cart,
       cartGetters,
@@ -238,6 +241,8 @@ export default defineComponent({
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
       getBundles,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });

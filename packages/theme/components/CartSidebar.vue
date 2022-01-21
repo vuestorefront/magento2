@@ -166,10 +166,12 @@
           class="empty-cart"
         >
           <div class="empty-cart__banner">
-            <SfImage
+            <nuxt-img
               alt="Empty bag"
               class="empty-cart__image"
               src="/icons/empty-cart.svg"
+              width="211"
+              height="143"
             />
             <SfHeading
               title="Your cart is empty"
@@ -240,7 +242,6 @@ import {
   SfProperty,
   SfPrice,
   SfCollectedProduct,
-  SfImage,
   SfQuantitySelector,
   SfBadge,
 } from '@storefront-ui/vue';
@@ -273,7 +274,6 @@ export default defineComponent({
     SfProperty,
     SfPrice,
     SfCollectedProduct,
-    SfImage,
     SfQuantitySelector,
     SfBadge,
     CouponCode,
