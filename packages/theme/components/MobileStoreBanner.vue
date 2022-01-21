@@ -16,7 +16,7 @@
             src="/homepage/apple.png"
             width="174"
             height="57"
-          >
+          />
         </SfButton>
         <SfButton
           class="banner-app__button sf-button--pure"
@@ -27,7 +27,7 @@
             src="/homepage/google.png"
             width="174"
             height="57"
-          >
+          />
         </SfButton>
       </div>
     </template>
