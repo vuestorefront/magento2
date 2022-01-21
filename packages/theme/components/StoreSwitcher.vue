@@ -9,9 +9,10 @@
           <span>{{ storeConfig.store_name }}</span>
         </template>
         <template #icon>
-          <SfImage
+          <nuxt-img
             :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
             width="20"
+            height="20"
             alt="Flag"
             class="language__flag"
           />
@@ -45,9 +46,10 @@
                 <span>{{ storeConfigGetters.getName(store) }}</span>
               </template>
               <template #icon>
-                <SfImage
+                <nuxt-img
                   :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
                   width="20"
+                  height="20"
                   alt="Flag"
                   class="language__flag"
                 />
@@ -68,7 +70,6 @@ import {
   storeGetters,
 } from '@vue-storefront/magento';
 import {
-  SfImage,
   SfButton,
   SfList,
   SfBottomModal,
@@ -84,7 +85,6 @@ import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 export default defineComponent({
   name: 'StoreSwitcher',
   components: {
-    SfImage,
     SfButton,
     SfList,
     SfBottomModal,
