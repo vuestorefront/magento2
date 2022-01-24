@@ -107,6 +107,16 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
+    ['@vue-storefront/cache/nuxt', {
+      invalidation: {
+        endpoint: '/cache-invalidate',
+        handlers: [
+          '@vue-storefront/cache/defaultHandler',
+        ],
+      },
+      driver: [
+      ],
+    }],
   ],
   i18n: {
     country: 'US',
