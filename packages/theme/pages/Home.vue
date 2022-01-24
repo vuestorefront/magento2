@@ -80,6 +80,7 @@ import LazyHydrate from 'vue-lazy-hydration';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   name: 'HomePage',
@@ -95,6 +96,8 @@ export default defineComponent({
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
+    const { addTags } = useCache();
+
     const {
       products: newProductsResult,
       search: newProductsSearch,
@@ -215,6 +218,10 @@ export default defineComponent({
           position: 'ASC',
         },
       });
+
+      addTags([
+        { prefix: CacheTagPrefix.View, value: 'home' }
+      ]);
     });
 
     return {

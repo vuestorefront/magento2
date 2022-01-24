@@ -368,6 +368,7 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
@@ -402,6 +403,7 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup() {
+    const { addTags } = useCache();
     const uiHelpers = useUiHelpers();
     const uiState = useUiState();
     const {
@@ -577,6 +579,15 @@ export default defineComponent({
         await searchCategoryProduct();
         isProductsLoading.value = false;
       }
+
+      const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
+      // eslint-disable-next-line no-underscore-dangle
+      const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product._id }));
+
+      const categoriesTags = categoryTree.value.items.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.id }));
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      addTags(tags.concat(productTags, categoriesTags));
     });
 
     return {
