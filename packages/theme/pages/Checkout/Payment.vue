@@ -217,6 +217,13 @@ export default defineComponent({
       await load();
     });
 
+    onMounted(async () => {
+      const validStep = await isPreviousStepValid('billing');
+      if (!validStep) {
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+    });
+
     const processOrder = async () => {
       await make();
       setCart(null);
