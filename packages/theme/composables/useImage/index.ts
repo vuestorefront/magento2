@@ -4,7 +4,6 @@ import imageSizes from '~/enums/imageEnums';
 const useImage = () => {
   // @ts-ignore
   const { $vsf } = useContext();
-
   /**
    * Extract image path from Magento URL.
    *
