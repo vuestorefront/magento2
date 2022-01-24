@@ -14,6 +14,8 @@ const {
         externalCheckout,
         defaultStore,
         facets,
+        magentoBaseUrl,
+        imageProvider,
       },
     },
   },
@@ -98,7 +100,10 @@ export default {
       externalCheckout,
       defaultStore,
       facets,
+      magentoBaseUrl,
+      imageProvider,
     }],
+    '@nuxt/image',
   ],
   modules: [
     ['nuxt-i18n', {
@@ -107,6 +112,7 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
+    '@nuxt/image',
     ['@vue-storefront/cache/nuxt', {
       invalidation: {
         endpoint: '/cache-invalidate',
@@ -245,6 +251,12 @@ export default {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
+    },
+  },
+  image: {
+    provider: config.get('imageProvider'),
+    cloudinary: {
+      baseURL: config.get('imageProviderBaseUrl'),
     },
   },
 };
