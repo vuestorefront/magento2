@@ -206,7 +206,6 @@
                   )}${productGetters.getSlug(product, product.categories[0])}`
                 )
               "
-              @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             >
               <template #image="imageSlotProps">
@@ -255,8 +254,9 @@
                 <SfButton
                   class="sf-button--text desktop-only"
                   style="margin: 0 0 1rem auto; display: block"
+                  @click="addItemToWishlist(product)"
                 >
-                  {{ $t('Save for later') }}
+                  {{ isInWishlist({product}) ? $t('Remove from Wishlist') : $t('Save for later') }}
                 </SfButton>
               </template>
             </SfProductCardHorizontal>
@@ -431,11 +431,11 @@ import {
   useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
-import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
+import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
@@ -495,7 +495,11 @@ export default defineComponent({
       isInCart,
     } = useAddToCart();
 
-    const selectedFilters = ref(Object.fromEntries((magentoConfig.facets.available).map((curr) => [curr, (curr === 'price' ? '' : [])])));
+    const selectedFilters = ref(Object.fromEntries(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      (magentoConfig.facets.available)
+        .map((curr) => [curr, (curr === 'price' ? '' : [])]),
+    ));
 
     const products = computed(() => facetGetters.getProducts(result.value));
 
@@ -597,6 +601,7 @@ export default defineComponent({
       const categoryId = activeCategoryUid(routeData.value?.entity_uid)
         ? activeCategoryUid(routeData.value?.entity_uid)
         : routeData.value?.entity_uid;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await search({
         ...uiHelpers.getFacetsFromURL(),
         categoryId,

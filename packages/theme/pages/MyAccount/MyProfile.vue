@@ -79,15 +79,15 @@ export default defineComponent({
       load,
       loading,
       updateUser,
+      error,
     } = useUser();
 
     const formHandler = async (fn, onComplete, onError) => {
-      try {
-        const data = await fn();
-        if (!data) throw new Error('API Error');
-        await onComplete(data);
-      } catch (error) {
-        onError(error);
+      await fn();
+      if (error.value.changePassword !== null) {
+        onError(error.value.changePassword);
+      } else {
+        onComplete();
       }
     };
 
@@ -100,13 +100,14 @@ export default defineComponent({
       onComplete,
       onError,
     );
+
     const updatePassword = ({
       form,
       onComplete,
       onError,
     }) => formHandler(async () => changePassword({
-      currentPassword: form.value.currentPassword,
-      newPassword: form.value.newPassword,
+      current: form.value.currentPassword,
+      new: form.value.newPassword,
     }), onComplete, onError);
 
     onSSR(async () => {

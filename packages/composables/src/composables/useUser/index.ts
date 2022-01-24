@@ -46,7 +46,7 @@ CustomerCreateInput
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
-    // context.cart.setCart(null);
+    context.cart.setCart(null);
   },
   updateUser: async (context: Context, params) => {
     Logger.debug('[Magento] Update user information', { params });
@@ -139,10 +139,8 @@ CustomerCreateInput
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
     const { data, errors } = await context.$magento.api.changeCustomerPassword(params);
-
     if (errors) {
       Logger.error(errors);
-
       throw new Error(errors.map((e) => e.message).join(','));
     }
 

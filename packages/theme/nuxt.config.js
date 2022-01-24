@@ -122,11 +122,13 @@ export default {
         code: 'default',
         file: 'en.js',
         iso: 'en_US',
+        defaultCurrency: 'USD',
       },
       {
         code: 'german',
         file: 'de.js',
         iso: 'de_DE',
+        defaultCurrency: 'EUR',
       },
     ],
     defaultLocale: 'default',
