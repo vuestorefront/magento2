@@ -104,7 +104,7 @@ export default defineComponent({
 
     const isCurrencyModalOpen = ref(false);
 
-    const availableCurrencies = computed(() => currencies.value?.available_currency_codes);
+    const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
 
     return {
       currentCurrencySymbol,
