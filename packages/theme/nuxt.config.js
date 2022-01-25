@@ -116,8 +116,8 @@ export default {
     ['@vue-storefront/cache/nuxt', {
       enabled: true,
       invalidation: {
-        endpoint: '/cache-invalidate',
-        key: 'vsf',
+        endpoint: process.env.CACHE_INVALIDATE_URL,
+        key: process.env.CACHE_INVALIDATE_KEY,
         handlers: [
           '@vue-storefront/cache/defaultHandler',
         ],
@@ -127,10 +127,10 @@ export default {
         {
           // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
           redis: {
-            keyPrefix: 'vsf2magento2',
-            host: 'localhost',
-            port: '6379',
-            password: ''
+            keyPrefix: process.env.REDIS_KEY_PREFIX,
+            host: process.env.REDIS_HOST,
+            port: process.env.REDIS_PORT,
+            password: process.env.REDIS_PASSWORD,
           },
         },
       ],
