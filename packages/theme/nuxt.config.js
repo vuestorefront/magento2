@@ -117,6 +117,7 @@ export default {
       enabled: true,
       invalidation: {
         endpoint: '/cache-invalidate',
+        key: 'vsf',
         handlers: [
           '@vue-storefront/cache/defaultHandler',
         ],
@@ -126,7 +127,7 @@ export default {
         {
           // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
           redis: {
-            keyPrefix: 'vsf',
+            keyPrefix: 'vsf2magento2',
             host: 'localhost',
             port: '6379',
             password: ''
@@ -257,6 +258,9 @@ export default {
     '~/plugins/token-expired',
     '~/plugins/i18n',
     '~/plugins/fcPlugin',
+  ],
+  serverMiddleware: [
+    '~/serverMiddleware/body-parser.js',
   ],
   router: {
     extendRoutes(routes) {
