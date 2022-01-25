@@ -108,7 +108,7 @@ export default defineComponent({
       result: shippingMethods,
       loading: loadingShippingMethods,
       error: errorUseGetShippingMethods,
-    } = useGetShippingMethods('VsfShippingProvider');
+    } = useGetShippingMethods();
     const { cart } = useCart();
     const {
       state,
