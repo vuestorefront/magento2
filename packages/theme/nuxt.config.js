@@ -116,8 +116,8 @@ export default {
     ['@vue-storefront/cache/nuxt', {
       enabled: true,
       invalidation: {
-        endpoint: process.env.CACHE_INVALIDATE_URL,
-        key: process.env.CACHE_INVALIDATE_KEY,
+        endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
+        key: process.env.REDIS__CACHE_INVALIDATE_KEY,
         handlers: [
           '@vue-storefront/cache/defaultHandler',
         ],
@@ -127,9 +127,9 @@ export default {
         {
           // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
           redis: {
-            keyPrefix: process.env.REDIS_KEY_PREFIX,
-            host: process.env.REDIS_HOST,
-            port: process.env.REDIS_PORT,
+            keyPrefix: process.env.REDIS__KEY_PREFIX,
+            host: process.env.REDIS__HOST,
+            port: process.env.REDIS__PORT,
           },
         },
       ],
