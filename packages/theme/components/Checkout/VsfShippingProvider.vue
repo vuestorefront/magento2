@@ -108,10 +108,11 @@ export default defineComponent({
       result: shippingMethods,
       loading: loadingShippingMethods,
       error: errorUseGetShippingMethods,
-    } = useGetShippingMethods('VsfShippingProvider');
+    } = useGetShippingMethods();
     const { cart } = useCart();
     const {
       state,
+      save: saveShippingProvider,
       error: errorShippingProvider,
       loading: loadingShippingProvider,
       setState,
@@ -129,9 +130,14 @@ export default defineComponent({
      * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
      */
     const selectShippingMethod = async (method) => {
-      await setState({
+      const shippingData = {
         carrier_code: method.carrier_code,
         method_code: method.method_code,
+      };
+
+      setState(shippingData);
+      await saveShippingProvider({
+        shippingMethod: shippingData,
       });
     };
 

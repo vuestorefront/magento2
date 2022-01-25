@@ -4,18 +4,30 @@
       <TopBar class="desktop-only" />
     </LazyHydrate>
 
-    <AppHeader />
+    <LazyHydrate when-visible>
+      <AppHeader />
+    </LazyHydrate>
 
     <div id="layout">
       <nuxt :key="route.fullPath" />
-
-      <BottomNavigation />
-      <CartSidebar />
-      <WishlistSidebar />
-      <LoginModal />
-      <Notification />
     </div>
+
+    <LazyHydrate on-interaction>
+      <BottomNavigation />
+    </LazyHydrate>
+    <LazyHydrate when-idle>
+      <CartSidebar />
+    </LazyHydrate>
+    <LazyHydrate when-idle>
+      <WishlistSidebar />
+    </LazyHydrate>
     <LazyHydrate when-visible>
+      <LoginModal />
+    </LazyHydrate>
+    <LazyHydrate when-idle>
+      <Notification />
+    </LazyHydrate>
+    <LazyHydrate on-interaction>
       <AppFooter />
     </LazyHydrate>
   </div>
@@ -23,8 +35,7 @@
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { onSSR } from '@vue-storefront/core';
-import { useRoute, defineComponent } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
@@ -56,12 +67,11 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onSSR(async () => {
-      await loadConfiguration();
-      await loadUser();
+    onMounted(() => {
+      loadConfiguration();
+      loadUser();
     });
 
     return {
