@@ -438,6 +438,7 @@ import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 
+
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
