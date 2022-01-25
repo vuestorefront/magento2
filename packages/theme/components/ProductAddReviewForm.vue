@@ -97,6 +97,7 @@
               :cols="60"
               :rows="10"
               wrap="soft"
+              required
               :valid="!errors[0]"
               :error-message="errors[0]"
             />
@@ -192,13 +193,12 @@ export default defineComponent({
         id: key,
         value_id: `${form.value.ratings[key]}`,
       }));
-      const recaptchaToken = '';
 
       return {
         ...form.value,
         nickname,
         ratings,
-        recaptchaToken,
+        recaptchaToken: '',
       };
     });
 

@@ -225,7 +225,7 @@ export default defineComponent({
       }
 
       if (!isAuthenticated.value) {
-        if (isRecaptchaEnabled.value) {
+        if (isRecaptchaEnabled.value && createUserAccount.value) {
           const recaptchaToken = await $recaptcha.getResponse();
           form.value.recaptchaToken = recaptchaToken;
           form.value.recaptchaInstance = $recaptcha;
@@ -239,24 +239,18 @@ export default defineComponent({
       }
 
       if (loginUserAccount.value) {
+        const recaptchaParams = {};
         if (isRecaptchaEnabled.value) {
-          const recaptchaToken = await $recaptcha.getResponse();
-
-          await login({
-            user: {
-              username: form.value.email,
-              password: form.value.password,
-              recaptchaToken,
-            },
-          });
-        } else {
-          await login({
-            user: {
-              username: form.value.email,
-              password: form.value.password,
-            },
-          });
+          recaptchaParams.recaptchaToken = await $recaptcha.getResponse();
         }
+
+        await login({
+          user: {
+            username: form.value.email,
+            password: form.value.password,
+            ...recaptchaParams,
+          },
+        });
       }
 
       if (!hasError.value) {
