@@ -36,7 +36,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('Your email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -50,7 +50,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('Password')"
                 type="password"
                 has-show-password
                 class="form__element"
@@ -175,7 +175,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="email"
-                label="Your email"
+                :label="$t('Your email')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -189,7 +189,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="first-name"
-                label="First Name"
+                :label="$t('First Name')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -203,7 +203,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="last-name"
-                label="Last Name"
+                :label="$t('Last Name')"
                 class="form__element"
               />
             </ValidationProvider>
@@ -217,7 +217,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="password"
-                label="Password"
+                :label="$t('Password')"
                 type="password"
                 has-show-password
                 class="form__element"
@@ -226,7 +226,7 @@
             <SfCheckbox
               v-model="isSubscribed"
               v-e2e="'sign-up-newsletter'"
-              label="Sign Up for Newsletter"
+              :label="$t('Sign Up for Newsletter')"
               name="signupNewsletter"
               class="form__element"
             />
@@ -240,7 +240,7 @@
                 :valid="!errors[0]"
                 :error-message="errors[0]"
                 name="create-account"
-                label="I want to create an account"
+                :label="$t('I want to create an account')"
                 class="form__element"
               />
             </ValidationProvider>
