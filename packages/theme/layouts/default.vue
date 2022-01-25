@@ -56,12 +56,11 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onSSR(async () => {
-      await loadConfiguration();
-      await loadUser();
+    onMounted(() => {
+      loadConfiguration();
+      loadUser();
     });
 
     return {
