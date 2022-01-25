@@ -11,7 +11,9 @@
           <SfStep
             v-for="(step, key) in STEPS"
             :key="key"
-            :name="step"
+            :name="$t(step.title)"
+            :active="1"
+            can-go-back
           >
             <nuxt-child />
           </SfStep>
@@ -48,19 +50,37 @@ export default defineComponent({
     const { path } = route.value;
     const router = useRouter();
     const currentStep = computed(() => path.split('/').pop());
-    const STEPS = ref({
-      'user-account': 'User Account',
-      shipping: 'Shipping',
-      billing: 'Billing',
-      payment: 'Payment',
-    });
-    const currentStepIndex = computed(() => Object.keys(STEPS.value)
-      .indexOf(currentStep.value));
+
+    const STEPS = ref(
+      [
+        {
+          title: 'User Account',
+          url: 'user-account',
+        },
+        {
+          title: 'Shipping',
+          url: 'shipping',
+        },
+        {
+          title: 'Billing',
+          url: 'billing',
+        },
+        {
+          title: 'Payment',
+          url: 'payment',
+        },
+      ],
+    );
+
+    const currentStepIndex = computed(() => STEPS.value
+      .findIndex((step) => step.url === currentStep.value));
     const isThankYou = computed(() => currentStep.value === 'thank-you');
 
     const handleStepClick = async (stepIndex) => {
-      const key = Object.keys(STEPS.value)[stepIndex];
-      await router.push(`${app.localePath(`/checkout/${key}`)}`);
+      if (stepIndex <= currentStepIndex.value) {
+        const { url } = STEPS.value[stepIndex];
+        await router.push(`${app.localePath(`/checkout/${url}`)}`);
+      }
     };
 
     return {
