@@ -23,6 +23,7 @@
             @click="toggleFilterSidebar"
           >
             <SfIcon
+            <SfIcon
               size="24px"
               color="dark-secondary"
               icon="filter2"
@@ -646,9 +647,13 @@ export default defineComponent({
 
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
-      const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product._id }));
+      const productTags = products.value.map((product) => {
+        return { prefix: CacheTagPrefix.Product, value: product.uid };
+      });
 
-      const categoriesTags = categoryTree.value.items.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.id }));
+      const categoriesTags = categoryTree.value.items.map((category) => {
+        return { prefix: CacheTagPrefix.Category, value: category.slug };
+      });
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags(tags.concat(productTags, categoriesTags));

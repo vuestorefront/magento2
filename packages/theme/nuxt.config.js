@@ -114,6 +114,7 @@ export default {
     '@vue-storefront/middleware/nuxt',
     '@nuxt/image',
     ['@vue-storefront/cache/nuxt', {
+      enabled: true,
       invalidation: {
         endpoint: '/cache-invalidate',
         handlers: [
@@ -121,6 +122,16 @@ export default {
         ],
       },
       driver: [
+        '@vsf-enterprise/redis-cache',
+        {
+          // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
+          redis: {
+            keyPrefix: 'vsf',
+            host: 'localhost',
+            port: '6379',
+            password: ''
+          },
+        },
       ],
     }],
   ],
