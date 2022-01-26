@@ -47,7 +47,7 @@ export default defineComponent({
     const { params } = route.value;
 
     onSSR(async () => {
-      await loadContent(params.slug || props.identifier);
+      await loadContent({ identifier: params.slug || props.identifier });
       if (error?.value?.content) nuxtError({ statusCode: 404 });
     });
     return {
