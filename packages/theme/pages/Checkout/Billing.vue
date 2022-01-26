@@ -270,7 +270,6 @@ import {
 } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
-import { onSSR } from '@vue-storefront/core';
 import {
   ref,
   computed,
@@ -454,18 +453,16 @@ export default defineComponent({
       billingDetails.value = addressFromApiToForm(addr || {});
     });
 
-    onSSR(async () => {
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
-    });
-
     onMounted(async () => {
       const validStep = await isPreviousStepValid('shipping');
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
+
+      await Promise.all([
+        loadCountries(),
+        load(),
+      ]);
 
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });

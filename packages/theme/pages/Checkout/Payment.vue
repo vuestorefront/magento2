@@ -166,7 +166,7 @@ import {
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { onSSR, useVSFContext } from '@vue-storefront/core';
+import { useVSFContext } from '@vue-storefront/core';
 import {
   ref,
   computed,
@@ -183,7 +183,6 @@ import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { useImage } from '~/composables';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
-
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -209,15 +208,13 @@ export default defineComponent({
     const getAttributes = (product) => product.configurable_options || [];
     const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
 
-    onSSR(async () => {
-      await load();
-    });
-
     onMounted(async () => {
       const validStep = await isPreviousStepValid('billing');
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
+
+      await load();
     });
 
     const processOrder = async () => {
