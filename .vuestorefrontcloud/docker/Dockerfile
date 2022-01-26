@@ -47,7 +47,11 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN yarn install && yarn build && yarn cache clean --all
+RUN yarn install
+
+RUN yarn add @vsf-enterprise/redis-cache
+
+RUN yarn build && yarn cache clean --all
 
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
