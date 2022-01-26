@@ -23,6 +23,11 @@ const customRender = (component, options = {}, callback = null) => render(compon
     },
     ...options?.mocks,
   },
+  stubs: {
+    NuxtImg: {
+      template: '<img src="image-stub.png" class="nuxt-img" alt="image"/>',
+    },
+  },
   ...options,
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 }, callback);

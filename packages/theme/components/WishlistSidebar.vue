@@ -61,8 +61,8 @@
                     localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
                   "
                 >
-                  <SfImage
-                    :src="wishlistGetters.getItemImage(product)"
+                  <nuxt-img
+                    :src="getMagentoImage(wishlistGetters.getItemImage(product))"
                     :alt="wishlistGetters.getItemName(product)"
                     :width="140"
                     :height="200"
@@ -118,10 +118,12 @@
           class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <SfImage
+            <nuxt-img
               src="/icons/empty-cart.svg"
               alt="Empty bag"
               class="empty-wishlist__icon"
+              width="211"
+              height="143"
             />
             <SfHeading
               title="Your bag is empty"
@@ -151,7 +153,6 @@ import {
   SfProperty,
   SfPrice,
   SfCollectedProduct,
-  SfImage,
   SfLink,
 } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
@@ -161,8 +162,7 @@ import {
   wishlistGetters,
   productGetters,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
-import { useUiState } from '~/composables';
+import { useUiState, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -174,7 +174,6 @@ export default defineComponent({
     SfProperty,
     SfPrice,
     SfCollectedProduct,
-    SfImage,
     SfLink,
   },
   setup() {
@@ -187,6 +186,8 @@ export default defineComponent({
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+
+    const { getMagentoImage, imageSizes } = useImage();
 
     return {
       getAttributes,
@@ -201,6 +202,8 @@ export default defineComponent({
       wishlistGetters,
       wishlist,
       productGetters,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });

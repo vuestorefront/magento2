@@ -66,7 +66,9 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
-                  :image="productGetters.getProductThumbnailImage(product.product)"
+                  :image-width="imageSizes.productCard.width"
+                  :image-height="imageSizes.productCard.height"
+                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
                   :link="
@@ -87,7 +89,37 @@
                   wishlist-icon
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
-                />
+                >
+                  <template #image="imageSlotProps">
+                    <SfButton
+                      :link="imageSlotProps.link"
+                      class="sf-button--pure sf-product-card__link"
+                      data-testid="product-link"
+                      aria-label="Go To Product"
+                      v-on="$listeners"
+                    >
+                      <template v-if="Array.isArray(imageSlotProps.image)">
+                        <nuxt-img
+                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          :key="key"
+                          class="sf-product-card__picture"
+                          :src="picture"
+                          :alt="imageSlotProps.title"
+                          :width="imageSlotProps.imageWidth"
+                          :height="imageSlotProps.imageHeight"
+                        />
+                      </template>
+                      <nuxt-img
+                        v-else
+                        class="sf-product-card__image lol"
+                        :src="imageSlotProps.image"
+                        :alt="imageSlotProps.title"
+                        :width="imageSlotProps.imageWidth"
+                        :height="imageSlotProps.imageHeight"
+                      />
+                    </SfButton>
+                  </template>
+                </SfProductCard>
               </transition-group>
               <transition-group
                 v-else
@@ -101,7 +133,9 @@
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
                   :description="productGetters.getDescription(product.product)"
-                  :image="productGetters.getProductThumbnailImage(product.product)"
+                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
+                  :image-width="imageSizes.productCardHorizontal.width"
+                  :image-height="imageSizes.productCardHorizontal.height"
                   :is-in-wishlist="true"
                   :link="
                     localePath(
@@ -121,6 +155,35 @@
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
+                  <template #image="imageSlotProps">
+                    <SfLink
+                      :link="imageSlotProps.link"
+                      class="
+                    sf-product-card-horizontal__link
+                    sf-product-card-horizontal__link--image
+                  "
+                    >
+                      <template v-if="Array.isArray(imageSlotProps.image)">
+                        <nuxt-img
+                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          :key="key"
+                          class="sf-product-card-horizontal__picture"
+                          :src="picture"
+                          :alt="imageSlotProps.title"
+                          :width="imageSlotProps.imageWidth"
+                          :height="imageSlotProps.imageHeight"
+                        />
+                      </template>
+                      <nuxt-img
+                        v-else
+                        class="sf-product-card-horizontal__image"
+                        :src="imageSlotProps.image"
+                        :alt="imageSlotProps.title"
+                        :width="imageSlotProps.imageWidth"
+                        :height="imageSlotProps.imageHeight"
+                      />
+                    </SfLink>
+                  </template>
                   <template #configuration>
                     <SfProperty
                       class="desktop-only"
@@ -214,7 +277,7 @@ import {
   productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState } from '~/composables';
+import { useUiHelpers, useUiState, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -287,6 +350,8 @@ export default defineComponent({
       await removeItem({ product });
     };
 
+    const { getMagentoImage, imageSizes } = useImage();
+
     onSSR(async () => {
       await load({
         searchParams: {
@@ -307,6 +372,8 @@ export default defineComponent({
       products,
       th,
       wishlist,
+      getMagentoImage,
+      imageSizes
     };
   },
 });
