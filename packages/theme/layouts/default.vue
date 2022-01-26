@@ -4,15 +4,13 @@
       <TopBar class="desktop-only" />
     </LazyHydrate>
 
-    <LazyHydrate when-visible>
-      <AppHeader />
-    </LazyHydrate>
+    <AppHeader />
 
     <div id="layout">
       <nuxt :key="route.fullPath" />
     </div>
 
-    <LazyHydrate on-interaction>
+    <LazyHydrate when-visible>
       <BottomNavigation />
     </LazyHydrate>
     <LazyHydrate when-idle>
@@ -27,7 +25,7 @@
     <LazyHydrate when-idle>
       <Notification />
     </LazyHydrate>
-    <LazyHydrate on-interaction>
+    <LazyHydrate when-visible>
       <AppFooter />
     </LazyHydrate>
   </div>
@@ -41,13 +39,13 @@ import {
 } from '@vue-storefront/magento';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
-import AppFooter from '~/components/AppFooter.vue';
 import TopBar from '~/components/TopBar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
-import Notification from '~/components/Notification';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+import Notification from '~/components/Notification';
+import AppFooter from '~/components/AppFooter.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',

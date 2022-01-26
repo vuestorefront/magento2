@@ -535,6 +535,7 @@ export default defineComponent({
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
+    padding: 0 1.5rem;
   }
 }
 
@@ -552,7 +553,7 @@ export default defineComponent({
     margin: var(--spacer-sm) auto;
     @include for-desktop {
       max-width: 32.625rem;
-      margin: 0 0 0 7.5rem;
+      margin: 0 0 0 2rem;
     }
   }
 
