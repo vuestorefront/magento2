@@ -253,7 +253,6 @@ import {
   onMounted,
   defineComponent, useRouter, useContext,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
 import {
   addressGetter,
   useCountrySearch,
@@ -406,18 +405,16 @@ export default defineComponent({
       shippingDetails.value = addressFromApiToForm(addr || {});
     });
 
-    onSSR(async () => {
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
-    });
-
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
+
+      await Promise.all([
+        loadCountries(),
+        load(),
+      ]);
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
