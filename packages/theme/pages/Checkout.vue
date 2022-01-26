@@ -34,7 +34,11 @@
 <script>
 import { SfSteps } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, ref, useRoute, useRouter, useContext,
+  useCart,
+  cartGetters,
+} from '@vue-storefront/magento';
+import {
+  computed, defineComponent, ref, useRoute, useRouter, useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
 
@@ -49,6 +53,8 @@ export default defineComponent({
     const { app } = useContext();
     const { path } = route.value;
     const router = useRouter();
+    const { cart, load } = useCart();
+    const products = computed(() => cartGetters.getItems(cart.value));
     const currentStep = computed(() => path.split('/').pop());
 
     const STEPS = ref(
@@ -82,6 +88,15 @@ export default defineComponent({
         await router.push(`${app.localePath(`/checkout/${url}`)}`);
       }
     };
+
+    onMounted(async () => {
+      await load();
+      if (products.value.length === 0) {
+        await router.push(app.localePath('/'));
+      }
+
+      return null;
+    });
 
     return {
       handleStepClick,
