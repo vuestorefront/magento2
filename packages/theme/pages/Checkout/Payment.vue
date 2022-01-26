@@ -184,7 +184,6 @@ import { useImage } from '~/composables';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
   components: {
