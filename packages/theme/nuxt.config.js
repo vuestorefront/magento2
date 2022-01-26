@@ -114,7 +114,7 @@ export default {
     '@vue-storefront/middleware/nuxt',
     '@nuxt/image',
     ['@vue-storefront/cache/nuxt', {
-      enabled: true,
+      enabled: true, // TODO: add env variable for that
       invalidation: {
         endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
         key: process.env.REDIS__CACHE_INVALIDATE_KEY,
@@ -123,6 +123,7 @@ export default {
         ],
       },
       driver: [
+        // project only start:
         '@vsf-enterprise/redis-cache',
         {
           // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
@@ -132,6 +133,7 @@ export default {
             port: process.env.REDIS__PORT,
           },
         },
+        // project only end
       ],
     }],
   ],

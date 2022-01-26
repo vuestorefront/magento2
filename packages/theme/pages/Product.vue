@@ -480,13 +480,9 @@ export default defineComponent({
       await searchReviews(baseSearchQuery);
 
       const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
-      console.log('url param id', route.value.params.id);
-
-      console.log('product', product.value)
       const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
 
       const categoriesTags = categories.value.map((catId) => {
-        console.log('catId', catId)
         return { prefix: CacheTagPrefix.Category, value: catId };
       });
       addTags(tags.concat(productTags, categoriesTags));
