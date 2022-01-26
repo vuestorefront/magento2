@@ -49,7 +49,7 @@ COPY . .
 
 RUN yarn install
 
-RUN yarn workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
 
 RUN yarn build && yarn cache clean --all
 
