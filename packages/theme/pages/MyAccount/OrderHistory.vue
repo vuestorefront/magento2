@@ -103,15 +103,8 @@
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
-                data-cy="order-history-btn_download"
-                class="sf-button--text smartphone-only"
-                @click="downloadOrder(order)"
-              >
-                {{ $t('Download') }}
-              </SfButton>
-              <SfButton
                 data-cy="order-history-btn_view"
-                class="sf-button--text desktop-only"
+                class="sf-button--text"
                 @click="currentOrder = order"
               >
                 {{ $t('View details') }}
