@@ -1,5 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
+import { GraphQLError } from 'graphql';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import generateCustomerToken from './generateCustomerToken';
 import {
   GenerateCustomerTokenMutation,
@@ -12,10 +14,25 @@ export default async (
   params: {
     email: string;
     password: string;
+    recaptchaToken: string;
   },
   customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
+    if (context.config.recaptcha.isEnabled) {
+      /**
+       * recaptcha token verification
+       */
+      const response = await recaptchaValidator(context, params.recaptchaToken);
+
+      if (!response.success) {
+        return {
+          errors: [new GraphQLError('Error during reCaptcha verification. Please try again.')],
+          data: null,
+        };
+      }
+    }
+
     const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(
       customQuery,
       {

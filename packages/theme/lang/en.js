@@ -176,5 +176,6 @@ export default {
   "You haven’t searched for items yet": "You haven’t searched for items yet.",
   "Your bag is empty": "Your bag is empty",
   "Your current email address is": "Your current email address is",
-  "Your email": "Your email"
+  "Your email": "Your email",
+  'You have submitted no reviews': 'You have submitted no reviews',
 };

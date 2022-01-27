@@ -155,7 +155,7 @@ import {
   SfCollectedProduct,
   SfLink,
 } from '@storefront-ui/vue';
-import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useWishlist,
   useUser,
@@ -178,7 +178,7 @@ export default defineComponent({
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem } = useWishlist('GlobalWishlist');
+    const { wishlist, removeItem, load: loadWishlist } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
@@ -188,6 +188,10 @@ export default defineComponent({
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
 
     const { getMagentoImage, imageSizes } = useImage();
+
+    onMounted(() => {
+      loadWishlist();
+    });
 
     return {
       getAttributes,
