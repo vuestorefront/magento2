@@ -4492,7 +4492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:6.17.2, @sentry/browser@npm:^6.15.0":
+"@sentry/browser@npm:^6.15.0":
   version: 6.17.2
   resolution: "@sentry/browser@npm:6.17.2"
   dependencies:
@@ -4584,7 +4584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/tracing@npm:6.17.2, @sentry/tracing@npm:^6.17.2":
+"@sentry/tracing@npm:6.17.2":
   version: 6.17.2
   resolution: "@sentry/tracing@npm:6.17.2"
   dependencies:
@@ -4611,23 +4611,6 @@ __metadata:
     "@sentry/types": 6.17.2
     tslib: ^1.9.3
   checksum: 15d2885a7da1bb30b78b2de54a031130aab59cb511ad5766d80daffeb2a08c5769b015e2a2687d4435b27e4474f79cc9fd19c1ad6bc0aabb572bea2a388ae0fb
-  languageName: node
-  linkType: hard
-
-"@sentry/vue@npm:^6.17.2":
-  version: 6.17.2
-  resolution: "@sentry/vue@npm:6.17.2"
-  dependencies:
-    "@sentry/browser": 6.17.2
-    "@sentry/core": 6.17.2
-    "@sentry/minimal": 6.17.2
-    "@sentry/types": 6.17.2
-    "@sentry/utils": 6.17.2
-    tslib: ^1.9.3
-  peerDependencies:
-    vue: 2.x || 3.x
-    vue-router: 3.x || 4.x
-  checksum: f97886e0c84cdaf7bd1ff31f1d301fd03d73a3fcd3d78cc9e526dca753b9d21198cb107767756657ace692b00c99245e7b2dd50da3ff337da6971177257b0491
   languageName: node
   linkType: hard
 
@@ -5952,8 +5935,6 @@ __metadata:
     "@nuxtjs/pwa": ^3.3.5
     "@nuxtjs/sentry": ^5.1.6
     "@nuxtjs/style-resources": ^1.2.1
-    "@sentry/tracing": ^6.17.2
-    "@sentry/vue": ^6.17.2
     "@storefront-ui/vue": ^0.11.5
     "@testing-library/jest-dom": ^5.16.1
     "@testing-library/user-event": ^13.5.0
