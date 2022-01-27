@@ -5,7 +5,6 @@ on:
       - main
       - develop
       - release/*
-      - feature/m2-83-ssr-cache-proof-of-concept
 
 jobs:
   build:
@@ -84,7 +83,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-        if: startsWith(github.ref, 'refs/heads/feature/m2-83-ssr-cache-proof-of-concept')
+        if: startsWith(github.ref, 'refs/heads/feature/release')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-dev",
