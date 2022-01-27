@@ -5,16 +5,19 @@ const localesMock = [
     code: 'default',
     file: 'en.js',
     iso: 'en_US',
+    defaultCurrency: 'USD',
   },
   {
     code: 'de_DE',
     file: 'de.js',
     iso: 'de_DE',
+    defaultCurrency: 'EUR',
   },
   {
     code: 'nl_NL',
     file: 'en.js',
     iso: 'en_US',
+    defaultCurrency: 'EUR',
   },
 ];
 
@@ -29,14 +32,19 @@ const callbackRequest = {
   headers: {},
 };
 
+const routeMock = {
+  path: 'https://domain/german',
+};
 const appMock = {
   $cookies: {
     get: jest.fn(),
   },
   i18n: {
     defaultLocale: 'en',
+    defaultCurrency: 'EUR',
     setLocale: jest.fn(),
     locales: localesMock,
+    locale: 'de_DE',
   },
   $vsf: {
     $magento: {
@@ -54,6 +62,7 @@ const appMock = {
           ...apiStateMock,
           setStore: jest.fn(),
           setLocale: jest.fn(),
+          setCurrency: jest.fn(),
         },
         axios: {
           headers: {
@@ -71,14 +80,14 @@ describe('i18n plugin', () => {
   });
 
   it('Should read vsf-store cookie value', () => {
-    i18nPlugin({ app: appMock });
+    i18nPlugin({ app: appMock, route: routeMock });
 
     expect(appMock.$cookies.get).toHaveBeenCalledWith('vsf-store');
   });
 
   it('Should find locale based on magento store code', () => {
     appMock.$cookies.get.mockReturnValue('default');
-    i18nPlugin({ app: appMock });
+    i18nPlugin({ app: appMock, route: routeMock });
 
     expect(appMock.i18n.setLocale).not.toHaveBeenCalled();
   });
@@ -91,7 +100,7 @@ describe('i18n plugin', () => {
 
   it('Should set default locale when vsf-store cookie is not exist', () => {
     appMock.$cookies.get.mockReturnValue(null);
-    i18nPlugin({ app: appMock });
+    i18nPlugin({ app: appMock, route: routeMock });
 
     expect(appMock.i18n.setLocale).toHaveBeenCalledWith('en');
   });
@@ -107,12 +116,13 @@ describe('i18n plugin', () => {
 
     testCaseAppMock.$cookies.get.mockReturnValueOnce('de_DE').mockReturnValueOnce('default');
 
-    i18nPlugin({ app: testCaseAppMock });
+    i18nPlugin({ app: testCaseAppMock, route: routeMock });
 
     expect(testCaseAppMock.$vsf.$magento.config.state.setLocale).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.state.setStore).toHaveBeenCalledWith('de_DE');
+    expect(testCaseAppMock.$vsf.$magento.config.state.setCurrency).toHaveBeenCalledWith('EUR');
     expect(callbackRequest.headers.cookie).toMatchInlineSnapshot(
-      `"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=USD; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "`
+      '"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=EUR; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "',
     );
   });
 });

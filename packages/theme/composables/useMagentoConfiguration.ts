@@ -52,25 +52,30 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
       updateCookies,
       updateLocale,
     } = params;
-    loadConfig();
+
+    // eslint-disable-next-line promise/catch-or-return
+    loadConfig().then(() => {
+      if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
+        app.$cookies.set(cookieNames.storeCookieName, storeConfigGetters.getCode(storeConfig.value));
+      }
+
+      if (!app.$cookies.get(cookieNames.localeCookieName) || updateCookies) {
+        app.$cookies.set(cookieNames.localeCookieName, storeConfigGetters.getCode(storeConfig.value));
+      }
+
+      if (!app.$cookies.get(cookieNames.currencyCookieName) || updateCookies) {
+        app.$cookies.set(cookieNames.currencyCookieName, storeConfigGetters.getCurrency(storeConfig.value));
+      }
+
+      if (updateLocale) {
+        app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
+      }
+
+      return true;
+    });
+
     loadStores();
     loadCurrencies();
-
-    if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
-      app.$cookies.set(cookieNames.storeCookieName, storeConfigGetters.getCode(storeConfig.value));
-    }
-
-    if (!app.$cookies.get(cookieNames.localeCookieName) || updateCookies) {
-      app.$cookies.set(cookieNames.localeCookieName, storeConfigGetters.getLocale(storeConfig.value));
-    }
-
-    if (!app.$cookies.get(cookieNames.currencyCookieName) || updateCookies) {
-      app.$cookies.set(cookieNames.currencyCookieName, storeConfigGetters.getCurrency(storeConfig.value));
-    }
-
-    if (updateLocale) {
-      app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
-    }
   };
 
   return {
