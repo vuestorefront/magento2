@@ -2007,6 +2007,8 @@ export interface CreateProductReviewInput {
   summary: Scalars['String'];
   /** The review text. */
   text: Scalars['String'];
+  /** The reCaptcha Token. */
+  recaptchaToken?: Scalars['String'];
 }
 
 export interface CreateProductReviewOutput {
@@ -2532,6 +2534,8 @@ export interface CustomerCreateInput {
   suffix?: InputMaybe<Scalars['String']>;
   /** The customer's Tax/VAT number (for corporate customers) */
   taxvat?: InputMaybe<Scalars['String']>;
+  /** The reCaptcha Token */
+  recaptchaToken?: InputMaybe<Scalars['String']>;
 }
 
 export interface CustomerDownloadableProduct {
@@ -7312,6 +7316,7 @@ export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist?: 
 
 export type RequestPasswordResetEmailMutationVariables = Exact<{
   email: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 
@@ -7321,6 +7326,7 @@ export type ResetPasswordMutationVariables = Exact<{
   email: Scalars['String'];
   newPassword: Scalars['String'];
   resetPasswordToken: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 
@@ -7403,6 +7409,7 @@ export type UpdateCustomerAddressMutation = { updateCustomerAddress?: { id?: num
 export type UpdateCustomerEmailMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
+  recaptchaToken?: Scalars['String'];
 }>;
 
 

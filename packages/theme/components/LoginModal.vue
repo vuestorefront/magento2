@@ -56,6 +56,7 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.login">
               {{ error.login }}
             </div>
@@ -118,6 +119,7 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="forgotPasswordError.request">
               {{ $t('It was not possible to request a new password, please check the entered email address.') }}
             </div>
@@ -244,6 +246,7 @@
                 class="form__element"
               />
             </ValidationProvider>
+            <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.register">
               {{ error.register }}
             </div>
@@ -283,6 +286,7 @@ import {
   reactive,
   defineComponent,
   computed,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   SfModal,
@@ -335,6 +339,9 @@ export default defineComponent({
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
+    const { $recaptcha, $config } = useContext();
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+
     const {
       register,
       login,
@@ -389,12 +396,30 @@ export default defineComponent({
 
     const handleForm = (fn) => async () => {
       resetErrorValues();
-      await fn({
-        user: {
-          ...form.value,
-          is_subscribed: isSubscribed.value,
-        },
-      });
+
+      if (isRecaptchaEnabled.value) {
+        $recaptcha.init();
+      }
+
+      if (isRecaptchaEnabled.value) {
+        const recaptchaToken = await $recaptcha.getResponse();
+        form.value.recaptchaInstance = $recaptcha;
+
+        await fn({
+          user: {
+            ...form.value,
+            is_subscribed: isSubscribed.value,
+            recaptchaToken,
+          },
+        });
+      } else {
+        await fn({
+          user: {
+            ...form.value,
+            is_subscribed: isSubscribed.value,
+          },
+        });
+      }
 
       const hasUserErrors = userError.value.register || userError.value.login;
       if (hasUserErrors) {
@@ -403,6 +428,11 @@ export default defineComponent({
         return;
       }
       toggleLoginModal();
+
+      if (isRecaptchaEnabled.value) {
+        // reset recaptcha
+        $recaptcha.reset();
+      }
     };
 
     const handleRegister = async () => handleForm(register)();
@@ -414,11 +444,27 @@ export default defineComponent({
 
     const handleForgotten = async () => {
       userEmail.value = form.value.username;
-      await request({ email: userEmail.value });
+
+      if (isRecaptchaEnabled.value) {
+        $recaptcha.init();
+      }
+
+      if (isRecaptchaEnabled.value) {
+        const recaptchaToken = await $recaptcha.getResponse();
+
+        await request({ email: userEmail.value, recaptchaToken });
+      } else {
+        await request({ email: userEmail.value });
+      }
 
       if (!forgotPasswordError.value.request) {
         isThankYouAfterForgotten.value = true;
         isForgotten.value = false;
+      }
+
+      if (isRecaptchaEnabled.value) {
+        // reset recaptcha
+        $recaptcha.reset();
       }
     };
 
@@ -444,6 +490,7 @@ export default defineComponent({
       setIsLoginValue,
       userEmail,
       userError,
+      isRecaptchaEnabled,
     };
   },
 });
