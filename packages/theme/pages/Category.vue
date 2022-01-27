@@ -23,7 +23,6 @@
             @click="toggleFilterSidebar"
           >
             <SfIcon
-            <SfIcon
               size="24px"
               color="dark-secondary"
               icon="filter2"
