@@ -1,33 +1,24 @@
 <template>
   <div>
     <LazyHydrate when-visible>
-      <TopBar class="desktop-only" />
-    </LazyHydrate>
-
-    <AppHeader />
-
-    <div id="layout">
-      <nuxt :key="route.fullPath" />
-    </div>
-
-    <LazyHydrate when-visible>
-      <BottomNavigation />
-    </LazyHydrate>
-    <LazyHydrate when-idle>
       <CartSidebar />
     </LazyHydrate>
-    <LazyHydrate when-idle>
+    <LazyHydrate when-visible>
       <WishlistSidebar />
     </LazyHydrate>
     <LazyHydrate when-visible>
       <LoginModal />
     </LazyHydrate>
-    <LazyHydrate when-idle>
+    <LazyHydrate when-visible>
       <Notification />
     </LazyHydrate>
-    <LazyHydrate when-visible>
-      <AppFooter />
-    </LazyHydrate>
+    <TopBar class="desktop-only" />
+    <AppHeader />
+    <div id="layout">
+      <nuxt :key="route.fullPath" />
+    </div>
+    <BottomNavigation />
+    <AppFooter />
   </div>
 </template>
 
