@@ -47,7 +47,8 @@ module.exports = {
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
       { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
       { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2'},
-      { text: 'Roadmap', link: 'https://github.com/vuestorefront/magento2/projects/5'}
+      { text: 'Roadmap', link: 'https://docs.vuestorefront.io/magento/guide/roadmap.html'},
+      { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html'}
     ],
     sidebar: [
       {
@@ -66,10 +67,18 @@ module.exports = {
         collapsable: false,
         children: [
           ['/guide/creating-a-store', 'Creating a Store'],
-          ['/guide/graphql-get', 'Use GET for GraphQL Queries'],
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries'],
-          ['/guide/testing', 'Testing']
+          ['/guide/testing', 'Testing'],
+
+        ]
+      },
+      {
+        title: 'Performance',
+        collapsable: false,
+        children: [
+          ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
+          ['/guide/ssr', 'Server Side Rendering Cache'],
         ]
       },
       {
