@@ -2,6 +2,7 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
+import { Integrations } from "@sentry/tracing";
 import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
@@ -183,6 +184,19 @@ export default {
   sentry: {
     dsn: process.env.SENTRY_DSN,
     sourceMapStyle: 'hidden-source-map',
+    integrations: [
+      new Integrations.BrowserTracing({
+        tracingOrigins: [
+          'localhost',
+          '192.168.1.29',
+          'demo-magento2.europe-west1.gcp.storefrontcloud.io',
+          'demo-magento2-dev.europe-west1.gcp.storefrontcloud.io',
+          'demo-magento2-canary.europe-west1.gcp.storefrontcloud.io',
+          /^\//,
+        ],
+      }),
+    ],
+    tracesSampleRate: 1.0,
   },
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],

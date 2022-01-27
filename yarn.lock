@@ -4584,7 +4584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/tracing@npm:6.17.2":
+"@sentry/tracing@npm:6.17.2, @sentry/tracing@npm:^6.17.2":
   version: 6.17.2
   resolution: "@sentry/tracing@npm:6.17.2"
   dependencies:
@@ -5935,6 +5935,7 @@ __metadata:
     "@nuxtjs/pwa": ^3.3.5
     "@nuxtjs/sentry": ^5.1.6
     "@nuxtjs/style-resources": ^1.2.1
+    "@sentry/tracing": ^6.17.2
     "@storefront-ui/vue": ^0.11.5
     "@testing-library/jest-dom": ^5.16.1
     "@testing-library/user-event": ^13.5.0
