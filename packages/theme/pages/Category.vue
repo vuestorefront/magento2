@@ -253,7 +253,8 @@
               </template>
               <template #actions>
                 <SfButton
-                  class="sf-button--text products__product-card-horizontal__add-to-wishlist"
+                  class="sf-button--text desktop-only"
+                  style="margin: 0 0 1rem auto; display: block"
                   @click="addItemToWishlist(product)"
                 >
                   {{ isInWishlist({product}) ? $t('Remove from Wishlist') : $t('Save for later') }}
@@ -646,12 +647,16 @@ export default defineComponent({
 
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
-      const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product.uid }));
+      const productTags = products.value.map((product) => {
+        return { prefix: CacheTagPrefix.Product, value: product.uid };
+      });
 
-      const categoriesTags = categoryTree.value.items.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.slug }));
+      const categoriesTags = categoryTree.value.items.map((category) => {
+        return { prefix: CacheTagPrefix.Category, value: category.slug };
+      });
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags([...tags, ...productTags, ...categoriesTags]);
+      addTags(tags.concat(productTags, categoriesTags));
     });
 
     const { getMagentoImage, imageSizes } = useImage();

@@ -70,7 +70,8 @@ module.exports = {
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
-          ['/guide/recaptcha', 'ReCaptcha']
+          ['/guide/recaptcha', 'ReCaptcha'],
+          ['/guide/testing', 'Testing']
         ]
       },
       {
