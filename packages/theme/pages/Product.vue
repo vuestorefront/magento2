@@ -297,6 +297,7 @@ import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -331,6 +332,7 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup() {
+    const { addTags } = useCache();
     const qty = ref(1);
     const {
       product,
@@ -476,6 +478,14 @@ export default defineComponent({
       if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
 
       await searchReviews(baseSearchQuery);
+
+      const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
+      const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
+
+      const categoriesTags = categories.value.map((catId) => {
+        return { prefix: CacheTagPrefix.Category, value: catId };
+      });
+      addTags(tags.concat(productTags, categoriesTags));
     });
 
     return {

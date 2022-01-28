@@ -77,6 +77,7 @@ import {
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
@@ -95,6 +96,8 @@ export default defineComponent({
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
+    const { addTags } = useCache();
+
     const {
       products: newProductsResult,
       search: newProductsSearch,
@@ -215,6 +218,10 @@ export default defineComponent({
           position: 'ASC',
         },
       });
+
+      addTags([
+        { prefix: CacheTagPrefix.View, value: 'home' }
+      ]);
     });
 
     return {

@@ -22,6 +22,7 @@ import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
 import HTMLContent from '~/components/HTMLContent';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   components: {
@@ -36,6 +37,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { addTags } = useCache();
     const {
       page,
       error,
@@ -49,6 +51,8 @@ export default defineComponent({
     onSSR(async () => {
       await loadContent({ identifier: params.slug || props.identifier });
       if (error?.value?.content) nuxtError({ statusCode: 404 });
+
+      addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
     });
     return {
       page,

@@ -115,6 +115,29 @@ export default {
     '@nuxt/image',
     '@nuxtjs/sentry',
     // '@nuxtjs/recaptcha',
+    ['@vue-storefront/cache/nuxt', {
+      enabled: process.env.REDIS__ENABLED,
+      invalidation: {
+        endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
+        key: process.env.REDIS__CACHE_INVALIDATE_KEY,
+        handlers: [
+          '@vue-storefront/cache/defaultHandler',
+        ],
+      },
+      driver: [
+        // project only start:
+        '@vsf-enterprise/redis-cache',
+        {
+          // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
+          redis: {
+            keyPrefix: process.env.REDIS__KEY_PREFIX,
+            host: process.env.REDIS__HOST,
+            port: process.env.REDIS__PORT,
+          },
+        },
+        // project only end
+      ],
+    }],
   ],
   recaptcha: {
     hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
@@ -251,6 +274,9 @@ export default {
     '~/plugins/token-expired',
     '~/plugins/i18n',
     '~/plugins/fcPlugin',
+  ],
+  serverMiddleware: [
+    '~/serverMiddleware/body-parser.js',
   ],
   router: {
     extendRoutes(routes) {
