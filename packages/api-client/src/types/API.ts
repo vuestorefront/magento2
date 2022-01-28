@@ -295,7 +295,7 @@ export interface MagentoApiMethods {
   ): Promise<ExecutionResult<DeleteCustomerAddressMutation>>;
 
   generateCustomerToken(
-    params: { email: string, password: string },
+    params: { email: string, password: string, recaptchaToken: string },
     customQuery?: CustomQuery
   ): Promise<FetchResult<GenerateCustomerTokenMutation>>;
 

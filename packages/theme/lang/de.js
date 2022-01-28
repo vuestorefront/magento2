@@ -181,5 +181,6 @@ export default {
   "You haven’t searched for items yet": "Sie haben noch nicht nach Artikeln gesucht.",
   "Your bag is empty": "Ihre Tasche ist leer",
   "Your current email address is": "Ihre aktuelle E-Mail-Adresse lautet",
-  "Your email": "Deine E-Mail"
+  "Your email": "Deine E-Mail",
+  'You have submitted no reviews': 'Sie haben keine Bewertungen abgegeben',
 };
