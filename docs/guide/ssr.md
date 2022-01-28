@@ -52,7 +52,7 @@ Once you have the Redis driver installed, you need to add the Redis configuratio
 .env
 REDIS__HOST=127.0.0.1
 REDIS__PORT=6379
-REDIS_PASSWORD=
+REDIS__PASSWORD=
 REDIS__KEY_PREFIX=
 REDIS__CACHE_INVALIDATE_URL=/cache-invalidate
 REDIS__ENABLED=false
@@ -78,6 +78,7 @@ Then you have to update `nuxt.config.js file` and add this to the `modules` obje
         keyPrefix: process.env.REDIS__KEY_PREFIX,
         host: process.env.REDIS__HOST,
         port: process.env.REDIS__PORT,
+        password: process.env.REDIS__PASSWORD,
       },
     },
   ],

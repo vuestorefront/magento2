@@ -133,6 +133,7 @@ export default {
             keyPrefix: process.env.REDIS__KEY_PREFIX,
             host: process.env.REDIS__HOST,
             port: process.env.REDIS__PORT,
+            password: process.env.REDIS__PASSWORD,
           },
         },
         // project only end
