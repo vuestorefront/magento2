@@ -110,6 +110,7 @@
         class="form__element"
         :disabled="createUserAccount"
       />
+      <recaptcha v-if="isRecaptchaEnabled" />
       <div class="form">
         <div class="form__action">
           <SfButton
@@ -181,7 +182,9 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
-    const { app } = useContext();
+    const { app, $recaptcha, $config } = useContext();
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
+
     const {
       attachToCart,
       loading: loadingGuestUser,
@@ -217,7 +220,17 @@ export default defineComponent({
     });
 
     const handleFormSubmit = (reset) => async () => {
+      if (isRecaptchaEnabled.value) {
+        $recaptcha.init();
+      }
+
       if (!isAuthenticated.value) {
+        if (isRecaptchaEnabled.value && createUserAccount.value) {
+          const recaptchaToken = await $recaptcha.getResponse();
+          form.value.recaptchaToken = recaptchaToken;
+          form.value.recaptchaInstance = $recaptcha;
+        }
+
         await (
           !createUserAccount.value
             ? attachToCart({ email: form.value.email })
@@ -226,10 +239,16 @@ export default defineComponent({
       }
 
       if (loginUserAccount.value) {
+        const recaptchaParams = {};
+        if (isRecaptchaEnabled.value) {
+          recaptchaParams.recaptchaToken = await $recaptcha.getResponse();
+        }
+
         await login({
           user: {
             username: form.value.email,
             password: form.value.password,
+            ...recaptchaParams,
           },
         });
       }
@@ -248,6 +267,11 @@ export default defineComponent({
           persist: false,
           title: 'Error',
         });
+      }
+
+      if (isRecaptchaEnabled.value) {
+        // reset recaptcha
+        $recaptcha.reset();
       }
     };
 
@@ -281,6 +305,7 @@ export default defineComponent({
       loading,
       loginUserAccount,
       user,
+      isRecaptchaEnabled,
     };
   },
 });

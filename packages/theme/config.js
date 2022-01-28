@@ -73,6 +73,50 @@ const config = convict({
     default: process.env.IMAGE_PROVIDER_BASE_URL,
     env: 'IMAGE_PROVIDER_BASE_URL',
   },
+  // region recaptcha
+  recaptchaEnabled: {
+    doc: 'reCaptcha Enabled',
+    format: Boolean,
+    default: process.env.RECAPTCHA_ENABLED || false,
+    env: 'RECAPTCHA_ENABLED',
+  },
+  recaptchaHideBadge: {
+    doc: 'reCaptcha Hide Badge',
+    format: Boolean,
+    default: process.env.RECAPTCHA_HIDE_BADGE || false,
+    env: 'RECAPTCHA_HIDE_BADGE',
+  },
+  recaptchaVersion: {
+    doc: 'reCaptcha Version',
+    format: Number,
+    default: process.env.RECAPTCHA_VERSION || 3,
+    env: 'RECAPTCHA_VERSION',
+  },
+  recaptchaSiteKey: {
+    doc: 'reCaptcha Site Key',
+    format: String,
+    default: process.env.RECAPTCHA_SITE_KEY || '',
+    env: 'RECAPTCHA_SITE_KEY',
+  },
+  recaptchaSecretkey: {
+    doc: 'reCaptcha Secret Key',
+    format: String,
+    default: process.env.RECAPTCHA_SECRET_KEY || '',
+    env: 'RECAPTCHA_SECRET_KEY',
+  },
+  recaptchaSize: {
+    doc: 'reCaptcha Size',
+    format: String,
+    default: process.env.RECAPTCHA_SIZE || 'invisible',
+    env: 'RECAPTCHA_SIZE',
+  },
+  recaptchaMinScore: {
+    doc: 'reCaptcha Minimum Score',
+    format: Number,
+    default: process.env.RECAPTCHA_MIN_SCORE || 0.5,
+    env: 'RECAPTCHA_MIN_SCORE',
+  },
+  // endregion
 });
 
 const env = config.get('env');

@@ -9,7 +9,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
   resetPassword: async (context: Context, params) => {
     Logger.debug('[Magento]: Reset user password', { params });
 
-    const { data } = await context.$magento.api.requestPasswordResetEmail({ email: params.email });
+    const { data } = await context.$magento.api.requestPasswordResetEmail({ email: params.email, recaptchaToken: params.recaptchaToken });
 
     Logger.debug('[Result]:', { data });
 
@@ -24,6 +24,7 @@ const factoryParams: UseForgotPasswordFactoryParams<any> = {
       email: params.email,
       newPassword: params.newPassword,
       resetPasswordToken: params.tokenValue,
+      recaptchaToken: params.recaptchaToken,
     });
 
     Logger.debug('[Result]:', { data });

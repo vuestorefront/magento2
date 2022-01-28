@@ -1,16 +1,12 @@
+import { ref } from '@nuxtjs/composition-api';
+
 export const useUserMock = (userData = {}) => ({
   load: jest.fn(),
-  loading: {
-    value: false,
-  },
-  isAuthenticated: {
-    value: false,
-  },
-  error: {
-    value: {
-      register: null,
-    },
-  },
+  loading: ref(false),
+  isAuthenticated: ref(false),
+  error: ref({
+    register: null,
+  }),
   ...userData,
 });
 
