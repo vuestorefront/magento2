@@ -17,6 +17,20 @@
         class="form__element"
         @change="handleCheckSameAddress"
       />
+      <div v-if="sameAsShipping" class="copy__shipping__addresses">
+        <div class="copy__shipping__address">
+          <div class="sf-address">
+            <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
+          </div>
+        </div>
+      </div>
+      <UserBillingAddresses
+        v-if="!sameAsShipping && isAuthenticated && hasSavedBillingAddress"
+        v-model="setAsDefault"
+        v-e2e="'billing-addresses'"
+        :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        @setCurrentAddress="handleSetCurrentAddress"
+      />
       <div
         v-if="sameAsShipping"
         class="copy__shipping__addresses"
@@ -269,6 +283,7 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   useUserBilling,
   userBillingGetters,
