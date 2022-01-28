@@ -114,7 +114,7 @@ export default {
     '@vue-storefront/middleware/nuxt',
     '@nuxt/image',
     '@nuxtjs/sentry',
-    // '@nuxtjs/recaptcha',
+    //'@nuxtjs/recaptcha',
     ['@vue-storefront/cache/nuxt', {
       enabled: process.env.REDIS__ENABLED,
       invalidation: {
@@ -268,6 +268,9 @@ export default {
           },
         };
       }
+    },
+    extractCSS: {
+      allChunks: true,
     },
   },
   plugins: [
