@@ -43,6 +43,7 @@ ENV REDIS__KEY_PREFIX=${REDIS__KEY_PREFIX}
 ENV REDIS__ENABLED=${REDIS__ENABLED}
 ENV SENTRY_DSN=${SENTRY_DSN}
 
+RUN npm config set @vsf-enterprise:registry=https://registrynpm.storefrontcloud.io
 
 RUN npm install -g npm-cli-login \
   && npm-cli-login
