@@ -46,7 +46,7 @@ CustomerCreateInput
 
       Logger.debug('[Result]:', { data });
 
-      return data.customer;
+      return data?.customer ?? {};
     } catch {
       // eslint-disable-next-line no-void
       // @ts-ignore
@@ -79,11 +79,15 @@ CustomerCreateInput
       });
     }
 
-    const { data } = await context.$magento.api.updateCustomer(userData);
-
+    const { data, errors } = await context.$magento.api.updateCustomer(userData);
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerV2.customer;
+    if (errors) {
+      throw new Error(errors.map((e) => e.message).join(','));
+    }
+
+    // return data.updateCustomerV2.customer;
+    return data?.updateCustomerV2?.customer || {};
   },
   register: async (context: Context, params) => {
     const {

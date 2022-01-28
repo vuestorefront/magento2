@@ -22,7 +22,7 @@ const factoryParams: UseUserBillingFactoryParams<any, CustomerAddress> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.createCustomerAddress;
+    return data?.createCustomerAddress ?? {};
   },
 
   deleteAddress: async (context: Context, params?) => {
@@ -32,7 +32,7 @@ const factoryParams: UseUserBillingFactoryParams<any, CustomerAddress> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.deleteCustomerAddress;
+    return data?.deleteCustomerAddress ?? {};
   },
 
   updateAddress: async (context: Context, params?) => {
@@ -42,7 +42,7 @@ const factoryParams: UseUserBillingFactoryParams<any, CustomerAddress> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerAddress;
+    return data?.updateCustomerAddress ?? {};
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -63,9 +63,8 @@ const factoryParams: UseUserBillingFactoryParams<any, CustomerAddress> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerAddress;
+    return data?.updateCustomerAddress ?? {};
   },
-
 };
 
 export default useUserBillingFactory<any, CustomerAddress>(factoryParams);

@@ -26,7 +26,7 @@ const factoryParams: UseUserOrderFactoryParams<any, GetOrdersSearchParams> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.customer.orders;
+    return data?.customer?.orders ?? {};
   },
 };
 

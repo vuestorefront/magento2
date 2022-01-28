@@ -26,7 +26,7 @@ const factoryParams: UseGetShippingMethodsFactory<ShippingMethod> = {
 
     const hasAddresses = data.customerCart.shipping_addresses.length > 0;
 
-    return hasAddresses ? data.customerCart.shipping_addresses[0].available_shipping_methods : [];
+    return hasAddresses ? data?.customerCart?.shipping_addresses[0]?.available_shipping_methods : [];
   },
 };
 

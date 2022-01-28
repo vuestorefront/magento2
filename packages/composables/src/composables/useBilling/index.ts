@@ -25,7 +25,7 @@ const factoryParams: UseBillingParams<any, any> = {
       await context.cart.load({ customQuery });
     }
 
-    return context.cart.cart.value.billing_address;
+    return context?.cart?.cart?.value?.billing_address ?? {};
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -79,11 +79,11 @@ const factoryParams: UseBillingParams<any, any> = {
         method_code: shippingMethod.method_code,
       },
     });
+
     /**
      * End of GraphQL Workaround
      */
-
-    return data.setBillingAddressOnCart.cart.billing_address;
+    return data?.setBillingAddressOnCart?.cart?.billing_address ?? {};
   },
 };
 
