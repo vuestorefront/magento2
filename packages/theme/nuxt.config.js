@@ -215,6 +215,10 @@ export default {
     },
     display: 'swap',
   },
+  sentry: {
+    dsn: process.env.SENTRY_DSN,
+    tracing: true,
+  },
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
   },
