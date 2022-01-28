@@ -12,6 +12,9 @@ jest.mock('~/composables/useUiState.ts', () => jest.fn());
 jest.mock('@vue-storefront/magento', () => ({
   useUser: jest.fn(),
   useForgotPassword: jest.fn(),
+  useWishlist: jest.fn().mockReturnValue({
+    load: jest.fn(),
+  }),
 }));
 
 describe('<LoginModal/>', () => {
