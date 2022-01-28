@@ -86,6 +86,7 @@ export default {
   "Manage shipping addresses": "Manage all the shipping addresses you want (work place, home address...) This way you won\"t have to enter the shipping address manually with each order.",
   "Match it with": "Match it with",
   "Men fashion": "Men fashion",
+  "My billing and shipping address are the same": "My billing and shipping address are the same",
   "My Cart": "My Cart",
   "No account": "Don't have an account yet?",
   "or": "or",
