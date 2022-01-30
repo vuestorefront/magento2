@@ -41,6 +41,7 @@ jobs:
           REDIS__HOST: ${{ secrets.REDIS__HOST }}
           REDIS__PORT: ${{ secrets.REDIS__PORT }}
           REDIS__KEY_PREFIX: ${{ secrets.REDIS__KEY_PREFIX }}
+          REDIS__PASSWORD: ${{ secrets.REDIS__PASSWORD }}
           REDIS__CACHE_INVALIDATE_KEY: ${{ secrets.REDIS__CACHE_INVALIDATE_KEY }}
           REDIS__CACHE_INVALIDATE_URL: ${{ secrets.REDIS__CACHE_INVALIDATE_URL }}
           REDIS__ENABLED: ${{ secrets.REDIS__ENABLED }}
