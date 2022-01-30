@@ -1,6 +1,6 @@
 # reCaptcha
 
-You can activate the reCaptchta feature using this Guidelines.
+You can activate the reCaptchta feature using these Guidelines.
 
 ## Activate reCaptcha module
 
@@ -50,3 +50,9 @@ On the `config` folder update the config file (`dev.json` for example) with your
   ...
 }
 ```
+
+## Areas where reCaptcha is implemented:
+- login modal
+- add review form on product page
+- use Account step on checkout
+- reset password form
