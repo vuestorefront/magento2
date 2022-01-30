@@ -12,7 +12,15 @@
   "recaptchaHideBadge": "{YOUR_RECAPTCHA_BADGE_TYPE}",
   "recaptchaSize": "{YOUR_RECAPTCHA_SIZE}",
   "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}",
-  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}",
+  "recaptchaSecretKey": "{YOUR_RECAPTCHA_SECRET_KEY}",
   "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}",
-  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}"
+  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}",
+  "sentryDsn": "",
+  "redisEnabled": "false",
+  "redisCacheInvalidateUrl": "/cache-invalidate",
+  "redisCacheInvalidateKey":  "",
+  "redisKeyPrefix": "",
+  "redisHost":  "127.0.0.1",
+  "redisPort": "6379",
+  "redisPassword":  ""
 }
