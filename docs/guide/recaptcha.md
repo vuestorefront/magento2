@@ -28,7 +28,7 @@ On the `config` folder update the config file (`dev.json` for example) with your
   "recaptchaHideBadge": "{YOUR_RECAPTCHA_HIDE_BADGE}", // true or false, default value is false
   "recaptchaSize": "{YOUR_RECAPTCHA_SIZE}", // Size: 'compact', 'normal', 'invisible' (v2), default value is 'invisible'
   "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}", // Site key for requests, default value is ''
-  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}", // Secret key for requests, default value is ''
+  "recaptchaSecretKey": "{YOUR_RECAPTCHA_SECRET_KEY}", // Secret key for requests, default value is ''
   "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}", // Version 2 or 3, default value is 3
   "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}" // The min score used for v3, default value is 0.5
   ...
@@ -44,7 +44,7 @@ On the `config` folder update the config file (`dev.json` for example) with your
   "recaptchaHideBadge": false,
   "recaptchaSize": "invisible",
   "recaptchaSiteKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "recaptchaSecretkey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "recaptchaSecretKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "recaptchaVersion": 3,
   "recaptchaMinScore": 0.5
   ...

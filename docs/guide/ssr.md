@@ -2,7 +2,7 @@
 
 ## Introduction
 
-VueStorefront 2 - Magento 2 integrations use @vue-storefront/cache module that adds posibility to cache some server-side
+VueStorefront 2 - Magento 2 integrations use @vue-storefront/cache module that adds possibility to cache some server-side
 rendered pages.
 
 ### What is cached
