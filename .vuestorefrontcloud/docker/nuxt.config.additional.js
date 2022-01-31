@@ -1,4 +1,4 @@
-import config from '@vue-storefront/magento-theme/config.js';
+import config from '@vue-storefront/magento-theme/config';
 import baseNuxtConfig from '@vue-storefront/magento-theme/nuxt.config';
 
 export default {

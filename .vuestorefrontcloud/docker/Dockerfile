@@ -65,9 +65,9 @@ WORKDIR /var/www
 
 COPY . .
 
-COPY /var/www/nuxt.config.js /var/www/_nuxt.config.js
+RUN mv /var/www/nuxt.config.js /var/www/_nuxt.config.js
 
-COPY .vuestorefrontcloud/nuxt.config.addtional.js /var/www/nuxt.config.js
+COPY .vuestorefrontcloud/docker/nuxt.config.addtional.js /var/www/nuxt.config.js
 
 RUN yarn install
 
