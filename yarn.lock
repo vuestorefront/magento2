@@ -3213,11 +3213,6 @@
     serve-static "^1.14.1"
     workbox-cdn "^5.1.4"
 
-"@nuxtjs/recaptcha@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/recaptcha/-/recaptcha-1.0.4.tgz#a12e3faa619c82d3e003b59cb6307516c8416ec3"
-  integrity sha512-4K9cXaVGZrcXy3ys5OBL1/njkOxTpRjLDKLU/S6qatyISdGLv+tSFLSCJeEKTCO7UHC1fMCTb5UlOWajkQqPdw==
-
 "@nuxtjs/sentry@^5.1.6":
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/@nuxtjs/sentry/-/sentry-5.1.6.tgz#d6296684553112f6873d0c33f2a488650cd5b919"

@@ -71,6 +71,8 @@ RUN yarn install
 
 RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
 
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
+
 RUN yarn build && yarn cache clean --all
 
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
