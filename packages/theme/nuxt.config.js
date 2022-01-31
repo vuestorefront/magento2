@@ -113,29 +113,14 @@ export default {
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
     '@nuxt/image',
-    '@nuxtjs/sentry',
-    '@nuxtjs/recaptcha',
     ['@vue-storefront/cache/nuxt', {
-      enabled: process.env.REDIS__ENABLED,
+      enabled: false,
       invalidation: {
-        endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
-        key: process.env.REDIS__CACHE_INVALIDATE_KEY,
         handlers: [
           '@vue-storefront/cache/defaultHandler',
         ],
       },
       driver: [
-        // project only start:
-        '@vsf-enterprise/redis-cache',
-        {
-          // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
-          redis: {
-            keyPrefix: process.env.REDIS__KEY_PREFIX,
-            host: process.env.REDIS__HOST,
-            port: process.env.REDIS__PORT,
-          },
-        },
-        // project only end
       ],
     }],
   ],
