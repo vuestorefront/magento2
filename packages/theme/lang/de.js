@@ -183,5 +183,8 @@ export default {
   "Your bag is empty": "Ihre Tasche ist leer",
   "Your current email address is": "Ihre aktuelle E-Mail-Adresse lautet",
   "Your email": "Deine E-Mail",
-  'You have submitted no reviews': 'Sie haben keine Bewertungen abgegeben',
+  "You have submitted no reviews": "Sie haben keine Bewertungen abgegeben",
+  "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.":"Die Kontoanmeldung war falsch oder Ihr Konto wurde vorübergehend deaktiviert. Bitte warten Sie und versuchen Sie es später erneut.",
+  "A customer with the same email address already exists in an associated website.": "Ein Kunde mit derselben E-Mail-Adresse existiert bereits auf einer verknüpften Website.",
+  "Invalid email": "Ungültige E-Mail"
 };
