@@ -1,6 +1,6 @@
 <template>
   <SfSection
-    title-heading="Share Your Look"
+    :title-heading="$t('Share Your Look')"
     subtitle-heading="#YOURLOOK"
     class="title"
   >
