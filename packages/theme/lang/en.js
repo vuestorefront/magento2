@@ -174,9 +174,12 @@ export default {
   "You are not authorized, please log in": "You are not authorized, please log in",
   "You can unsubscribe at any time": "You can unsubscribe at any time",
   "You currently have no orders": "You currently have no orders",
-  "You haven’t searched for items yet": "You haven’t searched for items yet.",
+  "You haven\’t searched for items yet": "You haven’t searched for items yet.",
   "Your bag is empty": "Your bag is empty",
   "Your current email address is": "Your current email address is",
   "Your email": "Your email",
   'You have submitted no reviews': 'You have submitted no reviews',
+  "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.":"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.",
+  "A customer with the same email address already exists in an associated website.": "A customer with the same email address already exists in an associated website.",
+  "Invalid email": "Invalid email"
 };
