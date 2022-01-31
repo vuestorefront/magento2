@@ -65,6 +65,10 @@ WORKDIR /var/www
 
 COPY . .
 
+COPY /var/www/nuxt.config.js /var/www/_nuxt.config.js
+
+COPY .vuestorefrontcloud/nuxt.config.addtional.js /var/www/nuxt.config.js
+
 RUN yarn install
 
 RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
