@@ -1,7 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <!-- Personal data update -->
-    <SfTab title="Personal data">
+    <SfTab :title="$t('Personal data')">
       <p class="message">
         {{ $t('Feel free to edit') }}
       </p>
@@ -18,7 +18,7 @@
     </SfTab>
 
     <!-- Password reset -->
-    <SfTab title="Password change">
+    <SfTab :title="$t('Password change')">
       <p class="message">
         {{ $t('Change password your account') }}:<br>
       </p>

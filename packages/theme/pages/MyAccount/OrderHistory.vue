@@ -2,7 +2,7 @@
   <SfTabs :open-tab="1">
     <SfTab
       data-cy="order-history-tab_my-orders"
-      title="My orders"
+      :title="$t('My orders')"
     >
       <div v-if="loading">
         <SfLoader />
@@ -17,22 +17,22 @@
         </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty
-            name="Order ID"
+            :name="$t('Order ID')"
             :value="orderGetters.getId(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Date"
+            :name="$t('Date')"
             :value="orderGetters.getDate(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Status"
+            :name="$t('Status')"
             :value="orderGetters.getStatus(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Total"
+            :name="$t('Total')"
             :value="$fc(orderGetters.getPrice(currentOrder))"
             class="sf-property--full-width property"
           />
@@ -149,7 +149,7 @@
     </SfTab>
     <SfTab
       data-cy="order-history-tab_returns"
-      title="Returns"
+      :title="$t('Returns')"
     >
       <p class="message">
         This feature is not implemented yet! Please take a look at
