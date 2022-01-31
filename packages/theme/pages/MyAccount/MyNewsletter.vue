@@ -3,7 +3,7 @@
     :open-tab="1"
     class="tab-orphan"
   >
-    <SfTab title="My newsletter">
+    <SfTab :title="$t('My newsletter')">
       <p class="message">
         {{ $t('Set up newsletter') }}
       </p>
@@ -12,7 +12,7 @@
           <SfCheckbox
             v-model="isSubscribed"
             v-e2e="'sign-up-newsletter'"
-            label="Sign Up for Newsletter"
+            :label="$t('Sign Up for Newsletter')"
             name="signupNewsletter"
             class="form__element"
           />

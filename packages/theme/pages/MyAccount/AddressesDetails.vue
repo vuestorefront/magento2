@@ -7,7 +7,7 @@
       class="tab-orphan"
     >
       <SfTab
-        :title="isNewAddress ? 'Add the address' : 'Update the address'"
+        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
       >
         <p class="message">
           {{ $t('Contact details updated') }}
@@ -27,7 +27,7 @@
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab title="Addresses details">
+      <SfTab :title="$t('Addresses details')">
         <p class="message">
           {{ $t('Manage addresses') }}
         </p>
@@ -118,7 +118,7 @@ export default defineComponent({
     const route = useRoute();
     const { app } = useContext();
     const activeAddress = computed(
-      () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop(),
+      () => userAddresses.value.filter((address) => address?.id === route.value.query.id).pop(),
     );
 
     const isNewAddress = computed(() => !activeAddress.value);

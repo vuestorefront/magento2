@@ -3,7 +3,7 @@
     :open-tab="1"
     class="tab-orphan"
   >
-    <SfTab title="My wishlist">
+    <SfTab :title="$t('My wishlist')">
       <div v-if="loading">
         <SfLoader />
       </div>
@@ -27,7 +27,7 @@
                 icon="tiles"
                 size="12px"
                 role="button"
-                aria-label="Change to grid view"
+                :aria-label="$t('Change to grid view')"
                 :aria-pressed="isWishlistGridView"
                 @click="changeToWishlistGridView"
               />
@@ -37,7 +37,7 @@
                 icon="list"
                 size="12px"
                 role="button"
-                aria-label="Change to list view"
+                :aria-label="$t('Change to list view')"
                 :aria-pressed="!isWishlistGridView"
                 @click="changeToWishlistListView"
               />
@@ -95,7 +95,7 @@
                       :link="imageSlotProps.link"
                       class="sf-button--pure sf-product-card__link"
                       data-testid="product-link"
-                      aria-label="Go To Product"
+                      :aria-label="$t('Go To Product')"
                       v-on="$listeners"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
@@ -187,13 +187,13 @@
                   <template #configuration>
                     <SfProperty
                       class="desktop-only"
-                      name="Size"
+                      :name="$t('Size')"
                       value="XS"
                       style="margin: 0 0 1rem 0"
                     />
                     <SfProperty
                       class="desktop-only"
-                      name="Color"
+                      :name="$t('Color')"
                       value="white"
                     />
                   </template>
