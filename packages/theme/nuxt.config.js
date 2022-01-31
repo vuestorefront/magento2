@@ -243,6 +243,9 @@ export default {
     extractCSS: {
       allChunks: true,
     },
+    extractCSS: {
+      allChunks: true,
+    },
   },
   plugins: [
     '~/plugins/token-expired',
