@@ -55,6 +55,7 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -84,8 +85,9 @@ export default defineComponent({
 
     const formHandler = async (fn, onComplete, onError) => {
       await fn();
-      if (error.value.changePassword !== null) {
-        onError(error.value.changePassword);
+      const actionErr = error.value.changePassword || error.value.updateUser;
+      if (actionErr) {
+        onError(actionErr);
       } else {
         onComplete();
       }

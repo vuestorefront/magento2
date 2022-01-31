@@ -1,14 +1,25 @@
 import tokenExpiredPlugin from '../token-expired';
 import cookieNames from '~/enums/cookieNameEnum';
 
-const callbackResponse = {
+const errRes = {
   data: {
-    message: 'The current customer isn\'t authorized.',
+    errors: [
+      {
+        extensions: {
+          category: 'graphql-authorization',
+        },
+      },
+    ],
   },
 };
 
+const validRes = {
+  data: {
+    errors: [],
+  },
+};
 
-const appMock = {
+const appMockFactory = (callbackResponse) => ({
   $vsf: {
     $magento: {
       client: {
@@ -26,29 +37,34 @@ const appMock = {
     remove: jest.fn(),
     set: jest.fn(),
   },
+  router: {
+    go: jest.fn(),
+  },
   localePath: (t) => t,
   i18n: {
     t: (t) => t,
   },
-};
-
-const redirectMock = jest.fn();
+});
 
 describe('Token Expired plugin', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it('should work only when the current customer is not authorized', async () => {
-    // eslint-disable-next-line @typescript-eslint/await-thenable
-    await tokenExpiredPlugin({ app: appMock, redirect: redirectMock });
+  it('should be executed only if there is the "graphql-authorization" error', async () => {
+    const appMock = appMockFactory(validRes);
 
-    expect(redirectMock).toHaveBeenCalledWith('/');
+    // eslint-disable-next-line @typescript-eslint/await-thenable
+    await tokenExpiredPlugin({ app: appMock });
+
+    expect(appMock.router.go).toHaveBeenCalledTimes(0);
   });
 
   it('should set message cookie', async () => {
+    const appMock = appMockFactory(errRes);
+
     // eslint-disable-next-line @typescript-eslint/await-thenable
-    await tokenExpiredPlugin({ app: appMock, redirect: redirectMock });
+    await tokenExpiredPlugin({ app: appMock });
 
     const messageMock = {
       icon: null,
@@ -62,8 +78,10 @@ describe('Token Expired plugin', () => {
   });
 
   it('should clear customer token and clear cart id', async () => {
+    const appMock = appMockFactory(errRes);
+
     // eslint-disable-next-line @typescript-eslint/await-thenable
-    await tokenExpiredPlugin({ app: appMock, redirect: redirectMock });
+    await tokenExpiredPlugin({ app: appMock });
 
     expect(appMock.$cookies.remove).toHaveBeenCalledTimes(2);
     expect(appMock.$cookies.remove).toHaveBeenCalledWith(cookieNames.customerCookieName);

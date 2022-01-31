@@ -29,7 +29,7 @@ ProductReviewRatingMetadata> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.products.items;
+    return data?.products?.items ?? [];
   },
   addReview: async (context: Context, params: ComposableFunctionArgs<CreateProductReviewInput>) => {
     Logger.debug('[Magento] add review params input:', JSON.stringify(params, null, 2));
@@ -42,7 +42,7 @@ ProductReviewRatingMetadata> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.createProductReview.review;
+    return data?.createProductReview?.review ?? {};
   },
   loadReviewMetadata: async (context: Context, params) => {
     Logger.debug('[Magento] load review metadata');
@@ -51,7 +51,7 @@ ProductReviewRatingMetadata> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.productReviewRatingsMetadata.items;
+    return data?.productReviewRatingsMetadata?.items ?? [];
   },
   loadCustomerReviews: async (
     context: Context,
@@ -67,7 +67,7 @@ ProductReviewRatingMetadata> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.customer;
+    return data?.customer ?? {};
   },
 };
 
