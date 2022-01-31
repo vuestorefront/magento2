@@ -34,7 +34,7 @@
                 v-model="form.username"
                 v-e2e="'login-modal-email'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="email"
                 :label="$t('Your email')"
                 class="form__element"
@@ -48,7 +48,7 @@
                 v-model="form.password"
                 v-e2e="'login-modal-password'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="password"
                 :label="$t('Password')"
                 type="password"
@@ -58,7 +58,7 @@
             </ValidationProvider>
             <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.login">
-              {{ error.login }}
+              {{ $t(error.login) }}
             </div>
             <SfButton
               v-e2e="'login-modal-submit'"
@@ -113,7 +113,7 @@
                 v-model="form.username"
                 v-e2e="'forgot-modal-email'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="email"
                 :label="$t('Forgot Password Modal Email')"
                 class="form__element"
@@ -175,7 +175,7 @@
                 v-model="form.email"
                 v-e2e="'login-modal-email'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="email"
                 :label="$t('Your email')"
                 class="form__element"
@@ -189,7 +189,7 @@
                 v-model="form.firstName"
                 v-e2e="'login-modal-firstName'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="first-name"
                 :label="$t('First Name')"
                 class="form__element"
@@ -203,7 +203,7 @@
                 v-model="form.lastName"
                 v-e2e="'login-modal-lastName'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="last-name"
                 :label="$t('Last Name')"
                 class="form__element"
@@ -217,7 +217,7 @@
                 v-model="form.password"
                 v-e2e="'login-modal-password'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="password"
                 :label="$t('Password')"
                 type="password"
@@ -240,7 +240,7 @@
                 v-model="createAccount"
                 v-e2e="'login-modal-create-account'"
                 :valid="!errors[0]"
-                :error-message="errors[0]"
+                :error-message="$t(errors[0])"
                 name="create-account"
                 :label="$t('I want to create an account')"
                 class="form__element"
@@ -248,7 +248,7 @@
             </ValidationProvider>
             <recaptcha v-if="isRecaptchaEnabled" />
             <div v-if="error.register">
-              {{ error.register }}
+              {{ $t(error.register) }}
             </div>
             <SfButton
               v-e2e="'login-modal-submit'"
