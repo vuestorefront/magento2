@@ -121,58 +121,6 @@ const config = convict({
     env: 'RECAPTCHA_MIN_SCORE',
   },
   // endregion
-  // region Sentry
-  sentryDsn: {
-    doc: 'Sentry DSN',
-    format: String,
-    default: process.env.SENTRY_DSN || '',
-    env: 'SENTRY_DSN',
-  },
-  // endregion
-  // region @VSF-Enterprise/Redis Cache
-  redisEnabled: {
-    doc: 'Enable Redis cache module',
-    format: Boolean,
-    default: process.env.REDIS__ENABLED || false,
-    env: 'REDIS__ENABLED',
-  },
-  redisCacheInvalidateUrl: {
-    doc: 'Redis Cache Invalidate URL',
-    format: String,
-    default: process.env.REDIS__CACHE_INVALIDATE_URL,
-    env: 'REDIS__CACHE_INVALIDATE_URL',
-  },
-  redisCacheInvalidateKey: {
-    doc: 'Redis Cache Invalidate Key',
-    format: String,
-    default: process.env.REDIS__CACHE_INVALIDATE_KEY,
-    env: 'REDIS__CACHE_INVALIDATE_KEY',
-  },
-  redisKeyPrefix: {
-    doc: 'Redis Key Prefix',
-    format: String,
-    default: process.env.REDIS__KEY_PREFIX,
-    env: 'REDIS__KEY_PREFIX',
-  },
-  redisHost: {
-    doc: 'Redis DB Host Address',
-    format: String,
-    default: process.env.REDIS__HOST,
-    env: 'REDIS__HOST',
-  },
-  redisPort: {
-    doc: 'Redis DB Port',
-    format: Number,
-    default: process.env.REDIS__PORT,
-    env: 'REDIS__PORT',
-  },
-  redisPassword: {
-    doc: 'Redis DB Password',
-    format: String,
-    default: process.env.REDIS__PASSWORD,
-    env: 'REDIS__PASSWORD',
-  },
-  // endregion
 });
 
 const env = config.get('env');

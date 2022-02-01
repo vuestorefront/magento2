@@ -115,28 +115,13 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: config.get('redisEnabled'),
+        enabled: false,
         invalidation: {
-          endpoint: config.get('redisCacheInvalidateUrl'),
-          key: config.get('redisCacheInvalidateKey'),
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
         },
-        driver: [
-          // project only start:
-          '@vsf-enterprise/redis-cache',
-          {
-            // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
-            redis: {
-              keyPrefix: config.get('redisKeyPrefix'),
-              host: config.get('redisHost'),
-              port: config.get('redisPort'),
-              password: config.get('redisPassword'),
-            },
-          },
-          // project only end
-        ],
+        driver: [],
       }],
     ],
     i18n: {
@@ -207,10 +192,6 @@ export default () => {
     styleResources: {
       scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
     },
-    image: {
-      provider: config.get('imageProvider'),
-      domains: [config.get('magentoBaseUrl')],
-    },
     build: {
       babel: {
         plugins: [
@@ -260,6 +241,9 @@ export default () => {
           };
         }
       },
+      extractCSS: {
+        allChunks: true,
+      },
     },
     plugins: [
       '~/plugins/token-expired',
@@ -275,7 +259,16 @@ export default () => {
           .forEach((route) => routes.unshift(route));
       },
     },
+    image: {
+      provider: config.get('imageProvider'),
+    },
   };
+
+  if (config.get('imageProvider') === 'cloudinary') {
+    baseConfig.image.cloudinary = {
+      baseURL: config.get('imageProviderBaseUrl'),
+    };
+  }
 
   if (config.get('recaptchaEnabled')) {
     baseConfig.modules.push('@nuxtjs/recaptcha');
@@ -290,21 +283,6 @@ export default () => {
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
       isRecaptcha: config.get('recaptchaEnabled'),
-    };
-  }
-
-  if (config.get('sentryDsn')) {
-    baseConfig.modules.push('@nuxtjs/sentry');
-
-    baseConfig.sentry = {
-      dsn: config.get('sentryDsn'),
-      tracing: true,
-    };
-  }
-
-  if (config.get('imageProvider') === 'cloudinary' && config.get('imageProviderBaseUrl')) {
-    baseConfig.image.cloudinary = {
-      baseURL: config.get('imageProviderBaseUrl'),
     };
   }
 
