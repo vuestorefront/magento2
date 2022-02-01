@@ -10,5 +10,6 @@
 _default: (context: Context, params: {
     email: string;
     password: string;
+    recaptchaToken: string;
 }, customQuery?: CustomQuery) => Promise<FetchResult<GenerateCustomerTokenMutation>>
 ```
