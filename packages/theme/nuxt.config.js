@@ -133,15 +133,6 @@ export default {
       ],
     }],
   ],
-  recaptcha: {
-    hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
-    siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-    version: config.get('recaptchaVersion'), // Version 2 or 3
-    size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
-  },
-  publicRuntimeConfig: {
-    isRecaptcha: config.get('recaptchaEnabled'),
-  },
   i18n: {
     country: 'US',
     strategy: 'prefix',
@@ -212,10 +203,6 @@ export default {
       },
     },
     display: 'swap',
-  },
-  sentry: {
-    dsn: process.env.SENTRY_DSN,
-    tracing: true,
   },
   styleResources: {
     scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],

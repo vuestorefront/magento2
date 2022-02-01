@@ -30,7 +30,6 @@
     "@nuxtjs/composition-api": "^0.31.0",
     "@nuxtjs/google-fonts": "^1.3.0",
     "@nuxtjs/pwa": "^3.3.5",
-    "@nuxtjs/recaptcha": "^1.0.4",
     "@nuxtjs/sentry": "^5.1.6",
     "@nuxtjs/style-resources": "^1.2.1",
     "@sentry/tracing": "^6.17.2",
