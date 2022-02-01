@@ -5,7 +5,7 @@ export default {
   ...baseNuxtConfig,
   modules: [
     ...baseNuxtConfig.modules,
-    '@nuxtjs/recaptcha',
+    // '@nuxtjs/recaptcha',
   ],
   recaptcha: {
     hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
