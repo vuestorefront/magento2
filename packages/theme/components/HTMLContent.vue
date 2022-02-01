@@ -6,6 +6,7 @@
 </template>
 <script>
 import { defineComponent, computed } from '@nuxtjs/composition-api';
+import _unescape from 'lodash.unescape';
 import DOMPurify from 'isomorphic-dompurify';
 
 export default defineComponent({
@@ -15,11 +16,14 @@ export default defineComponent({
       type: String,
       default: 'div',
     },
-    content: String,
+    content: {
+      type: String,
+      default: '',
+    },
   },
   setup(props) {
     return {
-      sanitizedContent: computed(() => DOMPurify.sanitize(props.content)),
+      sanitizedContent: computed(() => _unescape(DOMPurify.sanitize(props.content))),
     };
   },
 });
