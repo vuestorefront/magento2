@@ -1,7 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <!-- Personal data update -->
-    <SfTab title="Personal data">
+    <SfTab :title="$t('Personal data')">
       <p class="message">
         {{ $t('Feel free to edit') }}
       </p>
@@ -18,7 +18,7 @@
     </SfTab>
 
     <!-- Password reset -->
-    <SfTab title="Password change">
+    <SfTab :title="$t('Password change')">
       <p class="message">
         {{ $t('Change password your account') }}:<br>
       </p>
@@ -55,6 +55,7 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -84,8 +85,9 @@ export default defineComponent({
 
     const formHandler = async (fn, onComplete, onError) => {
       await fn();
-      if (error.value.changePassword !== null) {
-        onError(error.value.changePassword);
+      const actionErr = error.value.changePassword || error.value.updateUser;
+      if (actionErr) {
+        onError(actionErr);
       } else {
         onComplete();
       }

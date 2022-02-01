@@ -3,7 +3,7 @@
     :open-tab="1"
     class="tab-orphan"
   >
-    <SfTab title="My reviews">
+    <SfTab :title="$t('My reviews')">
       <div v-if="loading">
         <SfLoader />
       </div>
@@ -17,8 +17,8 @@
         :max-rating="5"
         :rating="reviewGetters.getReviewRating(review)"
         :char-limit="250"
-        read-more-text="Read more"
-        hide-full-text="Read less"
+        :read-more-text="$t('Read more')"
+        :hide-full-text="$t('Read less')"
         class="product__review"
       >
         <template #info="{ rating, maxRating, date }">

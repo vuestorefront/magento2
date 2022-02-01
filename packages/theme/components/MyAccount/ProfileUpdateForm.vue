@@ -13,10 +13,10 @@
           <SfInput
             v-model="form.firstname"
             name="firstName"
-            label="First Name"
+            :label="$t('First Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -27,10 +27,10 @@
           <SfInput
             v-model="form.lastname"
             name="lastName"
-            label="Last Name"
+            :label="$t('Last Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>
@@ -43,10 +43,10 @@
           v-model="form.email"
           type="email"
           name="email"
-          label="Your e-mail"
+          :label="$t('Your e-mail')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <SfModal
@@ -61,7 +61,7 @@
           v-model="currentPassword"
           type="password"
           name="currentPassword"
-          label="Current Password"
+          :label="$t('Current Password')"
           required
           class="form__element"
           style="margin-top: 10px"

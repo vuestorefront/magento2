@@ -140,7 +140,7 @@
                 v-else
                 v-model="qty"
                 v-e2e="'product_add-to-cart'"
-                :disabled="loading || !canAddToCart"
+                :disabled="loading || !canAddToCart || productLoading"
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />

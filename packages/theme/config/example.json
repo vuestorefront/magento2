@@ -14,13 +14,5 @@
   "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}",
   "recaptchaSecretKey": "{YOUR_RECAPTCHA_SECRET_KEY}",
   "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}",
-  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}",
-  "sentryDsn": "",
-  "redisEnabled": "false",
-  "redisCacheInvalidateUrl": "/cache-invalidate",
-  "redisCacheInvalidateKey":  "",
-  "redisKeyPrefix": "",
-  "redisHost":  "127.0.0.1",
-  "redisPort": "6379",
-  "redisPassword":  ""
+  "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}"
 }
