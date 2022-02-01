@@ -77,7 +77,7 @@ const config = convict({
   recaptchaEnabled: {
     doc: 'reCaptcha Enabled',
     format: Boolean,
-    default: process.env.RECAPTCHA_ENABLED || false,
+    default: process.env.RECAPTCHA_ENABLED === 'true' || false,
     env: 'RECAPTCHA_ENABLED',
   },
   recaptchaHideBadge: {
