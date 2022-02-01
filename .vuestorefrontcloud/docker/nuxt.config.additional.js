@@ -5,7 +5,7 @@ export default {
   ...baseNuxtConfig,
   modules: [
     ...baseNuxtConfig.modules,
-    '@nuxtjs/recaptcha',
+    // '@nuxtjs/recaptcha',
     '@nuxtjs/sentry'
   ],
   recaptcha: {
