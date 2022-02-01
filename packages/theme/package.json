@@ -47,6 +47,7 @@
     "isomorphic-dompurify": "^0.17.0",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
+    "lodash.unescape": "^4.0.1",
     "nuxt": "^2.15.8",
     "nuxt-i18n": "^6.28.0",
     "omit-deep": "^0.3.0",
