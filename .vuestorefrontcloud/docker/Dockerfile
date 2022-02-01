@@ -65,9 +65,13 @@ WORKDIR /var/www
 
 COPY . .
 
+RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.config.js && cp .vuestorefrontcloud/docker/nuxt.config.additional.js /var/www/packages/theme/nuxt.config.js
+
 RUN yarn install
 
 RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
+
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
 
 RUN yarn build && yarn cache clean --all
 
