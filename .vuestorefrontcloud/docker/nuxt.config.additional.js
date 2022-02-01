@@ -6,6 +6,7 @@ export default {
   modules: [
     ...baseNuxtConfig.modules,
     '@nuxtjs/recaptcha',
+    '@nuxtjs/sentry'
   ],
   recaptcha: {
     hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
