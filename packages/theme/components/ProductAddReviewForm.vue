@@ -33,7 +33,7 @@
               label="Name"
               required
               :valid="!errors[0]"
-              :error-message="errors[0]"
+              :error-message="$t(errors[0])"
             />
           </ValidationProvider>
         </div>
@@ -50,7 +50,7 @@
               label="Title"
               required
               :valid="!errors[0]"
-              :error-message="errors[0]"
+              :error-message="$t(errors[0])"
             />
           </ValidationProvider>
         </div>
@@ -71,7 +71,7 @@
               :name="metadata.name.toLowerCase()"
               class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
               :valid="!errors[0]"
-              :error-message="errors[0]"
+              :error-message="$t(errors[0])"
             >
               <SfSelectOption
                 v-for="value in metadata.values"
@@ -99,7 +99,7 @@
               wrap="soft"
               required
               :valid="!errors[0]"
-              :error-message="errors[0]"
+              :error-message="$t(errors[0])"
             />
           </ValidationProvider>
         </div>
