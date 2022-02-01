@@ -18,7 +18,7 @@
             :label="$t('First Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -33,7 +33,7 @@
             :label="$t('Last Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>
@@ -49,7 +49,7 @@
           :label="$t('Street Name')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <SfInput
@@ -71,7 +71,7 @@
             :label="$t('City')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -99,7 +99,7 @@
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -124,7 +124,7 @@
             :label="$t('Zip-code')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -140,7 +140,7 @@
             class="form__select sf-select--underlined"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="searchCountry({ id:$event })"
           >
             <SfSelectOption
@@ -165,7 +165,7 @@
           :label="$t('Phone number')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <SfCheckbox
