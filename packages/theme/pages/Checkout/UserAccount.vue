@@ -26,7 +26,7 @@
             :required="!loginUserAccount"
             :disabled="loginUserAccount"
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -44,7 +44,7 @@
             :required="!loginUserAccount"
             :disabled="loginUserAccount"
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -61,7 +61,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -80,7 +80,7 @@
             required
             has-show-password
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <SfCheckbox

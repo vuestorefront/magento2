@@ -16,7 +16,7 @@
             :label="$t('First Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -30,7 +30,7 @@
             :label="$t('Last Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>
@@ -46,7 +46,7 @@
           :label="$t('Your e-mail')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <SfModal
