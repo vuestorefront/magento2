@@ -124,7 +124,7 @@
             name="state"
             class="form__element form__element--half form__element--half-even"
             :valid="!!shippingDetails.country_code"
-            :error-message="!shippingDetails.country_code ? 'Please select a country first' : ''"
+            :error-message="!shippingDetails.country_code ? $t('Please select a country first') : ''"
             @input="region => changeShippingDetails('region', region)"
           />
           <SfSelect
@@ -325,6 +325,7 @@ export default defineComponent({
     const isShippingDetailsStepCompleted = ref(false);
 
     const canMoveForward = computed(() => !loading.value && shippingDetails.value && Object.keys(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       shippingDetails.value,
     ).length > 0);
 
@@ -429,6 +430,7 @@ export default defineComponent({
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();

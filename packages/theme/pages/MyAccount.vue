@@ -118,8 +118,7 @@ export default defineComponent({
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-
-      await router.push(String(localePath(transformedPath)));
+      await router.push(`${localePath(transformedPath)}`);
     };
 
     onBeforeUnmount(() => {
