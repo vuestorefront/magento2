@@ -121,11 +121,12 @@ export default defineComponent({
       () => userAddresses.value.filter((address) => address?.id === route.value.query.id).pop(),
     );
 
+    const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
     const isNewAddress = computed(() => !activeAddress.value);
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(`${app.localePath({ path: '/my-account/addresses-details', query: { id: addressId } })}`);
+      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`, query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {
@@ -141,7 +142,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(`${app.localePath('/my-account/addresses-details')}`);
+        await router.push(`/my-account/${getTranslatedUrlAddress('Addresses details')}`);
       } catch (error) {
         onError(error);
       }
