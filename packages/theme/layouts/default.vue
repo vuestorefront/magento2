@@ -19,29 +19,30 @@
     </div>
     <BottomNavigation />
     <AppFooter />
+    <LazyHydrate when-idle>
+      <MagentoConfiguration />
+    </LazyHydrate>
   </div>
 </template>
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
-import {
-  useUser,
-} from '@vue-storefront/magento';
+import { useRoute, defineComponent } from '@nuxtjs/composition-api';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import TopBar from '~/components/TopBar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import Notification from '~/components/Notification';
 import AppFooter from '~/components/AppFooter.vue';
+import MagentoConfiguration from '~/components/MagentoConfiguration.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
+    MagentoConfiguration,
     LazyHydrate,
     TopBar,
     AppHeader,
@@ -55,13 +56,6 @@ export default defineComponent({
 
   setup() {
     const route = useRoute();
-    const { load: loadUser } = useUser();
-    const { loadConfiguration } = useMagentoConfiguration();
-
-    onMounted(() => {
-      loadConfiguration();
-      loadUser();
-    });
 
     return {
       route,
