@@ -108,6 +108,7 @@
           :value="term"
           @input="handleSearch"
           @keydown.enter="handleSearch($event)"
+          @keydown.tab="hideSearch"
           @focus="isSearchOpen = true"
           @keydown.esc="closeSearch"
         >
@@ -131,6 +132,8 @@
               class="sf-search-bar__button sf-button--pure"
               aria-label="Open search"
               @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
+              @focus="showSearch"
+              @keydown.tab="hideSearch"
             >
               <span class="sf-search-bar__icon">
                 <SfIcon
@@ -263,11 +266,21 @@ export default defineComponent({
       ]);
     });
 
-    const closeSearch = () => {
-      if (!isSearchOpen.value) return;
+    const showSearch = () => {
+      if (!isSearchOpen.value) {
+        isSearchOpen.value = true;
+      }
+    };
 
+    const hideSearch = () => {
+      if (isSearchOpen.value) {
+        isSearchOpen.value = false;
+      }
+    };
+
+    const closeSearch = () => {
+      hideSearch();
       term.value = '';
-      isSearchOpen.value = false;
     };
 
     const handleSearch = debounce(async (paramValue) => {
@@ -321,6 +334,8 @@ export default defineComponent({
       categoryTree,
       closeOrFocusSearchBar,
       closeSearch,
+      showSearch,
+      hideSearch,
       getAgnosticCatLink,
       handleAccountClick,
       handleSearch,
