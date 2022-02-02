@@ -10,21 +10,21 @@
         <div v-if="errorUseGetShippingMethods.load">
           {{
             $t(
-              'There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details or later.'
+              'There was some error while trying to fetch shipping methods. We are sorry, please try with a different shipping details.'
             )
           }}
         </div>
         <div v-else-if="errorShippingProvider.save">
           {{
             $t(
-              'There was some error while trying to select this shipping method. We are sorry, please try with different shipping method or later.'
+              'There was some error while trying to select this shipping method. We are sorry, please try with a different shipping method.'
             )
           }}
         </div>
         <div v-else-if="shippingMethods.length === 0">
           {{
             $t(
-              'There are no shipping methods available for this country. We are sorry, please try with different country or later.'
+              'There are no shipping methods available for this country. We are sorry, please try with a different country.'
             )
           }}
         </div>
