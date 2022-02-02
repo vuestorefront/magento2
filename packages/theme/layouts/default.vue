@@ -28,13 +28,13 @@ import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
+import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import TopBar from '~/components/TopBar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import Notification from '~/components/Notification';
 import AppFooter from '~/components/AppFooter.vue';
 

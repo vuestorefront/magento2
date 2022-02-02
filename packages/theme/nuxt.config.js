@@ -210,37 +210,6 @@ export default {
         }),
       }),
     ],
-    extend(cfg, ctx) {
-      // eslint-disable-next-line no-param-reassign
-      cfg.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
-
-      if (ctx && ctx.isClient) {
-        // eslint-disable-next-line no-param-reassign
-        cfg.optimization = {
-          ...cfg.optimization,
-          mergeDuplicateChunks: true,
-          splitChunks: {
-            ...cfg.optimization.splitChunks,
-            automaticNameDelimiter: '.',
-            chunks: 'all',
-            enforceSizeThreshold: 50_000,
-            maxAsyncRequests: 30,
-            maxInitialRequests: 30,
-            cacheGroups: {
-              ...cfg.optimization.splitChunks.cacheGroups,
-              vendor: {
-                test: /[/\\]node_modules[/\\]/,
-                reuseExistingChunk: true,
-                name: (module) => `${module
-                  .context
-                  .match(/[/\\]node_modules[/\\](.*?)([/\\]|$)/)[1]
-                  .replace(/[.@_]/gm, '')}`,
-              },
-            },
-          },
-        };
-      }
-    },
     extractCSS: {
       allChunks: true,
     },
