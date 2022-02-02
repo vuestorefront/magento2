@@ -302,8 +302,9 @@ export default defineComponent({
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const submitForm = () => {
-      if (form.region.region_code) {
-        form.region.region_id = regionInformation.value.find((r) => r.abbreviation === form.region.region_code).id;
+      const regionId = regionInformation.value.find((r) => r.abbreviation === form.region.region_code)?.id;
+      if (regionId) {
+        form.region.region_id = regionId;
       }
 
       emit('submit', {
