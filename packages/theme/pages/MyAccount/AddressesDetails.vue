@@ -118,7 +118,7 @@ export default defineComponent({
     const route = useRoute();
     const { app } = useContext();
     const activeAddress = computed(
-      () => userAddresses.value.filter((address) => address?.id === route.value.query.id).pop(),
+      () => userAddresses.value.filter((address) => String(address?.id) === route.value.query.id).pop(),
     );
 
     const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
