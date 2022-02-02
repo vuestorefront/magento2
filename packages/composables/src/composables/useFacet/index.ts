@@ -96,7 +96,7 @@ const factoryParams = {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const { data } = await context.$magento.api.products(productSearchParams, params?.input.customQuery || {});
+    const { data } = await context.$magento.api.products(productSearchParams, params?.input.customQuery || { products: 'products' });
 
     Logger.debug('[Result]:', { data });
 
