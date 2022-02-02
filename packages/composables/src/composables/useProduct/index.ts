@@ -37,7 +37,7 @@ ProductsSearchParams> = {
 
         Logger.debug('[Result]:', { data: productDetailsResults });
 
-        return productDetailsResults.data.products;
+        return productDetailsResults.data?.products;
 
       case ProductsQueryType.List:
       default:
@@ -48,7 +48,7 @@ ProductsSearchParams> = {
 
         Logger.debug('[Result]:', { data: productListResults });
 
-        return productListResults.data.products;
+        return productListResults.data?.products;
     }
   },
 };
