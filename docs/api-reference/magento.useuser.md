@@ -10,5 +10,6 @@
 _default: () => import("@vue-storefront/core").UseUser<any, import("@vue-storefront/magento-api/lib/types/GraphQL").Exact<{
     email: string;
     password: string;
+    recaptchaToken?: string;
 }>, any>
 ```
