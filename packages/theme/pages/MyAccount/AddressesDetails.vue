@@ -142,7 +142,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(`/my-account/${getTranslatedUrlAddress('Addresses details')}`);
+        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Addresses details')}`));
       } catch (error) {
         onError(error);
       }
