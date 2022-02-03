@@ -197,8 +197,8 @@
               :score-rating="productGetters.getAverageRating(product)"
               :reviews-count="productGetters.getTotalReviews(product)"
               :is-in-wishlist="isInWishlist({product})"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-              :wishlist-icon="isAuthenticated ? 'heart' : ''"
+              :is-in-wishlist-icon="isAuthenticated ? '' : ''"
+              :wishlist-icon="isAuthenticated ? '' : ''"
               :link="
                 localePath(
                   `/p/${productGetters.getProductSku(
@@ -207,6 +207,7 @@
                 )
               "
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+              @click:wishlist="addItemToWishlist(product)"
             >
               <template #image="imageSlotProps">
                 <SfLink
@@ -252,8 +253,7 @@
               </template>
               <template #actions>
                 <SfButton
-                  class="sf-button--text desktop-only"
-                  style="margin: 0 0 1rem auto; display: block"
+                  class="sf-button--text products__product-card-horizontal__add-to-wishlist"
                   @click="addItemToWishlist(product)"
                 >
                   {{ isInWishlist({product}) ? $t('Remove from Wishlist') : $t('Save for later') }}
@@ -437,7 +437,6 @@ import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
-
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -646,16 +645,12 @@ export default defineComponent({
 
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
-      const productTags = products.value.map((product) => {
-        return { prefix: CacheTagPrefix.Product, value: product.uid };
-      });
+      const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product.uid }));
 
-      const categoriesTags = categoryTree.value.items.map((category) => {
-        return { prefix: CacheTagPrefix.Category, value: category.slug };
-      });
+      const categoriesTags = categoryTree.value.items.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.slug }));
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags(tags.concat(productTags, categoriesTags));
+      addTags([...tags, ...productTags, ...categoriesTags]);
     });
 
     const { getMagentoImage, imageSizes } = useImage();
@@ -926,6 +921,13 @@ export default defineComponent({
         --image-width: 5.3125rem;
         --image-height: 7.0625rem;
       }
+    }
+
+    &__add-to-wishlist {
+      @include for-mobile {
+        margin: 1rem auto;
+      }
+      display: block
     }
   }
 
