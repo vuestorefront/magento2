@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.0-rc.5.3",
+  "version": "1.0.0-rc.5.4",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -35,7 +35,7 @@
     "@storefront-ui/vue": "^0.11.5",
     "@vue-storefront/cache": "^2.5.4",
     "@vue-storefront/core": "~2.5.4",
-    "@vue-storefront/magento": "1.0.0-rc.5.3",
+    "@vue-storefront/magento": "1.0.0-rc.5.4",
     "@vue-storefront/middleware": "~2.5.4",
     "@vue-storefront/nuxt": "~2.5.4",
     "@vue-storefront/nuxt-theme": "~2.5.4",
@@ -53,11 +53,11 @@
     "pm2": "^5.1.2",
     "vee-validate": "^3.4.14",
     "vue-lazy-hydration": "^2.0.0-beta.4",
-    "vue-scrollto": "^2.20.0"
+    "vue-scrollto": "^2.20.0",
+    "@nuxt/image": "^0.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
-    "@nuxt/image": "^0.6.1",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@testing-library/jest-dom": "^5.16.1",
@@ -87,6 +87,7 @@
     "mochawesome-merge": "^4.2.1",
     "mochawesome-report-generator": "^6.0.1",
     "npm-check-updates": "^12.2.1",
+    "npm-check-updates": "^12.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "ts-jest": "^27.1.3",
     "ts-loader": "^8.1.0",
