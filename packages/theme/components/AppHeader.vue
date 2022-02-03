@@ -360,7 +360,7 @@ export default defineComponent({
 .sf-header {
   --header-padding: var(--spacer-sm);
   @include for-desktop {
-    --header-padding: 0;
+    --header-padding: 0 var(--spacer-sm);
   }
 
   &__logo-image {
@@ -373,7 +373,7 @@ export default defineComponent({
 }
 
 .nav-item {
-  --header-navigation-item-margin: 0 var(--spacer-base);
+  --header-navigation-item-margin: 0 var(--spacer-sm);
 
   .sf-header-navigation-item__item--mobile {
     display: none;
