@@ -84,18 +84,21 @@ import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import { defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onBeforeUnmount } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'InstagramFeed',
   components: {
     SfSection,
   },
-  computed: {
-    ...mapMobileObserver(),
-  },
-  beforeDestroy() {
-    unMapMobileObserver();
+  setup() {
+    const isMobile = computed(() => mapMobileObserver().isMobile.get());
+
+    onBeforeUnmount(() => {
+      unMapMobileObserver();
+    });
+
+    return { isMobile };
   },
 });
 </script>
