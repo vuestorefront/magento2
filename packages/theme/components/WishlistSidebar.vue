@@ -45,9 +45,9 @@
               :key="i"
               :image="wishlistGetters.getItemImage(product)"
               :title="wishlistGetters.getItemName(product)"
-              :regular-price="$n(wishlistGetters.getItemPrice(product).regular, 'currency')"
+              :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
               :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
-              :special-price="wishlistGetters.getItemPrice(product).special && $n(wishlistGetters.getItemPrice(product).special, 'currency')"
+              :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
               :stock="99999"
               class="collected-product"
               @click:remove="removeItem({ product: product.product })"
@@ -61,8 +61,8 @@
                     localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
                   "
                 >
-                  <SfImage
-                    :src="wishlistGetters.getItemImage(product)"
+                  <nuxt-img
+                    :src="getMagentoImage(wishlistGetters.getItemImage(product))"
                     :alt="wishlistGetters.getItemName(product)"
                     :width="140"
                     :height="200"
@@ -107,7 +107,7 @@
                 <span class="my-wishlist__total-price-label">Total price:</span>
               </template>
               <template #value>
-                <SfPrice :regular="$n(totals.subtotal, 'currency')" />
+                <SfPrice :regular="$fc(totals.subtotal)" />
               </template>
             </SfProperty>
           </div>
@@ -118,10 +118,12 @@
           class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <SfImage
+            <nuxt-img
               src="/icons/empty-cart.svg"
               alt="Empty bag"
               class="empty-wishlist__icon"
+              width="211"
+              height="143"
             />
             <SfHeading
               title="Your bag is empty"
@@ -151,18 +153,16 @@ import {
   SfProperty,
   SfPrice,
   SfCollectedProduct,
-  SfImage,
   SfLink,
 } from '@storefront-ui/vue';
-import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useWishlist,
   useUser,
   wishlistGetters,
   productGetters,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
-import { useUiState } from '~/composables';
+import { useUiState, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -174,12 +174,11 @@ export default defineComponent({
     SfProperty,
     SfPrice,
     SfCollectedProduct,
-    SfImage,
     SfLink,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem } = useWishlist('GlobalWishlist');
+    const { wishlist, removeItem, load: loadWishlist } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
@@ -187,6 +186,12 @@ export default defineComponent({
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+
+    const { getMagentoImage, imageSizes } = useImage();
+
+    onMounted(() => {
+      loadWishlist();
+    });
 
     return {
       getAttributes,
@@ -201,6 +206,8 @@ export default defineComponent({
       wishlistGetters,
       wishlist,
       productGetters,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });

@@ -19,9 +19,11 @@
         >
           <SfProductCard
             :title="productGetters.getName(product)"
-            :image="productGetters.getProductThumbnailImage(product)"
-            :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
-            :special-price="productGetters.getPrice(product).special && $n(productGetters.getPrice(product).special, 'currency')"
+            :image-width="imageSizes.productCard.width"
+            :image-height="imageSizes.productCard.height"
+            :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+            :regular-price="$fc(productGetters.getPrice(product).regular)"
+            :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
             :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
@@ -32,7 +34,37 @@
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-          />
+          >
+            <template #image="imageSlotProps">
+              <SfButton
+                :link="imageSlotProps.link"
+                class="sf-button--pure sf-product-card__link"
+                data-testid="product-link"
+                aria-label="Go To Product"
+                v-on="$listeners"
+              >
+                <template v-if="Array.isArray(imageSlotProps.image)">
+                  <nuxt-img
+                    v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                    :key="key"
+                    class="sf-product-card__picture"
+                    :src="picture"
+                    :alt="imageSlotProps.title"
+                    :width="imageSlotProps.imageWidth"
+                    :height="imageSlotProps.imageHeight"
+                  />
+                </template>
+                <nuxt-img
+                  v-else
+                  class="sf-product-card__image lol"
+                  :src="imageSlotProps.image"
+                  :alt="imageSlotProps.title"
+                  :width="imageSlotProps.imageWidth"
+                  :height="imageSlotProps.imageHeight"
+                />
+              </SfButton>
+            </template>
+          </SfProductCard>
         </SfCarouselItem>
       </SfCarousel>
     </SfLoader>
@@ -45,6 +77,7 @@ import {
   SfProductCard,
   SfSection,
   SfLoader,
+  SfButton
 } from '@storefront-ui/vue';
 
 import {
@@ -52,6 +85,7 @@ import {
 } from '@vue-storefront/magento';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
+import { useImage } from '~/composables';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -60,6 +94,7 @@ export default defineComponent({
     SfProductCard,
     SfSection,
     SfLoader,
+    SfButton,
   },
   props: {
     title: {
@@ -96,6 +131,8 @@ export default defineComponent({
       );
     };
 
+    const { getMagentoImage, imageSizes } = useImage();
+
     return {
       addItemToCart,
       addItemToWishlist,
@@ -104,6 +141,8 @@ export default defineComponent({
       isInWishlist,
       mappedProducts,
       productGetters,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });

@@ -97,11 +97,13 @@
               :cols="60"
               :rows="10"
               wrap="soft"
+              required
               :valid="!errors[0]"
               :error-message="errors[0]"
             />
           </ValidationProvider>
         </div>
+        <recaptcha v-if="isRecaptchaEnabled" />
         <SfButton class="form__button">
           Add review
         </SfButton>
@@ -116,6 +118,7 @@ import {
   onBeforeMount,
   computed,
   useRoute,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   reviewGetters, useReview, userGetters, useUser,
@@ -165,6 +168,8 @@ export default defineComponent({
   setup(_, { emit }) {
     const route = useRoute();
     const { params: { id } } = route.value;
+    const { $recaptcha, $config } = useContext();
+    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
     const {
       loading,
       loadReviewMetadata,
@@ -193,10 +198,11 @@ export default defineComponent({
         ...form.value,
         nickname,
         ratings,
+        recaptchaToken: '',
       };
     });
 
-    const submitForm = (reset) => () => {
+    const submitForm = (reset) => async () => {
       if (!(
         formSubmitValue.value.ratings[0].value_id
         || formSubmitValue.value.ratings[0].id
@@ -206,11 +212,24 @@ export default defineComponent({
         || formSubmitValue.value.text
       )) return;
       try {
+        if (isRecaptchaEnabled.value) {
+          $recaptcha.init();
+        }
+
+        if (isRecaptchaEnabled.value) {
+          const recaptchaToken = await $recaptcha.getResponse();
+          formSubmitValue.value.recaptchaToken = recaptchaToken;
+        }
+
         reviewSent.value = true;
 
         emit('add-review', formSubmitValue.value);
 
         reset();
+
+        if (isRecaptchaEnabled.value) {
+          $recaptcha.reset();
+        }
       } catch {
         reviewSent.value = false;
       }
@@ -229,6 +248,7 @@ export default defineComponent({
       ratingMetadata,
       reviewSent,
       submitForm,
+      isRecaptchaEnabled,
     };
   },
 });

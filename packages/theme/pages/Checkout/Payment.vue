@@ -25,9 +25,11 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <SfImage
-            :src="cartGetters.getItemImage(product)"
+          <nuxt-img
+            :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
+            :width="imageSizes.cartItem.width"
+            :height="imageSizes.cartItem.height"
           />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
@@ -65,8 +67,8 @@
         </SfTableData>
         <SfTableData class="table__data price">
           <SfPrice
-            :regular="$n(cartGetters.getItemPrice(product).regular, 'currency')"
-            :special="cartGetters.getItemPrice(product).special && $n(cartGetters.getItemPrice(product).special, 'currency')"
+            :regular="$fc(cartGetters.getItemPrice(product).regular)"
+            :special="cartGetters.getItemPrice(product).special && $fc(cartGetters.getItemPrice(product).special)"
             class="product-price"
           />
         </SfTableData>
@@ -77,13 +79,13 @@
         <div class="summary__total">
           <SfProperty
             name="Subtotal"
-            :value="$n(totals.subtotal, 'currency')"
+            :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
           <SfProperty
             v-if="hasDiscounts"
             :name="$t('Discount')"
-            :value="$n(discountsAmount, 'currency')"
+            :value="$fc(discountsAmount)"
             class="sf-property--full-width sf-property--small property"
           />
         </div>
@@ -92,7 +94,7 @@
           class="summary__total"
         >
           <SfProperty
-            :value="$n(getShippingMethodPrice(selectedShippingMethod), 'currency')"
+            :value="$fc(getShippingMethodPrice(selectedShippingMethod))"
             class="sf-property--full-width property"
           >
             <template #name>
@@ -107,7 +109,7 @@
 
         <SfProperty
           name="Total price"
-          :value="$n(totals.total, 'currency')"
+          :value="$fc(totals.total)"
           class="sf-property--full-width sf-property--large summary__property-total"
         />
 
@@ -160,18 +162,17 @@ import {
   SfCheckbox,
   SfButton,
   SfDivider,
-  SfImage,
   SfPrice,
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { onSSR, useVSFContext } from '@vue-storefront/core';
+import { useVSFContext } from '@vue-storefront/core';
 import {
   ref,
   computed,
   defineComponent,
   useRouter,
-  useContext,
+  useContext, onMounted
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
@@ -179,6 +180,9 @@ import {
   cartGetters,
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+import { useImage } from '~/composables';
+import { removeItem } from '~/helpers/asyncLocalStorage';
+import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -188,7 +192,6 @@ export default defineComponent({
     SfCheckbox,
     SfButton,
     SfDivider,
-    SfImage,
     SfPrice,
     SfProperty,
     SfLink,
@@ -205,7 +208,12 @@ export default defineComponent({
     const getAttributes = (product) => product.configurable_options || [];
     const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
 
-    onSSR(async () => {
+    onMounted(async () => {
+      const validStep = await isPreviousStepValid('billing');
+      if (!validStep) {
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+
       await load();
     });
 
@@ -214,12 +222,15 @@ export default defineComponent({
       setCart(null);
       $magento.config.state.setCartId();
       await load();
+      await removeItem('checkout');
       await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
     const hasDiscounts = computed(() => discounts.value.length > 0);
     const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
+
+    const { getMagentoImage, imageSizes } = useImage();
 
     return {
       cart,
@@ -238,6 +249,8 @@ export default defineComponent({
       totals: computed(() => cartGetters.getTotals(cart.value)),
       getAttributes,
       getBundles,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });
@@ -298,7 +311,7 @@ export default defineComponent({
 
 .summary {
   &__terms {
-    margin: var(--spacer-base) 0 0 0;
+    margin: var(--spacer-base) 0 0 var(--spacer-sm);
   }
 
   &__total {
@@ -344,7 +357,7 @@ export default defineComponent({
   }
 
   &__property-total {
-    margin: var(--spacer-xl) 0 0 0;
+    margin: var(--spacer-xl) 0 var(--spacer-sm) 0;
   }
 }
 

@@ -3,7 +3,7 @@
     :open-tab="1"
     class="tab-orphan"
   >
-    <SfTab title="My reviews">
+    <SfTab :title="$t('My reviews')">
       <div v-if="loading">
         <SfLoader />
       </div>
@@ -17,8 +17,8 @@
         :max-rating="5"
         :rating="reviewGetters.getReviewRating(review)"
         :char-limit="250"
-        read-more-text="Read more"
-        hide-full-text="Read less"
+        :read-more-text="$t('Read more')"
+        :hide-full-text="$t('Read less')"
         class="product__review"
       >
         <template #info="{ rating, maxRating, date }">
@@ -39,6 +39,14 @@
           </div>
         </template>
       </SfReview>
+      <div
+        v-if="userReviews.length === 0"
+        class="no-reviews"
+      >
+        <p class="no-reviews__title">
+          {{ $t('You have submitted no reviews') }}.
+        </p>
+      </div>
     </SfTab>
   </SfTabs>
 </template>
@@ -86,6 +94,13 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+.no-reviews {
+  &__title {
+    margin: 0 0 var(--spacer-lg) 0;
+    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--primary);
+  }
+}
+
 .tab-orphan {
   @include for-mobile {
     --tabs-title-display: none;

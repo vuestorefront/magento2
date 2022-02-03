@@ -1,4 +1,4 @@
-import { computed, reactive, useContext} from '@nuxtjs/composition-api';
+import { computed, reactive, useContext } from '@nuxtjs/composition-api';
 import cookieNames from '~/enums/cookieNameEnum';
 
 interface UiNotification {
@@ -55,7 +55,6 @@ const useUiNotification = () => {
       setTimeout(dismiss, timeToLive);
     }
   };
-
 
   if (cookieMessage) {
     send(cookieMessage);

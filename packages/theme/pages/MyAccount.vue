@@ -6,40 +6,40 @@
     />
     <SfContentPages
       v-e2e="'my-account-content-pages'"
-      title="My Account"
+      :title="$t('My Account')"
       :active="activePage"
       class="my-account"
       @click:change="changeActivePage"
     >
-      <SfContentCategory title="Personal Details">
-        <SfContentPage title="My profile">
+      <SfContentCategory :title="$t('Personal Details')">
+        <SfContentPage :title="$t('My profile')">
           <MyProfile />
         </SfContentPage>
 
-        <SfContentPage title="Addresses details">
+        <SfContentPage :title="$t('Addresses details')">
           <AddressesDetails />
         </SfContentPage>
 
-        <SfContentPage title="My newsletter">
+        <SfContentPage :title="$t('My newsletter')">
           <MyNewsletter />
         </SfContentPage>
 
-        <SfContentPage title="My wishlist">
+        <SfContentPage :title="$t('My wishlist')">
           <MyWishlist />
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentCategory title="Order details">
-        <SfContentPage title="Order history">
+      <SfContentCategory :title="$t('Order details')">
+        <SfContentPage :title="$t('Order history')">
           <OrderHistory />
         </SfContentPage>
 
-        <SfContentPage title="My reviews">
+        <SfContentPage :title="$t('My reviews')">
           <MyReviews />
         </SfContentPage>
       </SfContentCategory>
 
-      <SfContentPage title="Log out" />
+      <SfContentPage :title="$t('Log out')" />
     </SfContentPages>
   </div>
 </template>
@@ -85,15 +85,15 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const { logout } = useUser();
-    const { localePath } = useContext();
+    const { localePath, app } = useContext();
     const isMobile = computed(() => mapMobileObserver().isMobile.get());
     const breadcrumbs = ref([
       {
-        text: 'Home',
+        text: app.i18n.t('Home'),
         route: { link: '#' },
       },
       {
-        text: 'My Account',
+        text: app.i18n.t('My Account'),
         route: { link: '#' },
       },
     ]);
@@ -103,13 +103,13 @@ export default defineComponent({
       if (pageName) {
         return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
       } if (!isMobile.value) {
-        return 'My profile';
+        return app.i18n.t('My profile');
       }
       return '';
     });
 
     const changeActivePage = async (title) => {
-      if (title === 'Log out') {
+      if (title === app.i18n.t('Log out')) {
         await logout();
         await router.push(`${localePath({ name: 'home' })}`);
 
@@ -118,8 +118,7 @@ export default defineComponent({
 
       const slugifiedTitle = (title || '').toLowerCase().replace(' ', '-');
       const transformedPath = `/my-account/${slugifiedTitle}`;
-
-      await router.push(String(localePath(transformedPath)));
+      await router.push(`${localePath(transformedPath)}`);
     };
 
     onBeforeUnmount(() => {

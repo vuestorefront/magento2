@@ -2,7 +2,7 @@
   <SfTabs :open-tab="1">
     <SfTab
       data-cy="order-history-tab_my-orders"
-      title="My orders"
+      :title="$t('My orders')"
     >
       <div v-if="loading">
         <SfLoader />
@@ -17,23 +17,23 @@
         </SfButton>
         <div class="highlighted highlighted--total">
           <SfProperty
-            name="Order ID"
+            :name="$t('Order ID')"
             :value="orderGetters.getId(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Date"
+            :name="$t('Date')"
             :value="orderGetters.getDate(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Status"
+            :name="$t('Status')"
             :value="orderGetters.getStatus(currentOrder)"
             class="sf-property--full-width property"
           />
           <SfProperty
-            name="Total"
-            :value="$n(orderGetters.getPrice(currentOrder), 'currency')"
+            :name="$t('Total')"
+            :value="$fc(orderGetters.getPrice(currentOrder))"
             class="sf-property--full-width property"
           />
         </div>
@@ -55,7 +55,7 @@
               </nuxt-link>
             </SfTableData>
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getItemPrice(item), 'currency') }}</SfTableData>
+            <SfTableData>{{ $fc(orderGetters.getItemPrice(item)) }}</SfTableData>
           </SfTableRow>
         </SfTable>
       </div>
@@ -97,21 +97,14 @@
           >
             <SfTableData>{{ orderGetters.getId(order) }}</SfTableData>
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $n(orderGetters.getPrice(order), 'currency') }}</SfTableData>
+            <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfButton
-                data-cy="order-history-btn_download"
-                class="sf-button--text smartphone-only"
-                @click="downloadOrder(order)"
-              >
-                {{ $t('Download') }}
-              </SfButton>
-              <SfButton
                 data-cy="order-history-btn_view"
-                class="sf-button--text desktop-only"
+                class="sf-button--text"
                 @click="currentOrder = order"
               >
                 {{ $t('View details') }}
@@ -156,7 +149,7 @@
     </SfTab>
     <SfTab
       data-cy="order-history-tab_returns"
-      title="Returns"
+      :title="$t('Returns')"
     >
       <p class="message">
         This feature is not implemented yet! Please take a look at

@@ -24,11 +24,13 @@
             <template
               v-if="bundle.options.length === 1"
             >
-              {{ productGetters.getName(option.product) }}
-              <SfPrice
-                :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
-              />
+              <div class="bundle_products--options-option__container">
+                <p>{{ productGetters.getName(option.product) }}</p>
+                <SfPrice
+                  :regular="$fc(productGetters.getPrice(option.product).regular)"
+                  :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
+                />
+              </div>
             </template>
             <template
               v-else
@@ -43,8 +45,8 @@
               >
                 <template #description>
                   <SfPrice
-                    :regular="$n(productGetters.getPrice(option.product).regular, 'currency')"
-                    :special="productGetters.getPrice(option.product).special && $n(productGetters.getPrice(option.product).special, 'currency')"
+                    :regular="$fc(productGetters.getPrice(option.product).regular)"
+                    :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
                   />
                 </template>
               </SfRadio>
@@ -177,9 +179,12 @@ export default defineComponent({
   &--item {
       padding: 0 0 var(--spacer-base) 0 !important;
       border-bottom: 1px solid #e4e4e4 !important;
-
+      .sf-quantity-selector{
+        margin: 0 var(--spacer-sm) !important;
+      }
       p {
         font-weight: 600;
+        padding: 0 var(--spacer-sm);
       }
       &-required{
         &:after{
@@ -192,7 +197,13 @@ export default defineComponent({
     }
 
   &--options{
+
     &-option{
+      &__container {
+       p, .sf-price {
+        padding: 0 var(--spacer-sm) !important;
+       }
+      }
       .sf-price{
         &:before{
           content: '+';

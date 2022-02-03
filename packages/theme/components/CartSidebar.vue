@@ -97,12 +97,12 @@
                 :image="cartGetters.getItemImage(product)"
                 :title="cartGetters.getItemName(product)"
                 :regular-price="
-                  $n(cartGetters.getItemPrice(product).regular, 'currency')
+                  $fc(cartGetters.getItemPrice(product).regular)
                 "
                 :special-price="
                   cartGetters.productHasSpecialPrice(product)
                     ? getItemPrice(product).special &&
-                      $n(cartGetters.getItemPrice(product).special, 'currency')
+                      $fc(cartGetters.getItemPrice(product).special)
                     : ''
                 "
                 :link="
@@ -113,7 +113,7 @@
                   )
                 "
                 class="collected-product"
-                @input="updateItemQty({ product, quantity: $event })"
+                @input="delayedUpdateItemQty({ product, quantity: $event })"
                 @click:remove="sendToRemove({ product })"
               >
                 <template #input>
@@ -125,7 +125,7 @@
                       :disabled="loading"
                       :qty="cartGetters.getItemQty(product)"
                       class="sf-collected-product__quantity-selector"
-                      @input="updateItemQty({ product, quantity: $event })"
+                      @input="delayedUpdateItemQty({ product, quantity: $event })"
                     />
                   </div>
                   <SfBadge
@@ -166,10 +166,12 @@
           class="empty-cart"
         >
           <div class="empty-cart__banner">
-            <SfImage
+            <nuxt-img
               alt="Empty bag"
               class="empty-cart__image"
               src="/icons/empty-cart.svg"
+              width="211"
+              height="143"
             />
             <SfHeading
               title="Your cart is empty"
@@ -196,11 +198,11 @@
             >
               <template #value>
                 <SfPrice
-                  :regular="$n(totals.subtotal, 'currency')"
+                  :regular="$fc(totals.subtotal)"
                   :special="
                     totals.subtotal <= totals.special
                       ? ''
-                      : $n(totals.special, 'currency')
+                      : $fc(totals.special)
                   "
                 />
               </template>
@@ -240,7 +242,6 @@ import {
   SfProperty,
   SfPrice,
   SfCollectedProduct,
-  SfImage,
   SfQuantitySelector,
   SfBadge,
 } from '@storefront-ui/vue';
@@ -257,9 +258,10 @@ import {
   cartGetters,
   useExternalCheckout,
 } from '@vue-storefront/magento';
+import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
-import CouponCode from './CouponCode.vue';
 import stockStatusEnum from '~/enums/stockStatusEnum';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -272,7 +274,6 @@ export default defineComponent({
     SfProperty,
     SfPrice,
     SfCollectedProduct,
-    SfImage,
     SfQuantitySelector,
     SfBadge,
     CouponCode,
@@ -292,7 +293,10 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
 
-    const products = computed(() => cartGetters.getItems(cart.value).filter(Boolean));
+    const products = computed(() => cartGetters
+      .getItems(cart.value)
+      .filter(Boolean)
+      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant } })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
@@ -339,7 +343,7 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-
+    const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
@@ -349,7 +353,7 @@ export default defineComponent({
       isAuthenticated,
       products,
       removeItem,
-      updateItemQty,
+      delayedUpdateItemQty,
       isCartSidebarOpen,
       notifications,
       visible,

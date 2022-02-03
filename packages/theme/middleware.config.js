@@ -25,6 +25,15 @@ module.exports = {
         customApolloHttpLinkOptions: {
           useGETForQueries: false,
         },
+        magentoBaseUrl: config.get('magentoBaseUrl'),
+        imageProvider: config.get('imageProvider'),
+        recaptcha: {
+          isEnabled: config.get('recaptchaEnabled'),
+          sitekey: config.get('recaptchaSiteKey'),
+          secretkey: config.get('recaptchaSecretkey'),
+          version: config.get('recaptchaVersion'),
+          score: config.get('recaptchaMinScore'),
+        },
       },
     },
   },

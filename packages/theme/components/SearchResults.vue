@@ -69,11 +69,13 @@
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
-                  :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                  :regular-price="$fc(productGetters.getPrice(product).regular)"
                   :max-rating="5"
                   :score-rating="productGetters.getAverageRating(product)"
                   :reviews-count="productGetters.getTotalReviews(product)"
-                  :image="productGetters.getProductThumbnailImage(product)"
+                  :image-width="imageSizes.productCard.width"
+                  :image-height="imageSizes.productCard.height"
+                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
                   :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
@@ -81,7 +83,37 @@
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
                   @click:wishlist="addItemToWishlist(product)"
-                />
+                >
+                  <template #image="imageSlotProps">
+                    <SfButton
+                      :link="imageSlotProps.link"
+                      class="sf-button--pure sf-product-card__link"
+                      data-testid="product-link"
+                      aria-label="Go To Product"
+                      v-on="$listeners"
+                    >
+                      <template v-if="Array.isArray(imageSlotProps.image)">
+                        <nuxt-img
+                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          :key="key"
+                          class="sf-product-card__picture"
+                          :src="picture"
+                          :alt="imageSlotProps.title"
+                          :width="imageSlotProps.imageWidth"
+                          :height="imageSlotProps.imageHeight"
+                        />
+                      </template>
+                      <nuxt-img
+                        v-else
+                        class="sf-product-card__image lol"
+                        :src="imageSlotProps.image"
+                        :alt="imageSlotProps.title"
+                        :width="imageSlotProps.imageWidth"
+                        :height="imageSlotProps.imageHeight"
+                      />
+                    </SfButton>
+                  </template>
+                </SfProductCard>
               </div>
             </SfScrollable>
             <div class="results--mobile smartphone-only">
@@ -89,11 +121,13 @@
                 v-for="(product, index) in products"
                 :key="index"
                 class="result-card"
-                :regular-price="$n(productGetters.getPrice(product).regular, 'currency')"
+                :regular-price="$fc(productGetters.getPrice(product).regular)"
                 :max-rating="5"
                 :score-rating="productGetters.getAverageRating(product)"
                 :reviews-count="productGetters.getTotalReviews(product)"
-                :image="productGetters.getProductThumbnailImage(product)"
+                :image-width="imageSizes.productCardHorizontal.width"
+                :image-height="imageSizes.productCardHorizontal.height"
+                :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
                 :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
@@ -101,7 +135,37 @@
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
                 @click:wishlist="addItemToWishlist(product)"
-              />
+              >
+                <template #image="imageSlotProps">
+                  <SfButton
+                    :link="imageSlotProps.link"
+                    class="sf-button--pure sf-product-card__link"
+                    data-testid="product-link"
+                    aria-label="Go To Product"
+                    v-on="$listeners"
+                  >
+                    <template v-if="Array.isArray(imageSlotProps.image)">
+                      <nuxt-img
+                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                        :key="key"
+                        class="sf-product-card__picture"
+                        :src="picture"
+                        :alt="imageSlotProps.title"
+                        :width="imageSlotProps.imageWidth"
+                        :height="imageSlotProps.imageHeight"
+                      />
+                    </template>
+                    <nuxt-img
+                      v-else
+                      class="sf-product-card__image lol"
+                      :src="imageSlotProps.image"
+                      :alt="imageSlotProps.title"
+                      :width="imageSlotProps.imageWidth"
+                      :height="imageSlotProps.imageHeight"
+                    />
+                  </SfButton>
+                </template>
+              </SfProductCard>
             </div>
           </SfMegaMenuColumn>
           <div class="action-buttons smartphone-only">
@@ -118,11 +182,12 @@
           key="no-results"
           class="before-results"
         >
-          <SfImage
+          <nuxt-img
             src="/error/error.svg"
             class="before-results__picture"
             alt="error"
-            loading="lazy"
+            width="412"
+            height="412"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -149,7 +214,6 @@ import {
   SfScrollable,
   SfMenuItem,
   SfButton,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -158,7 +222,7 @@ import {
   defineComponent,
 } from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { useUiHelpers } from '~/composables';
+import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -169,7 +233,6 @@ export default defineComponent({
     SfScrollable,
     SfMenuItem,
     SfButton,
-    SfImage,
   },
   props: {
     visible: {
@@ -208,6 +271,8 @@ export default defineComponent({
       );
     };
 
+    const { getMagentoImage, imageSizes } = useImage();
+
     return {
       th,
       isSearchOpen,
@@ -217,6 +282,8 @@ export default defineComponent({
       addItemToWishlist,
       isInWishlist,
       isAuthenticated,
+      getMagentoImage,
+      imageSizes
     };
   },
 });

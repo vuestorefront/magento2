@@ -15,7 +15,7 @@
           <SfInput
             v-model="form.firstname"
             name="firstname"
-            label="First Name"
+            :label="$t('First Name')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -30,7 +30,7 @@
           <SfInput
             v-model="form.lastname"
             name="lastname"
-            label="Last Name"
+            :label="$t('Last Name')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -46,7 +46,7 @@
         <SfInput
           v-model="form.street"
           name="street"
-          label="Street Name"
+          :label="$t('Street Name')"
           required
           :valid="!errors[0]"
           :error-message="errors[0]"
@@ -55,7 +55,7 @@
       <SfInput
         v-model="form.apartment"
         name="apartment"
-        label="House/Apartment number"
+        :label="$t('House/Apartment number')"
         required
         class="form__element"
       />
@@ -68,7 +68,7 @@
           <SfInput
             v-model="form.city"
             name="city"
-            label="City"
+            :label="$t('City')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -84,18 +84,18 @@
             v-if="!form.country_code || regionInformation.length === 0"
             v-model="form.region.region"
             v-e2e="'shipping-state'"
-            label="State/Province"
+            :label="$t('State/Province')"
             :disabled="!form.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
             :valid="!!form.country_code"
-            :error-message="!form.country_code ? 'Please select a country first' : ''"
+            :error-message="!form.country_code ? $t('Please select a country first') : ''"
           />
           <SfSelect
             v-else
             v-model="form.region.region_code"
             v-e2e="'shipping-state'"
-            label="State/Province"
+            :label="$t('State/Province')"
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
@@ -121,7 +121,7 @@
           <SfInput
             v-model="form.postcode"
             name="postcode"
-            label="Zip-code"
+            :label="$t('Zip-code')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -135,7 +135,7 @@
         >
           <SfSelect
             v-model="form.country_code"
-            label="Country"
+            :label="$t('Country')"
             name="country"
             class="form__select sf-select--underlined"
             required
@@ -162,7 +162,7 @@
         <SfInput
           v-model="form.telephone"
           name="telephone"
-          label="Phone number"
+          :label="$t('Phone number')"
           required
           :valid="!errors[0]"
           :error-message="errors[0]"
@@ -171,17 +171,17 @@
       <SfCheckbox
         v-model="form.default_shipping"
         name="isDefaultShipping"
-        label="Set as default shipping"
+        :label="$t('Set as default shipping')"
         class="form__checkbox-isDefaultShipping"
       />
       <SfCheckbox
         v-model="form.default_billing"
         name="isDefaultBilling"
-        label="Set as default billing"
+        :label="$t('Set as default billing')"
         class="form__checkbox-isDefaultBilling"
       />
       <SfButton class="form__button">
-        {{ isNew ? "Add the address" : "Update the address" }}
+        {{ isNew ? $t('Add the address') : $t('Update the address') }}
       </SfButton>
     </form>
   </ValidationObserver>
@@ -302,8 +302,9 @@ export default defineComponent({
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const submitForm = () => {
-      if (form.region.region_code) {
-        form.region.region_id = regionInformation.value.find((r) => r.abbreviation === form.region.region_code).id;
+      const regionId = regionInformation.value.find((r) => r.abbreviation === form.region.region_code)?.id;
+      if (regionId) {
+        form.region.region_id = regionId;
       }
 
       emit('submit', {

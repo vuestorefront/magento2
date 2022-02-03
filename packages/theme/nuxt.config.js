@@ -14,6 +14,8 @@ const {
         externalCheckout,
         defaultStore,
         facets,
+        magentoBaseUrl,
+        imageProvider,
       },
     },
   },
@@ -98,7 +100,10 @@ export default {
       externalCheckout,
       defaultStore,
       facets,
+      magentoBaseUrl,
+      imageProvider,
     }],
+    '@nuxt/image',
   ],
   modules: [
     ['nuxt-i18n', {
@@ -107,6 +112,17 @@ export default {
     'cookie-universal-nuxt',
     'vue-scrollto/nuxt',
     '@vue-storefront/middleware/nuxt',
+    '@nuxt/image',
+    ['@vue-storefront/cache/nuxt', {
+      enabled: false,
+      invalidation: {
+        handlers: [
+          '@vue-storefront/cache/defaultHandler',
+        ],
+      },
+      driver: [
+      ],
+    }],
   ],
   i18n: {
     country: 'US',
@@ -116,11 +132,13 @@ export default {
         code: 'default',
         file: 'en.js',
         iso: 'en_US',
+        defaultCurrency: 'USD',
       },
       {
         code: 'german',
         file: 'de.js',
         iso: 'de_DE',
+        defaultCurrency: 'EUR',
       },
     ],
     defaultLocale: 'default',
@@ -192,49 +210,28 @@ export default {
         }),
       }),
     ],
-    extend(cfg, ctx) {
-      // eslint-disable-next-line no-param-reassign
-      cfg.devtool = ctx.isClient ? 'eval-source-map' : 'inline-source-map';
-
-      if (ctx && ctx.isClient) {
-        // eslint-disable-next-line no-param-reassign
-        cfg.optimization = {
-          ...cfg.optimization,
-          mergeDuplicateChunks: true,
-          splitChunks: {
-            ...cfg.optimization.splitChunks,
-            automaticNameDelimiter: '.',
-            chunks: 'all',
-            enforceSizeThreshold: 40_000,
-            maxAsyncRequests: 30,
-            maxInitialRequests: 30,
-            maxSize: 128_000,
-            minChunks: 1,
-            minSize: 0,
-            cacheGroups: {
-              ...cfg.optimization.splitChunks.cacheGroups,
-              vendor: {
-                test: /[/\\]node_modules[/\\]/,
-                reuseExistingChunk: true,
-                name: (module) => `${module
-                  .context
-                  .match(/[/\\]node_modules[/\\](.*?)([/\\]|$)/)[1]
-                  .replace(/[.@_]/gm, '')}`,
-              },
-            },
-          },
-        };
-      }
+    extractCSS: {
+      allChunks: true,
     },
   },
   plugins: [
     '~/plugins/token-expired',
     '~/plugins/i18n',
+    '~/plugins/fcPlugin',
+  ],
+  serverMiddleware: [
+    '~/serverMiddleware/body-parser.js',
   ],
   router: {
     extendRoutes(routes) {
       getRoutes(`${__dirname}/_theme`)
         .forEach((route) => routes.unshift(route));
+    },
+  },
+  image: {
+    provider: config.get('imageProvider'),
+    cloudinary: {
+      baseURL: config.get('imageProviderBaseUrl'),
     },
   },
 };

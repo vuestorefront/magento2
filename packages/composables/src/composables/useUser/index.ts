@@ -2,11 +2,27 @@
 import {
   Context, Logger,
   useUserFactory,
-  UseUserFactoryParams,
+  UseUserFactoryParams as UserUserFactoryParamsBase,
 } from '@vue-storefront/core';
 import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-api';
+import { CustomQuery } from '@vue-storefront/core/lib/src/types';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
+
+interface UseUserFactoryParams<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS>
+  extends UserUserFactoryParamsBase<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS> {
+  logIn: (context: Context, params: {
+    username: string;
+    password: string;
+    recaptchaToken?: string;
+    customQuery?: CustomQuery;
+  }) => Promise<USER>;
+
+  register: (context: Context, params: REGISTER_USER_PARAMS & {
+    customQuery?: CustomQuery;
+    recaptchaInstance?: any;
+  }) => Promise<USER>;
+}
 
 const factoryParams: UseUserFactoryParams<
 any,
@@ -18,7 +34,7 @@ CustomerCreateInput
       cart: useCart(),
     };
   },
-  load: async (context: Context, params) => {
+  load: async (context: Context) => {
     Logger.debug('[Magento] Load user information');
     const apiState = context.$magento.config.state;
 
@@ -30,7 +46,7 @@ CustomerCreateInput
 
       Logger.debug('[Result]:', { data });
 
-      return data.customer;
+      return data?.customer ?? {};
     } catch {
       // eslint-disable-next-line no-void
       // @ts-ignore
@@ -46,7 +62,7 @@ CustomerCreateInput
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
-    // context.cart.setCart(null);
+    context.cart.setCart(null);
   },
   updateUser: async (context: Context, params) => {
     Logger.debug('[Magento] Update user information', { params });
@@ -63,17 +79,31 @@ CustomerCreateInput
       });
     }
 
-    const { data } = await context.$magento.api.updateCustomer(userData);
-
+    const { data, errors } = await context.$magento.api.updateCustomer(userData);
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerV2.customer;
+    if (errors) {
+      throw new Error(errors.map((e) => e.message).join(','));
+    }
+
+    // return data.updateCustomerV2.customer;
+    return data?.updateCustomerV2?.customer || {};
   },
   register: async (context: Context, params) => {
-    const { email, password, ...baseData } = generateUserData(params);
+    const {
+      email,
+      password,
+      recaptchaToken,
+      ...baseData
+    } = generateUserData(params);
 
     const { data, errors } = await context.$magento.api.createCustomer(
-      { email, password, ...baseData },
+      {
+        email,
+        password,
+        recaptchaToken,
+        ...baseData,
+      },
     );
 
     Logger.debug('[Result]:', { data });
@@ -87,9 +117,17 @@ CustomerCreateInput
       throw new Error('Customer registration error');
     }
 
+    if (recaptchaToken) {
+      // generate a new token for the login action
+      const { recaptchaInstance } = params;
+      const newRecaptchaToken = await recaptchaInstance.getResponse();
+
+      return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
+    }
+
     return factoryParams.logIn(context, { username: email, password });
   },
-  logIn: async (context: Context, params) => {
+  logIn: async (context: Context, params: any) => {
     Logger.debug('[Magento] Authenticate user');
     const apiState = context.$magento.config.state;
 
@@ -97,6 +135,7 @@ CustomerCreateInput
       {
         email: params.username,
         password: params.password,
+        recaptchaToken: params.recaptchaToken,
       },
     );
 
@@ -139,10 +178,8 @@ CustomerCreateInput
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
     const { data, errors } = await context.$magento.api.changeCustomerPassword(params);
-
     if (errors) {
       Logger.error(errors);
-
       throw new Error(errors.map((e) => e.message).join(','));
     }
 
@@ -155,5 +192,5 @@ CustomerCreateInput
 export default useUserFactory<
 any,
 UpdateCustomerEmailMutationVariables,
-CustomerCreateInput & { email: string; password: string }
+CustomerCreateInput & { email: string; password: string, recaptchaToken?: string }
 >(factoryParams);

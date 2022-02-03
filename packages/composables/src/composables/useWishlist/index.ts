@@ -25,7 +25,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
       Logger.debug('[Result]:', { data });
 
-      return data.customer.wishlists;
+      return data?.customer?.wishlists ?? [];
     }
 
     return [];
@@ -68,7 +68,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
         Logger.debug('[Result]:', { data });
 
-        return data.addProductsToWishlist.wishlist;
+        return data?.addProductsToWishlist?.wishlist ?? {};
       case 'ConfigurableProduct':
         const { data: configurableProductData } = await context.$magento.api.addProductToWishList({
           id: '0',
@@ -81,7 +81,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
         Logger.debug('[Result]:', { data: configurableProductData });
 
-        return configurableProductData.addProductsToWishlist.wishlist;
+        return configurableProductData?.addProductsToWishlist?.wishlist ?? {};
       case 'BundleProduct':
         const { data: bundleProductData } = await context.$magento.api.addProductToWishList({
           id: '0',
@@ -94,7 +94,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
         Logger.debug('[Result]:', { data: bundleProductData });
 
-        return bundleProductData.addProductsToWishlist.wishlist;
+        return bundleProductData?.addProductsToWishlist?.wishlist ?? {};
       default:
         // todo implement other options
         // @ts-ignore
@@ -117,7 +117,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.removeProductsFromWishlist.wishlist;
+    return data?.removeProductsFromWishlist?.wishlist ?? {};
   },
   clear: async ({ currentWishlist }) => ({}),
   isInWishlist: (context, params) => {

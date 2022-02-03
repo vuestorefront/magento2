@@ -13,7 +13,7 @@
           v-model="form.currentPassword"
           type="password"
           name="currentPassword"
-          label="Current Password"
+          :label="$t('Current Password')"
           required
           :valid="!errors[0]"
           :error-message="errors[0]"
@@ -30,7 +30,7 @@
             v-model="form.newPassword"
             type="password"
             name="newPassword"
-            label="New Password"
+            :label="$t('New Password')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -45,7 +45,7 @@
             v-model="form.repeatPassword"
             type="password"
             name="repeatPassword"
-            label="Repeat Password"
+            :label="$t('Repeat Password')"
             required
             :valid="!errors[0]"
             :error-message="errors[0]"
@@ -101,10 +101,10 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = () => {
+      const onError = (msg) => {
         sendNotification({
           id: Symbol('password_not_updated'),
-          message: 'It was not possible to update your password.',
+          message: msg,
           type: 'danger',
           icon: 'cross',
           persist: false,

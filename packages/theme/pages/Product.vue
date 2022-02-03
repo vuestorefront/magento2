@@ -40,8 +40,8 @@
             </div>
             <div class="product__price-and-rating">
               <SfPrice
-                :regular="$n(productPrice, 'currency')"
-                :special="productSpecialPrice && $n(productSpecialPrice, 'currency')"
+                :regular="$fc(productPrice)"
+                :special="productSpecialPrice && $fc(productSpecialPrice)"
               />
               <div>
                 <div class="product__rating">
@@ -140,7 +140,7 @@
                 v-else
                 v-model="qty"
                 v-e2e="'product_add-to-cart'"
-                :disabled="loading || !canAddToCart"
+                :disabled="loading || !canAddToCart || productLoading"
                 class="product__add-to-cart"
                 @click="addItem({ product, quantity: parseInt(qty) })"
               />
@@ -297,6 +297,7 @@ import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -331,6 +332,7 @@ export default defineComponent({
   }),
   transition: 'fade',
   setup() {
+    const { addTags } = useCache();
     const qty = ref(1);
     const {
       product,
@@ -476,6 +478,14 @@ export default defineComponent({
       if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
 
       await searchReviews(baseSearchQuery);
+
+      const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
+      const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
+
+      const categoriesTags = categories.value.map((catId) => {
+        return { prefix: CacheTagPrefix.Category, value: catId };
+      });
+      addTags(tags.concat(productTags, categoriesTags));
     });
 
     return {
@@ -521,6 +531,7 @@ export default defineComponent({
   @include for-desktop {
     max-width: 1272px;
     margin: 0 auto;
+    padding: 0 1.5rem;
   }
 }
 
@@ -538,7 +549,7 @@ export default defineComponent({
     margin: var(--spacer-sm) auto;
     @include for-desktop {
       max-width: 32.625rem;
-      margin: 0 0 0 7.5rem;
+      margin: 0 0 0 2rem;
     }
   }
 

@@ -9,23 +9,30 @@
     <form
       @submit.prevent="handleSubmit(handleAddressSubmit(reset))"
     >
+      <SfCheckbox
+        v-e2e="'copy-address'"
+        :selected="sameAsShipping"
+        :label="$t('My billing and shipping address are the same')"
+        name="copyShippingAddress"
+        class="form__element"
+        @change="handleCheckSameAddress"
+      />
+      <div v-if="sameAsShipping" class="copy__shipping__addresses">
+        <div class="copy__shipping__address">
+          <div class="sf-address">
+            <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
+          </div>
+        </div>
+      </div>
       <UserBillingAddresses
-        v-if="isAuthenticated && hasSavedBillingAddress"
+        v-if="!sameAsShipping && isAuthenticated && hasSavedBillingAddress"
         v-model="setAsDefault"
         v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
         @setCurrentAddress="handleSetCurrentAddress"
       />
-      <SfCheckbox
-        v-e2e="'copy-address'"
-        :selected="sameAsShipping"
-        label="Copy address data from shipping"
-        name="copyShippingAddress"
-        class="form__element"
-        @change="handleCheckSameAddress"
-      />
       <div
-        v-if="canAddNewAddress"
+        v-if="!sameAsShipping && canAddNewAddress"
         class="form"
       >
         <ValidationProvider
@@ -222,7 +229,7 @@
         </ValidationProvider>
       </div>
       <SfButton
-        v-if="!canAddNewAddress"
+        v-if="!sameAsShipping && !canAddNewAddress"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
@@ -243,7 +250,7 @@
             to="localePath('/checkout/shipping')"
             class="sf-button sf-button--underlined form__back-button smartphone-only"
           >
-            Go back
+            {{ $t('Go back') }}
           </nuxt-link>
         </div>
       </div>
@@ -259,6 +266,7 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   useUserBilling,
   userBillingGetters,
@@ -270,7 +278,6 @@ import {
 } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
-import { onSSR } from '@vue-storefront/core';
 import {
   ref,
   computed,
@@ -281,6 +288,8 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
+import { mergeItem } from '~/helpers/asyncLocalStorage';
+import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -308,6 +317,7 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
     UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
+    UserAddressDetails,
   },
   setup() {
     const router = useRouter();
@@ -363,13 +373,14 @@ export default defineComponent({
 
     const handleAddressSubmit = (reset) => async () => {
       const addressId = currentAddressId.value;
-      await save({
+      const billingDetailsData = {
         billingDetails: {
           ...billingDetails.value,
           customerAddressId: addressId,
           sameAsShipping: sameAsShipping.value,
         },
-      });
+      };
+      await save(billingDetailsData);
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userBillingGetters.getAddresses(
           userBilling.value,
@@ -380,6 +391,7 @@ export default defineComponent({
         }
       }
       reset();
+      await mergeItem('checkout', { billing: billingDetailsData });
       await router.push(`${app.localePath('/checkout/payment')}`);
       isBillingDetailsStepCompleted.value = true;
     };
@@ -395,7 +407,6 @@ export default defineComponent({
         oldBilling = { ...billingDetails.value };
         billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
-        canAddNewAddress.value = true;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
           await searchCountry({ id: billingDetails?.value.country_code });
@@ -450,14 +461,17 @@ export default defineComponent({
       billingDetails.value = addressFromApiToForm(addr || {});
     });
 
-    onSSR(async () => {
+    onMounted(async () => {
+      const validStep = await isPreviousStepValid('shipping');
+      if (!validStep) {
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+
       await Promise.all([
         loadCountries(),
         load(),
       ]);
-    });
 
-    onMounted(async () => {
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });
       }
@@ -511,6 +525,29 @@ export default defineComponent({
 .title {
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
   --heading-title-font-weight: var(--font-weight--bold);
+}
+
+.copy__shipping {
+  &__address {
+    margin-bottom: var(--spacer-xs);
+    @include for-desktop {
+      margin-right: var(--spacer-sm);
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .sf-address {
+      padding: var(--spacer-xs);
+    }
+  }
+
+  &__addresses {
+    margin-bottom: var(--spacer-xl);
+    @include for-desktop {
+      display: flex;
+    }
+  }
 }
 
 .form {

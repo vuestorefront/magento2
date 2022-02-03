@@ -7,7 +7,7 @@
       class="tab-orphan"
     >
       <SfTab
-        :title="isNewAddress ? 'Add the address' : 'Update the address'"
+        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
       >
         <p class="message">
           {{ $t('Contact details updated') }}
@@ -27,7 +27,7 @@
       :open-tab="1"
       class="tab-orphan"
     >
-      <SfTab title="Addresses details">
+      <SfTab :title="$t('Addresses details')">
         <p class="message">
           {{ $t('Manage addresses') }}
         </p>
@@ -118,14 +118,15 @@ export default defineComponent({
     const route = useRoute();
     const { app } = useContext();
     const activeAddress = computed(
-      () => userAddresses.value.filter((address) => address?.id == route.value.query.id).pop(),
+      () => userAddresses.value.filter((address) => String(address?.id) === route.value.query.id).pop(),
     );
 
+    const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
     const isNewAddress = computed(() => !activeAddress.value);
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(`${app.localePath({ path: '/my-account/addresses-details', query: { id: addressId } })}`);
+      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`, query: { id: addressId } })}`);
     };
 
     const removeAddress = async (address) => {
@@ -141,7 +142,7 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(`${app.localePath('/my-account/addresses-details')}`);
+        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Addresses details')}`));
       } catch (error) {
         onError(error);
       }

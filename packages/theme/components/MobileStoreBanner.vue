@@ -1,8 +1,8 @@
 <template>
   <SfBanner
     image="/homepage/bannerD.png"
-    subtitle="Fashon to take away"
-    title="Download our application to your mobile"
+    :subtitle="$t('Fashion to take away')"
+    :title="$t('Download our application to your mobile')"
     class="sf-banner--left desktop-only banner-app"
   >
     <template #call-to-action>
@@ -12,22 +12,22 @@
           aria-label="Go to Apple Product"
           @click="() => {}"
         >
-          <img
+          <nuxt-img
             src="/homepage/apple.png"
             width="174"
             height="57"
-          >
+          />
         </SfButton>
         <SfButton
           class="banner-app__button sf-button--pure"
           aria-label="Go to Google Product"
           @click="() => {}"
         >
-          <img
+          <nuxt-img
             src="/homepage/google.png"
             width="174"
             height="57"
-          >
+          />
         </SfButton>
       </div>
     </template>

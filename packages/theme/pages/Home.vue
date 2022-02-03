@@ -43,9 +43,9 @@
 
     <LazyHydrate when-visible>
       <SfCallToAction
-        title="Subscribe to Newsletters"
-        button-text="Subscribe"
-        description="Be aware of upcoming sales and events. Receive gifts and special offers!"
+        :title="$t('Subscribe to Newsletters')"
+        :button-text="$t('Subscribe')"
+        :description="$t('Be aware of upcoming sales and events. Receive gifts and special offers!')"
         image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
         class="call-to-action"
       />
@@ -74,9 +74,11 @@ import {
   computed,
   defineComponent,
   ref,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
@@ -95,6 +97,10 @@ export default defineComponent({
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
+    const { addTags } = useCache();
+    const { app } = useContext();
+    const year = new Date().getFullYear();
+
     const {
       products: newProductsResult,
       search: newProductsSearch,
@@ -102,9 +108,9 @@ export default defineComponent({
     } = useProduct('newProducts');
     const heroes = ref([
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2021',
-        buttonText: 'Learn more',
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
         background: '#eceff1',
         image: {
           mobile:
@@ -115,9 +121,9 @@ export default defineComponent({
         link: '/c/women/women-clothing-shirts',
       },
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2021',
-        buttonText: 'Learn more',
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
         background: '#fce4ec',
         image: {
           mobile:
@@ -128,9 +134,9 @@ export default defineComponent({
         link: '/c/women/women-clothing-dresses',
       },
       {
-        title: 'Colorful summer dresses are already in store',
-        subtitle: 'SUMMER COLLECTION 2021',
-        buttonText: 'Learn more',
+        title: app.i18n.t('Colorful summer dresses are already in store'),
+        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+        buttonText: app.i18n.t('Learn more'),
         background: '#efebe9',
         image: {
           mobile:
@@ -146,8 +152,8 @@ export default defineComponent({
     const banners = ref([
       {
         slot: 'banner-A',
-        subtitle: 'Dresses',
-        title: 'Cocktail & Party',
+        subtitle: app.i18n.t('Dresses'),
+        title: app.i18n.t('Cocktail & Party'),
         description:
             'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
         buttonText: 'Shop now',
@@ -162,11 +168,10 @@ export default defineComponent({
       },
       {
         slot: 'banner-B',
-        subtitle: 'Dresses',
-        title: 'Linen Dresses',
-        description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-        buttonText: 'Shop now',
+        subtitle: app.i18n.t('Dresses'),
+        title: app.i18n.t('Linen Dresses'),
+        description: app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
               'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
@@ -178,8 +183,8 @@ export default defineComponent({
       },
       {
         slot: 'banner-C',
-        subtitle: 'T-Shirts',
-        title: 'The Office Life',
+        subtitle: app.i18n.t('T-Shirts'),
+        title: app.i18n.t('The Office Life'),
         image: {
           mobile:
               'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
@@ -191,8 +196,8 @@ export default defineComponent({
       },
       {
         slot: 'banner-D',
-        subtitle: 'Summer Sandals',
-        title: 'Eco Sandals',
+        subtitle: app.i18n.t('Summer Sandals'),
+        title: app.i18n.t('Eco Sandals'),
         image: {
           mobile:
               'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
@@ -215,6 +220,10 @@ export default defineComponent({
           position: 'ASC',
         },
       });
+
+      addTags([
+        { prefix: CacheTagPrefix.View, value: 'home' },
+      ]);
     });
 
     return {

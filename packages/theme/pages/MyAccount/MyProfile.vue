@@ -1,7 +1,7 @@
 <template>
   <SfTabs :open-tab="1">
     <!-- Personal data update -->
-    <SfTab title="Personal data">
+    <SfTab :title="$t('Personal data')">
       <p class="message">
         {{ $t('Feel free to edit') }}
       </p>
@@ -18,7 +18,7 @@
     </SfTab>
 
     <!-- Password reset -->
-    <SfTab title="Password change">
+    <SfTab :title="$t('Password change')">
       <p class="message">
         {{ $t('Change password your account') }}:<br>
       </p>
@@ -55,6 +55,7 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   validate: (value) => customerPasswordRegExp.test(value),
 });
 
@@ -79,15 +80,16 @@ export default defineComponent({
       load,
       loading,
       updateUser,
+      error,
     } = useUser();
 
     const formHandler = async (fn, onComplete, onError) => {
-      try {
-        const data = await fn();
-        if (!data) throw new Error('API Error');
-        await onComplete(data);
-      } catch (error) {
-        onError(error);
+      await fn();
+      const actionErr = error.value.changePassword || error.value.updateUser;
+      if (actionErr) {
+        onError(actionErr);
+      } else {
+        onComplete();
       }
     };
 
@@ -100,13 +102,14 @@ export default defineComponent({
       onComplete,
       onError,
     );
+
     const updatePassword = ({
       form,
       onComplete,
       onError,
     }) => formHandler(async () => changePassword({
-      currentPassword: form.value.currentPassword,
-      newPassword: form.value.newPassword,
+      current: form.value.currentPassword,
+      new: form.value.newPassword,
     }), onComplete, onError);
 
     onSSR(async () => {

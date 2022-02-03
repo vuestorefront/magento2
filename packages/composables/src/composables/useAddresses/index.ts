@@ -35,7 +35,7 @@ RemoveAddressInput> = {
 
     const { data } = await context.$magento.api.getCustomerAddresses();
 
-    return data.customer.addresses;
+    return data?.customer?.addresses ?? [];
   },
   save: async (context: Context, saveParams) => {
     Logger.debug('[Magento] save user address:', saveParams.address);
@@ -45,7 +45,7 @@ RemoveAddressInput> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.createCustomerAddress;
+    return data?.createCustomerAddress ?? {};
   },
   remove: async (context: Context, params) => {
     Logger.debug('[Magento] remove user addresses');
@@ -67,7 +67,7 @@ RemoveAddressInput> = {
 
     Logger.debug('[Result]:', { data });
 
-    return data.updateCustomerAddress;
+    return data?.updateCustomerAddress ?? {};
   },
 };
 

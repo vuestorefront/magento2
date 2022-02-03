@@ -1,42 +1,42 @@
 <template>
   <div>
     <LazyHydrate when-visible>
-      <TopBar class="desktop-only" />
+      <CartSidebar />
     </LazyHydrate>
-
+    <LazyHydrate when-visible>
+      <WishlistSidebar />
+    </LazyHydrate>
+    <LazyHydrate when-visible>
+      <LoginModal />
+    </LazyHydrate>
+    <LazyHydrate when-visible>
+      <Notification />
+    </LazyHydrate>
+    <TopBar class="desktop-only" />
     <AppHeader />
-
     <div id="layout">
       <nuxt :key="route.fullPath" />
-
-      <BottomNavigation />
-      <CartSidebar />
-      <WishlistSidebar />
-      <LoginModal />
-      <Notification />
     </div>
-    <LazyHydrate when-visible>
-      <AppFooter />
-    </LazyHydrate>
+    <BottomNavigation />
+    <AppFooter />
   </div>
 </template>
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { onSSR } from '@vue-storefront/core';
-import { useRoute, defineComponent } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
+import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
-import AppFooter from '~/components/AppFooter.vue';
 import TopBar from '~/components/TopBar.vue';
 import CartSidebar from '~/components/CartSidebar.vue';
 import WishlistSidebar from '~/components/WishlistSidebar.vue';
 import LoginModal from '~/components/LoginModal.vue';
 import Notification from '~/components/Notification';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+import AppFooter from '~/components/AppFooter.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',
@@ -56,12 +56,11 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onSSR(async () => {
-      await loadConfiguration();
-      await loadUser();
+    onMounted(() => {
+      loadConfiguration();
+      loadUser();
     });
 
     return {
