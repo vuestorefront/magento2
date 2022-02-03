@@ -30,7 +30,7 @@ module.exports = {
         recaptcha: {
           isEnabled: config.get('recaptchaEnabled'),
           sitekey: config.get('recaptchaSiteKey'),
-          secretkey: config.get('recaptchaSecretkey'),
+          secretkey: config.get('recaptchaSecretKey'),
           version: config.get('recaptchaVersion'),
           score: config.get('recaptchaMinScore'),
         },
