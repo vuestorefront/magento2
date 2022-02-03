@@ -72,21 +72,8 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
-      - name: Deploy on demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/
+      - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/
         if: startsWith(github.ref, 'refs/heads/develop')
-        run: |
-          if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
-              "code":"demo-magento2-canary",
-              "region":"europe-west1.gcp",
-              "frontContainerVersion":"${{ github.sha }}"
-            }' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
-            echo "Instance updated"
-          else
-            echo "Something went wrong during the update process..."
-            exit 1
-          fi
-      - name: Deploy on demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-        if: startsWith(github.ref, 'refs/heads/release')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-dev",
@@ -98,6 +85,33 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
+      - name: Deploy on demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
+        if: startsWith(github.ref, 'refs/heads/release')
+        run: |
+          if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
+              "code":"demo-magento2-canary",
+              "region":"europe-west1.gcp",
+              "frontContainerVersion":"${{ github.sha }}"
+            }' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
+            echo "Instance updated"
+          else
+            echo "Something went wrong during the update process..."
+            exit 1
+          fi
+      - name: Deploy on demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io
+        if: startsWith(github.ref, 'refs/heads/enterprise')
+        run: |
+          if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
+              "code":"demo-magento2-enterprise",
+              "region":"europe-west1.gcp",
+              "frontContainerVersion":"${{ github.sha }}"
+            }' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
+            echo "Instance updated"
+          else
+            echo "Something went wrong during the update process..."
+            exit 1
+          fi
+
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
