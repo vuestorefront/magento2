@@ -26,14 +26,14 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
 
         } */
         window.location.replace(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token/${userToken}/cart/${cartToken}`);
-        return Promise.resolve('');
+        return '';
       }
 
       window.location.replace(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token//cart/${cartToken}`);
-      return Promise.resolve('');
+      return '';
     }
 
-    return Promise.resolve(params.baseUrl);
+    return params.baseUrl;
   },
 };
 

@@ -77,7 +77,7 @@ import {
   SfProductCard,
   SfSection,
   SfLoader,
-  SfButton
+  SfButton,
 } from '@storefront-ui/vue';
 
 import {

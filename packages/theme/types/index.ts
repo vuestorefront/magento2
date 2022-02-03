@@ -1,0 +1,3 @@
+interface UseContextReturn {
+  $recaptcha: any
+}

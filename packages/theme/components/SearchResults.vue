@@ -283,7 +283,7 @@ export default defineComponent({
       isInWishlist,
       isAuthenticated,
       getMagentoImage,
-      imageSizes
+      imageSizes,
     };
   },
 });
