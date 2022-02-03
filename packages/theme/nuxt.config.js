@@ -234,6 +234,9 @@ export default () => {
           }),
         }),
       ],
+      extractCSS: {
+        allChunks: true,
+      },
     },
     plugins: [
       '~/plugins/token-expired',
