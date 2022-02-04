@@ -4,27 +4,10 @@ You can activate the reCaptchta feature using these Guidelines.
 
 ## Activate reCaptcha module
 
-Add the `@nuxtjs/recaptcha'` module to `modules` in the `nuxt.config.js` file.
+Add the `@nuxtjs/recaptcha'` module to `dependencies`
 
-```javascript
-modules: [
-  // other modules
-  '@nuxtjs/recaptcha',
-],
-
-```
-
-Add additional config to the `next.config.js`:
-```javascript
-recaptcha: {
-    hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
-    siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-    version: config.get('recaptchaVersion'), // Version 2 or 3
-    size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
-  },
-  publicRuntimeConfig: {
-    isRecaptcha: config.get('recaptchaEnabled'),
-  },
+```bash
+yarn add @nuxtjs/recaptcha
 ```
 
 ## Configure the reCaptcha

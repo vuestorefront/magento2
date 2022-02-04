@@ -148,6 +148,7 @@
       </template>
     </SfHeader>
     <SearchResults
+      v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
       @close="closeSearch"
@@ -196,7 +197,6 @@ import {
   useUiState,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
-import SearchResults from '~/components/SearchResults.vue';
 
 export default defineComponent({
   components: {
@@ -206,7 +206,7 @@ export default defineComponent({
     SfButton,
     SfBadge,
     SfSearchBar,
-    SearchResults,
+    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/SearchResults.vue'),
     SfOverlay,
   },
   directives: { clickOutside },
@@ -215,7 +215,7 @@ export default defineComponent({
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
-    const { isAuthenticated, load: loadUser } = useUser();
+    const { isAuthenticated } = useUser();
     const { cart } = useCart();
     const { wishlist } = useWishlist('GlobalWishlist');
     const {
@@ -258,12 +258,9 @@ export default defineComponent({
     };
 
     onSSR(async () => {
-      await Promise.all([
-        loadUser(),
-        categoriesListSearch({
-          pageSize: 20,
-        }),
-      ]);
+      await categoriesListSearch({
+        pageSize: 20,
+      });
     });
 
     const showSearch = () => {
