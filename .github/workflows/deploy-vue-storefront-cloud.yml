@@ -5,6 +5,7 @@ on:
       - main
       - develop
       - release/*
+      - build/dependencies
 
 jobs:
   build:
@@ -86,7 +87,7 @@ jobs:
             exit 1
           fi
       - name: Deploy on demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
-        if: startsWith(github.ref, 'refs/heads/release')
+        if: startsWith(github.ref, 'refs/heads/build/dependencies')
         run: |
           if curl -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}'  -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X POST -d '{
               "code":"demo-magento2-canary",
