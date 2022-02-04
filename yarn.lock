@@ -4517,7 +4517,7 @@
     cors "^2.8.5"
     express "^4.17.1"
 
-"@vue-storefront/nuxt-theme@~2.5.4":
+"@vue-storefront/nuxt-theme@^2.5.4":
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@vue-storefront/nuxt-theme/-/nuxt-theme-2.5.4.tgz#7a8172836929afaf23825054d954414cf46cb859"
   integrity sha512-X+y9eQ+2RSgx3nHUKMKiYUVP+016gxR9CgjD19DIM7Mezy6P6oos7Qbpkjm7yBObfHLl8bo1q8VSmxyVgntRaA==

@@ -21,17 +21,14 @@
     <AppFooter />
   </div>
 </template>
-
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
-import {
-  useUser,
-} from '@vue-storefront/magento';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+import { useUiState } from '~/composables';
 import AppHeader from '~/components/AppHeader.vue';
-import BottomNavigation from '~/components/BottomNavigation.vue';
 import TopBar from '~/components/TopBar.vue';
+import BottomNavigation from '~/components/BottomNavigation.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',
@@ -49,17 +46,17 @@ export default defineComponent({
   },
 
   setup() {
+    const { isCartSidebarOpen } = useUiState();
     const route = useRoute();
-    const { load: loadUser } = useUser();
-    const { loadConfiguration } = useMagentoConfiguration();
+   const { loadConfiguration } = useMagentoConfiguration();
 
     onMounted(() => {
       loadConfiguration();
-      loadUser();
     });
 
     return {
       route,
+      isCartSidebarOpen,
     };
   },
 });

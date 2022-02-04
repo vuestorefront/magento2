@@ -1,33 +1,26 @@
 <template>
-  <SfLoader :loading="loading">
-    <div>
-      <SfHeading
-        v-if="page.content_heading"
-        :title="page.content_heading"
-        :level="1"
-        class="sf-heading--no-underline sf-heading--left"
-      />
-      <HTMLContent
-        :content="page.content"
-      />
-    </div>
-  </SfLoader>
+  <div>
+    <SfHeading
+      v-if="page.content_heading"
+      :title="page.content_heading"
+      :level="1"
+      class="sf-heading--no-underline sf-heading--left"
+    />
+    <HTMLContent
+      :content="page.content"
+    />
+  </div>
 </template>
 <script>
 import {
-  SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { useContent } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
-import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import HTMLContent from '~/components/HTMLContent';
-import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   components: {
     HTMLContent,
-    SfLoader,
     SfHeading,
   },
   props: {
@@ -36,33 +29,22 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
-    const { addTags } = useCache();
-    const {
-      page,
-      error,
-      loadContent,
-      loading,
-    } = useContent('cmsPage');
-    const route = useRoute();
-    const { error: nuxtError } = useContext();
-    const { params } = route.value;
+  // TODO: check if it's possible to use Redis with asyncData
+  async asyncData({ app, params, error: nuxtError }) {
+    const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
 
-    onSSR(async () => {
-      await loadContent({ identifier: params.slug || props.identifier });
-      if (error?.value?.content) nuxtError({ statusCode: 404 });
+    if (!data.cmsPage) {
+      nuxtError({ statusCode: 404 });
+    }
 
-      addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
-    });
     return {
-      page,
-      loading,
+      page: data.cmsPage,
     };
   },
   head() {
-    const title = this.page.meta_title ? this.page.meta_title : this.page.title;
+    const title = this.page?.meta_title ? this.page?.meta_title : this.page?.title;
     const meta = [];
-    if (this.page.meta_description) {
+    if (this.page?.meta_description) {
       meta.push({
         hid: 'description',
         name: 'description',
