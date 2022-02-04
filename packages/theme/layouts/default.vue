@@ -42,6 +42,7 @@ export default defineComponent({
     LoadWhenVisible,
     LazyHydrate,
     AppHeader,
+    TopBar,
     BottomNavigation,
     IconSprite,
     TopBar,
