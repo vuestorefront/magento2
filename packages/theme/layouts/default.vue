@@ -32,25 +32,20 @@ import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import TopBar from '~/components/TopBar.vue';
-import CartSidebar from '~/components/CartSidebar.vue';
-import WishlistSidebar from '~/components/WishlistSidebar.vue';
-import LoginModal from '~/components/LoginModal.vue';
-import Notification from '~/components/Notification';
-import AppFooter from '~/components/AppFooter.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
     LazyHydrate,
-    TopBar,
     AppHeader,
+    TopBar,
     BottomNavigation,
-    AppFooter,
-    CartSidebar,
-    WishlistSidebar,
-    LoginModal,
-    Notification,
+    AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
+    CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
+    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
+    LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
+    Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification'),
   },
 
   setup() {

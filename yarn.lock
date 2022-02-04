@@ -9,7 +9,7 @@
   dependencies:
     "@types/throttle-debounce" "^2.1.0"
 
-"@apollo/client@^3.5.7", "@apollo/client@^3.5.8":
+"@apollo/client@^3.5.8":
   version "3.5.8"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.5.8.tgz#7215b974c5988b6157530eb69369209210349fe0"
   integrity sha512-MAm05+I1ullr64VLpZwon/ISnkMuNLf6vDqgo9wiMhHYBGT4yOAbAIseRdjCHZwfSx/7AUuBgaTNOssZPIr6FQ==
@@ -3213,11 +3213,6 @@
     serve-static "^1.14.1"
     workbox-cdn "^5.1.4"
 
-"@nuxtjs/recaptcha@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/recaptcha/-/recaptcha-1.0.4.tgz#a12e3faa619c82d3e003b59cb6307516c8416ec3"
-  integrity sha512-4K9cXaVGZrcXy3ys5OBL1/njkOxTpRjLDKLU/S6qatyISdGLv+tSFLSCJeEKTCO7UHC1fMCTb5UlOWajkQqPdw==
-
 "@nuxtjs/style-resources@^1.0.0", "@nuxtjs/style-resources@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/style-resources/-/style-resources-1.2.1.tgz#9a2b6580b2ed9b06e930bee488a56b8376a263de"
@@ -4511,28 +4506,6 @@
     is-https "^3.0.2"
     lodash-es "^4.17.15"
     vue "^2.6.11"
-
-"@vue-storefront/magento-api@1.0.0-rc.5.3":
-  version "1.0.0-rc.5.3"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/magento-api/-/magento-api-1.0.0-rc.5.3.tgz#0640254b65e4db34575ec0780aa6dbcac732f401"
-  integrity sha512-9he0s/DakmP6lTMuoZJwRGxGRXumcABXsd5GAp2TmidC4NIpsbq5TenrnkTw25JpLwu/fU/PW07dDGSpV9Kn4g==
-  dependencies:
-    "@apollo/client" "^3.5.7"
-    graphql "^16.2.0"
-    graphql-tag "^2.12.6"
-    isomorphic-fetch "^3.0.0"
-
-"@vue-storefront/magento@1.0.0-rc.5.3":
-  version "1.0.0-rc.5.3"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/magento/-/magento-1.0.0-rc.5.3.tgz#3e02b50b6af0884abdd8b549998800aeb36bedd6"
-  integrity sha512-lnWDlhr6sRCTJjDZntwDIhFZkdWqbMWO0VUEpdu1HP1TJRtoerwQWtFcabzlzawNpDWSmf8DOUPmTO4Jm9hqyQ==
-  dependencies:
-    "@vue-storefront/core" "~2.5.4"
-    "@vue-storefront/magento-api" "1.0.0-rc.5.3"
-    "@vue/composition-api" "^1.4.1"
-    cookie-universal "^2.1.5"
-    vue "^2.6.14"
-    vue-demi "^0.12.1"
 
 "@vue-storefront/middleware@~2.5.4":
   version "2.5.4"
@@ -10454,7 +10427,7 @@ graphql-ws@^5.4.1:
   resolved "https://registry.yarnpkg.com/graphql-ws/-/graphql-ws-5.5.5.tgz#f375486d3f196e2a2527b503644693ae3a8670a9"
   integrity sha512-hvyIS71vs4Tu/yUYHPvGXsTgo0t3arU820+lT5VjZS2go0ewp2LqyCgxEN56CzOG7Iys52eRhHBiD1gGRdiQtw==
 
-graphql@*, graphql@^16.2.0, graphql@^16.3.0:
+graphql@*, graphql@^16.3.0:
   version "16.3.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.3.0.tgz#a91e24d10babf9e60c706919bb182b53ccdffc05"
   integrity sha512-xm+ANmA16BzCT5pLjuXySbQVFwH3oJctUVdy81w1sV0vBU0KgDdBGtxQOUd5zqOBk/JayAFeG8Dlmeq74rjm/A==
