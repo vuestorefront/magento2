@@ -69,10 +69,9 @@ RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.
 
 RUN yarn install
 
-RUN yarn install && yarn build:api-client && yarn build:composables && yarn cache clean --all
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing @nuxtjs/sentry @vsf-enterprise/redis-cache
 
-RUN rm -rf /var/www/node_modules && yarn install --prod && npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing @nuxtjs/sentry @vsf-enterprise/redis-cache && yarn build:theme
-
+RUN yarn build && yarn cache clean --all
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
 RUN chmod a+x /usr/local/bin/vue-storefront.sh
