@@ -7,6 +7,12 @@ export const handleRetry = () => (count, operation, error) => {
     return false;
   }
 
+  if ([502, 503].indexOf(error?.statusCode) !== -1) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    Logger.debug(`Apollo retry-link, the operation (${operation.operationName}) failed with ${error.statusCode} status code, retrying... (attempt: ${count})`);
+    return true;
+  }
+
   if (error?.result?.message === 'invalid_token') {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     Logger.debug(`Apollo retry-link, the operation (${operation.operationName}) sent with wrong token, creating a new one... (attempt: ${count})`);

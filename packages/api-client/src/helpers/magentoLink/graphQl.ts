@@ -19,6 +19,7 @@ import standardURL from '../url/standardURL';
 const createErrorHandler = () => onError(({
   graphQLErrors,
   networkError,
+  response
 }) => {
   if (graphQLErrors) {
     graphQLErrors.forEach(({
@@ -28,7 +29,11 @@ const createErrorHandler = () => onError(({
     }) => {
       if (!message.includes('Resource Owner Password Credentials Grant')) {
         if (!locations) {
-          Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+          if (response?.data) {
+            Logger.warn(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+          } else {
+            Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+          }
           return;
         }
 
@@ -37,13 +42,17 @@ const createErrorHandler = () => onError(({
           line,
         }) => `[column: ${column}, line: ${line}]`);
 
-        Logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+        if (response?.data) {
+          Logger.warn(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+        } else {
+          Logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+        }
       }
     });
   }
 
   if (networkError) {
-    Logger.error(`[Network error]: ${networkError}`);
+    Logger.error(`[Network error]: ${networkError.message}`);
   }
 });
 
@@ -60,7 +69,8 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     useGETForQueries: true,
     uri: settings.api,
     // @ts-ignore
-    fetch: (url, options) => fetch(standardURL(url), options),
+    fetch: (url, options) => fetch(standardURL(url.toString()), options)
+      .then(response => response.status >= 500 ? Promise.reject({ code: response.status, message: response.statusText }) : response),
     ...settings.customApolloHttpLinkOptions,
   });
 
@@ -68,7 +78,10 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
 
   const errorRetry = new RetryLink({
     attempts: handleRetry(),
-    delay: () => 0,
+    delay: {
+      initial: 10,
+      max: 100,
+    },
   });
 
   const afterwareLink = new ApolloLink((operation, forward) => forward(operation).map((response) => {
