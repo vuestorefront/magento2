@@ -25,7 +25,6 @@
 import LazyHydrate from 'vue-lazy-hydration';
 import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
-import { useUiState } from '~/composables';
 import AppHeader from '~/components/AppHeader.vue';
 import TopBar from '~/components/TopBar.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
@@ -46,9 +45,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { isCartSidebarOpen } = useUiState();
     const route = useRoute();
-   const { loadConfiguration } = useMagentoConfiguration();
+    const { loadConfiguration } = useMagentoConfiguration();
 
     onMounted(() => {
       loadConfiguration();
@@ -56,7 +54,6 @@ export default defineComponent({
 
     return {
       route,
-      isCartSidebarOpen,
     };
   },
 });

@@ -15,7 +15,10 @@
 import {
   SfHeading,
 } from '@storefront-ui/vue';
-import { defineComponent, useAsync, useContext, useRoute } from '@nuxtjs/composition-api';
+import {
+  defineComponent, useAsync, useContext, useRoute,
+} from '@nuxtjs/composition-api';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
@@ -29,8 +32,8 @@ export default defineComponent({
       default: '',
     },
   },
-  // TODO: check if it's possible to use Redis with asyncData
   setup() {
+    const { addTags } = useCache();
     const { app, error: nuxtError } = useContext();
     const route = useRoute();
     const { params } = route.value;
@@ -41,6 +44,8 @@ export default defineComponent({
         nuxtError({ statusCode: 404 });
       }
 
+      addTags([{ prefix: CacheTagPrefix.View, value: data.cmsPage.identifier }]);
+
       return data.cmsPage;
     });
 
@@ -48,17 +53,6 @@ export default defineComponent({
       page,
     };
   },
-  // async asyncData({ app, params, error: nuxtError }) {
-  //   const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
-  //
-  //   if (!data.cmsPage) {
-  //     nuxtError({ statusCode: 404 });
-  //   }
-  //
-  //   return {
-  //     page: data.cmsPage,
-  //   };
-  // },
   head() {
     const title = this.page?.meta_title ? this.page?.meta_title : this.page?.title;
     const meta = [];
