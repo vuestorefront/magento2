@@ -15,7 +15,7 @@
 import {
   SfHeading,
 } from '@storefront-ui/vue';
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, useAsync, useContext, useRoute } from '@nuxtjs/composition-api';
 import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
@@ -30,17 +30,35 @@ export default defineComponent({
     },
   },
   // TODO: check if it's possible to use Redis with asyncData
-  async asyncData({ app, params, error: nuxtError }) {
-    const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
+  setup() {
+    const { app, error: nuxtError } = useContext();
+    const route = useRoute();
+    const { params } = route.value;
+    const page = useAsync(async () => {
+      const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
 
-    if (!data.cmsPage) {
-      nuxtError({ statusCode: 404 });
-    }
+      if (!data?.cmsPage) {
+        nuxtError({ statusCode: 404 });
+      }
+
+      return data.cmsPage;
+    });
 
     return {
-      page: data.cmsPage,
+      page,
     };
   },
+  // async asyncData({ app, params, error: nuxtError }) {
+  //   const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
+  //
+  //   if (!data.cmsPage) {
+  //     nuxtError({ statusCode: 404 });
+  //   }
+  //
+  //   return {
+  //     page: data.cmsPage,
+  //   };
+  // },
   head() {
     const title = this.page?.meta_title ? this.page?.meta_title : this.page?.title;
     const meta = [];
