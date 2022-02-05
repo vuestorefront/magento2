@@ -23,6 +23,8 @@ query CustomerAvailableShippingMethods {
           currency
           value
         }
+        additional_data
+        description
       }
     }
   }

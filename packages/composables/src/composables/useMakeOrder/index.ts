@@ -1,10 +1,11 @@
 import {
-  Context, Logger, UseMakeOrder, useMakeOrderFactory, UseMakeOrderFactoryParams,
+  Context, Logger,
 } from '@absolute-web/vsf-core';
-import { Order } from '@absolute-web/magento-api';
+import { Order, PaymentMethodInput } from '@absolute-web/magento-api';
+import { useMakeOrderFactory, UseMakeOrderFactoryParams } from '../../factories/useMakeOrderFactory';
 import useCart from '../useCart';
 
-const factoryParams: UseMakeOrderFactoryParams<Order> = {
+const factoryParams: UseMakeOrderFactoryParams<Order, PaymentMethodInput> = {
   provide() {
     return {
       cart: useCart(),
@@ -21,8 +22,30 @@ const factoryParams: UseMakeOrderFactoryParams<Order> = {
 
     return data.placeOrder.order;
   },
+
+  setPaymentAndMake: async (context: Context, { paymentMethod }): Promise<Order> => {
+    Logger.debug('[Magento] Make Order', { paymentMethod });
+    const { compliance: { value: compliance }, cart: { value: { id } } } = context.cart;
+
+    const { data } = await context.$magento.api.setPaymentMethodAndPlaceOrder({
+      setPaymentMethod: {
+        cart_id: id,
+        payment_method: {
+          ...paymentMethod,
+        },
+      },
+      placeOrder: {
+        cart_id: id,
+        ...compliance
+      }
+    });
+
+    Logger.debug('[Result]:', { data });
+
+    return data.placeOrder.order;
+  },
 };
 
-const useMakeOrder: () => UseMakeOrder<Order> = useMakeOrderFactory<Order>(factoryParams);
+const useMakeOrder = useMakeOrderFactory<Order, PaymentMethodInput>(factoryParams);
 
 export default useMakeOrder;

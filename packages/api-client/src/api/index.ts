@@ -62,6 +62,7 @@ export { default as resetPassword } from './resetPassword';
 export { default as revokeCustomerToken } from './revokeCustomerToken';
 export { default as setBillingAddressOnCart } from './setBillingAddressOnCart';
 export { default as setGuestEmailOnCart } from './setGuestEmailOnCart';
+export { default as setPaymentMethodAndPlaceOrder } from './setPaymentMethodAndPlaceOrder';
 export { default as setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 export { default as setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 export { default as setShippingMethodsOnCart } from './setShippingMethodsOnCart';

@@ -11,8 +11,8 @@ import {
 import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
 export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {
-  load: (context: Context, params?: ComposableFunctionArgs<{ }>) => Promise<STATE>;
-  save: (context: Context, params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>) => Promise<STATE>;
+  load: (context: Context, params?: ComposableFunctionArgs<{ state: Ref<STATE> }>) => Promise<STATE>;
+  save: (context: Context, params: ComposableFunctionArgs<{ state: Ref<STATE>, paymentMethod: PAYMENT_METHOD }>) => Promise<STATE>;
 }
 
 export const usePaymentProviderFactory = <STATE, PAYMENT_METHOD, API extends PlatformApi = any>(

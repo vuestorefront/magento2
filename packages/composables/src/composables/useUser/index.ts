@@ -41,7 +41,7 @@ CustomerCreateInput & { email: string; password: string }
   logOut: async (context: Context, params) => {
     const apiState = context.$magento.config.state;
 
-    await context.$magento.api.revokeCustomerToken(params.customQuery);
+    await context.$magento.api.revokeCustomerToken(params?.customQuery || {});
 
     apiState.setCustomerToken(null);
     apiState.setCartId(null);

@@ -5,11 +5,13 @@ import {
   UseShippingProviderParams,
 } from '@absolute-web/vsf-core';
 import {
-  SetShippingMethodsOnCartInput, ShippingMethodInput,
+  SelectedShippingMethod,
+  SetShippingMethodsOnCartInput,
+  ShippingMethodInput,
 } from '@absolute-web/magento-api';
 import useCart from '../useCart';
 
-const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
+const factoryParams: UseShippingProviderParams<SelectedShippingMethod, ShippingMethodInput> = {
   provide() {
     return {
       cart: useCart(),
@@ -22,6 +24,10 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
       await context.cart.load({ customQuery });
     }
 
+    if (!context.cart.cart?.value) {
+      throw context.cart.error.value.load ? context.cart.error.value.load : new Error('Error while loading shipping methods');
+    }
+
     return context
       .cart
       .cart
@@ -31,8 +37,10 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
   save: async (context: Context, params) => {
     Logger.debug('[Magento] saveShippingProvider', { params });
 
+    const cartId = context.$magento.config.state.getCartId();
+
     const shippingMethodParams: SetShippingMethodsOnCartInput = {
-      cart_id: context.cart.cart.value.id,
+      cart_id: cartId,
       shipping_methods: [{
         ...params.shippingMethod,
       }],
@@ -57,11 +65,11 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
     // end workaround
 
     context.cart.setCart({
-      ...cart,
+      ...context.cart.cart.value,
       shipping_addresses: shippingAddresses,
       prices: {
-        ...prices,
-        ...cart.prices,
+        ...(prices || {}),
+        ...(cart.prices || {}),
       },
     });
 
@@ -71,4 +79,4 @@ const factoryParams: UseShippingProviderParams<any, ShippingMethodInput> = {
   },
 };
 
-export default useShippingProviderFactory<any, ShippingMethodInput>(factoryParams);
+export default useShippingProviderFactory<SelectedShippingMethod, ShippingMethodInput>(factoryParams);

@@ -8,6 +8,8 @@ import {
   UseCart as UseCartBase,
   UseCartErrors as UseCartErrorsBase,
   UseUserErrors as UseUserErrorsBase,
+  UseMakeOrder as UseMakeOrderBase,
+  UseMakeOrderErrors as UseMakeOrderErrorsBase,
 } from '@absolute-web/vsf-core';
 import { ComputedRef } from '@vue/composition-api';
 import { FetchPolicy } from './index';
@@ -80,18 +82,15 @@ export interface UseContent<PAGE, BLOCK, API extends PlatformApi = any> extends 
   error: ComputedProperty<UseContentErrors>;
 }
 
-export interface UseGetShippingMethods<SHIPPING_METHOD, API extends PlatformApi = any> extends Composable<API> {
-  state: ComputedProperty<SHIPPING_METHOD[]>;
-
-  setState(state: SHIPPING_METHOD[]): void;
-
-  load: (params: ComposableFunctionArgs<{ cartId: string }>) => Promise<SHIPPING_METHOD[]>;
-  result: ComputedProperty<SHIPPING_METHOD[]>;
-  error: ComputedProperty<UseGetShippingMethodsErrors>;
+export interface UseGetCartMethods<METHOD, API extends PlatformApi = any> extends Composable<API> {
+  setMethods: (newMethods: METHOD[]) => void;
+  load: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
+  result: ComputedProperty<METHOD[]>;
+  error: ComputedProperty<UseGetCartMethodsErrors>;
   loading: ComputedProperty<boolean>;
 }
 
-export interface UseGetShippingMethodsErrors {
+export interface UseGetCartMethodsErrors {
   load: Error;
 }
 
@@ -563,4 +562,13 @@ export interface UseGuestRmaList<GUEST_RMA_LIST_DATA,
   result: ComputedProperty<GUEST_RMA_LIST_DATA>;
   error: ComputedProperty<UseGuestRmaListErrors>;
   loading: ComputedProperty<boolean>;
+}
+
+export interface UseMakeOrderErrors extends UseMakeOrderErrorsBase {
+  setPaymentAndMake: Error;
+}
+
+export interface UseMakeOrder<ORDER, PAYMENT_METHOD, API extends PlatformApi = any> extends UseMakeOrderBase<ORDER, API> {
+  setPaymentAndMake: (params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>) => Promise<void>;
+  error: ComputedProperty<UseMakeOrderErrors>;
 }

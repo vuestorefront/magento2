@@ -27,6 +27,8 @@ mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {
             currency
             value
           }
+          additional_data
+          description
         }
       }
       prices {

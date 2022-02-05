@@ -23,6 +23,7 @@ export { default as useEstimateShippingMethods } from './composables/useEstimate
 export { default as useExternalCheckout } from './composables/useExternalCheckout';
 export { default as useFacet } from './composables/useFacet';
 export { default as useForgotPassword } from './composables/useForgotPassword';
+export { default as useGetPaymentMethods } from './composables/useGetPaymentMethods';
 export { default as useGetShippingMethods } from './composables/useGetShippingMethods';
 export { default as useGuestRequestReturn } from './composables/useGuestRequestReturn';
 export { default as useGuestRma } from './composables/useGuestRma';

@@ -23,6 +23,8 @@ query GuestAvailableShippingMethods($cartId: String!) {
           currency
           value
         }
+        additional_data
+        description
       }
     }
   }

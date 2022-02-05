@@ -21,12 +21,8 @@ export default async (
     },
   });
 
-  try {
-    return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
-      mutation: placeOrder.query,
-      variables: placeOrder.variables,
-    });
-  } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
-  }
+  return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
+    mutation: placeOrder.query,
+    variables: placeOrder.variables,
+  });
 };

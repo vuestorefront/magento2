@@ -475,6 +475,14 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
 
+  setPaymentMethodAndPlaceOrder(
+    input: {
+      setPaymentMethod: SetPaymentMethodOnCartInputs,
+      placeOrder: PlaceOrderInput
+    },
+    customQuery?: CustomQuery
+  ): Promise<FetchResult<SetPaymentMethodOnCartMutation & PlaceOrderMutation>>;
+
   setPaymentMethodOnCart(
     input: SetPaymentMethodOnCartInputs,
     customQuery?: CustomQuery

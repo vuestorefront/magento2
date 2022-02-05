@@ -12,9 +12,11 @@ const factoryParams: UseGuestUserFactoryParams<any, { email:string }> = {
   attachToCart: async (context, params) => {
     Logger.debug('[Magento]: Attach guest cart to user');
 
+    const cartId = context.$magento.config.state.getCartId();
+
     const emailOnCartInput: SetGuestEmailOnCartInput = {
       email: params.email,
-      cart_id: context.cart.cart.value.id,
+      cart_id: cartId,
     };
 
     // workaround to save email to the cart,
