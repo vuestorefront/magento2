@@ -77,22 +77,6 @@ export default () => {
           ],
         },
       }],
-      // @core-development-only-start
-      ['@vue-storefront/nuxt-theme', {
-        generate: {
-          replace: {
-            apiClient: '@vue-storefront/magento-api',
-            composables: '@vue-storefront/magento',
-          },
-        },
-        routes: false,
-      }],
-      // @core-development-only-end
-      /* project-only-start
-      ['@vue-storefront/nuxt-theme', {
-        routes: false,
-      }],
-      project-only-end */
       ['@vue-storefront/magento/nuxt', {
         i18n: {
           useNuxtI18nConfig: true,
@@ -218,13 +202,14 @@ export default () => {
       '~/plugins/token-expired',
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
+      '~/plugins/dompurify',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
     ],
     router: {
       extendRoutes(routes) {
-        getRoutes(`${__dirname}/_theme`)
+        getRoutes()
           .forEach((route) => routes.unshift(route));
       },
     },

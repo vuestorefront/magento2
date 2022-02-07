@@ -38,7 +38,6 @@
     "@vue-storefront/magento": "1.0.0-rc.5.4",
     "@vue-storefront/middleware": "~2.5.4",
     "@vue-storefront/nuxt": "~2.5.4",
-    "@vue-storefront/nuxt-theme": "~2.5.4",
     "convict": "^6.2.1",
     "convict-format-with-validator": "^6.2.0",
     "cookie-universal-nuxt": "^2.1.5",
