@@ -171,7 +171,6 @@ import {
   cartGetters,
   categoryGetters,
   useCart,
-  useCategory,
   useCategorySearch,
   useFacet,
   useUser, useWishlist, wishlistGetters,
@@ -184,8 +183,8 @@ import {
   defineComponent,
   useRouter,
   useContext,
+  useAsync,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import {
   mapMobileObserver,
@@ -227,10 +226,6 @@ export default defineComponent({
       result: categories,
       search: categoriesSearch,
     } = useCategorySearch('AppHeader:Categories');
-    const {
-      categories: categoryList,
-      search: categoriesListSearch,
-    } = useCategory('AppHeader:CategoryList');
 
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
@@ -246,6 +241,13 @@ export default defineComponent({
     });
 
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
+    const categoryList = useAsync(async () => {
+      const { data } = await app.$vsf.$magento.api.categoryList({
+        pageSize: 20,
+      });
+
+      return data?.categories?.items;
+    });
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
 
@@ -256,12 +258,6 @@ export default defineComponent({
         toggleLoginModal();
       }
     };
-
-    onSSR(async () => {
-      await categoriesListSearch({
-        pageSize: 20,
-      });
-    });
 
     const showSearch = () => {
       if (!isSearchOpen.value) {
