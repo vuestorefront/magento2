@@ -43,6 +43,7 @@
     "convict-format-with-validator": "^6.2.0",
     "cookie-universal-nuxt": "^2.1.5",
     "deepdash": "^5.3.9",
+    "dotenv": "^16.0.0",
     "isomorphic-dompurify": "^0.18.0",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
@@ -69,7 +70,6 @@
     "cypress-pipe": "^2.0.0",
     "cypress-tags": "^0.3.0",
     "deepmerge": "^4.2.2",
-    "dotenv": "^15.0.0",
     "ejs": "^3.1.6",
     "jest": "^27.4.7",
     "jest-date-mock": "^1.0.8",
@@ -99,6 +99,6 @@
     "vue": "^2.6.11"
   },
   "engines": {
-    "node": ">=16.x"
+    "node": "^16.13"
   }
 }
