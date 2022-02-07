@@ -26,7 +26,7 @@ export default () => {
     ssr: true,
     dev: config.get('nuxtAppEnvironment') !== 'production',
     server: {
-      port: config.get('nuxtAppPort'),
+      port: process.env.PORT || config.get('nuxtAppPort'),
       host: '0.0.0.0',
     },
     head: {
