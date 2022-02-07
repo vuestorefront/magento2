@@ -7,6 +7,6 @@ declare module 'vue/types/vue' {
   }
 }
 
-export default (inject) => {
+export default (_, inject) => {
   inject('dompurify', (html: string): string => _unescape(DOMPurify.sanitize(html)));
 };
