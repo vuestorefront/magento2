@@ -1,13 +1,11 @@
 <template>
   <component
     :is="tag"
-    v-html="sanitizedContent"
+    v-html="$dompurify(content)"
   />
 </template>
 <script>
-import { defineComponent, computed } from '@nuxtjs/composition-api';
-import _unescape from 'lodash.unescape';
-import DOMPurify from 'isomorphic-dompurify';
+import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'HTMLContent',
@@ -20,11 +18,6 @@ export default defineComponent({
       type: String,
       default: '',
     },
-  },
-  setup(props) {
-    return {
-      sanitizedContent: computed(() => _unescape(DOMPurify.sanitize(props.content))),
-    };
   },
 });
 </script>
