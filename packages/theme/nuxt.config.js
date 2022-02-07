@@ -105,6 +105,7 @@ export default () => {
         imageProvider,
       }],
       '@nuxt/image',
+      '@pinia/nuxt',
     ],
     modules: [
       ['nuxt-i18n', {
