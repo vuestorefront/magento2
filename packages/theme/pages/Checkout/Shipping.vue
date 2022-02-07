@@ -415,15 +415,13 @@ export default defineComponent({
       await Promise.all([
         loadCountries(),
         load(),
+        loadUserShipping(),
       ]);
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
       }
 
-      if (!userShipping.value?.addresses && isAuthenticated.value) {
-        await loadUserShipping();
-      }
       const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
 
       if (!shippingAddresses || shippingAddresses.length === 0) {
@@ -434,9 +432,7 @@ export default defineComponent({
       const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
-        return;
       }
-      canAddNewAddress.value = false;
     });
 
     return {
