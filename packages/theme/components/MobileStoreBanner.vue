@@ -14,6 +14,7 @@
         >
           <nuxt-img
             src="/homepage/apple.png"
+            loading="lazy"
             width="174"
             height="57"
           />
@@ -25,6 +26,7 @@
         >
           <nuxt-img
             src="/homepage/google.png"
+            loading="lazy"
             width="174"
             height="57"
           />
