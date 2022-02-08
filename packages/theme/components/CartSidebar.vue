@@ -304,15 +304,17 @@ export default defineComponent({
     const visible = ref(false);
     const isLoaderVisible = ref(false);
     const tempProduct = ref();
+    const redirectUrl = ref();
 
-    onMounted(() => {
+    onMounted(async () => {
+      const checkoutURL = await initializeCheckout({ baseUrl: '/checkout/user-account' });
+      redirectUrl.value = checkoutURL;
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       loadCart();
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(`${app.localePath(redirectUrl)}`);
+      await router.push(`${app.localePath(redirectUrl.value)}`);
     };
 
     const sendToRemove = ({ product }) => {
