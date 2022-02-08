@@ -1,28 +1,26 @@
 import {
-  ref, computed, Ref, useContext,
+  ref, Ref, useContext,
 } from '@nuxtjs/composition-api';
-import { Context, Logger } from '@vue-storefront/core';
-import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
+import { Logger } from '@vue-storefront/core';
+import { StoreConfig } from '@vue-storefront/magento-api';
 import { storeConfigGetters } from '@vue-storefront/magento';
 import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
 
-const useStore: UseStore<AvailableStores> = (): UseStoreInterface<AvailableStores> => {
-  const response: Ref<AvailableStores | null> = ref(null);
+const useStore: UseStore = (): UseStoreInterface => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseStoreErrors> = ref({ load: null, change: null });
+  const stores: Ref = ref([]);
   const { app } = useContext();
 
-  const load = async (context: Context) => {
-    Logger.debug('useStoreFactory.load', context);
-
+  const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
+    Logger.debug('useStoreFactory.load');
     error.value.load = null;
 
     try {
       loading.value = true;
-      const { customQuery } = context;
-      response.value = await app.$vsf.$magento.api.availableStores(
-        { availableStores: 'availableStores', ...customQuery },
-      );
+      const { data } = await app.$vsf.$magento.api.availableStores(customQuery);
+
+      stores.value = data.availableStores || [];
     } catch (err) {
       error.value.load = err;
     } finally {
@@ -30,32 +28,29 @@ const useStore: UseStore<AvailableStores> = (): UseStoreInterface<AvailableStore
     }
   };
 
-  const change = (context: Context) => {
-    Logger.debug('useStoreFactory.change', context);
+  const change = (store: StoreConfig) => {
+    Logger.debug('useStoreFactory.change');
 
     error.value.change = null;
 
     try {
       loading.value = true;
-      // @ts-ignore
-      const { store }: { store: StoreConfig } = context;
-
-      context.$magento.config.state.setStore(storeConfigGetters.getCode(store));
-      context.$magento.config.state.setCurrency(storeConfigGetters.getCurrency(store));
-      context.$magento.config.state.setLocale(storeConfigGetters.getCode(store));
+      app.$vsf.$magento.config.state.setStore(storeConfigGetters.getCode(store));
+      app.$vsf.$magento.config.state.setCurrency(storeConfigGetters.getCurrency(store));
+      app.$vsf.$magento.config.state.setLocale(storeConfigGetters.getCode(store));
     } catch (err) {
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
+
+    loading.value = false;
   };
 
   return {
     load,
     change,
-    response: computed(() => response.value),
-    loading: computed(() => loading.value),
-    error: computed(() => error.value),
+    stores,
+    loading,
+    error,
   };
 };
 

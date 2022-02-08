@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import { StoreConfig } from '@vue-storefront/magento';
 
-const value: StoreConfig = {};
+const config: StoreConfig = {};
 
 export const useConfigStore = defineStore('storeConfig', {
   state: () => ({
-    value,
+    config,
   }),
 });
