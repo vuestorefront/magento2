@@ -172,7 +172,7 @@ import {
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
