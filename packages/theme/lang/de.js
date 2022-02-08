@@ -88,6 +88,7 @@ export default {
   "Manage shipping addresses": "Alle gewünschten Versandadressen verwalten (Arbeitsplatz, Privatadresse ...) Auf diese Weise müssen Sie die Versandadresse nicht bei jeder Bestellung manuell eingeben.",
   "Match it with": "Kombiniere es mit",
   "Men fashion": "Herrenmode",
+  "Menu": "Menü",
   "My billing and shipping address are the same": "Meine Rechnungs- und Lieferadresse sind identisch",
   "My Cart": "Mein Warenkorb",
   "No account": "Sie haben noch keinen Account?",
