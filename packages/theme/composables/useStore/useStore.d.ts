@@ -4,7 +4,7 @@ import { UseStoreErrors } from '@vue-storefront/core';
 
 export interface UseStoreInterface {
   change(store: StoreConfig): void;
-  load(customQuery: { availableStores: string }): Promise<void>;
+  load(customQuery?: { availableStores: string }): Promise<void>;
   stores: Ref<AvailableStores>,
   loading: Ref<boolean>,
   error: Ref<UseStoreErrors>,

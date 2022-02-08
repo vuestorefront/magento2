@@ -16,7 +16,7 @@ const useConfig = (): UseConfig => {
     try {
       const { data } = await app.$vsf.$magento.api.storeConfig();
       configStore.$patch((state) => {
-        state.config = data.storeConfig || {};
+        state.storeConfig = data.storeConfig || {};
       });
     } catch (err) {
       Logger.debug(err);
@@ -26,7 +26,7 @@ const useConfig = (): UseConfig => {
   };
 
   return {
-    config: computed(() => configStore.config),
+    config: computed(() => configStore.storeConfig),
     loading,
     loadConfig,
   };

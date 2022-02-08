@@ -1,6 +1,5 @@
 import {
   useCurrency,
-  useStore,
   storeConfigGetters,
   Currency,
   AvailableStores,
@@ -9,7 +8,7 @@ import {
 
 import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import cookieNames from '~/enums/cookieNameEnum';
-import { useConfig } from '~/composables';
+import { useConfig, useStore } from '~/composables';
 
 type UseMagentoConfiguration = () => {
   currencies: ComputedRef<Currency>;
@@ -20,6 +19,7 @@ type UseMagentoConfiguration = () => {
   selectedStore: ComputedRef<string | undefined>;
   loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void>;
 };
+
 // @ts-ignore
 export const useMagentoConfiguration: UseMagentoConfiguration = () => {
   const { app } = useContext();

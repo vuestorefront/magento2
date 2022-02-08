@@ -44,7 +44,6 @@ import {
   useCurrency,
 } from '@vue-storefront/magento';
 import {
-  SfImage,
   SfButton,
   SfList,
   SfBottomModal,
@@ -61,7 +60,6 @@ import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
-    SfImage,
     SfButton,
     SfList,
     SfBottomModal,

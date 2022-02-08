@@ -77,7 +77,6 @@ import {
 
 import {
   ref,
-  computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
 
@@ -99,14 +98,11 @@ export default defineComponent({
 
     const {
       stores,
-      load: loadStores,
       change: changeStore,
     } = useStore();
 
     const { handleChanges } = useHandleChanges();
     const isLangModalOpen = ref(false);
-
-    loadStores();
 
     return {
       availableStores: stores,
