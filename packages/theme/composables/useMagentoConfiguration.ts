@@ -1,5 +1,4 @@
 import {
-  useConfig,
   useCurrency,
   useStore,
   storeConfigGetters,
@@ -10,6 +9,7 @@ import {
 
 import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import cookieNames from '~/enums/cookieNameEnum';
+import { useConfig } from '~/composables';
 
 type UseMagentoConfiguration = () => {
   currencies: ComputedRef<Currency>;

@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import { Context } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';
 import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';

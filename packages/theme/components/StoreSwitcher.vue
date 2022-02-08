@@ -64,11 +64,11 @@
 
 <script>
 import {
-  useConfig,
   useStore,
   storeConfigGetters,
   storeGetters,
 } from '@vue-storefront/magento';
+
 import {
   SfButton,
   SfList,
@@ -80,6 +80,8 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
+
+import { useConfig } from '~/composables';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
@@ -92,9 +94,11 @@ export default defineComponent({
   },
   setup() {
     const {
+      loadConfig,
       config,
     } = useConfig();
 
+    loadConfig();
     const {
       stores,
       change: changeStore,
