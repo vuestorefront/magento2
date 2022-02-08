@@ -64,7 +64,6 @@
 
 <script>
 import {
-  useStore,
   storeConfigGetters,
   storeGetters,
 } from '@vue-storefront/magento';
@@ -75,13 +74,14 @@ import {
   SfBottomModal,
   SfCharacteristic,
 } from '@storefront-ui/vue';
+
 import {
   ref,
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
 
-import { useConfig } from '~/composables';
+import { useStore, useConfig } from '~/composables';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
@@ -94,23 +94,22 @@ export default defineComponent({
   },
   setup() {
     const {
-      loadConfig,
       config,
     } = useConfig();
 
-    loadConfig();
     const {
       stores,
+      load: loadStores,
       change: changeStore,
     } = useStore();
 
     const { handleChanges } = useHandleChanges();
     const isLangModalOpen = ref(false);
 
-    const availableStores = computed(() => stores.value ?? []);
+    loadStores();
 
     return {
-      availableStores,
+      availableStores: stores,
       changeStore,
       handleChanges,
       isLangModalOpen,
