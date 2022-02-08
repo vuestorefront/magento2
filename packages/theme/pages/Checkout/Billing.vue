@@ -17,7 +17,10 @@
         class="form__element"
         @change="handleCheckSameAddress"
       />
-      <div v-if="sameAsShipping" class="copy__shipping__addresses">
+      <div
+        v-if="sameAsShipping"
+        class="copy__shipping__addresses"
+      >
         <div class="copy__shipping__address">
           <div class="sf-address">
             <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
@@ -283,7 +286,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   useUserBilling,
   userBillingGetters,
