@@ -3,6 +3,7 @@ import { CustomQuery, Logger } from '@vue-storefront/core';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
 import { UseWishlist, UseWishlistErrors } from '~/composables/useWishlist/useWishlist';
 import { useCustomerStore } from '~/stores/customer';
+import cookieNames from '~/enums/cookieNameEnum';
 
 export const useWishlist = (): UseWishlist => {
   const customerStore = useCustomerStore();
@@ -34,10 +35,8 @@ export const useWishlist = (): UseWishlist => {
         const { data } = await app.context.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
 
         Logger.debug('[Result]:', { data });
-
         customerStore.wishlist = data?.customer?.wishlists ?? [];
 
-        console.log('hook', customerStore.wishlist);
         return;
       }
 
@@ -70,21 +69,20 @@ export const useWishlist = (): UseWishlist => {
   // eslint-disable-next-line @typescript-eslint/require-await
   const removeItem = async ({ product, params }) => {
     Logger.debug('useWishlist/removeItem', product);
-    const { customQuery } = params;
 
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', {
         currentWishlist: customerStore.wishlist,
         product,
-        customQuery,
+        customQuery: params?.customQuery,
       });
 
       const itemOnWishlist = findItemOnWishlist(customerStore.wishlist, product);
       const { data } = await app.context.$vsf.$magento.api.removeProductsFromWishlist({
         id: '0',
         items: [itemOnWishlist.id],
-      });
+      }, params?.customQuery);
 
       Logger.debug('[Result]:', { data });
       error.value.removeItem = null;
@@ -123,7 +121,8 @@ export const useWishlist = (): UseWishlist => {
           params: {},
         });
       }
-      if (!app.context.user.isAuthenticated.value) {
+
+      if (!app.context.$cookies.get(cookieNames.customerCookieName)) { // TODO: replace by value from pinia store after sueCart composable will be refactored
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 
@@ -201,6 +200,7 @@ export const useWishlist = (): UseWishlist => {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   const clear = async () => {
     Logger.debug('useWishlist/clear');
 
@@ -217,7 +217,6 @@ export const useWishlist = (): UseWishlist => {
       loading.value = false;
     }
   };
-
 
   return {
     wishlist: computed(() => customerStore.wishlist),

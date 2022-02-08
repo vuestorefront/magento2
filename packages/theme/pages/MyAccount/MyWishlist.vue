@@ -86,7 +86,8 @@
                     && $fc(productGetters.getPrice(product.product).special)"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
-                  wishlist-icon
+                  wishlist-icon="heart"
+                  is-in-wishlist-icon="heart_fill"
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >

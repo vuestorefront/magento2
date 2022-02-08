@@ -432,7 +432,9 @@ import {
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
-import { useUiHelpers, useUiState, useImage, useWishlist } from '~/composables';
+import {
+  useUiHelpers, useUiState, useImage, useWishlist,
+} from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';

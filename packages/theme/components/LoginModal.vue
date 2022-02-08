@@ -439,7 +439,7 @@ export default defineComponent({
 
     const handleLogin = async () => {
       await handleForm(login)();
-      await loadWishlist('GlobalWishlist');
+      await loadWishlist();
     };
 
     const handleForgotten = async () => {

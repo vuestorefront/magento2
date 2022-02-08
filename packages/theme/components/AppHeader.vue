@@ -219,7 +219,7 @@ export default defineComponent({
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart } = useCart();
-    const { wishlist, load: loadWishlist } = useWishlist();
+    const { wishlist } = useWishlist();
     const {
       result: searchResult,
       search: productsSearch,
@@ -325,7 +325,6 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      loadWishlist();
       loadUser();
     });
 
