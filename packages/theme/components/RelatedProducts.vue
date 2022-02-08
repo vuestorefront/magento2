@@ -1,6 +1,6 @@
 <template>
   <ProductsCarousel
-    v-if="!loading && products && products.length"
+    v-if="!loading && products && products.length > 0"
     :products="products"
     :title="$t('Match it with')"
   />
