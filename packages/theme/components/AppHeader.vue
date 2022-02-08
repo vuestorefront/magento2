@@ -184,6 +184,7 @@ import {
   useRouter,
   useContext,
   useAsync,
+  onMounted,
 } from '@nuxtjs/composition-api';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import {
@@ -214,7 +215,7 @@ export default defineComponent({
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
-    const { isAuthenticated } = useUser();
+    const { isAuthenticated, load: loadUser } = useUser();
     const { cart } = useCart();
     const { wishlist } = useWishlist('GlobalWishlist');
     const {
@@ -320,6 +321,10 @@ export default defineComponent({
     onBeforeUnmount(() => {
       unMapMobileObserver();
     });
+
+    onMounted(() => {
+      loadUser()
+    })
 
     return {
       accountIcon,
