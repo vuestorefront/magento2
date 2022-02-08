@@ -24,6 +24,7 @@ import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
   components: {
