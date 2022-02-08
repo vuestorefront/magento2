@@ -81,11 +81,11 @@ import {
 } from '@storefront-ui/vue';
 
 import {
-  productGetters, useUser, useWishlist,
+  productGetters, useUser,
 } from '@vue-storefront/magento';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage } from '~/composables';
+import { useImage, useWishlist } from '~/composables';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -111,7 +111,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const { isInWishlist, addItem, removeItem } = useWishlist();
     const {
       addItemToCart,
       isInCart,

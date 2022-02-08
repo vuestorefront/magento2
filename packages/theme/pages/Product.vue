@@ -275,7 +275,6 @@ import {
   useReview,
   reviewGetters,
   useUser,
-  useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import {
@@ -286,6 +285,7 @@ import {
   useRouter,
   defineComponent,
 } from '@nuxtjs/composition-api';
+import { useWishlist } from '~/composables'
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
@@ -355,7 +355,7 @@ export default defineComponent({
       addReview,
     } = useReview(`productReviews-${id}`);
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist('GlobalWishlist');
+    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
     const { error: nuxtError, app } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);

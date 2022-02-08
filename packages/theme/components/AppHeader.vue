@@ -173,7 +173,8 @@ import {
   useCart,
   useCategorySearch,
   useFacet,
-  useUser, useWishlist, wishlistGetters,
+  useUser,
+  wishlistGetters,
 } from '@vue-storefront/magento';
 import {
   computed,
@@ -195,6 +196,7 @@ import debounce from 'lodash.debounce';
 import {
   useUiHelpers,
   useUiState,
+  useWishlist,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
@@ -217,7 +219,7 @@ export default defineComponent({
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart } = useCart();
-    const { wishlist } = useWishlist('GlobalWishlist');
+    const { wishlist, load: loadWishlist } = useWishlist();
     const {
       result: searchResult,
       search: productsSearch,
@@ -323,8 +325,9 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      loadUser()
-    })
+      loadWishlist();
+      loadUser();
+    });
 
     return {
       accountIcon,

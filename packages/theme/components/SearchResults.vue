@@ -221,8 +221,8 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { useUiHelpers, useImage } from '~/composables';
+import { productGetters, useUser } from '@vue-storefront/magento';
+import { useUiHelpers, useImage, useWishlist } from '~/composables';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -246,7 +246,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const { isInWishlist, addItem, removeItem } = useWishlist();
 
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);

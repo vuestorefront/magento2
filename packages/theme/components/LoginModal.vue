@@ -298,8 +298,8 @@ import {
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { useUser, useForgotPassword, useWishlist } from '@vue-storefront/magento';
-import { useUiState } from '~/composables';
+import { useUser, useForgotPassword } from '@vue-storefront/magento';
+import { useUiState, useWishlist } from '~/composables';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('email', {
@@ -348,7 +348,7 @@ export default defineComponent({
       loading,
       error: userError,
     } = useUser();
-    const { load: loadWishlist } = useWishlist('GlobalWishlist');
+    const { load: loadWishlist } = useWishlist();
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
 
     const barTitle = computed(() => {
