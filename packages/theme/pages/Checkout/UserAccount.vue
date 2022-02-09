@@ -142,12 +142,13 @@ import {
   useRouter,
   useContext, onMounted,
 } from '@nuxtjs/composition-api';
-import { useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useUiNotification, useUser } from '~/composables';
+import {
+  useUiNotification, useUser, useGuestUser, useCart,
+} from '~/composables';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
 import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 
@@ -191,6 +192,8 @@ export default defineComponent({
       error: errorGuestUser,
     } = useGuestUser();
 
+    const { cart } = useCart();
+
     const {
       load,
       loading: loadingUser,
@@ -233,7 +236,7 @@ export default defineComponent({
 
         await (
           !createUserAccount.value
-            ? attachToCart({ email: form.value.email })
+            ? attachToCart({ email: form.value.email, cart })
             : register({ user: form.value })
         );
       }

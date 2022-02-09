@@ -273,11 +273,12 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
   productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState, useImage, useWishlist } from '~/composables';
+import {
+  useCart, useUiHelpers, useUiState, useImage, useWishlist,
+} from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',

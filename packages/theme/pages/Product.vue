@@ -270,7 +270,6 @@ import {
 } from '@storefront-ui/vue';
 import {
   useProduct,
-  useCart,
   productGetters,
   useReview,
   reviewGetters,
@@ -284,7 +283,8 @@ import {
   useRouter,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { useWishlist, useUser } from '~/composables';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import { useCart, useWishlist, useUser } from '~/composables';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
@@ -296,7 +296,6 @@ import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
-import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 
 export default defineComponent({
   name: 'ProductPage',

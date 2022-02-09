@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import {
   CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
 } from '@vue-storefront/core';
