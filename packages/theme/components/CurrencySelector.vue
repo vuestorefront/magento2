@@ -41,9 +41,6 @@
 
 <script>
 import {
-  useCurrency,
-} from '@vue-storefront/magento';
-import {
   SfButton,
   SfList,
   SfBottomModal,
@@ -54,6 +51,7 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
+import { useCurrency } from '~/composables';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
@@ -76,7 +74,7 @@ export default defineComponent({
      * enables the switch of currency without returning to the browser one with i18n
      */
     const {
-      currencies,
+      currency,
       change: changeCurrency,
     } = useCurrency();
 
@@ -102,7 +100,7 @@ export default defineComponent({
 
     const isCurrencyModalOpen = ref(false);
 
-    const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
+    const availableCurrencies = computed(() => currency.value?.available_currency_codes || []);
 
     return {
       currentCurrencySymbol,

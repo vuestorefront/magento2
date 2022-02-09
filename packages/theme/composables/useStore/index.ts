@@ -12,7 +12,7 @@ const useStore: UseStore = (): UseStoreInterface => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseStoreErrors> = ref({ load: null, change: null });
   const configStore = useConfigStore();
-
+  const stores = computed(() => configStore.stores);
   const { app } = useContext();
 
   const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
@@ -53,7 +53,7 @@ const useStore: UseStore = (): UseStoreInterface => {
   return {
     load,
     change,
-    stores: computed(() => configStore.stores),
+    stores,
     loading,
     error,
   };
