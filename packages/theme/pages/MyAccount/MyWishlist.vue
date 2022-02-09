@@ -86,7 +86,8 @@
                     && $fc(productGetters.getPrice(product.product).special)"
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
-                  wishlist-icon
+                  wishlist-icon="heart"
+                  is-in-wishlist-icon="heart_fill"
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
                 >
@@ -273,11 +274,10 @@ import {
 } from '@nuxtjs/composition-api';
 import {
   useCart,
-  useWishlist,
   productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState, useImage } from '~/composables';
+import { useUiHelpers, useUiState, useImage, useWishlist } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -299,7 +299,7 @@ export default defineComponent({
       loading,
       wishlist,
       removeItem,
-    } = useWishlist('MyWishlistPage');
+    } = useWishlist();
     const route = useRoute();
     const { app } = useContext();
     const {

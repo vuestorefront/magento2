@@ -39,6 +39,11 @@ export interface UseWishlistFactoryParams<WISHLIST,
   isInWishlist: (context: Context, params: { currentWishlist: WISHLIST; product: PRODUCT }) => boolean;
 }
 
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseWishlistFactoryParams<WISHLIST, WISHLIST_ITEM, PRODUCT, API>,
 ) => {

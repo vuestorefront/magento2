@@ -157,12 +157,11 @@ import {
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
-  useWishlist,
   useUser,
   wishlistGetters,
   productGetters,
 } from '@vue-storefront/magento';
-import { useUiState, useImage } from '~/composables';
+import { useUiState, useImage, useWishlist } from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -178,7 +177,7 @@ export default defineComponent({
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem, load: loadWishlist } = useWishlist('GlobalWishlist');
+    const { wishlist, removeItem, load: loadWishlist } = useWishlist();
     const { isAuthenticated } = useUser();
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));

@@ -428,12 +428,13 @@ import {
   useCategory,
   useFacet,
   useUser,
-  useWishlist,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
-import { useUiHelpers, useUiState, useImage } from '~/composables';
+import {
+  useUiHelpers, useUiState, useImage, useWishlist,
+} from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
@@ -481,7 +482,7 @@ export default defineComponent({
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-    } = useWishlist('GlobalWishlist');
+    } = useWishlist();
     const {
       result,
       search,
