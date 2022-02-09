@@ -6,7 +6,7 @@
     >
       <SfCharacteristic class="store-switcher">
         <template #title>
-          <span>{{ storeConfig.store_name }}</span>
+          <span class="desktop-only">{{ storeConfig.store_name }}</span>
         </template>
         <template #icon>
           <nuxt-img

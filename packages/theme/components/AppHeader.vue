@@ -30,7 +30,10 @@
         />
       </template>
       <template #aside>
-        <StoreSwitcher class="smartphone-only" />
+        <div class="sf-header__switchers">
+          <CurrencySelector class="smartphone-only" />
+          <StoreSwitcher class="smartphone-only" />
+        </div>
       </template>
       <template
         #header-icons="{activeIcon}"
@@ -197,10 +200,12 @@ import {
   useUiState,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
+import CurrencySelector from '~/components/CurrencySelector.vue';
 
 export default defineComponent({
   components: {
     SfHeader,
+    CurrencySelector,
     StoreSwitcher,
     SfIcon,
     SfButton,
@@ -358,6 +363,10 @@ export default defineComponent({
   --header-padding: var(--spacer-sm);
   @include for-desktop {
     --header-padding: 0 var(--spacer-sm);
+  }
+
+  &__switchers {
+    display: flex;
   }
 
   &__logo-image {
