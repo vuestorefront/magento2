@@ -142,12 +142,12 @@ import {
   useRouter,
   useContext, onMounted,
 } from '@nuxtjs/composition-api';
-import { useUser, useGuestUser } from '@vue-storefront/magento';
+import { useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useUiNotification } from '~/composables';
+import { useUiNotification, useUser } from '~/composables';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
 import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 

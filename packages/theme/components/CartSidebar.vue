@@ -254,12 +254,15 @@ import {
 } from '@nuxtjs/composition-api';
 import {
   useCart,
-  useUser,
   cartGetters,
-  useExternalCheckout,
 } from '@vue-storefront/magento';
 import _debounce from 'lodash.debounce';
-import { useUiState, useUiNotification } from '~/composables';
+import {
+  useUiState,
+  useUiNotification,
+  useUser,
+  useExternalCheckout,
+} from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
 

@@ -51,7 +51,7 @@ import {
 } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
-import { useUser } from '@vue-storefront/magento';
+import { useUser } from '~/composables';
 
 export default defineComponent({
   name: 'MyNewsletter',

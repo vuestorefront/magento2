@@ -298,8 +298,8 @@ import {
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { useUser, useForgotPassword } from '@vue-storefront/magento';
-import { useUiState, useWishlist } from '~/composables';
+import { useForgotPassword } from '@vue-storefront/magento';
+import { useUiState, useWishlist, useUser } from '~/composables';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('email', {

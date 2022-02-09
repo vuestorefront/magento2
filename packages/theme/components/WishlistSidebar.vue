@@ -157,11 +157,12 @@ import {
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
-  useUser,
   wishlistGetters,
   productGetters,
 } from '@vue-storefront/magento';
-import { useUiState, useImage, useWishlist } from '~/composables';
+import {
+  useUiState, useImage, useWishlist, useUser,
+} from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',

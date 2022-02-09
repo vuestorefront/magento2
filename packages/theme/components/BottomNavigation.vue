@@ -52,9 +52,8 @@
 
 <script>
 import { SfBottomNavigation, SfIcon, SfCircleIcon } from '@storefront-ui/vue';
-import { useUser } from '@vue-storefront/magento';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
-import { useUiState } from '~/composables';
+import { useUiState, useUser } from '~/composables';
 import MobileMenuSidebar from '~/components/MobileMenuSidebar.vue';
 
 export default defineComponent({

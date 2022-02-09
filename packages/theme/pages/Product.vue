@@ -274,7 +274,6 @@ import {
   productGetters,
   useReview,
   reviewGetters,
-  useUser,
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import {
@@ -285,7 +284,7 @@ import {
   useRouter,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { useWishlist } from '~/composables'
+import { useWishlist, useUser } from '~/composables';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
