@@ -1,10 +1,16 @@
 import { defineStore } from 'pinia';
-import { StoreConfig } from '@vue-storefront/magento';
+import { AvailableStores, Currency, StoreConfig } from '@vue-storefront/magento';
 
-const config: StoreConfig = {};
+interface ConfigState {
+  storeConfig: StoreConfig,
+  stores: AvailableStores
+  currency: Currency
+}
 
-export const useConfigStore = defineStore('storeConfig', {
-  state: () => ({
-    config,
+export const useConfigStore = defineStore('magentoConfig', {
+  state: (): ConfigState => ({
+    storeConfig: {},
+    stores: [],
+    currency: {},
   }),
 });

@@ -1,15 +1,18 @@
 import {
+  computed,
   ref, Ref, useContext,
 } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';
 import { storeConfigGetters } from '@vue-storefront/magento';
 import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
+import { useConfigStore } from '~/stores/config';
 
 const useStore: UseStore = (): UseStoreInterface => {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseStoreErrors> = ref({ load: null, change: null });
-  const stores: Ref = ref([]);
+  const configStore = useConfigStore();
+  const stores = computed(() => configStore.stores);
   const { app } = useContext();
 
   const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
@@ -20,7 +23,9 @@ const useStore: UseStore = (): UseStoreInterface => {
       loading.value = true;
       const { data } = await app.$vsf.$magento.api.availableStores(customQuery);
 
-      stores.value = data.availableStores || [];
+      configStore.$patch((state) => {
+        state.stores = data?.availableStores ?? [];
+      });
     } catch (err) {
       error.value.load = err;
     } finally {

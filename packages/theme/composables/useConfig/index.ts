@@ -3,32 +3,38 @@ import {
 } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
 import { useConfigStore } from '~/stores/config';
-import { UseConfig } from '~/composables/useConfig/useConfig';
+import { UseConfig, UseConfigErrors } from '~/composables/useConfig/useConfig';
 
 const useConfig = (): UseConfig => {
   const { app } = useContext();
   const loading = ref(false);
+  const error = ref<UseConfigErrors>({ load: null });
   const configStore = useConfigStore();
+  const config = computed(() => configStore.storeConfig);
 
-  const loadConfig = async () => {
-    Logger.debug('useConfig/loadConfig');
+  const load = async () => {
+    error.value.load = null;
     loading.value = true;
+
+    Logger.debug('useConfig/load');
+
     try {
       const { data } = await app.$vsf.$magento.api.storeConfig();
       configStore.$patch((state) => {
-        state.config = data.storeConfig || {};
+        state.storeConfig = data.storeConfig || {};
       });
     } catch (err) {
-      Logger.debug(err);
+      Logger.debug('[ERROR] useConfig/load', err);
+      error.value.load = err;
+    } finally {
+      loading.value = false;
     }
-
-    loading.value = false;
   };
 
   return {
-    config: computed(() => configStore.config),
+    config,
     loading,
-    loadConfig,
+    load,
   };
 };
 
