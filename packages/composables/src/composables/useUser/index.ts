@@ -175,6 +175,7 @@ CustomerCreateInput
 
     return factoryParams.load(context);
   },
+
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
     const { data, errors } = await context.$magento.api.changeCustomerPassword(params);
