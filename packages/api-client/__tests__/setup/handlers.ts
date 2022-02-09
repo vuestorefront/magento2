@@ -1,5 +1,5 @@
 import { graphql } from 'msw';
-import {STORE_CONFIG_MOCK_RESP} from './../mockData/api/storeConfig'
+import { STORE_CONFIG_MOCK_RESP } from '../mockData/api/storeConfig';
 
 const magento = graphql.link('https://magento2-instance.vuestorefront.io/graphql');
 

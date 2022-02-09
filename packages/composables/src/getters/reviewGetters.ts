@@ -16,16 +16,16 @@ export const getReviewAuthor = (item: ProductReview): string => item.nickname;
 
 export const getReviewMessage = (item: ProductReview): string => item.text;
 
-export const getReviewRating = (item: ProductReview): number => Number.parseInt(item.ratings_breakdown.find((r) => r.name === 'Rating')?.value,
-  10) || 0;
+export const getReviewRating = (item: ProductReview): number => Number.parseInt(
+  item.ratings_breakdown.find((r) => r.name === 'Rating')?.value,
+  10,
+) || 0;
 
 export const getReviewDate = (item: ProductReview): string => item.created_at;
 
 export const getTotalReviews = (review: ProductReviews): number => review?.review_count || 0;
 
-export const getAverageRating = (review): number => (review?.reviews?.items?.reduce((
-  acc, curr,
-) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
+export const getAverageRating = (review): number => (review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
 
 export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
 

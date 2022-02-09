@@ -373,7 +373,7 @@ export default defineComponent({
       th,
       wishlist,
       getMagentoImage,
-      imageSizes
+      imageSizes,
     };
   },
 });
