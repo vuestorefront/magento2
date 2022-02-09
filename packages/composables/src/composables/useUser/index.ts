@@ -24,6 +24,11 @@ interface UseUserFactoryParams<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS>
   }) => Promise<USER>;
 }
 
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 const factoryParams: UseUserFactoryParams<
 any,
 UpdateCustomerEmailMutationVariables,
