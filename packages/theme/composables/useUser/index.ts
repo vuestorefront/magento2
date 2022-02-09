@@ -6,13 +6,14 @@ import { useCart } from '@vue-storefront/magento'; // todo: replace by the new u
 
 import { useCustomerStore } from '~/stores/customer';
 import { generateUserData } from '~/helpers/customer/userDataGenerator';
+import { UseUser } from '~/composables/useUser/useUser';
 
-export const useUser = () => {
+export const useUser = (): UseUser => {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const isAuthenticated = computed(() => Boolean(customerStore.user));
+  const isAuthenticated = computed(() => Boolean(customerStore.user?.firstname));
   const errorsFactory = () => ({
     updateUser: null,
     register: null,
@@ -69,6 +70,61 @@ export const useUser = () => {
     }
   };
 
+  const logout = async ({ customQuery = {} } = {}) => {
+    Logger.debug('[Magento] useUserFactory.logout');
+    resetErrorValue();
+
+    try {
+      const apiState = app.context.$vsf.$magento.config.state;
+
+      await app.context.$vsf.$magento.api.revokeCustomerToken({ customQuery });
+
+      apiState.setCustomerToken(null);
+      apiState.setCartId(null);
+      setCart(null);
+      error.value.logout = null;
+      customerStore.user = null;
+    } catch (err) {
+      error.value.logout = err;
+      Logger.error('useUser/logout', err);
+    }
+  };
+
+  const load = async ({ customQuery } = { customQuery: undefined }) => {
+    Logger.debug('[Magento] useUser.load');
+    resetErrorValue();
+
+    try {
+      loading.value = true;
+      // user.value = await _factoryParams.load({customQuery});
+
+      const apiState = app.context.$vsf.$magento.config.state;
+
+      if (!apiState.getCustomerToken()) {
+        return null;
+      }
+      try {
+        const { data } = await app.context.$vsf.$magento.api.customer(customQuery);
+
+        Logger.debug('[Result]:', { data });
+
+        customerStore.user = data?.customer ?? {};
+
+        return customerStore.user;
+      } catch {
+        // eslint-disable-next-line no-void
+        // @ts-ignore
+        await logout();
+      }
+      error.value.load = null;
+    } catch (err) {
+      error.value.load = err;
+      Logger.error('useUser/load', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
   // eslint-disable-next-line @typescript-eslint/require-await,no-empty-pattern
   const login = async ({ user: providedUser, customQuery }) => {
     Logger.debug('[Magento] useUser.login', providedUser);
@@ -76,9 +132,9 @@ export const useUser = () => {
 
     try {
       loading.value = true;
-      const apiState = app.$vsf.context.$magento.config.state;
+      const apiState = app.context.$vsf.$magento.config.state;
 
-      const { data, errors } = await app.$vsf.context.$magento.api.generateCustomerToken(
+      const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
         {
           email: providedUser.username,
           password: providedUser.password,
@@ -141,12 +197,14 @@ export const useUser = () => {
     try {
       loading.value = true;
 
+      console.log('data', providedUser);
+
       const {
         email,
         password,
         recaptchaToken,
         ...baseData
-      } = generateUserData([providedUser]);
+      } = generateUserData(providedUser);
 
       const { data, errors } = await app.context.$vsf.$magento.api.createCustomer(
         {
@@ -164,7 +222,7 @@ export const useUser = () => {
         Logger.error(errors.map((e) => e.message).join(','));
       }
 
-      if (!data.createCustomerV2 || !data.createCustomerV2.customer) {
+      if (!data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
         Logger.error('Customer registration error'); // todo: handle errors in better way
       }
 
@@ -184,26 +242,6 @@ export const useUser = () => {
       Logger.error('useUser/register', err);
     } finally {
       loading.value = false;
-    }
-  };
-
-  const logout = async ({ customQuery = {} }) => {
-    Logger.debug('[Magento] useUserFactory.logout');
-    resetErrorValue();
-
-    try {
-      const apiState = app.context.$vsf.$magento.config.state;
-
-      await app.context.$vsf.$magento.api.revokeCustomerToken(customQuery);
-
-      apiState.setCustomerToken(null);
-      apiState.setCartId(null);
-      setCart(null);
-      error.value.logout = null;
-      customerStore.user = null;
-    } catch (err) {
-      error.value.logout = err;
-      Logger.error('useUser/logout', err);
     }
   };
 
@@ -238,39 +276,6 @@ export const useUser = () => {
     }
   };
 
-  const load = async ({ customQuery } = { customQuery: undefined }) => {
-    Logger.debug('[Magento] useUser.load');
-    resetErrorValue();
-
-    try {
-      loading.value = true;
-      // user.value = await _factoryParams.load({customQuery});
-
-      const apiState = app.context.$vsf.$magento.config.state;
-
-      if (!apiState.getCustomerToken()) {
-        return null;
-      }
-      try {
-        const { data } = await app.context.$vsf.$magento.api.customer(customQuery);
-
-        Logger.debug('[Result]:', { data });
-
-        customerStore.user = data?.customer ?? {};
-      } catch {
-        // eslint-disable-next-line no-void
-        // @ts-ignore
-        await logout();
-      }
-      error.value.load = null;
-    } catch (err) {
-      error.value.load = err;
-      Logger.error('useUser/load', err);
-    } finally {
-      loading.value = false;
-    }
-  };
-
   return {
     user: computed(() => customerStore.user),
     loading,
@@ -282,6 +287,7 @@ export const useUser = () => {
     login,
     logout,
     changePassword,
+    load,
   };
 };
 
