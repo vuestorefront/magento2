@@ -78,8 +78,9 @@ export default defineComponent({
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
         await router.push(`${app.localePath('/my-account')}`);
+      } else {
+        toggleLoginModal();
       }
-      toggleLoginModal();
     };
 
     return {
