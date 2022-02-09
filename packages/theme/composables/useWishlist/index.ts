@@ -1,7 +1,7 @@
 import { computed, ref, useContext } from '@nuxtjs/composition-api';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
-import { UseWishlist, UseWishlistErrors } from '~/composables/useWishlist/useWishlist';
+import {UseWishlist, UseWishlistErrors, Wishlist} from '~/composables/useWishlist/useWishlist';
 import { useCustomerStore } from '~/stores/customer';
 import cookieNames from '~/enums/cookieNameEnum';
 
@@ -9,7 +9,6 @@ export const useWishlist = (): UseWishlist => {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const loading = ref(false);
-  const wishlist = ref(customerStore.wishlist);
   const error = ref<UseWishlistErrors>({
     addItem: null,
     removeItem: null,
@@ -61,12 +60,11 @@ export const useWishlist = (): UseWishlist => {
     return !!(wishlistProduct?.id && wishlistProduct?.quantity);
   };
 
-  const setWishlist = (newWishlist: any) => {
-    wishlist.value = newWishlist;
+  const setWishlist = (newWishlist: Wishlist) => {
+    customerStore.wishlist = newWishlist;
     Logger.debug('useWishlist/setWishlist', newWishlist);
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   const removeItem = async ({ product, params }) => {
     Logger.debug('useWishlist/removeItem', product);
 
@@ -115,6 +113,7 @@ export const useWishlist = (): UseWishlist => {
 
       const itemOnWishlist = findItemOnWishlist(customerStore.wishlist, product);
 
+      // todo: legacy code, should be double-checked and probably removed
       if (itemOnWishlist) {
         return await removeItem({
           product,

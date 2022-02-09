@@ -44,7 +44,7 @@ export type UseWishlist = {
       product: any; // TODO: add product intrface
     }>) => Promise<void>;
   clear: (params: { currentWishlist: any }) => Promise<any>;
-  setWishlist: any;
+  setWishlist: (newWishlist: Wishlist) => void;
   loading: Ref<boolean>
   error: Ref<UseWishlistErrors>;
 };
