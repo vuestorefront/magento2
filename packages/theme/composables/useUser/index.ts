@@ -197,8 +197,6 @@ export const useUser = (): UseUser => {
     try {
       loading.value = true;
 
-      console.log('data', providedUser);
-
       const {
         email,
         password,
