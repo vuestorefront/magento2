@@ -84,13 +84,13 @@
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
-import { useUser, userGetters } from '@vue-storefront/magento';
+import { userGetters } from '@vue-storefront/magento';
 import {
   SfInput,
   SfButton,
   SfModal,
 } from '@storefront-ui/vue';
-import { useUiNotification } from '~/composables';
+import { useUiNotification, useUser } from '~/composables';
 
 export default defineComponent({
   name: 'ProfileUpdateForm',

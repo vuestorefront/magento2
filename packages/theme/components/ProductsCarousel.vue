@@ -81,11 +81,11 @@ import {
 } from '@storefront-ui/vue';
 
 import {
-  productGetters, useUser,
+  productGetters,
 } from '@vue-storefront/magento';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage, useWishlist } from '~/composables';
+import { useImage, useWishlist, useUser } from '~/composables';
 
 export default defineComponent({
   name: 'ProductsCarousel',

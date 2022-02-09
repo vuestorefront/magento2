@@ -427,13 +427,12 @@ import {
   productGetters,
   useCategory,
   useFacet,
-  useUser,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import {
-  useUiHelpers, useUiState, useImage, useWishlist,
+  useUiHelpers, useUiState, useImage, useWishlist, useUser,
 } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';

@@ -173,7 +173,6 @@ import {
   useCart,
   useCategorySearch,
   useFacet,
-  useUser,
   wishlistGetters,
 } from '@vue-storefront/magento';
 import {
@@ -197,6 +196,7 @@ import {
   useUiHelpers,
   useUiState,
   useWishlist,
+  useUser,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
 

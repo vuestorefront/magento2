@@ -221,8 +221,8 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { productGetters, useUser } from '@vue-storefront/magento';
-import { useUiHelpers, useImage, useWishlist } from '~/composables';
+import { productGetters } from '@vue-storefront/magento';
+import { useUiHelpers, useImage, useWishlist, useUser } from '~/composables';
 
 export default defineComponent({
   name: 'SearchResults',
