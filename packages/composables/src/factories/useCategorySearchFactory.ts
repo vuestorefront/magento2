@@ -12,7 +12,11 @@ import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables
 export interface UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {
   search: (context: Context, params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>) => Promise<CATEGORY[]>;
 }
-
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 export function useCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any>(
   factoryParams: UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API>,
 ) {

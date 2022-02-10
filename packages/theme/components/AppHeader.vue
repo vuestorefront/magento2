@@ -170,7 +170,6 @@ import {
 import {
   cartGetters,
   categoryGetters,
-  useCategorySearch,
   wishlistGetters,
 } from '@vue-storefront/magento';
 import {
@@ -197,6 +196,7 @@ import {
   useWishlist,
   useUser,
   useFacet,
+  useCategorySearch,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
@@ -228,7 +228,7 @@ export default defineComponent({
     const {
       result: categories,
       search: categoriesSearch,
-    } = useCategorySearch('AppHeader:Categories');
+    } = useCategorySearch();
 
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
