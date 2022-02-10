@@ -16,10 +16,12 @@ import {
   SfHeading,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, useAsync, useContext, useRoute,
+  computed,
+  defineComponent, onMounted, useContext, useRoute,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
+import { useContent } from '~/composables';
 
 export default defineComponent({
   components: {
@@ -34,23 +36,27 @@ export default defineComponent({
   },
   setup() {
     const { addTags } = useCache();
-    const { app, error: nuxtError } = useContext();
+    const { error: nuxtError } = useContext();
     const route = useRoute();
     const { params } = route.value;
-    const page = useAsync(async () => {
-      const { data } = await app.$vsf.$magento.api.cmsPage(params.slug);
+    const {
+      page,
+      loadPage,
+      error,
+    } = useContent();
 
-      if (!data?.cmsPage) {
+    onMounted(async () => {
+      await loadPage({ identifier: `${params.slug}` });
+
+      if (!page.value || error.value.page) {
         nuxtError({ statusCode: 404 });
       }
 
-      addTags([{ prefix: CacheTagPrefix.View, value: data.cmsPage.identifier }]);
-
-      return data.cmsPage;
+      addTags([{ prefix: CacheTagPrefix.View, value: page.identifier }]);
     });
 
     return {
-      page,
+      page: computed(() => page),
     };
   },
   head() {
@@ -60,7 +66,7 @@ export default defineComponent({
       meta.push({
         hid: 'description',
         name: 'description',
-        content: this.page.meta_description,
+        content: this.page?.meta_description,
       });
     }
     return {

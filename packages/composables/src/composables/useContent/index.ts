@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import { Context, Logger } from '@vue-storefront/core';
 import { Page, CmsBlock } from '@vue-storefront/magento-api';
 import { useContentFactory, UseContentFactoryParams } from '../../factories/useContentFactory';

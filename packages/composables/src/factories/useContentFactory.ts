@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import { computed, Ref } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
