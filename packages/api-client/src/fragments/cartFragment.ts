@@ -30,6 +30,7 @@ items {
     ${productFragment}
     itar_compliance
     required_age_verification
+    exit_intent
   }
   prices {
     row_total {

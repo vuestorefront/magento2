@@ -207,7 +207,7 @@ export const getItemGroups = (cart: Cart): FocusItemGroup[] => {
 export const isPickupDateSelected = (cart: Cart): Boolean => cart?.item_groups?.some(({ group_type, additional_data }) => group_type === 'pickup' && Boolean(additional_data?.pickup_date));
 
 export const isItarComplianceRequired = (cart: Cart): Boolean => {
-  if (!cart || !cart.items) {
+  if (!cart?.items) {
     return false;
   }
 
@@ -215,11 +215,19 @@ export const isItarComplianceRequired = (cart: Cart): Boolean => {
 };
 
 export const isAgeCheckRequired = (cart: Cart): Boolean => {
-  if (!cart || !cart.items) {
+  if (!cart?.items) {
     return false;
   }
 
   return cart.items.some(({ product: { required_age_verification } }) => Boolean(required_age_verification));
+};
+
+export const isExitIntentRequired = (cart: Cart): Boolean => {
+  if (!cart?.items) {
+    return false;
+  }
+
+  return cart.items.every(({ product: { exit_intent } }) => Boolean(exit_intent));
 };
 
 export interface CartGetters extends CartGettersBase<Cart, CartItem> {
@@ -240,6 +248,8 @@ export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   isItarComplianceRequired(cart: Cart): Boolean;
 
   isAgeCheckRequired(cart: Cart): Boolean;
+
+  isExitIntentRequired(cart: Cart): Boolean;
 
   getItemsWithInventory(cart: Cart, inventory: readonly FocusProductInventoryItem[]): CartItem[];
 }
@@ -268,6 +278,7 @@ const cartGetters: CartGetters = {
   isPickupDateSelected,
   isItarComplianceRequired,
   isAgeCheckRequired,
+  isExitIntentRequired,
   getItemsWithInventory,
 };
 
