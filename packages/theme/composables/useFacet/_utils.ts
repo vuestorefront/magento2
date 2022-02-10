@@ -1,6 +1,4 @@
-// @depracated - moved to theme
-
-import { SearchData } from '../../types';
+import { SearchData } from './useFacet';
 
 const buildBreadcrumbsList = (rootCat, bc) => {
   const newBc = [...bc, {
