@@ -23,7 +23,7 @@
 </template>
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import { useRoute, defineComponent, useFetch } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import TopBar from '~/components/TopBar.vue';
@@ -48,8 +48,8 @@ export default defineComponent({
     const route = useRoute();
     const { loadConfiguration } = useMagentoConfiguration();
 
-    onMounted(() => {
-      loadConfiguration();
+    useFetch(async () => {
+      await loadConfiguration();
     });
 
     return {
