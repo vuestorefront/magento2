@@ -170,7 +170,6 @@ import {
 import {
   cartGetters,
   categoryGetters,
-  useCart,
   useCategorySearch,
   wishlistGetters,
 } from '@vue-storefront/magento';
@@ -192,6 +191,7 @@ import {
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import debounce from 'lodash.debounce';
 import {
+  useCart,
   useUiHelpers,
   useUiState,
   useWishlist,

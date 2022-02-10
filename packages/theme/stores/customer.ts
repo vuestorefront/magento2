@@ -1,12 +1,20 @@
 import { defineStore } from 'pinia';
-import { Wishlist } from '@vue-storefront/magento';
+import { Wishlist, Cart } from '@vue-storefront/magento';
 
 const wishlist: Wishlist = {};
 const user: any = {};
+const cart: Cart | {} = {};
+
+interface CustomerState {
+  wishlist,
+  user,
+  cart,
+}
 
 export const useCustomerStore = defineStore('customer', {
-  state: () => ({
+  state: (): CustomerState => ({
     wishlist,
-    user
+    user,
+    cart,
   }),
 });

@@ -253,11 +253,11 @@ import {
   useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
   cartGetters,
 } from '@vue-storefront/magento';
 import _debounce from 'lodash.debounce';
 import {
+  useCart,
   useUiState,
   useUiNotification,
   useUser,

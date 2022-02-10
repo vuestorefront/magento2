@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-api';
 import { Logger } from '@vue-storefront/core';
 import { useGuestUserFactory, UseGuestUserFactoryParams } from '../../factories/useGuestUserFactory';

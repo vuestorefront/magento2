@@ -2,11 +2,10 @@ import {
   Ref, ref, computed, useContext,
 } from '@nuxtjs/composition-api';
 import { Logger, mask } from '@vue-storefront/core';
-import { useCart } from '@vue-storefront/magento'; // todo: replace by the new useCart composable when it will be done
-
 import { useCustomerStore } from '~/stores/customer';
 import { generateUserData } from '~/helpers/customer/userDataGenerator';
 import { UseUser } from '~/composables/useUser/useUser';
+import { useCart } from '~/composables';
 
 export const useUser = (): UseUser => {
   const customerStore = useCustomerStore();
