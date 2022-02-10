@@ -19,9 +19,9 @@
 </template>
 <script>
 import { SfSidebar, SfList, SfMenuItem } from '@storefront-ui/vue';
-import { defineComponent, computed } from '@nuxtjs/composition-api';
-import { categoryGetters, useCategory } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState } from '~/composables';
+import { defineComponent, computed, useAsync } from '@nuxtjs/composition-api';
+import { categoryGetters } from '@vue-storefront/magento';
+import { useUiHelpers, useUiState, useCategory } from '~/composables';
 
 export default defineComponent({
   name: 'MobileMenuSidebar',
@@ -31,13 +31,19 @@ export default defineComponent({
     SfMenuItem,
   },
   setup() {
-    const { categories } = useCategory('AppHeader:CategoryList');
+    const { categories, search } = useCategory('AppHeader:CategoryList');
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const { getAgnosticCatLink } = useUiHelpers();
 
     const categoryTree = computed(
-      () => categoryGetters.getCategoryTree(categories.value?.[0])?.items.filter((c) => c.count > 0),
+      () => categoryGetters.getCategoryTree(categories?.value?.[0])?.items.filter((c) => c.count > 0),
     );
+
+    useAsync(() => {
+      search({
+        pageSize: 10,
+      });
+    });
 
     return {
       categoryTree,

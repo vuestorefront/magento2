@@ -93,12 +93,11 @@ import {
   ref,
 } from '@nuxtjs/composition-api';
 import {
-  categoryGetters,
-  useCategory,
+  categoryGetters
 } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
-import { useUiHelpers } from '~/composables';
+import { useUiHelpers, useCategory } from '~/composables';
 
 export default defineComponent({
   name: 'CategorySidebarMenu',
@@ -115,7 +114,6 @@ export default defineComponent({
   setup(props) {
     const th = useUiHelpers();
     const {
-      path,
       result,
       search: resolveUrl,
     } = useUrlResolver();
@@ -123,7 +121,7 @@ export default defineComponent({
       categories,
       search,
       loading,
-    } = useCategory(`categoryList:${path}`);
+    } = useCategory();
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
       categories.value?.[0],
