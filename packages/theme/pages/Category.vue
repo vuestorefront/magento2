@@ -425,14 +425,13 @@ import {
   categoryGetters,
   facetGetters,
   productGetters,
-  useCategory,
   useFacet,
 } from '@vue-storefront/magento';
 import { onSSR, useVSFContext } from '@vue-storefront/core';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import {
-  useUiHelpers, useUiState, useImage, useWishlist, useUser,
+  useUiHelpers, useUiState, useImage, useWishlist, useUser, useCategory,
 } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
@@ -490,7 +489,7 @@ export default defineComponent({
     const {
       categories,
       search: categoriesSearch,
-    } = useCategory(`categoryList:${path}`);
+    } = useCategory();
     const {
       addItemToCart,
       isInCart,

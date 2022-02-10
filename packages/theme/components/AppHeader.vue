@@ -252,7 +252,7 @@ export default defineComponent({
       return data?.categories?.items;
     });
 
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
+    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList?.value?.[0])?.items.filter((c) => c.count > 0));
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
