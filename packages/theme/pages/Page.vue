@@ -17,7 +17,7 @@ import {
 } from '@storefront-ui/vue';
 import {
   computed,
-  defineComponent, onMounted, useContext, useRoute,
+  defineComponent, onMounted, useAsync, useContext, useRoute,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
@@ -40,19 +40,19 @@ export default defineComponent({
     const route = useRoute();
     const { params } = route.value;
     const {
-      page,
       loadPage,
-      error,
     } = useContent();
 
-    onMounted(async () => {
-      await loadPage({ identifier: `${params.slug}` });
+    const page = useAsync(async () => {
+      const result = await loadPage({ identifier: `${params.slug}` });
 
-      if (!page.value || error.value.page) {
+      if (!result) {
         nuxtError({ statusCode: 404 });
       }
 
-      addTags([{ prefix: CacheTagPrefix.View, value: page.identifier }]);
+      addTags([{ prefix: CacheTagPrefix.View, value: result.identifier }]);
+
+      return result;
     });
 
     return {
