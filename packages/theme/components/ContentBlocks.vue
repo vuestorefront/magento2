@@ -11,7 +11,7 @@
 <script>
 import { defineComponent } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import { useContent } from '@vue-storefront/magento';
+import { useContent } from '~/composables';
 import ContentBlock from './ContentBlock';
 
 export default defineComponent({
