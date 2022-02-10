@@ -10,3 +10,4 @@ export { default as useWishlist } from './useWishlist';
 export { default as useUser } from './useUser';
 export { default as useForgotPassword } from './useForgotPassword';
 export { default as useCategory } from './useCategory';
+export { default as useFacet } from './useFacet';
