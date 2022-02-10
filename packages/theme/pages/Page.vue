@@ -56,7 +56,7 @@ export default defineComponent({
     });
 
     return {
-      page: computed(() => page),
+      page,
     };
   },
   head() {
