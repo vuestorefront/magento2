@@ -20,14 +20,14 @@
         </nuxt-link>
       </template>
       <template #navigation>
-        <SfHeaderNavigationItem
-          v-for="(category, index) in categoryTree"
-          :key="index"
-          v-e2e="'app-header-url_women'"
-          class="nav-item"
-          :label="category.label"
-          :link="localePath(getAgnosticCatLink(category))"
-        />
+<!--        <SfHeaderNavigationItem-->
+<!--          v-for="(category, index) in categoryTree"-->
+<!--          :key="index"-->
+<!--          v-e2e="'app-header-url_women'"-->
+<!--          class="nav-item"-->
+<!--          :label="category.label"-->
+<!--          :link="localePath(getAgnosticCatLink(category))"-->
+<!--        />-->
       </template>
       <template #aside>
         <StoreSwitcher class="smartphone-only" />
@@ -195,8 +195,8 @@ import {
   useUiState,
   useWishlist,
   useUser,
-  useFacet,
-  useCategorySearch,
+ // useFacet,
+  //useCategorySearch,
 } from '~/composables';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
@@ -220,15 +220,15 @@ export default defineComponent({
     const { isAuthenticated, load: loadUser } = useUser();
     const { cart } = useCart();
     const { wishlist } = useWishlist();
-    const {
-      result: searchResult,
-      search: productsSearch,
-      // loading: productsLoading,
-    } = useFacet();
-    const {
-      result: categories,
-      search: categoriesSearch,
-    } = useCategorySearch();
+    // const {
+    //   result: searchResult,
+    //   search: productsSearch,
+    //   // loading: productsLoading,
+    // } = useFacet();
+    // const {
+    //   result: categories,
+    //   search: categoriesSearch,
+    // } = useCategorySearch();
 
     const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
@@ -244,15 +244,16 @@ export default defineComponent({
     });
 
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryList = useAsync(async () => {
-      const { data } = await app.$vsf.$magento.api.categoryList({
-        pageSize: 20,
-      });
+    // const categoryList = useAsync(async () => {
+    //   const { data } = await app.$vsf.$magento.api.categoryList({
+    //     pageSize: 20,
+    //   });
+    //
+    //   return data?.categories?.items;
+    // });
 
-      return data?.categories?.items;
-    });
-
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList?.value?.[0])?.items.filter((c) => c.count > 0));
+    //const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList?.value?.[0])?.items.filter((c) => c.count > 0));
+    const categoryTree = computed(() => categoryGetters.getCategoryTree([]));
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {

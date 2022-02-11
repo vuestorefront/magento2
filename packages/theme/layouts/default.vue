@@ -12,7 +12,7 @@
     <LazyHydrate when-visible>
       <Notification />
     </LazyHydrate>
-    <TopBar class="desktop-only" />
+<!--    <TopBar class="desktop-only" />-->
     <AppHeader />
     <div id="layout">
       <nuxt :key="route.fullPath" />
@@ -24,7 +24,7 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import { useRoute, defineComponent, useFetch } from '@nuxtjs/composition-api';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
+//import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import TopBar from '~/components/TopBar.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
@@ -35,7 +35,7 @@ export default defineComponent({
   components: {
     LazyHydrate,
     AppHeader,
-    TopBar,
+   // TopBar,
     BottomNavigation,
     AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
     CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
@@ -46,11 +46,11 @@ export default defineComponent({
 
   setup() {
     const route = useRoute();
-    const { loadConfiguration } = useMagentoConfiguration();
-
-    useFetch(async () => {
-      await loadConfiguration();
-    });
+    // const { loadConfiguration } = useMagentoConfiguration();
+    //
+    // useFetch(async () => {
+    //   await loadConfiguration();
+    // });
 
     return {
       route,
