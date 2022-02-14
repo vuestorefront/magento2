@@ -22,7 +22,9 @@
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import {
+  useRoute, defineComponent, onMounted, useAsync,
+} from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
@@ -54,8 +56,11 @@ export default defineComponent({
     const { loadConfiguration } = useMagentoConfiguration();
     const { isCartSidebarOpen } = useUiState();
 
-    onMounted(() => {
+    useAsync(() => {
       loadConfiguration();
+    });
+
+    onMounted(() => {
       loadUser();
     });
 
