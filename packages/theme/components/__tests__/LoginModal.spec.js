@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
 import { useUser, useForgotPassword } from '@vue-storefront/magento';
 import { render, useUserMock, useForgotPasswordMock } from '~/test-utils';
-import useUiState from '~/composables/useUiState.ts';
+import useUiState from '~/composables/useUiState/useUiState.ts';
 
 import LoginModal from '../LoginModal';
 
