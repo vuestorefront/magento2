@@ -79,6 +79,7 @@ import {
   ref,
   computed,
   defineComponent,
+  onMounted,
 } from '@nuxtjs/composition-api';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
@@ -98,12 +99,17 @@ export default defineComponent({
     const {
       stores,
       change: changeStore,
+      load: loadStores,
     } = useStore();
 
     const { handleChanges } = useHandleChanges();
     const isLangModalOpen = ref(false);
 
     const availableStores = computed(() => stores.value ?? []);
+
+    onMounted(() => {
+      loadStores();
+    });
 
     return {
       availableStores,

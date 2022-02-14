@@ -54,6 +54,7 @@ import {
   ref,
   computed,
   defineComponent,
+  onMounted,
 } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
@@ -61,7 +62,6 @@ import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
-    SfImage,
     SfButton,
     SfList,
     SfBottomModal,
@@ -80,6 +80,7 @@ export default defineComponent({
     const {
       currencies,
       change: changeCurrency,
+      load: loadCurrencies
     } = useCurrency();
 
     const currentCurrencySymbol = computed(() => {
@@ -105,6 +106,10 @@ export default defineComponent({
     const isCurrencyModalOpen = ref(false);
 
     const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
+
+    onMounted(() => {
+      loadCurrencies();
+    });
 
     return {
       currentCurrencySymbol,
