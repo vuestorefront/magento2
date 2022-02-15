@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: develop
 
       - name: Initialize mandatory git config
         run: |
@@ -41,7 +43,7 @@ jobs:
         with:
           head: release/${{ github.event.inputs.version }}
           base: main
-          title: "chore: release version ${{ github.event.inputs.version }}"
+          title: "chore: release ${{ github.event.inputs.version }}"
           reviewers: ${{ github.actor }}
           body: |
             Hey @${{ github.actor }}!
