@@ -20,7 +20,6 @@ import {
   ref,
   computed,
   defineComponent,
-  onMounted,
 } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import CurrenciesModal from './CurrencySelector/CurrenciesModal';
@@ -28,6 +27,7 @@ import CurrenciesModal from './CurrencySelector/CurrenciesModal';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
+    CurrenciesModal,
     SfButton,
     CurrenciesModal,
   },
