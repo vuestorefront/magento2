@@ -12,23 +12,37 @@
       </SfButton>
     </template>
     <template #right>
-      <CurrencySelector />
-      <StoreSwitcher />
+      <CurrencySelector v-if="hasCurrencyToSelect" />
+      <StoreSwitcher v-if="hasStoresToSelect" />
     </template>
   </SfTopBar>
 </template>
 
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import CurrencySelector from './CurrencySelector';
-import StoreSwitcher from './StoreSwitcher';
+import { useCurrency, useStore } from '@vue-storefront/magento';
+import { computed } from '@nuxtjs/composition-api';
 
 export default {
   components: {
-    CurrencySelector,
+    CurrencySelector: () => import('./CurrencySelector'),
     SfTopBar,
     SfButton,
-    StoreSwitcher,
+    StoreSwitcher: () => import('./StoreSwitcher'),
+  },
+  setup() {
+    const {
+      stores,
+    } = useStore();
+
+    const {
+      currencies,
+    } = useCurrency();
+
+    return {
+      hasStoresToSelect: computed(() => stores.value.length > 1),
+      hasCurrencyToSelect: computed(() => currencies.value?.available_currency_codes?.length > 1),
+    };
   },
 };
 
