@@ -346,7 +346,7 @@ export default defineComponent({
     return {
       sendToRemove,
       actionRemoveItem,
-      loading: computed(() => (!!loading.value)),
+      loading,
       isAuthenticated,
       products,
       removeItem,
