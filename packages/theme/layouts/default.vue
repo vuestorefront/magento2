@@ -1,8 +1,6 @@
 <template>
   <div>
-    <LazyHydrate when-visible>
-      <CartSidebar />
-    </LazyHydrate>
+    <CartSidebar v-if="isCartSidebarOpen" />
     <LazyHydrate when-visible>
       <WishlistSidebar />
     </LazyHydrate>
@@ -28,6 +26,8 @@ import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
+import useUiState from '~/composables/useUiState.ts';
+
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
@@ -52,6 +52,7 @@ export default defineComponent({
     const route = useRoute();
     const { load: loadUser } = useUser();
     const { loadConfiguration } = useMagentoConfiguration();
+    const { isCartSidebarOpen } = useUiState();
 
     onMounted(() => {
       loadConfiguration();
@@ -59,6 +60,7 @@ export default defineComponent({
     });
 
     return {
+      isCartSidebarOpen,
       route,
     };
   },
