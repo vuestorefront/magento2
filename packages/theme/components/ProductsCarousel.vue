@@ -44,23 +44,25 @@
                 v-on="$listeners"
               >
                 <template v-if="Array.isArray(imageSlotProps.image)">
-                  <nuxt-img
+                  <SfImage
                     v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                     :key="key"
-                    class="sf-product-card__picture"
+                    image-tag="nuxt-picture"
                     :src="picture"
                     :alt="imageSlotProps.title"
                     :width="imageSlotProps.imageWidth"
                     :height="imageSlotProps.imageHeight"
+                    class="sf-product-card__picture"
                   />
                 </template>
-                <nuxt-img
+                <SfImage
                   v-else
-                  class="sf-product-card__image lol"
+                  image-tag="nuxt-picture"
                   :src="imageSlotProps.image"
                   :alt="imageSlotProps.title"
                   :width="imageSlotProps.imageWidth"
                   :height="imageSlotProps.imageHeight"
+                  class="sf-product-card__image lol"
                 />
               </SfButton>
             </template>
@@ -73,28 +75,35 @@
 
 <script>
 import {
+  SfButton,
   SfCarousel,
+  SfImage,
+  SfLoader,
   SfProductCard,
   SfSection,
-  SfLoader,
-  SfButton,
 } from '@storefront-ui/vue';
 
 import {
-  productGetters, useUser, useWishlist,
+  productGetters,
+  useUser,
+  useWishlist,
 } from '@vue-storefront/magento';
-import { computed, defineComponent } from '@nuxtjs/composition-api';
+import {
+  computed,
+  defineComponent,
+} from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage } from '~/composables';
 
 export default defineComponent({
   name: 'ProductsCarousel',
   components: {
+    SfButton,
     SfCarousel,
+    SfImage,
+    SfLoader,
     SfProductCard,
     SfSection,
-    SfLoader,
-    SfButton,
   },
   props: {
     title: {
@@ -136,13 +145,13 @@ export default defineComponent({
     return {
       addItemToCart,
       addItemToWishlist,
+      getMagentoImage,
+      imageSizes,
       isAuthenticated,
       isInCart,
       isInWishlist,
       mappedProducts,
       productGetters,
-      getMagentoImage,
-      imageSizes,
     };
   },
 });

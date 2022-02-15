@@ -8,11 +8,12 @@
         :key="index"
         class="grouped_items--item"
       >
-        <nuxt-img
+        <SfImage
+          image-tag="nuxt-picture"
           :src="getMagentoImage(productGetters.getProductThumbnailImage(groupedItem.product))"
           :alt="productGetters.getName(groupedItem.product)"
-          :width="60"
-          :height="60"
+          width="60"
+          height="60"
         />
         <div>
           <p>{{ productGetters.getName(groupedItem.product) }}</p>
@@ -39,14 +40,18 @@
 </template>
 <script>
 import {
+  SfButton,
+  SfImage,
   SfList,
   SfPrice,
-  SfButton,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
 import { productGetters, useCart } from '@vue-storefront/magento';
 import {
-  computed, watch, ref, defineComponent,
+  computed,
+  defineComponent,
+  ref,
+  watch,
 } from '@nuxtjs/composition-api';
 import { productData } from '~/helpers/product/productData';
 import { useImage } from '~/composables';
@@ -54,9 +59,10 @@ import { useImage } from '~/composables';
 export default defineComponent({
   name: 'GroupedProductSelector',
   components: {
+    SfButton,
+    SfImage,
     SfList,
     SfPrice,
-    SfButton,
     SfQuantitySelector,
   },
   props: {
@@ -109,12 +115,12 @@ export default defineComponent({
 
     return {
       addToCart,
+      getMagentoImage,
       groupedItems,
       loading,
-      productLoading,
       product,
       productGetters,
-      getMagentoImage,
+      productLoading,
     };
   },
 });

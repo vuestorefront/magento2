@@ -7,77 +7,85 @@
     <div class="grid grid-images">
       <div class="grid__row">
         <div class="grid__col">
-          <nuxt-img
+          <SfImage
             v-if="isMobile"
+            image-tag="nuxt-picture"
             src="/homepage/imageAm.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="160"
-            :height="160"
+            width="160"
+            height="160"
           />
-          <nuxt-img
+          <SfImage
             v-else
+            image-tag="nuxt-picture"
             src="/homepage/imageAd.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="470"
-            :height="470"
+            width="470"
+            height="470"
           />
         </div>
         <div class="grid__col small">
-          <nuxt-img
+          <SfImage
             v-if="isMobile"
+            image-tag="nuxt-picture"
             src="/homepage/imageBm.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="160"
-            :height="160"
+            width="160"
+            height="160"
           />
-          <nuxt-img
+          <SfImage
             v-else
+            image-tag="nuxt-picture"
             src="/homepage/imageCd.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="470"
-            :height="160"
+            width="470"
+            height="160"
           />
         </div>
       </div>
       <div class="grid__row">
         <div class="grid__col small">
-          <nuxt-img
+          <SfImage
             v-if="isMobile"
+            image-tag="nuxt-picture"
             src="/homepage/imageCm.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="160"
-            :height="160"
+            width="160"
+            height="160"
           />
-          <nuxt-img
+          <SfImage
             v-else
+            image-tag="nuxt-picture"
             src="/homepage/imageBd.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="470"
-            :height="160"
+            width="470"
+            height="160"
           />
         </div>
         <div class="grid__col">
-          <nuxt-img
+          <SfImage
             v-if="isMobile"
+            image-tag="nuxt-picture"
             src="/homepage/imageDm.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="160"
-            :height="160"
+            width="160"
+            height="160"
           />
-          <nuxt-img
+          <SfImage
             v-else
+            image-tag="nuxt-picture"
             src="/homepage/imageDd.webp"
             alt="katherina_trn"
             loading="lazy"
-            :width="470"
-            :height="470"
+            width="470"
+            height="470"
           />
         </div>
       </div>
@@ -86,17 +94,23 @@
 </template>
 <script>
 import {
+  SfImage,
   SfSection,
 } from '@storefront-ui/vue';
 import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import { computed, defineComponent, onBeforeUnmount } from '@nuxtjs/composition-api';
+import {
+  computed,
+  defineComponent,
+  onBeforeUnmount,
+} from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'InstagramFeed',
   components: {
+    SfImage,
     SfSection,
   },
   setup() {

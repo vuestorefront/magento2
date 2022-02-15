@@ -92,15 +92,16 @@
 <script>
 import {
   SfButton,
-  SfLoader,
-  SfInput,
   SfHeading,
+  SfInput,
+  SfLoader,
 } from '@storefront-ui/vue';
 import {
-  ref,
   computed,
   defineComponent,
+  ref,
   useContext,
+  useRoute,
 } from '@nuxtjs/composition-api';
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
@@ -132,12 +133,15 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
   },
-  middleware({ redirect, route }) {
+  middleware({
+    redirect,
+    route,
+  }) {
     if (!route.query.token) {
       return redirect('/');
     }
   },
-  setup(props, context) {
+  setup() {
     const {
       result,
       setNew,
@@ -147,9 +151,16 @@ export default defineComponent({
     const passwordMatchError = ref(false);
     const form = ref({});
     const isPasswordChanged = computed(() => forgotPasswordGetters.isPasswordChanged(result.value));
-
-    const { token } = context.root.$route.query;
-    const { $recaptcha, $config } = useContext();
+    const route = useRoute();
+    const {
+      query: {
+        token,
+      },
+    } = route.value;
+    const {
+      $recaptcha,
+      $config,
+    } = useContext();
     const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const setNewPassword = async () => {
@@ -186,15 +197,15 @@ export default defineComponent({
     };
 
     return {
-      isPasswordChanged,
-      form,
-      setNewPassword,
-      forgotPasswordLoading,
       forgotPasswordError,
-      passwordMatchError,
-      token,
-      result,
+      forgotPasswordLoading,
+      form,
+      isPasswordChanged,
       isRecaptchaEnabled,
+      passwordMatchError,
+      result,
+      setNewPassword,
+      token,
     };
   },
 });
@@ -218,32 +229,39 @@ export default defineComponent({
 .form {
   margin-top: var(--spacer-sm);
   min-width: 350px;
+
   &__element {
     margin: 0 0 var(--spacer-xl) 0;
   }
 }
+
 .action {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
   font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--secondary);
+
   & > * {
     margin: 0 0 0 var(--spacer-xs);
   }
 }
+
 .action {
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
 }
+
 .checkbox {
   margin-bottom: var(--spacer-2xl);
 }
+
 .bottom {
   text-align: center;
   margin-bottom: var(--spacer-lg);
   font-size: var(--h3-font-size);
   font-weight: var(--font-weight--semibold);
   font-family: var(--font-family--secondary);
+
   &__paragraph {
     color: var(--c-primary);
     margin: 0 0 var(--spacer-base) 0;

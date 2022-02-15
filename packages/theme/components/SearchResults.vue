@@ -93,23 +93,25 @@
                       v-on="$listeners"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
+                        <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                           :key="key"
-                          class="sf-product-card__picture"
+                          image-tag="nuxt-picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
                           :height="imageSlotProps.imageHeight"
+                          class="sf-product-card__picture"
                         />
                       </template>
-                      <nuxt-img
+                      <SfImage
                         v-else
-                        class="sf-product-card__image lol"
+                        image-tag="nuxt-picture"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
+                        class="sf-product-card__image lol"
                       />
                     </SfButton>
                   </template>
@@ -145,23 +147,25 @@
                     v-on="$listeners"
                   >
                     <template v-if="Array.isArray(imageSlotProps.image)">
-                      <nuxt-img
+                      <SfImage
                         v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                         :key="key"
-                        class="sf-product-card__picture"
+                        image-tag="nuxt-picture"
                         :src="picture"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
+                        class="sf-product-card__picture"
                       />
                     </template>
-                    <nuxt-img
+                    <SfImage
                       v-else
-                      class="sf-product-card__image lol"
+                      image-tag="nuxt-picture"
                       :src="imageSlotProps.image"
                       :alt="imageSlotProps.title"
                       :width="imageSlotProps.imageWidth"
                       :height="imageSlotProps.imageHeight"
+                      class="sf-product-card__image lol"
                     />
                   </SfButton>
                 </template>
@@ -182,12 +186,13 @@
           key="no-results"
           class="before-results"
         >
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-picture"
+            width="412"
+            height="412"
             src="/error/error.svg"
             class="before-results__picture"
             alt="error"
-            width="412"
-            height="412"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -208,31 +213,37 @@
 </template>
 <script>
 import {
-  SfMegaMenu,
+  SfButton,
+  SfImage,
   SfList,
+  SfMegaMenu,
+  SfMenuItem,
   SfProductCard,
   SfScrollable,
-  SfMenuItem,
-  SfButton,
 } from '@storefront-ui/vue';
 import {
-  ref,
-  watch,
   computed,
   defineComponent,
+  ref,
+  watch,
 } from '@nuxtjs/composition-api';
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
+import {
+  productGetters,
+  useUser,
+  useWishlist,
+} from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'SearchResults',
   components: {
-    SfMegaMenu,
+    SfButton,
+    SfImage,
     SfList,
+    SfMegaMenu,
+    SfMenuItem,
     SfProductCard,
     SfScrollable,
-    SfMenuItem,
-    SfButton,
   },
   props: {
     visible: {
@@ -274,16 +285,16 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
-      th,
+      addItemToWishlist,
+      categories,
+      getMagentoImage,
+      imageSizes,
+      isAuthenticated,
+      isInWishlist,
       isSearchOpen,
       productGetters,
       products,
-      categories,
-      addItemToWishlist,
-      isInWishlist,
-      isAuthenticated,
-      getMagentoImage,
-      imageSizes,
+      th,
     };
   },
 });

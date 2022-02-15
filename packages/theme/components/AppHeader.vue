@@ -10,7 +10,8 @@
           :to="localePath('/')"
           class="sf-header__logo"
         >
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-picture"
             src="/icons/logo.svg"
             alt="Vue Storefront Next"
             class="sf-header__logo-image"
@@ -166,6 +167,7 @@ import {
   SfHeader,
   SfIcon,
   SfButton,
+  SfImage,
   SfBadge,
   SfSearchBar,
   SfOverlay,
@@ -199,20 +201,20 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import StoreSwitcher from '~/components/StoreSwitcher.vue';
-import CurrencySelector from '~/components/CurrencySelector.vue';
 
 export default defineComponent({
+  name: 'AppHeader',
   components: {
-    SfHeader,
-    CurrencySelector,
-    StoreSwitcher,
-    SfIcon,
-    SfButton,
-    SfBadge,
-    SfSearchBar,
+    CurrencySelector: () => import(/* webpackPrefetch: true */'~/components/CurrencySelector.vue'),
     SearchResults: () => import(/* webpackPrefetch: true */ '~/components/SearchResults.vue'),
+    SfBadge,
+    SfButton,
+    SfHeader,
+    SfIcon,
+    SfImage,
     SfOverlay,
+    SfSearchBar,
+    StoreSwitcher: () => import(/* webpackPrefetch: true */'~/components/StoreSwitcher.vue'),
   },
   directives: { clickOutside },
   setup() {
@@ -336,11 +338,10 @@ export default defineComponent({
       categoryTree,
       closeOrFocusSearchBar,
       closeSearch,
-      showSearch,
-      hideSearch,
       getAgnosticCatLink,
       handleAccountClick,
       handleSearch,
+      hideSearch,
       isAuthenticated,
       isMobile,
       isSearchOpen,
@@ -348,6 +349,7 @@ export default defineComponent({
       result,
       searchBarRef,
       setTermForUrl,
+      showSearch,
       term,
       toggleCartSidebar,
       toggleWishlistSidebar,

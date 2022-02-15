@@ -61,11 +61,12 @@
                     localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
                   "
                 >
-                  <nuxt-img
+                  <SfImage
+                    image-tag="nuxt-picture"
                     :src="getMagentoImage(wishlistGetters.getItemImage(product))"
                     :alt="wishlistGetters.getItemName(product)"
-                    :width="140"
-                    :height="200"
+                    width="140"
+                    height="200"
                     class="sf-collected-product__image"
                   />
                 </SfLink>
@@ -118,12 +119,13 @@
           class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <nuxt-img
+            <SfImage
+              image-tag="nuxt-picture"
+              width="211"
+              height="143"
               src="/icons/empty-cart.svg"
               alt="Empty bag"
               class="empty-wishlist__icon"
-              width="211"
-              height="143"
             />
             <SfHeading
               title="Your bag is empty"
@@ -146,35 +148,41 @@
 </template>
 <script>
 import {
-  SfSidebar,
-  SfHeading,
   SfButton,
-  SfIcon,
-  SfProperty,
-  SfPrice,
   SfCollectedProduct,
+  SfHeading,
+  SfIcon,
+  SfImage,
   SfLink,
+  SfPrice,
+  SfProperty,
+  SfSidebar,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
-  useWishlist,
-  useUser,
-  wishlistGetters,
+  computed,
+  defineComponent,
+  onMounted,
+} from '@nuxtjs/composition-api';
+import {
   productGetters,
+  useUser,
+  useWishlist,
+  wishlistGetters,
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',
   components: {
-    SfSidebar,
     SfButton,
+    SfCollectedProduct,
     SfHeading,
     SfIcon,
-    SfProperty,
-    SfPrice,
-    SfCollectedProduct,
+    SfImage,
     SfLink,
+    SfPrice,
+    SfProperty,
+    SfSidebar,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
@@ -196,18 +204,18 @@ export default defineComponent({
     return {
       getAttributes,
       getBundles,
+      getMagentoImage,
+      imageSizes,
       isAuthenticated,
       isWishlistSidebarOpen,
+      productGetters,
       products,
       removeItem,
       toggleWishlistSidebar,
       totalItems,
       totals,
-      wishlistGetters,
       wishlist,
-      productGetters,
-      getMagentoImage,
-      imageSizes,
+      wishlistGetters,
     };
   },
 });

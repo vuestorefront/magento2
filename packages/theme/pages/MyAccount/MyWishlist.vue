@@ -66,8 +66,8 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
-                  :image-width="imageSizes.productCard.width"
-                  :image-height="imageSizes.productCard.height"
+                  :image-width="Number.parseInt(imageSizes.productCard.width, 10)"
+                  :image-height="Number.parseInt(imageSizes.productCard.height, 10)"
                   :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
@@ -99,23 +99,25 @@
                       v-on="$listeners"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
+                        <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                           :key="key"
-                          class="sf-product-card__picture"
+                          image-tag="nuxt-picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
                           :height="imageSlotProps.imageHeight"
+                          class="sf-product-card__picture"
                         />
                       </template>
-                      <nuxt-img
+                      <SfImage
                         v-else
-                        class="sf-product-card__image lol"
+                        image-tag="nuxt-picture"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
+                        class="sf-product-card__image lol"
                       />
                     </SfButton>
                   </template>
@@ -164,23 +166,25 @@
                   "
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
+                        <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                           :key="key"
-                          class="sf-product-card-horizontal__picture"
+                          image-tag="nuxt-picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
                           :height="imageSlotProps.imageHeight"
+                          class="sf-product-card-horizontal__picture"
                         />
                       </template>
-                      <nuxt-img
+                      <SfImage
                         v-else
-                        class="sf-product-card-horizontal__image"
+                        image-tag="nuxt-picture"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
+                        class="sf-product-card-horizontal__image"
                       />
                     </SfLink>
                   </template>
@@ -254,44 +258,50 @@
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  SfLoader,
-  SfTabs,
   SfButton,
   SfIcon,
+  SfImage,
+  SfLoader,
+  SfPagination,
   SfProductCard,
   SfProductCardHorizontal,
-  SfPagination,
-  SfSelect,
   SfProperty,
+  SfSelect,
+  SfTabs,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
-  useRouter,
-  useRoute,
   useContext,
+  useRoute,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import {
+  productGetters,
   useCart,
   useWishlist,
-  productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState, useImage } from '~/composables';
+import {
+  useImage,
+  useUiHelpers,
+  useUiState,
+} from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
   components: {
-    SfLoader,
-    SfTabs,
+    LazyHydrate,
     SfButton,
     SfIcon,
+    SfImage,
+    SfLoader,
+    SfPagination,
     SfProductCard,
     SfProductCardHorizontal,
-    SfPagination,
-    SfSelect,
     SfProperty,
-    LazyHydrate,
+    SfSelect,
+    SfTabs,
   },
   setup() {
     const {
@@ -364,16 +374,16 @@ export default defineComponent({
     return {
       ...uiState,
       addItemToCart,
-      removeItemFromWishlist,
+      getMagentoImage,
+      imageSizes,
       isInCart,
       loading,
       pagination,
       productGetters,
       products,
+      removeItemFromWishlist,
       th,
       wishlist,
-      getMagentoImage,
-      imageSizes,
     };
   },
 });

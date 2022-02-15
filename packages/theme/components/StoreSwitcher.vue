@@ -9,11 +9,12 @@
           <span class="desktop-only">{{ storeConfig.store_name }}</span>
         </template>
         <template #icon>
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-picture"
             :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
             width="20"
             height="20"
-            alt="Flag"
+            :alt="storeConfig.store_name "
             class="language__flag"
           />
         </template>
@@ -46,11 +47,12 @@
                 <span>{{ storeConfigGetters.getName(store) }}</span>
               </template>
               <template #icon>
-                <nuxt-img
+                <SfImage
+                  image-tag="nuxt-picture"
                   :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
                   width="20"
                   height="20"
-                  alt="Flag"
+                  :alt="storeConfigGetters.getName(store)"
                   class="language__flag"
                 />
               </template>
@@ -64,31 +66,33 @@
 
 <script>
 import {
-  useConfig,
-  useStore,
   storeConfigGetters,
   storeGetters,
+  useConfig,
+  useStore,
 } from '@vue-storefront/magento';
 import {
-  SfButton,
-  SfList,
   SfBottomModal,
+  SfButton,
   SfCharacteristic,
+  SfImage,
+  SfList,
 } from '@storefront-ui/vue';
 import {
-  ref,
   computed,
   defineComponent,
+  ref,
 } from '@nuxtjs/composition-api';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
   name: 'StoreSwitcher',
   components: {
-    SfButton,
-    SfList,
     SfBottomModal,
+    SfButton,
     SfCharacteristic,
+    SfImage,
+    SfList,
   },
   setup() {
     const {

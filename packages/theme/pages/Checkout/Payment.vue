@@ -25,7 +25,8 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-picture"
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
             :width="imageSizes.cartItem.width"
@@ -157,27 +158,29 @@
 
 <script>
 import {
-  SfHeading,
-  SfTable,
-  SfCheckbox,
   SfButton,
+  SfCheckbox,
   SfDivider,
+  SfHeading,
+  SfImage,
+  SfLink,
   SfPrice,
   SfProperty,
-  SfLink,
+  SfTable,
 } from '@storefront-ui/vue';
 import { useVSFContext } from '@vue-storefront/core';
 import {
-  ref,
   computed,
   defineComponent,
+  onMounted,
+  ref,
+  useContext,
   useRouter,
-  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
-  useMakeOrder,
-  useCart,
   cartGetters,
+  useCart,
+  useMakeOrder,
 } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { useImage } from '~/composables';
@@ -187,15 +190,16 @@ import { isPreviousStepValid } from '~/helpers/checkout/steps';
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
   components: {
-    SfHeading,
-    SfTable,
-    SfCheckbox,
     SfButton,
+    SfCheckbox,
     SfDivider,
+    SfHeading,
+    SfImage,
+    SfLink,
     SfPrice,
     SfProperty,
-    SfLink,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
+    SfTable,
+    VsfPaymentProvider: () => import(/* webpackPrefetch: true */'~/components/Checkout/VsfPaymentProvider.vue'),
   },
   setup() {
     const { cart, load, setCart } = useCart();
@@ -236,9 +240,13 @@ export default defineComponent({
       cart,
       cartGetters,
       discounts,
-      hasDiscounts,
       discountsAmount,
+      getAttributes,
+      getBundles,
+      getMagentoImage,
       getShippingMethodPrice,
+      hasDiscounts,
+      imageSizes,
       isPaymentReady,
       loading,
       processOrder,
@@ -247,10 +255,6 @@ export default defineComponent({
       tableHeaders: ['Description', 'Quantity', 'Amount'],
       terms,
       totals: computed(() => cartGetters.getTotals(cart.value)),
-      getAttributes,
-      getBundles,
-      getMagentoImage,
-      imageSizes,
     };
   },
 });

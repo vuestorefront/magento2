@@ -166,7 +166,8 @@
           class="empty-cart"
         >
           <div class="empty-cart__banner">
-            <nuxt-img
+            <SfImage
+              image-tag="nuxt-picture"
               alt="Empty bag"
               class="empty-cart__image"
               src="/icons/empty-cart.svg"
@@ -234,23 +235,25 @@
 <script>
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
+  SfBadge,
+  SfButton,
+  SfCollectedProduct,
+  SfHeading,
+  SfImage,
   SfLoader,
   SfNotification,
-  SfSidebar,
-  SfHeading,
-  SfButton,
-  SfProperty,
   SfPrice,
-  SfCollectedProduct,
+  SfProperty,
   SfQuantitySelector,
-  SfBadge,
+  SfSidebar,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
+  onMounted,
   ref,
+  useContext,
   useRouter,
-  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -261,22 +264,22 @@ import {
 import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
-import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
   components: {
+    CouponCode: () => import(/* webpackPrefetch: true */'~/components/CouponCode.vue'),
+    SfBadge,
+    SfButton,
+    SfCollectedProduct,
+    SfHeading,
+    SfImage,
     SfLoader,
     SfNotification,
-    SfSidebar,
-    SfButton,
-    SfHeading,
-    SfProperty,
     SfPrice,
-    SfCollectedProduct,
+    SfProperty,
     SfQuantitySelector,
-    SfBadge,
-    CouponCode,
+    SfSidebar,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
@@ -347,26 +350,26 @@ export default defineComponent({
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
-      sendToRemove,
       actionRemoveItem,
-      loading: computed(() => (!!loading.value)),
-      isAuthenticated,
-      products,
-      removeItem,
-      delayedUpdateItemQty,
-      isCartSidebarOpen,
-      notifications,
-      visible,
-      isLoaderVisible,
-      tempProduct,
-      toggleCartSidebar,
-      goToCheckout,
-      totals,
-      totalItems,
       cartGetters,
+      delayedUpdateItemQty,
       getAttributes,
       getBundles,
+      goToCheckout,
+      isAuthenticated,
+      isCartSidebarOpen,
       isInStock,
+      isLoaderVisible,
+      loading: computed(() => (!!loading.value)),
+      notifications,
+      products,
+      removeItem,
+      sendToRemove,
+      tempProduct,
+      toggleCartSidebar,
+      totalItems,
+      totals,
+      visible,
     };
   },
 });

@@ -25,7 +25,7 @@ const customRender = (component, options = {}, callback = null) => render(compon
   },
   stubs: {
     NuxtImg: {
-      template: '<img src="image-stub.png" class="nuxt-img" alt="image"/>',
+      template: '<img src="image-stub.png" class="nuxt-picture" alt="image"/>',
     },
     recaptcha: {
       template: '<div data-testid="recaptcha" />',

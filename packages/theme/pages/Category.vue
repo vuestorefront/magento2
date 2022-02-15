@@ -153,23 +153,25 @@
                   v-on="$listeners"
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
+                    <SfImage
                       v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                       :key="key"
-                      class="sf-product-card__picture"
+                      image-tag="nuxt-picture"
                       :src="picture"
                       :alt="imageSlotProps.title"
                       :width="imageSlotProps.imageWidth"
                       :height="imageSlotProps.imageHeight"
+                      class="sf-product-card__picture"
                     />
                   </template>
-                  <nuxt-img
+                  <SfImage
                     v-else
-                    class="sf-product-card__image lol"
+                    image-tag="nuxt-picture"
                     :src="imageSlotProps.image"
                     :alt="imageSlotProps.title"
                     :width="imageSlotProps.imageWidth"
                     :height="imageSlotProps.imageHeight"
+                    class="sf-product-card__image lol"
                   />
                 </SfButton>
               </template>
@@ -190,8 +192,8 @@
               :title="productGetters.getName(product)"
               :description="productGetters.getDescription(product)"
               :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
-              :image-width="imageSizes.productCardHorizontal.width"
-              :image-height="imageSizes.productCardHorizontal.height"
+              :image-width="Number.parseInt(imageSizes.productCardHorizontal.width, 10)"
+              :image-height="Number.parseInt(imageSizes.productCardHorizontal.height, 10)"
               :regular-price="$fc(productGetters.getPrice(product).regular)"
               :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
               :score-rating="productGetters.getAverageRating(product)"
@@ -218,23 +220,25 @@
                   "
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
+                    <SfImage
                       v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                       :key="key"
-                      class="sf-product-card-horizontal__picture"
+                      image-tag="nuxt-picture"
                       :src="picture"
                       :alt="imageSlotProps.title"
                       :width="imageSlotProps.imageWidth"
                       :height="imageSlotProps.imageHeight"
+                      class="sf-product-card-horizontal__picture"
                     />
                   </template>
-                  <nuxt-img
+                  <SfImage
                     v-else
-                    class="sf-product-card-horizontal__image"
+                    image-tag="nuxt-picture"
                     :src="imageSlotProps.image"
                     :alt="imageSlotProps.title"
                     :width="imageSlotProps.imageWidth"
                     :height="imageSlotProps.imageHeight"
+                    class="sf-product-card-horizontal__image"
                   />
                 </SfLink>
               </template>
@@ -400,26 +404,27 @@
 import findDeep from 'deepdash/findDeep';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  SfSidebar,
+  SfAccordion,
+  SfBreadcrumbs,
   SfButton,
-  SfIcon,
-  SfHeading,
+  SfColor,
   SfFilter,
-  SfRadio,
+  SfHeading,
+  SfIcon,
+  SfImage,
+  SfLoader,
+  SfPagination,
   SfProductCard,
   SfProductCardHorizontal,
-  SfPagination,
-  SfAccordion,
-  SfSelect,
-  SfBreadcrumbs,
-  SfLoader,
-  SfColor,
   SfProperty,
+  SfRadio,
+  SfSelect,
+  SfSidebar,
 } from '@storefront-ui/vue';
 import {
-  ref,
   computed,
   defineComponent,
+  ref,
 } from '@nuxtjs/composition-api';
 import {
   categoryGetters,
@@ -436,29 +441,29 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
-    CategorySidebarMenu,
+    CategorySidebarMenu: () => import(/* webpackPrefetch: true */'~/components/Category/CategorySidebarMenu'),
+    LazyHydrate,
+    SfAccordion,
+    SfBreadcrumbs,
     SfButton,
-    SfSidebar,
-    SfIcon,
+    SfColor,
     SfFilter,
-    SfRadio,
+    SfHeading,
+    SfIcon,
+    SfImage,
+    SfLoader,
+    SfPagination,
     SfProductCard,
     SfProductCardHorizontal,
-    SfPagination,
-    SfAccordion,
-    SfSelect,
-    SfBreadcrumbs,
-    SfLoader,
-    SfColor,
-    SfHeading,
     SfProperty,
-    LazyHydrate,
+    SfRadio,
+    SfSelect,
+    SfSidebar,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -656,7 +661,6 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
-      routeData,
       ...uiState,
       activeCategory,
       addItemToCart,
@@ -666,21 +670,22 @@ export default defineComponent({
       categories,
       categoryTree,
       facets,
+      getMagentoImage,
+      imageSizes,
       isAuthenticated,
+      isCategoriesLoading,
       isFilterSelected,
       isInCart,
       isInWishlist,
       isProductsLoading,
-      isCategoriesLoading,
       pagination,
       productGetters,
       products,
+      routeData,
       selectedFilters,
       selectFilter,
       sortBy,
       uiHelpers,
-      getMagentoImage,
-      imageSizes,
     };
   },
 });
