@@ -77,11 +77,12 @@ export default defineComponent({
       stores,
       change: changeStore,
       load: loadStores,
-    } = useStore();
+    } = useStore('header-stores');
 
     const availableStores = computed(() => stores.value ?? []);
 
     onMounted(() => {
+      if (stores.value && stores.value?.length) return;
       loadStores();
     });
 
@@ -95,11 +96,9 @@ export default defineComponent({
   },
   methods: {
     closeModal() {
-      console.log('close modal');
       this.$emit('closeModal');
     },
   },
-
 });
 </script>
 <style scoped lang="scss">
