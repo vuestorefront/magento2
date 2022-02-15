@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/eslint-config-base",
-  "version": "0.0.1",
+  "version": "1.0.0-rc.5.5",
   "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
   "license": "MIT",
   "scripts": {
