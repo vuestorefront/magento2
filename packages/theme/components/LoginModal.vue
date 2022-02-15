@@ -298,7 +298,9 @@ import {
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { useUser, useForgotPassword, useWishlist } from '@vue-storefront/magento';
+import {
+  useUser, useForgotPassword, useWishlist, useCart,
+} from '@vue-storefront/magento';
 import { useUiState } from '~/composables';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
@@ -348,6 +350,8 @@ export default defineComponent({
       loading,
       error: userError,
     } = useUser();
+
+    const { loadTotalQty } = useCart();
     const { load: loadWishlist } = useWishlist('GlobalWishlist');
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
 
@@ -439,7 +443,7 @@ export default defineComponent({
 
     const handleLogin = async () => {
       await handleForm(login)();
-      await loadWishlist('GlobalWishlist');
+      await Promise.all([loadWishlist('GlobalWishlist'), loadTotalQty()]);
     };
 
     const handleForgotten = async () => {
