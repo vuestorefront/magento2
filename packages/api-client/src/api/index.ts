@@ -8,6 +8,7 @@ export { default as addVirtualProductsToCart } from './addVirtualProductsToCart'
 export { default as applyCouponToCart } from './applyCouponToCart';
 export { default as availableStores } from './availableStores';
 export { default as cart } from './cart';
+export { default as cartTotalQty } from './cartTotalQty';
 export { default as categoryList } from './categoryList';
 export { default as categorySearch } from './categorySearch';
 export { default as changeCustomerPassword } from './changeCustomerPassword';
