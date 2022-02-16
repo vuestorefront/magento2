@@ -304,8 +304,9 @@ export default defineComponent({
     const tempProduct = ref();
 
     onMounted(() => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      loadCart();
+      if (cart.value === null) {
+        loadCart();
+      }
     });
 
     const goToCheckout = async () => {

@@ -444,4 +444,8 @@ export interface MagentoApiMethods {
     searchParams: WishlistQueryVariables,
     customQuery?: CustomQuery,
   ): Promise<ApolloQueryResult<WishlistQuery>>;
+
+  wishlistItemsCount(
+    customQuery?: CustomQuery,
+  ): Promise<ApolloQueryResult<WishlistQuery>>;
 }

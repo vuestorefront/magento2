@@ -54,7 +54,7 @@ import {
   useRoute,
   useRouter,
 } from '@nuxtjs/composition-api';
-import { useUser } from '@vue-storefront/magento';
+import { useCart, useUser } from '@vue-storefront/magento';
 import {
   mapMobileObserver,
   unMapMobileObserver,
@@ -85,6 +85,7 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const { logout } = useUser();
+    const { clear } = useCart();
     const { localePath, app } = useContext();
     const isMobile = computed(() => mapMobileObserver().isMobile.get());
     const breadcrumbs = ref([
@@ -110,7 +111,7 @@ export default defineComponent({
 
     const changeActivePage = async (title) => {
       if (title === app.i18n.t('Log out')) {
-        await logout();
+        await Promise.all([logout(), clear()]);
         await router.push(`${localePath({ name: 'home' })}`);
 
         return;
