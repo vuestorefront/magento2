@@ -203,7 +203,7 @@ export default defineComponent({
 
     return {
       accountIcon,
-      cartTotalItems: totalQuantity,
+      cartTotalItems,
       categoryTree,
       getAgnosticCatLink,
       handleAccountClick,
