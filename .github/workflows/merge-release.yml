@@ -36,14 +36,20 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Create main-dev branch
+        uses: actions/checkout@v2
+        with:
+          ref: develop
+        run: git checkout -b chore/main-dev-${{ env.RELEASE_VERSION }}
+
       - name: Merge main into develop branch
         uses: thomaseizinger/create-pull-request@1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          head: main
+          head: chore/main-dev-${{ env.RELEASE_VERSION }}
           base: develop
-          title: Merge main into develop branch
+          title: Align develop branch with main after release ${{ env.RELEASE_VERSION }}
           body: |
             This PR merges the main branch back into develop.
             This happens to ensure that the updates that happend on the release branch, i.e. CHANGELOG and manifest updates are also present on the develop branch.

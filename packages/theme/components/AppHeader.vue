@@ -173,7 +173,6 @@ import {
   SfOverlay,
 } from '@storefront-ui/vue';
 import {
-  cartGetters,
   categoryGetters,
   useCart,
   useCategory,
@@ -189,8 +188,8 @@ import {
   defineComponent,
   useRouter,
   useContext,
+  useAsync,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
 import {
   mapMobileObserver,
@@ -223,12 +222,11 @@ export default defineComponent({
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { cart } = useCart();
+    const { totalQuantity, loadTotalQty } = useCart();
     const { wishlist } = useWishlist('GlobalWishlist');
     const {
       result: searchResult,
       search: productsSearch,
-      // loading: productsLoading,
     } = useFacet('AppHeader:Products');
     const {
       result: categories,
@@ -247,11 +245,6 @@ export default defineComponent({
     const wishlistHasProducts = computed(() => wishlistGetters.getTotalItems(wishlist.value) > 0);
     const wishlistItemsQty = computed(() => wishlistGetters.getTotalItems(wishlist.value));
 
-    const cartTotalItems = computed(() => {
-      const count = cartGetters.getTotalItems(cart.value);
-      return count ? count.toString() : null;
-    });
-
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
@@ -264,10 +257,8 @@ export default defineComponent({
       }
     };
 
-    onSSR(async () => {
-      await categoriesListSearch({
-        pageSize: 20,
-      });
+    useAsync(async () => {
+      await Promise.all([loadTotalQty(), categoriesListSearch({ pageSize: 20 })]);
     });
 
     const showSearch = () => {
@@ -334,7 +325,7 @@ export default defineComponent({
 
     return {
       accountIcon,
-      cartTotalItems,
+      cartTotalItems: totalQuantity,
       categoryTree,
       closeOrFocusSearchBar,
       closeSearch,

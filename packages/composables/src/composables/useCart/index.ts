@@ -384,6 +384,12 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
       product,
     },
   ) => !!currentCart?.items.find((cartItem) => cartItem?.product?.uid === product.uid),
+  loadTotalQty: async (context: Context) => {
+    const apiState = context.$magento.config.state;
+    const { data } : any = await context.$magento.api.cartTotalQty(apiState.getCartId());
+
+    return data?.cart?.total_quantity;
+  },
 };
 
 export default useCartFactory<Cart, CartItem, Product>(factoryParams);
