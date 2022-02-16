@@ -16,6 +16,8 @@ const {
         facets,
         magentoBaseUrl,
         imageProvider,
+        magentoApiEndpoint,
+        customApolloHttpLinkOptions,
       },
     },
   },
@@ -87,6 +89,8 @@ export default () => {
         facets,
         magentoBaseUrl,
         imageProvider,
+        magentoApiEndpoint,
+        customApolloHttpLinkOptions
       }],
       '@nuxt/image',
     ],

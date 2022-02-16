@@ -388,7 +388,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     const apiState = context.$magento.config.state;
     const { data } : any = await context.$magento.api.cartTotalQty(apiState.getCartId());
 
-    return data.cart.total_quantity;
+    return data?.cart?.total_quantity;
   },
 };
 
