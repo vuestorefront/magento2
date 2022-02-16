@@ -176,7 +176,7 @@ import {
   useCategory,
   useCategorySearch,
   useFacet,
-  useUser, useWishlist, wishlistGetters,
+  useUser, useWishlist,
 } from '@vue-storefront/magento';
 import {
   computed,
@@ -220,8 +220,8 @@ export default defineComponent({
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { totalQuantity, loadTotalQty } = useCart();
-    const { wishlist } = useWishlist('GlobalWishlist');
+    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
+    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
     const {
       result: searchResult,
       search: productsSearch,
@@ -240,8 +240,7 @@ export default defineComponent({
     const searchBarRef = ref(null);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistGetters.getTotalItems(wishlist.value) > 0);
-    const wishlistItemsQty = computed(() => wishlistGetters.getTotalItems(wishlist.value));
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
 
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
 
@@ -256,7 +255,7 @@ export default defineComponent({
     };
 
     useAsync(async () => {
-      await Promise.all([loadTotalQty(), categoriesListSearch({ pageSize: 20 })]);
+      await Promise.all([loadCartTotalQty(), loadWishlistItemsCount(), categoriesListSearch({ pageSize: 20 })]);
     });
 
     const showSearch = () => {
@@ -323,7 +322,7 @@ export default defineComponent({
 
     return {
       accountIcon,
-      cartTotalItems: totalQuantity,
+      cartTotalItems,
       categoryTree,
       closeOrFocusSearchBar,
       closeSearch,
