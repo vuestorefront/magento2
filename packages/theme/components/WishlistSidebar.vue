@@ -27,10 +27,8 @@
           </SfButton>
         </div>
       </template>
-      <transition
-        name="fade"
-        mode="out-in"
-      >
+
+      <SfLoader :loading="loading">
         <div
           v-if="totalItems"
           key="my-wishlist"
@@ -132,7 +130,7 @@
             />
           </div>
         </div>
-      </transition>
+      </SfLoader>
       <template #content-bottom>
         <SfButton
           class="sf-button--full-width color-secondary"
@@ -154,6 +152,7 @@ import {
   SfPrice,
   SfCollectedProduct,
   SfLink,
+  SfLoader,
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
@@ -175,11 +174,15 @@ export default defineComponent({
     SfPrice,
     SfCollectedProduct,
     SfLink,
+    SfLoader,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem, load: loadWishlist } = useWishlist('GlobalWishlist');
+    const {
+      wishlist, removeItem, load: loadWishlist, loading,
+    } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
+    console.log('VALUE', wishlist.value);
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
@@ -190,7 +193,9 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(() => {
-      loadWishlist();
+      if (wishlist.value === null) {
+        loadWishlist('GlobalWishlist');
+      }
     });
 
     return {
@@ -208,6 +213,7 @@ export default defineComponent({
       productGetters,
       getMagentoImage,
       imageSizes,
+      loading,
     };
   },
 });
