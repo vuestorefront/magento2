@@ -33,7 +33,7 @@ import useUiState from '~/composables/useUiState.ts';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
-import TopBar from '~/components/TopBar.vue';
+import TopBar from '~/components/TopBar';
 
 export default defineComponent({
   name: 'DefaultLayout',

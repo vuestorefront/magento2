@@ -20,28 +20,21 @@
 
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import { useCurrency, useStore } from '@vue-storefront/magento';
-import { computed } from '@nuxtjs/composition-api';
+import useTopBar from './useTopBar';
 
 export default {
   components: {
-    CurrencySelector: () => import('./CurrencySelector'),
+    CurrencySelector: () => import('../CurrencySelector'),
     SfTopBar,
     SfButton,
-    StoreSwitcher: () => import('./StoreSwitcher'),
+    StoreSwitcher: () => import('../StoreSwitcher'),
   },
   setup() {
-    const {
-      stores,
-    } = useStore();
-
-    const {
-      currencies,
-    } = useCurrency();
+    const { hasStoresToSelect, hasCurrencyToSelect } = useTopBar();
 
     return {
-      hasStoresToSelect: computed(() => stores.value.length > 1),
-      hasCurrencyToSelect: computed(() => currencies.value?.available_currency_codes?.length > 1),
+      hasStoresToSelect,
+      hasCurrencyToSelect,
     };
   },
 };
