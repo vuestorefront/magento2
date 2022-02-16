@@ -36,6 +36,7 @@ module.exports = {
           score: config.get('recaptchaMinScore'),
         },
         magentoBaseUrl: config.get('magentoBaseUrl'),
+        magentoApiEndpoint: config.get('magentoGraphQl'),
         imageProvider: config.get('imageProvider'),
         recaptcha: {
           isEnabled: config.get('recaptchaEnabled'),
