@@ -43,6 +43,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "deepdash": "^5.3.9",
     "dotenv": "^16.0.0",
+    "graphql-request": "^4.0.0",
     "isomorphic-dompurify": "^0.18.0",
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",

@@ -212,6 +212,11 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CartQuery>>;
 
+  cartTotalQty(
+    cartId: string,
+    customQuery?: CustomQuery
+  ): Promise<ApolloQueryResult<CartQuery>>;
+
   categoryList(
     categoryFilter?: CategoryListQueryVariables,
     customQuery?: CustomQuery
