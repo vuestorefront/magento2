@@ -62,6 +62,7 @@
     "@babel/core": "^7.16.12",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
+    "@nuxtjs/device": "^2.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/user-event": "^13.5.0",
     "@testing-library/vue": "^5.8.2",

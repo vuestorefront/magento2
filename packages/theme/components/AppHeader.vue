@@ -19,8 +19,12 @@
           />
         </nuxt-link>
       </template>
-      <template #navigation>
-        <SfHeaderNavigationItem
+
+      <template
+        v-if="$device.isDesktop"
+        #navigation
+      >
+        <HeaderNavigationItem
           v-for="(category, index) in categoryTree"
           :key="index"
           v-e2e="'app-header-url_women'"
@@ -120,7 +124,7 @@
               v-if="!!term"
               class="sf-search-bar__button sf-button--pure"
               aria-label="Close search"
-              @click="closeOrFocusSearchBar"
+              @click="closeSearch"
             >
               <span class="sf-search-bar__icon">
                 <SfIcon
@@ -170,6 +174,7 @@ import {
   SfSearchBar,
   SfOverlay,
 } from '@storefront-ui/vue';
+
 import {
   categoryGetters,
   useCart,
@@ -181,19 +186,14 @@ import {
 import {
   computed,
   ref,
-  onBeforeUnmount,
-  watch,
   defineComponent,
   useRouter,
   useContext,
-  useAsync,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import debounce from 'lodash.debounce';
+import HeaderNavigationItem from '~/components/Navigation/HeaderNavigationItem.vue';
 import {
   useUiHelpers,
   useUiState,
@@ -203,6 +203,7 @@ import CurrencySelector from '~/components/CurrencySelector.vue';
 
 export default defineComponent({
   components: {
+    HeaderNavigationItem,
     SfHeader,
     CurrencySelector,
     StoreSwitcher,
@@ -254,10 +255,6 @@ export default defineComponent({
       }
     };
 
-    useAsync(async () => {
-      await Promise.all([loadCartTotalQty(), loadWishlistItemsCount(), categoriesListSearch({ pageSize: 20 })]);
-    });
-
     const showSearch = () => {
       if (!isSearchOpen.value) {
         isSearchOpen.value = true;
@@ -293,38 +290,20 @@ export default defineComponent({
       };
     }, 1000);
 
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
-
-    const closeOrFocusSearchBar = () => {
-      if (isMobile.value) {
-        return closeSearch();
-      }
-      term.value = '';
-      return searchBarRef.value.$el.children[0].focus();
-    };
-
-    watch(() => term.value, (newVal, oldVal) => {
-      const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0)
-        && ((!oldVal && newVal)
-          || (newVal.length !== oldVal.length
-            && isSearchOpen.value === false));
-
-      if (shouldSearchBeOpened) isSearchOpen.value = true;
-    });
-
     const removeSearchResults = () => {
       result.value = null;
     };
 
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
+    useFetch(async () => {
+      if (app.$device.isDesktop) {
+        await Promise.all([loadCartTotalQty(), loadWishlistItemsCount(), categoriesListSearch({ pageSize: 20 })]);
+      }
     });
 
     return {
       accountIcon,
       cartTotalItems,
       categoryTree,
-      closeOrFocusSearchBar,
       closeSearch,
       showSearch,
       hideSearch,
@@ -332,7 +311,6 @@ export default defineComponent({
       handleAccountClick,
       handleSearch,
       isAuthenticated,
-      isMobile,
       isSearchOpen,
       removeSearchResults,
       result,
