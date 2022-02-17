@@ -339,7 +339,7 @@
                 :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
                 :value="option.value"
                 :selected="isFilterSelected(facet, option)"
-                name="priceFilter"
+                name="filter__price"
                 @change="() => selectFilter(facet, option)"
               />
             </div>
@@ -365,14 +365,27 @@
               :header="facet.label"
               class="filters__accordion-item"
             >
-              <SfFilter
-                v-for="option in facet.options"
-                :key="`${facet.id}-${option.id}`"
-                :label="option.id"
-                :selected="isFilterSelected(facet, option)"
-                class="filters__item"
-                @change="() => selectFilter(facet, option)"
-              />
+              <div v-if="facet.id === 'price'">
+                <SfRadio
+                  v-for="option in facet.options"
+                  :key="`${facet.id}-${option.value}`"
+                  :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
+                  :value="option.value"
+                  :selected="isFilterSelected(facet, option)"
+                  name="filter__price"
+                  @change="() => selectFilter(facet, option)"
+                />
+              </div>
+              <div v-else>
+                <SfFilter
+                  v-for="option in facet.options"
+                  :key="`${facet.id}-${option.id}`"
+                  :label="option.id"
+                  :selected="isFilterSelected(facet, option)"
+                  class="filters__item"
+                  @change="() => selectFilter(facet, option)"
+                />
+              </div>
             </SfAccordionItem>
           </div>
         </SfAccordion>
@@ -514,10 +527,8 @@ export default defineComponent({
     ));
 
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
-
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
     const facets = computed(() => facetGetters.getGrouped(result.value, magentoConfig.facets.available));
-
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
     const activeCategory = computed(() => {
@@ -557,8 +568,14 @@ export default defineComponent({
 
     const isFilterSelected = (facet, option) => {
       if (facet.id === 'price') {
-        return selectedFilters.value[facet.id];
+        console.log(
+          selectedFilters.value[facet.id],
+          option.value,
+          selectedFilters.value[facet.id] === option.value
+        )
+        return selectedFilters.value[facet.id] || '';
       }
+
       return (selectedFilters.value[facet.id] || []).includes(option.value);
     };
 
@@ -576,7 +593,6 @@ export default defineComponent({
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
         ]?.filter((f) => f !== option.value);
-
         return;
       }
 
@@ -585,7 +601,6 @@ export default defineComponent({
 
     const applyFilters = (filters) => {
       toggleFilterSidebar();
-
       if (filters) {
         selectedFilters.value = filters;
       }
@@ -626,7 +641,7 @@ export default defineComponent({
 
       if (routeData?.value) {
         if (facets.value && facets.value.length > 0) {
-          selectedFilters.value = facets.value?.reduce(
+          selectedFilters.value = facets.value?.map(
             (prev, curr) => (curr.id === 'price'
               ? {
                 ...prev,
