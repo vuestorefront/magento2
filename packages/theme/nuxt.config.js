@@ -54,6 +54,9 @@ export default () => {
       ],
     },
     loading: { color: '#fff' },
+    device: {
+      refreshOnResize: true,
+    },
     buildModules: [
       // to core
       '@nuxtjs/composition-api/module',
@@ -61,6 +64,7 @@ export default () => {
       '@nuxtjs/google-fonts',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources',
+      '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
         // @core-development-only-start
         coreDevelopment: true,
@@ -90,7 +94,7 @@ export default () => {
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
-        customApolloHttpLinkOptions
+        customApolloHttpLinkOptions,
       }],
       '@nuxt/image',
     ],
