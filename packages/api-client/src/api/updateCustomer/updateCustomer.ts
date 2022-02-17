@@ -8,5 +8,6 @@ export default gql`
         ${customerFragment}
       }
     }
+    cacheId @client
   }
 `;

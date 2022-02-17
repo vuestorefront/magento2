@@ -48,6 +48,7 @@ const tokenExtension: ApiClientExtension = {
       const customerCookieName: string = configuration.cookies?.customerCookieName || defaultSettings.cookies.customerCookieName;
       const storeCookieName: string = configuration.cookies?.storeCookieName || defaultSettings.cookies.storeCookieName;
       const currencyCookieName: string = configuration.cookies?.currencyCookieName || defaultSettings.cookies.currencyCookieName;
+      const contextCookieName: string = configuration.cookies?.contextCookieName || defaultSettings.cookies.contextCookieName;
 
       return {
         ...configuration,
@@ -88,14 +89,30 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(currencyCookieName, JSON.stringify(id));
           },
+          getContext: () => req.cookies[contextCookieName],
+          setContext: (id) => {
+            if (!id) {
+              // eslint-disable-next-line no-param-reassign
+              delete req.cookies[contextCookieName];
+              return;
+            }
+            res.cookie(contextCookieName, JSON.stringify(id));
+          },
         },
       };
     },
     afterCall: ({ configuration, response }) => {
-      if (response.data.cacheTags) {
+      if (response.data?.cacheTags) {
         const cacheTagsHeaderName = configuration.headers?.cacheTagsHeaderName || defaultSettings.headers.cacheTagsHeaderName;
         res.header(cacheTagsHeaderName, response.data.cacheTags);
       }
+
+      if (response.data?.cacheId) {
+        const contextCookieName: string = configuration.cookies?.contextCookieName || defaultSettings.cookies.contextCookieName;
+        res.header('X-Magento-Cache-Id', response.data.cacheId);
+        res.header('Set-Cookie', `${contextCookieName}=${response.data.cacheId}; Path=/; SameSite=Lax`);
+      }
+
       return response;
     },
   }),

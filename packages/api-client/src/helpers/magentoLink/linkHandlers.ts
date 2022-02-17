@@ -30,6 +30,7 @@ export const linkFactory = ({ state }: {
   const Store: string = state.getStore();
   const token: string = state.getCustomerToken();
   const currency: string = state.getCurrency();
+  const context: string = ['productsList', 'productDetails'].includes(apolloReq.operationName) ? state.getContext() : '';
 
   if (currency) {
     Logger.debug('Apollo currencyLinkFactory, finished, currency: ', currency);
@@ -43,12 +44,17 @@ export const linkFactory = ({ state }: {
     Logger.debug('Apollo authLinkFactory, finished, token: ', token);
   }
 
+  if (context) {
+    Logger.debug('Apollo contextLinkFactory, finished, context: ', context);
+  }
+
   return {
     headers: {
       ...headers,
       ...(currency ? { 'Content-Currency': currency } : {}),
       ...(token ? { authorization: `Bearer ${token}` } : {}),
       ...(Store ? { Store } : {}),
+      ...(context ? { 'X-Magento-Cache-Id': context } : {}),
     },
   };
 });

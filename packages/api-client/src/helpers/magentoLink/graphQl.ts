@@ -87,12 +87,21 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   const afterwareLink = new ApolloLink((operation, forward) => forward(operation).map((response) => {
     const { response: { headers } } = operation.getContext();
     const cacheTags = headers.get('x-cache-tags') || headers.get('x-magento-tags');
+    const cacheId = headers.get('x-magento-cache-id');
 
     if (cacheTags) {
       // eslint-disable-next-line no-param-reassign
       response.data = {
         ...response.data,
         cacheTags,
+      };
+    }
+
+    if (cacheId) {
+      // eslint-disable-next-line no-param-reassign
+      response.data = {
+        ...response.data,
+        cacheId,
       };
     }
 

@@ -6,5 +6,6 @@ export default gql`
     customer {
       ${customerFragment}
     }
+    cacheId @client
   }
 `;

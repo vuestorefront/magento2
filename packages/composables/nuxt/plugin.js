@@ -11,6 +11,7 @@ export default integrationPlugin(({ app, res, req, integration }) => {
   const storeCookieName = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
   const currencyCookieName = moduleOptions.cookies?.currencyCookieName || defaultConfig.cookies.currencyCookieName;
   const localeCookieName = moduleOptions.cookies?.localeCookieName || defaultConfig.cookies.localeCookieName;
+  const contextCookieName = moduleOptions.cookies?.contextCookieName || defaultConfig.cookies.contextCookieName;
 
   const {
     setCookie,
@@ -76,6 +77,18 @@ export default integrationPlugin(({ app, res, req, integration }) => {
     setCookie(localeCookieName, id);
   };
 
+  const getContext = () => getCookies(contextCookieName);
+
+  const setContext = (id) => {
+    if (!id) {
+      // eslint-disable-next-line no-param-reassign
+      removeCookie(contextCookieName);
+      return;
+    }
+
+    setCookie(contextCookieName, id);
+  };
+
   const settings = mapConfigToSetupObject({
     moduleOptions,
     app,
@@ -94,6 +107,9 @@ export default integrationPlugin(({ app, res, req, integration }) => {
         setCurrency,
         getLocale,
         setLocale,
+        // Magento cache context
+        getContext,
+        setContext,
       },
     }
   });

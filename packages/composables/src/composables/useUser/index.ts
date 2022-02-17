@@ -17,6 +17,9 @@ CustomerCreateInput & { email: string; password: string }
       cart: useCart(),
     };
   },
+  getContext(context: Context) {
+    return context.$magento.config.state.getContext();
+  },
   load: async (context: Context, params) => {
     Logger.debug('[Magento] Load user information');
     const apiState = context.$magento.config.state;
@@ -40,9 +43,14 @@ CustomerCreateInput & { email: string; password: string }
   },
   logOut: async (context: Context, params) => {
     const apiState = context.$magento.config.state;
+    const oldContext = apiState.getContext();
 
     await context.$magento.api.revokeCustomerToken(params?.customQuery || {});
 
+    const newContext = apiState.getContext();
+    if (newContext === oldContext) {
+      apiState.setContext(null);
+    }
     apiState.setCustomerToken(null);
     apiState.setCartId(null);
     context.cart.setCart(null);

@@ -55,5 +55,6 @@ export default gql`
         welcome,
         focus_rma_phone_number,
     }
+    cacheId @client
   }
 `;

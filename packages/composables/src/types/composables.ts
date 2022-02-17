@@ -7,6 +7,7 @@ import {
   ForgotPasswordResult,
   UseCart as UseCartBase,
   UseCartErrors as UseCartErrorsBase,
+  UseUser as UseUserBase,
   UseUserErrors as UseUserErrorsBase,
   UseMakeOrder as UseMakeOrderBase,
   UseMakeOrderErrors as UseMakeOrderErrorsBase,
@@ -512,6 +513,10 @@ export interface UseCustomerReturns<CUSTOMER_RETURNS_DATA, CUSTOMER_RETURN_DATA,
 
 export interface UseUserErrors extends UseUserErrorsBase {
   cart: Error;
+}
+
+export interface UseUser<USER, UPDATE_USER_PARAMS, API extends PlatformApi = any> extends UseUserBase<USER, UPDATE_USER_PARAMS, API> {
+  context: ComputedProperty<string>;
 }
 
 export interface UsePaypalExpressErrors {

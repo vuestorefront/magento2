@@ -5,4 +5,5 @@ mutation revokeCustomerToken{
   revokeCustomerToken {
     result
   }
+  cacheId @client
 }`;

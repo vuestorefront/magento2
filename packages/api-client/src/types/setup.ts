@@ -46,6 +46,8 @@ export type ConfigState = {
   setCurrency(id?: string | null): void;
   getLocale(): string;
   setLocale(id?: string | null): void;
+  getContext(): string;
+  setContext(id?: string | null): void;
 };
 
 export interface ClientConfig {
@@ -57,6 +59,7 @@ export interface ClientConfig {
     cartCookieName: string;
     customerCookieName: string;
     storeCookieName: string;
+    contextCookieName: string;
   },
   headers: {
     cacheTagsHeaderName: string;

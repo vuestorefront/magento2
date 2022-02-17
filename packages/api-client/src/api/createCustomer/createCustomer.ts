@@ -9,5 +9,6 @@ export default gql`
         email
       }
     }
+    cacheId @client
   }
 `;

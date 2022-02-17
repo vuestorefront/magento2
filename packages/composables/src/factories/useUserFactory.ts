@@ -1,7 +1,6 @@
 import { Ref, computed } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
-  UseUser,
   Context,
   FactoryParams,
   PlatformApi,
@@ -11,7 +10,7 @@ import {
   configureFactoryParams,
 } from '@absolute-web/vsf-core';
 import { GraphQLError } from 'graphql';
-import { UseUserErrors } from '../types/composables';
+import { UseUser, UseUserErrors } from '../types/composables';
 
 export interface UseUserFactoryParams<
   USER,
@@ -34,6 +33,7 @@ export interface UseUserFactoryParams<
     context: Context,
     params: ComposableFunctionArgs<{ currentUser: USER; currentPassword: string; newPassword: string }>
   ) => Promise<USER>;
+  getContext: (context: Context) => string;
 }
 
 export const useUserFactory = <
@@ -58,6 +58,7 @@ export const useUserFactory = <
   const loading: Ref<boolean> = sharedRef(false, 'useUser-loading');
   const isAuthenticated = computed(() => Boolean(user.value));
   const error: Ref<UseUserErrors> = sharedRef(errorsFactory(), 'useUser-error');
+  const context = sharedRef<string>(null, 'useUser-context');
 
   // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
   const _factoryParams = configureFactoryParams(
@@ -76,6 +77,13 @@ export const useUserFactory = <
     error.value = errorsFactory();
   };
 
+  const updateContext = () => {
+    const _context = _factoryParams.getContext();
+    if (!context.value !== !_context) {
+      context.value = _context;
+    }
+  };
+
   const updateUser = async ({ user: providedUser, customQuery }) => {
     Logger.debug('useUserFactory.updateUser', providedUser);
     resetErrorValue();
@@ -84,6 +92,7 @@ export const useUserFactory = <
       loading.value = true;
       user.value = await _factoryParams.updateUser({ currentUser: user.value, updatedUserData: providedUser, customQuery });
       error.value.updateUser = null;
+      updateContext();
     } catch (err) {
       error.value.updateUser = err;
       Logger.error('useUser/updateUser', err);
@@ -104,6 +113,7 @@ export const useUserFactory = <
         error.value.cart = errors;
       }
       user.value = userData;
+      updateContext();
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);
@@ -124,6 +134,7 @@ export const useUserFactory = <
         error.value.cart = errors;
       }
       user.value = userData;
+      updateContext();
     } catch (err) {
       error.value.login = err;
       Logger.error('useUser/login', err);
@@ -140,6 +151,7 @@ export const useUserFactory = <
       await _factoryParams.logOut({ currentUser: user.value });
       error.value.logout = null;
       user.value = null;
+      updateContext();
     } catch (err) {
       error.value.logout = err;
       Logger.error('useUser/logout', err);
@@ -159,6 +171,7 @@ export const useUserFactory = <
         customQuery: params.customQuery,
       });
       error.value.changePassword = null;
+      updateContext();
     } catch (err) {
       error.value.changePassword = err;
       Logger.error('useUser/changePassword', err);
@@ -175,6 +188,7 @@ export const useUserFactory = <
       loading.value = true;
       user.value = await _factoryParams.load({ customQuery });
       error.value.load = null;
+      updateContext();
     } catch (err) {
       error.value.load = err;
       Logger.error('useUser/load', err);
@@ -196,5 +210,6 @@ export const useUserFactory = <
     load,
     loading: computed(() => loading.value),
     error: computed(() => error.value),
+    context: computed(() => context.value),
   };
 };

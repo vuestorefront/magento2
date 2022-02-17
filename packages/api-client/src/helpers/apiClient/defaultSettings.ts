@@ -9,6 +9,7 @@ export const defaultSettings: ClientConfig = {
     cartCookieName: 'vsf-cart',
     customerCookieName: 'vsf-customer',
     storeCookieName: 'vsf-store',
+    contextCookieName: 'vsf-context',
   },
   headers: {
     cacheTagsHeaderName: 'x-cache-tags',
@@ -24,6 +25,8 @@ export const defaultSettings: ClientConfig = {
     setCurrency: () => {},
     getLocale: () => '',
     setLocale: () => {},
+    getContext: () => '',
+    setContext: () => {},
   },
   externalCheckout: {
     enable: false,
