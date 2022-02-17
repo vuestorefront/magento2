@@ -14,7 +14,9 @@
       <nuxt :key="route.fullPath" />
     </div>
     <BottomNavigation />
-    <AppFooter />
+    <LoadWhenVisible>
+      <AppFooter />
+    </LoadWhenVisible>
   </div>
 </template>
 
@@ -27,6 +29,7 @@ import {
   useUser,
 } from '@vue-storefront/magento';
 import useUiState from '~/composables/useUiState.ts';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
@@ -37,6 +40,7 @@ export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
+    LoadWhenVisible,
     LazyHydrate,
     AppHeader,
     TopBar,
