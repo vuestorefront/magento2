@@ -352,7 +352,7 @@ export default defineComponent({
     } = useUser();
 
     const { loadTotalQty } = useCart();
-    const { load: loadWishlist } = useWishlist('GlobalWishlist');
+    const { loadItemsCount } = useWishlist('GlobalWishlist');
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
 
     const barTitle = computed(() => {
@@ -443,7 +443,7 @@ export default defineComponent({
 
     const handleLogin = async () => {
       await handleForm(login)();
-      await Promise.all([loadWishlist('GlobalWishlist'), loadTotalQty()]);
+      await Promise.all([loadItemsCount('GlobalWishlist'), loadTotalQty()]);
     };
 
     const handleForgotten = async () => {

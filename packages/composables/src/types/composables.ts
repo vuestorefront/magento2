@@ -4,7 +4,7 @@ import {
   ComputedProperty,
   CustomQuery,
 } from '@vue-storefront/core';
-import { ComputedRef } from '@vue/composition-api';
+import { ComputedRef, Ref } from '@vue/composition-api';
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from './index';
 
@@ -300,6 +300,7 @@ export interface UseWishlistErrors {
   addItem: Error;
   removeItem: Error;
   load: Error;
+  loadItemsCount: Error;
   clear: Error;
 }
 
@@ -310,7 +311,7 @@ export interface UseWishlist<WISHLIST,
 > extends Composable<API> {
   wishlist: ComputedProperty<WISHLIST>;
   loading: ComputedProperty<boolean>;
-
+  itemsCount: Ref<number>;
   addItem(params: ComposableFunctionArgs<{ product: PRODUCT; }>): Promise<void>;
 
   removeItem(params: ComposableFunctionArgs<{ product: WISHLIST_ITEM; }>): Promise<void>;
@@ -321,6 +322,8 @@ export interface UseWishlist<WISHLIST,
       pageSize: number;
     }>,
   }>): Promise<void>;
+
+  loadItemsCount(params: ComposableFunctionArgs<{}>): Promise<void>;
 
   clear(): Promise<void>;
 

@@ -60,7 +60,8 @@ CustomerCreateInput
 
     await context.$magento.api.revokeCustomerToken(params);
 
-    apiState.setCustomerToken(null);
+    apiState.setCustomerToken();
+    apiState.setCartId();
   },
   updateUser: async (context: Context, params) => {
     Logger.debug('[Magento] Update user information', { params });

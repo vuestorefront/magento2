@@ -1,9 +1,7 @@
 <template>
   <div>
     <CartSidebar v-if="isCartSidebarOpen" />
-    <LazyHydrate when-visible>
-      <WishlistSidebar />
-    </LazyHydrate>
+    <WishlistSidebar v-if="isWishlistSidebarOpen" />
     <LazyHydrate when-visible>
       <LoginModal />
     </LazyHydrate>
@@ -54,7 +52,7 @@ export default defineComponent({
     const route = useRoute();
     const { load: loadUser } = useUser();
     const { loadConfiguration } = useMagentoConfiguration();
-    const { isCartSidebarOpen } = useUiState();
+    const { isCartSidebarOpen, isWishlistSidebarOpen } = useUiState();
 
     useAsync(() => {
       loadConfiguration();
@@ -66,6 +64,7 @@ export default defineComponent({
 
     return {
       isCartSidebarOpen,
+      isWishlistSidebarOpen,
       route,
     };
   },

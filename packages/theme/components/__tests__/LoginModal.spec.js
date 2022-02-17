@@ -17,6 +17,7 @@ jest.mock('@vue-storefront/magento', () => ({
   useForgotPassword: jest.fn(),
   useWishlist: jest.fn().mockReturnValue({
     load: jest.fn(),
+    loadItemsCount: jest.fn(),
   }),
 }));
 
