@@ -145,6 +145,9 @@ import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
 import CurrencySelector from '~/components/CurrencySelector.vue';
+import HeaderLogo from '~/components/HeaderLogo.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
+import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
 export default defineComponent({
   components: {
