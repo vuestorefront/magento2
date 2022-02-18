@@ -76,7 +76,7 @@ export default defineComponent({
 #layout {
   box-sizing: border-box;
   @include for-desktop {
-    max-width: 1240px;
+    max-width: 1270px;
     margin: auto;
   }
 }
