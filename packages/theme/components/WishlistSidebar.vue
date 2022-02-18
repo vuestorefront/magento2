@@ -125,6 +125,7 @@
               class="empty-wishlist__icon"
               width="211"
               height="143"
+              class="empty-wishlist__icon"
             />
             <SfHeading
               title="Your bag is empty"

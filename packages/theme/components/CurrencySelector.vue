@@ -27,7 +27,6 @@ import CurrenciesModal from './CurrencySelector/CurrenciesModal';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
-    CurrenciesModal,
     SfButton,
     CurrenciesModal,
   },
