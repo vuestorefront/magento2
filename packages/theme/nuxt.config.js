@@ -103,13 +103,23 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: false,
+        enabled: process.env.REDIS__ENABLED,
         invalidation: {
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
         },
-        driver: [],
+        driver: [
+          '@vue-storefront/redis-cache',
+          {
+            // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
+            redis: {
+              keyPrefix: process.env.REDIS__KEY_PREFIX,
+              host: process.env.REDIS__HOST,
+              port: process.env.REDIS__PORT,
+            },
+          },
+        ],
       }],
     ],
     i18n: {
