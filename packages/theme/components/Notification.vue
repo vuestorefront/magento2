@@ -14,13 +14,11 @@
       @click:close="notification.dismiss"
       @click:action="notification.action && notification.action.onClick()"
     >
-      <template
-        v-if="notification.icon"
-        #icon
-      >
-        <SfIcon
+      <template v-if="notification.icon" #icon>
+        <SvgImage
           :icon="notification.icon"
-          color="white"
+          width="25"
+          height="25"
         />
       </template>
     </SfNotification>
@@ -29,14 +27,15 @@
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api';
-import { SfNotification, SfIcon } from '@storefront-ui/vue';
+import { SfNotification } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'NotificationBar',
   components: {
     SfNotification,
-    SfIcon,
+    SvgImage,
   },
   setup() {
     const { notifications } = useUiNotification();

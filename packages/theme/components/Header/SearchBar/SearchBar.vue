@@ -20,10 +20,11 @@
         @click="closeSearch"
       >
         <span class="sf-search-bar__icon">
-          <SfIcon
-            color="var(--c-text)"
-            size="18px"
+          <SvgImage
             icon="cross"
+            :label="$t('Cancel')"
+            width="18"
+            height="18"
           />
         </span>
       </SfButton>
@@ -35,10 +36,11 @@
         @keydown.tab="hideSearch"
       >
         <span class="sf-search-bar__icon">
-          <SfIcon
-            color="var(--c-text)"
-            size="20px"
+          <SvgImage
             icon="search"
+            :label="$t('Search')"
+            width="18"
+            height="18"
           />
         </span>
       </SfButton>
@@ -47,13 +49,10 @@
 </template>
 
 <script>
-import {
-  SfIcon,
-  SfButton,
-  SfSearchBar,
-} from '@storefront-ui/vue';
+import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 import debounce from 'lodash.debounce';
 import {
@@ -67,7 +66,7 @@ export default defineComponent({
   components: {
     SfSearchBar,
     SfButton,
-    SfIcon,
+    SvgImage,
   },
   directives: { clickOutside },
   props: {

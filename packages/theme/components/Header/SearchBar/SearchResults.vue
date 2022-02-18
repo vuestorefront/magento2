@@ -182,12 +182,12 @@
           key="no-results"
           class="before-results"
         >
-          <nuxt-img
-            src="/error/error.svg"
-            class="before-results__picture"
-            alt="error"
+          <SvgImage
+            icon="error_image"
+            :label="$t('Error')"
             width="412"
             height="412"
+            class="before-results__picture"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -222,6 +222,7 @@ import {
 } from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -232,6 +233,7 @@ export default defineComponent({
     SfScrollable,
     SfMenuItem,
     SfButton,
+    SvgImage,
   },
   props: {
     visible: {

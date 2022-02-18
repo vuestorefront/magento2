@@ -31,10 +31,10 @@
                 :level="3"
                 class="sf-heading--no-underline sf-heading--left"
               />
-              <SfIcon
+              <SvgImage
                 icon="drag"
-                size="xxl"
-                color="var(--c-text-disabled)"
+                width="40"
+                height="40"
                 class="product__drag-icon smartphone-only"
               />
             </div>
@@ -260,7 +260,6 @@ import {
   SfColor,
   SfGallery,
   SfHeading,
-  SfIcon,
   SfLoader,
   SfPrice,
   SfRating,
@@ -298,6 +297,7 @@ import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -316,15 +316,15 @@ export default defineComponent({
     SfColor,
     SfGallery,
     SfHeading,
-    SfIcon,
     SfLoader,
     SfPrice,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
-    UpsellProducts,
     AddToWishlist,
+    SvgImage,
+    UpsellProducts,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -566,6 +566,7 @@ export default defineComponent({
 
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
+    color: var(--c-text-disabled)
   }
 
   &__price-and-rating {
@@ -705,6 +706,10 @@ export default defineComponent({
   &__additional-actions {
     display: flex;
     justify-content: flex-start;
+    margin: 0 var(--spacer-sm);
+    @include for-desktop {
+      margin: 0;
+    }
   }
 
   &__gallery {

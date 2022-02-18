@@ -161,12 +161,12 @@
             class="empty-cart"
           >
             <div class="empty-cart__banner">
-              <nuxt-img
-                alt="Empty bag"
-                class="empty-cart__image"
-                src="/icons/empty-cart.svg"
+              <SvgImage
+                icon="empty_cart_image"
+                :label="$t('Empty bag')"
                 width="211"
                 height="143"
+                class="empty-cart__image"
               />
               <SfHeading
                 title="Your cart is empty"
@@ -275,6 +275,7 @@ export default defineComponent({
     SfQuantitySelector,
     SfBadge,
     CouponCode,
+    SvgImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();

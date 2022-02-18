@@ -6,18 +6,7 @@
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
-        <nuxt-link
-          :to="localePath('/')"
-          class="sf-header__logo"
-        >
-          <nuxt-img
-            src="/icons/logo.svg"
-            alt="Vue Storefront Next"
-            class="sf-header__logo-image"
-            width="35"
-            height="34"
-          />
-        </nuxt-link>
+        <HeaderLogo />
       </template>
       <template
         v-if="$device.isDesktop"
@@ -49,9 +38,11 @@
             aria-label="Account"
             @click="handleAccountClick"
           >
-            <SfIcon
+            <SvgImage
               :icon="accountIcon"
-              size="1.25rem"
+              :label="$t('Account')"
+              width="1.25rem"
+              height="1.25rem"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'account',
               }"
@@ -64,12 +55,12 @@
             aria-label="Wishlist"
             @click="toggleWishlistSidebar"
           >
-            <SfIcon
-              class="sf-header__icon"
+            <SvgImage
               :icon="wishlistHasProducts ? 'heart_fill' : 'heart'"
-              :has-badge="wishlistHasProducts"
-              :badge-label="wishlistItemsQty"
-              size="1.25rem"
+              :label="$t('Wishlist')"
+              width="1.25rem"
+              height="1.25rem"
+              class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'wishlist',
               }"
@@ -87,10 +78,12 @@
             aria-label="Toggle cart sidebar"
             @click="toggleCartSidebar"
           >
-            <SfIcon
-              class="sf-header__icon"
+            <SvgImage
               icon="empty_cart"
-              size="1.25rem"
+              :label="$t('Cart')"
+              width="20"
+              height="20"
+              class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'cart',
               }"
@@ -124,7 +117,6 @@
 import {
   SfOverlay,
   SfHeader,
-  SfIcon,
   SfButton,
   SfBadge,
 } from '@storefront-ui/vue';
@@ -148,8 +140,10 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import StoreSwitcher from '~/components/StoreSwitcher.vue';
 import CurrencySelector from '~/components/CurrencySelector.vue';
+import HeaderLogo from '~/components/HeaderLogo.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
+import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
 export default defineComponent({
   components: {
@@ -157,8 +151,9 @@ export default defineComponent({
     SfHeader,
     SfOverlay,
     CurrencySelector,
+    HeaderLogo,
     StoreSwitcher,
-    SfIcon,
+    SvgImage,
     SfButton,
     SfBadge,
     SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
@@ -229,10 +224,6 @@ export default defineComponent({
 
   &__switchers {
     display: flex;
-  }
-
-  &__logo-image {
-    height: 100%;
   }
 }
 
