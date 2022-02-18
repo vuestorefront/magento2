@@ -1,6 +1,6 @@
 <template>
   <SfLoader :loading="loading">
-    <div>
+    <div class="cms-page">
       <SfHeading
         v-if="page.content_heading"
         :title="page.content_heading"
@@ -76,3 +76,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.cms-page {
+  padding: var(--spacer-sm);
+}
+</style>
