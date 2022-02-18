@@ -47,13 +47,14 @@
               </div>
             </div>
             <div class="addresses__actions">
-              <SfIcon
+              <SvgImage
                 icon="cross"
-                color="gray"
-                size="14px"
+                :label="$t('Remove Address')"
                 role="button"
-                class="smartphone-only"
-                @click="removeAddress(address)"
+                width="14"
+                height="14"
+                class="addresses__remove smartphone-only"
+                @click.native="removeAddress(address)"
               />
               <SfButton
                 @click="changeAddress(address)"
@@ -82,17 +83,14 @@
   </transition>
 </template>
 <script>
-import {
-  SfTabs,
-  SfButton,
-  SfIcon,
-} from '@storefront-ui/vue';
+import { SfTabs, SfButton } from '@storefront-ui/vue';
 import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
 import {
   computed, defineComponent, useRouter, useRoute, useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import AddressForm from '~/components/MyAccount/AddressForm.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -100,9 +98,9 @@ export default defineComponent({
   components: {
     SfTabs,
     SfButton,
-    SfIcon,
-    UserAddressDetails,
     AddressForm,
+    SvgImage,
+    UserAddressDetails,
   },
   setup() {
     const {
@@ -228,6 +226,11 @@ export default defineComponent({
   &__client-name {
     font-size: var(--font-size--base);
     font-weight: 500;
+  }
+
+  &__remove {
+    color: var(--c-gray-variant);
+    cursor: pointer;
   }
 }
 

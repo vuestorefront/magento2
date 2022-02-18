@@ -15,9 +15,7 @@
   </div>
 </template>
 <script>
-import {
-  SfButton,
-} from '@storefront-ui/vue';
+import { SfButton } from '@storefront-ui/vue';
 import {
   ref,
   computed,
@@ -29,8 +27,8 @@ import CurrenciesModal from './CurrencySelector/CurrenciesModal';
 export default defineComponent({
   name: 'CurrencySelector',
   components: {
-    CurrenciesModal,
     SfButton,
+    CurrenciesModal,
   },
   setup() {
     const {

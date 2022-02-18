@@ -19,10 +19,11 @@
             aria-label="Wishlist sidebar close button"
             @click="toggleWishlistSidebar"
           >
-            <SfIcon
+            <SvgImage
               icon="cross"
-              size="14px"
-              color="gray-primary"
+              width="14"
+              height="14"
+              class="heading__close"
             />
           </SfButton>
         </div>
@@ -39,8 +40,8 @@
           </div>
           <div class="collected-product-list">
             <SfCollectedProduct
-              v-for="(product, i) in products"
-              :key="i"
+              v-for="(product, item) in products"
+              :key="item"
               :image="wishlistGetters.getItemImage(product)"
               :title="wishlistGetters.getItemName(product)"
               :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
@@ -116,12 +117,12 @@
           class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <nuxt-img
-              src="/icons/empty-cart.svg"
-              alt="Empty bag"
-              class="empty-wishlist__icon"
+            <SvgImage
+              icon="empty_cart_image"
+              :label="$t('Empty bag')"
               width="211"
               height="143"
+              class="empty-wishlist__icon"
             />
             <SfHeading
               title="Your bag is empty"
@@ -147,7 +148,6 @@ import {
   SfSidebar,
   SfHeading,
   SfButton,
-  SfIcon,
   SfProperty,
   SfPrice,
   SfCollectedProduct,
@@ -162,6 +162,7 @@ import {
   productGetters,
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -169,12 +170,12 @@ export default defineComponent({
     SfSidebar,
     SfButton,
     SfHeading,
-    SfIcon,
     SfProperty,
     SfPrice,
     SfCollectedProduct,
     SfLink,
     SfLoader,
+    SvgImage,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
@@ -282,6 +283,11 @@ export default defineComponent({
     --heading-title-font-weight: var(--font-weight--semibold);
     display: flex;
     justify-content: space-between;
+  }
+
+  &__close {
+    color: var(--c-gray-variant);
+    cursor: pointer;
   }
 }
 

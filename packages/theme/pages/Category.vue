@@ -19,13 +19,13 @@
         <LazyHydrate on-interaction>
           <SfButton
             class="sf-button--text navbar__filters-button"
-            aria-label="Filters"
+            :aria-label="$t('Filters')"
             @click="toggleFilterSidebar"
           >
-            <SfIcon
-              size="24px"
-              color="dark-secondary"
+            <SvgImage
               icon="filter2"
+              width="24"
+              height="24"
               class="navbar__filters-icon"
             />
             {{ $t('Filters') }}
@@ -63,25 +63,25 @@
 
         <div class="navbar__view">
           <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-          <SfIcon
-            class="navbar__view-icon"
-            :color="isCategoryGridView ? 'black' : 'dark-secondary'"
+          <SvgImage
             icon="tiles"
-            size="12px"
-            role="button"
-            aria-label="Change to grid view"
+            :label="$t('Change to grid view')"
             :aria-pressed="isCategoryGridView"
-            @click="changeToCategoryGridView"
-          />
-          <SfIcon
+            width="12"
+            height="12"
             class="navbar__view-icon"
-            :color="!isCategoryGridView ? 'black' : 'dark-secondary'"
+            :class="{ 'navbar__view-icon--active': isCategoryGridView }"
+            @click.native="changeToCategoryGridView"
+          />
+          <SvgImage
             icon="list"
-            size="12px"
-            role="button"
-            aria-label="Change to list view"
+            :label="$t('Change to list view')"
             :aria-pressed="!isCategoryGridView"
-            @click="changeToCategoryListView"
+            width="12"
+            height="12"
+            class="navbar__view-icon"
+            :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
+            @click.native="changeToCategoryListView"
           />
         </div>
       </div>
@@ -403,7 +403,6 @@ import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfSidebar,
   SfButton,
-  SfIcon,
   SfHeading,
   SfFilter,
   SfRadio,
@@ -439,15 +438,16 @@ import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
     CategorySidebarMenu,
+    SvgImage,
     SfButton,
     SfSidebar,
-    SfIcon,
     SfFilter,
     SfRadio,
     SfProductCard,
@@ -865,6 +865,14 @@ export default defineComponent({
       font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
+    }
+  }
+
+  &__view-icon {
+    cursor: pointer;
+
+    &--active {
+      color: var(--c-primary);
     }
   }
 }
