@@ -7,6 +7,7 @@ export default gql`
         allow_items,
         allow_order,
         base_currency_code,
+        base_media_url,
         catalog_default_sort_by,
         category_fixed_product_tax_display_setting,
         cms_home_page,

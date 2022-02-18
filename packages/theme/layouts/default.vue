@@ -1,5 +1,6 @@
 <template>
   <div>
+    <IconSprite />
     <CartSidebar v-if="isCartSidebarOpen" />
     <WishlistSidebar v-if="isWishlistSidebarOpen" />
     <LoginModal v-if="isLoginModalOpen" />
@@ -28,10 +29,10 @@ import {
 } from '@vue-storefront/magento';
 import useUiState from '~/composables/useUiState.ts';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
-
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
+import IconSprite from '~/components/General/IconSprite.vue';
 import TopBar from '~/components/TopBar';
 
 export default defineComponent({
@@ -41,8 +42,9 @@ export default defineComponent({
     LoadWhenVisible,
     LazyHydrate,
     AppHeader,
-    TopBar,
     BottomNavigation,
+    IconSprite,
+    TopBar,
     AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
     CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
     WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
