@@ -27,10 +27,8 @@
           </SfButton>
         </div>
       </template>
-      <transition
-        name="fade"
-        mode="out-in"
-      >
+
+      <SfLoader :loading="loading">
         <div
           v-if="totalItems"
           key="my-wishlist"
@@ -134,7 +132,7 @@
             />
           </div>
         </div>
-      </transition>
+      </SfLoader>
       <template #content-bottom>
         <SfButton
           class="sf-button--full-width color-secondary"
@@ -148,46 +146,47 @@
 </template>
 <script>
 import {
-  SfButton,
-  SfCollectedProduct,
-  SfHeading,
-  SfIcon,
-  SfImage,
-  SfLink,
-  SfPrice,
-  SfProperty,
   SfSidebar,
+  SfHeading,
+  SfButton,
+  SfIcon,
+  SfProperty,
+  SfPrice,
+  SfCollectedProduct,
+  SfLink,
+  SfLoader,
+  SfImage,
 } from '@storefront-ui/vue';
+import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
-  computed,
-  defineComponent,
-  onMounted,
-} from '@nuxtjs/composition-api';
-import {
-  productGetters,
-  useUser,
   useWishlist,
+  useUser,
   wishlistGetters,
+  productGetters,
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'WishlistSidebar',
   components: {
-    SfButton,
-    SfCollectedProduct,
-    SfHeading,
-    SfIcon,
-    SfImage,
-    SfLink,
-    SfPrice,
-    SfProperty,
     SfSidebar,
+    SfHeading,
+    SfButton,
+    SfIcon,
+    SfProperty,
+    SfPrice,
+    SfCollectedProduct,
+    SfLink,
+    SfLoader,
+    SfImage,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
-    const { wishlist, removeItem, load: loadWishlist } = useWishlist('GlobalWishlist');
+    const {
+      wishlist, removeItem, load: loadWishlist, loading,
+    } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
+    console.log('VALUE', wishlist.value);
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
@@ -198,24 +197,27 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(() => {
-      loadWishlist();
+      if (wishlist.value === null) {
+        loadWishlist('GlobalWishlist');
+      }
     });
 
     return {
       getAttributes,
       getBundles,
-      getMagentoImage,
-      imageSizes,
       isAuthenticated,
       isWishlistSidebarOpen,
-      productGetters,
       products,
       removeItem,
       toggleWishlistSidebar,
       totalItems,
       totals,
-      wishlist,
       wishlistGetters,
+      wishlist,
+      productGetters,
+      getMagentoImage,
+      imageSizes,
+      loading,
     };
   },
 });
@@ -268,10 +270,10 @@ export default defineComponent({
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
     --heading-title-color: var(--c-primary);
     --heading-title-font-weight: var(--font-weight--semibold);
-      @include for-desktop {
+    @include for-desktop {
       --heading-title-font-size: var(--font-size--xl);
       --heading-title-margin: 0 0 var(--spacer-sm) 0;
-  }
+    }
   }
   &__icon {
     --image-width: 16rem;

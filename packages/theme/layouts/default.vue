@@ -1,12 +1,8 @@
 <template>
   <div>
     <CartSidebar v-if="isCartSidebarOpen" />
-    <LazyHydrate when-visible>
-      <WishlistSidebar />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
-      <LoginModal />
-    </LazyHydrate>
+    <WishlistSidebar v-if="isWishlistSidebarOpen" />
+    <LoginModal v-if="isLoginModalOpen" />
     <LazyHydrate when-visible>
       <Notification />
     </LazyHydrate>
@@ -16,7 +12,9 @@
       <nuxt :key="route.fullPath" />
     </div>
     <BottomNavigation />
-    <AppFooter />
+    <LoadWhenVisible>
+      <AppFooter />
+    </LoadWhenVisible>
   </div>
 </template>
 
@@ -33,12 +31,14 @@ import useUiState from '~/composables/useUiState.ts';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import TopBar from '~/components/TopBar';
 
 export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
+    LoadWhenVisible,
     LazyHydrate,
     AppHeader,
     TopBar,
@@ -54,7 +54,7 @@ export default defineComponent({
     const route = useRoute();
     const { load: loadUser } = useUser();
     const { loadConfiguration } = useMagentoConfiguration();
-    const { isCartSidebarOpen } = useUiState();
+    const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
 
     useAsync(() => {
       loadConfiguration();
@@ -66,6 +66,8 @@ export default defineComponent({
 
     return {
       isCartSidebarOpen,
+      isWishlistSidebarOpen,
+      isLoginModalOpen,
       route,
     };
   },
@@ -78,7 +80,7 @@ export default defineComponent({
 #layout {
   box-sizing: border-box;
   @include for-desktop {
-    max-width: 1240px;
+    max-width: 1270px;
     margin: auto;
   }
 }
