@@ -241,6 +241,7 @@ import {
   SfProperty,
   SfQuantitySelector,
   SfSidebar,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -274,6 +275,7 @@ export default defineComponent({
     SfProperty,
     SfQuantitySelector,
     SfSidebar,
+    SfImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
