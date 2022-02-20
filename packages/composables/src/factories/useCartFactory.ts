@@ -159,22 +159,11 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
   const load = async ({ customQuery } = { customQuery: undefined }) => {
     Logger.debug('useCart.load');
 
-    if (cart.value) {
-      /**
-         * Triggering change for hydration purpose,
-         * temporary issue related with cpapi plugin
-         */
-      loading.value = false;
-      error.value.load = null;
-      cart.value = { ...cart.value };
-
-      return;
-    }
     try {
       loading.value = true;
       const loadedCart = await _factoryParams.load({ customQuery });
       cart.value = loadedCart;
-      totalQuantity.value = loadedCart.total_quantity;
+      totalQuantity.value = loadedCart?.total_quantity ?? 0;
       error.value.load = null;
     } catch (err) {
       error.value.load = err;
@@ -207,7 +196,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
       const updatedCart = await _factoryParams.clear({ currentCart: cart.value });
       error.value.clear = null;
       cart.value = updatedCart;
-      totalQuantity.value = updatedCart.total_quantity;
+      totalQuantity.value = 0;
     } catch (err) {
       error.value.clear = err;
       Logger.error('useCart/clear', err);

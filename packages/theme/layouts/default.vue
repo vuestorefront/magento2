@@ -27,6 +27,7 @@ import {
   useUser,
 } from '@vue-storefront/magento';
 import useUiState from '~/composables/useUiState.ts';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';

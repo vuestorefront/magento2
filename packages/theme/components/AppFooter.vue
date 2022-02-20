@@ -120,6 +120,8 @@ export default {
   }
   &__social-image {
     margin: 0 var(--spacer-2xs) 0 0;
+    background-color: #fff;
+    border-radius: 100%;
   }
 }
 .sf-footer {
