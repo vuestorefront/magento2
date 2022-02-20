@@ -65,10 +65,12 @@ export default defineComponent({
   --banner-subtitle-font-size: var(--font-size--xl);
   --banner-title-font-weight: var(--font-weight--semibold);
   --banner-subtitle-font-weight: var(--font-weight--medium);
-  --banner-title-text-transform: capitalize;
   --banner-title-text-transform: none;
   --banner-background-size: contain;
   --banner-background-position: right;
+  --button-size:174px;
+  --button-width:174px;
+  --button-height:57px;
   display: block;
   min-height: 26.25rem;
   max-width: 77.5rem;

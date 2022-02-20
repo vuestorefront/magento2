@@ -10,11 +10,10 @@
         </template>
         <template #icon>
           <SfImage
-            image-tag="nuxt-picture"
             :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
-            width="20"
+            :alt="storeConfig.store_name"
             height="20"
-            :alt="storeConfig.store_name "
+            width="20"
             class="language__flag"
           />
         </template>
@@ -41,6 +40,7 @@ import {
 import {
   SfButton,
   SfCharacteristic,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   defineComponent,
@@ -53,6 +53,7 @@ export default defineComponent({
     LazyHydrate,
     SfButton,
     SfCharacteristic,
+    SfImage,
     StoresModal: () => import(/* webpackPrefetch: true */'~/components/StoreSwitcher/StoresModal.vue'),
   },
   setup() {
@@ -76,6 +77,8 @@ export default defineComponent({
 .language {
   &__flag {
     margin-right: var(--spacer-sm);
+    --image-width: 20px;
+    --image-height: 20px;
   }
 }
 

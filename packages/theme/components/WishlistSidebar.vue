@@ -62,7 +62,7 @@
                   "
                 >
                   <SfImage
-                    image-tag="nuxt-picture"
+                    image-tag="nuxt-img"
                     :src="getMagentoImage(wishlistGetters.getItemImage(product))"
                     :alt="wishlistGetters.getItemName(product)"
                     width="140"
@@ -120,7 +120,7 @@
         >
           <div class="empty-wishlist__banner">
             <SfImage
-              image-tag="nuxt-picture"
+              image-tag="nuxt-img"
               width="211"
               height="143"
               src="/icons/empty-cart.svg"

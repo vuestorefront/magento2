@@ -26,7 +26,7 @@
               <span>{{ storeConfigGetters.getName(store) }}</span>
             </template>
             <template #icon>
-              <nuxt-img
+              <SfImage
                 :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
                 width="20"
                 height="20"
@@ -47,6 +47,7 @@ import {
   computed,
 } from '@nuxtjs/composition-api';
 import {
+  SfImage,
   SfList,
   SfBottomModal,
   SfCharacteristic,
@@ -62,6 +63,7 @@ export default defineComponent({
   name: 'StoresModal',
   components: {
     SfList,
+    SfImage,
     SfBottomModal,
     SfCharacteristic,
   },
@@ -138,6 +140,8 @@ export default defineComponent({
 
   &__flag {
     margin-right: var(--spacer-sm);
+    --image-width: 20px;
+    --image-height: 20px;
   }
 }
 

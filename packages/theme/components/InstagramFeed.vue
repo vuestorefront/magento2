@@ -9,7 +9,7 @@
         <div class="grid__col">
           <SfImage
             v-if="isMobile"
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageAm.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -18,7 +18,7 @@
           />
           <SfImage
             v-else
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageAd.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -29,7 +29,7 @@
         <div class="grid__col small">
           <SfImage
             v-if="isMobile"
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageBm.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -38,7 +38,7 @@
           />
           <SfImage
             v-else
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageCd.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -51,7 +51,7 @@
         <div class="grid__col small">
           <SfImage
             v-if="isMobile"
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageCm.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -60,7 +60,7 @@
           />
           <SfImage
             v-else
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageBd.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -71,7 +71,7 @@
         <div class="grid__col">
           <SfImage
             v-if="isMobile"
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageDm.webp"
             alt="katherina_trn"
             loading="lazy"
@@ -80,7 +80,7 @@
           />
           <SfImage
             v-else
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/homepage/imageDd.webp"
             alt="katherina_trn"
             loading="lazy"

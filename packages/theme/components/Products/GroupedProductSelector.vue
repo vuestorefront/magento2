@@ -9,7 +9,7 @@
         class="grouped_items--item"
       >
         <SfImage
-          image-tag="nuxt-picture"
+          image-tag="nuxt-img"
           :src="getMagentoImage(productGetters.getProductThumbnailImage(groupedItem.product))"
           :alt="productGetters.getName(groupedItem.product)"
           width="60"

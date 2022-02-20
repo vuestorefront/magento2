@@ -162,7 +162,7 @@
           >
             <div class="empty-cart__banner">
               <SfImage
-                image-tag="nuxt-picture"
+                image-tag="nuxt-img"
                 alt="Empty bag"
                 class="empty-cart__image"
                 src="/icons/empty-cart.svg"

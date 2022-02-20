@@ -11,7 +11,7 @@
           class="sf-header__logo"
         >
           <SfImage
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             src="/icons/logo.svg"
             alt="Vue Storefront Next"
             class="sf-header__logo-image"

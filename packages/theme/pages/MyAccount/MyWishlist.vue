@@ -102,7 +102,7 @@
                         <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                           :key="key"
-                          image-tag="nuxt-picture"
+                          image-tag="nuxt-img"
                           :src="picture"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
@@ -112,7 +112,7 @@
                       </template>
                       <SfImage
                         v-else
-                        image-tag="nuxt-picture"
+                        image-tag="nuxt-img"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
@@ -169,7 +169,7 @@
                         <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                           :key="key"
-                          image-tag="nuxt-picture"
+                          image-tag="nuxt-img"
                           :src="picture"
                           :alt="imageSlotProps.title"
                           :width="imageSlotProps.imageWidth"
@@ -179,7 +179,7 @@
                       </template>
                       <SfImage
                         v-else
-                        image-tag="nuxt-picture"
+                        image-tag="nuxt-img"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"

@@ -26,7 +26,7 @@
       >
         <SfTableData class="table__image">
           <SfImage
-            image-tag="nuxt-picture"
+            image-tag="nuxt-img"
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
             :width="imageSizes.cartItem.width"
