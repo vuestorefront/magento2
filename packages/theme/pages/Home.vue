@@ -37,7 +37,7 @@
       <ProductsCarousel
         :products="newProducts"
         :loading="newProductsLoading"
-        title="New Products"
+        :title="$t('New Products')"
       />
     </LazyHydrate>
 
@@ -155,8 +155,8 @@ export default defineComponent({
         subtitle: app.i18n.t('Dresses'),
         title: app.i18n.t('Cocktail & Party'),
         description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-        buttonText: 'Shop now',
+            app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
               'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
