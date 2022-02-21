@@ -32,7 +32,6 @@ import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
-import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import TopBar from '~/components/TopBar';
 
 export default defineComponent({

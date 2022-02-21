@@ -171,7 +171,7 @@
                     :alt="imageSlotProps.title"
                     :width="imageSlotProps.imageWidth"
                     :height="imageSlotProps.imageHeight"
-                    class="sf-product-card__image lol"
+                    class="sf-product-card__image"
                   />
                 </SfButton>
               </template>
