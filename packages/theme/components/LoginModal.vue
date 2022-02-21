@@ -390,6 +390,7 @@ export default defineComponent({
       resetErrorValues();
       isForgotten.value = value;
       isLogin.value = !value;
+      isThankYouAfterForgotten.value = value;
     };
 
     const closeModal = () => {
