@@ -237,7 +237,8 @@ export default {
   "The field should have at least 4 characters": "The field should have at least 4 characters",
   "The field should have at least 8 characters": "The field should have at least 8 characters",
   "New Password": "New Password",
+  "New Products": "New Products",
   "There are no shipping methods available for this country. We are sorry, please try with different country.": "There are no shipping methods available for this country. We are sorry, please try with different country.",
   "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.": "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.",
-  "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method."
+  "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.",
 };
