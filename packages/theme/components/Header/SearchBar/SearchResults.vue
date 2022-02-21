@@ -217,7 +217,6 @@ import {
 } from '@storefront-ui/vue';
 import {
   ref,
-  watch,
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
@@ -244,7 +243,7 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
@@ -252,16 +251,6 @@ export default defineComponent({
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
     const categories = computed(() => props.result?.categories);
-
-    watch(() => props.visible, (newVal) => {
-      isSearchOpen.value = newVal;
-      if (isSearchOpen.value) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-        emit('removeSearchResults');
-      }
-    });
 
     const addItemToWishlist = async (product) => {
       await (
