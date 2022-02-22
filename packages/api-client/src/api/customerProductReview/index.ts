@@ -20,7 +20,6 @@ export default async (
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
-    ...searchParams,
   };
 
   const variables: CustomerProductReviewParams = {

@@ -188,6 +188,7 @@ export default {
   "You are not authorized, please log in": "Sie sind nicht autorisiert, bitte melden Sie sich an",
   "You can unsubscribe at any time": "Sie können sich jederzeit abmelden",
   "You currently have no orders": "Sie haben derzeit keine Bestellungen",
+  "The email field must be a valid email":"Das E-Mail-Feld muss eine gültige E-Mail-Adresse sein",
   "You haven’t searched for items yet": "Sie haben noch nicht nach Artikeln gesucht.",
   "Your bag is empty": "Ihre Tasche ist leer",
   "Your current email address is": "Ihre aktuelle E-Mail-Adresse lautet",

@@ -59,7 +59,7 @@ import {
   SfRating,
 } from '@storefront-ui/vue';
 import { reviewGetters, useReview } from '@vue-storefront/magento';
-import { computed, defineComponent, onBeforeMount } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'MyReviews',
@@ -76,10 +76,9 @@ export default defineComponent({
       loadCustomerReviews,
     } = useReview('productReviews-my-reviews');
 
-    // @ts-ignore
     const userReviews = computed(() => reviewGetters.getItems(reviews.value));
 
-    onBeforeMount(async () => {
+    onMounted(async () => {
       await loadCustomerReviews();
     });
 

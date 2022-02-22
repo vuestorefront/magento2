@@ -187,6 +187,7 @@ export default {
   "Your bag is empty": "Your bag is empty",
   "Your current email address is": "Your current email address is",
   "Your email": "Your email",
+  "The email field must be a valid email":"The email field must be a valid email",
   'You have submitted no reviews': 'You have submitted no reviews',
   "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.":"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.",
   "A customer with the same email address already exists in an associated website.": "A customer with the same email address already exists in an associated website.",
