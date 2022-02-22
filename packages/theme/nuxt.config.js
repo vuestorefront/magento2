@@ -110,6 +110,7 @@ export default () => {
         enabled: process.env.REDIS__ENABLED,
         invalidation: {
           endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
+          key: process.env.REDIS__CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
