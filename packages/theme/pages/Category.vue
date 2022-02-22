@@ -253,6 +253,7 @@
               </template>
               <template #actions>
                 <SfButton
+                  v-if="isAuthenticated"
                   class="sf-button--text products__product-card-horizontal__add-to-wishlist"
                   @click="addItemToWishlist(product)"
                 >
@@ -412,6 +413,7 @@ import {
   SfAccordion,
   SfSelect,
   SfBreadcrumbs,
+  SfLink,
   SfLoader,
   SfColor,
   SfProperty,
@@ -458,6 +460,7 @@ export default defineComponent({
     SfColor,
     SfHeading,
     SfProperty,
+    SfLink,
     LazyHydrate,
   },
   middleware: cacheControl({
