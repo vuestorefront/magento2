@@ -15,9 +15,6 @@ ARG REDIS__HOST
 ARG REDIS__PORT
 ARG REDIS__CACHE_INVALIDATE_KEY
 ARG REDIS__CACHE_INVALIDATE_URL
-ARG REDIS__CACHE_INVALIDATE_URL
-ARG REDIS__KEY_PREFIX
-ARG REDIS__ENABLED
 ARG RECAPTCHA_ENABLED
 ARG RECAPTCHA_HIDE_BADGE
 ARG RECAPTCHA_VERSION
@@ -42,9 +39,8 @@ ENV REDIS__HOST=${REDIS__HOST}
 ENV REDIS__PORT=${REDIS__PORT}
 ENV REDIS__CACHE_INVALIDATE_KEY=${REDIS__CACHE_INVALIDATE_KEY}
 ENV REDIS__CACHE_INVALIDATE_URL=${REDIS__CACHE_INVALIDATE_URL}
-ENV REDIS__CACHE_INVALIDATE_URL=${REDIS__CACHE_INVALIDATE_URL}
-ENV REDIS__KEY_PREFIX=${REDIS__KEY_PREFIX}
-ENV REDIS__ENABLED=${REDIS__ENABLED}
+ENV REDIS__KEY_PREFIX=magento2vsf2
+ENV REDIS__ENABLED=true
 ENV SENTRY_DSN=${SENTRY_DSN}
 ENV RECAPTCHA_ENABLED=false
 ENV RECAPTCHA_HIDE_BADGE=false
@@ -66,8 +62,6 @@ COPY . .
 RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.config.js && cp .vuestorefrontcloud/docker/nuxt.config.additional.js /var/www/packages/theme/nuxt.config.js
 
 RUN yarn install
-
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @vsf-enterprise/redis-cache
 
 RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
 
