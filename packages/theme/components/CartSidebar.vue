@@ -396,7 +396,7 @@ export default defineComponent({
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -350px;
+  transform: translate(-50%, -50%);
   z-index: 99999;
   .sf-notification {
     padding: 20px;
