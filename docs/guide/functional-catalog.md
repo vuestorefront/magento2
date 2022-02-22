@@ -102,8 +102,8 @@ Anyway, we have a few ready to go integrations with headless Content Management 
 |  Feature                      | Is supported |
 |-------------------------------|--------------|
 | Internationalization          | Yes 💚       |
-| Multistore                    | Partial 🧡   |
-| Mega menu                     | Yes 💚       |
+| Multistore                    | Yes 💚  |
+| Mega menu                     | No  ❌       |
 | Product comparison            | No  ❌       |
 
 
