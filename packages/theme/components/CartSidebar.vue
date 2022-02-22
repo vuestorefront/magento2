@@ -391,6 +391,7 @@ export default defineComponent({
   top: 10px;
   cursor: pointer;
 }
+
 .notifications {
   position: fixed;
   left: 50%;
@@ -406,6 +407,7 @@ export default defineComponent({
     }
   }
 }
+
 .cart-summary {
   margin-top: var(--spacer-xl);
 }
@@ -435,6 +437,7 @@ export default defineComponent({
   flex: 1;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 
   &__banner {
     display: flex;
