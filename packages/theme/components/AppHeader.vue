@@ -135,7 +135,7 @@ import {
   useContext,
   useFetch,
 } from '@nuxtjs/composition-api';
-import HeaderNavigationItem from '~/components/Navigation/HeaderNavigationItem.vue';
+import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
   useUiHelpers,
   useUiState,
@@ -177,10 +177,8 @@ export default defineComponent({
     const result = ref(null);
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
-
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
+    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
