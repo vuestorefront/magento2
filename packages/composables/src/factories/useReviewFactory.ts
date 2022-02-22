@@ -70,12 +70,12 @@ export function useReviewFactory<
       }
     };
 
-    const loadCustomerReviews = async (searchParams?: ComposableFunctionArgs<REVIEWS_USER_SEARCH_PARAMS>): Promise<void> => {
-      Logger.debug(`useReview/${id}/loadCustomerReviews`, searchParams);
+    const loadCustomerReviews = async (): Promise<void> => {
+      Logger.debug(`useReview/${id}/loadCustomerReviews`);
 
       try {
         loading.value = true;
-        reviews.value = await _factoryParams.loadCustomerReviews(searchParams);
+        reviews.value = await _factoryParams.loadCustomerReviews();
         error.value.loadCustomerReviews = null;
       } catch (err) {
         error.value.loadCustomerReviews = err;

@@ -58,12 +58,7 @@ ProductReviewRatingMetadata> = {
     params?: ComposableFunctionArgs<CustomerProductReviewParams>,
   ) => {
     Logger.debug('[Magento] load customer review based on:', { params });
-    const {
-      customQuery,
-      ...input
-    } = params;
-
-    const { data } = await context.$magento.api.customerProductReview(input);
+    const { data } = await context.$magento.api.customerProductReview(params);
 
     Logger.debug('[Result]:', { data });
 
