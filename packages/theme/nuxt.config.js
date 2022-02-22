@@ -107,7 +107,7 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: process.env.REDIS__ENABLED,
+        enabled: !!process.env.REDIS__ENABLED,
         invalidation: {
           endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
           key: process.env.REDIS__CACHE_INVALIDATE_KEY,
