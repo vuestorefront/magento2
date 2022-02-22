@@ -78,7 +78,7 @@
           v-slot="{ errors }"
           name="region"
           :rules="!form.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
-          slim
+          class="form__element"
         >
           <SfInput
             v-if="!form.country_code || regionInformation.length === 0"
@@ -87,7 +87,6 @@
             :label="$t('State/Province')"
             :disabled="!form.country_code"
             name="state"
-            class="form__element form__element--half form__element--half-even"
             :valid="!!form.country_code"
             :error-message="!form.country_code ? $t('Please select a country first') : ''"
           />
