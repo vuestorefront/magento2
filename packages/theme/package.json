@@ -38,6 +38,7 @@
     "@vue-storefront/middleware": "~2.5.4",
     "@vue-storefront/nuxt": "~2.5.4",
     "@vue-storefront/nuxt-theme": "~2.5.4",
+    "@vue-storefront/redis-cache": "^1.0.1",
     "convict": "^6.2.1",
     "convict-format-with-validator": "^6.2.0",
     "cookie-universal-nuxt": "^2.1.5",
