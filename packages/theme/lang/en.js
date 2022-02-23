@@ -92,7 +92,6 @@ export default {
   "Menu": "Menu",
   "My billing and shipping address are the same": "My billing and shipping address are the same",
   "My Cart": "My Cart",
-  "New Products": "New Products",
   "No account": "Don't have an account yet?",
   "or": "or",
   "or fill the details below": "or fill the details below",
@@ -147,6 +146,7 @@ export default {
   "Shipping address": "Shipping address",
   "Shipping details": "Shipping details",
   "Shipping method": "Shipping method",
+  "Show":"Show",
   "show more": "show more",
   "Show on page": "Show on page",
   "Sign in": "Sign in",
@@ -250,4 +250,5 @@ export default {
   "There are no shipping methods available for this country. We are sorry, please try with different country.": "There are no shipping methods available for this country. We are sorry, please try with different country.",
   "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.": "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.",
   "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.",
+  "We can't find products matching the selection.":"We can't find products matching the selection.",
 };

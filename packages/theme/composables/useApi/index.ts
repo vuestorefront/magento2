@@ -24,8 +24,8 @@ export const useApi = () => {
 
   const query = (
     document: string,
-    endpoint = defaultEndpoint,
     variables = null,
+    endpoint = defaultEndpoint,
     requestHeaders = defaultHeaders,
   ) => new GraphQLClient(endpoint, {
     method: useGETForQueries ? 'GET' : 'POST',
@@ -34,8 +34,8 @@ export const useApi = () => {
 
   const mutate = (
     document: string,
-    endpoint = defaultEndpoint,
     variables = null,
+    endpoint = defaultEndpoint,
     requestHeaders = defaultHeaders,
   ) => graphQLRequest(endpoint, document, variables, requestHeaders);
 
