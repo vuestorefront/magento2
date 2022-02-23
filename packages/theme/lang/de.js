@@ -151,6 +151,7 @@ export default {
   "Shipping address": "Lieferanschrift",
   "Shipping details": "Versanddetails",
   "Shipping method": "Versandart",
+  "Show":"Show",
   "show more": "mehr anzeigen",
   "Show on page": "Auf Seite anzeigen",
   "Sign in": "Einloggen",
@@ -248,8 +249,8 @@ export default {
   "The field should have at least 4 characters": "Das Feld sollte mindestens 4 Zeichen lang sein",
   "The field should have at least 8 characters": "Das Feld sollte mindestens 8 Zeichen lang sein",
   "New Password": "Neues Passwort",
-  "New Products": "Neue Produkte",
   "There are no shipping methods available for this country. We are sorry, please try with different country.": "Für dieses Land sind keine Versandarten verfügbar. Es tut uns leid, bitte versuchen Sie es mit einem anderen Land oder später.",
   "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.": "Beim Versuch, Versandarten abzurufen, ist ein Fehler aufgetreten. Es tut uns leid, bitte versuchen Sie es mit anderen Versanddetails oder später.",
   "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "Beim Versuch, diese Versandart auszuwählen, ist ein Fehler aufgetreten. Es tut uns leid, bitte versuchen Sie es mit einer anderen Versandart.",
+  "We can't find products matching the selection.":"Wir können keine Produkte finden, die der Auswahl entsprechen.",
 };

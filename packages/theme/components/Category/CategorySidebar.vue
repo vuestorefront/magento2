@@ -1,13 +1,8 @@
 <template>
   <div>
     <slot
-      v-if="loading"
-      name="loading"
-      :loading="loading"
-    />
-    <slot
-      v-else
-      name="category"
+      v-if="!$fetchState.pending"
+      name="content"
       :category-tree="categoryTree"
       :active-category="activeCategory"
     >
@@ -16,27 +11,11 @@
         :show-chevron="true"
       >
         <SfAccordionItem
-          v-for="(cat, i) in categoryTree && categoryTree.items"
+          v-for="(cat, i) in categoryTree.items"
           :key="i"
           :header="cat.label"
         >
           <SfList class="list">
-            <SfListItem class="list__item">
-              <SfMenuItem
-                :count="cat.count || ''"
-                :label="cat.label"
-              >
-                <template #label>
-                  <nuxt-link
-                    :to="localePath(th.getAgnosticCatLink(cat))"
-                    :class="cat.isCurrent ? 'sidebar--cat-selected' : ''"
-                  >
-                    All
-                  </nuxt-link>
-                </template>
-              </SfMenuItem>
-            </SfListItem>
-            <SfDivider v-if="cat.items.length> 0" />
             <SfListItem
               v-for="(subCat, j) in cat.items"
               :key="j"
@@ -48,7 +27,7 @@
               >
                 <template #label="{ label }">
                   <nuxt-link
-                    :to="localePath(th.getAgnosticCatLink(subCat))"
+                    :to="localePath(getAgnosticCatLink(subCat))"
                     :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
                   >
                     {{ label }}
@@ -64,7 +43,7 @@
               >
                 <template #label="{ label }">
                   <nuxt-link
-                    :to="localePath(th.getAgnosticCatLink(subSubCat))"
+                    :to="localePath(getAgnosticCatLink(subSubCat))"
                     :class="subSubCat.isCurrent ? 'sidebar--cat-selected' : ''"
                   >
                     {{ label }}
@@ -91,12 +70,13 @@ import {
   computed,
   defineComponent,
   ref,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import {
   categoryGetters,
   useCategory,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
+import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers } from '~/composables';
 
@@ -108,32 +88,23 @@ export default defineComponent({
     SfAccordion,
     SfDivider,
   },
-  props: {
-    resolveUrl: Boolean,
-    noFetch: Boolean,
-  },
-  setup(props) {
-    const th = useUiHelpers();
+  setup() {
+    const uiHelpers = useUiHelpers();
+    const { addTags } = useCache();
+
     const {
-      path,
-      result,
+      result: urlData,
       search: resolveUrl,
     } = useUrlResolver();
+
     const {
       categories,
       search,
-      loading,
-    } = useCategory(`categoryList:${path}`);
+    } = useCategory('categoryList-sidebar');
 
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(
-      categories.value?.[0],
-      result.value?.entity_uid,
-      false,
-    ));
-
+    const categoryTree = ref([]);
     const activeCategory = computed(() => {
       const items = categoryTree.value?.items;
-
       if (!items) {
         return '';
       }
@@ -149,21 +120,21 @@ export default defineComponent({
       return categoryLabel.value || parent?.category?.label || items[0]?.label;
     });
 
-    onSSR(async () => {
-      if (props.resolveUrl) {
-        await resolveUrl();
-      }
+    useFetch(async () => {
+      await Promise.all([resolveUrl(), search({ pageSize: 20 })]);
+      categoryTree.value = categoryGetters.getCategoryTree(
+        categories.value?.[0],
+        urlData.value?.entity_uid,
+        false,
+      );
 
-      if (!props.noFetch) {
-        await search({
-          pageSize: 20,
-        });
-      }
+      const categoriesTags = categoryTree?.value?.items?.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.uid }));
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      addTags(categoriesTags);
     });
 
     return {
-      th,
-      loading,
+      ...uiHelpers,
       categoryTree,
       activeCategory,
     };
