@@ -4,6 +4,7 @@
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
+
     <div class="navbar section">
       <div class="navbar__aside desktop-only">
         <LazyHydrate never>
@@ -57,8 +58,8 @@
           <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
           <span class="desktop-only">{{ pagination.totalItems }}</span>
           <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
-            $t('Items')
-          }}</span>
+              $t('Items')
+            }}</span>
         </div>
 
         <div class="navbar__view">
@@ -257,7 +258,7 @@
                   class="sf-button--text products__product-card-horizontal__add-to-wishlist"
                   @click="addItemToWishlist(product)"
                 >
-                  {{ isInWishlist({product}) ? $t('Remove from Wishlist') : $t('Save for later') }}
+                  {{ isInWishlist({ product }) ? $t('Remove from Wishlist') : $t('Save for later') }}
                 </SfButton>
               </template>
             </SfProductCardHorizontal>
@@ -512,12 +513,6 @@ export default defineComponent({
       isInCart,
     } = useAddToCart();
 
-    const selectedFilters = ref(Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      (magentoConfig.facets.available)
-        .map((curr) => [curr, (curr === 'price' ? '' : [])]),
-    ));
-
     const products = computed(() => facetGetters.getProducts(result.value));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
@@ -568,19 +563,16 @@ export default defineComponent({
 
     const isFilterSelected = (facet, option) => {
       if (facet.id === 'price') {
-        console.log(
-          selectedFilters.value[facet.id],
-          option.value,
-          selectedFilters.value[facet.id] === option.value
-        )
         return selectedFilters.value[facet.id] || '';
       }
 
       return (selectedFilters.value[facet.id] || []).includes(option.value);
     };
 
+    /* eslint-disable */
     const selectFilter = (facet, option) => {
       if (facet.id === 'price') {
+        // eslint-disable-next-line
         selectedFilters.value[facet.id] = option.value;
         return;
       }
@@ -592,12 +584,13 @@ export default defineComponent({
       if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-        ]?.filter((f) => f !== option.value);
+          ]?.filter((f) => f !== option.value);
         return;
       }
 
       selectedFilters.value[facet.id].push(option.value);
     };
+    /* eslint-enable */
 
     const applyFilters = (filters) => {
       toggleFilterSidebar();
@@ -627,8 +620,29 @@ export default defineComponent({
       });
     };
 
+    const getSelectedFilterValues = () => {
+      let selectedFilterValues = Object.fromEntries(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        (magentoConfig.facets.available)
+          .map((curr) => [curr, (curr === 'price' ? '' : [])]),
+      );
+      const filters = uiHelpers.getFacetsFromURL().filters;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      Object.keys(filters).forEach((filter) => {
+        if (filter === 'price') {
+          selectedFilterValues[filter] = filters[filter][0];
+        } else {
+          selectedFilterValues[filter] = filters[filter];
+        }
+      });
+      return selectedFilterValues;
+    }
+
     const isProductsLoading = ref(false);
     const isCategoriesLoading = ref(false);
+    const selectedFilters = ref(getSelectedFilterValues());
+
     onSSR(async () => {
       isProductsLoading.value = true;
       isCategoriesLoading.value = true;
@@ -640,22 +654,7 @@ export default defineComponent({
       isCategoriesLoading.value = false;
 
       if (routeData?.value) {
-        if (facets.value && facets.value.length > 0) {
-          selectedFilters.value = facets.value?.map(
-            (prev, curr) => (curr.id === 'price'
-              ? {
-                ...prev,
-                [curr.id]: curr.options.find((o) => o.selected)?.value,
-              }
-              : {
-                ...prev,
-                [curr.id]: curr.options
-                  ?.filter((o) => o.selected)
-                  ?.map((o) => o.value),
-              }),
-            {},
-          );
-        }
+        selectedFilters.value = getSelectedFilterValues();
 
         await searchCategoryProduct();
         isProductsLoading.value = false;
