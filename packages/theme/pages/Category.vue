@@ -32,8 +32,8 @@
           </SfButton>
         </LazyHydrate>
 
-        <div class="navbar__sort desktop-only">
-          <span class="navbar__label">{{ $t('Sort by') }}:</span>
+        <div class="navbar__sort">
+          <span class="navbar__label desktop-only">{{ $t('Sort by') }}:</span>
           <LazyHydrate when-visible>
             <SfSelect
               :value="sortBy.selected"
@@ -814,12 +814,20 @@ export default defineComponent({
     ::v-deep .sf-select__placeholder {
       --select-option-font-size: var(--font-size-sm);
     }
+
+    @include for-mobile {
+      --select-width: 135px;
+    }
   }
 
   &__sort {
     display: flex;
     align-items: center;
     margin: 0 auto 0 var(--spacer-2xl);
+    @include for-mobile {
+      margin: 0;
+      order: 1;
+    }
   }
 
   &__counter {
