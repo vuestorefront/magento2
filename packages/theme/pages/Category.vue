@@ -263,39 +263,40 @@
               </template>
             </SfProductCardHorizontal>
           </transition-group>
-
-          <LazyHydrate on-interaction>
-            <SfPagination
-              v-if="!isProductsLoading"
-              v-show="pagination.totalPages > 1"
-              class="products__pagination desktop-only"
-              :current="pagination.currentPage"
-              :total="pagination.totalPages"
-              :visible="5"
-            />
-          </LazyHydrate>
-
-          <div
-            v-show="pagination.totalPages > 1"
-            class="products__show-on-page"
-          >
-            <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
+          <div class="products__display-opt">
             <LazyHydrate on-interaction>
-              <SfSelect
-                :value="pagination.itemsPerPage.toString()"
-                class="products__items-per-page"
-                @input="uiHelpers.changeItemsPerPage"
-              >
-                <SfSelectOption
-                  v-for="option in pagination.pageOptions"
-                  :key="option"
-                  :value="option"
-                  class="products__items-per-page__option"
-                >
-                  {{ option }}
-                </SfSelectOption>
-              </SfSelect>
+              <SfPagination
+                v-if="!isProductsLoading"
+                v-show="pagination.totalPages > 1"
+                class="products__pagination"
+                :current="pagination.currentPage"
+                :total="pagination.totalPages"
+                :visible="5"
+              />
             </LazyHydrate>
+
+            <div
+              v-show="pagination.totalPages > 1"
+              class="products__show-on-page"
+            >
+              <span class="products__show-on-page__label">{{ $t('Show') }}</span>
+              <LazyHydrate on-interaction>
+                <SfSelect
+                  :value="pagination.itemsPerPage.toString()"
+                  class="products__items-per-page"
+                  @input="uiHelpers.changeItemsPerPage"
+                >
+                  <SfSelectOption
+                    v-for="option in pagination.pageOptions"
+                    :key="option"
+                    :value="option"
+                    class="products__items-per-page__option"
+                  >
+                    {{ option }}
+                  </SfSelectOption>
+                </SfSelect>
+              </LazyHydrate>
+            </div>
           </div>
         </div>
       </SfLoader>
@@ -991,6 +992,18 @@ export default defineComponent({
     }
     &__list {
       margin: 0 0 0 var(--spacer-sm);
+    }
+  }
+
+  @include for-mobile {
+    &__display-opt {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__show-on-page {
+      margin-top: 12px;
     }
   }
 
