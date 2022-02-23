@@ -14,7 +14,7 @@ export default async (
     {
       cart: {
         query: cart,
-        variables: { cartId },
+        variables: { cartId: cartId ?? '' },
       },
     },
   );

@@ -19,8 +19,11 @@
           />
         </nuxt-link>
       </template>
-      <template #navigation>
-        <SfHeaderNavigationItem
+      <template
+        v-if="$device.isDesktop"
+        #navigation
+      >
+        <HeaderNavigationItem
           v-for="(category, index) in categoryTree"
           :key="index"
           v-e2e="'app-header-url_women'"
@@ -102,60 +105,16 @@
         </div>
       </template>
       <template #search>
-        <SfSearchBar
-          ref="searchBarRef"
-          v-click-outside="closeSearch"
-          :placeholder="$t('Search for items')"
-          aria-label="Search"
-          class="sf-header__search"
-          :value="term"
-          @input="handleSearch"
-          @keydown.enter="handleSearch($event)"
-          @keydown.tab="hideSearch"
-          @focus="isSearchOpen = true"
-          @keydown.esc="closeSearch"
-        >
-          <template #icon>
-            <SfButton
-              v-if="!!term"
-              class="sf-search-bar__button sf-button--pure"
-              aria-label="Close search"
-              @click="closeOrFocusSearchBar"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="18px"
-                  icon="cross"
-                />
-              </span>
-            </SfButton>
-            <SfButton
-              v-else
-              class="sf-search-bar__button sf-button--pure"
-              aria-label="Open search"
-              @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
-              @focus="showSearch"
-              @keydown.tab="hideSearch"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="20px"
-                  icon="search"
-                />
-              </span>
-            </SfButton>
-          </template>
-        </SfSearchBar>
+        <SearchBar
+          @SearchBar:toggle="isSearchOpen = $event"
+          @SearchBar:result="result = $event"
+        />
       </template>
     </SfHeader>
     <SearchResults
       v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
-      @close="closeSearch"
-      @removeSearchResults="removeSearchResults"
     />
     <SfOverlay :visible="isSearchOpen" />
   </div>
@@ -163,37 +122,28 @@
 
 <script>
 import {
+  SfOverlay,
   SfHeader,
   SfIcon,
   SfButton,
   SfBadge,
-  SfSearchBar,
-  SfOverlay,
 } from '@storefront-ui/vue';
+
 import {
   categoryGetters,
   useCart,
   useCategory,
-  useCategorySearch,
-  useFacet,
-  useUser, useWishlist, wishlistGetters,
+  useUser, useWishlist,
 } from '@vue-storefront/magento';
 import {
   computed,
   ref,
-  onBeforeUnmount,
-  watch,
   defineComponent,
   useRouter,
   useContext,
-  useAsync,
+  useFetch,
 } from '@nuxtjs/composition-api';
-import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import debounce from 'lodash.debounce';
+import HeaderNavigationItem from '~/components/Navigation/HeaderNavigationItem.vue';
 import {
   useUiHelpers,
   useUiState,
@@ -203,45 +153,35 @@ import CurrencySelector from '~/components/CurrencySelector.vue';
 
 export default defineComponent({
   components: {
+    HeaderNavigationItem,
     SfHeader,
+    SfOverlay,
     CurrencySelector,
     StoreSwitcher,
     SfIcon,
     SfButton,
     SfBadge,
-    SfSearchBar,
-    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/SearchResults.vue'),
-    SfOverlay,
+    SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
+    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
   },
-  directives: { clickOutside },
   setup() {
     const router = useRouter();
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
-    const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
+    const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { totalQuantity, loadTotalQty } = useCart();
-    const { wishlist } = useWishlist('GlobalWishlist');
-    const {
-      result: searchResult,
-      search: productsSearch,
-    } = useFacet('AppHeader:Products');
-    const {
-      result: categories,
-      search: categoriesSearch,
-    } = useCategorySearch('AppHeader:Categories');
+    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
+    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
+
     const {
       categories: categoryList,
       search: categoriesListSearch,
     } = useCategory('AppHeader:CategoryList');
 
-    const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
-    const searchBarRef = ref(null);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistGetters.getTotalItems(wishlist.value) > 0);
-    const wishlistItemsQty = computed(() => wishlistGetters.getTotalItems(wishlist.value));
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
 
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
 
@@ -255,91 +195,22 @@ export default defineComponent({
       }
     };
 
-    useAsync(async () => {
-      await Promise.all([loadTotalQty(), categoriesListSearch({ pageSize: 20 })]);
-    });
-
-    const showSearch = () => {
-      if (!isSearchOpen.value) {
-        isSearchOpen.value = true;
+    useFetch(async () => {
+      if (app.$device.isDesktop) {
+        await Promise.all([loadCartTotalQty(), loadWishlistItemsCount(), categoriesListSearch({ pageSize: 20 })]);
       }
-    };
-
-    const hideSearch = () => {
-      if (isSearchOpen.value) {
-        isSearchOpen.value = false;
-      }
-    };
-
-    const closeSearch = () => {
-      hideSearch();
-      term.value = '';
-    };
-
-    const handleSearch = debounce(async (paramValue) => {
-      term.value = !paramValue.target ? paramValue : paramValue.target.value;
-
-      await Promise.all([
-        productsSearch({
-          itemsPerPage: 12,
-          term: term.value,
-        }),
-        categoriesSearch({ filters: { name: { match: `${term.value}` } } }),
-      ]);
-
-      result.value = {
-        products: searchResult.value?.data?.items,
-        categories: categories.value
-          .map((element) => categoryGetters.getCategoryTree(element)),
-      };
-    }, 1000);
-
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
-
-    const closeOrFocusSearchBar = () => {
-      if (isMobile.value) {
-        return closeSearch();
-      }
-      term.value = '';
-      return searchBarRef.value.$el.children[0].focus();
-    };
-
-    watch(() => term.value, (newVal, oldVal) => {
-      const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0)
-        && ((!oldVal && newVal)
-          || (newVal.length !== oldVal.length
-            && isSearchOpen.value === false));
-
-      if (shouldSearchBeOpened) isSearchOpen.value = true;
-    });
-
-    const removeSearchResults = () => {
-      result.value = null;
-    };
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
     });
 
     return {
       accountIcon,
-      cartTotalItems: totalQuantity,
+      cartTotalItems,
       categoryTree,
-      closeOrFocusSearchBar,
-      closeSearch,
-      showSearch,
-      hideSearch,
       getAgnosticCatLink,
       handleAccountClick,
-      handleSearch,
       isAuthenticated,
-      isMobile,
       isSearchOpen,
-      removeSearchResults,
       result,
-      searchBarRef,
       setTermForUrl,
-      term,
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,

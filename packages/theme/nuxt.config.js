@@ -54,6 +54,9 @@ export default () => {
       ],
     },
     loading: { color: '#fff' },
+    device: {
+      refreshOnResize: true,
+    },
     buildModules: [
       // to core
       '@nuxtjs/composition-api/module',
@@ -61,6 +64,7 @@ export default () => {
       '@nuxtjs/google-fonts',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources',
+      '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
         // @core-development-only-start
         coreDevelopment: true,
@@ -90,7 +94,7 @@ export default () => {
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
-        customApolloHttpLinkOptions
+        customApolloHttpLinkOptions,
       }],
       '@nuxt/image',
     ],
@@ -103,13 +107,25 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: false,
+        enabled: !!process.env.REDIS__ENABLED,
         invalidation: {
+          endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
+          key: process.env.REDIS__CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
         },
-        driver: [],
+        driver: [
+          '@vue-storefront/redis-cache',
+          {
+            // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
+            redis: {
+              keyPrefix: process.env.REDIS__KEY_PREFIX,
+              host: process.env.REDIS__HOST,
+              port: process.env.REDIS__PORT,
+            },
+          },
+        ],
       }],
     ],
     i18n: {

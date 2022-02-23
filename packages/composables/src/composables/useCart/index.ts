@@ -335,8 +335,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
     }
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  clear: (context: Context, _params = null) => {
-    context.$magento.config.state.setCartId(null);
+  clear: async (context: Context, _params = null) => {
+    context.$magento.config.state.setCartId();
 
     return factoryParams.load(context, {});
   },
@@ -386,9 +386,13 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
   ) => !!currentCart?.items.find((cartItem) => cartItem?.product?.uid === product.uid),
   loadTotalQty: async (context: Context) => {
     const apiState = context.$magento.config.state;
-    const { data } : any = await context.$magento.api.cartTotalQty(apiState.getCartId());
+    if (apiState.getCartId()) {
+      const { data } : any = await context.$magento.api.cartTotalQty(apiState.getCartId());
 
-    return data?.cart?.total_quantity;
+      return data?.cart?.total_quantity ?? 0;
+    }
+
+    return 0;
   },
 };
 

@@ -302,8 +302,9 @@ export default defineComponent({
     const tempProduct = ref();
 
     onMounted(() => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      loadCart();
+      if (cart.value === null) {
+        loadCart();
+      }
     });
 
     const goToCheckout = async () => {
@@ -386,11 +387,12 @@ export default defineComponent({
   top: 10px;
   cursor: pointer;
 }
+
 .notifications {
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -350px;
+  transform: translate(-50%, -50%);
   z-index: 99999;
   .sf-notification {
     padding: 20px;
@@ -401,6 +403,7 @@ export default defineComponent({
     }
   }
 }
+
 .cart-summary {
   margin-top: var(--spacer-xl);
 }
@@ -430,6 +433,7 @@ export default defineComponent({
   flex: 1;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 
   &__banner {
     display: flex;

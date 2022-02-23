@@ -87,7 +87,7 @@ const getProducts = (wishlistData: Wishlist[] | Wishlist): {
     return [];
   }
 
-  const reducer = (acc, curr) => [...acc, ...curr.items_v2.items.map((item) => ({
+  const reducer = (acc, curr) => [...acc, ...curr?.items_v2?.items.map((item) => ({
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
