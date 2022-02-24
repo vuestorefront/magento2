@@ -8,7 +8,7 @@
         <template #title>
           <span class="desktop-only">{{ storeConfig.store_name }}</span>
         </template>
-        <template #icon>
+        <template #icon v-if="storeConfigGetters.getLocale(storeConfig)">
           <nuxt-img
             :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
             width="20"
