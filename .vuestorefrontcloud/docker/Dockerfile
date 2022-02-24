@@ -60,13 +60,8 @@ RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.
 
 RUN yarn install
 
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/sentry @sentry/tracing
 
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/sentry
-
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing
-
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
 
 RUN yarn build && yarn cache clean --all
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/

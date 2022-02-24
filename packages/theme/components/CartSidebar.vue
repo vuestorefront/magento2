@@ -258,8 +258,7 @@ import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
-import stockStatusEnum from '~/enums/stockStatusEnum';
-import CouponCode from './CouponCode.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -340,8 +339,6 @@ export default defineComponent({
       });
     };
     const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
-    const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
-
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {

@@ -144,53 +144,6 @@ export default () => {
           iso: 'de_DE',
           defaultCurrency: 'EUR',
         },
-      },
-      routes: false,
-    }],
-    // @core-development-only-end
-    /* project-only-start
-    ['@vue-storefront/nuxt-theme', {
-      routes: false,
-    }],
-    project-only-end */
-    ['@vue-storefront/magento/nuxt', {
-      i18n: {
-        useNuxtI18nConfig: true,
-      },
-      cookies,
-      externalCheckout,
-      defaultStore,
-      facets,
-      magentoBaseUrl,
-      imageProvider,
-    }],
-    '@nuxt/image',
-  ],
-  modules: [
-    ['nuxt-i18n', {
-      baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    }],
-    'cookie-universal-nuxt',
-    'vue-scrollto/nuxt',
-    '@vue-storefront/middleware/nuxt',
-    '@nuxt/image',
-    ['@vue-storefront/cache/nuxt', {
-      enabled: false,
-      invalidation: {
-        handlers: [
-          '@vue-storefront/cache/defaultHandler',
-        ],
-      },
-      driver: [
-        '@vue-storefront/redis-cache',
-        {
-          // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
-          redis: {
-            keyPrefix: process.env.REDIS__KEY_PREFIX,
-            host: process.env.REDIS__HOST,
-            port: process.env.REDIS__PORT,
-          },
-        },
       ],
       defaultLocale: 'default',
       autoChangeCookie: {
@@ -198,36 +151,18 @@ export default () => {
         locale: false,
         country: false,
       },
-      {
-        code: 'german',
-        file: 'de.js',
-        iso: 'de_DE',
-        defaultCurrency: 'EUR',
-      },
-      {
-        code: 'german',
-        file: 'de.js',
-        iso: 'de_DE',
-        defaultCurrency: 'EUR',
-      },
-    ],
-    defaultLocale: 'default',
-    autoChangeCookie: {
-      currency: false,
-      locale: false,
-      country: false,
-    },
-    lazy: true,
-    seo: true,
-    langDir: 'lang/',
-    vueI18n: {
-      fallbackLocale: 'default',
-      numberFormats: {
-        default: {
-          currency: {
-            style: 'currency',
-            currency: 'USD',
-            currencyDisplay: 'symbol',
+      lazy: true,
+      seo: true,
+      langDir: 'lang/',
+      vueI18n: {
+        fallbackLocale: 'default',
+        numberFormats: {
+          default: {
+            currency: {
+              style: 'currency',
+              currency: 'USD',
+              currencyDisplay: 'symbol',
+            },
           },
           german: {
             currency: {
@@ -316,22 +251,8 @@ export default () => {
           .forEach((route) => routes.unshift(route));
       },
     },
-    extractCSS: {
-      allChunks: true,
-    },
-  },
-  plugins: [
-    '~/plugins/token-expired',
-    '~/plugins/i18n',
-    '~/plugins/fcPlugin',
-  ],
-  serverMiddleware: [
-    '~/serverMiddleware/body-parser.js',
-  ],
-  router: {
-    extendRoutes(routes) {
-      getRoutes(`${__dirname}/_theme`)
-        .forEach((route) => routes.unshift(route));
+    image: {
+      provider: config.get('imageProvider'),
     },
   };
 
