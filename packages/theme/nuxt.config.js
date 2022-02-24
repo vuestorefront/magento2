@@ -202,6 +202,26 @@ export default () => {
           ['@babel/plugin-proposal-private-methods', { loose: true }],
         ],
       },
+      extractCSS: true,
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            styles: {
+              name: 'styles',
+              test: /\.(css|vue)$/,
+              chunks: 'all',
+              enforce: true,
+            },
+          },
+        },
+      },
+      optimizeCSS: true,
+      parallel: true,
+      splitChunks: {
+        layouts: true,
+        pages: true,
+        commons: true,
+      },
       transpile: [
         'vee-validate/dist/rules',
       ],
@@ -214,9 +234,6 @@ export default () => {
           }),
         }),
       ],
-      extractCSS: {
-        allChunks: true,
-      },
     },
     plugins: [
       '~/plugins/token-expired',
@@ -228,6 +245,7 @@ export default () => {
       '~/serverMiddleware/body-parser.js',
     ],
     router: {
+      prefetchLinks: false,
       extendRoutes(routes) {
         getRoutes()
           .forEach((route) => routes.unshift(route));
