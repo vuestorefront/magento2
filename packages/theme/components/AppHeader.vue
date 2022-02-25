@@ -9,7 +9,6 @@
         <HeaderLogo />
       </template>
       <template
-        v-if="$device.isDesktop"
         #navigation
       >
         <HeaderNavigationItem
@@ -133,6 +132,7 @@ import {
   defineComponent,
   useRouter,
   useContext,
+  onMounted,
   useFetch,
 } from '@nuxtjs/composition-api';
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
@@ -180,6 +180,7 @@ export default defineComponent({
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
     const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
 
+
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
         await router.push(`${app.localePath('/my-account')}`);
@@ -189,8 +190,13 @@ export default defineComponent({
     };
 
     useFetch(async () => {
+      await categoriesListSearch({ pageSize: 20 });
+    });
+
+    onMounted(() => {
       if (app.$device.isDesktop) {
-        await Promise.all([loadCartTotalQty(), loadWishlistItemsCount(), categoriesListSearch({ pageSize: 20 })]);
+        loadCartTotalQty();
+        loadWishlistItemsCount();
       }
     });
 
