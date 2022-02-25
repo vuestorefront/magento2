@@ -62,3 +62,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.sf-header__logo {
+  @include for-desktop {
+    align-items: center;
+    display: inline-flex;
+    min-height: 80px;
+  }
+}
+</style>
