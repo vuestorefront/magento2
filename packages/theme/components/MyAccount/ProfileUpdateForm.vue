@@ -74,7 +74,29 @@
           {{ $t('Update personal data') }}
         </SfButton>
       </SfModal>
-      <SfButton class="form__button">
+      <div 
+        v-if="requirePassword"
+        class="smartphone-only"
+      >
+        {{ $t('Please type your current password to change your email address.') }}
+        <SfInput
+          v-model="currentPassword"
+          type="password"
+          name="currentPassword"
+          :label="$t('Current Password')"
+          required
+          class="form__element"
+          style="margin-top: 10px"
+          @keypress.enter="handleSubmit(submitForm(reset))"
+        />
+        <SfButton
+          class="form__button"
+          @click="handleSubmit(submitForm(reset))"
+        >
+          {{ $t('Update personal data') }}
+        </SfButton>
+      </div>
+      <SfButton v-if="!requirePassword" class="form__button">
         {{ $t('Update personal data') }}
       </SfButton>
     </form>
