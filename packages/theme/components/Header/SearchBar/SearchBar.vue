@@ -160,8 +160,9 @@ export default defineComponent({
       emit('SearchBar:result', result.value);
     }, 1000);
 
-    watch(route, (event) => {
-      closeSearch(event);
+    watch(route, () => {
+      hideSearch();
+      term.value = '';
     });
 
     return {
