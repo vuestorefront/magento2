@@ -177,3 +177,11 @@ export default defineComponent({
 });
 
 </script>
+
+<style lang="scss" scoped>
+.sf-search-bar__button {
+  position: relative;
+  right: 20px;
+  bottom: 0;
+}
+</style>
