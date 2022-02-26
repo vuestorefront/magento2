@@ -115,7 +115,6 @@ import {
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -126,7 +125,7 @@ export default defineComponent({
     SfLoader,
     SfProductCard,
     SfSection,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   props: {
     title: {

@@ -458,14 +458,13 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
     CategorySidebarMenu: () => import(/* webpackPrefetch: true */'~/components/Category/CategorySidebarMenu'),
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
     SfImage,
     SfButton,
     SfSidebar,

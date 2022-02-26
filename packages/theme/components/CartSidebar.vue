@@ -258,8 +258,6 @@ import {
 import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
-import SvgImage from '~/components/General/SvgImage.vue';
-import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -274,8 +272,8 @@ export default defineComponent({
     SfCollectedProduct,
     SfQuantitySelector,
     SfBadge,
-    CouponCode,
-    SvgImage,
+    CouponCode: () => import(/* webpackPrefetch: true */'~/components/CouponCode.vue'),
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();

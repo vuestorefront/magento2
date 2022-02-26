@@ -228,7 +228,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -240,7 +239,7 @@ export default defineComponent({
     SfMenuItem,
     SfButton,
     SfImage,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   props: {
     visible: {

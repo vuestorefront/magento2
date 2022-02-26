@@ -106,24 +106,20 @@ import {
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
-    InstagramFeed,
+    InstagramFeed: () => import(/* webpackPrefetch: true */'~/components/InstagramFeed.vue'),
     LazyHydrate,
-    MobileStoreBanner,
-    ProductsCarousel,
-    SvgImage,
-    SfButton,
+    MobileStoreBanner: () => import(/* webpackPrefetch: true */'~/components/MobileStoreBanner.vue'),
+    ProductsCarousel: () => import(/* webpackPrefetch: true */'~/components/ProductsCarousel.vue'),
     SfBanner,
     SfBannerGrid,
+    SfButton,
     SfCallToAction,
     SfHero,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {

@@ -24,11 +24,12 @@
 <script>
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useConfig, storeConfigGetters } from '@vue-storefront/magento';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HeaderLogo',
-  components: { SvgImage },
+  components: {
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
+  },
   setup() {
     const { config } = useConfig();
 

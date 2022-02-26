@@ -288,28 +288,18 @@ import {
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
-import InstagramFeed from '~/components/InstagramFeed.vue';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
-import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
-import UpsellProducts from '~/components/UpsellProducts';
-import RelatedProducts from '~/components/RelatedProducts';
-import HTMLContent from '~/components/HTMLContent';
-import AddToWishlist from '~/components/AddToWishlist';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
-    BundleProductSelector,
-    GroupedProductSelector,
-    HTMLContent,
-    InstagramFeed,
+    BundleProductSelector: () => import(/* webpackPrefetch: true */'~/components/Products/BundleProductSelector'),
+    GroupedProductSelector: () => import(/* webpackPrefetch: true */'~/components/Products/GroupedProductSelector'),
+    HTMLContent: () => import(/* webpackPrefetch: true */'~/components/HTMLContent'),
+    InstagramFeed: () => import(/* webpackPrefetch: true */'~/components/InstagramFeed.vue'),
     LazyHydrate,
-    MobileStoreBanner,
-    ProductAddReviewForm,
-    RelatedProducts,
+    MobileStoreBanner: () => import(/* webpackPrefetch: true */'~/components/MobileStoreBanner.vue'),
+    ProductAddReviewForm: () => import(/* webpackPrefetch: true */'~/components/ProductAddReviewForm.vue'),
+    RelatedProducts: () => import(/* webpackPrefetch: true */'~/components/RelatedProducts'),
     SfAddToCart,
     SfBreadcrumbs,
     SfButton,
@@ -322,9 +312,9 @@ export default defineComponent({
     SfReview,
     SfSelect,
     SfTabs,
-    AddToWishlist,
-    SvgImage,
-    UpsellProducts,
+    AddToWishlist: () => import(/* webpackPrefetch: true */'~/components/AddToWishlist'),
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
+    UpsellProducts: () => import(/* webpackPrefetch: true */'~/components/UpsellProducts'),
   },
   middleware: cacheControl({
     'max-age': 60,

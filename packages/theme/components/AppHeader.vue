@@ -142,7 +142,6 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   components: {
@@ -156,7 +155,7 @@ export default defineComponent({
     SfHeader,
     SfOverlay,
     StoreSwitcher: () => import(/* webpackPrefetch: true */'~/components/StoreSwitcher.vue'),
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const router = useRouter();

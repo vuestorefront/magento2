@@ -53,22 +53,20 @@ import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import {
   defineComponent, ref, watch, useRoute,
 } from '@nuxtjs/composition-api';
-import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
-import SvgImage from '~/components/General/SvgImage.vue';
-
 import debounce from 'lodash.debounce';
 import {
   categoryGetters,
   useCategorySearch,
   useFacet,
 } from '@vue-storefront/magento';
+import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
 
 export default defineComponent({
   name: 'SearchBar',
   components: {
     SfSearchBar,
     SfButton,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   directives: { clickOutside },
   props: {
@@ -130,7 +128,7 @@ export default defineComponent({
     const closeSearch = (event) => {
       if (document) {
         const searchResultsEl = document.querySelectorAll('.search');
-        if (!searchResultsEl[0].contains(event.target)) {
+        if (!searchResultsEl[0]?.contains(event.target)) {
           hideSearch();
           term.value = '';
         }

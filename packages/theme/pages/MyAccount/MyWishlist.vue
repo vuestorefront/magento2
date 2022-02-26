@@ -283,7 +283,6 @@ import {
   wishlistGetters,
 } from '@vue-storefront/magento';
 import { useUiHelpers, useUiState, useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -298,7 +297,7 @@ export default defineComponent({
     SfSelect,
     SfProperty,
     LazyHydrate,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const {

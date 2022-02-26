@@ -165,7 +165,6 @@ import {
   productGetters,
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -179,7 +178,7 @@ export default defineComponent({
     SfLink,
     SfLoader,
     SfImage,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
@@ -187,7 +186,6 @@ export default defineComponent({
       wishlist, removeItem, load: loadWishlist, loading,
     } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
-    console.log('VALUE', wishlist.value);
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));

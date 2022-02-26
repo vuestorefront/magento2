@@ -89,18 +89,15 @@ import {
   computed, defineComponent, useRouter, useRoute, useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
-import AddressForm from '~/components/MyAccount/AddressForm.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'ShippingDetails',
   components: {
     SfTabs,
     SfButton,
-    AddressForm,
-    SvgImage,
-    UserAddressDetails,
+    AddressForm: () => import(/* webpackPrefetch: true */'~/components/MyAccount/AddressForm.vue'),
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
+    UserAddressDetails: () => import(/* webpackPrefetch: true */'~/components/UserAddressDetails.vue'),
   },
   setup() {
     const {

@@ -40,13 +40,12 @@ import {
 import {
   computed, defineComponent, ref, useRoute, useRouter, useContext, onMounted,
 } from '@nuxtjs/composition-api';
-import CartPreview from '~/components/Checkout/CartPreview.vue';
 
 export default defineComponent({
   name: 'CheckoutPage',
   components: {
     SfSteps,
-    CartPreview,
+    CartPreview: () => import(/* webpackPrefetch: true */'~/components/Checkout/CartPreview.vue'),
   },
   setup() {
     const route = useRoute();

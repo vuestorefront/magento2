@@ -289,7 +289,6 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -320,7 +319,7 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
     UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
-    UserAddressDetails,
+    UserAddressDetails: () => import('~/components/UserAddressDetails.vue'),
   },
   setup() {
     const router = useRouter();

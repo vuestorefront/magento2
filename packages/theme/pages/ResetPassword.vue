@@ -106,7 +106,7 @@ import {
 import { useForgotPassword, forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('email', {
   ...email,

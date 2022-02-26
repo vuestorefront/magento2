@@ -39,8 +39,6 @@ import { SfTabs } from '@storefront-ui/vue';
 import { onSSR } from '@vue-storefront/core';
 import { useUser } from '@vue-storefront/magento';
 import { defineComponent } from '@nuxtjs/composition-api';
-import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
-import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
 import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
 
 extend('required', {
@@ -69,8 +67,8 @@ export default defineComponent({
 
   components: {
     SfTabs,
-    ProfileUpdateForm,
-    PasswordResetForm,
+    ProfileUpdateForm: () => import(/* webpackPrefetch: true */'~/components/MyAccount/ProfileUpdateForm.vue'),
+    PasswordResetForm: () => import(/* webpackPrefetch: true */'~/components/MyAccount/PasswordResetForm.vue'),
   },
 
   setup() {

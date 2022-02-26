@@ -32,13 +32,12 @@
 import { defineComponent } from '@nuxtjs/composition-api';
 import { SfNotification } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'NotificationBar',
   components: {
     SfNotification,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const { notifications } = useUiNotification();

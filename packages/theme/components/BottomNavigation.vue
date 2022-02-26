@@ -81,15 +81,13 @@ import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
 import { useUser } from '@vue-storefront/magento';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
-import MobileMenuSidebar from '~/components/MobileMenuSidebar.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   components: {
     SfBottomNavigation,
     SfCircleIcon,
-    MobileMenuSidebar,
-    SvgImage,
+    MobileMenuSidebar: () => import(/* webpackPrefetch: true */'~/components/MobileMenuSidebar.vue'),
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   setup() {
     const {

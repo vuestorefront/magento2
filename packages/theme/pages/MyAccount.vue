@@ -59,22 +59,16 @@ import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import MyProfile from './MyAccount/MyProfile.vue';
-import AddressesDetails from './MyAccount/AddressesDetails.vue';
-import MyNewsletter from './MyAccount/MyNewsletter.vue';
-import MyWishlist from './MyAccount/MyWishlist.vue';
-import OrderHistory from './MyAccount/OrderHistory.vue';
-import MyReviews from './MyAccount/MyReviews.vue';
 
 export default defineComponent({
   name: 'MyAccount',
   components: {
-    AddressesDetails,
-    MyNewsletter,
-    MyProfile,
-    MyReviews,
-    MyWishlist,
-    OrderHistory,
+    AddressesDetails: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/AddressesDetails.vue'),
+    MyNewsletter: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/MyNewsletter.vue'),
+    MyProfile: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/MyProfile.vue'),
+    MyReviews: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/MyReviews.vue'),
+    MyWishlist: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/MyWishlist.vue'),
+    OrderHistory: () => import(/* webpackPrefetch: true */'~/pages/MyAccount/OrderHistory.vue'),
     SfBreadcrumbs,
     SfContentPages,
   },

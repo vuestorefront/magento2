@@ -20,13 +20,12 @@
 <script>
 import { defineComponent, computed } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'AddToWishlist',
   components: {
     SfButton,
-    SvgImage,
+    SvgImage: () => import(/* webpackPrefetch: true */'~/components/General/SvgImage.vue'),
   },
   props: {
     component: {
