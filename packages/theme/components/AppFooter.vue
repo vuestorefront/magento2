@@ -122,6 +122,8 @@ export default {
     margin: 0 var(--spacer-2xs) 0 0;
     background-color: #fff;
     border-radius: 100%;
+    --image-width: 32px;
+    --image-height: 32px;
   }
 }
 .sf-footer {

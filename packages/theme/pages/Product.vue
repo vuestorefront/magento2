@@ -20,6 +20,10 @@
               <SfGallery
                 :images="productGallery"
                 :enable-zoom="true"
+                :thumb-width="160"
+                :thumb-height="160"
+                :image-width="422"
+                :image-height="664"
                 class="product__gallery"
               />
             </SfLoader>
