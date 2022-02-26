@@ -9,13 +9,12 @@
 import { defineComponent } from '@nuxtjs/composition-api';
 import { useUpsellProducts } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import { productData } from '~/helpers/product/productData';
 
 export default defineComponent({
   name: 'UpsellProducts',
   components: {
-    ProductsCarousel,
+    ProductsCarousel: () => import(/* webpackPrefetch: true */'~/components/ProductsCarousel.vue'),
   },
   setup() {
     const { id } = productData();

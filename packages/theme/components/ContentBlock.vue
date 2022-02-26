@@ -15,11 +15,12 @@
 </template>
 <script>
 import { defineComponent } from '@nuxtjs/composition-api';
-import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
   name: 'ContentBlock',
-  components: { HTMLContent },
+  components: {
+    HTMLContent: () => import(/* webpackPrefetch: true */'~/components/HTMLContent.vue'),
+  },
   props: {
     title: {
       type: String,

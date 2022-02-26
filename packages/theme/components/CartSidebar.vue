@@ -269,13 +269,13 @@ export default defineComponent({
     SfButton,
     SfCollectedProduct,
     SfHeading,
+    SfImage,
     SfLoader,
     SfNotification,
     SfPrice,
     SfProperty,
     SfQuantitySelector,
     SfSidebar,
-    SfImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();

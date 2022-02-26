@@ -3,7 +3,7 @@
   <div class="smartphone-only">
     <SfBottomNavigation class="navigation-bottom">
       <SfBottomNavigationItem
-        :class="$route.path == '/' ? 'sf-bottom-navigation__item--active' : ''"
+        :class="$route.path === '/' ? 'sf-bottom-navigation__item--active' : ''"
         icon="home"
         size="20px"
         label="Home"

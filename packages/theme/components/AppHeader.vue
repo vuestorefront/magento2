@@ -178,7 +178,8 @@ import {
   useCategory,
   useCategorySearch,
   useFacet,
-  useUser, useWishlist,
+  useUser,
+  useWishlist,
 } from '@vue-storefront/magento';
 import {
   computed,

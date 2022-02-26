@@ -55,7 +55,6 @@ import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
 import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
 import { useCart, cartGetters } from '@vue-storefront/magento';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import CouponCode from '../CouponCode.vue';
 
 const CHARACTERISTICS = [
   {
@@ -81,7 +80,7 @@ export default defineComponent({
     SfHeading,
     SfProperty,
     SfCharacteristic,
-    CouponCode,
+    CouponCode: () => import(/* webpackPrefetch: true */'~/components/CouponCode.vue'),
   },
   setup() {
     const { cart, removeItem, updateItemQty } = useCart();

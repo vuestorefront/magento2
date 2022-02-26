@@ -37,14 +37,13 @@ import {
 import {
   defineComponent,
 } from '@nuxtjs/composition-api';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
   name: 'UserBillingAddresses',
   components: {
     SfCheckbox,
     SfAddressPicker,
-    UserAddressDetails,
+    UserAddressDetails: () => import(/* webpackPrefetch: true */'~/components/UserAddressDetails.vue'),
   },
   props: {
     currentAddressId: {

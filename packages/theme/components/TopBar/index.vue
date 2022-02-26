@@ -20,14 +20,14 @@
 
 <script>
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import useTopBar from './useTopBar';
+import { useTopBar } from './useTopBar';
 
 export default {
   components: {
-    CurrencySelector: () => import('../CurrencySelector'),
-    SfTopBar,
+    CurrencySelector: () => import(/* webpackPrefetch: true */'~/components/CurrencySelector.vue'),
     SfButton,
-    StoreSwitcher: () => import('../StoreSwitcher'),
+    SfTopBar,
+    StoreSwitcher: () => import(/* webpackPrefetch: true */'~/components/StoreSwitcher.vue'),
   },
   setup() {
     const { hasStoresToSelect, hasCurrencyToSelect } = useTopBar();
