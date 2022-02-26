@@ -83,7 +83,8 @@
 
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api';
-import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { email } from 'vee-validate/dist/rules';
 import { useUser, userGetters } from '@vue-storefront/magento';
 import {
   SfInput,
@@ -91,6 +92,11 @@ import {
   SfModal,
 } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
+
+extend('email', {
+  ...email,
+  message: 'The email field must be a valid email',
+});
 
 export default defineComponent({
   name: 'ProfileUpdateForm',

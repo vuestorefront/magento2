@@ -8,7 +8,10 @@
         <template #title>
           <span class="desktop-only">{{ storeConfig.store_name }}</span>
         </template>
-        <template #icon>
+        <template
+          v-if="storeConfigGetters.getLocale(storeConfig)"
+          #icon
+        >
           <SfImage
             :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
             :alt="storeConfig.store_name"
@@ -33,9 +36,9 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import {
+  useConfig,
   storeConfigGetters,
   storeGetters,
-  useConfig,
 } from '@vue-storefront/magento';
 import {
   SfButton,
@@ -43,9 +46,10 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  defineComponent,
   ref,
+  defineComponent,
 } from '@nuxtjs/composition-api';
+import StoresModal from '~/components/StoreSwitcher/StoresModal.vue';
 
 export default defineComponent({
   name: 'StoreSwitcher',

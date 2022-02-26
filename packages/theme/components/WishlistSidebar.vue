@@ -1,28 +1,29 @@
 <template>
   <div id="wishlist">
     <SfSidebar
-        :visible="isWishlistSidebarOpen"
-        :button="false"
-        title="My Wishlist"
-        class="sidebar sf-sidebar--right"
-        @close="toggleWishlistSidebar"
+      :visible="isWishlistSidebarOpen"
+      :button="false"
+      title="My Wishlist"
+      class="sidebar sf-sidebar--right"
+      @close="toggleWishlistSidebar"
     >
       <template #title>
         <div class="heading__wrapper">
           <SfHeading
-              :level="3"
-              title="My wishlist"
-              class="sf-heading--left"
+            :level="3"
+            title="My wishlist"
+            class="sf-heading--left"
           />
           <SfButton
-              class="heading__close-button sf-button--pure"
-              aria-label="Wishlist sidebar close button"
-              @click="toggleWishlistSidebar"
+            class="heading__close-button sf-button--pure"
+            aria-label="Wishlist sidebar close button"
+            @click="toggleWishlistSidebar"
           >
-            <SfIcon
-                icon="cross"
-                size="14px"
-                color="gray-primary"
+            <SvgImage
+              icon="cross"
+              width="14"
+              height="14"
+              class="heading__close"
             />
           </SfButton>
         </div>
@@ -30,63 +31,63 @@
 
       <SfLoader :loading="loading">
         <div
-            v-if="totalItems"
-            key="my-wishlist"
-            class="my-wishlist"
+          v-if="totalItems"
+          key="my-wishlist"
+          class="my-wishlist"
         >
           <div class="my-wishlist__total-items">
             Total items: <strong>{{ totalItems }}</strong>
           </div>
           <div class="collected-product-list">
             <SfCollectedProduct
-                v-for="(product, i) in products"
-                :key="i"
-                :image="wishlistGetters.getItemImage(product)"
-                :title="wishlistGetters.getItemName(product)"
-                :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
-                :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
-                :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
-                :stock="99999"
-                class="collected-product"
-                @click:remove="removeItem({ product: product.product })"
+              v-for="(product, item) in products"
+              :key="item"
+              :image="wishlistGetters.getItemImage(product)"
+              :title="wishlistGetters.getItemName(product)"
+              :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
+              :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
+              :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
+              :stock="99999"
+              class="collected-product"
+              @click:remove="removeItem({ product: product.product })"
             >
               <template #input>
                 <div />
               </template>
               <template #image>
                 <SfLink
-                    :link="
+                  :link="
                     localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
                   "
                 >
                   <SfImage
-                      image-tag="nuxt-img"
-                      :src="getMagentoImage(wishlistGetters.getItemImage(product))"
-                      :alt="wishlistGetters.getItemName(product)"
-                      width="140"
-                      height="200"
-                      class="sf-collected-product__image"
+                    image-tag="nuxt-img"
+                    :src="getMagentoImage(wishlistGetters.getItemImage(product))"
+                    :alt="wishlistGetters.getItemName(product)"
+                    width="140"
+                    height="200"
+                    class="sf-collected-product__image"
                   />
                 </SfLink>
               </template>
               <template #configuration>
                 <div
-                    v-if="getAttributes(product).length > 0"
+                  v-if="getAttributes(product).length > 0"
                 >
                   <SfProperty
-                      v-for="(attr, index) in getAttributes(product)"
-                      :key="index"
-                      :name="attr.option_label"
-                      :value="attr.value_label"
+                    v-for="(attr, index) in getAttributes(product)"
+                    :key="index"
+                    :name="attr.option_label"
+                    :value="attr.value_label"
                   />
                 </div>
                 <div
-                    v-if="getBundles(product).length > 0"
+                  v-if="getBundles(product).length > 0"
                 >
                   <SfProperty
-                      v-for="(bundle, i) in getBundles(product)"
-                      :key="i"
-                      :value="bundle"
+                    v-for="(bundle, i) in getBundles(product)"
+                    :key="i"
+                    :value="bundle"
                   >
                     <template #name>
                       <div />
@@ -112,31 +113,31 @@
           </div>
         </div>
         <div
-            v-else
-            key="empty-wishlist"
-            class="empty-wishlist"
+          v-else
+          key="empty-wishlist"
+          class="empty-wishlist"
         >
           <div class="empty-wishlist__banner">
-            <SfImage
-                image-tag="nuxt-img"
-                width="211"
-                height="143"
-                src="/icons/empty-cart.svg"
-                alt="Empty bag"
-                class="empty-wishlist__icon"
+            <SvgImage
+              icon="empty_cart_image"
+              :label="$t('Empty bag')"
+              :alt="$t('Empty bag')"
+              width="211"
+              height="143"
+              class="empty-wishlist__icon"
             />
             <SfHeading
-                title="Your bag is empty"
-                description="Looks like you haven’t added any items to the Wishlist."
-                class="empty-wishlist__label"
+              title="Your bag is empty"
+              description="Looks like you haven’t added any items to the Wishlist."
+              class="empty-wishlist__label"
             />
           </div>
         </div>
       </SfLoader>
       <template #content-bottom>
         <SfButton
-            class="sf-button--full-width color-secondary"
-            @click="toggleWishlistSidebar"
+          class="sf-button--full-width color-secondary"
+          @click="toggleWishlistSidebar"
         >
           {{ $t('Start shopping') }}
         </SfButton>
@@ -149,7 +150,6 @@ import {
   SfSidebar,
   SfHeading,
   SfButton,
-  SfIcon,
   SfProperty,
   SfPrice,
   SfCollectedProduct,
@@ -165,20 +165,21 @@ import {
   productGetters,
 } from '@vue-storefront/magento';
 import { useUiState, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'WishlistSidebar',
   components: {
     SfSidebar,
-    SfHeading,
     SfButton,
-    SfIcon,
+    SfHeading,
     SfProperty,
     SfPrice,
     SfCollectedProduct,
     SfLink,
     SfLoader,
     SfImage,
+    SvgImage,
   },
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
@@ -270,10 +271,10 @@ export default defineComponent({
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
     --heading-title-color: var(--c-primary);
     --heading-title-font-weight: var(--font-weight--semibold);
-    @include for-desktop {
+      @include for-desktop {
       --heading-title-font-size: var(--font-size--xl);
       --heading-title-margin: 0 0 var(--spacer-sm) 0;
-    }
+  }
   }
   &__icon {
     --image-width: 16rem;
@@ -286,6 +287,11 @@ export default defineComponent({
     --heading-title-font-weight: var(--font-weight--semibold);
     display: flex;
     justify-content: space-between;
+  }
+
+  &__close {
+    color: var(--c-gray-variant);
+    cursor: pointer;
   }
 }
 

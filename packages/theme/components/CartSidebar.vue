@@ -161,13 +161,13 @@
             class="empty-cart"
           >
             <div class="empty-cart__banner">
-              <SfImage
-                image-tag="nuxt-img"
-                alt="Empty bag"
-                class="empty-cart__image"
-                src="/icons/empty-cart.svg"
+              <SvgImage
+                icon="empty_cart_image"
+                :label="$t('Empty bag')"
+                :alt="$t('Empty bag')"
                 width="211"
                 height="143"
+                class="empty-cart__image"
               />
               <SfHeading
                 title="Your cart is empty"
@@ -231,25 +231,23 @@
 <script>
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
-  SfBadge,
-  SfButton,
-  SfCollectedProduct,
-  SfHeading,
   SfLoader,
   SfNotification,
-  SfPrice,
-  SfProperty,
-  SfQuantitySelector,
   SfSidebar,
-  SfImage,
+  SfHeading,
+  SfButton,
+  SfProperty,
+  SfPrice,
+  SfCollectedProduct,
+  SfQuantitySelector,
+  SfBadge,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
-  onMounted,
   ref,
-  useContext,
   useRouter,
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useCart,
@@ -260,22 +258,24 @@ import {
 import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
+import SvgImage from '~/components/General/SvgImage.vue';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
   components: {
-    CouponCode: () => import(/* webpackPrefetch: true */'~/components/CouponCode.vue'),
-    SfBadge,
-    SfButton,
-    SfCollectedProduct,
-    SfHeading,
-    SfImage,
     SfLoader,
     SfNotification,
-    SfPrice,
-    SfProperty,
-    SfQuantitySelector,
     SfSidebar,
+    SfButton,
+    SfHeading,
+    SfProperty,
+    SfPrice,
+    SfCollectedProduct,
+    SfQuantitySelector,
+    SfBadge,
+    CouponCode,
+    SvgImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
@@ -289,6 +289,7 @@ export default defineComponent({
       load: loadCart,
       loading,
     } = useCart();
+
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
 
@@ -342,25 +343,25 @@ export default defineComponent({
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
+      sendToRemove,
       actionRemoveItem,
-      cartGetters,
-      delayedUpdateItemQty,
-      getAttributes,
-      getBundles,
-      goToCheckout,
-      isAuthenticated,
-      isCartSidebarOpen,
-      isInStock,
       loading,
-      notifications,
+      isAuthenticated,
       products,
       removeItem,
-      sendToRemove,
+      delayedUpdateItemQty,
+      isCartSidebarOpen,
+      notifications,
+      visible,
       tempProduct,
       toggleCartSidebar,
-      totalItems,
+      goToCheckout,
       totals,
-      visible,
+      totalItems,
+      cartGetters,
+      getAttributes,
+      getBundles,
+      isInStock,
     };
   },
 });
@@ -389,11 +390,12 @@ export default defineComponent({
   top: 10px;
   cursor: pointer;
 }
+
 .notifications {
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -350px;
+  transform: translate(-50%, -50%);
   z-index: 99999;
   .sf-notification {
     padding: 20px;
@@ -404,6 +406,7 @@ export default defineComponent({
     }
   }
 }
+
 .cart-summary {
   margin-top: var(--spacer-xl);
 }
@@ -433,6 +436,7 @@ export default defineComponent({
   flex: 1;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 
   &__banner {
     display: flex;

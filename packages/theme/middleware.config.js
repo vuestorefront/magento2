@@ -23,7 +23,7 @@ module.exports = {
           available: ['color', 'size', 'price'],
         },
         customApolloHttpLinkOptions: {
-          useGETForQueries: false,
+          useGETForQueries: true,
         },
         magentoBaseUrl: config.get('magentoBaseUrl'),
         magentoApiEndpoint: config.get('magentoGraphQl'),

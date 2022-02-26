@@ -62,12 +62,38 @@
                   :alt="imageSlotProps.title"
                   :width="imageSlotProps.imageWidth"
                   :height="imageSlotProps.imageHeight"
-                  class="sf-product-card__image lol"
+                  class="sf-product-card__image"
                 />
               </SfButton>
             </template>
           </SfProductCard>
         </SfCarouselItem>
+        <template #prev="prevArrow">
+          <SfButton
+            aria-label="previous"
+            class="sf-arrow"
+            @click="prevArrow.go('prev')"
+          >
+            <SvgImage
+              icon="arrow_left"
+              width="24"
+              height="24"
+            />
+          </SfButton>
+        </template>
+        <template #next="nextArrow">
+          <SfButton
+            aria-label="next"
+            class="sf-arrow"
+            @click="nextArrow.go('next')"
+          >
+            <SvgImage
+              icon="arrow_right"
+              width="24"
+              height="24"
+            />
+          </SfButton>
+        </template>
       </SfCarousel>
     </SfLoader>
   </SfSection>
@@ -75,25 +101,21 @@
 
 <script>
 import {
-  SfButton,
   SfCarousel,
-  SfImage,
-  SfLoader,
   SfProductCard,
   SfSection,
+  SfLoader,
+  SfButton,
+  SfImage,
 } from '@storefront-ui/vue';
 
 import {
-  productGetters,
-  useUser,
-  useWishlist,
+  productGetters, useUser, useWishlist,
 } from '@vue-storefront/magento';
-import {
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -104,6 +126,7 @@ export default defineComponent({
     SfLoader,
     SfProductCard,
     SfSection,
+    SvgImage,
   },
   props: {
     title: {
@@ -145,13 +168,13 @@ export default defineComponent({
     return {
       addItemToCart,
       addItemToWishlist,
-      getMagentoImage,
-      imageSizes,
       isAuthenticated,
       isInCart,
       isInWishlist,
       mappedProducts,
       productGetters,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });
@@ -170,6 +193,14 @@ export default defineComponent({
 
   &__item {
     margin: 1.9375rem 0 2.4375rem 0;
+  }
+
+  .sf-arrow {
+    --button-color: var(--c-dark);
+
+    &:hover {
+      --button-color: var(--c-light);
+    }
   }
 }
 

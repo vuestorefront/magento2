@@ -54,6 +54,9 @@ export default () => {
       ],
     },
     loading: { color: '#fff' },
+    device: {
+      refreshOnResize: true,
+    },
     buildModules: [
       // to core
       '@nuxtjs/composition-api/module',
@@ -61,6 +64,7 @@ export default () => {
       '@nuxtjs/google-fonts',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources',
+      '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
         // @core-development-only-start
         coreDevelopment: true,
@@ -90,7 +94,7 @@ export default () => {
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
-        customApolloHttpLinkOptions
+        customApolloHttpLinkOptions,
       }],
       '@nuxt/image',
     ],
@@ -103,9 +107,10 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: process.env.REDIS__ENABLED,
+        enabled: !!process.env.REDIS__ENABLED,
         invalidation: {
           endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
+          key: process.env.REDIS__CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
@@ -197,6 +202,26 @@ export default () => {
           ['@babel/plugin-proposal-private-methods', { loose: true }],
         ],
       },
+      extractCSS: true,
+      optimization: {
+        splitChunks: {
+          cacheGroups: {
+            styles: {
+              name: 'styles',
+              test: /\.(css|vue)$/,
+              chunks: 'all',
+              enforce: true,
+            },
+          },
+        },
+      },
+      optimizeCSS: true,
+      parallel: true,
+      splitChunks: {
+        layouts: true,
+        pages: true,
+        commons: true,
+      },
       transpile: [
         'vee-validate/dist/rules',
       ],
@@ -209,9 +234,6 @@ export default () => {
           }),
         }),
       ],
-      extractCSS: {
-        allChunks: true,
-      },
     },
     plugins: [
       '~/plugins/token-expired',
@@ -223,6 +245,7 @@ export default () => {
       '~/serverMiddleware/body-parser.js',
     ],
     router: {
+      prefetchLinks: false,
       extendRoutes(routes) {
         getRoutes()
           .forEach((route) => routes.unshift(route));

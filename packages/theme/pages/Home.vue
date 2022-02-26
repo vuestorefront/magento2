@@ -11,6 +11,32 @@
         :image="hero.image"
         :class="hero.className"
       />
+      <template #prev="prevArrow">
+        <SfButton
+          aria-label="previous"
+          class="hero__arrow"
+          @click="prevArrow.go('prev')"
+        >
+          <SvgImage
+            icon="arrow_left"
+            width="24"
+            height="24"
+          />
+        </SfButton>
+      </template>
+      <template #next="nextArrow">
+        <SfButton
+          aria-label="next"
+          class="hero__arrow"
+          @click="nextArrow.go('next')"
+        >
+          <SvgImage
+            icon="arrow_right"
+            width="24"
+            height="24"
+          />
+        </SfButton>
+      </template>
     </SfHero>
     <LazyHydrate when-visible>
       <SfBannerGrid
@@ -37,7 +63,7 @@
       <ProductsCarousel
         :products="newProducts"
         :loading="newProductsLoading"
-        title="New Products"
+        :title="$t('New Products')"
       />
     </LazyHydrate>
 
@@ -61,6 +87,7 @@
 </template>
 <script type="module">
 import {
+  SfButton,
   SfHero,
   SfBanner,
   SfCallToAction,
@@ -82,6 +109,7 @@ import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HomePage',
@@ -90,6 +118,8 @@ export default defineComponent({
     LazyHydrate,
     MobileStoreBanner,
     ProductsCarousel,
+    SvgImage,
+    SfButton,
     SfBanner,
     SfBannerGrid,
     SfCallToAction,
@@ -155,8 +185,8 @@ export default defineComponent({
         subtitle: app.i18n.t('Dresses'),
         title: app.i18n.t('Cocktail & Party'),
         description:
-            'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
-        buttonText: 'Shop now',
+            app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
               'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
@@ -279,6 +309,22 @@ export default defineComponent({
 
   @include for-desktop {
     margin: var(--spacer-xl) auto var(--spacer-2xl);
+  }
+
+  &__arrow {
+    --button-height: 2.75rem;
+    --button-width: 2.75rem;
+    --button-padding: 0 var(--spacer-xs);
+    --button-background: transparent;
+    --button-color: var(--c-dark);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    &:hover {
+      --button-background: transparent;
+      --button-box-shadow-opacity: 0;
+    }
   }
 
   .sf-hero-item {

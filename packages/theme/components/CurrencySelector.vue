@@ -15,13 +15,11 @@
   </div>
 </template>
 <script>
+import { SfButton } from '@storefront-ui/vue';
 import {
-  SfButton,
-} from '@storefront-ui/vue';
-import {
+  ref,
   computed,
   defineComponent,
-  ref,
 } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 

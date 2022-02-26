@@ -21,25 +21,26 @@
 
             <div class="navbar__view">
               <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-              <SfIcon
-                class="navbar__view-icon"
-                :color="isWishlistGridView ? 'black' : 'dark-secondary'"
+              <SvgImage
                 icon="tiles"
-                size="12px"
-                role="button"
-                :aria-label="$t('Change to grid view')"
+                :label="$t('Change to grid view')"
+                :alt="$t('Change to grid view')"
                 :aria-pressed="isWishlistGridView"
-                @click="changeToWishlistGridView"
-              />
-              <SfIcon
+                width="12"
+                height="12"
                 class="navbar__view-icon"
-                :color="!isWishlistGridView ? 'black' : 'dark-secondary'"
+                :class="{ 'navbar__view-icon--active': isWishlistGridView }"
+                @click.native="changeToWishlistGridView"
+              />
+              <SvgImage
                 icon="list"
-                size="12px"
-                role="button"
-                :aria-label="$t('Change to list view')"
+                :alt="$t('Change to list view')"
                 :aria-pressed="!isWishlistGridView"
-                @click="changeToWishlistListView"
+                width="12"
+                height="12"
+                class="navbar__view-icon"
+                :class="{ 'navbar__view-icon--active': !isWishlistGridView }"
+                @click.native="changeToWishlistListView"
               />
             </div>
           </div>
@@ -66,8 +67,8 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
-                  :image-width="Number.parseInt(imageSizes.productCard.width, 10)"
-                  :image-height="Number.parseInt(imageSizes.productCard.height, 10)"
+                  :image-width="imageSizes.productCard.width"
+                  :image-height="imageSizes.productCard.height"
                   :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
@@ -117,7 +118,7 @@
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
-                        class="sf-product-card__image lol"
+                        class="sf-product-card__image"
                       />
                     </SfButton>
                   </template>
@@ -258,50 +259,46 @@
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  SfButton,
-  SfIcon,
-  SfImage,
   SfLoader,
-  SfPagination,
+  SfTabs,
+  SfButton,
   SfProductCard,
   SfProductCardHorizontal,
-  SfProperty,
+  SfPagination,
   SfSelect,
-  SfTabs,
+  SfProperty,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
-  useContext,
-  useRoute,
   useRouter,
+  useRoute,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
-  productGetters,
   useCart,
   useWishlist,
+  productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import {
-  useImage,
-  useUiHelpers,
-  useUiState,
-} from '~/composables';
+import { useUiHelpers, useUiState, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'MyWishlist',
   components: {
-    LazyHydrate,
-    SfButton,
-    SfIcon,
-    SfImage,
     SfLoader,
-    SfPagination,
+    SfTabs,
+    SfButton,
+    SfImage,
     SfProductCard,
     SfProductCardHorizontal,
-    SfProperty,
+    SfPagination,
     SfSelect,
-    SfTabs,
+    SfProperty,
+    LazyHydrate,
+    SvgImage,
   },
   setup() {
     const {
@@ -374,16 +371,16 @@ export default defineComponent({
     return {
       ...uiState,
       addItemToCart,
-      getMagentoImage,
-      imageSizes,
+      removeItemFromWishlist,
       isInCart,
       loading,
       pagination,
       productGetters,
       products,
-      removeItemFromWishlist,
       th,
       wishlist,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });
@@ -557,6 +554,14 @@ export default defineComponent({
       font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
+    }
+  }
+
+  &__view-icon {
+    cursor: pointer;
+
+    &--active {
+      color: var(--c-primary);
     }
   }
 }

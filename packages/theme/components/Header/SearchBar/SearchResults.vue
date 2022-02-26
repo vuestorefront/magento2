@@ -186,13 +186,13 @@
           key="no-results"
           class="before-results"
         >
-          <SfImage
-            image-tag="nuxt-img"
+          <SvgImage
+            icon="error_image"
+            :label="$t('Error')"
+            :alt="$t('Error')"
             width="412"
             height="412"
-            src="/error/error.svg"
             class="before-results__picture"
-            alt="error"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -213,37 +213,34 @@
 </template>
 <script>
 import {
-  SfButton,
-  SfImage,
-  SfList,
   SfMegaMenu,
-  SfMenuItem,
+  SfList,
   SfProductCard,
   SfScrollable,
+  SfMenuItem,
+  SfButton,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
+  ref,
   computed,
   defineComponent,
-  ref,
-  watch,
 } from '@nuxtjs/composition-api';
-import {
-  productGetters,
-  useUser,
-  useWishlist,
-} from '@vue-storefront/magento';
+import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
   components: {
-    SfButton,
-    SfImage,
-    SfList,
     SfMegaMenu,
-    SfMenuItem,
+    SfList,
     SfProductCard,
     SfScrollable,
+    SfMenuItem,
+    SfButton,
+    SfImage,
+    SvgImage,
   },
   props: {
     visible: {
@@ -255,7 +252,7 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
@@ -263,16 +260,6 @@ export default defineComponent({
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
     const categories = computed(() => props.result?.categories);
-
-    watch(() => props.visible, (newVal) => {
-      isSearchOpen.value = newVal;
-      if (isSearchOpen.value) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-        emit('removeSearchResults');
-      }
-    });
 
     const addItemToWishlist = async (product) => {
       await (
@@ -285,16 +272,16 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
-      addItemToWishlist,
-      categories,
-      getMagentoImage,
-      imageSizes,
-      isAuthenticated,
-      isInWishlist,
+      th,
       isSearchOpen,
       productGetters,
       products,
-      th,
+      categories,
+      addItemToWishlist,
+      isInWishlist,
+      isAuthenticated,
+      getMagentoImage,
+      imageSizes,
     };
   },
 });

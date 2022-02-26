@@ -31,10 +31,10 @@
                 :level="3"
                 class="sf-heading--no-underline sf-heading--left"
               />
-              <SfIcon
+              <SvgImage
                 icon="drag"
-                size="xxl"
-                color="var(--c-text-disabled)"
+                width="40"
+                height="40"
                 class="product__drag-icon smartphone-only"
               />
             </div>
@@ -260,7 +260,6 @@ import {
   SfColor,
   SfGallery,
   SfHeading,
-  SfIcon,
   SfLoader,
   SfPrice,
   SfRating,
@@ -289,11 +288,12 @@ import {
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
-import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
@@ -316,15 +316,15 @@ export default defineComponent({
     SfColor,
     SfGallery,
     SfHeading,
-    SfIcon,
     SfLoader,
     SfPrice,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
-    UpsellProducts,
     AddToWishlist,
+    SvgImage,
+    UpsellProducts,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -546,8 +546,10 @@ export default defineComponent({
   &__info {
     margin: var(--spacer-sm) auto;
     @include for-desktop {
+      margin: 0;
       max-width: 32.625rem;
-      margin: 0 0 0 2rem;
+      padding-left: var(--spacer-lg);
+      width: 100%;
     }
   }
 
@@ -566,6 +568,7 @@ export default defineComponent({
 
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
+    color: var(--c-text-disabled)
   }
 
   &__price-and-rating {
@@ -705,6 +708,10 @@ export default defineComponent({
   &__additional-actions {
     display: flex;
     justify-content: flex-start;
+    margin: 0 var(--spacer-sm);
+    @include for-desktop {
+      margin: 0;
+    }
   }
 
   &__gallery {

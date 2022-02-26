@@ -5,12 +5,11 @@
     class="add-to-wishlist"
     @click="$emit('addToWishlist')"
   >
-    <SfIcon
+    <SvgImage
       :icon="isInWishlist ? isInWishlistIcon : wishlistIcon"
-      size="lg"
-      color="green-primary"
-      viewBox="0 0 24 24"
-      :coverage="1"
+      :label="$t('Wishlist')"
+      width="32"
+      height="32"
     />
     <SfButton class="sf-button--text">
       {{ $t(actionText) }}
@@ -20,13 +19,14 @@
 
 <script>
 import { defineComponent, computed } from '@nuxtjs/composition-api';
-import { SfIcon, SfButton } from '@storefront-ui/vue';
+import { SfButton } from '@storefront-ui/vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'AddToWishlist',
   components: {
-    SfIcon,
     SfButton,
+    SvgImage,
   },
   props: {
     component: {
@@ -64,6 +64,7 @@ export default defineComponent({
 .add-to-wishlist {
   display: flex;
   align-items: center;
+  color: var(--c-primary);
   cursor: pointer;
   margin-top: 1rem;
   margin-bottom: 1rem;
