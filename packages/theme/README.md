@@ -5,13 +5,6 @@
 # Magento 2.x theme
 
 ### Vue Storefront 2 integration with Magento
-
-This theme developed by superheroes from [Caravel](https://github.com/caravelx) ❤️
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>
-</div>
-
 ### Requirements:
 
 - NodeJS v16 or later
