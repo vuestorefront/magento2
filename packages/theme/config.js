@@ -78,12 +78,7 @@ const config = convict({
   },
   // endregion
   // region recaptcha
-  recaptchaEnabled: {
-    doc: 'reCaptcha Enabled',
-    format: Boolean,
-    default: process.env.RECAPTCHA_ENABLED || false,
-    env: 'RECAPTCHA_ENABLED',
-  },
+  recaptchaEnabled: false,
   recaptchaHideBadge: {
     doc: 'reCaptcha Hide Badge',
     format: Boolean,
