@@ -1,13 +1,14 @@
 import { computed, Ref } from '@vue/composition-api';
 import {
-  configureFactoryParams, Context,
-  CustomQuery,
+  configureFactoryParams,
+  Context,
   FactoryParams,
   Logger,
   ProductsSearchParams,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
 export interface UseRelatedProductsFactoryParams<

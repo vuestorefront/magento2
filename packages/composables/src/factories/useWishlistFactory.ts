@@ -1,7 +1,4 @@
-import {
-  Ref,
-  computed,
-} from '@vue/composition-api';
+import { Ref } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -9,8 +6,9 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseWishlist, UseWishlistErrors } from '../types/composables';
 
 export interface UseWishlistFactoryParams<WISHLIST,

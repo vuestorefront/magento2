@@ -7,13 +7,19 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "sideEffects": false,
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
-  "tsModule": "src/index.ts",
+  "main": "./lib/index.mjs",
+  "exports": {
+    ".": "./lib/index.mjs",
+    "./nuxt": "./nuxt/index.js",
+    "./package.json": "./package.json"
+  },
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rimraf lib && rollup -c",
-    "dev": "rimraf lib && rollup -c -w",
+    "build": "yarn build:clear && yarn build:package && yarn build:types",
+    "build:clear": "rimraf lib",
+    "build:package": "node ../../scripts/build --file=src/index.ts",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "yarn build:package --watch",
     "lint:fix": "eslint ./src --ext .ts,.vue --fix",
     "precommit": "lint-staged",
     "prepublish": "yarn build",
