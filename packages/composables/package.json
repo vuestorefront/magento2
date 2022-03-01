@@ -7,9 +7,9 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "sideEffects": false,
-  "main": "./lib/index.mjs",
+  "main": "./lib/index.js",
   "exports": {
-    ".": "./lib/index.mjs",
+    ".": "./lib/index.js",
     "./nuxt": "./nuxt/index.js",
     "./package.json": "./package.json"
   },
@@ -28,7 +28,7 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@vue-storefront/core": "link:/home/fsobol/Projects/Storefront/packages/core",
+    "@vue-storefront/core": "~2.5.4",
     "@vue-storefront/magento-api": "1.0.0-rc.5.4",
     "@vue/composition-api": "^1.4.1",
     "cookie-universal": "^2.1.5",
