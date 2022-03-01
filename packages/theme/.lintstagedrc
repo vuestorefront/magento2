@@ -5,7 +5,7 @@
   "*.{ts,tsx}": [
     "eslint --fix"
   ],
-  "*.{vue}": [
+  "*.vue": [
     "eslint --fix"
-  ],
+  ]
 }

@@ -5,9 +5,10 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { CustomQueryParams, UseAddresses, UseAddressesErrors } from '../types/composables';
 
 export interface UseAddressesParams<ADDRESS,

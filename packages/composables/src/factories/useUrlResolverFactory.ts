@@ -4,9 +4,10 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseUrlResolver } from '../types/composables';
 
 export interface UseUrlResolverFactoryParams<ROUTER, API extends PlatformApi = any> extends FactoryParams<API> {

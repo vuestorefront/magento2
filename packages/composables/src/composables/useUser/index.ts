@@ -1,11 +1,12 @@
 /* istanbul ignore file */
 import {
-  Context, Logger,
+  Context,
+  CustomQuery,
+  Logger,
   useUserFactory,
   UseUserFactoryParams as UserUserFactoryParamsBase,
 } from '@vue-storefront/core';
 import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-api';
-import { CustomQuery } from '@vue-storefront/core/lib/src/types';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
 

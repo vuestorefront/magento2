@@ -4,9 +4,10 @@ import {
   sharedRef,
   Logger,
   configureFactoryParams,
-  FactoryParams, ComposableFunctionArgs,
+  FactoryParams,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCurrency } from '../types/composables';
 
 export interface UseCurrencyFactoryParams<CURRENCY, API extends PlatformApi = any> extends FactoryParams<API> {
