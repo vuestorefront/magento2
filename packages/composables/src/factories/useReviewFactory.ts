@@ -3,12 +3,11 @@ import {
   ComposableFunctionArgs,
   configureFactoryParams,
   Context,
-  CustomQuery,
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseReview, UseReviewErrors } from '../types/composables';
 
 export interface UseReviewFactoryParams<REVIEW,
