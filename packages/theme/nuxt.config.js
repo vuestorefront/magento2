@@ -72,6 +72,18 @@ export default () => {
           verbosity: 'debug',
         },
         // @core-development-only-end
+        useRawSource: {
+          dev: [
+            '@vue-storefront/magento',
+            '@vue-storefront/core',
+            '@vue-storefront/cache',
+          ],
+          prod: [
+            '@vue-storefront/magento',
+            '@vue-storefront/core',
+            '@vue-storefront/cache',
+          ],
+        },
       }],
       ['@vue-storefront/magento/nuxt', {
         i18n: {
@@ -97,7 +109,7 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: !!process.env.REDIS__ENABLED,
+        enabled: false,
         invalidation: {
           endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
           key: process.env.REDIS__CACHE_INVALIDATE_KEY,
@@ -187,7 +199,6 @@ export default () => {
       scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
     },
     build: {
-      standalone: true,
       extractCSS: true,
       optimizeCSS: true,
       parallel: true,
@@ -205,7 +216,7 @@ export default () => {
       '~/plugins/token-expired',
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
-      '~/plugins/xss',
+      '~/plugins/dompurify',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',

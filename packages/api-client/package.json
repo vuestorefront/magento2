@@ -7,10 +7,10 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "license": "MIT",
-  "main": "./lib/index.mjs",
+  "main": "./lib/index.js",
   "exports": {
-    ".": "./lib/index.mjs",
-    "./server": "./lib/index.server.mjs",
+    ".": "./lib/index.js",
+    "./server": "./lib/index.server.js",
     "./package.json": "./package.json"
   },
   "types": "lib/index.d.ts",
@@ -47,7 +47,7 @@
     "webpack": "4.46.0"
   },
   "peerDependencies": {
-    "@vue-storefront/core": "link:/home/fsobol/Projects/Storefront/packages/core"
+    "@vue-storefront/core": "~2.5.4"
   },
   "files": [
     "lib/**/*",

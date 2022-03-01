@@ -3762,6 +3762,13 @@
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.4.1.tgz#bfd02c1f2224567676c1545199f87c3a861d878d"
   integrity sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==
 
+"@types/dompurify@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-2.3.3.tgz#c24c92f698f77ed9cc9d9fa7888f90cf2bfaa23f"
+  integrity sha512-nnVQSgRVuZ/843oAfhA25eRSNzUFcBPk/LOiw5gm8mD9/X7CNcbRkQu/OsjCewO8+VIYfPxUnXvPEVGenw14+w==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.3.tgz#125b88504b61e3c8bc6f870882003253005c3224"
@@ -4167,6 +4174,11 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.1.tgz#8f80dd965ad81f3e1bc26d6f5c727e132721ff40"
   integrity sha512-Y0K95ThC3esLEYD6ZuqNek29lNX2EM1qxV8y2FTLUB0ff5wWrk7az+mLrnNFUnaXcgKye22+sFBRXOgpPILZNg==
 
+"@types/trusted-types@*":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
+  integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
+
 "@types/uglify-js@*":
   version "3.13.1"
   resolved "https://registry.yarnpkg.com/@types/uglify-js/-/uglify-js-3.13.1.tgz#5e889e9e81e94245c75b6450600e1c5ea2878aea"
@@ -4376,25 +4388,47 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@vue-storefront/cache@link:../Storefront/packages/cache":
-  version "0.0.0"
-  uid ""
+"@vue-storefront/cache@~2.5.4":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/cache/-/cache-2.5.5.tgz#89fc2c64531230b2b333062106766237fbf7fc8f"
+  integrity sha512-NUkx1wVf8EXu4RGRaAYBa61CJ+JHgnP10V2x3ttYeFGYm95442xtZU5FKb+5rN3mW3YVLgWhM3d7uCXz+OyofA==
+  dependencies:
+    "@vue-storefront/core" "~2.5.5"
 
-"@vue-storefront/core@link:../Storefront/packages/core":
-  version "0.0.0"
-  uid ""
+"@vue-storefront/core@~2.5.4", "@vue-storefront/core@~2.5.5":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/core/-/core-2.5.5.tgz#c8b62d7521c4361779c9e64cbc7de8c8670ac2f6"
+  integrity sha512-zZFRS9l9lOngq/1qebFlAIm9nKKl/EfBXliavsqRL5FVC/ghSiDo4IU/04iufh+qIWxQbirWNEGGMQMQWZ4TtQ==
+  dependencies:
+    axios "0.21.1"
+    express "^4.17.1"
+    is-https "^3.0.2"
+    lodash-es "^4.17.15"
+    vue "^2.6.11"
 
-"@vue-storefront/core@~2.5.5":
-  version "0.0.0"
-  uid ""
+"@vue-storefront/middleware@~2.5.4":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-2.5.5.tgz#a6ddd4822679fa85193a5b47266da31255d15df3"
+  integrity sha512-li+wP9IzGiCNA/9eYHsWaRwuOafQK++nZeSAEE16qEBvQ6YiPVxvIHcWp+xFTeeHgf5RE3ijX+j67PLGl6Xc0Q==
+  dependencies:
+    consola "2.15.3"
+    cookie-parser "^1.4.5"
+    cors "^2.8.5"
+    express "^4.17.1"
 
-"@vue-storefront/middleware@link:../Storefront/packages/middleware":
-  version "0.0.0"
-  uid ""
-
-"@vue-storefront/nuxt@link:../Storefront/packages/nuxt-module":
-  version "0.0.0"
-  uid ""
+"@vue-storefront/nuxt@~2.5.4":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/nuxt/-/nuxt-2.5.5.tgz#7232887304c4ddac9976673e90ab054901b928a4"
+  integrity sha512-rRFgg2BWC5a53XbsXquWbcZz+FshbZntMPcepdbZHtuigpkqu48/DhrXADnX7FZTCl9ZpaEUkCcKdvrRLxXPTg==
+  dependencies:
+    "@nuxt/typescript-build" "^2.0.0"
+    "@nuxtjs/composition-api" "^0.29.3"
+    "@nuxtjs/style-resources" "^1.0.0"
+    chalk "^2.4.2"
+    chokidar "^3.3.1"
+    consola "^2.10.1"
+    lodash "^4.17.15"
+    nuxt-purgecss "^1.0.0"
 
 "@vue-storefront/redis-cache@^1.0.1":
   version "1.0.1"
@@ -8391,6 +8425,11 @@ domhandler@^4.0.0, domhandler@^4.2.0, domhandler@^4.3.0:
   dependencies:
     domelementtype "^2.2.0"
 
+dompurify@^2.3.5:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.6.tgz#2e019d7d7617aacac07cbbe3d88ae3ad354cf875"
+  integrity sha512-OFP2u/3T1R5CEgWCEONuJ1a5+MFKnOYpkywpUSxv/dj1LeBT1erK+JwM7zK0ROy2BRhqVCf0LRw/kHqKuMkVGg==
+
 domutils@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.7.0.tgz#56ea341e834e06e6748af7a1cb25da67ea9f8c2a"
@@ -11768,6 +11807,15 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+isomorphic-dompurify@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/isomorphic-dompurify/-/isomorphic-dompurify-0.18.0.tgz#d8ce16d8dcd50ac95a7ebbd7d4d099f920c44600"
+  integrity sha512-JY7NuuaiBswg8/Nf5Vy0leWpdn5m2GQD0qRojVFg86nhLsJGfVo4qw4i/kvjxIFoXXd+SMrrQUYXSn6QwccnmA==
+  dependencies:
+    "@types/dompurify" "^2.3.3"
+    dompurify "^2.3.5"
+    jsdom "^19.0.0"
+
 isomorphic-fetch@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-3.0.0.tgz#0267b005049046d2421207215d45d6a262b8b8b4"
@@ -12290,7 +12338,7 @@ jest-watcher@^27.0.0, jest-watcher@^27.5.1:
     jest-util "^27.5.1"
     string-length "^4.0.1"
 
-jest-worker@^26.2.1, jest-worker@^26.5.0:
+jest-worker@^26.5.0:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-26.6.2.tgz#7f72cbc4d643c365e27b9fd775f9d0eaa9c7a8ed"
   integrity sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==
@@ -13022,7 +13070,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@^4.17.21:
+lodash-es@^4.17.15, lodash-es@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
@@ -13136,11 +13184,6 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
-
-lodash.mergewith@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.2.tgz#617121f89ac55f59047c7aec1ccd6654c6590f55"
-  integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash.once@^4.0.0, lodash.once@^4.1.1:
   version "4.1.1"
@@ -17230,16 +17273,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-rollup-plugin-terser@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz#e8fbba4869981b2dc35ae7e8a502d5c6c04d324d"
-  integrity sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==
-  dependencies:
-    "@babel/code-frame" "^7.10.4"
-    jest-worker "^26.2.1"
-    serialize-javascript "^4.0.0"
-    terser "^5.0.0"
-
 run-async@^2.2.0, run-async@^2.4.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.4.1.tgz#8440eccf99ea3e70bd409d49aab88e10c189a455"
@@ -18684,7 +18717,7 @@ terser@^4.1.2, terser@^4.6.13, terser@^4.6.3:
     source-map "~0.6.1"
     source-map-support "~0.5.12"
 
-terser@^5.0.0, terser@^5.3.4, terser@^5.7.2:
+terser@^5.3.4, terser@^5.7.2:
   version "5.11.0"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.11.0.tgz#2da5506c02e12cd8799947f30ce9c5b760be000f"
   integrity sha512-uCA9DLanzzWSsN1UirKwylhhRz3aKPInlfmpGfw8VN6jHsAtu8HJtIpeeHHK23rxnE/cDc+yvmq5wqkIC6Kn0A==
