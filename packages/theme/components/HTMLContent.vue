@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    v-html="$xss(content)"
+    v-html="$dompurify(content)"
   />
 </template>
 <script>

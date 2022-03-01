@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 const esbuild = require('esbuild');
 const yargs = require('yargs/yargs');
@@ -15,10 +16,7 @@ esbuild.build({
     cwdResolve(argv.file)
   ],
   outdir: 'lib',
-  outExtension: {
-    '.js': '.mjs'
-  },
-  format: 'esm',
+  format: 'cjs',
   bundle: true,
   minify: true,
   sourcemap: true,
