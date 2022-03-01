@@ -7,13 +7,20 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "license": "MIT",
-  "server": "server/index.js",
-  "main": "lib/index.cjs.js",
-  "module": "lib/index.es.js",
+  "main": "./lib/index.mjs",
+  "exports": {
+    ".": "./lib/index.mjs",
+    "./server": "./lib/index.server.mjs",
+    "./package.json": "./package.json"
+  },
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "rimraf lib server && rollup -c",
-    "dev": "rimraf lib server && rollup -c -w",
+    "build": "yarn build:clear && yarn build:package && yarn build:server && yarn build:types",
+    "build:clear": "rimraf lib",
+    "build:package": "node ../../scripts/build --file=src/index.ts",
+    "build:server": "node ../../scripts/build --file=src/index.server.ts",
+    "build:types": "tsc --emitDeclarationOnly",
+    "dev": "yarn dev:package & yarn dev:server",
     "lint": "eslint ./src --ext .ts,.vue",
     "lint:fix": "eslint ./src --ext .ts --fix",
     "partial:types": "node ./possible-types.js",
@@ -31,9 +38,6 @@
     "dotenv": "^15.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-graphql": "^1.1.0",
-    "@rollup/plugin-json": "^4.1.0",
     "@types/isomorphic-fetch": "^0.0.35",
     "cross-fetch": "^3.1.5",
     "graphql-tools": "^8.2.0",
@@ -43,7 +47,7 @@
     "webpack": "4.46.0"
   },
   "peerDependencies": {
-    "@vue-storefront/core": "~2.5.4"
+    "@vue-storefront/core": "link:/home/fsobol/Projects/Storefront/packages/core"
   },
   "files": [
     "lib/**/*",

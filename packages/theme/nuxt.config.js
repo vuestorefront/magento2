@@ -72,16 +72,6 @@ export default () => {
           verbosity: 'debug',
         },
         // @core-development-only-end
-        useRawSource: {
-          dev: [
-            '@vue-storefront/magento',
-            '@vue-storefront/core',
-          ],
-          prod: [
-            '@vue-storefront/magento',
-            '@vue-storefront/core',
-          ],
-        },
       }],
       ['@vue-storefront/magento/nuxt', {
         i18n: {
@@ -107,7 +97,7 @@ export default () => {
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: !!process.env.REDIS__ENABLED,
+        enabled: false,
         invalidation: {
           endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
           key: process.env.REDIS__CACHE_INVALIDATE_KEY,
@@ -197,34 +187,10 @@ export default () => {
       scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
     },
     build: {
-      babel: {
-        plugins: [
-          ['@babel/plugin-proposal-private-methods', { loose: true }],
-        ],
-      },
+      standalone: true,
       extractCSS: true,
-      optimization: {
-        splitChunks: {
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              test: /\.(css|vue)$/,
-              chunks: 'all',
-              enforce: true,
-            },
-          },
-        },
-      },
       optimizeCSS: true,
       parallel: true,
-      splitChunks: {
-        layouts: true,
-        pages: true,
-        commons: true,
-      },
-      transpile: [
-        'vee-validate/dist/rules',
-      ],
       plugins: [
         new webpack.DefinePlugin({
           'process.VERSION': JSON.stringify({
@@ -239,7 +205,7 @@ export default () => {
       '~/plugins/token-expired',
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
-      '~/plugins/dompurify',
+      '~/plugins/xss',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',

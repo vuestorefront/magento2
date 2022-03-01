@@ -3,9 +3,11 @@ import {
   Context,
   sharedRef,
   Logger,
-  configureFactoryParams, FactoryParams, ComposableFunctionArgs,
+  configureFactoryParams,
+  FactoryParams,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCountrySearch, UseCountrySearchErrors } from '../types/composables';
 
 export interface UseCountryFactoryParams<COUNTRIES, COUNTRY, API extends PlatformApi = any> extends FactoryParams<API>{
