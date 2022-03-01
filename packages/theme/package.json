@@ -29,6 +29,7 @@
   "dependencies": {
     "@nuxt/image": "^0.6.1",
     "@nuxtjs/composition-api": "^0.31.0",
+    "@nuxtjs/device": "^2.1.0",
     "@nuxtjs/google-fonts": "^1.3.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/style-resources": "^1.2.1",
@@ -62,7 +63,6 @@
     "@babel/core": "^7.16.12",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
-    "@nuxtjs/device": "^2.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/user-event": "^13.5.0",
     "@testing-library/vue": "^5.8.2",
