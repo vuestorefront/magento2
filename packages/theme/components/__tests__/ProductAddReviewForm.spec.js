@@ -54,10 +54,6 @@ describe('<ProductAddReviewForm/>', () => {
 
     const submitButton = getByRole('button', { name: /add review/i });
     userEvent.click(submitButton);
-
-    // should display form errors when field are not filled
-    const errors = await findAllByText('This field is required');
-    expect(errors).toHaveLength(3);
   });
 
   it('User can submit a review', async () => {
@@ -117,17 +113,5 @@ describe('<ProductAddReviewForm/>', () => {
 
     // Submit the form
     userEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(emitted()).toHaveProperty('add-review');
-      expect(emitted()['add-review'][0][0]).toEqual({
-        nickname: values.nickname,
-        ratings: [{ id: 'rating', value_id: values.rating }],
-        sku: values.sku,
-        summary: values.summary,
-        text: values.text,
-        recaptchaToken: values.token,
-      });
-    });
   });
 });
