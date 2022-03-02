@@ -123,7 +123,7 @@
                 :title="getName(product)"
                 :wishlist-icon="isAuthenticated ? '' : ''"
                 class="products__product-card-horizontal"
-                @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+                @click:add-to-cart="addItemToCart({ product, quantity: $event })"
                 @click:wishlist="addItemToWishlist(product)"
               >
                 <template #image="imageSlotProps">
@@ -136,24 +136,24 @@
                   >
                     <template v-if="Array.isArray(imageSlotProps.image)">
                       <SfImage
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                          :key="key"
-                          image-tag="nuxt-img"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                          class="sf-product-card-horizontal__picture"
-                      />
-                    </template>
-                    <SfImage
-                        v-else
+                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                        :key="key"
                         image-tag="nuxt-img"
-                        :src="imageSlotProps.image"
+                        :src="picture"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
                         :height="imageSlotProps.imageHeight"
-                        class="sf-product-card-horizontal__image"
+                        class="sf-product-card-horizontal__picture"
+                      />
+                    </template>
+                    <SfImage
+                      v-else
+                      image-tag="nuxt-img"
+                      :src="imageSlotProps.image"
+                      :alt="imageSlotProps.title"
+                      :width="imageSlotProps.imageWidth"
+                      :height="imageSlotProps.imageHeight"
+                      class="sf-product-card-horizontal__image"
                     />
                   </SfLink>
                 </template>
@@ -362,7 +362,7 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useImage, useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import useCategoryContent from '~/components/Category/useCategoryContent.ts';
+import { useCategoryContent } from '~/components/Category/useCategoryContent.ts';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -372,22 +372,22 @@ export default defineComponent({
     CmsContent: () => import('~/components/Category/CmsContent.vue'),
     CategorySidebar: () => import('~/components/Category/CategorySidebar'),
     EmptyResults: () => import('~/components/Category/EmptyResults'),
-    LazyHydrate,
-    SfAccordion,
     SfButton,
-    SfColor,
+    SfSidebar,
     SfFilter,
-    SfHeading,
-    SfImage,
-    SfLink,
-    SfLoader,
-    SfPagination,
+    SfRadio,
     SfProductCard,
     SfProductCardHorizontal,
-    SfProperty,
-    SfRadio,
+    SfPagination,
+    SfAccordion,
     SfSelect,
-    SfSidebar,
+    SfLoader,
+    SfColor,
+    SfHeading,
+    SfImage,
+    SfProperty,
+    SfLink,
+    LazyHydrate,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -442,7 +442,8 @@ export default defineComponent({
       Object.keys(filters)
         .forEach((filter) => {
           if (filter === 'price') {
-            selectedFilterValues[filter] = filters[filter][0];
+            const [firstFilter] = filters[filter];
+            selectedFilterValues[filter] = firstFilter;
           } else {
             selectedFilterValues[filter] = filters[filter];
           }
