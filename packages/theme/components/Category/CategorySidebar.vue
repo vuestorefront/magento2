@@ -1,83 +1,64 @@
 <template>
-  <div>
-    <slot
-      v-if="!$fetchState.pending"
-      name="content"
-      :category-tree="categoryTree"
-      :active-category="activeCategory"
+  <SfAccordion
+    :open="activeCategory"
+    :show-chevron="true"
+  >
+    <SfAccordionItem
+      v-for="(cat, i) in categoryTree.items"
+      :key="i"
+      :header="cat.label"
     >
-      <SfAccordion
-        :open="activeCategory"
-        :show-chevron="true"
-      >
-        <SfAccordionItem
-          v-for="(cat, i) in categoryTree.items"
-          :key="i"
-          :header="cat.label"
+      <SfList class="list">
+        <SfListItem
+          v-for="(subCat, j) in cat.items"
+          :key="j"
+          class="list__item"
         >
-          <SfList class="list">
-            <SfListItem
-              v-for="(subCat, j) in cat.items"
-              :key="j"
-              class="list__item"
-            >
-              <SfMenuItem
-                :count="subCat.count || ''"
-                :label="subCat.label"
+          <SfMenuItem
+            :count="subCat.count || ''"
+            :label="subCat.label"
+          >
+            <template #label="{ label }">
+              <nuxt-link
+                :to="localePath(getAgnosticCatLink(subCat))"
+                :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
               >
-                <template #label="{ label }">
-                  <nuxt-link
-                    :to="localePath(getAgnosticCatLink(subCat))"
-                    :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                  >
-                    {{ label }}
-                  </nuxt-link>
-                </template>
-              </SfMenuItem>
-              <SfMenuItem
-                v-for="(subSubCat, z) in subCat.items && subCat.items"
-                :key="z"
-                :count="subSubCat.count || ''"
-                :label="subSubCat.label"
-                class="list__item__sub"
+                {{ label }}
+              </nuxt-link>
+            </template>
+          </SfMenuItem>
+          <SfMenuItem
+            v-for="(subSubCat, z) in subCat.items"
+            :key="z"
+            :count="subSubCat.count || ''"
+            :label="subSubCat.label"
+            class="list__item__sub"
+          >
+            <template #label="{ label }">
+              <nuxt-link
+                :to="localePath(getAgnosticCatLink(subSubCat))"
+                :class="{'sidebar--cat-selected': subSubCat.isCurrent}"
               >
-                <template #label="{ label }">
-                  <nuxt-link
-                    :to="localePath(getAgnosticCatLink(subSubCat))"
-                    :class="subSubCat.isCurrent ? 'sidebar--cat-selected' : ''"
-                  >
-                    {{ label }}
-                  </nuxt-link>
-                </template>
-              </SfMenuItem>
-            </SfListItem>
-          </SfList>
-        </SfAccordionItem>
-      </SfAccordion>
-    </slot>
-  </div>
+                {{ label }}
+              </nuxt-link>
+            </template>
+          </SfMenuItem>
+        </SfListItem>
+      </SfList>
+    </SfAccordionItem>
+  </SfAccordion>
 </template>
 
 <script>
-import findDeep from 'deepdash/findDeep';
 import {
   SfList,
   SfMenuItem,
   SfAccordion,
-  SfDivider,
 } from '@storefront-ui/vue';
 import {
-  computed,
   defineComponent,
-  ref,
-  useFetch,
 } from '@nuxtjs/composition-api';
-import {
-  categoryGetters,
-  useCategory,
-} from '@vue-storefront/magento';
-import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
-import { useUrlResolver } from '~/composables/useUrlResolver.ts';
+
 import { useUiHelpers } from '~/composables';
 
 export default defineComponent({
@@ -86,57 +67,22 @@ export default defineComponent({
     SfList,
     SfMenuItem,
     SfAccordion,
-    SfDivider,
+  },
+  props: {
+    categoryTree: {
+      type: Object,
+      default: () => {},
+    },
+    activeCategory: {
+      type: String,
+      default: '',
+    },
   },
   setup() {
     const uiHelpers = useUiHelpers();
-    const { addTags } = useCache();
-
-    const {
-      result: urlData,
-      search: resolveUrl,
-    } = useUrlResolver();
-
-    const {
-      categories,
-      search,
-    } = useCategory('categoryList-sidebar');
-
-    const categoryTree = ref([]);
-    const activeCategory = computed(() => {
-      const items = categoryTree.value?.items;
-      if (!items) {
-        return '';
-      }
-      const categoryLabel = ref();
-      const parent = findDeep(items, (value, key, parentValue, _deepCtx) => {
-        if (key === 'isCurrent' && value) {
-          // eslint-disable-next-line no-underscore-dangle
-          categoryLabel.value = _deepCtx.obj[_deepCtx._item.path[0]].label;
-        }
-        return key === 'isCurrent' && value;
-      });
-
-      return categoryLabel.value || parent?.category?.label || items[0]?.label;
-    });
-
-    useFetch(async () => {
-      await Promise.all([resolveUrl(), search({ pageSize: 20 })]);
-      categoryTree.value = categoryGetters.getCategoryTree(
-        categories.value?.[0],
-        urlData.value?.entity_uid,
-        false,
-      );
-
-      const categoriesTags = categoryTree?.value?.items?.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.uid }));
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags(categoriesTags);
-    });
 
     return {
       ...uiHelpers,
-      categoryTree,
-      activeCategory,
     };
   },
 });
