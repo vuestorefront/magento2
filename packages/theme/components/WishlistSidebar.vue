@@ -250,7 +250,9 @@ export default defineComponent({
 .empty-wishlist {
   display: flex;
   flex: 1;
+  align-items: center;
   flex-direction: column;
+  height: 100%;
   &__banner {
     flex: 1;
     display: flex;
