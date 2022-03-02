@@ -50,17 +50,17 @@
 
 <script>
 import { SfButton, SfSearchBar } from '@storefront-ui/vue';
-import { defineComponent, ref } from '@nuxtjs/composition-api';
-import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
-import SvgImage from '~/components/General/SvgImage.vue';
-
+import {
+  defineComponent, ref, watch, useRoute,
+} from '@nuxtjs/composition-api';
 import debounce from 'lodash.debounce';
 import {
   categoryGetters,
   useCategorySearch,
   useFacet,
 } from '@vue-storefront/magento';
-import { watch, useRoute } from '@nuxtjs/composition-api';
+import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchBar',
@@ -85,7 +85,7 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const route = useRoute()
+    const route = useRoute();
 
     const {
       result: searchResult,
@@ -128,8 +128,8 @@ export default defineComponent({
 
     const closeSearch = (event) => {
       if (document) {
-        const searchResultsEl = document.getElementsByClassName('search');
-        if (!searchResultsEl[0].contains(event.target)) {
+        const searchResultsEl = document.querySelectorAll('.search');
+        if (!searchResultsEl[0]?.contains(event.target)) {
           hideSearch();
           term.value = '';
         }
