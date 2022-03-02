@@ -123,7 +123,7 @@
                 :title="getName(product)"
                 :wishlist-icon="isAuthenticated ? '' : ''"
                 class="products__product-card-horizontal"
-                @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
+                @click:add-to-cart="addItemToCart({ product, quantity: $event })"
                 @click:wishlist="addItemToWishlist(product)"
               >
                 <template #image="imageSlotProps">
@@ -359,7 +359,7 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useImage, useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import useCategoryContent from '~/components/Category/useCategoryContent.ts';
+import { useCategoryContent } from '~/components/Category/useCategoryContent.ts';
 import CategoryNavbar from '~/components/Category/CategoryNavbar';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
@@ -439,7 +439,8 @@ export default defineComponent({
       Object.keys(filters)
         .forEach((filter) => {
           if (filter === 'price') {
-            selectedFilterValues[filter] = filters[filter][0];
+            const [firstFilter] = filters[filter];
+            selectedFilterValues[filter] = firstFilter;
           } else {
             selectedFilterValues[filter] = filters[filter];
           }
