@@ -19,22 +19,23 @@
     >
       {{ userAddress.phone }}
     </p>
-    <small
+    <div
       v-if="isDefaultShippingText || isDefaultBillingText"
+      class="badge-container"
     >
       <span
         v-if="isDefaultShippingText"
-        class="sf-badge--number color-info sf-badge"
+        class="badge-container__badge sf-badge sf-badge--number color-primary"
       >
         {{ $t(isDefaultShippingText) }}
       </span>
       <span
         v-if="isDefaultBillingText"
-        class="sf-badge--number color-info sf-badge"
+        class="badge-container__badge sf-badge sf-badge--number color-primary"
       >
         {{ $t(isDefaultBillingText) }}
       </span>
-    </small>
+    </div>
   </div>
 </template>
 
@@ -54,7 +55,6 @@ export default defineComponent({
       required: true,
     },
   },
-
   setup(props) {
     const address = toRef(props, 'address');
 
@@ -93,5 +93,16 @@ p {
 
 .phone {
   margin-top: var(--spacer-base);
+}
+
+.badge-container {
+  margin-top: var(--spacer-sm);
+  display: flex;
+  gap: var(--spacer-xs);
+  flex-wrap: wrap;
+  &__badge {
+    display: inline-block; /* have to reset due to style spill from Storefront UI */
+    flex-grow: 1;
+  }
 }
 </style>
