@@ -12,6 +12,7 @@
       v-else-if="isShowProducts"
       :sort-by="sortBy"
       :pagination="pagination"
+      @category:reload-products="reload($event)"
     />
     <div class="main section">
       <SkeletonLoader

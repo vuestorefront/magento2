@@ -27,7 +27,7 @@
           :value="sortBy.selected"
           class="navbar__select"
           placeholder="Select sorting"
-          @input="changeSorting"
+          @input="doSorting"
         >
           <SfSelectOption
             v-for="option in sortBy.options"
@@ -75,7 +75,7 @@
   </div>
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, useRouter } from '@nuxtjs/composition-api';
 import {
   SfSelect,
   SfButton,
@@ -102,13 +102,31 @@ export default defineComponent({
       default: () => {},
     },
   },
-  setup() {
+  setup(_, { emit }) {
     const {
       toggleFilterSidebar, changeToCategoryListView, changeToCategoryGridView, isCategoryGridView,
     } = useUiState();
+    const router = useRouter();
     const uiHelpers = useUiHelpers();
 
+    const pushState = (path) => {
+      if (!window) return;
+      window.history.pushState({}, null, `${path}`);
+      emit('category:reload-products', { path });
+    };
+
+    const doSorting = (sort) => {
+      if (typeof window !== 'undefined') {
+        const { pathname } = window.location;
+        const { search } = window.location;
+        const { query } = router.resolve((pathname + search).slice(1)).route;
+        const path = router.resolve({ query: { ...query, sort }, path: (search) }).route.fullPath;
+        pushState(path);
+      }
+    };
+
     return {
+      doSorting,
       toggleFilterSidebar,
       ...uiHelpers,
       changeToCategoryListView,

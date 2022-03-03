@@ -19,33 +19,41 @@ const useUiHelpers = () => {
   const router = useRouter();
   const { query } = route.value;
 
-  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(query)
+  const resolveQuery = () => {
+    if (typeof window !== 'undefined') {
+      return router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
+    }
+    return query;
+  };
+
+  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(resolveQuery())
     .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
   // eslint-disable-next-line unicorn/prefer-object-from-entries
-    .reduce(reduceFilters(query), {});
+    .reduce(reduceFilters(resolveQuery()), {});
 
   const getFacetsFromURL = () => ({
     filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort as string || '',
-    term: query.term as string,
+    itemsPerPage: Number.parseInt(resolveQuery().itemsPerPage as string, 10) || 10,
+    page: Number.parseInt(resolveQuery().page as string, 10) || 1,
+    sort: resolveQuery().sort as string || '',
+    term: resolveQuery().term as string,
   });
 
   const changeSearchTerm = (term: string) => term;
 
   const getSearchTermFromUrl = () => ({
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort || '',
+    page: Number.parseInt(resolveQuery().page as string, 10) || 1,
+    sort: resolveQuery().sort || '',
     filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    term: query.term,
+    itemsPerPage: Number.parseInt(resolveQuery().itemsPerPage as string, 10) || 10,
+    term: resolveQuery().term,
   });
 
   const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
 
   const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
 
+  // TODO deprecated
   const changeSorting = async (sort: string) => {
     await router.push({ query: { ...query, sort } });
   };
