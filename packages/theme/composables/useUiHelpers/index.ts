@@ -53,27 +53,56 @@ const useUiHelpers = () => {
 
   const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
 
-  // TODO deprecated
-  const changeSorting = async (sort: string) => {
-    await router.push({ query: { ...query, sort } });
+  const changeSorting = async (sort: string, callback = null) => {
+    if (typeof window !== 'undefined') {
+      const { pathname } = window.location;
+      const path = router.resolve({ query: { ...resolveQuery(), sort }, path: (pathname) }).route.fullPath;
+      if (callback !== null) {
+        callback(path);
+      } else {
+        await router.push(path);
+      }
+    } else {
+      await router.push({ query: { ...query, sort } });
+    }
   };
 
-  const changeFilters = async (filters: any) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        ...filters,
-      },
-    });
+  const changeFilters = async (filters: any, callback = null) => {
+    if (typeof window !== 'undefined') {
+      const { pathname } = window.location;
+      const path = router.resolve({ query: { ...resolveQuery(), ...getFiltersDataFromUrl(false), ...filters }, path: (pathname) }).route.fullPath;
+      if (callback !== null) {
+        callback(path);
+      } else {
+        await router.push(path);
+      }
+    } else {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          ...filters,
+        },
+      });
+    }
   };
 
-  const changeItemsPerPage = async (itemsPerPage: number) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        itemsPerPage,
-      },
-    });
+  const changeItemsPerPage = async (itemsPerPage: number, callback = null) => {
+    if (typeof window !== 'undefined') {
+      const { pathname } = window.location;
+      const path = router.resolve({ query: { ...resolveQuery(), ...getFiltersDataFromUrl(false), itemsPerPage }, path: (pathname) }).route.fullPath;
+      if (callback !== null) {
+        callback(path);
+      } else {
+        await router.push(path);
+      }
+    } else {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          itemsPerPage,
+        },
+      });
+    }
   };
 
   const setTermForUrl = async (term: string) => {

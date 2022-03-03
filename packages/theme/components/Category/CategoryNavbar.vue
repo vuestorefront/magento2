@@ -106,7 +106,6 @@ export default defineComponent({
     const {
       toggleFilterSidebar, changeToCategoryListView, changeToCategoryGridView, isCategoryGridView,
     } = useUiState();
-    const router = useRouter();
     const uiHelpers = useUiHelpers();
 
     const pushState = (path) => {
@@ -116,13 +115,7 @@ export default defineComponent({
     };
 
     const doSorting = (sort) => {
-      if (typeof window !== 'undefined') {
-        const { pathname } = window.location;
-        const { search } = window.location;
-        const { query } = router.resolve((pathname + search).slice(1)).route;
-        const path = router.resolve({ query: { ...query, sort }, path: (search) }).route.fullPath;
-        pushState(path);
-      }
+      uiHelpers.changeSorting(sort, pushState);
     };
 
     return {

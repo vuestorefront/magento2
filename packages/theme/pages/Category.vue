@@ -221,7 +221,7 @@
                 <SfSelect
                   :value="pagination.itemsPerPage.toString()"
                   class="products__items-per-page"
-                  @input="changeItemsPerPage"
+                  @input="doChangeItemsPerPage"
                 >
                   <SfSelectOption
                     v-for="option in pagination.pageOptions"
@@ -414,7 +414,7 @@ export default defineComponent({
     'stale-when-revalidate': 5,
   }),
   transition: 'fade',
-  setup() {
+  setup(_, { emit }) {
     const { getContentData } = useCategoryContent();
     const { addTags } = useCache();
     const uiHelpers = useUiHelpers();
@@ -506,16 +506,24 @@ export default defineComponent({
 
       selectedFilters.value[facet.id].push(option.value);
     };
-    /* eslint-enable */
+
+    const pushState = (path) => {
+      if (!window) return;
+      window.history.pushState({}, null, `${path}`);
+      reload({path});
+    };
 
     const applyFilters = (filters) => {
       toggleFilterSidebar();
       if (filters) {
         selectedFilters.value = filters;
       }
-
-      uiHelpers.changeFilters(selectedFilters.value);
+      uiHelpers.changeFilters(selectedFilters.value, pushState);
     };
+
+    const doChangeItemsPerPage = (itemsPerPage) => {
+      uiHelpers.changeItemsPerPage(itemsPerPage, pushState);
+    }
 
     const addItemToWishlist = async (product) => {
       await (
@@ -627,6 +635,7 @@ export default defineComponent({
       activeCategory,
       reload,
       isProductsLoading,
+      doChangeItemsPerPage
     };
   },
 });
