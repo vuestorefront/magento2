@@ -24,9 +24,10 @@
         :category-tree="categoryTree"
         :active-category="activeCategory"
         class="sidebar desktop-only"
+        @category:reload-products="reload($event)"
       />
       <div
-        v-if="$fetchState.pending"
+        v-if="isProductsLoading"
         class="products products__grid"
       >
         <div
@@ -36,7 +37,8 @@
         >
           <SkeletonLoader :height="`${imageSizes.productCard.height}px`" />
           <SkeletonLoader />
-          <SkeletonLoader />
+          <SkeletonLoader :width="'50%'" />
+          <SkeletonLoader :width="'70%'" />
         </div>
       </div>
       <div v-else-if="isShowProducts">
@@ -547,7 +549,25 @@ export default defineComponent({
       return categoryLabel || parent?.category?.label || items[0]?.label;
     });
 
+    const isProductsLoading = ref(false);
+
+    const reload = async (params) => {
+      isProductsLoading.value = true;
+      await resolveUrl({ url: params.path });
+      const [content] = await Promise.all([getContentData(routeData.value?.id), searchCategoryProduct()]);
+      cmsContent.value = content?.cmsBlock?.content ?? '';
+      isShowCms.value = content.isShowCms;
+      isShowProducts.value = content.isShowProducts;
+      selectedFilters.value = getSelectedFilterValues();
+      products.value = facetGetters.getProducts(result.value) ?? [];
+      sortBy.value = facetGetters.getSortOptions(result.value);
+      facets.value = facetGetters.getGrouped(result.value, magentoConfig.facets.available);
+      pagination.value = facetGetters.getPagination(result.value);
+      isProductsLoading.value = false;
+    };
+
     useFetch(async () => {
+      isProductsLoading.value = true;
       await resolveUrl();
       const [content] = await Promise.all([getContentData(routeData.value?.id), searchCategoryProduct(), loadCategories()]);
       cmsContent.value = content?.cmsBlock?.content ?? '';
@@ -558,7 +578,7 @@ export default defineComponent({
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(result.value, magentoConfig.facets.available);
       pagination.value = facetGetters.getPagination(result.value);
-
+      isProductsLoading.value = false;
       categoryTree.value = categoryGetters.getCategoryTree(
         categories.value?.[0],
         routeData.value?.entity_uid,
@@ -604,6 +624,8 @@ export default defineComponent({
       isShowProducts,
       cmsContent,
       activeCategory,
+      reload,
+      isProductsLoading,
     };
   },
 });

@@ -16,8 +16,8 @@ export const useUrlResolver = () => {
 
   return {
     path,
-    search: async () => {
-      await search({ url: path });
+    search: async (params = { url: path }) => {
+      await search(params);
       if (!result?.value) error({ statusCode: 404 });
     },
     result,

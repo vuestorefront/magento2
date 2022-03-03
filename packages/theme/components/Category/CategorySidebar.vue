@@ -19,12 +19,12 @@
             :label="subCat.label"
           >
             <template #label="{ label }">
-              <nuxt-link
-                :to="localePath(getAgnosticCatLink(subCat))"
-                :class="subCat.isCurrent ? 'sidebar--cat-selected' : ''"
+              <a
+                :class="{'sidebar--cat-selected': subCat.isCurrent}"
+                @click.prevent.stop="pushState(localePath(getAgnosticCatLink(subCat)))"
               >
                 {{ label }}
-              </nuxt-link>
+              </a>
             </template>
           </SfMenuItem>
           <SfMenuItem
@@ -35,12 +35,12 @@
             class="list__item__sub"
           >
             <template #label="{ label }">
-              <nuxt-link
-                :to="localePath(getAgnosticCatLink(subSubCat))"
+              <a
                 :class="{'sidebar--cat-selected': subSubCat.isCurrent}"
+                @click.prevent.stop="pushState(localePath(getAgnosticCatLink(subSubCat)))"
               >
                 {{ label }}
-              </nuxt-link>
+              </a>
             </template>
           </SfMenuItem>
         </SfListItem>
@@ -78,11 +78,16 @@ export default defineComponent({
       default: '',
     },
   },
-  setup() {
+  setup(_, { emit }) {
     const uiHelpers = useUiHelpers();
-
+    const pushState = (path) => {
+      if (!window) return;
+      window.history.pushState({}, null, `${path}`);
+      emit('category:reload-products', { path });
+    };
     return {
       ...uiHelpers,
+      pushState,
     };
   },
 });
@@ -107,7 +112,7 @@ export default defineComponent({
     &__sub {
       padding:var(--spacer-xs) 0  0 var(--spacer-sm);
     }
-    .nuxt-link-exact-active {
+    .sidebar--cat-selected {
       text-decoration: underline;
     }
   }
