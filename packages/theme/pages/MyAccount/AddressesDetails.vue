@@ -47,15 +47,6 @@
               </div>
             </div>
             <div class="addresses__actions">
-              <SvgImage
-                icon="cross"
-                :label="$t('Remove Address')"
-                role="button"
-                width="14"
-                height="14"
-                class="addresses__remove smartphone-only"
-                @click.native="removeAddress(address)"
-              />
               <SfButton
                 @click="changeAddress(address)"
               >
@@ -70,6 +61,15 @@
                 {{ $t('Delete') }}
               </SfButton>
             </div>
+            <SvgImage
+              icon="cross"
+              :label="$t('Remove Address')"
+              role="button"
+              width="14"
+              height="14"
+              class="addresses__remove smartphone-only"
+              @click.native="removeAddress(address)"
+            />
           </div>
         </transition-group>
         <SfButton
@@ -166,7 +166,6 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-
 .message {
   font-family: var(--font-family--primary);
   line-height: 1.6;
@@ -179,6 +178,7 @@ export default defineComponent({
 }
 
 .addresses {
+  position: relative;
   display: flex;
   padding: var(--spacer-xl) 0;
   border-top: 1px solid var(--c-light);
@@ -188,7 +188,7 @@ export default defineComponent({
   }
 
   &__content {
-    flex: 1;
+    flex: 1 0 20%;
     color: var(--c-text);
     font-size: var(--font-size--base);
     font-weight: 300;
@@ -198,9 +198,10 @@ export default defineComponent({
   &__actions {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-end;
+    flex-direction: column;
+
     @include for-desktop {
       flex-direction: row;
       align-items: center;
@@ -229,6 +230,9 @@ export default defineComponent({
   }
 
   &__remove {
+    position: absolute;
+    top: var(--spacer-sm);
+    right: 0;
     color: var(--c-gray-variant);
     cursor: pointer;
   }
