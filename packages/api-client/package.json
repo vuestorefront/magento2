@@ -20,7 +20,7 @@
     "build:package": "node ../../scripts/build --file=src/index.ts",
     "build:server": "node ../../scripts/build --file=src/index.server.ts",
     "build:types": "tsc --emitDeclarationOnly",
-    "dev": "yarn dev:package & yarn dev:server",
+    "dev": "concurrently \"yarn build:package --watch\" \"yarn build:server --watch\"",
     "lint": "eslint ./src --ext .ts,.vue",
     "lint:fix": "eslint ./src --ext .ts --fix",
     "partial:types": "node ./possible-types.js",
@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
+    "concurrently": "^7.0.0",
     "cross-fetch": "^3.1.5",
     "graphql-tools": "^8.2.0",
     "jest-transform-graphql": "^2.1.0",
