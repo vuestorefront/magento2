@@ -1,7 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Category } from '@vue-storefront/magento-api';
-import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
+import {
+  CategoryTreeInterface, Category, AgnosticFacet,
+} from '~/modules/catalog/category/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -44,7 +45,7 @@ const useUiHelpers = () => {
 
   const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
 
-  const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
+  const getAgnosticCatLink = (category: CategoryTreeInterface): string => `/c${category.slug}`;
 
   const changeSorting = async (sort: string) => {
     await router.push({ query: { ...query, sort } });
