@@ -6,7 +6,7 @@
     />
     <SkeletonLoader
       v-if="$fetchState.pending"
-      :height="'100px'"
+      :height="'75px'"
     />
     <CategoryNavbar
       v-else-if="isShowProducts"
@@ -14,15 +14,8 @@
       :pagination="pagination"
     />
     <div class="main section">
-      <SkeletonLoader
-        v-if="$fetchState.pending"
-        class="sidebar desktop-only"
-        :height="'50vw'"
-      />
       <CategorySidebar
-        v-else-if="isShowProducts"
-        :category-tree="categoryTree"
-        :active-category="activeCategory"
+        v-if="isShowProducts"
         class="sidebar desktop-only"
       />
       <div
@@ -364,13 +357,11 @@ import {
   SfSelect,
   SfSidebar,
 } from '@storefront-ui/vue';
-import findDeep from 'deepdash/findDeep';
 import {
-  computed,
   defineComponent, ref, useFetch,
 } from '@nuxtjs/composition-api';
 import {
-  facetGetters, productGetters, categoryGetters, useCategory, useFacet, useUser, useWishlist,
+  facetGetters, productGetters, useFacet, useUser, useWishlist,
 } from '@vue-storefront/magento';
 import { useVSFContext } from '@vue-storefront/core';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
@@ -378,9 +369,9 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import { useImage, useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useCategoryContent } from '~/components/Category/useCategoryContent.ts';
-import CategoryNavbar from '~/components/Category/CategoryNavbar';
-import SkeletonLoader from '~/components/SkeletonLoader/SkeletonLoader';
+import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
+import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
+import SkeletonLoader from '~/components/SkeletonLoader';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -388,9 +379,9 @@ export default defineComponent({
   components: {
     SkeletonLoader,
     CategoryNavbar,
-    CmsContent: () => import('~/components/Category/CmsContent.vue'),
-    CategorySidebar: () => import('~/components/Category/CategorySidebar'),
-    EmptyResults: () => import('~/components/Category/EmptyResults'),
+    CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
+    CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
+    EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
     SfButton,
     SfSidebar,
     SfFilter,
@@ -424,7 +415,6 @@ export default defineComponent({
     const sortBy = ref({});
     const facets = ref([]);
     const pagination = ref({});
-    const categoryTree = ref({});
 
     const {
       path,
@@ -448,10 +438,6 @@ export default defineComponent({
       isInCart,
     } = useAddToCart();
 
-    const {
-      categories,
-      search: loadCategories,
-    } = useCategory('categoryList-sidebar');
     const getSelectedFilterValues = () => {
       const selectedFilterValues = Object.fromEntries(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -530,48 +516,27 @@ export default defineComponent({
       });
     };
 
-    const activeCategory = computed(() => {
-      const items = categoryTree.value?.items;
-      if (!items) {
-        return '';
-      }
-      let categoryLabel = '';
-      const parent = findDeep(items, (value, key, parentValue, _deepCtx) => {
-        if (key === 'isCurrent' && value) {
-          // eslint-disable-next-line no-underscore-dangle
-          categoryLabel = _deepCtx.obj[_deepCtx._item.path[0]].label;
-        }
-        return key === 'isCurrent' && value;
-      });
-
-      return categoryLabel || parent?.category?.label || items[0]?.label;
-    });
-
     useFetch(async () => {
       await resolveUrl();
-      const [content] = await Promise.all([getContentData(routeData.value?.id), searchCategoryProduct(), loadCategories()]);
+      const content = await getContentData(routeData.value?.id);
+
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
+
+      await searchCategoryProduct();
       selectedFilters.value = getSelectedFilterValues();
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(result.value, magentoConfig.facets.available);
       pagination.value = facetGetters.getPagination(result.value);
 
-      categoryTree.value = categoryGetters.getCategoryTree(
-        categories.value?.[0],
-        routeData.value?.entity_uid,
-        false,
-      );
-
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
       const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product.uid }));
-      const categoriesTags = categoryTree?.value?.items?.map((category) => ({ prefix: CacheTagPrefix.Category, value: category.uid })) ?? [];
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags([...tags, ...productTags, ...categoriesTags]);
+      addTags([...tags, ...productTags]);
     });
 
     const {
@@ -581,7 +546,6 @@ export default defineComponent({
 
     return {
       routeData,
-      categoryTree,
       ...productGetters,
       ...uiHelpers,
       ...uiState,
@@ -603,7 +567,6 @@ export default defineComponent({
       isShowCms,
       isShowProducts,
       cmsContent,
-      activeCategory,
     };
   },
 });

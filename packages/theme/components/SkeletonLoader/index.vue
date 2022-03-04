@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot v-if="isLoaded" />
+    <slot v-if="!isLoading" />
     <span
       v-else
       :class="componentClass"
@@ -15,9 +15,9 @@ import { computed, defineComponent } from '@nuxtjs/composition-api';
 export default defineComponent({
   name: 'SkeletonLoader',
   props: {
-    isLoaded: {
+    isLoading: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     animation: {
       type: [String, Boolean],

@@ -1,10 +1,9 @@
-import { AgnosticCategoryTree } from '@vue-storefront/core';
-import { htmlDecode } from './htmlDecoder';
+import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 
-export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): AgnosticCategoryTree => {
+export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): CategoryTreeInterface => {
   const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;
   const isCurrent = rootCategory.uid === currentCategory;
-  const label = htmlDecode(rootCategory.name);
+  const label = rootCategory.name;
   const slug = `/${rootCategory.url_path}${rootCategory.url_suffix || ''}`;
 
   const childrenUid = hasChildren
