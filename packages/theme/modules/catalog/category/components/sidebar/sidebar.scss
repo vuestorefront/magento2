@@ -1,0 +1,23 @@
+.sf-divider{
+  margin-bottom: var(--spacer-xs);
+}
+.list {
+  --menu-item-font-size: var(--font-size--sm);
+
+  &__item {
+    &:first-child {
+      --list-item-margin: 0 0 var(--spacer-sm) 0;
+    }
+
+    &:not(:last-of-type):not(:first-child){
+      --list-item-margin: 0 0 var(--spacer-sm) 0;
+    }
+
+    &__sub {
+      padding:var(--spacer-xs) 0  0 var(--spacer-sm);
+    }
+    .nuxt-link-exact-active {
+      text-decoration: underline;
+    }
+  }
+}
