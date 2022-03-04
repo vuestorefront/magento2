@@ -99,6 +99,7 @@ export default () => {
       '@nuxt/image',
     ],
     modules: [
+      '~/modules/catalog',
       ['nuxt-i18n', {
         baseUrl: process.env.BASE_URL || 'http://localhost:3000',
       }],

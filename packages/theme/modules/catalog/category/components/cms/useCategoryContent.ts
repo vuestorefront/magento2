@@ -1,6 +1,6 @@
 import useApi from '~/composables/useApi';
 import categoryContentQuery from './categoryContent.gql';
-import displayModesEnum from './enums/displayModesEnum';
+import displayModesEnum from '~/modules/catalog/category/enums/displayModesEnum';
 
 export interface CmsBlockInterface {
   /** CMS block content */

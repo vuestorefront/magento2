@@ -184,7 +184,6 @@ export default defineComponent({
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
     const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
 
-
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
         await router.push(`${app.localePath('/my-account')}`);
