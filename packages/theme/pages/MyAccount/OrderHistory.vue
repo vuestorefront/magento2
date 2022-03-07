@@ -269,7 +269,6 @@ export default defineComponent({
   @include for-desktop {
     &__element {
       &--right {
-        --table-column-flex: 0;
         text-align: right;
       }
     }
