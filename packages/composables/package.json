@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento",
-  "version": "1.0.0-rc.5.4",
+  "version": "1.0.0-rc.6",
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@vue-storefront/core": "~2.5.4",
-    "@vue-storefront/magento-api": "1.0.0-rc.5.4",
+    "@vue-storefront/magento-api": "^1.0.0-rc.6",
     "@vue/composition-api": "^1.4.1",
     "cookie-universal": "^2.1.5",
     "vue": "^2.6.14",
