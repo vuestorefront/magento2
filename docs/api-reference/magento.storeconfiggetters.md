@@ -15,5 +15,10 @@ storeConfigGetters: {
     getLocale: (config: StoreConfig) => string;
     allowGuestProductReview: (config: StoreConfig) => string;
     enabledWishlist: (config: StoreConfig) => string;
+    getBaseMediaUrl: (config: StoreConfig) => string;
+    getLogoSrc: (config: StoreConfig) => string;
+    getLogoWidth: (config: StoreConfig) => number;
+    getLogoHeight: (config: StoreConfig) => number;
+    getLogoAlt: (config: StoreConfig) => string;
 }
 ```

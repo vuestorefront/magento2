@@ -25,7 +25,7 @@ IMAGE_PROVIDER_BASE_URL={YOUR_IMAGE_PROVIDER_BASE_URL} # base url provided from 
 To use the configuration file in your application, first you need to define an `environment variables` called `STORE_ENV` which will be used to attribute what file the application will use to load the configuration from. You can create an `.env` file and add the following configuration.
 
 ```dotenv
-# .evn file example
+# .env file example
 STORE_ENV=dev # Store environment (Usage for file configuration)
 ```
 

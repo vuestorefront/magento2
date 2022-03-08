@@ -70,8 +70,15 @@ module.exports = {
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
-          ['/guide/recaptcha', 'ReCaptcha'],
-          ['/guide/testing', 'Testing']
+          ['/guide/recaptcha', 'ReCaptcha']
+        ]
+      },
+      {
+        title: 'Performance',
+        collapsable: false,
+        children: [
+          ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
+          ['/guide/ssr', 'Server Side Rendering Cache'],
         ]
       },
       {
