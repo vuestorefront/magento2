@@ -88,7 +88,7 @@
               >
                 <SfCollectedProduct
                   v-for="product in products"
-                  :key="cartGetters.getItemSku(product)"
+                  :key="product.product.original_sku"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
                   :regular-price="
@@ -102,7 +102,7 @@
                   "
                   :link="
                     localePath(
-                      `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
+                      `/p/${product.product.original_sku}${cartGetters.getSlug(
                         product
                       )}`
                     )
@@ -295,7 +295,8 @@ export default defineComponent({
     const products = computed(() => cartGetters
       .getItems(cart.value)
       .filter(Boolean)
-      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant } })));
+      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant, original_sku: item.product.sku } })));
+    console.log(products);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];

@@ -133,7 +133,7 @@ export const getTotalItems = (cart: Cart): number => {
   return cart.total_quantity;
 };
 
-export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | {} => product?.configured_variant || {};
+export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | null => product?.configured_variant || null;
 
 // eslint-disable-next-line import/no-named-as-default-member
 export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
@@ -176,6 +176,7 @@ export interface CartGetters extends CartGettersBase<Cart, CartItem> {
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
   productHasSpecialPrice(product: CartItem): boolean;
   getStockStatus(product: CartItem): string;
+  getConfiguredVariant(product: ConfigurableCartItem): ProductInterface | null;
 }
 
 const cartGetters: CartGetters = {
