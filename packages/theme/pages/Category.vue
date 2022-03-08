@@ -78,7 +78,7 @@
               :wishlist-icon="isAuthenticated ? 'heart' : ''"
               class="products__product-card"
               @click:wishlist="addItemToWishlist(product)"
-              @click:add-to-cart="addItemToCart({ product, quantity: $event })"
+              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
             >
               <template #image="imageSlotProps">
                 <SfButton
