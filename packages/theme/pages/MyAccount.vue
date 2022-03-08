@@ -111,6 +111,7 @@ export default defineComponent({
 
     const changeActivePage = async (title) => {
       if (title === app.i18n.t('Log out')) {
+        localStorage.removeItem('vsf-checkout');
         await Promise.all([logout(), clear()]);
         await router.push(`${localePath({ name: 'home' })}`);
 
