@@ -22,7 +22,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -39,7 +39,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -56,7 +56,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -73,7 +73,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -90,7 +90,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -119,7 +119,7 @@
             class="form__element form__element--half form__select sf-select--underlined"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -144,7 +144,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -161,7 +161,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>

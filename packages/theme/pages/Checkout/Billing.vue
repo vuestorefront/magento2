@@ -17,7 +17,10 @@
         class="form__element"
         @change="handleCheckSameAddress"
       />
-      <div v-if="sameAsShipping" class="copy__shipping__addresses">
+      <div
+        v-if="sameAsShipping"
+        class="copy__shipping__addresses"
+      >
         <div class="copy__shipping__address">
           <div class="sf-address">
             <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
@@ -49,7 +52,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="firstname => changeBillingDetails('firstname', firstname)"
           />
         </ValidationProvider>
@@ -67,7 +70,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="lastname => changeBillingDetails('lastname', lastname)"
           />
         </ValidationProvider>
@@ -85,7 +88,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="street => changeBillingDetails('street', street)"
           />
         </ValidationProvider>
@@ -103,7 +106,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="apartment => changeBillingDetails('apartment', apartment)"
           />
         </ValidationProvider>
@@ -121,7 +124,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="city => changeBillingDetails('city', city)"
           />
         </ValidationProvider>
@@ -138,7 +141,7 @@
             label="State/Province"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             :disabled="!billingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
@@ -152,7 +155,7 @@
             name="state"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             @input="state => changeBillingDetails('region', state)"
           >
@@ -179,7 +182,7 @@
             class="form__element form__element--half form__select sf-select--underlined"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="changeCountry"
           >
             <SfSelectOption
@@ -205,7 +208,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="postcode => changeBillingDetails('postcode', postcode)"
           />
         </ValidationProvider>
@@ -223,7 +226,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="telephone => changeBillingDetails('telephone', telephone)"
           />
         </ValidationProvider>
@@ -266,7 +269,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   useUserBilling,
   userBillingGetters,
@@ -287,6 +289,7 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
+import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';

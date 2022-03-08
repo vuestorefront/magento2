@@ -16,7 +16,7 @@
           :label="$t('Current Password')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <div class="form__horizontal">
@@ -33,7 +33,7 @@
             :label="$t('New Password')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -48,7 +48,7 @@
             :label="$t('Repeat Password')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>

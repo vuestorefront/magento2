@@ -4,27 +4,10 @@ You can activate the reCaptchta feature using these Guidelines.
 
 ## Activate reCaptcha module
 
-Add the `@nuxtjs/recaptcha'` module to `modules` in the `nuxt.config.js` file.
+Add the `@nuxtjs/recaptcha'` module to `dependencies`
 
-```javascript
-modules: [
-  // other modules
-  '@nuxtjs/recaptcha',
-],
-
-```
-
-Add additional config to the `next.config.js`:
-```javascript
-recaptcha: {
-    hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
-    siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-    version: config.get('recaptchaVersion'), // Version 2 or 3
-    size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
-  },
-  publicRuntimeConfig: {
-    isRecaptcha: config.get('recaptchaEnabled'),
-  },
+```bash
+yarn add @nuxtjs/recaptcha
 ```
 
 ## Configure the reCaptcha
@@ -38,7 +21,7 @@ On the `config` folder update the config file (`dev.json` for example) with your
   "recaptchaHideBadge": "{YOUR_RECAPTCHA_HIDE_BADGE}", // true or false, default value is false
   "recaptchaSize": "{YOUR_RECAPTCHA_SIZE}", // Size: 'compact', 'normal', 'invisible' (v2), default value is 'invisible'
   "recaptchaSiteKey": "{YOUR_RECAPTCHA_SITE_KEY}", // Site key for requests, default value is ''
-  "recaptchaSecretkey": "{YOUR_RECAPTCHA_SECRET_KEY}", // Secret key for requests, default value is ''
+  "recaptchaSecretKey": "{YOUR_RECAPTCHA_SECRET_KEY}", // Secret key for requests, default value is ''
   "recaptchaVersion": "{YOUR_RECAPTCHA_VERSION}", // Version 2 or 3, default value is 3
   "recaptchaMinScore": "{YOUR_RECAPTCHA_MIN_SCORE}" // The min score used for v3, default value is 0.5
   ...
@@ -65,7 +48,7 @@ RECAPTCHA_MIN_SCORE=0.5
   "recaptchaHideBadge": false,
   "recaptchaSize": "invisible",
   "recaptchaSiteKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "recaptchaSecretkey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  "recaptchaSecretKey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "recaptchaVersion": 3,
   "recaptchaMinScore": 0.5
   ...

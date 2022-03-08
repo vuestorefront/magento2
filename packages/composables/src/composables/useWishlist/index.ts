@@ -30,6 +30,20 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
     return [];
   },
+  loadItemsCount: async (context: Context, params) => {
+    Logger.debug('[Magento Storefront]: useWishlist.wishlistItemsCount params->', params);
+    const apiState = context.$magento.config.state;
+
+    if (apiState.getCustomerToken()) {
+      const { data } = await context.$magento.api.wishlistItemsCount();
+
+      Logger.debug('[Result]:', { data });
+
+      return data?.customer?.wishlists ?? [];
+    }
+
+    return [];
+  },
   addItem: async (context, params) => {
     const {
       currentWishlist,

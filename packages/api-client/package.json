@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "1.0.0-rc.5.4",
+  "version": "1.0.0",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -24,8 +24,9 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.7",
-    "graphql": "^16.2.0",
+    "@apollo/client": "^3.5.8",
+    "dotenv": "^15.0.0",
+    "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
     "isomorphic-fetch": "^3.0.0"
   },
@@ -34,12 +35,11 @@
     "@rollup/plugin-graphql": "^1.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "@types/isomorphic-fetch": "^0.0.35",
-    "cross-fetch": "^3.1.4",
-    "dotenv": "^12.0.1",
+    "cross-fetch": "^3.1.5",
     "graphql-tools": "^8.2.0",
     "jest-transform-graphql": "^2.1.0",
-    "msw": "^0.36.4",
-    "typescript": "^4.5.4",
+    "msw": "^0.36.8",
+    "typescript": "^4.5.5",
     "webpack": "4.46.0"
   },
   "peerDependencies": {

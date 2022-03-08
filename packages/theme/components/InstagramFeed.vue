@@ -11,6 +11,7 @@
             v-if="isMobile"
             src="/homepage/imageAm.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="160"
             :height="160"
           />
@@ -18,6 +19,7 @@
             v-else
             src="/homepage/imageAd.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="470"
             :height="470"
           />
@@ -27,6 +29,7 @@
             v-if="isMobile"
             src="/homepage/imageBm.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="160"
             :height="160"
           />
@@ -34,6 +37,7 @@
             v-else
             src="/homepage/imageCd.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="470"
             :height="160"
           />
@@ -45,6 +49,7 @@
             v-if="isMobile"
             src="/homepage/imageCm.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="160"
             :height="160"
           />
@@ -52,6 +57,7 @@
             v-else
             src="/homepage/imageBd.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="470"
             :height="160"
           />
@@ -61,6 +67,7 @@
             v-if="isMobile"
             src="/homepage/imageDm.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="160"
             :height="160"
           />
@@ -68,6 +75,7 @@
             v-else
             src="/homepage/imageDd.webp"
             alt="katherina_trn"
+            loading="lazy"
             :width="470"
             :height="470"
           />
@@ -84,18 +92,21 @@ import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import { defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onBeforeUnmount } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'InstagramFeed',
   components: {
     SfSection,
   },
-  computed: {
-    ...mapMobileObserver(),
-  },
-  beforeDestroy() {
-    unMapMobileObserver();
+  setup() {
+    const isMobile = computed(() => mapMobileObserver().isMobile.get());
+
+    onBeforeUnmount(() => {
+      unMapMobileObserver();
+    });
+
+    return { isMobile };
   },
 });
 </script>

@@ -36,13 +36,20 @@ const config = convict({
     default: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH || '/vue/cart/sync',
     env: 'MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH',
   },
-  // endregion
+  magentoBaseUrl: {
+    doc: 'Magento base url',
+    format: String,
+    default: process.env.MAGENTO_BASE_URL || 'https://magento2-instance.vuestorefront.io/',
+    env: 'MAGENTO_BASE_URL',
+  },
   storeUrl: {
     doc: 'Store base URL',
     format: String,
     default: process.env.STORE_URL || 'http://localhost:3000',
     env: 'STORE_URL',
   },
+  // endregion
+  // region Nuxt Options
   nuxtAppEnvironment: {
     doc: 'Nuxt Store environment',
     format: String,
@@ -55,12 +62,8 @@ const config = convict({
     default: process.env.NUXT_APP_PORT || 3000,
     env: 'NUXT_APP_PORT',
   },
-  magentoBaseUrl: {
-    doc: 'Magento base url',
-    format: String,
-    default: process.env.MAGENTO_BASE_URL || 'https://magento2-instance.vuestorefront.io/',
-    env: 'MAGENTO_BASE_URL',
-  },
+  // endregion
+  // region Nuxt-Image Options
   imageProvider: {
     doc: 'Image provider',
     format: String,
@@ -73,6 +76,7 @@ const config = convict({
     default: process.env.IMAGE_PROVIDER_BASE_URL,
     env: 'IMAGE_PROVIDER_BASE_URL',
   },
+  // endregion
   // region recaptcha
   recaptchaEnabled: {
     doc: 'reCaptcha Enabled',
@@ -98,7 +102,7 @@ const config = convict({
     default: process.env.RECAPTCHA_SITE_KEY || '',
     env: 'RECAPTCHA_SITE_KEY',
   },
-  recaptchaSecretkey: {
+  recaptchaSecretKey: {
     doc: 'reCaptcha Secret Key',
     format: String,
     default: process.env.RECAPTCHA_SECRET_KEY || '',

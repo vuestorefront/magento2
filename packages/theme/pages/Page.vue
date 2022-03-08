@@ -1,6 +1,6 @@
 <template>
   <SfLoader :loading="loading">
-    <div>
+    <div class="cms-page">
       <SfHeading
         v-if="page.content_heading"
         :title="page.content_heading"
@@ -21,8 +21,8 @@ import {
 import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
-import HTMLContent from '~/components/HTMLContent';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
   components: {
@@ -76,3 +76,8 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.cms-page {
+  padding: var(--spacer-sm);
+}
+</style>

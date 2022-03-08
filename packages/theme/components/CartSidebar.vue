@@ -38,7 +38,7 @@
       >
         <div class="notifications">
           <SfNotification
-            v-if="!isLoaderVisible"
+            v-if="!loading"
             :visible="visible"
             title="Are you sure?"
             message="Are you sure you would like to remove this item from the shopping cart?"
@@ -63,12 +63,6 @@
           </SfNotification>
         </div>
       </transition>
-      <SfLoader
-        v-if="isLoaderVisible"
-        :loading="isLoaderVisible"
-      >
-        <div />
-      </SfLoader>
       <template #content-top>
         <SfProperty
           v-if="totalItems"
@@ -77,115 +71,117 @@
           :value="totalItems"
         />
       </template>
-      <transition
-        name="sf-fade"
-        mode="out-in"
-      >
-        <div
-          v-if="totalItems"
-          key="my-cart"
-          class="my-cart"
+      <SfLoader :loading="loading">
+        <transition
+          name="sf-fade"
+          mode="out-in"
         >
-          <div class="collected-product-list">
-            <transition-group
-              name="sf-fade"
-              tag="div"
-            >
-              <SfCollectedProduct
-                v-for="product in products"
-                :key="cartGetters.getItemSku(product)"
-                :image="cartGetters.getItemImage(product)"
-                :title="cartGetters.getItemName(product)"
-                :regular-price="
-                  $fc(cartGetters.getItemPrice(product).regular)
-                "
-                :special-price="
-                  cartGetters.productHasSpecialPrice(product)
-                    ? getItemPrice(product).special &&
-                      $fc(cartGetters.getItemPrice(product).special)
-                    : ''
-                "
-                :link="
-                  localePath(
-                    `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
-                      product
-                    )}`
+          <div
+            v-if="totalItems"
+            key="my-cart"
+            class="my-cart"
+          >
+            <div class="collected-product-list">
+              <transition-group
+                name="sf-fade"
+                tag="div"
+              >
+                <SfCollectedProduct
+                  v-for="product in products"
+                  :key="cartGetters.getItemSku(product)"
+                  :image="cartGetters.getItemImage(product)"
+                  :title="cartGetters.getItemName(product)"
+                  :regular-price="
+                    $fc(cartGetters.getItemPrice(product).regular)
+                  "
+                  :special-price="
+                    cartGetters.productHasSpecialPrice(product)
+                      ? getItemPrice(product).special &&
+                        $fc(cartGetters.getItemPrice(product).special)
+                      : ''
+                  "
+                  :link="
+                    localePath(
+                      `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
+                        product
+                      )}`
+                    )
+                  "
+                  class="collected-product"
+                  @input="delayedUpdateItemQty({ product, quantity: $event })"
+                  @click:remove="sendToRemove({ product })"
+                >
+                  <template #input>
+                    <div
+                      v-if="isInStock(product)"
+                      class="sf-collected-product__quantity-wrapper"
+                    >
+                      <SfQuantitySelector
+                        :disabled="loading"
+                        :qty="cartGetters.getItemQty(product)"
+                        class="sf-collected-product__quantity-selector"
+                        @input="delayedUpdateItemQty({ product, quantity: $event })"
+                      />
+                    </div>
+                    <SfBadge
+                      v-else
+                      class="color-danger sf-badge__absolute"
+                    >
+                      <template #default>
+                        <span>{{ $t('Out of stock') }}</span>
+                      </template>
+                    </SfBadge>
+                  </template>
+                  <template #configuration>
+                    <div v-if="getAttributes(product).length > 0">
+                      <SfProperty
+                        v-for="(attr, index) in getAttributes(product)"
+                        :key="index"
+                        :name="attr.option_label"
+                        :value="attr.value_label"
+                      />
+                    </div>
+                    <div v-if="getBundles(product).length > 0">
+                      <SfProperty
+                        v-for="(bundle, i) in getBundles(product)"
+                        :key="i"
+                        :name="`${bundle.quantity}x`"
+                        :value="bundle.label"
+                      />
+                    </div>
+                    <div v-else />
+                  </template>
+                </SfCollectedProduct>
+              </transition-group>
+            </div>
+          </div>
+          <div
+            v-else
+            key="empty-cart"
+            class="empty-cart"
+          >
+            <div class="empty-cart__banner">
+              <SvgImage
+                icon="empty_cart_image"
+                :label="$t('Empty bag')"
+                width="211"
+                height="143"
+                class="empty-cart__image"
+              />
+              <SfHeading
+                title="Your cart is empty"
+                :level="2"
+                class="empty-cart__heading"
+                :description="
+                  $t(
+                    'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.'
                   )
                 "
-                class="collected-product"
-                @input="delayedUpdateItemQty({ product, quantity: $event })"
-                @click:remove="sendToRemove({ product })"
-              >
-                <template #input>
-                  <div
-                    v-if="isInStock(product)"
-                    class="sf-collected-product__quantity-wrapper"
-                  >
-                    <SfQuantitySelector
-                      :disabled="loading"
-                      :qty="cartGetters.getItemQty(product)"
-                      class="sf-collected-product__quantity-selector"
-                      @input="delayedUpdateItemQty({ product, quantity: $event })"
-                    />
-                  </div>
-                  <SfBadge
-                    v-else
-                    class="color-danger sf-badge__absolute"
-                  >
-                    <template #default>
-                      <span>{{ $t('Out of stock') }}</span>
-                    </template>
-                  </SfBadge>
-                </template>
-                <template #configuration>
-                  <div v-if="getAttributes(product).length > 0">
-                    <SfProperty
-                      v-for="(attr, index) in getAttributes(product)"
-                      :key="index"
-                      :name="attr.option_label"
-                      :value="attr.value_label"
-                    />
-                  </div>
-                  <div v-if="getBundles(product).length > 0">
-                    <SfProperty
-                      v-for="(bundle, i) in getBundles(product)"
-                      :key="i"
-                      :name="`${bundle.quantity}x`"
-                      :value="bundle.label"
-                    />
-                  </div>
-                  <div v-else />
-                </template>
-              </SfCollectedProduct>
-            </transition-group>
+              />
+            </div>
           </div>
-        </div>
-        <div
-          v-else
-          key="empty-cart"
-          class="empty-cart"
-        >
-          <div class="empty-cart__banner">
-            <nuxt-img
-              alt="Empty bag"
-              class="empty-cart__image"
-              src="/icons/empty-cart.svg"
-              width="211"
-              height="143"
-            />
-            <SfHeading
-              title="Your cart is empty"
-              :level="2"
-              class="empty-cart__heading"
-              :description="
-                $t(
-                  'Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.'
-                )
-              "
-            />
-          </div>
-        </div>
-      </transition>
+        </transition>
+      </SfLoader>
       <template #content-bottom>
         <transition name="sf-fade">
           <div v-if="totalItems">
@@ -262,6 +258,7 @@ import _debounce from 'lodash.debounce';
 import { useUiState, useUiNotification } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -277,6 +274,7 @@ export default defineComponent({
     SfQuantitySelector,
     SfBadge,
     CouponCode,
+    SvgImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
@@ -290,6 +288,7 @@ export default defineComponent({
       load: loadCart,
       loading,
     } = useCart();
+
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
 
@@ -302,12 +301,12 @@ export default defineComponent({
     const getAttributes = (product) => product.configurable_options || [];
     const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
     const visible = ref(false);
-    const isLoaderVisible = ref(false);
     const tempProduct = ref();
 
     onMounted(() => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      loadCart();
+      if (cart.value === null) {
+        loadCart();
+      }
     });
 
     const goToCheckout = async () => {
@@ -325,11 +324,7 @@ export default defineComponent({
     };
 
     const actionRemoveItem = async (product) => {
-      isLoaderVisible.value = true;
-
       await removeItem({ product });
-
-      isLoaderVisible.value = false;
       visible.value = false;
 
       sendNotification({
@@ -349,7 +344,7 @@ export default defineComponent({
     return {
       sendToRemove,
       actionRemoveItem,
-      loading: computed(() => (!!loading.value)),
+      loading,
       isAuthenticated,
       products,
       removeItem,
@@ -357,7 +352,6 @@ export default defineComponent({
       isCartSidebarOpen,
       notifications,
       visible,
-      isLoaderVisible,
       tempProduct,
       toggleCartSidebar,
       goToCheckout,
@@ -395,11 +389,12 @@ export default defineComponent({
   top: 10px;
   cursor: pointer;
 }
+
 .notifications {
   position: fixed;
   left: 50%;
   top: 50%;
-  margin-left: -350px;
+  transform: translate(-50%, -50%);
   z-index: 99999;
   .sf-notification {
     padding: 20px;
@@ -410,6 +405,7 @@ export default defineComponent({
     }
   }
 }
+
 .cart-summary {
   margin-top: var(--spacer-xl);
 }
@@ -439,6 +435,7 @@ export default defineComponent({
   flex: 1;
   align-items: center;
   flex-direction: column;
+  height: 100%;
 
   &__banner {
     display: flex;

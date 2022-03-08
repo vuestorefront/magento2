@@ -21,25 +21,25 @@
 
             <div class="navbar__view">
               <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-              <SfIcon
-                class="navbar__view-icon"
-                :color="isWishlistGridView ? 'black' : 'dark-secondary'"
+              <SvgImage
                 icon="tiles"
-                size="12px"
-                role="button"
-                :aria-label="$t('Change to grid view')"
+                :label="$t('Change to grid view')"
                 :aria-pressed="isWishlistGridView"
-                @click="changeToWishlistGridView"
-              />
-              <SfIcon
+                width="12"
+                height="12"
                 class="navbar__view-icon"
-                :color="!isWishlistGridView ? 'black' : 'dark-secondary'"
+                :class="{ 'navbar__view-icon--active': isWishlistGridView }"
+                @click.native="changeToWishlistGridView"
+              />
+              <SvgImage
                 icon="list"
-                size="12px"
-                role="button"
-                :aria-label="$t('Change to list view')"
+                :label="$t('Change to list view')"
                 :aria-pressed="!isWishlistGridView"
-                @click="changeToWishlistListView"
+                width="12"
+                height="12"
+                class="navbar__view-icon"
+                :class="{ 'navbar__view-icon--active': !isWishlistGridView }"
+                @click.native="changeToWishlistListView"
               />
             </div>
           </div>
@@ -257,7 +257,6 @@ import {
   SfLoader,
   SfTabs,
   SfButton,
-  SfIcon,
   SfProductCard,
   SfProductCardHorizontal,
   SfPagination,
@@ -278,6 +277,7 @@ import {
   wishlistGetters,
 } from '@vue-storefront/magento';
 import { useUiHelpers, useUiState, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -285,13 +285,13 @@ export default defineComponent({
     SfLoader,
     SfTabs,
     SfButton,
-    SfIcon,
     SfProductCard,
     SfProductCardHorizontal,
     SfPagination,
     SfSelect,
     SfProperty,
     LazyHydrate,
+    SvgImage,
   },
   setup() {
     const {
@@ -373,7 +373,7 @@ export default defineComponent({
       th,
       wishlist,
       getMagentoImage,
-      imageSizes
+      imageSizes,
     };
   },
 });
@@ -547,6 +547,14 @@ export default defineComponent({
       font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
+    }
+  }
+
+  &__view-icon {
+    cursor: pointer;
+
+    &--active {
+      color: var(--c-primary);
     }
   }
 }

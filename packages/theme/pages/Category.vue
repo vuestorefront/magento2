@@ -4,6 +4,7 @@
       class="breadcrumbs desktop-only"
       :breadcrumbs="breadcrumbs"
     />
+
     <div class="navbar section">
       <div class="navbar__aside desktop-only">
         <LazyHydrate never>
@@ -19,21 +20,21 @@
         <LazyHydrate on-interaction>
           <SfButton
             class="sf-button--text navbar__filters-button"
-            aria-label="Filters"
+            :aria-label="$t('Filters')"
             @click="toggleFilterSidebar"
           >
-            <SfIcon
-              size="24px"
-              color="dark-secondary"
+            <SvgImage
               icon="filter2"
+              width="24"
+              height="24"
               class="navbar__filters-icon"
             />
             {{ $t('Filters') }}
           </SfButton>
         </LazyHydrate>
 
-        <div class="navbar__sort desktop-only">
-          <span class="navbar__label">{{ $t('Sort by') }}:</span>
+        <div class="navbar__sort">
+          <span class="navbar__label desktop-only">{{ $t('Sort by') }}:</span>
           <LazyHydrate when-visible>
             <SfSelect
               :value="sortBy.selected"
@@ -57,31 +58,31 @@
           <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
           <span class="desktop-only">{{ pagination.totalItems }}</span>
           <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
-            $t('Items')
-          }}</span>
+              $t('Items')
+            }}</span>
         </div>
 
         <div class="navbar__view">
           <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-          <SfIcon
-            class="navbar__view-icon"
-            :color="isCategoryGridView ? 'black' : 'dark-secondary'"
+          <SvgImage
             icon="tiles"
-            size="12px"
-            role="button"
-            aria-label="Change to grid view"
+            :label="$t('Change to grid view')"
             :aria-pressed="isCategoryGridView"
-            @click="changeToCategoryGridView"
-          />
-          <SfIcon
+            width="12"
+            height="12"
             class="navbar__view-icon"
-            :color="!isCategoryGridView ? 'black' : 'dark-secondary'"
+            :class="{ 'navbar__view-icon--active': isCategoryGridView }"
+            @click.native="changeToCategoryGridView"
+          />
+          <SvgImage
             icon="list"
-            size="12px"
-            role="button"
-            aria-label="Change to list view"
+            :label="$t('Change to list view')"
             :aria-pressed="!isCategoryGridView"
-            @click="changeToCategoryListView"
+            width="12"
+            height="12"
+            class="navbar__view-icon"
+            :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
+            @click.native="changeToCategoryListView"
           />
         </div>
       </div>
@@ -253,47 +254,49 @@
               </template>
               <template #actions>
                 <SfButton
+                  v-if="isAuthenticated"
                   class="sf-button--text products__product-card-horizontal__add-to-wishlist"
                   @click="addItemToWishlist(product)"
                 >
-                  {{ isInWishlist({product}) ? $t('Remove from Wishlist') : $t('Save for later') }}
+                  {{ isInWishlist({ product }) ? $t('Remove from Wishlist') : $t('Save for later') }}
                 </SfButton>
               </template>
             </SfProductCardHorizontal>
           </transition-group>
-
-          <LazyHydrate on-interaction>
-            <SfPagination
-              v-if="!isProductsLoading"
-              v-show="pagination.totalPages > 1"
-              class="products__pagination desktop-only"
-              :current="pagination.currentPage"
-              :total="pagination.totalPages"
-              :visible="5"
-            />
-          </LazyHydrate>
-
-          <div
-            v-show="pagination.totalPages > 1"
-            class="products__show-on-page"
-          >
-            <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
+          <div class="products__display-opt">
             <LazyHydrate on-interaction>
-              <SfSelect
-                :value="pagination.itemsPerPage.toString()"
-                class="products__items-per-page"
-                @input="uiHelpers.changeItemsPerPage"
-              >
-                <SfSelectOption
-                  v-for="option in pagination.pageOptions"
-                  :key="option"
-                  :value="option"
-                  class="products__items-per-page__option"
-                >
-                  {{ option }}
-                </SfSelectOption>
-              </SfSelect>
+              <SfPagination
+                v-if="!isProductsLoading"
+                v-show="pagination.totalPages > 1"
+                class="products__pagination"
+                :current="pagination.currentPage"
+                :total="pagination.totalPages"
+                :visible="5"
+              />
             </LazyHydrate>
+
+            <div
+              v-show="pagination.totalPages > 1"
+              class="products__show-on-page"
+            >
+              <span class="products__show-on-page__label">{{ $t('Show') }}</span>
+              <LazyHydrate on-interaction>
+                <SfSelect
+                  :value="pagination.itemsPerPage.toString()"
+                  class="products__items-per-page"
+                  @input="uiHelpers.changeItemsPerPage"
+                >
+                  <SfSelectOption
+                    v-for="option in pagination.pageOptions"
+                    :key="option"
+                    :value="option"
+                    class="products__items-per-page__option"
+                  >
+                    {{ option }}
+                  </SfSelectOption>
+                </SfSelect>
+              </LazyHydrate>
+            </div>
           </div>
         </div>
       </SfLoader>
@@ -338,7 +341,7 @@
                 :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
                 :value="option.value"
                 :selected="isFilterSelected(facet, option)"
-                name="priceFilter"
+                name="filter__price"
                 @change="() => selectFilter(facet, option)"
               />
             </div>
@@ -364,14 +367,27 @@
               :header="facet.label"
               class="filters__accordion-item"
             >
-              <SfFilter
-                v-for="option in facet.options"
-                :key="`${facet.id}-${option.id}`"
-                :label="option.id"
-                :selected="isFilterSelected(facet, option)"
-                class="filters__item"
-                @change="() => selectFilter(facet, option)"
-              />
+              <div v-if="facet.id === 'price'">
+                <SfRadio
+                  v-for="option in facet.options"
+                  :key="`${facet.id}-${option.value}`"
+                  :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
+                  :value="option.value"
+                  :selected="isFilterSelected(facet, option)"
+                  name="filter__price"
+                  @change="() => selectFilter(facet, option)"
+                />
+              </div>
+              <div v-else>
+                <SfFilter
+                  v-for="option in facet.options"
+                  :key="`${facet.id}-${option.id}`"
+                  :label="option.id"
+                  :selected="isFilterSelected(facet, option)"
+                  class="filters__item"
+                  @change="() => selectFilter(facet, option)"
+                />
+              </div>
             </SfAccordionItem>
           </div>
         </SfAccordion>
@@ -402,7 +418,6 @@ import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfSidebar,
   SfButton,
-  SfIcon,
   SfHeading,
   SfFilter,
   SfRadio,
@@ -412,6 +427,7 @@ import {
   SfAccordion,
   SfSelect,
   SfBreadcrumbs,
+  SfLink,
   SfLoader,
   SfColor,
   SfProperty,
@@ -437,15 +453,16 @@ import { useUiHelpers, useUiState, useImage } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import CategorySidebarMenu from '~/components/Category/CategorySidebarMenu';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
     CategorySidebarMenu,
+    SvgImage,
     SfButton,
     SfSidebar,
-    SfIcon,
     SfFilter,
     SfRadio,
     SfProductCard,
@@ -458,6 +475,7 @@ export default defineComponent({
     SfColor,
     SfHeading,
     SfProperty,
+    SfLink,
     LazyHydrate,
   },
   middleware: cacheControl({
@@ -496,12 +514,6 @@ export default defineComponent({
       isInCart,
     } = useAddToCart();
 
-    const selectedFilters = ref(Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      (magentoConfig.facets.available)
-        .map((curr) => [curr, (curr === 'price' ? '' : [])]),
-    ));
-
     const products = computed(() => facetGetters.getProducts(result.value));
 
     const categoryTree = computed(() => categoryGetters.getCategoryTree(
@@ -511,10 +523,8 @@ export default defineComponent({
     ));
 
     const breadcrumbs = computed(() => facetGetters.getBreadcrumbs(result.value));
-
     const sortBy = computed(() => facetGetters.getSortOptions(result.value));
     const facets = computed(() => facetGetters.getGrouped(result.value, magentoConfig.facets.available));
-
     const pagination = computed(() => facetGetters.getPagination(result.value));
 
     const activeCategory = computed(() => {
@@ -554,13 +564,16 @@ export default defineComponent({
 
     const isFilterSelected = (facet, option) => {
       if (facet.id === 'price') {
-        return selectedFilters.value[facet.id];
+        return selectedFilters.value[facet.id] || '';
       }
+
       return (selectedFilters.value[facet.id] || []).includes(option.value);
     };
 
+    /* eslint-disable */
     const selectFilter = (facet, option) => {
       if (facet.id === 'price') {
+        // eslint-disable-next-line
         selectedFilters.value[facet.id] = option.value;
         return;
       }
@@ -572,17 +585,16 @@ export default defineComponent({
       if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-        ]?.filter((f) => f !== option.value);
-
+          ]?.filter((f) => f !== option.value);
         return;
       }
 
       selectedFilters.value[facet.id].push(option.value);
     };
+    /* eslint-enable */
 
     const applyFilters = (filters) => {
       toggleFilterSidebar();
-
       if (filters) {
         selectedFilters.value = filters;
       }
@@ -609,8 +621,29 @@ export default defineComponent({
       });
     };
 
+    const getSelectedFilterValues = () => {
+      let selectedFilterValues = Object.fromEntries(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        (magentoConfig.facets.available)
+          .map((curr) => [curr, (curr === 'price' ? '' : [])]),
+      );
+      const filters = uiHelpers.getFacetsFromURL().filters;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      Object.keys(filters).forEach((filter) => {
+        if (filter === 'price') {
+          selectedFilterValues[filter] = filters[filter][0];
+        } else {
+          selectedFilterValues[filter] = filters[filter];
+        }
+      });
+      return selectedFilterValues;
+    }
+
     const isProductsLoading = ref(false);
     const isCategoriesLoading = ref(false);
+    const selectedFilters = ref(getSelectedFilterValues());
+
     onSSR(async () => {
       isProductsLoading.value = true;
       isCategoriesLoading.value = true;
@@ -622,22 +655,7 @@ export default defineComponent({
       isCategoriesLoading.value = false;
 
       if (routeData?.value) {
-        if (facets.value && facets.value.length > 0) {
-          selectedFilters.value = facets.value?.reduce(
-            (prev, curr) => (curr.id === 'price'
-              ? {
-                ...prev,
-                [curr.id]: curr.options.find((o) => o.selected)?.value,
-              }
-              : {
-                ...prev,
-                [curr.id]: curr.options
-                  ?.filter((o) => o.selected)
-                  ?.map((o) => o.value),
-              }),
-            {},
-          );
-        }
+        selectedFilters.value = getSelectedFilterValues();
 
         await searchCategoryProduct();
         isProductsLoading.value = false;
@@ -814,12 +832,20 @@ export default defineComponent({
     ::v-deep .sf-select__placeholder {
       --select-option-font-size: var(--font-size-sm);
     }
+
+    @include for-mobile {
+      --select-width: 135px;
+    }
   }
 
   &__sort {
     display: flex;
     align-items: center;
     margin: 0 auto 0 var(--spacer-2xl);
+    @include for-mobile {
+      margin: 0;
+      order: 1;
+    }
   }
 
   &__counter {
@@ -854,6 +880,14 @@ export default defineComponent({
       font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
+    }
+  }
+
+  &__view-icon {
+    cursor: pointer;
+
+    &--active {
+      color: var(--c-primary);
     }
   }
 }
@@ -958,6 +992,18 @@ export default defineComponent({
     }
     &__list {
       margin: 0 0 0 var(--spacer-sm);
+    }
+  }
+
+  @include for-mobile {
+    &__display-opt {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__show-on-page {
+      margin-top: 12px;
     }
   }
 

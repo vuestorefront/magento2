@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/eslint-config-base",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -34,7 +34,7 @@
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-unicorn": "40.0.0"
+    "eslint-plugin-unicorn": "40.1.0"
   },
   "main": "index.js"
 }

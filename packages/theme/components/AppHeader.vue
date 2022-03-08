@@ -6,21 +6,12 @@
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
-        <nuxt-link
-          :to="localePath('/')"
-          class="sf-header__logo"
-        >
-          <nuxt-img
-            src="/icons/logo.svg"
-            alt="Vue Storefront Next"
-            class="sf-header__logo-image"
-            width="35"
-            height="34"
-          />
-        </nuxt-link>
+        <HeaderLogo />
       </template>
-      <template #navigation>
-        <SfHeaderNavigationItem
+      <template
+        #navigation
+      >
+        <HeaderNavigationItem
           v-for="(category, index) in categoryTree"
           :key="index"
           v-e2e="'app-header-url_women'"
@@ -30,7 +21,10 @@
         />
       </template>
       <template #aside>
-        <StoreSwitcher class="smartphone-only" />
+        <div class="sf-header__switchers">
+          <CurrencySelector class="smartphone-only" />
+          <StoreSwitcher class="smartphone-only" />
+        </div>
       </template>
       <template
         #header-icons="{activeIcon}"
@@ -43,9 +37,11 @@
             aria-label="Account"
             @click="handleAccountClick"
           >
-            <SfIcon
+            <SvgImage
               :icon="accountIcon"
-              size="1.25rem"
+              :label="$t('Account')"
+              width="1.25rem"
+              height="1.25rem"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'account',
               }"
@@ -58,12 +54,12 @@
             aria-label="Wishlist"
             @click="toggleWishlistSidebar"
           >
-            <SfIcon
-              class="sf-header__icon"
+            <SvgImage
               :icon="wishlistHasProducts ? 'heart_fill' : 'heart'"
-              :has-badge="wishlistHasProducts"
-              :badge-label="wishlistItemsQty"
-              size="1.25rem"
+              :label="$t('Wishlist')"
+              width="1.25rem"
+              height="1.25rem"
+              class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'wishlist',
               }"
@@ -81,10 +77,12 @@
             aria-label="Toggle cart sidebar"
             @click="toggleCartSidebar"
           >
-            <SfIcon
-              class="sf-header__icon"
+            <SvgImage
               icon="empty_cart"
-              size="1.25rem"
+              :label="$t('Cart')"
+              width="20"
+              height="20"
+              class="sf-header__icon"
               :class="{
                 'sf-header__icon is-active': activeIcon === 'cart',
               }"
@@ -99,56 +97,16 @@
         </div>
       </template>
       <template #search>
-        <SfSearchBar
-          ref="searchBarRef"
-          v-click-outside="closeSearch"
-          :placeholder="$t('Search for items')"
-          aria-label="Search"
-          class="sf-header__search"
-          :value="term"
-          @input="handleSearch"
-          @keydown.enter="handleSearch($event)"
-          @focus="isSearchOpen = true"
-          @keydown.esc="closeSearch"
-        >
-          <template #icon>
-            <SfButton
-              v-if="!!term"
-              class="sf-search-bar__button sf-button--pure"
-              aria-label="Close search"
-              @click="closeOrFocusSearchBar"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="18px"
-                  icon="cross"
-                />
-              </span>
-            </SfButton>
-            <SfButton
-              v-else
-              class="sf-search-bar__button sf-button--pure"
-              aria-label="Open search"
-              @click="isSearchOpen ? isSearchOpen = false : isSearchOpen = true"
-            >
-              <span class="sf-search-bar__icon">
-                <SfIcon
-                  color="var(--c-text)"
-                  size="20px"
-                  icon="search"
-                />
-              </span>
-            </SfButton>
-          </template>
-        </SfSearchBar>
+        <SearchBar
+          @SearchBar:toggle="isSearchOpen = $event"
+          @SearchBar:result="result = $event"
+        />
       </template>
     </SfHeader>
     <SearchResults
+      v-if="isSearchOpen"
       :visible="isSearchOpen"
       :result="result"
-      @close="closeSearch"
-      @removeSearchResults="removeSearchResults"
     />
     <SfOverlay :visible="isSearchOpen" />
   </div>
@@ -156,95 +114,72 @@
 
 <script>
 import {
+  SfOverlay,
   SfHeader,
-  SfIcon,
   SfButton,
   SfBadge,
-  SfSearchBar,
-  SfOverlay,
 } from '@storefront-ui/vue';
+
 import {
-  cartGetters,
   categoryGetters,
   useCart,
   useCategory,
-  useCategorySearch,
-  useFacet,
-  useUser, useWishlist, wishlistGetters,
+  useUser, useWishlist,
 } from '@vue-storefront/magento';
 import {
   computed,
   ref,
-  onBeforeUnmount,
-  watch,
   defineComponent,
   useRouter,
   useContext,
+  onMounted,
+  useFetch,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
-import { clickOutside } from '@storefront-ui/vue/src/utilities/directives/click-outside/click-outside-directive.js';
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import debounce from 'lodash.debounce';
+import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
+import CurrencySelector from '~/components/CurrencySelector.vue';
+import HeaderLogo from '~/components/HeaderLogo.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
-import SearchResults from '~/components/SearchResults.vue';
 
 export default defineComponent({
   components: {
+    HeaderNavigationItem,
     SfHeader,
+    SfOverlay,
+    CurrencySelector,
+    HeaderLogo,
     StoreSwitcher,
-    SfIcon,
+    SvgImage,
     SfButton,
     SfBadge,
-    SfSearchBar,
-    SearchResults,
-    SfOverlay,
+    SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
+    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
   },
-  directives: { clickOutside },
   setup() {
     const router = useRouter();
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
-    const { setTermForUrl, getFacetsFromURL, getAgnosticCatLink } = useUiHelpers();
-    const { isAuthenticated, load: loadUser } = useUser();
-    const { cart } = useCart();
-    const { wishlist } = useWishlist('GlobalWishlist');
-    const {
-      result: searchResult,
-      search: productsSearch,
-      // loading: productsLoading,
-    } = useFacet('AppHeader:Products');
-    const {
-      result: categories,
-      search: categoriesSearch,
-    } = useCategorySearch('AppHeader:Categories');
+    const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
+    const { isAuthenticated } = useUser();
+    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
+    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
+
     const {
       categories: categoryList,
       search: categoriesListSearch,
     } = useCategory('AppHeader:CategoryList');
 
-    const term = ref(getFacetsFromURL().term);
     const isSearchOpen = ref(false);
-    const searchBarRef = ref(null);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistGetters.getTotalItems(wishlist.value) > 0);
-    const wishlistItemsQty = computed(() => wishlistGetters.getTotalItems(wishlist.value));
-
-    const cartTotalItems = computed(() => {
-      const count = cartGetters.getTotalItems(cart.value);
-      return count ? count.toString() : null;
-    });
-
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
+    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
 
-    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
@@ -254,84 +189,27 @@ export default defineComponent({
       }
     };
 
-    onSSR(async () => {
-      await Promise.all([
-        loadUser(),
-        categoriesListSearch({
-          pageSize: 20,
-        }),
-      ]);
+    useFetch(async () => {
+      await categoriesListSearch({ pageSize: 20 });
     });
 
-    const closeSearch = () => {
-      if (!isSearchOpen.value) return;
-
-      term.value = '';
-      isSearchOpen.value = false;
-    };
-
-    const handleSearch = debounce(async (paramValue) => {
-      term.value = !paramValue.target ? paramValue : paramValue.target.value;
-
-      await Promise.all([
-        productsSearch({
-          itemsPerPage: 12,
-          term: term.value,
-        }),
-        categoriesSearch({ filters: { name: { match: `${term.value}` } } }),
-      ]);
-
-      result.value = {
-        products: searchResult.value?.data?.items,
-        categories: categories.value
-          .map((element) => categoryGetters.getCategoryTree(element)),
-      };
-    }, 1000);
-
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
-
-    const closeOrFocusSearchBar = () => {
-      if (isMobile.value) {
-        return closeSearch();
+    onMounted(() => {
+      if (app.$device.isDesktop) {
+        loadCartTotalQty();
+        loadWishlistItemsCount();
       }
-      term.value = '';
-      return searchBarRef.value.$el.children[0].focus();
-    };
-
-    watch(() => term.value, (newVal, oldVal) => {
-      const shouldSearchBeOpened = (!isMobile.value && term.value.length > 0)
-        && ((!oldVal && newVal)
-          || (newVal.length !== oldVal.length
-            && isSearchOpen.value === false));
-
-      if (shouldSearchBeOpened) isSearchOpen.value = true;
-    });
-
-    const removeSearchResults = () => {
-      result.value = null;
-    };
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
     });
 
     return {
       accountIcon,
       cartTotalItems,
       categoryTree,
-      closeOrFocusSearchBar,
-      closeSearch,
       getAgnosticCatLink,
       handleAccountClick,
-      handleSearch,
       isAuthenticated,
-      isMobile,
       isSearchOpen,
-      removeSearchResults,
       result,
-      searchBarRef,
       setTermForUrl,
-      term,
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
@@ -345,11 +223,11 @@ export default defineComponent({
 .sf-header {
   --header-padding: var(--spacer-sm);
   @include for-desktop {
-    --header-padding: 0;
+    --header-padding: 0 var(--spacer-sm);
   }
 
-  &__logo-image {
-    height: 100%;
+  &__switchers {
+    display: flex;
   }
 }
 
@@ -358,7 +236,7 @@ export default defineComponent({
 }
 
 .nav-item {
-  --header-navigation-item-margin: 0 var(--spacer-base);
+  --header-navigation-item-margin: 0 var(--spacer-sm);
 
   .sf-header-navigation-item__item--mobile {
     display: none;

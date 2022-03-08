@@ -31,10 +31,10 @@
                 :level="3"
                 class="sf-heading--no-underline sf-heading--left"
               />
-              <SfIcon
+              <SvgImage
                 icon="drag"
-                size="xxl"
-                color="var(--c-text-disabled)"
+                width="40"
+                height="40"
                 class="product__drag-icon smartphone-only"
               />
             </div>
@@ -260,7 +260,6 @@ import {
   SfColor,
   SfGallery,
   SfHeading,
-  SfIcon,
   SfLoader,
   SfPrice,
   SfRating,
@@ -286,6 +285,7 @@ import {
   useRouter,
   defineComponent,
 } from '@nuxtjs/composition-api';
+import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
@@ -297,7 +297,7 @@ import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
-import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -316,15 +316,15 @@ export default defineComponent({
     SfColor,
     SfGallery,
     SfHeading,
-    SfIcon,
     SfLoader,
     SfPrice,
     SfRating,
     SfReview,
     SfSelect,
     SfTabs,
-    UpsellProducts,
     AddToWishlist,
+    SvgImage,
+    UpsellProducts,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -482,9 +482,7 @@ export default defineComponent({
       const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
       const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
 
-      const categoriesTags = categories.value.map((catId) => {
-        return { prefix: CacheTagPrefix.Category, value: catId };
-      });
+      const categoriesTags = categories.value.map((catId) => ({ prefix: CacheTagPrefix.Category, value: catId }));
       addTags(tags.concat(productTags, categoriesTags));
     });
 
@@ -548,8 +546,10 @@ export default defineComponent({
   &__info {
     margin: var(--spacer-sm) auto;
     @include for-desktop {
+      margin: 0;
       max-width: 32.625rem;
-      margin: 0 0 0 2rem;
+      padding-left: var(--spacer-lg);
+      width: 100%;
     }
   }
 
@@ -568,6 +568,7 @@ export default defineComponent({
 
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
+    color: var(--c-text-disabled)
   }
 
   &__price-and-rating {
@@ -707,6 +708,10 @@ export default defineComponent({
   &__additional-actions {
     display: flex;
     justify-content: flex-start;
+    margin: 0 var(--spacer-sm);
+    @include for-desktop {
+      margin: 0;
+    }
   }
 
   &__gallery {

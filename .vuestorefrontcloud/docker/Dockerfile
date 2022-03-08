@@ -12,7 +12,6 @@ ARG IMAGE_PROVIDER_BASE_URL
 ARG REDIS__HOST
 ARG REDIS__PORT
 ARG REDIS__CACHE_INVALIDATE_KEY
-ARG REDIS__CACHE_INVALIDATE_URL
 ARG RECAPTCHA_ENABLED
 ARG RECAPTCHA_HIDE_BADGE
 ARG RECAPTCHA_VERSION
@@ -21,7 +20,7 @@ ARG RECAPTCHA_MIN_SCORE
 ARG RECAPTCHA_SITE_KEY
 ARG RECAPTCHA_SECRET_KEY
 
-ENV MAGENTO_GRAPHQL=https://magento2-instance.vuestorefront.io/graphql
+ENV MAGENTO_GRAPHQL=https://magento2-instance.vuestorefront.io:8443/graphql
 ENV MAGENTO_EXTERNAL_CHECKOUT_URL=https://magento2-instance.vuestorefront.io
 ENV MAGENTO_EXTERNAL_CHECKOUT=${MAGENTO_EXTERNAL_CHECKOUT}
 ENV MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=${MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH}
@@ -36,7 +35,7 @@ ENV IMAGE_PROVIDER_BASE_URL=${IMAGE_PROVIDER_BASE_URL}
 ENV REDIS__HOST=${REDIS__HOST}
 ENV REDIS__PORT=${REDIS__PORT}
 ENV REDIS__CACHE_INVALIDATE_KEY=${REDIS__CACHE_INVALIDATE_KEY}
-ENV REDIS__CACHE_INVALIDATE_URL=${REDIS__CACHE_INVALIDATE_URL}
+ENV REDIS__CACHE_INVALIDATE_URL=/cache-invalidate
 ENV REDIS__KEY_PREFIX=magento2vsf2
 ENV REDIS__ENABLED=true
 ENV SENTRY_DSN=${SENTRY_DSN}
@@ -61,14 +60,10 @@ RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.
 
 RUN yarn install
 
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/recaptcha
+RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/sentry @sentry/tracing
 
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @nuxtjs/sentry
-
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing
 
 RUN yarn build && yarn cache clean --all
-
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
 RUN chmod a+x /usr/local/bin/vue-storefront.sh

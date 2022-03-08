@@ -1,10 +1,12 @@
 import {
-  CustomQuery, UseCart, Context, FactoryParams, UseCartErrors, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
+  UseCart as UseCartCore, Context, FactoryParams, UseCartErrors as UseCartErrorsCore, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
+import { ComputedProperty, CustomQuery } from '@vue-storefront/core/lib/src/types';
 
 export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<CART>;
+  loadTotalQty: (context: Context) => Promise<number>;
   addItem: (
     context: Context,
     params: ComposableFunctionArgs<{
@@ -27,11 +29,22 @@ export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends Plat
   isInCart: (context: Context, params: { currentCart: CART; product: PRODUCT }) => boolean;
 }
 
+export interface UseCart<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends UseCartCore<CART, CART_ITEM, PRODUCT, API> {
+  totalQuantity: ComputedProperty<number>,
+  loadTotalQty(params: {
+    customQuery?: CustomQuery;
+  }): Promise<void>;
+}
+export interface UseCartErrors extends UseCartErrorsCore {
+  loadTotalQty: Error
+}
+
 export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API>,
 ) => function useCart(): UseCart<CART, CART_ITEM, PRODUCT, API> {
   const loading: Ref<boolean> = sharedRef(false, 'useCart-loading');
   const cart: Ref<CART> = sharedRef(null, 'useCart-cart');
+  const totalQuantity: Ref<number> = sharedRef(0, 'useCart-totalQuantity');
   const error: Ref<UseCartErrors> = sharedRef({
     addItem: null,
     removeItem: null,
@@ -40,6 +53,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     clear: null,
     applyCoupon: null,
     removeCoupon: null,
+    loadTotalQty: null,
   }, 'useCart-error');
 
   // eslint-disable-next-line no-underscore-dangle,@typescript-eslint/naming-convention
@@ -78,6 +92,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
       });
       error.value.addItem = null;
       cart.value = updatedCart;
+      totalQuantity.value = updatedCart.total_quantity;
     } catch (err) {
       error.value.addItem = err;
       Logger.error('useCart/addItem', err);
@@ -101,6 +116,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
       });
       error.value.removeItem = null;
       cart.value = updatedCart;
+      totalQuantity.value = updatedCart.total_quantity;
     } catch (err) {
       error.value.removeItem = err;
       Logger.error('useCart/removeItem', err);
@@ -130,6 +146,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
         });
         error.value.updateItemQty = null;
         cart.value = updatedCart;
+        totalQuantity.value = updatedCart.total_quantity;
       } catch (err) {
         error.value.updateItemQty = err;
         Logger.error('useCart/updateItemQty', err);
@@ -142,23 +159,30 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
   const load = async ({ customQuery } = { customQuery: undefined }) => {
     Logger.debug('useCart.load');
 
-    if (cart.value) {
-      /**
-         * Triggering change for hydration purpose,
-         * temporary issue related with cpapi plugin
-         */
-      loading.value = false;
-      error.value.load = null;
-      cart.value = { ...cart.value };
-      return;
-    }
     try {
       loading.value = true;
-      cart.value = await _factoryParams.load({ customQuery });
+      const loadedCart = await _factoryParams.load({ customQuery });
+      cart.value = loadedCart;
+      totalQuantity.value = loadedCart?.total_quantity ?? 0;
       error.value.load = null;
     } catch (err) {
       error.value.load = err;
       Logger.error('useCart/load', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const loadTotalQty = async ({ customQuery } = { customQuery: undefined }) => {
+    Logger.debug('useCart.loadTotalQty');
+
+    try {
+      loading.value = true;
+      totalQuantity.value = await _factoryParams.loadTotalQty({ customQuery });
+      error.value.loadTotalQty = null;
+    } catch (err) {
+      error.value.loadTotalQty = err;
+      Logger.error('useCart/loadTotalQty', err);
     } finally {
       loading.value = false;
     }
@@ -172,6 +196,7 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
       const updatedCart = await _factoryParams.clear({ currentCart: cart.value });
       error.value.clear = null;
       cart.value = updatedCart;
+      totalQuantity.value = 0;
     } catch (err) {
       error.value.clear = err;
       Logger.error('useCart/clear', err);
@@ -236,9 +261,11 @@ export const useCartFactory = <CART, CART_ITEM, PRODUCT, API extends PlatformApi
     api: _factoryParams.api,
     setCart,
     cart: computed(() => cart.value),
+    totalQuantity,
     isInCart,
     addItem,
     load,
+    loadTotalQty,
     removeItem,
     clear,
     updateItemQty,

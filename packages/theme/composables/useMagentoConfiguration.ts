@@ -1,7 +1,5 @@
 import {
   useConfig,
-  useCurrency,
-  useStore,
   storeConfigGetters,
   Currency,
   AvailableStores,
@@ -27,16 +25,6 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
     config: storeConfig,
     loadConfig,
   } = useConfig();
-
-  const {
-    stores,
-    load: loadStores,
-  } = useStore();
-
-  const {
-    currencies,
-    load: loadCurrencies,
-  } = useCurrency();
 
   const selectedCurrency = computed<string | undefined>(() => app.$cookies.get(cookieNames.currencyCookieName));
 
@@ -73,14 +61,9 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
 
       return true;
     });
-
-    loadStores();
-    loadCurrencies();
   };
 
   return {
-    currencies,
-    stores,
     storeConfig,
     selectedCurrency,
     selectedLocale,

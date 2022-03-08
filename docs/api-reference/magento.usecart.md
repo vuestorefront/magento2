@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-_default: () => import("@vue-storefront/core").UseCart<import("@vue-storefront/magento-api/lib/types/GraphQL").Cart, import("@vue-storefront/magento-api").CartItemInterface, Product, any>
+_default: () => import("../../factories/useCartFactory").UseCart<import("@vue-storefront/magento-api/lib/types/GraphQL").Cart, import("@vue-storefront/magento-api").CartItemInterface, Product, any>
 ```

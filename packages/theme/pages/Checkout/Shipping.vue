@@ -33,7 +33,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="firstname => changeShippingDetails('firstname', firstname)"
           />
         </ValidationProvider>
@@ -51,7 +51,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="lastname => changeShippingDetails('lastname', lastname)"
           />
         </ValidationProvider>
@@ -69,7 +69,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="street => changeShippingDetails('street', street)"
           />
         </ValidationProvider>
@@ -87,7 +87,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="apartment => changeShippingDetails('apartment', apartment)"
           />
         </ValidationProvider>
@@ -105,7 +105,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="city => changeShippingDetails('city', city)"
           />
         </ValidationProvider>
@@ -135,7 +135,7 @@
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="region => changeShippingDetails('region', region)"
           >
             <SfSelectOption
@@ -161,7 +161,7 @@
             class="form__element form__element--half form__select sf-select--underlined"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="changeCountry"
           >
             <SfSelectOption
@@ -187,7 +187,7 @@
             class="form__element form__element--half form__element--half-even"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="postcode => changeShippingDetails('postcode', postcode)"
           />
         </ValidationProvider>
@@ -205,7 +205,7 @@
             class="form__element form__element--half"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
             @input="telephone => changeShippingDetails('telephone', telephone)"
           />
         </ValidationProvider>
@@ -415,15 +415,13 @@ export default defineComponent({
       await Promise.all([
         loadCountries(),
         load(),
+        loadUserShipping(),
       ]);
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
       }
 
-      if (!userShipping.value?.addresses && isAuthenticated.value) {
-        await loadUserShipping();
-      }
       const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
 
       if (!shippingAddresses || shippingAddresses.length === 0) {
@@ -434,9 +432,7 @@ export default defineComponent({
       const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
-        return;
       }
-      canAddNewAddress.value = false;
     });
 
     return {

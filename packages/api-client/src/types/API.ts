@@ -212,6 +212,11 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<CartQuery>>;
 
+  cartTotalQty(
+    cartId: string,
+    customQuery?: CustomQuery
+  ): Promise<ApolloQueryResult<CartQuery>>;
+
   categoryList(
     categoryFilter?: CategoryListQueryVariables,
     customQuery?: CustomQuery
@@ -437,6 +442,10 @@ export interface MagentoApiMethods {
 
   wishlist(
     searchParams: WishlistQueryVariables,
+    customQuery?: CustomQuery,
+  ): Promise<ApolloQueryResult<WishlistQuery>>;
+
+  wishlistItemsCount(
     customQuery?: CustomQuery,
   ): Promise<ApolloQueryResult<WishlistQuery>>;
 }

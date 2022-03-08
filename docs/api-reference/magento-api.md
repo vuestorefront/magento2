@@ -24,6 +24,7 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [applyCouponToCart](./magento-api.applycoupontocart.md) |  |
 |  [availableStores](./magento-api.availablestores.md) |  |
 |  [cart](./magento-api.cart.md) |  |
+|  [cartTotalQty](./magento-api.carttotalqty.md) |  |
 |  [categoryList](./magento-api.categorylist.md) |  |
 |  [categorySearch](./magento-api.categorysearch.md) |  |
 |  [changeCustomerPassword](./magento-api.changecustomerpassword.md) |  |
@@ -76,4 +77,5 @@ The `@vue-storefront/magento2` library includes everything needed to fetch data 
 |  [upsellProduct](./magento-api.upsellproduct.md) |  |
 |  [urlResolver](./magento-api.urlresolver.md) |  |
 |  [wishlist](./magento-api.wishlist.md) |  |
+|  [wishlistItemsCount](./magento-api.wishlistitemscount.md) |  |
 

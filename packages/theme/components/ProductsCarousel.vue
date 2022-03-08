@@ -66,6 +66,32 @@
             </template>
           </SfProductCard>
         </SfCarouselItem>
+        <template #prev="prevArrow">
+          <SfButton
+            aria-label="previous"
+            class="sf-arrow"
+            @click="prevArrow.go('prev')"
+          >
+            <SvgImage
+              icon="arrow_left"
+              width="24"
+              height="24"
+            />
+          </SfButton>
+        </template>
+        <template #next="nextArrow">
+          <SfButton
+            aria-label="next"
+            class="sf-arrow"
+            @click="nextArrow.go('next')"
+          >
+            <SvgImage
+              icon="arrow_right"
+              width="24"
+              height="24"
+            />
+          </SfButton>
+        </template>
       </SfCarousel>
     </SfLoader>
   </SfSection>
@@ -77,7 +103,7 @@ import {
   SfProductCard,
   SfSection,
   SfLoader,
-  SfButton
+  SfButton,
 } from '@storefront-ui/vue';
 
 import {
@@ -86,6 +112,7 @@ import {
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductsCarousel',
@@ -95,6 +122,7 @@ export default defineComponent({
     SfSection,
     SfLoader,
     SfButton,
+    SvgImage,
   },
   props: {
     title: {
@@ -161,6 +189,14 @@ export default defineComponent({
 
   &__item {
     margin: 1.9375rem 0 2.4375rem 0;
+  }
+
+  .sf-arrow {
+    --button-color: var(--c-dark);
+
+    &:hover {
+      --button-color: var(--c-light);
+    }
   }
 }
 

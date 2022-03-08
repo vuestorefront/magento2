@@ -1,14 +1,9 @@
 <template>
   <div>
-    <LazyHydrate when-visible>
-      <CartSidebar />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
-      <WishlistSidebar />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
-      <LoginModal />
-    </LazyHydrate>
+    <IconSprite />
+    <CartSidebar v-if="isCartSidebarOpen" />
+    <WishlistSidebar v-if="isWishlistSidebarOpen" />
+    <LoginModal v-if="isLoginModalOpen" />
     <LazyHydrate when-visible>
       <Notification />
     </LazyHydrate>
@@ -18,52 +13,59 @@
       <nuxt :key="route.fullPath" />
     </div>
     <BottomNavigation />
-    <AppFooter />
+    <LoadWhenVisible>
+      <AppFooter />
+    </LoadWhenVisible>
   </div>
 </template>
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { useRoute, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import {
+  useRoute, defineComponent, useAsync,
+} from '@nuxtjs/composition-api';
 import {
   useUser,
 } from '@vue-storefront/magento';
+import useUiState from '~/composables/useUiState.ts';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
-import TopBar from '~/components/TopBar.vue';
-import CartSidebar from '~/components/CartSidebar.vue';
-import WishlistSidebar from '~/components/WishlistSidebar.vue';
-import LoginModal from '~/components/LoginModal.vue';
-import Notification from '~/components/Notification';
-import AppFooter from '~/components/AppFooter.vue';
+import IconSprite from '~/components/General/IconSprite.vue';
+import TopBar from '~/components/TopBar';
 
 export default defineComponent({
   name: 'DefaultLayout',
 
   components: {
+    LoadWhenVisible,
     LazyHydrate,
-    TopBar,
     AppHeader,
     BottomNavigation,
-    AppFooter,
-    CartSidebar,
-    WishlistSidebar,
-    LoginModal,
-    Notification,
+    IconSprite,
+    TopBar,
+    AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
+    CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
+    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
+    LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
+    Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification'),
   },
 
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
     const { loadConfiguration } = useMagentoConfiguration();
+    const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
 
-    onMounted(() => {
-      loadConfiguration();
-      loadUser();
+    useAsync(async () => {
+      await Promise.all([loadConfiguration(), loadUser()]);
     });
 
     return {
+      isCartSidebarOpen,
+      isWishlistSidebarOpen,
+      isLoginModalOpen,
       route,
     };
   },
@@ -76,7 +78,7 @@ export default defineComponent({
 #layout {
   box-sizing: border-box;
   @include for-desktop {
-    max-width: 1240px;
+    max-width: 1270px;
     margin: auto;
   }
 }

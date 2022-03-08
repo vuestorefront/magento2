@@ -1,10 +1,9 @@
 export const useEmptyCartMock = (cartData = {}) => ({
   load: jest.fn(),
-  loading: {
-    value: false,
-  },
+  loading: false,
   removeItem: jest.fn(),
   updateItemQty: jest.fn(),
+  loadTotalQty: jest.fn(() => 0),
   cart: {
     value: {},
   },
@@ -13,11 +12,10 @@ export const useEmptyCartMock = (cartData = {}) => ({
 
 export const useCartMock = (cartData = {}) => ({
   load: jest.fn(),
-  loading: {
-    value: false,
-  },
+  loading: false,
   removeItem: jest.fn(),
   updateItemQty: jest.fn(),
+  loadTotalQty: jest.fn(() => 2),
   cart: {
     value: {
       items: [

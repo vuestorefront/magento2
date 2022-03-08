@@ -172,7 +172,7 @@ import {
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted
+  useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
@@ -207,6 +207,15 @@ export default defineComponent({
     const terms = ref(false);
     const getAttributes = (product) => product.configurable_options || [];
     const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
+
+    onMounted(async () => {
+      const validStep = await isPreviousStepValid('billing');
+      if (!validStep) {
+        await router.push(app.localePath('/checkout/user-account'));
+      }
+
+      await load();
+    });
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid('billing');

@@ -182,12 +182,12 @@
           key="no-results"
           class="before-results"
         >
-          <nuxt-img
-            src="/error/error.svg"
-            class="before-results__picture"
-            alt="error"
+          <SvgImage
+            icon="error_image"
+            :label="$t('Error')"
             width="412"
             height="412"
+            class="before-results__picture"
           />
           <p class="before-results__paragraph">
             {{ $t('You haven’t searched for items yet') }}
@@ -217,12 +217,12 @@ import {
 } from '@storefront-ui/vue';
 import {
   ref,
-  watch,
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
 import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
 import { useUiHelpers, useImage } from '~/composables';
+import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -233,6 +233,7 @@ export default defineComponent({
     SfScrollable,
     SfMenuItem,
     SfButton,
+    SvgImage,
   },
   props: {
     visible: {
@@ -244,7 +245,7 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
 
@@ -252,16 +253,6 @@ export default defineComponent({
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
     const categories = computed(() => props.result?.categories);
-
-    watch(() => props.visible, (newVal) => {
-      isSearchOpen.value = newVal;
-      if (isSearchOpen.value) {
-        document.body.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-        emit('removeSearchResults');
-      }
-    });
 
     const addItemToWishlist = async (product) => {
       await (
@@ -283,7 +274,7 @@ export default defineComponent({
       isInWishlist,
       isAuthenticated,
       getMagentoImage,
-      imageSizes
+      imageSizes,
     };
   },
 });

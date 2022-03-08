@@ -23,6 +23,12 @@ export interface UseWishlistFactoryParams<WISHLIST,
       pageSize: number;
     }>,
   }>) => Promise<WISHLIST>;
+  loadItemsCount: (context: Context, params: ComposableFunctionArgs<{
+    searchParams?: Partial<{
+      currentPage: number;
+      pageSize: number;
+    }>,
+  }>) => Promise<WISHLIST>;
   addItem: (
     context: Context,
     params: ComposableFunctionArgs<{
@@ -42,13 +48,17 @@ export interface UseWishlistFactoryParams<WISHLIST,
 export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseWishlistFactoryParams<WISHLIST, WISHLIST_ITEM, PRODUCT, API>,
 ) => {
+  const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
+
   const useWishlist = (ssrKey = 'useWishlistFactory'): UseWishlist<WISHLIST, WISHLIST_ITEM, PRODUCT, API> => {
     const loading: Ref<boolean> = sharedRef<boolean>(false, `useWishlist-loading-${ssrKey}`);
     const wishlist: Ref<WISHLIST> = sharedRef(null, `useWishlist-wishlist-${ssrKey}`);
+    const itemsCount: Ref<number> = sharedRef(0, `useWishlist-itemsCount-${ssrKey}`);
     const error: Ref<UseWishlistErrors> = sharedRef({
       addItem: null,
       removeItem: null,
       load: null,
+      loadItemsCount: null,
       clear: null,
     }, `useWishlist-error-${ssrKey}`);
 
@@ -65,6 +75,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
 
     const setWishlist = (newWishlist: WISHLIST) => {
       wishlist.value = newWishlist;
+      itemsCount.value = newWishlist[0].items_count;
       Logger.debug(`useWishlistFactory/${ssrKey}/setWishlist`, newWishlist);
     };
 
@@ -80,6 +91,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
         });
         error.value.addItem = null;
         wishlist.value = updatedWishlist;
+        itemsCount.value = updatedWishlist.items_count;
       } catch (err) {
         error.value.addItem = err;
         Logger.error(`useWishlist/${ssrKey}/addItem`, err);
@@ -100,6 +112,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
         });
         error.value.removeItem = null;
         wishlist.value = updatedWishlist;
+        itemsCount.value = updatedWishlist.items_count;
       } catch (err) {
         error.value.removeItem = err;
         Logger.error(`useWishlist/${ssrKey}/removeItem`, err);
@@ -118,13 +131,29 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
       Logger.debug(`useWishlist/${ssrKey}/load`);
       try {
         loading.value = true;
-        wishlist.value = await _factoryParams.load(params);
+        const loadedWishlist = await _factoryParams.load(params);
+        wishlist.value = loadedWishlist;
+        itemsCount.value = calculateWishlistTotal(loadedWishlist);
         error.value.load = null;
       } catch (err) {
         error.value.load = err;
         Logger.error(`useWishlist/${ssrKey}/load`, err);
       } finally {
         loading.value = false;
+      }
+    };
+
+    const loadItemsCount = async (params: {
+      customQuery?: CustomQuery
+    }) => {
+      Logger.debug(`useWishlist/${ssrKey}/loadItemsCount`);
+      try {
+        const loadedWishlist = await _factoryParams.loadItemsCount(params);
+        itemsCount.value = calculateWishlistTotal(loadedWishlist);
+        error.value.loadItemsCount = null;
+      } catch (err) {
+        error.value.loadItemsCount = err;
+        Logger.error(`useWishlist/${ssrKey}/loadItemsCount`, err);
       }
     };
 
@@ -138,6 +167,7 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
         });
         error.value.clear = null;
         wishlist.value = updatedWishlist;
+        itemsCount.value = 0;
       } catch (err) {
         error.value.clear = err;
         Logger.error(`useWishlist/${ssrKey}/clear`, err);
@@ -157,15 +187,17 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
 
     return {
       api: _factoryParams.api,
-      wishlist: computed(() => wishlist.value),
+      wishlist,
+      itemsCount,
       isInWishlist,
       addItem,
       load,
+      loadItemsCount,
       removeItem,
       clear,
       setWishlist,
-      loading: computed(() => loading.value),
-      error: computed(() => error.value),
+      loading,
+      error,
     };
   };
 

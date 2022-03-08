@@ -16,7 +16,7 @@
             :label="$t('First Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -30,7 +30,7 @@
             :label="$t('Last Name')"
             required
             :valid="!errors[0]"
-            :error-message="errors[0]"
+            :error-message="$t(errors[0])"
           />
         </ValidationProvider>
       </div>
@@ -46,7 +46,7 @@
           :label="$t('Your e-mail')"
           required
           :valid="!errors[0]"
-          :error-message="errors[0]"
+          :error-message="$t(errors[0])"
         />
       </ValidationProvider>
       <SfModal
@@ -74,7 +74,29 @@
           {{ $t('Update personal data') }}
         </SfButton>
       </SfModal>
-      <SfButton class="form__button">
+      <div 
+        v-if="requirePassword"
+        class="smartphone-only"
+      >
+        {{ $t('Please type your current password to change your email address.') }}
+        <SfInput
+          v-model="currentPassword"
+          type="password"
+          name="currentPassword"
+          :label="$t('Current Password')"
+          required
+          class="form__element"
+          style="margin-top: 10px"
+          @keypress.enter="handleSubmit(submitForm(reset))"
+        />
+        <SfButton
+          class="form__button"
+          @click="handleSubmit(submitForm(reset))"
+        >
+          {{ $t('Update personal data') }}
+        </SfButton>
+      </div>
+      <SfButton v-if="!requirePassword" class="form__button">
         {{ $t('Update personal data') }}
       </SfButton>
     </form>
@@ -83,7 +105,8 @@
 
 <script>
 import { defineComponent, ref } from '@nuxtjs/composition-api';
-import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { email } from 'vee-validate/dist/rules';
 import { useUser, userGetters } from '@vue-storefront/magento';
 import {
   SfInput,
@@ -91,6 +114,11 @@ import {
   SfModal,
 } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
+
+extend('email', {
+  ...email,
+  message: 'The email field must be a valid email',
+});
 
 export default defineComponent({
   name: 'ProfileUpdateForm',

@@ -298,7 +298,9 @@ import {
 } from '@storefront-ui/vue';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { useUser, useForgotPassword, useWishlist } from '@vue-storefront/magento';
+import {
+  useUser, useForgotPassword, useWishlist, useCart,
+} from '@vue-storefront/magento';
 import { useUiState } from '~/composables';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
@@ -348,7 +350,9 @@ export default defineComponent({
       loading,
       error: userError,
     } = useUser();
-    const { load: loadWishlist } = useWishlist('GlobalWishlist');
+
+    const { load: loadCart } = useCart();
+    const { loadItemsCount } = useWishlist('GlobalWishlist');
     const { request, error: forgotPasswordError, loading: forgotPasswordLoading } = useForgotPassword();
 
     const barTitle = computed(() => {
@@ -386,6 +390,7 @@ export default defineComponent({
       resetErrorValues();
       isForgotten.value = value;
       isLogin.value = !value;
+      isThankYouAfterForgotten.value = value;
     };
 
     const closeModal = () => {
@@ -439,7 +444,7 @@ export default defineComponent({
 
     const handleLogin = async () => {
       await handleForm(login)();
-      await loadWishlist('GlobalWishlist');
+      await Promise.all([loadItemsCount('GlobalWishlist'), loadCart()]);
     };
 
     const handleForgotten = async () => {
