@@ -47,6 +47,15 @@
               </div>
             </div>
             <div class="addresses__actions">
+              <SvgImage
+                icon="cross"
+                :label="$t('Remove Address')"
+                role="button"
+                width="14"
+                height="14"
+                class="addresses__remove smartphone-only"
+                @click.native="removeAddress(address)"
+              />
               <SfButton
                 @click="changeAddress(address)"
               >
