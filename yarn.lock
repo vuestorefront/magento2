@@ -4388,7 +4388,7 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@vue-storefront/cache@~2.5.4":
+"@vue-storefront/cache@^2.5.4":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@vue-storefront/cache/-/cache-2.5.5.tgz#89fc2c64531230b2b333062106766237fbf7fc8f"
   integrity sha512-NUkx1wVf8EXu4RGRaAYBa61CJ+JHgnP10V2x3ttYeFGYm95442xtZU5FKb+5rN3mW3YVLgWhM3d7uCXz+OyofA==
