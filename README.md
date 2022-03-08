@@ -2,6 +2,15 @@
 <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
+
+### Stay connected
+
+![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
+[![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
+
+
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
