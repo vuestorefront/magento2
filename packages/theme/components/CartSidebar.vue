@@ -296,7 +296,6 @@ export default defineComponent({
       .getItems(cart.value)
       .filter(Boolean)
       .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant, original_sku: item.product.sku } })));
-    console.log(products);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];

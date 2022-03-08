@@ -186,7 +186,6 @@ export default defineComponent({
       wishlist, removeItem, load: loadWishlist, loading,
     } = useWishlist('GlobalWishlist');
     const { isAuthenticated } = useUser();
-    console.log('VALUE', wishlist.value);
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
     const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
