@@ -35,7 +35,7 @@ vsf init <project_name> && cd <project_name> && yarn && yarn dev
 
 ## How to start if you want to contribute?
 
-Want to contribute? Ping us on `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io)!
+Want to contribute? Ping us on `magento2` channel on [our Discord](http://discord.vuestorefront.io)!
 
 ### Requirements:
 - NodeJS v16 or later
