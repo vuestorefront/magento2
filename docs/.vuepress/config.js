@@ -82,14 +82,6 @@ module.exports = {
         ]
       },
       {
-        title: 'Performance',
-        collapsable: false,
-        children: [
-          ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
-          ['/guide/ssr', 'Server Side Rendering Cache'],
-        ]
-      },
-      {
         title: 'Composables',
         children: [
           ['/guide/composables/use-addresses', 'useAddresses'],
