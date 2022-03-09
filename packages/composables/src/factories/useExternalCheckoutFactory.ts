@@ -14,6 +14,11 @@ export interface UseExternalCheckoutFactoryParams<API extends PlatformApi = any>
   initializeCheckout: (context: Context, params: ComposableFunctionArgs<{ baseUrl: string }>) => Promise<string>;
 }
 
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 export const useExternalCheckoutFactory = <API extends PlatformApi = any>(
   factoryParams: UseExternalCheckoutFactoryParams<API>,
 ) => {

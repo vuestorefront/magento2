@@ -176,11 +176,10 @@ import {
 } from '@nuxtjs/composition-api';
 import {
   useMakeOrder,
-  useCart,
   cartGetters,
 } from '@vue-storefront/magento';
+import { useCart, useImage } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import { useImage } from '~/composables';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 

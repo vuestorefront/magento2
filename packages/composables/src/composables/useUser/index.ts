@@ -25,6 +25,11 @@ interface UseUserFactoryParams<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS>
   }) => Promise<USER>;
 }
 
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 const factoryParams: UseUserFactoryParams<
 any,
 UpdateCustomerEmailMutationVariables,
@@ -175,6 +180,7 @@ CustomerCreateInput
 
     return factoryParams.load(context);
   },
+
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
     const { data, errors } = await context.$magento.api.changeCustomerPassword(params);

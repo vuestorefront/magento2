@@ -1,5 +1,9 @@
 import { CustomerUpdateParameters } from '@vue-storefront/magento-api';
 
+/**
+ * @deprecated
+ * @use packages/theme/helpers/customer/userDataGenerator.ts
+ */
 export const generateUserData = (userData): CustomerUpdateParameters => {
   const baseData = {
     email: userData.email,

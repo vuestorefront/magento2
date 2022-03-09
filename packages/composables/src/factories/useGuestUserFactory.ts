@@ -1,3 +1,8 @@
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 import { Ref, computed } from '@vue/composition-api';
 import {
   Context,

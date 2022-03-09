@@ -6,7 +6,7 @@ import { useUser, useForgotPassword, useCart } from '@vue-storefront/magento';
 import {
   render, useUserMock, useForgotPasswordMock, useCartMock,
 } from '~/test-utils';
-import useUiState from '~/composables/useUiState.ts';
+import useUiState from '~/composables/useUiState/useUiState.ts';
 
 import LoginModal from '../LoginModal';
 

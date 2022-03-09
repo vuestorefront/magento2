@@ -1,3 +1,5 @@
+// @depracated - moved to theme
+
 import { SearchData } from '../../types';
 
 const buildBreadcrumbsList = (rootCat, bc) => {

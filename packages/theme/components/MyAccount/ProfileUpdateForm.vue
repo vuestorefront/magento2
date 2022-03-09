@@ -74,7 +74,7 @@
           {{ $t('Update personal data') }}
         </SfButton>
       </SfModal>
-      <div 
+      <div
         v-if="requirePassword"
         class="smartphone-only"
       >
@@ -107,13 +107,13 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
-import { useUser, userGetters } from '@vue-storefront/magento';
+import { userGetters } from '@vue-storefront/magento';
 import {
   SfInput,
   SfButton,
   SfModal,
 } from '@storefront-ui/vue';
-import { useUiNotification } from '~/composables';
+import { useUiNotification, useUser } from '~/composables';
 
 extend('email', {
   ...email,

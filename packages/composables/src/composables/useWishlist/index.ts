@@ -8,6 +8,11 @@ import useUser from '../useUser';
 import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
 import { useWishlistFactory, UseWishlistFactoryParams } from '../../factories/useWishlistFactory';
 
+/**
+ * @deprecated since version <version?>
+ *
+ * @see <add docs link>
+ */
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<any, any, any> = {
   provide() {

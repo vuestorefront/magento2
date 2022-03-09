@@ -83,7 +83,6 @@
 
 <script>
 import {
-  useCart,
   useShippingProvider,
   cartGetters,
   useGetShippingMethods,
@@ -93,6 +92,7 @@ import {
 } from '@storefront-ui/vue';
 
 import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { useCart } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default defineComponent({

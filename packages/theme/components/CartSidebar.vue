@@ -249,13 +249,16 @@ import {
   useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
-  useUser,
   cartGetters,
-  useExternalCheckout,
 } from '@vue-storefront/magento';
 import _debounce from 'lodash.debounce';
-import { useUiState, useUiNotification } from '~/composables';
+import {
+  useCart,
+  useUiState,
+  useUiNotification,
+  useUser,
+  useExternalCheckout,
+} from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -296,7 +299,6 @@ export default defineComponent({
       .getItems(cart.value)
       .filter(Boolean)
       .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant, original_sku: item.product.sku } })));
-    console.log(products);
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];

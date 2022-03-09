@@ -122,9 +122,7 @@ import {
 
 import {
   categoryGetters,
-  useCart,
-  useCategory,
-  useUser, useWishlist,
+  wishlistGetters,
 } from '@vue-storefront/magento';
 import {
   computed,
@@ -137,8 +135,11 @@ import {
 } from '@nuxtjs/composition-api';
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
+  useCart,
   useUiHelpers,
   useUiState,
+  useWishlist,
+  useUser,
 } from '~/composables';
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
@@ -178,7 +179,7 @@ export default defineComponent({
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
+    const categoryTree = computed(() => categoryGetters.getCategoryTree([]));
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
