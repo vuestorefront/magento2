@@ -1,8 +1,9 @@
-import { ComposableFunctionArgs, Context, UseCartErrors } from '@vue-storefront/core';
+import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
 
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   load: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
+  loadTotalQty: (context: Context) => Promise<void>;
   addItem: (
     params: ComposableFunctionArgs<{
       product: PRODUCT;
@@ -21,4 +22,15 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   cart: ComputedRef<CART>;
   loading: Ref<boolean>;
   error: Ref<UseCartErrors>;
+}
+
+export interface UseCartErrors {
+  addItem: Error;
+  removeItem: Error;
+  updateItemQty: Error;
+  load: Error;
+  clear: Error;
+  applyCoupon: Error;
+  removeCoupon: Error;
+  loadTotalQty: Error;
 }

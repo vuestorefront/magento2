@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 import { Wishlist, Cart } from '@vue-storefront/magento';
 
-const wishlist: Wishlist = {};
+const wishlist: Wishlist = { items_count: 0 };
 const user: any = {};
-const cart: Cart | {} = {};
+const cart: Cart = { id: '', is_virtual: false, total_quantity: 0 };
 
 interface CustomerState {
   wishlist,

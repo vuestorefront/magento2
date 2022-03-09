@@ -1,6 +1,8 @@
 import { ref, Ref, useContext } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs, Logger } from '@vue-storefront/core';
 import { UseContentInterface, UseContentErrors } from '~/composables/useContent/useContent';
+import { loadContentCommand } from '~/composables/useContent/commands/loadContentCommand';
+import { loadBlocksCommand } from '~/composables/useContent/commands/loadBlocksCommand';
 
 export const useContent = <PAGE, BLOCK>(): UseContentInterface<PAGE, BLOCK> => {
   const loading: Ref<boolean> = ref(false);
@@ -18,7 +20,6 @@ export const useContent = <PAGE, BLOCK>(): UseContentInterface<PAGE, BLOCK> => {
 
     try {
       error.value.page = null;
-      const { loadContentCommand } = await import('~/composables/useContent/commands/loadContentCommand');
       result = await loadContentCommand.execute(context, params);
     } catch (err) {
       error.value.page = err;
@@ -36,7 +37,6 @@ export const useContent = <PAGE, BLOCK>(): UseContentInterface<PAGE, BLOCK> => {
 
     try {
       error.value.blocks = null;
-      const { loadBlocksCommand } = await import('~/composables/useContent/commands/loadBlocksCommand');
       result = await loadBlocksCommand.execute(context, params);
     } catch (err) {
       error.value.blocks = err;

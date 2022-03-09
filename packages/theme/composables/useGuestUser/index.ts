@@ -1,6 +1,7 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs, Logger } from '@vue-storefront/core';
 import { AttachToCartParams, UseGuestUser, UseGuestUserErrors } from '~/composables/useGuestUser/useGuestUser';
+import { attachToCartCommand } from '~/composables/useGuestUser/commands/attachToCartCommand';
 
 export const useGuestUser = <PARAMS extends AttachToCartParams>(): UseGuestUser<PARAMS> => {
   const loading = ref(false);
@@ -13,7 +14,6 @@ export const useGuestUser = <PARAMS extends AttachToCartParams>(): UseGuestUser<
 
     try {
       loading.value = true;
-      const { attachToCartCommand } = await import('~/composables/useGuestUser/commands/attachToCartCommand');
       await attachToCartCommand.execute(context, params);
 
       error.value.attachToCart = null;

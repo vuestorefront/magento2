@@ -1,8 +1,16 @@
 import { ref, computed, useContext } from '@nuxtjs/composition-api';
-import { Logger, UseCartErrors } from '@vue-storefront/core';
+import { Logger } from '@vue-storefront/core';
 import { Cart, CartItemInterface, ProductInterface } from '@vue-storefront/magento-api';
-import { UseCartInterface } from '~/composables/useCart/useCart';
+import { UseCartInterface, UseCartErrors } from '~/composables/useCart/useCart';
 import { useCustomerStore } from '~/stores/customer';
+import { loadCartCommand } from '~/composables/useCart/commands/loadCartCommand';
+import { clearCartCommand } from '~/composables/useCart/commands/clearCartCommand';
+import { loadTotalQtyCommand } from '~/composables/useCart/commands/loadTotalQtyCommand';
+import { addItemCommand } from '~/composables/useCart/commands/addItemCommand';
+import { removeItemCommand } from '~/composables/useCart/commands/removeItemCommand';
+import { updateItemQtyCommand } from '~/composables/useCart/commands/updateItemQtyCommand';
+import { applyCouponCommand } from '~/composables/useCart/commands/applyCouponCommand';
+import { removeCouponCommand } from '~/composables/useCart/commands/removeCouponCommand';
 
 const useCart = <
   CART extends Cart,
@@ -18,6 +26,7 @@ const useCart = <
     clear: null,
     applyCoupon: null,
     removeCoupon: null,
+    loadTotalQty: null,
   });
   const { app } = useContext();
   const context = app.$vsf;
@@ -55,7 +64,6 @@ const useCart = <
 
     try {
       loading.value = true;
-      const { loadCartCommand } = await import('~/composables/useCart/commands/loadCartCommand');
       const loadedCart = await loadCartCommand.execute(context, { customQuery, realCart });
       customerStore.$patch((state) => {
         state.cart = loadedCart;
@@ -74,13 +82,7 @@ const useCart = <
 
     try {
       loading.value = true;
-      const [{ loadCartCommand }, { clearCartCommand }] = await Promise.all(
-        [
-          import('~/composables/useCart/commands/loadCartCommand'),
-          import('~/composables/useCart/commands/clearCartCommand'),
-        ],
-      );
-      await clearCartCommand.execute(context);
+      clearCartCommand.execute(context);
       const loadedCart = await loadCartCommand.execute(context, { customQuery });
 
       customerStore.$patch((state) => {
@@ -89,6 +91,24 @@ const useCart = <
     } catch (err) {
       error.value.clear = err;
       Logger.error('useCart/clear', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const loadTotalQty = async (): Promise<void> => {
+    Logger.debug('useCart.loadTotalQty');
+
+    try {
+      loading.value = true;
+      const totalQuantity = await loadTotalQtyCommand.execute(context);
+
+      customerStore.$patch((state) => {
+        state.cart.total_quantity = totalQuantity;
+      });
+    } catch (err) {
+      error.value.loadTotalQty = err;
+      Logger.error('useCart/loadTotalQty', err);
     } finally {
       loading.value = false;
     }
@@ -107,7 +127,6 @@ const useCart = <
         // TODO if cart is not loaded throw error instead to decouple this method
         await load({ realCart: true });
       }
-      const { addItemCommand } = await import('~/composables/useCart/commands/addItemCommand');
       const updatedCart = await addItemCommand.execute(
         context,
         {
@@ -133,7 +152,6 @@ const useCart = <
 
     try {
       loading.value = true;
-      const { removeItemCommand } = await import('~/composables/useCart/commands/removeItemCommand');
       const updatedCart = await removeItemCommand.execute(
         context,
         {
@@ -167,7 +185,6 @@ const useCart = <
     if (quantity && quantity > 0) {
       try {
         loading.value = true;
-        const { updateItemQtyCommand } = await import('~/composables/useCart/commands/updateItemQtyCommand');
         const updatedCart = await updateItemQtyCommand.execute(
           context,
           {
@@ -199,7 +216,6 @@ const useCart = <
 
     try {
       loading.value = true;
-      const { applyCouponCommand } = await import('~/composables/useCart/commands/applyCouponCommand');
       const { updatedCart } = await applyCouponCommand.execute(
         context,
         {
@@ -228,7 +244,6 @@ const useCart = <
 
     try {
       loading.value = true;
-      const { removeCouponCommand } = await import('~/composables/useCart/commands/removeCouponCommand');
       const { updatedCart } = await removeCouponCommand.execute(
         context,
         {
@@ -252,6 +267,7 @@ const useCart = <
   return {
     setCart,
     cart,
+    loadTotalQty,
     isInCart,
     addItem,
     load,
