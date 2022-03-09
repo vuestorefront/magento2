@@ -120,10 +120,7 @@ import {
   SfBadge,
 } from '@storefront-ui/vue';
 
-import {
-  categoryGetters,
-  wishlistGetters,
-} from '@vue-storefront/magento';
+import { categoryGetters } from '@vue-storefront/magento';
 import {
   computed,
   ref,
@@ -136,11 +133,13 @@ import {
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
   useCart,
+  useCategory,
   useUiHelpers,
   useUiState,
   useWishlist,
   useUser,
 } from '~/composables';
+
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -167,7 +166,7 @@ export default defineComponent({
     const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
     const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
-    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
+    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist();
 
     const {
       categories: categoryList,
@@ -177,9 +176,9 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
+    const wishlistHasProducts = computed(() => false);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = computed(() => categoryGetters.getCategoryTree([]));
+    const categoryTree = computed(() => categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0));
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
@@ -195,8 +194,8 @@ export default defineComponent({
 
     onMounted(() => {
       if (app.$device.isDesktop) {
-        loadCartTotalQty();
-        loadWishlistItemsCount();
+        // loadCartTotalQty();
+        // loadWishlistItemsCount();
       }
     });
 

@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from '@nuxtjs/composition-api';
+import { ComputedRef } from '@nuxtjs/composition-api';
 
 interface StateInterface {
   isCartSidebarOpen: boolean,
