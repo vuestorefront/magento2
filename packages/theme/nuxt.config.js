@@ -6,6 +6,8 @@ import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
+const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
+
 const {
   integrations: {
     magento: {
@@ -61,7 +63,6 @@ export default () => {
       // to core
       '@nuxtjs/composition-api/module',
       '@nuxt/typescript-build',
-      '@nuxtjs/google-fonts',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources',
       '@nuxtjs/device',
@@ -182,19 +183,6 @@ export default () => {
         theme_color: '#5ECE7B',
       },
     },
-    googleFonts: {
-      families: {
-        Raleway: {
-          wght: [300, 400, 500, 600, 700],
-          ital: [400],
-        },
-        Roboto: {
-          wght: [300, 400, 500, 700],
-          ital: [300, 400],
-        },
-      },
-      display: 'swap',
-    },
     styleResources: {
       scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
     },
@@ -210,6 +198,18 @@ export default () => {
             lastCommit: process.env.LAST_COMMIT || '',
           }),
         }),
+        new GoogleFontsPlugin({
+          fonts: [
+            { family: "Raleway", variants: ["300", "400", "500", "600", "700", "400italic"], display: "swap" },
+            { family: "Roboto", variants: ["300", "400", "500", "700", "300italic", "400italic"], display: "swap" },
+          ],
+          name: 'fonts',
+          filename: 'fonts.css',
+          path: 'assets/fonts/',
+          local: true,
+          formats: ["eot", "woff", "woff2", "ttf", "svg"],
+          apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
+        })
       ],
     },
     plugins: [
