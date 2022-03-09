@@ -1,0 +1,234 @@
+::v-deep {
+  $magento-specific-image-gray: #f4f4f4;
+  $magento-specific-image-yellow: #ffdd17;
+
+  @mixin for-luma-mobile {
+    @media (max-width: 767px) {
+      @content;
+    }
+  }
+
+  @mixin promo-columns($number_of_columns) {
+    display: grid;
+    gap: var(--spacer-sm);
+    grid-template-columns: repeat($number_of_columns, calc((100% - ( $number_of_columns - 1 ) * var(--spacer-sm)) / $number_of_columns));
+
+    @include for-luma-mobile {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat($number_of_columns, auto);
+    }
+  }
+
+  .block-promo-2columns {
+    @include promo-columns(2)
+  }
+
+  .block-promo-3columns {
+    @include promo-columns(3)
+  }
+
+  .more.icon {
+    &::after {
+      content: '\203a';
+      margin-left: var(--spacer-xs)
+    }
+  }
+
+  img {
+    height: auto;
+    border: 0;
+  }
+
+  .block-promo {
+    display: inline-grid;
+    margin-bottom: var(--spacer-sm);
+    overflow: hidden;
+
+    .content {
+      padding: var(--spacer-base);
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-xs);
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
+
+  .title {
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-family--semibold);
+  }
+
+  .info {
+    font-weight: var(--font-weight--light)
+  }
+
+  .more.button {
+    background-color: var(--c-primary);
+    color: var(--c-white);
+
+    max-width: max-content;
+    padding: var(--spacer-sm) var(--spacer-base);
+
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-family--secondary);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .womens-erin {
+    background-color: $magento-specific-image-gray;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    img {
+      height: 100%;
+      width: auto;
+    }
+
+    .more.icon {
+      margin-top: var(--spacer-base);
+    }
+  }
+
+  .womens-main, .home-main, .mens-main, .new-main, .sale-main, .gear-main {
+    width: 100%;
+    position: relative;
+
+    .content {
+      position: absolute;
+      top: var(--spacer-xl);
+      right: var(--spacer-xl);
+      background-color: var(--c-white);
+      width: 40%;
+      display: flex;
+      gap: var(--spacer-base);
+
+      @include for-luma-mobile {
+        top: unset;
+        right: unset;
+        bottom: var(--spacer-base);
+        left: 50%;
+        transform: translate(-50%, 0);
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    img {
+      height: auto;
+      width: 100%;
+
+      @include for-luma-mobile {
+        height: 100%;
+        width: auto;
+      }
+    }
+  }
+
+  .womens-pants, .mens-pants {
+    position: relative;
+    margin-left: auto; /* ugly hack but the "-pants" images aspect ratios don't allow for evenly lining up cms blocks */
+
+    @include for-luma-mobile {
+      margin-left: initial;
+    }
+
+    .content {
+      $space: var(--spacer-sm);
+      position: absolute;
+      left: $space;
+      top: $space;
+      background-color: $magento-specific-image-gray;
+      opacity: 0.9;
+      width: 35%;
+
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacer-base);
+
+      @include for-luma-mobile {
+        gap: 0;
+        width: 45%;
+      }
+    }
+
+    img {
+      height: 100%;
+      width: auto;
+
+      @include for-luma-mobile {
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .womens-t-shirts, .mens-t-shirts {
+    background-color: $magento-specific-image-yellow;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacer-sm)
+    }
+
+    img {
+      width: min(100%, 440px);
+    }
+  }
+
+  .content {
+    font-family: var(--font-family--secondary);
+    color: var(--c-text);
+  }
+
+  .block-promo .content {
+    padding: var(--spacer-base);
+  }
+
+  .womens-category-pants,
+  .womens-category-tanks,
+  .womens-category-shorts,
+  .mens-category-tees,
+  .mens-category-hoodies,
+  .mens-category-shorts,
+  .gear-category-bags,
+  .gear-category-equipment,
+  .gear-category-watches {
+    background-color: $magento-specific-image-gray;
+    display: flex;
+    justify-content: space-between;
+    height: 210px;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      left: 60%;
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: var(--spacer-sm);
+      padding-right: 0;
+      width: 55%;
+    }
+
+    .title {
+      font-size: var(--h4-font-size);
+      margin-bottom: var(--spacer-xs);
+    }
+
+    .more.icon {
+      position: absolute;
+      bottom: var(--spacer-base);
+    }
+  }
+}
