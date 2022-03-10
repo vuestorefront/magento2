@@ -14,8 +14,13 @@
       :pagination="pagination"
     />
     <div class="main section">
+      <SkeletonLoader
+        v-if="$fetchState.pending"
+        class="sidebar desktop-only"
+        :height="'500px'"
+      />
       <CategorySidebar
-        v-if="isShowProducts"
+        v-else-if="isShowProducts"
         class="sidebar desktop-only"
       />
       <div
