@@ -6,7 +6,7 @@ import { UseCategorySearchFactory, useCategorySearchFactory } from '../../factor
 import { UseCategorySearch } from '../../types/composables';
 
 /**
- * @deprecated since version <version?>
+ * @deprecated since version 1.0.0
  *
  * @see <add docs link>
  */
