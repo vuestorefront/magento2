@@ -26,9 +26,7 @@ interface UseUserFactoryParams<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS>
 }
 
 /**
- * @deprecated since version <version?>
- *
- * @see <add docs link>
+ * @deprecated since version1.0.0
  */
 const factoryParams: UseUserFactoryParams<
 any,

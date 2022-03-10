@@ -28,9 +28,7 @@ export interface UseForgotPasswordFactoryParams<RESULT> extends FactoryParams {
 }
 
 /**
- * @deprecated since version <version?>
- *
- * @see <add docs link>
+ * @deprecated since version1.0.0
  */
 export function useForgotPasswordFactory<RESULT>(
   factoryParams: UseForgotPasswordFactoryParams<RESULT>,

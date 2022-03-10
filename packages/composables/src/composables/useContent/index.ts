@@ -1,6 +1,5 @@
 /**
  * @deprecated since version 1.0.0
- *
  */
 import { Context, Logger } from '@vue-storefront/core';
 import { Page, CmsBlock } from '@vue-storefront/magento-api';

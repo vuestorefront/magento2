@@ -1,7 +1,5 @@
 /**
  * @deprecated since version 1.0.0
- *
- * @see <add docs link>
  */
 import { Context, Logger } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';

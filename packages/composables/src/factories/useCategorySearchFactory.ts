@@ -14,9 +14,7 @@ export interface UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API 
   search: (context: Context, params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>) => Promise<CATEGORY[]>;
 }
 /**
- * @deprecated since version <version?>
- *
- * @see <add docs link>
+ * @deprecated since version1.0.0
  */
 export function useCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any>(
   factoryParams: UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API>,
