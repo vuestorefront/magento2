@@ -1,7 +1,6 @@
 /**
  * @deprecated since version 1.0.0
  *
- * @see <add docs link>
  */
 import {
   ComposableFunctionArgs,
