@@ -5,6 +5,9 @@ import { Category, CategorySearchQueryVariables } from '@vue-storefront/magento-
 import { UseCategorySearchFactory, useCategorySearchFactory } from '../../factories/useCategorySearchFactory';
 import { UseCategorySearch } from '../../types/composables';
 
+/**
+ * @deprecated since version 1.0.0
+ */
 const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVariables> = {
   search: async (context: Context, params): Promise<Category[]> => {
     Logger.debug('[Magento]: Search for category using', { params });

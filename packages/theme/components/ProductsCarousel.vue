@@ -107,11 +107,11 @@ import {
 } from '@storefront-ui/vue';
 
 import {
-  productGetters, useUser, useWishlist,
+  productGetters,
 } from '@vue-storefront/magento';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage } from '~/composables';
+import { useImage, useWishlist, useUser } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -139,7 +139,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const { isInWishlist, addItem, removeItem } = useWishlist();
     const {
       addItemToCart,
       isInCart,

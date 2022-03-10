@@ -97,6 +97,7 @@ export default () => {
         customApolloHttpLinkOptions,
       }],
       '@nuxt/image',
+      '@pinia/nuxt',
     ],
     modules: [
       '~/modules/catalog',

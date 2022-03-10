@@ -156,12 +156,12 @@ import {
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import {
-  useWishlist,
-  useUser,
   wishlistGetters,
   productGetters,
 } from '@vue-storefront/magento';
-import { useUiState, useImage } from '~/composables';
+import {
+  useUiState, useImage, useWishlist, useUser,
+} from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -181,11 +181,11 @@ export default defineComponent({
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const {
       wishlist, removeItem, load: loadWishlist, loading,
-    } = useWishlist('GlobalWishlist');
+    } = useWishlist();
     const { isAuthenticated } = useUser();
-    const products = computed(() => wishlistGetters.getProducts(wishlist.value));
-    const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
-    const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
+    const products = computed(() => wishlistGetters.getProducts(wishlist.value) ?? []);
+    const totals = computed(() => wishlistGetters.getTotals(wishlist.value) ?? {});
+    const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value) ?? 0);
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
@@ -193,8 +193,8 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(() => {
-      if (wishlist.value === null) {
-        loadWishlist('GlobalWishlist');
+      if (!wishlist.value.id) {
+        loadWishlist();
       }
     });
 

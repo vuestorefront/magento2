@@ -660,13 +660,13 @@ export interface Cart {
   /** The entered gift message for the cart */
   gift_message?: Maybe<GiftMessage>;
   /** The unique ID for a `Cart` object */
-  id: Scalars['ID'];
-  is_virtual: Scalars['Boolean'];
+  id?: Maybe<Scalars['ID']>;
+  is_virtual: Maybe<Scalars['Boolean']>;
   items?: Maybe<Array<Maybe<CartItemInterface>>>;
   prices?: Maybe<CartPrices>;
   selected_payment_method?: Maybe<SelectedPaymentMethod>;
-  shipping_addresses: Array<Maybe<ShippingCartAddress>>;
-  total_quantity: Scalars['Float'];
+  shipping_addresses?: Maybe<Array<Maybe<ShippingCartAddress>>>;
+  total_quantity?: Maybe<Scalars['Float']>;
 }
 
 export interface CartAddressCountry {

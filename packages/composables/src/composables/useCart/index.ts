@@ -1,5 +1,6 @@
-/* istanbul ignore file */
-/* eslint-disable no-param-reassign */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   ComposableFunctionArgs,
   Context,

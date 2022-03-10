@@ -120,12 +120,7 @@ import {
   SfBadge,
 } from '@storefront-ui/vue';
 
-import {
-  categoryGetters,
-  useCart,
-  useCategory,
-  useUser, useWishlist,
-} from '@vue-storefront/magento';
+import { categoryGetters } from '@vue-storefront/magento';
 import {
   computed,
   ref,
@@ -137,9 +132,14 @@ import {
 } from '@nuxtjs/composition-api';
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
+  useCart,
+  useCategory,
   useUiHelpers,
   useUiState,
+  useWishlist,
+  useUser,
 } from '~/composables';
+
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -165,8 +165,8 @@ export default defineComponent({
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
-    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
+    const { loadTotalQty: loadCartTotalQty, cart } = useCart();
+    const { loadItemsCount: loadWishlistItemsCount, wishlist } = useWishlist();
 
     const {
       categories: categoryList,
@@ -176,9 +176,9 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
+    const wishlistHasProducts = computed(() => wishlist.value.items_count > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
+    const categoryTree = ref([]);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
@@ -190,6 +190,7 @@ export default defineComponent({
 
     useFetch(async () => {
       await categoriesListSearch({ pageSize: 20 });
+      categoryTree.value = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
     });
 
     onMounted(() => {
@@ -201,7 +202,7 @@ export default defineComponent({
 
     return {
       accountIcon,
-      cartTotalItems,
+      cartTotalItems: computed(() => cart.value.total_quantity),
       categoryTree,
       getAgnosticCatLink,
       handleAccountClick,
@@ -212,7 +213,7 @@ export default defineComponent({
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
-      wishlistItemsQty,
+      wishlistItemsQty: computed(() => wishlist.value.items_count),
     };
   },
 });

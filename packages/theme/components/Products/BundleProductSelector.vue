@@ -81,13 +81,14 @@ import {
   SfRadio,
   SfButton,
 } from '@storefront-ui/vue';
-import { productGetters, useCart } from '@vue-storefront/magento';
+import { productGetters } from '@vue-storefront/magento';
 import {
   computed,
   defineComponent,
   ref,
   watch,
 } from '@nuxtjs/composition-api';
+import { useCart } from '~/composables';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
 import { productData } from '~/helpers/product/productData';
 
