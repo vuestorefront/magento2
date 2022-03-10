@@ -8,7 +8,6 @@ import { UseCategorySearch } from '../../types/composables';
 /**
  * @deprecated since version 1.0.0
  *
- * @see <add docs link>
  */
 const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVariables> = {
   search: async (context: Context, params): Promise<Category[]> => {
