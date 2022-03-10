@@ -360,13 +360,14 @@ import {
 import {
   defineComponent, ref, useFetch,
 } from '@nuxtjs/composition-api';
-import {
-  facetGetters, productGetters, useFacet, useUser, useWishlist,
-} from '@vue-storefront/magento';
+import { facetGetters, productGetters } from '@vue-storefront/magento';
 import { useVSFContext } from '@vue-storefront/core';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import {
+  useFacet, useUser, useWishlist,
+  useImage, useUiHelpers, useUiState,
+} from '~/composables';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
-import { useImage, useUiHelpers, useUiState } from '~/composables';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';

@@ -4,6 +4,9 @@ import {
 } from '@vue-storefront/core';
 import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
 
+/**
+ * @deprecated since version1.0.0
+ */
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resetPassword: async (context: Context, params) => {

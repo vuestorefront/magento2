@@ -258,11 +258,11 @@ import {
   useCountrySearch,
   userShippingGetters,
   useShipping,
-  useUser,
   useUserShipping,
 } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import { useUser } from '~/composables';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';

@@ -44,12 +44,12 @@ import {
   SfButton,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
-import { productGetters, useCart } from '@vue-storefront/magento';
+import { productGetters } from '@vue-storefront/magento';
 import {
   computed, watch, ref, defineComponent,
 } from '@nuxtjs/composition-api';
+import { useCart, useImage } from '~/composables';
 import { productData } from '~/helpers/product/productData';
-import { useImage } from '~/composables';
 
 export default defineComponent({
   name: 'GroupedProductSelector',

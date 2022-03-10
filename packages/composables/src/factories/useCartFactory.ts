@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version1.0.0
+ */
 import {
   UseCart as UseCartCore,
   Context,

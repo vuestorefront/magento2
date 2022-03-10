@@ -18,16 +18,12 @@
     </LoadWhenVisible>
   </div>
 </template>
-
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   useRoute, defineComponent, useAsync,
 } from '@nuxtjs/composition-api';
-import {
-  useUser,
-} from '@vue-storefront/magento';
-import useUiState from '~/composables/useUiState.ts';
+import { useUiState, useUser } from '~/composables';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';

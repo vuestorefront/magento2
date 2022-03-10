@@ -220,8 +220,8 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { useUiHelpers, useImage } from '~/composables';
+import { productGetters } from '@vue-storefront/magento';
+import { useUiHelpers, useImage, useWishlist, useUser } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -247,7 +247,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const { isInWishlist, addItem, removeItem } = useWishlist();
 
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);

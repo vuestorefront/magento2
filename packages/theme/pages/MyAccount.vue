@@ -54,11 +54,11 @@ import {
   useRoute,
   useRouter,
 } from '@nuxtjs/composition-api';
-import { useCart, useUser } from '@vue-storefront/magento';
 import {
   mapMobileObserver,
   unMapMobileObserver,
 } from '@storefront-ui/vue/src/utilities/mobile-observer.js';
+import { useUser, useCart } from '~/composables';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';
 import MyNewsletter from './MyAccount/MyNewsletter.vue';

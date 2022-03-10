@@ -271,12 +271,12 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
-  useWishlist,
   productGetters,
   wishlistGetters,
 } from '@vue-storefront/magento';
-import { useUiHelpers, useUiState, useImage } from '~/composables';
+import {
+  useCart, useUiHelpers, useUiState, useImage, useWishlist,
+} from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -299,7 +299,7 @@ export default defineComponent({
       loading,
       wishlist,
       removeItem,
-    } = useWishlist('MyWishlistPage');
+    } = useWishlist();
     const route = useRoute();
     const { app } = useContext();
     const {

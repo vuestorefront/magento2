@@ -33,19 +33,21 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  useConfig,
   storeConfigGetters,
   storeGetters,
 } from '@vue-storefront/magento';
+
 import {
   SfButton,
   SfCharacteristic,
 } from '@storefront-ui/vue';
+
 import {
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
 import StoresModal from '~/components/StoreSwitcher/StoresModal.vue';
+import { useConfig } from '~/composables';
 
 export default defineComponent({
   name: 'StoreSwitcher',
