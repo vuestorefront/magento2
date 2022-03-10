@@ -480,9 +480,7 @@ export default defineComponent({
       const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
       const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
 
-      const categoriesTags = categories.value.map((catId) => {
-        return { prefix: CacheTagPrefix.Category, value: catId };
-      });
+      const categoriesTags = categories.value.map((catId) => ({ prefix: CacheTagPrefix.Category, value: catId }));
       addTags(tags.concat(productTags, categoriesTags));
     });
 

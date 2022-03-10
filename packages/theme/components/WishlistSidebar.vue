@@ -183,9 +183,9 @@ export default defineComponent({
       wishlist, removeItem, load: loadWishlist, loading,
     } = useWishlist();
     const { isAuthenticated } = useUser();
-    const products = computed(() => wishlistGetters.getProducts(wishlist.value));
-    const totals = computed(() => wishlistGetters.getTotals(wishlist.value));
-    const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value));
+    const products = computed(() => wishlistGetters.getProducts(wishlist.value) ?? []);
+    const totals = computed(() => wishlistGetters.getTotals(wishlist.value) ?? {});
+    const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value) ?? 0);
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
@@ -193,8 +193,8 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(() => {
-      if (wishlist.value === null) {
-        loadWishlist('GlobalWishlist');
+      if (!wishlist.value.id) {
+        loadWishlist();
       }
     });
 

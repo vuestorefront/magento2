@@ -176,7 +176,7 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlist.items_count > 0);
+    const wishlistHasProducts = computed(() => wishlist.value.items_count > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
     const categoryTree = ref([]);
 
@@ -196,7 +196,7 @@ export default defineComponent({
     onMounted(() => {
       if (app.$device.isDesktop) {
         loadCartTotalQty();
-        // loadWishlistItemsCount();
+        loadWishlistItemsCount();
       }
     });
 
@@ -213,7 +213,7 @@ export default defineComponent({
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
-      wishlistItemsQty: wishlist.value.items_count,
+      wishlistItemsQty: computed(() => wishlist.value.items_count),
     };
   },
 });

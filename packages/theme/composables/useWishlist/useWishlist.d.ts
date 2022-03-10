@@ -1,6 +1,8 @@
 import { ComposableFunctionArgs } from '@vue-storefront/core';
 import { Ref } from '@nuxtjs/composition-api';
-import {Maybe, Scalars, WishlistItem, WishlistItems} from "@vue-storefront/magento-api/lib/types/GraphQL";
+import {
+  Maybe, Scalars, WishlistItem, WishlistItems,
+} from '@vue-storefront/magento-api/lib/types/GraphQL';
 
 export interface Wishlist {
   /** The unique ID for a `Wishlist` object */
@@ -22,12 +24,14 @@ export interface UseWishlistErrors {
   removeItem: Error;
   load: Error;
   clear: Error;
+  loadItemsCount: Error;
 }
 /**
  * TODO: add types
  */
 export type UseWishlist = {
   wishlist: Ref<Wishlist>,
+  loadItemsCount(params: ComposableFunctionArgs<{}>): Promise<void>;
   isInWishlist: (params: { currentWishlist: any; product: any }) => boolean;
   addItem: (
     params: ComposableFunctionArgs<{

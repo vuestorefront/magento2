@@ -1,7 +1,7 @@
 import { computed, ref, useContext } from '@nuxtjs/composition-api';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
-import {UseWishlist, UseWishlistErrors, Wishlist} from '~/composables/useWishlist/useWishlist';
+import { UseWishlist, UseWishlistErrors, Wishlist } from '~/composables/useWishlist/useWishlist';
 import { useCustomerStore } from '~/stores/customer';
 import cookieNames from '~/enums/cookieNameEnum';
 
@@ -9,11 +9,15 @@ export const useWishlist = (): UseWishlist => {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const loading = ref(false);
+  const wishlist = computed(() => customerStore.wishlist);
+  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+  const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
   const error = ref<UseWishlistErrors>({
     addItem: null,
     removeItem: null,
     load: null,
     clear: null,
+    loadItemsCount: null,
   });
 
   const load = async (params: {
@@ -34,7 +38,8 @@ export const useWishlist = (): UseWishlist => {
         const { data } = await app.context.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
 
         Logger.debug('[Result]:', { data });
-        customerStore.wishlist = data?.customer?.wishlists ?? [];
+        const loadedWishlist = data?.customer?.wishlists ?? [];
+        customerStore.wishlist = loadedWishlist[0] ?? {};
 
         return;
       }
@@ -90,6 +95,30 @@ export const useWishlist = (): UseWishlist => {
     } catch (err) {
       error.value.removeItem = err;
       Logger.error('useWishlist/removeItem', err);
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const loadItemsCount = async (): Promise<void> => {
+    Logger.debug('useWishlist/wishlistItemsCount');
+    const apiState = app.context.$vsf.$magento.config.state;
+
+    try {
+      loading.value = true;
+      error.value.loadItemsCount = null;
+      if (apiState.getCustomerToken()) {
+        const { data } = await app.context.$vsf.$magento.api.wishlistItemsCount();
+
+        Logger.debug('[Result]:', { data });
+        const loadedWishlist = data?.customer?.wishlists ?? [];
+        customerStore.$patch((state) => {
+          state.wishlist = { items_count: calculateWishlistTotal(loadedWishlist) };
+        });
+      }
+    } catch (err) {
+      error.value.loadItemsCount = err;
+      Logger.error('useWishlist/wishlistItemsCount', err);
     } finally {
       loading.value = false;
     }
@@ -218,7 +247,8 @@ export const useWishlist = (): UseWishlist => {
   };
 
   return {
-    wishlist: computed(() => customerStore.wishlist),
+    wishlist,
+    loadItemsCount,
     isInWishlist,
     addItem,
     load,
