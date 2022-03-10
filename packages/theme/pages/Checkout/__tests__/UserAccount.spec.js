@@ -25,7 +25,7 @@ jest.mock('@nuxtjs/composition-api', () => {
   };
 });
 
-describe('<UserAccount/>', () => {
+describe.skip('<UserAccount/>', () => {
   it('Form fields are rendered and validated', async () => {
     useUser.mockReturnValue(useUserMock());
     useGuestUser.mockReturnValue(useGuestUserMock());

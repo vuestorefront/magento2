@@ -7,6 +7,7 @@ export const useApi = () => {
   const customerToken = app.$cookies.get(cookieNames.customerCookieName);
   const storeCode = app.$cookies.get(cookieNames.storeCookieName);
   const magentoConfig = app.$vsf.$magento.config;
+  // TODO remove once we remove apollo client
   const { useGETForQueries } = magentoConfig.customApolloHttpLinkOptions;
   const defaultEndpoint = magentoConfig.magentoApiEndpoint as string;
   const defaultHeaders: {

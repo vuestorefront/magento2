@@ -27,6 +27,9 @@ export interface UseForgotPasswordFactoryParams<RESULT> extends FactoryParams {
   setNewPassword: (context: Context, params: ComposableFunctionArgs<SetNewPasswordParams & { currentResult: RESULT }>) => Promise<RESULT>;
 }
 
+/**
+ * @deprecated since version1.0.0
+ */
 export function useForgotPasswordFactory<RESULT>(
   factoryParams: UseForgotPasswordFactoryParams<RESULT>,
 ) {

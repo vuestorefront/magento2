@@ -18,7 +18,6 @@ import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { useContent } from '@vue-storefront/magento';
 import { onSSR } from '@vue-storefront/core';
 import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';

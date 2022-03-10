@@ -249,13 +249,16 @@ import {
   useContext, onMounted,
 } from '@nuxtjs/composition-api';
 import {
-  useCart,
-  useUser,
   cartGetters,
-  useExternalCheckout,
 } from '@vue-storefront/magento';
 import _debounce from 'lodash.debounce';
-import { useUiState, useUiNotification } from '~/composables';
+import {
+  useCart,
+  useUiState,
+  useUiNotification,
+  useUser,
+  useExternalCheckout,
+} from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import CouponCode from './CouponCode.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -304,7 +307,7 @@ export default defineComponent({
     const tempProduct = ref();
 
     onMounted(() => {
-      if (cart.value === null) {
+      if (!cart.value.id) {
         loadCart();
       }
     });

@@ -289,12 +289,12 @@ import {
 import {
   useUserBilling,
   userBillingGetters,
-  useUser,
   useBilling,
   useShipping,
   useCountrySearch,
   addressGetter,
 } from '@vue-storefront/magento';
+import { useUser } from '~/composables';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {

@@ -34,12 +34,12 @@
 <script>
 import { SfSteps } from '@storefront-ui/vue';
 import {
-  useCart,
   cartGetters,
 } from '@vue-storefront/magento';
 import {
   computed, defineComponent, ref, useRoute, useRouter, useContext, onMounted,
 } from '@nuxtjs/composition-api';
+import { useCart } from '~/composables';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
 
 export default defineComponent({

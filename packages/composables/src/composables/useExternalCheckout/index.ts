@@ -3,6 +3,9 @@ import { useExternalCheckoutFactory, UseExternalCheckoutFactoryParams } from '..
 import useCart from '../useCart';
 // import useConfig from '../useConfig';
 
+/**
+ * @deprecated since version1.0.0
+ */
 const factoryParams: UseExternalCheckoutFactoryParams = {
   provide() {
     return {

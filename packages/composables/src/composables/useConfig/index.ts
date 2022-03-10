@@ -1,4 +1,7 @@
-import {Context, Logger} from '@vue-storefront/core';
+/**
+ * @deprecated since version 1.0.0
+ */
+import { Context, Logger } from '@vue-storefront/core';
 import { StoreConfig } from '@vue-storefront/magento-api';
 import { useConfigFactory, UseConfigFactoryParams } from '../../factories/useConfigFactory';
 import { UseConfig } from '../../types/composables';

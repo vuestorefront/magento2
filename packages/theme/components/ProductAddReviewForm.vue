@@ -121,7 +121,7 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import {
-  reviewGetters, useReview, userGetters, useUser,
+  reviewGetters, useReview, userGetters,
 } from '@vue-storefront/magento';
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import { min, oneOf, required } from 'vee-validate/dist/rules';
@@ -131,6 +131,7 @@ import {
   SfSelect,
   SfTextarea,
 } from '@storefront-ui/vue';
+import { useUser } from '~/composables';
 
 extend('required', {
   ...required,

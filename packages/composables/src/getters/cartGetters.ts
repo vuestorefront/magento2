@@ -13,6 +13,7 @@ import {
   Product,
   SelectedShippingMethod, ConfigurableCartItem, ProductInterface,
 } from '@vue-storefront/magento-api';
+
 import productGetters from './productGetters';
 import { AgnosticPaymentMethod } from '../types';
 
@@ -145,7 +146,7 @@ export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?
   code: c.code,
 } as AgnosticCoupon)) : []);
 
-export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.prices.discounts) ? cart.prices.discounts.map((d) => ({
+export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.prices?.discounts) ? cart.prices.discounts.map((d) => ({
   id: d.label,
   name: d.label,
   description: '',
