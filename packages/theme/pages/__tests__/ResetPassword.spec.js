@@ -14,7 +14,7 @@ jest.mock('@vue-storefront/magento', () => {
   };
 });
 
-describe('<ResetPassword/>', () => {
+describe.skip('<ResetPassword/>', () => {
   it('User can change his password', async () => {
     const setNewMock = jest.fn();
     useForgotPassword.mockReturnValue(useForgotPasswordMock({
