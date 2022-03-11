@@ -17,7 +17,7 @@
       <SkeletonLoader
         v-if="$fetchState.pending"
         class="sidebar desktop-only"
-        :height="'500px'"
+        height="500px"
       />
       <CategorySidebar
         v-else-if="isShowProducts"
