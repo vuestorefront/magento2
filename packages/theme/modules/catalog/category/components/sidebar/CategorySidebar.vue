@@ -1,7 +1,7 @@
 <template>
   <SkeletonLoader
     :is-loading="isLoading"
-    :height="'50vw'"
+    height="500px"
   >
     <SfAccordion
       :open="activeCategory"
@@ -65,8 +65,8 @@ import {
   useRoute,
 } from '@nuxtjs/composition-api';
 
-import { useSidebar } from './useSidebar.ts';
 import { useUiHelpers } from '~/composables';
+import { useSidebar } from './useSidebar.ts';
 import SkeletonLoader from '~/components/SkeletonLoader';
 
 export default defineComponent({
