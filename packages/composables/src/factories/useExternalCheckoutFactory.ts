@@ -15,7 +15,7 @@ export interface UseExternalCheckoutFactoryParams<API extends PlatformApi = any>
 }
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 export const useExternalCheckoutFactory = <API extends PlatformApi = any>(
   factoryParams: UseExternalCheckoutFactoryParams<API>,

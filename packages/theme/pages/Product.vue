@@ -268,34 +268,34 @@ import {
   SfTabs,
 } from '@storefront-ui/vue';
 import {
-  useProduct,
   productGetters,
   useReview,
   reviewGetters,
 } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
 import {
   ref,
   computed,
   useContext,
   useRoute,
   useRouter,
-  defineComponent,
+  defineComponent, useFetch,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import { useCart, useWishlist, useUser } from '~/composables';
+import {
+  useProduct, useCart, useWishlist, useUser,
+} from '~/composables';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
-import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
+import SvgImage from '~/components/General/SvgImage.vue';
+import BundleProductSelector from '~/components/Products/BundleProductSelector';
+import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import UpsellProducts from '~/components/UpsellProducts';
 import RelatedProducts from '~/components/RelatedProducts';
 import HTMLContent from '~/components/HTMLContent';
 import AddToWishlist from '~/components/AddToWishlist';
-import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -332,16 +332,19 @@ export default defineComponent({
   setup() {
     const { addTags } = useCache();
     const qty = ref(1);
+    const products = ref([]);
+
     const {
       product,
       id,
-    } = productData();
+    } = productData(products);
+
     const route = useRoute();
     const router = useRouter();
     const {
-      search,
+      getProductDetails,
       loading: productLoading,
-    } = useProduct(`product-${id}`);
+    } = useProduct();
     const {
       addItem,
       loading,
@@ -456,7 +459,7 @@ export default defineComponent({
       });
     };
 
-    onSSR(async () => {
+    useFetch(async () => {
       const baseSearchQuery = {
         filter: {
           sku: {
@@ -468,8 +471,7 @@ export default defineComponent({
           : {}),
       };
 
-      await search({
-        queryType: 'DETAIL',
+      products.value = await getProductDetails({
         ...baseSearchQuery,
       });
 
