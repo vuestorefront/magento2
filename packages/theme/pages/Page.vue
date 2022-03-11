@@ -18,14 +18,16 @@ import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
-import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
+import {
+  defineComponent, ref, useContext, useFetch, useRoute,
+} from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
+  name: 'CmsPage',
   components: {
     HTMLContent,
     SfLoader,
@@ -40,18 +42,19 @@ export default defineComponent({
   setup(props) {
     const { addTags } = useCache();
     const {
-      page,
+      loadPage,
       error,
-      loadContent,
       loading,
     } = useContent('cmsPage');
+
     const route = useRoute();
     const { error: nuxtError } = useContext();
     const { params } = route.value;
+    const page = ref({});
 
-    onSSR(async () => {
-      await loadContent({ identifier: params.slug || props.identifier });
-      if (error?.value?.content) nuxtError({ statusCode: 404 });
+    useFetch(async () => {
+      page.value = await loadPage({ identifier: params.slug || props.identifier });
+      if (error?.value?.page) nuxtError({ statusCode: 404 });
 
       addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
     });
