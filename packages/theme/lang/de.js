@@ -253,5 +253,8 @@ export default {
   "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.": "Beim Versuch, Versandarten abzurufen, ist ein Fehler aufgetreten. Es tut uns leid, bitte versuchen Sie es mit anderen Versanddetails oder später.",
   "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "Beim Versuch, diese Versandart auszuwählen, ist ein Fehler aufgetreten. Es tut uns leid, bitte versuchen Sie es mit einer anderen Versandart.",
   "We can't find products matching the selection.":"Wir können keine Produkte finden, die der Auswahl entsprechen.",
+  'Page not found': 'Seite nicht gefunden',
+  'Back to Home page': 'Zurück zur Startseite',
+  'An error occurred': 'Ein Fehler ist aufgetretenq',
   "AllProductsFromCategory": "Alle {categoryName}"
 };
