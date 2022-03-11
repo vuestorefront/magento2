@@ -1,7 +1,7 @@
 <template>
   <SkeletonLoader
     :is-loading="isLoading"
-    :height="'500px'"
+    height="500px"
   >
     <SfAccordion
       :open="activeCategory"
