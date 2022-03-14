@@ -9,9 +9,7 @@
           class="breadcrumbs desktop-only"
           :breadcrumbs="breadcrumbs"
         />
-        <div
-          class="product"
-        >
+        <div class="product">
           <LazyHydrate when-idle>
             <SfLoader
               :class="{ 'loading--product-gallery': productLoading }"
@@ -82,9 +80,7 @@
               <SfButton class="sf-button--text desktop-only product__guide">
                 {{ $t('Size guide') }}
               </SfButton>
-              <template
-                v-for="option in configurableOptions"
-              >
+              <template v-for="option in configurableOptions">
                 <div
                   v-if="option.attribute_code === 'color'"
                   :key="option.uid"
@@ -97,9 +93,17 @@
                     v-for="color in option.values"
                     :key="color.uid"
                     :color="productGetters.getSwatchData(color.swatch_data)"
-                    :selected="productConfiguration[option.attribute_uid] === color.uid"
+                    :selected="
+                      productConfiguration[option.attribute_uid] === color.uid
+                    "
                     class="product__color"
-                    @click="() => updateProductConfiguration(option.attribute_uid, color.uid)"
+                    @click="
+                      () =>
+                        updateProductConfiguration(
+                          option.attribute_uid,
+                          color.uid
+                        )
+                    "
                   />
                 </div>
                 <SfSelect
@@ -109,7 +113,10 @@
                   :label="option.label"
                   class="sf-select--underlined product__select-size"
                   :required="true"
-                  @input="($event) => updateProductConfiguration(option.attribute_uid, $event)"
+                  @input="
+                    ($event) =>
+                      updateProductConfiguration(option.attribute_uid, $event)
+                  "
                 >
                   <SfSelectOption
                     v-for="attribute in option.values"
@@ -120,17 +127,13 @@
                   </SfSelectOption>
                 </SfSelect>
               </template>
-              <template
-                v-if="product.__typename === 'GroupedProduct'"
-              >
+              <template v-if="product.__typename === 'GroupedProduct'">
                 <grouped-product-selector
                   :can-add-to-cart="canAddToCart"
                   @update-price="basePrice = $event"
                 />
               </template>
-              <template
-                v-else-if="product.__typename === 'BundleProduct'"
-              >
+              <template v-else-if="product.__typename === 'BundleProduct'">
                 <BundleProductSelector
                   :can-add-to-cart="canAddToCart"
                   @update-price="basePrice = $event"
@@ -267,11 +270,7 @@ import {
   SfSelect,
   SfTabs,
 } from '@storefront-ui/vue';
-import {
-  productGetters,
-  useReview,
-  reviewGetters,
-} from '@vue-storefront/magento';
+import { useReview } from '@vue-storefront/magento';
 import {
   ref,
   computed,
@@ -281,6 +280,7 @@ import {
   defineComponent, useFetch,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import { productGetters, reviewGetters } from '~/getters';
 import {
   useProduct, useCart, useWishlist, useUser,
 } from '~/composables';
@@ -334,21 +334,12 @@ export default defineComponent({
     const qty = ref(1);
     const products = ref([]);
 
-    const {
-      product,
-      id,
-    } = productData(products);
+    const { product, id } = productData(products);
 
     const route = useRoute();
     const router = useRouter();
-    const {
-      getProductDetails,
-      loading: productLoading,
-    } = useProduct();
-    const {
-      addItem,
-      loading,
-    } = useCart();
+    const { getProductDetails, loading: productLoading } = useProduct();
+    const { addItem, loading } = useCart();
     const {
       reviews: productReviews,
       search: searchReviews,
@@ -360,16 +351,25 @@ export default defineComponent({
     const { error: nuxtError, app } = useContext();
     const basePrice = ref(0);
     const openTab = ref(1);
-    const productDataIsLoading = computed(() => productLoading.value && !productGetters.getName(product.value));
-    const productShortDescription = computed(() => product.value.short_description?.html || '');
-    const productDescription = computed(() => product.value.description?.html || '');
+    const productDataIsLoading = computed(
+      () => productLoading.value && !productGetters.getName(product.value),
+    );
+    const productShortDescription = computed(
+      () => product.value.short_description?.html || '',
+    );
+    const productDescription = computed(
+      () => product.value.description?.html || '',
+    );
     const canAddToCart = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       if (product.value.__typename === 'ConfigurableProduct') {
-        return !!product.value.configurable_product_options_selection?.variant?.uid;
+        return !!product.value.configurable_product_options_selection?.variant
+          ?.uid;
       }
       const inStock = product.value.stock_status || '';
-      const stockLeft = product.value.only_x_left_in_stock === null ? true : qty.value <= product.value.only_x_left_in_stock;
+      const stockLeft = product.value.only_x_left_in_stock === null
+        ? true
+        : qty.value <= product.value.only_x_left_in_stock;
       return inStock && stockLeft;
     });
     const categories = computed(() => productGetters.getCategoryIds(product.value));
@@ -386,16 +386,17 @@ export default defineComponent({
         Array.isArray(productCategories) ? [...productCategories].pop() : [],
       );
     });
-    const productGallery = computed(() => productGetters.getGallery(product.value)
-      .map((img) => ({
-        mobile: { url: img.small },
-        desktop: { url: img.normal },
-        big: { url: img.big },
-        // eslint-disable-next-line no-underscore-dangle
-        alt: product.value._name || product.value.name,
-      })));
+    const productGallery = computed(() => productGetters.getGallery(product.value).map((img) => ({
+      mobile: { url: img.small },
+      desktop: { url: img.normal },
+      big: { url: img.big },
+      // eslint-disable-next-line no-underscore-dangle
+      alt: product.value._name || product.value.name,
+    })));
 
-    const configurableOptions = computed(() => product.value.configurable_options);
+    const configurableOptions = computed(
+      () => product.value.configurable_options,
+    );
     const productConfiguration = ref(Object.entries(route.value.query));
     const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
@@ -408,7 +409,10 @@ export default defineComponent({
           return 0;
       }
     });
-    const productPrice = computed(() => productTypedPrice.value || productGetters.getPrice(product.value).regular);
+    const productPrice = computed(
+      () => productTypedPrice.value
+        || productGetters.getPrice(product.value).regular,
+    );
     const productSpecialPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value.__typename) {
@@ -419,33 +423,30 @@ export default defineComponent({
     });
 
     const changeTab = (tabNumber, callback) => {
-      document
-        .querySelector('#tabs')
-        .scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-        });
+      document.querySelector('#tabs').scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
       openTab.value = tabNumber;
       if (callback && typeof callback === 'function') callback();
     };
     const changeNewReview = () => {
       changeTab(2, () => {
-        setTimeout(() => document
-          .querySelector('#addReview')
-          .scrollIntoView({
+        setTimeout(
+          () => document.querySelector('#addReview').scrollIntoView({
             behavior: 'smooth',
             block: 'end',
-          }), 500);
+          }),
+          500,
+        );
       });
     };
     const successAddReview = async (reviewData) => {
       await addReview(reviewData);
-      document
-        .querySelector('#tabs')
-        .scrollIntoView({
-          behavior: 'smooth',
-          block: 'end',
-        });
+      document.querySelector('#tabs').scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
     };
 
     const updateProductConfiguration = async (label, value) => {
@@ -467,7 +468,11 @@ export default defineComponent({
           },
         },
         ...(productConfiguration.value.length > 0
-          ? { configurations: productConfiguration.value.map((config) => config[1]) }
+          ? {
+            configurations: productConfiguration.value.map(
+              (config) => config[1],
+            ),
+          }
           : {}),
       };
 
@@ -479,10 +484,21 @@ export default defineComponent({
 
       await searchReviews(baseSearchQuery);
 
-      const tags = [{ prefix: CacheTagPrefix.View, value: `product-${route.value.params.id}` }];
-      const productTags = { prefix: CacheTagPrefix.Product, value: product.value.uid };
+      const tags = [
+        {
+          prefix: CacheTagPrefix.View,
+          value: `product-${route.value.params.id}`,
+        },
+      ];
+      const productTags = {
+        prefix: CacheTagPrefix.Product,
+        value: product.value.uid,
+      };
 
-      const categoriesTags = categories.value.map((catId) => ({ prefix: CacheTagPrefix.Category, value: catId }));
+      const categoriesTags = categories.value.map((catId) => ({
+        prefix: CacheTagPrefix.Category,
+        value: catId,
+      }));
       addTags(tags.concat(productTags, categoriesTags));
     });
 
@@ -535,7 +551,7 @@ export default defineComponent({
 
 .product-loader {
   height: 38px;
-  margin: var(--spacer-base) auto var(--spacer-lg)
+  margin: var(--spacer-base) auto var(--spacer-lg);
 }
 
 .product {
@@ -568,7 +584,7 @@ export default defineComponent({
 
   &__drag-icon {
     animation: moveicon 1s ease-in-out infinite;
-    color: var(--c-text-disabled)
+    color: var(--c-text-disabled);
   }
 
   &__price-and-rating {
@@ -590,11 +606,11 @@ export default defineComponent({
 
   &__count {
     @include font(
-            --count-font,
-            var(--font-weight--normal),
-            var(--font-size--sm),
-            1.4,
-            var(--font-family--secondary)
+      --count-font,
+      var(--font-weight--normal),
+      var(--font-size--sm),
+      1.4,
+      var(--font-family--secondary)
     );
     color: var(--c-text);
     text-decoration: none;
@@ -603,11 +619,11 @@ export default defineComponent({
 
   &__description {
     @include font(
-            --product-description-font,
-            var(--font-weight--light),
-            var(--font-size--base),
-            1.6,
-            var(--font-family--primary)
+      --product-description-font,
+      var(--font-weight--light),
+      var(--font-size--base),
+      1.6,
+      var(--font-family--primary)
     );
   }
 
@@ -620,11 +636,11 @@ export default defineComponent({
 
   &__colors {
     @include font(
-            --product-color-font,
-            var(--font-weight--normal),
-            var(--font-size--lg),
-            1.6,
-            var(--font-family--secondary)
+      --product-color-font,
+      var(--font-weight--normal),
+      var(--font-size--lg),
+      1.6,
+      var(--font-family--secondary)
     );
     display: flex;
     align-items: center;
@@ -683,11 +699,11 @@ export default defineComponent({
   &__additional-info {
     color: var(--c-link);
     @include font(
-            --additional-info-font,
-            var(--font-weight--light),
-            var(--font-size--sm),
-            1.6,
-            var(--font-family--primary)
+      --additional-info-font,
+      var(--font-weight--light),
+      var(--font-size--sm),
+      1.6,
+      var(--font-family--primary)
     );
 
     &__title {

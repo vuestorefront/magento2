@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="!productLoading"
-  >
+  <div v-if="!productLoading">
     <SfList class="grouped_items">
       <SfListItem
         v-for="(groupedItem, index) in groupedItems"
@@ -9,7 +7,11 @@
         class="grouped_items--item"
       >
         <nuxt-img
-          :src="getMagentoImage(productGetters.getProductThumbnailImage(groupedItem.product))"
+          :src="
+            getMagentoImage(
+              productGetters.getProductThumbnailImage(groupedItem.product)
+            )
+          "
           :alt="productGetters.getName(groupedItem.product)"
           :width="60"
           :height="60"
@@ -18,7 +20,10 @@
           <p>{{ productGetters.getName(groupedItem.product) }}</p>
           <SfPrice
             :regular="$fc(productGetters.getPrice(groupedItem.product).regular)"
-            :special="productGetters.getPrice(groupedItem.product).special && $fc(productGetters.getPrice(groupedItem.product).special)"
+            :special="
+              productGetters.getPrice(groupedItem.product).special &&
+                $fc(productGetters.getPrice(groupedItem.product).special)
+            "
           />
         </div>
         <SfQuantitySelector
@@ -44,7 +49,7 @@ import {
   SfButton,
   SfQuantitySelector,
 } from '@storefront-ui/vue';
-import { productGetters } from '@vue-storefront/magento';
+import { productGetters } from '~/getters';
 import {
   computed, watch, ref, defineComponent,
 } from '@nuxtjs/composition-api';
@@ -91,19 +96,26 @@ export default defineComponent({
       }
     };
 
-    watch(groupedItems, (newValue) => {
-      const getProductPrice = (p) => {
-        const { regular, special } = productGetters.getPrice(p);
+    watch(
+      groupedItems,
+      (newValue) => {
+        const getProductPrice = (p) => {
+          const { regular, special } = productGetters.getPrice(p);
 
-        return regular > special ? regular : special;
-      };
+          return regular > special ? regular : special;
+        };
 
-      const price = newValue.reduce((acc, curr) => curr.qty * getProductPrice(curr.product) + acc, 0);
+        const price = newValue.reduce(
+          (acc, curr) => curr.qty * getProductPrice(curr.product) + acc,
+          0,
+        );
 
-      emit('update-price', price);
-    }, {
-      deep: true,
-    });
+        emit('update-price', price);
+      },
+      {
+        deep: true,
+      },
+    );
 
     const { getMagentoImage } = useImage();
 

@@ -1,8 +1,6 @@
 <template>
   <div>
-    <p
-      :style="userAddress.isDefault ? 'font-weight: bold;' : ''"
-    >
+    <p :style="userAddress.isDefault ? 'font-weight: bold;' : ''">
       {{ userAddress.firstName }} {{ userAddress.lastName }}
     </p>
     <p>{{ userAddress.street }}, {{ userAddress.streetNumber }}</p>
@@ -40,12 +38,8 @@
 </template>
 
 <script>
-import {
-  toRef,
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
-import { userAddressesGetters } from '@vue-storefront/magento';
+import { toRef, computed, defineComponent } from '@nuxtjs/composition-api';
+import { userAddressesGetters } from '~/getters';
 
 export default defineComponent({
   name: 'UserAddressDetails',

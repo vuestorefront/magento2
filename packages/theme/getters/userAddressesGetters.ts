@@ -1,7 +1,7 @@
-import { UserAddressesGetters as BaseGetters } from '../types/getters';
-import { transformUserGetter } from '../helpers/userAddressManipulator';
+import { UserAddressesGetters as BaseGetters } from '@vue-storefront/magento';
+import { transformUserGetter } from '@vue-storefront/magento';
 
-interface UserAddressesGetters extends BaseGetters<any, any>{
+interface UserAddressesGetters extends BaseGetters<any, any> {
   getNeighborhood: (address: any) => string
   getAddressExtra: (address: any) => string
 }

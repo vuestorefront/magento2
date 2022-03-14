@@ -27,7 +27,7 @@
 
 <script>
 import { SfButton, SfInput } from '@storefront-ui/vue';
-import { cartGetters } from '@vue-storefront/magento';
+import { cartGetters } from '~/getters';
 import {
   computed,
   onMounted,

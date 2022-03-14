@@ -1,7 +1,7 @@
 import {
-  storeConfigGetters,
   StoreConfig,
 } from '@vue-storefront/magento';
+import { storeConfigGetters } from '~/getters';
 
 import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import cookieNames from '~/enums/cookieNameEnum';

@@ -1,4 +1,5 @@
-import { Product, productGetters } from '@vue-storefront/magento';
+import { Product } from '@vue-storefront/magento';
+import { productGetters } from '~/getters';
 import { useRouter, useContext } from '@nuxtjs/composition-api';
 import { useCart } from '~/composables';
 
@@ -11,8 +12,8 @@ export const useAddToCart = () => {
   const { app } = useContext();
   const addItemToCart = async (params: { product: Product, quantity: number }) => {
     const { product, quantity } = params;
-    // eslint-disable-next-line no-underscore-dangle
     // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
     const productType = product.__typename;
 
     switch (productType) {
@@ -24,9 +25,8 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
-        const path = `/p/${productGetters.getProductSku(product)}${
-          productGetters.getSlug(product, product.categories[0])
-        }`;
+        const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])
+          }`;
         await router.push(String(app.localePath(path)));
         break;
       default:

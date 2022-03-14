@@ -6,9 +6,7 @@
       :title="$t('Billing address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <form
-      @submit.prevent="handleSubmit(handleAddressSubmit(reset))"
-    >
+    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <SfCheckbox
         v-e2e="'copy-address'"
         :selected="sameAsShipping"
@@ -23,7 +21,12 @@
       >
         <div class="copy__shipping__address">
           <div class="sf-address">
-            <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
+            <UserAddressDetails
+              :address="{
+                ...billingDetails,
+                region: { region_code: billingDetails.region },
+              }"
+            />
           </div>
         </div>
       </div>
@@ -53,7 +56,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="firstname => changeBillingDetails('firstname', firstname)"
+            @input="(firstname) => changeBillingDetails('firstname', firstname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -71,7 +74,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="lastname => changeBillingDetails('lastname', lastname)"
+            @input="(lastname) => changeBillingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -89,7 +92,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="street => changeBillingDetails('street', street)"
+            @input="(street) => changeBillingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -107,7 +110,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="apartment => changeBillingDetails('apartment', apartment)"
+            @input="(apartment) => changeBillingDetails('apartment', apartment)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -125,7 +128,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="city => changeBillingDetails('city', city)"
+            @input="(city) => changeBillingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -135,7 +138,9 @@
           slim
         >
           <SfInput
-            v-if="!billingDetails.country_code || regionInformation.length === 0"
+            v-if="
+              !billingDetails.country_code || regionInformation.length === 0
+            "
             v-model="billingDetails.region"
             v-e2e="'state'"
             label="State/Province"
@@ -145,7 +150,7 @@
             :disabled="!billingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
-            @input="region => changeBillingDetails('region', region)"
+            @input="(region) => changeBillingDetails('region', region)"
           />
           <SfSelect
             v-else
@@ -157,7 +162,7 @@
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-            @input="state => changeBillingDetails('region', state)"
+            @input="(state) => changeBillingDetails('region', state)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -209,7 +214,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="postcode => changeBillingDetails('postcode', postcode)"
+            @input="(postcode) => changeBillingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -227,7 +232,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="telephone => changeBillingDetails('telephone', telephone)"
+            @input="(telephone) => changeBillingDetails('telephone', telephone)"
           />
         </ValidationProvider>
       </div>
@@ -271,11 +276,11 @@ import {
 } from '@storefront-ui/vue';
 import {
   useUserBilling,
-  userBillingGetters,
   useBilling,
   useCountrySearch,
   addressGetter,
 } from '@vue-storefront/magento';
+import { userBillingGetters } from '~/getters';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -289,7 +294,10 @@ import {
 } from '@nuxtjs/composition-api';
 import { useShipping, useUser } from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
-import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
+import {
+  addressFromApiToForm,
+  formatAddressReturnToData,
+} from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
@@ -326,10 +334,7 @@ export default defineComponent({
     const { app } = useContext();
     const shippingDetails = ref({});
     const {
-      load,
-      save,
-      loading,
-      billing: address,
+      load, save, loading, billing: address,
     } = useBilling();
     const {
       billing: userBilling,
@@ -408,7 +413,9 @@ export default defineComponent({
           await searchCountry({ id: shippingDetails.value.country_code });
         }
         oldBilling = { ...billingDetails.value };
-        billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
+        billingDetails.value = {
+          ...formatAddressReturnToData(shippingDetails.value),
+        };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
@@ -470,10 +477,7 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
+      await Promise.all([loadCountries(), load()]);
 
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });
@@ -482,7 +486,9 @@ export default defineComponent({
       if (!userBilling.value?.addresses && isAuthenticated.value) {
         await loadUserBilling();
       }
-      const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
+      const billingAddresses = userBillingGetters.getAddresses(
+        userBilling.value,
+      );
 
       if (!billingAddresses || billingAddresses.length === 0) {
         return;
