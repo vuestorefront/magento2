@@ -44,7 +44,7 @@ export interface UseWishlistFactoryParams<WISHLIST,
 }
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseWishlistFactoryParams<WISHLIST, WISHLIST_ITEM, PRODUCT, API>,

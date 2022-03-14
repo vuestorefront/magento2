@@ -9,7 +9,7 @@ import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
 import { useWishlistFactory, UseWishlistFactoryParams } from '../../factories/useWishlistFactory';
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<any, any, any> = {
