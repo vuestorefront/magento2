@@ -5,7 +5,7 @@ import {
 import { UseForgotPasswordFactoryParams } from '../../factories/useForgotPasswordFactory';
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 const factoryParams: UseForgotPasswordFactoryParams<any> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
