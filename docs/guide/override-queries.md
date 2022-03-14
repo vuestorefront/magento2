@@ -56,7 +56,7 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
   ```
   
   ::: warning
-    Make sure you have `graphgl-tag` installed as dependency prior using this sample code.
+  Make sure you have `graphgl-tag` installed as dependency prior using this sample code.
   :::
 
 2. In `middleware.config.js`, import the modified query
@@ -82,10 +82,11 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
         },
       },
     };
+   ```
 
 4. Now you can restart your dev environment and view the updated data queried.
 
-::: warning
+:::warning
 `thumbnail` is a must-have field to query. It is used for our default image rendering (for Nuxt image). DO NOT remove it from the query in any circumstance.
 :::
 
