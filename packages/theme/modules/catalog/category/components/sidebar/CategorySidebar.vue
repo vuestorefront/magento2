@@ -4,17 +4,17 @@
     height="500px"
   >
     <SfAccordion
-      :open="activeCategory"
-      :show-chevron="true"
+      :open="topLevelCategoryLabel"
+      show-chevron
     >
       <SfAccordionItem
-        v-for="(cat, i) in categoryTree.items"
+        v-for="(cat, i) in categoryTree && categoryTree.items"
         :key="i"
         :header="cat.label"
       >
         <SfList class="list">
           <SfListItem
-            v-for="(subCat, j) in cat.items"
+            v-for="(subCat, j) in cat && cat.items"
             :key="j"
             class="list__item"
           >
@@ -54,23 +54,25 @@
   </SkeletonLoader>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfList,
   SfMenuItem,
   SfAccordion,
 } from '@storefront-ui/vue';
+
 import {
   defineComponent, onMounted, ref,
-  useRoute,
+  useRoute, computed,
 } from '@nuxtjs/composition-api';
-
 import { useUiHelpers } from '~/composables';
-import { useSidebar } from './useSidebar.ts';
-import SkeletonLoader from '~/components/SkeletonLoader';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
+import { useApi } from '~/composables/useApi';
+import { useCategoryStore } from '~/stores/category';
+import { findActiveCategory, findCategoryAncestors } from '~/modules/catalog/category/helpers';
+import { CategoryTreeInterface } from '../../types';
 
 export default defineComponent({
-  name: 'CategorySidebar',
   components: {
     SfList,
     SfMenuItem,
@@ -79,23 +81,31 @@ export default defineComponent({
   },
   setup() {
     const uiHelpers = useUiHelpers();
-    const categoryTree = ref({});
-    const activeCategory = ref('');
-    const isLoading = ref(true);
     const route = useRoute();
-    const { loadCategoryTree, findActiveCategory } = useSidebar();
+    const api = useApi();
+
+    const categoryStore = useCategoryStore(api);
+    const categoryTree = computed(() => categoryStore.categories);
+    const activeCategory = ref<CategoryTreeInterface | null>(null);
+    const activeCategoryAncestors = ref(null);
+    const isLoading = ref(true);
 
     onMounted(async () => {
-      categoryTree.value = await loadCategoryTree() ?? {};
-      activeCategory.value = findActiveCategory(categoryTree.value, route.value.fullPath);
+      if (categoryStore.categories === null) {
+        await categoryStore.load();
+      }
+      activeCategory.value = findActiveCategory(categoryTree.value, route.value.fullPath.replace('/default/c', ''));
+      activeCategoryAncestors.value = findCategoryAncestors(categoryStore.categories, activeCategory.value);
       isLoading.value = false;
     });
+
+    const topLevelCategoryLabel = computed(() => activeCategoryAncestors.value?.[0]?.label);
 
     return {
       ...uiHelpers,
       categoryTree,
-      activeCategory,
       isLoading,
+      topLevelCategoryLabel,
     };
   },
 });

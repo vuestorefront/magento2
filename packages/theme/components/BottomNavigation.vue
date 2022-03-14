@@ -18,7 +18,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         label="Menu"
-        @click="toggleMobileMenu"
+        @click="loadCategoryMenu"
       >
         <template #icon>
           <SvgImage
@@ -72,7 +72,7 @@
         </template>
       </SfBottomNavigationItem>
     </SfBottomNavigation>
-    <MobileMenuSidebar />
+    <MobileCategorySidebar v-if="isMobileMenuOpen" />
   </div>
 </template>
 
@@ -80,14 +80,17 @@
 import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUiState, useUser } from '~/composables';
-import MobileMenuSidebar from '~/components/MobileMenuSidebar.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
+import { useCategoryStore } from '~/stores/category';
+import { useApi } from '~/composables/useApi';
+
+const MobileCategorySidebar = () => import('~/modules/catalog/category/components/sidebar/MobileCategorySidebar/MobileCategorySidebar.vue');
 
 export default defineComponent({
   components: {
     SfBottomNavigation,
     SfCircleIcon,
-    MobileMenuSidebar,
+    MobileCategorySidebar,
     SvgImage,
   },
   setup() {
@@ -101,6 +104,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const router = useRouter();
     const { app } = useContext();
+    const api = useApi();
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
         await router.push(`${app.localePath('/my-account')}`);
@@ -109,12 +113,21 @@ export default defineComponent({
       }
     };
 
+    const loadCategoryMenu = async () => {
+      const categories = useCategoryStore(api);
+      if (categories.categories === null) {
+        await categories.load();
+      }
+      toggleMobileMenu();
+    };
+
     return {
       isAuthenticated,
       isMobileMenuOpen,
       toggleWishlistSidebar,
       toggleCartSidebar,
       toggleMobileMenu,
+      loadCategoryMenu,
       handleAccountClick,
       app,
     };
