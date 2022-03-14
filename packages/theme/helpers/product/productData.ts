@@ -1,18 +1,17 @@
 import { computed, useRoute } from '@nuxtjs/composition-api';
-import { productGetters, useProduct } from '@vue-storefront/magento';
+import { productGetters } from '@vue-storefront/magento';
 
-export const productData = () => {
+export const productData = (products) => {
   const route = useRoute();
   const { params: { id }, query } = route.value;
 
-  const { products, loading } = useProduct(`product-${id}`);
-
   return {
     id,
-    loading,
     product: computed(() => {
+      if (!products) return {};
       const baseProduct = Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : [];
-      // @ts-ignore
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return productGetters.getFiltered(baseProduct, {
         master: true,
         attributes: query,

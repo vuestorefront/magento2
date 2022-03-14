@@ -1,5 +1,5 @@
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 import {
   ComposableFunctionArgs,
@@ -62,7 +62,7 @@ const constructSortObject = (sortData: string) => {
 };
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -15,3 +15,4 @@ export { default as useFacet } from './useFacet';
 export { default as useCart } from './useCart';
 export { default as useContent } from './useContent';
 export { default as useCategorySearch } from './useCategorySearch';
+export { default as useProduct } from './useProduct';

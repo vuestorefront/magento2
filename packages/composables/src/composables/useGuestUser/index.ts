@@ -1,5 +1,5 @@
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-api';
 import { Logger } from '@vue-storefront/core';

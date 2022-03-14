@@ -94,18 +94,18 @@ import {
   SfBannerGrid,
 } from '@storefront-ui/vue';
 import {
-  useProduct,
   productGetters,
 } from '@vue-storefront/magento';
+
 import {
   computed,
   defineComponent,
   ref,
-  useContext,
+  useContext, useFetch,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import { useProduct } from '~/composables';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
@@ -130,12 +130,13 @@ export default defineComponent({
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
+    const products = ref({});
 
     const {
-      products: newProductsResult,
-      search: newProductsSearch,
+      getProductList,
       loading: newProductsLoading,
-    } = useProduct('newProducts');
+    } = useProduct();
+
     const heroes = ref([
       {
         title: app.i18n.t('Colorful summer dresses are already in store'),
@@ -240,17 +241,16 @@ export default defineComponent({
     ]);
 
     // @ts-ignore
-    const newProducts = computed(() => productGetters.getFiltered(newProductsResult.value?.items, { master: true }));
+    const newProducts = computed(() => productGetters.getFiltered(products.value?.items, { master: true }));
 
-    onSSR(async () => {
-      await newProductsSearch({
+    useFetch(async () => {
+      products.value = await getProductList({
         pageSize: 10,
         currentPage: 1,
         sort: {
           position: 'ASC',
         },
       });
-
       addTags([
         { prefix: CacheTagPrefix.View, value: 'home' },
       ]);
