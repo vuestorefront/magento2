@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { defineComponent } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 
 export default defineComponent({
@@ -20,8 +21,13 @@ export default defineComponent({
     SfButton,
   },
   layout: 'error',
-  props: { error: { type: Object, required: ???}},
-};
+  props: {
+    error: {
+      type: Object,
+      required: true,
+    },
+  },
+});
 </script>
 <style lang="scss" scoped>
 .error-page {
