@@ -1,7 +1,11 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Context, Logger } from '@vue-storefront/core';
 import { ReviewMetadata } from '@vue-storefront/magento';
-import * as commands from './commands';
+
+import { addReviewCommand } from './commands/addReviewCommand';
+import { loadCustomerReviewsCommand } from './commands/loadCustomerReviewsCommand';
+import { loadReviewMetadataCommand } from './commands/loadReviewMetadataCommand';
+import { searchReviewsCommand } from './commands/searchReviewsCommand';
 
 export const useReview = (id: string) => {
   const reviews = ref([]);
@@ -22,7 +26,7 @@ export const useReview = (id: string) => {
 
     try {
       loading.value = true;
-      reviews.value = await commands.searchReviews.execute(context, searchParams);
+      reviews.value = await searchReviewsCommand.execute(context, searchParams);
       error.value.search = null;
     } catch (err) {
       error.value.search = err;
@@ -37,7 +41,7 @@ export const useReview = (id: string) => {
 
     try {
       loading.value = true;
-      reviews.value = await commands.loadCustomerReviews.execute(context);
+      reviews.value = await loadCustomerReviewsCommand.execute(context);
       error.value.loadCustomerReviews = null;
     } catch (err) {
       error.value.loadCustomerReviews = err;
@@ -47,12 +51,12 @@ export const useReview = (id: string) => {
     }
   };
 
-  const loadReviewMetadata = async (params): Promise<void> => {
+  const loadReviewMetadata = async (_params): Promise<void> => {
     Logger.debug(`useReview/${id}/loadReviewMetadata`);
 
     try {
       loading.value = true;
-      metadata.value = await commands.loadReviewMetadata.execute(context);
+      metadata.value = await loadReviewMetadataCommand.execute(context);
       error.value.loadReviewMetadata = null;
     } catch (err) {
       error.value.loadReviewMetadata = err;
@@ -66,7 +70,7 @@ export const useReview = (id: string) => {
     Logger.debug(`useReview/${id}/addReview`, params);
     try {
       loading.value = true;
-      reviews.value = await commands.addReview.execute(context, params);
+      reviews.value = await addReviewCommand.execute(context, params);
       error.value.addReview = null;
     } catch (err) {
       error.value.addReview = err;
