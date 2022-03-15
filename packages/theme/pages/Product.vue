@@ -270,7 +270,6 @@ import {
   SfSelect,
   SfTabs,
 } from '@storefront-ui/vue';
-import { useReview } from '@vue-storefront/magento';
 import {
   ref,
   computed,
@@ -290,6 +289,7 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
+import { useReview } from '~/composables/useReview';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
 import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import UpsellProducts from '~/components/UpsellProducts';

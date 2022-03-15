@@ -116,7 +116,6 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
-import { useReview } from '@vue-storefront/magento';
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
@@ -124,6 +123,7 @@ import {
 } from '@storefront-ui/vue';
 import { reviewGetters, userGetters } from '~/getters';
 import { useUser } from '~/composables';
+import { useReview } from '~/composables/useReview';
 
 extend('required', {
   ...required,
