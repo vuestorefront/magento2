@@ -15,7 +15,7 @@ import {
 } from '../../factories/useRelatedProductsFactory';
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 const factoryParams: UseRelatedProductsFactoryParams<RelatedProductQuery['products']['items'][0]['related_products'], ProductsSearchParams> = {
   productsSearch: async (
