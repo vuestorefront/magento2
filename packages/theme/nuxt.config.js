@@ -211,6 +211,9 @@ export default () => {
           apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
         })
       ],
+      transpile: [
+        'vee-validate',
+      ],
     },
     plugins: [
       '~/plugins/token-expired',
