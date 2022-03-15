@@ -20,7 +20,7 @@ export default defineComponent({
     SfButton,
   },
   layout: 'error',
-  props: ['error'],
+  props: { error: { type: Object, required: ???}},
 };
 </script>
 <style lang="scss" scoped>
