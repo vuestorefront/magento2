@@ -11,6 +11,9 @@ import {
 } from '@vue-storefront/core';
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
+/**
+ * @deprecated since version1.0.0
+ */
 export interface UseRelatedProductsFactoryParams<
   PRODUCTS,
   RELATED_PRODUCTS_SEARCH_PARAMS extends ProductsSearchParams,
