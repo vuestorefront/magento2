@@ -16,3 +16,5 @@ export { default as useCart } from './useCart';
 export { default as useContent } from './useContent';
 export { default as useCategorySearch } from './useCategorySearch';
 export { default as useProduct } from './useProduct';
+export { default as useShipping } from './useShipping';
+export { default as useShippingProvider } from './useShippingProvider';
