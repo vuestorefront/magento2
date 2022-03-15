@@ -3,7 +3,7 @@
     "declaration": true,
     "target": "ES2019",
     "module": "ES2015",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "lib": [
       "ES2019",
       "DOM"
@@ -23,18 +23,18 @@
       ]
     },
     "types": [
-      "@types/node",
+      "node",
       "@nuxt/types",
       "nuxt-i18n",
-      "@nuxt/image"
+      "@nuxt/image",
+      "jest"
     ],
+    "typeRoots": ["../../node_modules/@types"],
     "resolveJsonModule": true,
     "rootDir": "./",
     "declarationDir": "./lib",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["tests/e2e/**"]
 }
