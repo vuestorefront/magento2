@@ -15,7 +15,7 @@
 <script>
 import { SfButton } from '@storefront-ui/vue';
 
-export default {
+export default defineComponent({
   components: {
     SfButton,
   },
