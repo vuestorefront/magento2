@@ -1,40 +1,33 @@
 import { gql } from 'graphql-request';
 
+const fragmentCategory = gql`
+  fragment CategoryFields on CategoryTree {
+    is_anchor
+    name
+    position
+    product_count
+    uid
+    url_path
+    url_suffix
+  }
+`;
+
 export default gql`
   query categoryList {
     categories {
       items {
+        ...CategoryFields
         children {
-          is_anchor
-          name
-          position
-          product_count
-          uid
-          url_path
-          url_suffix
+          ...CategoryFields
           children {
-            is_anchor
-            name
-            position
-            product_count
-            uid
-            url_path
-            url_suffix
+            ...CategoryFields
             children {
-              is_anchor
-              name
-              position
-              product_count
-              uid
-              url_path
-              url_suffix
+              ...CategoryFields
             }
           }
         }
-        product_count
-        name
-        uid
       }
     }
   }
+  ${fragmentCategory}
 `;
