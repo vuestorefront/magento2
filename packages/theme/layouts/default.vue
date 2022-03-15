@@ -41,11 +41,19 @@ export default defineComponent({
     BottomNavigation,
     IconSprite,
     TopBar,
-    AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
-    CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
-    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
-    LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
-    Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification'),
+    AppFooter: () =>
+      import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
+    CartSidebar: () =>
+      import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
+    WishlistSidebar: () =>
+      import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
+    LoginModal: () =>
+      import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
+    Notification: () =>
+      import(/* webpackPrefetch: true */ '~/components/Notification'),
+  },
+  head: {
+    link: [{ rel: 'stylesheet', href: '/_nuxt/fonts.css' }],
   },
 
   setup() {
