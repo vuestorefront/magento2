@@ -255,6 +255,6 @@ export default {
   "We can't find products matching the selection.":"Wir können keine Produkte finden, die der Auswahl entsprechen.",
   'Page not found': 'Seite nicht gefunden',
   'Back to Home page': 'Zurück zur Startseite',
-  'An error occurred': 'Ein Fehler ist aufgetretenq',
+  'An error occurred': 'Ein Fehler ist aufgetreten',
   "AllProductsFromCategory": "Alle {categoryName}"
 };
