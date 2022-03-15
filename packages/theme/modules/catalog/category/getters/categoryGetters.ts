@@ -1,7 +1,7 @@
 import {
   CategoryGetters, CategoryTreeInterface, AgnosticBreadcrumb, Category,
 } from '~/modules/catalog/category/types';
-import { buildCategoryTree } from '~/modules/catalog/category/helpers/buildCategoryTree';
+import { buildCategoryTree } from '~/modules/catalog/category/helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTree = (category: Category): CategoryTreeInterface | null => {
