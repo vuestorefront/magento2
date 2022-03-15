@@ -11,9 +11,7 @@
         class="shipping__address"
         :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
-        <UserAddressDetails
-          :address="shippingAddress"
-        />
+        <UserAddressDetails :address="shippingAddress" />
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
@@ -29,18 +27,10 @@
 </template>
 
 <script>
-import {
-  SfCheckbox,
-  SfAddressPicker,
-} from '@storefront-ui/vue';
-import {
-  useUserShipping,
-  userShippingGetters,
-} from '@vue-storefront/magento';
-import {
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { useUserShipping } from '@vue-storefront/magento';
+import { userShippingGetters } from '~/getters';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -77,8 +67,7 @@ export default defineComponent({
       emit('setCurrentAddress', selectedAddress[0]);
     };
 
-    const shippingAddresses = computed(() => userShippingGetters
-      .getAddresses(userShipping.value));
+    const shippingAddresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
     return {
       setCurrentAddress,
@@ -113,7 +102,8 @@ export default defineComponent({
   }
 }
 
-.sf-divider, .form__action-button--margin-bottom {
+.sf-divider,
+.form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>

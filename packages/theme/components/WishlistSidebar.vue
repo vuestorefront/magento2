@@ -44,9 +44,23 @@
               :key="item"
               :image="wishlistGetters.getItemImage(product)"
               :title="wishlistGetters.getItemName(product)"
-              :regular-price="$fc(wishlistGetters.getItemPrice(product).regular)"
-              :link="localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)"
-              :special-price="wishlistGetters.getItemPrice(product).special && $fc(wishlistGetters.getItemPrice(product).special)"
+              :regular-price="
+                $fc(wishlistGetters.getItemPrice(product).regular)
+              "
+              :link="
+                localePath(
+                  `/p/${wishlistGetters.getItemSku(
+                    product
+                  )}${productGetters.getSlug(
+                    product.product,
+                    product.product.categories[0]
+                  )}`
+                )
+              "
+              :special-price="
+                wishlistGetters.getItemPrice(product).special &&
+                  $fc(wishlistGetters.getItemPrice(product).special)
+              "
               :stock="99999"
               class="collected-product"
               @click:remove="removeItem({ product: product.product })"
@@ -57,11 +71,20 @@
               <template #image>
                 <SfLink
                   :link="
-                    localePath(`/p/${wishlistGetters.getItemSku(product)}${productGetters.getSlug(product.product, product.product.categories[0])}`)
+                    localePath(
+                      `/p/${wishlistGetters.getItemSku(
+                        product
+                      )}${productGetters.getSlug(
+                        product.product,
+                        product.product.categories[0]
+                      )}`
+                    )
                   "
                 >
                   <nuxt-img
-                    :src="getMagentoImage(wishlistGetters.getItemImage(product))"
+                    :src="
+                      getMagentoImage(wishlistGetters.getItemImage(product))
+                    "
                     :alt="wishlistGetters.getItemName(product)"
                     :width="140"
                     :height="200"
@@ -70,9 +93,7 @@
                 </SfLink>
               </template>
               <template #configuration>
-                <div
-                  v-if="getAttributes(product).length > 0"
-                >
+                <div v-if="getAttributes(product).length > 0">
                   <SfProperty
                     v-for="(attr, index) in getAttributes(product)"
                     :key="index"
@@ -80,9 +101,7 @@
                     :value="attr.value_label"
                   />
                 </div>
-                <div
-                  v-if="getBundles(product).length > 0"
-                >
+                <div v-if="getBundles(product).length > 0">
                   <SfProperty
                     v-for="(bundle, i) in getBundles(product)"
                     :key="i"
@@ -101,7 +120,9 @@
             </SfCollectedProduct>
           </div>
           <div class="sidebar-bottom">
-            <SfProperty class="sf-property--full-width my-wishlist__total-price">
+            <SfProperty
+              class="sf-property--full-width my-wishlist__total-price"
+            >
               <template #name>
                 <span class="my-wishlist__total-price-label">Total price:</span>
               </template>
@@ -158,10 +179,7 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
-import {
-  wishlistGetters,
-  productGetters,
-} from '@vue-storefront/magento';
+import { wishlistGetters, productGetters } from '~/getters';
 import {
   useUiState, useImage, useWishlist, useUser,
 } from '~/composables';
@@ -186,9 +204,15 @@ export default defineComponent({
       wishlist, removeItem, load: loadWishlist, loading,
     } = useWishlist();
     const { isAuthenticated } = useUser();
-    const products = computed(() => wishlistGetters.getProducts(wishlist.value) ?? []);
-    const totals = computed(() => wishlistGetters.getTotals(wishlist.value) ?? {});
-    const totalItems = computed(() => wishlistGetters.getTotalItems(wishlist.value) ?? 0);
+    const products = computed(
+      () => wishlistGetters.getProducts(wishlist.value) ?? [],
+    );
+    const totals = computed(
+      () => wishlistGetters.getTotals(wishlist.value) ?? {},
+    );
+    const totalItems = computed(
+      () => wishlistGetters.getTotalItems(wishlist.value) ?? 0,
+    );
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
@@ -226,7 +250,8 @@ export default defineComponent({
 .sidebar {
   --sidebar-z-index: 3;
   --overlay-z-index: 3;
-  --sidebar-top-padding: var(--spacer-lg) var(--spacer-base) 0 var(--spacer-base);
+  --sidebar-top-padding: var(--spacer-lg) var(--spacer-base) 0
+    var(--spacer-base);
   --sidebar-content-padding: var(--spacer-lg) var(--spacer-base);
 }
 
@@ -235,7 +260,8 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   &__total-items {
-    font: var(--font-weight--normal) var(--font-size--lg) / 1.6 var(--font-family--secondary);
+    font: var(--font-weight--normal) var(--font-size--lg) / 1.6
+      var(--font-family--secondary);
     color: var(--c-link);
     margin: 0;
   }
@@ -244,7 +270,8 @@ export default defineComponent({
     --price-font-size: var(--font-size--xl);
     margin: 0 0 var(--spacer-xl) 0;
     &-label {
-      font: var(--font-weight--normal) var(--font-size--2xl) / 1.6 var(--font-family--secondary);
+      font: var(--font-weight--normal) var(--font-size--2xl) / 1.6
+        var(--font-family--secondary);
       color: var(--c-link);
     }
   }
@@ -271,10 +298,10 @@ export default defineComponent({
     --heading-title-margin: 0 0 var(--spacer-xl) 0;
     --heading-title-color: var(--c-primary);
     --heading-title-font-weight: var(--font-weight--semibold);
-      @include for-desktop {
+    @include for-desktop {
       --heading-title-font-size: var(--font-size--xl);
       --heading-title-margin: 0 0 var(--spacer-sm) 0;
-  }
+    }
   }
   &__icon {
     --image-width: 16rem;
@@ -305,5 +332,4 @@ export default defineComponent({
     margin: var(--spacer-sm) 0 0 0;
   }
 }
-
 </style>

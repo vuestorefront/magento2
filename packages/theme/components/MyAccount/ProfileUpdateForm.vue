@@ -56,7 +56,9 @@
         persistent
         @close="requirePassword = false"
       >
-        {{ $t('Please type your current password to change your email address.') }}
+        {{
+          $t('Please type your current password to change your email address.')
+        }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -78,7 +80,9 @@
         v-if="requirePassword"
         class="smartphone-only"
       >
-        {{ $t('Please type your current password to change your email address.') }}
+        {{
+          $t('Please type your current password to change your email address.')
+        }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -96,7 +100,10 @@
           {{ $t('Update personal data') }}
         </SfButton>
       </div>
-      <SfButton v-if="!requirePassword" class="form__button">
+      <SfButton
+        v-if="!requirePassword"
+        class="form__button"
+      >
         {{ $t('Update personal data') }}
       </SfButton>
     </form>
@@ -107,12 +114,8 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
-import { userGetters } from '@vue-storefront/magento';
-import {
-  SfInput,
-  SfButton,
-  SfModal,
-} from '@storefront-ui/vue';
+import { userGetters } from '~/getters';
+import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
 import { useUiNotification, useUser } from '~/composables';
 
 extend('email', {
@@ -146,9 +149,7 @@ export default defineComponent({
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
     });
-    const {
-      send: sendNotification,
-    } = useUiNotification();
+    const { send: sendNotification } = useUiNotification();
 
     const form = ref(resetForm());
 
@@ -197,7 +198,7 @@ export default defineComponent({
   },
 });
 </script>
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .form {
   &__element {
     display: block;

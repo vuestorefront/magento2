@@ -1,61 +1,63 @@
 <template>
-  <div
-    v-if="!productLoading"
-  >
+  <div v-if="!productLoading">
     <SfList class="bundle_products">
       <SfListItem
-        v-for="(bundle) in bundleProduct"
+        v-for="bundle in bundleProduct"
         :key="`${bundle.uid}`"
         class="bundle_products--item"
       >
-        <p
-          :class="{'bundle_products--item-required': bundle.required }"
-        >
+        <p :class="{ 'bundle_products--item-required': bundle.required }">
           {{ bundle.title }}
         </p>
-        <SfList
-          class="bundle_products--options"
-        >
+        <SfList class="bundle_products--options">
           <SfListItem
-            v-for="(option) in bundle.options"
+            v-for="option in bundle.options"
             :key="`${option.uid}`"
             class="bundle_products--options-option"
           >
-            <template
-              v-if="bundle.options.length === 1"
-            >
+            <template v-if="bundle.options.length === 1">
               <div class="bundle_products--options-option__container">
                 <p>{{ productGetters.getName(option.product) }}</p>
                 <SfPrice
-                  :regular="$fc(productGetters.getPrice(option.product).regular)"
-                  :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
+                  :regular="
+                    $fc(productGetters.getPrice(option.product).regular)
+                  "
+                  :special="
+                    productGetters.getPrice(option.product).special &&
+                      $fc(productGetters.getPrice(option.product).special)
+                  "
                 />
               </div>
             </template>
-            <template
-              v-else
-            >
+            <template v-else>
               <SfRadio
                 v-if="selectedOptions[bundle.uid]"
                 v-model="selectedOptions[bundle.uid].uid"
                 :name="bundle.uid"
                 :value="option.uid"
                 :label="productGetters.getName(option.product)"
-                @change="selectedOptions[bundle.uid].price = productGetters.getPrice(option.product).regular"
+                @change="
+                  selectedOptions[bundle.uid].price = productGetters.getPrice(
+                    option.product
+                  ).regular
+                "
               >
                 <template #description>
                   <SfPrice
-                    :regular="$fc(productGetters.getPrice(option.product).regular)"
-                    :special="productGetters.getPrice(option.product).special && $fc(productGetters.getPrice(option.product).special)"
+                    :regular="
+                      $fc(productGetters.getPrice(option.product).regular)
+                    "
+                    :special="
+                      productGetters.getPrice(option.product).special &&
+                        $fc(productGetters.getPrice(option.product).special)
+                    "
                   />
                 </template>
               </SfRadio>
             </template>
           </SfListItem>
         </SfList>
-        <p>
-          Quantity
-        </p>
+        <p>Quantity</p>
         <SfQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
@@ -81,12 +83,9 @@ import {
   SfRadio,
   SfButton,
 } from '@storefront-ui/vue';
-import { productGetters } from '@vue-storefront/magento';
+import { productGetters } from '~/getters';
 import {
-  computed,
-  defineComponent,
-  ref,
-  watch,
+  computed, defineComponent, ref, watch,
 } from '@nuxtjs/composition-api';
 import { useCart } from '~/composables';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
@@ -121,14 +120,21 @@ export default defineComponent({
     selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
 
     const canChangeQuantity = (bundle) => {
-      const selectedOption = bundle.options.find((o) => o.uid === selectedOptions.value[bundle.uid]?.uid);
+      const selectedOption = bundle.options.find(
+        (o) => o.uid === selectedOptions.value[bundle.uid]?.uid,
+      );
 
       return !selectedOption.can_change_quantity;
     };
 
     const price = computed(() => Object.keys(selectedOptions.value)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .reduce((s, k) => s + (Number.parseFloat(selectedOptions.value[k].price) * selectedOptions.value[k].quantity), 0));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      .reduce(
+        (s, k) => s
+            + Number.parseFloat(selectedOptions.value[k].price)
+              * selectedOptions.value[k].quantity,
+        0,
+      ));
 
     const addToCart = async () => {
       const bundleProductData = computed(() => Object.keys(selectedOptions.value).map((selectedOptionKey) => {
@@ -148,14 +154,22 @@ export default defineComponent({
       });
     };
 
-    watch(bundleProduct, (newVal) => {
-      selectedOptions.value = newVal;
-    }, { deep: true });
+    watch(
+      bundleProduct,
+      (newVal) => {
+        selectedOptions.value = newVal;
+      },
+      { deep: true },
+    );
 
-    watch(computed(() => selectedOptions.value), () => {
-      emit('update-bundle', selectedOptions.value);
-      emit('update-price', price.value);
-    }, { deep: true });
+    watch(
+      computed(() => selectedOptions.value),
+      () => {
+        emit('update-bundle', selectedOptions.value);
+        emit('update-price', price.value);
+      },
+      { deep: true },
+    );
 
     return {
       addToCart,
@@ -173,47 +187,49 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .bundle_products {
-  &--add-to-cart{
+  &--add-to-cart {
     width: 100%;
   }
 
   &--item {
-      padding: 0 0 var(--spacer-base) 0 !important;
-      border-bottom: 1px solid #e4e4e4 !important;
-      .sf-quantity-selector{
-        margin: 0 var(--spacer-sm) !important;
-      }
-      p {
-        font-weight: 600;
-        padding: 0 var(--spacer-sm);
-      }
-      &-required{
-        &:after{
-          content: '*';
-          color: #e02b27;
-          font-size: 1.2rem;
-          margin: 0 0 0 5px;
-        }
+    padding: 0 0 var(--spacer-base) 0 !important;
+    border-bottom: 1px solid #e4e4e4 !important;
+    .sf-quantity-selector {
+      margin: 0 var(--spacer-sm) !important;
+    }
+    p {
+      font-weight: 600;
+      padding: 0 var(--spacer-sm);
+    }
+    &-required {
+      &:after {
+        content: '*';
+        color: #e02b27;
+        font-size: 1.2rem;
+        margin: 0 0 0 5px;
       }
     }
+  }
 
-  &--options{
-
-    &-option{
+  &--options {
+    &-option {
       &__container {
-       p, .sf-price {
-        padding: 0 var(--spacer-sm) !important;
-       }
+        p,
+        .sf-price {
+          padding: 0 var(--spacer-sm) !important;
+        }
       }
-      .sf-price{
-        &:before{
+      .sf-price {
+        &:before {
           content: '+';
           margin-right: 5px;
-          font: var(--price-regular-font,
-                var(--price-regular-font-weight,
-                var(--font-weight--medium)) var(--price-regular-font-size,
-                var(--font-size--lg))/var(--price-regular-font-line-height, 1.6) var(--price-regular-font-family,
-                var(--font-family--secondary)));
+          font: var(
+            --price-regular-font,
+            var(--price-regular-font-weight, var(--font-weight--medium))
+              var(--price-regular-font-size, var(--font-size--lg)) /
+              var(--price-regular-font-line-height, 1.6)
+              var(--price-regular-font-family, var(--font-family--secondary))
+          );
           color: var(--price-regular-color, var(--c-text));
         }
       }

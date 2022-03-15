@@ -8,9 +8,14 @@
         <template #title>
           <span class="desktop-only">{{ storeConfig.store_name }}</span>
         </template>
-        <template #icon v-if="storeConfigGetters.getLocale(storeConfig)">
+        <template
+          v-if="storeConfigGetters.getLocale(storeConfig)"
+          #icon
+        >
           <nuxt-img
-            :src="`/icons/langs/${storeConfigGetters.getLocale(storeConfig)}.webp`"
+            :src="`/icons/langs/${storeConfigGetters.getLocale(
+              storeConfig
+            )}.webp`"
             width="20"
             height="20"
             alt="Flag"
@@ -32,20 +37,11 @@
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import {
-  storeConfigGetters,
-  storeGetters,
-} from '@vue-storefront/magento';
+import { storeConfigGetters, storeGetters } from '~/getters';
 
-import {
-  SfButton,
-  SfCharacteristic,
-} from '@storefront-ui/vue';
+import { SfButton, SfCharacteristic } from '@storefront-ui/vue';
 
-import {
-  ref,
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { ref, defineComponent } from '@nuxtjs/composition-api';
 import StoresModal from '~/components/StoreSwitcher/StoresModal.vue';
 import { useConfig } from '~/composables';
 
@@ -58,9 +54,7 @@ export default defineComponent({
     LazyHydrate,
   },
   setup() {
-    const {
-      config,
-    } = useConfig();
+    const { config } = useConfig();
 
     const isLangModalOpen = ref(false);
 

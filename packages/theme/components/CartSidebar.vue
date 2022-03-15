@@ -120,7 +120,9 @@
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
-                        @input="delayedUpdateItemQty({ product, quantity: $event })"
+                        @input="
+                          delayedUpdateItemQty({ product, quantity: $event })
+                        "
                       />
                     </div>
                     <SfBadge
@@ -187,18 +189,13 @@
           <div v-if="totalItems">
             <SfProperty
               :name="$t('Subtotal price')"
-              class="
-                sf-property--full-width sf-property--large
-                my-cart__total-price
-              "
+              class="sf-property--full-width sf-property--large my-cart__total-price"
             >
               <template #value>
                 <SfPrice
                   :regular="$fc(totals.subtotal)"
                   :special="
-                    totals.subtotal <= totals.special
-                      ? ''
-                      : $fc(totals.special)
+                    totals.subtotal <= totals.special ? '' : $fc(totals.special)
                   "
                 />
               </template>
@@ -246,11 +243,10 @@ import {
   defineComponent,
   ref,
   useRouter,
-  useContext, onMounted,
+  useContext,
+  onMounted,
 } from '@nuxtjs/composition-api';
-import {
-  cartGetters,
-} from '@vue-storefront/magento';
+import { cartGetters } from '~/getters';
 import _debounce from 'lodash.debounce';
 import {
   useCart,
@@ -260,8 +256,8 @@ import {
   useExternalCheckout,
 } from '~/composables';
 import stockStatusEnum from '~/enums/stockStatusEnum';
-import CouponCode from './CouponCode.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
+import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -298,7 +294,14 @@ export default defineComponent({
     const products = computed(() => cartGetters
       .getItems(cart.value)
       .filter(Boolean)
-      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant, original_sku: item.product.sku } })));
+      .map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          ...item.configured_variant,
+          original_sku: item.product.sku,
+        },
+      })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
@@ -313,7 +316,9 @@ export default defineComponent({
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
+      const redirectUrl = await initializeCheckout({
+        baseUrl: '/checkout/user-account',
+      });
       await router.push(`${app.localePath(redirectUrl)}`);
     };
 
@@ -341,7 +346,10 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-    const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
+    const delayedUpdateItemQty = _debounce(
+      (params) => updateItemQty(params),
+      1000,
+    );
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;

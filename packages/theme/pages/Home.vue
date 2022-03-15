@@ -71,7 +71,11 @@
       <SfCallToAction
         :title="$t('Subscribe to Newsletters')"
         :button-text="$t('Subscribe')"
-        :description="$t('Be aware of upcoming sales and events. Receive gifts and special offers!')"
+        :description="
+          $t(
+            'Be aware of upcoming sales and events. Receive gifts and special offers!'
+          )
+        "
         image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
         class="call-to-action"
       />
@@ -93,15 +97,14 @@ import {
   SfCallToAction,
   SfBannerGrid,
 } from '@storefront-ui/vue';
-import {
-  productGetters,
-} from '@vue-storefront/magento';
+import { productGetters } from '~/getters';
 
 import {
   computed,
   defineComponent,
   ref,
-  useContext, useFetch,
+  useContext,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
@@ -132,10 +135,7 @@ export default defineComponent({
     const year = new Date().getFullYear();
     const products = ref({});
 
-    const {
-      getProductList,
-      loading: newProductsLoading,
-    } = useProduct();
+    const { getProductList, loading: newProductsLoading } = useProduct();
 
     const heroes = ref([
       {
@@ -145,9 +145,9 @@ export default defineComponent({
         background: '#eceff1',
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg',
         },
         link: '/c/women/women-clothing-shirts',
       },
@@ -158,9 +158,9 @@ export default defineComponent({
         background: '#fce4ec',
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg',
         },
         link: '/c/women/women-clothing-dresses',
       },
@@ -171,13 +171,13 @@ export default defineComponent({
         background: '#efebe9',
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg',
         },
         link: '/c/women/women-shoes-sandals',
         className:
-            'sf-hero-item--position-bg-top-left sf-hero-item--align-right',
+          'sf-hero-item--position-bg-top-left sf-hero-item--align-right',
       },
     ]);
     const banners = ref([
@@ -185,14 +185,15 @@ export default defineComponent({
         slot: 'banner-A',
         subtitle: app.i18n.t('Dresses'),
         title: app.i18n.t('Cocktail & Party'),
-        description:
-            app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        description: app.i18n.t(
+          'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
+        ),
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
         },
         class: 'sf-banner--slim desktop-only',
         link: '/c/women/women-clothing-skirts',
@@ -201,13 +202,15 @@ export default defineComponent({
         slot: 'banner-B',
         subtitle: app.i18n.t('Dresses'),
         title: app.i18n.t('Linen Dresses'),
-        description: app.i18n.t('Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.'),
+        description: app.i18n.t(
+          'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
+        ),
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
         },
         class: 'sf-banner--slim banner-central desktop-only',
         link: '/c/women/women-clothing-dresses',
@@ -218,9 +221,9 @@ export default defineComponent({
         title: app.i18n.t('The Office Life'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
         },
         class: 'sf-banner--slim banner__tshirt',
         link: '/c/women/women-clothing-shirts',
@@ -231,9 +234,9 @@ export default defineComponent({
         title: app.i18n.t('Eco Sandals'),
         image: {
           mobile:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
           desktop:
-              'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
+            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
         },
         class: 'sf-banner--slim',
         link: '/c/women/women-shoes-sandals',
@@ -251,9 +254,7 @@ export default defineComponent({
           position: 'ASC',
         },
       });
-      addTags([
-        { prefix: CacheTagPrefix.View, value: 'home' },
-      ]);
+      addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
     });
 
     return {
@@ -280,7 +281,7 @@ export default defineComponent({
 
 .article-item__meta-item:not(:last-child)::after {
   display: inline-block;
-  content: "";
+  content: '';
   width: 5px;
   height: 5px;
   margin: -1px 10px 0 10px;
@@ -335,7 +336,8 @@ export default defineComponent({
         --hero-item-wrapper-text-align: right;
         --hero-item-subtitle-width: 100%;
         --hero-item-title-width: 100%;
-        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm) var(--spacer-sm) var(--spacer-2xl);
+        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm)
+          var(--spacer-sm) var(--spacer-2xl);
       }
     }
   }
