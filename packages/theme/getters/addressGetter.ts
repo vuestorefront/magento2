@@ -1,5 +1,4 @@
-import { Countries, Country } from '@vue-storefront/magento-api';
-import { AddressGetter } from '../types';
+import { Countries, Country, AddressGetter } from '@vue-storefront/magento';
 
 const countriesList: AddressGetter['countriesList'] = (countries: Countries[]) => countries
   .filter((c) => c.id && c.full_name_english && c.full_name_locale)

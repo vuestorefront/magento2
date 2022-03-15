@@ -1,12 +1,10 @@
 <template>
   <SfBottomModal
     :is-open="isLangModalOpen"
-    :title="availableStores.length > 0 ? 'Change Store': ''"
+    :title="availableStores.length > 0 ? 'Change Store' : ''"
     @click:close="closeModal"
   >
-    <SfList
-      v-if="availableStores.length > 1"
-    >
+    <SfList v-if="availableStores.length > 1">
       <SfListItem
         v-for="store in availableStores"
         :key="store.id"
@@ -14,12 +12,18 @@
         <a
           href="/"
           class="container__store--link"
-          :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
-          @click="handleChanges({
-            callback: () => changeStore(store),
-            redirect: false,
-            windowRefresh: true,
-          })"
+          :class="
+            storeGetters.getSelected(storeConfig, store)
+              ? 'container__store--selected'
+              : ''
+          "
+          @click="
+            handleChanges({
+              callback: () => changeStore(store),
+              redirect: false,
+              windowRefresh: true,
+            })
+          "
         >
           <SfCharacteristic class="language">
             <template #title>
@@ -27,7 +31,9 @@
             </template>
             <template #icon>
               <nuxt-img
-                :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+                :src="`/icons/langs/${storeConfigGetters.getLocale(
+                  store
+                )}.webp`"
                 width="20"
                 height="20"
                 alt="Flag"
@@ -41,21 +47,10 @@
   </SfBottomModal>
 </template>
 <script>
-import {
-  defineComponent,
-  onMounted,
-  computed,
-} from '@nuxtjs/composition-api';
-import {
-  SfList,
-  SfBottomModal,
-  SfCharacteristic,
-} from '@storefront-ui/vue';
-import {
-  useStore,
-  storeConfigGetters,
-  storeGetters,
-} from '@vue-storefront/magento';
+import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api';
+import { SfList, SfBottomModal, SfCharacteristic } from '@storefront-ui/vue';
+import { useStore } from '@vue-storefront/magento';
+import { storeGetters, storeConfigGetters } from '~/getters';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({

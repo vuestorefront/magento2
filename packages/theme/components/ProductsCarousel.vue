@@ -21,10 +21,21 @@
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
-            :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+            :image="
+              getMagentoImage(productGetters.getProductThumbnailImage(product))
+            "
             :regular-price="$fc(productGetters.getPrice(product).regular)"
-            :special-price="productGetters.getPrice(product).special && $fc(productGetters.getPrice(product).special)"
-            :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+            :special-price="
+              productGetters.getPrice(product).special &&
+                $fc(productGetters.getPrice(product).special)
+            "
+            :link="
+              localePath(
+                `/p/${productGetters.getProductSku(
+                  product
+                )}${productGetters.getSlug(product, product.categories[0])}`
+              )
+            "
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
@@ -106,9 +117,7 @@ import {
   SfButton,
 } from '@storefront-ui/vue';
 
-import {
-  productGetters,
-} from '@vue-storefront/magento';
+import { productGetters } from '~/getters';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage, useWishlist, useUser } from '~/composables';
@@ -133,17 +142,14 @@ export default defineComponent({
     products: {
       type: Array,
       required: false,
-      default: () => ([]),
+      default: () => [],
     },
     loading: Boolean,
   },
   setup(props) {
     const { isAuthenticated } = useUser();
     const { isInWishlist, addItem, removeItem } = useWishlist();
-    const {
-      addItemToCart,
-      isInCart,
-    } = useAddToCart();
+    const { addItemToCart, isInCart } = useAddToCart();
 
     const mappedProducts = computed(() => props.products.map((product) => ({
       // @ts-ignore
@@ -152,11 +158,9 @@ export default defineComponent({
     })));
 
     const addItemToWishlist = async (product) => {
-      await (
-        isInWishlist({ product })
-          ? removeItem({ product })
-          : addItem({ product })
-      );
+      await (isInWishlist({ product })
+        ? removeItem({ product })
+        : addItem({ product }));
     };
 
     const { getMagentoImage, imageSizes } = useImage();
@@ -199,5 +203,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>

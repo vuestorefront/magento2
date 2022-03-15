@@ -30,8 +30,7 @@
           :label="method.method_title"
           :value="method.method_code"
           :selected="
-            selectedShippingMethod &&
-              selectedShippingMethod.method_code
+            selectedShippingMethod && selectedShippingMethod.method_code
           "
           name="shippingMethod"
           :description="method.carrier_title"
@@ -74,13 +73,11 @@
 
 <script>
 import {
-  cartGetters,
-} from '@vue-storefront/magento';
-import {
   SfHeading, SfButton, SfRadio, SfLoader,
 } from '@storefront-ui/vue';
 
 import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
+import { cartGetters } from '~/getters';
 import { useCart, useShippingProvider } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 

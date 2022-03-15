@@ -34,7 +34,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="firstname => changeShippingDetails('firstname', firstname)"
+            @input="
+              (firstname) => changeShippingDetails('firstname', firstname)
+            "
           />
         </ValidationProvider>
         <ValidationProvider
@@ -52,7 +54,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="lastname => changeShippingDetails('lastname', lastname)"
+            @input="(lastname) => changeShippingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -70,7 +72,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="street => changeShippingDetails('street', street)"
+            @input="(street) => changeShippingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -88,7 +90,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="apartment => changeShippingDetails('apartment', apartment)"
+            @input="
+              (apartment) => changeShippingDetails('apartment', apartment)
+            "
           />
         </ValidationProvider>
         <ValidationProvider
@@ -106,17 +110,23 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="city => changeShippingDetails('city', city)"
+            @input="(city) => changeShippingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
           name="region"
-          :rules="!shippingDetails.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
+          :rules="
+            !shippingDetails.country_code || regionInformation.length === 0
+              ? null
+              : 'required|min:2'
+          "
           slim
         >
           <SfInput
-            v-if="!shippingDetails.country_code || regionInformation.length === 0"
+            v-if="
+              !shippingDetails.country_code || regionInformation.length === 0
+            "
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
             label="State/Province"
@@ -124,8 +134,12 @@
             name="state"
             class="form__element form__element--half form__element--half-even"
             :valid="!!shippingDetails.country_code"
-            :error-message="!shippingDetails.country_code ? $t('Please select a country first') : ''"
-            @input="region => changeShippingDetails('region', region)"
+            :error-message="
+              !shippingDetails.country_code
+                ? $t('Please select a country first')
+                : ''
+            "
+            @input="(region) => changeShippingDetails('region', region)"
           />
           <SfSelect
             v-else
@@ -136,7 +150,7 @@
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="region => changeShippingDetails('region', region)"
+            @input="(region) => changeShippingDetails('region', region)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -188,7 +202,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="postcode => changeShippingDetails('postcode', postcode)"
+            @input="(postcode) => changeShippingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -206,7 +220,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="telephone => changeShippingDetails('telephone', telephone)"
+            @input="
+              (telephone) => changeShippingDetails('telephone', telephone)
+            "
           />
         </ValidationProvider>
       </div>
@@ -242,24 +258,23 @@
 
 <script>
 import {
-  SfHeading,
-  SfInput,
-  SfButton,
-  SfSelect,
+  SfHeading, SfInput, SfButton, SfSelect,
 } from '@storefront-ui/vue';
 import {
   ref,
   computed,
   watch,
   onMounted,
-  defineComponent, useRouter, useContext,
+  defineComponent,
+  useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
 import {
   addressGetter,
   useCountrySearch,
-  userShippingGetters,
   useUserShipping,
 } from '@vue-storefront/magento';
+import { userShippingGetters } from '~/getters';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { useUser, useShipping } from '~/composables';
@@ -427,14 +442,17 @@ export default defineComponent({
         await searchCountry({ id: shippingDetails.value.country_code });
       }
 
-      const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
+      const shippingAddresses = userShippingGetters.getAddresses(
+        userShipping.value,
+      );
 
       if (!shippingAddresses || shippingAddresses.length === 0) {
         return;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
+      const hasEmptyShippingDetails = !shippingDetails.value
+        || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
       }

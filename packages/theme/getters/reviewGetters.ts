@@ -4,9 +4,8 @@ import {
   ProductReview,
   ProductReviewRatingMetadata,
   ProductReviews,
-  ReviewMetadata,
-} from '@vue-storefront/magento-api';
-import { AgnosticReviewMetadata } from '../types';
+  ReviewMetadata, AgnosticReviewMetadata
+} from '@vue-storefront/magento';
 
 export const getItems = (review): ProductReview[] => review?.reviews?.items || [];
 

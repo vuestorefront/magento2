@@ -1,6 +1,6 @@
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
-import { Category } from '@vue-storefront/magento-api';
-import { buildCategoryTree } from '../helpers/buildCategoryTree';
+import { Category } from '@vue-storefront/magento';
+import { buildCategoryTree } from '~/modules/catalog/category/helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTree = (category: Category): AgnosticCategoryTree | null => {

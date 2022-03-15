@@ -18,18 +18,14 @@
             :title="$t('Categories')"
             class="sf-mega-menu-column--pined-content-on-mobile search__categories"
           >
-            <template #title="{title}">
-              <SfMenuItem
-                :label="title"
-              >
+            <template #title="{ title }">
+              <SfMenuItem :label="title">
                 <template #mobile-nav-icon>
                   &#8203;
                 </template>
               </SfMenuItem>
             </template>
-            <SfList
-              v-if="categories.length > 0"
-            >
+            <SfList v-if="categories.length > 0">
               <SfListItem
                 v-for="(category, key) in categories"
                 :key="key"
@@ -49,7 +45,7 @@
             :title="$t('Product suggestions')"
             class="sf-mega-menu-column--pined-content-on-mobile search__results"
           >
-            <template #title="{title}">
+            <template #title="{ title }">
               <SfMenuItem
                 :label="title"
                 class="sf-mega-menu-column__header search__header"
@@ -75,10 +71,23 @@
                   :reviews-count="productGetters.getTotalReviews(product)"
                   :image-width="imageSizes.productCard.width"
                   :image-height="imageSizes.productCard.height"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+                  :image="
+                    getMagentoImage(
+                      productGetters.getProductThumbnailImage(product)
+                    )
+                  "
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+                  :link="
+                    localePath(
+                      `/p/${productGetters.getProductSku(
+                        product
+                      )}${productGetters.getSlug(
+                        product,
+                        product.categories[0]
+                      )}`
+                    )
+                  "
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
@@ -94,7 +103,10 @@
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
                         <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          v-for="(picture, key) in imageSlotProps.image.slice(
+                            0,
+                            2
+                          )"
                           :key="key"
                           class="sf-product-card__picture"
                           :src="picture"
@@ -127,10 +139,20 @@
                 :reviews-count="productGetters.getTotalReviews(product)"
                 :image-width="imageSizes.productCardHorizontal.width"
                 :image-height="imageSizes.productCardHorizontal.height"
-                :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+                :image="
+                  getMagentoImage(
+                    productGetters.getProductThumbnailImage(product)
+                  )
+                "
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+                :link="
+                  localePath(
+                    `/p/${productGetters.getProductSku(
+                      product
+                    )}${productGetters.getSlug(product, product.categories[0])}`
+                  )
+                "
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
@@ -146,7 +168,10 @@
                   >
                     <template v-if="Array.isArray(imageSlotProps.image)">
                       <nuxt-img
-                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                        v-for="(picture, key) in imageSlotProps.image.slice(
+                          0,
+                          2
+                        )"
                         :key="key"
                         class="sf-product-card__picture"
                         :src="picture"
@@ -215,13 +240,11 @@ import {
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
 import {
-  ref,
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
-import { productGetters } from '@vue-storefront/magento';
-import { useUiHelpers, useImage, useWishlist, useUser } from '~/composables';
+  useUiHelpers, useImage, useWishlist, useUser,
+} from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -255,11 +278,9 @@ export default defineComponent({
     const categories = computed(() => props.result?.categories);
 
     const addItemToWishlist = async (product) => {
-      await (
-        isInWishlist({ product })
-          ? removeItem({ product })
-          : addItem({ product })
-      );
+      await (isInWishlist({ product })
+        ? removeItem({ product })
+        : addItem({ product }));
     };
 
     const { getMagentoImage, imageSizes } = useImage();
@@ -303,7 +324,7 @@ export default defineComponent({
     flex: 0 0 220px;
   }
   &__results {
-    flex: 1
+    flex: 1;
   }
   &__header {
     margin-left: var(--spacer-sm);
@@ -328,7 +349,7 @@ export default defineComponent({
     justify-content: space-around;
     background: var(--c-white);
     padding: var(--spacer-base) var(--spacer-sm);
-    --product-card-max-width: 9rem ;
+    --product-card-max-width: 9rem;
   }
 }
 .see-all {

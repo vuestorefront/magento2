@@ -2,15 +2,13 @@
   <div>
     <SfHeader
       class="sf-header--has-mobile-search"
-      :class="{'header-on-top': isSearchOpen}"
+      :class="{ 'header-on-top': isSearchOpen }"
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
         <HeaderLogo />
       </template>
-      <template
-        #navigation
-      >
+      <template #navigation>
         <HeaderNavigationItem
           v-for="(category, index) in categoryTree"
           :key="index"
@@ -26,9 +24,7 @@
           <StoreSwitcher class="smartphone-only" />
         </div>
       </template>
-      <template
-        #header-icons="{activeIcon}"
-      >
+      <template #header-icons="{ activeIcon }">
         <div class="sf-header__icons">
           <SfButton
             v-e2e="'app-header-account'"
@@ -114,13 +110,10 @@
 
 <script>
 import {
-  SfOverlay,
-  SfHeader,
-  SfButton,
-  SfBadge,
+  SfOverlay, SfHeader, SfButton, SfBadge,
 } from '@storefront-ui/vue';
 
-import { categoryGetters } from '@vue-storefront/magento';
+import { categoryGetters } from '~/getters';
 import {
   computed,
   ref,
@@ -161,7 +154,9 @@ export default defineComponent({
     SfButton,
     SfBadge,
     SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
-    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
+    SearchResults: () => import(
+      /* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'
+    ),
   },
   setup() {
     const router = useRouter();
@@ -172,10 +167,7 @@ export default defineComponent({
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
     const { loadItemsCount: loadWishlistItemsCount, wishlist } = useWishlist();
 
-    const {
-      categories: categoryList,
-      search: categoriesListSearch,
-    } = useCategory('AppHeader:CategoryList');
+    const { categories: categoryList, search: categoriesListSearch } = useCategory('AppHeader:CategoryList');
 
     const isSearchOpen = ref(false);
     const result = ref(null);
@@ -194,7 +186,9 @@ export default defineComponent({
 
     useFetch(async () => {
       await categoriesListSearch({ pageSize: 20 });
-      categoryTree.value = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
+      categoryTree.value = categoryGetters
+        .getCategoryTree(categoryList.value?.[0])
+        ?.items.filter((c) => c.count > 0);
     });
 
     onMounted(() => {

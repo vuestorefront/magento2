@@ -7,20 +7,22 @@
       <div v-if="loading">
         <SfLoader />
       </div>
-      <div
-        v-else
-      >
+      <div v-else>
         <div class="navbar section">
           <div class="navbar__main">
             <div class="navbar__counter">
-              <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
+              <span class="navbar__label desktop-only">{{
+                $t('Products found')
+              }}</span>
               <span class="desktop-only">{{ pagination.totalItems }}</span>
               <span class="navbar__label smartphone-only">
                 {{ pagination.totalItems }} {{ $t('Items') }}</span>
             </div>
 
             <div class="navbar__view">
-              <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
+              <span class="navbar__view-label desktop-only">{{
+                $t('View')
+              }}</span>
               <SvgImage
                 icon="tiles"
                 :label="$t('Change to grid view')"
@@ -68,27 +70,44 @@
                   class="products__product-card"
                   :image-width="imageSizes.productCard.width"
                   :image-height="imageSizes.productCard.height"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
+                  :image="
+                    getMagentoImage(
+                      productGetters.getProductThumbnailImage(product.product)
+                    )
+                  "
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
                         product.product
-                      )}${productGetters.getSlug(product.product, product.product.categories[0])}`
+                      )}${productGetters.getSlug(
+                        product.product,
+                        product.product.categories[0]
+                      )}`
                     )
                   "
-                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
-                  :reviews-count="productGetters.getTotalReviews(product.product)"
-                  :score-rating="productGetters.getAverageRating(product.product)"
+                  :regular-price="
+                    $fc(productGetters.getPrice(product.product).regular)
+                  "
+                  :reviews-count="
+                    productGetters.getTotalReviews(product.product)
+                  "
+                  :score-rating="
+                    productGetters.getAverageRating(product.product)
+                  "
                   :show-add-to-cart-button="true"
-                  :special-price="productGetters.getPrice(product.product).special
-                    && $fc(productGetters.getPrice(product.product).special)"
+                  :special-price="
+                    productGetters.getPrice(product.product).special &&
+                      $fc(productGetters.getPrice(product.product).special)
+                  "
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
                   @click:wishlist="removeItemFromWishlist(product.product)"
-                  @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
+                  @click:add-to-cart="
+                    addItemToCart({ product: product.product, quantity: 1 })
+                  "
                 >
                   <template #image="imageSlotProps">
                     <SfButton
@@ -100,7 +119,10 @@
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
                         <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          v-for="(picture, key) in imageSlotProps.image.slice(
+                            0,
+                            2
+                          )"
                           :key="key"
                           class="sf-product-card__picture"
                           :src="picture"
@@ -133,7 +155,11 @@
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
                   :description="productGetters.getDescription(product.product)"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product.product))"
+                  :image="
+                    getMagentoImage(
+                      productGetters.getProductThumbnailImage(product.product)
+                    )
+                  "
                   :image-width="imageSizes.productCardHorizontal.width"
                   :image-height="imageSizes.productCardHorizontal.height"
                   :is-in-wishlist="true"
@@ -141,31 +167,44 @@
                     localePath(
                       `/p/${productGetters.getProductSku(
                         product.product
-                      )}${productGetters.getSlug(product.product, product.product.categories[0])}`
+                      )}${productGetters.getSlug(
+                        product.product,
+                        product.product.categories[0]
+                      )}`
                     )
                   "
-                  :regular-price="$fc(productGetters.getPrice(product.product).regular)"
-                  :reviews-count="productGetters.getTotalReviews(product.product)"
-                  :score-rating="productGetters.getAverageRating(product.product)"
-                  :special-price="productGetters.getPrice(product.product).special
-                    && $fc(productGetters.getPrice(product.product).special)"
+                  :regular-price="
+                    $fc(productGetters.getPrice(product.product).regular)
+                  "
+                  :reviews-count="
+                    productGetters.getTotalReviews(product.product)
+                  "
+                  :score-rating="
+                    productGetters.getAverageRating(product.product)
+                  "
+                  :special-price="
+                    productGetters.getPrice(product.product).special &&
+                      $fc(productGetters.getPrice(product.product).special)
+                  "
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
                   @click:wishlist="removeItemFromWishlist(product.product)"
-                  @click:add-to-cart="addItemToCart({ product: product.product, quantity: 1 })"
+                  @click:add-to-cart="
+                    addItemToCart({ product: product.product, quantity: 1 })
+                  "
                 >
                   <template #image="imageSlotProps">
                     <SfLink
                       :link="imageSlotProps.link"
-                      class="
-                    sf-product-card-horizontal__link
-                    sf-product-card-horizontal__link--image
-                  "
+                      class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
                         <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
+                          v-for="(picture, key) in imageSlotProps.image.slice(
+                            0,
+                            2
+                          )"
                           :key="key"
                           class="sf-product-card-horizontal__picture"
                           :src="picture"
@@ -224,7 +263,9 @@
                 v-show="pagination.totalPages > 1"
                 class="products__show-on-page"
               >
-                <span class="products__show-on-page__label">{{ $t('Show on page') }}</span>
+                <span class="products__show-on-page__label">{{
+                  $t('Show on page')
+                }}</span>
                 <LazyHydrate on-interaction>
                   <SfSelect
                     :value="pagination.itemsPerPage.toString()"
@@ -270,12 +311,13 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
+import { productGetters, wishlistGetters } from '~/getters';
 import {
-  productGetters,
-  wishlistGetters,
-} from '@vue-storefront/magento';
-import {
-  useCart, useUiHelpers, useUiState, useImage, useWishlist,
+  useCart,
+  useUiHelpers,
+  useUiState,
+  useImage,
+  useWishlist,
 } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
@@ -295,34 +337,22 @@ export default defineComponent({
   },
   setup() {
     const {
-      load,
-      loading,
-      wishlist,
-      removeItem,
+      load, loading, wishlist, removeItem,
     } = useWishlist();
     const route = useRoute();
     const { app } = useContext();
     const {
-      query: {
-        page,
-        itemsPerPage,
-      },
+      query: { page, itemsPerPage },
     } = route.value;
     const router = useRouter();
     const th = useUiHelpers();
     const uiState = useUiState();
-    const {
-      addItem: addItemToCartBase,
-      isInCart,
-    } = useCart();
+    const { addItem: addItemToCartBase, isInCart } = useCart();
 
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const pagination = computed(() => wishlistGetters.getPagination(wishlist.value[0]));
 
-    const addItemToCart = async ({
-      product,
-      quantity,
-    }) => {
+    const addItemToCart = async ({ product, quantity }) => {
       // eslint-disable-next-line no-underscore-dangle
       const productType = product.__typename;
 
@@ -335,14 +365,15 @@ export default defineComponent({
           break;
         case 'BundleProduct':
         case 'ConfigurableProduct':
-          const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(
+          const path = `/p/${productGetters.getProductSku(
             product,
-            product.categories[0],
-          )}`;
+          )}${productGetters.getSlug(product, product.categories[0])}`;
           await router.push(`${app.localePath(path)}`);
           break;
         default:
-          throw new Error(`Product Type ${productType} not supported in add to cart yet`);
+          throw new Error(
+            `Product Type ${productType} not supported in add to cart yet`,
+          );
       }
     };
 
@@ -544,7 +575,8 @@ export default defineComponent({
 
     &-label {
       margin: 0 var(--spacer-sm) 0 0;
-      font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--secondary);
+      font: var(--font-weight--normal) var(--font-size--base) / 1.6
+        var(--font-family--secondary);
       text-decoration: none;
       color: var(--c-link);
     }

@@ -6,13 +6,11 @@ import {
   ProductGetters as ProductGettersBase,
 } from '@vue-storefront/core';
 import {
-  BundleProduct,
+  htmlDecode, BundleProduct,
   Category, GroupedProduct,
   Product,
-} from '@vue-storefront/magento-api';
-
+} from '@vue-storefront/magento';
 import categoryGetters from './categoryGetters';
-import { htmlDecode } from '../helpers/htmlDecoder';
 import reviewGetters from './reviewGetters';
 
 type ProductVariantFilters = any;
@@ -249,7 +247,7 @@ export const getGroupedProducts = (product: GroupedProduct & { __typename: strin
 // eslint-disable-next-line no-underscore-dangle
 export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
 
-export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters>{
+export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters> {
   getCategory(product: Product, currentUrlPath: string): Category | null;
   getProductRelatedProduct(product: Product): Product[];
   getProductSku(product: Product): string;

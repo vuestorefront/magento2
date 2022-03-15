@@ -53,12 +53,10 @@
 
 <script>
 import {
-  SfTabs,
-  SfLoader,
-  SfReview,
-  SfRating,
+  SfTabs, SfLoader, SfReview, SfRating,
 } from '@storefront-ui/vue';
-import { reviewGetters, useReview } from '@vue-storefront/magento';
+import { useReview } from '@vue-storefront/magento';
+import { reviewGetters } from '~/getters';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 
 export default defineComponent({
@@ -70,11 +68,9 @@ export default defineComponent({
     SfRating,
   },
   setup() {
-    const {
-      reviews,
-      loading,
-      loadCustomerReviews,
-    } = useReview('productReviews-my-reviews');
+    const { reviews, loading, loadCustomerReviews } = useReview(
+      'productReviews-my-reviews',
+    );
 
     const userReviews = computed(() => reviewGetters.getItems(reviews.value));
 
@@ -92,11 +88,12 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .no-reviews {
   &__title {
     margin: 0 0 var(--spacer-lg) 0;
-    font: var(--font-weight--normal) var(--font-size--base) / 1.6 var(--font-family--primary);
+    font: var(--font-weight--normal) var(--font-size--base) / 1.6
+      var(--font-family--primary);
   }
 }
 
@@ -110,7 +107,8 @@ export default defineComponent({
 
 .message {
   margin: 0 0 var(--spacer-2xl) 0;
-  font: var(--font-weight--light) var(--font-size--base) / 1.6 var(--font-family--primary);
+  font: var(--font-weight--light) var(--font-size--base) / 1.6
+    var(--font-family--primary);
 
   &__link {
     color: var(--c-primary);
@@ -124,7 +122,7 @@ export default defineComponent({
     }
   }
 }
-.sf-review__rating{
+.sf-review__rating {
   width: 100%;
   display: flex;
   align-items: center;

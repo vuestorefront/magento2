@@ -39,9 +39,7 @@
       </div>
       <div v-else-if="isShowProducts">
         <EmptyResults v-if="products.length === 0" />
-        <div
-          class="products"
-        >
+        <div class="products">
           <transition-group
             v-if="isCategoryGridView"
             appear
@@ -61,16 +59,19 @@
               :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
               :link="
                 localePath(
-                  `/p/${getProductSku(
-                    product
-                  )}${getSlug(product, product.categories[0])}`
+                  `/p/${getProductSku(product)}${getSlug(
+                    product,
+                    product.categories[0]
+                  )}`
                 )
               "
               :regular-price="$fc(getPrice(product).regular)"
               :reviews-count="getTotalReviews(product)"
               :score-rating="getAverageRating(product)"
               :show-add-to-cart-button="true"
-              :special-price="getPrice(product).special && $fc(getPrice(product).special)"
+              :special-price="
+                getPrice(product).special && $fc(getPrice(product).special)
+              "
               :style="{ '--index': i }"
               :title="getName(product)"
               :wishlist-icon="isAuthenticated ? 'heart' : ''"
@@ -123,19 +124,22 @@
               :image="getMagentoImage(getProductThumbnailImage(product))"
               :image-height="imageSizes.productCardHorizontal.height"
               :image-width="imageSizes.productCardHorizontal.width"
-              :is-in-wishlist="isInWishlist({product})"
+              :is-in-wishlist="isInWishlist({ product })"
               :is-in-wishlist-icon="isAuthenticated ? '' : ''"
               :link="
                 localePath(
-                  `/p/${getProductSku(
-                    product
-                  )}${getSlug(product, product.categories[0])}`
+                  `/p/${getProductSku(product)}${getSlug(
+                    product,
+                    product.categories[0]
+                  )}`
                 )
               "
               :regular-price="$fc(getPrice(product).regular)"
               :reviews-count="getTotalReviews(product)"
               :score-rating="getAverageRating(product)"
-              :special-price="getPrice(product).special && $fc(getPrice(product).special)"
+              :special-price="
+                getPrice(product).special && $fc(getPrice(product).special)
+              "
               :style="{ '--index': i }"
               :title="getName(product)"
               :wishlist-icon="isAuthenticated ? '' : ''"
@@ -146,10 +150,7 @@
               <template #image="imageSlotProps">
                 <SfLink
                   :link="imageSlotProps.link"
-                  class="
-                    sf-product-card-horizontal__link
-                    sf-product-card-horizontal__link--image
-                  "
+                  class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
                     <nuxt-img
@@ -191,7 +192,11 @@
                   class="sf-button--text products__product-card-horizontal__add-to-wishlist"
                   @click="addItemToWishlist(product)"
                 >
-                  {{ isInWishlist({ product }) ? $t('Remove from Wishlist') : $t('Save for later') }}
+                  {{
+                    isInWishlist({ product })
+                      ? $t('Remove from Wishlist')
+                      : $t('Save for later')
+                  }}
                 </SfButton>
               </template>
             </SfProductCardHorizontal>
@@ -211,7 +216,9 @@
               v-show="pagination.totalPages > 1"
               class="products__show-on-page"
             >
-              <span class="products__show-on-page__label">{{ $t('Show') }}</span>
+              <span class="products__show-on-page__label">{{
+                $t('Show')
+              }}</span>
               <LazyHydrate on-interaction>
                 <SfSelect
                   :value="pagination.itemsPerPage.toString()"
@@ -270,7 +277,9 @@
                 <SfRadio
                   v-for="option in facet.options"
                   :key="`${facet.id}-${option.value}`"
-                  :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
+                  :label="`${option.id}${
+                    option.count ? ` (${option.count})` : ''
+                  }`"
                   :selected="isFilterSelected(facet, option)"
                   :value="option.value"
                   name="filter__price"
@@ -281,7 +290,9 @@
                 <SfFilter
                   v-for="option in facet.options"
                   :key="`${facet.id}-${option.value}`"
-                  :label="option.id + `${option.count ? ` (${option.count})` : ''}`"
+                  :label="
+                    option.id + `${option.count ? ` (${option.count})` : ''}`
+                  "
                   :selected="isFilterSelected(facet, option)"
                   class="filters__item"
                   @change="() => selectFilter(facet, option)"
@@ -303,7 +314,9 @@
                   <SfRadio
                     v-for="option in facet.options"
                     :key="`${facet.id}-${option.value}`"
-                    :label="`${option.id}${option.count ? ` (${option.count})` : ''}`"
+                    :label="`${option.id}${
+                      option.count ? ` (${option.count})` : ''
+                    }`"
                     :selected="isFilterSelected(facet, option)"
                     :value="option.value"
                     name="filter__price"
@@ -362,15 +375,17 @@ import {
   SfSelect,
   SfSidebar,
 } from '@storefront-ui/vue';
-import {
-  defineComponent, ref, useFetch,
-} from '@nuxtjs/composition-api';
-import { facetGetters, productGetters } from '@vue-storefront/magento';
+import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
 import { useVSFContext } from '@vue-storefront/core';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import { facetGetters, productGetters } from '~/getters';
 import {
-  useFacet, useUser, useWishlist,
-  useImage, useUiHelpers, useUiState,
+  useFacet,
+  useUser,
+  useWishlist,
+  useImage,
+  useUiHelpers,
+  useUiState,
 } from '~/composables';
 import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import cacheControl from '~/helpers/cacheControl';
@@ -422,46 +437,39 @@ export default defineComponent({
     const facets = ref([]);
     const pagination = ref({});
 
+    const { path, result: routeData, search: resolveUrl } = useUrlResolver();
     const {
-      path,
-      result: routeData,
-      search: resolveUrl,
-    } = useUrlResolver();
-    const { $magento: { config: magentoConfig } } = useVSFContext();
+      $magento: { config: magentoConfig },
+    } = useVSFContext();
     const { isAuthenticated } = useUser();
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
     } = useWishlist('GlobalWishlist');
-    const {
-      result,
-      search,
-    } = useFacet(`facetId:${path}`);
+    const { result, search } = useFacet(`facetId:${path}`);
     const { toggleFilterSidebar } = useUiState();
-    const {
-      addItemToCart,
-      isInCart,
-    } = useAddToCart();
+    const { addItemToCart, isInCart } = useAddToCart();
 
     const getSelectedFilterValues = () => {
       const selectedFilterValues = Object.fromEntries(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        (magentoConfig.facets.available)
-          .map((curr) => [curr, (curr === 'price' ? '' : [])]),
+        magentoConfig.facets.available.map((curr) => [
+          curr,
+          curr === 'price' ? '' : [],
+        ]),
       );
       const { filters } = uiHelpers.getFacetsFromURL();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      Object.keys(filters)
-        .forEach((filter) => {
-          if (filter === 'price') {
-            const [firstFilter] = filters[filter];
-            selectedFilterValues[filter] = firstFilter;
-          } else {
-            selectedFilterValues[filter] = filters[filter];
-          }
-        });
+      Object.keys(filters).forEach((filter) => {
+        if (filter === 'price') {
+          const [firstFilter] = filters[filter];
+          selectedFilterValues[filter] = firstFilter;
+        } else {
+          selectedFilterValues[filter] = filters[filter];
+        }
+      });
       return selectedFilterValues;
     };
     const selectedFilters = ref(getSelectedFilterValues());
@@ -489,7 +497,7 @@ export default defineComponent({
       if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
         selectedFilters.value[facet.id] = selectedFilters.value[
           facet.id
-          ]?.filter((f) => f !== option.value);
+        ]?.filter((f) => f !== option.value);
         return;
       }
 
@@ -507,11 +515,9 @@ export default defineComponent({
     };
 
     const addItemToWishlist = async (product) => {
-      await (
-        isInWishlist({ product })
-          ? removeItemFromWishlist({ product })
-          : addItemToWishlistBase({ product })
-      );
+      await (isInWishlist({ product })
+        ? removeItemFromWishlist({ product })
+        : addItemToWishlistBase({ product }));
     };
 
     const searchCategoryProduct = async () => {
@@ -534,21 +540,24 @@ export default defineComponent({
       selectedFilters.value = getSelectedFilterValues();
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
-      facets.value = facetGetters.getGrouped(result.value, magentoConfig.facets.available);
+      facets.value = facetGetters.getGrouped(
+        result.value,
+        magentoConfig.facets.available,
+      );
       pagination.value = facetGetters.getPagination(result.value);
 
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
-      const productTags = products.value.map((product) => ({ prefix: CacheTagPrefix.Product, value: product.uid }));
+      const productTags = products.value.map((product) => ({
+        prefix: CacheTagPrefix.Product,
+        value: product.uid,
+      }));
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags([...tags, ...productTags]);
     });
 
-    const {
-      getMagentoImage,
-      imageSizes,
-    } = useImage();
+    const { getMagentoImage, imageSizes } = useImage();
 
     return {
       routeData,
@@ -669,7 +678,7 @@ export default defineComponent({
       @include for-mobile {
         margin: 1rem auto;
       }
-      display: block
+      display: block;
     }
   }
 
