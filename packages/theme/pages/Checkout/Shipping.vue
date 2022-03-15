@@ -223,7 +223,7 @@
           <SfButton
             v-if="!(isShippingDetailsStepCompleted && !dirty)"
             v-e2e="'select-shipping'"
-            :disabled="loading"
+            :disabled="isShippingLoading"
             class="form__action-button"
             type="submit"
           >
@@ -233,6 +233,7 @@
       </div>
       <VsfShippingProvider
         v-if="isShippingDetailsStepCompleted && !dirty"
+        :shipping-methods="shippingMethods"
         @submit="$router.push(`${localePath('/checkout/billing')}`)"
       />
     </form>
@@ -257,12 +258,11 @@ import {
   addressGetter,
   useCountrySearch,
   userShippingGetters,
-  useShipping,
   useUserShipping,
 } from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useUser } from '~/composables';
+import { useUser, useShipping } from '~/composables';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -297,11 +297,12 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
+    const address = ref({});
+
     const {
-      load,
-      save,
-      loading,
-      shipping: address,
+      load: loadShipping,
+      save: saveShipping,
+      loading: isShippingLoading,
     } = useShipping();
     const {
       shipping: userShipping,
@@ -316,6 +317,7 @@ export default defineComponent({
     } = useCountrySearch('Step:Shipping');
     const { isAuthenticated } = useUser();
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
+    const shippingMethods = ref([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
@@ -324,7 +326,7 @@ export default defineComponent({
 
     const isShippingDetailsStepCompleted = ref(false);
 
-    const canMoveForward = computed(() => !loading.value && shippingDetails.value && Object.keys(
+    const canMoveForward = computed(() => !isShippingLoading.value && shippingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       shippingDetails.value,
     ).length > 0);
@@ -350,7 +352,9 @@ export default defineComponent({
       await mergeItem('checkout', { shipping: shippingDetailsData });
       // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
       // @ts-ignore
-      await save({ shippingDetails: shippingDetailsData });
+      const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
+      shippingMethods.value = shippingInfo.available_shipping_methods;
+
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const chosenAddress = userShippingGetters.getAddresses(
           userShipping.value,
@@ -405,18 +409,19 @@ export default defineComponent({
     watch(address, (addr) => {
       shippingDetails.value = addressFromApiToForm(addr || {});
     });
-
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      await Promise.all([
+      const [shippingInfo] = await Promise.all([
+        loadShipping(),
         loadCountries(),
-        load(),
         loadUserShipping(),
       ]);
+
+      address.value = shippingInfo;
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
@@ -450,13 +455,13 @@ export default defineComponent({
       isAuthenticated,
       isFormSubmitted,
       isShippingDetailsStepCompleted,
-      load,
-      loading,
+      isShippingLoading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
       searchCountry,
       setAsDefault,
       shippingDetails,
+      shippingMethods,
     };
   },
 });
