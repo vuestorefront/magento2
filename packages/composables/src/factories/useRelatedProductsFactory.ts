@@ -12,7 +12,7 @@ import {
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
 /**
- * @deprecated since version1.0.0
+ * @deprecated since version 1.0.0
  */
 export interface UseRelatedProductsFactoryParams<
   PRODUCTS,
