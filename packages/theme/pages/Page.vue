@@ -2,12 +2,13 @@
   <SfLoader :loading="loading">
     <div class="cms-page">
       <SfHeading
-        v-if="page.content_heading"
+        v-if="page && page.content_heading"
         :title="page.content_heading"
         :level="1"
         class="sf-heading--no-underline sf-heading--left"
       />
       <HTMLContent
+        v-if="page && page.content"
         :content="page.content"
       />
     </div>
@@ -47,13 +48,16 @@ export default defineComponent({
     } = useContent('cmsPage');
 
     const route = useRoute();
-    const { error: nuxtError } = useContext();
+    const { error: nuxtError, app } = useContext();
     const { params } = route.value;
     const page = ref({});
 
     useFetch(async () => {
       page.value = await loadPage({ identifier: params.slug || props.identifier });
-      if (error?.value?.page) nuxtError({ statusCode: 404 });
+
+      if (error?.value?.page || !page.value) {
+        return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') });
+      }
 
       addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
     });
@@ -63,7 +67,11 @@ export default defineComponent({
     };
   },
   head() {
-    const title = this.page.meta_title ? this.page.meta_title : this.page.title;
+    if (!this.page) {
+      return null;
+    }
+
+    const title = this.page?.meta_title ? this.page.meta_title : this.page.title;
     const meta = [];
     if (this.page.meta_description) {
       meta.push({
