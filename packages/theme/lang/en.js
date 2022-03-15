@@ -251,5 +251,8 @@ export default {
   "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.": "There was some error while trying to fetch shipping methods. We are sorry, please try with different shipping details.",
   "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.": "There was some error while trying to select this shipping method. We are sorry, please try with different shipping method.",
   "We can't find products matching the selection.":"We can't find products matching the selection.",
+  'Page not found': 'Page not found',
+  'Back to Home page': 'Back to Home page',
+  'An error occurred': 'An error occurred',
   "AllProductsFromCategory": "All {categoryName}"
 };
