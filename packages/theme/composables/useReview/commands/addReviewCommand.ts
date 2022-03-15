@@ -3,6 +3,7 @@ import { Context, Logger } from '@vue-storefront/core';
 export const addReviewCommand = {
   execute: async (context: Context, params) => {
     Logger.debug('[Magento] add review params input:', JSON.stringify(params, null, 2));
+
     const {
       customQuery,
       ...input
