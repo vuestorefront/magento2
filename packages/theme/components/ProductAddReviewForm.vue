@@ -1,13 +1,9 @@
 <template>
   <div>
-    <div
-      v-if="reviewSent && !error.addReview"
-    >
+    <div v-if="reviewSent && !error.addReview">
       <p>Your review was submitted!</p>
     </div>
-    <div
-      v-else-if="error.addReview"
-    >
+    <div v-else-if="error.addReview">
       <p>{{ error.addReview }}</p>
     </div>
     <ValidationObserver
@@ -120,17 +116,13 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
-import {
-  reviewGetters, useReview, userGetters,
-} from '@vue-storefront/magento';
+import { useReview } from '@vue-storefront/magento';
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfTextarea,
+  SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
+import { reviewGetters, userGetters } from '~/getters';
 import { useUser } from '~/composables';
 
 extend('required', {
@@ -168,15 +160,18 @@ export default defineComponent({
   emits: ['add-review'],
   setup(_, { emit }) {
     const route = useRoute();
-    const { params: { id } } = route.value;
-    const { $recaptcha, $config } = useContext();
-    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
     const {
-      loading,
-      loadReviewMetadata,
-      metadata,
-      error,
-    } = useReview(`productReviews-${id}`);
+      params: { id },
+    } = route.value;
+    const { $recaptcha, $config } = useContext();
+    const isRecaptchaEnabled = ref(
+      typeof $recaptcha !== 'undefined' && $config.isRecaptcha,
+    );
+    const {
+      loading, loadReviewMetadata, metadata, error,
+    } = useReview(
+      `productReviews-${id}`,
+    );
     const { isAuthenticated, user } = useUser();
 
     const reviewSent = ref(false);
@@ -204,14 +199,16 @@ export default defineComponent({
     });
 
     const submitForm = (reset) => async () => {
-      if (!(
-        formSubmitValue.value.ratings[0].value_id
-        || formSubmitValue.value.ratings[0].id
-        || formSubmitValue.value.nickname
-        || formSubmitValue.value.summary
-        || formSubmitValue.value.sku
-        || formSubmitValue.value.text
-      )) return;
+      if (
+        !(
+          formSubmitValue.value.ratings[0].value_id
+          || formSubmitValue.value.ratings[0].id
+          || formSubmitValue.value.nickname
+          || formSubmitValue.value.summary
+          || formSubmitValue.value.sku
+          || formSubmitValue.value.text
+        )
+      ) return;
       try {
         if (isRecaptchaEnabled.value) {
           $recaptcha.init();
@@ -255,7 +252,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .form {
   &__element {
     display: block;

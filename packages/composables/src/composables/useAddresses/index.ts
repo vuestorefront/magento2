@@ -26,11 +26,11 @@ type RemoveAddressInput = {
 } & CustomQueryParams;
 
 const factoryParams: UseAddressesParams<CustomerAddress,
-CustomQueryParams,
-SaveAddressInput,
-UpdateAddressInput,
-RemoveAddressInput> = {
-  load: async (context: Context, params?: CustomQueryParams) => {
+  CustomQueryParams,
+  SaveAddressInput,
+  UpdateAddressInput,
+  RemoveAddressInput> = {
+  load: async (context: Context) => {
     Logger.debug('[Magento] load user addresses');
 
     const { data } = await context.$magento.api.getCustomerAddresses();

@@ -3,8 +3,8 @@ import {
   ref, Ref, useContext,
 } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { StoreConfig } from '@vue-storefront/magento-api';
-import { storeConfigGetters } from '@vue-storefront/magento';
+import { StoreConfig } from '@vue-storefront/magento';
+import { storeConfigGetters } from '~/getters';
 import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
 import { useConfigStore } from '~/stores/config';
 

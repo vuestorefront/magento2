@@ -47,9 +47,7 @@
               </div>
             </div>
             <div class="addresses__actions">
-              <SfButton
-                @click="changeAddress(address)"
-              >
+              <SfButton @click="changeAddress(address)">
                 {{ $t('Change') }}
               </SfButton>
 
@@ -84,9 +82,14 @@
 </template>
 <script>
 import { SfTabs, SfButton } from '@storefront-ui/vue';
-import { userAddressesGetters, useAddresses } from '@vue-storefront/magento';
+import { useAddresses } from '@vue-storefront/magento';
+import { userAddressesGetters } from '~/getters';
 import {
-  computed, defineComponent, useRouter, useRoute, useContext,
+  computed,
+  defineComponent,
+  useRouter,
+  useRoute,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { onSSR } from '@vue-storefront/core';
 import AddressForm from '~/components/MyAccount/AddressForm.vue';
@@ -104,27 +107,28 @@ export default defineComponent({
   },
   setup() {
     const {
-      addresses,
-      load,
-      remove,
-      update,
-      save,
+      addresses, load, remove, update, save,
     } = useAddresses();
 
     const userAddresses = computed(() => userAddressesGetters.getAddresses(addresses.value));
     const router = useRouter();
     const route = useRoute();
     const { app } = useContext();
-    const activeAddress = computed(
-      () => userAddresses.value.filter((address) => String(address?.id) === route.value.query.id).pop(),
-    );
+    const activeAddress = computed(() => userAddresses.value
+      .filter((address) => String(address?.id) === route.value.query.id)
+      .pop());
 
     const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
     const isNewAddress = computed(() => !activeAddress.value);
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
-      await router.push(`${app.localePath({ path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`, query: { id: addressId } })}`);
+      await router.push(
+        `${app.localePath({
+          path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
+          query: { id: addressId },
+        })}`,
+      );
     };
 
     const removeAddress = async (address) => {
@@ -140,7 +144,11 @@ export default defineComponent({
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
         await onComplete(data);
-        await router.push(app.localePath(`/my-account/${getTranslatedUrlAddress('Addresses details')}`));
+        await router.push(
+          app.localePath(
+            `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
+          ),
+        );
       } catch (error) {
         onError(error);
       }
@@ -165,7 +173,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .message {
   font-family: var(--font-family--primary);
   line-height: 1.6;

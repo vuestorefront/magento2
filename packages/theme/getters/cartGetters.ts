@@ -7,15 +7,16 @@ import {
   AgnosticDiscount,
 } from '@vue-storefront/core';
 import {
-  Discount,
   Cart,
   CartItem,
   Product,
-  SelectedShippingMethod, ConfigurableCartItem, ProductInterface,
-} from '@vue-storefront/magento-api';
-
+  AgnosticPaymentMethod,
+  Discount,
+  ProductInterface,
+  SelectedShippingMethod,
+  ConfigurableCartItem,
+} from '@vue-storefront/magento';
 import productGetters from './productGetters';
-import { AgnosticPaymentMethod } from '../types';
 
 export const getItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {

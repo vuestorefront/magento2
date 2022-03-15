@@ -26,17 +26,10 @@
 </template>
 
 <script>
-import {
-  SfCheckbox,
-  SfAddressPicker,
-} from '@storefront-ui/vue';
-import {
-  useUserBilling,
-  userBillingGetters,
-} from '@vue-storefront/magento';
-import {
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { useUserBilling } from '@vue-storefront/magento';
+import { userBillingGetters } from '~/getters';
+import { defineComponent } from '@nuxtjs/composition-api';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -61,7 +54,10 @@ export default defineComponent({
     const { billing: userBilling } = useUserBilling();
 
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userBillingGetters.getAddresses(userBilling.value, { id: Number.parseInt(addressId, 10) });
+      const selectedAddress = userBillingGetters.getAddresses(
+        userBilling.value,
+        { id: Number.parseInt(addressId, 10) },
+      );
       if (!selectedAddress || selectedAddress.length === 0) {
         return;
       }
@@ -103,7 +99,8 @@ export default defineComponent({
   }
 }
 
-.sf-divider, .form__action-button--margin-bottom {
+.sf-divider,
+.form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>
