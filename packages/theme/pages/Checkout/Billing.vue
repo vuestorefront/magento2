@@ -273,11 +273,9 @@ import {
   useUserBilling,
   userBillingGetters,
   useBilling,
-  useShipping,
   useCountrySearch,
   addressGetter,
 } from '@vue-storefront/magento';
-import { useUser } from '~/composables';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -289,6 +287,7 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
+import { useShipping, useUser } from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
@@ -325,6 +324,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
+    const shippingDetails = ref({});
     const {
       load,
       save,
@@ -337,7 +337,6 @@ export default defineComponent({
       setDefaultAddress,
     } = useUserBilling();
     const {
-      shipping: shippingDetails,
       load: loadShipping,
     } = useShipping();
     const {
@@ -359,6 +358,7 @@ export default defineComponent({
     const isBillingDetailsStepCompleted = ref(false);
 
     const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       billingDetails.value,
     ).length > 0);
 
@@ -403,7 +403,7 @@ export default defineComponent({
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
         if (!shippingDetails.value) {
-          await loadShipping();
+          shippingDetails.value = await loadShipping();
 
           await searchCountry({ id: shippingDetails.value.country_code });
         }
@@ -488,6 +488,7 @@ export default defineComponent({
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyBillingDetails = !billingDetails.value || Object.keys(billingDetails.value).length === 0;
       if (hasEmptyBillingDetails) {
         selectDefaultAddress();
