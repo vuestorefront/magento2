@@ -18,3 +18,4 @@ export { default as useCategorySearch } from './useCategorySearch';
 export { default as useProduct } from './useProduct';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
+export { default as useRelatedProducts } from './useRelatedProducts';
