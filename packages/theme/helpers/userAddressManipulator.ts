@@ -1,4 +1,4 @@
-import { CustomerAddressInput } from '@vue-storefront/magento-api';
+import { CustomerAddressInput } from '~/modules/GraphQL/types';
 
 export const transformUserCreateAddressInput = (addressInputParams): CustomerAddressInput => {
   const {
