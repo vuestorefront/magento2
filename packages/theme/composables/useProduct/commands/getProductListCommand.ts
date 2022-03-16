@@ -8,6 +8,6 @@ export const getProductListCommand = {
       .api
       .products(searchParams as GetProductSearchParams, customQuery);
 
-    return result.data?.products ?? [];
+    return result.data?.products;
   },
 };

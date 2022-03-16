@@ -5,6 +5,7 @@ import {
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
+import { ProductsListQuery } from '~/modules/GraphQL/types';
 
 export const useProduct = (id: string) => {
   const loading = ref(false);
@@ -17,7 +18,7 @@ export const useProduct = (id: string) => {
 
   const getProductList = async (searchParams) => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);
-    let products = [];
+    let products : ProductsListQuery['products'] = null;
 
     try {
       loading.value = true;
@@ -35,7 +36,7 @@ export const useProduct = (id: string) => {
 
   const getProductDetails = async (searchParams) => {
     Logger.debug(`useProduct/${id}/getProductDetails`, searchParams);
-    let products = [];
+    let products : ProductsListQuery['products'] = null;
 
     try {
       loading.value = true;
