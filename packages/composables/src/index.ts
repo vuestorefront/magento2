@@ -3,6 +3,7 @@ import { track } from '@vue-storefront/core';
 
 track('VSFMagento');
 
+export * from './getters';
 export * from './getVueContext';
 
 export { default as useAddresses } from './composables/useAddresses';
@@ -43,7 +44,7 @@ export * from './types/getters';
 export * from './helpers/userAddressManipulator';
 export * from './helpers/htmlDecoder';
 export {
-    Countries, Discount,
-    SelectedShippingMethod, ConfigurableCartItem, ProductInterface, ProductReviewRatingMetadata,
-    ProductReviews, WishlistQuery,
+  Countries, Discount,
+  SelectedShippingMethod, ConfigurableCartItem, ProductInterface, ProductReviewRatingMetadata,
+  ProductReviews, WishlistQuery,
 } from '@vue-storefront/magento-api';
