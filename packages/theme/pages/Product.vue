@@ -281,7 +281,7 @@ import {
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productGetters, reviewGetters } from '~/getters';
 import {
-  useProduct, useCart, useWishlist, useUser,
+  useProduct, useCart, useWishlist, useUser, useReview,
 } from '~/composables';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -289,7 +289,6 @@ import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
-import { useReview } from '~/composables/useReview';
 import BundleProductSelector from '~/components/Products/BundleProductSelector';
 import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
 import UpsellProducts from '~/components/UpsellProducts';

@@ -57,7 +57,7 @@ import {
 } from '@storefront-ui/vue';
 import { reviewGetters } from '~/getters';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
-import { useReview } from '~/composables/useReview';
+import { useReview } from '~/composables';
 
 export default defineComponent({
   name: 'MyReviews',

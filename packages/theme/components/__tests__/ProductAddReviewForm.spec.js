@@ -2,14 +2,13 @@
 import { waitFor } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 import { useRoute } from '@nuxtjs/composition-api';
-import { useUser } from '@vue-storefront/magento';
 import {
   render,
   useUserMock,
   useReviewMock,
 } from '~/test-utils';
 
-import { useReview } from '~/composables/useReview';
+import { useReview, useUser } from '~/composables';
 import ProductAddReviewForm from '../ProductAddReviewForm';
 
 jest.mock('@vue-storefront/magento', () => {

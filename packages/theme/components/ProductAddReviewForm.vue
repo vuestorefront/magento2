@@ -122,8 +122,7 @@ import {
   SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
 import { reviewGetters, userGetters } from '~/getters';
-import { useUser } from '~/composables';
-import { useReview } from '~/composables/useReview';
+import { useUser, useReview } from '~/composables';
 
 extend('required', {
   ...required,
