@@ -97,17 +97,17 @@ import {
   SfCallToAction,
   SfBannerGrid,
 } from '@storefront-ui/vue';
-import { productGetters } from '~/getters';
 
 import {
   computed,
   defineComponent,
   ref,
   useContext,
-  useFetch,
+  useAsync,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import { productGetters } from '~/getters';
 import { useProduct } from '~/composables';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
@@ -133,10 +133,7 @@ export default defineComponent({
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
-    const products = ref({});
-
     const { getProductList, loading: newProductsLoading } = useProduct();
-
     const heroes = ref([
       {
         title: app.i18n.t('Colorful summer dresses are already in store'),
@@ -243,19 +240,21 @@ export default defineComponent({
       },
     ]);
 
-    // @ts-ignore
-    const newProducts = computed(() => productGetters.getFiltered(products.value?.items, { master: true }));
-
-    useFetch(async () => {
-      products.value = await getProductList({
+    const products = useAsync(async () => {
+      const productsData = await getProductList({
         pageSize: 10,
         currentPage: 1,
         sort: {
           position: 'ASC',
         },
       });
+
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
+      return productsData;
     });
+
+    // @ts-ignore
+    const newProducts = computed(() => productGetters.getFiltered(products.value?.items, { master: true }));
 
     return {
       banners,
