@@ -1,17 +1,18 @@
+/* eslint-disable consistent-return */
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { Context, Logger } from '@vue-storefront/core';
-import { ReviewMetadata } from '@vue-storefront/magento';
+import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
 
+import { CreateProductReviewInput, CustomerProductReviewParams } from '~/../api-client/lib';
+import { UseReviewErrors } from './useReview';
 import { addReviewCommand } from './commands/addReviewCommand';
 import { loadCustomerReviewsCommand } from './commands/loadCustomerReviewsCommand';
 import { loadReviewMetadataCommand } from './commands/loadReviewMetadataCommand';
 import { searchReviewsCommand } from './commands/searchReviewsCommand';
+import { GetProductSearchParams } from '../useProduct/useProduct';
 
-export const useReview = (id: string) => {
-  const reviews = ref([]);
-  const metadata = ref<ReviewMetadata[]>([]);
+export const useReview = () => {
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseReviewErrors>({
     search: null,
     addReview: null,
     loadReviewMetadata: null,
@@ -21,60 +22,60 @@ export const useReview = (id: string) => {
   const { app } = useContext();
   const context = app.$vsf as Context;
 
-  const search = async (searchParams?): Promise<void> => {
-    Logger.debug(`useReview/${id}/search`, searchParams);
+  const search = async (searchParams: ComposableFunctionArgs<GetProductSearchParams>) => {
+    Logger.debug('useReview/search', searchParams);
 
     try {
       loading.value = true;
-      reviews.value = await searchReviewsCommand.execute(context, searchParams);
       error.value.search = null;
+      return await searchReviewsCommand.execute(context, searchParams);
     } catch (err) {
       error.value.search = err;
-      Logger.error(`useReview/${id}/search`, err);
+      Logger.error('useReview/search', err);
     } finally {
       loading.value = false;
     }
   };
 
-  const loadCustomerReviews = async (): Promise<void> => {
-    Logger.debug(`useReview/${id}/loadCustomerReviews`);
+  const loadCustomerReviews = async (_params?: ComposableFunctionArgs<CustomerProductReviewParams>) => {
+    Logger.debug('useReview/loadCustomerReviews');
 
     try {
       loading.value = true;
-      reviews.value = await loadCustomerReviewsCommand.execute(context);
       error.value.loadCustomerReviews = null;
+      return await loadCustomerReviewsCommand.execute(context);
     } catch (err) {
       error.value.loadCustomerReviews = err;
-      Logger.error(`useReview/${id}/loadCustomerReviews`, err);
+      Logger.error('useReview/loadCustomerReviews', err);
     } finally {
       loading.value = false;
     }
   };
 
-  const loadReviewMetadata = async (_params): Promise<void> => {
-    Logger.debug(`useReview/${id}/loadReviewMetadata`);
+  const loadReviewMetadata = async (_params?: ComposableFunctionArgs<{}>) => {
+    Logger.debug('useReview/loadReviewMetadata');
 
     try {
       loading.value = true;
-      metadata.value = await loadReviewMetadataCommand.execute(context);
       error.value.loadReviewMetadata = null;
+      return await loadReviewMetadataCommand.execute(context);
     } catch (err) {
       error.value.loadReviewMetadata = err;
-      Logger.error(`useReview/${id}/loadReviewMetadata`, err);
+      Logger.error('useReview/loadReviewMetadata', err);
     } finally {
       loading.value = false;
     }
   };
 
-  const addReview = async (params): Promise<void> => {
-    Logger.debug(`useReview/${id}/addReview`, params);
+  const addReview = async (params: ComposableFunctionArgs<CreateProductReviewInput>) => {
+    Logger.debug('useReview/addReview', params);
     try {
       loading.value = true;
-      reviews.value = await addReviewCommand.execute(context, params);
       error.value.addReview = null;
+      return await addReviewCommand.execute(context, params);
     } catch (err) {
       error.value.addReview = err;
-      Logger.error(`useReview/${id}/addReview`, err);
+      Logger.error('useReview/addReview', err);
     } finally {
       loading.value = false;
     }
@@ -85,9 +86,9 @@ export const useReview = (id: string) => {
     addReview,
     loadReviewMetadata,
     loadCustomerReviews,
-    metadata,
-    reviews,
     loading,
     error,
   };
 };
+
+export default useReview;
