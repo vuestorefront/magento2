@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { StoreConfig } from '@vue-storefront/magento-api';
 
 const getCode = (config: StoreConfig) => config.store_code;
