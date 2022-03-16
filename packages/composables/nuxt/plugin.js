@@ -1,4 +1,4 @@
-import { integrationPlugin } from '@vue-storefront/core'
+import { integrationPlugin } from '@vue-storefront/magento-theme/helpers/integrationPlugin'
 import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
 import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 import cookie from '@vue-storefront/magento/nuxt/cookie';
