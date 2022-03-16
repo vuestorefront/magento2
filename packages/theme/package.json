@@ -35,8 +35,6 @@
     "@nuxtjs/style-resources": "^1.2.1",
     "@pinia/nuxt": "^0.1.8",
     "@storefront-ui/vue": "^0.11.5",
-    "@vue-storefront/cache": "^2.5.4",
-    "@vue-storefront/core": "~2.5.4",
     "@vue-storefront/magento": "^1.0.0-rc.6",
     "@vue-storefront/middleware": "~2.5.4",
     "@vue-storefront/nuxt": "~2.5.4",
