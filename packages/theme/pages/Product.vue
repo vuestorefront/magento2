@@ -92,7 +92,7 @@
                   <SfColor
                     v-for="color in option.values"
                     :key="color.uid"
-                    :color="getProductSwatchData(color.swatch_data)"
+                    :color="getSwatchData(color.swatch_data)"
                     :selected="
                       productConfiguration[option.attribute_uid] === color.uid
                     "
@@ -194,12 +194,12 @@
                   <SfReview
                     v-for="review in reviews"
                     v-show="!reviewsLoading"
-                    :key="reviewGetters.getReviewId(review)"
-                    :author="reviewGetters.getReviewAuthor(review)"
-                    :date="reviewGetters.getReviewDate(review)"
-                    :message="reviewGetters.getReviewMessage(review)"
+                    :key="getReviewId(review)"
+                    :author="getReviewAuthor(review)"
+                    :date="getReviewDate(review)"
+                    :message="getReviewMessage(review)"
                     :max-rating="5"
-                    :rating="reviewGetters.getReviewRating(review)"
+                    :rating="getReviewRating(review)"
                     :char-limit="250"
                     read-more-text="Read more"
                     hide-full-text="Read less"
@@ -276,7 +276,8 @@ import {
   useContext,
   useRoute,
   useRouter,
-  defineComponent, useFetch,
+  defineComponent,
+  useAsync,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productGetters, reviewGetters } from '~/getters';
@@ -459,7 +460,7 @@ export default defineComponent({
       });
     };
 
-    useFetch(async () => {
+    useAsync(async () => {
       const baseSearchQuery = {
         filter: {
           sku: {
@@ -522,14 +523,18 @@ export default defineComponent({
       productDescription,
       productGallery,
       getProductName: productGetters.getName,
-      getProductSwatchData: productGetters.getSwatchData,
+      getSwatchData: productGetters.getSwatchData,
       productLoading,
       productPrice,
       productReviews,
       productShortDescription,
       productSpecialPrice,
       qty,
-      reviewGetters,
+      getReviewId: reviewGetters.getReviewId,
+      getReviewAuthor: reviewGetters.getReviewAuthor,
+      getReviewDate: reviewGetters.getReviewDate,
+      getReviewMessage: reviewGetters.getReviewMessage,
+      getReviewRating: reviewGetters.getReviewRating,
       reviews,
       reviewsLoading,
       successAddReview,

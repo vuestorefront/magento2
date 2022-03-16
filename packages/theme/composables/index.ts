@@ -21,6 +21,7 @@ export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
 export { default as useBilling } from './useBilling';
 export { default as useRelatedProducts } from './useRelatedProducts';
+export { default as useUpsellProducts } from './useUpsellProducts';
 export { default as usePaymentProvider } from './usePaymentProvider';
 export { default as useAddresses } from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
