@@ -167,15 +167,15 @@ export default defineComponent({
       typeof $recaptcha !== 'undefined' && $config.isRecaptcha,
     );
     const {
-      loading, loadReviewMetadata, metadata, error,
-    } = useReview(
-      `productReviews-${id}`,
-    );
+      loading, loadReviewMetadata, error,
+    } = useReview();
     const { isAuthenticated, user } = useUser();
 
     const reviewSent = ref(false);
 
     const form = ref(BASE_FORM(id));
+
+    const metadata = ref([]);
 
     const ratingMetadata = computed(() => reviewGetters.getReviewMetadata([...metadata.value]));
 
@@ -233,7 +233,7 @@ export default defineComponent({
     };
 
     onBeforeMount(async () => {
-      await loadReviewMetadata();
+      metadata.value = await loadReviewMetadata();
     });
 
     return {
