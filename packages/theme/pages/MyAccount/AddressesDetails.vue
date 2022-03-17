@@ -16,6 +16,7 @@
         <AddressForm
           :address="activeAddress"
           :is-new="isNewAddress"
+          v-if="activeAddress && activeAddress.id || isNewAddress"
           @submit="saveAddress"
         />
       </SfTab>
@@ -82,16 +83,17 @@
 </template>
 <script>
 import { SfTabs, SfButton } from '@storefront-ui/vue';
-import { useAddresses } from '@vue-storefront/magento';
-import { userAddressesGetters } from '~/getters';
 import {
   computed,
   defineComponent,
   useRouter,
   useRoute,
   useContext,
+  ref,
+  useFetch,
 } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
+import { useAddresses } from '~/composables';
+import { userAddressesGetters } from '~/getters';
 import AddressForm from '~/components/MyAccount/AddressForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
@@ -107,22 +109,20 @@ export default defineComponent({
   },
   setup() {
     const {
-      addresses, load, remove, update, save,
+      load, remove, update, save,
     } = useAddresses();
 
-    const userAddresses = computed(() => userAddressesGetters.getAddresses(addresses.value));
     const router = useRouter();
     const route = useRoute();
     const { app } = useContext();
-    const activeAddress = computed(() => userAddresses.value
-      .filter((address) => String(address?.id) === route.value.query.id)
-      .pop());
-
+    const userAddresses = ref([]);
+    const activeAddress = ref({});
     const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
-    const isNewAddress = computed(() => !activeAddress.value);
+    const isNewAddress = computed(() => route.value.query.id === 'new');
     const editingAddress = computed(() => !!route.value.query.id);
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
+
       await router.push(
         `${app.localePath({
           path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
@@ -139,23 +139,31 @@ export default defineComponent({
       }
     };
 
-    const saveAddress = async ({ form, onComplete, onError }) => {
+    const saveAddress = async ({ form, onError }) => {
       try {
         const actionMethod = isNewAddress.value ? save : update;
         const data = await actionMethod({ address: form });
-        await onComplete(data);
         await router.push(
           app.localePath(
             `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
           ),
         );
+        addresses.value = data;
+        userAddresses.value = userAddressesGetters.getAddresses(data);
       } catch (error) {
         onError(error);
       }
     };
 
-    onSSR(async () => {
-      await load({});
+    useFetch(async () => {
+      const addressesData = await load();
+      userAddresses.value = userAddressesGetters.getAddresses(addressesData);
+
+      const activeAddressData = userAddresses.value
+        .filter((address) => String(address?.id) === route.value.query.id)
+        .pop();
+
+      activeAddress.value = activeAddressData;
     });
 
     return {
