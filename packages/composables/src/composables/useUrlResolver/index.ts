@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { Context, Logger } from '@vue-storefront/core';
 import { Route } from '@vue-storefront/magento-api';
 import { useUrlResolverFactory, UseUrlResolverFactoryParams } from '../../factories/useUrlResolverFactory';
