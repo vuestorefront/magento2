@@ -1,8 +1,7 @@
 /* eslint-disable consistent-return */
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
-
-import { CreateProductReviewInput, CustomerProductReviewParams } from '~/../api-client/lib';
+import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { UseReviewErrors } from './useReview';
 import { addReviewCommand } from './commands/addReviewCommand';
 import { loadCustomerReviewsCommand } from './commands/loadCustomerReviewsCommand';
@@ -37,7 +36,7 @@ export const useReview = () => {
     }
   };
 
-  const loadCustomerReviews = async (_params?: ComposableFunctionArgs<CustomerProductReviewParams>) => {
+  const loadCustomerReviews = async () => {
     Logger.debug('useReview/loadCustomerReviews');
 
     try {
@@ -52,7 +51,7 @@ export const useReview = () => {
     }
   };
 
-  const loadReviewMetadata = async (_params?: ComposableFunctionArgs<{}>) => {
+  const loadReviewMetadata = async () => {
     Logger.debug('useReview/loadReviewMetadata');
 
     try {
