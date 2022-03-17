@@ -2,13 +2,13 @@
 import { waitFor } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 import { useRoute } from '@nuxtjs/composition-api';
-import { useUser, useReview } from '@vue-storefront/magento';
 import {
   render,
   useUserMock,
   useReviewMock,
 } from '~/test-utils';
 
+import { useReview, useUser } from '~/composables';
 import ProductAddReviewForm from '../ProductAddReviewForm';
 
 jest.mock('@vue-storefront/magento', () => {
@@ -16,7 +16,6 @@ jest.mock('@vue-storefront/magento', () => {
   return {
     ...originalModule,
     useUser: jest.fn(),
-    useReview: jest.fn(),
   };
 });
 
@@ -27,6 +26,14 @@ jest.mock('@nuxtjs/composition-api', () => {
   return {
     ...originalModule,
     useRoute: jest.fn(),
+  };
+});
+
+jest.mock('~/composables/useReview', () => {
+  const originalModule = jest.requireActual('~/composables/useReview');
+  return {
+    ...originalModule,
+    useReview: jest.fn(),
   };
 });
 
