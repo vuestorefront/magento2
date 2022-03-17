@@ -24,6 +24,9 @@ export interface UseAddressesParams<ADDRESS,
   remove: (context: Context, params: ComposableFunctionArgs<REMOVE_ADDRESS_PARAMS>) => Promise<boolean>;
 }
 
+/**
+ * @deprecated since version 1.0.0
+ */
 export const useAddressesFactory = <ADDRESS,
   LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
   SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
