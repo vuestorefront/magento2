@@ -7,7 +7,7 @@ import { Maybe, ComposableFunctionArgs } from "~/composables/types";
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
+  const loading  = ref(false);
   const error: Ref<UseUpsellProductsError> = ref({
     search: null,
   });
