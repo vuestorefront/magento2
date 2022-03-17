@@ -13,11 +13,11 @@ export function useShippingProvider(): UseShippingProviderInterface {
     save: null,
   });
   const { cart, setCart, load: loadCart } = useCart();
-  const { app } = useContext();
+  const context = useContext();
 
   const save = async ({ shippingMethod }) => {
     Logger.debug('useShippingProvider.save');
-    let result = {};
+    let result = null;
     try {
       loading.value = true;
 
@@ -26,7 +26,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
         shipping_methods: [shippingMethod],
       };
 
-      const cartData = await setShippingMethodsOnCartCommand.execute(app.context, shippingMethodParams);
+      const cartData = await setShippingMethodsOnCartCommand.execute(context, shippingMethodParams);
       Logger.debug('[Result]:', { cartData });
 
       setCart(cartData);
@@ -48,7 +48,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
 
   const load = async ({ customQuery = null } = {}) => {
     Logger.debug('useShippingProvider.load');
-    let result = {};
+    let result = null;
     try {
       loading.value = true;
       if (!cart?.value?.shipping_addresses[0]?.selected_shipping_method) {

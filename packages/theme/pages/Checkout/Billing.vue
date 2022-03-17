@@ -276,11 +276,9 @@ import {
 } from '@storefront-ui/vue';
 import {
   useUserBilling,
-  useBilling,
   useCountrySearch,
   addressGetter,
 } from '@vue-storefront/magento';
-import { userBillingGetters } from '~/getters';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -292,7 +290,8 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import { useShipping, useUser } from '~/composables';
+import { userBillingGetters } from '~/getters';
+import { useShipping, useUser, useBilling } from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   addressFromApiToForm,
@@ -333,8 +332,9 @@ export default defineComponent({
     const router = useRouter();
     const { app } = useContext();
     const shippingDetails = ref({});
+    const billingAddress = ref({});
     const {
-      load, save, loading, billing: address,
+      load, save, loading,
     } = useBilling();
     const {
       billing: userBilling,
@@ -353,7 +353,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
-    const billingDetails = ref(addressFromApiToForm(address.value) || {});
+    const billingDetails = ref(addressFromApiToForm(billingAddress.value));
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
@@ -407,11 +407,8 @@ export default defineComponent({
     const handleCheckSameAddress = async () => {
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
-        if (!shippingDetails.value) {
-          shippingDetails.value = await loadShipping();
-
-          await searchCountry({ id: shippingDetails.value.country_code });
-        }
+        shippingDetails.value = await loadShipping();
+        await searchCountry({ id: shippingDetails.value.country_code });
         oldBilling = { ...billingDetails.value };
         billingDetails.value = {
           ...formatAddressReturnToData(shippingDetails.value),
@@ -467,7 +464,7 @@ export default defineComponent({
       await searchCountry({ id });
     };
 
-    watch(address, (addr) => {
+    watch(billingAddress, (addr) => {
       billingDetails.value = addressFromApiToForm(addr || {});
     });
 
@@ -477,8 +474,8 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      await Promise.all([loadCountries(), load()]);
-
+      const [loadedBilling] = await Promise.all([load(), loadCountries()]);
+      billingAddress.value = loadedBilling;
       if (billingDetails.value?.country_code) {
         await searchCountry({ id: billingDetails.value.country_code });
       }
