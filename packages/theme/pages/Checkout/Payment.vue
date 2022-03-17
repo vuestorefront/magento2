@@ -174,9 +174,8 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import { useMakeOrder } from '@vue-storefront/magento';
 import { cartGetters } from '~/getters';
-import { useCart, useImage } from '~/composables';
+import { useCart, useImage, useMakeOrder } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -195,8 +194,9 @@ export default defineComponent({
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
   setup() {
+    const order = ref(null);
     const { cart, load, setCart } = useCart();
-    const { order, make, loading } = useMakeOrder();
+    const { make, loading } = useMakeOrder();
     const { $magento } = useVSFContext();
     const { app } = useContext();
     const router = useRouter();
@@ -215,7 +215,7 @@ export default defineComponent({
     });
 
     const processOrder = async () => {
-      await make();
+      order.value = await make();
       setCart(null);
       $magento.config.state.setCartId();
       await load();
