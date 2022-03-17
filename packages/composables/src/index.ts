@@ -4,7 +4,6 @@ import { track } from '@vue-storefront/core';
 track('VSFMagento');
 
 export * from './getters';
-export * from './getVueContext';
 
 export { default as useAddresses } from './composables/useAddresses';
 export { default as useBilling } from './composables/useBilling';
