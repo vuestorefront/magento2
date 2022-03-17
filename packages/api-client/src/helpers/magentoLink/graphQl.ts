@@ -11,10 +11,14 @@ import { Logger } from '@vue-storefront/core';
 import { onError } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
 import { setContext } from '@apollo/client/link/context';
+import AgentKeepAlive from 'agentkeepalive';
 import { handleRetry } from './linkHandlers';
 import { Config } from '../../types/setup';
 import possibleTypes from '../../types/possibleTypes.json';
 import standardURL from '../url/standardURL';
+
+const { HttpsAgent } = AgentKeepAlive;
+const agent = new HttpsAgent();
 
 const createErrorHandler = () => onError(({
   graphQLErrors,
@@ -60,6 +64,9 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     uri: settings.api,
     // @ts-ignore
     fetch: (url, options) => fetch(standardURL(url), options),
+    fetchOptions: {
+      agent,
+    },
     ...settings.customApolloHttpLinkOptions,
   });
 

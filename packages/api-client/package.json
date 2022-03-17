@@ -35,7 +35,8 @@
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
     "isomorphic-fetch": "^3.0.0",
-    "dotenv": "^15.0.0"
+    "dotenv": "^15.0.0",
+    "agentkeepalive": "^4.2.1"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
