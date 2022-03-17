@@ -194,8 +194,6 @@ import {
   SfCheckbox,
 } from '@storefront-ui/vue';
 import {
-  addressGetter,
-  useAddresses,
   useCountrySearch,
 } from '@vue-storefront/magento';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
@@ -211,6 +209,7 @@ import {
   defineComponent,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
+import { addressGetter } from '~/getters';
 
 extend('required', {
   ...required,
@@ -274,10 +273,6 @@ export default defineComponent({
       country,
     } = useCountrySearch('my-account-shipping');
 
-    const {
-      load,
-    } = useAddresses();
-
     const form = reactive({
       apartment: props.address.apartment,
       city: props.address.city,
@@ -292,8 +287,8 @@ export default defineComponent({
       },
       street: props.address.street,
       telephone: props.address.telephone,
-      default_shipping: props.address.default_shipping,
-      default_billing: props.address.default_billing,
+      default_shipping: props.address.default_shipping || false,
+      default_billing: props.address.default_billing || false,
       ...(props.isNew ? {} : { id: props.address.id }),
     });
     // @ts-ignore
@@ -308,9 +303,6 @@ export default defineComponent({
 
       emit('submit', {
         form: omitDeep(form, ['__typename']),
-        onComplete: async () => {
-          await load();
-        },
         // TODO: Handle Error
         onError: () => {},
       });
