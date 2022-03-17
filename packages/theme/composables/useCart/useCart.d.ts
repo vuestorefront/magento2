@@ -17,7 +17,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   clear: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
   applyCoupon: (params: ComposableFunctionArgs<{ couponCode: string; }>) => Promise<void>;
   removeCoupon: (params: ComposableFunctionArgs<{}>) => Promise<void>;
-  isInCart: (context: Context, params: { currentCart: CART; product: PRODUCT }) => boolean;
+  isInCart: (params: { currentCart: CART; product: PRODUCT }) => boolean;
   setCart: (newCart: CART) => void;
   cart: ComputedRef<CART>;
   loading: Ref<boolean>;

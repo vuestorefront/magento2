@@ -10,6 +10,6 @@ export const getProductDetailsCommand = {
         ...searchParams,
       } as GetProductSearchParams, customQuery);
 
-    return result.data?.products ?? [];
+    return result.data?.products;
   },
 };
