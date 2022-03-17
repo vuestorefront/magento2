@@ -270,7 +270,6 @@ import {
   SfSelect,
   SfTabs,
 } from '@storefront-ui/vue';
-import { useReview } from '@vue-storefront/magento';
 import {
   ref,
   computed,
@@ -282,7 +281,7 @@ import {
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { productGetters, reviewGetters } from '~/getters';
 import {
-  useProduct, useCart, useWishlist, useUser,
+  useProduct, useCart, useWishlist, useUser, useReview,
 } from '~/composables';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
@@ -341,11 +340,11 @@ export default defineComponent({
     const { getProductDetails, loading: productLoading } = useProduct();
     const { addItem, loading } = useCart();
     const {
-      reviews: productReviews,
       search: searchReviews,
       loading: reviewsLoading,
       addReview,
-    } = useReview(`productReviews-${id}`);
+    } = useReview();
+    const productReviews = ref([]);
     const { isAuthenticated } = useUser();
     const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
     const { error: nuxtError, app } = useContext();
@@ -482,7 +481,7 @@ export default defineComponent({
 
       if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
 
-      await searchReviews(baseSearchQuery);
+      productReviews.value = await searchReviews(baseSearchQuery);
 
       const tags = [
         {
