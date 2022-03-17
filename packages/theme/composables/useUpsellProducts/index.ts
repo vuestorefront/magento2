@@ -3,7 +3,7 @@ import { ComposableFunctionArgs, ProductsSearchParams, Logger } from '@vue-store
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GetProductSearchParams } from '@vue-storefront/magento-api';
 import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
-import {Maybe} from "~/composables/types";
+import { Maybe, ComposableFunctionArgs } from "~/composables/types";
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {
   const { app } = useContext();
