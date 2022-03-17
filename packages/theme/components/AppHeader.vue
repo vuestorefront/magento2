@@ -113,7 +113,6 @@ import {
   SfOverlay, SfHeader, SfButton, SfBadge,
 } from '@storefront-ui/vue';
 
-import { categoryGetters } from '~/getters';
 import {
   computed,
   ref,
@@ -123,6 +122,7 @@ import {
   onMounted,
   useFetch,
 } from '@nuxtjs/composition-api';
+import { categoryGetters } from '~/getters';
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
   useCart,
@@ -196,7 +196,7 @@ export default defineComponent({
 
     return {
       accountIcon,
-      cartTotalItems: computed(() => cart.value.total_quantity),
+      cartTotalItems: computed(() => cart.value?.total_quantity ?? 0),
       categoryTree,
       getAgnosticCatLink,
       handleAccountClick,
@@ -207,7 +207,7 @@ export default defineComponent({
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
-      wishlistItemsQty: computed(() => wishlist.value.items_count),
+      wishlistItemsQty: computed(() => wishlist.value?.items_count ?? 0),
     };
   },
 });

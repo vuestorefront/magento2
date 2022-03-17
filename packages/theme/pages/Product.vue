@@ -25,7 +25,7 @@
           <div class="product__info">
             <div class="product__header">
               <SfHeading
-                :title="productGetters.getName(product)"
+                :title="getProductName(product)"
                 :level="3"
                 class="sf-heading--no-underline sf-heading--left"
               />
@@ -92,7 +92,7 @@
                   <SfColor
                     v-for="color in option.values"
                     :key="color.uid"
-                    :color="productGetters.getSwatchData(color.swatch_data)"
+                    :color="getProductSwatchData(color.swatch_data)"
                     :selected="
                       productConfiguration[option.attribute_uid] === color.uid
                     "
@@ -521,7 +521,8 @@ export default defineComponent({
       productDataIsLoading,
       productDescription,
       productGallery,
-      productGetters,
+      getProductName: productGetters.getName,
+      getProductSwatchData: productGetters.getSwatchData,
       productLoading,
       productPrice,
       productReviews,
