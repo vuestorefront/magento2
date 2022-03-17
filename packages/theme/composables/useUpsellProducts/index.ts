@@ -1,13 +1,13 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, ProductsSearchParams, Logger } from '@vue-storefront/core';
+import { ProductsSearchParams, Logger } from '@vue-storefront/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GetProductSearchParams } from '@vue-storefront/magento-api';
 import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
-import { Maybe, ComposableFunctionArgs } from "~/composables/types";
+import { Maybe, ComposableFunctionArgs } from '~/composables/types';
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {
   const { app } = useContext();
-  const loading  = ref(false);
+  const loading = ref(false);
   const error: Ref<UseUpsellProductsError> = ref({
     search: null,
   });

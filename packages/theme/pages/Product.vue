@@ -92,7 +92,7 @@
                   <SfColor
                     v-for="color in option.values"
                     :key="color.uid"
-                    :color="getSwatchData(color.swatch_data)"
+                    :color="getProductSwatchData(color.swatch_data)"
                     :selected="
                       productConfiguration[option.attribute_uid] === color.uid
                     "
@@ -280,7 +280,10 @@ import {
   useAsync,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import productGetters, { getSwatchData, getName as getProductName } from '~/getters/productGetters';
+import productGetters, {
+  getSwatchData as getProductSwatchData,
+  getName as getProductName
+} from '~/getters/productGetters';
 import reviewGetters, {
   getReviewId,
   getReviewAuthor,
@@ -530,7 +533,7 @@ export default defineComponent({
       productDescription,
       productGallery,
       getProductName,
-      getSwatchData,
+      getProductSwatchData,
       productLoading,
       productPrice,
       productReviews,

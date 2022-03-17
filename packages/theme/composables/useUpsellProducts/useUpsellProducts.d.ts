@@ -3,7 +3,7 @@ import { Ref } from '@nuxtjs/composition-api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
   UpsellProductsQuery,
-} from '~/modules/GraphQl/types';
+} from '~/modules/GraphQL/types';
 import { Maybe } from '~/composables/types';
 
 export interface UseUpsellProductsError {
