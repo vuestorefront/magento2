@@ -25,6 +25,9 @@ type RemoveAddressInput = {
   }
 } & CustomQueryParams;
 
+/**
+ * @deprecated since version 1.0.0
+ */
 const factoryParams: UseAddressesParams<CustomerAddress,
   CustomQueryParams,
   SaveAddressInput,
