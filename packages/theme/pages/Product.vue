@@ -280,7 +280,14 @@ import {
   useAsync,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import { productGetters, reviewGetters } from '~/getters';
+import productGetters, { getSwatchData, getName as getProductName } from '~/getters/productGetters';
+import reviewGetters, {
+  getReviewId,
+  getReviewAuthor,
+  getReviewDate,
+  getReviewMessage,
+  getReviewRating,
+} from '~/getters/reviewGetters';
 import {
   useProduct, useCart, useWishlist, useUser, useReview,
 } from '~/composables';
@@ -522,19 +529,19 @@ export default defineComponent({
       productDataIsLoading,
       productDescription,
       productGallery,
-      getProductName: productGetters.getName,
-      getSwatchData: productGetters.getSwatchData,
+      getProductName,
+      getSwatchData,
       productLoading,
       productPrice,
       productReviews,
       productShortDescription,
       productSpecialPrice,
       qty,
-      getReviewId: reviewGetters.getReviewId,
-      getReviewAuthor: reviewGetters.getReviewAuthor,
-      getReviewDate: reviewGetters.getReviewDate,
-      getReviewMessage: reviewGetters.getReviewMessage,
-      getReviewRating: reviewGetters.getReviewRating,
+      getReviewId,
+      getReviewAuthor,
+      getReviewDate,
+      getReviewMessage,
+      getReviewRating,
       reviews,
       reviewsLoading,
       successAddReview,

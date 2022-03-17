@@ -3,7 +3,8 @@ import { Ref } from '@nuxtjs/composition-api';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
   UpsellProductsQuery,
-} from '@vue-storefront/magento-api';
+} from '~/modules/GraphQl/types';
+import { Maybe } from '~/composables/types';
 
 export interface UseUpsellProductsError {
   search: Error | null;
@@ -12,7 +13,7 @@ export interface UseUpsellProductsError {
 export type UpsellProducts = UpsellProductsQuery['products']['items'][0]['upsell_products'];
 
 export interface UseUpsellProductsInterface {
-  search: (params?: ComposableFunctionArgs<ProductsSearchParams>) => Promise<Array<UpsellProducts>>;
+  search: (params?: ComposableFunctionArgs<ProductsSearchParams>) => Promise<Maybe<Array<UpsellProducts>>>;
   loading: Ref<boolean>;
   error: Ref<UseUpsellProductsError>;
 }

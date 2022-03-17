@@ -3,6 +3,7 @@ import { ComposableFunctionArgs, ProductsSearchParams, Logger } from '@vue-store
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GetProductSearchParams } from '@vue-storefront/magento-api';
 import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
+import {Maybe} from "~/composables/types";
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {
   const { app } = useContext();
@@ -11,7 +12,7 @@ export const useUpsellProducts = (): UseUpsellProductsInterface => {
     search: null,
   });
 
-  const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Array<UpsellProducts>> => {
+  const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Maybe<Array<UpsellProducts>>> => {
     const {
       customQuery,
       ...searchParams
