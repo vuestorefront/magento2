@@ -26,7 +26,7 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { usePaymentProvider } from '@vue-storefront/magento';
+import { usePaymentProvider } from '~/composables';
 
 export default defineComponent({
   name: 'VsfPaymentProvider',
@@ -38,11 +38,12 @@ export default defineComponent({
   emits: ['status'],
 
   setup(props, { emit }) {
-    const { load, state, save } = usePaymentProvider();
+    const state = ref(null);
+    const { load, save } = usePaymentProvider();
     const selectedMethod = ref(null);
 
     onMounted(async () => {
-      await load();
+      state.value = await load();
     });
 
     const paymentMethods = computed(() => (Array.isArray(state.value) ? state.value.map((p) => ({
@@ -52,7 +53,7 @@ export default defineComponent({
 
     const definePaymentMethods = async (paymentMethod) => {
       try {
-        await save({
+        state.value = await save({
           paymentMethod: {
             code: paymentMethod,
           },
