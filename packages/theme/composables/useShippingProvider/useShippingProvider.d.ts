@@ -1,5 +1,6 @@
 import { Ref } from '@nuxtjs/composition-api';
 import {
+  Maybe,
   SelectedShippingMethod,
 } from '~/composables/types';
 
@@ -14,9 +15,9 @@ export declare type CustomQuery = Record<string, string>;
 export interface UseShippingProviderInterface {
   error: ComputedProperty<UseShippingProviderErrors>;
   loading: ComputedProperty<boolean>;
-  load(): Promise<SelectedShippingMethod | {}>;
+  load(): Promise<Maybe<SelectedShippingMethod>>;
   save(params: {
     shippingMethod: any;
     customQuery?: CustomQuery;
-  }): Promise<SelectedShippingMethod | {}>;
+  }): Promise<Maybe<SelectedShippingMethod>>;
 }
