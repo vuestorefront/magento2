@@ -25,3 +25,4 @@ export { default as useUpsellProducts } from './useUpsellProducts';
 export { default as usePaymentProvider } from './usePaymentProvider';
 export { default as useAddresses } from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
+export { default as useUserOrder } from './useUserOrder';
