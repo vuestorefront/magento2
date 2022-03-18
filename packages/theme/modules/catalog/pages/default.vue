@@ -437,7 +437,7 @@ export default defineComponent({
     const facets = ref([]);
     const pagination = ref({});
 
-    const { path, result: routeData, search: resolveUrl } = useUrlResolver();
+    const { path, search: resolveUrl } = useUrlResolver();
     const {
       $magento: { config: magentoConfig },
     } = useVSFContext();
@@ -520,23 +520,23 @@ export default defineComponent({
         : addItemToWishlistBase({ product }));
     };
 
-    const searchCategoryProduct = async () => {
+    const searchCategoryProduct = async (categoryId) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await search({
         ...uiHelpers.getFacetsFromURL(),
-        categoryId: routeData.value?.entity_uid,
+        categoryId,
       });
     };
 
     useFetch(async () => {
-      await resolveUrl();
-      const content = await getContentData(routeData.value?.id);
+      const routeData = await resolveUrl();
+      const content = await getContentData(routeData?.id);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
 
-      await searchCategoryProduct();
+      await searchCategoryProduct(routeData?.entity_uid);
       selectedFilters.value = getSelectedFilterValues();
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
@@ -560,7 +560,6 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
-      routeData,
       ...productGetters,
       ...uiHelpers,
       ...uiState,
