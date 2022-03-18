@@ -178,12 +178,12 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, ref, useRoute,
+  computed, defineComponent, ref, useRoute, useAsync,
 } from '@nuxtjs/composition-api';
-import { useUserOrder, orderGetters } from '@vue-storefront/magento';
-import { AgnosticOrderStatus, onSSR } from '@vue-storefront/core';
+import { AgnosticOrderStatus } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
-import { useUiHelpers } from '~/composables';
+import { orderGetters } from '~/getters';
+import { useUiHelpers, useUserOrder } from '~/composables';
 
 export default defineComponent({
   name: 'PersonalDetails',
@@ -199,7 +199,7 @@ export default defineComponent({
     SfLoader,
   },
   setup() {
-    const { orders, search, loading } = useUserOrder();
+    const { search, loading } = useUserOrder();
     const currentOrder = ref(null);
     const th = useUiHelpers();
     const route = useRoute();
@@ -210,11 +210,13 @@ export default defineComponent({
       },
     } = route.value;
 
-    onSSR(async () => {
-      await search({
+    const orders = useAsync(async () => {
+      const ordersData = await search({
         currentPage: Number.parseInt(page, 10) || 1,
         pageSize: Number.parseInt(itemsPerPage, 10) || 10,
       });
+
+      return ordersData;
     });
 
     const tableHeaders = [
