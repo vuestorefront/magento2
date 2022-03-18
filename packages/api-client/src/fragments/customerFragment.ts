@@ -5,6 +5,7 @@ default_billing
 default_shipping
 email
 firstname
+group_id
 is_subscribed
 lastname
 middlename

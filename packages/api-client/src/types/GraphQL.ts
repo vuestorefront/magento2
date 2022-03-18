@@ -2361,7 +2361,7 @@ export interface Customer {
   firstname?: Maybe<Scalars['String']>;
   /** The customer's gender (Male - 1, Female - 2) */
   gender?: Maybe<Scalars['Int']>;
-  /** @deprecated Customer group should not be exposed in the storefront scenarios */
+  /** Customer group id (used for pricing in Algolia Search) */
   group_id?: Maybe<Scalars['Int']>;
   /**
    * The ID assigned to the customer

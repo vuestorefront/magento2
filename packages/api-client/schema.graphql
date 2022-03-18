@@ -1607,7 +1607,8 @@ type Customer {
     firstname: String
     "The customer's gender (Male - 1, Female - 2)"
     gender: Int
-    group_id: Int @deprecated(reason : "Customer group should not be exposed in the storefront scenarios")
+    "Customer group id (used for pricing in Algolia Search)"
+    group_id: Int
     "The ID assigned to the customer"
     id: Int @deprecated(reason : "id is not needed as part of Customer because on server side it can be identified based on customer token used for authentication. There is no need to know customer ID on the client side.")
     "Indicates whether the customer is subscribed to the company's newsletter"

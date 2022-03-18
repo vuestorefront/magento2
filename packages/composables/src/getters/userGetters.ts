@@ -10,11 +10,14 @@ export const getEmailAddress = (user: Customer): string => (user ? user.email : 
 
 export const getFullName = (user: Customer): string => (user ? `${user.firstname} ${user.lastname}` : '');
 
+export const getGroupId = (user: Customer): number | null => (user ? user.group_id : null);
+
 const userGetters: BaseUserGetters<Customer> = {
   getFirstName,
   getLastName,
   getEmailAddress,
   getFullName,
+  getGroupId,
 };
 
 export default userGetters;
