@@ -375,8 +375,9 @@ import {
   SfSelect,
   SfSidebar,
 } from '@storefront-ui/vue';
-import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
-import { useVSFContext } from '@vue-storefront/core';
+import {
+  defineComponent, ref, useContext, useFetch,
+} from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
 import { facetGetters, productGetters } from '~/getters';
 import {
@@ -439,8 +440,8 @@ export default defineComponent({
 
     const { path, search: resolveUrl } = useUrlResolver();
     const {
-      $magento: { config: magentoConfig },
-    } = useVSFContext();
+      $vsf: { $magento: { config: magentoConfig } },
+    } = useContext();
     const { isAuthenticated } = useUser();
     const {
       addItem: addItemToWishlistBase,

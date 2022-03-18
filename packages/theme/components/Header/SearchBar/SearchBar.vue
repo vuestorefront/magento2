@@ -55,9 +55,9 @@ import {
 } from '@nuxtjs/composition-api';
 import debounce from 'lodash.debounce';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
-import { useCategorySearch, useFacet } from '~/composables';
-import { categoryGetters } from '~/getters';
 import SvgImage from '~/components/General/SvgImage.vue';
+import { useFacet, useCategorySearch } from '~/composables';
+import { categoryGetters } from '~/getters';
 
 export default defineComponent({
   name: 'SearchBar',
