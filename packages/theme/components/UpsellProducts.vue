@@ -6,9 +6,8 @@
   />
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api';
-import { useUpsellProducts } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
+import { defineComponent, useFetch, ref } from '@nuxtjs/composition-api';
+import { useUpsellProducts } from '~/composables';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import { productData } from '~/helpers/product/productData';
 
@@ -19,9 +18,10 @@ export default defineComponent({
   },
   setup() {
     const { id } = productData();
-    const { search, products, loading } = useUpsellProducts(id);
+    const { search, loading } = useUpsellProducts(id);
+    const products = ref([]);
 
-    onSSR(async () => {
+    useFetch(async () => {
       const baseSearchQuery = {
         filter: {
           sku: {
@@ -30,7 +30,7 @@ export default defineComponent({
         },
       };
 
-      await search(baseSearchQuery);
+      products.value = await search(baseSearchQuery);
     });
 
     return {

@@ -20,6 +20,9 @@ export interface UseUpsellProductsFactoryParams<
   productsSearch: (context: Context, params: ComposableFunctionArgs<UPSELL_PRODUCTS_SEARCH_PARAMS>) => Promise<PRODUCTS>;
 }
 
+/**
+ * @deprecated since version 1.0.0
+ */
 export function useUpsellProductsFactory<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API extends PlatformApi = any>(
   factoryParams: UseProductFactoryParams<PRODUCTS, UPSELL_PRODUCTS_SEARCH_PARAMS, API>,
 ) {
