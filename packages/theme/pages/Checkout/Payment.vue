@@ -165,7 +165,6 @@ import {
   SfProperty,
   SfLink,
 } from '@storefront-ui/vue';
-import { useVSFContext } from '@vue-storefront/core';
 import {
   ref,
   computed,
@@ -197,8 +196,7 @@ export default defineComponent({
     const order = ref(null);
     const { cart, load, setCart } = useCart();
     const { make, loading } = useMakeOrder();
-    const { $magento } = useVSFContext();
-    const { app } = useContext();
+    const { app, $vsf: { $magento } } = useContext();
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);

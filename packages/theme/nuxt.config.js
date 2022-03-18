@@ -83,6 +83,8 @@ export default () => {
             '@vue-storefront/core',
           ],
         },
+        // selectively disabling certain @vue-storefront/core plugins for migration
+        context: false,
       }],
       ['@vue-storefront/magento/nuxt', {
         i18n: {
@@ -99,6 +101,7 @@ export default () => {
       }],
       '@nuxt/image',
       '@pinia/nuxt',
+      '~/modules/context',
     ],
     modules: [
       '~/modules/catalog',
@@ -190,6 +193,9 @@ export default () => {
       extractCSS: true,
       optimizeCSS: true,
       parallel: true,
+      extend(cfg, ctx) {
+        cfg.devtool = 'source-map'
+      },
       plugins: [
         new webpack.DefinePlugin({
           'process.VERSION': JSON.stringify({
