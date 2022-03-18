@@ -48,18 +48,15 @@
   </SfSearchBar>
 </template>
 
-<script>
+<script lang="ts">
 import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import {
   defineComponent, ref, watch, useRoute,
 } from '@nuxtjs/composition-api';
 import debounce from 'lodash.debounce';
-import {
-  categoryGetters,
-  useCategorySearch,
-  useFacet,
-} from '@vue-storefront/magento';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
+import { useCategorySearch, useFacet } from '~/composables';
+import { categoryGetters } from '~/getters';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -90,12 +87,12 @@ export default defineComponent({
     const {
       result: searchResult,
       search: productsSearch,
-    } = useFacet('AppHeader:Products');
+    } = useFacet();
 
     const {
       result: categories,
       search: categoriesSearch,
-    } = useCategorySearch('AppHeader:Categories');
+    } = useCategorySearch();
 
     const showSearch = () => {
       if (!isSearchOpen.value) {
@@ -129,7 +126,9 @@ export default defineComponent({
     const closeSearch = (event) => {
       if (document) {
         const searchResultsEl = document.querySelectorAll('.search');
-        if (!searchResultsEl[0]?.contains(event.target)) {
+        const closeTriggerElement = event.target as HTMLElement;
+
+        if (!searchResultsEl[0]?.contains(closeTriggerElement)) {
           hideSearch();
           term.value = '';
         }
