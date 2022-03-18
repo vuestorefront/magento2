@@ -21,9 +21,9 @@
   </nuxt-link>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent } from '@nuxtjs/composition-api';
-import { useConfig } from '@vue-storefront/magento';
+import { useConfig } from '~/composables';
 import { storeConfigGetters } from '~/getters';
 import SvgImage from '~/components/General/SvgImage.vue';
 
