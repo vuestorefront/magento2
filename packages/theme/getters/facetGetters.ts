@@ -10,7 +10,7 @@ import {
 
 import {
   SearchData,
-} from '@vue-storefront/magento';
+} from '~/composables/types';
 
 import {
   buildFacets,

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { AvailableStores, Currency, StoreConfig } from '@vue-storefront/magento';
+import { AvailableStores, Currency, StoreConfig } from '~/composables/types';
 
 interface ConfigState {
   storeConfig: StoreConfig,

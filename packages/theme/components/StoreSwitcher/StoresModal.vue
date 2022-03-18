@@ -49,7 +49,7 @@
 <script>
 import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api';
 import { SfList, SfBottomModal, SfCharacteristic } from '@storefront-ui/vue';
-import { useStore } from '@vue-storefront/magento';
+import { useStore } from '~/composables';
 import { storeGetters, storeConfigGetters } from '~/getters';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
@@ -72,7 +72,7 @@ export default defineComponent({
       stores,
       change: changeStore,
       load: loadStores,
-    } = useStore('header-stores');
+    } = useStore();
 
     const availableStores = computed(() => stores.value ?? []);
 

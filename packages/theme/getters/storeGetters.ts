@@ -1,4 +1,4 @@
-import { AvailableStores, StoreConfig } from '@vue-storefront/magento';
+import { AvailableStores, StoreConfig } from '~/composables/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(stores: AvailableStores, criteria: any = {}): AvailableStores {

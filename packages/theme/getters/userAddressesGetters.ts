@@ -1,12 +1,30 @@
-import { UserAddressesGetters as BaseGetters } from '@vue-storefront/magento';
-import { transformUserGetter } from '@vue-storefront/magento';
+import { transformUserGetter } from '~/helpers/userAddressManipulator';
+import { TransformedCustomerAddress } from '~/composables/types';
 
-interface UserAddressesGetters extends BaseGetters<any, any> {
+export interface UserAddressesGetters<USER_ADDRESS, USER_ADDRESS_ITEM> {
+  getAddresses: (shipping: USER_ADDRESS, criteria?: Record<string, any>) => USER_ADDRESS_ITEM[];
+  getTotal: (shipping: USER_ADDRESS) => number;
+  getPostCode: (address: USER_ADDRESS_ITEM) => string;
+  getStreetName: (address: USER_ADDRESS_ITEM) => string;
+  getCity: (address: USER_ADDRESS_ITEM) => string;
+  getFirstName: (address: USER_ADDRESS_ITEM) => string;
+  getLastName: (address: USER_ADDRESS_ITEM) => string;
+  getCountry: (address: USER_ADDRESS_ITEM) => string;
+  getPhone: (address: USER_ADDRESS_ITEM) => string;
+  getEmail: (address: USER_ADDRESS_ITEM) => string;
+  getProvince: (address: USER_ADDRESS_ITEM) => string;
+  getCompanyName: (address: USER_ADDRESS_ITEM) => string;
+  getTaxNumber: (address: USER_ADDRESS_ITEM) => string;
+  getId: (address: USER_ADDRESS_ITEM) => string | number;
+  getApartmentNumber: (address: USER_ADDRESS_ITEM) => string | number;
+  isDefault: (address: USER_ADDRESS_ITEM) => boolean;
+  isDefaultShipping: (address: USER_ADDRESS_ITEM) => boolean;
+  isDefaultBilling: (address: USER_ADDRESS_ITEM) => boolean;
   getNeighborhood: (address: any) => string
   getAddressExtra: (address: any) => string
 }
 
-const userAddressesGetters: UserAddressesGetters = {
+const userAddressesGetters: UserAddressesGetters<Array<TransformedCustomerAddress>, TransformedCustomerAddress> = {
   getAddresses: (addresses, criteria?: Record<string, any>) => {
     if (!addresses || addresses.length === 0 || !Array.isArray(addresses)) return [];
 
@@ -21,12 +39,10 @@ const userAddressesGetters: UserAddressesGetters = {
     const entries = Object.entries(criteria);
     return addressesData.filter((address) => entries.every(([key, value]) => address[key] === value));
   },
-  getDefault: (addresses) => addresses.find(({ isDefault }) => isDefault),
   getTotal: (addresses) => addresses.length,
 
   getPostCode: (address) => address?.postcode || '',
   getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : address?.street),
-  getStreetNumber: (address) => address?.streetNumber || '',
   getCity: (address) => address?.city || '',
   getFirstName: (address) => address?.firstname || '',
   getLastName: (address) => address?.lastname || '',
