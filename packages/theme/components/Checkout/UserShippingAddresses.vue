@@ -28,9 +28,9 @@
 
 <script>
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
-import { useUserShipping } from '@vue-storefront/magento';
+import { defineComponent } from '@nuxtjs/composition-api';
+
 import { userShippingGetters } from '~/getters';
-import { computed, defineComponent } from '@nuxtjs/composition-api';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -49,29 +49,24 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    shippingAddresses: {
+      type: Array,
+      required: true,
+    },
   },
   emits: ['setCurrentAddress'],
-  setup(props, { emit }) {
-    const { shipping: userShipping } = useUserShipping();
-
+  setup({ shippingAddresses }, { emit }) {
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userShippingGetters.getAddresses(
-        userShipping.value,
-        { id: Number.parseInt(addressId, 10) },
-      );
-
+      const selectedAddress = shippingAddresses.find((address) => address.id === Number(addressId));
       if (!selectedAddress) {
         return;
       }
 
-      emit('setCurrentAddress', selectedAddress[0]);
+      emit('setCurrentAddress', selectedAddress);
     };
-
-    const shippingAddresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
     return {
       setCurrentAddress,
-      shippingAddresses,
       userShippingGetters,
     };
   },
