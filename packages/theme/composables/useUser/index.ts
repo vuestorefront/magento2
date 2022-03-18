@@ -95,8 +95,6 @@ export const useUser = (): UseUser => {
 
     try {
       loading.value = true;
-      // user.value = await _factoryParams.load({customQuery});
-
       const apiState = app.context.$vsf.$magento.config.state;
 
       if (!apiState.getCustomerToken()) {
@@ -108,8 +106,6 @@ export const useUser = (): UseUser => {
         Logger.debug('[Result]:', { data });
 
         customerStore.user = data?.customer ?? {};
-
-        return customerStore.user;
       } catch {
         // eslint-disable-next-line no-void
         // @ts-ignore
@@ -122,6 +118,8 @@ export const useUser = (): UseUser => {
     } finally {
       loading.value = false;
     }
+
+    return customerStore.user;
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await,no-empty-pattern
@@ -178,14 +176,14 @@ export const useUser = (): UseUser => {
 
       error.value.login = null;
       customerStore.user = load();
-
-      return customerStore.user;
     } catch (err) {
       error.value.login = err;
       Logger.error('useUser/login', err);
     } finally {
       loading.value = false;
     }
+
+    return customerStore.user;
   };
 
   // eslint-disable-next-line consistent-return

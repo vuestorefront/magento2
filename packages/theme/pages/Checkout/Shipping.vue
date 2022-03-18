@@ -13,6 +13,7 @@
         v-model="setAsDefault"
         v-e2e="'shipping-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :shipping-addresses="addresses"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -270,14 +271,12 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import {
-  addressGetter,
   useCountrySearch,
-  useUserShipping,
 } from '@vue-storefront/magento';
-import { userShippingGetters } from '~/getters';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useUser, useShipping } from '~/composables';
+import { userShippingGetters, addressGetter } from '~/getters';
+import { useUser, useShipping, useUserShipping } from '~/composables';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -313,14 +312,13 @@ export default defineComponent({
     const router = useRouter();
     const { app } = useContext();
     const address = ref({});
-
+    const userShipping = ref({});
     const {
       load: loadShipping,
       save: saveShipping,
       loading: isShippingLoading,
     } = useShipping();
     const {
-      shipping: userShipping,
       load: loadUserShipping,
       setDefaultAddress,
     } = useUserShipping();
@@ -340,6 +338,7 @@ export default defineComponent({
     const canAddNewAddress = ref(true);
 
     const isShippingDetailsStepCompleted = ref(false);
+    const addresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
     const canMoveForward = computed(() => !isShippingLoading.value && shippingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -350,8 +349,7 @@ export default defineComponent({
       if (!isAuthenticated.value || !userShipping.value) {
         return false;
       }
-      const addresses = userShippingGetters.getAddresses(userShipping.value);
-      return Boolean(addresses?.length);
+      return addresses.value.length > 0;
     });
     // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
@@ -371,12 +369,14 @@ export default defineComponent({
       shippingMethods.value = shippingInfo.available_shipping_methods;
 
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userShippingGetters.getAddresses(
+        const [chosenAddress] = userShippingGetters.getAddresses(
           userShipping.value,
           { id: addressId },
         );
-        if (chosenAddress && chosenAddress.length > 0) {
-          await setDefaultAddress({ address: chosenAddress[0] });
+        chosenAddress.default_shipping = setAsDefault.value;
+        if (chosenAddress) {
+          await setDefaultAddress({ address: chosenAddress });
+          userShipping.value = await loadUserShipping(true);
         }
       }
       reset();
@@ -430,13 +430,14 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      const [shippingInfo] = await Promise.all([
+      const [loadedShippingInfo, loadedUserShipping] = await Promise.all([
         loadShipping(),
-        loadCountries(),
         loadUserShipping(),
+        loadCountries(),
       ]);
 
-      address.value = shippingInfo;
+      address.value = loadedShippingInfo;
+      userShipping.value = loadedUserShipping;
 
       if (shippingDetails.value?.country_code) {
         await searchCountry({ id: shippingDetails.value.country_code });
@@ -452,6 +453,7 @@ export default defineComponent({
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyShippingDetails = !shippingDetails.value
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
@@ -480,6 +482,7 @@ export default defineComponent({
       setAsDefault,
       shippingDetails,
       shippingMethods,
+      addresses,
     };
   },
 });

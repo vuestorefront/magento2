@@ -11,6 +11,7 @@ export interface UseUserErrors {
 }
 
 export interface Customer {
+  id: string
   email: string
   firstname: string
   password: string
@@ -52,6 +53,6 @@ export type UseUser = {
     }>
   ) => Promise<void>
   load: (
-    params: ComposableFunctionArgs<{}>
+    params?: ComposableFunctionArgs<{}>
   ) => Promise<Customer>
 };
