@@ -270,13 +270,10 @@ import {
   useRouter,
   useContext,
 } from '@nuxtjs/composition-api';
-import {
-  useCountrySearch,
-} from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { userShippingGetters, addressGetter } from '~/getters';
-import { useUser, useShipping, useUserAddress } from '~/composables';
+import { useUser, useShipping, useUserAddress, useCountrySearch } from '~/composables';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -325,10 +322,10 @@ export default defineComponent({
 
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('Step:Shipping');
+    } = useCountrySearch();
+    const countries = ref([]);
+    const country = ref(null);
     const { isAuthenticated } = useUser();
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
     const shippingMethods = ref([]);
@@ -419,7 +416,7 @@ export default defineComponent({
 
     const changeCountry = async (id) => {
       changeShippingDetails('country_code', id);
-      await searchCountry({ id });
+      country.value = await searchCountry({ id });
     };
 
     watch(address, (addr) => {
@@ -430,7 +427,7 @@ export default defineComponent({
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
-      const [loadedShippingInfo, loadedUserShipping] = await Promise.all([
+      const [loadedShippingInfo, loadedUserShipping, loadedCountries] = await Promise.all([
         loadShipping(),
         loadUserShipping(),
         loadCountries(),
@@ -438,9 +435,10 @@ export default defineComponent({
 
       address.value = loadedShippingInfo;
       userShipping.value = loadedUserShipping;
+      countries.value = loadedCountries;
 
       if (shippingDetails.value?.country_code) {
-        await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
       }
 
       const shippingAddresses = userShippingGetters.getAddresses(

@@ -51530,3 +51530,4 @@ export interface FacetResultsData {
   itemsPerPage: number;
   availableFilters: Record<string, any>;
 }
+
