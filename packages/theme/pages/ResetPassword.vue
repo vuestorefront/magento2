@@ -102,9 +102,9 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import { forgotPasswordGetters } from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
+import { forgotPasswordGetters } from '~/getters';
 import { useForgotPassword } from '~/composables';
 import { customerPasswordRegExp, invalidPasswordMsg } from '../helpers/customer/regex';
 

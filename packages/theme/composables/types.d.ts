@@ -1,4 +1,6 @@
-import { CustomQuery } from '@vue-storefront/core/lib/src/types';
+import {Filter} from "@vue-storefront/magento";
+
+export declare type CustomQuery = Record<string, string>;
 
 export declare type ComposableFunctionArgs<T> = T & {
   customQuery?: CustomQuery;
@@ -2320,6 +2322,11 @@ export interface CustomerAddress {
   telephone?: Maybe<Scalars['String']>;
   /** The customer's Value-added tax (VAT) number (for corporate customers) */
   vat_id?: Maybe<Scalars['String']>;
+  /** The customer's email **/
+  email: Scalars['String']
+  /** The customer's phone **/
+  phone: Maybe<Scalars['String']>
+
 }
 export interface CustomerAddressAttribute {
   /** Attribute code */
@@ -51444,3 +51451,82 @@ export declare type WishlistQuery = {
     } | null | undefined>;
   } | null | undefined;
 };
+
+export declare type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
+export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> {
+}
+export declare type Countries = CountriesListQuery['countries'][0];
+
+export interface TransformedCustomerAddress extends CustomerAddress {
+  street: string,
+  apartment: string,
+  neighborhood: string,
+  extra: string,
+}
+
+export interface AddressGetter {
+  countriesList(countries: Countries[]): {
+    id: string;
+    label: string;
+    englishLabel: string;
+    abbreviation: string;
+  }[];
+  regionList(country: Country): {
+    id: number;
+    label: string;
+    abbreviation: string;
+  }[];
+}
+
+export declare type CartItem = CartItemInterface;
+
+export interface AgnosticPaymentMethod {
+  label: string;
+  value: string;
+}
+
+export declare type ShippingMethod = AvailableShippingMethod;
+
+export declare type SearchData = FacetSearchResult<FacetResultsData>;
+export declare type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
+export interface AgnosticReviewMetadata {
+  id: string;
+  name: string;
+  values: {
+    label: string | number;
+    id: string;
+  }[];
+}
+
+export declare type AvailableStores = AvailableStoresQuery['availableStores'];
+
+export interface ReviewsGetter {
+  reviews: Array<ProductReviews>
+}
+
+export interface AgnosticFacetSearchParams {
+  categorySlug?: string;
+  rootCatSlug?: string;
+  term?: string;
+  page?: number;
+  itemsPerPage?: number;
+  sort?: string;
+  filters?: Record<string, string[]>;
+  metadata?: any;
+  [x: string]: any;
+}
+
+export interface FacetSearchResult<S> {
+  data: S;
+  input: AgnosticFacetSearchParams;
+}
+
+export interface FacetResultsData {
+  products: Product[];
+  categories: Category[];
+  facets: Record<string, Filter>;
+  total: number;
+  perPageOptions: number[];
+  itemsPerPage: number;
+  availableFilters: Record<string, any>;
+}
