@@ -1,7 +1,21 @@
-import { ConfigState } from '@vue-storefront/magento-api';
 import { Context, NuxtAppOptions } from '@nuxt/types';
 import { LocaleObject } from 'nuxt-i18n';
 import cookieNames from '~/enums/cookieNameEnum';
+
+export declare type ConfigState = {
+  getCartId(): string;
+  setCartId(id?: string | null): void;
+  getCustomerToken(): string;
+  setCustomerToken(token?: string | null): void;
+  getStore(): string;
+  setStore(id?: string | null): void;
+  getCurrency(): string;
+  setCurrency(id?: string | null): void;
+  getLocale(): string;
+  setLocale(id?: string | null): void;
+  getCountry(): string;
+  setCountry(id?: string | null): void;
+};
 
 /**
  * Read vsf-store cookie value.

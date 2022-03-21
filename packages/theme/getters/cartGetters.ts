@@ -8,15 +8,13 @@ import {
 } from '@vue-storefront/core';
 import {
   Cart,
-  CartItem,
-  Product,
-  AgnosticPaymentMethod,
   Discount,
   ProductInterface,
   SelectedShippingMethod,
   ConfigurableCartItem,
-} from '~/composables/types';
+} from '~/modules/GraphQL/types';
 import productGetters from './productGetters';
+import { Product, CartItem, AgnosticPaymentMethod } from '~/composables/types';
 
 export const getItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {

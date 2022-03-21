@@ -1,6 +1,5 @@
 import { Logger } from '@vue-storefront/core';
-import { Maybe, SetBillingAddressOnCartInput } from '~/composables/types';
-import { BillingCartAddress } from '~/modules/GraphQL/types';
+import { BillingCartAddress, Maybe, SetBillingAddressOnCartInput } from '~/modules/GraphQL/types';
 
 export const saveBillingAddressCommand = {
   execute: async (context, cartId, billingDetails): Promise<Maybe<BillingCartAddress>> => {

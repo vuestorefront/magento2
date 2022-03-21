@@ -5,8 +5,9 @@ import {
   CartItemInterface,
   CartItemQuantity,
   Maybe,
-  Scalars, SelectedShippingMethod,
-} from '~/composables/types';
+  Scalars,
+  SelectedShippingMethod,
+} from '~/modules/GraphQL/types';
 
 export declare type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
 export declare type CustomQuery = Record<string, string>;

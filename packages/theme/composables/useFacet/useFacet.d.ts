@@ -1,7 +1,26 @@
-import { AgnosticFacetSearchParams, ComposableFunctionArgs} from '@vue-storefront/core';
+import { AgnosticFacetSearchParams, ComposableFunctionArgs } from '@vue-storefront/core';
 import { Ref } from '@nuxtjs/composition-api';
-// @ts-ignore
-import { FacetResultsData } from '@vue-storefront/magento/types';
+import { Category, Product, Filter } from '~/composables/types';
+import { ProductAttributeFilterInput, ProductAttributeSortInput } from '~/modules/GraphQL/types';
+
+export interface FacetResultsData {
+  products: Product[];
+  categories: Category[];
+  facets: Record<string, Filter>;
+  total: number;
+  perPageOptions: number[];
+  itemsPerPage: number;
+  availableFilters: Record<string, any>;
+}
+
+export type GetProductSearchParams = {
+  pageSize?: number;
+  currentPage?: number;
+  search?: string;
+  filter?: ProductAttributeFilterInput;
+  sort?: ProductAttributeSortInput;
+  configurations?: string[];
+};
 
 export interface FacetSearchResult<S> {
   data: S;
@@ -12,11 +31,10 @@ export interface UseFacetErrors {
   search: Error;
 }
 
-
 export type SearchData = FacetSearchResult<FacetResultsData>;
 
 export interface UseFacet {
-  result: Ref<FacetSearchResult<FacetResultsData>>;
+  result: Ref<FacetSearchResult<any>>;
   loading: Ref<boolean>;
   search: (params?: ComposableFunctionArgs<AgnosticFacetSearchParams>) => Promise<void>;
   error: Ref<UseFacetErrors>;

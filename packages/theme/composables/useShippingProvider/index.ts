@@ -1,6 +1,5 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-
 import { useCart } from '~/composables';
 import { setShippingMethodsOnCartCommand } from '~/composables/useShippingProvider/commands/setShippingMethodsOnCartCommand';
 import { SetShippingMethodsOnCartInput } from '~/modules/GraphQL/types';

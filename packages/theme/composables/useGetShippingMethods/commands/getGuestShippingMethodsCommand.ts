@@ -1,9 +1,7 @@
-import { Context } from '@vue-storefront/magento-api';
+import { Context } from '@vue-storefront/core';
 
-import {
-  ComposableFunctionArgs,
-  AvailableShippingMethod,
-} from '~/composables/types';
+import { ComposableFunctionArgs } from '~/composables/types';
+import { AvailableShippingMethod } from '~/modules/GraphQL/types';
 
 export const getGuestShippingMethodsCommand = {
   execute: async (context: Context, params: ComposableFunctionArgs<{ cartId: string }>): Promise<AvailableShippingMethod[]> => {

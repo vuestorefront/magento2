@@ -1,9 +1,8 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
 import { ProductsSearchParams, Logger } from '@vue-storefront/core';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { GetProductSearchParams } from '@vue-storefront/magento-api';
 import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
-import { Maybe, ComposableFunctionArgs } from '~/composables/types';
+import { Maybe } from '~/modules/GraphQL/types';
+import { ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {
   const { app } = useContext();
