@@ -58,7 +58,7 @@
     "omit-deep": "^0.3.0",
     "pinia": "^2.0.12",
     "pm2": "^5.2.0",
-    "vee-validate": "^4.5.10",
+    "vee-validate": "^3.4.14",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0"
   },
