@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
+import type { Pinia } from 'pinia';
 import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
 import type { useApi } from '~/composables/useApi';
-import type { Pinia } from 'pinia';
-import { CategoryTreeInterface } from '../modules/catalog/category/types';
+import type { CategoryTreeInterface } from '~/modules/catalog/category/types';
+import type { CategoryListQuery } from '~/composables/types';
 
 interface CategoryState {
   rawCategories: { categories: { items: CategoryTreeInterface[] } } | null
@@ -15,7 +16,10 @@ export const useCategoryStore = (api: ReturnType<typeof useApi>, $pinia?: Pinia)
   }),
   actions: {
     async load() {
-      this.rawCategories = await api.query(categoryListGql);
+      this.rawCategories = await api.query<CategoryListQuery, null>({
+        document: categoryListGql,
+        debugInfo: 'Category store - load categories',
+      });
     },
   },
   getters: {
