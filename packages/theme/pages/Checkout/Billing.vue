@@ -292,10 +292,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import {
-  useCountrySearch,
-  addressGetter,
-} from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -307,9 +303,9 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import { userBillingGetters } from '~/getters';
+import { userBillingGetters, addressGetter } from '~/getters';
 import {
-  useShipping, useUser, useBilling, useUserAddress,
+  useShipping, useUser, useBilling, useUserAddress, useCountrySearch,
 } from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
@@ -366,10 +362,10 @@ export default defineComponent({
     } = useShipping();
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('Step:Billing');
+    } = useCountrySearch();
+    const countries = ref([]);
+    const country = ref(null);
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
@@ -429,7 +425,7 @@ export default defineComponent({
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
         shippingDetails.value = await loadShipping();
-        await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
         oldBilling = { ...billingDetails.value };
         billingDetails.value = {
           ...formatAddressReturnToData(shippingDetails.value),
@@ -437,13 +433,13 @@ export default defineComponent({
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
-          await searchCountry({ id: billingDetails?.value.country_code });
+          country.value = await searchCountry({ id: billingDetails?.value.country_code });
         }
         return;
       }
       billingDetails.value = oldBilling;
       if (billingDetails.value.country_code) {
-        await searchCountry({ id: billingDetails?.value.country_code });
+        country.value = await searchCountry({ id: billingDetails?.value.country_code });
       }
     };
 
@@ -482,7 +478,7 @@ export default defineComponent({
 
     const changeCountry = async (id) => {
       changeBillingDetails('country_code', id);
-      await searchCountry({ id });
+      country.value = await searchCountry({ id });
     };
 
     watch(billingAddress, (addr) => {
@@ -495,10 +491,11 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      const [loadedBilling] = await Promise.all([load(), loadCountries()]);
+      const [loadedBilling, loadedCountries] = await Promise.all([load(), loadCountries()]);
       billingAddress.value = loadedBilling;
+      countries.value = loadedCountries;
       if (billingDetails.value?.country_code) {
-        await searchCountry({ id: billingDetails.value.country_code });
+        country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
 
       if (!userBilling.value?.addresses && isAuthenticated.value) {
