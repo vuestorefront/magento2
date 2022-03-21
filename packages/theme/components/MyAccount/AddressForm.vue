@@ -193,9 +193,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import {
-  useCountrySearch,
-} from '@vue-storefront/magento';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
 import {
   ValidationProvider,
@@ -207,8 +204,10 @@ import {
   computed,
   onBeforeMount,
   defineComponent,
+  ref,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
+import { useCountrySearch } from '~/composables';
 import { addressGetter } from '~/getters';
 
 extend('required', {
@@ -268,10 +267,11 @@ export default defineComponent({
   setup(props, { emit }) {
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('my-account-shipping');
+    } = useCountrySearch();
+
+    const countries = ref([]);
+    const country = ref(null);
 
     const form = reactive({
       apartment: props.address.apartment,
@@ -309,9 +309,9 @@ export default defineComponent({
     };
 
     onBeforeMount(async () => {
-      await loadCountries();
+      countries.value = await loadCountries();
       if (props.address.country_code) {
-        await searchCountry({ id: props.address.country_code });
+        country.value = await searchCountry({ id: props.address.country_code });
       }
     });
 
