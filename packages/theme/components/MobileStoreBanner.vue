@@ -12,11 +12,12 @@
           aria-label="Go to Apple Product"
           @click="() => {}"
         >
-          <nuxt-img
+          <SfImage
             src="/homepage/apple.png"
             loading="lazy"
             width="174"
             height="57"
+            tag="nuxt-img"
           />
         </SfButton>
         <SfButton
@@ -24,11 +25,12 @@
           aria-label="Go to Google Product"
           @click="() => {}"
         >
-          <nuxt-img
+          <SfImage
             src="/homepage/google.png"
             loading="lazy"
             width="174"
             height="57"
+            tag="nuxt-img"
           />
         </SfButton>
       </div>
@@ -39,6 +41,7 @@
 import {
   SfBanner,
   SfButton,
+  SfImage,
 } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 
@@ -47,6 +50,7 @@ export default defineComponent({
   components: {
     SfBanner,
     SfButton,
+    SfImage,
   },
 });
 </script>

@@ -88,9 +88,10 @@
                   v-on="$listeners"
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
+                    <SfImage
                       v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                       :key="key"
+                      tag="nuxt-img"
                       :alt="imageSlotProps.title"
                       :height="imageSlotProps.imageHeight"
                       :src="picture"
@@ -98,8 +99,9 @@
                       class="sf-product-card__picture"
                     />
                   </template>
-                  <nuxt-img
+                  <SfImage
                     v-else
+                    tag="nuxt-img"
                     :alt="imageSlotProps.title"
                     :height="imageSlotProps.imageHeight"
                     :src="imageSlotProps.image"
@@ -153,9 +155,10 @@
                   class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
                 >
                   <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
+                    <SfImage
                       v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                       :key="key"
+                      tag="nuxt-img"
                       :alt="imageSlotProps.title"
                       :height="imageSlotProps.imageHeight"
                       :src="picture"
@@ -163,8 +166,9 @@
                       class="sf-product-card-horizontal__picture"
                     />
                   </template>
-                  <nuxt-img
+                  <SfImage
                     v-else
+                    tag="nuxt-img"
                     :alt="imageSlotProps.title"
                     :height="imageSlotProps.imageHeight"
                     :src="imageSlotProps.image"
@@ -374,6 +378,7 @@ import {
   SfRadio,
   SfSelect,
   SfSidebar,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   defineComponent, ref, useContext, useFetch,
@@ -418,6 +423,7 @@ export default defineComponent({
     SfProperty,
     SfLink,
     LazyHydrate,
+    SfImage,
   },
   middleware: cacheControl({
     'max-age': 60,

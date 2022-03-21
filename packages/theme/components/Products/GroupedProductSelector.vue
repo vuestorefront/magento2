@@ -6,7 +6,8 @@
         :key="index"
         class="grouped_items--item"
       >
-        <nuxt-img
+        <SfImage
+          tag="nuxt-img"
           :src="
             getMagentoImage(
               productGetters.getProductThumbnailImage(groupedItem.product)
@@ -48,11 +49,12 @@ import {
   SfPrice,
   SfButton,
   SfQuantitySelector,
+  SfImage,
 } from '@storefront-ui/vue';
-import { productGetters } from '~/getters';
 import {
   computed, watch, ref, defineComponent,
 } from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
 import { useCart, useImage } from '~/composables';
 import { productData } from '~/helpers/product/productData';
 
@@ -63,6 +65,7 @@ export default defineComponent({
     SfPrice,
     SfButton,
     SfQuantitySelector,
+    SfImage,
   },
   props: {
     canAddToCart: {

@@ -30,7 +30,8 @@
               <span>{{ storeConfigGetters.getName(store) }}</span>
             </template>
             <template #icon>
-              <nuxt-img
+              <SfImage
+                tag="nuxt-img"
                 :src="`/icons/langs/${storeConfigGetters.getLocale(
                   store
                 )}.webp`"
@@ -48,7 +49,12 @@
 </template>
 <script>
 import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api';
-import { SfList, SfBottomModal, SfCharacteristic } from '@storefront-ui/vue';
+import {
+  SfList,
+  SfBottomModal,
+  SfCharacteristic,
+  SfImage,
+} from '@storefront-ui/vue';
 import { useStore } from '@vue-storefront/magento';
 import { storeGetters, storeConfigGetters } from '~/getters';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
@@ -59,6 +65,7 @@ export default defineComponent({
     SfList,
     SfBottomModal,
     SfCharacteristic,
+    SfImage,
   },
   props: {
     isLangModalOpen: Boolean,

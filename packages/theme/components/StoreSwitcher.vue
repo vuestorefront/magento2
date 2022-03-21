@@ -12,7 +12,8 @@
           v-if="storeConfigGetters.getLocale(storeConfig)"
           #icon
         >
-          <nuxt-img
+          <SfImage
+            tag="nuxt-img"
             :src="`/icons/langs/${storeConfigGetters.getLocale(
               storeConfig
             )}.webp`"
@@ -37,11 +38,11 @@
 
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import { storeConfigGetters, storeGetters } from '~/getters';
 
-import { SfButton, SfCharacteristic } from '@storefront-ui/vue';
+import { SfButton, SfCharacteristic, SfImage } from '@storefront-ui/vue';
 
 import { ref, defineComponent } from '@nuxtjs/composition-api';
+import { storeConfigGetters, storeGetters } from '~/getters';
 import StoresModal from '~/components/StoreSwitcher/StoresModal.vue';
 import { useConfig } from '~/composables';
 
@@ -51,6 +52,7 @@ export default defineComponent({
     StoresModal,
     SfButton,
     SfCharacteristic,
+    SfImage,
     LazyHydrate,
   },
   setup() {

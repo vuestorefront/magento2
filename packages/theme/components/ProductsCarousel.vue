@@ -55,9 +55,10 @@
                 v-on="$listeners"
               >
                 <template v-if="Array.isArray(imageSlotProps.image)">
-                  <nuxt-img
+                  <SfImage
                     v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
                     :key="key"
+                    tag="nuxt-img"
                     class="sf-product-card__picture"
                     :src="picture"
                     :alt="imageSlotProps.title"
@@ -65,9 +66,10 @@
                     :height="imageSlotProps.imageHeight"
                   />
                 </template>
-                <nuxt-img
+                <SfImage
                   v-else
                   class="sf-product-card__image lol"
+                  tag="nuxt-img"
                   :src="imageSlotProps.image"
                   :alt="imageSlotProps.title"
                   :width="imageSlotProps.imageWidth"
@@ -115,10 +117,11 @@ import {
   SfSection,
   SfLoader,
   SfButton,
+  SfImage,
 } from '@storefront-ui/vue';
 
-import { productGetters } from '~/getters';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage, useWishlist, useUser } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -131,6 +134,7 @@ export default defineComponent({
     SfSection,
     SfLoader,
     SfButton,
+    SfImage,
     SvgImage,
   },
   props: {

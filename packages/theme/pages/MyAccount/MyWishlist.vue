@@ -118,12 +118,13 @@
                       v-on="$listeners"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
+                        <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(
                             0,
                             2
                           )"
                           :key="key"
+                          tag="nuxt-img"
                           class="sf-product-card__picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
@@ -131,9 +132,10 @@
                           :height="imageSlotProps.imageHeight"
                         />
                       </template>
-                      <nuxt-img
+                      <SfImage
                         v-else
                         class="sf-product-card__image lol"
+                        tag="nuxt-img"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
@@ -200,12 +202,13 @@
                       class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
                     >
                       <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
+                        <SfImage
                           v-for="(picture, key) in imageSlotProps.image.slice(
                             0,
                             2
                           )"
                           :key="key"
+                          tag="nuxt-img"
                           class="sf-product-card-horizontal__picture"
                           :src="picture"
                           :alt="imageSlotProps.title"
@@ -213,9 +216,10 @@
                           :height="imageSlotProps.imageHeight"
                         />
                       </template>
-                      <nuxt-img
+                      <SfImage
                         v-else
                         class="sf-product-card-horizontal__image"
+                        tag="nuxt-img"
                         :src="imageSlotProps.image"
                         :alt="imageSlotProps.title"
                         :width="imageSlotProps.imageWidth"
@@ -303,6 +307,7 @@ import {
   SfPagination,
   SfSelect,
   SfProperty,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -332,6 +337,7 @@ export default defineComponent({
     SfPagination,
     SfSelect,
     SfProperty,
+    SfImage,
     LazyHydrate,
     SvgImage,
   },
