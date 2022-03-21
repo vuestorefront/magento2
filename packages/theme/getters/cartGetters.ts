@@ -15,7 +15,7 @@ import {
   ProductInterface,
   SelectedShippingMethod,
   ConfigurableCartItem,
-} from '@vue-storefront/magento';
+} from '~/composables/types';
 import productGetters from './productGetters';
 
 export const getItems = (cart: Cart): CartItem[] => {

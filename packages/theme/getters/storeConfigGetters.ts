@@ -1,4 +1,4 @@
-import { StoreConfig } from '@vue-storefront/magento';
+import { StoreConfig } from '~/composables/types';
 
 const getCode = (config: StoreConfig) => config.store_code;
 const getTitle = (config: StoreConfig) => config.default_title;
