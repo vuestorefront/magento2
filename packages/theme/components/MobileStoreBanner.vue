@@ -13,6 +13,7 @@
           @click="() => {}"
         >
           <SfImage
+            alt="Go to Apple Product"
             src="/homepage/apple.png"
             loading="lazy"
             width="174"
@@ -26,6 +27,7 @@
           @click="() => {}"
         >
           <SfImage
+            alt="Go to Google Product"
             src="/homepage/google.png"
             loading="lazy"
             width="174"
@@ -63,7 +65,6 @@ export default defineComponent({
   --banner-subtitle-font-size: var(--font-size--xl);
   --banner-title-font-weight: var(--font-weight--semibold);
   --banner-subtitle-font-weight: var(--font-weight--medium);
-  --banner-title-text-transform: capitalize;
   --banner-title-text-transform: none;
   --banner-background-size: contain;
   --banner-background-position: right;

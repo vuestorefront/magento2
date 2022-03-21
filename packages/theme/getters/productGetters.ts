@@ -221,9 +221,7 @@ export const getBreadcrumbs = (product: any, category?: Category): AgnosticBread
 
   breadcrumbs.push({
     text: getName(product),
-    route: {
-      path: getSlug(product),
-    },
+    link: getSlug(product) || '',
   });
 
   return breadcrumbs;
