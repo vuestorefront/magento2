@@ -35,6 +35,7 @@
         v-model="setAsDefault"
         v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :billing-addresses="addresses"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -292,7 +293,6 @@ import {
   SfCheckbox,
 } from '@storefront-ui/vue';
 import {
-  useUserBilling,
   useCountrySearch,
   addressGetter,
 } from '@vue-storefront/magento';
@@ -308,7 +308,9 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import { userBillingGetters } from '~/getters';
-import { useShipping, useUser, useBilling } from '~/composables';
+import {
+  useShipping, useUser, useBilling, useUserAddress,
+} from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   addressFromApiToForm,
@@ -350,14 +352,15 @@ export default defineComponent({
     const { app } = useContext();
     const shippingDetails = ref({});
     const billingAddress = ref({});
+    const userBilling = ref({});
+
     const {
       load, save, loading,
     } = useBilling();
     const {
-      billing: userBilling,
       load: loadUserBilling,
       setDefaultAddress,
-    } = useUserBilling();
+    } = useUserAddress();
     const {
       load: loadShipping,
     } = useShipping();
@@ -372,14 +375,14 @@ export default defineComponent({
     const sameAsShipping = ref(false);
     const billingDetails = ref(addressFromApiToForm(billingAddress.value));
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
-
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
 
     const isBillingDetailsStepCompleted = ref(false);
+    const addresses = computed(() => userBillingGetters.getAddresses(userBilling.value) ?? []);
 
-    const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
+    const canMoveForward = computed(() => !loading.value && currentAddressId.value && billingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       billingDetails.value,
     ).length > 0);
@@ -388,8 +391,7 @@ export default defineComponent({
       if (!isAuthenticated.value || !userBilling.value) {
         return false;
       }
-      const addresses = userBillingGetters.getAddresses(userBilling.value);
-      return Boolean(addresses?.length);
+      return addresses.value.length > 0;
     });
 
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
@@ -407,12 +409,14 @@ export default defineComponent({
       };
       await save(billingDetailsData);
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userBillingGetters.getAddresses(
+        const [chosenAddress] = userBillingGetters.getAddresses(
           userBilling.value,
           { id: addressId },
         );
-        if (chosenAddress && chosenAddress.length > 0) {
-          await setDefaultAddress({ address: chosenAddress[0] });
+        chosenAddress.default_billing = setAsDefault.value;
+        if (chosenAddress) {
+          await setDefaultAddress({ address: chosenAddress });
+          userBilling.value = loadUserBilling(true);
         }
       }
       reset();
@@ -498,7 +502,7 @@ export default defineComponent({
       }
 
       if (!userBilling.value?.addresses && isAuthenticated.value) {
-        await loadUserBilling();
+        userBilling.value = await loadUserBilling();
       }
       const billingAddresses = userBillingGetters.getAddresses(
         userBilling.value,
@@ -541,6 +545,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+      addresses,
     };
   },
 });

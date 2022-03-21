@@ -27,9 +27,8 @@
 
 <script>
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
-import { useUserBilling } from '@vue-storefront/magento';
-import { userBillingGetters } from '~/getters';
 import { defineComponent } from '@nuxtjs/composition-api';
+import { userBillingGetters } from '~/getters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -48,26 +47,23 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    billingAddresses: {
+      type: Array,
+      required: true,
+    },
   },
   emits: ['setCurrentAddress'],
-  setup(_, { emit }) {
-    const { billing: userBilling } = useUserBilling();
-
+  setup(props, { emit }) {
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userBillingGetters.getAddresses(
-        userBilling.value,
-        { id: Number.parseInt(addressId, 10) },
-      );
+      const selectedAddress = props.billingAddresses.find((address) => address.id === Number(addressId));
       if (!selectedAddress || selectedAddress.length === 0) {
         return;
       }
-      emit('setCurrentAddress', selectedAddress[0]);
+
+      emit('setCurrentAddress', selectedAddress);
     };
 
-    const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
-
     return {
-      billingAddresses,
       setCurrentAddress,
       userBillingGetters,
     };
