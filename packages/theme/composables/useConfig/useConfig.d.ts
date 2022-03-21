@@ -1,5 +1,5 @@
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
-import { StoreConfig } from '@vue-storefront/magento';
+import { StoreConfig } from '~/composables/types';
 
 export interface UseConfigErrors {
   load: Error | null;

@@ -1,6 +1,6 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '@vue-storefront/magento';
+import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
 import { ComposableFunctionArgs } from '~/composables/types';
 import { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from '~/composables/useAddresses/useAddresses';
 

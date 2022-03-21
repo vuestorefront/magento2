@@ -1,4 +1,4 @@
-import { ShippingMethod } from '@vue-storefront/magento';
+import { ShippingMethod } from '~/composables/types';
 import productGetters from './productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

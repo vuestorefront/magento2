@@ -1,6 +1,6 @@
 import { ComposableFunctionArgs } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
-import { Currency } from '@vue-storefront/magento-api';
+import { Currency } from '~/modules/GraphQL/types';
 
 export interface UseCurrencyErrors {
   load: Error | null;
@@ -9,7 +9,7 @@ export interface UseCurrencyErrors {
 
 export interface UseCurrency {
   load: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
-  change: (params: ComposableFunctionArgs<{ id: string }>) => void;
+  change: (params: ComposableFunctionArgs<{ id: string }>) => Promise<void>;
   currency: ComputedRef<Currency>;
   loading: Ref<boolean>;
   error: Ref<UseCurrencyErrors>;

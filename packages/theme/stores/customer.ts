@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Wishlist, Cart } from '@vue-storefront/magento';
+import { Wishlist, Cart } from '~/composables/types';
 
 const wishlist: Wishlist = { items_count: 0 };
 const user: any = {};

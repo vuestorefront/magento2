@@ -30,7 +30,7 @@
     </SfList>
   </SfBottomModal>
 </template>
-<script>
+<script lang="ts">
 import {
   defineComponent, computed, onMounted,
 } from '@nuxtjs/composition-api';
@@ -41,7 +41,7 @@ import {
 } from '@storefront-ui/vue';
 import {
   useCurrency,
-} from '@vue-storefront/magento';
+} from '~/composables';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
@@ -58,10 +58,10 @@ export default defineComponent({
   emits: ['closeModal'],
   setup() {
     const {
-      currencies,
+      currency: currencies,
       change: changeCurrency,
       load: loadCurrencies,
-    } = useCurrency('header-currency');
+    } = useCurrency();
 
     const { handleChanges } = useHandleChanges();
 
