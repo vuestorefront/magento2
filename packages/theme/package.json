@@ -63,6 +63,7 @@
     "vue-scrollto": "^2.20.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
     "@babel/core": "^7.17.8",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
