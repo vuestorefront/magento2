@@ -276,7 +276,7 @@ import {
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { userShippingGetters, addressGetter } from '~/getters';
-import { useUser, useShipping, useUserShipping } from '~/composables';
+import { useUser, useShipping, useUserAddress } from '~/composables';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -321,7 +321,8 @@ export default defineComponent({
     const {
       load: loadUserShipping,
       setDefaultAddress,
-    } = useUserShipping();
+    } = useUserAddress();
+
     const {
       load: loadCountries,
       countries,
@@ -429,7 +430,6 @@ export default defineComponent({
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
-
       const [loadedShippingInfo, loadedUserShipping] = await Promise.all([
         loadShipping(),
         loadUserShipping(),

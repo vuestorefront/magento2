@@ -1,4 +1,4 @@
-export interface UseUserShippingErrors {
+export interface UseUserAddressErrors {
   addAddress: Error;
   deleteAddress: Error;
   updateAddress: Error;
