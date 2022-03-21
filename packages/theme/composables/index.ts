@@ -26,4 +26,4 @@ export { default as usePaymentProvider } from './usePaymentProvider';
 export { default as useAddresses } from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
 export { default as useUserOrder } from './useUserOrder';
-export { default as useUserShipping } from './useUserShipping';
+export { default as useUserAddress } from './useUserAddress';

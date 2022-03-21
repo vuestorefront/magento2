@@ -1,18 +1,18 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { UseUserShippingErrors } from '~/composables/useUserShipping/useUserShipping';
+import { UseUserAddressErrors } from '~/composables/useUserAddress/useUserAddress';
 import { useUser } from '~/composables';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
-import { createCustomerAddressCommand } from '~/composables/useUserShipping/commands/createCustomerAddressCommand';
-import { deleteCustomerAddressCommand } from '~/composables/useUserShipping/commands/deleteCustomerAddressCommand';
-import { updateCustomerAddressCommand } from '~/composables/useUserShipping/commands/updateCustomerAddressCommand';
+import { createCustomerAddressCommand } from '~/composables/useUserAddress/commands/createCustomerAddressCommand';
+import { deleteCustomerAddressCommand } from '~/composables/useUserAddress/commands/deleteCustomerAddressCommand';
+import { updateCustomerAddressCommand } from '~/composables/useUserAddress/commands/updateCustomerAddressCommand';
 import { CustomerAddress } from '~/modules/GraphQL/types';
 import mask from '../utils/mask';
 
-export const useUserShipping = () => {
+export const useUserAddress = () => {
   const loading = ref(false);
   const shipping = ref({});
-  const error: Ref<UseUserShippingErrors> = ref({
+  const error: Ref<UseUserAddressErrors> = ref({
     addAddress: null,
     deleteAddress: null,
     updateAddress: null,
@@ -23,7 +23,7 @@ export const useUserShipping = () => {
   const context = useContext();
 
   const addAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
-    Logger.debug('useUserShipping.addAddress', mask(address));
+    Logger.debug('useUserAddress.addAddress', mask(address));
     let result = {};
     try {
       loading.value = true;
@@ -36,7 +36,7 @@ export const useUserShipping = () => {
       error.value.addAddress = null;
     } catch (err) {
       error.value.addAddress = err;
-      Logger.error('useUserShipping/addAddress', err);
+      Logger.error('useUserAddress/addAddress', err);
     } finally {
       loading.value = false;
     }
@@ -47,7 +47,7 @@ export const useUserShipping = () => {
   };
 
   const deleteAddress = async (address: CustomerAddress) => {
-    Logger.debug('useUserShipping.deleteAddress', address);
+    Logger.debug('useUserAddress.deleteAddress', address);
     let result = {};
 
     try {
@@ -56,7 +56,7 @@ export const useUserShipping = () => {
       error.value.deleteAddress = null;
     } catch (err) {
       error.value.deleteAddress = err;
-      Logger.error('useUserShipping/deleteAddress', err);
+      Logger.error('useUserAddress/deleteAddress', err);
     } finally {
       loading.value = false;
     }
@@ -67,7 +67,7 @@ export const useUserShipping = () => {
   };
 
   const updateAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
-    Logger.debug('useUserShipping.updateAddress', mask(address));
+    Logger.debug('useUserAddress.updateAddress', mask(address));
     let result = {};
 
     try {
@@ -81,7 +81,7 @@ export const useUserShipping = () => {
       error.value.updateAddress = null;
     } catch (err) {
       error.value.updateAddress = err;
-      Logger.error('useUserShipping/updateAddress', err);
+      Logger.error('useUserAddress/updateAddress', err);
     } finally {
       loading.value = false;
     }
@@ -91,8 +91,8 @@ export const useUserShipping = () => {
     return result;
   };
 
-  const load = async (force: false) => {
-    Logger.debug('useUserShipping.load');
+  const load = async (force: boolean = false) => {
+    Logger.debug('useUserAddress.load');
 
     try {
       loading.value = true;
@@ -101,7 +101,7 @@ export const useUserShipping = () => {
       }
     } catch (err) {
       error.value.load = err;
-      Logger.error('useUserShipping/load', err);
+      Logger.error('useUserAddress/load', err);
     } finally {
       loading.value = false;
     }
@@ -110,7 +110,7 @@ export const useUserShipping = () => {
   };
 
   const setDefaultAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
-    Logger.debug('useUserShipping.setDefaultAddress', mask(address));
+    Logger.debug('useUserAddress.setDefaultAddress', mask(address));
     let result = {};
 
     try {
@@ -125,7 +125,7 @@ export const useUserShipping = () => {
       error.value.setDefaultAddress = null;
     } catch (err) {
       error.value.setDefaultAddress = err;
-      Logger.error('useUserShipping/setDefaultAddress', err);
+      Logger.error('useUserAddress/setDefaultAddress', err);
     } finally {
       loading.value = false;
     }
@@ -146,4 +146,4 @@ export const useUserShipping = () => {
   };
 };
 
-export default useUserShipping;
+export default useUserAddress;
