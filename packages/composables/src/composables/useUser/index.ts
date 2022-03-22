@@ -1,4 +1,6 @@
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   Context,
   CustomQuery,
@@ -25,9 +27,6 @@ interface UseUserFactoryParams<USER, UPDATE_USER_PARAMS, REGISTER_USER_PARAMS>
   }) => Promise<USER>;
 }
 
-/**
- * @deprecated since version 1.0.0
- */
 const factoryParams: UseUserFactoryParams<
 any,
 UpdateCustomerEmailMutationVariables,

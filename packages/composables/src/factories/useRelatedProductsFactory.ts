@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed, Ref } from '@vue/composition-api';
 import {
   configureFactoryParams,
@@ -11,9 +14,6 @@ import {
 } from '@vue-storefront/core';
 import { UseRelatedProducts, UseRelatedProductsErrors } from '../types/composables';
 
-/**
- * @deprecated since version 1.0.0
- */
 export interface UseRelatedProductsFactoryParams<
   PRODUCTS,
   RELATED_PRODUCTS_SEARCH_PARAMS extends ProductsSearchParams,
