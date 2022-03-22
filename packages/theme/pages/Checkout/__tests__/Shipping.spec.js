@@ -2,12 +2,12 @@
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
 import { useRouter } from '@nuxtjs/composition-api';
-import { useBilling, useUserBilling, useShipping, useCountrySearch, useGuestUser, useUser } from '@vue-storefront/magento';
+import { useBilling, useUserBilling, useShipping, useCountrySearch, useGuestUser, useUser } from '~/composables';
 import { render, useBillingMock, useUserBillingMock, useShippingMock, useCountrySearchMock, useUserMock, useGuestUserMock } from '~/test-utils';
 
 import Billing from '../Billing';
 
-jest.mock('@vue-storefront/magento', () => ({
+jest.mock('~/composables', () => ({
   useBilling: jest.fn(),
   useCountrySearch: jest.fn(),
   useGuestUser: jest.fn(),
