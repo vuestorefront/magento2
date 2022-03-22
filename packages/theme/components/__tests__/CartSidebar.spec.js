@@ -2,16 +2,16 @@ import userEvent from '@testing-library/user-event';
 import {
   useCart,
   useUser,
-} from '@vue-storefront/magento';
+  useUiState,
+} from '~/composables';
 
-import { useUiState } from '~/composables';
 import {
   render, useCartMock, useUserMock, useUiStateMock, useEmptyCartMock,
 } from '~/test-utils';
 import CartSidebar from '~/components/CartSidebar';
 
-jest.mock('@vue-storefront/magento', () => ({
-  ...jest.requireActual('@vue-storefront/magento'),
+jest.mock('~/composables', () => ({
+  ...jest.requireActual('~/composables'),
   useExternalCheckout: jest.fn(() => ({ initializeCheckout: {} })),
   useCart: jest.fn(),
   useUser: jest.fn(),
