@@ -2,7 +2,7 @@ import { ComposableFunctionArgs } from '@vue-storefront/core';
 import { Ref } from '@nuxtjs/composition-api';
 import {
   Maybe, Scalars, WishlistItem, WishlistItems,
-} from '@vue-storefront/magento-api/lib/types/GraphQL';
+} from '~/modules/GraphQL/types';
 
 export interface Wishlist {
   /** The unique ID for a `Wishlist` object */

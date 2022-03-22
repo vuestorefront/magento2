@@ -1,6 +1,5 @@
-/* istanbul ignore file */
 import { UserGetters as BaseUserGetters } from '@vue-storefront/core';
-import { Customer } from '~/composables/types';
+import { Customer } from '~/modules/GraphQL/types';
 
 export const getFirstName = (user: Customer): string => (user ? user.firstname : '');
 

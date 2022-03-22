@@ -1,6 +1,7 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { ComposableFunctionArgs, Maybe, Country, Countries } from '~/composables/types';
+import { ComposableFunctionArgs, Countries } from '~/composables/types';
+import { Maybe, Country } from '~/modules/GraphQL/types';
 
 export const useCountrySearch = () => {
   const { app } = useContext();

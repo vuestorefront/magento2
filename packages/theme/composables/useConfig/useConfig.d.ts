@@ -1,5 +1,5 @@
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
-import { StoreConfig } from '~/composables/types';
+import { StoreConfig } from '~/modules/GraphQL/types';
 
 export interface UseConfigErrors {
   load: Error | null;

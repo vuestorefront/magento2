@@ -1,7 +1,5 @@
 import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
-import {
-  StoreConfig,
-} from '~/composables/types';
+import { StoreConfig } from '~/modules/GraphQL/types';
 import { storeConfigGetters } from '~/getters';
 
 import cookieNames from '~/enums/cookieNameEnum';

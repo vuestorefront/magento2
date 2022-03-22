@@ -1,7 +1,7 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { ComposableFunctionArgs, Maybe } from '~/composables/types';
-import { CustomerOrdersQueryVariables, CustomerOrdersQuery } from '~/modules/GraphQL/types';
+import { ComposableFunctionArgs } from '~/composables/types';
+import { Maybe, CustomerOrdersQueryVariables, CustomerOrdersQuery } from '~/modules/GraphQL/types';
 
 export const useUserOrder = () => {
   const { app } = useContext();

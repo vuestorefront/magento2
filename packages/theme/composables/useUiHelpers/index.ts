@@ -1,8 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import {
-  CategoryTreeInterface, Category, AgnosticFacet,
-} from '~/modules/catalog/category/types';
+import { CategoryTreeInterface, Category, AgnosticFacet } from '~/composables/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 

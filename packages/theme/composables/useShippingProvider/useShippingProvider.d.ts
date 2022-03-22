@@ -2,7 +2,7 @@ import { Ref } from '@nuxtjs/composition-api';
 import {
   Maybe,
   SelectedShippingMethod,
-} from '~/composables/types';
+} from '~/modules/GraphQL/types';
 
 export interface UseShippingProviderErrors {
   load: Error;

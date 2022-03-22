@@ -1,7 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { BundleProduct } from '@vue-storefront/magento-api';
 import { productGetters } from '~/getters';
-
+import { BundleProduct } from '~/modules/GraphQL/types';
 // eslint-disable-next-line unicorn/prefer-object-from-entries
 export const bundleProductInitialSelector = (bundles: BundleProduct['items']) => (Array.isArray(bundles) ? bundles.reduce((acc, curr) => {
   const defaultValue = curr.options.find((o) => o.is_default);

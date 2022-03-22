@@ -1,7 +1,7 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs, ProductsSearchParams, Logger } from '@vue-storefront/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { GetProductSearchParams } from '@vue-storefront/magento-api';
+import { GetProductSearchParams } from '~/composables/types';
 import { UseRelatedProductsError, RelatedProducts, UseRelatedProductsInterface } from '~/composables/useRelatedProducts/useRelatedProducts';
 
 export const useRelatedProducts = (): UseRelatedProductsInterface => {

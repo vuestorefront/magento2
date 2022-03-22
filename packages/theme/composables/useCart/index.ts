@@ -1,6 +1,6 @@
 import { ref, computed, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { Cart, CartItemInterface, ProductInterface } from '@vue-storefront/magento-api';
+import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { UseCartInterface, UseCartErrors } from '~/composables/useCart/useCart';
 import { useCustomerStore } from '~/stores/customer';
 import { loadCartCommand } from '~/composables/useCart/commands/loadCartCommand';

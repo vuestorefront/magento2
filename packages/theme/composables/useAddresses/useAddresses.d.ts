@@ -1,7 +1,7 @@
 import { Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '@vue-storefront/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { CustomerAddress } from '@vue-storefront/magento-api';
+import { CustomerAddress } from '~/modules/GraphQL/types';
 
 export type UseAddressesErrors = {
   load: Error;

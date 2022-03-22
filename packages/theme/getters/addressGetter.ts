@@ -1,4 +1,6 @@
-import { Countries, Country, AddressGetter } from '~/composables/types';
+import { AddressGetter } from '~/getters/types';
+import { Countries } from '~/composables/types';
+import { Country } from '~/modules/GraphQL/types';
 
 const countriesList: AddressGetter['countriesList'] = (countries: Countries[]) => countries
   .filter((c) => c.id && c.full_name_english && c.full_name_locale)
