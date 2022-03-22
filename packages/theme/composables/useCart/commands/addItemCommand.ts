@@ -1,13 +1,12 @@
 import { Context, Logger } from '@vue-storefront/core';
+import { AddProductsToCartInput } from '~/composables/useCart/useCart';
 import {
   AddConfigurableProductsToCartInput,
   AddDownloadableProductsToCartInput,
-  AddProductsToCartInput,
   AddVirtualProductsToCartInput,
   Cart,
-} from '@vue-storefront/magento-api';
+} from '~/modules/GraphQL/types';
 
-// TODO this whole file must be refactored
 export const addItemCommand = {
   execute: async (
     context: Context,

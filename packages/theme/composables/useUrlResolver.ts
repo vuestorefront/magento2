@@ -1,7 +1,6 @@
 import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { Maybe } from '~/composables/types';
-import { UrlResolverQuery } from '~/modules/GraphQL/types';
+import { Maybe, UrlResolverQuery } from '~/modules/GraphQL/types';
 
 export const useUrlResolver = () => {
   const route = useRoute();

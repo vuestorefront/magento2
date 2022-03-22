@@ -1,6 +1,6 @@
-import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
 import { Ref } from '@nuxtjs/composition-api';
-import { UseStoreErrors } from '@vue-storefront/core';
+import { StoreConfig } from '~/modules/GraphQL/types';
+import { UseStoreErrors, AvailableStores } from '~/composables/types';
 
 export interface UseStoreInterface {
   change(store: StoreConfig): void;

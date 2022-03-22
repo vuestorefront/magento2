@@ -1,5 +1,5 @@
 import { Context, Logger } from '@vue-storefront/core';
-import { Cart, UpdateCartItemsInput } from '@vue-storefront/magento-api';
+import { Cart, UpdateCartItemsInput } from '~/modules/GraphQL/types';
 
 export const updateItemQtyCommand = {
   execute: async (context: Context, {

@@ -1,4 +1,3 @@
-import { CategorySearchQuery } from '@vue-storefront/magento-api';
 import {
   Assets,
   Breadcrumb,
@@ -6,7 +5,10 @@ import {
   ProductAttributeSortInput, ProductInterface,
   RoutableInterface, SearchResultPageInfo,
   UrlRewriteEntityTypeEnum,
-  InputMaybe, Maybe, Scalars,
+  InputMaybe,
+  Maybe,
+  Scalars,
+  CategorySearchQuery,
 } from '~/modules/GraphQL/types';
 
 export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];

@@ -6,11 +6,10 @@ import {
   ProductGetters as ProductGettersBase,
 } from '@vue-storefront/core';
 import {
-  BundleProduct,
   Category,
-  GroupedProduct,
   Product,
 } from '~/composables/types';
+import { BundleProduct, GroupedProduct } from '~/modules/GraphQL/types';
 import { htmlDecode } from '~/helpers/htmlDecoder';
 import categoryGetters from './categoryGetters';
 import reviewGetters from './reviewGetters';

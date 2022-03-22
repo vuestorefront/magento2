@@ -1,5 +1,5 @@
-import { Context } from '@vue-storefront/magento-api';
-import { AvailableShippingMethod } from '~/composables/types';
+import { Context } from '@vue-storefront/core';
+import { AvailableShippingMethod } from '~/modules/GraphQL/types';
 
 export const getCustomerShippingMethodsCommand = {
   execute: async (context: Context): Promise<AvailableShippingMethod[]> => {

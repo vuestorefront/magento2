@@ -4,9 +4,7 @@ import {
   AgnosticPrice,
   AgnosticTotals, AgnosticPagination,
 } from '@vue-storefront/core';
-import {
-  Wishlist, WishlistQuery,
-} from '@vue-storefront/magento-api';
+import { Wishlist, WishlistQuery } from '~/modules/GraphQL/types';
 
 export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };
 

@@ -1,5 +1,5 @@
 import { Context, Logger } from '@vue-storefront/core';
-import { Cart } from '@vue-storefront/magento-api';
+import { Cart } from '~/modules/GraphQL/types';
 
 export const removeCouponCommand = {
   execute: async (context: Context, { currentCart, customQuery = { removeCouponFromCart: 'removeCouponFromCart' } }) => {

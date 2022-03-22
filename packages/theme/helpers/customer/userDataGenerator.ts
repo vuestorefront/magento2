@@ -1,11 +1,11 @@
-import { CustomerUpdateParameters } from '@vue-storefront/magento-api'; // TODO: decide when we want to kep types
+import { CustomerCreateInput } from '~/modules/GraphQL/types';
 
-export const generateUserData = (userData): CustomerUpdateParameters => {
+export const generateUserData = (userData): CustomerCreateInput => {
   const baseData = {
     email: userData.email,
     firstname: userData.firstName || userData.firstname,
     lastname: userData.lastName || userData.lastname,
-  } as CustomerUpdateParameters;
+  } as CustomerCreateInput;
 
   if (Object.prototype.hasOwnProperty.call(userData, 'is_subscribed')) {
     baseData.is_subscribed = userData.is_subscribed;
