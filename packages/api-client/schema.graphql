@@ -6456,3 +6456,19 @@ input FocusGuestRmaListPagination {
     "Page Number"
     PageNumber: Int
 }
+
+input FocusDeliveryTimeForAddressInput {
+  country: String!
+  postcode: String!
+  city: String
+  carriers: [String]
+  methods: [String]
+}
+
+type FocusDeliveryTime {
+  carrier: String!
+  carrier_label: String!
+  method: String!
+  method_label: String!
+  delivery_time: String!
+}

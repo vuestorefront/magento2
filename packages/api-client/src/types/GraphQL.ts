@@ -8117,3 +8117,27 @@ export type FocusGuestRmaListArgs = {
 export type FocusGuestRmaListQuery = {
   focusGuestRmaList: Returns;
 };
+
+export type FocusDeliveryTimeForAddressInput = {
+  country: string;
+  postcode: string;
+  city?: InputMaybe<string>;
+  carriers?: InputMaybe<string[]>;
+  methods?: InputMaybe<string[]>;
+};
+
+export type FocusDeliveryTimeForAddressArgs = {
+  input: FocusDeliveryTimeForAddressInput;
+};
+
+export type FocusDeliveryTime = {
+  carrier: string;
+  carrier_label: string;
+  method: string;
+  method_label: string;
+  delivery_time: string;
+};
+
+export type FocusDeliveryTimeQuery = {
+  focusDeliveryTimeForAddress: FocusDeliveryTime[];
+};

@@ -161,6 +161,8 @@ import {
   FocusProductKitComponent,
   FocusProductAttr,
   FocusProductAttributeGroup,
+  FocusDeliveryTimeForAddressInput,
+  FocusDeliveryTimeQuery,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -557,4 +559,6 @@ export interface MagentoApiMethods {
   focusGuestRequestReturn(input: FocusGuestRequestReturnInput): Promise<FetchResult<FocusGuestRequestReturnMutation>>;
   focusGuestRma(input: FocusGuestRmaInput): Promise<ApolloQueryResult<FocusGuestRmaQuery>>;
   focusGuestRmaList(input: FocusGuestRmaListInput): Promise<ApolloQueryResult<FocusGuestRmaListQuery>>;
+
+  focusDeliveryTimeForAddress(input: FocusDeliveryTimeForAddressInput): Promise<ApolloQueryResult<FocusDeliveryTimeQuery>>;
 }

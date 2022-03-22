@@ -577,3 +577,14 @@ export interface UseMakeOrder<ORDER, PAYMENT_METHOD, API extends PlatformApi = a
   setPaymentAndMake: (params: ComposableFunctionArgs<{ paymentMethod: PAYMENT_METHOD }>) => Promise<void>;
   error: ComputedProperty<UseMakeOrderErrors>;
 }
+
+export interface UseDeliveryTimeErrors {
+  search: Error;
+}
+
+export interface UseDeliveryTime<DELIVERY_TIME, DELIVERY_TIME_SEARCH_PARAMS, API extends PlatformApi = any> extends Composable<API> {
+  search: (params: ComposableFunctionArgs<DELIVERY_TIME_SEARCH_PARAMS>) => Promise<void>;
+  result: ComputedProperty<DELIVERY_TIME[]>;
+  error: ComputedProperty<UseDeliveryTimeErrors>;
+  loading: ComputedProperty<boolean>;
+}
