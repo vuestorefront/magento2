@@ -334,7 +334,7 @@ export default defineComponent({
     const userBilling = ref({});
 
     const {
-      load, save, loading,
+      save, loading,
     } = useBilling();
     const {
       load: loadUserBilling,
@@ -347,6 +347,7 @@ export default defineComponent({
       load: loadCountries,
       search: searchCountry,
     } = useCountrySearch();
+
     const countries = ref([]);
     const country = ref(null);
     const { isAuthenticated } = useUser();
@@ -361,7 +362,7 @@ export default defineComponent({
     const isBillingDetailsStepCompleted = ref(false);
     const addresses = computed(() => userBillingGetters.getAddresses(userBilling.value) ?? []);
 
-    const canMoveForward = computed(() => !loading.value && currentAddressId.value && billingDetails.value && Object.keys(
+    const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       billingDetails.value,
     ).length > 0);
@@ -474,9 +475,7 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      const [loadedBilling, loadedCountries] = await Promise.all([load(), loadCountries()]);
-      billingAddress.value = loadedBilling;
-      countries.value = loadedCountries;
+      countries.value = await loadCountries();
       if (billingDetails.value?.country_code) {
         country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
@@ -517,7 +516,6 @@ export default defineComponent({
       isAuthenticated,
       isFormSubmitted,
       isBillingDetailsStepCompleted,
-      load,
       loading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
