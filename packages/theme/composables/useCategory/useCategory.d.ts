@@ -1,8 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  Category,
-} from '@vue-storefront/magento-api';
-
 import { Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '@vue-storefront/core';
 

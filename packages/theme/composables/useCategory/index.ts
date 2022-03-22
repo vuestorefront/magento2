@@ -1,8 +1,10 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Category } from '@vue-storefront/magento-api';
-import { UseCategory, UseCategoryErrors, CategoryListQueryVariables } from '~/composables/useCategory/useCategory';
+import {
+  UseCategory, UseCategoryErrors, CategoryListQueryVariables,
+} from '~/composables/useCategory/useCategory';
+
+import { Category } from '~/composables/types';
 
 export const useCategory = (): UseCategory => {
   const { app } = useContext();

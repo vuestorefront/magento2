@@ -1,10 +1,8 @@
 import { Ref } from '@nuxtjs/composition-api';
 import {
   ComposableFunctionArgs,
-  AvailableShippingMethod,
 } from '~/composables/types';
 
-export declare type ShippingMethod = AvailableShippingMethod;
 export interface UseGetShippingMethodsErrors {
   load: Error;
 }

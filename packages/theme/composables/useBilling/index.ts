@@ -1,7 +1,6 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
-import { Maybe } from '~/composables/types';
-import { BillingCartAddress } from '~/modules/GraphQL/types';
+import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
 

@@ -1,5 +1,6 @@
 import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
+import { CartItemInput } from '~/modules/GraphQL/types';
 
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   load: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
@@ -34,3 +35,8 @@ export interface UseCartErrors {
   removeCoupon: Error;
   loadTotalQty: Error;
 }
+
+export declare type AddProductsToCartInput = {
+  cartId: string;
+  cartItems: CartItemInput[];
+};

@@ -1,8 +1,10 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import {
- AgnosticFacetSearchParams, ComposableFunctionArgs, Logger, ProductsSearchParams } from '@vue-storefront/core';
-import { FacetSearchResult, UseFacet, UseFacetErrors} from './useFacet';
-import { GetProductSearchParams } from '@vue-storefront/magento-api/src/types/API';
+  AgnosticFacetSearchParams, ComposableFunctionArgs, Logger, ProductsSearchParams,
+} from '@vue-storefront/core';
+import {
+  FacetSearchResult, UseFacet, UseFacetErrors, GetProductSearchParams,
+} from './useFacet';
 
 const availableSortingOptions = [
   {
@@ -119,7 +121,7 @@ export const useFacet = (): UseFacet => {
       error.value.search = null;
     } catch (err) {
       error.value.search = err;
-      Logger.error(`useFacet/search`, err);
+      Logger.error('useFacet/search', err);
     } finally {
       loading.value = false;
     }

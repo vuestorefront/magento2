@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
+import type { Pinia } from 'pinia';
 import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
 import type { useApi } from '~/composables/useApi';
-import type { Pinia } from 'pinia';
-import { CategoryTreeInterface } from '../modules/catalog/category/types';
+import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 
 interface CategoryState {
   rawCategories: { categories: { items: CategoryTreeInterface[] } } | null

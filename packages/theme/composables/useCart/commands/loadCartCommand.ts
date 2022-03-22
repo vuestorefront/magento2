@@ -1,7 +1,6 @@
 import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
-import { Cart } from '@vue-storefront/magento-api';
+import { Cart } from '~/modules/GraphQL/types';
 
-// TODO refactoring point
 export const loadCartCommand = {
   execute: async (context: Context, params: ComposableFunctionArgs<{
     realCart?: boolean;

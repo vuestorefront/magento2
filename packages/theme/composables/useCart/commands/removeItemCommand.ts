@@ -1,5 +1,5 @@
 import { Context, Logger } from '@vue-storefront/core';
-import { Cart, RemoveItemFromCartInput } from '@vue-storefront/magento-api';
+import { Cart, RemoveItemFromCartInput } from '~/modules/GraphQL/types';
 
 // TODO refactoring point
 export const removeItemCommand = {
