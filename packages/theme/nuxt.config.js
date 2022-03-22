@@ -86,7 +86,7 @@ export default () => {
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
       }],
-      ['@vue-storefront/magento/nuxt', {
+      ['~/modules/magento', {
         i18n: {
           useNuxtI18nConfig: true,
         },
