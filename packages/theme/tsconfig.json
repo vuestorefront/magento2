@@ -25,6 +25,7 @@
     "types": [
       "node",
       "@nuxt/types",
+      "cookie-universal-nuxt",
       "nuxt-i18n",
       "@nuxt/image",
       "jest"
