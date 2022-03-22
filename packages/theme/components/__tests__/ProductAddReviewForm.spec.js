@@ -11,8 +11,8 @@ import {
 import { useReview, useUser } from '~/composables';
 import ProductAddReviewForm from '../ProductAddReviewForm';
 
-jest.mock('@vue-storefront/magento', () => {
-  const originalModule = jest.requireActual('@vue-storefront/magento');
+jest.mock('~/composables', () => {
+  const originalModule = jest.requireActual('~/composables');
   return {
     ...originalModule,
     useUser: jest.fn(),

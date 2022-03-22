@@ -75,11 +75,9 @@ export default () => {
         // @core-development-only-end
         useRawSource: {
           dev: [
-            '@vue-storefront/magento',
             '@vue-storefront/core',
           ],
           prod: [
-            '@vue-storefront/magento',
             '@vue-storefront/core',
           ],
         },

@@ -2,7 +2,7 @@
 import { ref } from '@nuxtjs/composition-api';
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
-import { useUser, useForgotPassword, useCart } from '@vue-storefront/magento';
+import { useUser, useForgotPassword, useCart } from '~/composables';
 import {
   render, useUserMock, useForgotPasswordMock, useCartMock,
 } from '~/test-utils';
@@ -11,7 +11,7 @@ import { useUiState } from '~/composables/useUiState';
 import LoginModal from '../LoginModal';
 
 jest.mock('~/composables/useUiState', () => jest.fn());
-jest.mock('@vue-storefront/magento', () => ({
+jest.mock('~/composables', () => ({
   useUser: jest.fn(),
   useCart: jest.fn(),
   useForgotPassword: jest.fn(),
