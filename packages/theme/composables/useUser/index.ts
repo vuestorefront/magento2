@@ -32,6 +32,14 @@ export const useUser = (): UseUser => {
     error.value = errorsFactory();
   };
 
+  const updateCustomerEmail = async (credentials: { email: string, password: string }): Promise<void> => {
+    const { errors } = await app.context.$vsf.$magento.api.updateCustomerEmail(credentials);
+
+    if (errors) {
+      throw errors.map((e) => e.message).join(',');
+    }
+  };
+
   // eslint-disable-next-line consistent-return
   const updateUser = async ({ user: providedUser, customQuery }) => {
     Logger.debug('[Magento] Update user information', { providedUser, customQuery });
@@ -45,7 +53,7 @@ export const useUser = (): UseUser => {
       const userData = generateUserData(updateData);
 
       if (email && email !== oldEmail) {
-        await app.context.$vsf.$magento.api.updateCustomerEmail({
+        await updateCustomerEmail({
           email,
           password,
         });
@@ -57,6 +65,7 @@ export const useUser = (): UseUser => {
       if (errors) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         Logger.error(errors.map((e) => e.message).join(','));
+        error.value.updateUser = errors.map((e) => e.message).join(',');
       }
 
       customerStore.user = data?.updateCustomerV2?.customer || {};
