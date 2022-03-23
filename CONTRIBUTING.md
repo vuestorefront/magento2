@@ -52,7 +52,7 @@ To make your life easier @vuestorefront/magento2 is commitizen-friendly and prov
 > Commit standards
 
 - [conventional-changelog](https://github.com/conventional-changelog)
-- husky commit message hook available
+- run `npx cz` to commit using commitizen
 - present tense
 - maximum of 100 characters
 - message format of `$type($scope): $message`
