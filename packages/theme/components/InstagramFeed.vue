@@ -7,37 +7,41 @@
     <div class="grid grid-images">
       <div class="grid__row">
         <div class="grid__col">
-          <nuxt-img
-            v-if="isMobile"
+          <SfImage
             src="/homepage/imageAm.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="smartphone-only"
             :width="160"
             :height="160"
           />
-          <nuxt-img
-            v-else
+          <SfImage
             src="/homepage/imageAd.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="desktop-only"
             :width="470"
             :height="470"
           />
         </div>
         <div class="grid__col small">
-          <nuxt-img
-            v-if="isMobile"
+          <SfImage
             src="/homepage/imageBm.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="smartphone-only"
             :width="160"
             :height="160"
           />
-          <nuxt-img
-            v-else
+          <SfImage
             src="/homepage/imageCd.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="desktop-only"
             :width="470"
             :height="160"
           />
@@ -45,37 +49,41 @@
       </div>
       <div class="grid__row">
         <div class="grid__col small">
-          <nuxt-img
-            v-if="isMobile"
+          <SfImage
             src="/homepage/imageCm.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="smartphone-only"
             :width="160"
             :height="160"
           />
-          <nuxt-img
-            v-else
+          <SfImage
             src="/homepage/imageBd.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="desktop-only"
             :width="470"
             :height="160"
           />
         </div>
         <div class="grid__col">
-          <nuxt-img
-            v-if="isMobile"
+          <SfImage
             src="/homepage/imageDm.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="smartphone-only"
             :width="160"
             :height="160"
           />
-          <nuxt-img
-            v-else
+          <SfImage
             src="/homepage/imageDd.webp"
             alt="katherina_trn"
             loading="lazy"
+            image-tag="nuxt-img"
+            class="desktop-only"
             :width="470"
             :height="470"
           />
@@ -87,26 +95,15 @@
 <script>
 import {
   SfSection,
+  SfImage,
 } from '@storefront-ui/vue';
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
-import { computed, defineComponent, onBeforeUnmount } from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({
   name: 'InstagramFeed',
   components: {
     SfSection,
-  },
-  setup() {
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
-    });
-
-    return { isMobile };
+    SfImage,
   },
 });
 </script>

@@ -51,6 +51,7 @@
               v-for="(product, i) in products"
               :key="getSlug(product)"
               v-e2e="'category-product-card'"
+              image-tag="nuxt-img"
               :image="getMagentoImage(getProductThumbnailImage(product))"
               :image-height="imageSizes.productCard.height"
               :image-width="imageSizes.productCard.width"
@@ -78,37 +79,7 @@
               class="products__product-card"
               @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-            >
-              <template #image="imageSlotProps">
-                <SfButton
-                  :link="imageSlotProps.link"
-                  aria-label="Go To Product"
-                  class="sf-button--pure sf-product-card__link"
-                  data-testid="product-link"
-                  v-on="$listeners"
-                >
-                  <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
-                      v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                      :key="key"
-                      :alt="imageSlotProps.title"
-                      :height="imageSlotProps.imageHeight"
-                      :src="picture"
-                      :width="imageSlotProps.imageWidth"
-                      class="sf-product-card__picture"
-                    />
-                  </template>
-                  <nuxt-img
-                    v-else
-                    :alt="imageSlotProps.title"
-                    :height="imageSlotProps.imageHeight"
-                    :src="imageSlotProps.image"
-                    :width="imageSlotProps.imageWidth"
-                    class="sf-product-card__image lol"
-                  />
-                </SfButton>
-              </template>
-            </SfProductCard>
+            />
           </transition-group>
           <transition-group
             v-else
@@ -120,6 +91,7 @@
             <SfProductCardHorizontal
               v-for="(product, i) in products"
               :key="getSlug(product)"
+              image-tag="nuxt-img"
               :description="getDescription(product)"
               :image="getMagentoImage(getProductThumbnailImage(product))"
               :image-height="imageSizes.productCardHorizontal.height"
@@ -147,32 +119,6 @@
               @click:add-to-cart="addItemToCart({ product, quantity: $event })"
               @click:wishlist="addItemToWishlist(product)"
             >
-              <template #image="imageSlotProps">
-                <SfLink
-                  :link="imageSlotProps.link"
-                  class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
-                >
-                  <template v-if="Array.isArray(imageSlotProps.image)">
-                    <nuxt-img
-                      v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                      :key="key"
-                      :alt="imageSlotProps.title"
-                      :height="imageSlotProps.imageHeight"
-                      :src="picture"
-                      :width="imageSlotProps.imageWidth"
-                      class="sf-product-card-horizontal__picture"
-                    />
-                  </template>
-                  <nuxt-img
-                    v-else
-                    :alt="imageSlotProps.title"
-                    :height="imageSlotProps.imageHeight"
-                    :src="imageSlotProps.image"
-                    :width="imageSlotProps.imageWidth"
-                    class="sf-product-card-horizontal__image"
-                  />
-                </SfLink>
-              </template>
               <template #configuration>
                 <SfProperty
                   class="desktop-only"
@@ -374,6 +320,7 @@ import {
   SfRadio,
   SfSelect,
   SfSidebar,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   defineComponent, ref, useContext, useFetch,
@@ -418,6 +365,7 @@ export default defineComponent({
     SfProperty,
     SfLink,
     LazyHydrate,
+    SfImage,
   },
   middleware: cacheControl({
     'max-age': 60,

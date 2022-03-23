@@ -18,6 +18,7 @@
           class="carousel__item"
         >
           <SfProductCard
+            image-tag="nuxt-img"
             :title="productGetters.getName(product)"
             :image-width="imageSizes.productCard.width"
             :image-height="imageSizes.productCard.height"
@@ -45,37 +46,7 @@
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"
             @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-          >
-            <template #image="imageSlotProps">
-              <SfButton
-                :link="imageSlotProps.link"
-                class="sf-button--pure sf-product-card__link"
-                data-testid="product-link"
-                aria-label="Go To Product"
-                v-on="$listeners"
-              >
-                <template v-if="Array.isArray(imageSlotProps.image)">
-                  <nuxt-img
-                    v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                    :key="key"
-                    class="sf-product-card__picture"
-                    :src="picture"
-                    :alt="imageSlotProps.title"
-                    :width="imageSlotProps.imageWidth"
-                    :height="imageSlotProps.imageHeight"
-                  />
-                </template>
-                <nuxt-img
-                  v-else
-                  class="sf-product-card__image lol"
-                  :src="imageSlotProps.image"
-                  :alt="imageSlotProps.title"
-                  :width="imageSlotProps.imageWidth"
-                  :height="imageSlotProps.imageHeight"
-                />
-              </SfButton>
-            </template>
-          </SfProductCard>
+          />
         </SfCarouselItem>
         <template #prev="prevArrow">
           <SfButton
@@ -115,10 +86,11 @@ import {
   SfSection,
   SfLoader,
   SfButton,
+  SfImage,
 } from '@storefront-ui/vue';
 
-import { productGetters } from '~/getters';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useImage, useWishlist, useUser } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -131,6 +103,7 @@ export default defineComponent({
     SfSection,
     SfLoader,
     SfButton,
+    SfImage,
     SvgImage,
   },
   props: {
