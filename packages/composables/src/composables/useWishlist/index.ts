@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   Context,
   Logger,

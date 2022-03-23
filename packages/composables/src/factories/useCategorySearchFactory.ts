@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
@@ -13,9 +16,7 @@ import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables
 export interface UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {
   search: (context: Context, params: ComposableFunctionArgs<CATEGORY_SEARCH_PARAMS>) => Promise<CATEGORY[]>;
 }
-/**
- * @deprecated since version 1.0.0
- */
+
 export function useCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any>(
   factoryParams: UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API>,
 ) {
