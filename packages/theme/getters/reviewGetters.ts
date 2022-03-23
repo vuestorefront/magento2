@@ -1,11 +1,12 @@
 /* istanbul ignore file */
-import { ReviewGetters, AgnosticRateCount } from '@vue-storefront/core';
+import { AgnosticRateCount } from '@vue-storefront/core';
+import { AgnosticReviewMetadata } from '~/composables/types';
 import {
+  ProductInterface,
   ProductReview,
   ProductReviewRatingMetadata,
   ProductReviews,
-  ReviewMetadata, AgnosticReviewMetadata
-} from '@vue-storefront/magento';
+} from '~/modules/GraphQL/types';
 
 export const getItems = (review): ProductReview[] => review?.reviews?.items || [];
 
@@ -22,13 +23,13 @@ export const getReviewRating = (item: ProductReview): number => Number.parseInt(
 
 export const getReviewDate = (item: ProductReview): string => item.created_at;
 
-export const getTotalReviews = (review: ProductReviews): number => review?.review_count || 0;
+export const getTotalReviews = (review: ProductInterface): number => review?.review_count || 0;
 
-export const getAverageRating = (review): number => (review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
+export const getAverageRating = (review: ProductInterface): number => (review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
 
 export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
 
-export const getReviewsPage = (review: ProductReviews): number => review?.reviews.page_info?.page_size || 0;
+export const getReviewsPage = (review: ProductInterface): number => review?.reviews.page_info?.page_size || 0;
 
 export const getReviewMetadata = (reviewData: ProductReviewRatingMetadata[]): AgnosticReviewMetadata[] => reviewData?.map((m) => ({
   ...m,
@@ -40,12 +41,7 @@ export const getReviewMetadata = (reviewData: ProductReviewRatingMetadata[]): Ag
 
 export const getProductName = (review: ProductReview): string => review?.product?.name || '';
 
-interface MagentoReviewGetters extends ReviewGetters<ProductReviews, ProductReview> {
-  getReviewMetadata(reviewData: ReviewMetadata[]): AgnosticReviewMetadata[];
-  getProductName(reviewData: ProductReview): string;
-}
-
-const reviewGetters: MagentoReviewGetters = {
+const reviewGetters = {
   getAverageRating,
   getItems,
   getRatesCount,

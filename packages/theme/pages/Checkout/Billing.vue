@@ -35,6 +35,7 @@
         v-model="setAsDefault"
         v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :billing-addresses="addresses"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -274,11 +275,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import {
-  useUserBilling,
-  useCountrySearch,
-  addressGetter,
-} from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -290,8 +286,10 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import { userBillingGetters } from '~/getters';
-import { useShipping, useUser, useBilling } from '~/composables';
+import { userBillingGetters, addressGetter } from '~/getters';
+import {
+  useShipping, useUser, useBilling, useUserAddress, useCountrySearch,
+} from '~/composables';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   addressFromApiToForm,
@@ -333,34 +331,36 @@ export default defineComponent({
     const { app } = useContext();
     const shippingDetails = ref({});
     const billingAddress = ref({});
+    const userBilling = ref({});
+
     const {
-      load, save, loading,
+      save, loading,
     } = useBilling();
     const {
-      billing: userBilling,
       load: loadUserBilling,
       setDefaultAddress,
-    } = useUserBilling();
+    } = useUserAddress();
     const {
       load: loadShipping,
     } = useShipping();
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('Step:Billing');
+    } = useCountrySearch();
+
+    const countries = ref([]);
+    const country = ref(null);
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
     const billingDetails = ref(addressFromApiToForm(billingAddress.value));
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
-
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
 
     const isBillingDetailsStepCompleted = ref(false);
+    const addresses = computed(() => userBillingGetters.getAddresses(userBilling.value) ?? []);
 
     const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -371,8 +371,7 @@ export default defineComponent({
       if (!isAuthenticated.value || !userBilling.value) {
         return false;
       }
-      const addresses = userBillingGetters.getAddresses(userBilling.value);
-      return Boolean(addresses?.length);
+      return addresses.value.length > 0;
     });
 
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
@@ -390,12 +389,14 @@ export default defineComponent({
       };
       await save(billingDetailsData);
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userBillingGetters.getAddresses(
+        const [chosenAddress] = userBillingGetters.getAddresses(
           userBilling.value,
           { id: addressId },
         );
-        if (chosenAddress && chosenAddress.length > 0) {
-          await setDefaultAddress({ address: chosenAddress[0] });
+        chosenAddress.default_billing = setAsDefault.value;
+        if (chosenAddress) {
+          await setDefaultAddress({ address: chosenAddress });
+          userBilling.value = loadUserBilling(true);
         }
       }
       reset();
@@ -408,7 +409,7 @@ export default defineComponent({
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
         shippingDetails.value = await loadShipping();
-        await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
         oldBilling = { ...billingDetails.value };
         billingDetails.value = {
           ...formatAddressReturnToData(shippingDetails.value),
@@ -416,13 +417,13 @@ export default defineComponent({
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
-          await searchCountry({ id: billingDetails?.value.country_code });
+          country.value = await searchCountry({ id: billingDetails?.value.country_code });
         }
         return;
       }
       billingDetails.value = oldBilling;
       if (billingDetails.value.country_code) {
-        await searchCountry({ id: billingDetails?.value.country_code });
+        country.value = await searchCountry({ id: billingDetails?.value.country_code });
       }
     };
 
@@ -461,7 +462,7 @@ export default defineComponent({
 
     const changeCountry = async (id) => {
       changeBillingDetails('country_code', id);
-      await searchCountry({ id });
+      country.value = await searchCountry({ id });
     };
 
     watch(billingAddress, (addr) => {
@@ -474,14 +475,13 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      const [loadedBilling] = await Promise.all([load(), loadCountries()]);
-      billingAddress.value = loadedBilling;
+      countries.value = await loadCountries();
       if (billingDetails.value?.country_code) {
-        await searchCountry({ id: billingDetails.value.country_code });
+        country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
 
       if (!userBilling.value?.addresses && isAuthenticated.value) {
-        await loadUserBilling();
+        userBilling.value = await loadUserBilling();
       }
       const billingAddresses = userBillingGetters.getAddresses(
         userBilling.value,
@@ -516,7 +516,6 @@ export default defineComponent({
       isAuthenticated,
       isFormSubmitted,
       isBillingDetailsStepCompleted,
-      load,
       loading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
@@ -524,6 +523,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+      addresses,
     };
   },
 });

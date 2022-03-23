@@ -55,7 +55,7 @@ import {
   SfCharacteristic,
   SfImage,
 } from '@storefront-ui/vue';
-import { useStore } from '@vue-storefront/magento';
+import { useStore } from '~/composables';
 import { storeGetters, storeConfigGetters } from '~/getters';
 import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
@@ -79,7 +79,7 @@ export default defineComponent({
       stores,
       change: changeStore,
       load: loadStores,
-    } = useStore('header-stores');
+    } = useStore();
 
     const availableStores = computed(() => stores.value ?? []);
 

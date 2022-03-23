@@ -6,10 +6,11 @@ import {
   ProductGetters as ProductGettersBase,
 } from '@vue-storefront/core';
 import {
-  htmlDecode, BundleProduct,
-  Category, GroupedProduct,
+  Category,
   Product,
-} from '@vue-storefront/magento';
+} from '~/composables/types';
+import { BundleProduct, GroupedProduct } from '~/modules/GraphQL/types';
+import { htmlDecode } from '~/helpers/htmlDecoder';
 import categoryGetters from './categoryGetters';
 import reviewGetters from './reviewGetters';
 

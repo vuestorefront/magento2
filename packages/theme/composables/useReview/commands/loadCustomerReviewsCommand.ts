@@ -1,5 +1,5 @@
 import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
-import { CustomerProductReviewParams } from '@vue-storefront/magento-api';
+import { CustomerProductReviewParams } from '~/composables/types';
 
 export const loadCustomerReviewsCommand = {
   execute: async (context: Context, params?: ComposableFunctionArgs<CustomerProductReviewParams>) => {

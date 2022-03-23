@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Category, CategorySearchQueryVariables } from '@vue-storefront/magento-api';
 import { ref, Ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '@vue-storefront/core';
+import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import { UseCategoryErrors, UseCategorySearch } from '~/composables/useCategorySearch/useCategorySearch';
+import { Category } from '~/composables/types';
 
 export const useCategorySearch = (): UseCategorySearch => {
   const { app } = useContext();

@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
-import { Wishlist, Cart } from '@vue-storefront/magento';
+import { Wishlist, Cart } from '~/modules/GraphQL/types';
 
 const wishlist: Wishlist = { items_count: 0 };
 const user: any = {};
-const cart: Cart = { id: '', is_virtual: false, total_quantity: 0, shipping_addresses: [] };
+const cart: Cart = {
+  id: '', is_virtual: false, total_quantity: 0, shipping_addresses: [],
+};
 
 interface CustomerState {
   wishlist,

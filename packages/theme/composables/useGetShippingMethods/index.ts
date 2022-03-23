@@ -5,7 +5,7 @@ import { ref, useContext } from '@nuxtjs/composition-api';
 import { getGuestShippingMethodsCommand } from '~/composables/useGetShippingMethods/commands/getGuestShippingMethodsCommand';
 import { getCustomerShippingMethodsCommand } from '~/composables/useGetShippingMethods/commands/getCustomerShippingMethodsCommand';
 import { UseGetShippingMethodsInterface } from '~/composables/useGetShippingMethods/useGetShippingMethods';
-import { AvailableShippingMethod } from '~/composables/types';
+import { AvailableShippingMethod } from '~/modules/GraphQL/types';
 
 export function useGetShippingMethods(): UseGetShippingMethodsInterface<AvailableShippingMethod> {
   // @ts-ignore

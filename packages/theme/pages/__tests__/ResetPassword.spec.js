@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
-import { useForgotPassword } from '@vue-storefront/magento';
+import { useForgotPassword } from '~/composables';
 import { render, useForgotPasswordMock } from '~/test-utils';
 
 import ResetPassword from '../ResetPassword';
 
-jest.mock('@vue-storefront/magento', () => {
-  const originalModule = jest.requireActual('@vue-storefront/magento');
+jest.mock('~/composables', () => {
+  const originalModule = jest.requireActual('~/composables');
   return {
     ...originalModule,
     useForgotPassword: jest.fn(),

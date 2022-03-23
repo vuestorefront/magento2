@@ -75,18 +75,16 @@ export default () => {
         // @core-development-only-end
         useRawSource: {
           dev: [
-            '@vue-storefront/magento',
             '@vue-storefront/core',
           ],
           prod: [
-            '@vue-storefront/magento',
             '@vue-storefront/core',
           ],
         },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
       }],
-      ['@vue-storefront/magento/nuxt', {
+      ['~/modules/magento', {
         i18n: {
           useNuxtI18nConfig: true,
         },

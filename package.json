@@ -11,14 +11,12 @@
     "internals/*"
   ],
   "scripts": {
-    "build": "yarn build:api-client && yarn build:composables && yarn build:theme",
+    "build": "yarn build:api-client && yarn build:theme",
     "build:api-client": "cd packages/api-client && yarn build",
-    "build:composables": "cd packages/composables && yarn build",
     "build:theme": "cd packages/theme && yarn build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "dev:api-client": "cd packages/api-client && yarn dev",
-    "dev:composables": "cd packages/composables && yarn dev",
     "dev:theme": "cd packages/theme && yarn dev",
     "docs:install": "cd docs && yarn",
     "docs:dev": "cd docs && yarn dev",
@@ -27,11 +25,9 @@
     "lint": "eslint . --ext .ts,.vue --fix",
     "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
     "publish:api-client": "node ./scripts/publishApi.js",
-    "publish:composables": "node ./scripts/publishComposable.js",
     "start": "cd packages/theme && yarn start",
-    "test": "yarn test:api-client && yarn test:composables && yarn test:theme",
+    "test": "yarn test:api-client && yarn test:theme",
     "test:api-client": "cd packages/api-client && yarn test --passWithNoTests",
-    "test:composables": "cd packages/composables && yarn test --passWithNoTests",
     "test:theme": "cd packages/theme && yarn test --passWithNoTests",
     "update:check": "ncu && lerna run update:check --stream",
     "update:update": "ncu -u && lerna run update:update --stream"

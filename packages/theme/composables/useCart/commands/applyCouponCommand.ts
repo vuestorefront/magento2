@@ -1,5 +1,5 @@
 import { Context, Logger } from '@vue-storefront/core';
-import { Cart } from '@vue-storefront/magento-api';
+import { Cart } from '~/modules/GraphQL/types';
 
 export const applyCouponCommand = {
   execute: async (context: Context, {

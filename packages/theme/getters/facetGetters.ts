@@ -7,17 +7,13 @@ import {
   AgnosticBreadcrumb,
   AgnosticFacet,
 } from '@vue-storefront/core';
-
-import {
-  SearchData,
-} from '@vue-storefront/magento';
+import { SearchData } from '~/composables/useFacet/useFacet';
 
 import {
   buildFacets,
   reduceForGroupedFacets,
   reduceForFacets,
-} from '../composables/useFacet/_utils';
-
+} from '~/composables/useFacet/_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);

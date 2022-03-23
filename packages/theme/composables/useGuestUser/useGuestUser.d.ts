@@ -1,7 +1,7 @@
 import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { Composable, ComposableFunctionArgs } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
-import { Cart } from '@vue-storefront/magento-api';
+import { Cart } from '~/modules/GraphQL/types';
 
 export interface UseGuestUserErrors {
   attachToCart: Error;

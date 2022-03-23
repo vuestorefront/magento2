@@ -1,5 +1,5 @@
 import { Logger } from '@vue-storefront/core';
-import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-api';
+import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
 
 export const attachToCartCommand = {
   execute: async (context, params): Promise<void> => {
