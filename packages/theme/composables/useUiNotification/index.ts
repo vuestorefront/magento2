@@ -58,6 +58,7 @@ const useUiNotification = () => {
 
   if (cookieMessage) {
     send(cookieMessage);
+    app.$cookies.remove(cookieNames.messageCookieName);
   }
 
   return {
