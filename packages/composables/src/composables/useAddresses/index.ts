@@ -1,4 +1,7 @@
 /* eslint-disable no-param-reassign, consistent-return */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   Context,
   Logger,
@@ -25,14 +28,11 @@ type RemoveAddressInput = {
   }
 } & CustomQueryParams;
 
-/**
- * @deprecated since version 1.0.0
- */
 const factoryParams: UseAddressesParams<CustomerAddress,
-  CustomQueryParams,
-  SaveAddressInput,
-  UpdateAddressInput,
-  RemoveAddressInput> = {
+CustomQueryParams,
+SaveAddressInput,
+UpdateAddressInput,
+RemoveAddressInput> = {
   load: async (context: Context) => {
     Logger.debug('[Magento] load user addresses');
 
