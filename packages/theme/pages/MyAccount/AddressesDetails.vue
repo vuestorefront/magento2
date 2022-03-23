@@ -120,6 +120,16 @@ export default defineComponent({
     const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
     const isNewAddress = computed(() => route.value.query.id === 'new');
     const editingAddress = computed(() => !!route.value.query.id);
+    const { fetch } = useFetch(async () => {
+      const addressesData = await load();
+      userAddresses.value = userAddressesGetters.getAddresses(addressesData);
+
+      const activeAddressData = userAddresses.value
+        .filter((address) => String(address?.id) === route.value.query.id)
+        .pop();
+
+      activeAddress.value = activeAddressData;
+    });
     const changeAddress = async (address) => {
       const addressId = address?.id || 'new';
 
@@ -135,7 +145,7 @@ export default defineComponent({
       const isDefault = userAddressesGetters.isDefault(address);
       if (!isDefault) {
         await remove({ address });
-        await load({});
+        fetch();
       }
     };
 
@@ -148,23 +158,11 @@ export default defineComponent({
             `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
           ),
         );
-        addresses.value = data;
         userAddresses.value = userAddressesGetters.getAddresses(data);
       } catch (error) {
         onError(error);
       }
     };
-
-    useFetch(async () => {
-      const addressesData = await load();
-      userAddresses.value = userAddressesGetters.getAddresses(addressesData);
-
-      const activeAddressData = userAddresses.value
-        .filter((address) => String(address?.id) === route.value.query.id)
-        .pop();
-
-      activeAddress.value = activeAddressData;
-    });
 
     return {
       changeAddress,

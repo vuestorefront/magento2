@@ -140,7 +140,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="searchCountry({ id:$event })"
+            @input="reloadCountry({ id: $event })"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -273,6 +273,10 @@ export default defineComponent({
     const countries = ref([]);
     const country = ref(null);
 
+    const reloadCountry = async (params) => {
+      country.value = await searchCountry(params);
+    };
+
     const form = reactive({
       apartment: props.address.apartment,
       city: props.address.city,
@@ -320,7 +324,7 @@ export default defineComponent({
       submitForm,
       countriesList,
       regionInformation,
-      searchCountry,
+      reloadCountry,
     };
   },
 });
