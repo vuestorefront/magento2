@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   ComposableFunctionArgs,
   Context,
@@ -14,9 +17,6 @@ import {
 } from '../../factories/useUpsellProductsFactory';
 import { UseUpsellProducts } from '../../types/composables';
 
-/**
- * @deprecated since version 1.0.0
- */
 const factoryParams: UseUpsellProductsFactoryParams<UpsellProductsQuery['products']['items'][0]['upsell_products'], ProductsSearchParams> = {
   productsSearch: async (
     context: Context,

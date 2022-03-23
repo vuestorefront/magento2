@@ -1,11 +1,11 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { Context, Logger } from '@vue-storefront/core';
 import { useExternalCheckoutFactory, UseExternalCheckoutFactoryParams } from '../../factories/useExternalCheckoutFactory';
 import useCart from '../useCart';
 // import useConfig from '../useConfig';
 
-/**
- * @deprecated since version 1.0.0
- */
 const factoryParams: UseExternalCheckoutFactoryParams = {
   provide() {
     return {
