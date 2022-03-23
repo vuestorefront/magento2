@@ -50,9 +50,7 @@
             :key="i"
           >
             <SfTableData class="products__name">
-              <nuxt-link :to="localePath('/p/'+orderGetters.getItemSku(item)+'/'+orderGetters.getItemSku(item))">
-                {{ orderGetters.getItemName(item) }}
-              </nuxt-link>
+              {{ orderGetters.getItemName(item) }}
             </SfTableData>
             <SfTableData>{{ orderGetters.getItemQty(item) }}</SfTableData>
             <SfTableData>{{ $fc(orderGetters.getItemPrice(item)) }}</SfTableData>
