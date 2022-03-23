@@ -67,11 +67,9 @@
           required
           class="form__element"
           style="margin-top: 10px"
-          @keypress.enter="handleSubmit(submitForm(reset))"
         />
         <SfButton
           class="form__button"
-          @click="handleSubmit(submitForm(reset))"
         >
           {{ $t('Update personal data') }}
         </SfButton>
@@ -91,11 +89,9 @@
           required
           class="form__element"
           style="margin-top: 10px"
-          @keypress.enter="handleSubmit(submitForm(reset))"
         />
         <SfButton
           class="form__button"
-          @click="handleSubmit(submitForm(reset))"
         >
           {{ $t('Update personal data') }}
         </SfButton>
@@ -114,8 +110,8 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
-import { userGetters } from '~/getters';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
+import { userGetters } from '~/getters';
 import { useUiNotification, useUser } from '~/composables';
 
 extend('email', {
@@ -169,10 +165,15 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = () => {
-        form.value = resetForm();
-        requirePassword.value = false;
-        currentPassword.value = '';
+      const onError = (msg) => {
+        sendNotification({
+          id: Symbol('user_updated'),
+          message: msg,
+          type: 'danger',
+          icon: 'cross',
+          persist: false,
+          title: 'User Account',
+        });
       };
 
       if (
