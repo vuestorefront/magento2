@@ -65,6 +65,7 @@
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
+                  image-tag="nuxt-img"
                   :regular-price="$fc(productGetters.getPrice(product).regular)"
                   :max-rating="5"
                   :score-rating="productGetters.getAverageRating(product)"
@@ -92,40 +93,7 @@
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
                   @click:wishlist="addItemToWishlist(product)"
-                >
-                  <template #image="imageSlotProps">
-                    <SfButton
-                      :link="imageSlotProps.link"
-                      class="sf-button--pure sf-product-card__link"
-                      data-testid="product-link"
-                      aria-label="Go To Product"
-                      v-on="$listeners"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(
-                            0,
-                            2
-                          )"
-                          :key="key"
-                          class="sf-product-card__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card__image lol"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </SfButton>
-                  </template>
-                </SfProductCard>
+                />
               </div>
             </SfScrollable>
             <div class="results--mobile smartphone-only">
@@ -133,6 +101,7 @@
                 v-for="(product, index) in products"
                 :key="index"
                 class="result-card"
+                image-tag="nuxt-img"
                 :regular-price="$fc(productGetters.getPrice(product).regular)"
                 :max-rating="5"
                 :score-rating="productGetters.getAverageRating(product)"
@@ -157,40 +126,7 @@
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
                 @click:wishlist="addItemToWishlist(product)"
-              >
-                <template #image="imageSlotProps">
-                  <SfButton
-                    :link="imageSlotProps.link"
-                    class="sf-button--pure sf-product-card__link"
-                    data-testid="product-link"
-                    aria-label="Go To Product"
-                    v-on="$listeners"
-                  >
-                    <template v-if="Array.isArray(imageSlotProps.image)">
-                      <nuxt-img
-                        v-for="(picture, key) in imageSlotProps.image.slice(
-                          0,
-                          2
-                        )"
-                        :key="key"
-                        class="sf-product-card__picture"
-                        :src="picture"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </template>
-                    <nuxt-img
-                      v-else
-                      class="sf-product-card__image lol"
-                      :src="imageSlotProps.image"
-                      :alt="imageSlotProps.title"
-                      :width="imageSlotProps.imageWidth"
-                      :height="imageSlotProps.imageHeight"
-                    />
-                  </SfButton>
-                </template>
-              </SfProductCard>
+              />
             </div>
           </SfMegaMenuColumn>
           <div class="action-buttons smartphone-only">

@@ -3,8 +3,9 @@
     :to="localePath('/')"
     class="sf-header__logo"
   >
-    <nuxt-img
+    <SfImage
       v-if="logoSrc"
+      image-tag="nuxt-img"
       :src="logoSrc"
       :alt="logoAlt"
       :title="logoAlt"
@@ -22,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import { SfImage } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useConfig } from '~/composables';
 import { storeConfigGetters } from '~/getters';
@@ -29,7 +31,7 @@ import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HeaderLogo',
-  components: { SvgImage },
+  components: { SvgImage, SfImage },
   setup() {
     const { config } = useConfig();
 

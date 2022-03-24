@@ -130,7 +130,8 @@ return {
 ```
 3. Use the `getMagentoImage` method in template like this:
 ```vue
-<nuxt-img
+<SfImage
+  image-tag="nuxt-img"
   :src="getMagentoImage(wishlistGetters.getItemImage(product))"
   :alt="wishlistGetters.getItemName(product)"
   :width="140"

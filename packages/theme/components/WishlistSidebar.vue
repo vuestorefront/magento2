@@ -81,7 +81,8 @@
                     )
                   "
                 >
-                  <nuxt-img
+                  <SfImage
+                    image-tag="nuxt-img"
                     :src="
                       getMagentoImage(wishlistGetters.getItemImage(product))
                     "
@@ -177,6 +178,7 @@ import {
   SfCollectedProduct,
   SfLink,
   SfLoader,
+  SfImage,
 } from '@storefront-ui/vue';
 import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
 import { wishlistGetters, productGetters } from '~/getters';
@@ -196,6 +198,7 @@ export default defineComponent({
     SfCollectedProduct,
     SfLink,
     SfLoader,
+    SfImage,
     SvgImage,
   },
   setup() {
