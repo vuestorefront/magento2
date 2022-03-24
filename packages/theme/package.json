@@ -8,15 +8,15 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "scripts": {
-    "build": "nuxt build -m",
-    "build:analyze": "nuxt build -a -m",
+    "build": "nuxt build --modern=client",
+    "build:analyze": "nuxt build -a --modern=client",
     "dev": "nuxt",
     "dev:debug": "node --inspect ../../node_modules/.bin/nuxt dev",
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix",
     "precommit": "lint-staged",
-    "start": "nuxt start",
+    "start": "nuxt start --modern=client",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
