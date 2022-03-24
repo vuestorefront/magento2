@@ -68,6 +68,7 @@
                   :key="productGetters.getSlug(product.product)"
                   v-e2e="'wishlist-product-card'"
                   class="products__product-card"
+                  image-tag="nuxt-img"
                   :image-width="imageSizes.productCard.width"
                   :image-height="imageSizes.productCard.height"
                   :image="
@@ -108,40 +109,7 @@
                   @click:add-to-cart="
                     addItemToCart({ product: product.product, quantity: 1 })
                   "
-                >
-                  <template #image="imageSlotProps">
-                    <SfButton
-                      :link="imageSlotProps.link"
-                      class="sf-button--pure sf-product-card__link"
-                      data-testid="product-link"
-                      :aria-label="$t('Go To Product')"
-                      v-on="$listeners"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(
-                            0,
-                            2
-                          )"
-                          :key="key"
-                          class="sf-product-card__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card__image lol"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </SfButton>
-                  </template>
-                </SfProductCard>
+                />
               </transition-group>
               <transition-group
                 v-else
@@ -154,6 +122,7 @@
                   v-for="(product, i) in products"
                   :key="productGetters.getSlug(product.product)"
                   class="products__product-card-horizontal"
+                  image-tag="nuxt-img"
                   :description="productGetters.getDescription(product.product)"
                   :image="
                     getMagentoImage(
@@ -194,35 +163,6 @@
                     addItemToCart({ product: product.product, quantity: 1 })
                   "
                 >
-                  <template #image="imageSlotProps">
-                    <SfLink
-                      :link="imageSlotProps.link"
-                      class="sf-product-card-horizontal__link sf-product-card-horizontal__link--image"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(
-                            0,
-                            2
-                          )"
-                          :key="key"
-                          class="sf-product-card-horizontal__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card-horizontal__image"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </SfLink>
-                  </template>
                   <template #configuration>
                     <SfProperty
                       class="desktop-only"
@@ -303,6 +243,7 @@ import {
   SfPagination,
   SfSelect,
   SfProperty,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -332,6 +273,7 @@ export default defineComponent({
     SfPagination,
     SfSelect,
     SfProperty,
+    SfImage,
     LazyHydrate,
     SvgImage,
   },

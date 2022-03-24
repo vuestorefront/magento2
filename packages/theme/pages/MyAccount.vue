@@ -48,16 +48,11 @@ import { SfBreadcrumbs, SfContentPages } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
-  onBeforeUnmount,
   ref,
   useContext,
   useRoute,
   useRouter,
 } from '@nuxtjs/composition-api';
-import {
-  mapMobileObserver,
-  unMapMobileObserver,
-} from '@storefront-ui/vue/src/utilities/mobile-observer.js';
 import { useUser, useCart } from '~/composables';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';
@@ -87,7 +82,6 @@ export default defineComponent({
     const { logout } = useUser();
     const { clear } = useCart();
     const { localePath, app } = useContext();
-    const isMobile = computed(() => mapMobileObserver().isMobile.get());
     const breadcrumbs = ref([
       {
         text: app.i18n.t('Home'),
@@ -101,12 +95,8 @@ export default defineComponent({
 
     const activePage = computed(() => {
       const { pageName } = route.value.params;
-      if (pageName) {
-        return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
-      } if (!isMobile.value) {
-        return app.i18n.t('My profile');
-      }
-      return '';
+
+      return (pageName.charAt(0).toUpperCase() + pageName.slice(1)).replace('-', ' ');
     });
 
     const changeActivePage = async (title) => {
@@ -122,10 +112,6 @@ export default defineComponent({
       const transformedPath = `/my-account/${slugifiedTitle}`;
       await router.push(`${localePath(transformedPath)}`);
     };
-
-    onBeforeUnmount(() => {
-      unMapMobileObserver();
-    });
 
     return {
       activePage,
