@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!productLoading">
+  <div>
     <SfList class="grouped_items">
       <SfListItem
         v-for="(groupedItem, index) in groupedItems"
@@ -56,7 +56,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { productGetters } from '~/getters';
 import { useCart, useImage } from '~/composables';
-import { productData } from '~/helpers/product/productData';
 
 export default defineComponent({
   name: 'GroupedProductSelector',
@@ -73,13 +72,16 @@ export default defineComponent({
       required: false,
       default: true,
     },
+    product: {
+      type: Object,
+      required: true,
+    },
   },
   emits: ['update-price'],
   setup(props, { emit }) {
-    const { product, loading: productLoading } = productData();
     const { addItem } = useCart();
     const loading = ref(false);
-    const groupedItems = computed(() => productGetters.getGroupedProducts(product.value));
+    const groupedItems = computed(() => productGetters.getGroupedProducts(props.product));
 
     const addToCart = async () => {
       try {
@@ -126,8 +128,6 @@ export default defineComponent({
       addToCart,
       groupedItems,
       loading,
-      productLoading,
-      product,
       productGetters,
       getMagentoImage,
     };

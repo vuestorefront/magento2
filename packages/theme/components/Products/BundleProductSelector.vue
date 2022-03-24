@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!productLoading">
+  <div>
     <SfList class="bundle_products">
       <SfListItem
         v-for="bundle in bundleProduct"
@@ -83,13 +83,12 @@ import {
   SfRadio,
   SfButton,
 } from '@storefront-ui/vue';
-import { productGetters } from '~/getters';
 import {
   computed, defineComponent, ref, watch,
 } from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
 import { useCart } from '~/composables';
 import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
-import { productData } from '~/helpers/product/productData';
 
 export default defineComponent({
   name: 'BundleProductSelector',
@@ -106,14 +105,17 @@ export default defineComponent({
       required: false,
       default: true,
     },
+    product: {
+      type: Object,
+      required: true,
+    },
   },
   emits: ['update-bundle', 'update-price'],
   setup(props, { emit }) {
-    const { product, loading: productLoading } = productData();
     const { loading, addItem } = useCart();
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const bundleProduct = computed(() => productGetters.getBundleProducts(product.value));
+    const bundleProduct = computed(() => productGetters.getBundleProducts(props.product));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const selectedOptions = ref(() => []);
@@ -147,7 +149,7 @@ export default defineComponent({
 
       await addItem({
         product: {
-          ...product.value,
+          ...props.product,
           bundle_options: bundleProductData.value,
         },
         quantity: 1,
@@ -176,7 +178,6 @@ export default defineComponent({
       bundleProduct,
       canChangeQuantity,
       loading,
-      productLoading,
       price,
       product,
       productGetters,
