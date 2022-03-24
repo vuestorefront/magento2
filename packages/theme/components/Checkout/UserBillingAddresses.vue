@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="`${currentAddressId}`"
+      :selected="`${selectedAddress}`"
       class="billing__addresses"
       @change="setCurrentAddress($event)"
     >
@@ -27,7 +27,7 @@
 
 <script>
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
-import { defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { userBillingGetters } from '~/getters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
@@ -63,7 +63,14 @@ export default defineComponent({
       emit('setCurrentAddress', selectedAddress);
     };
 
+    const selectedAddress = computed(() => (
+      props.currentAddressId
+        ? props.currentAddressId
+        : props.billingAddresses.find((address) => address.default_billing)?.id ?? ''
+    ));
+
     return {
+      selectedAddress,
       setCurrentAddress,
       userBillingGetters,
     };
