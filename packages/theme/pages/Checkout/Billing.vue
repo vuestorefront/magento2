@@ -351,7 +351,7 @@ export default defineComponent({
     const userBilling = ref({});
 
     const {
-      save, loading,
+      save, load: loadBilling, loading,
     } = useBilling();
     const {
       load: loadUserBilling,
@@ -391,8 +391,10 @@ export default defineComponent({
       return addresses.value.length > 0;
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const handleAddressSubmit = (reset) => async () => {
@@ -492,7 +494,10 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      countries.value = await loadCountries();
+      const [loadedCountries, loadedBilling] = await Promise.all([loadCountries(), loadBilling()]);
+      countries.value = loadedCountries;
+      billingAddress.value = loadedBilling;
+
       if (billingDetails.value?.country_code) {
         country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
