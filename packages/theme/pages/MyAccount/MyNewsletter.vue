@@ -49,8 +49,7 @@
 import {
   SfTabs, SfCheckbox, SfButton, SfLink,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
 import { useUser } from '~/composables';
 
 export default defineComponent({
@@ -71,7 +70,7 @@ export default defineComponent({
 
     const isSubscribed = ref(!!user.value.is_subscribed);
 
-    onSSR(async () => {
+    useFetch(async () => {
       await load();
     });
 

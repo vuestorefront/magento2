@@ -39,7 +39,7 @@
         >
           <div
             v-for="address in userAddresses"
-            :key="userAddressesGetters.getId(address)"
+            :key="getId(address)"
             class="addresses"
           >
             <div class="addresses__content">
@@ -53,7 +53,7 @@
               </SfButton>
 
               <SfButton
-                v-if="!userAddressesGetters.isDefault(address)"
+                v-if="!isDefault(address)"
                 class="color-light addresses__button-delete desktop-only"
                 @click="removeAddress(address)"
               >
@@ -111,7 +111,6 @@ export default defineComponent({
     const {
       load, remove, update, save,
     } = useAddresses();
-
     const router = useRouter();
     const route = useRoute();
     const { app } = useContext();
@@ -169,7 +168,7 @@ export default defineComponent({
       update,
       removeAddress,
       saveAddress,
-      userAddressesGetters,
+      ...userAddressesGetters,
       userAddresses,
       editingAddress,
       activeAddress,
