@@ -26,7 +26,6 @@
         <SfSelect
           :value="sortBy.selected"
           class="navbar__select"
-          placeholder="Select sorting"
           @input="changeSorting"
         >
           <SfSelectOption
