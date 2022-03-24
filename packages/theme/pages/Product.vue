@@ -134,12 +134,14 @@
               <template v-if="product.__typename === 'GroupedProduct'">
                 <grouped-product-selector
                   :can-add-to-cart="canAddToCart"
+                  :product="product"
                   @update-price="basePrice = $event"
                 />
               </template>
               <template v-else-if="product.__typename === 'BundleProduct'">
                 <BundleProductSelector
                   :can-add-to-cart="canAddToCart"
+                  :product="product"
                   @update-price="basePrice = $event"
                 />
               </template>
