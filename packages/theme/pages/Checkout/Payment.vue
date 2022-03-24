@@ -25,7 +25,8 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-img"
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
             :width="imageSizes.cartItem.width"
@@ -164,6 +165,7 @@ import {
   SfPrice,
   SfProperty,
   SfLink,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -190,6 +192,7 @@ export default defineComponent({
     SfPrice,
     SfProperty,
     SfLink,
+    SfImage,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
   setup() {

@@ -17,6 +17,10 @@
             >
               <SfGallery
                 :images="productGallery"
+                :image-width="422"
+                :image-height="664"
+                :thumb-width="160"
+                :thumb-height="160"
                 :enable-zoom="true"
                 class="product__gallery"
               />
@@ -282,7 +286,7 @@ import {
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import productGetters, {
   getSwatchData as getProductSwatchData,
-  getName as getProductName
+  getName as getProductName,
 } from '~/getters/productGetters';
 import reviewGetters, {
   getReviewId,
