@@ -1,4 +1,4 @@
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { UseExternalCheckout } from '~/composables/useExternalCheckout/useExternalCheckout';

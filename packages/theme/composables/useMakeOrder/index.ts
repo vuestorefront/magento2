@@ -1,5 +1,5 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { placeOrderCommand } from '~/composables/useMakeOrder/commands/placeOrderCommand';
 import { useCart } from '~/composables';
 import { Maybe, PlaceOrderOutput } from '~/modules/GraphQL/types';

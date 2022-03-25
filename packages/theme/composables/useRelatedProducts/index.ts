@@ -1,5 +1,6 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, ProductsSearchParams, Logger } from '@vue-storefront/core';
+import { ComposableFunctionArgs, ProductsSearchParams } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GetProductSearchParams } from '~/composables/types';
 import { UseRelatedProductsError, RelatedProducts, UseRelatedProductsInterface } from '~/composables/useRelatedProducts/useRelatedProducts';

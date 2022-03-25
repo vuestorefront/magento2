@@ -1,5 +1,6 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { CustomQuery, Logger } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
 import { UseWishlist, UseWishlistErrors, Wishlist } from '~/composables/useWishlist/useWishlist';
 import { useCustomerStore } from '~/stores/customer';

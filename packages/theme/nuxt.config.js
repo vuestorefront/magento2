@@ -69,9 +69,6 @@ export default () => {
       ['@vue-storefront/nuxt', {
         // @core-development-only-start
         coreDevelopment: true,
-        logger: {
-          verbosity: 'debug',
-        },
         // @core-development-only-end
         useRawSource: {
           dev: [
@@ -83,6 +80,7 @@ export default () => {
         },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
+        logger: false,
         ssr: false,
         sfui: false,
       }],

@@ -1,7 +1,7 @@
 import {
   computed, ref, useContext,
 } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 import { UseConfig, UseConfigErrors } from '~/composables/useConfig/useConfig';
 

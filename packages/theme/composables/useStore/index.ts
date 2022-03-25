@@ -2,7 +2,7 @@ import {
   computed,
   ref, Ref, useContext,
 } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { StoreConfig } from '~/modules/GraphQL/types';
 import { storeConfigGetters } from '~/getters';
 import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';

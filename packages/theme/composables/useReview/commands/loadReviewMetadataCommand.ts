@@ -1,4 +1,5 @@
-import { Context, Logger } from '@vue-storefront/core';
+import { Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 
 export const loadReviewMetadataCommand = {
   execute: async (context: Context) => {

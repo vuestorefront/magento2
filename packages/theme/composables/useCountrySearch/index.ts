@@ -1,5 +1,5 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { ComposableFunctionArgs, Countries } from '~/composables/types';
 import { Maybe, Country } from '~/modules/GraphQL/types';
 
