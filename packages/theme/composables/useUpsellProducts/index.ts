@@ -1,8 +1,7 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
-import { ProductsSearchParams } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
 import { Maybe } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
+import { ProductsSearchParams, ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
 import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
 
 export const useUpsellProducts = (): UseUpsellProductsInterface => {

@@ -1,9 +1,10 @@
-import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types'
 import { Logger } from '~/helpers/logger';
 import { Cart } from '~/modules/GraphQL/types';
+import { VsfContext } from '~/composables/context';
 
 export const loadCartCommand = {
-  execute: async (context: Context, params: ComposableFunctionArgs<{
+  execute: async (context: VsfContext, params: ComposableFunctionArgs<{
     realCart?: boolean;
   }>) => {
     const apiState = context.$magento.config.state;

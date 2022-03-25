@@ -25,8 +25,7 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
-        const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])
-          }`;
+        const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`;
         await router.push(String(app.localePath(path)));
         break;
       default:

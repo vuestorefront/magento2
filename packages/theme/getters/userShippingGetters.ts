@@ -1,4 +1,4 @@
-import { UserShippingGetters } from '@vue-storefront/core';
+import { UserShippingGetters } from '~/getters/types';
 import { Logger } from '~/helpers/logger';
 
 const userShippingGetters: UserShippingGetters<any, any> = {

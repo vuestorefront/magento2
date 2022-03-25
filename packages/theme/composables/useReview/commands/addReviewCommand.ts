@@ -1,10 +1,10 @@
-import { Context } from '@vue-storefront/core';
+import { VsfContext } from '~/composables/context';
 import { Logger } from '~/helpers/logger';
 import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 export const addReviewCommand = {
-  execute: async (context: Context, params: ComposableFunctionArgs<CreateProductReviewInput>) => {
+  execute: async (context: VsfContext, params: ComposableFunctionArgs<CreateProductReviewInput>) => {
     Logger.debug('[Magento] add review params input:', JSON.stringify(params, null, 2));
 
     const {

@@ -1,10 +1,9 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
-import { ComposableFunctionArgs } from '~/composables/types';
-import { GetProductSearchParams } from '~/composables/useProduct/useProduct';
+import { VsfContext } from '~/composables/context';
+import { ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
 
 export const searchReviewsCommand = {
-  execute: async (context: Context, params?: ComposableFunctionArgs<GetProductSearchParams>) => {
+  execute: async (context: VsfContext, params?: ComposableFunctionArgs<GetProductSearchParams>) => {
     Logger.debug('[Magento] search review params input:', JSON.stringify(params, null, 2));
 
     const {

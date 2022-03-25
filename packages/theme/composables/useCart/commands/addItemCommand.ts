@@ -1,4 +1,3 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
 import { AddProductsToCartInput } from '~/composables/useCart/useCart';
 import {
@@ -7,10 +6,11 @@ import {
   AddVirtualProductsToCartInput,
   Cart,
 } from '~/modules/GraphQL/types';
+import { VsfContext } from '~/composables/context';
 
 export const addItemCommand = {
   execute: async (
-    context: Context,
+    context: VsfContext,
     {
       product,
       quantity,

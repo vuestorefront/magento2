@@ -1,8 +1,13 @@
-import { ApiClientMethods, IntegrationContext } from '@vue-storefront/core';
-import { ClientInstance, Config, MagentoApiMethods } from '@vue-storefront/magento-api';
+import type { AxiosInstance } from 'axios';
+import type { ApiClientMethods, IntegrationContext } from '~/types/core';
+import type { Config, MagentoApiMethods } from '@vue-storefront/magento-api';
 
-declare module '@vue-storefront/core' {
-  export interface Context {
-    $magento: IntegrationContext<ClientInstance, Config, ApiClientMethods<MagentoApiMethods>>;
+export interface VsfContext {
+    $magento: IntegrationContext<AxiosInstance, Config, ApiClientMethods<MagentoApiMethods>>;
+}
+
+declare module '@nuxt/types' {
+  interface NuxtAppOptions {
+    $vsf: VsfContext
   }
 }

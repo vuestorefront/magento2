@@ -1,6 +1,5 @@
 import { Ref } from '@nuxtjs/composition-api';
-import { StoreConfig } from '~/modules/GraphQL/types';
-import { UseStoreErrors, AvailableStores } from '~/composables/types';
+import { StoreConfig, AvailableStoresQuery } from '~/modules/GraphQL/types';
 
 export interface UseStoreInterface {
   change(store: StoreConfig): void;
@@ -14,4 +13,9 @@ export interface UseStore {
   (): UseStoreInterface;
 }
 
-export { UseStoreErrors } from '@vue-storefront/core';
+export interface UseStoreErrors {
+  load: Error | null;
+  change: Error | null;
+}
+
+export declare type AvailableStores = AvailableStoresQuery['availableStores'];

@@ -1,7 +1,4 @@
-import {
-  Logger,
-  Context,
-} from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
@@ -14,7 +11,7 @@ export const useProduct = (id: string) => {
   });
 
   const { app } = useContext();
-  const context = app.$vsf as Context;
+  const context = app.$vsf;
 
   const getProductList = async (searchParams) => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);

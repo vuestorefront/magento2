@@ -1,14 +1,8 @@
-import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
-import { Category } from '~/composables/types';
+import { CategoryGetters } from '~/getters/types';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
+import { AgnosticCategoryTree, AgnosticBreadcrumb, Category } from '~/composables/types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTree = (category: Category): AgnosticCategoryTree | null => {
-  if (!category) {
-    return null;
-  }
-  return buildCategoryTree(category, '');
-};
+export const getTree = (category: Category): AgnosticCategoryTree => buildCategoryTree(category, '');
 
 export const getCategoryTree = (
   category: Category,

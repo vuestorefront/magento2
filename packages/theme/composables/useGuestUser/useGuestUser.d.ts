@@ -1,6 +1,5 @@
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
-import { Composable, ComposableFunctionArgs } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
+import { PlatformApi, Composable, ComposableFunctionArgs } from '~/composables/types';
 import { Cart } from '~/modules/GraphQL/types';
 
 export interface UseGuestUserErrors {

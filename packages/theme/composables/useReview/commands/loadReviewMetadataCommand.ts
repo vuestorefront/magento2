@@ -1,8 +1,9 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
+import { VsfContext } from '~/composables/context';
+
 
 export const loadReviewMetadataCommand = {
-  execute: async (context: Context) => {
+  execute: async (context: VsfContext) => {
     Logger.debug('[Magento] load review metadata');
 
     const { data } = await context.$magento.api.productReviewRatingsMetadata();

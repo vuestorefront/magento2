@@ -1,8 +1,8 @@
-import { Context } from '@vue-storefront/core';
 import { GetProductSearchParams } from '~/composables/useProduct/useProduct';
+import { VsfContext } from '~/composables/context';
 
 export const getProductListCommand = {
-  execute: async (context: Context, searchParams, customQuery = { products: 'products' }) => {
+  execute: async (context: VsfContext, searchParams, customQuery = { products: 'products' }) => {
     const result = await context
       .$magento
       .api
