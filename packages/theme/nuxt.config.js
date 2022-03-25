@@ -6,7 +6,7 @@ import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
-const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
 const {
   integrations: {
@@ -83,6 +83,7 @@ export default () => {
         },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
+        sfui: false,
       }],
       ['~/modules/magento', {
         i18n: {
@@ -191,8 +192,9 @@ export default () => {
       extractCSS: true,
       optimizeCSS: true,
       parallel: true,
-      extend(cfg, ctx) {
-        cfg.devtool = 'source-map'
+      extend(cfg) {
+        // eslint-disable-next-line no-param-reassign
+        cfg.devtool = 'source-map';
       },
       plugins: [
         new webpack.DefinePlugin({
@@ -204,19 +206,20 @@ export default () => {
         }),
         new GoogleFontsPlugin({
           fonts: [
-            { family: "Raleway", variants: ["300", "400", "500", "600", "700", "400italic"], display: "swap" },
-            { family: "Roboto", variants: ["300", "400", "500", "700", "300italic", "400italic"], display: "swap" },
+            { family: 'Raleway', variants: ['300', '400', '500', '600', '700', '400italic'], display: 'swap' },
+            { family: 'Roboto', variants: ['300', '400', '500', '700', '300italic', '400italic'], display: 'swap' },
           ],
           name: 'fonts',
           filename: 'fonts.css',
           path: 'assets/fonts/',
           local: true,
-          formats: ["eot", "woff", "woff2", "ttf", "svg"],
+          formats: ['eot', 'woff', 'woff2', 'ttf', 'svg'],
           apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
-        })
+        }),
       ],
       transpile: [
         'vee-validate',
+        /^@storefront-ui/,
       ],
     },
     plugins: [
