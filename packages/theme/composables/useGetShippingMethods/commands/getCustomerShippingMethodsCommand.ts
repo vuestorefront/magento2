@@ -1,11 +1,9 @@
-import { Context } from '@vue-storefront/core';
 import { AvailableShippingMethod } from '~/modules/GraphQL/types';
+import { VsfContext } from '~/composables/context';
 
 export const getCustomerShippingMethodsCommand = {
-  execute: async (context: Context): Promise<AvailableShippingMethod[]> => {
-    const { data } = await context.$vsf.$magento.api.getAvailableCustomerShippingMethods();
-    const hasAddresses = data.cart.shipping_addresses.length > 0;
-
-    return hasAddresses ? data?.cart?.shipping_addresses[0]?.available_shipping_methods : [];
+  execute: async (context: VsfContext): Promise<AvailableShippingMethod[]> => {
+    const { data: { customerCart: { shipping_addresses: shippingAddresses } } } = await context.$magento.api.getAvailableCustomerShippingMethods();
+    return shippingAddresses[0]?.available_shipping_methods ?? [];
   },
 };

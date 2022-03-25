@@ -1,5 +1,5 @@
 import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 
 export interface UseCategoryErrors {
   search: Error;

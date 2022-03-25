@@ -1,9 +1,9 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
 import { Cart, UpdateCartItemsInput } from '~/modules/GraphQL/types';
+import { VsfContext } from '~/composables/context';
 
 export const updateItemQtyCommand = {
-  execute: async (context: Context, {
+  execute: async (context: VsfContext, {
     currentCart,
     product,
     quantity,

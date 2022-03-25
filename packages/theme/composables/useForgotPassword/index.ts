@@ -3,7 +3,7 @@ import {
   ref,
   useContext,
 } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import {
   UseForgotPasswordResults,

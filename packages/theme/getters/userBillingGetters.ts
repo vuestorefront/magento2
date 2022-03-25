@@ -1,4 +1,4 @@
-import { UserBillingGetters as BaseGetters } from '@vue-storefront/core';
+import { UserBillingGetters as BaseGetters } from '~/getters/types';
 
 interface UserBillingGetters extends BaseGetters<any, any>{
   getNeighborhood: (address: any) => string

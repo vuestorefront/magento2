@@ -1,4 +1,4 @@
-import { ComposableFunctionArgs, ComputedProperty } from '@vue-storefront/core';
+import { ComposableFunctionArgs, ComputedProperty } from '~/composables/types';
 
 export interface UseNewsletter {
   error: ComputedProperty<UseNewsletterErrors>;

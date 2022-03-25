@@ -86,9 +86,9 @@
 </template>
 
 <script>
-import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { ref } from '@nuxtjs/composition-api';
-import { addBasePath } from '@vue-storefront/core';
+import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
+import { addBasePath } from '~/helpers/addBasePath';
 
 export default {
   components: {

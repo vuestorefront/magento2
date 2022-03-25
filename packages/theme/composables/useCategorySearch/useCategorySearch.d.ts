@@ -1,7 +1,6 @@
 import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '@vue-storefront/core';
 import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import { Category } from '~/composables/types';
+import { Category, ComposableFunctionArgs } from '~/composables/types';
 
 export interface UseCategoryErrors {
   search: Error;

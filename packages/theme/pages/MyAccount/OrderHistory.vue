@@ -164,7 +164,7 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfTabs,
   SfTable,
@@ -178,8 +178,8 @@ import {
 import {
   computed, defineComponent, ref, useRoute, useAsync,
 } from '@nuxtjs/composition-api';
-import { AgnosticOrderStatus } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
+import { AgnosticOrderStatus } from '~/composables/types';
 import { orderGetters } from '~/getters';
 import { useUiHelpers, useUserOrder } from '~/composables';
 
@@ -210,8 +210,8 @@ export default defineComponent({
 
     const orders = useAsync(async () => {
       const ordersData = await search({
-        currentPage: Number.parseInt(page, 10) || 1,
-        pageSize: Number.parseInt(itemsPerPage, 10) || 10,
+        currentPage: Number.parseInt(page as string, 10) || 1,
+        pageSize: Number.parseInt(itemsPerPage as string, 10) || 10,
       });
 
       return ordersData;

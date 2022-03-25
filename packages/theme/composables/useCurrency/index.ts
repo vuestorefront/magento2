@@ -1,12 +1,9 @@
 import {
-  Logger,
-  ComposableFunctionArgs,
-} from '@vue-storefront/core';
-
-import {
   ref, computed, useContext,
 } from '@nuxtjs/composition-api';
 import { UseCurrency, UseCurrencyErrors } from '~/composables/useCurrency/useCurrency';
+import { ComposableFunctionArgs } from '~/composables/types';
+import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 
 const useCurrency = (): UseCurrency => {

@@ -3,12 +3,10 @@ import {
   AgnosticBreadcrumb,
   AgnosticMediaGalleryItem,
   AgnosticPrice,
-  ProductGetters as ProductGettersBase,
-} from '@vue-storefront/core';
-import {
   Category,
   Product,
 } from '~/composables/types';
+import { ProductGetters as ProductGettersBase } from '~/getters/types';
 import { BundleProduct, GroupedProduct } from '~/modules/GraphQL/types';
 import { htmlDecode } from '~/helpers/htmlDecoder';
 import categoryGetters from './categoryGetters';
