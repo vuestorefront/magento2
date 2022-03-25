@@ -1,4 +1,4 @@
-import { ComposableFunctionArgs } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Ref } from '@nuxtjs/composition-api';
 
 export interface UseUserErrors {

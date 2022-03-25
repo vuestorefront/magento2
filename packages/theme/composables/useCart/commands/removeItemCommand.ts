@@ -1,11 +1,11 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
 import { Cart, RemoveItemFromCartInput } from '~/modules/GraphQL/types';
+import { VsfContext } from '~/composables/context';
 
 // TODO refactoring point
 export const removeItemCommand = {
   execute: async (
-    context: Context,
+    context: VsfContext,
     { currentCart, product },
   ) => {
     Logger.debug('[Magento]: Remove item from cart', {

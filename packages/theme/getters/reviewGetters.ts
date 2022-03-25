@@ -1,6 +1,5 @@
 /* istanbul ignore file */
-import { AgnosticRateCount } from '@vue-storefront/core';
-import { AgnosticReviewMetadata } from '~/composables/types';
+import { AgnosticReviewMetadata, AgnosticRateCount } from '~/composables/types';
 import {
   ProductInterface,
   ProductReview,

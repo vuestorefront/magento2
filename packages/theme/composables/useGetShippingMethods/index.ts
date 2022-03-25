@@ -1,6 +1,7 @@
 import {
-  ComposableFunctionArgs, Logger,
-} from '@vue-storefront/core';
+  ComposableFunctionArgs, 
+} from '~/composables/types';
+import { Logger } from '~/helpers/logger'
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { getGuestShippingMethodsCommand } from '~/composables/useGetShippingMethods/commands/getGuestShippingMethodsCommand';
 import { getCustomerShippingMethodsCommand } from '~/composables/useGetShippingMethods/commands/getCustomerShippingMethodsCommand';

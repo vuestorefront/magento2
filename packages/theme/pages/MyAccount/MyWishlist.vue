@@ -251,7 +251,7 @@ import {
   useContext,
   useAsync,
 } from '@nuxtjs/composition-api';
-import type { Product } from '~/composables/types.d';
+import type { Product } from '~/composables/types';
 import { productGetters, wishlistGetters } from '~/getters';
 import {
   useCart,

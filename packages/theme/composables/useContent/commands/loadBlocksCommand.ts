@@ -1,8 +1,7 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
-
+import { VsfContext } from '~/composables/context';
 export const loadBlocksCommand = {
-  execute: async (context: Context, params) => {
+  execute: async (context: VsfContext, params) => {
     Logger.debug('[Magento]: Load CMS Blocks content', { params });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const { data } = await context.$magento.api.cmsBlocks(params.identifiers);

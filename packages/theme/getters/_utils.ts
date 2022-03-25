@@ -1,5 +1,4 @@
-import { AgnosticAttribute } from '@vue-storefront/core';
-import { Product } from '~/composables/types';
+import { AgnosticAttribute, Product } from '~/composables/types';
 
 export const getAttributeValue = (attribute) => attribute.values;
 

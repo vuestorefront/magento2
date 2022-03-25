@@ -1,7 +1,7 @@
-import { Context } from '@vue-storefront/core';
+import { VsfContext } from '~/composables/context';
 
 export const clearCartCommand = {
-  execute: (context: Context) => {
+  execute: (context: VsfContext) => {
     context.$magento.config.state.setCartId(null);
   },
 };
