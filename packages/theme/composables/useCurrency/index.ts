@@ -2,7 +2,7 @@ import {
   ref, computed, useContext,
 } from '@nuxtjs/composition-api';
 import { UseCurrency, UseCurrencyErrors } from '~/composables/useCurrency/useCurrency';
-import { ComposableFunctionArgs } from '~/composables/types';
+import { ComposableFunctionArgs, CustomQuery } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 
@@ -13,7 +13,7 @@ const useCurrency = (): UseCurrency => {
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<{}>) => {
+  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
     error.value.load = null;
     loading.value = true;
 
@@ -32,14 +32,14 @@ const useCurrency = (): UseCurrency => {
     }
   };
 
-  const change = async (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
     error.value.change = null;
     loading.value = true;
 
     Logger.debug('useCurrency/change');
 
     try {
-      await app.$vsf.$magento.config.state.setCurrency(params.id);
+      app.$vsf.$magento.config.state.setCurrency(params.id);
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
