@@ -8,5 +8,5 @@ rootDir=$(pwd)
 for package in $(ls packages);
 do
     cd "$rootDir/packages/$package"
-    yarn precommit
+    yarn run --silent precommit
 done
