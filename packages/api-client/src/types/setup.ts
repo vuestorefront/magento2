@@ -84,6 +84,7 @@ export interface Config<T = any> extends ClientConfig {
   storage: Storage;
   customOptions?: ApolloClientOptions<any>;
   customApolloHttpLinkOptions?: HttpOptions;
+  magentoApiEndpoint: string;
   overrides: MagentoApiMethods;
   recaptcha: RecaptchaConfig;
 }
