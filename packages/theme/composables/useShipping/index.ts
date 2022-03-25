@@ -1,5 +1,5 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
 import { UseShippingInterface, ShippingCartAddress } from '~/composables/useShipping/useShipping';
 

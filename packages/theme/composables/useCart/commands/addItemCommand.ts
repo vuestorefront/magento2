@@ -1,4 +1,5 @@
-import { Context, Logger } from '@vue-storefront/core';
+import { Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { AddProductsToCartInput } from '~/composables/useCart/useCart';
 import {
   AddConfigurableProductsToCartInput,

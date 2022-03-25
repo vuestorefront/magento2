@@ -1,4 +1,5 @@
-import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
+import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { Cart } from '~/modules/GraphQL/types';
 
 export const loadCartCommand = {

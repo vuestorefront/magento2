@@ -1,5 +1,6 @@
-import { Context, Logger } from '@vue-storefront/core';
-import {CreateProductReviewInput } from '~/modules/GraphQL/types';
+import { Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
+import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 export const addReviewCommand = {

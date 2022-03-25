@@ -1,5 +1,5 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { UseUserAddressErrors } from '~/composables/useUserAddress/useUserAddress';
 import { useUser } from '~/composables';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
