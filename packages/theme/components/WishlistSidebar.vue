@@ -177,11 +177,12 @@ import {
   SfLoader,
   SfImage,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, onMounted } from '@nuxtjs/composition-api';
+import { computed, defineComponent, onMounted, ref } from '@nuxtjs/composition-api';
 import { wishlistGetters, productGetters } from '~/getters';
 import {
   useUiState, useImage, useWishlist, useUser,
 } from '~/composables';
+import { useCustomerStore } from '../stores/customer';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -201,9 +202,11 @@ export default defineComponent({
   setup() {
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const {
-      wishlist, removeItem, load: loadWishlist, loading,
+      removeItem, load: loadWishlist, loading,
     } = useWishlist();
     const { isAuthenticated } = useUser();
+    const customerStore = useCustomerStore();
+    const wishlist = ref({});
     const products = computed(
       () => wishlistGetters.getProducts(wishlist.value) ?? [],
     );
@@ -220,8 +223,14 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(() => {
-      if (!wishlist.value.id) {
-        loadWishlist();
+      if (!customerStore.wishlist.id) {
+        // eslint-disable-next-line promise/catch-or-return
+        loadWishlist()
+          .then((response) => {
+            wishlist.value = response;
+
+            return response;
+          });
       }
     });
 

@@ -9,8 +9,7 @@
   </div>
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api';
-import { onSSR } from '@vue-storefront/core';
+import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
 import { useContent } from '~/composables';
 import ContentBlock from './ContentBlock';
 
@@ -27,12 +26,14 @@ export default defineComponent({
   },
   setup(props) {
     const {
-      blocks,
       loadBlocks,
     } = useContent();
+    const blocks = ref([]);
 
-    onSSR(async () => {
-      if (props.identifiers) await loadBlocks(props.identifiers);
+    useFetch(async () => {
+      if (props.identifiers) {
+        blocks.value = await loadBlocks(props.identifiers);
+      }
     });
 
     return {

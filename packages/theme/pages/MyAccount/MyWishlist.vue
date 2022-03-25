@@ -231,8 +231,7 @@
   </SfTabs>
 </template>
 
-<script>
-import { onSSR } from '@vue-storefront/core';
+<script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfLoader,
@@ -243,7 +242,6 @@ import {
   SfPagination,
   SfSelect,
   SfProperty,
-  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -251,7 +249,9 @@ import {
   useRouter,
   useRoute,
   useContext,
+  useAsync,
 } from '@nuxtjs/composition-api';
+import type { Product } from '~/composables/types.d';
 import { productGetters, wishlistGetters } from '~/getters';
 import {
   useCart,
@@ -273,13 +273,12 @@ export default defineComponent({
     SfPagination,
     SfSelect,
     SfProperty,
-    SfImage,
     LazyHydrate,
     SvgImage,
   },
   setup() {
     const {
-      load, loading, wishlist, removeItem,
+      load, loading, removeItem,
     } = useWishlist();
     const route = useRoute();
     const { app } = useContext();
@@ -290,11 +289,21 @@ export default defineComponent({
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
+    const wishlist = useAsync(async () => {
+      const wishlistData = await load({
+        searchParams: {
+          currentPage: page ? Number.parseInt(page.toString(), 10) : 1,
+          pageSize: itemsPerPage ? Number.parseInt(itemsPerPage.toString(), 10) : 10,
+        },
+      });
+
+      return wishlistData;
+    });
 
     const products = computed(() => wishlistGetters.getProducts(wishlist.value));
     const pagination = computed(() => wishlistGetters.getPagination(wishlist.value[0]));
 
-    const addItemToCart = async ({ product, quantity }) => {
+    const addItemToCart = async ({ product, quantity }: { product: Product, quantity: number }) => {
       // eslint-disable-next-line no-underscore-dangle
       const productType = product.__typename;
 
@@ -324,15 +333,6 @@ export default defineComponent({
     };
 
     const { getMagentoImage, imageSizes } = useImage();
-
-    onSSR(async () => {
-      await load({
-        searchParams: {
-          currentPage: Number.parseInt(page, 10) || 1,
-          pageSize: Number.parseInt(itemsPerPage, 10) || 10,
-        },
-      });
-    });
 
     return {
       ...uiState,

@@ -31,7 +31,7 @@ export interface UseWishlistErrors {
  */
 export type UseWishlist = {
   wishlist: Ref<Wishlist>,
-  loadItemsCount(params: ComposableFunctionArgs<{}>): Promise<void>;
+  loadItemsCount(params: ComposableFunctionArgs<{}>): Promise<number | null>;
   isInWishlist: (params: { currentWishlist: any; product: any }) => boolean;
   addItem: (
     params: ComposableFunctionArgs<{
@@ -42,7 +42,7 @@ export type UseWishlist = {
       currentPage: number;
       pageSize: number;
     }>,
-  }>) => Promise<void>;
+  }>) => Promise<Wishlist>;
   removeItem: (
     params: ComposableFunctionArgs<{
       product: any; // TODO: add product intrface

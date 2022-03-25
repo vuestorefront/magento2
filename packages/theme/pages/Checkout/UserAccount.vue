@@ -134,13 +134,14 @@ import {
   SfButton,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
 import {
   ref,
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted,
+  useContext,
+  useFetch,
+  onMounted,
 } from '@nuxtjs/composition-api';
 import {
   required, min, email,
@@ -150,7 +151,7 @@ import {
   useUiNotification, useUser, useGuestUser, useCart,
 } from '~/composables';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
 
 extend('required', {
   ...required,
@@ -278,7 +279,7 @@ export default defineComponent({
       }
     };
 
-    onSSR(async () => {
+    useFetch(async () => {
       await load();
       if (isAuthenticated.value) {
         form.value.firstname = user.value.firstname;
