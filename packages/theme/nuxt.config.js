@@ -83,6 +83,7 @@ export default () => {
         },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
+        ssr: false,
         sfui: false,
       }],
       ['~/modules/magento', {

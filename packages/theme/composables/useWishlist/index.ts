@@ -1,4 +1,4 @@
-import { computed, ref, useContext } from '@nuxtjs/composition-api';
+import { ref, useContext } from '@nuxtjs/composition-api';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
 import { UseWishlist, UseWishlistErrors, Wishlist } from '~/composables/useWishlist/useWishlist';
@@ -9,7 +9,7 @@ export const useWishlist = (): UseWishlist => {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const loading = ref(false);
-  const wishlist = computed(() => customerStore.wishlist);
+  const wishlist = ref(customerStore.wishlist);
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
   const error = ref<UseWishlistErrors>({
@@ -29,6 +29,7 @@ export const useWishlist = (): UseWishlist => {
     // eslint-disable-next-line consistent-return
   }) => {
     Logger.debug('useWishlist/load');
+
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.load params->', params);
@@ -41,7 +42,7 @@ export const useWishlist = (): UseWishlist => {
         const loadedWishlist = data?.customer?.wishlists ?? [];
         customerStore.wishlist = loadedWishlist[0] ?? {};
 
-        return;
+        return customerStore.wishlist;
       }
 
       customerStore.$patch((state) => {
@@ -100,9 +101,10 @@ export const useWishlist = (): UseWishlist => {
     }
   };
 
-  const loadItemsCount = async (): Promise<void> => {
+  const loadItemsCount = async (): Promise<number | null> => {
     Logger.debug('useWishlist/wishlistItemsCount');
     const apiState = app.context.$vsf.$magento.config.state;
+    let itemsCount = null;
 
     try {
       loading.value = true;
@@ -112,8 +114,9 @@ export const useWishlist = (): UseWishlist => {
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
+        itemsCount = calculateWishlistTotal(loadedWishlist);
         customerStore.$patch((state) => {
-          state.wishlist = { items_count: calculateWishlistTotal(loadedWishlist) };
+          state.wishlist = { items_count: itemsCount };
         });
       }
     } catch (err) {
@@ -122,6 +125,8 @@ export const useWishlist = (): UseWishlist => {
     } finally {
       loading.value = false;
     }
+
+    return itemsCount;
   };
 
   // eslint-disable-next-line consistent-return
