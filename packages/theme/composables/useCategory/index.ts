@@ -1,5 +1,5 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import {
   UseCategory, UseCategoryErrors, CategoryListQueryVariables,
 } from '~/composables/useCategory/useCategory';

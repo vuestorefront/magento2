@@ -1,4 +1,4 @@
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe, SetBillingAddressOnCartInput } from '~/modules/GraphQL/types';
 
 export const saveBillingAddressCommand = {

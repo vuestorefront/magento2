@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
+import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { UseReviewErrors } from './useReview';
 import { addReviewCommand } from './commands/addReviewCommand';

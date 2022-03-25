@@ -1,4 +1,4 @@
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
 
 export const attachToCartCommand = {

@@ -1,5 +1,5 @@
 import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { Maybe, UrlResolverQuery } from '~/modules/GraphQL/types';
 
 export const useUrlResolver = () => {
