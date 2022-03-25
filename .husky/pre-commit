@@ -1,12 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-rootDir=$(pwd)
-
-# lint-staged cannot run in parallel cuz git, so we manually loop over
-# each package and run the precommit command
-for package in $(ls packages);
-do
-    cd "$rootDir/packages/$package"
-    yarn run --silent precommit
-done
+yarn run --silent lint-staged
