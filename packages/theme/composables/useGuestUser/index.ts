@@ -1,5 +1,6 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, Logger } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { AttachToCartParams, UseGuestUser, UseGuestUserErrors } from '~/composables/useGuestUser/useGuestUser';
 import { attachToCartCommand } from '~/composables/useGuestUser/commands/attachToCartCommand';
 

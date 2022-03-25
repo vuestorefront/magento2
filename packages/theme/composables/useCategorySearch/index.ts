@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ref, Ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import { UseCategoryErrors, UseCategorySearch } from '~/composables/useCategorySearch/useCategorySearch';
 import { Category } from '~/composables/types';

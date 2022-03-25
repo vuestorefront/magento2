@@ -1,4 +1,5 @@
-import { ComposableFunctionArgs, Context, Logger } from '@vue-storefront/core';
+import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { CustomerProductReviewParams } from '~/composables/types';
 
 export const loadCustomerReviewsCommand = {

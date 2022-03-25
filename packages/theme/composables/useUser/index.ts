@@ -1,7 +1,8 @@
 import {
   Ref, ref, computed, useContext,
 } from '@nuxtjs/composition-api';
-import { Logger, mask } from '@vue-storefront/core';
+import { mask } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/stores/customer';
 import { generateUserData } from '~/helpers/customer/userDataGenerator';
 import { UseUser } from '~/composables/useUser/useUser';

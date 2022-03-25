@@ -1,5 +1,5 @@
 import { ref, computed, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '@vue-storefront/core';
+import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { UseCartInterface, UseCartErrors } from '~/composables/useCart/useCart';
 import { useCustomerStore } from '~/stores/customer';
