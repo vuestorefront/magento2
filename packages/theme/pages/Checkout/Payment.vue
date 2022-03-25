@@ -126,7 +126,7 @@
           <template #label>
             <div class="sf-checkbox__label">
               {{ $t('I agree to') }}
-              <SfLink href="#">
+              <SfLink link="#">
                 {{ $t('Terms and conditions') }}
               </SfLink>
             </div>
