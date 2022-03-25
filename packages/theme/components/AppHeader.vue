@@ -165,20 +165,21 @@ export default defineComponent({
     const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
-    const { loadItemsCount: loadWishlistItemsCount, wishlist } = useWishlist();
+    const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
 
     const { categories: categoryList, search: categoriesListSearch } = useCategory('AppHeader:CategoryList');
 
     const isSearchOpen = ref(false);
     const result = ref(null);
+    const wishlistItemsQty = ref(null);
 
-    const wishlistHasProducts = computed(() => wishlist.value.items_count > 0);
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
     const categoryTree = ref([]);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(`${app.localePath('/my-account/my-profile')}`);
       } else {
         toggleLoginModal();
       }
@@ -194,7 +195,13 @@ export default defineComponent({
     onMounted(() => {
       if (app.$device.isDesktop) {
         loadCartTotalQty();
-        loadWishlistItemsCount();
+        // eslint-disable-next-line promise/catch-or-return
+        loadWishlistItemsCount()
+          .then((response) => {
+            wishlistItemsQty.value = response;
+
+            return response;
+          });
       }
     });
 
@@ -211,7 +218,7 @@ export default defineComponent({
       toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
-      wishlistItemsQty: computed(() => wishlist.value?.items_count ?? 0),
+      wishlistItemsQty,
     };
   },
 });
