@@ -1,6 +1,7 @@
-import { AgnosticFacetSearchParams, ComposableFunctionArgs } from '@vue-storefront/core';
 import { Ref } from '@nuxtjs/composition-api';
-import { Category, Product, Filter } from '~/composables/types';
+import {
+  Category, Product, Filter, AgnosticFacetSearchParams, ComposableFunctionArgs,
+} from '~/composables/types';
 import { ProductAttributeFilterInput, ProductAttributeSortInput } from '~/modules/GraphQL/types';
 
 export interface FacetResultsData {

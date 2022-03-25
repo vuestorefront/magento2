@@ -72,7 +72,7 @@
 import {
   SfFooter, SfList, SfImage, SfMenuItem,
 } from '@storefront-ui/vue';
-import { addBasePath } from '@vue-storefront/core';
+import { addBasePath } from '~/helpers/addBasePath';
 
 export default {
   components: {

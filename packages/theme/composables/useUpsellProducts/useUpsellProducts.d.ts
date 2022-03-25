@@ -1,10 +1,6 @@
-import { ComposableFunctionArgs, ProductsSearchParams } from '@vue-storefront/core';
 import { Ref } from '@nuxtjs/composition-api';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  Maybe,
-  UpsellProductsQuery,
-} from '~/modules/GraphQL/types';
+import { Maybe, UpsellProductsQuery } from '~/modules/GraphQL/types';
+import { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
 
 export interface UseUpsellProductsError {
   search: Error | null;

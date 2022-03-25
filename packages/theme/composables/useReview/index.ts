@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, Context } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { UseReviewErrors } from './useReview';
@@ -20,7 +20,7 @@ export const useReview = () => {
   });
 
   const { app } = useContext();
-  const context = app.$vsf as Context;
+  const context = app.$vsf;
 
   const search = async (searchParams: ComposableFunctionArgs<GetProductSearchParams>) => {
     Logger.debug('useReview/search', searchParams);

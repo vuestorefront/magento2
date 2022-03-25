@@ -1,4 +1,4 @@
-import { ComposableFunctionArgs } from '@vue-storefront/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Ref } from '@nuxtjs/composition-api';
 import {
   Maybe, Scalars, WishlistItem, WishlistItems,

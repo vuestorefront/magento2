@@ -1,5 +1,5 @@
-import { ComposableFunctionArgs } from '@vue-storefront/core';
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Currency } from '~/modules/GraphQL/types';
 
 export interface UseCurrencyErrors {

@@ -1,7 +1,6 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
-import {
-  AgnosticFacetSearchParams, ComposableFunctionArgs, Logger, ProductsSearchParams,
-} from '@vue-storefront/core';
+import { AgnosticFacetSearchParams, ProductsSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import { Logger } from '~/helpers/logger';
 import {
   FacetSearchResult, UseFacet, UseFacetErrors, GetProductSearchParams,
 } from './useFacet';

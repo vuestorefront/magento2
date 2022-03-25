@@ -1,9 +1,10 @@
 /* istanbul ignore file */
 import {
-  WishlistGetters as BaseWishlistGetters,
   AgnosticPrice,
   AgnosticTotals, AgnosticPagination,
-} from '@vue-storefront/core';
+} from '~/composables/types';
+
+import { WishlistGetters as BaseWishlistGetters } from '~/getters/types';
 import { Wishlist, WishlistQuery } from '~/modules/GraphQL/types';
 
 export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };

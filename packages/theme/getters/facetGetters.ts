@@ -1,12 +1,13 @@
 import {
-  FacetsGetters,
   AgnosticCategoryTree,
   AgnosticGroupedFacet,
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
   AgnosticFacet,
-} from '@vue-storefront/core';
+} from '~/composables/types';
+
+import { FacetsGetters } from '~/getters/types';
 import { SearchData } from '~/composables/useFacet/useFacet';
 
 import {

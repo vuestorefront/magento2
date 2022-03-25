@@ -1,10 +1,10 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { CustomQuery } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
+import cookieNames from '~/enums/cookieNameEnum';
+import { CustomQuery } from '~/composables/types';
+import { useCustomerStore } from '~/stores/customer';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
 import { UseWishlist, UseWishlistErrors, Wishlist } from '~/composables/useWishlist/useWishlist';
-import { useCustomerStore } from '~/stores/customer';
-import cookieNames from '~/enums/cookieNameEnum';
 
 export const useWishlist = (): UseWishlist => {
   const customerStore = useCustomerStore();

@@ -1,6 +1,5 @@
 import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '@vue-storefront/core';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { ComposableFunctionArgs } from '~/types/core';
 import { CustomerAddress } from '~/modules/GraphQL/types';
 
 export type UseAddressesErrors = {

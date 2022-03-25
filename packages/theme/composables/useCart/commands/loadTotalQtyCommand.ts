@@ -1,8 +1,8 @@
-import { Context } from '@vue-storefront/core';
 import { Logger } from '~/helpers/logger';
+import { VsfContext } from '~/composables/context';
 
 export const loadTotalQtyCommand = {
-  execute: async (context: Context) => {
+  execute: async (context: VsfContext) => {
     Logger.debug('[Magento]: Load cart total qty');
 
     const apiState = context.$magento.config.state;

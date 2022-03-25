@@ -1,6 +1,5 @@
-import { ComposableFunctionArgs, ProductsSearchParams } from '@vue-storefront/core';
+import { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
 import { Ref } from '@nuxtjs/composition-api';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { RelatedProductQuery } from '~/modules/GraphQL/types';
 
 export interface UseRelatedProductsError {
