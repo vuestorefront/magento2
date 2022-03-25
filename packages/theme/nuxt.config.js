@@ -99,7 +99,6 @@ export default () => {
       }],
       '@nuxt/image',
       '@pinia/nuxt',
-      '~/modules/context',
     ],
     modules: [
       '~/modules/catalog',
