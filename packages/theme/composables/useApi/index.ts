@@ -9,7 +9,7 @@ export const useApi = () => {
   const magentoConfig = app.$vsf.$magento.config;
   // TODO remove once we remove apollo client
   const { useGETForQueries } = magentoConfig.customApolloHttpLinkOptions;
-  const defaultEndpoint = magentoConfig.magentoApiEndpoint as string;
+  const defaultEndpoint = magentoConfig.magentoApiEndpoint;
   const defaultHeaders: {
     authorization?: string,
     store?: string
