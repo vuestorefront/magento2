@@ -67,23 +67,19 @@ export default () => {
       '@nuxtjs/style-resources',
       '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
-        // @core-development-only-start
-        coreDevelopment: true,
-        // @core-development-only-end
-        useRawSource: {
-          dev: [
-            '@vue-storefront/core',
-          ],
-          prod: [
-            '@vue-storefront/core',
-          ],
-        },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
         logger: false,
         ssr: false,
         sfui: false,
         i18nExtension: false,
+        e2e: true,
+        performance: {
+          httpPush: false,
+          purgeCSS: {
+            enabled: false,
+          },
+        },
       }],
       ['~/modules/magento', {
         cookies,
