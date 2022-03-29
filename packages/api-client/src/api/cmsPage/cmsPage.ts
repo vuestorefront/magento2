@@ -8,6 +8,7 @@ export default gql`
       title,
       meta_title
       meta_description
+      meta_keywords
       content_heading
     }
   }

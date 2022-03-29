@@ -59,7 +59,7 @@ export default defineComponent({
         return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') });
       }
 
-      addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
+      return addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
     });
     return {
       page,
@@ -80,6 +80,15 @@ export default defineComponent({
         content: this.page.meta_description,
       });
     }
+
+    if (this.page.meta_keywords) {
+      meta.push({
+        hid: 'keywords',
+        name: 'keywords',
+        content: this.page.meta_keywords,
+      });
+    }
+
     return {
       title,
       meta,
