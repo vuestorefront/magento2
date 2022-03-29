@@ -154,7 +154,7 @@
         <br>
         <SfLink
           class="message__link"
-          href="#"
+          link="#"
         >
           https://github.com/vuestorefront/magento2/projects/5
         </SfLink>
