@@ -43,6 +43,8 @@ const useStore: UseStore = (): UseStoreInterface => {
       app.$vsf.$magento.config.state.setStore(storeConfigGetters.getCode(store));
       app.$vsf.$magento.config.state.setCurrency(storeConfigGetters.getCurrency(store));
       app.$vsf.$magento.config.state.setLocale(storeConfigGetters.getCode(store));
+      const newStoreUrl = app.switchLocalePath(storeConfigGetters.getCode(store));
+      window.location.replace(newStoreUrl);
     } catch (err) {
       error.value.change = err;
     }

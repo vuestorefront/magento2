@@ -14,11 +14,7 @@
         <a
           href="/"
           :class="selectedCurrency === currency ? 'container__currency--selected-label' : ''"
-          @click.prevent="handleChanges({
-            callback: () => changeCurrency({id: currency}),
-            redirect: false,
-            refresh: true
-          })"
+          @click.prevent="changeCurrency({id: currency})"
         >
           <SfCharacteristic class="currency">
             <template #title>
@@ -42,7 +38,6 @@ import {
 import {
   useCurrency,
 } from '~/composables';
-import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
   name: 'CurrenciesModal',
@@ -63,8 +58,6 @@ export default defineComponent({
       load: loadCurrencies,
     } = useCurrency();
 
-    const { handleChanges } = useHandleChanges();
-
     const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
 
     onMounted(() => {
@@ -74,7 +67,6 @@ export default defineComponent({
 
     return {
       changeCurrency,
-      handleChanges,
       availableCurrencies,
     };
   },

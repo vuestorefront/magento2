@@ -83,11 +83,9 @@ export default () => {
         logger: false,
         ssr: false,
         sfui: false,
+        i18nExtension: false,
       }],
       ['~/modules/magento', {
-        i18n: {
-          useNuxtI18nConfig: true,
-        },
         cookies,
         externalCheckout,
         defaultStore,
@@ -149,11 +147,6 @@ export default () => {
         },
       ],
       defaultLocale: 'default',
-      autoChangeCookie: {
-        currency: false,
-        locale: false,
-        country: false,
-      },
       lazy: true,
       seo: true,
       langDir: 'lang/',
