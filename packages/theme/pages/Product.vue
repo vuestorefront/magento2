@@ -558,6 +558,30 @@ export default defineComponent({
       updateProductConfiguration,
     };
   },
+  head() {
+    const meta = [];
+
+    if (this.product.meta_description) {
+      meta.push({
+        hid: 'description',
+        name: 'description',
+        content: this.product.meta_description,
+      });
+    }
+
+    if (this.product.meta_keyword) {
+      meta.push({
+        hid: 'keywords',
+        name: 'keywords',
+        content: this.product.meta_keyword,
+      });
+    }
+
+    return {
+      title: this.product.meta_title,
+      meta,
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>
