@@ -1,26 +1,24 @@
 import { defaultConfig } from '~/modules/magento/defaultConfig';
 
-export const getLocaleSettings = (app, moduleOptions) => {
-  let localeSettings : Record<string, string> = {};
-
-  if (moduleOptions.cookies) {
-    localeSettings = {
-      locale: app.$cookies.get(moduleOptions.cookies.localeCookieName),
-      country: app.$cookies.get(moduleOptions.cookies.countryCookieName),
-      currency: app.$cookies.get(moduleOptions.cookies.currencyCookieName),
-    };
-  }
+export const getLocaleSettings = (app, moduleOptions, additionalProperties) => {
+  const localeSettings = moduleOptions.cookies
+    ? {
+      currency: additionalProperties.state.getCurrency(),
+      locale: additionalProperties.state.getLocale(),
+      country: additionalProperties.state.getCountry(),
+    }
+    : {};
 
   return {
-    locale: app.i18n.locale || (localeSettings.locale || moduleOptions.locale || defaultConfig.locale || undefined),
-    country: localeSettings.country || moduleOptions.country || defaultConfig.country || undefined,
     currency: localeSettings.currency || moduleOptions.currency || defaultConfig.currency || undefined,
+    locale: app.i18n.locale || localeSettings.locale || moduleOptions.locale || defaultConfig.locale || undefined,
+    country: localeSettings.country || moduleOptions.country || defaultConfig.country || undefined,
   };
 };
 
-export const mapConfigToSetupObject = ({ moduleOptions, app, additionalProperties = {} }) => ({
+export const mapConfigToSetupObject = ({ app, moduleOptions, additionalProperties = {} }) => ({
   ...defaultConfig,
   ...moduleOptions,
   ...additionalProperties,
-  ...getLocaleSettings(app, moduleOptions),
+  ...getLocaleSettings(app, moduleOptions, additionalProperties),
 });

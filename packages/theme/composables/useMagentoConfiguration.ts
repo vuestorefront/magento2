@@ -2,7 +2,6 @@ import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import { StoreConfig } from '~/modules/GraphQL/types';
 import { storeConfigGetters } from '~/getters';
 
-import cookieNames from '~/enums/cookieNameEnum';
 import { useConfig } from '~/composables';
 
 type UseMagentoConfiguration = () => {
@@ -22,9 +21,9 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
     load: loadConfig,
   } = useConfig();
 
-  const selectedCurrency = computed<string | undefined>(() => app.$cookies.get(cookieNames.currencyCookieName));
-  const selectedLocale = computed<string | undefined>(() => app.$cookies.get(cookieNames.localeCookieName));
-  const selectedStore = computed<string | undefined>(() => app.$cookies.get(cookieNames.storeCookieName));
+  const selectedCurrency = computed<string | undefined>(() => app.$vsf.$magento.config.state.getCurrency());
+  const selectedLocale = computed<string | undefined>(() => app.$vsf.$magento.config.state.getLocale());
+  const selectedStore = computed<string | undefined>(() => app.$vsf.$magento.config.state.getStore());
 
   const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => void = (params = {
     updateCookies: false,
@@ -37,25 +36,19 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
 
     // eslint-disable-next-line promise/catch-or-return
     loadConfig().then(() => {
-      if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.storeCookieName,
-          storeConfigGetters.getCode(storeConfig.value as StoreConfig),
-        );
+      if (!app.$vsf.$magento.config.state.getStore() || updateCookies) {
+        // @ts-ignore
+        app.$vsf.$magento.config.state.setStore(storeConfig.value);
       }
 
-      if (!app.$cookies.get(cookieNames.localeCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.localeCookieName,
-          storeConfigGetters.getCode(storeConfig.value as StoreConfig),
-        );
+      if (!app.$vsf.$magento.config.state.getLocale() || updateCookies) {
+        // @ts-ignore
+        app.$vsf.$magento.config.state.setLocale(storeConfig.value);
       }
 
-      if (!app.$cookies.get(cookieNames.currencyCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.currencyCookieName,
-          storeConfigGetters.getCurrency(storeConfig.value as StoreConfig),
-        );
+      if (!app.$vsf.$magento.config.state.getCurrency() || updateCookies) {
+        // @ts-ignore
+        app.$vsf.$magento.config.state.setCurrency(storeConfig.value);
       }
 
       if (updateLocale) {

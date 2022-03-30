@@ -1,17 +1,17 @@
 import { computed, reactive, useContext } from '@nuxtjs/composition-api';
-import cookieNames from '~/enums/cookieNameEnum';
 
-interface UiNotification {
+type UiNotificationType = 'secondary' | 'info' | 'success' | 'warning' | 'danger';
+
+export interface UiNotification {
   message: string;
   title?: string;
   action?: { text: string; onClick: (...args: any) => void };
-  type: 'danger' | 'success' | 'info';
+  type: UiNotificationType;
   icon: string;
   persist?: boolean;
   id: symbol;
   dismiss?: () => void;
 }
-
 interface Notifications {
   notifications: Array<UiNotification>;
 }
@@ -24,7 +24,7 @@ const timeToLive = 3000;
 
 const useUiNotification = () => {
   const { app } = useContext();
-  const cookieMessage: UiNotification = app.$cookies.get(cookieNames.messageCookieName);
+  const cookieMessage = app.$vsf.$magento.config.state.getMessage<UiNotification>();
 
   const send = (notification: UiNotification) => {
     const id = Symbol('id');
@@ -34,7 +34,7 @@ const useUiNotification = () => {
 
       if (index !== -1) state.notifications.splice(index, 1);
 
-      app.$cookies.remove(cookieNames.messageCookieName);
+      app.$vsf.$magento.config.state.setMessage();
     };
 
     const newNotification = {
@@ -58,7 +58,7 @@ const useUiNotification = () => {
 
   if (cookieMessage) {
     send(cookieMessage);
-    app.$cookies.remove(cookieNames.messageCookieName);
+    app.$vsf.$magento.config.state.setMessage();
   }
 
   return {

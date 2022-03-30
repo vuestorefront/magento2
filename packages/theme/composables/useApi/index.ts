@@ -1,12 +1,11 @@
 import { useContext } from '@nuxtjs/composition-api';
 import { request as graphQLRequest, GraphQLClient } from 'graphql-request';
-import cookieNames from '~/enums/cookieNameEnum';
 
 export const useApi = () => {
   const { app } = useContext();
-  const customerToken = app.$cookies.get(cookieNames.customerCookieName);
-  const storeCode = app.$cookies.get(cookieNames.storeCookieName);
-  const currency = app.$cookies.get(cookieNames.currencyCookieName);
+  const customerToken = app.$vsf.$magento.config.state.getCustomerToken();
+  const storeCode = app.$vsf.$magento.config.state.getStore();
+  const currency = app.$vsf.$magento.config.state.getCurrency();
   const magentoConfig = app.$vsf.$magento.config;
   // TODO remove once we remove apollo client
   const { useGETForQueries } = magentoConfig.customApolloHttpLinkOptions;

@@ -23,6 +23,9 @@ export const defaultSettings: ClientConfig = {
     setLocale: () => {},
     getCountry: () => '',
     setCountry: () => {},
+    setMessage: () => {},
+    // @ts-ignore
+    getMessage: () => ({}),
   },
   externalCheckout: {
     enable: false,

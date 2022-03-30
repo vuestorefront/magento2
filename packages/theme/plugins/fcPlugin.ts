@@ -1,5 +1,5 @@
-import cookieNames from '~/enums/cookieNameEnum';
 import formatCurrency from '~/helpers/formatCurrency';
+import { Plugin } from '@nuxt/types';
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -9,12 +9,14 @@ declare module 'vue/types/vue' {
   }
 }
 
-export default ({ i18n, app }, inject) => {
+const plugin : Plugin = (context, inject) => {
   inject('fc', (value: number | string, locale?: string, options = {}): string => {
     // eslint-disable-next-line no-param-reassign
-    locale = locale || i18n?.localeProperties?.iso.replace('_', '-');
+    locale = locale || context.i18n?.localeProperties?.iso.replace('_', '-');
     // eslint-disable-next-line no-param-reassign
-    options = { currency: app.$cookies.get(cookieNames.currencyCookieName) || i18n?.localeProperties?.defaultCurrency, ...options };
+    options = { currency: context.app.$vsf.$magento.config.state.getCurrency() || context.i18n?.localeProperties?.defaultCurrency, ...options };
     return formatCurrency(value, locale, options);
   });
 };
+
+export default plugin;

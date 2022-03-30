@@ -1,6 +1,5 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import cookieNames from '~/enums/cookieNameEnum';
 import { CustomQuery } from '~/composables/types';
 import { useCustomerStore } from '~/stores/customer';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
@@ -156,7 +155,7 @@ export const useWishlist = (): UseWishlist => {
         });
       }
 
-      if (!app.context.$cookies.get(cookieNames.customerCookieName)) { // TODO: replace by value from pinia store after sueCart composable will be refactored
+      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after sueCart composable will be refactored
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 

@@ -1,58 +1,66 @@
+import type { NuxtCookies } from 'cookie-universal-nuxt';
 import { integrationPlugin } from '~/helpers/integrationPlugin';
 import { mapConfigToSetupObject } from '~/modules/magento/helpers';
 import { defaultConfig } from '~/modules/magento/defaultConfig';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
-// TODO should be moved to THEME and expose consistent cookie management API
 export default integrationPlugin((plugin) => {
-  const cartCookieName : string = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
-  const customerCookieName : string = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;
-  const storeCookieName : string = moduleOptions.cookies?.storeCookieName || defaultConfig.cookies.storeCookieName;
-  const currencyCookieName : string = moduleOptions.cookies?.currencyCookieName || defaultConfig.cookies.currencyCookieName;
-  const localeCookieName : string = moduleOptions.cookies?.localeCookieName || defaultConfig.cookies.localeCookieName;
-  const countryCookieName : string = moduleOptions.cookies?.countryCookieName || defaultConfig.cookies.countryCookieName;
+  const getCookieName = (property: string) : string => moduleOptions.cookies?.[property] ?? defaultConfig.cookies[property];
+
+  const cookieNames = {
+    cart: getCookieName('cartCookieName'),
+    customer: getCookieName('customerCookieName'),
+    currency: getCookieName('currencyCookieName'),
+    store: getCookieName('storeCookieName'),
+    locale: getCookieName('localeCookieName'),
+    country: getCookieName('countryCookieName'),
+    message: getCookieName('messageCookieName'),
+  };
 
   const { $cookies } = plugin.app;
 
-  const getCartId = () => $cookies.get(cartCookieName);
-  const setCartId = (id: string) => (!id ? $cookies.remove(cartCookieName) : $cookies.set(cartCookieName, id));
+  const createCookieOperationsInstance = (cookies: NuxtCookies) => (cookieName: string) => ({
+    get: () => cookies.get(cookieName),
+    set: (value: string) => (value
+      ? cookies.set(cookieName, value)
+      : cookies.remove(cookieName)),
+  });
+  const createCookieOperations = createCookieOperationsInstance($cookies);
 
-  const getCustomerToken = () => $cookies.get(customerCookieName);
-  const setCustomerToken = (token: string) => (!token ? $cookies.remove(customerCookieName) : $cookies.set(customerCookieName, token));
-
-  const getStore = () => $cookies.get(storeCookieName);
-  const setStore = (store: string) => (!store ? $cookies.remove(storeCookieName) : $cookies.set(storeCookieName, store));
-
-  const getCurrency = () => $cookies.get(currencyCookieName);
-  const setCurrency = (currency: string) => (!currency ? $cookies.remove(currencyCookieName) : $cookies.set(currencyCookieName, currency));
-
-  const getLocale = () => $cookies.get(localeCookieName);
-  const setLocale = (locale: string) => (!locale ? $cookies.remove(localeCookieName) : $cookies.set(localeCookieName, locale));
-
-  const getCountry = () => $cookies.get(countryCookieName);
-  const setCountry = (country: string) => (!country ? $cookies.remove(countryCookieName) : $cookies.set(countryCookieName, country));
+  const { get: getCartId, set: setCartId } = createCookieOperations(cookieNames.cart);
+  const { get: getCustomerToken, set: setCustomerToken } = createCookieOperations(cookieNames.customer);
+  const { get: getStore, set: setStore } = createCookieOperations(cookieNames.store);
+  const { get: getCurrency, set: setCurrency } = createCookieOperations(cookieNames.currency);
+  const { get: getLocale, set: setLocale } = createCookieOperations(cookieNames.locale);
+  const { get: getCountry, set: setCountry } = createCookieOperations(cookieNames.country);
+  const { get: getMessage, set: setMessage } = createCookieOperations(cookieNames.message);
 
   const settings = mapConfigToSetupObject({
     moduleOptions,
     app: plugin.app,
     additionalProperties: {
       state: {
-        // Cart
         getCartId,
         setCartId,
-        // Customer
+
         getCustomerToken,
         setCustomerToken,
-        // Store
+
         getStore,
         setStore,
+
         getCurrency,
         setCurrency,
+
         getLocale,
         setLocale,
+
         getCountry,
         setCountry,
+
+        getMessage,
+        setMessage,
       },
     },
   });

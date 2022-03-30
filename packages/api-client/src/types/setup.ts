@@ -48,6 +48,8 @@ export type ConfigState = {
   setLocale(id?: string | null): void;
   getCountry(): string;
   setCountry(id?: string | null): void;
+  getMessage<T>(): T;
+  setMessage<T>(id?: T | null): void;
 };
 
 export interface ClientConfig {
