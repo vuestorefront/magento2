@@ -28,14 +28,14 @@
         {{ $t('Read and understand') }}
         <SfLink
           class="notice__link"
-          href="#"
+          link="#"
         >
           {{ $t('Privacy') }}
         </SfLink>
         and
         <SfLink
           class="notice__link"
-          href="#"
+          link="#"
         >
           {{ $t('Cookies Policy') }}
         </SfLink>

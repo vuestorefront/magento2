@@ -300,8 +300,8 @@ export default defineComponent({
       return wishlistData;
     });
 
-    const products = computed(() => wishlistGetters.getProducts(wishlist.value));
-    const pagination = computed(() => wishlistGetters.getPagination(wishlist.value[0]));
+    const products = computed(() => wishlistGetters.getProducts(wishlist?.value));
+    const pagination = computed(() => wishlistGetters.getPagination(wishlist?.value[0]));
 
     const addItemToCart = async ({ product, quantity }: { product: Product, quantity: number }) => {
       // eslint-disable-next-line no-underscore-dangle
