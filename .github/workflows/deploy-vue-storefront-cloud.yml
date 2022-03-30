@@ -53,19 +53,19 @@ jobs:
     uses: ./.github/workflows/deployment-template.yml
     needs: build
     if: github.ref == 'refs/heads/main'
-    with: 
+    with:
       github_environment_name: production
       environment_code: demo-magento2
       target_url: https://demo-magento2.europe-west1.gcp.storefrontcloud.io
     secrets:
       cloud_username: ${{ secrets.CLOUD_USERNAME }}
       cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-      
+
   deploy-develop:
     uses: ./.github/workflows/deployment-template.yml
     needs: build
     if: github.ref == 'refs/heads/develop'
-    with: 
+    with:
       github_environment_name: dev
       environment_code: demo-magento2-dev
       target_url: https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
@@ -77,7 +77,7 @@ jobs:
     uses: ./.github/workflows/deployment-template.yml
     needs: build
     if: startsWith(github.ref, 'refs/heads/release')
-    with: 
+    with:
       github_environment_name: canary
       environment_code: demo-magento2-canary
       target_url: https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
@@ -89,7 +89,7 @@ jobs:
     uses: ./.github/workflows/deployment-template.yml
     needs: build
     if: github.ref == 'refs/heads/enterprise'
-    with: 
+    with:
       github_environment_name: enterprise
       environment_code: demo-magento2-enterprise
       target_url: https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io

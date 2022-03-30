@@ -40,6 +40,7 @@ const useCurrency = (): UseCurrency => {
 
     try {
       app.$vsf.$magento.config.state.setCurrency(params.id);
+      window.location.reload();
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
