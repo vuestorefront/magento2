@@ -67,27 +67,21 @@ export default () => {
       '@nuxtjs/style-resources',
       '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
-        // @core-development-only-start
-        coreDevelopment: true,
-        // @core-development-only-end
-        useRawSource: {
-          dev: [
-            '@vue-storefront/core',
-          ],
-          prod: [
-            '@vue-storefront/core',
-          ],
-        },
         // selectively disabling certain @vue-storefront/core plugins for migration
         context: false,
         logger: false,
         ssr: false,
         sfui: false,
+        i18nExtension: false,
+        e2e: true,
+        performance: {
+          httpPush: false,
+          purgeCSS: {
+            enabled: false,
+          },
+        },
       }],
       ['~/modules/magento', {
-        i18n: {
-          useNuxtI18nConfig: true,
-        },
         cookies,
         externalCheckout,
         defaultStore,
@@ -149,11 +143,6 @@ export default () => {
         },
       ],
       defaultLocale: 'default',
-      autoChangeCookie: {
-        currency: false,
-        locale: false,
-        country: false,
-      },
       lazy: true,
       seo: true,
       langDir: 'lang/',

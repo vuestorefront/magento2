@@ -60,34 +60,6 @@ const setDefaultLocale = async (i18n) => {
   await i18n.setLocale(i18n.defaultLocale);
 };
 
-/**
- * Prepare new cookie string based on app state.
- *
- * @param apiState {ConfigState}
- * @param newStoreCode {string}
- * @param currency {string}
- * @returns {string}
- */
-const prepareNewCookieString = (apiState: ConfigState, newStoreCode: string, currency: string) => {
-  const customerTokenCookie = apiState.getCustomerToken();
-  const cartIdCookie = apiState.getCartId();
-
-  let cookie = `vsf-store=${newStoreCode}; `;
-  cookie += `vsf-locale=${newStoreCode}; `;
-  cookie += `vsf-currency=${currency}; `;
-  cookie += `vsf-country=${apiState.getCountry()}; `;
-
-  if (customerTokenCookie) {
-    cookie += `vsf-customer=${customerTokenCookie}; `;
-  }
-
-  if (cartIdCookie) {
-    cookie += `vsf-cart=${cartIdCookie} `;
-  }
-
-  return cookie;
-};
-
 export default async ({ app, route }: Context) => {
   await app.$vsf.$magento.client.interceptors.request.use(async (request) => {
     const { i18n } = app;
@@ -110,9 +82,6 @@ export default async ({ app, route }: Context) => {
       apiState.setStore(i18nCurrentLocaleCode);
       apiState.setLocale(i18nCurrentLocaleCode);
       apiState.setCurrency(currency);
-
-      // eslint-disable-next-line no-param-reassign
-      request.headers.cookie = prepareNewCookieString(apiState, i18nCurrentLocaleCode, currency);
     }
 
     return request;

@@ -17,13 +17,7 @@
               ? 'container__store--selected'
               : ''
           "
-          @click="
-            handleChanges({
-              callback: () => changeStore(store),
-              redirect: false,
-              windowRefresh: true,
-            })
-          "
+          @click.prevent="changeStore(store)"
         >
           <SfCharacteristic class="language">
             <template #title>
@@ -57,7 +51,6 @@ import {
 } from '@storefront-ui/vue';
 import { useStore } from '~/composables';
 import { storeGetters, storeConfigGetters } from '~/getters';
-import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
   name: 'StoresModal',
@@ -73,8 +66,6 @@ export default defineComponent({
   },
   emits: ['closeModal'],
   setup() {
-    const { handleChanges } = useHandleChanges();
-
     const {
       stores,
       change: changeStore,
@@ -91,7 +82,6 @@ export default defineComponent({
     return {
       storeGetters,
       storeConfigGetters,
-      handleChanges,
       availableStores,
       changeStore,
     };
