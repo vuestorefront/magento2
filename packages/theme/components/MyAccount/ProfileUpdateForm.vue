@@ -70,6 +70,7 @@
         />
         <SfButton
           class="form__button"
+          type="submit"
         >
           {{ $t('Update personal data') }}
         </SfButton>
@@ -92,6 +93,7 @@
         />
         <SfButton
           class="form__button"
+          type="submit"
         >
           {{ $t('Update personal data') }}
         </SfButton>
@@ -99,6 +101,7 @@
       <SfButton
         v-if="!requirePassword"
         class="form__button"
+        type="submit"
       >
         {{ $t('Update personal data') }}
       </SfButton>

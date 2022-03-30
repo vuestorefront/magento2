@@ -23,7 +23,6 @@
         <SfContentPage :title="$t('My newsletter')">
           <MyNewsletter />
         </SfContentPage>
-
         <SfContentPage :title="$t('My wishlist')">
           <MyWishlist />
         </SfContentPage>
@@ -85,11 +84,11 @@ export default defineComponent({
     const breadcrumbs = ref([
       {
         text: app.i18n.t('Home'),
-        route: { link: '#' },
+        link: '#',
       },
       {
         text: app.i18n.t('My Account'),
-        route: { link: '#' },
+        link: '#',
       },
     ]);
 
