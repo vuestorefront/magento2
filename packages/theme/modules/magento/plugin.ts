@@ -1,4 +1,5 @@
-import type { NuxtCookies } from 'cookie-universal-nuxt';
+import type { NuxtCookies, GetOptions } from 'cookie-universal-nuxt';
+import type { CookieSerializeOptions } from 'cookie';
 import { integrationPlugin } from '~/helpers/integrationPlugin';
 import { mapConfigToSetupObject } from '~/modules/magento/helpers';
 import { defaultConfig } from '~/modules/magento/defaultConfig';
@@ -20,11 +21,10 @@ export default integrationPlugin((plugin) => {
 
   const { $cookies } = plugin.app;
 
-  const createCookieOperationsInstance = (cookies: NuxtCookies) => (cookieName: string) => ({
-    get: () => cookies.get(cookieName),
-    set: (value: string) => (value
-      ? cookies.set(cookieName, value)
-      : cookies.remove(cookieName)),
+  const createCookieOperationsInstance = <TValue = string>(cookies: NuxtCookies) => (cookieName: string) => ({
+    get: (opts?: GetOptions) => cookies.get(cookieName, opts),
+    set: (value: TValue, opts?: CookieSerializeOptions) => cookies.set(cookieName, value, opts),
+    remove: (opts?: CookieSerializeOptions) => cookies.remove(cookieName, opts),
   });
   const createCookieOperations = createCookieOperationsInstance($cookies);
 
