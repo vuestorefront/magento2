@@ -6,7 +6,9 @@
   />
 </template>
 <script>
-import { defineComponent, useFetch, ref } from '@nuxtjs/composition-api';
+import {
+  defineComponent, ref, onMounted,
+} from '@nuxtjs/composition-api';
 import { useRelatedProducts } from '~/composables';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import { productData } from '~/helpers/product/productData';
@@ -24,7 +26,7 @@ export default defineComponent({
     } = useRelatedProducts();
     const products = ref([]);
 
-    useFetch(async () => {
+    onMounted(async () => {
       const baseSearchQuery = {
         filter: {
           sku: {
