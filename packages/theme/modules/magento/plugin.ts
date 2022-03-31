@@ -65,6 +65,5 @@ export default integrationPlugin((plugin) => {
     },
   });
 
-  // @ts-ignore - not typed in core
   plugin.integration.configure('magento', settings);
 });
