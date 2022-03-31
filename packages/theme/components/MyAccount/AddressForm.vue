@@ -179,7 +179,10 @@
         :label="$t('Set as default billing')"
         class="form__checkbox-isDefaultBilling"
       />
-      <SfButton class="form__button">
+      <SfButton
+        class="form__button"
+        type="submit"
+      >
         {{ isNew ? $t('Add the address') : $t('Update the address') }}
       </SfButton>
     </form>
