@@ -19,6 +19,7 @@
         </div>
         <SfButton
           class="form__button"
+          type="submit"
           @click="saveForm"
         >
           {{ $t('Save changes') }}
