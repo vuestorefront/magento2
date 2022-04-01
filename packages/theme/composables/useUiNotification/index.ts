@@ -34,7 +34,7 @@ const useUiNotification = () => {
 
       if (index !== -1) state.notifications.splice(index, 1);
 
-      app.$vsf.$magento.config.state.setMessage();
+      app.$vsf.$magento.config.state.removeMessage();
     };
 
     const newNotification = {
@@ -58,7 +58,7 @@ const useUiNotification = () => {
 
   if (cookieMessage) {
     send(cookieMessage);
-    app.$vsf.$magento.config.state.setMessage();
+    app.$vsf.$magento.config.state.removeMessage();
   }
 
   return {
