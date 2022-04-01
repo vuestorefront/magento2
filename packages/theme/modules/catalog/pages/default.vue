@@ -79,7 +79,16 @@
               class="products__product-card"
               @click:wishlist="addItemToWishlist(product)"
               @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-            />
+            >
+              <template #price>
+                <SfPrice
+                  :class="{ 'display-none': !isPriceLoaded || !$fc(getPrice(product).regular) }"
+                  class="sf-product-card__price"
+                  :regular="$fc(getPrice(product).regular)"
+                  :special="getPrice(product).special && $fc(getPrice(product).special)"
+                />
+              </template>
+            </SfProductCard>
           </transition-group>
           <transition-group
             v-else
@@ -312,7 +321,6 @@ import {
   SfColor,
   SfFilter,
   SfHeading,
-  SfLink,
   SfPagination,
   SfProductCard,
   SfProductCardHorizontal,
@@ -320,10 +328,10 @@ import {
   SfRadio,
   SfSelect,
   SfSidebar,
-  SfImage,
+  SfPrice,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, ref, useContext, useFetch,
+  defineComponent, onMounted, ref, useContext, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
 import { facetGetters, productGetters } from '~/getters';
@@ -341,6 +349,7 @@ import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
 import SkeletonLoader from '~/components/SkeletonLoader';
+import { usePrice } from '~/modules/catalog/pricing/usePrice.ts';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
@@ -351,6 +360,7 @@ export default defineComponent({
     CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
     CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
     EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
+    SfPrice,
     SfButton,
     SfSidebar,
     SfFilter,
@@ -363,9 +373,7 @@ export default defineComponent({
     SfColor,
     SfHeading,
     SfProperty,
-    SfLink,
     LazyHydrate,
-    SfImage,
   },
   middleware: cacheControl({
     'max-age': 60,
@@ -381,7 +389,7 @@ export default defineComponent({
     const cmsContent = ref('');
     const isShowCms = ref(false);
     const isShowProducts = ref(false);
-    const products = ref([]);
+    const products = ssrRef([]);
     const sortBy = ref({});
     const facets = ref([]);
     const pagination = ref({});
@@ -488,13 +496,13 @@ export default defineComponent({
       await searchCategoryProduct(routeData?.entity_uid);
       selectedFilters.value = getSelectedFilterValues();
       products.value = facetGetters.getProducts(result.value) ?? [];
+
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(
         result.value,
         magentoConfig.facets.available,
       );
       pagination.value = facetGetters.getPagination(result.value);
-
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
       const productTags = products.value.map((product) => ({
@@ -506,9 +514,25 @@ export default defineComponent({
       addTags([...tags, ...productTags]);
     });
 
+    const isPriceLoaded = ref(false);
+    onMounted(async () => {
+      const { getPricesBySku } = usePrice();
+      if (products.value.length > 0) {
+        const skus = products.value.map((item) => item.sku);
+        const priceData = await getPricesBySku(skus);
+        products.value = products.value.map((product) => {
+          const modifiedProduct = { ...product };
+          modifiedProduct.price_range = priceData.items.find((item) => item.sku === product.sku).price_range;
+          return modifiedProduct;
+        });
+      }
+      isPriceLoaded.value = true;
+    });
+
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
+      isPriceLoaded,
       ...productGetters,
       ...uiHelpers,
       ...uiState,
