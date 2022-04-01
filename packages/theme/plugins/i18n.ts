@@ -1,7 +1,7 @@
 import { Context } from '@nuxt/types';
 import { LocaleObject } from 'nuxt-i18n';
 
-const findLocaleBasedOnMagentoStoreCode = (storeCode: string, locales: Array<string | LocaleObject>) => locales.find((locale) => (typeof locale === 'string' ? locale === storeCode : locale.code === storeCode));
+const findLocaleBasedOnMagentoStoreCode = (storeCode: string, locales: Array<string | LocaleObject>) => locales.find((locale) => ((typeof locale === 'object' ? locale.code : locale) === storeCode));
 
 const findCurrencyBasedOnMagentoStoreCode = (storeCode: string, locales: Array<string | LocaleObject>): string => {
   const match = locales.find((locale) => typeof locale === 'object' && locale.code === storeCode) as LocaleObject | undefined;

@@ -12,20 +12,19 @@ type UseMagentoConfiguration = () => {
   loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void>;
 };
 
-// @ts-ignore
 export const useMagentoConfiguration: UseMagentoConfiguration = () => {
-  const { app } = useContext();
+  const { app: { i18n, $vsf: { $magento: { config } } } } = useContext();
 
   const {
     config: storeConfig,
     load: loadConfig,
   } = useConfig();
 
-  const selectedCurrency = computed<string | undefined>(() => app.$vsf.$magento.config.state.getCurrency());
-  const selectedLocale = computed<string | undefined>(() => app.$vsf.$magento.config.state.getLocale());
-  const selectedStore = computed<string | undefined>(() => app.$vsf.$magento.config.state.getStore());
+  const selectedCurrency = computed<string | undefined>(() => config.state.getCurrency());
+  const selectedLocale = computed<string | undefined>(() => config.state.getLocale());
+  const selectedStore = computed<string | undefined>(() => config.state.getStore());
 
-  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => void = (params = {
+  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void> = async (params = {
     updateCookies: false,
     updateLocale: false,
   }) => {
@@ -34,28 +33,23 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
       updateLocale,
     } = params;
 
-    // eslint-disable-next-line promise/catch-or-return
-    loadConfig().then(() => {
-      if (!app.$vsf.$magento.config.state.getStore() || updateCookies) {
-        // @ts-ignore
-        app.$vsf.$magento.config.state.setStore(storeConfig.value);
-      }
+    await loadConfig();
+    if (config.state.getStore() || updateCookies) {
+      config.state.setStore(storeConfigGetters.getCode(storeConfig.value));
+    }
 
-      if (!app.$vsf.$magento.config.state.getLocale() || updateCookies) {
-        // @ts-ignore
-        app.$vsf.$magento.config.state.setLocale(storeConfig.value);
-      }
+    if (!config.state.getLocale() || updateCookies) {
+      config.state.setLocale(storeConfigGetters.getLocale(storeConfig.value));
+    }
 
-      if (!app.$vsf.$magento.config.state.getCurrency() || updateCookies) {
-        // @ts-ignore
-        app.$vsf.$magento.config.state.setCurrency(storeConfig.value);
-      }
+    if (!config.state.getCurrency() || updateCookies) {
+      config.state.setCurrency(storeConfigGetters.getCurrency(storeConfig.value));
+    }
 
-      if (updateLocale) {
-        app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value as StoreConfig));
-      }
-      return true;
-    });
+    // eslint-disable-next-line promise/always-return
+    if (updateLocale) {
+      i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
+    }
   };
 
   return {
