@@ -7,10 +7,11 @@
   >
     <template #call-to-action>
       <div class="app-banner__call-to-action">
-        <SfButton
+        <SfLink
           class="app-banner__button sf-banner__call-to-action"
           aria-label="Go to Apple Product"
           data-testid="banner-cta-button"
+          link="#"
         >
           <SfImage
             src="/homepage/apple.png"
@@ -19,11 +20,12 @@
             :width="134"
             :height="44"
           />
-        </SfButton>
-        <SfButton
+        </SfLink>
+        <SfLink
           class="app-banner__button sf-banner__call-to-action"
           aria-label="Go to Google Product"
           data-testid="banner-cta-button"
+          link="#"
         >
           <SfImage
             src="/homepage/google.png"
@@ -32,7 +34,7 @@
             :width="134"
             :height="44"
           />
-        </SfButton>
+        </SfLink>
       </div>
     </template>
   </SfBanner>
@@ -40,7 +42,7 @@
 <script type="module">
 import {
   SfBanner,
-  SfButton,
+  SfLink,
   SfImage,
 } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
@@ -49,7 +51,7 @@ export default defineComponent({
   name: 'AppStoreBanner',
   components: {
     SfBanner,
-    SfButton,
+    SfLink,
     SfImage,
   },
 });

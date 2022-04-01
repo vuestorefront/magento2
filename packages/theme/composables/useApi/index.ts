@@ -6,6 +6,7 @@ export const useApi = () => {
   const { app } = useContext();
   const customerToken = app.$cookies.get(cookieNames.customerCookieName);
   const storeCode = app.$cookies.get(cookieNames.storeCookieName);
+  const currency = app.$cookies.get(cookieNames.currencyCookieName);
   const magentoConfig = app.$vsf.$magento.config;
   // TODO remove once we remove apollo client
   const { useGETForQueries } = magentoConfig.customApolloHttpLinkOptions;
@@ -13,6 +14,7 @@ export const useApi = () => {
   const defaultHeaders: {
     authorization?: string,
     store?: string
+    'Content-Currency'?: string
   } = {};
 
   if (customerToken) {
@@ -21,6 +23,10 @@ export const useApi = () => {
 
   if (storeCode) {
     defaultHeaders.store = storeCode;
+  }
+
+  if (currency) {
+    defaultHeaders['Content-Currency'] = currency;
   }
 
   const query = (
