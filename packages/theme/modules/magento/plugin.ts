@@ -26,15 +26,52 @@ export default integrationPlugin((plugin) => {
     set: (value: TValue, opts?: CookieSerializeOptions) => cookies.set(cookieName, value, opts),
     remove: (opts?: CookieSerializeOptions) => cookies.remove(cookieName, opts),
   });
+
   const createCookieOperations = createCookieOperationsInstance($cookies);
 
-  const { get: getCartId, set: setCartId } = createCookieOperations(cookieNames.cart);
-  const { get: getCustomerToken, set: setCustomerToken } = createCookieOperations(cookieNames.customer);
-  const { get: getStore, set: setStore } = createCookieOperations(cookieNames.store);
-  const { get: getCurrency, set: setCurrency } = createCookieOperations(cookieNames.currency);
-  const { get: getLocale, set: setLocale } = createCookieOperations(cookieNames.locale);
-  const { get: getCountry, set: setCountry } = createCookieOperations(cookieNames.country);
-  const { get: getMessage, set: setMessage } = createCookieOperations(cookieNames.message);
+  // TODO Refactor to separate containers (state.cart.get() .set() .remove()) - this requires a breaking change in api-client types
+
+  const {
+    get: getCartId,
+    set: setCartId,
+    remove: removeCartId,
+  } = createCookieOperations(cookieNames.cart);
+
+  const {
+    get: getCustomerToken,
+    set: setCustomerToken,
+    remove: removeCustomerToken,
+  } = createCookieOperations(cookieNames.customer);
+
+  const {
+    get: getStore,
+    set: setStore,
+    remove: removeStore,
+  } = createCookieOperations(cookieNames.store);
+
+  const {
+    get: getCurrency,
+    set: setCurrency,
+    remove: removeCurrency,
+  } = createCookieOperations(cookieNames.currency);
+
+  const {
+    get: getLocale,
+    set: setLocale,
+    remove: removeLocale,
+  } = createCookieOperations(cookieNames.locale);
+
+  const {
+    get: getCountry,
+    set: setCountry,
+    remove: removeCountry,
+  } = createCookieOperations(cookieNames.country);
+
+  const {
+    get: getMessage,
+    set: setMessage,
+    remove: removeMessage,
+  } = createCookieOperations(cookieNames.message);
 
   const settings = mapConfigToSetupObject({
     moduleOptions,
@@ -43,24 +80,31 @@ export default integrationPlugin((plugin) => {
       state: {
         getCartId,
         setCartId,
+        removeCartId,
 
         getCustomerToken,
         setCustomerToken,
+        removeCustomerToken,
 
         getStore,
         setStore,
+        removeStore,
 
         getCurrency,
         setCurrency,
+        removeCurrency,
 
         getLocale,
         setLocale,
+        removeLocale,
 
         getCountry,
         setCountry,
+        removeCountry,
 
         getMessage,
         setMessage,
+        removeMessage,
       },
     },
   });
