@@ -33,12 +33,9 @@ const callbackRequest = {
 };
 
 const routeMock = {
-  path: 'https://domain/german',
+  path: '/german',
 };
 const appMock = {
-  $cookies: {
-    get: jest.fn(),
-  },
   i18n: {
     defaultLocale: 'en',
     defaultCurrency: 'EUR',
@@ -61,7 +58,9 @@ const appMock = {
         state: {
           ...apiStateMock,
           setStore: jest.fn(),
+          getStore: jest.fn(),
           setLocale: jest.fn(),
+          getLocale: jest.fn(),
           setCurrency: jest.fn(),
         },
         axios: {
@@ -82,24 +81,22 @@ describe('i18n plugin', () => {
   it('Should read vsf-store cookie value', () => {
     i18nPlugin({ app: appMock, route: routeMock });
 
-    expect(appMock.$cookies.get).toHaveBeenCalledWith('vsf-store');
+    expect(appMock.$vsf.$magento.config.state.getStore).toHaveBeenCalled();
   });
 
   it('Should find locale based on magento store code', () => {
-    appMock.$cookies.get.mockReturnValue('default');
+    appMock.$vsf.$magento.config.state.getStore.mockReturnValue('default');
     i18nPlugin({ app: appMock, route: routeMock });
 
     expect(appMock.i18n.setLocale).not.toHaveBeenCalled();
   });
 
   it('Should set default locale when there is no locale that match given magento store code', () => {
-    appMock.$cookies.get.mockReturnValue('pl_PL');
-
-    expect(appMock.i18n.setLocale).not.toHaveBeenCalledTimes(1);
+    appMock.$vsf.$magento.config.state.getStore('pl_PL');
+    expect(appMock.i18n.setLocale).not.toHaveBeenCalled();
   });
 
-  it('Should set default locale when vsf-store cookie is not exist', () => {
-    appMock.$cookies.get.mockReturnValue(null);
+  it('Should set default locale when vsf-store cookie doesn\'t exist', () => {
     i18nPlugin({ app: appMock, route: routeMock });
 
     expect(appMock.i18n.setLocale).toHaveBeenCalledWith('en');
@@ -114,7 +111,7 @@ describe('i18n plugin', () => {
       },
     };
 
-    testCaseAppMock.$cookies.get.mockReturnValueOnce('de_DE').mockReturnValueOnce('default');
+    testCaseAppMock.$vsf.$magento.config.state.getStore.mockReturnValueOnce('de_DE').mockReturnValueOnce('default');
 
     i18nPlugin({ app: testCaseAppMock, route: routeMock });
 
