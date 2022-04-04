@@ -48,7 +48,6 @@ export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtC
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       client.defaults.headers.cookie = setCookieValues((nuxtCtx.app.i18n as any).cookieValues, (client.defaults.headers as any).cookie);
     }
-
     injectInContext({ api, client, config });
   };
 

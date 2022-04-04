@@ -19,9 +19,6 @@ module.exports = {
             default: config.get('enableMagentoExternalCheckout'),
           },
         },
-        facets: {
-          available: ['color', 'size', 'price'],
-        },
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },

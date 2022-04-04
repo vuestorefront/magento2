@@ -130,7 +130,7 @@ export interface AgnosticBreadcrumb {
   link: string;
 }
 
-export interface AgnosticFacet {
+export interface FacetInterface {
   type: string;
   id: string;
   value: any;
@@ -138,6 +138,13 @@ export interface AgnosticFacet {
   count?: number;
   selected?: boolean;
   metadata?: any;
+}
+
+export interface GroupedFacetInterface {
+  id: string;
+  label: string;
+  count?: number;
+  options: FacetInterface[];
 }
 
 export interface CategoryTreeInterface {
