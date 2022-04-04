@@ -213,10 +213,10 @@ export default () => {
       '~/plugins/token-expired',
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
-      '~/plugins/dompurify',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
+      '~/serverMiddleware/cms-content',
     ],
     router: {
       prefetchLinks: false,

@@ -1,6 +1,6 @@
-import useApi from '~/composables/useApi';
-import categoryContentQuery from './categoryContent.gql';
 import displayModesEnum from '~/modules/catalog/category/enums/displayModesEnum';
+// @ts-ignore
+import config from '~/config.js';
 
 export interface CmsBlockInterface {
   /** CMS block content */
@@ -19,10 +19,10 @@ interface CmsContentInterface {
 }
 
 export const useCategoryContent = () => {
-  const { query } = useApi();
-
   const getContentData = async (id: number): Promise<CmsContentInterface> => {
-    const data = await query(categoryContentQuery, { id });
+    console.log(config.get('storeUrl'));
+    const url = new URL(`__safe-cms-content/${id}`, process.env.STORE_URL).toString();
+    const data = await fetch(url) as any;
     const cmsBlock = data?.category?.cms_block ?? { cmsBlock: { content: '' } };
     const displayMode = data?.category?.display_mode ?? displayModesEnum.PRODUCTS;
     const isShowCms = displayMode === displayModesEnum.PAGE || displayMode === displayModesEnum.PRODUCTS_AND_PAGE;
