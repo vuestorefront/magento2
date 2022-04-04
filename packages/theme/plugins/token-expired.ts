@@ -1,6 +1,8 @@
-import cookieNames from '~/enums/cookieNameEnum';
+import type { Plugin } from '@nuxt/types';
+import type { AxiosResponse } from 'axios';
+import type { UiNotification } from '~/composables/useUiNotification';
 
-const hasAuthorizationError = (res): boolean => {
+const hasAuthorizationError = (res: AxiosResponse): boolean => {
   if (!res?.data?.errors) {
     return false;
   }
@@ -20,25 +22,26 @@ const hasAuthorizationError = (res): boolean => {
   return isAuthErr;
 };
 
-export default ({ app }) => {
-  app.$vsf.$magento.client.interceptors.response.use(async (res): Promise<any> => {
+const plugin : Plugin = ({ app }) => {
+  app.$vsf.$magento.client.interceptors.response.use((res) => {
     if (!hasAuthorizationError(res)) {
       return res;
     }
-
-    app.$cookies.remove(cookieNames.customerCookieName);
-    app.$cookies.remove(cookieNames.cartCookieName);
-
-    await app.$cookies.set(cookieNames.messageCookieName, {
-      message: app.i18n.t('You are not authorized, please log in.'),
+    app.$vsf.$magento.config.state.setCustomerToken();
+    app.$vsf.$magento.config.state.setCartId();
+    app.$vsf.$magento.config.state.setMessage<UiNotification>({
+      id: Symbol(''),
+      message: app.i18n.t('You are not authorized, please log in.') as string,
       type: 'warning',
       icon: null,
       persist: true,
       title: null,
     });
 
-    app.router.go(app.localePath('/'));
+    app.router.push(app.localePath('/'));
 
     return false;
   });
 };
+
+export default plugin;
