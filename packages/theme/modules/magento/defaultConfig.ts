@@ -1,4 +1,4 @@
-export const defaultConfig : Record<string, any> = {
+export const defaultConfig = {
   cookies: {
     currencyCookieName: 'vsf-currency',
     countryCookieName: 'vsf-country',
@@ -8,4 +8,7 @@ export const defaultConfig : Record<string, any> = {
     storeCookieName: 'vsf-store',
     messageCookieName: 'vsf-message',
   },
-};
+  locale: undefined,
+  country: undefined,
+  currency: undefined,
+} as const;

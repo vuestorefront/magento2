@@ -2,7 +2,6 @@ import { computed, ComputedRef, useContext } from '@nuxtjs/composition-api';
 import { StoreConfig } from '~/modules/GraphQL/types';
 import { storeConfigGetters } from '~/getters';
 
-import cookieNames from '~/enums/cookieNameEnum';
 import { useConfig } from '~/composables';
 
 type UseMagentoConfiguration = () => {
@@ -13,20 +12,19 @@ type UseMagentoConfiguration = () => {
   loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void>;
 };
 
-// @ts-ignore
 export const useMagentoConfiguration: UseMagentoConfiguration = () => {
-  const { app } = useContext();
+  const { app: { i18n, $vsf: { $magento: { config } } } } = useContext();
 
   const {
     config: storeConfig,
     load: loadConfig,
   } = useConfig();
 
-  const selectedCurrency = computed<string | undefined>(() => app.$cookies.get(cookieNames.currencyCookieName));
-  const selectedLocale = computed<string | undefined>(() => app.$cookies.get(cookieNames.localeCookieName));
-  const selectedStore = computed<string | undefined>(() => app.$cookies.get(cookieNames.storeCookieName));
+  const selectedCurrency = computed<string | undefined>(() => config.state.getCurrency());
+  const selectedLocale = computed<string | undefined>(() => config.state.getLocale());
+  const selectedStore = computed<string | undefined>(() => config.state.getStore());
 
-  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => void = (params = {
+  const loadConfiguration: (params: { updateCookies: boolean; updateLocale: boolean; }) => Promise<void> = async (params = {
     updateCookies: false,
     updateLocale: false,
   }) => {
@@ -35,34 +33,23 @@ export const useMagentoConfiguration: UseMagentoConfiguration = () => {
       updateLocale,
     } = params;
 
-    // eslint-disable-next-line promise/catch-or-return
-    loadConfig().then(() => {
-      if (!app.$cookies.get(cookieNames.storeCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.storeCookieName,
-          storeConfigGetters.getCode(storeConfig.value as StoreConfig),
-        );
-      }
+    await loadConfig();
+    if (config.state.getStore() || updateCookies) {
+      config.state.setStore(storeConfigGetters.getCode(storeConfig.value));
+    }
 
-      if (!app.$cookies.get(cookieNames.localeCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.localeCookieName,
-          storeConfigGetters.getCode(storeConfig.value as StoreConfig),
-        );
-      }
+    if (!config.state.getLocale() || updateCookies) {
+      config.state.setLocale(storeConfigGetters.getLocale(storeConfig.value));
+    }
 
-      if (!app.$cookies.get(cookieNames.currencyCookieName) || updateCookies) {
-        app.$cookies.set(
-          cookieNames.currencyCookieName,
-          storeConfigGetters.getCurrency(storeConfig.value as StoreConfig),
-        );
-      }
+    if (!config.state.getCurrency() || updateCookies) {
+      config.state.setCurrency(storeConfigGetters.getCurrency(storeConfig.value));
+    }
 
-      if (updateLocale) {
-        app.i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value as StoreConfig));
-      }
-      return true;
-    });
+    // eslint-disable-next-line promise/always-return
+    if (updateLocale) {
+      i18n.setLocale(storeConfigGetters.getLocale(storeConfig.value));
+    }
   };
 
   return {
