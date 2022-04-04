@@ -26,28 +26,40 @@ jobs:
           password: ${{ secrets.CLOUD_PASSWORD }}
           dockerfile: .vuestorefrontcloud/docker/Dockerfile
           buildoptions: --compress
-          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,STORE_URL,MAGENTO_GRAPHQL,MAGENTO_EXTERNAL_CHECKOUT,MAGENTO_EXTERNAL_CHECKOUT_URL,MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,IMAGE_PROVIDER,IMAGE_PROVIDER_BASE_URL,REDIS__HOST,REDIS__PORT,REDIS__CACHE_INVALIDATE_KEY,REDIS__CACHE_INVALIDATE_URL,REDIS__KEY_PREFIX,REDIS__ENABLED,SENTRY_DSN,RECAPTCHA_SITE_KEY,RECAPTCHA_SECRET_KEY
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,STORE_URL,MAGENTO_BASE_URL,MAGENTO_GRAPHQL_URL,MAGENTO_EXTERNAL_CHECKOUT_ENABLED,MAGENTO_EXTERNAL_CHECKOUT_URL,MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,IMAGE_PROVIDER,IMAGE_PROVIDER_BASE_URL,REDIS_HOST,REDIS_PORT,REDIS_CACHE_INVALIDATE_KEY,REDIS_CACHE_INVALIDATE_URL,REDIS_KEY_PREFIX,REDIS_ENABLED,SENTRY_DSN,RECAPTCHA_ENABLED,RECAPTCHA_HIDE_BADGE,RECAPTCHA_VERSION,RECAPTCHA_SIZE,RECAPTCHA_MIN_SCORE,RECAPTCHA_SITE_KEY,RECAPTCHA_SECRET_KEY
         env:
           NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
-          NPM_PASS: ${{ secrets.CLOUD_PASSWORD }}
           NPM_USER: ${{ secrets.CLOUD_USERNAME }}
+          NPM_PASS: ${{ secrets.CLOUD_PASSWORD }}
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
-          STORE_URL: ${{ secrets.STORE_URL }}
-          MAGENTO_GRAPHQL: ${{ secrets.MAGENTO_GRAPHQL }}
-          MAGENTO_EXTERNAL_CHECKOUT: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT }}
-          MAGENTO_EXTERNAL_CHECKOUT_URL: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT_URL }}
-          MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH: ${{ secrets.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH }}
-          IMAGE_PROVIDER: ${{ secrets.IMAGE_PROVIDER }}
-          IMAGE_PROVIDER_BASE_URL: ${{ secrets.IMAGE_PROVIDER_BASE_URL }}
-          REDIS__HOST: ${{ secrets.REDIS__HOST }}
-          REDIS__PORT: ${{ secrets.REDIS__PORT }}
-          REDIS__KEY_PREFIX: ${{ github.sha }}
-          REDIS__CACHE_INVALIDATE_KEY: ${{ secrets.REDIS__CACHE_INVALIDATE_KEY }}
-          REDIS__CACHE_INVALIDATE_URL: ${{ secrets.REDIS__CACHE_INVALIDATE_URL }}
-          REDIS__ENABLED: ${{ secrets.REDIS__ENABLED }}
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY }}
+
+          STORE_URL: '' # TODO
+
+          MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
+          MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql
+          MAGENTO_EXTERNAL_CHECKOUT_ENABLED: false
+          MAGENTO_EXTERNAL_CHECKOUT_URL: ''
+          MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH: ''
+
+          IMAGE_PROVIDER: cloudinary
+          IMAGE_PROVIDER_BASE_URL: https://res-4.cloudinary.com/dnozky7on/image/upload/
+
+          REDIS_ENABLED: true
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_KEY_PREFIX: ${{ github.sha }}
+          REDIS_CACHE_INVALIDATE_KEY: magento2vsf2
+          REDIS_CACHE_INVALIDATE_URL: /cache-invalidate
+
+          RECAPTCHA_ENABLED: false
+          RECAPTCHA_HIDE_BADGE: false
+          RECAPTCHA_VERSION: 3
+          RECAPTCHA_SIZE: invisible
+          RECAPTCHA_MIN_SCORE: 0.5
+          RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   deploy-main:
     uses: ./.github/workflows/deployment-template.yml

@@ -1,22 +1,24 @@
-const config = require('./config.js');
+/* eslint-disable unicorn/prefer-module */
 const cookieNames = require('./enums/cookieNameEnum');
+
+const isCheckoutEnabled = process.env.MAGENTO_EXTERNAL_CHECKOUT_ENABLED === 'true';
 
 module.exports = {
   integrations: {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: config.get('magentoGraphQl'),
+        api: process.env.MAGENTO_GRAPHQL_URL,
         cookies: {
           ...cookieNames,
         },
         defaultStore: 'default',
         externalCheckout: {
-          enable: config.get('enableMagentoExternalCheckout'),
-          cmsUrl: config.get('externalCheckoutUrl'),
-          syncUrlPath: config.get('externalCheckoutSyncPath'),
+          enable: isCheckoutEnabled,
+          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL,
+          syncUrlPath: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
           stores: {
-            default: config.get('enableMagentoExternalCheckout'),
+            default: isCheckoutEnabled,
           },
         },
         facets: {
@@ -25,15 +27,15 @@ module.exports = {
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },
-        magentoBaseUrl: config.get('magentoBaseUrl'),
-        magentoApiEndpoint: config.get('magentoGraphQl'),
-        imageProvider: config.get('imageProvider'),
+        magentoBaseUrl: process.env.MAGENTO_BASE_URL,
+        magentoApiEndpoint: process.env.MAGENTO_GRAPHQL_URL,
+        imageProvider: process.env.IMAGAE_PROVIDER,
         recaptcha: {
-          isEnabled: config.get('recaptchaEnabled'),
-          sitekey: config.get('recaptchaSiteKey'),
-          secretkey: config.get('recaptchaSecretKey'),
-          version: config.get('recaptchaVersion'),
-          score: config.get('recaptchaMinScore'),
+          isEnabled: process.env.RECAPTCHA_ENABLED === 'true',
+          sitekey: process.env.RECAPTCHA_SITE_KEY,
+          secretkey: process.env.RECAPTCHA_SECRET_KEY,
+          version: process.env.RECAPTCHA_VERSION,
+          score: process.env.RECAPTCHA_MIN_SCORE,
         },
       },
     },
