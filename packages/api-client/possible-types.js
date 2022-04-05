@@ -2,7 +2,7 @@ require('dotenv').config();
 const fetch = require('cross-fetch');
 const fs = require('fs');
 
-fetch(process.env.MAGENTO_GRAPHQL_URL, {
+fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({

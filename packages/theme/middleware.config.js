@@ -1,22 +1,22 @@
 /* eslint-disable unicorn/prefer-module */
 const cookieNames = require('./enums/cookieNameEnum');
 
-const isCheckoutEnabled = process.env.MAGENTO_EXTERNAL_CHECKOUT_ENABLED === 'true';
+const isCheckoutEnabled = process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED === 'true';
 
 module.exports = {
   integrations: {
     magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
-        api: process.env.MAGENTO_GRAPHQL_URL,
+        api: process.env.VSF_MAGENTO_GRAPHQL_URL,
         cookies: {
           ...cookieNames,
         },
         defaultStore: 'default',
         externalCheckout: {
           enable: isCheckoutEnabled,
-          cmsUrl: process.env.MAGENTO_EXTERNAL_CHECKOUT_URL,
-          syncUrlPath: process.env.MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
+          cmsUrl: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,
+          syncUrlPath: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
           stores: {
             default: isCheckoutEnabled,
           },
@@ -27,15 +27,15 @@ module.exports = {
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },
-        magentoBaseUrl: process.env.MAGENTO_BASE_URL,
-        magentoApiEndpoint: process.env.MAGENTO_GRAPHQL_URL,
-        imageProvider: process.env.IMAGAE_PROVIDER,
+        magentoBaseUrl: process.env.VSF_MAGENTO_BASE_URL,
+        magentoApiEndpoint: process.env.VSF_MAGENTO_GRAPHQL_URL,
+        imageProvider: process.env.VSF_IMAGAE_PROVIDER,
         recaptcha: {
-          isEnabled: process.env.RECAPTCHA_ENABLED === 'true',
-          sitekey: process.env.RECAPTCHA_SITE_KEY,
-          secretkey: process.env.RECAPTCHA_SECRET_KEY,
-          version: process.env.RECAPTCHA_VERSION,
-          score: process.env.RECAPTCHA_MIN_SCORE,
+          isEnabled: process.env.VSF_RECAPTCHA_ENABLED === 'true',
+          sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
+          secretkey: process.env.VSF_RECAPTCHA_SECRET_KEY,
+          version: process.env.VSF_RECAPTCHA_VERSION,
+          score: process.env.VSF_RECAPTCHA_MIN_SCORE,
         },
       },
     },

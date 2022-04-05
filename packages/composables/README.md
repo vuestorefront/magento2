@@ -75,9 +75,9 @@ Find more information about the module [GraphQl Custom Config](https://github.co
     ```bash
     $ cp packages/theme/.env.example packages/theme/.env
     ```
-6. Update `MAGENTO_GRAPHQL_URL` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
+6. Update `VSF_MAGENTO_GRAPHQL_URL` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
-    MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
+    VSF_MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
     ```
 7. Build dependencies `yarn build:api-client && yarn build:composables`
 8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`

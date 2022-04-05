@@ -93,9 +93,9 @@ By default, we use the `ipx` provider. that means the images are fetched from Ma
 2. Configure your provider in `nuxt.config.js`. Here is the example:
 ```javascript
 image: {
-  provider: process.env.IMAGE_PROVIDER
+  provider: process.env.VSF_IMAGE_PROVIDER
   magekit: {
-    baseURL: process.env.IMAGE_PROVIDER_BASE_URL
+    baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL
   }
 },
 ```

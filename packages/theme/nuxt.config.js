@@ -27,9 +27,9 @@ const {
 export default () => {
   const baseConfig = {
     ssr: true,
-    dev: process.env.NUXT_APP_ENV !== 'production',
+    dev: process.env.VSF_NUXT_APP_ENV !== 'production',
     server: {
-      port: process.env.PORT || process.env.NUXT_APP_PORT,
+      port: process.env.VSF_NUXT_APP_PORT,
       host: '0.0.0.0',
     },
     head: {
@@ -96,17 +96,17 @@ export default () => {
     modules: [
       '~/modules/catalog',
       ['nuxt-i18n', {
-        baseUrl: process.env.STORE_URL || 'http://localhost:3000',
+        baseUrl: process.env.VSF_STORE_URL || 'http://localhost:3000',
       }],
       'cookie-universal-nuxt',
       'vue-scrollto/nuxt',
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: process.env.REDIS_ENABLED === 'true',
+        enabled: process.env.VSF_REDIS_ENABLED === 'true',
         invalidation: {
-          endpoint: process.env.REDIS_CACHE_INVALIDATE_URL,
-          key: process.env.REDIS_CACHE_INVALIDATE_KEY,
+          endpoint: process.env.VSF_REDIS_CACHE_INVALIDATE_URL,
+          key: process.env.VSF_REDIS_CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
@@ -116,9 +116,9 @@ export default () => {
           {
             // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
             redis: {
-              keyPrefix: process.env.REDIS_KEY_PREFIX,
-              host: process.env.REDIS_HOST,
-              port: process.env.REDIS_PORT,
+              keyPrefix: process.env.VSF_REDIS_KEY_PREFIX,
+              host: process.env.VSF_REDIS_HOST,
+              port: process.env.VSF_REDIS_PORT,
             },
           },
         ],
@@ -225,29 +225,29 @@ export default () => {
       },
     },
     image: {
-      provider: process.env.IMAGE_PROVIDER,
+      provider: process.env.VSF_IMAGE_PROVIDER,
     },
   };
 
-  if (process.env.IMAGE_PROVIDER === 'cloudinary') {
+  if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
     baseConfig.image.cloudinary = {
-      baseURL: process.env.IMAGE_PROVIDER_BASE_URL,
+      baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL,
     };
   }
 
-  if (process.env.RECAPTCHA_ENABLED === 'true') {
+  if (process.env.VSF_RECAPTCHA_ENABLED === 'true') {
     baseConfig.modules.push('@nuxtjs/recaptcha');
 
     baseConfig.recaptcha = {
-      hideBadge: process.env.RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
-      siteKey: process.env.RECAPTCHA_SITE_KEY, // Site key for requests
-      version: process.env.RECAPTCHA_VERSION, // Version 2 or 3
-      size: process.env.RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
+      hideBadge: process.env.VSF_RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
+      siteKey: process.env.VSF_RECAPTCHA_SITE_KEY, // Site key for requests
+      version: process.env.VSF_RECAPTCHA_VERSION, // Version 2 or 3
+      size: process.env.VSF_RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
     };
 
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
-      isRecaptcha: process.env.RECAPTCHA_ENABLED === 'true',
+      isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
     };
   }
 
