@@ -77,23 +77,19 @@ Find more information about the module [GraphQl Custom Config](https://github.co
     ```bash
     yarn install
     ```
-5. Define a store running environment by adding a `STORE_ENV` to your running project or execute the code
+5. Copy `.env.example` to `.env`
     ```bash
-    echo "STORE_ENV=dev" >> .env
+    cp packages/theme/.env.example packages/theme/.env
     ```
-6. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
-    ```bash
-    cp packages/theme/config/example.json packages/theme/config/dev.json
+6. Update `MAGENTO_GRAPHQL_URL` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
-7. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
+    MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
     ```
-    "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
-    ```
-8. Build dependencies `yarn build:api-client && yarn build:composables`
+7. Build dependencies `yarn build:api-client && yarn build:composables`
     ```bash
     yarn build:api-client && yarn build:composables
     ```
-9. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
     ```bash
     yarn dev:theme
     ```

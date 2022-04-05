@@ -2,7 +2,6 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
-import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
@@ -28,9 +27,9 @@ const {
 export default () => {
   const baseConfig = {
     ssr: true,
-    dev: config.get('nuxtAppEnvironment') !== 'production',
+    dev: process.env.VSF_NUXT_APP_ENV !== 'production',
     server: {
-      port: process.env.PORT || config.get('nuxtAppPort'),
+      port: process.env.VSF_NUXT_APP_PORT,
       host: '0.0.0.0',
     },
     head: {
@@ -97,17 +96,17 @@ export default () => {
     modules: [
       '~/modules/catalog',
       ['nuxt-i18n', {
-        baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+        baseUrl: process.env.VSF_STORE_URL || 'http://localhost:3000',
       }],
       'cookie-universal-nuxt',
       'vue-scrollto/nuxt',
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: !!process.env.REDIS__ENABLED,
+        enabled: process.env.VSF_REDIS_ENABLED === 'true',
         invalidation: {
-          endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
-          key: process.env.REDIS__CACHE_INVALIDATE_KEY,
+          endpoint: process.env.VSF_REDIS_CACHE_INVALIDATE_URL,
+          key: process.env.VSF_REDIS_CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
@@ -117,9 +116,9 @@ export default () => {
           {
             // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
             redis: {
-              keyPrefix: process.env.REDIS__KEY_PREFIX,
-              host: process.env.REDIS__HOST,
-              port: process.env.REDIS__PORT,
+              keyPrefix: process.env.VSF_REDIS_KEY_PREFIX,
+              host: process.env.VSF_REDIS_HOST,
+              port: process.env.VSF_REDIS_PORT,
             },
           },
         ],
@@ -226,29 +225,29 @@ export default () => {
       },
     },
     image: {
-      provider: config.get('imageProvider'),
+      provider: process.env.VSF_IMAGE_PROVIDER,
     },
   };
 
-  if (config.get('imageProvider') === 'cloudinary') {
+  if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
     baseConfig.image.cloudinary = {
-      baseURL: config.get('imageProviderBaseUrl'),
+      baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL,
     };
   }
 
-  if (config.get('recaptchaEnabled')) {
+  if (process.env.VSF_RECAPTCHA_ENABLED === 'true') {
     baseConfig.modules.push('@nuxtjs/recaptcha');
 
     baseConfig.recaptcha = {
-      hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
-      siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-      version: config.get('recaptchaVersion'), // Version 2 or 3
-      size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
+      hideBadge: process.env.VSF_RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
+      siteKey: process.env.VSF_RECAPTCHA_SITE_KEY, // Site key for requests
+      version: process.env.VSF_RECAPTCHA_VERSION, // Version 2 or 3
+      size: process.env.VSF_RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
     };
 
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
-      isRecaptcha: config.get('recaptchaEnabled'),
+      isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
     };
   }
 

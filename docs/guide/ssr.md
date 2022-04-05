@@ -17,11 +17,11 @@ The cached pages are:
 
 To invalidate a tag and remove pages associated with that tag, use the [Invalidation endpoint](https://docs.vuestorefront.io/v2/performance/ssr-cache.html#invalidating-tags).
 
-Go to the route configured in the `.env` file under the `REDIS__CACHE_INVALIDATE_KEY` key with two query parameters:
-* `key` — string matching the `REDIS__CACHE_INVALIDATE_KEY` key in the `.env` file.
+Go to the route configured in the `.env` file under the `VSF_REDIS_CACHE_INVALIDATE_KEY` key with two query parameters:
+* `key` — string matching the `VSF_REDIS_CACHE_INVALIDATE_KEY` key in the `.env` file.
 * `tags` — a comma-separated list of tags for invalidation.
 
-Assuming that you are running the application locally, the `REDIS__CACHE_INVALIDATE_URL` key is equal to `/cache-invalidate,` and the `REDIS__CACHE_INVALIDATE_KEY` key is equal to `secret_key`, and you want to invalidate the `Vhome` tag, the full URL will look like this:
+Assuming that you are running the application locally, the `VSF_REDIS_CACHE_INVALIDATE_URL` key is equal to `/cache-invalidate,` and the `VSF_REDIS_CACHE_INVALIDATE_KEY` key is equal to `secret_key`, and you want to invalidate the `Vhome` tag, the full URL will look like this:
 
 ## How to cache other pages
 
@@ -50,22 +50,21 @@ Once you have the Redis driver installed, you need to add the Redis configuratio
 
 ```
 .env
-REDIS__HOST=127.0.0.1
-REDIS__PORT=6379
-REDIS_PASSWORD=
-REDIS__KEY_PREFIX=
-REDIS__CACHE_INVALIDATE_URL=/cache-invalidate
-REDIS__ENABLED=false
+VSF_REDIS_HOST=127.0.0.1
+VSF_REDIS_PORT=6379
+VSF_REDIS_KEY_PREFIX=
+VSF_REDIS_CACHE_INVALIDATE_URL=/cache-invalidate
+VSF_REDIS_ENABLED=true
 ```
 
 Then you have to update `nuxt.config.js file` and add this to the `modules` object:
 
 ```javascript
 ['@vue-storefront/cache/nuxt', {
-  enabled: process.env.REDIS__ENABLED,
+  enabled: process.env.VSF_REDIS_ENABLED,
   invalidation: {
-    endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
-    key: process.env.REDIS__CACHE_INVALIDATE_KEY,
+    endpoint: process.env.VSF_REDIS_CACHE_INVALIDATE_URL,
+    key: process.env.VSF_REDIS_CACHE_INVALIDATE_KEY,
     handlers: [
       '@vue-storefront/cache/defaultHandler',
     ],
@@ -75,9 +74,9 @@ Then you have to update `nuxt.config.js file` and add this to the `modules` obje
     {
       // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
       redis: {
-        keyPrefix: process.env.REDIS__KEY_PREFIX,
-        host: process.env.REDIS__HOST,
-        port: process.env.REDIS__PORT,
+        keyPrefix: process.env.VSF_REDIS_KEY_PREFIX,
+        host: process.env.VSF_REDIS_HOST,
+        port: process.env.VSF_REDIS_PORT,
       },
     },
   ],

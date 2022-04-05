@@ -11,8 +11,8 @@ For configure the integration using `environment variables`, you can have a `.en
 STORE_ENV=dev # Store environment (Usage for file configuration)
 NUXT_APP_ENV=development # Define nuxt application environment
 NUXT_APP_PORT=3000 # Define nuxt port
-MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
-MAGENTO_EXTERNAL_CHECKOUT=false # Flag if VSF will use External Checkout
+MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
+MAGENTO_EXTERNAL_CHECKOUT_ENABLED=false # Flag if VSF will use External Checkout
 MAGENTO_EXTERNAL_CHECKOUT_URL=https://{YOUR_SITE_FRONT_URL} # External checkout URL
 MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=/vue/cart/sync # External Checkout synchronization path
 MAGENTO_BASE_URL={YOUR_SITE_FRONT_URL} # base url of your Magento instance
@@ -93,9 +93,9 @@ By default, we use the `ipx` provider. that means the images are fetched from Ma
 2. Configure your provider in `nuxt.config.js`. Here is the example:
 ```javascript
 image: {
-  provider: config.get('imageProvider'),
+  provider: process.env.VSF_IMAGE_PROVIDER
   magekit: {
-    baseURL: config.get('imageProviderBaseUrl'),
+    baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL
   }
 },
 ```
