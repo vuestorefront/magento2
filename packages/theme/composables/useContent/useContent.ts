@@ -36,7 +36,8 @@ export interface UseContentInterface {
    * ```typescript
    * import { useFetch, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
-   * export function {
+   *
+   * export default {
    *   setup() {
    *     const { loading, error, loadPage } = useContent();
    *
@@ -59,7 +60,8 @@ export interface UseContentInterface {
    * ```typescript
    * import { useAsync } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
-   * export function {
+   *
+   * export default {
    *   setup() {
    *     const { loadPage } = useContent();
    *     const pageId = 'about-us'
@@ -82,7 +84,8 @@ export interface UseContentInterface {
    * ```typescript
    * import { onMounted, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
-   * export function {
+   *
+   * export default {
    *   setup() {
    *     const { loadPage } = useContent();
    *     const page = ref({});
@@ -112,7 +115,7 @@ export interface UseContentInterface {
    * import { useFetch, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
    *
-   * export function {
+   * export default {
    *   setup(props) {
    *     const { loadBlocks } = useContent();
    *     const blocks = ref([]);
@@ -132,7 +135,7 @@ export interface UseContentInterface {
    * import { useAsync } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
    *
-   * export function {
+   * export default {
    *   setup(props) {
    *     const { loadBlocks } = useContent();
    *
@@ -153,7 +156,7 @@ export interface UseContentInterface {
    * import { onMounted, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
    *
-   * export function {
+   * export default {
    *   setup(props) {
    *     const { loadBlocks } = useContent();
    *     const blocks = ref([]);
