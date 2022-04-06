@@ -1,3 +1,11 @@
+/**
+ * Composables, getters, helpers and components  for Magento 2 integration for Vue Storefront 2.
+ *
+ * @remarks
+ * This package includes all things tou need to develop own Magento 2 shop
+ *
+ * @packageDocumentation
+ */
 export { default as useUiHelpers } from './useUiHelpers';
 export { default as useUiNotification } from './useUiNotification';
 export { default as useUiState } from './useUiState';
@@ -13,7 +21,7 @@ export { default as useForgotPassword } from './useForgotPassword';
 export { default as useCategory } from './useCategory';
 export { default as useFacet } from './useFacet';
 export { default as useCart } from './useCart';
-export { default as useContent } from './useContent';
+export * from './useContent';
 export { default as useCategorySearch } from './useCategorySearch';
 export { default as useProduct } from './useProduct';
 export { default as useReview } from './useReview';
@@ -28,3 +36,6 @@ export { default as useMakeOrder } from './useMakeOrder';
 export { default as useUserOrder } from './useUserOrder';
 export { default as useUserAddress } from './useUserAddress';
 export { default as useCountrySearch } from './useCountrySearch';
+
+export * from './types';
+export * from '../modules/GraphQL/types';
