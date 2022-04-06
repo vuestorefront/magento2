@@ -213,7 +213,7 @@ export enum AgnosticOrderStatus {
   Refunded = 'Refunded',
 }
 
-export interface AgnosticFacet {
+export interface FacetInterface {
   type: string;
   id: string;
   value: any;
@@ -223,15 +223,15 @@ export interface AgnosticFacet {
   metadata?: any;
 }
 
-export interface AgnosticGroupedFacet {
+export interface GroupedFacetInterface {
   id: string;
   label: string;
   count?: number;
-  options: AgnosticFacet[];
+  options: FacetInterface[];
 }
 
 export interface AgnosticSort {
-  options: AgnosticFacet[];
+  options: FacetInterface[];
   selected: string;
 }
 
@@ -278,16 +278,6 @@ export interface AgnosticReviewMetadata {
     label: string | number;
     id: string;
   }[];
-}
-
-export interface AgnosticFacet {
-  type: string;
-  id: string;
-  value: any;
-  attrName?: string;
-  count?: number;
-  selected?: boolean;
-  metadata?: any;
 }
 
 export interface CategoryTreeInterface {

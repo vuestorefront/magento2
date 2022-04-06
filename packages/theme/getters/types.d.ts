@@ -2,7 +2,7 @@ import { Country } from '~/modules/GraphQL/types';
 import {
   AgnosticAttribute, Countries, AgnosticPrice, AgnosticTotals,
   AgnosticCoupon, AgnosticDiscount, AgnosticCategoryTree, AgnosticBreadcrumb,
-  AgnosticGroupedFacet, AgnosticFacet, AgnosticSort, AgnosticMediaGalleryItem,
+  GroupedFacetInterface, AgnosticSort, AgnosticMediaGalleryItem,
 } from '~/composables/types';
 
 export interface AddressGetter {
@@ -65,7 +65,7 @@ export interface ForgotPasswordGetters<FORGOT_PASSWORD_RESULT> {
 
 export interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
   getAll: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticFacet[];
-  getGrouped: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => AgnosticGroupedFacet[];
+  getGrouped: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => GroupedFacetInterface[];
   getCategoryTree: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticCategoryTree;
   getSortOptions: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticSort;
   getProducts: (searchData: FacetSearchResult<SEARCH_DATA>) => RESULTS;
