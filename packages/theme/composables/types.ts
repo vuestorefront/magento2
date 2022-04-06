@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import {
   BundleProduct,
   ConfigurableProduct,
@@ -42,7 +42,7 @@ export interface Composable<API extends PlatformApi> {
   api?: ContextedPlatformApi<API>
 }
 
-export type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
+export type ComputedProperty<T> = DeepReadonly<Ref<T>>;
 
 export interface ProductsSearchParams {
   perPage?: number;

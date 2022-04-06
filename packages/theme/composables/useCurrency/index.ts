@@ -1,10 +1,8 @@
-import {
-  ref, computed, useContext,
-} from '@nuxtjs/composition-api';
-import { UseCurrency, UseCurrencyErrors } from '~/composables/useCurrency/useCurrency';
-import { ComposableFunctionArgs, CustomQuery } from '~/composables/types';
+import { ref, computed, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
+import type { UseCurrency, UseCurrencyErrors } from './useCurrency';
+import type { ComposableFunctionArgs, CustomQuery } from '../types';
 
 const useCurrency = (): UseCurrency => {
   const { app } = useContext();
