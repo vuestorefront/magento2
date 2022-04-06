@@ -4,7 +4,7 @@ import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from
 import { ComposableFunctionArgs } from '~/composables/types';
 import { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from '~/composables/useAddresses/useAddresses';
 
-export const useAddresses = () : UseAddressesInterface => {
+export function useAddresses(): UseAddressesInterface {
   const error: Ref<UseAddressesErrors> = ref({
     load: null,
     save: null,
@@ -109,6 +109,6 @@ export const useAddresses = () : UseAddressesInterface => {
     update,
     remove,
   };
-};
+}
 
 export default useAddresses;
