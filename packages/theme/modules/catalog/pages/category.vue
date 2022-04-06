@@ -4,9 +4,13 @@
       v-if="isShowCms"
       :content="cmsContent"
     />
+    <CategoryBreadcrumbs
+      v-bind="{ categoryAncestors }"
+      class="breadcrumbs"
+    />
     <SkeletonLoader
       v-if="$fetchState.pending"
-      :height="'75px'"
+      height="75px"
     />
     <CategoryNavbar
       v-else-if="isShowProducts"
@@ -237,9 +241,12 @@ import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
 import { usePrice } from '~/modules/catalog/pricing/usePrice.ts';
+import { getFilterableAttributes } from '~/modules/catalog/category/config/FiltersConfig';
 import SkeletonLoader from '~/components/SkeletonLoader';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
-import { getFilterableAttributes } from '~/modules/catalog/category/config/FiltersConfig';
+import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
+import { useCategoryLogic } from '../category/helpers';
+
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
@@ -247,6 +254,7 @@ export default defineComponent({
     CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters'),
     SkeletonLoader,
     CategoryNavbar,
+    CategoryBreadcrumbs,
     CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
     CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
     EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
@@ -307,6 +315,8 @@ export default defineComponent({
       });
     };
 
+    const { categoryAncestors, isCategoryTreeLoaded, loadCategoryTree } = useCategoryLogic();
+
     useFetch(async () => {
       const routeData = await resolveUrl();
       const content = await getContentData(routeData?.id);
@@ -332,6 +342,10 @@ export default defineComponent({
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags([...tags, ...productTags]);
+
+      if (!isCategoryTreeLoaded.value) {
+        await loadCategoryTree();
+      }
     });
 
     const isPriceLoaded = ref(false);
@@ -380,6 +394,7 @@ export default defineComponent({
       isShowCms,
       isShowProducts,
       cmsContent,
+      categoryAncestors,
     };
   },
 });
@@ -403,18 +418,13 @@ export default defineComponent({
   }
 }
 
-.breadcrumbs {
-  margin: var(--spacer-base) auto var(--spacer-lg);
-}
-
-.sort-by {
-  flex: unset;
-  width: 11.875rem;
-}
-
 .main {
   display: flex;
 }
+
+ .breadcrumbs {
+   padding: var(--spacer-sm);
+ }
 
 .sidebar {
   flex: 0 0 15%;
