@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import createCustomerAddress from './createCustomerAddress';
+import createCustomerAddressMutation from './createCustomerAddress';
 import {
   CreateCustomerAddressMutation,
   CreateCustomerAddressMutationVariables,
@@ -8,16 +8,23 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
-export default async (
+/**
+ * Creates a customer address.
+ *
+ * @param context VSF Context
+ * @param input new customer address data
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
+export default async function createCustomerAddress(
   context: Context,
   input: CustomerAddressInput,
   customQuery: CustomQuery = { createCustomerAddress: 'createCustomerAddress' },
-): Promise<FetchResult<CreateCustomerAddressMutation>> => {
+): Promise<FetchResult<CreateCustomerAddressMutation>> {
   const { createCustomerAddress: createCustomerAddressGQL } = context.extendQuery(
     customQuery,
     {
       createCustomerAddress: {
-        query: createCustomerAddress,
+        query: createCustomerAddressMutation,
         variables: { input },
       },
     },
@@ -27,4 +34,4 @@ export default async (
     mutation: createCustomerAddressGQL.query,
     variables: createCustomerAddressGQL.variables,
   });
-};
+}
