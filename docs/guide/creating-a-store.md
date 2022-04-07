@@ -1,60 +1,186 @@
-# Creating a new store
+# Setup Guide for a Local Installation of Magento Server + Integration
 
-To create a new Vue Storefront Magento 2 store, there are two available options:
+🚧 This guide uses the `develop` branch, which is still under construction. Various steps might change or fall away altogether in the future.
 
-1. [Using the Vue Storefront CLI](#using-the-vue-storefront-cli)
-2. [Cloning the template store](#cloning-the-template-store)
+ℹ️ In this installation guide, I will use `magento.dev` as a domain. If it doesn’t already exist in your [hosts](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) file, it will be added for you. You can pick whichever domain name you’d like for this.
 
-## Requirements
+## Table of Contents
 
-- Node.Js 16+
-- Magento 2.4.3+ instance for GraphQL endpoint
-- Change Magento GraphQL Query Complexity and Depth values
+1. [Setup the Magento Server](#setup-the-magento-server-)
+2. [Setup the Magento Integration](#setup-the-magento-integration-)
+3. [Correct Magento Categories Settings](#correct-magento-categories-settings-)
 
-::: warning Don't forget to change the Magento GraphQL Query Complexity and Depth values
-Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
+## Setup the Magento Server 🪄
 
-The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
-
-To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
-:::
-
-To install the Magento 2 GraphQL Config module, on your Magento installation execute:
+There is a pretty nice [Docker image for Magento](https://github.com/markshust/docker-magento), which takes care of (almost) anything.
 
 ```bash
-composer require caravelx/module-graphql-config
-
-php bin/magento module:enable Caravel_GraphQlConfig
-
-php bin/magento setup:upgrade
-
-php bin/magento setup:di:compile
-
-php bin/magento setup:static-content:deploy
+mkdir magento-docker
+cd magento-docker
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.dev 2.4.3-p1
 ```
 
-Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
+💡 After this is done, you can check the (empty) Magento site on [https://magento.dev](https://magento.dev).
 
-## Using the Vue Storefront CLI
+😈 If on Mac you get an error that ports _80_ and/or _443_ are already in use by other processes, execute `killall httpd` to get rid of them.
 
-To create a new store using the Vue Storefront CLI, first you need to install the CLI
+### Set up your Magento authentication
+
+💡 This step is only necessary if you want to set up sample data.
+
+☝ If you haven’t already, sign up for a [Magento marketplace account](https://marketplace.magento.com) and [generate new access keys](https://marketplace.magento.com/customer/accessKeys/).
+
+1. Copy the sample auth file:
+   `cp src/auth.json.sample src/auth.json`
+2. Open the file and replace the value for the `username` with your **public access key** and the value for the `password` with your **private access key**.
+
+```json
+{
+  "http-basic": {
+    "repo.magento.com": {
+      "username": "a1c69cb...",
+      "password": "af041560..."
+    }
+  }
+}
+```
+
+3. Copy the file to the container: `bin/copytocontainer auth.json`
+
+### Populate with sample data
+
+Grad your **public-** and **private key** from your Magento account:
+[https://marketplace.magento.com/customer/accessKeys/](https://marketplace.magento.com/customer/accessKeys/)
+
+_(If you don’t have an account yet, create one)_
+
+ℹ️ Use your public key as **username** and private key as **password** in the following commands.
 
 ```bash
-npm i -g @vue-storefront/cli
+bin/magento sampledata:deploy
+bin/magento setup:upgrade
 ```
 
-Then you must create the new store using the newly installed CLI
+💡 After this is done, you can check the Magento site on [https://magento.dev](https://magento.dev), where items should now appear.
+
+🚩 If `bin/magento sampledata:deploy` doesn’t work, delete the `auth.json` file and try again. Manually enter the public and private keys in the console when prompted.
+
+### Enable CORS
+
+You need to enable CORS in your Magento instance, so requests from other domains (such as magento.dev 👀) are being accepted.
+
+1. Require the module: `bin/composer require graycore/magento2-cors`
+2. Configure the module: Edit the env.php file (`bin/cli vi app/etc/env.php`) and add the following lines at the end of the file:
+
+```php
+'system' => [
+       'default' => [
+            'web' => [
+                'graphql' => [
+                    'cors_max_age' => 86400,
+                    'cors_allow_credentials' => 0,
+                    'cors_allowed_methods' => 'POST, OPTIONS, GET',
+                    'cors_allowed_headers' => 'Content-Currency, Store, X-Magento-Cache-Id, X-Captcha, Content-Type, Authorization, DNT, TE',
+                    'cors_allowed_origins' => '*'
+                ]
+            ]
+        ]
+]
+```
+
+3. Enable the module: `bin/magento module:enable Graycore_Cors`
+4. Make sure the module was registered correctly: `bin/magento setup:upgrade`
+
+## Setup the Magento Integration 🔌
+
+### Download the integration
+
+ℹ️ This command uses the **develop** branch, since it is the closest to the future production-ready version.
 
 ```bash
-vsf init <project_name>
-# And choose Magento 2
+git clone https://github.com/vuestorefront/magento2.git magento-vsf -b develop
+cd magento-vsf
+yarn install
 ```
 
-## Cloning the template store
+### Set up the environment variables
 
-To create a new store cloning the template store, you need to clone the Magento base template store.
+☝ These variables are based on `packages/theme/.env.example`
+
+```
+VSF_NUXT_APP_ENV=development
+VSF_NUXT_APP_PORT=3000
+
+VSF_STORE_URL=http://local.dev:3000
+
+VSF_MAGENTO_BASE_URL=local.dev
+VSF_MAGENTO_GRAPHQL_URL=https://local.dev/graphql
+
+VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED=false
+VSF_MAGENTO_EXTERNAL_CHECKOUT_URL=https://local.dev
+VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=/vue/cart/sync
+
+VSF_IMAGE_PROVIDER=cloudinary
+VSF_IMAGE_PROVIDER_BASE_URL=https://res-4.cloudinary.com/dnozky7on/image/upload/
+
+VSF_REDIS_ENABLED=false
+VSF_REDIS_HOST=127.0.0.1
+VSF_REDIS_PORT=6379
+VSF_REDIS_KEY_PREFIX=
+VSF_REDIS_CACHE_INVALIDATE_URL=/cache-invalidate
+
+VSF_RECAPTCHA_ENABLED=false
+VSF_RECAPTCHA_SITE_KEY=
+VSF_RECAPTCHA_SECRET_KEY=
+VSF_RECAPTCHA_HIDE_BADGE=
+VSF_RECAPTCHA_SIZE=invisible
+VSF_RECAPTCHA_MIN_SCORE=0.5
+VSF_RECAPTCHA_VERSION=3
+
+# Don't use this in a production environment!
+NODE_TLS_REJECT_UNAUTHORIZED=0
+
+```
+
+🚩 The line `NODE_TLS_REJECT_UNAUTHORIZED=0` is added to avoid a `unable to verify the first certificate` error. **Please don’t use this in production.**
+
+☝ These variables are based on `packages/theme/.env.example`
+
+```
+VSF_MAGENTO_GRAPHQL_URL=https://magento.dev/graphql
+```
+
+### Spin up development environment
 
 ```bash
-git clone https://github.com/vuestorefront/template-magento <project-name>
+yarn build
+yarn dev:theme
 ```
 
+## Correct Magento categories settings 🔧
+
+In the default Magento installation, categories are configured in a way that the category pages in the Vue Storefront integration don’t work. This is something that needs to be done in the **Magento admin page**.
+
+### Create an admin user
+
+```bash
+bin/magento admin:user:create
+```
+
+### Disable 2FA
+
+Two-Factor Authentication is set up by default on the Magento server but doesn’t work out of the box. For the sake of getting the development environment running, it’s the easiest to disable this feature.
+
+```bash
+bin/magento module:disable Magento_TwoFactorAuth
+```
+
+### Login & Correct the categories
+
+1. Go to [magento.dev/admin](http://magento.dev/admin) to login with the new admin user you created in the first step
+2. Click on `Catalog` > `Categories` and select a category (e.g. `Gear`) by clicking on it
+3. Go to _Display Settings_ and set **Display Mode** to `Products Only`
+4. Save the changes
+5. Repeat for all (main?) categories
+6. Reindex and flush the cache with this command in the `magento-docker` folder:
+   `bin/magento indexer:reindex && bin/magento cache:flush`
