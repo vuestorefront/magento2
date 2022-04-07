@@ -158,7 +158,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.v(
+      const { data } = await context.$magento.api.deleteCustomerAddress(
         removeParams.address.id,
       );
       results = !!data.deleteCustomerAddress;
