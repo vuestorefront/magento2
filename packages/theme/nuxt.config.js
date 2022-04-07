@@ -114,6 +114,7 @@ export default () => {
         driver: [
           '@vue-storefront/redis-cache',
           {
+            defaultTimeout: 86_400,
             // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
             redis: {
               keyPrefix: process.env.VSF_REDIS_KEY_PREFIX,
