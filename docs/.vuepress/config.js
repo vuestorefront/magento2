@@ -93,7 +93,7 @@ module.exports = {
         title: 'Composables',
         children: [
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
-        ]
+          ['/api-reference/magento-theme.usecart', 'useCart()'],
       },
       {
         title: 'API methods',
