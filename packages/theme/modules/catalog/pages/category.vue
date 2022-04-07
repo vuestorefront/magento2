@@ -37,160 +37,161 @@
           <SkeletonLoader />
         </div>
       </div>
-      <div v-else-if="isShowProducts">
-        <EmptyResults v-if="products.length === 0" />
-        <div class="products">
-          <transition-group
-            v-if="isCategoryGridView"
-            appear
-            class="products__grid"
-            name="products__slide"
-            tag="div"
+      <div
+        v-else-if="isShowProducts"
+        class="products"
+      >
+        <CategoryEmptyResults v-if="products.length === 0" />
+        <transition-group
+          v-if="isCategoryGridView"
+          appear
+          class="products__grid"
+          name="products__slide"
+          tag="div"
+        >
+          <SfProductCard
+            v-for="(product, i) in products"
+            :key="getSlug(product)"
+            v-e2e="'category-product-card'"
+            image-tag="nuxt-img"
+            :image="getMagentoImage(getProductThumbnailImage(product))"
+            :image-height="imageSizes.productCard.height"
+            :image-width="imageSizes.productCard.width"
+            :is-added-to-cart="isInCart({ product })"
+            :is-in-wishlist="isInWishlist({ product })"
+            :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
+            :link="
+              localePath(
+                `/p/${getProductSku(product)}${getSlug(
+                  product,
+                  product.categories[0]
+                )}`
+              )
+            "
+            :regular-price="$fc(getPrice(product).regular)"
+            :reviews-count="getTotalReviews(product)"
+            :score-rating="getAverageRating(product)"
+            :show-add-to-cart-button="true"
+            :special-price="
+              getPrice(product).special && $fc(getPrice(product).special)
+            "
+            :style="{ '--index': i }"
+            :title="getName(product)"
+            :wishlist-icon="isAuthenticated ? 'heart' : ''"
+            class="products__product-card"
+            @click:wishlist="addItemToWishlist(product)"
+            @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
           >
-            <SfProductCard
-              v-for="(product, i) in products"
-              :key="getSlug(product)"
-              v-e2e="'category-product-card'"
-              image-tag="nuxt-img"
-              :image="getMagentoImage(getProductThumbnailImage(product))"
-              :image-height="imageSizes.productCard.height"
-              :image-width="imageSizes.productCard.width"
-              :is-added-to-cart="isInCart({ product })"
-              :is-in-wishlist="isInWishlist({ product })"
-              :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-              :link="
-                localePath(
-                  `/p/${getProductSku(product)}${getSlug(
-                    product,
-                    product.categories[0]
-                  )}`
-                )
-              "
-              :regular-price="$fc(getPrice(product).regular)"
-              :reviews-count="getTotalReviews(product)"
-              :score-rating="getAverageRating(product)"
-              :show-add-to-cart-button="true"
-              :special-price="
-                getPrice(product).special && $fc(getPrice(product).special)
-              "
-              :style="{ '--index': i }"
-              :title="getName(product)"
-              :wishlist-icon="isAuthenticated ? 'heart' : ''"
-              class="products__product-card"
-              @click:wishlist="addItemToWishlist(product)"
-              @click:add-to-cart="addItemToCart({ product, quantity: 1 })"
-            >
-              <template #price>
-                <SfPrice
-                  :class="{ 'display-none': !isPriceLoaded || !$fc(getPrice(product).regular) }"
-                  class="sf-product-card__price"
-                  :regular="$fc(getPrice(product).regular)"
-                  :special="getPrice(product).special && $fc(getPrice(product).special)"
-                />
-              </template>
-            </SfProductCard>
-          </transition-group>
-          <transition-group
-            v-else
-            appear
-            class="products__list"
-            name="products__slide"
-            tag="div"
-          >
-            <SfProductCardHorizontal
-              v-for="(product, i) in products"
-              :key="getSlug(product)"
-              image-tag="nuxt-img"
-              :description="getDescription(product)"
-              :image="getMagentoImage(getProductThumbnailImage(product))"
-              :image-height="imageSizes.productCardHorizontal.height"
-              :image-width="imageSizes.productCardHorizontal.width"
-              :is-in-wishlist="isInWishlist({ product })"
-              :is-in-wishlist-icon="isAuthenticated ? '' : ''"
-              :link="
-                localePath(
-                  `/p/${getProductSku(product)}${getSlug(
-                    product,
-                    product.categories[0]
-                  )}`
-                )
-              "
-              :regular-price="$fc(getPrice(product).regular)"
-              :reviews-count="getTotalReviews(product)"
-              :score-rating="getAverageRating(product)"
-              :special-price="
-                getPrice(product).special && $fc(getPrice(product).special)
-              "
-              :style="{ '--index': i }"
-              :title="getName(product)"
-              :wishlist-icon="isAuthenticated ? '' : ''"
-              class="products__product-card-horizontal"
-              @click:add-to-cart="addItemToCart({ product, quantity: $event })"
-              @click:wishlist="addItemToWishlist(product)"
-            >
-              <template #configuration>
-                <SfProperty
-                  class="desktop-only"
-                  name="Size"
-                  style="margin: 0 0 1rem 0"
-                  value="XS"
-                />
-                <SfProperty
-                  class="desktop-only"
-                  name="Color"
-                  value="white"
-                />
-              </template>
-              <template #actions>
-                <SfButton
-                  v-if="isAuthenticated"
-                  class="sf-button--text products__product-card-horizontal__add-to-wishlist"
-                  @click="addItemToWishlist(product)"
-                >
-                  {{
-                    isInWishlist({ product })
-                      ? $t('Remove from Wishlist')
-                      : $t('Save for later')
-                  }}
-                </SfButton>
-              </template>
-            </SfProductCardHorizontal>
-          </transition-group>
-          <div class="products__display-opt">
-            <LazyHydrate on-interaction>
-              <SfPagination
-                v-show="pagination.totalPages > 1"
-                :current="pagination.currentPage"
-                :total="pagination.totalPages"
-                :visible="5"
-                class="products__pagination"
+            <template #price>
+              <SfPrice
+                :class="{ 'display-none': !isPriceLoaded || !$fc(getPrice(product).regular) }"
+                class="sf-product-card__price"
+                :regular="$fc(getPrice(product).regular)"
+                :special="getPrice(product).special && $fc(getPrice(product).special)"
               />
-            </LazyHydrate>
-
-            <div
+            </template>
+          </SfProductCard>
+        </transition-group>
+        <transition-group
+          v-else
+          appear
+          class="products__list"
+          name="products__slide"
+          tag="div"
+        >
+          <SfProductCardHorizontal
+            v-for="(product, i) in products"
+            :key="getSlug(product)"
+            image-tag="nuxt-img"
+            :description="getDescription(product)"
+            :image="getMagentoImage(getProductThumbnailImage(product))"
+            :image-height="imageSizes.productCardHorizontal.height"
+            :image-width="imageSizes.productCardHorizontal.width"
+            :is-in-wishlist="isInWishlist({ product })"
+            :is-in-wishlist-icon="isAuthenticated ? '' : ''"
+            :link="
+              localePath(
+                `/p/${getProductSku(product)}${getSlug(
+                  product,
+                  product.categories[0]
+                )}`
+              )
+            "
+            :regular-price="$fc(getPrice(product).regular)"
+            :reviews-count="getTotalReviews(product)"
+            :score-rating="getAverageRating(product)"
+            :special-price="
+              getPrice(product).special && $fc(getPrice(product).special)
+            "
+            :style="{ '--index': i }"
+            :title="getName(product)"
+            :wishlist-icon="isAuthenticated ? '' : ''"
+            class="products__product-card-horizontal"
+            @click:add-to-cart="addItemToCart({ product, quantity: $event })"
+            @click:wishlist="addItemToWishlist(product)"
+          >
+            <template #configuration>
+              <SfProperty
+                class="desktop-only"
+                name="Size"
+                style="margin: 0 0 1rem 0"
+                value="XS"
+              />
+              <SfProperty
+                class="desktop-only"
+                name="Color"
+                value="white"
+              />
+            </template>
+            <template #actions>
+              <SfButton
+                v-if="isAuthenticated"
+                class="sf-button--text products__product-card-horizontal__add-to-wishlist"
+                @click="addItemToWishlist(product)"
+              >
+                {{
+                  isInWishlist({ product })
+                    ? $t('Remove from Wishlist')
+                    : $t('Save for later')
+                }}
+              </SfButton>
+            </template>
+          </SfProductCardHorizontal>
+        </transition-group>
+        <div class="products__display-opt">
+          <LazyHydrate on-interaction>
+            <SfPagination
               v-show="pagination.totalPages > 1"
-              class="products__show-on-page"
-            >
-              <span class="products__show-on-page__label">{{
-                $t('Show')
-              }}</span>
-              <LazyHydrate on-interaction>
-                <SfSelect
-                  :value="pagination.itemsPerPage.toString()"
-                  class="products__items-per-page"
-                  @input="changeItemsPerPage"
+              :current="pagination.currentPage"
+              :total="pagination.totalPages"
+              :visible="5"
+              class="products__pagination"
+            />
+          </LazyHydrate>
+
+          <div
+            v-show="pagination.totalPages > 1"
+            class="products__show-on-page"
+          >
+            <span class="products__show-on-page__label">{{
+              $t('Show')
+            }}</span>
+            <LazyHydrate on-interaction>
+              <SfSelect
+                :value="pagination.itemsPerPage.toString()"
+                class="products__items-per-page"
+                @input="changeItemsPerPage"
+              >
+                <SfSelectOption
+                  v-for="option in pagination.pageOptions"
+                  :key="option"
+                  :value="option"
+                  class="products__items-per-page__option"
                 >
-                  <SfSelectOption
-                    v-for="option in pagination.pageOptions"
-                    :key="option"
-                    :value="option"
-                    class="products__items-per-page__option"
-                  >
-                    {{ option }}
-                  </SfSelectOption>
-                </SfSelect>
-              </LazyHydrate>
-            </div>
+                  {{ option }}
+                </SfSelectOption>
+              </SfSelect>
+            </LazyHydrate>
           </div>
         </div>
       </div>
@@ -198,14 +199,14 @@
       <CategoryFilters
         v-if="isShowProducts"
         :is-visible="isFilterSidebarOpen"
-        :facets="facets"
+        :cat-uid="routeData.entity_uid"
         @close="toggleFilterSidebar"
       />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfButton,
@@ -232,24 +233,24 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import { useUrlResolver } from '~/composables/useUrlResolver.ts';
+import { useUrlResolver } from '~/composables/useUrlResolver';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
-import { usePrice } from '~/modules/catalog/pricing/usePrice.ts';
-import SkeletonLoader from '~/components/SkeletonLoader';
-import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
-import { getFilterableAttributes } from '~/modules/catalog/category/config/FiltersConfig';
+import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
+import { usePrice } from '~/modules/catalog/pricing/usePrice';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
+import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
+import { EntityUrl, ProductInterface } from '~/modules/GraphQL/types';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
-    CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters'),
+    CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters.vue'),
     SkeletonLoader,
     CategoryNavbar,
-    CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
-    CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
-    EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
+    CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent.vue'),
+    CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar.vue'),
+    CategoryEmptyResults: () => import('~/modules/catalog/category/components/CategoryEmptyResults.vue'),
     SfPrice,
     SfButton,
     SfProductCard,
@@ -271,12 +272,12 @@ export default defineComponent({
     const cmsContent = ref('');
     const isShowCms = ref(false);
     const isShowProducts = ref(false);
-    const products = ssrRef([]);
+    const products = ssrRef<ProductInterface[]>([]);
     const sortBy = ref({});
     const facets = ref([]);
     const pagination = ref({});
 
-    const { path, search: resolveUrl } = useUrlResolver();
+    const { search: resolveUrl } = useUrlResolver();
     const { isAuthenticated } = useUser();
     const {
       toggleFilterSidebar,
@@ -289,8 +290,8 @@ export default defineComponent({
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-    } = useWishlist('GlobalWishlist');
-    const { result, search } = useFacet(`facetId:${path}`);
+    } = useWishlist();
+    const { result, search } = useFacet();
     const { addItemToCart, isInCart } = useAddToCart();
 
     const addItemToWishlist = async (product) => {
@@ -307,20 +308,20 @@ export default defineComponent({
       });
     };
 
-    useFetch(async () => {
-      const routeData = await resolveUrl();
-      const content = await getContentData(routeData?.id);
+    const routeData = ref<EntityUrl>({});
 
+    useFetch(async () => {
+      routeData.value = await resolveUrl();
+      const content = await getContentData(routeData.value?.id);
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
 
-      await searchCategoryProduct(routeData?.entity_uid);
+      await searchCategoryProduct(routeData.value?.entity_uid);
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(
         result.value,
-        getFilterableAttributes(),
       );
       pagination.value = facetGetters.getPagination(result.value);
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
@@ -380,6 +381,7 @@ export default defineComponent({
       isShowCms,
       isShowProducts,
       cmsContent,
+      routeData,
     };
   },
 });

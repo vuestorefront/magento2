@@ -15,6 +15,7 @@ import {
   reduceForGroupedFacets,
   reduceForFacets,
 } from '~/composables/useFacet/_utils';
+import { ProductInterface } from '~/modules/GraphQL/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getAll = (searchData: SearchData, criteria?: string[]): FacetInterface[] => buildFacets(searchData, reduceForFacets, criteria);
@@ -54,7 +55,7 @@ const getCategoryTree = (searchData): AgnosticCategoryTree => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getProducts = (searchData): any => {
+const getProducts = (searchData): ProductInterface[] => {
   if (!searchData || !searchData.data || !searchData.data.items) {
     return [];
   }

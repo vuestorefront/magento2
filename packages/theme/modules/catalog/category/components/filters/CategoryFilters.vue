@@ -6,39 +6,45 @@
     @close="$emit('close')"
   >
     <div class="filters desktop-only">
+      <SelectedFilters
+        @removeFilter="doRemoveFilter($event)"
+      />
+      <hr class="sf-divider">
       <div
-        v-for="(facet, i) in facets"
+        v-for="(filter, i) in filters"
         :key="i"
       >
         <SfHeading
-          :key="`filter-title-${facet.id}`"
+          :key="`filter-title-${filter.attribute_code}`"
           :level="4"
-          :title="facet.label"
+          :title="filter.label"
           class="filters__title sf-heading--left"
         />
         <component
-          :is="getFilterConfig(facet.id).component"
-          :facet="facet"
-          :selected-filters="selectedFilters"
-          @selectFilter="selectFilter(facet, $event)"
+          :is="getFilterConfig(filter.attribute_code).component"
+          :filter="filter"
+          @selectFilter="selectFilter(filter, $event)"
         />
       </div>
     </div>
     <SfAccordion class="filters smartphone-only">
+      <SelectedFilters
+        @removeFilter="doRemoveFilter($event)"
+      />
+      <hr class="sf-divider">
       <div
-        v-for="(facet, i) in facets"
+        v-for="(filter, i) in filters"
         :key="i"
       >
         <SfAccordionItem
-          :key="`filter-title-${facet.id}`"
-          :header="facet.label"
+          :key="`filter-title-${filter.attribute_code}`"
+          :header="filter.label"
           class="filters__accordion-item"
         >
           <component
-            :is="getFilterConfig(facet.id).component"
-            :facet="facet"
-            :selected-filters="selectedFilters"
-            @selectFilter="selectFilter(facet, $event)"
+            :is="getFilterConfig(filter.attribute_code).component"
+            :filter="filter"
+            @selectFilter="selectFilter(filter, $event)"
           />
         </SfAccordionItem>
       </div>
@@ -47,13 +53,13 @@
       <div class="filters__buttons">
         <SfButton
           class="sf-button--full-width"
-          @click="applyFilters"
+          @click="doApplyFilters"
         >
           {{ $t('Done') }}
         </SfButton>
         <SfButton
           class="sf-button--full-width filters__button-clear"
-          @click="clearFilters"
+          @click="doClearFilters"
         >
           {{ $t('Clear all') }}
         </SfButton>
@@ -62,7 +68,9 @@
   </SfSidebar>
 </template>
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import {
+  defineComponent, onMounted, provide, Ref, ref,
+} from '@nuxtjs/composition-api';
 import {
   SfAccordion,
   SfButton,
@@ -74,18 +82,26 @@ import {
 
 import { useUiHelpers } from '~/composables';
 import { useFilters } from './useFilters';
-import { getFilterConfig } from '~/modules/catalog/category/config/FiltersConfig';
+import { getFilterConfig, getDisabledFilters } from '~/modules/catalog/category/config/FiltersConfig';
+import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
+import getProductFilterByCategoryCommand from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
 
-import RadioType from '~/modules/catalog/category/components/filters/renderer/RadioType.vue';
-import SwatchColorType from '~/modules/catalog/category/components/filters/renderer/SwatchColorType.vue';
-import CheckboxType from '~/modules/catalog/category/components/filters/renderer/CheckboxType.vue';
+import type { SelectedFiltersInterface } from './useFilters';
+import type { Aggregation } from '~/modules/GraphQL/types';
+
+export interface UseFiltersProviderInterface {
+  selectedFilters: Ref<SelectedFiltersInterface>,
+  filters: Ref<Aggregation[]>,
+}
 
 export default defineComponent({
-  name: 'CategoryFilters',
+  name: 'CategoryFiltersSidebar',
   components: {
-    CheckboxType,
-    SwatchColorType,
-    RadioType,
+    SelectedFilters,
+    CheckboxType: () => import('~/modules/catalog/category/components/filters/renderer/CheckboxType.vue'),
+    SwatchColorType: () => import('~/modules/catalog/category/components/filters/renderer/SwatchColorType.vue'),
+    RadioType: () => import('~/modules/catalog/category/components/filters/renderer/RadioType.vue'),
+    YesNoType: () => import('~/modules/catalog/category/components/filters/renderer/YesNoType.vue'),
     SfSidebar,
     SfHeading,
     SfAccordion,
@@ -98,37 +114,50 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    availableFacets: {
-      type: Array,
-      default: () => [],
-    },
-    facets: {
-      type: Array,
-      default: () => [],
+    catUid: {
+      type: String,
+      required: true,
     },
   },
-  setup(props, { emit }) {
+  setup({ catUid }, { emit }) {
     const { changeFilters } = useUiHelpers();
-    const { getSelectedFilters, isFilterSelected, selectFilter } = useFilters();
-    const selectedFilters = getSelectedFilters();
+    const {
+      selectedFilters, selectFilter, removeFilter, isFilterSelected,
+    } = useFilters();
 
-    const applyFilters = () => {
-      changeFilters(getSelectedFilters().value);
+    const doApplyFilters = () => {
+      changeFilters(selectedFilters.value);
       emit('close');
     };
 
-    const clearFilters = () => {
+    const doRemoveFilter = ({ id, value }: { id: string, value: string }) => {
+      removeFilter(id, value);
+      changeFilters(selectedFilters.value);
+      emit('close');
+    };
+
+    const doClearFilters = () => {
       changeFilters({});
       emit('close');
     };
 
+    const filters = ref<Aggregation[]>([]);
+
+    onMounted(async () => {
+      const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: catUid });
+      filters.value = loadedFilters.filter((filter) => !getDisabledFilters().includes(filter.attribute_code));
+    });
+
+    provide('UseFiltersProvider', { isFilterSelected, selectedFilters, filters });
+
     return {
-      isFilterSelected,
       selectFilter,
-      applyFilters,
-      clearFilters,
+      doApplyFilters,
+      doRemoveFilter,
+      doClearFilters,
       getFilterConfig,
       selectedFilters,
+      filters,
     };
   },
 });

@@ -1,19 +1,21 @@
 <template>
   <div class="swatch_color_wrapper">
     <SfColor
-      v-for="option in facet.options"
-      :key="`${facet.id}-${option.value}`"
-      :color="option.attrName"
-      :selected="Boolean(isFilterSelected(facet, option, selectedFilters))"
+      v-for="option in filter.options"
+      :key="`${filter.attribute_code}-${option.value}`"
+      :color="option.label"
+      :selected="Boolean(selected(filter.attribute_code, option.value))"
       class="swatch_color"
       @click="$emit('selectFilter', option)"
     />
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import {
+  computed, defineComponent, inject, PropType,
+} from '@nuxtjs/composition-api';
 import { SfColor } from '@storefront-ui/vue';
-import { useFilters } from '~/modules/catalog/category/components/filters/useFilters';
+import type { Aggregation } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'SwatchColorType',
@@ -21,25 +23,28 @@ export default defineComponent({
     SfColor,
   },
   props: {
-    selectedFilters: {
-      type: Object,
-      default: () => ref({}),
-    },
-    facet: {
-      type: Object,
+    filter: {
+      type: Object as PropType<Aggregation>,
       required: true,
     },
   },
   setup() {
-    const { isFilterSelected } = useFilters();
-
-    return { isFilterSelected };
+    const { isFilterSelected } = inject('UseFiltersProvider');
+    const selected = computed(() => ((id: string, optVal: string) => isFilterSelected(id, optVal)));
+    return {
+      selected,
+    };
   },
 });
 </script>
 <style lang="scss">
 .swatch_color_wrapper {
   display: flex;
+
+  .sf-color {
+    width: var(--checkbox-size, 1.5rem);
+    height: var(--checkbox-size, 1.5rem);
+  }
 }
 
 .swatch_color {
