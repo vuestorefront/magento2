@@ -5,11 +5,13 @@ export interface UseCategoryErrors {
   search: Error;
 }
 
-export type CategoryListQueryVariables = { pageSize: number };
+export interface UseCategoryParamsInput {
+  pageSize: number;
+}
 
-export interface UseCategory{
-  categories: any,
-  search(searchParams: ComposableFunctionArgs<CategoryListQueryVariables>): Promise<void>;
+export interface UseCategoryInterface {
+  categories: any;
+  search: (searchParams: ComposableFunctionArgs<UseCategoryParamsInput>) => Promise<void>;
   loading: Ref<boolean>;
   error: Ref<UseCategoryErrors>;
 }

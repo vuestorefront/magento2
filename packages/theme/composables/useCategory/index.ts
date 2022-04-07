@@ -1,12 +1,13 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import {
-  UseCategory, UseCategoryErrors, CategoryListQueryVariables,
+import type { Category } from '~/composables/types';
+import type {
+  UseCategoryErrors,
+  UseCategoryInterface,
+  UseCategoryParamsInput,
 } from '~/composables/useCategory/useCategory';
 
-import { Category } from '~/composables/types';
-
-export const useCategory = (): UseCategory => {
+export function useCategory(): UseCategoryInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
@@ -14,8 +15,7 @@ export const useCategory = (): UseCategory => {
   });
   const categories: Ref<Array<Category>> = ref(null);
 
-  // eslint-disable-next-line consistent-return
-  const search = async (searchParams: CategoryListQueryVariables) => {
+  const search = async (searchParams: UseCategoryParamsInput) => {
     Logger.debug('useCategory/search', searchParams);
 
     try {
@@ -38,6 +38,8 @@ export const useCategory = (): UseCategory => {
     error,
     categories,
   };
-};
+}
+
+export * from '~/composables/useCategory/useCategory';
 
 export default useCategory;
