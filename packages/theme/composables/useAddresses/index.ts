@@ -1,8 +1,8 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
-import { ComposableFunctionArgs } from '~/composables/types';
-import { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from '~/composables/useAddresses/useAddresses';
+import type { ComposableFunctionArgs } from '~/composables/types';
+import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from './useAddresses';
 
 /**
  * @public
@@ -183,5 +183,7 @@ export function useAddresses(): UseAddressesInterface {
     remove,
   };
 }
+
+export * from './useAddresses';
 
 export default useAddresses;
