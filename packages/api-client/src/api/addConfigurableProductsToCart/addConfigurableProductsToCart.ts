@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation that adds configurable products to shopping cart */
 export default gql`
   mutation addConfigurableProductsToCart($input: AddConfigurableProductsToCartInput) {
     addConfigurableProductsToCart(input: $input) {
