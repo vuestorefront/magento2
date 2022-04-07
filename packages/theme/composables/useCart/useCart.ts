@@ -3,7 +3,36 @@ import { ComputedRef, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 import { CartItemInput } from '~/modules/GraphQL/types';
 
+/**
+ * `UseCartInterface` is used by userCart composable, and it's responsible for manipulating cart data in Magento.
+ */
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
+  /**
+   * Loads the current cart
+   *
+   * Returns a `Promise` that resolves when cart information is fetched
+   *
+   * @example
+   * Load cart information on the server side using the `onSsr` hook:
+   *
+   * ```typescript
+   * import { useCart } from '@vue-storefront/magento';
+   * import { onSsr } from '@vue-storefront/core';
+   * export default {
+   *   setup () {
+   *     const { load, cart } = useCart()
+   *
+   *     onSsr(async () => {
+   *       await load()
+   *     })
+   *
+   *     return {
+   *      cart
+   *     }
+   *   }
+   * }
+   * ```
+   */
   load: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
   loadTotalQty: (context: Context['app']) => Promise<void>;
   addItem: (
