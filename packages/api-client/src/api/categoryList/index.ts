@@ -4,6 +4,13 @@ import { CategoryListQuery, CategoryListQueryVariables } from '../../types/Graph
 import categoryListQuery from './categoryList';
 import { Context } from '../../types/context';
 
+/**
+ * Fetches the category list.
+ *
+ * @param context VSF Context
+ * @param params
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async function categoryList(
   context: Context,
   params: CategoryListQueryVariables,
