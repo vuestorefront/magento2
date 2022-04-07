@@ -30,7 +30,7 @@ import type { UseContentInterface, UseContentErrors } from './useContent';
  * ```typescript
  * import { useContent } from '~/composables';
  *
- * export function {
+ * export default {
  *   setup() {
  *     const { loading, error, loadPage, loadBlocks } = useContent();
  *   }
@@ -44,7 +44,7 @@ import type { UseContentInterface, UseContentErrors } from './useContent';
  * import { useFetch } from '@nuxtjs/composition-api';
  * import { useContent } from '~/composables';
  *
- * export function {
+ * export default {
  *   setup() {
  *     const { loading, error, loadPage } = useContent();
  *
@@ -70,7 +70,7 @@ import type { UseContentInterface, UseContentErrors } from './useContent';
  * import { useFetch, ref } from '@nuxtjs/composition-api';
  * import { useContent } from '~/composables';
  *
- * export function {
+ * export default {
  *   setup(props) {
  *     const { loadBlocks } = useContent();
  *     const blocks = ref([]);
