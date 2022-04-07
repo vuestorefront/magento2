@@ -1,23 +1,29 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import updateCartItems from './updateCartItems';
+import { Context } from '../../types/context';
 import {
   UpdateCartItemsInput,
   UpdateCartItemsMutation,
   UpdateCartItemsMutationVariables,
 } from '../../types/GraphQL';
-import { Context } from '../../types/context';
+import updateCartItemsMutation from './updateCartItems';
 
-export default async (
+/**
+ * Updates the contents of the given cart
+ * @param context VSF context
+ * @param input ID of the cart and the items to update it
+ * @param customQuery custom GraphQL query that extends the default one
+ */
+export default async function updateCartItems(
   context: Context,
   input: UpdateCartItemsInput,
   customQuery: CustomQuery = { updateCartItems: 'updateCartItems' },
-): Promise<FetchResult<UpdateCartItemsMutation>> => {
+): Promise<FetchResult<UpdateCartItemsMutation>> {
   const { updateCartItems: updateCartItemsGQL } = context.extendQuery(
     customQuery,
     {
       updateCartItems: {
-        query: updateCartItems,
+        query: updateCartItemsMutation,
         variables: { input },
       },
     },
@@ -27,4 +33,4 @@ export default async (
     mutation: updateCartItemsGQL.query,
     variables: updateCartItemsGQL.variables,
   });
-};
+}
