@@ -99,7 +99,7 @@
         <ValidationProvider
           v-slot="{ errors }"
           name="apartment"
-          rules="required|min:2"
+          rules="required|min:1"
           slim
         >
           <SfInput
