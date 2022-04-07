@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL query to remove a coupon from a cart */
 export default gql`
   mutation removeCouponFromCart($input: RemoveCouponFromCartInput) {
     removeCouponFromCart(input: $input) {
