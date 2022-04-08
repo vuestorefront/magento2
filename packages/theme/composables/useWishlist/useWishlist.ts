@@ -1,7 +1,7 @@
 import { Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 import {
-  Maybe, Scalars, WishlistItem, WishlistItems,
+  Maybe, ProductInterface, Scalars, WishlistItem, WishlistItems,
 } from '~/modules/GraphQL/types';
 
 export interface Wishlist {
@@ -32,7 +32,7 @@ export interface UseWishlistErrors {
 export type UseWishlist = {
   wishlist: Ref<Wishlist>,
   loadItemsCount(params: ComposableFunctionArgs<{}>): Promise<number | null>;
-  isInWishlist: (params: { product: any }) => boolean;
+  isInWishlist: (params: { product: ProductInterface }) => boolean;
   addItem: (
     params: ComposableFunctionArgs<{
       product: any; // TODO: add product intrface

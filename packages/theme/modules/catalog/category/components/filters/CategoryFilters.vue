@@ -95,7 +95,7 @@ export interface UseFiltersProviderInterface {
 }
 
 export default defineComponent({
-  name: 'CategoryFiltersSidebar',
+  name: 'CategoryFilters',
   components: {
     SelectedFilters,
     CheckboxType: () => import('~/modules/catalog/category/components/filters/renderer/CheckboxType.vue'),
@@ -120,24 +120,28 @@ export default defineComponent({
     },
   },
   setup({ catUid }, { emit }) {
-    const { changeFilters } = useUiHelpers();
+    const { changeFilters, clearFilters } = useUiHelpers();
     const {
       selectedFilters, selectFilter, removeFilter, isFilterSelected,
     } = useFilters();
 
     const doApplyFilters = () => {
-      changeFilters(selectedFilters.value);
+      changeFilters(selectedFilters.value, false);
+      emit('reloadProducts');
       emit('close');
     };
 
     const doRemoveFilter = ({ id, value }: { id: string, value: string }) => {
       removeFilter(id, value);
-      changeFilters(selectedFilters.value);
+      changeFilters(selectedFilters.value, false);
+      emit('reloadProducts');
       emit('close');
     };
 
     const doClearFilters = () => {
-      changeFilters({});
+      clearFilters(false);
+      selectedFilters.value = {};
+      emit('reloadProducts');
       emit('close');
     };
 
