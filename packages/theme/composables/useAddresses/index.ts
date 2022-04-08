@@ -6,7 +6,11 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
 
 /**
  * @public
- * The `useAddresses` composable provides functions and refs to handle customer addresses from Magento API. With them, we're able to:
+ * The `useAddresses` composable provides functions and refs to handle customer
+ * addresses from Magento API. And in Magento, the customer addresses can be
+ * used for both billing and shipping.
+ *
+ * With `useAddresses` provided functions, we're able to:
  *
  * - Load the customer addresses;
  *
