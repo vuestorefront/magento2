@@ -1,5 +1,5 @@
 import type { Ref } from '@nuxtjs/composition-api';
-import type { ComposableFunctionArgs } from '~/composables/types';
+import type { Category, ComposableFunctionArgs } from '~/composables/types';
 
 /**
  * The {@link useCategory} error object. Its properties values' are the errors
@@ -43,8 +43,8 @@ export interface UseCategoryParamsInput {
 
 /** The {@link useCategory} interface with the refs and the search function. */
 export interface UseCategoryInterface {
-  /** The searched category list/tree. */
-  categories: Ref<any>;
+  /** The array of {@link Category} fetched in the `search` method, otherwise is `null`. */
+  categories: Ref<Category[] | null>;
 
   /** The error object */
   error: Ref<UseCategoryErrors>;
@@ -57,24 +57,33 @@ export interface UseCategoryInterface {
   loading: Ref<boolean>;
 
   /**
-   * Searches for the category list.
+   * A method that searches for a list of {@link Category} and updates
+   * `categories` with them.
    *
    * @example
+   *
+   * Searches for categories on server side using the `useFetch` composable:
+   *
    * ```typescript
    * import { useFetch } from '@nuxtjs/composition-api';
    * import { useCategory } from '~/composables';
    *
    * export default {
    *   setup() {
-   *     const { categories, error, loading, search } = useCategory();
+   *     const { categories, error, search } = useCategory();
    *
    *     useFetch(async () => {
-   *       await search({ pageSize: 10 });
+   *       await search({ pageSize: 10 })
+   *
+   *       if (error.value.search) {
+   *         // Handle search errors by, for example, redirecting to 404
+   *       }
    *     });
    *
-   *     return { categories, loading };
+   *     return { categories };
    *   },
    * };
+   * ```
    */
   search: (searchParams: ComposableFunctionArgs<UseCategoryParamsInput>) => Promise<void>;
 }

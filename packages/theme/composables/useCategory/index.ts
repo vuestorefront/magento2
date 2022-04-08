@@ -11,7 +11,8 @@ import type {
  * @public
  *
  * The `useCategory` composable allows searching categories from Magento API. It
- * provides the search function and the refs for categories, loading and error.
+ * is commonly used in navigation menus, and provides a search function and the
+ * refs for categories, loading and error.
  *
  * @remarks
  *
