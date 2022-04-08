@@ -101,7 +101,7 @@ module.exports = {
         children: [
           ['/api-reference/magento-api.cmsblocks', 'cmsBlocks'],
           ['/api-reference/magento-api.cmspage', 'cmsPage'],
-          ['/api-reference/magento-theme.categorylist', 'categoryList'],
+          ['/api-reference/magento-api.categorylist', 'categoryList'],
         ]
       },
       {
