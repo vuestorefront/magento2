@@ -1,10 +1,48 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
+import type { ComposableFunctionArgs } from '~/composables/types';
 
-export const useBilling = () => {
+/** */
+interface UseBillingError {
+  load: Error | null;
+  save: Error | null;
+}
+
+interface BillingDetails {
+  apartment?: string;
+  city?: string;
+  country_code?: string;
+  customerAddressId?: string;
+  extra?: string;
+  firstname?: string;
+  lastname?: string;
+  neighborhood?: string;
+  postcode?: string;
+  region?:string;
+  sameAsShipping?: boolean;
+  street?: string;
+  telephone?: string;
+}
+
+type UseBillingLoadParams = ComposableFunctionArgs<{}>;
+
+interface UseBillingSaveParams {
+  billingDetails: BillingDetails;
+}
+
+interface UseBillingInterface {
+  loading: Ref<boolean>;
+  error: Ref<UseBillingError>;
+
+  load: (params?: UseBillingLoadParams) => Promise<BillingCartAddress | null>;
+
+  save: (params: UseBillingSaveParams) => Promise<BillingCartAddress | null>;
+}
+
+export const useBilling = (): UseBillingInterface => {
   const context = useContext();
   const { load: loadShippingAddress, save: saveShippingAddress } = useShippingProvider();
   const { cart, load: loadCart } = useCart();
@@ -15,7 +53,7 @@ export const useBilling = () => {
     save: null,
   });
 
-  const load = async ({ customQuery = null } = {}): Promise<Maybe<BillingCartAddress>> => {
+  const load = async ({ customQuery = null }: UseBillingLoadParams = {}): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.load');
     let billingInfo = null;
 
@@ -37,7 +75,7 @@ export const useBilling = () => {
     return billingInfo;
   };
 
-  const save = async ({ billingDetails }): Promise<Maybe<BillingCartAddress>> => {
+  const save = async ({ billingDetails }: UseBillingSaveParams): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.save');
     let billingInfo = null;
 
