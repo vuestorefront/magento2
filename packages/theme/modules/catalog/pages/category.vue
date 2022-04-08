@@ -4,9 +4,13 @@
       v-if="isShowCms"
       :content="cmsContent"
     />
+    <CategoryBreadcrumbs
+      v-bind="{ categoryAncestors }"
+      class="breadcrumbs"
+    />
     <SkeletonLoader
       v-if="$fetchState.pending"
-      :height="'75px'"
+      height="75px"
     />
     <CategoryNavbar
       v-else-if="isShowProducts"
@@ -195,120 +199,12 @@
         </div>
       </div>
 
-      <LazyHydrate when-idle>
-        <SfSidebar
-          v-if="isShowProducts && products.length > 0"
-          :visible="isFilterSidebarOpen"
-          class="sidebar-filters"
-          title="Filters"
-          @close="toggleFilterSidebar"
-        >
-          <div class="filters desktop-only">
-            <div
-              v-for="(facet, i) in facets"
-              :key="i"
-            >
-              <SfHeading
-                :key="`filter-title-${facet.id}`"
-                :level="4"
-                :title="facet.label"
-                class="filters__title sf-heading--left"
-              />
-              <div
-                v-if="isFacetColor(facet)"
-                :key="`${facet.id}-colors`"
-                class="filters__colors"
-              >
-                <SfColor
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.value}`"
-                  :color="option.attrName"
-                  :selected="isFilterSelected(facet, option)"
-                  class="filters__color"
-                  @click="() => selectFilter(facet, option)"
-                />
-              </div>
-              <div v-else-if="facet.id === 'price'">
-                <SfRadio
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.value}`"
-                  :label="`${option.id}${
-                    option.count ? ` (${option.count})` : ''
-                  }`"
-                  :selected="isFilterSelected(facet, option)"
-                  :value="option.value"
-                  name="filter__price"
-                  @change="() => selectFilter(facet, option)"
-                />
-              </div>
-              <div v-else>
-                <SfFilter
-                  v-for="option in facet.options"
-                  :key="`${facet.id}-${option.value}`"
-                  :label="
-                    option.id + `${option.count ? ` (${option.count})` : ''}`
-                  "
-                  :selected="isFilterSelected(facet, option)"
-                  class="filters__item"
-                  @change="() => selectFilter(facet, option)"
-                />
-              </div>
-            </div>
-          </div>
-          <SfAccordion class="filters smartphone-only">
-            <div
-              v-for="(facet, i) in facets"
-              :key="i"
-            >
-              <SfAccordionItem
-                :key="`filter-title-${facet.id}`"
-                :header="facet.label"
-                class="filters__accordion-item"
-              >
-                <div v-if="facet.id === 'price'">
-                  <SfRadio
-                    v-for="option in facet.options"
-                    :key="`${facet.id}-${option.value}`"
-                    :label="`${option.id}${
-                      option.count ? ` (${option.count})` : ''
-                    }`"
-                    :selected="isFilterSelected(facet, option)"
-                    :value="option.value"
-                    name="filter__price"
-                    @change="() => selectFilter(facet, option)"
-                  />
-                </div>
-                <div v-else>
-                  <SfFilter
-                    v-for="option in facet.options"
-                    :key="`${facet.id}-${option.id}`"
-                    :label="option.id"
-                    :selected="isFilterSelected(facet, option)"
-                    class="filters__item"
-                    @change="() => selectFilter(facet, option)"
-                  />
-                </div>
-              </SfAccordionItem>
-            </div>
-          </SfAccordion>
-          <template #content-bottom>
-            <div class="filters__buttons">
-              <SfButton
-                class="sf-button--full-width"
-                @click="applyFilters()"
-              >
-                {{ $t('Done') }}
-              </SfButton>
-              <SfButton
-                class="sf-button--full-width filters__button-clear"
-                @click="applyFilters({})"
-              >
-                {{ $t('Clear all') }}
-              </SfButton>
-            </div>
-          </template>
-        </SfSidebar>
-      </LazyHydrate>
+      <CategoryFilters
+        v-if="isShowProducts"
+        :is-visible="isFilterSidebarOpen"
+        :facets="facets"
+        @close="toggleFilterSidebar"
+      />
     </div>
   </div>
 </template>
@@ -316,25 +212,22 @@
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  SfAccordion,
   SfButton,
-  SfColor,
-  SfFilter,
-  SfHeading,
   SfPagination,
   SfProductCard,
   SfProductCardHorizontal,
   SfProperty,
-  SfRadio,
   SfSelect,
-  SfSidebar,
   SfPrice,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, onMounted, ref, useContext, ssrRef, useFetch,
+  defineComponent, onMounted, ref, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
-import { facetGetters, productGetters } from '~/getters';
+import { facetGetters } from '~/getters';
+import {
+  getTotalReviews, getSlug, getProductThumbnailImage, getProductSku, getPrice, getAverageRating, getName,
+} from '~/getters/productGetters';
 import {
   useFacet,
   useUser,
@@ -347,31 +240,30 @@ import { useUrlResolver } from '~/composables/useUrlResolver.ts';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
-import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
-import SkeletonLoader from '~/components/SkeletonLoader';
 import { usePrice } from '~/modules/catalog/pricing/usePrice.ts';
+import { getFilterableAttributes } from '~/modules/catalog/category/config/FiltersConfig';
+import SkeletonLoader from '~/components/SkeletonLoader';
+import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
+import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
+import { useCategoryLogic } from '../category/helpers';
 
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
+    CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters'),
     SkeletonLoader,
     CategoryNavbar,
+    CategoryBreadcrumbs,
     CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
     CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
     EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
     SfPrice,
     SfButton,
-    SfSidebar,
-    SfFilter,
-    SfRadio,
     SfProductCard,
     SfProductCardHorizontal,
     SfPagination,
-    SfAccordion,
     SfSelect,
-    SfColor,
-    SfHeading,
     SfProperty,
     LazyHydrate,
   },
@@ -384,8 +276,6 @@ export default defineComponent({
     const { getContentData } = useCategoryContent();
     const { addTags } = useCache();
     const uiHelpers = useUiHelpers();
-    const uiState = useUiState();
-
     const cmsContent = ref('');
     const isShowCms = ref(false);
     const isShowProducts = ref(false);
@@ -395,81 +285,21 @@ export default defineComponent({
     const pagination = ref({});
 
     const { path, search: resolveUrl } = useUrlResolver();
-    const {
-      $vsf: { $magento: { config: magentoConfig } },
-    } = useContext();
     const { isAuthenticated } = useUser();
+    const {
+      toggleFilterSidebar,
+      changeToCategoryListView,
+      changeToCategoryGridView,
+      isCategoryGridView,
+      isFilterSidebarOpen,
+    } = useUiState();
     const {
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
     } = useWishlist('GlobalWishlist');
     const { result, search } = useFacet(`facetId:${path}`);
-    const { toggleFilterSidebar } = useUiState();
     const { addItemToCart, isInCart } = useAddToCart();
-
-    const getSelectedFilterValues = () => {
-      const selectedFilterValues = Object.fromEntries(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        magentoConfig.facets.available.map((curr) => [
-          curr,
-          curr === 'price' ? '' : [],
-        ]),
-      );
-      const { filters } = uiHelpers.getFacetsFromURL();
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      Object.keys(filters).forEach((filter) => {
-        if (filter === 'price') {
-          const [firstFilter] = filters[filter];
-          selectedFilterValues[filter] = firstFilter;
-        } else {
-          selectedFilterValues[filter] = filters[filter];
-        }
-      });
-      return selectedFilterValues;
-    };
-    const selectedFilters = ref(getSelectedFilterValues());
-
-    const isFilterSelected = (facet, option) => {
-      if (facet.id === 'price') {
-        return selectedFilters.value[facet.id] || '';
-      }
-
-      return (selectedFilters.value[facet.id] || []).includes(option.value);
-    };
-
-    /* eslint-disable */
-    const selectFilter = (facet, option) => {
-      if (facet.id === 'price') {
-        // eslint-disable-next-line
-        selectedFilters.value[facet.id] = option.value;
-        return;
-      }
-
-      if (!selectedFilters.value[facet.id]) {
-        selectedFilters.value[facet.id] = [];
-      }
-
-      if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
-        selectedFilters.value[facet.id] = selectedFilters.value[
-          facet.id
-        ]?.filter((f) => f !== option.value);
-        return;
-      }
-
-      selectedFilters.value[facet.id].push(option.value);
-    };
-    /* eslint-enable */
-
-    const applyFilters = (filters) => {
-      toggleFilterSidebar();
-      if (filters) {
-        selectedFilters.value = filters;
-      }
-
-      uiHelpers.changeFilters(selectedFilters.value);
-    };
 
     const addItemToWishlist = async (product) => {
       await (isInWishlist({ product })
@@ -485,6 +315,8 @@ export default defineComponent({
       });
     };
 
+    const { categoryAncestors, isCategoryTreeLoaded, loadCategoryTree } = useCategoryLogic();
+
     useFetch(async () => {
       const routeData = await resolveUrl();
       const content = await getContentData(routeData?.id);
@@ -494,13 +326,11 @@ export default defineComponent({
       isShowProducts.value = content.isShowProducts;
 
       await searchCategoryProduct(routeData?.entity_uid);
-      selectedFilters.value = getSelectedFilterValues();
       products.value = facetGetters.getProducts(result.value) ?? [];
-
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(
         result.value,
-        magentoConfig.facets.available,
+        getFilterableAttributes(),
       );
       pagination.value = facetGetters.getPagination(result.value);
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
@@ -512,6 +342,10 @@ export default defineComponent({
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags([...tags, ...productTags]);
+
+      if (!isCategoryTreeLoaded.value) {
+        await loadCategoryTree();
+      }
     });
 
     const isPriceLoaded = ref(false);
@@ -533,27 +367,34 @@ export default defineComponent({
 
     return {
       isPriceLoaded,
-      ...productGetters,
+      getTotalReviews,
+      getSlug,
+      getProductThumbnailImage,
+      getProductSku,
+      getPrice,
+      getAverageRating,
+      getName,
       ...uiHelpers,
-      ...uiState,
+      toggleFilterSidebar,
+      isCategoryGridView,
+      changeToCategoryListView,
+      changeToCategoryGridView,
+      isFilterSidebarOpen,
       addItemToCart,
       addItemToWishlist,
-      applyFilters,
       facets,
       isAuthenticated,
-      isFilterSelected,
       isInCart,
       isInWishlist,
       pagination,
       products,
-      selectedFilters,
-      selectFilter,
       sortBy,
       getMagentoImage,
       imageSizes,
       isShowCms,
       isShowProducts,
       cmsContent,
+      categoryAncestors,
     };
   },
 });
@@ -577,18 +418,13 @@ export default defineComponent({
   }
 }
 
-.breadcrumbs {
-  margin: var(--spacer-base) auto var(--spacer-lg);
-}
-
-.sort-by {
-  flex: unset;
-  width: 11.875rem;
-}
-
 .main {
   display: flex;
 }
+
+ .breadcrumbs {
+   padding: var(--spacer-sm);
+ }
 
 .sidebar {
   flex: 0 0 15%;
@@ -723,73 +559,5 @@ export default defineComponent({
 
 ::v-deep .sf-sidebar__aside {
   --sidebar-z-index: 3;
-}
-
-.filters {
-  &__title {
-    --heading-title-font-size: var(--font-size--xl);
-    margin: var(--spacer-xl) 0 var(--spacer-base) 0;
-
-    &:first-child {
-      margin: calc(var(--spacer-xl) + var(--spacer-base)) 0 var(--spacer-xs) 0;
-    }
-  }
-
-  &__colors {
-    display: flex;
-  }
-
-  &__color {
-    margin: var(--spacer-xs) var(--spacer-xs) var(--spacer-xs) 0;
-  }
-
-  &__chosen {
-    color: var(--c-text-muted);
-    font-weight: var(--font-weight--normal);
-    font-family: var(--font-family--secondary);
-    position: absolute;
-    right: var(--spacer-xl);
-  }
-
-  &__item {
-    --radio-container-padding: 0 var(--spacer-sm) 0 var(--spacer-xl);
-    --radio-background: transparent;
-    --filter-label-color: var(--c-secondary-variant);
-    --filter-count-color: var(--c-secondary-variant);
-    --checkbox-padding: 0 var(--spacer-sm) 0 var(--spacer-xl);
-    padding: var(--spacer-sm) 0;
-    border-bottom: 1px solid var(--c-light);
-
-    &:last-child {
-      border-bottom: 0;
-    }
-
-    @include for-desktop {
-      --checkbox-padding: 0;
-      margin: var(--spacer-sm) 0;
-      border: 0;
-      padding: 0;
-    }
-  }
-
-  &__accordion-item {
-    --accordion-item-content-padding: 0;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    width: 100vw;
-  }
-
-  &__buttons {
-    margin: var(--spacer-sm) 0;
-  }
-
-  &__button-clear {
-    --button-background: var(--c-light);
-    --button-color: var(--c-dark-variant);
-    margin: var(--spacer-xs) 0 0 0;
-  }
 }
 </style>

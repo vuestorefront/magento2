@@ -10,9 +10,9 @@ import type {
 /**
  * @public
  *
- * The `useCategory` composable allows searching categories from Magento API. It
- * is commonly used in navigation menus, and provides a search function and the
- * refs for categories, loading and error.
+ * The `useCategory` composable allows loading categories from Magento API. It
+ * is commonly used in navigation menus, and provides the load function and
+ * refs for the categories, loading and error.
  *
  * @remarks
  *
@@ -28,15 +28,15 @@ import type {
  *
  * @example
  *
- * Search categories on client side using the `onMounted` Composition API hook:
+ * Load categories on client side using the `onMounted` Composition API hook:
  *
  * ```vue
  * <template>
  *   <div v-if="loading">
  *     Loading categories…
  *   </div>
- *   <div v-else-if="error.search">
- *     Error: {{ error.search.message }}
+ *   <div v-else-if="error.load">
+ *     Error: {{ error.load.message }}
  *   </div>
  *   <div v-else>
  *     <!-- Display 'categories' -->
@@ -49,10 +49,10 @@ import type {
  *
  * export default {
  *   setup() {
- *     const { categories, error, loading, search } = useCategory();
+ *     const { categories, error, load, loading } = useCategory();
  *
  *     onMounted(async () => {
- *       await search({ pageSize: 10 });
+ *       await load({ pageSize: 10 });
  *     });
  *
  *     return {
@@ -69,29 +69,29 @@ export function useCategory(): UseCategoryInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
-    search: null,
+    load: null,
   });
   const categories: Ref<Array<Category>> = ref(null);
 
-  const search = async (searchParams: UseCategoryParamsInput) => {
-    Logger.debug('useCategory/search', searchParams);
+  const load = async (params: UseCategoryParamsInput) => {
+    Logger.debug('useCategory/load', params);
 
     try {
       loading.value = true;
-      const { data } = await app.context.$vsf.$magento.api.categoryList(searchParams);
+      const { data } = await app.context.$vsf.$magento.api.categoryList(params);
       Logger.debug('[Result]:', { data });
       categories.value = data.categories.items;
-      error.value.search = null;
+      error.value.load = null;
     } catch (err) {
-      error.value.search = err;
-      Logger.error('useCategory/search', err);
+      error.value.load = err;
+      Logger.error('useCategory/load', err);
     } finally {
       loading.value = false;
     }
   };
 
   return {
-    search,
+    load,
     loading,
     error,
     categories,

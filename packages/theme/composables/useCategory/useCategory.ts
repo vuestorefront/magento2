@@ -7,7 +7,7 @@ import type { Category, ComposableFunctionArgs } from '~/composables/types';
  *
  * @example
  *
- * Use `error` to check if searching fails:
+ * Use `error` to check if loading fails:
  *
  * ```typescript
  * import { useFetch } from '@nuxtjs/composition-api';
@@ -15,14 +15,14 @@ import type { Category, ComposableFunctionArgs } from '~/composables/types';
  *
  * export default {
  *   setup() {
- *     const { categories, error, loading, search } = useCategory();
+ *     const { categories, error, load, loading } = useCategory();
  *
  *     useFetch(async () => {
- *       await search({ pageSize: 10 });
+ *       await load({ pageSize: 10 });
  *
- *       // It's an error when searching fails
- *       if (error.value.search) {
- *         // Handle search errors
+ *       // It's an error when loading fails
+ *       if (error.value.load) {
+ *         // Handle load errors
  *       }
  *     });
  *
@@ -32,18 +32,18 @@ import type { Category, ComposableFunctionArgs } from '~/composables/types';
  * ```
  */
 export interface UseCategoryErrors {
-  /** Error when searching categories fails, otherwise is `null`. */
-  search: Error | null;
+  /** Error when loading categories fails, otherwise is `null`. */
+  load: Error;
 }
 
-/** The {@link useCategory} params object received by `search` function. */
+/** The {@link useCategory} params object received by `load` function. */
 export interface UseCategoryParamsInput {
   pageSize: number;
 }
 
-/** The {@link useCategory} interface with the refs and the search function. */
+/** The {@link useCategory} interface with the refs and the `load` function. */
 export interface UseCategoryInterface {
-  /** The array of {@link Category} fetched in the `search` method, otherwise is `null`. */
+  /** The array of {@link Category} fetched in the `load` method, otherwise is `null`. */
   categories: Ref<Category[] | null>;
 
   /** The error object */
@@ -52,17 +52,16 @@ export interface UseCategoryInterface {
   /**
    * The loading state.
    *
-   * It's `true` when searching and `false` otherwise.
+   * It's `true` when loading and `false` otherwise.
    */
   loading: Ref<boolean>;
 
   /**
-   * A method that searches for a list of {@link Category} and updates
-   * `categories` with them.
+   * A method that loads the list of {@link Category} and updates `categories`.
    *
    * @example
    *
-   * Searches for categories on server side using the `useFetch` composable:
+   * Loads the categories on server side using the `useFetch` composable:
    *
    * ```typescript
    * import { useFetch } from '@nuxtjs/composition-api';
@@ -70,13 +69,13 @@ export interface UseCategoryInterface {
    *
    * export default {
    *   setup() {
-   *     const { categories, error, search } = useCategory();
+   *     const { categories, error, load } = useCategory();
    *
    *     useFetch(async () => {
-   *       await search({ pageSize: 10 })
+   *       await load({ pageSize: 10 })
    *
-   *       if (error.value.search) {
-   *         // Handle search errors by, for example, redirecting to 404
+   *       if (error.value.load) {
+   *         // Handle load errors by, for example, redirecting to 404
    *       }
    *     });
    *
@@ -85,5 +84,5 @@ export interface UseCategoryInterface {
    * };
    * ```
    */
-  search: (searchParams: ComposableFunctionArgs<UseCategoryParamsInput>) => Promise<void>;
+  load: (params: ComposableFunctionArgs<UseCategoryParamsInput>) => Promise<void>;
 }

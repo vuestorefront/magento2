@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import { CategoryTreeInterface, Category, AgnosticFacet } from '~/composables/types';
+import { CategoryTreeInterface, Category, FacetInterface } from '~/composables/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-const reduceFilters = (query) => (prev, curr) => {
+const reduceFilters = (query) => (prev, curr: string) => {
   const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
   return {
@@ -76,7 +76,7 @@ const useUiHelpers = () => {
     });
   };
 
-  const isFacetColor = (facet: AgnosticFacet): boolean => facet.id === 'color';
+  const isFacetColor = (facet: FacetInterface): boolean => facet.id === 'color';
 
   const isFacetCheckbox = (): boolean => false;
 

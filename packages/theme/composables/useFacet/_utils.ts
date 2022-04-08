@@ -22,13 +22,6 @@ export const buildBreadcrumbs = (rootCat) => buildBreadcrumbsList(rootCat, [])
 
 const filterFacets = (criteria) => (f) => (criteria ? criteria.includes(f.attribute_code) : true);
 
-const getFacetTypeByCode = (code) => {
-  if (code === 'type_of_stones') {
-    return 'radio';
-  }
-  return 'checkbox';
-};
-
 const createFacetsFromOptions = (facets, filters, facet) => {
   const options = facet.options || [];
   const selectedList = filters && filters[facet.attribute_code] ? filters[facet.attribute_code] : [];
@@ -38,7 +31,6 @@ const createFacetsFromOptions = (facets, filters, facet) => {
       value,
       count,
     }) => ({
-      type: getFacetTypeByCode(facet.attribute_code),
       id: label,
       attrName: label,
       value,
