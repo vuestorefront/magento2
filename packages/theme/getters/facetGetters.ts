@@ -1,10 +1,10 @@
 import {
   AgnosticCategoryTree,
-  AgnosticGroupedFacet,
+  GroupedFacetInterface,
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
-  AgnosticFacet,
+  FacetInterface,
 } from '~/composables/types';
 
 import { FacetsGetters } from '~/getters/types';
@@ -17,9 +17,9 @@ import {
 } from '~/composables/useFacet/_utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);
+const getAll = (searchData: SearchData, criteria?: string[]): FacetInterface[] => buildFacets(searchData, reduceForFacets, criteria);
 
-const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
+const getGrouped = (searchData: SearchData, criteria?: string[]): GroupedFacetInterface[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
   ?.filter((facet) => facet.options && facet.options.length > 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
