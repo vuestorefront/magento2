@@ -9,7 +9,7 @@ export type CategoryListQueryVariables = { pageSize: number };
 
 export interface UseCategory{
   categories: any,
-  search(searchParams: ComposableFunctionArgs<CategoryListQueryVariables>): Promise<void>;
+  load(searchParams: ComposableFunctionArgs<CategoryListQueryVariables>): Promise<void>;
   loading: Ref<boolean>;
   error: Ref<UseCategoryErrors>;
 }

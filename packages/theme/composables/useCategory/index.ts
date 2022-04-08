@@ -15,7 +15,7 @@ export const useCategory = (): UseCategory => {
   const categories: Ref<Array<Category>> = ref(null);
 
   // eslint-disable-next-line consistent-return
-  const search = async (searchParams: CategoryListQueryVariables) => {
+  const load = async (searchParams: CategoryListQueryVariables) => {
     Logger.debug('useCategory/search', searchParams);
 
     try {
@@ -33,7 +33,7 @@ export const useCategory = (): UseCategory => {
   };
 
   return {
-    search,
+    load,
     loading,
     error,
     categories,
