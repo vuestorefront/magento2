@@ -55,13 +55,14 @@
     "pinia": "^2.0.11",
     "pm2": "^5.1.2",
     "vee-validate": "^3.4.14",
+    "vue": "^2.6.14",
     "vue-lazy-hydration": "^2.0.0-beta.4",
     "vue-scrollto": "^2.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
     "@nuxt/types": "latest",
-    "@nuxt/typescript-build": "latest",
+    "@nuxt/typescript-build": "^2.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/user-event": "^13.5.0",
     "@testing-library/vue": "^5.8.2",
@@ -94,9 +95,6 @@
     "typescript": "^4.5.5",
     "vue-jest": "^3.0.7",
     "webpack": "4.46.0"
-  },
-  "peerDependencies": {
-    "vue": "^2.6.11"
   },
   "engines": {
     "node": "^16.13"
