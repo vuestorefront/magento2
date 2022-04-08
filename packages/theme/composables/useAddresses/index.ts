@@ -6,6 +6,7 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
 
 /**
  * @public
+ *
  * The `useAddresses` composable provides functions and refs to handle customer
  * addresses from Magento API. And in Magento, the customer addresses can be
  * used for both billing and shipping.
@@ -21,6 +22,7 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
  * - Remove an existing customer address;
  *
  * @remarks
+ *
  * Under the hood, it calls the following Server Middleware API methods:
  *
  * - {@link @vue-storefront/magento-api#getCustomerAddresses} for loading customer addresses;
@@ -32,6 +34,7 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
  * - {@link @vue-storefront/magento-api#deleteCustomerAddress} for removing existing customer address;
  *
  * @example
+ *
  * Initialization in component:
  *
  * ```typescript
@@ -45,6 +48,7 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
  * ```
  *
  * @example
+ *
  * Load customer addresses and allow saving new ones:
  *
  * ```typescript

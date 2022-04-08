@@ -6,6 +6,7 @@ import { CustomerAddress } from '~/modules/GraphQL/types';
  * The {@link useAddresses} error object. The properties values' are the errors thrown by its methods.
  *
  * @example
+ *
  * Check if removing a customer address failed:
  *
  * ```typescript
@@ -63,6 +64,7 @@ export interface UseAddressesInterface {
    * Returns a `Promise` that resolves to a list of {@link CustomerAddress} objects.
    *
    * @example
+   *
    * Load customer addresses on client side using the `onMounted` Composition API hook:
    *
    * ```vue
@@ -109,6 +111,7 @@ export interface UseAddressesInterface {
    * Returns a `Promise` that resolves to the new {@link CustomerAddress} object.
    *
    * @example
+   *
    * Save a new customer address using an event handler/function:
    *
    * ```typescript
@@ -148,6 +151,7 @@ export interface UseAddressesInterface {
    * Returns a `Promise` that resolves to the updated {@link CustomerAddress} object.
    *
    * @example
+   *
    * Update a customer address using an event handler/function:
    *
    * ```typescript
@@ -193,6 +197,7 @@ export interface UseAddressesInterface {
    * Returns a `Promise` that resolves to a `boolean`, which is `true` when successful and `false` otherwise.
    *
    * @example
+   *
    * Remove a customer address using event handler/function:
    *
    * ```typescript
