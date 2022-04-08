@@ -138,6 +138,7 @@ export interface UseAddressesInterface {
    *     return { addresses, loading, onSaveAddress };
    *   }
    * }
+   * ```
    */
   save: (saveParams: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<CustomerAddress>;
 
@@ -182,6 +183,7 @@ export interface UseAddressesInterface {
    *     return { addresses, loading, onUpdateAddress };
    *   }
    * }
+   * ```
    */
   update: (updateParams?: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<CustomerAddress>;
 
@@ -222,6 +224,7 @@ export interface UseAddressesInterface {
    *     return { addresses, loading, onRemoveAddress };
    *   }
    * }
+   * ```
    */
   remove: (removeParams?: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<boolean>;
 }
