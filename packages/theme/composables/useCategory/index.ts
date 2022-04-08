@@ -10,7 +10,7 @@ export const useCategory = (): UseCategory => {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
-    search: null,
+    load: null,
   });
   const categories: Ref<Array<Category>> = ref(null);
 
@@ -23,9 +23,9 @@ export const useCategory = (): UseCategory => {
       const { data } = await app.context.$vsf.$magento.api.categoryList(searchParams);
       Logger.debug('[Result]:', { data });
       categories.value = data.categories.items;
-      error.value.search = null;
+      error.value.load = null;
     } catch (err) {
-      error.value.search = err;
+      error.value.load = err;
       Logger.error('useCategory/search', err);
     } finally {
       loading.value = false;

@@ -2,7 +2,7 @@ import { Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 export interface UseCategoryErrors {
-  search: Error;
+  load: Error;
 }
 
 export type CategoryListQueryVariables = { pageSize: number };
