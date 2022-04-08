@@ -167,7 +167,7 @@ export default defineComponent({
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
 
-    const { categories: categoryList, search: categoriesListSearch } = useCategory('AppHeader:CategoryList');
+    const { categories: categoryList, load: categoriesListLoad } = useCategory();
 
     const isSearchOpen = ref(false);
     const result = ref(null);
@@ -186,7 +186,7 @@ export default defineComponent({
     };
 
     useFetch(async () => {
-      await categoriesListSearch({ pageSize: 20 });
+      await categoriesListLoad({ pageSize: 20 });
       categoryTree.value = categoryGetters
         .getCategoryTree(categoryList.value?.[0])
         ?.items.filter((c) => c.count > 0);
