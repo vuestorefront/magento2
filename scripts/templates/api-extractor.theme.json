@@ -1,0 +1,13 @@
+{
+  "extends": "../../api-extractor.base.json",
+  "mainEntryPointFilePath": "./dist/composables/index.d.ts",
+  "compiler": {
+    "tsconfigFilePath": "./tsconfig.theme.json"
+  },
+  "dtsRollup": {
+    "enabled": false
+  },
+  "docModel": {
+    "apiJsonFilePath": "<projectFolder>/docs/api-reference/<unscopedPackageName>.api.json"
+  }
+}

@@ -31,7 +31,7 @@ export default defineComponent({
     SfMenuItem,
   },
   setup() {
-    const { categories, search } = useCategory('AppHeader:CategoryList');
+    const { categories, load } = useCategory('AppHeader:CategoryList');
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const { getAgnosticCatLink } = useUiHelpers();
 
@@ -40,7 +40,7 @@ export default defineComponent({
       ?.items.filter((c) => c.count > 0));
 
     useAsync(() => {
-      search({
+      load({
         pageSize: 10,
       });
     });
