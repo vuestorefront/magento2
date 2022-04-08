@@ -42,7 +42,7 @@
         </div>
       </div>
       <div v-else-if="isShowProducts">
-        <EmptyResults v-if="products.length === 0" />
+        <CategoryEmptyResults v-if="products.length === 0" />
         <div class="products">
           <transition-group
             v-if="isCategoryGridView"
@@ -202,14 +202,14 @@
       <CategoryFilters
         v-if="isShowProducts"
         :is-visible="isFilterSidebarOpen"
-        :facets="facets"
+        :cat-uid="routeData.entity_uid"
         @close="toggleFilterSidebar"
       />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfButton,
@@ -236,28 +236,27 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import { useUrlResolver } from '~/composables/useUrlResolver.ts';
+import { useUrlResolver } from '~/composables/useUrlResolver';
 import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent.ts';
-import { usePrice } from '~/modules/catalog/pricing/usePrice.ts';
-import { getFilterableAttributes } from '~/modules/catalog/category/config/FiltersConfig';
-import SkeletonLoader from '~/components/SkeletonLoader';
-import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar';
+import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
+import { usePrice } from '~/modules/catalog/pricing/usePrice';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
+import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 import { useCategoryLogic } from '../category/helpers';
-
+import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
-    CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters'),
+    CategoryEmptyResults: () => import('~/modules/catalog/category/components/CategoryEmptyResults.vue'),
+    CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters.vue'),
     SkeletonLoader,
     CategoryNavbar,
     CategoryBreadcrumbs,
-    CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent'),
-    CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar'),
-    EmptyResults: () => import('~/modules/catalog/category/components/EmptyResults'),
+    CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent.vue'),
+    CategorySidebar: () => import('~/modules/catalog/category/components/sidebar/CategorySidebar.vue'),
     SfPrice,
     SfButton,
     SfProductCard,
@@ -279,12 +278,12 @@ export default defineComponent({
     const cmsContent = ref('');
     const isShowCms = ref(false);
     const isShowProducts = ref(false);
-    const products = ssrRef([]);
+    const products = ssrRef<ProductInterface[]>([]);
     const sortBy = ref({});
     const facets = ref([]);
     const pagination = ref({});
 
-    const { path, search: resolveUrl } = useUrlResolver();
+    const { search: resolveUrl } = useUrlResolver();
     const { isAuthenticated } = useUser();
     const {
       toggleFilterSidebar,
@@ -297,8 +296,8 @@ export default defineComponent({
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
-    } = useWishlist('GlobalWishlist');
-    const { result, search } = useFacet(`facetId:${path}`);
+    } = useWishlist();
+    const { result, search } = useFacet();
     const { addItemToCart, isInCart } = useAddToCart();
 
     const addItemToWishlist = async (product) => {
@@ -316,21 +315,20 @@ export default defineComponent({
     };
 
     const { categoryAncestors, isCategoryTreeLoaded, loadCategoryTree } = useCategoryLogic();
-
+    const routeData = ref<EntityUrl>({});
     useFetch(async () => {
-      const routeData = await resolveUrl();
-      const content = await getContentData(routeData?.id);
+      routeData.value = await resolveUrl();
+      const content = await getContentData(routeData.value?.id);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
 
-      await searchCategoryProduct(routeData?.entity_uid);
+      await searchCategoryProduct(routeData.value?.entity_uid);
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
       facets.value = facetGetters.getGrouped(
         result.value,
-        getFilterableAttributes(),
       );
       pagination.value = facetGetters.getPagination(result.value);
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
@@ -395,6 +393,7 @@ export default defineComponent({
       isShowProducts,
       cmsContent,
       categoryAncestors,
+      routeData,
     };
   },
 });
