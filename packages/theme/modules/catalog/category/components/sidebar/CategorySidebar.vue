@@ -62,15 +62,11 @@ import {
 } from '@storefront-ui/vue';
 
 import {
-  defineComponent, onMounted, ref,
-  useRoute, computed,
+  defineComponent, onMounted, ref, computed,
 } from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
-import { useApi } from '~/composables/useApi';
-import { useCategoryStore } from '~/stores/category';
-import { findActiveCategory, findCategoryAncestors } from '~/modules/catalog/category/helpers';
-import { CategoryTreeInterface } from '../../types';
+import { useCategoryLogic } from '../../helpers';
 
 export default defineComponent({
   components: {
@@ -81,21 +77,17 @@ export default defineComponent({
   },
   setup() {
     const uiHelpers = useUiHelpers();
-    const route = useRoute();
-    const api = useApi();
 
-    const categoryStore = useCategoryStore(api);
-    const categoryTree = computed(() => categoryStore.categories);
-    const activeCategory = ref<CategoryTreeInterface | null>(null);
-    const activeCategoryAncestors = ref(null);
     const isLoading = ref(true);
 
+    const {
+      categoryAncestors: activeCategoryAncestors, categoryTree, loadCategoryTree, isCategoryTreeLoaded,
+    } = useCategoryLogic();
+
     onMounted(async () => {
-      if (categoryStore.categories === null) {
-        await categoryStore.load();
+      if (!isCategoryTreeLoaded.value) {
+        await loadCategoryTree();
       }
-      activeCategory.value = findActiveCategory(categoryTree.value, route.value.fullPath.replace('/default/c', ''));
-      activeCategoryAncestors.value = findCategoryAncestors(categoryStore.categories, activeCategory.value);
       isLoading.value = false;
     });
 
