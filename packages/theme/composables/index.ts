@@ -18,7 +18,7 @@ export { default as useWishlist } from './useWishlist';
 export { default as useUser } from './useUser';
 export { default as useGuestUser } from './useGuestUser';
 export { default as useForgotPassword } from './useForgotPassword';
-export { default as useCategory } from './useCategory';
+export * from './useCategory';
 export { default as useFacet } from './useFacet';
 export { default as useCart } from './useCart';
 export * from './useContent';

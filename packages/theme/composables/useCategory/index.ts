@@ -5,7 +5,7 @@ import type {
   UseCategoryErrors,
   UseCategoryInterface,
   UseCategoryParamsInput,
-} from '~/composables/useCategory/useCategory';
+} from './useCategory';
 
 /**
  * @public
@@ -97,6 +97,6 @@ export function useCategory(): UseCategoryInterface {
   };
 }
 
-export * from '~/composables/useCategory/useCategory';
+export * from './useCategory';
 
 export default useCategory;

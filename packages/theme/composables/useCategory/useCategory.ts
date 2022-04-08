@@ -2,8 +2,6 @@ import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
- * @public
- *
  * The {@link useCategory} error object. Its properties values' are the errors
  * thrown by composable methods.
  *
@@ -38,20 +36,12 @@ export interface UseCategoryErrors {
   search: Error | null;
 }
 
-/**
- * @public
- *
- * The {@link useCategory} params object received by `search` function.
- */
+/** The {@link useCategory} params object received by `search` function. */
 export interface UseCategoryParamsInput {
   pageSize: number;
 }
 
-/**
- * @public
- *
- * The {@link useCategory} interface with the refs and the search function.
- */
+/** The {@link useCategory} interface with the refs and the search function. */
 export interface UseCategoryInterface {
   /** The searched category list/tree. */
   categories: Ref<any>;
