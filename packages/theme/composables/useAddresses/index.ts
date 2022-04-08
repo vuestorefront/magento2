@@ -9,8 +9,11 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
  * The `useAddresses` composable provides functions and refs to handle customer addresses from Magento API. With them, we're able to:
  *
  * - Load the customer addresses;
+ *
  * - Save new customer address;
+ *
  * - Update an existing customer address;
+ *
  * - Remove an existing customer address;
  *
  * @remarks
