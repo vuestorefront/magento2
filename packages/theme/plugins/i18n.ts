@@ -14,12 +14,11 @@ export default ({ app, route }: Context) => app.$vsf.$magento.client.interceptor
     i18n,
   } = app;
 
-  const currentStoreCode = app.$vsf.$magento.config.state.getStore() ?? route.path.split('/')[0]; // localhost:3000/default
+  const currentStoreCode = app.$vsf.$magento.config.state.getStore() ?? route.path.split('/')[1]; // localhost:3000/default
   const shouldSetDefaultLocale = !currentStoreCode || !findLocaleBasedOnMagentoStoreCode(currentStoreCode, i18n.locales);
 
   if (shouldSetDefaultLocale) {
     await i18n.setLocale(i18n.defaultLocale);
-    return request;
   }
 
   const i18nCurrentLocaleCode = i18n.locale;
