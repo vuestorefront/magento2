@@ -31,10 +31,6 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
  *
  * - {@link @vue-storefront/magento-api#deleteCustomerAddress} for removing existing customer address;
  *
- * It is currently used in:
- *
- * - `pages/MyAccount/AddressesDetails.vue`
- *
  * @example
  * Initialization in component:
  *
@@ -121,9 +117,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.createCustomerAddress(
-        transformUserCreateAddressInput(saveParams),
-      );
+      const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(saveParams));
       results = data?.createCustomerAddress ?? {};
       Logger.debug('[Magento] save user address results:', saveParams.address);
       error.value.save = null;
@@ -143,9 +137,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.updateCustomerAddress(
-        transformUserUpdateAddressInput(updateParams),
-      );
+      const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(updateParams));
       results = data?.updateCustomerAddress ?? {};
       Logger.debug('[Magento] update user address results:', results);
       error.value.update = null;
@@ -165,9 +157,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.deleteCustomerAddress(
-        removeParams.address.id,
-      );
+      const { data } = await context.$magento.api.deleteCustomerAddress(removeParams.address.id);
       results = !!data.deleteCustomerAddress;
       Logger.debug('[Magento] remove user address results:', results);
       error.value.remove = null;
