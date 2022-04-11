@@ -1,21 +1,19 @@
-import { ref } from '@nuxtjs/composition-api';
+import {
+  ref, set,
+} from '@nuxtjs/composition-api';
 import { useUiHelpers } from '~/composables';
-import { FacetInterface, GroupedFacetInterface } from '~/modules/catalog/category/types';
-import { getFilterConfig, getFilterableAttributes, FilterTypeEnum } from '~/modules/catalog/category/config/FiltersConfig';
+import { getFilterConfig } from '~/modules/catalog/category/config/FiltersConfig';
+import { FilterTypeEnum } from '~/modules/catalog/category/config/config';
+import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
+
+export interface SelectedFiltersInterface {[p: string]: string[]}
 
 export const useFilters = () => {
   // @ts-ignore
   const { getFacetsFromURL } = useUiHelpers();
-  const getSelectedFilterValues = () => {
-    const availableFacets = getFilterableAttributes();
 
-    const selectedFilterValues = Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      availableFacets.map((curr: string) => [
-        curr,
-        [],
-      ]),
-    );
+  const getSelectedFiltersFromUrl = () => {
+    const selectedFilterValues = {};
     const { filters } = getFacetsFromURL();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     Object.keys(filters).forEach((filter) => {
@@ -25,41 +23,46 @@ export const useFilters = () => {
     return selectedFilterValues;
   };
 
-  const selectedFilters = ref(getSelectedFilterValues());
-  const getSelectedFilters = () => selectedFilters;
+  const selectedFilters = ref<SelectedFiltersInterface>(getSelectedFiltersFromUrl());
 
-  const isFilterSelected = (facet: GroupedFacetInterface, option: FacetInterface, filtersPool = getSelectedFilters().value) => {
-    const selected = (filtersPool[facet.id] || []).find((filterOpt) => filterOpt === option.value);
+  const isFilterSelected = (name: string, value: string) => {
+    const selected = (selectedFilters.value[name] ?? []).find((selectedValue) => selectedValue === value);
 
     return selected ?? '';
   };
 
-  const selectFilter = (facet: GroupedFacetInterface, option: FacetInterface) => {
-    const config = getFilterConfig(facet.id);
+  const removeFilter = (attrCode: string, valToRemove: string) => {
+    if (!selectedFilters.value[attrCode]) return;
+    selectedFilters.value[attrCode] = selectedFilters.value[attrCode].filter((value) => value !== valToRemove);
+  };
+
+  const selectFilter = (filter: Aggregation, option: AggregationOption) => {
+    const config = getFilterConfig(filter.attribute_code);
+    if (!selectedFilters.value[filter.attribute_code]) {
+      set(selectedFilters.value, filter.attribute_code, []);
+    }
+
     if (config.type === FilterTypeEnum.RADIO) {
-      selectedFilters.value[facet.id] = [option.value];
+      selectedFilters.value[filter.attribute_code] = [option.value];
       return;
     }
 
-    if (!selectedFilters.value[facet.id]) {
-      selectedFilters.value[facet.id] = [];
-    }
-
-    if (selectedFilters.value[facet.id].find((f) => f === option.value)) {
-      selectedFilters.value[facet.id] = selectedFilters.value[
-        facet.id
+    if (selectedFilters.value[filter.attribute_code].find((f) => f === option.value)) {
+      selectedFilters.value[filter.attribute_code] = selectedFilters.value[
+        filter.attribute_code
       ]?.filter((f) => f !== option.value);
       return;
     }
 
-    selectedFilters.value[facet.id].push(option.value);
+    selectedFilters.value[filter.attribute_code].push(String(option.value));
   };
 
   return {
-    getSelectedFilterValues,
+    getSelectedFiltersFromUrl,
     isFilterSelected,
+    removeFilter,
     selectFilter,
-    getSelectedFilters,
+    selectedFilters,
   };
 };
 

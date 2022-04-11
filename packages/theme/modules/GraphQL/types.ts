@@ -743,10 +743,10 @@ export interface CartUserInputError {
   message: Scalars['String'];
 }
 export declare enum CartUserInputErrorType {
-  InsufficientStock = "INSUFFICIENT_STOCK",
-  NotSalable = "NOT_SALABLE",
-  ProductNotFound = "PRODUCT_NOT_FOUND",
-  Undefined = "UNDEFINED"
+  InsufficientStock = 'INSUFFICIENT_STOCK',
+  NotSalable = 'NOT_SALABLE',
+  ProductNotFound = 'PRODUCT_NOT_FOUND',
+  Undefined = 'UNDEFINED',
 }
 export interface Categories {
   /** The payment method assets */
@@ -960,8 +960,8 @@ export interface CheckoutAgreement {
   name: Scalars['String'];
 }
 export declare enum CheckoutAgreementMode {
-  Auto = "AUTO",
-  Manual = "MANUAL"
+  Auto = 'AUTO',
+  Manual = 'MANUAL',
 }
 /** An error encountered while adding an item the the cart. */
 export interface CheckoutUserInputError {
@@ -973,11 +973,11 @@ export interface CheckoutUserInputError {
   path: Array<Maybe<Scalars['String']>>;
 }
 export declare enum CheckoutUserInputErrorCodes {
-  InsufficientStock = "INSUFFICIENT_STOCK",
-  NotSalable = "NOT_SALABLE",
-  ProductNotFound = "PRODUCT_NOT_FOUND",
-  ReorderNotAvailable = "REORDER_NOT_AVAILABLE",
-  Undefined = "UNDEFINED"
+  InsufficientStock = 'INSUFFICIENT_STOCK',
+  NotSalable = 'NOT_SALABLE',
+  ProductNotFound = 'PRODUCT_NOT_FOUND',
+  ReorderNotAvailable = 'REORDER_NOT_AVAILABLE',
+  Undefined = 'UNDEFINED',
 }
 /** CMS block defines all CMS block information */
 export interface CmsBlock {
@@ -1262,15 +1262,13 @@ export interface ConfigurableProduct extends CustomizableProductInterface, Physi
   /** The weight of the item, in units defined by the store. */
   weight?: Maybe<Scalars['Float']>;
 }
-/** ConfigurableProduct defines basic features of a configurable product and its simple product variants */
-export interface ConfigurableProductConfigurable_Product_Options_SelectionArgs {
-  configurableOptionValueUids?: InputMaybe<Array<Scalars['ID']>>;
-}
+
 /** ConfigurableProduct defines basic features of a configurable product and its simple product variants */
 export interface ConfigurableProductReviewsArgs {
   currentPage?: InputMaybe<Scalars['Int']>;
   pageSize?: InputMaybe<Scalars['Int']>;
 }
+
 export interface ConfigurableProductCartItemInput {
   customizable_options?: InputMaybe<Array<InputMaybe<CustomizableOptionInput>>>;
   data: CartItemInput;
@@ -1396,495 +1394,495 @@ export interface Country {
 /** The list of countries codes */
 export declare enum CountryCodeEnum {
   /** Andorra */
-  Ad = "AD",
+  Ad = 'AD',
   /** United Arab Emirates */
-  Ae = "AE",
+  Ae = 'AE',
   /** Afghanistan */
-  Af = "AF",
+  Af = 'AF',
   /** Antigua & Barbuda */
-  Ag = "AG",
+  Ag = 'AG',
   /** Anguilla */
-  Ai = "AI",
+  Ai = 'AI',
   /** Albania */
-  Al = "AL",
+  Al = 'AL',
   /** Armenia */
-  Am = "AM",
+  Am = 'AM',
   /** Netherlands Antilles */
-  An = "AN",
+  An = 'AN',
   /** Angola */
-  Ao = "AO",
+  Ao = 'AO',
   /** Antarctica */
-  Aq = "AQ",
+  Aq = 'AQ',
   /** Argentina */
-  Ar = "AR",
+  Ar = 'AR',
   /** American Samoa */
-  As = "AS",
+  As = 'AS',
   /** Austria */
-  At = "AT",
+  At = 'AT',
   /** Australia */
-  Au = "AU",
+  Au = 'AU',
   /** Aruba */
-  Aw = "AW",
+  Aw = 'AW',
   /** Åland Islands */
-  Ax = "AX",
+  Ax = 'AX',
   /** Azerbaijan */
-  Az = "AZ",
+  Az = 'AZ',
   /** Bosnia & Herzegovina */
-  Ba = "BA",
+  Ba = 'BA',
   /** Barbados */
-  Bb = "BB",
+  Bb = 'BB',
   /** Bangladesh */
-  Bd = "BD",
+  Bd = 'BD',
   /** Belgium */
-  Be = "BE",
+  Be = 'BE',
   /** Burkina Faso */
-  Bf = "BF",
+  Bf = 'BF',
   /** Bulgaria */
-  Bg = "BG",
+  Bg = 'BG',
   /** Bahrain */
-  Bh = "BH",
+  Bh = 'BH',
   /** Burundi */
-  Bi = "BI",
+  Bi = 'BI',
   /** Benin */
-  Bj = "BJ",
+  Bj = 'BJ',
   /** St. Barthélemy */
-  Bl = "BL",
+  Bl = 'BL',
   /** Bermuda */
-  Bm = "BM",
+  Bm = 'BM',
   /** Brunei */
-  Bn = "BN",
+  Bn = 'BN',
   /** Bolivia */
-  Bo = "BO",
+  Bo = 'BO',
   /** Brazil */
-  Br = "BR",
+  Br = 'BR',
   /** Bahamas */
-  Bs = "BS",
+  Bs = 'BS',
   /** Bhutan */
-  Bt = "BT",
+  Bt = 'BT',
   /** Bouvet Island */
-  Bv = "BV",
+  Bv = 'BV',
   /** Botswana */
-  Bw = "BW",
+  Bw = 'BW',
   /** Belarus */
-  By = "BY",
+  By = 'BY',
   /** Belize */
-  Bz = "BZ",
+  Bz = 'BZ',
   /** Canada */
-  Ca = "CA",
+  Ca = 'CA',
   /** Cocos (Keeling) Islands */
-  Cc = "CC",
+  Cc = 'CC',
   /** Congo-Kinshasa */
-  Cd = "CD",
+  Cd = 'CD',
   /** Central African Republic */
-  Cf = "CF",
+  Cf = 'CF',
   /** Congo-Brazzaville */
-  Cg = "CG",
+  Cg = 'CG',
   /** Switzerland */
-  Ch = "CH",
+  Ch = 'CH',
   /** Côte d’Ivoire */
-  Ci = "CI",
+  Ci = 'CI',
   /** Cook Islands */
-  Ck = "CK",
+  Ck = 'CK',
   /** Chile */
-  Cl = "CL",
+  Cl = 'CL',
   /** Cameroon */
-  Cm = "CM",
+  Cm = 'CM',
   /** China */
-  Cn = "CN",
+  Cn = 'CN',
   /** Colombia */
-  Co = "CO",
+  Co = 'CO',
   /** Costa Rica */
-  Cr = "CR",
+  Cr = 'CR',
   /** Cuba */
-  Cu = "CU",
+  Cu = 'CU',
   /** Cape Verde */
-  Cv = "CV",
+  Cv = 'CV',
   /** Christmas Island */
-  Cx = "CX",
+  Cx = 'CX',
   /** Cyprus */
-  Cy = "CY",
+  Cy = 'CY',
   /** Czech Republic */
-  Cz = "CZ",
+  Cz = 'CZ',
   /** Germany */
-  De = "DE",
+  De = 'DE',
   /** Djibouti */
-  Dj = "DJ",
+  Dj = 'DJ',
   /** Denmark */
-  Dk = "DK",
+  Dk = 'DK',
   /** Dominica */
-  Dm = "DM",
+  Dm = 'DM',
   /** Dominican Republic */
-  Do = "DO",
+  Do = 'DO',
   /** Algeria */
-  Dz = "DZ",
+  Dz = 'DZ',
   /** Ecuador */
-  Ec = "EC",
+  Ec = 'EC',
   /** Estonia */
-  Ee = "EE",
+  Ee = 'EE',
   /** Egypt */
-  Eg = "EG",
+  Eg = 'EG',
   /** Western Sahara */
-  Eh = "EH",
+  Eh = 'EH',
   /** Eritrea */
-  Er = "ER",
+  Er = 'ER',
   /** Spain */
-  Es = "ES",
+  Es = 'ES',
   /** Ethiopia */
-  Et = "ET",
+  Et = 'ET',
   /** Finland */
-  Fi = "FI",
+  Fi = 'FI',
   /** Fiji */
-  Fj = "FJ",
+  Fj = 'FJ',
   /** Falkland Islands */
-  Fk = "FK",
+  Fk = 'FK',
   /** Micronesia */
-  Fm = "FM",
+  Fm = 'FM',
   /** Faroe Islands */
-  Fo = "FO",
+  Fo = 'FO',
   /** France */
-  Fr = "FR",
+  Fr = 'FR',
   /** Gabon */
-  Ga = "GA",
+  Ga = 'GA',
   /** United Kingdom */
-  Gb = "GB",
+  Gb = 'GB',
   /** Grenada */
-  Gd = "GD",
+  Gd = 'GD',
   /** Georgia */
-  Ge = "GE",
+  Ge = 'GE',
   /** French Guiana */
-  Gf = "GF",
+  Gf = 'GF',
   /** Guernsey */
-  Gg = "GG",
+  Gg = 'GG',
   /** Ghana */
-  Gh = "GH",
+  Gh = 'GH',
   /** Gibraltar */
-  Gi = "GI",
+  Gi = 'GI',
   /** Greenland */
-  Gl = "GL",
+  Gl = 'GL',
   /** Gambia */
-  Gm = "GM",
+  Gm = 'GM',
   /** Guinea */
-  Gn = "GN",
+  Gn = 'GN',
   /** Guadeloupe */
-  Gp = "GP",
+  Gp = 'GP',
   /** Equatorial Guinea */
-  Gq = "GQ",
+  Gq = 'GQ',
   /** Greece */
-  Gr = "GR",
+  Gr = 'GR',
   /** South Georgia & South Sandwich Islands */
-  Gs = "GS",
+  Gs = 'GS',
   /** Guatemala */
-  Gt = "GT",
+  Gt = 'GT',
   /** Guam */
-  Gu = "GU",
+  Gu = 'GU',
   /** Guinea-Bissau */
-  Gw = "GW",
+  Gw = 'GW',
   /** Guyana */
-  Gy = "GY",
+  Gy = 'GY',
   /** Hong Kong SAR China */
-  Hk = "HK",
+  Hk = 'HK',
   /** Heard &amp; McDonald Islands */
-  Hm = "HM",
+  Hm = 'HM',
   /** Honduras */
-  Hn = "HN",
+  Hn = 'HN',
   /** Croatia */
-  Hr = "HR",
+  Hr = 'HR',
   /** Haiti */
-  Ht = "HT",
+  Ht = 'HT',
   /** Hungary */
-  Hu = "HU",
+  Hu = 'HU',
   /** Indonesia */
-  Id = "ID",
+  Id = 'ID',
   /** Ireland */
-  Ie = "IE",
+  Ie = 'IE',
   /** Israel */
-  Il = "IL",
+  Il = 'IL',
   /** Isle of Man */
-  Im = "IM",
+  Im = 'IM',
   /** India */
-  In = "IN",
+  In = 'IN',
   /** British Indian Ocean Territory */
-  Io = "IO",
+  Io = 'IO',
   /** Iraq */
-  Iq = "IQ",
+  Iq = 'IQ',
   /** Iran */
-  Ir = "IR",
+  Ir = 'IR',
   /** Iceland */
-  Is = "IS",
+  Is = 'IS',
   /** Italy */
-  It = "IT",
+  It = 'IT',
   /** Jersey */
-  Je = "JE",
+  Je = 'JE',
   /** Jamaica */
-  Jm = "JM",
+  Jm = 'JM',
   /** Jordan */
-  Jo = "JO",
+  Jo = 'JO',
   /** Japan */
-  Jp = "JP",
+  Jp = 'JP',
   /** Kenya */
-  Ke = "KE",
+  Ke = 'KE',
   /** Kyrgyzstan */
-  Kg = "KG",
+  Kg = 'KG',
   /** Cambodia */
-  Kh = "KH",
+  Kh = 'KH',
   /** Kiribati */
-  Ki = "KI",
+  Ki = 'KI',
   /** Comoros */
-  Km = "KM",
+  Km = 'KM',
   /** St. Kitts & Nevis */
-  Kn = "KN",
+  Kn = 'KN',
   /** North Korea */
-  Kp = "KP",
+  Kp = 'KP',
   /** South Korea */
-  Kr = "KR",
+  Kr = 'KR',
   /** Kuwait */
-  Kw = "KW",
+  Kw = 'KW',
   /** Cayman Islands */
-  Ky = "KY",
+  Ky = 'KY',
   /** Kazakhstan */
-  Kz = "KZ",
+  Kz = 'KZ',
   /** Laos */
-  La = "LA",
+  La = 'LA',
   /** Lebanon */
-  Lb = "LB",
+  Lb = 'LB',
   /** St. Lucia */
-  Lc = "LC",
+  Lc = 'LC',
   /** Liechtenstein */
-  Li = "LI",
+  Li = 'LI',
   /** Sri Lanka */
-  Lk = "LK",
+  Lk = 'LK',
   /** Liberia */
-  Lr = "LR",
+  Lr = 'LR',
   /** Lesotho */
-  Ls = "LS",
+  Ls = 'LS',
   /** Lithuania */
-  Lt = "LT",
+  Lt = 'LT',
   /** Luxembourg */
-  Lu = "LU",
+  Lu = 'LU',
   /** Latvia */
-  Lv = "LV",
+  Lv = 'LV',
   /** Libya */
-  Ly = "LY",
+  Ly = 'LY',
   /** Morocco */
-  Ma = "MA",
+  Ma = 'MA',
   /** Monaco */
-  Mc = "MC",
+  Mc = 'MC',
   /** Moldova */
-  Md = "MD",
+  Md = 'MD',
   /** Montenegro */
-  Me = "ME",
+  Me = 'ME',
   /** St. Martin */
-  Mf = "MF",
+  Mf = 'MF',
   /** Madagascar */
-  Mg = "MG",
+  Mg = 'MG',
   /** Marshall Islands */
-  Mh = "MH",
+  Mh = 'MH',
   /** Macedonia */
-  Mk = "MK",
+  Mk = 'MK',
   /** Mali */
-  Ml = "ML",
+  Ml = 'ML',
   /** Myanmar (Burma) */
-  Mm = "MM",
+  Mm = 'MM',
   /** Mongolia */
-  Mn = "MN",
+  Mn = 'MN',
   /** Macau SAR China */
-  Mo = "MO",
+  Mo = 'MO',
   /** Northern Mariana Islands */
-  Mp = "MP",
+  Mp = 'MP',
   /** Martinique */
-  Mq = "MQ",
+  Mq = 'MQ',
   /** Mauritania */
-  Mr = "MR",
+  Mr = 'MR',
   /** Montserrat */
-  Ms = "MS",
+  Ms = 'MS',
   /** Malta */
-  Mt = "MT",
+  Mt = 'MT',
   /** Mauritius */
-  Mu = "MU",
+  Mu = 'MU',
   /** Maldives */
-  Mv = "MV",
+  Mv = 'MV',
   /** Malawi */
-  Mw = "MW",
+  Mw = 'MW',
   /** Mexico */
-  Mx = "MX",
+  Mx = 'MX',
   /** Malaysia */
-  My = "MY",
+  My = 'MY',
   /** Mozambique */
-  Mz = "MZ",
+  Mz = 'MZ',
   /** Namibia */
-  Na = "NA",
+  Na = 'NA',
   /** New Caledonia */
-  Nc = "NC",
+  Nc = 'NC',
   /** Niger */
-  Ne = "NE",
+  Ne = 'NE',
   /** Norfolk Island */
-  Nf = "NF",
+  Nf = 'NF',
   /** Nigeria */
-  Ng = "NG",
+  Ng = 'NG',
   /** Nicaragua */
-  Ni = "NI",
+  Ni = 'NI',
   /** Netherlands */
-  Nl = "NL",
+  Nl = 'NL',
   /** Norway */
-  No = "NO",
+  No = 'NO',
   /** Nepal */
-  Np = "NP",
+  Np = 'NP',
   /** Nauru */
-  Nr = "NR",
+  Nr = 'NR',
   /** Niue */
-  Nu = "NU",
+  Nu = 'NU',
   /** New Zealand */
-  Nz = "NZ",
+  Nz = 'NZ',
   /** Oman */
-  Om = "OM",
+  Om = 'OM',
   /** Panama */
-  Pa = "PA",
+  Pa = 'PA',
   /** Peru */
-  Pe = "PE",
+  Pe = 'PE',
   /** French Polynesia */
-  Pf = "PF",
+  Pf = 'PF',
   /** Papua New Guinea */
-  Pg = "PG",
+  Pg = 'PG',
   /** Philippines */
-  Ph = "PH",
+  Ph = 'PH',
   /** Pakistan */
-  Pk = "PK",
+  Pk = 'PK',
   /** Poland */
-  Pl = "PL",
+  Pl = 'PL',
   /** St. Pierre & Miquelon */
-  Pm = "PM",
+  Pm = 'PM',
   /** Pitcairn Islands */
-  Pn = "PN",
+  Pn = 'PN',
   /** Palestinian Territories */
-  Ps = "PS",
+  Ps = 'PS',
   /** Portugal */
-  Pt = "PT",
+  Pt = 'PT',
   /** Palau */
-  Pw = "PW",
+  Pw = 'PW',
   /** Paraguay */
-  Py = "PY",
+  Py = 'PY',
   /** Qatar */
-  Qa = "QA",
+  Qa = 'QA',
   /** Réunion */
-  Re = "RE",
+  Re = 'RE',
   /** Romania */
-  Ro = "RO",
+  Ro = 'RO',
   /** Serbia */
-  Rs = "RS",
+  Rs = 'RS',
   /** Russia */
-  Ru = "RU",
+  Ru = 'RU',
   /** Rwanda */
-  Rw = "RW",
+  Rw = 'RW',
   /** Saudi Arabia */
-  Sa = "SA",
+  Sa = 'SA',
   /** Solomon Islands */
-  Sb = "SB",
+  Sb = 'SB',
   /** Seychelles */
-  Sc = "SC",
+  Sc = 'SC',
   /** Sudan */
-  Sd = "SD",
+  Sd = 'SD',
   /** Sweden */
-  Se = "SE",
+  Se = 'SE',
   /** Singapore */
-  Sg = "SG",
+  Sg = 'SG',
   /** St. Helena */
-  Sh = "SH",
+  Sh = 'SH',
   /** Slovenia */
-  Si = "SI",
+  Si = 'SI',
   /** Svalbard & Jan Mayen */
-  Sj = "SJ",
+  Sj = 'SJ',
   /** Slovakia */
-  Sk = "SK",
+  Sk = 'SK',
   /** Sierra Leone */
-  Sl = "SL",
+  Sl = 'SL',
   /** San Marino */
-  Sm = "SM",
+  Sm = 'SM',
   /** Senegal */
-  Sn = "SN",
+  Sn = 'SN',
   /** Somalia */
-  So = "SO",
+  So = 'SO',
   /** Suriname */
-  Sr = "SR",
+  Sr = 'SR',
   /** São Tomé & Príncipe */
-  St = "ST",
+  St = 'ST',
   /** El Salvador */
-  Sv = "SV",
+  Sv = 'SV',
   /** Syria */
-  Sy = "SY",
+  Sy = 'SY',
   /** Swaziland */
-  Sz = "SZ",
+  Sz = 'SZ',
   /** Turks & Caicos Islands */
-  Tc = "TC",
+  Tc = 'TC',
   /** Chad */
-  Td = "TD",
+  Td = 'TD',
   /** French Southern Territories */
-  Tf = "TF",
+  Tf = 'TF',
   /** Togo */
-  Tg = "TG",
+  Tg = 'TG',
   /** Thailand */
-  Th = "TH",
+  Th = 'TH',
   /** Tajikistan */
-  Tj = "TJ",
+  Tj = 'TJ',
   /** Tokelau */
-  Tk = "TK",
+  Tk = 'TK',
   /** Timor-Leste */
-  Tl = "TL",
+  Tl = 'TL',
   /** Turkmenistan */
-  Tm = "TM",
+  Tm = 'TM',
   /** Tunisia */
-  Tn = "TN",
+  Tn = 'TN',
   /** Tonga */
-  To = "TO",
+  To = 'TO',
   /** Turkey */
-  Tr = "TR",
+  Tr = 'TR',
   /** Trinidad & Tobago */
-  Tt = "TT",
+  Tt = 'TT',
   /** Tuvalu */
-  Tv = "TV",
+  Tv = 'TV',
   /** Taiwan */
-  Tw = "TW",
+  Tw = 'TW',
   /** Tanzania */
-  Tz = "TZ",
+  Tz = 'TZ',
   /** Ukraine */
-  Ua = "UA",
+  Ua = 'UA',
   /** Uganda */
-  Ug = "UG",
+  Ug = 'UG',
   /** U.S. Outlying Islands */
-  Um = "UM",
+  Um = 'UM',
   /** United States */
-  Us = "US",
+  Us = 'US',
   /** Uruguay */
-  Uy = "UY",
+  Uy = 'UY',
   /** Uzbekistan */
-  Uz = "UZ",
+  Uz = 'UZ',
   /** Vatican City */
-  Va = "VA",
+  Va = 'VA',
   /** St. Vincent & Grenadines */
-  Vc = "VC",
+  Vc = 'VC',
   /** Venezuela */
-  Ve = "VE",
+  Ve = 'VE',
   /** British Virgin Islands */
-  Vg = "VG",
+  Vg = 'VG',
   /** U.S. Virgin Islands */
-  Vi = "VI",
+  Vi = 'VI',
   /** Vietnam */
-  Vn = "VN",
+  Vn = 'VN',
   /** Vanuatu */
-  Vu = "VU",
+  Vu = 'VU',
   /** Wallis & Futuna */
-  Wf = "WF",
+  Wf = 'WF',
   /** Samoa */
-  Ws = "WS",
+  Ws = 'WS',
   /** Yemen */
-  Ye = "YE",
+  Ye = 'YE',
   /** Mayotte */
-  Yt = "YT",
+  Yt = 'YT',
   /** South Africa */
-  Za = "ZA",
+  Za = 'ZA',
   /** Zambia */
-  Zm = "ZM",
+  Zm = 'ZM',
   /** Zimbabwe */
-  Zw = "ZW"
+  Zw = 'ZW',
 }
 export interface CreateCompareListInput {
   /** An array of product IDs to add to the compare list */
@@ -2008,176 +2006,176 @@ export interface Currency {
 }
 /** The list of available currency codes */
 export declare enum CurrencyEnum {
-  Aed = "AED",
-  Afn = "AFN",
-  All = "ALL",
-  Amd = "AMD",
-  Ang = "ANG",
-  Aoa = "AOA",
-  Ars = "ARS",
-  Aud = "AUD",
-  Awg = "AWG",
-  Azm = "AZM",
-  Azn = "AZN",
-  Bam = "BAM",
-  Bbd = "BBD",
-  Bdt = "BDT",
-  Bgn = "BGN",
-  Bhd = "BHD",
-  Bif = "BIF",
-  Bmd = "BMD",
-  Bnd = "BND",
-  Bob = "BOB",
-  Brl = "BRL",
-  Bsd = "BSD",
-  Btn = "BTN",
-  Buk = "BUK",
-  Bwp = "BWP",
-  Byn = "BYN",
-  Bzd = "BZD",
-  Cad = "CAD",
-  Cdf = "CDF",
-  Che = "CHE",
-  Chf = "CHF",
-  Chw = "CHW",
-  Clp = "CLP",
-  Cny = "CNY",
-  Cop = "COP",
-  Crc = "CRC",
-  Cup = "CUP",
-  Cve = "CVE",
-  Czk = "CZK",
-  Djf = "DJF",
-  Dkk = "DKK",
-  Dop = "DOP",
-  Dzd = "DZD",
-  Eek = "EEK",
-  Egp = "EGP",
-  Ern = "ERN",
-  Etb = "ETB",
-  Eur = "EUR",
-  Fjd = "FJD",
-  Fkp = "FKP",
-  Gbp = "GBP",
-  Gek = "GEK",
-  Gel = "GEL",
-  Ghs = "GHS",
-  Gip = "GIP",
-  Gmd = "GMD",
-  Gnf = "GNF",
-  Gqe = "GQE",
-  Gtq = "GTQ",
-  Gyd = "GYD",
-  Hkd = "HKD",
-  Hnl = "HNL",
-  Hrk = "HRK",
-  Htg = "HTG",
-  Huf = "HUF",
-  Idr = "IDR",
-  Ils = "ILS",
-  Inr = "INR",
-  Iqd = "IQD",
-  Irr = "IRR",
-  Isk = "ISK",
-  Jmd = "JMD",
-  Jod = "JOD",
-  Jpy = "JPY",
-  Kes = "KES",
-  Kgs = "KGS",
-  Khr = "KHR",
-  Kmf = "KMF",
-  Kpw = "KPW",
-  Krw = "KRW",
-  Kwd = "KWD",
-  Kyd = "KYD",
-  Kzt = "KZT",
-  Lak = "LAK",
-  Lbp = "LBP",
-  Lkr = "LKR",
-  Lrd = "LRD",
-  Lsl = "LSL",
-  Lsm = "LSM",
-  Ltl = "LTL",
-  Lvl = "LVL",
-  Lyd = "LYD",
-  Mad = "MAD",
-  Mdl = "MDL",
-  Mga = "MGA",
-  Mkd = "MKD",
-  Mmk = "MMK",
-  Mnt = "MNT",
-  Mop = "MOP",
-  Mro = "MRO",
-  Mur = "MUR",
-  Mvr = "MVR",
-  Mwk = "MWK",
-  Mxn = "MXN",
-  Myr = "MYR",
-  Mzn = "MZN",
-  Nad = "NAD",
-  Ngn = "NGN",
-  Nic = "NIC",
-  Nok = "NOK",
-  Npr = "NPR",
-  Nzd = "NZD",
-  Omr = "OMR",
-  Pab = "PAB",
-  Pen = "PEN",
-  Pgk = "PGK",
-  Php = "PHP",
-  Pkr = "PKR",
-  Pln = "PLN",
-  Pyg = "PYG",
-  Qar = "QAR",
-  Rhd = "RHD",
-  Rol = "ROL",
-  Ron = "RON",
-  Rsd = "RSD",
-  Rub = "RUB",
-  Rwf = "RWF",
-  Sar = "SAR",
-  Sbd = "SBD",
-  Scr = "SCR",
-  Sdg = "SDG",
-  Sek = "SEK",
-  Sgd = "SGD",
-  Shp = "SHP",
-  Skk = "SKK",
-  Sll = "SLL",
-  Sos = "SOS",
-  Srd = "SRD",
-  Std = "STD",
-  Svc = "SVC",
-  Syp = "SYP",
-  Szl = "SZL",
-  Thb = "THB",
-  Tjs = "TJS",
-  Tmm = "TMM",
-  Tnd = "TND",
-  Top = "TOP",
-  Trl = "TRL",
-  Try = "TRY",
-  Ttd = "TTD",
-  Twd = "TWD",
-  Tzs = "TZS",
-  Uah = "UAH",
-  Ugx = "UGX",
-  Usd = "USD",
-  Uyu = "UYU",
-  Uzs = "UZS",
-  Veb = "VEB",
-  Vef = "VEF",
-  Vnd = "VND",
-  Vuv = "VUV",
-  Wst = "WST",
-  Xcd = "XCD",
-  Xof = "XOF",
-  Xpf = "XPF",
-  Yer = "YER",
-  Ytl = "YTL",
-  Zar = "ZAR",
-  Zmk = "ZMK",
-  Zwd = "ZWD"
+  Aed = 'AED',
+  Afn = 'AFN',
+  All = 'ALL',
+  Amd = 'AMD',
+  Ang = 'ANG',
+  Aoa = 'AOA',
+  Ars = 'ARS',
+  Aud = 'AUD',
+  Awg = 'AWG',
+  Azm = 'AZM',
+  Azn = 'AZN',
+  Bam = 'BAM',
+  Bbd = 'BBD',
+  Bdt = 'BDT',
+  Bgn = 'BGN',
+  Bhd = 'BHD',
+  Bif = 'BIF',
+  Bmd = 'BMD',
+  Bnd = 'BND',
+  Bob = 'BOB',
+  Brl = 'BRL',
+  Bsd = 'BSD',
+  Btn = 'BTN',
+  Buk = 'BUK',
+  Bwp = 'BWP',
+  Byn = 'BYN',
+  Bzd = 'BZD',
+  Cad = 'CAD',
+  Cdf = 'CDF',
+  Che = 'CHE',
+  Chf = 'CHF',
+  Chw = 'CHW',
+  Clp = 'CLP',
+  Cny = 'CNY',
+  Cop = 'COP',
+  Crc = 'CRC',
+  Cup = 'CUP',
+  Cve = 'CVE',
+  Czk = 'CZK',
+  Djf = 'DJF',
+  Dkk = 'DKK',
+  Dop = 'DOP',
+  Dzd = 'DZD',
+  Eek = 'EEK',
+  Egp = 'EGP',
+  Ern = 'ERN',
+  Etb = 'ETB',
+  Eur = 'EUR',
+  Fjd = 'FJD',
+  Fkp = 'FKP',
+  Gbp = 'GBP',
+  Gek = 'GEK',
+  Gel = 'GEL',
+  Ghs = 'GHS',
+  Gip = 'GIP',
+  Gmd = 'GMD',
+  Gnf = 'GNF',
+  Gqe = 'GQE',
+  Gtq = 'GTQ',
+  Gyd = 'GYD',
+  Hkd = 'HKD',
+  Hnl = 'HNL',
+  Hrk = 'HRK',
+  Htg = 'HTG',
+  Huf = 'HUF',
+  Idr = 'IDR',
+  Ils = 'ILS',
+  Inr = 'INR',
+  Iqd = 'IQD',
+  Irr = 'IRR',
+  Isk = 'ISK',
+  Jmd = 'JMD',
+  Jod = 'JOD',
+  Jpy = 'JPY',
+  Kes = 'KES',
+  Kgs = 'KGS',
+  Khr = 'KHR',
+  Kmf = 'KMF',
+  Kpw = 'KPW',
+  Krw = 'KRW',
+  Kwd = 'KWD',
+  Kyd = 'KYD',
+  Kzt = 'KZT',
+  Lak = 'LAK',
+  Lbp = 'LBP',
+  Lkr = 'LKR',
+  Lrd = 'LRD',
+  Lsl = 'LSL',
+  Lsm = 'LSM',
+  Ltl = 'LTL',
+  Lvl = 'LVL',
+  Lyd = 'LYD',
+  Mad = 'MAD',
+  Mdl = 'MDL',
+  Mga = 'MGA',
+  Mkd = 'MKD',
+  Mmk = 'MMK',
+  Mnt = 'MNT',
+  Mop = 'MOP',
+  Mro = 'MRO',
+  Mur = 'MUR',
+  Mvr = 'MVR',
+  Mwk = 'MWK',
+  Mxn = 'MXN',
+  Myr = 'MYR',
+  Mzn = 'MZN',
+  Nad = 'NAD',
+  Ngn = 'NGN',
+  Nic = 'NIC',
+  Nok = 'NOK',
+  Npr = 'NPR',
+  Nzd = 'NZD',
+  Omr = 'OMR',
+  Pab = 'PAB',
+  Pen = 'PEN',
+  Pgk = 'PGK',
+  Php = 'PHP',
+  Pkr = 'PKR',
+  Pln = 'PLN',
+  Pyg = 'PYG',
+  Qar = 'QAR',
+  Rhd = 'RHD',
+  Rol = 'ROL',
+  Ron = 'RON',
+  Rsd = 'RSD',
+  Rub = 'RUB',
+  Rwf = 'RWF',
+  Sar = 'SAR',
+  Sbd = 'SBD',
+  Scr = 'SCR',
+  Sdg = 'SDG',
+  Sek = 'SEK',
+  Sgd = 'SGD',
+  Shp = 'SHP',
+  Skk = 'SKK',
+  Sll = 'SLL',
+  Sos = 'SOS',
+  Srd = 'SRD',
+  Std = 'STD',
+  Svc = 'SVC',
+  Syp = 'SYP',
+  Szl = 'SZL',
+  Thb = 'THB',
+  Tjs = 'TJS',
+  Tmm = 'TMM',
+  Tnd = 'TND',
+  Top = 'TOP',
+  Trl = 'TRL',
+  Try = 'TRY',
+  Ttd = 'TTD',
+  Twd = 'TWD',
+  Tzs = 'TZS',
+  Uah = 'UAH',
+  Ugx = 'UGX',
+  Usd = 'USD',
+  Uyu = 'UYU',
+  Uzs = 'UZS',
+  Veb = 'VEB',
+  Vef = 'VEF',
+  Vnd = 'VND',
+  Vuv = 'VUV',
+  Wst = 'WST',
+  Xcd = 'XCD',
+  Xof = 'XOF',
+  Xpf = 'XPF',
+  Yer = 'YER',
+  Ytl = 'YTL',
+  Zar = 'ZAR',
+  Zmk = 'ZMK',
+  Zwd = 'ZWD',
 }
 /** CustomAttributeMetadata defines an array of attribute_codes and entity_types */
 export interface CustomAttributeMetadata {
@@ -2254,10 +2252,7 @@ export interface CustomerReviewsArgs {
   currentPage?: InputMaybe<Scalars['Int']>;
   pageSize?: InputMaybe<Scalars['Int']>;
 }
-/** Customer defines the customer name and address and other details */
-export interface CustomerWishlist_V2Args {
-  id: Scalars['ID'];
-}
+
 /** Customer defines the customer name and address and other details */
 export interface CustomerWishlistsArgs {
   currentPage?: InputMaybe<Scalars['Int']>;
@@ -2633,9 +2628,9 @@ export interface CustomizableDateOption extends CustomizableOptionInterface {
 }
 /** This enumeration customizable date type. */
 export declare enum CustomizableDateTypeEnum {
-  Date = "DATE",
-  DateTime = "DATE_TIME",
-  Time = "TIME"
+  Date = 'DATE',
+  DateTime = 'DATE_TIME',
+  Time = 'TIME',
 }
 /** CustomizableDateValue defines the price and sku of a product whose page contains a customized date picker. */
 export interface CustomizableDateValue {
@@ -2901,8 +2896,8 @@ export interface DownloadableCreditMemoItem extends CreditMemoItemInterface {
   quantity_refunded?: Maybe<Scalars['Float']>;
 }
 export declare enum DownloadableFileTypeEnum {
-  File = "FILE",
-  Url = "URL"
+  File = 'FILE',
+  Url = 'URL',
 }
 export interface DownloadableInvoiceItem extends InvoiceItemInterface {
   /** Contains information about the final discount amount for the base product, including discounts on options */
@@ -3223,7 +3218,9 @@ export interface EnteredOptionInput {
   /** Text the customer entered */
   value: Scalars['String'];
 }
-/** EntityUrl is an output object containing the `id`, `relative_url`, and `type` attributes */
+/**
+ *
+ * is an output object containing the `id`, `relative_url`, and `type` attributes */
 export interface EntityUrl {
   /** @deprecated The canonical_url field is deprecated, use relative_url instead. */
   canonical_url?: Maybe<Scalars['String']>;
@@ -3315,15 +3312,15 @@ export interface FixedProductTax {
 /** This enumeration display settings for the fixed product tax */
 export declare enum FixedProductTaxDisplaySettings {
   /** The displayed price does not include the FPT amount. The values of ProductPrice.fixed_product_taxes and the price including the FPT are displayed separately. This value corresponds to 'Excluding FPT, Including FPT description and final price' */
-  ExcludeFptAndIncludeWithDetails = "EXCLUDE_FPT_AND_INCLUDE_WITH_DETAILS",
+  ExcludeFptAndIncludeWithDetails = 'EXCLUDE_FPT_AND_INCLUDE_WITH_DETAILS',
   /** The displayed price does not include the FPT amount. The values from ProductPrice.fixed_product_taxes are not displayed. This value corresponds to 'Excluding FPT' */
-  ExcludeFptWithoutDetails = "EXCLUDE_FPT_WITHOUT_DETAILS",
+  ExcludeFptWithoutDetails = 'EXCLUDE_FPT_WITHOUT_DETAILS',
   /** The FPT feature is not enabled. You can omit  ProductPrice.fixed_product_taxes from your query */
-  FptDisabled = "FPT_DISABLED",
+  FptDisabled = 'FPT_DISABLED',
   /** The displayed price includes the FPT amount without displaying the ProductPrice.fixed_product_taxes values. This value corresponds to 'Including FPT only' */
-  IncludeFptWithoutDetails = "INCLUDE_FPT_WITHOUT_DETAILS",
+  IncludeFptWithoutDetails = 'INCLUDE_FPT_WITHOUT_DETAILS',
   /** The displayed price includes the FPT amount while displaying the values of ProductPrice.fixed_product_taxes separately. This value corresponds to 'Including FPT and FPT description' */
-  IncludeFptWithDetails = "INCLUDE_FPT_WITH_DETAILS"
+  IncludeFptWithDetails = 'INCLUDE_FPT_WITH_DETAILS',
 }
 export interface GenerateCustomerTokenAsAdminInput {
   /** The email address of the customer requesting remote shopping assistance */
@@ -4242,8 +4239,8 @@ export interface PayflowLinkInput {
 }
 /** Mode for payment: TEST or LIVE. Applies to Payflow Link and Payments Advanced payment methods. */
 export declare enum PayflowLinkMode {
-  Live = "LIVE",
-  Test = "TEST"
+  Live = 'LIVE',
+  Test = 'TEST',
 }
 /** Contains information used to generate PayPal iframe for transaction. Applies to Payflow Link and Payments Advanced payment methods. */
 export interface PayflowLinkToken {
@@ -4333,8 +4330,8 @@ export interface PaymentToken {
 }
 /** The list of available payment token types */
 export declare enum PaymentTokenTypeEnum {
-  Account = "account",
-  Card = "card"
+  Account = 'account',
+  Card = 'card',
 }
 /** Required input for Express Checkout and Payments Standard payments */
 export interface PaypalExpressInput {
@@ -4516,14 +4513,14 @@ export interface PriceAdjustment {
 }
 /** PriceAdjustment.code is deprecated. This enumeration contains values defined in modules other than the Catalog module. */
 export declare enum PriceAdjustmentCodesEnum {
-  Tax = "TAX",
-  Weee = "WEEE",
-  WeeeTax = "WEEE_TAX"
+  Tax = 'TAX',
+  Weee = 'WEEE',
+  WeeeTax = 'WEEE_TAX',
 }
 /** PriceAdjustmentDescriptionEnum is deprecated. This enumeration states whether a price adjustment is included or excluded. */
 export declare enum PriceAdjustmentDescriptionEnum {
-  Excluded = "EXCLUDED",
-  Included = "INCLUDED"
+  Excluded = 'EXCLUDED',
+  Included = 'INCLUDED',
 }
 /** Price range for a product. If the product has a single price, the minimum and maximum price will be the same. */
 export interface PriceRange {
@@ -4534,14 +4531,14 @@ export interface PriceRange {
 }
 /** This enumeration the price type. */
 export declare enum PriceTypeEnum {
-  Dynamic = "DYNAMIC",
-  Fixed = "FIXED",
-  Percent = "PERCENT"
+  Dynamic = 'DYNAMIC',
+  Fixed = 'FIXED',
+  Percent = 'PERCENT',
 }
 /** This enumeration defines whether a bundle product's price is displayed as the lowest possible value or as a range. */
 export declare enum PriceViewEnum {
-  AsLowAs = "AS_LOW_AS",
-  PriceRange = "PRICE_RANGE"
+  AsLowAs = 'AS_LOW_AS',
+  PriceRange = 'PRICE_RANGE',
 }
 export interface ProductAttribute {
   /** The unique identifier for a product attribute code. */
@@ -5092,8 +5089,8 @@ export interface ProductSortInput {
 }
 /** This enumeration states whether a product stock status is in stock or out of stock */
 export declare enum ProductStockStatus {
-  InStock = "IN_STOCK",
-  OutOfStock = "OUT_OF_STOCK"
+  InStock = 'IN_STOCK',
+  OutOfStock = 'OUT_OF_STOCK',
 }
 /** ProductTierPrices is deprecated and has been replaced by TierPrice. The ProductTierPrices object defines a tier price, which is a quantity discount offered to a specific customer group. */
 export interface ProductTierPrices {
@@ -5509,8 +5506,8 @@ export interface SetShippingMethodsOnCartOutput {
 }
 /** This enumeration defines whether bundle items must be shipped together. */
 export declare enum ShipBundleItemsEnum {
-  Separately = "SEPARATELY",
-  Together = "TOGETHER"
+  Separately = 'SEPARATELY',
+  Together = 'TOGETHER',
 }
 export interface ShipmentItem extends ShipmentItemInterface {
   /** The unique ID for a `ShipmentItemInterface` object */
@@ -5809,8 +5806,8 @@ export interface SimpleWishlistItem extends WishlistItemInterface {
 }
 /** This enumeration indicates whether to return results in ascending or descending order */
 export declare enum SortEnum {
-  Asc = "ASC",
-  Desc = "DESC"
+  Asc = 'ASC',
+  Desc = 'DESC',
 }
 export interface SortField {
   /** Label of sort field. */
@@ -6003,10 +6000,10 @@ export interface SubscribeEmailToNewsletterOutput {
   status?: Maybe<SubscriptionStatusesEnum>;
 }
 export declare enum SubscriptionStatusesEnum {
-  NotActive = "NOT_ACTIVE",
-  Subscribed = "SUBSCRIBED",
-  Unconfirmed = "UNCONFIRMED",
-  Unsubscribed = "UNSUBSCRIBED"
+  NotActive = 'NOT_ACTIVE',
+  Subscribed = 'SUBSCRIBED',
+  Unconfirmed = 'UNCONFIRMED',
+  Unsubscribed = 'UNSUBSCRIBED',
 }
 export interface SwatchData {
   /** Type of swatch filter item: 1 - text, 2 - image */
@@ -6095,14 +6092,14 @@ export interface UrlRewrite {
 }
 /** This enumeration defines the entity type. */
 export declare enum UrlRewriteEntityTypeEnum {
-  Category = "CATEGORY",
-  CmsPage = "CMS_PAGE",
-  Product = "PRODUCT"
+  Category = 'CATEGORY',
+  CmsPage = 'CMS_PAGE',
+  Product = 'PRODUCT',
 }
 export declare enum UseInLayeredNavigationOptions {
-  FilterableNoResult = "FILTERABLE_NO_RESULT",
-  FilterableWithResults = "FILTERABLE_WITH_RESULTS",
-  No = "NO"
+  FilterableNoResult = 'FILTERABLE_NO_RESULT',
+  FilterableWithResults = 'FILTERABLE_WITH_RESULTS',
+  No = 'NO',
 }
 /** Required input for payment methods with Vault support. */
 export interface VaultTokenInput {
@@ -6354,8 +6351,8 @@ export interface WishListUserInputError {
   message: Scalars['String'];
 }
 export declare enum WishListUserInputErrorType {
-  ProductNotFound = "PRODUCT_NOT_FOUND",
-  Undefined = "UNDEFINED"
+  ProductNotFound = 'PRODUCT_NOT_FOUND',
+  Undefined = 'UNDEFINED',
 }
 export interface Wishlist {
   /** The unique ID for a `Wishlist` object */
@@ -6371,10 +6368,7 @@ export interface Wishlist {
   /** The time of the last modification to the wish list */
   updated_at?: Maybe<Scalars['String']>;
 }
-export interface WishlistItems_V2Args {
-  currentPage?: InputMaybe<Scalars['Int']>;
-  pageSize?: InputMaybe<Scalars['Int']>;
-}
+
 export interface WishlistCartUserInputError {
   /** An error code that describes the error encountered */
   code: WishlistCartUserInputErrorType;
@@ -6385,11 +6379,11 @@ export interface WishlistCartUserInputError {
   /** The unique ID of the wish list item containing an error */
   wishlistItemId: Scalars['ID'];
 }
-export declare enum WishlistCartUserInputErrorType {
-  InsufficientStock = "INSUFFICIENT_STOCK",
-  NotSalable = "NOT_SALABLE",
-  ProductNotFound = "PRODUCT_NOT_FOUND",
-  Undefined = "UNDEFINED"
+export enum WishlistCartUserInputErrorType {
+  InsufficientStock = 'INSUFFICIENT_STOCK',
+  NotSalable = 'NOT_SALABLE',
+  ProductNotFound = 'PRODUCT_NOT_FOUND',
+  Undefined = 'UNDEFINED',
 }
 export interface WishlistItem {
   /** The time when the customer added the item to the wish list */
@@ -51439,4 +51433,4 @@ export declare type WishlistQuery = {
     } | null | undefined>;
   } | null | undefined;
 };
-//# sourceMappingURL=GraphQL.d.ts.map
+// # sourceMappingURL=GraphQL.d.ts.map
