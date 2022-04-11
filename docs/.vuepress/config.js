@@ -56,8 +56,8 @@ module.exports = {
         collapsable: false,
         children: [
           ['/', 'Introduction'],
-          ['/guide/environments', 'Environments'],
-          ['/guide/functional-catalog', 'Functional catalog'],
+          ['/guide/environments', 'Demo environments'],
+          ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
           ['/guide/roadmap', 'Roadmap'],
         ]
@@ -92,7 +92,9 @@ module.exports = {
       {
         title: 'Composables',
         children: [
+          ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
+          ['/api-reference/magento-theme.usecategory', 'useCategory()'],
         ]
       },
       {
@@ -100,6 +102,11 @@ module.exports = {
         children: [
           ['/api-reference/magento-api.cmsblocks', 'cmsBlocks'],
           ['/api-reference/magento-api.cmspage', 'cmsPage'],
+          ['/api-reference/magento-api.categorylist', 'categoryList'],
+          ['/api-reference/magento-api.createcustomeraddress', 'createCustomerAddress'],
+          ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
+          ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
+          ['/api-reference/magento-api.updatecustomeraddress', 'updateCustomerAddress'],
         ]
       },
       {

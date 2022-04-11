@@ -16,55 +16,151 @@ const reduceFilters = (query) => (prev, curr: string) => {
 const useUiHelpers = () => {
   const route = useRoute();
   const router = useRouter();
-  const { query } = route.value;
+  let { query } = route.value;
 
-  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(query)
-    .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
-  // eslint-disable-next-line unicorn/prefer-object-from-entries
-    .reduce(reduceFilters(query), {});
+  const resolveQuery = () => {
+    if (typeof window !== 'undefined') {
+      query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
+    }
 
-  const getFacetsFromURL = () => ({
-    filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort as string || '',
-    term: query.term as string,
-  });
+    return query;
+  };
+
+  const getFiltersDataFromUrl = (onlyFilters = false) => {
+    const currentQuery = resolveQuery();
+    return Object.keys(currentQuery)
+      .filter((f) => (onlyFilters ? !nonFilters.has(f) : f))
+      // eslint-disable-next-line unicorn/prefer-object-from-entries
+      .reduce(reduceFilters(currentQuery), {});
+  };
+
+  const getFacetsFromURL = () => {
+    const currentQuery = resolveQuery();
+
+    return {
+      filters: getFiltersDataFromUrl(true),
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage as string, 10) || 10,
+      page: Number.parseInt(currentQuery.page as string, 10) || 1,
+      sort: currentQuery.sort as string || '',
+      term: currentQuery.term as string,
+    };
+  };
 
   const changeSearchTerm = (term: string) => term;
 
-  const getSearchTermFromUrl = () => ({
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort || '',
-    filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    term: query.term,
-  });
+  const getSearchTermFromUrl = () => {
+    const currentQuery = resolveQuery();
+
+    return {
+      page: Number.parseInt(currentQuery.page as string, 10) || 1,
+      sort: currentQuery.sort || '',
+      filters: getFiltersDataFromUrl(true),
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage as string, 10) || 10,
+      term: currentQuery.term,
+    };
+  };
 
   const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
 
   const getAgnosticCatLink = (category: CategoryTreeInterface): string => `/c${category.slug}`;
 
-  const changeSorting = async (sort: string) => {
-    await router.push({ query: { ...query, sort } });
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param sort
+   * @param forcePush
+   */
+  const changeSorting = async (sort: string, forcePush = true) => {
+    if (forcePush) {
+      await router.push({ query: { ...query, sort } });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          sort,
+        },
+      });
+      window.history.pushState(
+        {},
+        null,
+        routeData.href,
+      );
+    }
   };
 
-  const changeFilters = async (filters: any) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        ...filters,
-      },
-    });
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param filters
+   * @param forcePush
+   */
+  const changeFilters = async (filters: any, forcePush = true) => {
+    if (forcePush) {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          ...filters,
+        },
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          ...filters,
+        },
+      });
+      window.history.pushState(
+        {},
+        null,
+        routeData.href,
+      );
+    }
   };
 
-  const changeItemsPerPage = async (itemsPerPage: number) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        itemsPerPage,
-      },
-    });
+  const clearFilters = async (forcePush = true) => {
+    if (forcePush) {
+      await router.push({
+        query: {},
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {},
+      });
+      window.history.pushState(
+        {},
+        null,
+        routeData.href,
+      );
+    }
+  };
+
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param itemsPerPage
+   * @param forcePush
+   */
+  const changeItemsPerPage = async (itemsPerPage: number, forcePush = true) => {
+    if (forcePush) {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          itemsPerPage,
+        },
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          itemsPerPage,
+        },
+      });
+      window.history.pushState(
+        {},
+        null,
+        routeData.href,
+      );
+    }
   };
 
   const setTermForUrl = async (term: string) => {
@@ -87,6 +183,7 @@ const useUiHelpers = () => {
     changeSorting,
     changeFilters,
     changeItemsPerPage,
+    clearFilters,
     setTermForUrl,
     isFacetColor,
     isFacetCheckbox,
