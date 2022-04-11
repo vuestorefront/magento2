@@ -83,6 +83,8 @@ export const useBilling = (): UseBillingInterface => {
   };
 };
 
+export { default as BillingDetails } from './BillingDetails';
+
 export * from './useBilling';
 
 export default useBilling;
