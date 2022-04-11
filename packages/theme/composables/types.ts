@@ -236,11 +236,11 @@ export interface AgnosticSort {
 }
 
 export interface AgnosticPagination {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage: number;
-  pageOptions: number[];
+  currentPage?: number;
+  totalPages?: number;
+  totalItems?: number;
+  itemsPerPage?: number;
+  pageOptions?: number[];
 }
 
 export interface AgnosticAddress {
