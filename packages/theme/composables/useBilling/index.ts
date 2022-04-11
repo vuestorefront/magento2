@@ -1,46 +1,9 @@
-import { Ref, ref, useContext } from '@nuxtjs/composition-api';
+import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
-import type { ComposableFunctionArgs } from '~/composables/types';
-
-/** */
-interface UseBillingError {
-  load: Error | null;
-  save: Error | null;
-}
-
-interface BillingDetails {
-  apartment?: string;
-  city?: string;
-  country_code?: string;
-  customerAddressId?: string;
-  extra?: string;
-  firstname?: string;
-  lastname?: string;
-  neighborhood?: string;
-  postcode?: string;
-  region?:string;
-  sameAsShipping?: boolean;
-  street?: string;
-  telephone?: string;
-}
-
-type UseBillingLoadParams = ComposableFunctionArgs<{}>;
-
-interface UseBillingSaveParams {
-  billingDetails: BillingDetails;
-}
-
-interface UseBillingInterface {
-  loading: Ref<boolean>;
-  error: Ref<UseBillingError>;
-
-  load: (params?: UseBillingLoadParams) => Promise<BillingCartAddress | null>;
-
-  save: (params: UseBillingSaveParams) => Promise<BillingCartAddress | null>;
-}
+import { UseBillingInterface, UseBillingLoadParams, UseBillingSaveParams } from './useBilling';
 
 export const useBilling = (): UseBillingInterface => {
   const context = useContext();
@@ -119,5 +82,7 @@ export const useBilling = (): UseBillingInterface => {
     save,
   };
 };
+
+export * from './useBilling';
 
 export default useBilling;
