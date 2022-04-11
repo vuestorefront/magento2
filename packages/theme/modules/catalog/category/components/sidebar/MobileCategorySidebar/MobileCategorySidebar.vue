@@ -40,13 +40,11 @@ import {
   SfSidebar, SfList, SfMenuItem,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, useRouter, useContext, useRoute,
+  defineComponent, useRouter, useContext,
 } from '@nuxtjs/composition-api';
 import { useUiHelpers, useUiState } from '~/composables';
 import { CategoryTreeInterface } from '~/modules/catalog/category/types';
-import { findActiveCategory, findCategoryAncestors } from '~/modules/catalog/category/helpers';
-import { useApi } from '~/composables/useApi';
-import { useCategoryStore } from '~/stores/category';
+import { useCategoryLogic } from '~/modules/catalog/category/helpers';
 import { useMobileCategoryTree } from './logic';
 
 export default defineComponent({
@@ -56,15 +54,12 @@ export default defineComponent({
     SfMenuItem,
   },
   setup() {
-    const api = useApi();
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const { getAgnosticCatLink } = useUiHelpers();
     const router = useRouter();
-    const route = useRoute();
     const app = useContext();
 
-    const categoryStore = useCategoryStore(api);
-    const categoryTree = categoryStore.categories;
+    const { categoryAncestors: initialHistory, categoryTree } = useCategoryLogic();
 
     const navigate = (category: CategoryTreeInterface) => {
       toggleMobileMenu();
@@ -72,13 +67,10 @@ export default defineComponent({
       router.push(path);
     };
 
-    const activeCategory = findActiveCategory(categoryTree, route.value.fullPath.replace('/default/c', ''));
-    const initialHistory: CategoryTreeInterface[] = activeCategory === null ? [] : findCategoryAncestors(categoryTree, activeCategory);
-
-    // A category-less category can't be entered into - it can only navigated to
-    const initialHistoryWithSnippedSubcategorylessTail = initialHistory.at(-1)?.items.length
-      ? initialHistory
-      : initialHistory.slice(0, -1);
+    // A category with no child categories can't be entered into - it can only navigated to
+    const initialHistoryWithSnippedSubcategorylessTail = initialHistory.value.at(-1)?.items.length
+      ? initialHistory.value
+      : initialHistory.value.slice(0, -1);
 
     const {
       current: currentCategory, history, currentItems, onGoCategoryUp, onGoCategoryDown,

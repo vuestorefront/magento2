@@ -1,5 +1,8 @@
+import { computed, useContext, useRoute } from '@nuxtjs/composition-api';
 import findDeep from 'deepdash/findDeep';
+import useApi from '~/composables/useApi';
 import { CategoryTreeInterface } from '~/modules/catalog/category/types';
+import { useCategoryStore } from '~/stores/category';
 
 export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): CategoryTreeInterface => {
   const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;
@@ -62,4 +65,37 @@ export const findCategoryAncestors = (node: CategoryTreeInterface, toFind: Categ
     }
   }
   return null;
+};
+
+/**
+ * Logic for finding the current product category and its parent and grandparent categories (ancestors)
+ * */
+export const useCategoryLogic = () => {
+  const api = useApi();
+  const context = useContext();
+  const categoryStore = useCategoryStore(api);
+  const route = useRoute();
+
+  const categoryTree = computed(() => categoryStore.categories);
+  const isCategoryTreeLoaded = computed(() => categoryStore.categories !== null);
+  const loadCategoryTree = () => categoryStore.load();
+
+  const activeCategory = computed(() => {
+    // on localhost the default store is localhost:3000/default/ but in a multi-store Magento instance this can change
+    const slugToFind = route.value.fullPath.replace(context.app.localePath('/c'), '');
+    return categoryTree.value === null ? null : findActiveCategory(categoryTree.value, slugToFind);
+  });
+
+  const categoryAncestors = computed(() => (activeCategory.value === null
+    ? []
+    : findCategoryAncestors(categoryTree.value, activeCategory.value)) ?? []);
+
+  return {
+    activeCategory,
+    categoryAncestors,
+    categoryTree,
+
+    loadCategoryTree,
+    isCategoryTreeLoaded,
+  };
 };

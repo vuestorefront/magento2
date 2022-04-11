@@ -1,10 +1,10 @@
 import {
   AgnosticCategoryTree,
-  AgnosticGroupedFacet,
+  GroupedFacetInterface,
   AgnosticPagination,
   AgnosticSort,
   AgnosticBreadcrumb,
-  AgnosticFacet,
+  FacetInterface,
 } from '~/composables/types';
 
 import { FacetsGetters } from '~/getters/types';
@@ -15,11 +15,12 @@ import {
   reduceForGroupedFacets,
   reduceForFacets,
 } from '~/composables/useFacet/_utils';
+import { ProductInterface } from '~/modules/GraphQL/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getAll = (searchData: SearchData, criteria?: string[]): AgnosticFacet[] => buildFacets(searchData, reduceForFacets, criteria);
+const getAll = (searchData: SearchData, criteria?: string[]): FacetInterface[] => buildFacets(searchData, reduceForFacets, criteria);
 
-const getGrouped = (searchData, criteria?: string[]): AgnosticGroupedFacet[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
+const getGrouped = (searchData: SearchData, criteria?: string[]): GroupedFacetInterface[] => buildFacets(searchData, reduceForGroupedFacets, criteria)
   ?.filter((facet) => facet.options && facet.options.length > 0);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -54,7 +55,7 @@ const getCategoryTree = (searchData): AgnosticCategoryTree => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getProducts = (searchData): any => {
+const getProducts = (searchData): ProductInterface[] => {
   if (!searchData || !searchData.data || !searchData.data.items) {
     return [];
   }

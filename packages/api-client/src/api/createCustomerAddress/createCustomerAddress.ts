@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation that creates new customer address. */
 export default gql`
   mutation createCustomerAddress($input: CustomerAddressInput!) {
     createCustomerAddress(input: $input) {
