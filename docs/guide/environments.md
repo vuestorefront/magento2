@@ -1,21 +1,21 @@
-# Environments
+# Demo environments
 
-We have three environments where you can see Magento 2 Vue Storefront 2 integration
+We have three demo environments where you can see and test Magento 2 integration for Vue Storefront in action. If you find a bug in any of them, please [create an issue](https://github.com/vuestorefront/magento2/issues/new/choose) in our repository to let us know about it.
 
-## Prod Environment
+## Production environment
 
-On the Prod env, there is the latest version (the newest one) of Magento 2 Vue Storefront 2 integration.
+In the production environment, you can see the latest **released and stable** version of the integration. It should be visually and feature-wise identical to the new project installed using our CLI.
 
-[https://demo-magento2.europe-west1.gcp.vuestorefront.cloud](https://demo-magento2.europe-west1.gcp.vuestorefront.cloud)
+[Production demo](https://demo-magento2.europe-west1.gcp.vuestorefront.cloud)
 
-## Stage Environment
+## Staging environment
 
-Stage environment is used for testing any new release. Every newest `release/*` branch is deployed there.
+In the staging environment, we are testing new releases. It should be **relatively stable**, but you might still encounter some bugs.
 
-[https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io](https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io)
+[Staging demo](https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io)
 
-## Dev Environment
+## Development environment
 
-On the Dev environment, there is a current `develop` branch deployed.
+In the development environment, we are testing the `develop` branch, which might contain unfinished or experimental features. It might be **unstable** both visually and feature-wise.
 
-[https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io](https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io)
+[Development environment](https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io)
