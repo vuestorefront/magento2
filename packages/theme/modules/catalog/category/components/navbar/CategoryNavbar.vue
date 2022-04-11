@@ -26,7 +26,7 @@
         <SfSelect
           :value="sortBy.selected"
           class="navbar__select"
-          @input="changeSorting"
+          @input="doChangeSorting"
         >
           <SfSelectOption
             v-for="option in sortBy.options"
@@ -73,7 +73,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 import {
   SfSelect,
@@ -101,14 +101,18 @@ export default defineComponent({
       default: () => {},
     },
   },
-  setup() {
+  setup(_, { emit }) {
     const {
       toggleFilterSidebar, changeToCategoryListView, changeToCategoryGridView, isCategoryGridView,
     } = useUiState();
     const uiHelpers = useUiHelpers();
-
+    const doChangeSorting = (sort: string) => {
+      uiHelpers.changeSorting(sort, false);
+      emit('reloadProducts');
+    };
     return {
       toggleFilterSidebar,
+      doChangeSorting,
       ...uiHelpers,
       changeToCategoryListView,
       changeToCategoryGridView,

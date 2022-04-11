@@ -73,7 +73,8 @@ export const useFacet = (): UseFacet => {
 
       const itemsPerPage = (params.itemsPerPage) ? params.itemsPerPage : 20;
       const inputFilters = (params.filters) ? params.filters : {};
-      const categoryId = (params.categoryId) ? {
+
+      const categoryId = (params.categoryId && !inputFilters.category_id) ? {
         category_uid: {
           ...(Array.isArray(params.categoryId)
             ? { in: params.categoryId }

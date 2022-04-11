@@ -50,7 +50,7 @@ export default {
   "Enter promo code": "Enter promo code",
   "Feedback": "Your feedback is important to us. Let us know what we could improve.",
   "Feel free to edit": "Feel free to edit any of your details below so your account is always up to date",
-  "Filters": "Filter",
+  "Filters": "Filters",
   "Find out more": "Find out more",
   "First Name": "First Name",
   "Forgot Password": "If you can’t remember your password, you can reset it.",
@@ -254,5 +254,9 @@ export default {
   'Page not found': 'Page not found',
   'Back to Home page': 'Back to Home page',
   'An error occurred': 'An error occurred',
-  "AllProductsFromCategory": "All {categoryName}"
+  "AllProductsFromCategory": "All {categoryName}",
+  "Show more": "Show more",
+  "Show less": "Show less",
+  "Yes": "Yes",
+  "No": "No",
 };

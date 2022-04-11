@@ -256,5 +256,9 @@ export default {
   'Page not found': 'Seite nicht gefunden',
   'Back to Home page': 'Zurück zur Startseite',
   'An error occurred': 'Ein Fehler ist aufgetreten',
-  "AllProductsFromCategory": "Alle {categoryName}"
+  "AllProductsFromCategory": "Alle {categoryName}",
+  "Show more": "Zeig mehr",
+  "Show less": "Zeige weniger",
+  "Yes": "Ja",
+  "No": "Nein",
 };
