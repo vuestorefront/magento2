@@ -1,43 +1,103 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import {
-  UseCategory, UseCategoryErrors, CategoryListQueryVariables,
-} from '~/composables/useCategory/useCategory';
+import type { Category } from '~/composables/types';
+import type {
+  UseCategoryErrors,
+  UseCategoryInterface,
+  UseCategoryParamsInput,
+} from './useCategory';
 
-import { Category } from '~/composables/types';
-
-export const useCategory = (): UseCategory => {
+/**
+ * @public
+ *
+ * The `useCategory` composable allows loading categories from Magento API. It
+ * is commonly used in navigation menus, and provides the load function and
+ * refs for the categories, loading and error.
+ *
+ * @remarks
+ *
+ * Under the hood, it calls the following Server Middleware API method:
+ *
+ * - {@link @vue-storefront/magento-api#categoryList} for loading category list;
+ *
+ * It is currently used in:
+ *
+ * - `components/AppHeader.vue`
+ *
+ * - `components/MobileMenuSidebar.vue`
+ *
+ * @example
+ *
+ * Load categories on client side using the `onMounted` Composition API hook:
+ *
+ * ```vue
+ * <template>
+ *   <div v-if="loading">
+ *     Loading categories…
+ *   </div>
+ *   <div v-else-if="error.load">
+ *     Error: {{ error.load.message }}
+ *   </div>
+ *   <div v-else>
+ *     <!-- Display 'categories' -->
+ *   </div>
+ * </template>
+ *
+ * <script>
+ * import { onMounted } from '@nuxtjs/composition-api';
+ * import { useCategory } from '~/composables';
+ *
+ * export default {
+ *   setup() {
+ *     const { categories, error, load, loading } = useCategory();
+ *
+ *     onMounted(async () => {
+ *       await load({ pageSize: 10 });
+ *     });
+ *
+ *     return {
+ *       error,
+ *       loading,
+ *       categories,
+ *     };
+ *   },
+ * };
+ * </script>
+ * ```
+ */
+export function useCategory(): UseCategoryInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
-    search: null,
+    load: null,
   });
   const categories: Ref<Array<Category>> = ref(null);
 
-  // eslint-disable-next-line consistent-return
-  const search = async (searchParams: CategoryListQueryVariables) => {
-    Logger.debug('useCategory/search', searchParams);
+  const load = async (params: UseCategoryParamsInput) => {
+    Logger.debug('useCategory/load', params);
 
     try {
       loading.value = true;
-      const { data } = await app.context.$vsf.$magento.api.categoryList(searchParams);
+      const { data } = await app.context.$vsf.$magento.api.categoryList(params);
       Logger.debug('[Result]:', { data });
       categories.value = data.categories.items;
-      error.value.search = null;
+      error.value.load = null;
     } catch (err) {
-      error.value.search = err;
-      Logger.error('useCategory/search', err);
+      error.value.load = err;
+      Logger.error('useCategory/load', err);
     } finally {
       loading.value = false;
     }
   };
 
   return {
-    search,
+    load,
     loading,
     error,
     categories,
   };
-};
+}
+
+export * from './useCategory';
 
 export default useCategory;

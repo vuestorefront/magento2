@@ -21,9 +21,6 @@ module.exports = {
             default: isCheckoutEnabled,
           },
         },
-        facets: {
-          available: ['color', 'size', 'price'],
-        },
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },

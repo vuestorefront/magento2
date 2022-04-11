@@ -1,6 +1,6 @@
 import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { Maybe, UrlResolverQuery } from '~/modules/GraphQL/types';
+import { EntityUrl, Maybe } from '~/modules/GraphQL/types';
 
 export const useUrlResolver = () => {
   const route = useRoute();
@@ -12,9 +12,9 @@ export const useUrlResolver = () => {
     search: null,
   });
 
-  const search = async (): Promise<Maybe<UrlResolverQuery>> => {
+  const search = async (): Promise<Maybe<EntityUrl>> => {
     loading.value = true;
-    let results = null;
+    let results: EntityUrl = {};
 
     try {
       const clearUrl = path.replace(/[a-z]+\/[cp|]\//gi, '');
