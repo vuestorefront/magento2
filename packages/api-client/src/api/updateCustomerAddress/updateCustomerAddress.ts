@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation that updates a customer address. */
 export default gql`
   mutation updateCustomerAddress($id: Int!, $input: CustomerAddressInput) {
     updateCustomerAddress(id: $id, input: $input) {

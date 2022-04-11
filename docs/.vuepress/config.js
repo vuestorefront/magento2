@@ -92,6 +92,7 @@ module.exports = {
       {
         title: 'Composables',
         children: [
+          ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
         ]
       },
@@ -100,6 +101,10 @@ module.exports = {
         children: [
           ['/api-reference/magento-api.cmsblocks', 'cmsBlocks'],
           ['/api-reference/magento-api.cmspage', 'cmsPage'],
+          ['/api-reference/magento-api.createcustomeraddress', 'createCustomerAddress'],
+          ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
+          ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
+          ['/api-reference/magento-api.updatecustomeraddress', 'updateCustomerAddress'],
         ]
       },
       {
