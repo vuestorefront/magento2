@@ -62,6 +62,16 @@ export interface UseBillingInterface {
   /**
    * A method that loads the billing information.
    *
+   * @remarks
+   *
+   * It supports custom query parameter.
+   *
+   * - The query parameter key is `cart`;
+   *
+   * - Should receive `cartId`, of type `String!`, as parameter;
+   *
+   * - Should return a {@link Cart} with `billing-address` field, of type {@link BillingCartAddress}.
+   *
    * @example
    *
    * Load the billing information on server side using the `useFetch` composable:
@@ -86,6 +96,68 @@ export interface UseBillingInterface {
    *     });
    *
    *     return { billing, loading };
+   *   },
+   * };
+   * ```
+   *
+   * @example
+   *
+   * Use custom query to fetch only specific fields:
+   *
+   * ```typescript
+   * // middleware.config.js
+   *
+   * module.exports = {
+   *   integrations: {
+   *     'magento': {
+   *       location: 'magento',
+   *       customQueries: {
+   *         'load-only-name-in-billing': (_query, variables) => {
+   *           const query = `
+   *             query cart($cartId: String!) {
+   *               cart(cart_id: $cartId) {
+   *                 id
+   *                 billing_address {
+   *                   firstname
+   *                   lastname
+   *                 }
+   *               }
+   *             }
+   *           `;
+   *
+   *           return { query, variables };
+   *         },
+   *       },
+   *     },
+   *   },
+   * };
+   * ```
+   *
+   * ```typescript
+   * // components/BillingName.ts
+   *
+   * import { ref, useFetch } from '@nuxtjs/composition-api';
+   * import { useBilling } from '~/composables';
+   *
+   * export default {
+   *   setup() {
+   *     const { error, load, loading } = useBilling();
+   *
+   *     const billingName = ref<string | null>(null);
+   *
+   *     useFetch(async () => {
+   *       const billing = await load({
+   *         customQuery: {
+   *           cart: 'load-only-name-in-billing',
+   *         },
+   *       });
+   *
+   *       if (billing) {
+   *         billingName.value = `${billing.firstname} ${billing.lastname}`;
+   *       }
+   *     });
+   *
+   *     return { billingName, loading };
    *   },
    * };
    * ```

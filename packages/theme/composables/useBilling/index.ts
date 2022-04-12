@@ -1,17 +1,93 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
-import { UseBillingInterface, UseBillingLoadParams, UseBillingSaveParams } from './useBilling';
+import type { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
+import type {
+  UseBillingError,
+  UseBillingInterface,
+  UseBillingLoadParams,
+  UseBillingSaveParams,
+} from './useBilling';
 
-export const useBilling = (): UseBillingInterface => {
+/**
+ * @public
+ *
+ * The `useBilling` composable provides functions and refs to load and save the
+ * billing information.
+ *
+ * @remarks
+ *
+ * Under the hood, it calls the following Server Middleware API methods:
+ *
+ * - {@link @vue-storefront/magento-api#setBillingAddressOnCart} for saving billing information;
+ *
+ * It also uses the following composables:
+ *
+ * - {@link useShippingProvider} to sync the billing address with the shipping one;
+ *
+ * - {@link useCart} for loading billing information from cart;
+ *
+ * It supports custom queries in the following methods:
+ *
+ * - {@link UseBillingInterface.load} for loading billing information;
+ *
+ * @example
+ *
+ * Initialization in component:
+ *
+ * ```typescript
+ * import { useBilling } from '~/composables';
+ *
+ * export default {
+ *   setup() {
+ *     const { load, save, error, loading } = useBilling();
+ *   },
+ * };
+ * ```
+ *
+ * @example
+ *
+ * Load billing information and display it:
+ *
+ * ```vue
+ * <template>
+ *   <p v-if="loading">Loading...</p>
+ *   <p v-else-if="">Error: {{ error.load.message }}</p>
+ *   <div v-else>
+ *     <BillingInfo :billing="billing" />
+ *   </div>
+ * </template>
+ *
+ * <script>
+ * import { useBilling } from '~/composables';
+ * import { ref, onMounted } from '@nuxtjs/composition-api';
+ * // Example of component that shows billing information
+ * import BillingInfo from './BillingInfo';
+ *
+ * export default {
+ *   components: { BillingInfo },
+ *   setup() {
+ *     const { error, load, loading } = useBilling();
+ *     const billing = ref(null);
+ *
+ *     onMounted(async () => {
+ *       billing.value = await load();
+ *     });
+ *
+ *     return { billing, error, loading };
+ *   },
+ * };
+ * </script>
+ * ```
+ */
+export function useBilling(): UseBillingInterface {
   const context = useContext();
   const { load: loadShippingAddress, save: saveShippingAddress } = useShippingProvider();
   const { cart, load: loadCart } = useCart();
 
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseBillingError>({
     load: null,
     save: null,
   });
@@ -81,7 +157,7 @@ export const useBilling = (): UseBillingInterface => {
     load,
     save,
   };
-};
+}
 
 export { default as BillingDetails } from './BillingDetails';
 
