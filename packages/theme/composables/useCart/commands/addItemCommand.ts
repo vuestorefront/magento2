@@ -1,12 +1,18 @@
+import { VsfContext } from '~/composables/context';
 import { Logger } from '~/helpers/logger';
-import { AddProductsToCartInput } from '~/composables/useCart/useCart';
 import {
   AddConfigurableProductsToCartInput,
   AddDownloadableProductsToCartInput,
   AddVirtualProductsToCartInput,
   Cart,
+  CartItemInput,
 } from '~/modules/GraphQL/types';
-import { VsfContext } from '~/composables/context';
+
+/** Params object used to add items to a cart */
+export declare type AddProductsToCartInput = {
+  cartId: string;
+  cartItems: CartItemInput[];
+};
 
 export const addItemCommand = {
   execute: async (
