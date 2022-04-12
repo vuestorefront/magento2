@@ -4,6 +4,15 @@ import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/G
 import categorySearchQuery from './categorySearch';
 import { Context } from '../../types/context';
 
+/**
+ * Searches for categories using received filters.
+ *
+ * @param context VSF Context
+ * @param filters filters used to search for categories. A filter contains at
+ * least one attribute, a comparison operator, and the value that is being
+ * searched for.
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
