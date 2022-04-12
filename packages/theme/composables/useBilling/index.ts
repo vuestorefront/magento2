@@ -4,7 +4,7 @@ import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
 
-export const useBilling = () => {
+export function useBilling() {
   const context = useContext();
   const { load: loadShippingAddress, save: saveShippingAddress } = useShippingProvider();
   const { cart, load: loadCart } = useCart();
@@ -62,7 +62,6 @@ export const useBilling = () => {
       /**
        * End of GraphQL Workaround
        */
-
       error.value.save = null;
     } catch (err) {
       error.value.save = err;
@@ -80,6 +79,6 @@ export const useBilling = () => {
     load,
     save,
   };
-};
+}
 
 export default useBilling;
