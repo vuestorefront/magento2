@@ -3,19 +3,25 @@ import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
+import type {
+  UseBillingError,
+  UseBillingInterface,
+  UseBillingLoadParams,
+  UseBillingSaveParams,
+} from './useBilling';
 
-export function useBilling() {
+export function useBilling(): UseBillingInterface {
   const context = useContext();
   const { load: loadShippingAddress, save: saveShippingAddress } = useShippingProvider();
   const { cart, load: loadCart } = useCart();
 
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseBillingError>({
     load: null,
     save: null,
   });
 
-  const load = async ({ customQuery = null } = {}): Promise<Maybe<BillingCartAddress>> => {
+  const load = async ({ customQuery = null }: UseBillingLoadParams = {}): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.load');
     let billingInfo = null;
 
@@ -37,7 +43,7 @@ export function useBilling() {
     return billingInfo;
   };
 
-  const save = async ({ billingDetails }): Promise<Maybe<BillingCartAddress>> => {
+  const save = async ({ billingDetails }: UseBillingSaveParams): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.save');
     let billingInfo = null;
 
@@ -80,5 +86,7 @@ export function useBilling() {
     save,
   };
 }
+
+export * from './useBilling';
 
 export default useBilling;
