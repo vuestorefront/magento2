@@ -1,8 +1,12 @@
 import { ref, computed, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
-import type { UseCurrencyInterface, UseCurrencyErrors } from './useCurrency';
-import type { ComposableFunctionArgs, CustomQuery } from '../types';
+import type {
+  UseCurrencyInterface,
+  UseCurrencyErrors,
+  UseCurrencyLoadParams,
+  UseCurrencyChangeParams,
+} from './useCurrency';
 
 function useCurrency(): UseCurrencyInterface {
   const { app } = useContext();
@@ -11,7 +15,7 @@ function useCurrency(): UseCurrencyInterface {
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
+  const load = async (params?: UseCurrencyLoadParams) => {
     error.value.load = null;
     loading.value = true;
 
@@ -30,7 +34,7 @@ function useCurrency(): UseCurrencyInterface {
     }
   };
 
-  const change = (params: ComposableFunctionArgs<{ id: string; }>) => {
+  const change = (params: UseCurrencyChangeParams) => {
     error.value.change = null;
     loading.value = true;
 
