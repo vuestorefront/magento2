@@ -13,15 +13,6 @@ import type {
 /**
  * The `useBilling()` composable allows loading and saving billing information
  * of the current cart.
- *
- * @remarks
- * The `useBilling()` composable allows:
- *
- * - Fetch existing billing information;
- *
- * - Save new billing information;
- *
- * - Modify existing billing information;
  */
 export function useBilling(): UseBillingInterface {
   const context = useContext();
