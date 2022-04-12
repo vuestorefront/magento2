@@ -5,7 +5,7 @@ export interface UseConfigErrors {
   load: Error | null;
 }
 
-export type UseConfig = {
+export type UseConfigInterface = {
   config: ComputedRef<StoreConfig>,
   loading: Ref<boolean>,
   load (): Promise<void>
