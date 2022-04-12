@@ -14,7 +14,7 @@ export { default as useConfig } from './useConfig';
 export { default as useStore } from './useStore';
 export { default as useCurrency } from './useCurrency';
 export { default as useExternalCheckout } from './useExternalCheckout';
-export { default as useWishlist } from './useWishlist';
+export * from './useWishlist';
 export { default as useUser } from './useUser';
 export { default as useGuestUser } from './useGuestUser';
 export { default as useForgotPassword } from './useForgotPassword';
