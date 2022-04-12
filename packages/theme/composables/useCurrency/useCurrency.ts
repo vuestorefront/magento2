@@ -7,7 +7,7 @@ export interface UseCurrencyErrors {
   change: Error | null;
 }
 
-export interface UseCurrency {
+export interface UseCurrencyInterface {
   load: (params?: ComposableFunctionArgs<{}>) => Promise<void>;
   change: (params: ComposableFunctionArgs<{ id: string }>) => void;
   currency: ComputedRef<Currency>;
