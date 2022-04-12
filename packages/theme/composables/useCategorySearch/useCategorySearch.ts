@@ -16,8 +16,21 @@ export type UseCategorySearchParams = ComposableFunctionArgs<CategorySearchQuery
 
 /** The interface provided by {@link useCategorySearch} composable. */
 export interface UseCategorySearchInterface {
-  error: Ref<UseCategoryErrors>;
-  result: Ref<Category[]>;
-  loading: Ref<boolean>;
+  /**
+   * Searches for categories using the received filters and updates the
+   * {@link UseCategorySearchInterface.result} ref with the results.
+   */
   search(searchParams: UseCategorySearchParams): Promise<void>;
+
+  /** Contains errors from any of the composable methods. */
+  error: Ref<UseCategoryErrors>;
+
+  /**
+   * The list of {@link Category} found by the last search. It's `null` if the
+   * search has not been executed yet or fails.
+   */
+  result: Ref<Category[] | null>;
+
+  /** Indicates whether any of the composable methods is in progress. */
+  loading: Ref<boolean>;
 }

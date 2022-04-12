@@ -4,6 +4,7 @@ import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import type { Category } from '~/composables/types';
 import type { UseCategoryErrors, UseCategorySearchInterface } from './useCategorySearch';
 
+/** The `useCategorySearch()` composable allows searching for categories. */
 export function useCategorySearch(): UseCategorySearchInterface {
   const { app } = useContext();
   const loading = ref(false);
