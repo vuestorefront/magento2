@@ -1,6 +1,7 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { BillingCartAddress } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/types/core';
+import type BillingDetails from './BillingDetails';
 
 /**
  * The {@link useBilling} error object. The properties values' are the errors
@@ -19,7 +20,7 @@ export type UseBillingLoadParams = ComposableFunctionArgs<{}>;
 
 /** The params received by {@link useBilling}'s `save` method. */
 export interface UseBillingSaveParams {
-  billingDetails: any;
+  billingDetails: BillingDetails;
 }
 
 /** The interface provided by {@link useBilling} composable. */

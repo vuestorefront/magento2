@@ -101,5 +101,5 @@ export function useBilling(): UseBillingInterface {
 }
 
 export * from './useBilling';
-
+export { default as BillingDetails } from './BillingDetails';
 export default useBilling;
