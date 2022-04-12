@@ -40,6 +40,6 @@ export interface UseBillingInterface {
   /** Contains errors from any of the composable methods. */
   error: DeepReadonly<Ref<UseBillingError>>;
 
-  /** Indicates whether any of the methods above is in progress. */
+  /** Indicates whether any of the methods is in progress. */
   loading: Readonly<Ref<boolean>>;
 }
