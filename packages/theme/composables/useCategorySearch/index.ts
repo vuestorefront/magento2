@@ -5,7 +5,7 @@ import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import { UseCategoryErrors, UseCategorySearchInterface } from '~/composables/useCategorySearch/useCategorySearch';
 import { Category } from '~/composables/types';
 
-export const useCategorySearch = (): UseCategorySearchInterface => {
+export function useCategorySearch(): UseCategorySearchInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
@@ -38,6 +38,6 @@ export const useCategorySearch = (): UseCategorySearchInterface => {
     error,
     result,
   };
-};
+}
 
 export default useCategorySearch;
