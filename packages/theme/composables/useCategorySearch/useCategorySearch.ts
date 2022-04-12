@@ -1,14 +1,23 @@
-import { Ref } from '@nuxtjs/composition-api';
-import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import { Category, ComposableFunctionArgs } from '~/composables/types';
+import type { Ref } from '@nuxtjs/composition-api';
+import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
+import type { Category, ComposableFunctionArgs } from '~/composables/types';
 
+/**
+ * The {@link useCategorySearch} error object. The properties values' are the
+ * errors thrown by its methods.
+ */
 export interface UseCategoryErrors {
-  search: Error;
+  /** Error when searching for categories fails, otherwise is `null`. */
+  search: Error | null;
 }
 
+/** The params received by {@link useCategorySearch}'s `search` method. */
+export type UseCategorySearchParams = ComposableFunctionArgs<CategorySearchQueryVariables>;
+
+/** The interface provided by {@link useCategorySearch} composable. */
 export interface UseCategorySearchInterface {
-  result: Ref<Array<Category>>,
-  search(searchParams: ComposableFunctionArgs<CategorySearchQueryVariables>): Promise<void>;
-  loading: Ref<boolean>;
   error: Ref<UseCategoryErrors>;
+  result: Ref<Category[]>;
+  loading: Ref<boolean>;
+  search(searchParams: UseCategorySearchParams): Promise<void>;
 }

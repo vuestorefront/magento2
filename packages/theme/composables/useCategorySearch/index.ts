@@ -1,19 +1,17 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { ref, Ref, useContext } from '@nuxtjs/composition-api';
+import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import { UseCategoryErrors, UseCategorySearchInterface } from '~/composables/useCategorySearch/useCategorySearch';
-import { Category } from '~/composables/types';
+import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
+import type { Category } from '~/composables/types';
+import type { UseCategoryErrors, UseCategorySearchInterface } from './useCategorySearch';
 
 export function useCategorySearch(): UseCategorySearchInterface {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseCategoryErrors> = ref({
+  const loading = ref(false);
+  const error = ref<UseCategoryErrors>({
     search: null,
   });
-  const result: Ref<Array<Category>> = ref(null);
+  const result = ref<Category[] | null>(null);
 
-  // eslint-disable-next-line consistent-return
   const search = async (searchParams: CategorySearchQueryVariables) => {
     Logger.debug('useCategory/search', searchParams);
 
@@ -40,4 +38,5 @@ export function useCategorySearch(): UseCategorySearchInterface {
   };
 }
 
+export * from './useCategorySearch';
 export default useCategorySearch;
