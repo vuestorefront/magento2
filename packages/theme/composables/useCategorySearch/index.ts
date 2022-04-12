@@ -2,10 +2,10 @@
 import { ref, Ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import { UseCategoryErrors, UseCategorySearch } from '~/composables/useCategorySearch/useCategorySearch';
+import { UseCategoryErrors, UseCategorySearchInterface } from '~/composables/useCategorySearch/useCategorySearch';
 import { Category } from '~/composables/types';
 
-export const useCategorySearch = (): UseCategorySearch => {
+export const useCategorySearch = (): UseCategorySearchInterface => {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({

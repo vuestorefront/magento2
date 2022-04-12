@@ -6,7 +6,7 @@ export interface UseCategoryErrors {
   search: Error;
 }
 
-export interface UseCategorySearch{
+export interface UseCategorySearchInterface {
   result: Ref<Array<Category>>,
   search(searchParams: ComposableFunctionArgs<CategorySearchQueryVariables>): Promise<void>;
   loading: Ref<boolean>;
