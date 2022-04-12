@@ -6,7 +6,7 @@ import type { Category, ComposableFunctionArgs } from '~/composables/types';
  * The {@link useCategorySearch} error object. The properties values' are the
  * errors thrown by its methods.
  */
-export interface UseCategoryErrors {
+export interface UseCategorySearchErrors {
   /** Error when searching for categories fails, otherwise is `null`. */
   search: Error | null;
 }
@@ -23,7 +23,7 @@ export interface UseCategorySearchInterface {
   search(searchParams: UseCategorySearchParams): Promise<void>;
 
   /** Contains errors from any of the composable methods. */
-  error: DeepReadonly<Ref<UseCategoryErrors>>;
+  error: DeepReadonly<Ref<UseCategorySearchErrors>>;
 
   /**
    * The list of {@link Category} found by the last search. It's `null` if the
