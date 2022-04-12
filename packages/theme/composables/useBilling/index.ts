@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
@@ -93,10 +93,10 @@ export function useBilling(): UseBillingInterface {
   };
 
   return {
-    loading,
-    error,
     load,
     save,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 }
 

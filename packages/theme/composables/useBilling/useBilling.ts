@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { BillingCartAddress } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/types/core';
 
@@ -37,8 +37,8 @@ export interface UseBillingInterface {
   save(params: UseBillingSaveParams): Promise<BillingCartAddress | null>;
 
   /** Contains errors from any of the composable methods. */
-  error: Ref<UseBillingError>;
+  error: DeepReadonly<Ref<UseBillingError>>;
 
   /** Indicates whether any of the methods above is in progress. */
-  loading: Ref<boolean>;
+  loading: Readonly<Ref<boolean>>;
 }
