@@ -1,11 +1,11 @@
 import {
-  computed, ref, useContext,
+  computed, readonly, ref, useContext,
 } from '@nuxtjs/composition-api';
 import { UseConfigErrors, UseConfigInterface } from '~/composables/useConfig/useConfig';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 
-const useConfig = (): UseConfigInterface => {
+export function useConfig(): UseConfigInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseConfigErrors>({ load: null });
@@ -33,9 +33,9 @@ const useConfig = (): UseConfigInterface => {
 
   return {
     config,
-    loading,
+    loading: readonly(loading),
     load,
   };
-};
+}
 
 export default useConfig;
