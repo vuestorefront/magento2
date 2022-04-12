@@ -4,7 +4,7 @@ import { useConfigStore } from '~/stores/config';
 import type { UseCurrency, UseCurrencyErrors } from './useCurrency';
 import type { ComposableFunctionArgs, CustomQuery } from '../types';
 
-const useCurrency = (): UseCurrency => {
+function useCurrency(): UseCurrency {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseCurrencyErrors>({ load: null, change: null });
@@ -30,7 +30,7 @@ const useCurrency = (): UseCurrency => {
     }
   };
 
-  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: ComposableFunctionArgs<{ id: string; }>) => {
     error.value.change = null;
     loading.value = true;
 
@@ -54,6 +54,6 @@ const useCurrency = (): UseCurrency => {
     loading,
     error,
   };
-};
+}
 
 export default useCurrency;
