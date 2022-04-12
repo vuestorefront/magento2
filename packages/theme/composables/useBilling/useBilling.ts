@@ -29,7 +29,7 @@ export interface UseBillingInterface {
    * Loads the billing information. It returns a `Promise` that resolves into
    * the billing information, or `null` when fails or is empty.
    */
-  load(params: UseBillingLoadParams): Promise<BillingCartAddress | null>;
+  load(params?: UseBillingLoadParams): Promise<BillingCartAddress | null>;
 
   /**
    * Saves the billing information. It, also, returns a `Promise` that resolves
