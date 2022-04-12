@@ -94,14 +94,29 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
  * ```
  */
 export interface UseCartErrors {
-  addItem: Error;
-  removeItem: Error;
-  updateItemQty: Error;
-  load: Error;
-  clear: Error;
-  applyCoupon: Error;
-  removeCoupon: Error;
-  loadTotalQty: Error;
+  /** Error when adding item to cart fails, otherwise is `null` */
+  addItem: Error | null;
+
+  /** Error when removing item from cart fails, otherwise is `null` */
+  removeItem: Error | null;
+
+  /** Error when updating item quantity fails, otherwise is `null` */
+  updateItemQty: Error | null;
+
+  /** Error when loading fails, otherwise is `null` */
+  load: Error | null;
+
+  /** Error when clearing cart fails, otherwise is `null` */
+  clear: Error | null;
+
+  /** Error when applying coupon to cart fails, otherwise is `null` */
+  applyCoupon: Error | null;
+
+  /** Error when removing coupon to cart fails, otherwise is `null` */
+  removeCoupon: Error | null;
+
+  /** Error when loading total quantity fails, otherwise is `null` */
+  loadTotalQty: Error | null;
 }
 
 /** Params object used to add items to a cart */
