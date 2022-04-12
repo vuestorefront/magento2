@@ -81,9 +81,6 @@
                 tag="p"
                 class="product__description desktop-only"
               />
-              <SfButton class="sf-button--text desktop-only product__guide">
-                {{ $t('Size guide') }}
-              </SfButton>
               <template v-for="option in configurableOptions">
                 <div
                   v-if="option.attribute_code === 'color'"
