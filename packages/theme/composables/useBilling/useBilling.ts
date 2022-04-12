@@ -9,7 +9,7 @@ import type BillingDetails from './BillingDetails';
  *
  * @example
  *
- * Check if saving a new billing address was failed:
+ * Check if saving the billing information was failed:
  *
  * ```typescript
  * import { useBilling, UseBillingSaveParams } from '~/composables';
@@ -32,10 +32,10 @@ import type BillingDetails from './BillingDetails';
  * ```
  */
 export interface UseBillingError {
-  /** Error when loading billing address fails, otherwise is `null`. */
+  /** Error when loading the billing information fails, otherwise is `null`. */
   load: Error | null;
 
-  /** Error when saving new billing address fails, otherwise is `null`. */
+  /** Error when saving the billing information fails, otherwise is `null`. */
   save: Error | null;
 }
 
@@ -60,11 +60,11 @@ export interface UseBillingInterface {
   loading: Ref<boolean>;
 
   /**
-   * A method that loads the billing address.
+   * A method that loads the billing information.
    *
    * @example
    *
-   * Load the billing address on server side using the `useFetch` composable:
+   * Load the billing information on server side using the `useFetch` composable:
    *
    * ```typescript
    * import { ref, useFetch } from '@nuxtjs/composition-api';
@@ -93,11 +93,11 @@ export interface UseBillingInterface {
   load: (params?: UseBillingLoadParams) => Promise<BillingCartAddress | null>;
 
   /**
-   * A method that saves a new billing address.
+   * A method that saves the billing information.
    *
    * @example
    *
-   * Check if saving a new billing address was failed:
+   * Save the billing information using an event handler/function:
    *
    * ```typescript
    * import { ref } from '@nuxtjs/composition-api';
