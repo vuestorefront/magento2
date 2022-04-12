@@ -95,6 +95,7 @@ module.exports = {
           ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
           ['/api-reference/magento-theme.usecategory', 'useCategory()'],
+          ['/api-reference/magento-theme.useconfig', 'useConfig()'],
         ]
       },
       {
