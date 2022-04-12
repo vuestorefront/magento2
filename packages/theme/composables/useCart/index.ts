@@ -7,10 +7,10 @@ import { loadTotalQtyCommand } from '~/composables/useCart/commands/loadTotalQty
 import { removeCouponCommand } from '~/composables/useCart/commands/removeCouponCommand';
 import { removeItemCommand } from '~/composables/useCart/commands/removeItemCommand';
 import { updateItemQtyCommand } from '~/composables/useCart/commands/updateItemQtyCommand';
-import { UseCartErrors, UseCartInterface } from '~/composables/useCart/useCart';
 import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { useCustomerStore } from '~/stores/customer';
+import { UseCartErrors, UseCartInterface } from './useCart';
 
 /**
  * @public
@@ -49,38 +49,6 @@ import { useCustomerStore } from '~/stores/customer';
  *
  * - {@link @vue-storefront/magento-api#updateCartItems} for updating cart items;
  *
- *
- * It is currently used in:
- *
- * - `packages/theme/components/AppHeader.vue`
- *
- * - `packages/theme/components/CartSidebar.vue`
- *
- * - `packages/theme/components/CouponCode.vue`
- *
- * - `packages/theme/components/LoginModal.vue`
- *
- * - `packages/theme/components/Checkout/CartPreview.vue`
- *
- * - `packages/theme/components/Checkout/VsfShippingProvider.vue`
- *
- * - `packages/theme/components/Products/BundleProductSelector.vue`
- *
- * - `packages/theme/components/Products/GroupedProductSelector.vue`
- *
- * - `packages/theme/pages/Checkout.vue`
- *
- * - `packages/theme/pages/MyAccount.vue`
- *
- * - `packages/theme/pages/Product.vue`
- *
- * - `packages/theme/pages/Checkout/Payment.vue`
- *
- * - `packages/theme/pages/Checkout/UserAccount.vue`
- *
- * - `packages/theme/pages/MyAccount/MyWishlist.vue`
- *
- *
  * @example
  * Initialization in component:
  *
@@ -93,10 +61,8 @@ import { useCustomerStore } from '~/stores/customer';
  *   }
  * }
  * ```
- *
- * @returns {@link UseCartInterface}
  */
-function useCart<CART extends Cart, CART_ITEM extends CartItemInterface, PRODUCT extends ProductInterface>(): UseCartInterface<
+export function useCart<CART extends Cart, CART_ITEM extends CartItemInterface, PRODUCT extends ProductInterface>(): UseCartInterface<
 CART,
 CART_ITEM,
 PRODUCT
@@ -337,3 +303,4 @@ PRODUCT
 }
 
 export default useCart;
+export * from './useCart';

@@ -33,28 +33,66 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
    * }
    * ```
    */
-  load: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
-  loadTotalQty: (context: Context['app']) => Promise<void>;
+  load: (params: ComposableFunctionArgs<{ realCart?: boolean }>) => Promise<void>;
+  /** Updates the global application state with the current total quantity of the cart */
+  loadTotalQty: (context: Context[ 'app' ]) => Promise<void>;
+  /** Takes in a `product` and its `quantity` and adds it to the cart */
   addItem: (
     params: ComposableFunctionArgs<{
       product: PRODUCT;
       quantity: any;
     }>
   ) => Promise<void>;
-  removeItem: (params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM; }>) => Promise<void>;
+  /** Removes an `item` from a `cart` */
+  removeItem: (params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM }>) => Promise<void>;
+  /** Updates the `quantity` of an `item` in a cart */
   updateItemQty: (
     params: ComposableFunctionArgs<{ product: CART_ITEM; quantity: number; }>
   ) => Promise<void>;
-  clear: (params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<void>;
-  applyCoupon: (params: ComposableFunctionArgs<{ couponCode: string; }>) => Promise<void>;
+  /** Removes all items from the cart */
+  clear: (params: ComposableFunctionArgs<{ realCart?: boolean }>) => Promise<void>;
+  /** Applies a coupon to the cart */
+  applyCoupon: (params: ComposableFunctionArgs<{ couponCode: string }>) => Promise<void>;
+  /** Removes applied coupon from the cart */
   removeCoupon: (params: ComposableFunctionArgs<{}>) => Promise<void>;
+  /** Checks wheter a `product` is in the `cart` */
   isInCart: (params: { currentCart: CART; product: PRODUCT }) => boolean;
+  /** Sets the contents of the cart */
   setCart: (newCart: CART) => void;
+  /** Returns the Items in the Cart as a `computed` property */
   cart: ComputedRef<CART>;
+  /** The loading state. It's `true` when loading, saving, updating, or removing customer addresses and `false` otherwise. */
   loading: Ref<boolean>;
+  /** The error object */
   error: Ref<UseCartErrors>;
 }
 
+/**
+ * The {@link useCart} error object. The properties values are the errors thrown by its methods
+ *
+ * @example
+ * Check if adding an item to a cart failed:
+ *
+ * ```typescript
+ * import { useCart } from '~/composables'
+ *
+ * export default {
+ *  setup () {
+ *    const { addItem, error } = useCart()
+ *
+ *    const addItemToCart = async (product: ProductInterface, quantity: nubmer) => {
+ *      await addItem({ product, quantity })
+ *
+ *      if (error.value.addItem) {
+ *        // handle adding item to cart error
+ *      }
+ *    }
+ *
+ *    return { addItemToCart }
+ *  }
+ * }
+ * ```
+ */
 export interface UseCartErrors {
   addItem: Error;
   removeItem: Error;
@@ -66,6 +104,7 @@ export interface UseCartErrors {
   loadTotalQty: Error;
 }
 
+/** Params object used to add items to a cart */
 export declare type AddProductsToCartInput = {
   cartId: string;
   cartItems: CartItemInput[];
