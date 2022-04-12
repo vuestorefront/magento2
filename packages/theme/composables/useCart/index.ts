@@ -17,7 +17,7 @@ import { UseCartErrors, UseCartInterface } from './useCart';
 /**
  * The `useCart` composable provides functions and refs to deal with a usesr's cart from Magento API.
  *
- * See the {@link UseCartInterface} interface for more information.
+ * See the {@link UseCartInterface} page for more information.
  */
 export function useCart<CART extends Cart, CART_ITEM extends CartItemInterface, PRODUCT extends ProductInterface>(): UseCartInterface<
 CART,
