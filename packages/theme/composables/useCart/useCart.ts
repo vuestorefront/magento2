@@ -34,9 +34,32 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
    * ```
    */
   load: (params: ComposableFunctionArgs<{ realCart?: boolean }>) => Promise<void>;
-  /** Updates the global application state with the current total quantity of the cart */
-  loadTotalQty: (context: Context[ 'app' ]) => Promise<void>;
-  /** Takes in a `product` and its `quantity` and adds it to the cart */
+  /**
+   * Updates the global application state with the current total quantity of the cart
+   *
+   * @example
+   *
+   * Load cart total on the server side using the `onSsr` hook:
+   *
+   * ```typescript
+   * import { useCart } from '@vue-storefront/magento';
+   * import { onSsr } from '@vue-storefront/core';
+   * export default {
+   *   setup () {
+   *     const { loadTotalQty, cart } = useCart()
+   *
+   *     onSsr(async () => {
+   *       await loadTotalQty()
+   *     })
+   *
+   *     return {
+   *      cart
+   *     }
+   *   }
+   * }
+   * ```
+   */
+  loadTotalQty: (context: Context['app']) => Promise<void>;
   addItem: (
     params: ComposableFunctionArgs<{
       product: PRODUCT;
