@@ -8,7 +8,7 @@ import type {
   UseCurrencyChangeParams,
 } from './useCurrency';
 
-function useCurrency(): UseCurrencyInterface {
+export function useCurrency(): UseCurrencyInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseCurrencyErrors>({ load: null, change: null });
@@ -59,5 +59,7 @@ function useCurrency(): UseCurrencyInterface {
     error,
   };
 }
+
+export * from './useCurrency';
 
 export default useCurrency;
