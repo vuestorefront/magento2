@@ -2,8 +2,9 @@ import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { ComposableFunctionArgs, Countries } from '~/composables/types';
 import { Maybe, Country } from '~/modules/GraphQL/types';
+import { UseCountrySearchInterface } from './useCountrySearch';
 
-export const useCountrySearch = () => {
+export function useCountrySearch(): UseCountrySearchInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref({
@@ -65,6 +66,7 @@ export const useCountrySearch = () => {
     loading,
     error,
   };
-};
+}
 
+export * from './useCountrySearch';
 export default useCountrySearch;
