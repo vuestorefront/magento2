@@ -26,7 +26,7 @@ module.exports = {
         },
         magentoBaseUrl: process.env.VSF_MAGENTO_BASE_URL,
         magentoApiEndpoint: process.env.VSF_MAGENTO_GRAPHQL_URL,
-        imageProvider: process.env.VSF_IMAGAE_PROVIDER,
+        imageProvider: process.env.VSF_IMAGE_PROVIDER,
         recaptcha: {
           isEnabled: process.env.VSF_RECAPTCHA_ENABLED === 'true',
           sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
