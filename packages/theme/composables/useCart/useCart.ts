@@ -60,18 +60,75 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
    * ```
    */
   loadTotalQty: (context: Context['app']) => Promise<void>;
+  /**
+   * Takes in a `product` and its `quantity` and adds it to the cart
+   *
+   * @example
+   *
+   * Adding a product to cart and handling possible errors:
+   *
+   * ```typescript
+   * import { useCart } from '~/composables';
+   *
+   * export default {
+   *   setup() {
+   *     const { addItem, error } = useCart();
+   *
+   *     const addItemToCart = async (
+   *       product: ProductInterface,
+   *       quantity: nubmer
+   *     ) => {
+   *       await addItem({ product, quantity });
+   *
+   *       if (error.value.addItem) {
+   *         // handle adding item to cart error
+   *       }
+   *     }
+   *
+   *     return { addItemToCart };
+   *   }
+   * }
+   * ```
+   */
   addItem: (
     params: ComposableFunctionArgs<{
       product: PRODUCT;
       quantity: any;
     }>
   ) => Promise<void>;
-  /** Removes an `item` from a `cart` */
+  /**
+   * Removes an `item` from a `cart`
+   *
+   * @example
+   *
+   * Removing an item from cart and handling possible errors:
+   *
+   * ```typescript
+   * import { useCart } from '~/composables';
+   *
+   * export default {
+   *   setup() {
+   *     const { removeItem, error } = useCart();
+   *
+   *     const removeItemFromCart = async (
+   *       product: ProductInterface,
+   *       quantity: nubmer
+   *     ) => {
+   *       await removeItem({ product, quantity });
+   *
+   *       if (error.value.removeItem) {
+   *         // handle adding item to cart error
+   *       }
+   *     }
+   *
+   *     return { removeItemToCart };
+   *   }
+   * }
+   * ```
+   */
   removeItem: (params: ComposableFunctionArgs<{ currentCart: CART; product: CART_ITEM }>) => Promise<void>;
   /** Updates the `quantity` of an `item` in a cart */
-  updateItemQty: (
-    params: ComposableFunctionArgs<{ product: CART_ITEM; quantity: number; }>
-  ) => Promise<void>;
+  updateItemQty: (params: ComposableFunctionArgs<{ product: CART_ITEM; quantity: number }>) => Promise<void>;
   /** Removes all items from the cart */
   clear: (params: ComposableFunctionArgs<{ realCart?: boolean }>) => Promise<void>;
   /** Applies a coupon to the cart */
@@ -97,22 +154,25 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
  * Check if adding an item to a cart failed:
  *
  * ```typescript
- * import { useCart } from '~/composables'
+ * import { useCart } from '~/composables';
  *
  * export default {
- *  setup () {
- *    const { addItem, error } = useCart()
+ *   setup() {
+ *     const { addItem, error } = useCart();
  *
- *    const addItemToCart = async (product: ProductInterface, quantity: nubmer) => {
- *      await addItem({ product, quantity })
+ *     const addItemToCart = async (
+ *       product: ProductInterface,
+ *       quantity: nubmer
+ *     ) => {
+ *       await addItem({ product, quantity });
  *
- *      if (error.value.addItem) {
- *        // handle adding item to cart error
- *      }
- *    }
+ *       if (error.value.addItem) {
+ *         // handle adding item to cart error
+ *       }
+ *     }
  *
- *    return { addItemToCart }
- *  }
+ *     return { addItemToCart };
+ *   }
  * }
  * ```
  */
