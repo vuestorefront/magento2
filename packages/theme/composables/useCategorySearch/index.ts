@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import type { Category } from '~/composables/types';
@@ -33,9 +33,9 @@ export function useCategorySearch(): UseCategorySearchInterface {
 
   return {
     search,
-    loading,
-    error,
-    result,
+    loading: readonly(loading),
+    error: readonly(error),
+    result: readonly(result),
   };
 }
 

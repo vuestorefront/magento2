@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
 import type { Category, ComposableFunctionArgs } from '~/composables/types';
 
@@ -23,14 +23,14 @@ export interface UseCategorySearchInterface {
   search(searchParams: UseCategorySearchParams): Promise<void>;
 
   /** Contains errors from any of the composable methods. */
-  error: Ref<UseCategoryErrors>;
+  error: DeepReadonly<Ref<UseCategoryErrors>>;
 
   /**
    * The list of {@link Category} found by the last search. It's `null` if the
    * search has not been executed yet or fails.
    */
-  result: Ref<Category[] | null>;
+  result: DeepReadonly<Ref<Category[] | null>>;
 
   /** Indicates whether any of the composable methods is in progress. */
-  loading: Ref<boolean>;
+  loading: Readonly<Ref<boolean>>;
 }
