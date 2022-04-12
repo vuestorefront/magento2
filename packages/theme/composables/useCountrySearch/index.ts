@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { ComposableFunctionArgs, Countries } from '~/composables/types';
 import { Maybe, Country } from '~/modules/GraphQL/types';
@@ -63,8 +63,8 @@ export function useCountrySearch(): UseCountrySearchInterface {
   return {
     load,
     search,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
 }
 

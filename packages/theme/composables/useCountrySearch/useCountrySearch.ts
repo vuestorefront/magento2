@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { Countries, ComposableFunctionArgs } from '~/composables/types';
 import { Maybe, Country } from '~/modules/GraphQL/types';
 
@@ -29,7 +29,7 @@ export interface UseCountrySearchInterface {
   /** Fetches a country by its id */
   search (params: UseCountrySearchParams): Promise<Maybe<Country>>;
   /** Returns the current state of search as computed boolean property */
-  loading: Ref<boolean>;
+  loading: DeepReadonly<Ref<boolean>>;
   /** Reactive object containing the error message, if search failed for any reason. */
-  error: Ref<UseCountrySearchErrors>;
+  error: DeepReadonly<Ref<UseCountrySearchErrors>>;
 }
