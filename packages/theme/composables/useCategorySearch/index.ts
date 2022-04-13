@@ -20,14 +20,17 @@ export function useCategorySearch(): UseCategorySearchInterface {
     Logger.debug('useCategory/search', searchParams);
 
     try {
+      loading.value = true;
       const { filters } = searchParams;
       const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters });
 
       Logger.debug('[Result]:', { data });
 
       result.value = data.categoryList;
+      error.value.search = null;
     } catch (err) {
       error.value.search = err;
+      result.value = null;
       Logger.error('useCategory/search', err);
     } finally {
       loading.value = false;
