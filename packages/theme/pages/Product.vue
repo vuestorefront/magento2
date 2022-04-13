@@ -17,12 +17,20 @@
             >
               <SfGallery
                 :images="productGallery"
-                :image-width="422"
-                :image-height="664"
-                :thumb-width="160"
-                :thumb-height="160"
+                :image-width="imageSizes.productGallery.imageWidth"
+                :image-height="imageSizes.productGallery.imageHeight"
+                :thumb-width="imageSizes.productGallery.thumbWidth"
+                :thumb-height="imageSizes.productGallery.thumbHeight"
                 :enable-zoom="true"
+                image-tag="nuxt-img"
+                thumb-image-tag="nuxt-img"
                 class="product__gallery"
+                :nuxt-img-config="{
+                  fit: 'cover',
+                }"
+                :thumb-nuxt-img-config="{
+                  fit: 'cover',
+                }"
               />
             </SfLoader>
           </LazyHydrate>
@@ -81,9 +89,6 @@
                 tag="p"
                 class="product__description desktop-only"
               />
-              <SfButton class="sf-button--text desktop-only product__guide">
-                {{ $t('Size guide') }}
-              </SfButton>
               <template v-for="option in configurableOptions">
                 <div
                   v-if="option.attribute_code === 'color'"
@@ -300,18 +305,21 @@ import reviewGetters, {
 import {
   useProduct, useCart, useWishlist, useUser, useReview,
 } from '~/composables';
+
+import { ProductReview } from '~/modules/GraphQL/types';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
-import BundleProductSelector from '~/components/Products/BundleProductSelector';
-import GroupedProductSelector from '~/components/Products/GroupedProductSelector';
-import UpsellProducts from '~/components/UpsellProducts';
-import RelatedProducts from '~/components/RelatedProducts';
-import HTMLContent from '~/components/HTMLContent';
-import AddToWishlist from '~/components/AddToWishlist';
+import BundleProductSelector from '~/components/Products/BundleProductSelector.vue';
+import GroupedProductSelector from '~/components/Products/GroupedProductSelector.vue';
+import UpsellProducts from '~/components/UpsellProducts.vue';
+import RelatedProducts from '~/components/RelatedProducts.vue';
+import HTMLContent from '~/components/HTMLContent.vue';
+import AddToWishlist from '~/components/AddToWishlist.vue';
+import useImage from '~/composables/useImage/index';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -351,7 +359,7 @@ export default defineComponent({
     const products = ref([]);
 
     const { product, id } = productData(products);
-
+    const { getMagentoImage, imageSizes } = useImage();
     const route = useRoute();
     const router = useRouter();
     const { getProductDetails, loading: productLoading } = useProduct();
@@ -393,7 +401,9 @@ export default defineComponent({
       ? [...productReviews.value].shift()
       : productReviews.value));
     const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const totalReviews = computed(() => reviewGetters.getTotalReviews(baseReviews.value));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
     const breadcrumbs = computed(() => {
       const productCategories = product.value.categories;
@@ -403,9 +413,9 @@ export default defineComponent({
       );
     });
     const productGallery = computed(() => productGetters.getGallery(product.value).map((img) => ({
-      mobile: { url: img.small },
-      desktop: { url: img.normal },
-      big: { url: img.big },
+      mobile: { url: getMagentoImage(img.small) },
+      desktop: { url: getMagentoImage(img.normal) },
+      big: { url: getMagentoImage(img.big) },
       // eslint-disable-next-line no-underscore-dangle
       alt: product.value._name || product.value.name,
     })));
@@ -458,6 +468,7 @@ export default defineComponent({
       });
     };
     const successAddReview = async (reviewData) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await addReview(reviewData);
       document.querySelector('#tabs').scrollIntoView({
         behavior: 'smooth',
@@ -466,6 +477,7 @@ export default defineComponent({
     };
 
     const updateProductConfiguration = async (label, value) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       productConfiguration.value.push([label, value]);
 
       await router.push({
@@ -515,7 +527,8 @@ export default defineComponent({
         prefix: CacheTagPrefix.Category,
         value: catId,
       }));
-      addTags(tags.concat(productTags, categoriesTags));
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      addTags([...tags, ...productTags, ...categoriesTags]);
     });
 
     return {
@@ -556,6 +569,7 @@ export default defineComponent({
       successAddReview,
       totalReviews,
       updateProductConfiguration,
+      imageSizes,
     };
   },
 });
