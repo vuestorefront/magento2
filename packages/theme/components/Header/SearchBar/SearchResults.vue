@@ -77,6 +77,9 @@
                       productGetters.getProductThumbnailImage(product)
                     )
                   "
+                  :nuxt-img-config="{
+                    fit: 'cover',
+                  }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
                   :link="
@@ -113,6 +116,9 @@
                     productGetters.getProductThumbnailImage(product)
                   )
                 "
+                :nuxt-img-config="{
+                  fit: 'cover',
+                }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
                 :link="

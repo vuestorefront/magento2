@@ -1,10 +1,10 @@
-import { Logger } from '~/helpers/logger';
 import { ref, useContext } from '@nuxtjs/composition-api';
+import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
 import { ProductsListQuery } from '~/modules/GraphQL/types';
 
-export const useProduct = (id: string) => {
+export const useProduct = (id?: string) => {
   const loading = ref(false);
   const error = ref({
     search: null,

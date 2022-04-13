@@ -25,6 +25,9 @@
             :image="
               getMagentoImage(productGetters.getProductThumbnailImage(product))
             "
+            :nuxt-img-config="{
+              fit: 'cover',
+            }"
             :regular-price="$fc(productGetters.getPrice(product).regular)"
             :special-price="
               productGetters.getPrice(product).special &&
@@ -79,14 +82,13 @@
   </SfSection>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfCarousel,
   SfProductCard,
   SfSection,
   SfLoader,
   SfButton,
-  SfImage,
 } from '@storefront-ui/vue';
 
 import { computed, defineComponent } from '@nuxtjs/composition-api';
@@ -103,7 +105,6 @@ export default defineComponent({
     SfSection,
     SfLoader,
     SfButton,
-    SfImage,
     SvgImage,
   },
   props: {

@@ -100,7 +100,7 @@
           </ValidationProvider>
         </div>
         <recaptcha v-if="isRecaptchaEnabled" />
-        <SfButton class="form__button">
+        <SfButton class="form__button" type="submit">
           Add review
         </SfButton>
       </form>
