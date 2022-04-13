@@ -1,6 +1,5 @@
 import { computed, useContext, useRoute } from '@nuxtjs/composition-api';
 import findDeep from 'deepdash/findDeep';
-import useApi from '~/composables/useApi';
 import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 import { useCategoryStore } from '~/stores/category';
 
@@ -71,9 +70,8 @@ export const findCategoryAncestors = (node: CategoryTreeInterface, toFind: Categ
  * Logic for finding the current product category and its parent and grandparent categories (ancestors)
  * */
 export const useCategoryLogic = () => {
-  const api = useApi();
   const context = useContext();
-  const categoryStore = useCategoryStore(api);
+  const categoryStore = useCategoryStore();
   const route = useRoute();
 
   const categoryTree = computed(() => categoryStore.categories);
