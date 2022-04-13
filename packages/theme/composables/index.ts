@@ -27,13 +27,13 @@ export { default as useProduct } from './useProduct';
 export { default as useReview } from './useReview';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
-export { default as useBilling } from './useBilling';
+export * from './useBilling';
 export { default as useRelatedProducts } from './useRelatedProducts';
 export { default as useUpsellProducts } from './useUpsellProducts';
 export { default as usePaymentProvider } from './usePaymentProvider';
 export * from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
-export { default as useUserOrder } from './useUserOrder';
+export * from './useUserOrder';
 export { default as useUserAddress } from './useUserAddress';
 export { default as useCountrySearch } from './useCountrySearch';
 
