@@ -97,6 +97,7 @@ module.exports = {
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
           ['/api-reference/magento-theme.usecategory', 'useCategory()'],
           ['/api-reference/magento-theme.usecategorysearch', 'useCategorySearch()'],
+          ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
         ]
       },
       {
