@@ -1,21 +1,19 @@
 import { defineStore } from 'pinia';
-import type { Pinia } from 'pinia';
 import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
-import type { useApi } from '~/composables/useApi';
 import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 
 interface CategoryState {
   rawCategories: { categories: { items: CategoryTreeInterface[] } } | null
 }
 
-export const useCategoryStore = (api: ReturnType<typeof useApi>, $pinia?: Pinia) => defineStore('category', {
+export const useCategoryStore = defineStore('category', {
   state: (): CategoryState => ({
     rawCategories: null,
   }),
   actions: {
     async load() {
-      this.rawCategories = await api.query(categoryListGql);
+      this.rawCategories = await this.$nuxt.$graphql.query.request(categoryListGql);
     },
   },
   getters: {
@@ -30,4 +28,4 @@ export const useCategoryStore = (api: ReturnType<typeof useApi>, $pinia?: Pinia)
       return agnosticCategoryTree;
     },
   },
-})($pinia);
+});
