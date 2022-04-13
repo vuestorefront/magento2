@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Query that searches for categories using filters. */
 export default gql`
   query categorySearch($filters: CategoryFilterInput) {
     categoryList(filters: $filters) {

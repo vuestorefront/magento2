@@ -22,7 +22,7 @@ export * from './useCategory';
 export { default as useFacet } from './useFacet';
 export { default as useCart } from './useCart';
 export * from './useContent';
-export { default as useCategorySearch } from './useCategorySearch';
+export * from './useCategorySearch';
 export { default as useProduct } from './useProduct';
 export { default as useReview } from './useReview';
 export { default as useShipping } from './useShipping';
