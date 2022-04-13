@@ -212,6 +212,7 @@ export default () => {
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
       '~/plugins/dompurify',
+      '~/plugins/graphqlClient',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
@@ -225,6 +226,9 @@ export default () => {
     },
     image: {
       provider: process.env.VSF_IMAGE_PROVIDER,
+    },
+    env: {
+      VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
   };
 
