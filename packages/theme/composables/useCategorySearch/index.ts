@@ -1,31 +1,36 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { ref, Ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import { UseCategoryErrors, UseCategorySearch } from '~/composables/useCategorySearch/useCategorySearch';
-import { Category } from '~/composables/types';
+import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
+import type { Category } from '~/composables/types';
+import type { UseCategorySearchErrors, UseCategorySearchInterface } from './useCategorySearch';
 
-export const useCategorySearch = (): UseCategorySearch => {
+/**
+ * The `useCategorySearch()` composable allows searching for categories. It is
+ * commonly used in subtrees navigation.
+ */
+export function useCategorySearch(): UseCategorySearchInterface {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseCategoryErrors> = ref({
+  const loading = ref(false);
+  const error = ref<UseCategorySearchErrors>({
     search: null,
   });
-  const result: Ref<Array<Category>> = ref(null);
+  const result = ref<Category[] | null>(null);
 
-  // eslint-disable-next-line consistent-return
   const search = async (searchParams: CategorySearchQueryVariables) => {
     Logger.debug('useCategory/search', searchParams);
 
     try {
+      loading.value = true;
       const { filters } = searchParams;
       const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters });
 
       Logger.debug('[Result]:', { data });
 
       result.value = data.categoryList;
+      error.value.search = null;
     } catch (err) {
       error.value.search = err;
+      result.value = null;
       Logger.error('useCategory/search', err);
     } finally {
       loading.value = false;
@@ -34,10 +39,11 @@ export const useCategorySearch = (): UseCategorySearch => {
 
   return {
     search,
-    loading,
-    error,
-    result,
+    loading: readonly(loading),
+    error: readonly(error),
+    result: readonly(result),
   };
-};
+}
 
+export * from './useCategorySearch';
 export default useCategorySearch;
