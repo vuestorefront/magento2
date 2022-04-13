@@ -108,6 +108,7 @@ module.exports = {
           ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
           ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
           ['/api-reference/magento-api.updatecustomeraddress', 'updateCustomerAddress'],
+          ['/api-reference/magento-api.storeconfig', 'storeConfig'],
         ]
       },
       {
