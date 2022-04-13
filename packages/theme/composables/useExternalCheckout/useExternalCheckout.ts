@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 export type UseExternalCheckoutInitializeParams = ComposableFunctionArgs<{ baseUrl: string }>;
@@ -8,7 +8,7 @@ export interface UseExternalCheckoutInterface {
   /** Initializes the checkout provider with the `baseUrl` */
   initializeCheckout(params: UseExternalCheckoutInitializeParams): string
   /** Returns the loading state as a computed boolean */
-  loading: Ref<boolean>,
+  loading: DeepReadonly<Ref<boolean>>,
   /** Returns errors when intializing the checkout */
-  error: Ref<string>,
+  error: DeepReadonly<Ref<string>>,
 }

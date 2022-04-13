@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { UseExternalCheckoutInterface } from '~/composables/useExternalCheckout/useExternalCheckout';
 
@@ -50,8 +50,8 @@ export function useExternalCheckout(): UseExternalCheckoutInterface {
 
   return {
     initializeCheckout,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
 }
 
