@@ -3,17 +3,17 @@ import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 import type { UseCurrency, UseCurrencyErrors } from './useCurrency';
 import type { ComposableFunctionArgs, CustomQuery } from '../types';
+import { useLoading } from '../useLoading';
 
 const useCurrency = (): UseCurrency => {
   const { app } = useContext();
-  const loading = ref(false);
+  const { loading, withLoading } = useLoading();
   const error = ref<UseCurrencyErrors>({ load: null, change: null });
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
+  const load = withLoading(async (params?: ComposableFunctionArgs<CustomQuery>) => {
     error.value.load = null;
-    loading.value = true;
 
     Logger.debug('useCurrency/load');
 
@@ -25,14 +25,11 @@ const useCurrency = (): UseCurrency => {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/load', err);
       error.value.load = err;
-    } finally {
-      loading.value = false;
     }
-  };
+  });
 
-  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: { id: string }) => {
     error.value.change = null;
-    loading.value = true;
 
     Logger.debug('useCurrency/change');
 
@@ -42,8 +39,6 @@ const useCurrency = (): UseCurrency => {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
   };
 
