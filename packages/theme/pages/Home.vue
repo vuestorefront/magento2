@@ -251,7 +251,7 @@ export default defineComponent({
 
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
 
-      newProducts.value = productGetters.getFiltered(productsData?.items, { master: true });
+      newProducts.value = productsData?.items;
     });
 
     // @ts-ignore

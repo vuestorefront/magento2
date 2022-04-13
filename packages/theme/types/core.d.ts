@@ -655,13 +655,12 @@ export interface AgnosticStore {
   [x: string]: unknown;
 }
 
-export interface ProductGetters<PRODUCT, PRODUCT_FILTER> {
+export interface ProductGetters<PRODUCT> {
   getName: (product: PRODUCT) => string;
   getSlug: (product: PRODUCT) => string;
   getPrice: (product: PRODUCT) => AgnosticPrice;
   getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[];
   getCoverImage: (product: PRODUCT) => string;
-  getFiltered: (products: PRODUCT[], filters?: PRODUCT_FILTER) => PRODUCT[];
   getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
   getDescription: (product: PRODUCT) => string;
   getCategoryIds: (product: PRODUCT) => string[];

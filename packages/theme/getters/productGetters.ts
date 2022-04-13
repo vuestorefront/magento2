@@ -7,14 +7,14 @@ import {
   Product,
 } from '~/composables/types';
 import { ProductGetters as ProductGettersBase } from '~/getters/types';
-import { BundleProduct, GroupedProduct } from '~/modules/GraphQL/types';
+import {
+  BundleProduct, CategoryInterface, GroupedProduct, ProductInterface,
+} from '~/modules/GraphQL/types';
 import { htmlDecode } from '~/helpers/htmlDecoder';
 import categoryGetters from './categoryGetters';
 import reviewGetters from './reviewGetters';
 
-type ProductVariantFilters = any;
-
-export const getName = (product: Product): string => {
+export const getName = (product: ProductInterface): string => {
   if (!product) {
     return '';
   }
@@ -22,7 +22,7 @@ export const getName = (product: Product): string => {
   return htmlDecode(product.name);
 };
 
-export const getSlug = (product: Product, category?: Category): string => {
+export const getSlug = (product: ProductInterface, category?: Category): string => {
   const rewrites = product?.url_rewrites;
   let url = product?.sku ? `/p/${product.sku}` : '';
   if (!rewrites || rewrites.length === 0) {
@@ -97,14 +97,6 @@ export const getProductThumbnailImage = (product: Product): string => {
   }
 
   return product.thumbnail.url;
-};
-
-export const getFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
-  if (!products) {
-    return [];
-  }
-
-  return products;
 };
 
 export const getAttributes = (
@@ -207,7 +199,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: any, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: ProductInterface, category?: Category): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -244,14 +236,14 @@ export const getGroupedProducts = (product: GroupedProduct & { __typename: strin
 // eslint-disable-next-line no-underscore-dangle
 export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
 
-export interface ProductGetters extends ProductGettersBase<Product, ProductVariantFilters> {
+export interface ProductGetters extends ProductGettersBase<Product> {
   getCategory(product: Product, currentUrlPath: string): Category | null;
   getProductRelatedProduct(product: Product): Product[];
   getProductSku(product: Product): string;
   getProductThumbnailImage(product: Product): string;
   getProductUpsellProduct(product: Product): Product[];
   getShortDescription(product: Product): string;
-  getSlug(product: Product, category?: Category): string;
+  getSlug(product: Product, category?: CategoryInterface): string;
   getTypeId(product: Product): string;
   getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
   getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
@@ -266,7 +258,6 @@ const productGetters: ProductGetters = {
   getCategoryIds,
   getCoverImage,
   getDescription,
-  getFiltered,
   getFormattedPrice,
   getGallery,
   getId,
