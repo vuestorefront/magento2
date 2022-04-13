@@ -76,6 +76,9 @@
                       productGetters.getProductThumbnailImage(product.product)
                     )
                   "
+                  :nuxt-img-config="{
+                    fit: 'cover',
+                  }"
                   :is-added-to-cart="isInCart({ product: product.product })"
                   :is-in-wishlist="true"
                   :link="
@@ -131,6 +134,9 @@
                   "
                   :image-width="imageSizes.productCardHorizontal.width"
                   :image-height="imageSizes.productCardHorizontal.height"
+                  :nuxt-img-config="{
+                    fit: 'cover',
+                  }"
                   :is-in-wishlist="true"
                   :link="
                     localePath(
