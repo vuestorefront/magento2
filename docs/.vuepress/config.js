@@ -95,6 +95,7 @@ module.exports = {
           ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
           ['/api-reference/magento-theme.usecategory', 'useCategory()'],
+          ['/api-reference/magento-theme.usecategorysearch', 'useCategorySearch()'],
         ]
       },
       {
@@ -103,6 +104,7 @@ module.exports = {
           ['/api-reference/magento-api.cmsblocks', 'cmsBlocks'],
           ['/api-reference/magento-api.cmspage', 'cmsPage'],
           ['/api-reference/magento-api.categorylist', 'categoryList'],
+          ['/api-reference/magento-api.categorysearch', 'categorySearch'],
           ['/api-reference/magento-api.createcustomeraddress', 'createCustomerAddress'],
           ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
           ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
