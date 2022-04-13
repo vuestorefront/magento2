@@ -1,16 +1,24 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { ComposableFunctionArgs } from '~/composables/types';
-import { Maybe, CustomerOrdersQueryVariables, CustomerOrdersQuery } from '~/modules/GraphQL/types';
+import type {
+  UseUserOrderErrors,
+  UseUserOrderInterface,
+  UseUserOrderSearchParams,
+} from './useUserOrder';
 
-export const useUserOrder = () => {
+/**
+ * The `useUserOrder()` composable allows fetching customer orders.
+ *
+ * See the {@link UseUserOrderInterface} page for more information.
+ */
+export function useUserOrder(): UseUserOrderInterface {
   const { app } = useContext();
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseUserOrderErrors>({
     search: null,
   });
 
-  const search = async (params: ComposableFunctionArgs<CustomerOrdersQueryVariables>): Promise<Maybe<Array<CustomerOrdersQuery['customer']['orders']['items']>>> => {
+  const search = async (params: UseUserOrderSearchParams) => {
     let results = null;
 
     try {
@@ -36,9 +44,10 @@ export const useUserOrder = () => {
 
   return {
     search,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useUserOrder;
+export * from './useUserOrder';

@@ -33,7 +33,7 @@ export { default as useUpsellProducts } from './useUpsellProducts';
 export { default as usePaymentProvider } from './usePaymentProvider';
 export * from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
-export { default as useUserOrder } from './useUserOrder';
+export * from './useUserOrder';
 export { default as useUserAddress } from './useUserAddress';
 export { default as useCountrySearch } from './useCountrySearch';
 
