@@ -1,7 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
-import { CustomerCartQuery } from '../../types/GraphQL';
+import type { CustomQuery } from '@vue-storefront/core';
+import type { Context } from '../../types/context';
+import type { CustomerCartQuery } from '../../types/GraphQL';
 import customerCartQuery from './customerCart';
 
 /**

@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
+import type { Context } from '../../types/context';
 import {
   AddConfigurableProductsToCartInput, AddConfigurableProductsToCartMutation, AddConfigurableProductsToCartMutationVariables,
 } from '../../types/GraphQL';

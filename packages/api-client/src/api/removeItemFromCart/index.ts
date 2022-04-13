@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
+import type { CustomQuery } from '@vue-storefront/core';
+import type { Context } from '../../types/context';
 import {
   RemoveItemFromCartInput,
   RemoveItemFromCartMutation,
