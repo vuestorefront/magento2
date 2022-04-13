@@ -24,6 +24,7 @@
     },
     "types": [
       "node",
+      "@pinia/nuxt",
       "@nuxt/types",
       "cookie-universal-nuxt",
       "nuxt-i18n",
