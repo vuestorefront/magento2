@@ -47,7 +47,6 @@ module.exports = {
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
       { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
       { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2'},
-      { text: 'Roadmap', link: 'https://docs.vuestorefront.io/magento/guide/roadmap.html'},
       { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html'}
     ],
     sidebar: [
@@ -59,7 +58,6 @@ module.exports = {
           ['/guide/environments', 'Demo environments'],
           ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
-          ['/guide/roadmap', 'Roadmap'],
         ]
       },
       {
