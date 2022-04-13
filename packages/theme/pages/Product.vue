@@ -306,7 +306,6 @@ import {
   useProduct, useCart, useWishlist, useUser, useReview,
 } from '~/composables';
 
-import { ProductReview } from '~/modules/GraphQL/types';
 import { productData } from '~/helpers/product/productData';
 import cacheControl from '~/helpers/cacheControl';
 import InstagramFeed from '~/components/InstagramFeed.vue';
@@ -518,10 +517,10 @@ export default defineComponent({
           value: `product-${route.value.params.id}`,
         },
       ];
-      const productTags = {
+      const productTags = [{
         prefix: CacheTagPrefix.Product,
         value: product.value.uid,
-      };
+      }];
 
       const categoriesTags = categories.value.map((catId) => ({
         prefix: CacheTagPrefix.Category,
