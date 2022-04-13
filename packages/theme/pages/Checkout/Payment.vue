@@ -29,8 +29,11 @@
             image-tag="nuxt-img"
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
-            :width="imageSizes.cartItem.width"
-            :height="imageSizes.cartItem.height"
+            :width="imageSizes.checkout.imageWidth"
+            :height="imageSizes.checkout.imageHeight"
+            :nuxt-img-config="{
+              fit: 'cover',
+            }"
           />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
