@@ -8,7 +8,7 @@ export const productData = (products) => {
     id,
     product: computed(() => {
       if (!products) return {};
-      return Array.isArray(products.value?.items) && products.value?.items[0] ? products.value?.items[0] : [];
+      return products.value?.items?.[0] ?? [];
     }),
   };
 };

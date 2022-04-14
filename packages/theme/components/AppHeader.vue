@@ -183,17 +183,13 @@ export default defineComponent({
     useFetch(async () => {
       await categoriesListLoad({ pageSize: 20 });
 
-      function prepareMenuData() {
-        return categoryList.value?.[0]?.children
-          .map((category) => ({
-            includeInMenu: category.include_in_menu,
-            label: category.name,
-            slug: `/${category.url_path}${category.url_suffix}`,
-          }))
-          .filter((category) => category.includeInMenu) ?? [];
-      }
-
-      categoryTree.value = prepareMenuData();
+      categoryTree.value = categoryList.value?.[0]?.children
+        .filter((category) => category.include_in_menu)
+        .map((category) => ({
+          includeInMenu: category.include_in_menu,
+          label: category.name,
+          slug: `/${category.url_path}${category.url_suffix}`,
+        })) ?? [];
     });
 
     onMounted(() => {
