@@ -6,6 +6,12 @@ import {
 import currency from './currency';
 import { Context } from '../../types/context';
 
+/**
+ * Fetches the currency information.
+ *
+ * @param context VSF context
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async (
   context: Context,
   customQuery: CustomQuery = { currency: 'currency' },

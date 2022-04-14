@@ -105,6 +105,7 @@ module.exports = {
           ['/api-reference/magento-api.cmspage', 'cmsPage'],
           ['/api-reference/magento-api.categorylist', 'categoryList'],
           ['/api-reference/magento-api.createcustomeraddress', 'createCustomerAddress'],
+          ['/api-reference/magento-api.currency', 'currency'],
           ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
           ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
           ['/api-reference/magento-api.updatecustomeraddress', 'updateCustomerAddress'],
