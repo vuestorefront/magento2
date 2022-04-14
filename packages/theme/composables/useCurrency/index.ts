@@ -11,14 +11,14 @@ const useCurrency = (): UseCurrency => {
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
+  const load = async (params?: ComposableFunctionArgs<{}>) => {
     error.value.load = null;
     loading.value = true;
 
     Logger.debug('useCurrency/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.currency(params);
+      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
       });
@@ -30,10 +30,8 @@ const useCurrency = (): UseCurrency => {
     }
   };
 
-  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: { id: string }) => {
     error.value.change = null;
-    loading.value = true;
-
     Logger.debug('useCurrency/change');
 
     try {
@@ -42,8 +40,6 @@ const useCurrency = (): UseCurrency => {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
   };
 
