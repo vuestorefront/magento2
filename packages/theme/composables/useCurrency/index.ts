@@ -11,14 +11,14 @@ const useCurrency = (): UseCurrency => {
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
+  const load = async (params?: ComposableFunctionArgs<{ currency: string }>) => {
     error.value.load = null;
     loading.value = true;
 
     Logger.debug('useCurrency/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.currency(params);
+      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
       });
