@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import {
   Category, Product, Filter, AgnosticFacetSearchParams, ComposableFunctionArgs,
 } from '~/composables/types';
@@ -35,8 +35,8 @@ export interface UseFacetErrors {
 export type SearchData = FacetSearchResult<FacetResultsData>;
 
 export interface UseFacetInterface {
-  result: Ref<FacetSearchResult<any>>;
-  loading: Ref<boolean>;
+  result: DeepReadonly<Ref<FacetSearchResult<any>>>;
+  loading: Readonly<Ref<boolean>>;
   search: (params?: ComposableFunctionArgs<AgnosticFacetSearchParams>) => Promise<void>;
-  error: Ref<UseFacetErrors>;
+  error: DeepReadonly<Ref<UseFacetErrors>>;
 }

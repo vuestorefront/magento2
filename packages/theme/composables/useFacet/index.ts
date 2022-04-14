@@ -1,4 +1,6 @@
-import { Ref, ref, useContext } from '@nuxtjs/composition-api';
+import {
+  readonly, Ref, ref, useContext,
+} from '@nuxtjs/composition-api';
 import { AgnosticFacetSearchParams, ProductsSearchParams, ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import {
@@ -128,10 +130,10 @@ export const useFacet = (): UseFacetInterface => {
   };
 
   return {
-    result,
-    loading,
-    error,
     search,
+    error: readonly(error),
+    result: readonly(result),
+    loading: readonly(loading),
   };
 };
 
