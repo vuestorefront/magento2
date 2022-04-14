@@ -1,15 +1,26 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '~/helpers/logger';
-import { CustomQuery } from '~/composables/types';
-import { useCustomerStore } from '~/stores/customer';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { findItemOnWishlist } from '~/composables/useWishlist/helpers';
-import { UseWishlist, UseWishlistErrors, Wishlist } from '~/composables/useWishlist/useWishlist';
+import { Logger } from '~/helpers/logger';
+import { useCustomerStore } from '~/stores/customer';
+import type { Wishlist } from '~/modules/GraphQL/types';
+import type {
+  UseWishlistAddItemParams,
+  UseWishlistErrors,
+  UseWishlistInterface,
+  UseWishlistIsInWishlistParams,
+  UseWishlistLoadParams,
+  UseWishlistRemoveItemParams,
+} from '~/composables/useWishlist/useWishlist';
 
-export const useWishlist = (): UseWishlist => {
+/**
+ * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
+ *
+ * See the {@link UseWishlistInterface} page for more information.
+ */
+export function useWishlist(): UseWishlistInterface {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const loading = ref(false);
-  const wishlist = ref(customerStore.wishlist);
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
   const error = ref<UseWishlistErrors>({
@@ -20,14 +31,8 @@ export const useWishlist = (): UseWishlist => {
     loadItemsCount: null,
   });
 
-  const load = async (params: {
-    searchParams?: Partial<{
-      currentPage: number;
-      pageSize: number;
-    }>,
-    customQuery?: CustomQuery,
-    // eslint-disable-next-line consistent-return
-  }) => {
+  // eslint-disable-next-line consistent-return
+  const load = async (params: UseWishlistLoadParams) => {
     Logger.debug('useWishlist/load');
 
     try {
@@ -58,7 +63,7 @@ export const useWishlist = (): UseWishlist => {
     }
   };
 
-  const isInWishlist = ({ product }) => {
+  const isInWishlist = ({ product }: UseWishlistIsInWishlistParams) => {
     Logger.debug('useWishlist/isInWishlist', product);
 
     const wishlistProduct = findItemOnWishlist(customerStore.wishlist, product);
@@ -71,7 +76,7 @@ export const useWishlist = (): UseWishlist => {
     Logger.debug('useWishlist/setWishlist', newWishlist);
   };
 
-  const removeItem = async ({ product, params }) => {
+  const removeItem = async ({ product, customQuery }: UseWishlistRemoveItemParams) => {
     Logger.debug('useWishlist/removeItem', product);
 
     try {
@@ -79,14 +84,14 @@ export const useWishlist = (): UseWishlist => {
       Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', {
         currentWishlist: customerStore.wishlist,
         product,
-        customQuery: params?.customQuery,
+        customQuery,
       });
 
       const itemOnWishlist = findItemOnWishlist(customerStore.wishlist, product);
       const { data } = await app.context.$vsf.$magento.api.removeProductsFromWishlist({
         id: '0',
         items: [itemOnWishlist.id],
-      }, params?.customQuery);
+      }, customQuery);
 
       Logger.debug('[Result]:', { data });
       error.value.removeItem = null;
@@ -130,7 +135,7 @@ export const useWishlist = (): UseWishlist => {
   };
 
   // eslint-disable-next-line consistent-return
-  const addItem = async ({ product, customQuery }) => {
+  const addItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
     Logger.debug('useWishlist/addItem', product);
 
     try {
@@ -151,7 +156,6 @@ export const useWishlist = (): UseWishlist => {
       if (itemOnWishlist) {
         return await removeItem({
           product,
-          params: {},
         });
       }
 
@@ -252,7 +256,6 @@ export const useWishlist = (): UseWishlist => {
   };
 
   return {
-    wishlist,
     loadItemsCount,
     isInWishlist,
     addItem,
@@ -260,9 +263,10 @@ export const useWishlist = (): UseWishlist => {
     removeItem,
     clear,
     setWishlist,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useWishlist;
+export * from './useWishlist';
