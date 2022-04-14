@@ -11,7 +11,7 @@ const useCurrency = (): UseCurrency => {
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<{ currency: string }>) => {
+  const load = async (params?: ComposableFunctionArgs<{}>) => {
     error.value.load = null;
     loading.value = true;
 
