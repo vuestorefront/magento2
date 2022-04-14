@@ -30,7 +30,7 @@ const useCurrency = (): UseCurrency => {
     }
   };
 
-  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: { id: string }) => {
     error.value.change = null;
     Logger.debug('useCurrency/change');
 
