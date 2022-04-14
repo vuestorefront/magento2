@@ -1,21 +1,31 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/composables/useBilling/commands/saveBillingAddressCommand';
 import { useShippingProvider, useCart } from '~/composables';
+import type {
+  UseBillingError,
+  UseBillingInterface,
+  UseBillingLoadParams,
+  UseBillingSaveParams,
+} from './useBilling';
 
-export const useBilling = () => {
+/**
+ * The `useBilling()` composable allows loading and saving billing information
+ * of the current cart.
+ */
+export function useBilling(): UseBillingInterface {
   const context = useContext();
   const { load: loadShippingAddress, save: saveShippingAddress } = useShippingProvider();
   const { cart, load: loadCart } = useCart();
 
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseBillingError>({
     load: null,
     save: null,
   });
 
-  const load = async ({ customQuery = null } = {}): Promise<Maybe<BillingCartAddress>> => {
+  const load = async ({ customQuery = null }: UseBillingLoadParams = {}): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.load');
     let billingInfo = null;
 
@@ -37,7 +47,7 @@ export const useBilling = () => {
     return billingInfo;
   };
 
-  const save = async ({ billingDetails }): Promise<Maybe<BillingCartAddress>> => {
+  const save = async ({ billingDetails }: UseBillingSaveParams): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.save');
     let billingInfo = null;
 
@@ -62,7 +72,6 @@ export const useBilling = () => {
       /**
        * End of GraphQL Workaround
        */
-
       error.value.save = null;
     } catch (err) {
       error.value.save = err;
@@ -75,11 +84,13 @@ export const useBilling = () => {
   };
 
   return {
-    loading,
-    error,
     load,
     save,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export * from './useBilling';
+export { default as BillingDetails } from './BillingDetails';
 export default useBilling;

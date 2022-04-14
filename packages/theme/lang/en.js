@@ -151,7 +151,6 @@ export default {
   "Show on page": "Show on page",
   "Sign in": "Sign in",
   "Sign Up for Newsletter": "Sign Up for Newsletter",
-  "Size guide": "Size guide",
   "Sort by": "Sort by",
   "Sort: Default": "Default",
   "Sort: Name A-Z": "Name A-Z",
