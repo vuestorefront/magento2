@@ -2,7 +2,7 @@ import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { AgnosticFacetSearchParams, ProductsSearchParams, ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import {
-  FacetSearchResult, UseFacet, UseFacetErrors, GetProductSearchParams,
+  FacetSearchResult, UseFacetInterface, UseFacetErrors, GetProductSearchParams,
 } from './useFacet';
 
 const availableSortingOptions = [
@@ -56,7 +56,7 @@ const constructSortObject = (sortData: string) => {
   return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
 };
 
-export const useFacet = (): UseFacet => {
+export const useFacet = (): UseFacetInterface => {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const result: Ref<FacetSearchResult<any>> = ref({ data: null, input: null });

@@ -34,7 +34,7 @@ export interface UseFacetErrors {
 
 export type SearchData = FacetSearchResult<FacetResultsData>;
 
-export interface UseFacet {
+export interface UseFacetInterface {
   result: Ref<FacetSearchResult<any>>;
   loading: Ref<boolean>;
   search: (params?: ComposableFunctionArgs<AgnosticFacetSearchParams>) => Promise<void>;
