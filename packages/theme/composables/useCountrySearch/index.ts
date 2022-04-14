@@ -1,9 +1,15 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { ComposableFunctionArgs, Countries } from '~/composables/types';
 import { Maybe, Country } from '~/modules/GraphQL/types';
+import { UseCountrySearchInterface } from './useCountrySearch';
 
-export const useCountrySearch = () => {
+/**
+ * The `useCountrySearch` composable is responsible for fetching a list of countries or a single country by id
+ *
+ * See the {@link UseCountrySearchInterface} page for more information.
+ */
+export function useCountrySearch(): UseCountrySearchInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref({
@@ -62,9 +68,10 @@ export const useCountrySearch = () => {
   return {
     load,
     search,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
+export * from './useCountrySearch';
 export default useCountrySearch;
