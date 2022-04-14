@@ -1,4 +1,5 @@
 import {
+  readonly,
   Ref,
   ref,
   useContext,
@@ -76,9 +77,9 @@ export function useForgotPassword(): UseForgotPasswordInterface {
   return {
     request: resetPassword,
     setNew: setNewPassword,
-    loading,
-    result,
-    error,
+    loading: readonly(loading),
+    result: readonly(result),
+    error: readonly(error),
   };
 }
 

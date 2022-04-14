@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 /** Represents the result of a password change or reset operation */
@@ -32,11 +32,11 @@ export interface UseForgotPasswordSetNewParams {
  */
 export interface UseForgotPasswordInterface {
   /** Returns the result of the reset operation */
-  result: Ref<UseForgotPasswordResults>;
+  result: DeepReadonly<Ref<UseForgotPasswordResults>>;
   /** Returns the loading state */
-  loading: Ref<boolean>;
+  loading: DeepReadonly<Ref<boolean>>;
   /** Returns possible errors */
-  error: Ref<UseForgotPasswordErrors>;
+  error: DeepReadonly<Ref<UseForgotPasswordErrors>>;
   /** Sets the new password fot the user */
   setNew (params: ComposableFunctionArgs<UseForgotPasswordSetNewParams>): Promise<void>;
   /** Requests a new password reset email to be sent to user */
