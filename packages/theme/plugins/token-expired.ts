@@ -27,8 +27,8 @@ const plugin : Plugin = ({ app }) => {
     if (!hasAuthorizationError(res)) {
       return res;
     }
-    app.$vsf.$magento.config.state.setCustomerToken();
-    app.$vsf.$magento.config.state.setCartId();
+    app.$vsf.$magento.config.state.removeCustomerToken();
+    app.$vsf.$magento.config.state.removeCartId();
     app.$vsf.$magento.config.state.setMessage<UiNotification>({
       id: Symbol(''),
       message: app.i18n.t('You are not authorized, please log in.') as string,

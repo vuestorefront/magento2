@@ -32,8 +32,8 @@ const appMockFactory = (callbackResponse) => ({
       },
       config: {
         state: {
-          setCustomerToken: jest.fn(),
-          setCartId: jest.fn(),
+          removeCustomerToken: jest.fn(),
+          removeCartId: jest.fn(),
           setMessage: jest.fn(),
         },
       },
@@ -78,7 +78,7 @@ describe('Token Expired plugin', () => {
 
     await tokenExpiredPlugin({ app: appMock });
 
-    expect(appMock.$vsf.$magento.config.state.setCustomerToken).toHaveBeenCalled();
-    expect(appMock.$vsf.$magento.config.state.setCustomerToken).toHaveBeenCalledWith();
+    expect(appMock.$vsf.$magento.config.state.removeCustomerToken).toHaveBeenCalled();
+    expect(appMock.$vsf.$magento.config.state.removeCustomerToken).toHaveBeenCalledWith();
   });
 });

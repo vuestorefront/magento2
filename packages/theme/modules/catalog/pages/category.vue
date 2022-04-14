@@ -51,6 +51,9 @@
             :image="getMagentoImage(getProductThumbnailImage(product))"
             :image-height="imageSizes.productCard.height"
             :image-width="imageSizes.productCard.width"
+            :nuxt-img-config="{
+              fit: 'cover',
+            }"
             :is-added-to-cart="isInCart({ product })"
             :is-in-wishlist="isInWishlist({ product })"
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
@@ -101,6 +104,9 @@
             :image="getMagentoImage(getProductThumbnailImage(product))"
             :image-height="imageSizes.productCardHorizontal.height"
             :image-width="imageSizes.productCardHorizontal.width"
+            :nuxt-img-config="{
+              fit: 'cover',
+            }"
             :is-in-wishlist="isInWishlist({ product })"
             :is-in-wishlist-icon="isAuthenticated ? '' : ''"
             :link="
@@ -260,10 +266,6 @@ export default defineComponent({
     SfProperty,
     LazyHydrate,
   },
-  middleware: cacheControl({
-    'max-age': 60,
-    'stale-when-revalidate': 5,
-  }),
   transition: 'fade',
   setup() {
     const { getContentData } = useCategoryContent();

@@ -15,6 +15,9 @@ type Variables = {
   filter?: CustomerOrdersFilterInput;
 };
 
+/**
+ * Returns customer orders. To override the default query, use the `customerOrders` query key.
+ */
 export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,

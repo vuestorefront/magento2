@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL query to get the cart of the current logged in customer */
 export default gql`
   query customerCart {
     customerCart {
