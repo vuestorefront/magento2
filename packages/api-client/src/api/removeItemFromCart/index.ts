@@ -1,23 +1,29 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import removeItemFromCart from './removeItemFromCart';
+import type { CustomQuery } from '@vue-storefront/core';
+import type { Context } from '../../types/context';
 import {
   RemoveItemFromCartInput,
   RemoveItemFromCartMutation,
   RemoveItemFromCartMutationVariables,
 } from '../../types/GraphQL';
-import { Context } from '../../types/context';
+import removeItemFromCartMutation from './removeItemFromCart';
 
-export default async (
+/**
+ * Removes an item from the given cart
+ * @param context VSF context
+ * @param input ID of the cart and item to be removed from it
+ * @param customQuery custom GraphQL query that extends the default one
+ */
+export default async function removeItemFromCart(
   context: Context,
   input: RemoveItemFromCartInput,
   customQuery: CustomQuery = { removeItemFromCart: 'removeItemFromCart' },
-): Promise<FetchResult<RemoveItemFromCartMutation>> => {
+): Promise<FetchResult<RemoveItemFromCartMutation>> {
   const { removeItemFromCart: removeItemFromCartGQL } = context.extendQuery(
     customQuery,
     {
       removeItemFromCart: {
-        query: removeItemFromCart,
+        query: removeItemFromCartMutation,
         variables: { input },
       },
     },
@@ -27,4 +33,4 @@ export default async (
     mutation: removeItemFromCartGQL.query,
     variables: removeItemFromCartGQL.variables,
   });
-};
+}
