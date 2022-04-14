@@ -1,4 +1,9 @@
-import { ref, computed, useContext } from '@nuxtjs/composition-api';
+import {
+  ref,
+  computed,
+  readonly,
+  useContext,
+} from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 import type {
@@ -56,8 +61,8 @@ export function useCurrency(): UseCurrencyInterface {
     load,
     change,
     currency,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 }
 
