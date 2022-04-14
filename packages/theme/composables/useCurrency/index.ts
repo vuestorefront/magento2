@@ -23,7 +23,6 @@ export function useCurrency(): UseCurrencyInterface {
     Logger.debug('useCurrency/load');
 
     try {
-      // @ts-expect-error because 'params' is not a custom query object.
       const { data } = await app.$vsf.$magento.api.currency(params);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};

@@ -1,6 +1,6 @@
-import { ComputedRef, Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '~/composables/types';
-import { Currency } from '~/modules/GraphQL/types';
+import type { ComputedRef, Ref } from '@nuxtjs/composition-api';
+import type { ComposableFunctionArgs, CustomQuery } from '~/composables/types';
+import type { Currency } from '~/modules/GraphQL/types';
 
 /**
  * The {@link useCurrency} error object. The properties values' are the errors
@@ -15,7 +15,7 @@ export interface UseCurrencyErrors {
 }
 
 /** The params received by {@link useCurrency}'s `load` method. */
-export type UseCurrencyLoadParams = ComposableFunctionArgs<{}>;
+export type UseCurrencyLoadParams = ComposableFunctionArgs<CustomQuery>;
 
 /** The params received by {@link useCurrency}'s `change` method. */
 export type UseCurrencyChangeParams = ComposableFunctionArgs<{ id: string }>;
