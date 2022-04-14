@@ -156,7 +156,6 @@ export default {
   "Show on page": "Auf Seite anzeigen",
   "Sign in": "Einloggen",
   "Sign Up for Newsletter": "Anmeldung für Newsletter",
-  "Size guide": "Größentabelle",
   "Sort by": "Sortieren nach",
   "Sort: Default": "Standard",
   "Sort: Name A-Z": "Benennen Sie A-Z",
