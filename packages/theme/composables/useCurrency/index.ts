@@ -2,12 +2,13 @@ import { ref, computed, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
 import type {
-  UseCurrencyInterface,
   UseCurrencyErrors,
+  UseCurrencyInterface,
   UseCurrencyLoadParams,
   UseCurrencyChangeParams,
 } from './useCurrency';
 
+/** The `useCurrency()` composable allows loading and changing the currency. */
 export function useCurrency(): UseCurrencyInterface {
   const { app } = useContext();
   const loading = ref(false);
@@ -22,6 +23,7 @@ export function useCurrency(): UseCurrencyInterface {
     Logger.debug('useCurrency/load');
 
     try {
+      // @ts-expect-error because 'params' is not a custom query object.
       const { data } = await app.$vsf.$magento.api.currency(params);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
