@@ -17,7 +17,7 @@ export * from './useExternalCheckout';
 export * from './useWishlist';
 export { default as useUser } from './useUser';
 export { default as useGuestUser } from './useGuestUser';
-export { default as useForgotPassword } from './useForgotPassword';
+export * from './useForgotPassword';
 export * from './useCategory';
 export { default as useFacet } from './useFacet';
 export * from './useCart';

@@ -1,32 +1,44 @@
 import { Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
-export type UseForgotPasswordResults = {
-  resetPasswordResult: any,
-  setNewPasswordResult: any
-};
+/** Represents the result of a password change or reset operation */
+export interface UseForgotPasswordResults {
+  resetPasswordResult: any, // TODO: Add types
+  setNewPasswordResult: any // TODO: Add types
+}
 
+/** Errors returned by the {@link useForgotPassword} composable */
 export interface UseForgotPasswordErrors {
   request: Error;
   setNew: Error;
 }
 
-export interface ResetPasswordParams {
+/** Params used to request a password reset email */
+export interface UseForgotPasswordResetParams {
   email: string;
   recaptchaToken?: string;
 }
 
-export interface SetNewPasswordParams {
+/** Params used to set a new password to a user */
+export interface UseForgotPasswordSetNewParams {
   tokenValue: string;
   newPassword: string;
   email: string;
   recaptchaToken?: string;
 }
 
-export interface UseForgotPassword {
+/**
+ * Represents the data and methods returned by the {@link useForgotPassword} composable
+ */
+export interface UseForgotPasswordInterface {
+  /** Returns the result of the reset operation */
   result: Ref<UseForgotPasswordResults>;
+  /** Returns the loading state */
   loading: Ref<boolean>;
+  /** Returns possible errors */
   error: Ref<UseForgotPasswordErrors>;
-  setNew(params: ComposableFunctionArgs<SetNewPasswordParams>): Promise<void>;
-  request(params: ComposableFunctionArgs<ResetPasswordParams>): Promise<void>;
+  /** Sets the new password fot the user */
+  setNew (params: ComposableFunctionArgs<UseForgotPasswordSetNewParams>): Promise<void>;
+  /** Requests a new password reset email to be sent to user */
+  request(params: ComposableFunctionArgs<UseForgotPasswordResetParams>): Promise<void>;
 }

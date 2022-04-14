@@ -8,12 +8,17 @@ import { Logger } from '~/helpers/logger';
 import {
   UseForgotPasswordResults,
   UseForgotPasswordErrors,
-  ResetPasswordParams,
-  SetNewPasswordParams,
-  UseForgotPassword,
+  UseForgotPasswordResetParams,
+  UseForgotPasswordSetNewParams,
+  UseForgotPasswordInterface,
 } from '~/composables/useForgotPassword/useForgotPassword';
 
-export const useForgotPassword = (): UseForgotPassword => {
+/**
+ * The `useForgotPassword` composable alows to request a password reset email and to set a new password to a user
+ *
+ * Se the {@link UseForgotPasswordInterface} page for more information
+ */
+export function useForgotPassword(): UseForgotPasswordInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const result: Ref<UseForgotPasswordResults> = ref({
@@ -26,7 +31,7 @@ export const useForgotPassword = (): UseForgotPassword => {
   });
 
   // eslint-disable-next-line @typescript-eslint/require-await,consistent-return
-  const resetPassword = async (resetPasswordParams: ComposableFunctionArgs<ResetPasswordParams>) => {
+  const resetPassword = async (resetPasswordParams: ComposableFunctionArgs<UseForgotPasswordResetParams>) => {
     Logger.debug('useForgotPassword/request', resetPasswordParams.email);
 
     try {
@@ -44,7 +49,7 @@ export const useForgotPassword = (): UseForgotPassword => {
     }
   };
 
-  const setNewPassword = async (setNewPasswordParams: ComposableFunctionArgs<SetNewPasswordParams>) => {
+  const setNewPassword = async (setNewPasswordParams: ComposableFunctionArgs<UseForgotPasswordSetNewParams>) => {
     Logger.debug('useForgotPassword/setNew', setNewPasswordParams);
 
     try {
@@ -75,6 +80,7 @@ export const useForgotPassword = (): UseForgotPassword => {
     result,
     error,
   };
-};
+}
 
+export * from './useForgotPassword';
 export default useForgotPassword;
