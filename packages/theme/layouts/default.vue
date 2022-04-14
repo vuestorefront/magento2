@@ -25,7 +25,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { useUiState, useUser } from '~/composables';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
-import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import IconSprite from '~/components/General/IconSprite.vue';
@@ -41,29 +40,20 @@ export default defineComponent({
     BottomNavigation,
     IconSprite,
     TopBar,
-    AppFooter: () =>
-      import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
-    CartSidebar: () =>
-      import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
-    WishlistSidebar: () =>
-      import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
-    LoginModal: () =>
-      import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
-    Notification: () =>
-      import(/* webpackPrefetch: true */ '~/components/Notification'),
-  },
-  head: {
-    link: [{ rel: 'stylesheet', href: '/_nuxt/fonts.css' }],
+    AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
+    CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
+    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/components/WishlistSidebar.vue'),
+    LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
+    Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification'),
   },
 
   setup() {
     const route = useRoute();
     const { load: loadUser } = useUser();
-    const { loadConfiguration } = useMagentoConfiguration();
     const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
 
     useAsync(async () => {
-      await Promise.all([loadConfiguration(), loadUser()]);
+      await loadUser();
     });
 
     return {
@@ -72,6 +62,9 @@ export default defineComponent({
       isLoginModalOpen,
       route,
     };
+  },
+  head: {
+    link: [{ rel: 'stylesheet', href: '/_nuxt/fonts.css' }],
   },
 });
 </script>
