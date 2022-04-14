@@ -1,23 +1,27 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import addConfigurableProductsToCart from './addConfigurableProductsToCart';
+import type { Context } from '../../types/context';
 import {
-  AddConfigurableProductsToCartMutationVariables,
-  AddConfigurableProductsToCartMutation,
-  AddConfigurableProductsToCartInput,
+  AddConfigurableProductsToCartInput, AddConfigurableProductsToCartMutation, AddConfigurableProductsToCartMutationVariables,
 } from '../../types/GraphQL';
-import { Context } from '../../types/context';
+import addConfigurableProductsToCartMutation from './addConfigurableProductsToCart';
 
-export default async (
+/**
+ * Adds a set of configurable products to a specified cart
+ * @param context VSF Context
+ * @param input ID of the cart and products to be added
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
+export default async function addConfigurableProductsToCart(
   context: Context,
   input: AddConfigurableProductsToCartInput,
   customQuery: CustomQuery = { addConfigurableProductsToCart: 'addConfigurableProductsToCart' },
-): Promise<FetchResult<AddConfigurableProductsToCartMutation>> => {
+): Promise<FetchResult<AddConfigurableProductsToCartMutation>> {
   const { addConfigurableProductsToCart: addConfigurableProductsToCartGQL } = context.extendQuery(
     customQuery,
     {
       addConfigurableProductsToCart: {
-        query: addConfigurableProductsToCart,
+        query: addConfigurableProductsToCartMutation,
         variables: { input },
       },
     },
@@ -26,4 +30,4 @@ export default async (
     mutation: addConfigurableProductsToCartGQL.query,
     variables: addConfigurableProductsToCartGQL.variables,
   });
-};
+}

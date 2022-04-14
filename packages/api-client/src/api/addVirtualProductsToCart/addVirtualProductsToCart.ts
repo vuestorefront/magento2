@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation that adds virtual products to shopping cart */
 export default gql`
   mutation addVirtualProductsToCart($input: AddVirtualProductsToCartInput) {
     addVirtualProductsToCart(input: $input) {

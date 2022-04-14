@@ -12,6 +12,7 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
+    "noImplicitThis": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
@@ -24,6 +25,7 @@
     },
     "types": [
       "node",
+      "@pinia/nuxt",
       "@nuxt/types",
       "cookie-universal-nuxt",
       "nuxt-i18n",
