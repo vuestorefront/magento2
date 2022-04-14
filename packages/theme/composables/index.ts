@@ -13,7 +13,7 @@ export { default as useImage } from './useImage';
 export * from './useConfig';
 export { default as useStore } from './useStore';
 export { default as useCurrency } from './useCurrency';
-export { default as useExternalCheckout } from './useExternalCheckout';
+export * from './useExternalCheckout';
 export * from './useWishlist';
 export { default as useUser } from './useUser';
 export { default as useGuestUser } from './useGuestUser';
