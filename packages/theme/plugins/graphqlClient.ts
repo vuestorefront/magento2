@@ -21,7 +21,7 @@ import type { Plugin, Context as NuxtContext } from '@nuxt/types';
 const getHeaderProxy = (ctx: NuxtContext) => {
   const { getCustomerToken, getStore, getCurrency } = ctx.app.$vsf.$magento.config.state;
   const proxyHandler : ProxyHandler<any> = {
-    get(_, key) {
+    get(_target, key, _receiver) {
       return {
         Authorization: `Bearer ${getCustomerToken()}`,
         store: getStore(),
@@ -45,7 +45,7 @@ const getHeaderProxy = (ctx: NuxtContext) => {
     },
     getOwnPropertyDescriptor(target, key) {
       return {
-        value: this.get(target, key),
+        value: this.get(target, key, null),
         enumerable: true,
         configurable: true,
       };

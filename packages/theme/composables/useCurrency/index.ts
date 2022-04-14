@@ -28,7 +28,7 @@ export function useCurrency(): UseCurrencyInterface {
     Logger.debug('useCurrency/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.currency(params);
+      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
       });
@@ -42,8 +42,6 @@ export function useCurrency(): UseCurrencyInterface {
 
   const change = (params: UseCurrencyChangeParams) => {
     error.value.change = null;
-    loading.value = true;
-
     Logger.debug('useCurrency/change');
 
     try {
@@ -52,8 +50,6 @@ export function useCurrency(): UseCurrencyInterface {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
   };
 

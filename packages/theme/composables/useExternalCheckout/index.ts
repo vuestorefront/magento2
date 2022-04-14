@@ -1,9 +1,14 @@
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
+import { UseExternalCheckoutInterface } from '~/composables/useExternalCheckout/useExternalCheckout';
 
-import { ref, useContext } from '@nuxtjs/composition-api';
-import { UseExternalCheckout } from '~/composables/useExternalCheckout/useExternalCheckout';
-
-export const useExternalCheckout = (): UseExternalCheckout => {
+/**
+ * The `useExternalCheckout` composable is responsible for
+ * redirecting checkout process and depends on {@link https://github.com/Vendic/magento2-external-checkout | Magento 2 External Checkout for Vue Storefront} repository.
+ *
+ * See the {@link UseExternalCheckoutInterface} page for more information.
+ */
+export function useExternalCheckout(): UseExternalCheckoutInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref(null);
@@ -45,9 +50,10 @@ export const useExternalCheckout = (): UseExternalCheckout => {
 
   return {
     initializeCheckout,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
+export * from './useExternalCheckout';
 export default useExternalCheckout;

@@ -1,5 +1,5 @@
 import type { ComputedRef, DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import type { ComposableFunctionArgs, CustomQuery } from '~/composables/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
 import type { Currency } from '~/modules/GraphQL/types';
 
 /**
@@ -15,10 +15,10 @@ export interface UseCurrencyErrors {
 }
 
 /** The params received by {@link useCurrency}'s `load` method. */
-export type UseCurrencyLoadParams = ComposableFunctionArgs<CustomQuery>;
+export type UseCurrencyLoadParams = ComposableFunctionArgs<{}>;
 
 /** The params received by {@link useCurrency}'s `change` method. */
-export type UseCurrencyChangeParams = ComposableFunctionArgs<{ id: string }>;
+export type UseCurrencyChangeParams = { id: string };
 
 /** The interface provided by {@link useCurrency} composable. */
 export interface UseCurrencyInterface {
