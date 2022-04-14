@@ -32,8 +32,6 @@ const useCurrency = (): UseCurrency => {
 
   const change = (params: ComposableFunctionArgs<{ id: string }>) => {
     error.value.change = null;
-    loading.value = true;
-
     Logger.debug('useCurrency/change');
 
     try {
@@ -42,8 +40,6 @@ const useCurrency = (): UseCurrency => {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
   };
 
