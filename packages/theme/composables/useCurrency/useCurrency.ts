@@ -7,10 +7,10 @@ import type { Currency } from '~/modules/GraphQL/types';
  * thrown by its methods.
  */
 export interface UseCurrencyErrors {
-  /** Error when loading the currency, otherwise is `null`. */
+  /** Error when loading the currency fails, otherwise is `null`. */
   load: Error | null;
 
-  /** Error when changing the currency, otherwise is `null`. */
+  /** Error when changing the currency fails, otherwise is `null`. */
   change: Error | null;
 }
 
@@ -32,8 +32,9 @@ export interface UseCurrencyInterface {
   error: DeepReadonly<Ref<UseCurrencyErrors>>;
 
   /**
-   * An object from configuration store that contains currency information, e.g.
-   * its symbol, code and how it should be displayed.
+   * The currency information object that contains its symbol, code and how it
+   * should be displayed. It's a computed ref from currency state in the
+   * configuration store.
    */
   currency: ComputedRef<Currency>;
 
