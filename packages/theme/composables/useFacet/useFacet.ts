@@ -23,8 +23,8 @@ export type GetProductSearchParams = {
   configurations?: string[];
 };
 
-export interface FacetSearchResult<S> {
-  data: S;
+export interface FacetSearchResult<DATA> {
+  data: DATA;
   input: AgnosticFacetSearchParams;
 }
 
