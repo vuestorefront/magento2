@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Query that fetches store configuration from the API */
 export default gql`
   query storeConfig {
     storeConfig {

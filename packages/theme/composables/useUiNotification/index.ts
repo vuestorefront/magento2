@@ -24,6 +24,7 @@ const timeToLive = 3000;
 
 const useUiNotification = () => {
   const { app } = useContext();
+  // @ts-ignore
   const cookieMessage = app.$vsf.$magento.config.state.getMessage<UiNotification>();
 
   const send = (notification: UiNotification) => {
@@ -34,6 +35,7 @@ const useUiNotification = () => {
 
       if (index !== -1) state.notifications.splice(index, 1);
 
+      // @ts-ignore
       app.$vsf.$magento.config.state.removeMessage();
     };
 
@@ -57,7 +59,10 @@ const useUiNotification = () => {
   };
 
   if (cookieMessage) {
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     send(cookieMessage);
+    // @ts-ignore
     app.$vsf.$magento.config.state.removeMessage();
   }
 

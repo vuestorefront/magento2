@@ -347,10 +347,6 @@ export default defineComponent({
     SvgImage,
     UpsellProducts,
   },
-  middleware: cacheControl({
-    'max-age': 60,
-    'stale-when-revalidate': 5,
-  }),
   transition: 'fade',
   setup() {
     const { addTags } = useCache();

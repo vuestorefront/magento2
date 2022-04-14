@@ -1,18 +1,23 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CustomerCartQuery } from '../../types/GraphQL';
-import customerCart from './customerCart';
-import { Context } from '../../types/context';
+import type { CustomQuery } from '@vue-storefront/core';
+import type { Context } from '../../types/context';
+import type { CustomerCartQuery } from '../../types/GraphQL';
+import customerCartQuery from './customerCart';
 
-export default async (
+/**
+ * Fetches the cart of the current logged in user
+ * @param context VSF context
+ * @param customQuery custom GraphQL query that extends the default one
+ */
+export default async function customerCart(
   context: Context,
   customQuery: CustomQuery = { customerCart: 'customerCart' },
-): Promise<ApolloQueryResult<CustomerCartQuery>> => {
+): Promise<ApolloQueryResult<CustomerCartQuery>> {
   const { customerCart: customerCartGQL } = context.extendQuery(
     customQuery,
     {
       customerCart: {
-        query: customerCart,
+        query: customerCartQuery,
       },
     },
   );
@@ -20,4 +25,4 @@ export default async (
   return context.client.query<CustomerCartQuery>({
     query: customerCartGQL.query,
   });
-};
+}
