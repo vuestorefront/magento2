@@ -51,21 +51,6 @@ This type contains information about the Magento's Store Configuration which is 
 
 Plugin `plugins/storeConfigPlugin.ts` is responsible for initial population of the Store Config data based on query in `plugins/query/StoreConfig.gql.ts`. To modify the initial Store Configuration state simply adjust the query to your needs.
 
-```plain
-query storeConfig {
-    storeConfig {
-        store_code,
-        default_title,
-        store_name,
-        default_display_currency_code,
-        locale,
-        header_logo_src,
-        logo_width,
-        logo_height,
-        logo_alt
-    }
-  }
-```
 ## Multistore and localization
 
 Each Magento Store View need to have corresponding locale configuration object in `i18n.locales` array in `nuxt.config.js`.

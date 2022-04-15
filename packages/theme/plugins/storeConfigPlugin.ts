@@ -7,7 +7,6 @@ const storeConfigPlugin: Plugin = async ({ $pinia, $graphql }) => {
   const configData = await $graphql.query.request(StoreConfigGql);
   $pinia.use(({ store }: PiniaPluginContext) => {
     if (store.$id !== 'magentoConfig') return;
-    // eslint-disable-next-line no-prototype-builtins
     const storeConfig = ref(configData.storeConfig);
 
     // eslint-disable-next-line no-prototype-builtins
