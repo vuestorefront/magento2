@@ -87,7 +87,7 @@ export declare type GetProductSearchParams = {
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
 export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
-export declare type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
+export declare type Category = CategoryTree;
 export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> { __typename: string }
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];

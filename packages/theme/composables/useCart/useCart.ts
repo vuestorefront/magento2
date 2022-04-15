@@ -1,4 +1,3 @@
-import { Context } from '@nuxt/types';
 import { ComputedRef, DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
@@ -55,7 +54,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   /** Loads the current cart */
   load(params: ComposableFunctionArgs<{ realCart?: boolean }>): Promise<void>;
   /** Updates the global application state with the current total quantity of the cart */
-  loadTotalQty(context: Context['app']): Promise<void>;
+  loadTotalQty(): Promise<void>;
   /** Takes in a `product` and its `quantity` and adds it to the cart */
   addItem(
     params: UseCartAddItemParams<PRODUCT>
