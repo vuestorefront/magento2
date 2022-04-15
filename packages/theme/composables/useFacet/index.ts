@@ -1,10 +1,11 @@
-import {
-  readonly, Ref, ref, useContext,
-} from '@nuxtjs/composition-api';
-import { AgnosticFacetSearchParams, ProductsSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
+import { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import {
-  FacetSearchResult, UseFacetInterface, UseFacetErrors, GetProductSearchParams,
+  FacetSearchResult,
+  GetProductSearchParams,
+  UseFacetInterface,
+  UseFacetErrors,
 } from './useFacet';
 
 const availableSortingOptions = [
@@ -23,7 +24,8 @@ const availableSortingOptions = [
   {
     label: 'Sort: Price from low to high',
     value: 'price_ASC',
-  }, {
+  },
+  {
     label: 'Sort: Price from high to low',
     value: 'price_DESC',
   },
@@ -35,8 +37,10 @@ const constructFilterObject = (inputFilters: Object) => {
   Object.keys(inputFilters).forEach((key) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str))).sort((a, b) => a - b);
+      const flatPrices = inputFilters[key]
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        .flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str)))
+        .sort((a, b) => a - b);
 
       [price.from] = flatPrices;
       price.to = flatPrices[flatPrices.length - 1];
@@ -60,9 +64,9 @@ const constructSortObject = (sortData: string) => {
 
 export const useFacet = (): UseFacetInterface => {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const result: Ref<FacetSearchResult<any>> = ref({ data: null, input: null });
-  const error: Ref<UseFacetErrors> = ref({
+  const loading = ref(false);
+  const result = ref<FacetSearchResult<any>>({ data: null, input: null });
+  const error = ref<UseFacetErrors>({
     search: null,
   });
 
@@ -73,37 +77,28 @@ export const useFacet = (): UseFacetInterface => {
     try {
       loading.value = true;
 
-      const itemsPerPage = (params.itemsPerPage) ? params.itemsPerPage : 20;
-      const inputFilters = (params.filters) ? params.filters : {};
+      const itemsPerPage = params.itemsPerPage ? params.itemsPerPage : 20;
+      const inputFilters = params.filters ? params.filters : {};
 
-      const categoryId = (params.categoryId && !inputFilters.category_id) ? {
-        category_uid: {
-          ...(Array.isArray(params.categoryId)
-            ? { in: params.categoryId }
-            : { eq: params.categoryId }),
-        },
-      } : {};
+      const categoryId = params.categoryId && !inputFilters.category_id
+        ? {
+          category_uid: {
+            ...(Array.isArray(params.categoryId) ? { in: params.categoryId } : { eq: params.categoryId }),
+          },
+        }
+        : {};
 
-      const productParams: ProductsSearchParams = {
+      const productSearchParams: GetProductSearchParams = {
+        pageSize: itemsPerPage,
+        search: params.term ? params.term : '',
         filter: {
           ...categoryId,
           ...constructFilterObject({
             ...inputFilters,
           }),
         },
-        perPage: itemsPerPage,
-        offset: (params.page - 1) * itemsPerPage,
-        page: params.page,
-        search: (params.term) ? params.term : '',
         sort: constructSortObject(params.sort || ''),
-      };
-
-      const productSearchParams: GetProductSearchParams = {
-        pageSize: productParams.perPage,
-        search: productParams.search,
-        filter: productParams.filter,
-        sort: productParams.sort,
-        currentPage: productParams.page,
+        currentPage: params.page,
       };
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
