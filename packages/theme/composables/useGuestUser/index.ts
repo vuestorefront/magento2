@@ -1,10 +1,15 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
-import { AttachToCartParams, UseGuestUser, UseGuestUserErrors } from '~/composables/useGuestUser/useGuestUser';
+import { AttachToCartParams, UseGuestUserInterface, UseGuestUserErrors } from '~/composables/useGuestUser/useGuestUser';
 import { attachToCartCommand } from '~/composables/useGuestUser/commands/attachToCartCommand';
 
-export const useGuestUser = <PARAMS extends AttachToCartParams>(): UseGuestUser<PARAMS> => {
+/**
+ * The `useGuestUser` composable allows to attach a guest cart to a user
+ *
+ * See {@link UseGuestUserInterface} page for more information
+ */
+export function useGuestUser<PARAMS extends AttachToCartParams>(): UseGuestUserInterface<PARAMS> {
   const loading = ref(false);
   const error = ref<UseGuestUserErrors>({ attachToCart: null });
   const { app } = useContext();
@@ -31,6 +36,7 @@ export const useGuestUser = <PARAMS extends AttachToCartParams>(): UseGuestUser<
     loading,
     error,
   };
-};
+}
 
+export * from './useGuestUser';
 export default useGuestUser;

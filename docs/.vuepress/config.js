@@ -106,6 +106,7 @@ module.exports = {
           ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
+          ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
         ],
       },
       {
@@ -135,6 +136,7 @@ module.exports = {
           ['/api-reference/magento-api.updatecartitems', 'updateCartItems'],
           ['/api-reference/magento-api.resetpassword', 'resetPassword'],
           ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
+          ['/api-reference/magento-api.setguestemailoncart', 'setGuestEmailOnCart'],
         ],
       },
       {
