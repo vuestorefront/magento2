@@ -9,7 +9,7 @@
 export { default as useUiHelpers } from './useUiHelpers';
 export { default as useUiNotification } from './useUiNotification';
 export { default as useUiState } from './useUiState';
-export { default as useImage } from './useImage';
+export * from './useImage';
 export * from './useConfig';
 export { default as useStore } from './useStore';
 export * from './useCurrency';
