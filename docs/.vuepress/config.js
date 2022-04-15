@@ -103,7 +103,8 @@ module.exports = {
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
           ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
-        ]
+          ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
+        ],
       },
       {
         title: 'API methods',
@@ -129,6 +130,8 @@ module.exports = {
           ['/api-reference/magento-api.customercart', 'customerCart'],
           ['/api-reference/magento-api.removeitemfromcart', 'removeItemFromCart'],
           ['/api-reference/magento-api.updatecartitems', 'updateCartItems'],
+          ['/api-reference/magento-api.resetpassword', 'resetPassword'],
+          ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
         ],
       },
       {
