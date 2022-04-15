@@ -1,12 +1,8 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
-import { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
-import {
-  FacetSearchResult,
-  GetProductSearchParams,
-  UseFacetInterface,
-  UseFacetErrors,
-} from './useFacet';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import type { UseFacetInterface, UseFacetErrors, FacetSearchResult } from './useFacet';
+import type { GetProductSearchParams } from './Search';
 
 const availableSortingOptions = [
   {
@@ -101,13 +97,12 @@ export const useFacet = (): UseFacetInterface => {
         currentPage: params.page,
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const { data } = await app.context.$vsf.$magento.api.products(productSearchParams, params?.customQuery || { products: 'products' });
 
       Logger.debug('[Result]:', { data });
 
       result.value.data = {
-        items: data?.products?.items || [],
+        items: data?.products?.items ?? [],
         total: data?.products?.total_count,
         availableFilters: data?.products?.aggregations,
         category: { id: params.categoryId },
@@ -126,8 +121,8 @@ export const useFacet = (): UseFacetInterface => {
 
   return {
     search,
+    result,
     error: readonly(error),
-    result: readonly(result),
     loading: readonly(loading),
   };
 };

@@ -1,4 +1,4 @@
-import { SearchData } from './useFacet';
+import type { SearchData } from './Search';
 
 const buildBreadcrumbsList = (rootCat, bc) => {
   const newBc = [...bc, {

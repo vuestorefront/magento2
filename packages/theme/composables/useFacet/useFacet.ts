@@ -1,27 +1,5 @@
-import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import {
-  Category, Product, Filter, AgnosticFacetSearchParams, ComposableFunctionArgs,
-} from '~/composables/types';
-import { ProductAttributeFilterInput, ProductAttributeSortInput } from '~/modules/GraphQL/types';
-
-export interface FacetResultsData {
-  products: Product[];
-  categories: Category[];
-  facets: Record<string, Filter>;
-  total: number;
-  perPageOptions: number[];
-  itemsPerPage: number;
-  availableFilters: Record<string, any>;
-}
-
-export type GetProductSearchParams = {
-  pageSize?: number;
-  currentPage?: number;
-  search?: string;
-  filter?: ProductAttributeFilterInput;
-  sort?: ProductAttributeSortInput;
-  configurations?: string[];
-};
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
 
 export interface FacetSearchResult<DATA> {
   data: DATA;
@@ -29,13 +7,11 @@ export interface FacetSearchResult<DATA> {
 }
 
 export interface UseFacetErrors {
-  search: Error;
+  search: Error | null;
 }
 
-export type SearchData = FacetSearchResult<FacetResultsData>;
-
 export interface UseFacetInterface {
-  result: DeepReadonly<Ref<FacetSearchResult<any>>>;
+  result: Ref<FacetSearchResult<any>>;
   loading: Readonly<Ref<boolean>>;
   search: (params?: ComposableFunctionArgs<AgnosticFacetSearchParams>) => Promise<void>;
   error: DeepReadonly<Ref<UseFacetErrors>>;
