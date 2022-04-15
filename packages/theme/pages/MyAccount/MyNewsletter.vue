@@ -50,7 +50,7 @@
 import {
   SfTabs, SfCheckbox, SfButton, SfLink,
 } from '@storefront-ui/vue';
-import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { useUser } from '~/composables';
 
 export default defineComponent({
@@ -64,16 +64,11 @@ export default defineComponent({
   setup() {
     const {
       user,
-      load,
       updateUser,
       isAuthenticated,
     } = useUser();
 
     const isSubscribed = ref(!!user.value.is_subscribed);
-
-    useFetch(async () => {
-      await load();
-    });
 
     const saveForm = async () => {
       if (isAuthenticated.value && !!user.value.email) {

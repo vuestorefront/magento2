@@ -15,7 +15,7 @@ import { useCustomerStore } from '~/stores/customer';
 import { UseCartErrors, UseCartInterface } from './useCart';
 
 /**
- * The `useCart` composable provides functions and refs to deal with a usesr's cart from Magento API.
+ * The `useCart` composable provides functions and refs to deal with a user's cart from Magento API.
  *
  * See the {@link UseCartInterface} page for more information.
  */
@@ -38,7 +38,7 @@ PRODUCT
   const { app } = useContext();
   const context = app.$vsf;
   const customerStore = useCustomerStore();
-  const cart = computed<CART>(() => customerStore.cart);
+  const cart = computed(() => customerStore.cart as CART);
   const apiState = context.$magento.config.state;
 
   /**
