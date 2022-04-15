@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import {
   ComposableFunctionArgs,
 } from '~/composables/types';
@@ -48,8 +48,8 @@ export function useGetShippingMethods(): UseGetShippingMethodsInterface<Availabl
 
   return {
     load,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
 }
 

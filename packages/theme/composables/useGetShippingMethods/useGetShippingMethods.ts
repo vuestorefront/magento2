@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import {
   ComposableFunctionArgs,
 } from '~/composables/types';
@@ -13,7 +13,7 @@ export interface UseGetShippingMethodsInterface<SHIPPING_METHOD> {
   /** Loads the shipping methods for a cart */
   load (params: ComposableFunctionArgs<{ cartId: string }>): Promise<SHIPPING_METHOD[]>;
   /** Possible errors when loading shipping methods */
-  error: Ref<UseGetShippingMethodsErrors>;
+  error: DeepReadonly<Ref<UseGetShippingMethodsErrors>>;
   /** Indicates wheter the shipping methods are already being loaded */
-  loading: Ref<boolean>;
+  loading: DeepReadonly<Ref<boolean>>;
 }
