@@ -4,7 +4,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { StoreConfig } from '~/modules/GraphQL/types';
-import { storeConfigGetters } from '~/getters';
 import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
 import { useConfigStore } from '~/stores/config';
 
@@ -40,10 +39,10 @@ const useStore: UseStore = (): UseStoreInterface => {
 
     try {
       loading.value = true;
-      app.$vsf.$magento.config.state.setStore(storeConfigGetters.getCode(store));
-      app.$vsf.$magento.config.state.setCurrency(storeConfigGetters.getCurrency(store));
-      app.$vsf.$magento.config.state.setLocale(storeConfigGetters.getCode(store));
-      const newStoreUrl = app.switchLocalePath(storeConfigGetters.getCode(store));
+      app.$vsf.$magento.config.state.setStore(store.store_code);
+      app.$vsf.$magento.config.state.setCurrency(store.default_display_currency_code);
+      app.$vsf.$magento.config.state.setLocale(store.store_code);
+      const newStoreUrl = app.switchLocalePath(store.store_code);
       window.location.replace(newStoreUrl);
     } catch (err) {
       error.value.change = err;

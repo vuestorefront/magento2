@@ -213,6 +213,7 @@ export default () => {
       '~/plugins/fcPlugin',
       '~/plugins/dompurify',
       '~/plugins/graphqlClient',
+      '~/plugins/storeConfigPlugin',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
