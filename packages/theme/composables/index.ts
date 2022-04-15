@@ -12,7 +12,7 @@ export { default as useUiState } from './useUiState';
 export { default as useImage } from './useImage';
 export * from './useConfig';
 export { default as useStore } from './useStore';
-export { default as useCurrency } from './useCurrency';
+export * from './useCurrency';
 export * from './useExternalCheckout';
 export * from './useWishlist';
 export { default as useUser } from './useUser';
