@@ -56,8 +56,7 @@ import {
 import debounce from 'lodash.debounce';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
 import SvgImage from '~/components/General/SvgImage.vue';
-import { useFacet, useCategorySearch } from '~/composables';
-import { categoryGetters } from '~/getters';
+import { useFacet } from '~/composables';
 
 export default defineComponent({
   name: 'SearchBar',
@@ -88,11 +87,6 @@ export default defineComponent({
       result: searchResult,
       search: productsSearch,
     } = useFacet();
-
-    const {
-      result: categories,
-      search: categoriesSearch,
-    } = useCategorySearch();
 
     const showSearch = () => {
       if (!isSearchOpen.value) {
@@ -142,18 +136,13 @@ export default defineComponent({
       term.value = !paramValue.target ? paramValue : paramValue.target.value;
       if (term.value.length < minTermLen) return;
 
-      await Promise.all([
-        productsSearch({
-          itemsPerPage,
-          term: term.value,
-        }),
-        categoriesSearch({ filters: { name: { match: `${term.value}` } } }),
-      ]);
+      await productsSearch({
+        itemsPerPage,
+        term: term.value,
+      });
 
       result.value = {
         products: searchResult.value?.data?.items,
-        categories: (categories?.value ?? [])
-          .map((element) => categoryGetters.getCategoryTree(element)),
       };
 
       emit('SearchBar:result', result.value);
