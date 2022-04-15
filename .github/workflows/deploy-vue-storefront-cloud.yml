@@ -75,6 +75,7 @@ jobs:
     secrets:
       cloud_username: ${{ secrets.CLOUD_USERNAME }}
       cloud_password: ${{ secrets.CLOUD_PASSWORD }}
+      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
 
   deploy-develop:
     uses: ./.github/workflows/deployment-template.yml
@@ -87,6 +88,7 @@ jobs:
     secrets:
       cloud_username: ${{ secrets.CLOUD_USERNAME }}
       cloud_password: ${{ secrets.CLOUD_PASSWORD }}
+      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
 
   deploy-release:
     uses: ./.github/workflows/deployment-template.yml
@@ -99,6 +101,7 @@ jobs:
     secrets:
       cloud_username: ${{ secrets.CLOUD_USERNAME }}
       cloud_password: ${{ secrets.CLOUD_PASSWORD }}
+      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
 
   deploy-enterprise:
     uses: ./.github/workflows/deployment-template.yml
@@ -111,4 +114,4 @@ jobs:
     secrets:
       cloud_username: ${{ secrets.CLOUD_USERNAME }}
       cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-
+      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
