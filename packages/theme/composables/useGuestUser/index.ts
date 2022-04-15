@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import { AttachToCartParams, UseGuestUserInterface, UseGuestUserErrors } from '~/composables/useGuestUser/useGuestUser';
@@ -33,8 +33,8 @@ export function useGuestUser<PARAMS extends AttachToCartParams>(): UseGuestUserI
 
   return {
     attachToCart,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
 }
 
