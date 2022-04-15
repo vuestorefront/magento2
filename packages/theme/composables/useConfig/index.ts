@@ -1,11 +1,16 @@
 import {
-  computed, ref, useContext,
+  computed, readonly, ref, useContext,
 } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
-import { UseConfig, UseConfigErrors } from '~/composables/useConfig/useConfig';
+import { UseConfigErrors, UseConfigInterface } from './useConfig';
 
-const useConfig = (): UseConfig => {
+/**
+ * The `useConfig` composable is responsible for interactions with the configuration in your eCommerce.
+ *
+ * See the {@link UseConfigInterface} page for more information.
+ */
+export function useConfig(): UseConfigInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseConfigErrors>({ load: null });
@@ -33,9 +38,10 @@ const useConfig = (): UseConfig => {
 
   return {
     config,
-    loading,
+    loading: readonly(loading),
     load,
   };
-};
+}
 
+export * from './useConfig';
 export default useConfig;

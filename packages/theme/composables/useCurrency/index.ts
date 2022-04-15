@@ -1,24 +1,34 @@
-import { ref, computed, useContext } from '@nuxtjs/composition-api';
+import {
+  ref,
+  computed,
+  readonly,
+  useContext,
+} from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
-import type { UseCurrency, UseCurrencyErrors } from './useCurrency';
-import type { ComposableFunctionArgs, CustomQuery } from '../types';
+import type {
+  UseCurrencyErrors,
+  UseCurrencyInterface,
+  UseCurrencyLoadParams,
+  UseCurrencyChangeParams,
+} from './useCurrency';
 
-const useCurrency = (): UseCurrency => {
+/** The `useCurrency()` composable allows loading and changing the currency. */
+export function useCurrency(): UseCurrencyInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseCurrencyErrors>({ load: null, change: null });
   const configStore = useConfigStore();
   const currency = computed(() => configStore.currency);
 
-  const load = async (params?: ComposableFunctionArgs<CustomQuery>) => {
+  const load = async (params?: UseCurrencyLoadParams) => {
     error.value.load = null;
     loading.value = true;
 
     Logger.debug('useCurrency/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.currency(params);
+      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
       });
@@ -30,10 +40,8 @@ const useCurrency = (): UseCurrency => {
     }
   };
 
-  const change = (params: ComposableFunctionArgs<{ id: string }>) => {
+  const change = (params: UseCurrencyChangeParams) => {
     error.value.change = null;
-    loading.value = true;
-
     Logger.debug('useCurrency/change');
 
     try {
@@ -42,8 +50,6 @@ const useCurrency = (): UseCurrency => {
     } catch (err) {
       Logger.debug('[ERROR] useCurrency/change', err);
       error.value.change = err;
-    } finally {
-      loading.value = false;
     }
   };
 
@@ -51,9 +57,11 @@ const useCurrency = (): UseCurrency => {
     load,
     change,
     currency,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
+
+export * from './useCurrency';
 
 export default useCurrency;

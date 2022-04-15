@@ -1,22 +1,29 @@
-import { ref, computed, useContext } from '@nuxtjs/composition-api';
-import { Logger } from '~/helpers/logger';
-import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
-import { UseCartInterface, UseCartErrors } from '~/composables/useCart/useCart';
-import { useCustomerStore } from '~/stores/customer';
-import { loadCartCommand } from '~/composables/useCart/commands/loadCartCommand';
-import { clearCartCommand } from '~/composables/useCart/commands/clearCartCommand';
-import { loadTotalQtyCommand } from '~/composables/useCart/commands/loadTotalQtyCommand';
+import {
+  computed, readonly, ref, useContext,
+} from '@nuxtjs/composition-api';
 import { addItemCommand } from '~/composables/useCart/commands/addItemCommand';
+import { applyCouponCommand } from '~/composables/useCart/commands/applyCouponCommand';
+import { clearCartCommand } from '~/composables/useCart/commands/clearCartCommand';
+import { loadCartCommand } from '~/composables/useCart/commands/loadCartCommand';
+import { loadTotalQtyCommand } from '~/composables/useCart/commands/loadTotalQtyCommand';
+import { removeCouponCommand } from '~/composables/useCart/commands/removeCouponCommand';
 import { removeItemCommand } from '~/composables/useCart/commands/removeItemCommand';
 import { updateItemQtyCommand } from '~/composables/useCart/commands/updateItemQtyCommand';
-import { applyCouponCommand } from '~/composables/useCart/commands/applyCouponCommand';
-import { removeCouponCommand } from '~/composables/useCart/commands/removeCouponCommand';
+import { Logger } from '~/helpers/logger';
+import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
+import { useCustomerStore } from '~/stores/customer';
+import { UseCartErrors, UseCartInterface } from './useCart';
 
-const useCart = <
-  CART extends Cart,
-  CART_ITEM extends CartItemInterface,
-  PRODUCT extends ProductInterface>
-(): UseCartInterface<CART, CART_ITEM, PRODUCT> => {
+/**
+ * The `useCart` composable provides functions and refs to deal with a user's cart from Magento API.
+ *
+ * See the {@link UseCartInterface} page for more information.
+ */
+export function useCart<CART extends Cart, CART_ITEM extends CartItemInterface, PRODUCT extends ProductInterface>(): UseCartInterface<
+CART,
+CART_ITEM,
+PRODUCT
+> {
   const loading = ref<boolean>(false);
   const error = ref<UseCartErrors>({
     addItem: null,
@@ -31,7 +38,7 @@ const useCart = <
   const { app } = useContext();
   const context = app.$vsf;
   const customerStore = useCustomerStore();
-  const cart = computed<CART>(() => customerStore.cart);
+  const cart = computed(() => customerStore.cart as CART);
   const apiState = context.$magento.config.state;
 
   /**
@@ -55,9 +62,7 @@ const useCart = <
    * @return boolean
    */
   // TODO rework parameter {product} => product, wrapping obj is not necessary
-  const isInCart = ({ product }: { product: PRODUCT }): boolean => !!cart.value?.items?.find(
-    (cartItem) => cartItem?.product?.uid === product.uid,
-  );
+  const isInCart = ({ product }: { product: PRODUCT }): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
 
   const load = async ({ customQuery = {}, realCart = false } = { customQuery: { cart: 'cart' } }): Promise<void> => {
     Logger.debug('useCart.load');
@@ -114,10 +119,7 @@ const useCart = <
     }
   };
 
-  const addItem = async ({
-    product,
-    quantity,
-  }): Promise<void> => {
+  const addItem = async ({ product, quantity }): Promise<void> => {
     Logger.debug('useCart.addItem', { product, quantity });
 
     try {
@@ -127,14 +129,11 @@ const useCart = <
         // TODO if cart is not loaded throw error instead to decouple this method
         await load({ realCart: true });
       }
-      const updatedCart = await addItemCommand.execute(
-        context,
-        {
-          currentCart: cart.value,
-          product,
-          quantity,
-        },
-      );
+      const updatedCart = await addItemCommand.execute(context, {
+        currentCart: cart.value,
+        product,
+        quantity,
+      });
       error.value.addItem = null;
       customerStore.$patch((state) => {
         state.cart = updatedCart;
@@ -152,13 +151,10 @@ const useCart = <
 
     try {
       loading.value = true;
-      const updatedCart = await removeItemCommand.execute(
-        context,
-        {
-          currentCart: cart.value,
-          product,
-        },
-      );
+      const updatedCart = await removeItemCommand.execute(context, {
+        currentCart: cart.value,
+        product,
+      });
 
       error.value.removeItem = null;
       customerStore.$patch((state) => {
@@ -172,11 +168,7 @@ const useCart = <
     }
   };
 
-  const updateItemQty = async ({
-    product,
-    quantity,
-    customQuery = { updateCartItems: 'updateCartItems' },
-  }): Promise<void> => {
+  const updateItemQty = async ({ product, quantity, customQuery = { updateCartItems: 'updateCartItems' } }): Promise<void> => {
     Logger.debug('useCart.updateItemQty', {
       product,
       quantity,
@@ -185,15 +177,12 @@ const useCart = <
     if (quantity && quantity > 0) {
       try {
         loading.value = true;
-        const updatedCart = await updateItemQtyCommand.execute(
-          context,
-          {
-            currentCart: cart.value,
-            product,
-            quantity,
-            customQuery,
-          },
-        );
+        const updatedCart = await updateItemQtyCommand.execute(context, {
+          currentCart: cart.value,
+          product,
+          quantity,
+          customQuery,
+        });
 
         error.value.updateItemQty = null;
         customerStore.$patch((state) => {
@@ -208,22 +197,16 @@ const useCart = <
     }
   };
 
-  const applyCoupon = async ({
-    couponCode,
-    customQuery,
-  }): Promise<void> => {
+  const applyCoupon = async ({ couponCode, customQuery }): Promise<void> => {
     Logger.debug('useCart.applyCoupon');
 
     try {
       loading.value = true;
-      const { updatedCart } = await applyCouponCommand.execute(
-        context,
-        {
-          currentCart: cart.value,
-          couponCode,
-          customQuery,
-        },
-      );
+      const { updatedCart } = await applyCouponCommand.execute(context, {
+        currentCart: cart.value,
+        couponCode,
+        customQuery,
+      });
 
       error.value.applyCoupon = null;
       customerStore.$patch((state) => {
@@ -237,20 +220,15 @@ const useCart = <
     }
   };
 
-  const removeCoupon = async ({
-    customQuery,
-  }): Promise<void> => {
+  const removeCoupon = async ({ customQuery }): Promise<void> => {
     Logger.debug('useCart.removeCoupon');
 
     try {
       loading.value = true;
-      const { updatedCart } = await removeCouponCommand.execute(
-        context,
-        {
-          currentCart: cart.value,
-          customQuery,
-        },
-      );
+      const { updatedCart } = await removeCouponCommand.execute(context, {
+        currentCart: cart.value,
+        customQuery,
+      });
 
       error.value.removeCoupon = null;
       customerStore.$patch((state) => {
@@ -276,9 +254,10 @@ const useCart = <
     updateItemQty,
     applyCoupon,
     removeCoupon,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useCart;
+export * from './useCart';

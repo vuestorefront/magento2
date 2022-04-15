@@ -36,7 +36,7 @@ import {
   confirmed,
 } from 'vee-validate/dist/rules';
 import { SfTabs } from '@storefront-ui/vue';
-import { defineComponent, useFetch } from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import { useUser } from '~/composables';
 import ProfileUpdateForm from '~/components/MyAccount/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/components/MyAccount/PasswordResetForm.vue';
@@ -76,7 +76,6 @@ export default defineComponent({
     const {
       changePassword,
       errors,
-      load,
       loading,
       updateUser,
       error,
@@ -111,9 +110,6 @@ export default defineComponent({
       new: form.value.newPassword,
     }), onComplete, onError);
 
-    useFetch(async () => {
-      await load();
-    });
 
     return {
       loading,

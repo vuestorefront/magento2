@@ -13,7 +13,7 @@ export const useUser = (): UseUser => {
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const isAuthenticated = computed(() => Boolean(customerStore.user?.firstname));
+  const isAuthenticated = computed(() => customerStore.isLoggedIn);
   const errorsFactory = () => ({
     updateUser: null,
     register: null,
@@ -88,9 +88,10 @@ export const useUser = (): UseUser => {
 
       await app.context.$vsf.$magento.api.revokeCustomerToken({ customQuery });
 
-      apiState.setCustomerToken(null);
-      apiState.setCartId(null);
+      apiState.removeCustomerToken();
+      apiState.removeCartId();
       setCart(null);
+      customerStore.setIsLoggedIn(false);
       error.value.logout = null;
       customerStore.user = null;
     } catch (err) {
@@ -133,7 +134,7 @@ export const useUser = (): UseUser => {
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await,no-empty-pattern
-  const login = async ({ user: providedUser, customQuery }) => {
+  const login = async ({ user: providedUser, customQuery }) : Promise<void> => {
     Logger.debug('[Magento] useUser.login', providedUser);
     resetErrorValue();
 
@@ -159,6 +160,7 @@ export const useUser = (): UseUser => {
       if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
         Logger.error('Customer sign-in error'); // todo: handle errors in better way
       }
+      customerStore.setIsLoggedIn(true);
       apiState.setCustomerToken(data.generateCustomerToken.token);
 
       // merge existing cart with customer cart
@@ -185,19 +187,16 @@ export const useUser = (): UseUser => {
       }
 
       error.value.login = null;
-      customerStore.user = load();
     } catch (err) {
       error.value.login = err;
       Logger.error('useUser/login', err);
     } finally {
       loading.value = false;
     }
-
-    return customerStore.user;
   };
 
   // eslint-disable-next-line consistent-return
-  const register = async ({ user: providedUser, customQuery }) => {
+  const register = async ({ user: providedUser, customQuery }) : Promise<void> => {
     Logger.debug('[Magento] useUser.register', providedUser);
     resetErrorValue();
 
@@ -239,9 +238,7 @@ export const useUser = (): UseUser => {
       //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
       // }
       error.value.register = null;
-      customerStore.user = login({ user: { username: email, password }, customQuery: {} });
-
-      return customerStore.user;
+      await login({ user: { username: email, password }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);

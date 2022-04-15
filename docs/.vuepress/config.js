@@ -2,23 +2,24 @@ module.exports = {
   title: 'Vue Storefront 2 for Magento',
   base: '/',
   description: 'Documentation for the Magento connector for Vue Storefront 2',
-  head: [
-    ['link', { rel: 'icon', href: '/favicon.png' }]
-  ],
+  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
   configureWebpack: (config) => {
-    config.module.rules = config.module.rules.map(rule => ({
+    config.module.rules = config.module.rules.map((rule) => ({
       ...rule,
-      use: rule.use && rule.use.map(useRule => ({
-        ...useRule,
-        options: useRule.loader === 'url-loader' ?
-          /**
+      use:
+        rule.use &&
+        rule.use.map((useRule) => ({
+          ...useRule,
+          options:
+            useRule.loader === 'url-loader'
+              ? /**
             Hack for loading images properly.
             ref: https://github.com/vuejs/vue-loader/issues/1612#issuecomment-559366730
            */
-          {  ...useRule.options, esModule: false } :
-          useRule.options
-      }))
-    }))
+                { ...useRule.options, esModule: false }
+              : useRule.options,
+        })),
+    }));
   },
   /**
    * Ref：https://v1.vuepress.vuejs.org/plugin/
@@ -29,11 +30,11 @@ module.exports = {
       '@vuepress/plugin-medium-zoom',
       {
         // This selector excludes images from the "Integrations" page
-        selector: 'main :not(.tile-image) > img'
-      }
+        selector: 'main :not(.tile-image) > img',
+      },
     ],
     '@vuepress/active-header-links',
-    '@vuepress/search'
+    '@vuepress/search',
   ],
   themeConfig: {
     repo: 'https://github.com/vuestorefront/magento2/',
@@ -46,9 +47,9 @@ module.exports = {
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
       { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
-      { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2'},
-      { text: 'Roadmap', link: 'https://docs.vuestorefront.io/magento/guide/roadmap.html'},
-      { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html'}
+      { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2' },
+      { text: 'Roadmap', link: 'https://docs.vuestorefront.io/magento/guide/roadmap.html' },
+      { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html' },
     ],
     sidebar: [
       {
@@ -60,7 +61,7 @@ module.exports = {
           ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
           ['/guide/roadmap', 'Roadmap'],
-        ]
+        ],
       },
       {
         title: 'Creating a Storefront',
@@ -70,8 +71,8 @@ module.exports = {
           ['/guide/configuration', 'Configuration'],
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
-          ['/guide/recaptcha', 'ReCaptcha']
-        ]
+          ['/guide/recaptcha', 'ReCaptcha'],
+        ],
       },
       {
         title: 'Performance',
@@ -79,7 +80,7 @@ module.exports = {
         children: [
           ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
           ['/guide/ssr', 'Server Side Rendering Cache'],
-        ]
+        ],
       },
       {
         title: 'Performance',
@@ -87,7 +88,7 @@ module.exports = {
         children: [
           ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
           ['/guide/ssr', 'Server Side Rendering Cache'],
-        ]
+        ],
       },
       {
         title: 'Composables',
@@ -95,10 +96,17 @@ module.exports = {
           ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
           ['/api-reference/magento-theme.usebilling', 'useBilling()'],
           ['/api-reference/magento-theme.usecontent', 'useContent()'],
+          ['/api-reference/magento-theme.usecart', 'useCart()'],
           ['/api-reference/magento-theme.usecategory', 'useCategory()'],
+          ['/api-reference/magento-theme.usecountrysearch', 'useCountrySearch()'],
+          ['/api-reference/magento-theme.useconfig', 'useConfig()'],
+          ['/api-reference/magento-theme.usecurrency', 'useCurrency()'],
           ['/api-reference/magento-theme.usecategorysearch', 'useCategorySearch()'],
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
-        ]
+          ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
+          ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
+          ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
+        ],
       },
       {
         title: 'API methods',
@@ -108,17 +116,33 @@ module.exports = {
           ['/api-reference/magento-api.categorylist', 'categoryList'],
           ['/api-reference/magento-api.categorysearch', 'categorySearch'],
           ['/api-reference/magento-api.createcustomeraddress', 'createCustomerAddress'],
+          ['/api-reference/magento-api.currency', 'currency'],
           ['/api-reference/magento-api.deletecustomeraddress', 'deleteCustomerAddress'],
           ['/api-reference/magento-api.getcustomeraddresses', 'getCustomerAddresses'],
           ['/api-reference/magento-api.updatecustomeraddress', 'updateCustomerAddress'],
-        ]
+          ['/api-reference/magento-api.countries', 'countries'],
+          ['/api-reference/magento-api.country', 'country'],
+          ['/api-reference/magento-api.storeconfig', 'storeConfig'],
+          ['/api-reference/magento-api.addproductstocart', 'addProductsToCart'],
+          ['/api-reference/magento-api.addconfigurableproductstocart', 'addConfigurableProductsToCart'],
+          ['/api-reference/magento-api.adddownloadableproductstocart', 'addDownloadableProductsToCart'],
+          ['/api-reference/magento-api.addvirtualproductstocart', 'addVirtualProductsToCart'],
+          ['/api-reference/magento-api.applycoupontocart', 'applyCouponToCart'],
+          ['/api-reference/magento-api.removecouponfromcart', 'removeCouponFromCart'],
+          ['/api-reference/magento-api.cart', 'cart'],
+          ['/api-reference/magento-api.customercart', 'customerCart'],
+          ['/api-reference/magento-api.removeitemfromcart', 'removeItemFromCart'],
+          ['/api-reference/magento-api.updatecartitems', 'updateCartItems'],
+          ['/api-reference/magento-api.resetpassword', 'resetPassword'],
+          ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
+        ],
       },
       {
         title: 'Reference',
         children: [
           ['/plugins/', 'Plugins'],
           ['/api-reference/', 'API Reference'],
-        ]
+        ],
       },
       {
         title: 'Nuxt Tips  & Tricks',
@@ -127,8 +151,8 @@ module.exports = {
           ['/improvements/security/', 'Security'],
           ['/improvements/logging/', 'Logging'],
           ['/improvements/analytics/', 'Analytics'],
-        ]
-      }
-    ]
-  }
-}
+        ],
+      },
+    ],
+  },
+};

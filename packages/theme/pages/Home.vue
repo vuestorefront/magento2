@@ -106,7 +106,6 @@ import {
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import { productGetters } from '~/getters';
 import { useProduct } from '~/composables';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
@@ -241,7 +240,7 @@ export default defineComponent({
     ]);
 
     onMounted(async () => {
-      const productsData = await getProductList({
+      newProducts.value = await getProductList({
         pageSize: 10,
         currentPage: 1,
         sort: {
@@ -250,8 +249,6 @@ export default defineComponent({
       });
 
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
-
-      newProducts.value = productGetters.getFiltered(productsData?.items, { master: true });
     });
 
     // @ts-ignore
@@ -260,7 +257,6 @@ export default defineComponent({
       heroes,
       newProducts,
       newProductsLoading,
-      productGetters,
     };
   },
 });

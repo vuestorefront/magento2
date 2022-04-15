@@ -307,7 +307,6 @@ import {
 } from '~/composables';
 
 import { productData } from '~/helpers/product/productData';
-import cacheControl from '~/helpers/cacheControl';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
@@ -347,10 +346,6 @@ export default defineComponent({
     SvgImage,
     UpsellProducts,
   },
-  middleware: cacheControl({
-    'max-age': 60,
-    'stale-when-revalidate': 5,
-  }),
   transition: 'fade',
   setup() {
     const { addTags } = useCache();

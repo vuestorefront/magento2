@@ -15,7 +15,8 @@ module.exports = {
       resolve(__dirname, './tsconfig.json'),
       resolve(__dirname, './packages/api-client/tsconfig.json'),
       resolve(__dirname, './packages/composables/tsconfig.json'),
-      resolve(__dirname, './packages/theme/tsconfig.json')
+      resolve(__dirname, './packages/theme/tsconfig.json'),
+      resolve(__dirname, './packages/theme/tests/e2e/tsconfig.json'),
     ],
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue'],
