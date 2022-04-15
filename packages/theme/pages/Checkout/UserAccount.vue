@@ -280,7 +280,9 @@ export default defineComponent({
     };
 
     useFetch(async () => {
-      await load();
+      if(user.value === null) {
+        await load();
+      }
       if (isAuthenticated.value) {
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;
