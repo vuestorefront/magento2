@@ -1,3 +1,5 @@
+import { createPinia, setActivePinia } from 'pinia';
+import { useCustomerStore } from '~/stores/customer';
 import tokenExpiredPlugin from '../token-expired';
 
 const errRes = {
@@ -18,7 +20,7 @@ const validRes = {
   },
 };
 
-const appMockFactory = (callbackResponse) => ({
+const appMockFactory = (callbackResponse, authResponse) => ({
   $vsf: {
     $magento: {
       client: {
@@ -29,6 +31,9 @@ const appMockFactory = (callbackResponse) => ({
             },
           },
         },
+      },
+      api: {
+        customQuery: jest.fn(() => authResponse),
       },
       config: {
         state: {
@@ -55,6 +60,26 @@ const appMockFactory = (callbackResponse) => ({
 describe('Token Expired plugin', () => {
   beforeEach(() => {
     jest.resetAllMocks();
+    setActivePinia(createPinia());
+  });
+
+  it('sets initial login status', async () => {
+    const appMock = appMockFactory(validRes, validRes);
+    const customerStore = useCustomerStore();
+    jest.spyOn(customerStore, 'setIsLoggedIn');
+
+    await tokenExpiredPlugin({ app: appMock });
+
+    expect(customerStore.setIsLoggedIn).toHaveBeenCalledWith(true);
+  });
+
+  it('doesn\'t set initial login status if not logged in', async () => {
+    const appMock = appMockFactory(validRes, errRes.data); // need .data because it's ApolloGraphQlResponse, not axios
+    const customerStore = useCustomerStore();
+
+    await tokenExpiredPlugin({ app: appMock });
+
+    expect(customerStore.isLoggedIn).toBe(false);
   });
 
   it('should be executed only if there is the "graphql-authorization" error', async () => {

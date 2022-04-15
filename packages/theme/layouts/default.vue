@@ -20,14 +20,12 @@
 </template>
 <script>
 import LazyHydrate from 'vue-lazy-hydration';
-import {
-  useRoute, defineComponent, useAsync,
-} from '@nuxtjs/composition-api';
-import { useUiState, useUser } from '~/composables';
-import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
+import { useRoute, defineComponent } from '@nuxtjs/composition-api';
+import { useUiState } from '~/composables';
 import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import IconSprite from '~/components/General/IconSprite.vue';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import TopBar from '~/components/TopBar';
 
 export default defineComponent({
@@ -49,12 +47,7 @@ export default defineComponent({
 
   setup() {
     const route = useRoute();
-    const { load: loadUser } = useUser();
     const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
-
-    useAsync(async () => {
-      await loadUser();
-    });
 
     return {
       isCartSidebarOpen,

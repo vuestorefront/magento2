@@ -23,7 +23,7 @@ export interface Customer {
 }
 
 export type UseUser = {
-  user: Ref<Customer>
+  user: Ref<Customer | null>
   loading: Ref<boolean>
   isAuthenticated: Ref<boolean>
   error: Ref<UseUserErrors>
