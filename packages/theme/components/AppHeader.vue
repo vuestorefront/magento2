@@ -108,7 +108,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfOverlay, SfHeader, SfButton, SfBadge,
 } from '@storefront-ui/vue';
@@ -122,7 +122,6 @@ import {
   onMounted,
   useFetch,
 } from '@nuxtjs/composition-api';
-import { categoryGetters } from '~/getters';
 import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
 import {
   useCart,
@@ -183,16 +182,21 @@ export default defineComponent({
 
     useFetch(async () => {
       await categoriesListLoad({ pageSize: 20 });
-      categoryTree.value = categoryGetters
-        .getCategoryTree(categoryList.value?.[0])
-        ?.items.filter((c) => c.count > 0);
+
+      categoryTree.value = categoryList.value?.[0]?.children
+        .filter((category) => category.include_in_menu)
+        .map((category) => ({
+          includeInMenu: category.include_in_menu,
+          label: category.name,
+          slug: `/${category.url_path}${category.url_suffix}`,
+        })) ?? [];
     });
 
     onMounted(() => {
       if (app.$device.isDesktop) {
         loadCartTotalQty();
         // eslint-disable-next-line promise/catch-or-return
-        loadWishlistItemsCount()
+        loadWishlistItemsCount({})
           .then((response) => {
             wishlistItemsQty.value = response;
 

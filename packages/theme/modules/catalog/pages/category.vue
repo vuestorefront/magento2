@@ -9,12 +9,14 @@
       class="breadcrumbs"
     />
     <CategoryNavbar
+      v-if="isShowProducts"
       :sort-by="sortBy"
       :pagination="pagination"
       @reloadProducts="fetch"
     />
     <div class="main section">
       <CategorySidebar
+        v-if="isShowProducts"
         class="sidebar desktop-only"
       />
       <div
@@ -316,7 +318,6 @@ export default defineComponent({
     const { fetch } = useFetch(async () => {
       routeData.value = await resolveUrl();
       const content = await getContentData(routeData.value?.id);
-
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
