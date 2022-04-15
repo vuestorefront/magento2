@@ -239,7 +239,6 @@ import {
 
 import { AgnosticPagination } from '~/composables/types';
 import { useUrlResolver } from '~/composables/useUrlResolver';
-import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
