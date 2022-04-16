@@ -1,15 +1,7 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type {
-  AgnosticFacetSearchParams,
-  ComposableFunctionArgs,
-  GetProductSearchParams,
-} from '~/composables/types';
-import type {
-  UseFacetInterface,
-  UseFacetErrors,
-  UseFacetSearchResult,
-} from './useFacet';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
+import type { UseFacetInterface, UseFacetErrors, UseFacetSearchResult } from './useFacet';
 
 const availableSortingOptions = [
   {
@@ -41,8 +33,9 @@ const constructFilterObject = (inputFilters: Object) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
       const flatPrices = inputFilters[key]
+        .flatMap((inputFilter) => inputFilter.split('_'))
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        .flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str)))
+        .map((str) => Number.parseFloat(str))
         .sort((a, b) => a - b);
 
       [price.from] = flatPrices;
@@ -86,7 +79,9 @@ export const useFacet = (): UseFacetInterface => {
       const categoryId = params.categoryId && !inputFilters.category_id
         ? {
           category_uid: {
-            ...(Array.isArray(params.categoryId) ? { in: params.categoryId } : { eq: params.categoryId }),
+            ...(Array.isArray(params.categoryId)
+              ? { in: params.categoryId }
+              : { eq: params.categoryId }),
           },
         }
         : {};
