@@ -134,4 +134,6 @@ export const useFacet = (): UseFacetInterface => {
   };
 };
 
+export { default as SearchData } from './SearchData';
+export * from './useFacet';
 export default useFacet;

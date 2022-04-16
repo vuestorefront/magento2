@@ -8,7 +8,7 @@ import {
 } from '~/composables/types';
 
 import { FacetsGetters } from '~/getters/types';
-import type { SearchData } from '~/composables/useFacet/Search';
+import type { SearchData } from '~/composables/useFacet';
 
 import {
   buildFacets,
