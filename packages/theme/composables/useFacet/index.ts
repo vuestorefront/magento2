@@ -1,8 +1,15 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
-import type { UseFacetInterface, UseFacetErrors, FacetSearchResult } from './useFacet';
-import type { GetProductSearchParams } from './Search';
+import type {
+  AgnosticFacetSearchParams,
+  ComposableFunctionArgs,
+  GetProductSearchParams,
+} from '~/composables/types';
+import type {
+  UseFacetInterface,
+  UseFacetErrors,
+  UseFacetSearchResult,
+} from './useFacet';
 
 const availableSortingOptions = [
   {
@@ -61,7 +68,7 @@ const constructSortObject = (sortData: string) => {
 export const useFacet = (): UseFacetInterface => {
   const { app } = useContext();
   const loading = ref(false);
-  const result = ref<FacetSearchResult<any>>({ data: null, input: null });
+  const result = ref<UseFacetSearchResult<any>>({ data: null, input: null });
   const error = ref<UseFacetErrors>({
     search: null,
   });
