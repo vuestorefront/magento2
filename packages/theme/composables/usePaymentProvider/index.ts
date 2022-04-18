@@ -12,7 +12,7 @@ import type {
 
 /**
  * The `usePaymentProvider()` composable allows loading the available payment
- * methods for current cart, and selecting (saving) the one of them.
+ * methods for current cart, and selecting (saving) one of them.
  */
 export function usePaymentProvider(): UsePaymentProviderInterface {
   const context = useContext();
