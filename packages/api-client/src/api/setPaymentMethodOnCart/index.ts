@@ -12,6 +12,13 @@ export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInpu
   [k: string]: any;
 }
 
+/**
+ * Sets received payment method on cart.
+ *
+ * @param context VSF context
+ * @param input params containing the cart's ID and the payment method
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async (
   context: Context,
   input: SetPaymentMethodOnCartInputs,
