@@ -1,6 +1,6 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import SubscriptionStatusesEnum from './enums/SubscriptionStatusesEnum';
+import { SubscriptionStatusesEnum } from '~/modules/GraphQL/types';
 import { updateSubscriptionCommand } from './commands/updateSubscriptionCommand';
 import type {
   UseNewsletterErrors,
@@ -21,7 +21,7 @@ export function useNewsletter(): UseNewsletterInterface {
 
   const updateSubscription = async (params: UseNewsletterUpdateSubscriptionParams) => {
     Logger.debug('[Magento]: Update user newsletter subscription', { params });
-    let result = SubscriptionStatusesEnum.UNSUBSCRIBED;
+    let result = SubscriptionStatusesEnum.Unsubscribed;
 
     try {
       loading.value = true;
@@ -45,6 +45,5 @@ export function useNewsletter(): UseNewsletterInterface {
   };
 }
 
-export { default as SubscriptionStatusesEnum } from './enums/SubscriptionStatusesEnum';
 export * from './useNewsletter';
 export default useNewsletter;

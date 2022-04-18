@@ -1,5 +1,6 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
+import type { SubscriptionStatusesEnum } from '~/modules/GraphQL/types';
 
 /**
  * The {@link useNewsletter} error object. The properties values' are the errors
@@ -20,7 +21,7 @@ export type UseNewsletterUpdateSubscriptionParams = ComposableFunctionArgs<{
 /** The interface provided by {@link useNewsletter} composable. */
 export interface UseNewsletterInterface {
   /** Updates subscription status of an email in the newsletter. */
-  updateSubscription(params: UseNewsletterUpdateSubscriptionParams): Promise<string>;
+  updateSubscription(params: UseNewsletterUpdateSubscriptionParams): Promise<SubscriptionStatusesEnum>;
 
   /**
    * Contains errors from any of the composable methods.

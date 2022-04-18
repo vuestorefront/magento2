@@ -1,4 +1,4 @@
-import SubscriptionStatusesEnum from '../enums/SubscriptionStatusesEnum';
+import type { SubscriptionStatusesEnum } from '~/modules/GraphQL/types';
 
 export const updateSubscriptionCommand = {
   execute: async (context, params): Promise<SubscriptionStatusesEnum> => {
