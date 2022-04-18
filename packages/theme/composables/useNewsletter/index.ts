@@ -45,5 +45,6 @@ export function useNewsletter(): UseNewsletterInterface {
   };
 }
 
+export { default as SubscriptionStatusesEnum } from './enums/SubscriptionStatusesEnum';
 export * from './useNewsletter';
 export default useNewsletter;
