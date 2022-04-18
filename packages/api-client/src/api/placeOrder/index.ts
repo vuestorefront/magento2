@@ -4,6 +4,13 @@ import placeOrderMutation from './placeOrder';
 import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Places an order for received cart.
+ *
+ * @param context VSF Context
+ * @param input the order's input, containing the cart's ID
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async function placeOrder(
   context: Context,
   input: PlaceOrderInput,
