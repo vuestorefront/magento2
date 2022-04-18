@@ -1,10 +1,13 @@
-import { AvailablePaymentMethod } from '~/modules/GraphQL/types';
+import type { useContext } from '@nuxtjs/composition-api';
+import type { AvailablePaymentMethod } from '~/modules/GraphQL/types';
 import type PaymentMethodParams from '../PaymentMethodParams';
 
-export const setPaymentMethodOnCartCommand = {
-  execute: async (context, paymentMethodParams: PaymentMethodParams): Promise<AvailablePaymentMethod> => {
-    const { data } = await context.$vsf.$magento.api.setPaymentMethodOnCart(paymentMethodParams);
+type Context = ReturnType<typeof useContext>;
 
-    return data.setPaymentMethodOnCart.cart.available_payment_methods;
+export const setPaymentMethodOnCartCommand = {
+  execute: async (context: Context, params: PaymentMethodParams): Promise<AvailablePaymentMethod[]> => {
+    const { data } = await context.app.$vsf.$magento.api.setPaymentMethodOnCart(params);
+
+    return data.setPaymentMethodOnCart.cart.available_payment_methods ?? [];
   },
 };

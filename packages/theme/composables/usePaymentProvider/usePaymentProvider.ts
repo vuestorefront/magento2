@@ -14,6 +14,6 @@ export type UsePaymentProviderSaveParams = ComposableFunctionArgs<{
 export interface UsePaymentProviderInterface {
   loading: Ref<boolean>;
   error: Ref<UsePaymentProviderErrors>;
-  load(): Promise<AvailablePaymentMethod | null>;
-  save(params: UsePaymentProviderSaveParams): Promise<AvailablePaymentMethod | null>;
+  load(): Promise<AvailablePaymentMethod[] | null>;
+  save(params: UsePaymentProviderSaveParams): Promise<AvailablePaymentMethod[] | null>;
 }
