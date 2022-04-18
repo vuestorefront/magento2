@@ -10,6 +10,10 @@ import type {
   UsePaymentProviderSaveParams,
 } from './usePaymentProvider';
 
+/**
+ * The `usePaymentProvider()` composable allows loading the available payment
+ * methods for current cart, and selecting (saving) the one of them.
+ */
 export function usePaymentProvider(): UsePaymentProviderInterface {
   const context = useContext();
   const { cart } = useCart();

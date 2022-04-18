@@ -106,6 +106,7 @@ module.exports = {
           ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
+          ['/api-reference/magento-theme.usepaymentprovider', 'usePaymentProvider()'],
         ],
       },
       {
