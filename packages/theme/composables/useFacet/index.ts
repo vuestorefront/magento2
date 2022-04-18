@@ -26,7 +26,7 @@ const availableSortingOptions = [
   },
 ];
 
-const constructFilterObject = (inputFilters: Object) => {
+function constructFilterObject(inputFilters: Object) {
   const filter = {};
 
   Object.keys(inputFilters).forEach((key) => {
@@ -50,13 +50,13 @@ const constructFilterObject = (inputFilters: Object) => {
   });
 
   return filter;
-};
+}
 
-const constructSortObject = (sortData: string) => {
+function constructSortObject(sortData: string) {
   const baseData = sortData.split(/_/gi);
 
   return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
-};
+}
 
 /**
  * The `useCurrency()` composable allows searching for products using facets.
@@ -64,7 +64,7 @@ const constructSortObject = (sortData: string) => {
  * What makes it powerful is the ability to accept multiple filters, allowing to
  * narrow down the results to a specific category, search term, etc.
  */
-export const useFacet = (): UseFacetInterface => {
+export function useFacet(): UseFacetInterface {
   const { app } = useContext();
   const loading = ref(false);
   const result = ref<UseFacetSearchResult<any>>({ data: null, input: null });
@@ -133,7 +133,7 @@ export const useFacet = (): UseFacetInterface => {
     error: readonly(error),
     loading: readonly(loading),
   };
-};
+}
 
 export { default as SearchData } from './SearchData';
 export * from './useFacet';
