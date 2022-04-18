@@ -8,6 +8,10 @@ import type {
   UseNewsletterUpdateSubscriptionParams,
 } from './useNewsletter';
 
+/**
+ * The `useNewsletter()` composable allows updating the subscription status of
+ * an email in the newsletter.
+ */
 function useNewsletter(): UseNewsletterInterface {
   const { app } = useContext();
   const loading = ref(false);
