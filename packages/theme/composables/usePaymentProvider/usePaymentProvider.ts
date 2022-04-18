@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { AvailablePaymentMethod, PaymentMethodInput } from '~/modules/GraphQL/types';
 
@@ -12,8 +12,8 @@ export type UsePaymentProviderSaveParams = ComposableFunctionArgs<{
 }>;
 
 export interface UsePaymentProviderInterface {
-  loading: Ref<boolean>;
-  error: Ref<UsePaymentProviderErrors>;
+  loading: Readonly<Ref<boolean>>;
+  error: DeepReadonly<Ref<UsePaymentProviderErrors>>;
   load(): Promise<AvailablePaymentMethod[] | null>;
   save(params: UsePaymentProviderSaveParams): Promise<AvailablePaymentMethod[] | null>;
 }

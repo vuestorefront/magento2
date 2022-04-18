@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { setPaymentMethodOnCartCommand } from '~/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { useCart } from '~/composables';
@@ -65,10 +65,10 @@ export const usePaymentProvider = (): UsePaymentProviderInterface => {
   };
 
   return {
-    loading,
-    error,
     load,
     save,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 };
 
