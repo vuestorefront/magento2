@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
 
 export interface UseMakeOrderErrors {
@@ -7,6 +7,6 @@ export interface UseMakeOrderErrors {
 
 export interface UseMakeOrderInterface {
   make(): Promise<PlaceOrderOutput | null>;
-  error: Ref<UseMakeOrderErrors>;
-  loading: Ref<boolean>;
+  error: DeepReadonly<Ref<UseMakeOrderErrors>>;
+  loading: Readonly<Ref<boolean>>;
 }

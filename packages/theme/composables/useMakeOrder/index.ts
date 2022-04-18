@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { placeOrderCommand } from '~/composables/useMakeOrder/commands/placeOrderCommand';
 import { useCart } from '~/composables';
@@ -30,8 +30,8 @@ export function useMakeOrder(): UseMakeOrderInterface {
 
   return {
     make,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 }
 
