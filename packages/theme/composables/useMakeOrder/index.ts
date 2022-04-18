@@ -5,6 +5,7 @@ import { useCart } from '~/composables';
 import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
 import type { UseMakeOrderErrors, UseMakeOrderInterface } from './useMakeOrder';
 
+/** The `useMakeOrder()` composable allows making an order. */
 export function useMakeOrder(): UseMakeOrderInterface {
   const loading = ref(false);
   const error = ref<UseMakeOrderErrors>({ make: null });
