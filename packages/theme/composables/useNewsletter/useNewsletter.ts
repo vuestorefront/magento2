@@ -1,9 +1,9 @@
-import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '~/composables/types';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { ComposableFunctionArgs } from '~/composables/types';
 
 export interface UseNewsletterInterface {
-  error: Ref<UseNewsletterErrors>;
-  loading: Ref<boolean>;
+  error: DeepReadonly<Ref<UseNewsletterErrors>>;
+  loading: Readonly<Ref<boolean>>;
   updateSubscription: (params: ComposableFunctionArgs<{ email: string }>) => Promise<string>;
 }
 

@@ -1,8 +1,8 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { UseNewsletterInterface, UseNewsletterErrors } from '~/composables/useNewsletter/useNewsletter';
-import SubscriptionStatusesEnum from '~/composables/useNewsletter/enums/SubscriptionStatusesEnum';
+import SubscriptionStatusesEnum from './enums/SubscriptionStatusesEnum';
 import { updateSubscriptionCommand } from './commands/updateSubscriptionCommand';
+import type { UseNewsletterInterface, UseNewsletterErrors } from './useNewsletter';
 
 const useNewsletter = (): UseNewsletterInterface => {
   const { app } = useContext();
@@ -31,9 +31,9 @@ const useNewsletter = (): UseNewsletterInterface => {
   };
 
   return {
-    error,
-    loading,
     updateSubscription,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 };
 
