@@ -1,8 +1,9 @@
-import { ComposableFunctionArgs, ComputedProperty } from '~/composables/types';
+import { Ref } from '@nuxtjs/composition-api';
+import { ComposableFunctionArgs } from '~/composables/types';
 
 export interface UseNewsletterInterface {
-  error: ComputedProperty<UseNewsletterErrors>;
-  loading: ComputedProperty<boolean>;
+  error: Ref<UseNewsletterErrors>;
+  loading: Ref<boolean>;
   updateSubscription: (params: ComposableFunctionArgs<{ email: string }>) => Promise<string>;
 }
 
