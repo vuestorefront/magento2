@@ -10,7 +10,7 @@ import type {
   UsePaymentProviderSaveParams,
 } from './usePaymentProvider';
 
-export const usePaymentProvider = (): UsePaymentProviderInterface => {
+export function usePaymentProvider(): UsePaymentProviderInterface {
   const context = useContext();
   const { cart } = useCart();
   const loading = ref(false);
@@ -70,7 +70,7 @@ export const usePaymentProvider = (): UsePaymentProviderInterface => {
     error: readonly(error),
     loading: readonly(loading),
   };
-};
+}
 
 export * from './usePaymentProvider';
 export default usePaymentProvider;
