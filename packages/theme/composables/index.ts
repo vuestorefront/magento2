@@ -32,7 +32,7 @@ export { default as useRelatedProducts } from './useRelatedProducts';
 export { default as useUpsellProducts } from './useUpsellProducts';
 export { default as usePaymentProvider } from './usePaymentProvider';
 export * from './useAddresses';
-export { default as useMakeOrder } from './useMakeOrder';
+export * from './useMakeOrder';
 export * from './useUserOrder';
 export { default as useUserAddress } from './useUserAddress';
 export * from './useCountrySearch';

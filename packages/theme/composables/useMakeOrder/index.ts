@@ -2,16 +2,16 @@ import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { placeOrderCommand } from '~/composables/useMakeOrder/commands/placeOrderCommand';
 import { useCart } from '~/composables';
-import { Maybe, PlaceOrderOutput } from '~/modules/GraphQL/types';
-import { UseMakeOrderErrors } from '~/composables/useMakeOrder/useMakeOrder';
+import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
+import type { UseMakeOrderErrors, UseMakeOrderInterface } from './useMakeOrder';
 
-export function useMakeOrder() {
+export function useMakeOrder(): UseMakeOrderInterface {
   const loading = ref(false);
   const error = ref<UseMakeOrderErrors>({ make: null });
   const { cart } = useCart();
   const context = useContext();
 
-  const make = async (): Promise<Maybe<PlaceOrderOutput>> => {
+  const make = async (): Promise<PlaceOrderOutput | null> => {
     Logger.debug('useMakeOrder.make');
     let placedOrder = null;
     try {
@@ -35,4 +35,5 @@ export function useMakeOrder() {
   };
 }
 
+export * from './useMakeOrder';
 export default useMakeOrder;
