@@ -5,7 +5,7 @@ import { useCart } from '~/composables';
 import { Maybe, PlaceOrderOutput } from '~/modules/GraphQL/types';
 import { UseMakeOrderErrors } from '~/composables/useMakeOrder/useMakeOrder';
 
-export const useMakeOrder = () => {
+export function useMakeOrder() {
   const loading = ref(false);
   const error = ref<UseMakeOrderErrors>({ make: null });
   const { cart } = useCart();
@@ -33,6 +33,6 @@ export const useMakeOrder = () => {
     loading,
     error,
   };
-};
+}
 
 export default useMakeOrder;
