@@ -58,6 +58,12 @@ const constructSortObject = (sortData: string) => {
   return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
 };
 
+/**
+ * The `useCurrency()` composable allows searching for products using facets.
+ *
+ * What makes it powerful is the ability to accept multiple filters, allowing to
+ * narrow down the results to a specific category, search term, etc.
+ */
 export const useFacet = (): UseFacetInterface => {
   const { app } = useContext();
   const loading = ref(false);
