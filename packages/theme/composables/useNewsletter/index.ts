@@ -12,7 +12,7 @@ import type {
  * The `useNewsletter()` composable allows updating the subscription status of
  * an email in the newsletter.
  */
-function useNewsletter(): UseNewsletterInterface {
+export function useNewsletter(): UseNewsletterInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseNewsletterErrors>({
@@ -45,4 +45,5 @@ function useNewsletter(): UseNewsletterInterface {
   };
 }
 
+export * from './useNewsletter';
 export default useNewsletter;
