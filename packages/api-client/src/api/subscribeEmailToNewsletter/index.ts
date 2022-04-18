@@ -4,6 +4,12 @@ import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
 import { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Subscribes an email in the newsletter.
+ * @param context VSF context
+ * @param input params with the email to subscribe
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async function subscribeEmailToNewsletter(
   context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
