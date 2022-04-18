@@ -2,7 +2,11 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import SubscriptionStatusesEnum from './enums/SubscriptionStatusesEnum';
 import { updateSubscriptionCommand } from './commands/updateSubscriptionCommand';
-import type { UseNewsletterInterface, UseNewsletterErrors } from './useNewsletter';
+import type {
+  UseNewsletterErrors,
+  UseNewsletterInterface,
+  UseNewsletterUpdateSubscriptionParams,
+} from './useNewsletter';
 
 const useNewsletter = (): UseNewsletterInterface => {
   const { app } = useContext();
@@ -11,7 +15,7 @@ const useNewsletter = (): UseNewsletterInterface => {
     updateSubscription: null,
   });
 
-  const updateSubscription = async (params) => {
+  const updateSubscription = async (params: UseNewsletterUpdateSubscriptionParams) => {
     Logger.debug('[Magento]: Update user newsletter subscription', { params });
     let result = SubscriptionStatusesEnum.UNSUBSCRIBED;
 
