@@ -136,6 +136,7 @@ module.exports = {
           ['/api-reference/magento-api.updatecartitems', 'updateCartItems'],
           ['/api-reference/magento-api.resetpassword', 'resetPassword'],
           ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
+          ['/api-reference/magento-api.getavailablepaymentmethods', 'getAvailablePaymentMethods'],
         ],
       },
       {

@@ -7,6 +7,13 @@ import {
   GuestAvailablePaymentMethodsQueryVariables,
 } from '../../types/GraphQL';
 
+/**
+ * Fetches the available payment methods for the received cart.
+ *
+ * @param context VSF context
+ * @param params params containing the cart's ID
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
 export default async (
   context: Context,
   params: {
