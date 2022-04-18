@@ -59,7 +59,7 @@ function constructSortObject(sortData: string) {
 }
 
 /**
- * The `useCurrency()` composable allows searching for products using facets.
+ * The `useFacet()` composable allows searching for products using facets.
  *
  * What makes it powerful is the ability to accept multiple filters, allowing to
  * narrow down the results to a specific category, search term, etc.
