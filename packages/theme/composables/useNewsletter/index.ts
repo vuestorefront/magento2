@@ -1,10 +1,10 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { UseNewsletter, UseNewsletterErrors } from '~/composables/useNewsletter/useNewsletter';
+import { UseNewsletterInterface, UseNewsletterErrors } from '~/composables/useNewsletter/useNewsletter';
 import SubscriptionStatusesEnum from '~/composables/useNewsletter/enums/SubscriptionStatusesEnum';
 import { updateSubscriptionCommand } from './commands/updateSubscriptionCommand';
 
-const useNewsletter = (): UseNewsletter => {
+const useNewsletter = (): UseNewsletterInterface => {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseNewsletterErrors>({

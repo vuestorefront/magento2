@@ -1,6 +1,6 @@
 import { ComposableFunctionArgs, ComputedProperty } from '~/composables/types';
 
-export interface UseNewsletter {
+export interface UseNewsletterInterface {
   error: ComputedProperty<UseNewsletterErrors>;
   loading: ComputedProperty<boolean>;
   updateSubscription: (params: ComposableFunctionArgs<{ email: string }>) => Promise<string>;
