@@ -8,7 +8,7 @@ import type {
   UseNewsletterUpdateSubscriptionParams,
 } from './useNewsletter';
 
-const useNewsletter = (): UseNewsletterInterface => {
+function useNewsletter(): UseNewsletterInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error = ref<UseNewsletterErrors>({
@@ -39,6 +39,6 @@ const useNewsletter = (): UseNewsletterInterface => {
     error: readonly(error),
     loading: readonly(loading),
   };
-};
+}
 
 export default useNewsletter;
