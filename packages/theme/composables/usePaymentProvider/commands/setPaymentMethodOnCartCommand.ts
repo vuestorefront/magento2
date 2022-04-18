@@ -1,17 +1,10 @@
 import { AvailablePaymentMethod } from '~/modules/GraphQL/types';
-import { SetPaymentMethodOnCartInputs } from '../usePaymentProvider';
+import type { PaymentMethodParams } from '../usePaymentProvider';
 
 export const setPaymentMethodOnCartCommand = {
-  execute: async (context, paymentMethodParams: SetPaymentMethodOnCartInputs): Promise<AvailablePaymentMethod> => {
-    const { data } = await context
-      .$vsf
-      .$magento
-      .api
-      .setPaymentMethodOnCart(paymentMethodParams);
+  execute: async (context, paymentMethodParams: PaymentMethodParams): Promise<AvailablePaymentMethod> => {
+    const { data } = await context.$vsf.$magento.api.setPaymentMethodOnCart(paymentMethodParams);
 
-    return data
-      .setPaymentMethodOnCart
-      .cart
-      .available_payment_methods;
+    return data.setPaymentMethodOnCart.cart.available_payment_methods;
   },
 };

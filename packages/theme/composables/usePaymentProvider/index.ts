@@ -1,11 +1,11 @@
-import { Logger } from '~/helpers/logger';
 import { ref, useContext } from '@nuxtjs/composition-api';
+import { Logger } from '~/helpers/logger';
 import { PaymentMethodInput } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/composables/types';
 import { setPaymentMethodOnCartCommand } from '~/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { useCart } from '~/composables';
 import { getAvailablePaymentMethodsCommand } from '~/composables/usePaymentProvider/commands/getAvailablePaymentMethodsCommand';
-import { SetPaymentMethodOnCartInputs } from './usePaymentProvider';
+import type { PaymentMethodParams } from './usePaymentProvider';
 
 export const usePaymentProvider = () => {
   const context = useContext();
@@ -23,7 +23,7 @@ export const usePaymentProvider = () => {
 
     try {
       loading.value = true;
-      const paymentMethodParams: SetPaymentMethodOnCartInputs = {
+      const paymentMethodParams: PaymentMethodParams = {
         cart_id: cart.value.id,
         payment_method: {
           ...params.paymentMethod,

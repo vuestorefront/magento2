@@ -1,10 +1,6 @@
-import { PaymentMethodInput, Scalars } from '~/modules/GraphQL/types';
+import type { PaymentMethodInput } from '~/modules/GraphQL/types';
 
-export interface SetPaymentMethodOnCartInput {
-  cart_id: Scalars['String'];
+export interface PaymentMethodParams {
+  cart_id: string;
   payment_method: PaymentMethodInput;
-}
-
-export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
-  [k: string]: any;
 }
