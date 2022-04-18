@@ -1,23 +1,25 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { PaymentMethodInput } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs } from '~/composables/types';
 import { setPaymentMethodOnCartCommand } from '~/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { useCart } from '~/composables';
 import { getAvailablePaymentMethodsCommand } from '~/composables/usePaymentProvider/commands/getAvailablePaymentMethodsCommand';
 import type PaymentMethodParams from './PaymentMethodParams';
+import type {
+  UsePaymentProviderErrors,
+  UsePaymentProviderInterface,
+  UsePaymentProviderSaveParams,
+} from './usePaymentProvider';
 
-export const usePaymentProvider = () => {
+export const usePaymentProvider = (): UsePaymentProviderInterface => {
   const context = useContext();
   const { cart } = useCart();
   const loading = ref(false);
-  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
-  const error = ref({
+  const error = ref<UsePaymentProviderErrors>({
     load: null,
     save: null,
   });
 
-  const save = async (params: ComposableFunctionArgs<{ paymentMethod: PaymentMethodInput }>) => {
+  const save = async (params: UsePaymentProviderSaveParams) => {
     Logger.debug('usePaymentProvider.save');
     let result = null;
 
@@ -70,4 +72,5 @@ export const usePaymentProvider = () => {
   };
 };
 
+export * from './usePaymentProvider';
 export default usePaymentProvider;

@@ -30,7 +30,7 @@ export { default as useShippingProvider } from './useShippingProvider';
 export * from './useBilling';
 export { default as useRelatedProducts } from './useRelatedProducts';
 export { default as useUpsellProducts } from './useUpsellProducts';
-export { default as usePaymentProvider } from './usePaymentProvider';
+export * from './usePaymentProvider';
 export * from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
 export * from './useUserOrder';
