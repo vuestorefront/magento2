@@ -5,7 +5,7 @@ import { ComposableFunctionArgs } from '~/composables/types';
 import { setPaymentMethodOnCartCommand } from '~/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { useCart } from '~/composables';
 import { getAvailablePaymentMethodsCommand } from '~/composables/usePaymentProvider/commands/getAvailablePaymentMethodsCommand';
-import type { PaymentMethodParams } from './usePaymentProvider';
+import type PaymentMethodParams from './PaymentMethodParams';
 
 export const usePaymentProvider = () => {
   const context = useContext();

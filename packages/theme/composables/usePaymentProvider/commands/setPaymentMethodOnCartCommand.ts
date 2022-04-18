@@ -1,5 +1,5 @@
 import { AvailablePaymentMethod } from '~/modules/GraphQL/types';
-import type { PaymentMethodParams } from '../usePaymentProvider';
+import type PaymentMethodParams from '../PaymentMethodParams';
 
 export const setPaymentMethodOnCartCommand = {
   execute: async (context, paymentMethodParams: PaymentMethodParams): Promise<AvailablePaymentMethod> => {
