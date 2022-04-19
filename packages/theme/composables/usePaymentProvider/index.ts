@@ -15,7 +15,7 @@ import type {
  * methods for current cart, and selecting (saving) one of them.
  */
 export function usePaymentProvider(): UsePaymentProviderInterface {
-  const context = useContext();
+  const { app } = useContext();
   const { cart } = useCart();
   const loading = ref(false);
   const error = ref<UsePaymentProviderErrors>({
@@ -36,7 +36,7 @@ export function usePaymentProvider(): UsePaymentProviderInterface {
         },
       };
 
-      result = await setPaymentMethodOnCartCommand.execute(context, paymentMethodParams);
+      result = await setPaymentMethodOnCartCommand.execute(app, paymentMethodParams);
       error.value.save = null;
     } catch (err) {
       error.value.save = err;
@@ -55,7 +55,7 @@ export function usePaymentProvider(): UsePaymentProviderInterface {
 
     try {
       loading.value = true;
-      result = await getAvailablePaymentMethodsCommand.execute(context, cart.value.id);
+      result = await getAvailablePaymentMethodsCommand.execute(app, cart.value.id);
       error.value.load = null;
     } catch (err) {
       error.value.load = err;
