@@ -10,7 +10,7 @@ import type {
   UseProductInterface,
 } from './useProduct';
 
-export const useProduct = (id?: string): UseProductInterface => {
+export function useProduct(id?: string): UseProductInterface {
   const loading = ref(false);
   const error = ref<UseProductErrors>({
     search: null,
@@ -60,7 +60,7 @@ export const useProduct = (id?: string): UseProductInterface => {
     error: readonly(error),
     loading: readonly(loading),
   };
-};
+}
 
 export * from './useProduct';
 export default useProduct;
