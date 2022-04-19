@@ -20,7 +20,6 @@
 <script>
 import { SfSidebar, SfList, SfMenuItem } from '@storefront-ui/vue';
 import { defineComponent, computed, useAsync } from '@nuxtjs/composition-api';
-import { categoryGetters } from '~/getters';
 import { useUiHelpers, useUiState, useCategory } from '~/composables';
 
 export default defineComponent({
@@ -35,9 +34,12 @@ export default defineComponent({
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
     const { getAgnosticCatLink } = useUiHelpers();
 
-    const categoryTree = computed(() => categoryGetters
-      .getCategoryTree(categories?.value?.[0])
-      ?.items.filter((c) => c.count > 0));
+    const categoryTree = computed(() => categories.value?.[0]?.children
+      .filter((category) => category.include_in_menu)
+      .map((category) => ({
+        label: category.name,
+        slug: `/${category.url_path}${category.url_suffix}`,
+      })) ?? []);
 
     useAsync(() => {
       load({
