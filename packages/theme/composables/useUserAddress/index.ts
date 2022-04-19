@@ -1,15 +1,27 @@
-import { Ref, ref, useContext } from '@nuxtjs/composition-api';
+import { ref, readonly, useContext } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { UseUserAddressErrors } from '~/composables/useUserAddress/useUserAddress';
 import { useUser } from '~/composables';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
-import { createCustomerAddressCommand } from '~/composables/useUserAddress/commands/createCustomerAddressCommand';
-import { deleteCustomerAddressCommand } from '~/composables/useUserAddress/commands/deleteCustomerAddressCommand';
-import { updateCustomerAddressCommand } from '~/composables/useUserAddress/commands/updateCustomerAddressCommand';
+import { createCustomerAddressCommand } from './commands/createCustomerAddressCommand';
+import { deleteCustomerAddressCommand } from './commands/deleteCustomerAddressCommand';
+import { updateCustomerAddressCommand } from './commands/updateCustomerAddressCommand';
 import { CustomerAddress } from '~/modules/GraphQL/types';
 import mask from '../utils/mask';
+import type {
+  UseUserAddressErrors,
+  UseUserAddressInterface,
+  UseUserAddressAddAddressParams,
+  UseUserAddressUpdateAddressParams,
+  UseUserAddressSetDefaultAddressParams,
+} from './useUserAddress';
 
-export const useUserAddress = () => {
+/**
+ * The `useUserAddress()` composable allows loading and manipulating addresses of the current user.
+ *
+ * See the {@link UseUserAddressInterface} page for more information.
+ */
+export function useUserAddress(): UseUserAddressInterface {
   const loading = ref(false);
   const shipping = ref({});
   const error: Ref<UseUserAddressErrors> = ref({
@@ -22,7 +34,7 @@ export const useUserAddress = () => {
   const { user, load: loadUser } = useUser();
   const context = useContext();
 
-  const addAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
+  const addAddress = async ({ address, customQuery }: UseUserAddressAddAddressParams) => {
     Logger.debug('useUserAddress.addAddress', mask(address));
     let result = {};
     try {
@@ -66,7 +78,7 @@ export const useUserAddress = () => {
     return result;
   };
 
-  const updateAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
+  const updateAddress = async ({ address, customQuery }: UseUserAddressUpdateAddressParams) => {
     Logger.debug('useUserAddress.updateAddress', mask(address));
     let result = {};
 
@@ -109,7 +121,7 @@ export const useUserAddress = () => {
     return user?.value;
   };
 
-  const setDefaultAddress = async ({ address, customQuery }: { address: CustomerAddress, customQuery: any }) => {
+  const setDefaultAddress = async ({ address, customQuery }: UseUserAddressSetDefaultAddressParams) => {
     Logger.debug('useUserAddress.setDefaultAddress', mask(address));
     let result = {};
 
@@ -136,14 +148,15 @@ export const useUserAddress = () => {
   };
 
   return {
-    loading,
-    error,
     addAddress,
     deleteAddress,
     updateAddress,
     load,
     setDefaultAddress,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useUserAddress;
+export * from './useUserAddress';

@@ -34,7 +34,7 @@ export { default as usePaymentProvider } from './usePaymentProvider';
 export * from './useAddresses';
 export * from './useMakeOrder';
 export * from './useUserOrder';
-export { default as useUserAddress } from './useUserAddress';
+export * from './useUserAddress';
 export * from './useCountrySearch';
 
 export * from './types';
