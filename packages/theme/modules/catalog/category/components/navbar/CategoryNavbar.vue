@@ -74,7 +74,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import {
   SfSelect,
   SfButton,
@@ -82,9 +82,9 @@ import {
 } from '@storefront-ui/vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useUiHelpers, useUiState } from '~/composables';
+import { AgnosticPagination, AgnosticSort } from '~/composables/types';
 
 export default defineComponent({
-  name: 'CategoryNavbar',
   components: {
     SvgImage,
     SfSelect,
@@ -93,12 +93,12 @@ export default defineComponent({
   },
   props: {
     sortBy: {
-      type: Object,
-      default: () => {},
+      type: Object as PropType<AgnosticSort>,
+      required: true,
     },
     pagination: {
-      type: Object,
-      default: () => {},
+      type: Object as PropType<AgnosticPagination>,
+      required: true,
     },
   },
   setup(_, { emit }) {
