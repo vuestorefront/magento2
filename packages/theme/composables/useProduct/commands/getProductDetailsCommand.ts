@@ -1,14 +1,10 @@
-import { GetProductSearchParams } from '~/composables/useProduct/useProduct';
-import { VsfContext } from '~/composables/context';
+import type { NuxtAppOptions } from '@nuxt/types';
+import type { GetProductSearchParams } from '~/composables/types';
 
 export const getProductDetailsCommand = {
-  execute: async (context: VsfContext, searchParams, customQuery = { productDetail: 'productDetail' }) => {
-    const result = await context
-      .$magento
-      .api
-      .productDetail({
-        ...searchParams,
-      } as GetProductSearchParams, customQuery);
-    return result.data?.products;
+  execute: async (app: NuxtAppOptions, searchParams: GetProductSearchParams, customQuery = { productDetail: 'productDetail' }) => {
+    const { data } = await app.$vsf.$magento.api.productDetail(searchParams, customQuery);
+
+    return data?.products ?? null;
   },
 };

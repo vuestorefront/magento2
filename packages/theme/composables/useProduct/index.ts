@@ -3,6 +3,7 @@ import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
 import { ProductsListQuery } from '~/modules/GraphQL/types';
+import { GetProductSearchParams } from '~/composables/types';
 
 export const useProduct = (id?: string) => {
   const loading = ref(false);
@@ -11,15 +12,14 @@ export const useProduct = (id?: string) => {
   });
 
   const { app } = useContext();
-  const context = app.$vsf;
 
-  const getProductList = async (searchParams) => {
+  const getProductList = async (searchParams: GetProductSearchParams) => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);
     let products : ProductsListQuery['products'] = null;
 
     try {
       loading.value = true;
-      products = await getProductListCommand.execute(context, searchParams);
+      products = await getProductListCommand.execute(app, searchParams);
       error.value.search = null;
     } catch (err) {
       error.value.search = err;
@@ -31,13 +31,13 @@ export const useProduct = (id?: string) => {
     return products;
   };
 
-  const getProductDetails = async (searchParams) => {
+  const getProductDetails = async (searchParams: GetProductSearchParams) => {
     Logger.debug(`useProduct/${id}/getProductDetails`, searchParams);
     let products : ProductsListQuery['products'] = null;
 
     try {
       loading.value = true;
-      products = await getProductDetailsCommand.execute(context, searchParams);
+      products = await getProductDetailsCommand.execute(app, searchParams);
       error.value.search = null;
     } catch (err) {
       error.value.search = err;
