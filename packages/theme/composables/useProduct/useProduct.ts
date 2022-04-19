@@ -1,19 +1,6 @@
 import type { Ref } from '@nuxtjs/composition-api';
-import type {
-  ProductAttributeFilterInput,
-  ProductAttributeSortInput,
-  ProductsListQuery,
-  ProductDetailsQuery,
-} from '~/modules/GraphQL/types';
-
-export declare type GetProductSearchParams = {
-  pageSize?: number;
-  currentPage?: number;
-  search?: string;
-  filter?: ProductAttributeFilterInput;
-  sort?: ProductAttributeSortInput;
-  configurations?: string[];
-};
+import type { ProductsListQuery, ProductDetailsQuery } from '~/modules/GraphQL/types';
+import type { GetProductSearchParams } from '~/composables/types';
 
 export type ProductList = ProductsListQuery['products'];
 

@@ -2,12 +2,12 @@ import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
+import type { GetProductSearchParams } from '~/composables/types';
 import type {
   ProductDetails,
   ProductList,
   UseProductErrors,
   UseProductInterface,
-  GetProductSearchParams,
 } from './useProduct';
 
 export const useProduct = (id?: string): UseProductInterface => {
