@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
-import { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
+import type { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
 export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
