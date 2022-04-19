@@ -9,17 +9,15 @@
 ![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
 [![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
-
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
 
 <hr />
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
 
@@ -114,6 +112,7 @@ If you have any questions about this integration we will be happy to answer them
 ## Contributors ✨
 
 ### Honorable Mentions
+- [Caravel x](https://www.caravelx.com/)
 - [Cyberfuze](https://cyberfuze.com/)
 - [Leonex](https://www.leonex.de/)
 
@@ -145,7 +144,9 @@ Thanks go to these wonderful people 🙌:
     <td align="center"><a href="https://github.com/LiorLindvor"><img src="https://avatars.githubusercontent.com/u/6757942?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Lior Lindvor</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=LiorLindvor" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/mayashavin"><img src="https://avatars.githubusercontent.com/u/6650139?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Maya Shavin</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=mayashavin" title="Code">💻</a><a href="https://github.com/vuestorefront/magento2/commits?author=mayashavin" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/sethidden"><img src="https://avatars.githubusercontent.com/u/5359825?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Artur Tagisow</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=sethidden" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jonathanribas"><img src="https://avatars.githubusercontent.com/u/3003782?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Jonathan Ribas</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=jonathanribas" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Aliaaaam"><img src="https://avatars.githubusercontent.com/u/88658555?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Ali Ghanei</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Aliaaaam" title="Code">💻</a></td>
   </tr>
 </table>
 

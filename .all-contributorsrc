@@ -158,6 +158,33 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "sethidden",
+      "name": "Artur Tagisow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5359825?v=4",
+      "profile": "https://github.com/sethidden",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jonathanribas",
+      "name": "Jonathan Ribas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3003782?v=4",
+      "profile": "https://github.com/jonathanribas",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Aliaaaam",
+      "name": "Ali Ghanei",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88658555?v=4",
+      "profile": "https://github.com/Aliaaaam",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 5
