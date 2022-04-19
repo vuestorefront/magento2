@@ -5,7 +5,7 @@ on:
 
 jobs:
   speedcurve:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.deployment.ref == 'refs/heads/develop'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - name: 'Wait for container deployed on VSF Cloud to come online'
