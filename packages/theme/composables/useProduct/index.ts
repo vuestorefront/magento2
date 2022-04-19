@@ -2,20 +2,25 @@ import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
-import { ProductsListQuery } from '~/modules/GraphQL/types';
-import { GetProductSearchParams } from '~/composables/types';
+import type {
+  ProductDetails,
+  ProductList,
+  UseProductErrors,
+  UseProductInterface,
+  GetProductSearchParams,
+} from './useProduct';
 
-export const useProduct = (id?: string) => {
+export const useProduct = (id?: string): UseProductInterface => {
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseProductErrors>({
     search: null,
   });
 
   const { app } = useContext();
 
-  const getProductList = async (searchParams: GetProductSearchParams) => {
+  const getProductList = async (searchParams: GetProductSearchParams): Promise<ProductList | null> => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);
-    let products : ProductsListQuery['products'] = null;
+    let products: ProductList = null;
 
     try {
       loading.value = true;
@@ -31,9 +36,9 @@ export const useProduct = (id?: string) => {
     return products;
   };
 
-  const getProductDetails = async (searchParams: GetProductSearchParams) => {
+  const getProductDetails = async (searchParams: GetProductSearchParams): Promise<ProductDetails | null> => {
     Logger.debug(`useProduct/${id}/getProductDetails`, searchParams);
-    let products : ProductsListQuery['products'] = null;
+    let products: ProductDetails = null;
 
     try {
       loading.value = true;
@@ -57,4 +62,5 @@ export const useProduct = (id?: string) => {
   };
 };
 
+export * from './useProduct';
 export default useProduct;

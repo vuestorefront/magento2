@@ -23,7 +23,7 @@ export { default as useFacet } from './useFacet';
 export * from './useCart';
 export * from './useContent';
 export * from './useCategorySearch';
-export { default as useProduct } from './useProduct';
+export * from './useProduct';
 export { default as useReview } from './useReview';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
