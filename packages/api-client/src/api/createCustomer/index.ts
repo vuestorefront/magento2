@@ -10,6 +10,9 @@ import {
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
 
+/**
+ * Registers a new customer. To override the default query, use the `createCustomer` query key.
+ */
 export default async (
   context: Context,
   input: CustomerCreateInput,
