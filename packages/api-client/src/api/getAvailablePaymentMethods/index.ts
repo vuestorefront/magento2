@@ -2,7 +2,7 @@ import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
-import { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
+import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
 
 /**
  * Fetches the available payment methods for the received cart.
