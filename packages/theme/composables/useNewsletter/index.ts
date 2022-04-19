@@ -27,7 +27,7 @@ export function useNewsletter(): UseNewsletterInterface {
       loading.value = true;
       error.value.updateSubscription = null;
 
-      result = await updateSubscriptionCommand.execute(app.context, params);
+      result = await updateSubscriptionCommand.execute(app, params);
     } catch (err) {
       error.value.updateSubscription = err;
       Logger.error('useNewsletter/updateSubscription', err);
