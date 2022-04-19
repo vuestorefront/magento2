@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ProductsListQuery, ProductDetailsQuery } from '~/modules/GraphQL/types';
 import type { GetProductSearchParams } from '~/composables/types';
 
@@ -11,8 +11,8 @@ export interface UseProductErrors {
 }
 
 export interface UseProductInterface {
-  error: Ref<UseProductErrors>;
-  loading: Ref<boolean>;
+  error: DeepReadonly<Ref<UseProductErrors>>;
+  loading: Readonly<Ref<boolean>>;
   getProductList(searchParams: GetProductSearchParams): Promise<ProductList | null>;
   getProductDetails(searchParams: GetProductSearchParams): Promise<ProductDetails | null>;
 }

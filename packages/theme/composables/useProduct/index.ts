@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
@@ -57,8 +57,8 @@ export const useProduct = (id?: string): UseProductInterface => {
   return {
     getProductList,
     getProductDetails,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 };
 
