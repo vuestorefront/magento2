@@ -10,6 +10,10 @@ import type {
   UseProductInterface,
 } from './useProduct';
 
+/**
+ * The `useProduct()` composable allows loading product details or list with
+ * params for sorting, filtering and pagination.
+ */
 export function useProduct(id?: string): UseProductInterface {
   const loading = ref(false);
   const error = ref<UseProductErrors>({
