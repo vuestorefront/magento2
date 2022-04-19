@@ -107,6 +107,7 @@ module.exports = {
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
           ['/api-reference/magento-theme.usenewsletter', 'useNewsletter()'],
+          ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
         ],
       },
       {
