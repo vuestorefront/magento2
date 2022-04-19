@@ -185,6 +185,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mayashavin",
+      "name": "Maya Shavin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6650139?v=4",
+      "profile": "https://github.com/mayashavin",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 5

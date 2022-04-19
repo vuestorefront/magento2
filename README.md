@@ -10,7 +10,7 @@
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
 [![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-18-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Vue Storefront 2 integration with Magento
@@ -147,6 +147,7 @@ Thanks go to these wonderful people 🙌:
     <td align="center"><a href="https://github.com/sethidden"><img src="https://avatars.githubusercontent.com/u/5359825?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Artur Tagisow</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=sethidden" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/jonathanribas"><img src="https://avatars.githubusercontent.com/u/3003782?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Jonathan Ribas</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=jonathanribas" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Aliaaaam"><img src="https://avatars.githubusercontent.com/u/88658555?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Ali Ghanei</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Aliaaaam" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mayashavin"><img src="https://avatars.githubusercontent.com/u/6650139?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Maya Shavin</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=mayashavin" title="Documentation">📖</a></td>
   </tr>
 </table>
 
