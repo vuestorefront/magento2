@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
+import { CategoryResult } from '~/composables';
 import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
-import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 
 interface CategoryState {
-  rawCategories: { categories: { items: CategoryTreeInterface[] } } | null
+  rawCategories: CategoryResult | null
 }
 
 export const useCategoryStore = defineStore('category', {
@@ -13,7 +13,8 @@ export const useCategoryStore = defineStore('category', {
   }),
   actions: {
     async load() {
-      this.rawCategories = await this.$nuxt.$graphql.query.request(categoryListGql);
+      const response = await this.$nuxt.$graphql.query.request<{ categories: CategoryResult }>(categoryListGql);
+      this.rawCategories = response.categories ?? null;
     },
   },
   getters: {
@@ -21,7 +22,7 @@ export const useCategoryStore = defineStore('category', {
       if (state.rawCategories === null) {
         return null;
       }
-      const rootCategory = state.rawCategories?.categories.items[0];
+      const rootCategory = state.rawCategories?.items[0];
       const shouldIncludeProductCounts = true;
       const currentCategory = '';
       const agnosticCategoryTree = buildCategoryTree(rootCategory, currentCategory, shouldIncludeProductCounts);
