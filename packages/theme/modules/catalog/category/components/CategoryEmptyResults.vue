@@ -11,12 +11,11 @@
     </slot>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
-  name: 'CategoryEmptyResults',
   components: {
     SvgImage,
   },
