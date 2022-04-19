@@ -1,75 +1,66 @@
 <template>
   <div class="navbar section">
-    <div class="navbar__aside desktop-only">
-      <SfHeading
-        :level="3"
-        :title="$t('Categories')"
-        class="navbar__title"
+    <SfButton
+      :aria-label="$t('Filters')"
+      class="sf-button--text navbar__filters-button smartphone-only"
+      @click="toggleFilterSidebar"
+    >
+      <SvgImage
+        class="navbar__filters-icon"
+        height="24"
+        icon="filter2"
+        width="24"
       />
-    </div>
-    <div class="navbar__main">
-      <SfButton
-        :aria-label="$t('Filters')"
-        class="sf-button--text navbar__filters-button"
-        @click="toggleFilterSidebar"
+      {{ $t('Filters') }}
+    </SfButton>
+    <div class="navbar__sort">
+      <span class="navbar__label desktop-only">{{ $t('Sort by') }}:</span>
+      <SfSelect
+        :value="sortBy.selected"
+        class="navbar__select"
+        @input="doChangeSorting"
       >
-        <SvgImage
-          class="navbar__filters-icon"
-          height="24"
-          icon="filter2"
-          width="24"
-        />
-        {{ $t('Filters') }}
-      </SfButton>
-      <div class="navbar__sort">
-        <span class="navbar__label desktop-only">{{ $t('Sort by') }}:</span>
-        <SfSelect
-          :value="sortBy.selected"
-          class="navbar__select"
-          @input="doChangeSorting"
+        <SfSelectOption
+          v-for="option in sortBy.options"
+          :key="option.value"
+          :value="option.value"
+          class="sort-by__option"
         >
-          <SfSelectOption
-            v-for="option in sortBy.options"
-            :key="option.value"
-            :value="option.value"
-            class="sort-by__option"
-          >
-            {{ $t(option.label) }}
-          </SfSelectOption>
-        </SfSelect>
-      </div>
+          {{ $t(option.label) }}
+        </SfSelectOption>
+      </SfSelect>
+    </div>
 
-      <div class="navbar__counter">
-        <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
-        <span class="desktop-only">{{ pagination.totalItems }}</span>
-        <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
-          $t('Items')
-        }}</span>
-      </div>
+    <div class="navbar__counter">
+      <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
+      <span class="desktop-only">{{ pagination.totalItems }}</span>
+      <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
+        $t('Items')
+      }}</span>
+    </div>
 
-      <div class="navbar__view">
-        <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
-        <SvgImage
-          :aria-pressed="isCategoryGridView"
-          :class="{ 'navbar__view-icon--active': isCategoryGridView }"
-          :label="$t('Change to grid view')"
-          class="navbar__view-icon"
-          height="12"
-          icon="tiles"
-          width="12"
-          @click.native="changeToCategoryGridView"
-        />
-        <SvgImage
-          :aria-pressed="!isCategoryGridView"
-          :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
-          :label="$t('Change to list view')"
-          class="navbar__view-icon"
-          height="12"
-          icon="list"
-          width="12"
-          @click.native="changeToCategoryListView"
-        />
-      </div>
+    <div class="navbar__view">
+      <span class="navbar__view-label desktop-only">{{ $t('View') }}</span>
+      <SvgImage
+        :aria-pressed="isCategoryGridView"
+        :class="{ 'navbar__view-icon--active': isCategoryGridView }"
+        :label="$t('Change to grid view')"
+        class="navbar__view-icon"
+        height="12"
+        icon="tiles"
+        width="12"
+        @click.native="changeToCategoryGridView"
+      />
+      <SvgImage
+        :aria-pressed="!isCategoryGridView"
+        :class="{ 'navbar__view-icon--active': !isCategoryGridView }"
+        :label="$t('Change to list view')"
+        class="navbar__view-icon"
+        height="12"
+        icon="list"
+        width="12"
+        @click.native="changeToCategoryListView"
+      />
     </div>
   </div>
 </template>
@@ -78,7 +69,6 @@ import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import {
   SfSelect,
   SfButton,
-  SfHeading,
 } from '@storefront-ui/vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useUiHelpers, useUiState } from '~/composables';
@@ -89,7 +79,6 @@ export default defineComponent({
     SvgImage,
     SfSelect,
     SfButton,
-    SfHeading,
   },
   props: {
     sortBy: {
@@ -127,24 +116,20 @@ export default defineComponent({
 .navbar {
   position: relative;
   display: flex;
+  justify-content: space-between;
+  align-content: center;
   border: 1px solid var(--c-light);
   border-width: 0 0 1px 0;
+  padding: var(--spacer-sm);
+
   @include for-desktop {
     border-width: 1px 0 1px 0;
+    padding: var(--spacer-base);
   }
 
-  &.section {
-    padding: var(--spacer-sm);
-    @include for-desktop {
-      padding: 0;
-    }
-  }
-
-  &__aside,
-  &__main {
+  &__aside {
     display: flex;
     align-items: center;
-    padding: var(--spacer-sm) 0;
   }
 
   &__aside {
@@ -239,7 +224,6 @@ export default defineComponent({
   &__sort {
     display: flex;
     align-items: center;
-    margin: 0 auto 0 var(--spacer-2xl);
     @include for-mobile {
       margin: 0;
       order: 1;
@@ -249,6 +233,8 @@ export default defineComponent({
   &__counter {
     font-family: var(--font-family--secondary);
     order: 1;
+    display: flex;
+    align-items: center;
     @include for-desktop {
       margin: auto 0 auto auto;
       order: 0;
