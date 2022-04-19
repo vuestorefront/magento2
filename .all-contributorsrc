@@ -75,7 +75,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/789614?v=4",
       "profile": "https://github.com/KevinGorjan",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
@@ -84,7 +85,11 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/16045377?v=4",
       "profile": "https://github.com/bartoszherba",
       "contributions": [
-        "code"
+        "code",
+        "doc",
+        "maintenance",
+        "mentoring",
+        "review"
       ]
     },
     {
@@ -122,7 +127,8 @@
       "contributions": [
         "question",
         "mentoring",
-        "review"
+        "review",
+        "doc"
       ]
     },
     {
