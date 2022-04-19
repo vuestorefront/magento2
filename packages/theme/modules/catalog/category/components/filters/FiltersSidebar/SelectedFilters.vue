@@ -37,7 +37,6 @@ import { SfBadge, SfIcon } from '@storefront-ui/vue';
 import type { UseFiltersProviderInterface } from '~/modules/catalog/category/components/filters/CategoryFilters.vue';
 
 export default defineComponent({
-  name: 'SelectedFilters',
   components: {
     SfBadge,
     SfIcon,
