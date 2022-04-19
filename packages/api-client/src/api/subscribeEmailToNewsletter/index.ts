@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
-import { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '../../types/GraphQL';
+import type { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
 /**
