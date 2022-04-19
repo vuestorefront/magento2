@@ -10,14 +10,14 @@ export function useMakeOrder(): UseMakeOrderInterface {
   const loading = ref(false);
   const error = ref<UseMakeOrderErrors>({ make: null });
   const { cart } = useCart();
-  const context = useContext();
+  const { app } = useContext();
 
   const make = async (): Promise<PlaceOrderOutput | null> => {
     Logger.debug('useMakeOrder.make');
     let placedOrder = null;
     try {
       loading.value = true;
-      placedOrder = await placeOrderCommand.execute(context, cart.value.id);
+      placedOrder = await placeOrderCommand.execute(app, cart.value.id);
       error.value.make = null;
     } catch (err) {
       error.value.make = err;
