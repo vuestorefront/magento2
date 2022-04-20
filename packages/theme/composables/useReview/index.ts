@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { ref, useContext } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '~/composables/types';
+import { ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import { CreateProductReviewInput } from '~/modules/GraphQL/types';
 import { UseReviewErrors } from './useReview';
@@ -8,7 +8,6 @@ import { addReviewCommand } from './commands/addReviewCommand';
 import { loadCustomerReviewsCommand } from './commands/loadCustomerReviewsCommand';
 import { loadReviewMetadataCommand } from './commands/loadReviewMetadataCommand';
 import { searchReviewsCommand } from './commands/searchReviewsCommand';
-import { GetProductSearchParams } from '../useProduct/useProduct';
 
 export const useReview = () => {
   const loading = ref(false);
