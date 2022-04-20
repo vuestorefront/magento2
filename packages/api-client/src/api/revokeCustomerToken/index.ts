@@ -4,6 +4,9 @@ import revokeCustomerToken from './revokeCustomerToken';
 import { Context } from '../../types/context';
 import { RevokeCustomerTokenMutation } from '../../types/GraphQL';
 
+/**
+ * Logs out the current customer. To override the default query, use the `revokeCustomerToken` query key.
+ */
 export default async (
   context: Context,
   customQuery: CustomQuery = { revokeCustomerToken: 'revokeCustomerToken' },

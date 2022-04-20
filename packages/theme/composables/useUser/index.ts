@@ -1,19 +1,36 @@
 import {
-  Ref, ref, computed, useContext,
+  ref,
+  readonly,
+  computed,
+  useContext,
 } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/stores/customer';
 import { generateUserData } from '~/helpers/customer/userDataGenerator';
-import { UseUser } from '~/composables/useUser/useUser';
 import { useCart } from '~/composables';
+import type {
+  User,
+  UseUserInterface,
+  UseUserLoadParams,
+  UseUserLoginParams,
+  UseUserLogoutParams,
+  UseUserRegisterParams,
+  UseUserUpdateUserParams,
+  UseUserChangePasswordParams,
+} from './useUser';
 
-export const useUser = (): UseUser => {
+/**
+ * The `useUser()` composable allows loading and manipulating data of the current user.
+ *
+ * See the {@link UseUserInterface} page for more information.
+ */
+export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const isAuthenticated = computed(() => customerStore.isLoggedIn);
   const errorsFactory = () => ({
     updateUser: null,
     register: null,
@@ -24,7 +41,7 @@ export const useUser = (): UseUser => {
   });
   const error: Ref = ref(errorsFactory());
 
-  const setUser = (newUser) => {
+  const setUser = (newUser: User) => {
     customerStore.user = newUser;
     Logger.debug('useUserFactory.setUser', newUser);
   };
@@ -42,7 +59,7 @@ export const useUser = (): UseUser => {
   };
 
   // eslint-disable-next-line consistent-return
-  const updateUser = async ({ user: providedUser, customQuery }) => {
+  const updateUser = async ({ user: providedUser, customQuery }: UseUserUpdateUserParams) => {
     Logger.debug('[Magento] Update user information', { providedUser, customQuery });
     resetErrorValue();
 
@@ -79,7 +96,7 @@ export const useUser = (): UseUser => {
     }
   };
 
-  const logout = async ({ customQuery = {} } = {}) => {
+  const logout = async ({ customQuery = {} }: UseUserLogoutParams = {}) => {
     Logger.debug('[Magento] useUserFactory.logout');
     resetErrorValue();
 
@@ -100,7 +117,7 @@ export const useUser = (): UseUser => {
     }
   };
 
-  const load = async ({ customQuery } = { customQuery: undefined }) => {
+  const load = async ({ customQuery = {} }: UseUserLoadParams = {}) => {
     Logger.debug('[Magento] useUser.load');
     resetErrorValue();
 
@@ -134,7 +151,7 @@ export const useUser = (): UseUser => {
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await,no-empty-pattern
-  const login = async ({ user: providedUser, customQuery }) : Promise<void> => {
+  const login = async ({ user: providedUser, customQuery }: UseUserLoginParams) : Promise<void> => {
     Logger.debug('[Magento] useUser.login', providedUser);
     resetErrorValue();
 
@@ -196,7 +213,7 @@ export const useUser = (): UseUser => {
   };
 
   // eslint-disable-next-line consistent-return
-  const register = async ({ user: providedUser, customQuery }) : Promise<void> => {
+  const register = async ({ user: providedUser, customQuery }: UseUserRegisterParams) : Promise<void> => {
     Logger.debug('[Magento] useUser.register', providedUser);
     resetErrorValue();
 
@@ -248,7 +265,7 @@ export const useUser = (): UseUser => {
   };
 
   // eslint-disable-next-line consistent-return
-  const changePassword = async (params) => {
+  const changePassword = async (params: UseUserChangePasswordParams) => {
     Logger.debug('[Magento] useUser.changePassword', { currentPassword: mask(params.current), newPassword: mask(params.new) });
     resetErrorValue();
 
@@ -279,10 +296,6 @@ export const useUser = (): UseUser => {
   };
 
   return {
-    user: computed(() => customerStore.user),
-    loading,
-    isAuthenticated,
-    error,
     setUser,
     updateUser,
     register,
@@ -290,7 +303,12 @@ export const useUser = (): UseUser => {
     logout,
     changePassword,
     load,
+    loading: readonly(loading),
+    error: readonly(error),
+    user: computed(() => customerStore.user),
+    isAuthenticated: computed(() => customerStore.isLoggedIn),
   };
-};
+}
 
 export default useUser;
+export * from './useUser';
