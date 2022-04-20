@@ -18,6 +18,8 @@ on:
          required: true
        cloud_password:
          required: true
+       deployment_status_token: # can be ${{ github.token }}
+         required: true
 
 
 jobs:
@@ -28,7 +30,7 @@ jobs:
         name: Create GitHub deployment
         id: deployment
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.deployment_status_token }}
           environment: ${{ inputs.github_environment_name }}
           initial_status: in_progress
           target_url: ${{ inputs.target_url }}
@@ -49,7 +51,7 @@ jobs:
         if: success()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.deployment_status_token }}
           target_url: ${{ inputs.target_url }}
           state: success
           description: Congratulations! The deploy is done.
@@ -59,7 +61,7 @@ jobs:
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.deployment_status_token }}
           target_url: ${{ inputs.target_url }}
           description: Unfortunately, the instance hasn't been updated.
           state: failure

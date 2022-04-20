@@ -13,7 +13,7 @@
           href="/"
           class="container__store--link"
           :class="
-            storeGetters.getSelected(storeConfig, store)
+            storeConfig.store_code === store.store_code
               ? 'container__store--selected'
               : ''
           "
@@ -21,14 +21,12 @@
         >
           <SfCharacteristic class="language">
             <template #title>
-              <span>{{ storeConfigGetters.getName(store) }}</span>
+              <span>{{ store.store_name }}</span>
             </template>
             <template #icon>
               <SfImage
                 image-tag="nuxt-img"
-                :src="`/icons/langs/${storeConfigGetters.getLocale(
-                  store
-                )}.webp`"
+                :src="`/icons/langs/${store.locale}.webp`"
                 width="20"
                 height="20"
                 alt="Flag"
@@ -41,16 +39,18 @@
     </SfList>
   </SfBottomModal>
 </template>
-<script>
-import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api';
+<script lang="ts">
+import {
+  defineComponent, onMounted, computed, PropType,
+} from '@nuxtjs/composition-api';
 import {
   SfList,
   SfBottomModal,
   SfCharacteristic,
   SfImage,
 } from '@storefront-ui/vue';
+import { StoreConfig } from '~/modules/GraphQL/types';
 import { useStore } from '~/composables';
-import { storeGetters, storeConfigGetters } from '~/getters';
 
 export default defineComponent({
   name: 'StoresModal',
@@ -62,7 +62,10 @@ export default defineComponent({
   },
   props: {
     isLangModalOpen: Boolean,
-    storeConfig: Object,
+    storeConfig: {
+      type: Object as PropType<StoreConfig | {}>,
+      default: () => {},
+    },
   },
   emits: ['closeModal'],
   setup() {
@@ -80,8 +83,6 @@ export default defineComponent({
     });
 
     return {
-      storeGetters,
-      storeConfigGetters,
       availableStores,
       changeStore,
     };

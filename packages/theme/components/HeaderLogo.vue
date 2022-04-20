@@ -26,7 +26,6 @@
 import { SfImage } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import { useConfig } from '~/composables';
-import { storeConfigGetters } from '~/getters';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -36,22 +35,22 @@ export default defineComponent({
     const { config } = useConfig();
 
     const logoSrc = computed(() => {
-      const baseMediaUrl = storeConfigGetters.getBaseMediaUrl(config.value);
-      const logo = storeConfigGetters.getLogoSrc(config.value);
+      const baseMediaUrl = config.value.base_media_url;
+      const logo = config.value.header_logo_src;
 
       return baseMediaUrl && logo ? `${baseMediaUrl}logo/${logo}` : '';
     });
 
     const logoWidth = computed(
-      () => storeConfigGetters.getLogoWidth(config.value) || '35',
+      () => config.value.logo_width || '35',
     );
 
     const logoHeight = computed(
-      () => storeConfigGetters.getLogoHeight(config.value) || '34',
+      () => config.value.logo_height || '34',
     );
 
     const logoAlt = computed(
-      () => storeConfigGetters.getLogoAlt(config.value) || '',
+      () => config.value.logo_alt || '',
     );
 
     return {

@@ -45,6 +45,12 @@ Then on the `config` folder create a file `dev.json` with your configurations.
 }
 ```
 
+
+## Store Config
+This type contains information about the Magento's Store Configuration which is stored in Pinia `$state.storeConfig`. To avoid over fetch, by default, the amount of data pulled from Magento is minimal but as your application grows you might want to pull more config data for different purposes.
+
+Plugin `plugins/storeConfigPlugin.ts` is responsible for initial population of the Store Config data based on query in `plugins/query/StoreConfig.gql.ts`. To modify the initial Store Configuration state simply adjust the query to your needs.
+
 ## Multistore and localization
 
 Each Magento Store View need to have corresponding locale configuration object in `i18n.locales` array in `nuxt.config.js`.

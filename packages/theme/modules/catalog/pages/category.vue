@@ -9,12 +9,14 @@
       class="breadcrumbs"
     />
     <CategoryNavbar
+      v-if="isShowProducts"
       :sort-by="sortBy"
       :pagination="pagination"
       @reloadProducts="fetch"
     />
     <div class="main section">
       <CategorySidebar
+        v-if="isShowProducts"
         class="sidebar desktop-only"
       />
       <div
@@ -237,7 +239,6 @@ import {
 
 import { AgnosticPagination } from '~/composables/types';
 import { useUrlResolver } from '~/composables/useUrlResolver';
-import cacheControl from '~/helpers/cacheControl';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
@@ -316,7 +317,6 @@ export default defineComponent({
     const { fetch } = useFetch(async () => {
       routeData.value = await resolveUrl();
       const content = await getContentData(routeData.value?.id);
-
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;

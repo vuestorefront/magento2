@@ -13,28 +13,52 @@
     >
       <SfContentCategory :title="$t('Personal Details')">
         <SfContentPage :title="$t('My profile')">
-          <MyProfile />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            :height="skeletonHeight"
+          />
+          <MyProfile v-else />
         </SfContentPage>
 
         <SfContentPage :title="$t('Addresses details')">
-          <AddressesDetails />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            :height="skeletonHeight"
+          />
+          <AddressesDetails v-else />
         </SfContentPage>
 
         <SfContentPage :title="$t('My newsletter')">
-          <MyNewsletter />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            :height="skeletonHeight"
+          />
+          <MyNewsletter v-else />
         </SfContentPage>
         <SfContentPage :title="$t('My wishlist')">
-          <MyWishlist />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            :height="skeletonHeight"
+          />
+          <MyWishlist v-else />
         </SfContentPage>
       </SfContentCategory>
 
       <SfContentCategory :title="$t('Order details')">
         <SfContentPage :title="$t('Order history')">
-          <OrderHistory />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            :height="skeletonHeight"
+          />
+          <OrderHistory v-else />
         </SfContentPage>
 
         <SfContentPage :title="$t('My reviews')">
-          <MyReviews />
+          <SkeletonLoader
+            v-if="$fetchState.pending"
+            height="100vh"
+          />
+          <MyReviews v-else />
         </SfContentPage>
       </SfContentCategory>
 
@@ -49,10 +73,12 @@ import {
   defineComponent,
   ref,
   useContext,
+  useFetch,
   useRoute,
   useRouter,
 } from '@nuxtjs/composition-api';
 import { useUser, useCart } from '~/composables';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import MyProfile from './MyAccount/MyProfile.vue';
 import AddressesDetails from './MyAccount/AddressesDetails.vue';
 import MyNewsletter from './MyAccount/MyNewsletter.vue';
@@ -71,6 +97,7 @@ export default defineComponent({
     OrderHistory,
     SfBreadcrumbs,
     SfContentPages,
+    SkeletonLoader,
   },
   middleware: [
     'is-authenticated',
@@ -78,9 +105,16 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const router = useRouter();
-    const { logout } = useUser();
+    const { logout, load: loadUser, user } = useUser();
     const { clear } = useCart();
     const { localePath, app } = useContext();
+
+    useFetch(async () => {
+      if (user.value === null) {
+        await loadUser();
+      }
+    });
+
     const breadcrumbs = ref([
       {
         text: app.i18n.t('Home'),
@@ -113,9 +147,11 @@ export default defineComponent({
     };
 
     return {
+      user,
       activePage,
       breadcrumbs,
       changeActivePage,
+      skeletonHeight: '100vh',
     };
   },
 });

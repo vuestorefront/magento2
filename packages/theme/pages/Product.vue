@@ -307,7 +307,6 @@ import {
 } from '~/composables';
 
 import { productData } from '~/helpers/product/productData';
-import cacheControl from '~/helpers/cacheControl';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';

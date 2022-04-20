@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Query that fetches the currency information. */
 export default gql`
   query currency {
     currency{
