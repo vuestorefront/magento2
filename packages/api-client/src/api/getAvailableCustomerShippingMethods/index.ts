@@ -7,10 +7,15 @@ import {
   CustomerAvailableShippingMethodsQuery,
 } from '../../types/GraphQL';
 
-export default async (
+/**
+ * Retrive available shipping methods for current customer
+ * @param context VSF Context
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
+export default async function getAvailableCustomerShippingMethods(
   context: Context,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
-): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> => {
+): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> {
   const { shippingMethods } = context.extendQuery(
     customQuery,
     {
@@ -27,4 +32,4 @@ export default async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

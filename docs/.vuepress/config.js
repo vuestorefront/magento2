@@ -105,8 +105,10 @@ module.exports = {
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
           ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
+          ['/api-reference/magento-theme.usegetshippingmethods', 'useGetShippingMethods()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
           ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
+          ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
         ],
       },
       {
@@ -134,6 +136,7 @@ module.exports = {
           ['/api-reference/magento-api.customercart', 'customerCart'],
           ['/api-reference/magento-api.removeitemfromcart', 'removeItemFromCart'],
           ['/api-reference/magento-api.updatecartitems', 'updateCartItems'],
+          ['/api-reference/magento-api.getavailablecustomershippingmethods', 'getAvailableCustomerShippingMethods'],
           ['/api-reference/magento-api.resetpassword', 'resetPassword'],
           ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
           ['/api-reference/magento-api.setguestemailoncart', 'setGuestEmailOnCart'],
