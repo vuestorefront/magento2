@@ -19,7 +19,7 @@ export { default as useUser } from './useUser';
 export * from './useGuestUser';
 export * from './useForgotPassword';
 export * from './useCategory';
-export { default as useFacet } from './useFacet';
+export * from './useFacet';
 export * from './useCart';
 export * from './useContent';
 export * from './useCategorySearch';
