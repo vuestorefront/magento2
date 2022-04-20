@@ -1,8 +1,8 @@
-import { CategoryTreeInterface } from '~/modules/catalog/category/types';
+import { CategoryTree } from '~/modules/catalog/category/types';
 import { useMobileCategoryTree } from '../logic';
 
-const createCategoryItem = (label: string): CategoryTreeInterface => ({
-  label, items: [], isCurrent: false, count: 10,
+const createCategoryItem = (name: string): CategoryTree => ({
+  name, children: [], redirect_code: 302, uid: `${name}_${Math.floor(Math.random() * 100)}`,
 });
 
 describe('categoryTreeLogic', () => {
@@ -10,7 +10,7 @@ describe('categoryTreeLogic', () => {
     const itemFirst = createCategoryItem('Itemless1');
     const { history, current, onGoCategoryDown } = useMobileCategoryTree();
     onGoCategoryDown(itemFirst);
-    expect(current.value.label).toBe(itemFirst.label);
+    expect(current.value.name).toBe(itemFirst.name);
     expect(history.value).toHaveLength(1);
   });
 
@@ -24,7 +24,7 @@ describe('categoryTreeLogic', () => {
     onGoCategoryDown(itemSecond);
     onGoCategoryUp();
 
-    expect(current.value.label).toBe(itemFirst.label);
+    expect(current.value.name).toBe(itemFirst.name);
   });
 
   it('current item is last in history', () => {
@@ -35,7 +35,7 @@ describe('categoryTreeLogic', () => {
     onGoCategoryDown(itemFirst);
     onGoCategoryDown(itemSecond);
 
-    expect(current.value.label).toBe(itemSecond.label);
+    expect(current.value.name).toBe(itemSecond.name);
     expect(history.value).toHaveLength(2);
   });
 });

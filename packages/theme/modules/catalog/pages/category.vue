@@ -253,7 +253,7 @@ import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
 import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
-import { useCategoryLogic } from '../category/helpers';
+import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
@@ -320,10 +320,9 @@ export default defineComponent({
 
     const {
       categoryAncestors, isCategoryTreeLoaded, loadCategoryTree, activeCategory,
-    } = useCategoryLogic();
-    const activeCategoryLabel = computed(() => activeCategory.value?.label ?? '');
+    } = useTraverseCategory();
+    const activeCategoryLabel = computed(() => activeCategory.value?.name ?? '');
     const categoryAncestorsWithoutActiveCategory = computed(() => categoryAncestors.value.slice(0, -1));
-
     const routeData = ref<EntityUrl>({});
 
     const { fetch } = useFetch(async () => {

@@ -1,6 +1,6 @@
 <template>
   <SfSidebar
-    :title="currentCategory && currentCategory.label || $t('Menu')"
+    :title="currentCategory && currentCategory.name || $t('Menu')"
     visible
     class="mobile-menu-sidebar sf-sidebar--left"
     @close="toggleMobileMenu"
@@ -19,18 +19,16 @@
 
         <SfMenuItem
           class="mobile-menu-sidebar__item"
-          :label="$i18n.t('AllProductsFromCategory', { categoryName: currentCategory.label })"
-          :count="currentCategory.count"
+          :label="$i18n.t('AllProductsFromCategory', { categoryName: currentCategory.name })"
           @click="navigate(currentCategory)"
         />
       </template>
       <SfMenuItem
-        v-for="(category, index) in currentItems || categoryTree.items"
+        v-for="(category, index) in currentItems || categoryTree.children"
         :key="index"
-        :label="category.label"
-        :count="category.count"
+        :label="category.name"
         class="mobile-menu-sidebar__item"
-        @click="category.items.length === 0 ? navigate(category) : onGoCategoryDown(category)"
+        @click="category.children ? navigate(category) : onGoCategoryDown(category)"
       />
     </SfList>
   </SfSidebar>
@@ -43,9 +41,9 @@ import {
   defineComponent, useRouter, useContext,
 } from '@nuxtjs/composition-api';
 import { useUiHelpers, useUiState } from '~/composables';
-import { CategoryTreeInterface } from '~/modules/catalog/category/types';
-import { useCategoryLogic } from '~/modules/catalog/category/helpers';
+import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import { useMobileCategoryTree } from './logic';
+import { CategoryTree } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   components: {
@@ -55,26 +53,26 @@ export default defineComponent({
   },
   setup() {
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
-    const { getAgnosticCatLink } = useUiHelpers();
+    const { getCatLink } = useUiHelpers();
     const router = useRouter();
     const app = useContext();
 
-    const { categoryAncestors: initialHistory, categoryTree } = useCategoryLogic();
+    const { categoryAncestors: initialHistory, categoryTree } = useTraverseCategory();
 
-    const navigate = (category: CategoryTreeInterface) => {
+    const navigate = (category: CategoryTree) => {
       toggleMobileMenu();
-      const path = app.localePath(getAgnosticCatLink(category) as string);
+      const path = app.localePath(getCatLink(category) as string);
       router.push(path);
     };
 
     // A category with no child categories can't be entered into - it can only navigated to
-    const initialHistoryWithSnippedSubcategorylessTail = initialHistory.value.at(-1)?.items.length
+    const initialHistoryWithSnippedSubcategoryLessTail = initialHistory.value.at(-1)?.children.length
       ? initialHistory.value
       : initialHistory.value.slice(0, -1);
 
     const {
       current: currentCategory, history, currentItems, onGoCategoryUp, onGoCategoryDown,
-    } = useMobileCategoryTree(initialHistoryWithSnippedSubcategorylessTail);
+    } = useMobileCategoryTree(initialHistoryWithSnippedSubcategoryLessTail);
 
     return {
       currentCategory,
@@ -83,7 +81,6 @@ export default defineComponent({
       onGoCategoryDown,
       categoryTree,
       history,
-
       navigate,
       isMobileMenuOpen,
       toggleMobileMenu,
