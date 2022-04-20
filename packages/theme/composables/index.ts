@@ -15,7 +15,7 @@ export { default as useStore } from './useStore';
 export * from './useCurrency';
 export * from './useExternalCheckout';
 export * from './useWishlist';
-export { default as useUser } from './useUser';
+export * from './useUser';
 export * from './useGuestUser';
 export * from './useForgotPassword';
 export * from './useCategory';

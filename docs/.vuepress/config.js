@@ -103,6 +103,7 @@ module.exports = {
           ['/api-reference/magento-theme.usecategorysearch', 'useCategorySearch()'],
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
           ['/api-reference/magento-theme.useexternalcheckout', 'useExternalCheckout()'],
+          ['/api-reference/magento-theme.useuser', 'useUser()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
           ['/api-reference/magento-theme.usegetshippingmethods', 'useGetShippingMethods()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],

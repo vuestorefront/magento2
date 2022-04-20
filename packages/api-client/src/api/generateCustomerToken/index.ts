@@ -9,6 +9,9 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.
+ */
 export default async (
   context: Context,
   params: {
