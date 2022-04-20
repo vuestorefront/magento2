@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { CategoryResult } from '~/composables';
-import categoryListGql from '~/stores/graphql/categoryList.gql';
-import { buildCategoryTree } from '~/modules/catalog/category/helpers';
+import categoryListGql from './graphql/categoryList.gql';
 
 interface CategoryState {
   rawCategories: CategoryResult | null
@@ -22,11 +21,8 @@ export const useCategoryStore = defineStore('category', {
       if (state.rawCategories === null) {
         return null;
       }
-      const rootCategory = state.rawCategories?.items[0];
-      const shouldIncludeProductCounts = true;
-      const currentCategory = '';
-      const agnosticCategoryTree = buildCategoryTree(rootCategory, currentCategory, shouldIncludeProductCounts);
-      return agnosticCategoryTree;
+
+      return state.rawCategories?.items[0];
     },
   },
 });
