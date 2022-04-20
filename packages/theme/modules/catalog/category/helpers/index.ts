@@ -1,9 +1,10 @@
 import { computed, useContext, useRoute } from '@nuxtjs/composition-api';
 import findDeep from 'deepdash/findDeep';
+import { CategoryTree } from '~/composables';
 import { CategoryTreeInterface } from '~/modules/catalog/category/types';
 import { useCategoryStore } from '~/stores/category';
 
-export const buildCategoryTree = (rootCategory: any, currentCategory: string, withProducts = false): CategoryTreeInterface => {
+export const buildCategoryTree = (rootCategory: CategoryTree, currentCategory: string, withProducts = false): CategoryTreeInterface => {
   const hasChildren = Array.isArray(rootCategory.children) && rootCategory.children.length > 0;
   const isCurrent = rootCategory.uid === currentCategory;
   const label = rootCategory.name;
@@ -18,7 +19,6 @@ export const buildCategoryTree = (rootCategory: any, currentCategory: string, wi
   const childProductCount = hasChildren
     ? rootCategory
       .children
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       .reduce((acc, curr) => acc + curr.product_count, 0)
     : 0;
 

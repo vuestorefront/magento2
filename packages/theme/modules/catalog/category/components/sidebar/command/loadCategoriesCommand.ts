@@ -1,6 +1,6 @@
-import categoryListQuery from './categoryList.gql';
 import { CategoryInterface } from '~/modules/catalog/category/types';
-import useApi from '~/composables/useApi';
+import { useApi } from '~/composables/useApi';
+import categoryListQuery from './categoryList.gql';
 
 export const loadCategoriesCommand = {
   execute: async (customQuery: string = categoryListQuery): Promise<CategoryInterface[]> => {

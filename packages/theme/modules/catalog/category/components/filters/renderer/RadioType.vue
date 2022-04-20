@@ -28,7 +28,6 @@ import { SfRadio, SfScrollable } from '@storefront-ui/vue';
 import type { Aggregation } from '~/modules/GraphQL/types';
 
 export default defineComponent({
-  name: 'RadioType',
   components: {
     SfRadio,
     SfScrollable,

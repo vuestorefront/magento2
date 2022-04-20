@@ -244,9 +244,9 @@ import { useCategoryContent } from '~/modules/catalog/category/components/cms/us
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
+import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
 import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 import { useCategoryLogic } from '../category/helpers';
-import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
@@ -297,13 +297,13 @@ export default defineComponent({
     const { result, search } = useFacet();
     const { addItemToCart, isInCart } = useAddToCart();
 
-    const addItemToWishlist = async (product) => {
+    const addItemToWishlist = async (product: ProductInterface) => {
       await (isInWishlist({ product })
         ? removeItemFromWishlist({ product })
         : addItemToWishlistBase({ product }));
     };
 
-    const searchCategoryProduct = async (categoryId) => {
+    const searchCategoryProduct = async (categoryId: string) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await search({
         ...uiHelpers.getFacetsFromURL(),
