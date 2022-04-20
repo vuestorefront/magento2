@@ -1,13 +1,14 @@
-import gql from 'graphql-tag';
-import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import {
-  ProductAttributeFilterInput,
-  ProductAttributeSortInput, UpsellProductsQuery, UpsellProductsQueryVariables,
-} from '../../types/GraphQL';
+import type { ApolloQueryResult } from '@apollo/client/core';
+import type { CustomQuery } from '@vue-storefront/core';
 import upsellProducts from './upsellProducts';
-import { Context } from '../../types/context';
-import { GetProductSearchParams } from '../../types/API';
+import type { Context } from '../../types/context';
+import type { GetProductSearchParams } from '../../types/API';
+import type {
+  ProductAttributeFilterInput,
+  ProductAttributeSortInput,
+  UpsellProductsQuery,
+  UpsellProductsQueryVariables,
+} from '../../types/GraphQL';
 
 type Variables = {
   pageSize: number;
@@ -17,6 +18,9 @@ type Variables = {
   sort?: ProductAttributeSortInput;
 };
 
+/**
+ * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.
+ */
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,

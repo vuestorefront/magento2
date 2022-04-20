@@ -1,15 +1,37 @@
-import { Ref } from '@nuxtjs/composition-api';
-import { Maybe, UpsellProductsQuery } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
+import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
+import type { Maybe, UpsellProductsQuery } from '~/modules/GraphQL/types';
+import type { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
 
+/**
+ * Errors that occured in the `useUpsellProducts` composable
+ */
 export interface UseUpsellProductsError {
   search: Error | null;
 }
 
 export type UpsellProducts = UpsellProductsQuery['products']['items'][0]['upsell_products'];
 
+/**
+ * Parameters accepted by the `search` method in the `useUpsellProducts` composable
+ */
+export type UseUpsellProductsSearchParams = ComposableFunctionArgs<ProductsSearchParams>;
+
+/**
+ * Represents the data returned from and functions available in the `useUpsellProducts()` composable.
+ */
 export interface UseUpsellProductsInterface {
-  search: (params?: ComposableFunctionArgs<ProductsSearchParams>) => Promise<Maybe<Array<UpsellProducts>>>;
-  loading: Ref<boolean>;
-  error: Ref<UseUpsellProductsError>;
+  /**
+   * Fetches upsell products matching the provided parameters
+   */
+  search(params?: UseUpsellProductsSearchParams): Promise<Maybe<UpsellProducts[]>>;
+
+  /**
+   * Indicates whether any of the methods is in progress
+   */
+  loading: DeepReadonly<Ref<boolean>>;
+
+  /**
+   * Contains errors from any of the composable methods
+   */
+  error: DeepReadonly<Ref<UseUpsellProductsError>>;
 }

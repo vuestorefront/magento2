@@ -1,12 +1,12 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import {
+import type {
   BundleProduct,
   ConfigurableProduct,
   DownloadableProduct,
   GroupedProduct,
   ProductInterface,
   VirtualProduct,
-  CategorySearchQuery, CategoryTree,
+  CategoryTree,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   AvailableStoresQuery,
