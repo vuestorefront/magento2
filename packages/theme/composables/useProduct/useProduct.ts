@@ -11,11 +11,11 @@ export type ProductDetails = ProductDetailsQuery['products'];
  * thrown by its methods.
  */
 export interface UseProductErrors {
-  /**
-   * Error when fetching the product list or product details method fails,
-   * otherwise is `null`.
-   */
-  search: Error | null;
+  /** Error when fetching the product list method fails, otherwise is `null`. */
+  getProductList: Error | null;
+
+  /** Error when fetching product details method fails, otherwise is `null`. */
+  getProductDetails: Error | null;
 }
 
 /** The interface provided by {@link useProduct} composable. */

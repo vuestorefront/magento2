@@ -17,7 +17,8 @@ import type {
 export function useProduct(id?: string): UseProductInterface {
   const loading = ref(false);
   const error = ref<UseProductErrors>({
-    search: null,
+    getProductList: null,
+    getProductDetails: null,
   });
 
   const { app } = useContext();
@@ -29,9 +30,9 @@ export function useProduct(id?: string): UseProductInterface {
     try {
       loading.value = true;
       products = await getProductListCommand.execute(app, searchParams);
-      error.value.search = null;
+      error.value.getProductList = null;
     } catch (err) {
-      error.value.search = err;
+      error.value.getProductList = err;
       Logger.error(`useProduct/${id}/search`, err);
     } finally {
       loading.value = false;
@@ -47,9 +48,9 @@ export function useProduct(id?: string): UseProductInterface {
     try {
       loading.value = true;
       products = await getProductDetailsCommand.execute(app, searchParams);
-      error.value.search = null;
+      error.value.getProductDetails = null;
     } catch (err) {
-      error.value.search = err;
+      error.value.getProductDetails = err;
       Logger.error(`useProduct/${id}/search`, err);
     } finally {
       loading.value = false;
