@@ -1,5 +1,5 @@
 import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
-import type { Customer } from '~/composables/useUser/useUser';
+import type { User } from '~/composables/useUser/useUser';
 import type { CustomerAddress } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/composables/types';
 
@@ -57,7 +57,7 @@ export interface UseUserAddressInterface {
   /**
    * Loads addresses from the profile of the current user
    */
-  load(force?: boolean): Promise<Customer>; // TODO: Should accept custom queries
+  load(force?: boolean): Promise<User>; // TODO: Should accept custom queries
 
   /**
    * Sets an existing address as the default for the current user
