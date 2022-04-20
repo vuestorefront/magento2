@@ -1,4 +1,4 @@
-import useApi from '~/composables/useApi';
+import { useApi } from '~/composables/useApi';
 import { Aggregation, FilterEqualTypeInput } from '~/modules/GraphQL/types';
 import GetProductFilterByCategoryQuery from '~/modules/catalog/category/components/filters/command/getProductFilterByCategory.gql';
 
