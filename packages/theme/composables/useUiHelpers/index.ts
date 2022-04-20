@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import { CategoryTreeInterface, Category, FacetInterface } from '~/composables/types';
+import { Category, FacetInterface } from '~/composables/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -61,8 +61,6 @@ const useUiHelpers = () => {
   };
 
   const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
-
-  const getAgnosticCatLink = (category: CategoryTreeInterface): string => `/c${category.slug}`;
 
   /**
    * Force push for a backward compatibility in other places, should be removed
@@ -179,7 +177,6 @@ const useUiHelpers = () => {
   return {
     getFacetsFromURL,
     getCatLink,
-    getAgnosticCatLink,
     changeSorting,
     changeFilters,
     changeItemsPerPage,

@@ -8,7 +8,7 @@ import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
 
 export interface SelectedFiltersInterface {[p: string]: string[]}
 
-export const useFilters = () => {
+export function useFilters() {
   // @ts-ignore
   const { getFacetsFromURL } = useUiHelpers();
 
@@ -81,6 +81,6 @@ export const useFilters = () => {
     selectedFilters,
     getRemovableFilters,
   };
-};
+}
 
 export default useFilters;

@@ -280,15 +280,6 @@ export interface AgnosticReviewMetadata {
   }[];
 }
 
-export interface CategoryTreeInterface {
-  label: string;
-  slug?: string;
-  items: CategoryTreeInterface[];
-  isCurrent: boolean;
-  count?: number;
-  [x: string]: unknown;
-}
-
 export interface TransformedCustomerAddress extends CustomerAddress {
   apartment: string,
   neighborhood: string,
