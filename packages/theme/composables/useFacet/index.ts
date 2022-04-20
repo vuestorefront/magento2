@@ -1,9 +1,7 @@
-import { Ref, ref, useContext } from '@nuxtjs/composition-api';
-import { AgnosticFacetSearchParams, ProductsSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import {
-  FacetSearchResult, UseFacet, UseFacetErrors, GetProductSearchParams,
-} from './useFacet';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
+import type { UseFacetInterface, UseFacetErrors, UseFacetSearchResult } from './useFacet';
 
 const availableSortingOptions = [
   {
@@ -21,20 +19,24 @@ const availableSortingOptions = [
   {
     label: 'Sort: Price from low to high',
     value: 'price_ASC',
-  }, {
+  },
+  {
     label: 'Sort: Price from high to low',
     value: 'price_DESC',
   },
 ];
 
-const constructFilterObject = (inputFilters: Object) => {
+function constructFilterObject(inputFilters: Object) {
   const filter = {};
 
   Object.keys(inputFilters).forEach((key) => {
     if (key === 'price') {
       const price = { from: 0, to: 0 };
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const flatPrices = inputFilters[key].flatMap((inputFilter) => inputFilter.split('_').map((str) => Number.parseFloat(str))).sort((a, b) => a - b);
+      const flatPrices = inputFilters[key]
+        .flatMap((inputFilter) => inputFilter.split('_'))
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        .map((str) => Number.parseFloat(str))
+        .sort((a, b) => a - b);
 
       [price.from] = flatPrices;
       price.to = flatPrices[flatPrices.length - 1];
@@ -48,19 +50,25 @@ const constructFilterObject = (inputFilters: Object) => {
   });
 
   return filter;
-};
+}
 
-const constructSortObject = (sortData: string) => {
+function constructSortObject(sortData: string) {
   const baseData = sortData.split(/_/gi);
 
   return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
-};
+}
 
-export const useFacet = (): UseFacet => {
+/**
+ * The `useFacet()` composable allows searching for products using facets.
+ *
+ * What makes it powerful is the ability to accept multiple filters, allowing to
+ * narrow down the results to a specific category, search term, etc.
+ */
+export function useFacet(): UseFacetInterface {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const result: Ref<FacetSearchResult<any>> = ref({ data: null, input: null });
-  const error: Ref<UseFacetErrors> = ref({
+  const loading = ref(false);
+  const result = ref<UseFacetSearchResult<any>>({ data: null, input: null });
+  const error = ref<UseFacetErrors>({
     search: null,
   });
 
@@ -71,46 +79,38 @@ export const useFacet = (): UseFacet => {
     try {
       loading.value = true;
 
-      const itemsPerPage = (params.itemsPerPage) ? params.itemsPerPage : 20;
-      const inputFilters = (params.filters) ? params.filters : {};
+      const itemsPerPage = params.itemsPerPage ? params.itemsPerPage : 20;
+      const inputFilters = params.filters ? params.filters : {};
 
-      const categoryId = (params.categoryId && !inputFilters.category_id) ? {
-        category_uid: {
-          ...(Array.isArray(params.categoryId)
-            ? { in: params.categoryId }
-            : { eq: params.categoryId }),
-        },
-      } : {};
+      const categoryId = params.categoryId && !inputFilters.category_id
+        ? {
+          category_uid: {
+            ...(Array.isArray(params.categoryId)
+              ? { in: params.categoryId }
+              : { eq: params.categoryId }),
+          },
+        }
+        : {};
 
-      const productParams: ProductsSearchParams = {
+      const productSearchParams: GetProductSearchParams = {
+        pageSize: itemsPerPage,
+        search: params.term ? params.term : '',
         filter: {
           ...categoryId,
           ...constructFilterObject({
             ...inputFilters,
           }),
         },
-        perPage: itemsPerPage,
-        offset: (params.page - 1) * itemsPerPage,
-        page: params.page,
-        search: (params.term) ? params.term : '',
         sort: constructSortObject(params.sort || ''),
+        currentPage: params.page,
       };
 
-      const productSearchParams: GetProductSearchParams = {
-        pageSize: productParams.perPage,
-        search: productParams.search,
-        filter: productParams.filter,
-        sort: productParams.sort,
-        currentPage: productParams.page,
-      };
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const { data } = await app.context.$vsf.$magento.api.products(productSearchParams, params?.customQuery || { products: 'products' });
 
       Logger.debug('[Result]:', { data });
 
       result.value.data = {
-        items: data?.products?.items || [],
+        items: data?.products?.items ?? [],
         total: data?.products?.total_count,
         availableFilters: data?.products?.aggregations,
         category: { id: params.categoryId },
@@ -128,11 +128,13 @@ export const useFacet = (): UseFacet => {
   };
 
   return {
-    result,
-    loading,
-    error,
     search,
+    result,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export { default as SearchData } from './SearchData';
+export * from './useFacet';
 export default useFacet;
