@@ -109,6 +109,7 @@ module.exports = {
           ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
           ['/api-reference/magento-theme.useimage', 'useImage()'],
+          ['/api-reference/magento-theme.usefacet', 'useFacet()'],
         ],
       },
       {
@@ -126,6 +127,7 @@ module.exports = {
           ['/api-reference/magento-api.countries', 'countries'],
           ['/api-reference/magento-api.country', 'country'],
           ['/api-reference/magento-api.storeconfig', 'storeConfig'],
+          ['/api-reference/magento-api.products', 'products'],
           ['/api-reference/magento-api.addproductstocart', 'addProductsToCart'],
           ['/api-reference/magento-api.addconfigurableproductstocart', 'addConfigurableProductsToCart'],
           ['/api-reference/magento-api.adddownloadableproductstocart', 'addDownloadableProductsToCart'],
