@@ -1,42 +1,49 @@
-import { Ref } from '@nuxtjs/composition-api';
-import {
-  Category, Product, Filter, AgnosticFacetSearchParams, ComposableFunctionArgs,
-} from '~/composables/types';
-import { ProductAttributeFilterInput, ProductAttributeSortInput } from '~/modules/GraphQL/types';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
 
-export interface FacetResultsData {
-  products: Product[];
-  categories: Category[];
-  facets: Record<string, Filter>;
-  total: number;
-  perPageOptions: number[];
-  itemsPerPage: number;
-  availableFilters: Record<string, any>;
-}
+/**
+ * The {@link useFacet} search results contain the parameters used to filter and
+ * the obtained data that matches it.
+ */
+export interface UseFacetSearchResult<DATA> {
+  /** The data obtained in the search. */
+  data: DATA;
 
-export type GetProductSearchParams = {
-  pageSize?: number;
-  currentPage?: number;
-  search?: string;
-  filter?: ProductAttributeFilterInput;
-  sort?: ProductAttributeSortInput;
-  configurations?: string[];
-};
-
-export interface FacetSearchResult<S> {
-  data: S;
+  /** The parameters used to filter the search. */
   input: AgnosticFacetSearchParams;
 }
 
+/**
+ * The {@link useFacet} error object. The properties values' are the errors
+ * thrown by its methods.
+ */
 export interface UseFacetErrors {
-  search: Error;
+  /** Error when searching with facets fails, otherwise is `null`. */
+  search: Error | null;
 }
 
-export type SearchData = FacetSearchResult<FacetResultsData>;
+/** The params received by {@link useFacet}'s `search` method. */
+export type UseFacetSearchParams = ComposableFunctionArgs<AgnosticFacetSearchParams>;
 
-export interface UseFacet {
-  result: Ref<FacetSearchResult<any>>;
-  loading: Ref<boolean>;
-  search: (params?: ComposableFunctionArgs<AgnosticFacetSearchParams>) => Promise<void>;
-  error: Ref<UseFacetErrors>;
+/** The interface provided by {@link useFacet} composable. */
+export interface UseFacetInterface {
+  /**
+   * Contains errors from any of the composable methods.
+   *
+   * Read {@link UseFacetErrors} documentation for more details.
+   */
+  error: DeepReadonly<Ref<UseFacetErrors>>;
+
+  /**
+   * Contains the search results from the last search.
+   *
+   * Read {@link UseFacetSearchResult} documentation for more details.
+   */
+  result: Ref<UseFacetSearchResult<any>>;
+
+  /** Indicates whether any of the composable methods is in progress. */
+  loading: Readonly<Ref<boolean>>;
+
+  /** Searches for products using facets. */
+  search(params?: UseFacetSearchParams): Promise<void>;
 }
