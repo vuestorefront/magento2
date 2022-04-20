@@ -2,12 +2,11 @@
   <HTMLContent :content="content" />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
-import HTMLContent from '~/components/HTMLContent';
+import HTMLContent from '~/components/HTMLContent.vue';
 
 export default defineComponent({
-  name: 'CmsContent',
   components: { HTMLContent },
   props: {
     content: {

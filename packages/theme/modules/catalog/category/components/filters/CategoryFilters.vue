@@ -81,13 +81,13 @@ import {
 } from '@storefront-ui/vue';
 
 import { useUiHelpers } from '~/composables';
-import { useFilters } from './useFilters';
 import { getFilterConfig, getDisabledFilters } from '~/modules/catalog/category/config/FiltersConfig';
 import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
-import getProductFilterByCategoryCommand from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
+import { getProductFilterByCategoryCommand } from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
 
-import type { SelectedFiltersInterface } from './useFilters';
 import type { Aggregation } from '~/modules/GraphQL/types';
+import type { SelectedFiltersInterface } from './useFilters';
+import { useFilters } from './useFilters';
 
 export interface UseFiltersProviderInterface {
   selectedFilters: Ref<SelectedFiltersInterface>,
@@ -119,7 +119,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup({ catUid }, { emit }) {
+  setup(props, { emit }) {
     const { changeFilters, clearFilters } = useUiHelpers();
     const {
       selectedFilters, selectFilter, removeFilter, isFilterSelected,
@@ -148,7 +148,7 @@ export default defineComponent({
     const filters = ref<Aggregation[]>([]);
 
     onMounted(async () => {
-      const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: catUid });
+      const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: props.catUid });
       filters.value = loadedFilters.filter((filter) => !getDisabledFilters().includes(filter.attribute_code));
     });
 
