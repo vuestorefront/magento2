@@ -36,6 +36,7 @@ export { default as useMakeOrder } from './useMakeOrder';
 export * from './useUserOrder';
 export * from './useUserAddress';
 export * from './useCountrySearch';
+export * from './useGetShippingMethods';
 
 export * from './types';
 export * from '../modules/GraphQL/types';
