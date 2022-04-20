@@ -9,14 +9,14 @@
 export { default as useUiHelpers } from './useUiHelpers';
 export { default as useUiNotification } from './useUiNotification';
 export { default as useUiState } from './useUiState';
-export { default as useImage } from './useImage';
+export * from './useImage';
 export * from './useConfig';
 export { default as useStore } from './useStore';
 export * from './useCurrency';
 export * from './useExternalCheckout';
 export * from './useWishlist';
 export { default as useUser } from './useUser';
-export { default as useGuestUser } from './useGuestUser';
+export * from './useGuestUser';
 export * from './useForgotPassword';
 export * from './useCategory';
 export * from './useFacet';
@@ -34,8 +34,9 @@ export { default as usePaymentProvider } from './usePaymentProvider';
 export * from './useAddresses';
 export { default as useMakeOrder } from './useMakeOrder';
 export * from './useUserOrder';
-export { default as useUserAddress } from './useUserAddress';
+export * from './useUserAddress';
 export * from './useCountrySearch';
+export * from './useGetShippingMethods';
 
 export * from './types';
 export * from '../modules/GraphQL/types';

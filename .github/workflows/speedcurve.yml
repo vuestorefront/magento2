@@ -5,7 +5,7 @@ on:
 
 jobs:
   speedcurve:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.deployment.ref == 'refs/heads/develop'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - name: 'Wait for container deployed on VSF Cloud to come online'
@@ -17,4 +17,4 @@ jobs:
         with:
           api_key: ${{ secrets.SPEEDCURVE_API_KEY }}
           site_id: 744017
-          note: commit ${{ github.event.deployment_status.deployment.sha }} from deployment ${{ github.event.deployment_status.deployment.url }}
+          note: commit ${{ github.event.deployment.sha }} from deployment ${{ github.event.deployment.url }}
