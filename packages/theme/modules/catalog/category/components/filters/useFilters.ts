@@ -57,21 +57,20 @@ export const useFilters = () => {
     selectedFilters.value[filter.attribute_code].push(String(option.value));
   };
 
-  const getRemovableFilters = (filters: Aggregation[], selected: SelectedFiltersInterface) => {
-    const result = [];
+  const getRemovableFilters = (filters: Aggregation[], selected: SelectedFiltersInterface) => filters
+    .reduce((prev, filter) => {
+      const removableFilters = filter
+        .options
+        .filter((option) => selected[filter.attribute_code]?.includes(option.value))
+        .map((option) => ({
+          id: filter.attribute_code,
+          name: filter.label,
+          label: option.label,
+          value: option.value,
+        }));
 
-    filters.forEach((filter) => {
-      filter.options.forEach((option) => {
-        if ((selected[filter.attribute_code] ?? []).includes(option.value)) {
-          result.push({
-            id: filter.attribute_code, name: filter.label, label: option.label, value: option.value,
-          });
-        }
-      });
-    });
-
-    return result;
-  };
+      return [...prev, ...removableFilters];
+    }, []);
 
   return {
     getSelectedFiltersFromUrl,
