@@ -5,8 +5,13 @@
       :content="cmsContent"
     />
     <CategoryBreadcrumbs
-      v-bind="{ categoryAncestors }"
+      :category-ancestors="categoryAncestorsWithoutActiveCategory"
       class="breadcrumbs"
+    />
+    <SfHeading
+      :level="2"
+      :title="activeCategoryLabel"
+      class="category-title"
     />
     <div class="category-layout">
       <div class="sidebar column">
@@ -219,6 +224,7 @@ import {
   SfProperty,
   SfSelect,
   SfPrice,
+  SfHeading,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -266,6 +272,7 @@ export default defineComponent({
     SfSelect,
     SfProperty,
     LazyHydrate,
+    SfHeading,
   },
   transition: 'fade',
   setup() {
@@ -311,7 +318,12 @@ export default defineComponent({
       });
     };
 
-    const { categoryAncestors, isCategoryTreeLoaded, loadCategoryTree } = useCategoryLogic();
+    const {
+      categoryAncestors, isCategoryTreeLoaded, loadCategoryTree, activeCategory,
+    } = useCategoryLogic();
+    const activeCategoryLabel = computed(() => activeCategory.value?.label ?? '');
+    const categoryAncestorsWithoutActiveCategory = computed(() => categoryAncestors.value.slice(0, -1));
+
     const routeData = ref<EntityUrl>({});
 
     const { fetch } = useFetch(async () => {
@@ -393,7 +405,8 @@ export default defineComponent({
       isShowCms,
       isShowProducts,
       cmsContent,
-      categoryAncestors,
+      categoryAncestorsWithoutActiveCategory,
+      activeCategoryLabel,
       routeData,
       doChangeItemsPerPage,
       fetch,
@@ -450,9 +463,18 @@ export default defineComponent({
   display: flex;
 }
 
- .breadcrumbs {
-   padding: var(--spacer-sm);
- }
+.breadcrumbs {
+  margin-left: var(--spacer-sm);
+
+  @include for-mobile {
+    margin-top: var(--spacer-lg)
+  }
+}
+
+.category-title  {
+  margin-left: var(--spacer-sm);
+  text-align: left;
+}
 
 .sidebar {
   flex: 0 0 15%;
