@@ -108,6 +108,7 @@ module.exports = {
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
           ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
+          ['/api-reference/magento-theme.useimage', 'useImage()'],
         ],
       },
       {
