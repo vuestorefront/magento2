@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { CategoryResult } from '~/composables';
-import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
+import categoryListGql from '~/stores/graphql/categoryList.gql';
 import { buildCategoryTree } from '~/modules/catalog/category/helpers';
 
 interface CategoryState {
