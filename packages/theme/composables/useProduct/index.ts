@@ -21,7 +21,7 @@ export function useProduct(id?: string): UseProductInterface {
     getProductDetails: null,
   });
 
-  const { app } = useContext();
+  const context = useContext();
 
   const getProductList = async (searchParams: GetProductSearchParams): Promise<ProductList | null> => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);
@@ -29,7 +29,7 @@ export function useProduct(id?: string): UseProductInterface {
 
     try {
       loading.value = true;
-      products = await getProductListCommand.execute(app, searchParams);
+      products = await getProductListCommand.execute(context, searchParams);
       error.value.getProductList = null;
     } catch (err) {
       error.value.getProductList = err;
@@ -47,7 +47,7 @@ export function useProduct(id?: string): UseProductInterface {
 
     try {
       loading.value = true;
-      products = await getProductDetailsCommand.execute(app, searchParams);
+      products = await getProductDetailsCommand.execute(context, searchParams);
       error.value.getProductDetails = null;
     } catch (err) {
       error.value.getProductDetails = err;
