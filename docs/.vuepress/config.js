@@ -109,6 +109,7 @@ module.exports = {
           ['/api-reference/magento-theme.usemakeorder', 'useMakeOrder()'],
           ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
           ['/api-reference/magento-theme.useimage', 'useImage()'],
+          ['/api-reference/magento-theme.usepaymentprovider', 'usePaymentProvider()'],
           ['/api-reference/magento-theme.useupsellproducts.html', 'useUpsellProducts()'],
           ['/api-reference/magento-theme.useuser', 'useUser()'],
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
@@ -147,6 +148,8 @@ module.exports = {
           ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
           ['/api-reference/magento-api.placeorder', 'placeOrder'],
           ['/api-reference/magento-api.setguestemailoncart', 'setGuestEmailOnCart'],
+          ['/api-reference/magento-api.getavailablepaymentmethods', 'getAvailablePaymentMethods'],
+          ['/api-reference/magento-api.setpaymentmethodoncart', 'setPaymentMethodOnCart'],
         ],
       },
       {

@@ -1,29 +1,35 @@
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { ref, useContext } from '@nuxtjs/composition-api';
-import { PaymentMethodInput } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs } from '~/composables/types';
 import { setPaymentMethodOnCartCommand } from '~/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { useCart } from '~/composables';
 import { getAvailablePaymentMethodsCommand } from '~/composables/usePaymentProvider/commands/getAvailablePaymentMethodsCommand';
-import { SetPaymentMethodOnCartInputs } from './usePaymentProvider';
+import type PaymentMethodParams from './PaymentMethodParams';
+import type {
+  UsePaymentProviderErrors,
+  UsePaymentProviderInterface,
+  UsePaymentProviderSaveParams,
+} from './usePaymentProvider';
 
-export const usePaymentProvider = () => {
+/**
+ * The `usePaymentProvider()` composable allows loading the available payment
+ * methods for current cart, and selecting (saving) one of them.
+ */
+export function usePaymentProvider(): UsePaymentProviderInterface {
   const context = useContext();
   const { cart } = useCart();
   const loading = ref(false);
-  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle
-  const error = ref({
+  const error = ref<UsePaymentProviderErrors>({
     load: null,
     save: null,
   });
 
-  const save = async (params: ComposableFunctionArgs<{ paymentMethod: PaymentMethodInput }>) => {
+  const save = async (params: UsePaymentProviderSaveParams) => {
     Logger.debug('usePaymentProvider.save');
     let result = null;
 
     try {
       loading.value = true;
-      const paymentMethodParams: SetPaymentMethodOnCartInputs = {
+      const paymentMethodParams: PaymentMethodParams = {
         cart_id: cart.value.id,
         payment_method: {
           ...params.paymentMethod,
@@ -63,11 +69,12 @@ export const usePaymentProvider = () => {
   };
 
   return {
-    loading,
-    error,
     load,
     save,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export * from './usePaymentProvider';
 export default usePaymentProvider;
