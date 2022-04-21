@@ -1,5 +1,4 @@
-import useFilters from '~/modules/catalog/category/components/filters/useFilters';
-
+import { useFilters } from '~/modules/catalog/category/components/filters/useFilters';
 import { useUiHelpers } from '~/composables';
 
 jest.mock('~/composables', () => {
@@ -15,13 +14,13 @@ jest.mock('~/modules/catalog/category/config/FiltersConfig');
 
 describe('useFilter', () => {
   it('getSelectedFiltersFromUrl returns empty data if no filter is selected', () => {
-    useUiHelpers.mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: {} })) });
+    (useUiHelpers as jest.Mock).mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: {} })) });
     const { getSelectedFiltersFromUrl } = useFilters();
     expect(getSelectedFiltersFromUrl()).toMatchObject({});
   });
 
   it('getSelectedFiltersFromUrl returns selected filters from url data', () => {
-    useUiHelpers.mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: { color: ['50'] } })) });
+    (useUiHelpers as jest.Mock).mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: { color: ['50'] } })) });
     const { getSelectedFiltersFromUrl } = useFilters();
     expect(getSelectedFiltersFromUrl()).toMatchObject({ color: ['50'] });
   });

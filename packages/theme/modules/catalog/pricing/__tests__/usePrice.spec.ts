@@ -21,7 +21,7 @@ describe('usePrice', () => {
     const expectedResult = { items: [] };
     const useApiMock = { query: jest.fn(() => (expectedResult)) };
 
-    useApi.mockReturnValue(useApiMock);
+    (useApi as jest.Mock).mockReturnValue(useApiMock);
     const actualResult = await getPrices(variables);
 
     expect(useApiMock.query).toBeCalledTimes(1);
@@ -38,7 +38,7 @@ describe('usePrice', () => {
     const expectedResult = { items: [] };
     const useApiMock = { query: jest.fn(() => (expectedResult)) };
 
-    useApi.mockReturnValue(useApiMock);
+    (useApi as jest.Mock).mockReturnValue(useApiMock);
     const actualResult = await getPricesBySku(skus, pageSize, currentPage);
 
     expect(useApiMock.query).toBeCalledTimes(1);

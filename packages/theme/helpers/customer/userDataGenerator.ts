@@ -1,4 +1,4 @@
-import { CustomerCreateInput } from '~/modules/GraphQL/types';
+import type { CustomerCreateInput } from '~/modules/GraphQL/types';
 
 export const generateUserData = (userData): CustomerCreateInput => {
   const baseData = {

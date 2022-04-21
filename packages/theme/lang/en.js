@@ -258,4 +258,5 @@ export default {
   "Show less": "Show less",
   "Yes": "Yes",
   "No": "No",
+  "Apply filters": "Apply filters"
 };
