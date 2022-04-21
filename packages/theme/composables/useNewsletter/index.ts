@@ -13,7 +13,7 @@ import type {
  * an email in the newsletter.
  */
 export function useNewsletter(): UseNewsletterInterface {
-  const { app } = useContext();
+  const context = useContext();
   const loading = ref(false);
   const error = ref<UseNewsletterErrors>({
     updateSubscription: null,
@@ -27,7 +27,7 @@ export function useNewsletter(): UseNewsletterInterface {
       loading.value = true;
       error.value.updateSubscription = null;
 
-      result = await updateSubscriptionCommand.execute(app, params);
+      result = await updateSubscriptionCommand.execute(context, params);
     } catch (err) {
       error.value.updateSubscription = err;
       Logger.error('useNewsletter/updateSubscription', err);
