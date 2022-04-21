@@ -42,8 +42,7 @@ type UseCartApplyCouponParams = ComposableFunctionArgs<{
 /**
  * Parameters accepted by the `isInCart` method in the {@link useCart} composable
  */
-type UseCartIsInCartParams<CART, PRODUCT> = {
-  currentCart: CART
+type UseCartIsInCartParams<PRODUCT> = {
   product: PRODUCT
 };
 
@@ -70,7 +69,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   /** Removes applied coupon from the cart */
   removeCoupon(params: ComposableFunctionArgs<{}>): Promise<void>;
   /** Checks wheter a `product` is in the `cart` */
-  isInCart(params: UseCartIsInCartParams<CART, PRODUCT>): boolean;
+  isInCart(params: UseCartIsInCartParams<PRODUCT>): boolean;
   /** Sets the contents of the cart */
   setCart(newCart: CART): void;
   /** Returns the Items in the Cart as a `computed` property */

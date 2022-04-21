@@ -1,0 +1,51 @@
+import { render } from '@testing-library/vue';
+import { createTestingPinia } from '@pinia/testing';
+import { createLocalVue } from '@vue/test-utils';
+import { PiniaVuePlugin } from 'pinia';
+import CategoryProductGrid from '../CategoryProductGrid.vue';
+import { productsMock } from './productsMock';
+
+const localVue = createLocalVue();
+localVue.use(PiniaVuePlugin);
+localVue.component('NuxtImg', { render(h) { return h('div'); } });
+
+localVue.prototype.$nuxt = {
+  context: {
+    $vsf: {
+      $magento: {
+        config: {
+          imageProvider: '',
+          magentoBaseUrl: '',
+        },
+      },
+    },
+    app: {
+      $fc: jest.fn((label) => label),
+      localePath: jest.fn(),
+      $vsf: {
+        $magento: {
+          config: {
+            state: '',
+          },
+        },
+      },
+    },
+    i18n: {
+      t: jest.fn((label) => label),
+    },
+  },
+};
+
+describe('CategoryProductGrid', () => {
+  it('shows skeleton loader when loading', async () => {
+    const { findAllByTestId } = render(CategoryProductGrid, { props: { loading: true, products: [] }, localVue, pinia: createTestingPinia() });
+    const loadingSkeletons = await findAllByTestId('skeleton');
+    expect(loadingSkeletons).not.toHaveLength(0);
+  });
+
+  it('shows products when loaded', async () => {
+    const { findAllByTestId } = render(CategoryProductGrid, { props: { loading: false, products: productsMock }, localVue, pinia: createTestingPinia() });
+    const products = await findAllByTestId('product-card');
+    expect(products).toHaveLength(productsMock.length);
+  });
+});
