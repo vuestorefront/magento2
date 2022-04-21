@@ -106,6 +106,7 @@ module.exports = {
           ['/api-reference/magento-theme.usefacet', 'useFacet()'],
           ['/api-reference/magento-theme.useforgotpassword', 'useForgotPassword()'],
           ['/api-reference/magento-theme.usegetshippingmethods', 'useGetShippingMethods()'],
+          ['/api-reference/magento-theme.usemakeorder', 'useMakeOrder()'],
           ['/api-reference/magento-theme.useguestuser', 'useGuestUser()'],
           ['/api-reference/magento-theme.useimage', 'useImage()'],
           ['/api-reference/magento-theme.usenewsletter', 'useNewsletter()'],
@@ -147,6 +148,7 @@ module.exports = {
           ['/api-reference/magento-api.requestpasswordresetemail', 'requestPasswordResetEmail'],
           ['/api-reference/magento-api.subscribeemailtonewsletter', 'subscribeEmailToNewsletter'],
           ['/api-reference/magento-api.setguestemailoncart', 'setGuestEmailOnCart'],
+          ['/api-reference/magento-api.placeorder', 'placeOrder'],
         ],
       },
       {
