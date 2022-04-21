@@ -5,8 +5,13 @@
       :content="cmsContent"
     />
     <CategoryBreadcrumbs
-      v-bind="{ categoryAncestors }"
+      :category-ancestors="categoryAncestorsWithoutActiveCategory"
       class="breadcrumbs"
+    />
+    <SfHeading
+      :level="2"
+      :title="activeCategoryLabel"
+      class="category-title"
     />
     <div class="category-layout">
       <div class="sidebar column">
@@ -219,6 +224,7 @@ import {
   SfProperty,
   SfSelect,
   SfPrice,
+  SfHeading,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -247,7 +253,7 @@ import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
 import CategoryBreadcrumbs from '../category/components/breadcrumbs/CategoryBreadcrumbs.vue';
-import { useCategoryLogic } from '../category/helpers';
+import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 // TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
@@ -266,6 +272,7 @@ export default defineComponent({
     SfSelect,
     SfProperty,
     LazyHydrate,
+    SfHeading,
   },
   transition: 'fade',
   setup() {
@@ -311,7 +318,11 @@ export default defineComponent({
       });
     };
 
-    const { categoryAncestors, isCategoryTreeLoaded, loadCategoryTree } = useCategoryLogic();
+    const {
+      categoryAncestors, isCategoryTreeLoaded, loadCategoryTree, activeCategory,
+    } = useTraverseCategory();
+    const activeCategoryLabel = computed(() => activeCategory.value?.name ?? '');
+    const categoryAncestorsWithoutActiveCategory = computed(() => categoryAncestors.value.slice(0, -1));
     const routeData = ref<EntityUrl>({});
 
     const { fetch } = useFetch(async () => {
@@ -393,7 +404,8 @@ export default defineComponent({
       isShowCms,
       isShowProducts,
       cmsContent,
-      categoryAncestors,
+      categoryAncestorsWithoutActiveCategory,
+      activeCategoryLabel,
       routeData,
       doChangeItemsPerPage,
       fetch,
@@ -450,9 +462,18 @@ export default defineComponent({
   display: flex;
 }
 
- .breadcrumbs {
-   padding: var(--spacer-sm);
- }
+.breadcrumbs {
+  margin-left: var(--spacer-sm);
+
+  @include for-mobile {
+    margin-top: var(--spacer-lg)
+  }
+}
+
+.category-title  {
+  margin-left: var(--spacer-sm);
+  text-align: left;
+}
 
 .sidebar {
   flex: 0 0 15%;

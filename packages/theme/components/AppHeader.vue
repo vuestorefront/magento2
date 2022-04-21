@@ -14,8 +14,8 @@
           :key="index"
           v-e2e="'app-header-url_women'"
           class="nav-item"
-          :label="category.label"
-          :link="localePath(getAgnosticCatLink(category))"
+          :label="category.name"
+          :link="localePath(getCatLink(category))"
         />
       </template>
       <template #aside>
@@ -157,7 +157,7 @@ export default defineComponent({
     const router = useRouter();
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
-    const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
+    const { setTermForUrl, getCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
@@ -184,11 +184,7 @@ export default defineComponent({
       await categoriesListLoad({ pageSize: 20 });
 
       categoryTree.value = categoryList.value?.[0]?.children
-        .filter((category) => category.include_in_menu)
-        .map((category) => ({
-          label: category.name,
-          slug: `/${category.url_path}${category.url_suffix}`,
-        })) ?? [];
+        .filter((category) => category.include_in_menu);
     });
 
     onMounted(() => {
@@ -208,7 +204,7 @@ export default defineComponent({
       accountIcon,
       cartTotalItems: computed(() => cart.value?.total_quantity ?? 0),
       categoryTree,
-      getAgnosticCatLink,
+      getCatLink,
       handleAccountClick,
       isAuthenticated,
       isSearchOpen,
