@@ -111,6 +111,7 @@ module.exports = {
           ['/api-reference/magento-theme.useimage', 'useImage()'],
           ['/api-reference/magento-theme.usenewsletter', 'useNewsletter()'],
           ['/api-reference/magento-theme.usepaymentprovider', 'usePaymentProvider()'],
+          ['/api-reference/magento-theme.useuistate.html', 'useUiState()'],
           ['/api-reference/magento-theme.useupsellproducts.html', 'useUpsellProducts()'],
           ['/api-reference/magento-theme.useuser', 'useUser()'],
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
