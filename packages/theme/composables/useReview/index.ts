@@ -1,16 +1,23 @@
 /* eslint-disable consistent-return */
-import { ref, useContext } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '~/composables/types';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { CreateProductReviewInput } from '~/modules/GraphQL/types';
-import { UseReviewErrors } from './useReview';
 import { addReviewCommand } from './commands/addReviewCommand';
 import { loadCustomerReviewsCommand } from './commands/loadCustomerReviewsCommand';
 import { loadReviewMetadataCommand } from './commands/loadReviewMetadataCommand';
 import { searchReviewsCommand } from './commands/searchReviewsCommand';
-import { GetProductSearchParams } from '../useProduct/useProduct';
+import type {
+  UseReviewErrors,
+  UseReviewInterface,
+  UseReviewSearchParams,
+  UseReviewAddReviewParams,
+} from './useReview';
 
-export const useReview = () => {
+/**
+ * The `useReview()` composable allows loading and adding product reviews
+ *
+ * See the {@link UseReviewInterface} page for more information.
+ */
+export function useReview(): UseReviewInterface {
   const loading = ref(false);
   const error = ref<UseReviewErrors>({
     search: null,
@@ -22,7 +29,7 @@ export const useReview = () => {
   const { app } = useContext();
   const context = app.$vsf;
 
-  const search = async (searchParams: ComposableFunctionArgs<GetProductSearchParams>) => {
+  const search = async (searchParams: UseReviewSearchParams) => {
     Logger.debug('useReview/search', searchParams);
 
     try {
@@ -67,7 +74,7 @@ export const useReview = () => {
     }
   };
 
-  const addReview = async (params: ComposableFunctionArgs<CreateProductReviewInput>) => {
+  const addReview = async (params: UseReviewAddReviewParams) => {
     Logger.debug('useReview/addReview', params);
     try {
       loading.value = true;
@@ -86,9 +93,10 @@ export const useReview = () => {
     addReview,
     loadReviewMetadata,
     loadCustomerReviews,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useReview;
+export * from './useReview';
