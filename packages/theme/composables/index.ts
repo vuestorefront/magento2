@@ -23,7 +23,7 @@ export * from './useGuestUser';
 export * from './useImage';
 export * from './useMakeOrder';
 // export * from './useNewsletter';
-export { default as usePaymentProvider } from './usePaymentProvider';
+export * from './usePaymentProvider';
 export { default as useProduct } from './useProduct';
 export { default as useRelatedProducts } from './useRelatedProducts';
 export { default as useReview } from './useReview';
