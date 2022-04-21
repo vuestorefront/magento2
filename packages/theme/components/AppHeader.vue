@@ -9,14 +9,7 @@
         <HeaderLogo />
       </template>
       <template #navigation>
-        <HeaderNavigationItem
-          v-for="(category, index) in categoryTree"
-          :key="index"
-          v-e2e="'app-header-url_women'"
-          class="nav-item"
-          :label="category.name"
-          :link="localePath(getCatLink(category))"
-        />
+        <HeaderNavigation :category-tree="categoryTree" />
       </template>
       <template #aside>
         <div class="sf-header__switchers">
@@ -122,7 +115,7 @@ import {
   onMounted,
   useFetch,
 } from '@nuxtjs/composition-api';
-import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
+import HeaderNavigation from '~/components/Header/Navigation/HeaderNavigation.vue';
 import {
   useCart,
   useCategory,
@@ -132,6 +125,7 @@ import {
   useUser,
 } from '~/composables';
 
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -140,7 +134,7 @@ import { useCustomerStore } from '~/stores/customer';
 
 export default defineComponent({
   components: {
-    HeaderNavigationItem,
+    HeaderNavigation,
     SfHeader,
     SfOverlay,
     CurrencySelector,
@@ -171,7 +165,7 @@ export default defineComponent({
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = ref([]);
+    const categoryTree = ref<CategoryTree[]>([]);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
@@ -229,14 +223,6 @@ export default defineComponent({
 
 .header-on-top {
   z-index: 2;
-}
-
-.nav-item {
-  --header-navigation-item-margin: 0 var(--spacer-sm);
-
-  .sf-header-navigation-item__item--mobile {
-    display: none;
-  }
 }
 
 .cart-badge {
