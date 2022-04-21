@@ -21,7 +21,7 @@ export const getName = (product: ProductInterface): string => {
   return htmlDecode(product.name);
 };
 
-export const getSlug = (product: ProductInterface, category?: Category): string => {
+export const getSlug = (product: ProductInterface, category?: Category | CategoryInterface): string => {
   const rewrites = product?.url_rewrites;
   let url = product?.sku ? `/p/${product.sku}` : '';
   if (!rewrites || rewrites.length === 0) {
