@@ -1,4 +1,5 @@
 .filters {
+  position: relative;
   &__title {
     --heading-title-font-size: var(--font-size--xl);
     margin: var(--spacer-xl) 0 var(--spacer-base) 0;
@@ -49,6 +50,11 @@
 
   &__buttons {
     margin: var(--spacer-sm) 0;
+    @include for-desktop {
+      background-color: #fff;
+      position: sticky;
+      bottom: 0;
+    }
   }
 
   &__button-clear {
@@ -56,4 +62,11 @@
     --button-color: var(--c-dark-variant);
     margin: var(--spacer-xs) 0 0 0;
   }
+}
+.heading__title {
+  border: 1px solid var(--c-light);
+  border-width: 1px 0 0 0;
+  padding: var(--spacer-xs) 0;
+  font-weight: normal;
+  margin-bottom: var(--spacer-sm);
 }

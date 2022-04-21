@@ -18,7 +18,6 @@ import { SfColor } from '@storefront-ui/vue';
 import type { Aggregation } from '~/modules/GraphQL/types';
 
 export default defineComponent({
-  name: 'SwatchColorType',
   components: {
     SfColor,
   },
