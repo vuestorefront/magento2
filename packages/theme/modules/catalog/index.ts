@@ -1,7 +1,8 @@
 import path from 'node:path';
 import url from 'node:url';
+import { Module } from '@nuxt/types';
 
-export default function CatalogModule() {
+const nuxtModule : Module = function categoryModule() {
   this.extendRoutes((routes) => {
     routes.unshift({
       name: 'category',
@@ -9,4 +10,6 @@ export default function CatalogModule() {
       component: path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), 'pages/category.vue'),
     });
   });
-}
+};
+
+export default nuxtModule;

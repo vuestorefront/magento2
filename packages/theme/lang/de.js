@@ -260,4 +260,5 @@ export default {
   "Show less": "Zeige weniger",
   "Yes": "Ja",
   "No": "Nein",
+  "Apply filters": "Filter anwenden"
 };

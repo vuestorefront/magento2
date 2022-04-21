@@ -34,7 +34,7 @@ const defaultFiltersConfig = [
 ];
 describe('FiltersConfig', () => {
   it('getFilterConfig with a configured attribute', () => {
-    config.mockReturnValueOnce(defaultFiltersConfig);
+    (config as jest.Mock).mockReturnValueOnce(defaultFiltersConfig);
     const result = getFilterConfig('price');
     const expected = {
       attrCode: 'price',
@@ -45,7 +45,7 @@ describe('FiltersConfig', () => {
   });
 
   it('getFilterConfig with a partially configured attribute', () => {
-    config.mockReturnValueOnce(defaultFiltersConfig);
+    (config as jest.Mock).mockReturnValueOnce(defaultFiltersConfig);
     const result = getFilterConfig('size');
     const expected = {
       attrCode: 'size',
@@ -56,7 +56,7 @@ describe('FiltersConfig', () => {
   });
 
   it('getFilterConfig with a not-configured attribute (default)', () => {
-    config.mockReturnValueOnce(defaultFiltersConfig);
+    (config as jest.Mock).mockReturnValueOnce(defaultFiltersConfig);
     const result = getFilterConfig('ANYTHING');
     const expected = {
       attrCode: 'ANYTHING',
@@ -67,8 +67,8 @@ describe('FiltersConfig', () => {
   });
 
   it('getDisabledFilters', () => {
-    config.mockReturnValueOnce(defaultFiltersConfig);
-    const result = getDisabledFilters('ANYTHING');
+    (config as jest.Mock).mockReturnValueOnce(defaultFiltersConfig);
+    const result = getDisabledFilters();
     const expected = ['sale'];
     expect(result).toEqual(expected);
   });

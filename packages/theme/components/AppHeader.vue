@@ -186,7 +186,6 @@ export default defineComponent({
       categoryTree.value = categoryList.value?.[0]?.children
         .filter((category) => category.include_in_menu)
         .map((category) => ({
-          includeInMenu: category.include_in_menu,
           label: category.name,
           slug: `/${category.url_path}${category.url_suffix}`,
         })) ?? [];

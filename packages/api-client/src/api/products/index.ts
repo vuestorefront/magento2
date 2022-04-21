@@ -6,7 +6,7 @@ import {
   ProductsListQuery,
   ProductsListQueryVariables,
 } from '../../types/GraphQL';
-import productsList from './productsList';
+import productsListQuery from './productsList';
 import { Context } from '../../types/context';
 import { GetProductSearchParams } from '../../types/API';
 
@@ -18,11 +18,19 @@ type Variables = {
   sort?: ProductAttributeSortInput;
 };
 
-export default async (
+/**
+ * Fetches products using received search term and params for filter, sort and
+ * pagination.
+ *
+ * @param context VSF context
+ * @param searchParams search term and params for filter, sort and pagination
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
+export default async function products(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { products: 'products' },
-): Promise<ApolloQueryResult<ProductsListQuery>> => {
+): Promise<ApolloQueryResult<ProductsListQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -40,22 +48,19 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { products } = context.extendQuery(
-    customQuery,
-    {
-      products: {
-        query: productsList,
-        variables,
-      },
+  const { products: productsGQL } = context.extendQuery(customQuery, {
+    products: {
+      query: productsListQuery,
+      variables,
     },
-  );
+  });
 
   try {
     return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
-      query: products.query,
-      variables: products.variables,
+      query: productsGQL.query,
+      variables: productsGQL.variables,
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}
