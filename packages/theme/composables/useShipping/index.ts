@@ -1,15 +1,21 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
-import { UseShippingInterface, ShippingCartAddress } from '~/composables/useShipping/useShipping';
+import type {
+  UseShippingErrors,
+  UseShippingInterface,
+  UseShippingLoadParams,
+  UseShippingSaveParams,
+} from '~/composables/useShipping/useShipping';
+import type { ShippingCartAddress } from '~/modules/GraphQL/types';
 
-export function useShipping(): UseShippingInterface<ShippingCartAddress> {
+export function useShipping(): UseShippingInterface {
   const loading = ref(false);
-  const error = ref({ load: null, save: null });
+  const error = ref<UseShippingErrors>({ load: null, save: null });
   const { cart, load: loadCart } = useCart();
   const { app } = useContext();
 
-  const load = async (params = {}): Promise<ShippingCartAddress | {}> => {
+  const load = async (params: UseShippingLoadParams = {}): Promise<ShippingCartAddress | {}> => {
     Logger.debug('useShipping.load');
     let shippingInfo = null;
 
@@ -33,7 +39,7 @@ export function useShipping(): UseShippingInterface<ShippingCartAddress> {
     return {};
   };
 
-  const save = async ({ shippingDetails }): Promise<ShippingCartAddress | {}> => {
+  const save = async ({ shippingDetails }: UseShippingSaveParams): Promise<ShippingCartAddress | {}> => {
     Logger.debug('useShipping.save');
     let shippingInfo = null;
 
@@ -51,15 +57,13 @@ export function useShipping(): UseShippingInterface<ShippingCartAddress> {
       } = shippingDetails;
 
       const shippingData = customerAddressId
-        ? ({
-          customer_address_id: customerAddressId,
-        })
-        : ({
+        ? { customer_address_id: customerAddressId }
+        : {
           address: {
             ...address,
             street: [address.street, apartment, neighborhood, extra].filter(Boolean),
           },
-        });
+        };
 
       const shippingAddressInput = {
         cart_id: id,
@@ -74,10 +78,7 @@ export function useShipping(): UseShippingInterface<ShippingCartAddress> {
 
       Logger.debug('[Result]:', { data });
 
-      [shippingInfo] = data
-        .setShippingAddressesOnCart
-        .cart
-        .shipping_addresses;
+      [shippingInfo] = data.setShippingAddressesOnCart.cart.shipping_addresses;
 
       error.value.save = null;
 
