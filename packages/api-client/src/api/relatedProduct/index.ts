@@ -1,14 +1,14 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import {
+import type { ApolloQueryResult } from '@apollo/client/core';
+import type { CustomQuery } from '@vue-storefront/core';
+import type {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   RelatedProductQuery,
   RelatedProductQueryVariables,
 } from '../../types/GraphQL';
-import relatedProduct from './relatedProduct';
-import { Context } from '../../types/context';
-import { GetProductSearchParams } from '../../types/API';
+import relatedProductQuery from './relatedProduct';
+import type { Context } from '../../types/context';
+import type { GetProductSearchParams } from '../../types/API';
 
 type Variables = {
   pageSize: number;
@@ -21,12 +21,16 @@ type Variables = {
 /**
  * Searches for related products using params for sorting, filtering and
  * pagination.
+ *
+ * @param context VSF context
+ * @param searchParams params for sorting, filtering and pagination
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  */
-export default async (
+export default async function relatedProduct(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { relatedProduct: 'relatedProduct' },
-): Promise<ApolloQueryResult<RelatedProductQuery>> => {
+): Promise<ApolloQueryResult<RelatedProductQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -46,7 +50,7 @@ export default async (
 
   const { relatedProduct: relatedProductGQL } = context.extendQuery(customQuery, {
     relatedProduct: {
-      query: relatedProduct,
+      query: relatedProductQuery,
       variables,
     },
   });
@@ -59,4 +63,4 @@ export default async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}
