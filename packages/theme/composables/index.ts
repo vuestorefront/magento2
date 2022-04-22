@@ -31,7 +31,7 @@ export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
 export { default as useStore } from './useStore';
 export { default as useUiHelpers } from './useUiHelpers';
-export { default as useUiNotification } from './useUiNotification';
+export * from './useUiNotification';
 export * from './useUiState';
 export * from './useUpsellProducts';
 export * from './useUser';
