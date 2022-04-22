@@ -3,7 +3,7 @@ import { Logger } from '~/helpers/logger';
 import type { GetProductSearchParams } from '~/composables/types';
 import type {
   UseRelatedProductsError,
-  RelatedProducts,
+  RelatedProduct,
   UseRelatedProductsInterface,
   UseRelatedProductsSearchParams,
 } from './useRelatedProducts';
@@ -15,7 +15,7 @@ export function useRelatedProducts(): UseRelatedProductsInterface {
     search: null,
   });
 
-  const search = async (params: UseRelatedProductsSearchParams): Promise<RelatedProducts[]> => {
+  const search = async (params: UseRelatedProductsSearchParams): Promise<RelatedProduct[]> => {
     const { customQuery, ...searchParams } = params;
 
     let results = null;
