@@ -9,6 +9,11 @@ import type {
 } from '~/composables/useShipping/useShipping';
 import type { ShippingCartAddress } from '~/modules/GraphQL/types';
 
+/**
+ * The `useShipping()` composable allows loading the shipping information for
+ * the current cart and saving (selecting) other shipping information for the
+ * same cart.
+ */
 export function useShipping(): UseShippingInterface {
   const loading = ref(false);
   const error = ref<UseShippingErrors>({ load: null, save: null });
