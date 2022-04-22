@@ -67,8 +67,7 @@
         link="/c/women.html"
       />
     </LoadWhenVisible>
-
-    <LazyHydrate when-visible>
+    <LoadWhenVisible>
       <SfCallToAction
         :title="$t('Subscribe to Newsletters')"
         :button-text="$t('Subscribe')"
@@ -80,14 +79,13 @@
         image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
         class="call-to-action"
       />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
+    </LoadWhenVisible>
+    <LoadWhenVisible>
       <InstagramFeed />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
+    </LoadWhenVisible>
+    <LoadWhenVisible>
       <MobileStoreBanner />
-    </LazyHydrate>
+    </LoadWhenVisible>
   </div>
 </template>
 <script type="module">
@@ -95,7 +93,6 @@ import {
   SfButton,
   SfHero,
   SfBanner,
-  SfCallToAction,
   SfBannerGrid,
 } from '@storefront-ui/vue';
 
@@ -107,28 +104,23 @@ import {
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
-import NewProducts from '~/components/NewProducts.vue';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
-    InstagramFeed,
     LazyHydrate,
     LoadWhenVisible,
-    MobileStoreBanner,
-    NewProducts,
-    ProductsCarousel,
     SvgImage,
     SfButton,
     SfBanner,
     SfBannerGrid,
-    SfCallToAction,
     SfHero,
+    InstagramFeed: () => import(/* webpackPrefetch: true */ '~/components/InstagramFeed.vue'),
+    MobileStoreBanner: () => import(/* webpackPrefetch: true */ '~/components/MobileStoreBanner.vue'),
+    NewProducts: () => import(/* webpackPrefetch: true */ '~/components/NewProducts.vue'),
+    SfCallToAction: () => import(/* webpackPrefetch: true */ '@storefront-ui/vue'),
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
