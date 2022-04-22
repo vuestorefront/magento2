@@ -1,4 +1,4 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
 import type {
@@ -94,10 +94,10 @@ export function useShipping(): UseShippingInterface {
   };
 
   return {
-    loading,
-    error,
     load,
     save,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 }
 
