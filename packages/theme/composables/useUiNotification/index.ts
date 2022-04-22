@@ -1,19 +1,11 @@
 import { computed, reactive, useContext } from '@nuxtjs/composition-api';
+import type {
+  UiNotification,
+  UseUiNotificationInterface,
+} from './useUiNotification';
 
-type UiNotificationType = 'secondary' | 'info' | 'success' | 'warning' | 'danger';
-
-export interface UiNotification {
-  message: string;
-  title?: string;
-  action?: { text: string; onClick: (...args: any) => void };
-  type: UiNotificationType;
-  icon: string;
-  persist?: boolean;
-  id: symbol;
-  dismiss?: () => void;
-}
 interface Notifications {
-  notifications: Array<UiNotification>;
+  notifications: UiNotification[];
 }
 
 const state = reactive<Notifications>({
@@ -22,7 +14,12 @@ const state = reactive<Notifications>({
 const maxVisibleNotifications = 3;
 const timeToLive = 3000;
 
-const useUiNotification = () => {
+/**
+ * The `useUiNotification()` composable allows showing notifications to the user.
+ *
+ * See the {@link UseUiNotificationInterface} page for more information.
+ */
+export function useUiNotification(): UseUiNotificationInterface {
   const { app } = useContext();
   // @ts-ignore
   const cookieMessage = app.$vsf.$magento.config.state.getMessage<UiNotification>();
@@ -70,6 +67,7 @@ const useUiNotification = () => {
     send,
     notifications: computed(() => state.notifications),
   };
-};
+}
 
 export default useUiNotification;
+export * from './useUiNotification';
