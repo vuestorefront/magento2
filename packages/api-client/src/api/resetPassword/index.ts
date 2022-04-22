@@ -11,7 +11,7 @@ import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 
 /**
  * Resets a user's password
- * @param contet VSF Context
+ * @param context VSF Context
  * @param input Params used to reset a user's password
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  */
