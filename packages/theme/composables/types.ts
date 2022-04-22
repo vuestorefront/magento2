@@ -70,11 +70,6 @@ export declare type CustomerProductReviewParams = {
   currentPage: number;
 };
 
-export interface UseStoreErrors {
-  load: Error | null;
-  change: Error | null;
-}
-
 export declare type GetProductSearchParams = {
   pageSize?: number;
   currentPage?: number;

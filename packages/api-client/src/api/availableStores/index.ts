@@ -6,6 +6,9 @@ import {
 import availableStores from './availableStores';
 import { Context } from '../../types/context';
 
+/**
+ * Returns list of available stores
+ */
 export default async (
   context: Context,
   customQuery: CustomQuery = { availableStores: 'availableStores' },

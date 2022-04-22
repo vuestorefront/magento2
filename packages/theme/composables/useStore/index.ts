@@ -1,17 +1,27 @@
 import {
   computed,
-  ref, Ref, useContext,
+  readonly,
+  ref,
+  useContext,
 } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { StoreConfig } from '~/modules/GraphQL/types';
-import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
 import { useConfigStore } from '~/stores/config';
+import type { StoreConfig } from '~/modules/GraphQL/types';
+import type { UseStoreInterface, UseStoreErrors } from '~/composables/useStore/useStore';
 
-const useStore: UseStore = (): UseStoreInterface => {
+/**
+ * The `useStore()` composable allows loading and changing currently active store
+ *
+ * See the {@link UseStoreInterface} page for more information.
+ */
+export function useStore(): UseStoreInterface {
   const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseStoreErrors> = ref({ load: null, change: null });
+  const error: Ref<UseStoreErrors> = ref({
+    load: null,
+    change: null,
+  });
   const configStore = useConfigStore();
-  const stores = computed(() => configStore.stores);
   const { app } = useContext();
 
   const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
@@ -52,12 +62,13 @@ const useStore: UseStore = (): UseStoreInterface => {
   };
 
   return {
+    stores: computed(() => configStore.stores),
     load,
     change,
-    stores,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useStore;
+export * from './useStore';
