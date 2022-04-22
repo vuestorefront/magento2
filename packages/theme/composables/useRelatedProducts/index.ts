@@ -48,4 +48,5 @@ export function useRelatedProducts(): UseRelatedProductsInterface {
   };
 }
 
+export * from './useRelatedProducts';
 export default useRelatedProducts;
