@@ -8,7 +8,7 @@ export type RelatedProduct = RelatedProductQuery['products']['items'][number]['r
  * The {@link useRelatedProducts} error object. The properties values' are the
  * errors thrown by its methods.
  */
-export interface UseRelatedProductsError {
+export interface UseRelatedProductsErrors {
   /** Error when searching for related products fails, otherwise is `null`. */
   search: Error | null;
 }
@@ -21,9 +21,9 @@ export interface UseRelatedProductsInterface {
   /**
    * Contains errors from any of the composable methods.
    *
-   * @see {@link UseRelatedProductsError} documentation for more details.
+   * @see {@link UseRelatedProductsErrors} documentation for more details.
    */
-  error: DeepReadonly<Ref<UseRelatedProductsError>>;
+  error: DeepReadonly<Ref<UseRelatedProductsErrors>>;
 
   /** Indicates whether any of the composable methods is in progress. */
   loading: Readonly<Ref<boolean>>;
