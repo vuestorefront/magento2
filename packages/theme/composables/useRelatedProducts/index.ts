@@ -1,4 +1,4 @@
-import { ref, useContext, Ref } from '@nuxtjs/composition-api';
+import { ref, useContext, readonly } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type { GetProductSearchParams } from '~/composables/types';
 import type {
@@ -14,8 +14,8 @@ import type {
  */
 export function useRelatedProducts(): UseRelatedProductsInterface {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseRelatedProductsError> = ref({
+  const loading = ref(false);
+  const error = ref<UseRelatedProductsError>({
     search: null,
   });
 
@@ -47,8 +47,8 @@ export function useRelatedProducts(): UseRelatedProductsInterface {
 
   return {
     search,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 }
 

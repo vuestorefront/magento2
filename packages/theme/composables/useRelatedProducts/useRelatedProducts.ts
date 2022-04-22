@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
 import type { RelatedProductQuery } from '~/modules/GraphQL/types';
 
@@ -23,10 +23,10 @@ export interface UseRelatedProductsInterface {
    *
    * @see {@link UseRelatedProductsError} documentation for more details.
    */
-  error: Ref<UseRelatedProductsError>;
+  error: DeepReadonly<Ref<UseRelatedProductsError>>;
 
   /** Indicates whether any of the composable methods is in progress. */
-  loading: Ref<boolean>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Searches for the related products with params for sort, filter and
