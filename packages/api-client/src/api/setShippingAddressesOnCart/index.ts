@@ -8,6 +8,13 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Sets a shipping address on received cart.
+ *
+ * @param context VSF context
+ * @param input params with cart ID and shipping address.
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
 export default async (
   context: Context,
   input: SetShippingAddressesOnCartInput,

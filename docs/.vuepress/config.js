@@ -156,6 +156,7 @@ module.exports = {
           ['/api-reference/magento-api.placeorder', 'placeOrder'],
           ['/api-reference/magento-api.getavailablepaymentmethods', 'getAvailablePaymentMethods'],
           ['/api-reference/magento-api.setpaymentmethodoncart', 'setPaymentMethodOnCart'],
+          ['/api-reference/magento-api.setshippingaddressesoncart', 'setShippingAddressesOnCart'],
         ],
       },
       {
