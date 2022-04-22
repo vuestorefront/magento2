@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Query that retrieves a user's shipping methods */
 export default gql`
   query CustomerAvailableShippingMethods {
     customerCart {

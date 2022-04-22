@@ -8,7 +8,7 @@ import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
 
 export interface SelectedFiltersInterface {[p: string]: string[]}
 
-export const useFilters = () => {
+export function useFilters() {
   // @ts-ignore
   const { getFacetsFromURL } = useUiHelpers();
 
@@ -57,13 +57,30 @@ export const useFilters = () => {
     selectedFilters.value[filter.attribute_code].push(String(option.value));
   };
 
+  const getRemovableFilters = (filters: Aggregation[], selected: SelectedFiltersInterface) => {
+    const result = [];
+
+    filters.forEach((filter) => {
+      filter.options.forEach((option) => {
+        if ((selected[filter.attribute_code] ?? []).includes(option.value)) {
+          result.push({
+            id: filter.attribute_code, name: filter.label, label: option.label, value: option.value,
+          });
+        }
+      });
+    });
+
+    return result;
+  };
+
   return {
     getSelectedFiltersFromUrl,
     isFilterSelected,
     removeFilter,
     selectFilter,
     selectedFilters,
+    getRemovableFilters,
   };
-};
+}
 
 export default useFilters;

@@ -1,12 +1,12 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import {
+import type {
   BundleProduct,
   ConfigurableProduct,
   DownloadableProduct,
   GroupedProduct,
   ProductInterface,
   VirtualProduct,
-  CategorySearchQuery, CategoryTree,
+  CategoryTree,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   AvailableStoresQuery,
@@ -69,11 +69,6 @@ export declare type CustomerProductReviewParams = {
   pageSize: number;
   currentPage: number;
 };
-
-export interface UseStoreErrors {
-  load: Error | null;
-  change: Error | null;
-}
 
 export declare type GetProductSearchParams = {
   pageSize?: number;
@@ -278,15 +273,6 @@ export interface AgnosticReviewMetadata {
     label: string | number;
     id: string;
   }[];
-}
-
-export interface CategoryTreeInterface {
-  label: string;
-  slug?: string;
-  items: CategoryTreeInterface[];
-  isCurrent: boolean;
-  count?: number;
-  [x: string]: unknown;
 }
 
 export interface TransformedCustomerAddress extends CustomerAddress {

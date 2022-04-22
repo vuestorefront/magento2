@@ -1,17 +1,25 @@
-import { ref, useContext, Ref } from '@nuxtjs/composition-api';
+import { ref, readonly, useContext } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { Maybe } from '~/modules/GraphQL/types';
-import { ProductsSearchParams, ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
-import { UseUpsellProductsError, UpsellProducts, UseUpsellProductsInterface } from './useUpsellProducts';
+import type {
+  UseUpsellProductsError,
+  UseUpsellProductsInterface,
+  UseUpsellProductsSearchParams,
+} from './useUpsellProducts';
 
-export const useUpsellProducts = (): UseUpsellProductsInterface => {
+/**
+ * The `useUpsellProducts()` composable allows loading upsell products.
+ *
+ * See the {@link UseUpsellProductsInterface} page for more information.
+ */
+export function useUpsellProducts(): UseUpsellProductsInterface {
   const { app } = useContext();
   const loading = ref(false);
   const error: Ref<UseUpsellProductsError> = ref({
     search: null,
   });
 
-  const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Maybe<Array<UpsellProducts>>> => {
+  const search = async (params: UseUpsellProductsSearchParams) => {
     const {
       customQuery,
       ...searchParams
@@ -28,7 +36,7 @@ export const useUpsellProducts = (): UseUpsellProductsInterface => {
         .$vsf
         .$magento
         .api
-        .upsellProduct(searchParams as GetProductSearchParams);
+        .upsellProduct(searchParams);
 
       Logger.debug('[Result] Upsell products:', { data });
 
@@ -46,9 +54,10 @@ export const useUpsellProducts = (): UseUpsellProductsInterface => {
 
   return {
     search,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useUpsellProducts;
+export * from './useUpsellProducts';

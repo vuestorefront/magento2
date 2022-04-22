@@ -7,6 +7,9 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Changes password of the current customer. To override the default query, use the `changeCustomerPassword` query key.
+ */
 export default async (
   context: Context,
   params: { currentPassword: string; newPassword: string; },

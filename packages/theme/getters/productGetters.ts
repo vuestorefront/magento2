@@ -11,7 +11,6 @@ import {
   BundleProduct, CategoryInterface, GroupedProduct, ProductInterface,
 } from '~/modules/GraphQL/types';
 import { htmlDecode } from '~/helpers/htmlDecoder';
-import categoryGetters from './categoryGetters';
 import reviewGetters from './reviewGetters';
 
 export const getName = (product: ProductInterface): string => {
@@ -199,7 +198,29 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: ProductInterface, category?: Category): AgnosticBreadcrumb[] => {
+const getCategoryBreadcrumbs = (category: CategoryInterface): AgnosticBreadcrumb[] => {
+  let breadcrumbs = [];
+
+  if (!category) {
+    return [];
+  }
+
+  if (Array.isArray(category?.breadcrumbs)) {
+    breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
+      text: breadcrumb.category_name,
+      link: `/c/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
+    } as AgnosticBreadcrumb));
+  }
+
+  breadcrumbs.push({
+    text: category.name,
+    link: `/c/${category.url_path}${category.url_suffix || ''}`,
+  } as AgnosticBreadcrumb);
+
+  return breadcrumbs;
+};
+
+export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInterface): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -207,7 +228,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: Category): 
   }
 
   if (category) {
-    breadcrumbs = categoryGetters.getBreadcrumbs(category) as AgnosticBreadcrumb[];
+    breadcrumbs = getCategoryBreadcrumbs(category) as AgnosticBreadcrumb[];
   }
 
   breadcrumbs.push({

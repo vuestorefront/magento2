@@ -120,12 +120,6 @@ export interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
   [getterName: string]: (element: any, options?: any) => unknown;
 }
 
-export interface CategoryGetters<CATEGORY> {
-  getTree: (category: CATEGORY) => AgnosticCategoryTree | null;
-  getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
-}
-
 export interface CartGetters<CART, CART_ITEM> {
   getItems: (cart: CART) => CART_ITEM[];
   getItemName: (cartItem: CART_ITEM) => string;

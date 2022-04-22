@@ -21,7 +21,6 @@ import { SfRadio } from '@storefront-ui/vue';
 import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
 
 export default defineComponent({
-  name: 'YesNoType',
   components: {
     SfRadio,
   },

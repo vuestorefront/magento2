@@ -147,21 +147,6 @@ export interface GroupedFacetInterface {
   options: FacetInterface[];
 }
 
-export interface CategoryTreeInterface {
-  label: string;
-  slug?: string;
-  items: CategoryTreeInterface[];
-  isCurrent: boolean;
-  count?: number;
-  [x: string]: unknown;
-}
-
-export interface CategoryGetters<CATEGORY> {
-  getTree: (category: CATEGORY) => CategoryTreeInterface | null;
-  getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
-}
-
 /** category tree implementation */
 export interface CategoryTree extends CategoryInterface, RoutableInterface {
   available_sort_by?: Maybe<Array<Maybe<Scalars['String']>>>;

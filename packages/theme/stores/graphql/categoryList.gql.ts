@@ -9,6 +9,7 @@ const fragmentCategory = gql`
     uid
     url_path
     url_suffix
+    include_in_menu
   }
 `;
 
