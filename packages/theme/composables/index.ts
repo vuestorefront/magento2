@@ -29,7 +29,7 @@ export { default as useRelatedProducts } from './useRelatedProducts';
 export { default as useReview } from './useReview';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
-export { default as useStore } from './useStore';
+export * from './useStore';
 export { default as useUiHelpers } from './useUiHelpers';
 export * from './useUiNotification';
 export * from './useUiState';
