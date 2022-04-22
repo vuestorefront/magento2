@@ -18,6 +18,10 @@ type Variables = {
   sort?: ProductAttributeSortInput;
 };
 
+/**
+ * Searches for related products using params for sorting, filtering and
+ * pagination.
+ */
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
