@@ -59,13 +59,14 @@
         </template>
       </SfBannerGrid>
     </LazyHydrate>
-    <LazyHydrate when-visible>
-      <ProductsCarousel
-        :products="newProducts"
-        :loading="newProductsLoading"
+    <LoadWhenVisible>
+      <NewProducts
+        class="products"
+        :button-text="$t('See more')"
         :title="$t('New Products')"
+        link="/c/women.html"
       />
-    </LazyHydrate>
+    </LoadWhenVisible>
 
     <LazyHydrate when-visible>
       <SfCallToAction
@@ -106,10 +107,11 @@ import {
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import { useProduct } from '~/composables';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import InstagramFeed from '~/components/InstagramFeed.vue';
+import NewProducts from '~/components/NewProducts.vue';
 import ProductsCarousel from '~/components/ProductsCarousel.vue';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -117,7 +119,9 @@ export default defineComponent({
   components: {
     InstagramFeed,
     LazyHydrate,
+    LoadWhenVisible,
     MobileStoreBanner,
+    NewProducts,
     ProductsCarousel,
     SvgImage,
     SfButton,
@@ -131,8 +135,6 @@ export default defineComponent({
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
-    const { getProductList, loading: newProductsLoading } = useProduct();
-    const newProducts = ref([]);
     const heroes = ref([
       {
         title: app.i18n.t('Colorful summer dresses are already in store'),
@@ -239,15 +241,7 @@ export default defineComponent({
       },
     ]);
 
-    onMounted(async () => {
-      newProducts.value = await getProductList({
-        pageSize: 10,
-        currentPage: 1,
-        sort: {
-          position: 'ASC',
-        },
-      });
-
+    onMounted(() => {
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
     });
 
@@ -255,8 +249,6 @@ export default defineComponent({
     return {
       banners,
       heroes,
-      newProducts,
-      newProductsLoading,
     };
   },
 });
@@ -389,6 +381,10 @@ export default defineComponent({
   @include for-desktop {
     margin: var(--spacer-xl) 0 var(--spacer-2xl) 0;
   }
+}
+
+.products {
+  margin-top: var(--spacer-base);
 }
 
 .carousel {
