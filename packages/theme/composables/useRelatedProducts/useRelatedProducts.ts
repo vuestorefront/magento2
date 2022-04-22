@@ -1,6 +1,6 @@
-import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
-import { RelatedProductQuery } from '~/modules/GraphQL/types';
+import type { Ref } from '@nuxtjs/composition-api';
+import type { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
+import type { RelatedProductQuery } from '~/modules/GraphQL/types';
 
 export interface UseRelatedProductsError {
   search: Error | null;
@@ -8,8 +8,10 @@ export interface UseRelatedProductsError {
 
 export type RelatedProducts = RelatedProductQuery['products']['items'][0]['related_products'];
 
+export type UseRelatedProductsSearchParams = ComposableFunctionArgs<ProductsSearchParams>;
+
 export interface UseRelatedProductsInterface {
-  search: (params?: ComposableFunctionArgs<ProductsSearchParams>) => Promise<Array<RelatedProducts>>;
+  search(params: UseRelatedProductsSearchParams): Promise<RelatedProducts[]>;
   loading: Ref<boolean>;
   error: Ref<UseRelatedProductsError>;
 }

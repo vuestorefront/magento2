@@ -1,7 +1,12 @@
 import { ref, useContext, Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { ComposableFunctionArgs, ProductsSearchParams, GetProductSearchParams } from '~/composables/types';
-import { UseRelatedProductsError, RelatedProducts, UseRelatedProductsInterface } from '~/composables/useRelatedProducts/useRelatedProducts';
+import type { GetProductSearchParams } from '~/composables/types';
+import type {
+  UseRelatedProductsError,
+  RelatedProducts,
+  UseRelatedProductsInterface,
+  UseRelatedProductsSearchParams,
+} from './useRelatedProducts';
 
 export function useRelatedProducts(): UseRelatedProductsInterface {
   const { app } = useContext();
@@ -10,7 +15,7 @@ export function useRelatedProducts(): UseRelatedProductsInterface {
     search: null,
   });
 
-  const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Array<RelatedProducts>> => {
+  const search = async (params: UseRelatedProductsSearchParams): Promise<RelatedProducts[]> => {
     const { customQuery, ...searchParams } = params;
 
     let results = null;
