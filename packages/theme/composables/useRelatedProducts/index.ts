@@ -3,7 +3,7 @@ import { Logger } from '~/helpers/logger';
 import { ComposableFunctionArgs, ProductsSearchParams, GetProductSearchParams } from '~/composables/types';
 import { UseRelatedProductsError, RelatedProducts, UseRelatedProductsInterface } from '~/composables/useRelatedProducts/useRelatedProducts';
 
-export const useRelatedProducts = (): UseRelatedProductsInterface => {
+export function useRelatedProducts(): UseRelatedProductsInterface {
   const { app } = useContext();
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseRelatedProductsError> = ref({
@@ -11,10 +11,7 @@ export const useRelatedProducts = (): UseRelatedProductsInterface => {
   });
 
   const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Array<RelatedProducts>> => {
-    const {
-      customQuery,
-      ...searchParams
-    } = params;
+    const { customQuery, ...searchParams } = params;
 
     let results = null;
 
@@ -23,11 +20,7 @@ export const useRelatedProducts = (): UseRelatedProductsInterface => {
 
       Logger.debug('[Magento] Load related products based on ', { searchParams });
 
-      const { data } = await app
-        .$vsf
-        .$magento
-        .api
-        .relatedProduct(searchParams as GetProductSearchParams);
+      const { data } = await app.$vsf.$magento.api.relatedProduct(searchParams as GetProductSearchParams);
 
       Logger.debug('[Result] Related products:', { data });
 
@@ -48,6 +41,6 @@ export const useRelatedProducts = (): UseRelatedProductsInterface => {
     loading,
     error,
   };
-};
+}
 
 export default useRelatedProducts;
