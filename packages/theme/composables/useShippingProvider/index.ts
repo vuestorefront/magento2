@@ -8,7 +8,7 @@ import type {
   UseShippingProviderInterface,
   UseShippingProviderLoadParams,
   UseShippingProviderSaveParams,
-} from '~/composables/useShippingProvider/useShippingProvider';
+} from './useShippingProvider';
 
 export function useShippingProvider(): UseShippingProviderInterface {
   const loading = ref(false);
@@ -77,4 +77,5 @@ export function useShippingProvider(): UseShippingProviderInterface {
   };
 }
 
+export * from './useShippingProvider';
 export default useShippingProvider;
