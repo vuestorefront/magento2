@@ -3,7 +3,7 @@ import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
 import { setShippingMethodsOnCartCommand } from '~/composables/useShippingProvider/commands/setShippingMethodsOnCartCommand';
 import { SetShippingMethodsOnCartInput } from '~/modules/GraphQL/types';
-import { UseShippingProviderInterface } from '~/composables/useShippingProvider/useShippingProvider';
+import type { UseShippingProviderInterface, UseShippingProviderSaveParams } from '~/composables/useShippingProvider/useShippingProvider';
 
 export function useShippingProvider(): UseShippingProviderInterface {
   const loading = ref(false);
@@ -14,7 +14,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
   const { cart, setCart, load: loadCart } = useCart();
   const context = useContext();
 
-  const save = async ({ shippingMethod }) => {
+  const save = async ({ shippingMethod }: UseShippingProviderSaveParams) => {
     Logger.debug('useShippingProvider.save');
     let result = null;
     try {
