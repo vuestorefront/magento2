@@ -32,7 +32,7 @@ export function useWishlist(): UseWishlistInterface {
   });
 
   // eslint-disable-next-line consistent-return
-  const load = async (params: UseWishlistLoadParams) => {
+  const load = async (params?: UseWishlistLoadParams) => {
     Logger.debug('useWishlist/load');
 
     try {
@@ -46,13 +46,7 @@ export function useWishlist(): UseWishlistInterface {
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
         customerStore.wishlist = loadedWishlist[0] ?? {};
-
-        return customerStore.wishlist;
       }
-
-      customerStore.$patch((state) => {
-        state.wishlist = null;
-      });
 
       error.value.load = null;
     } catch (err) {
@@ -61,6 +55,8 @@ export function useWishlist(): UseWishlistInterface {
     } finally {
       loading.value = false;
     }
+
+    return customerStore.wishlist;
   };
 
   const isInWishlist = ({ product }: UseWishlistIsInWishlistParams) => {

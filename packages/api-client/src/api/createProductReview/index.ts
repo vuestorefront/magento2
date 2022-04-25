@@ -6,6 +6,9 @@ import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 
+/**
+ * Creates a new product review
+ */
 export default async (
   context: Context,
   input: CreateProductReviewInput,

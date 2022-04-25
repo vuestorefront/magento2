@@ -4,6 +4,9 @@ import { ProductReviewRatingsMetadataQuery } from '../../types/GraphQL';
 import productReviewRatingsMetadata from './productReviewRatingsMetadata';
 import { Context } from '../../types/context';
 
+/**
+ * Returns additional product reviews data
+ */
 export default async (
   context: Context,
   customQuery: CustomQuery = { productReviewRatingsMetadata: 'productReviewRatingsMetadata' },

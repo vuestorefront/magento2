@@ -264,7 +264,7 @@ export interface ProductGetters extends ProductGettersBase<Product> {
   getProductThumbnailImage(product: Product): string;
   getProductUpsellProduct(product: Product): Product[];
   getShortDescription(product: Product): string;
-  getSlug(product: Product, category?: CategoryInterface): string;
+  getSlug(product: ProductInterface, category?: CategoryInterface): string;
   getTypeId(product: Product): string;
   getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
   getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
