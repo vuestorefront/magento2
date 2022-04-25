@@ -135,6 +135,6 @@ export function useFacet(): UseFacetInterface {
   };
 }
 
-export { default as SearchData } from './SearchData';
+export type { SearchData } from './SearchData';
 export * from './useFacet';
 export default useFacet;
