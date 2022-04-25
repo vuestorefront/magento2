@@ -1,13 +1,11 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
 import { Category, FacetInterface } from '~/composables/types';
-import type FiltersData from './FiltersData';
-import type RouteQuery from './RouteQuery';
+import type { Params, FilterParams } from './Params';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-function reduceFilters(query: RouteQuery) {
-  return (prev: FiltersData, curr: string): FiltersData => {
+function reduceFilters(query: FilterParams) {
+  return (prev: FilterParams, curr: string): FilterParams => {
     const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
     return {
@@ -22,7 +20,7 @@ function useUiHelpers() {
   const router = useRouter();
   let { query } = route.value;
 
-  const resolveQuery = (): RouteQuery => {
+  const resolveQuery = (): FilterParams => {
     if (typeof window !== 'undefined') {
       query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
     }
@@ -30,7 +28,7 @@ function useUiHelpers() {
     return query;
   };
 
-  const getFiltersDataFromUrl = (onlyFilters = false) => {
+  const getFiltersDataFromUrl = (onlyFilters = false): FilterParams => {
     const currentQuery = resolveQuery();
     return (
       Object.keys(currentQuery)
@@ -40,28 +38,28 @@ function useUiHelpers() {
     );
   };
 
-  const getFacetsFromURL = () => {
+  const getFacetsFromURL = (): Params => {
     const currentQuery = resolveQuery();
 
     return {
       filters: getFiltersDataFromUrl(true),
-      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage as string, 10) || 10,
-      page: Number.parseInt(currentQuery.page as string, 10) || 1,
-      sort: (currentQuery.sort as string) || '',
-      term: currentQuery.term as string,
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage, 10) || 10,
+      page: Number.parseInt(currentQuery.page, 10) || 1,
+      sort: currentQuery.sort ?? '',
+      term: currentQuery.term,
     };
   };
 
   const changeSearchTerm = (term: string) => term;
 
-  const getSearchTermFromUrl = () => {
+  const getSearchTermFromUrl = (): Params => {
     const currentQuery = resolveQuery();
 
     return {
-      page: Number.parseInt(currentQuery.page as string, 10) || 1,
-      sort: currentQuery.sort || '',
+      page: Number.parseInt(currentQuery.page, 10) || 1,
+      sort: currentQuery.sort ?? '',
       filters: getFiltersDataFromUrl(true),
-      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage as string, 10) || 10,
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage, 10) || 10,
       term: currentQuery.term,
     };
   };
@@ -74,7 +72,7 @@ function useUiHelpers() {
    * @param sort
    * @param forcePush
    */
-  const changeSorting = async (sort: string, forcePush = true) => {
+  const changeSorting = async (sort: string, forcePush = true): Promise<void> => {
     if (forcePush) {
       await router.push({ query: { ...query, sort } });
     } else {
@@ -94,7 +92,7 @@ function useUiHelpers() {
    * @param filters
    * @param forcePush
    */
-  const changeFilters = async (filters: any, forcePush = true) => {
+  const changeFilters = async (filters: FilterParams, forcePush = true): Promise<void> => {
     if (forcePush) {
       await router.push({
         query: {
@@ -113,7 +111,7 @@ function useUiHelpers() {
     }
   };
 
-  const clearFilters = async (forcePush = true) => {
+  const clearFilters = async (forcePush = true): Promise<void> => {
     if (forcePush) {
       await router.push({
         query: {},
@@ -132,26 +130,26 @@ function useUiHelpers() {
    * @param itemsPerPage
    * @param forcePush
    */
-  const changeItemsPerPage = async (itemsPerPage: number, forcePush = true) => {
+  const changeItemsPerPage = async (itemsPerPage: number, forcePush = true): Promise<void> => {
     if (forcePush) {
       await router.push({
         query: {
           ...getFiltersDataFromUrl(false),
-          itemsPerPage,
+          itemsPerPage: itemsPerPage.toString(10),
         },
       });
     } else {
       const routeData = router.resolve({
         query: {
           ...getFiltersDataFromUrl(),
-          itemsPerPage,
+          itemsPerPage: itemsPerPage.toString(10),
         },
       });
       window.history.pushState({}, null, routeData.href);
     }
   };
 
-  const setTermForUrl = async (term: string) => {
+  const setTermForUrl = async (term: string): Promise<void> => {
     await router.push({
       query: {
         ...getFiltersDataFromUrl(false),
