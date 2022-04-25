@@ -4,6 +4,7 @@
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('My Cart')"
+      position="right"
       class="sf-sidebar--right"
       @close="toggleCartSidebar"
     >

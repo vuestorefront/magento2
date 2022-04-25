@@ -78,7 +78,7 @@ export interface UseWishlistInterface {
   /**
    * Fetches wishlist of the current customer
    */
-  load(params: UseWishlistLoadParams): Promise<Wishlist | void>; // TODO: Why this method returns a Wishlist but others dont?
+  load(params?: UseWishlistLoadParams): Promise<Wishlist>;
 
   /**
    * Removes product from the wishlist of the current user
@@ -98,7 +98,7 @@ export interface UseWishlistInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Contains errors from any of the composable methods
