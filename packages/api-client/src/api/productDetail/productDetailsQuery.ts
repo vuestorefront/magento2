@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
 
+/**
+ * GraphQL Query that fetches the list of products with details using sort,
+ * filters and pagination.
+ */
 export default gql`
   query productDetails(
     $search: String = "",

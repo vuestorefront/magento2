@@ -2,7 +2,7 @@ import type { Category, Filter, Product } from '~/composables/types';
 import type { UseFacetSearchResult } from './useFacet';
 
 /** The object with data returned by {@link useFacet} search method. */
-type SearchData = UseFacetSearchResult<{
+export type SearchData = UseFacetSearchResult<{
   products: Product[];
   categories: Category[];
   facets: Record<string, Filter>;
@@ -11,5 +11,3 @@ type SearchData = UseFacetSearchResult<{
   itemsPerPage: number;
   availableFilters: Record<string, any>;
 }>;
-
-export default SearchData;
