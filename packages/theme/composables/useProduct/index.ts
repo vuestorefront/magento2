@@ -1,28 +1,38 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
-import { ProductsListQuery } from '~/modules/GraphQL/types';
+import type { GetProductSearchParams } from '~/composables/types';
+import type {
+  ProductDetails,
+  ProductList,
+  UseProductErrors,
+  UseProductInterface,
+} from './useProduct';
 
-export const useProduct = (id?: string) => {
+/**
+ * The `useProduct()` composable allows loading product details or list with
+ * params for sorting, filtering and pagination.
+ */
+export function useProduct(id?: string): UseProductInterface {
   const loading = ref(false);
-  const error = ref({
-    search: null,
+  const error = ref<UseProductErrors>({
+    getProductList: null,
+    getProductDetails: null,
   });
 
-  const { app } = useContext();
-  const context = app.$vsf;
+  const context = useContext();
 
-  const getProductList = async (searchParams) => {
+  const getProductList = async (searchParams: GetProductSearchParams): Promise<ProductList | null> => {
     Logger.debug(`useProduct/${id}/getProductList`, searchParams);
-    let products : ProductsListQuery['products'] = null;
+    let products: ProductList = null;
 
     try {
       loading.value = true;
       products = await getProductListCommand.execute(context, searchParams);
-      error.value.search = null;
+      error.value.getProductList = null;
     } catch (err) {
-      error.value.search = err;
+      error.value.getProductList = err;
       Logger.error(`useProduct/${id}/search`, err);
     } finally {
       loading.value = false;
@@ -31,16 +41,16 @@ export const useProduct = (id?: string) => {
     return products;
   };
 
-  const getProductDetails = async (searchParams) => {
+  const getProductDetails = async (searchParams: GetProductSearchParams): Promise<ProductDetails | null> => {
     Logger.debug(`useProduct/${id}/getProductDetails`, searchParams);
-    let products : ProductsListQuery['products'] = null;
+    let products: ProductDetails = null;
 
     try {
       loading.value = true;
       products = await getProductDetailsCommand.execute(context, searchParams);
-      error.value.search = null;
+      error.value.getProductDetails = null;
     } catch (err) {
-      error.value.search = err;
+      error.value.getProductDetails = err;
       Logger.error(`useProduct/${id}/search`, err);
     } finally {
       loading.value = false;
@@ -52,9 +62,10 @@ export const useProduct = (id?: string) => {
   return {
     getProductList,
     getProductDetails,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export * from './useProduct';
 export default useProduct;
