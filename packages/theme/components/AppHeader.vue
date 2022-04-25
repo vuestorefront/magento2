@@ -165,12 +165,12 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
-
     const { categories: categoryList, load: categoriesListLoad } = useCategory();
 
+    const customerStore = useCustomerStore();
     const isSearchOpen = ref(false);
     const result = ref(null);
-    const wishlistItemsQty = ref(null);
+    const wishlistItemsQty = computed(() => customerStore.wishlist?.items_count ?? 0);
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
@@ -191,16 +191,11 @@ export default defineComponent({
         .filter((category) => category.include_in_menu);
     });
 
-    onMounted(() => {
+    onMounted(async () => {
       if (app.$device.isDesktop) {
-        loadCartTotalQty();
+        await loadCartTotalQty();
         // eslint-disable-next-line promise/catch-or-return
-        loadWishlistItemsCount({})
-          .then((response) => {
-            wishlistItemsQty.value = response;
-
-            return response;
-          });
+        await loadWishlistItemsCount({});
       }
     });
 
