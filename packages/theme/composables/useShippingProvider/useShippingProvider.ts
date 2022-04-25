@@ -1,4 +1,4 @@
-import { Ref } from '@nuxtjs/composition-api';
+import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import {
   Maybe,
   SelectedShippingMethod,
@@ -13,8 +13,8 @@ export declare type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
 export declare type CustomQuery = Record<string, string>;
 
 export interface UseShippingProviderInterface {
-  error: ComputedProperty<UseShippingProviderErrors>;
-  loading: ComputedProperty<boolean>;
+  error: DeepReadonly<Ref<UseShippingProviderErrors>>;
+  loading: Readonly<Ref<boolean>>;
   load(): Promise<Maybe<SelectedShippingMethod>>;
   save(params: {
     shippingMethod: any;
