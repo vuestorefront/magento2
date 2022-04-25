@@ -1,9 +1,13 @@
-import { SetShippingMethodsOnCartInput, Cart } from '~/modules/GraphQL/types';
+import type { useContext } from '@nuxtjs/composition-api';
+import type { SetShippingMethodsOnCartInput, Cart } from '~/modules/GraphQL/types';
+
+type Context = ReturnType<typeof useContext>;
 
 export const setShippingMethodsOnCartCommand = {
-  execute: async (context, shippingMethodParams: SetShippingMethodsOnCartInput): Promise<Cart> => {
-    const { data } = await context.$vsf.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
+  execute: async (context: Context, shippingMethodParams: SetShippingMethodsOnCartInput): Promise<Cart | null> => {
+    const { data } = await context.app.$vsf.$magento.api.setShippingMethodsOnCart(shippingMethodParams);
 
-    return data.setShippingMethodsOnCart.cart as Cart;
+    // TODO: Find out why 'Cart' doesn't match the type of the response data.
+    return (data?.setShippingMethodsOnCart?.cart as unknown as Cart) ?? null;
   },
 };
