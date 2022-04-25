@@ -1,14 +1,13 @@
-import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import { SelectedShippingMethod } from '~/modules/GraphQL/types';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { SelectedShippingMethod } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/types/core';
 
 export interface UseShippingProviderErrors {
-  load: Error;
-  save: Error;
+  load: Error | null;
+  save: Error | null;
 }
 
-export declare type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
-export declare type CustomQuery = Record<string, string>;
+export type UseShippingProviderLoadParams = ComposableFunctionArgs<{}>;
 
 export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
   // TODO: Define this type.
@@ -18,6 +17,6 @@ export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
 export interface UseShippingProviderInterface {
   error: DeepReadonly<Ref<UseShippingProviderErrors>>;
   loading: Readonly<Ref<boolean>>;
-  load(): Promise<SelectedShippingMethod | null>;
+  load(params?: UseShippingProviderLoadParams): Promise<SelectedShippingMethod | null>;
   save(params: UseShippingProviderSaveParams): Promise<SelectedShippingMethod | null>;
 }

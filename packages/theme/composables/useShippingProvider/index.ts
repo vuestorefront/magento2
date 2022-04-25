@@ -3,11 +3,16 @@ import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
 import { setShippingMethodsOnCartCommand } from '~/composables/useShippingProvider/commands/setShippingMethodsOnCartCommand';
 import { SetShippingMethodsOnCartInput } from '~/modules/GraphQL/types';
-import type { UseShippingProviderInterface, UseShippingProviderSaveParams } from '~/composables/useShippingProvider/useShippingProvider';
+import type {
+  UseShippingProviderErrors,
+  UseShippingProviderInterface,
+  UseShippingProviderLoadParams,
+  UseShippingProviderSaveParams,
+} from '~/composables/useShippingProvider/useShippingProvider';
 
 export function useShippingProvider(): UseShippingProviderInterface {
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseShippingProviderErrors>({
     load: null,
     save: null,
   });
@@ -30,9 +35,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
 
       setCart(cartData);
 
-      result = cartData
-        .shipping_addresses[0]
-        .selected_shipping_method;
+      result = cartData.shipping_addresses[0].selected_shipping_method;
 
       error.value.save = null;
     } catch (err) {
@@ -45,7 +48,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
     return result;
   };
 
-  const load = async ({ customQuery = null } = {}) => {
+  const load = async ({ customQuery = null }: UseShippingProviderLoadParams = {}) => {
     Logger.debug('useShippingProvider.load');
     let result = null;
     try {
