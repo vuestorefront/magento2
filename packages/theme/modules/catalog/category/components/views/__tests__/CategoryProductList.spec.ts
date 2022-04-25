@@ -7,38 +7,32 @@ import CategoryProductList from '../CategoryProductList.vue';
 
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
-localVue.component('NuxtImg', { render(h) { return h('div'); } });
-
-localVue.prototype.components = {
-  components: {
-    NuxtImg: 'div',
-  },
-};
-
-localVue.prototype.$nuxt = {
-  context: {
-    app: {
-      $vsf: {
-        $magento: {
-          config: {
-            state: '',
-          },
-        },
-      },
-    },
-    i18n: {
-      t: jest.fn((label) => label),
-    },
-  },
-};
 
 describe('CategoryProductList', () => {
-  it('hides \'Add to wishlist\' button when logged out', () => {});
-
-  it('picks correct label for wishlist button', () => {});
+  it.each([
+    [true, true],
+    [false, false],
+  ])('has correct \'Add to wishlist\' button visiblity when loggin state is %s', (isLoggedIn, expectedVisibility) => {
+    const { queryByTestId } = render(CategoryProductList, {
+      props: {
+        loading: false,
+        products: [productsMock[0]],
+      },
+      localVue,
+      pinia: createTestingPinia({ initialState: { customer: { isLoggedIn } } }),
+    });
+    expect(Boolean(queryByTestId('wishlist-button'))).toBe(expectedVisibility);
+  });
 
   it('shows skeleton loader when loading', async () => {
-    const { findAllByTestId } = render(CategoryProductList, { props: { loading: true, products: [] }, localVue, pinia: createTestingPinia() });
+    const { findAllByTestId } = render(CategoryProductList, {
+      props: {
+        loading: true,
+        products: [],
+      },
+      localVue,
+      pinia: createTestingPinia(),
+    });
     const loadingSkeletons = await findAllByTestId('skeleton');
     expect(loadingSkeletons).not.toHaveLength(0);
   });
