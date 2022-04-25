@@ -5805,7 +5805,7 @@ export interface SimpleWishlistItem extends WishlistItemInterface {
   quantity: Scalars['Float'];
 }
 /** This enumeration indicates whether to return results in ascending or descending order */
-export declare enum SortEnum {
+export enum SortEnum {
   Asc = 'ASC',
   Desc = 'DESC',
 }
@@ -5999,7 +5999,7 @@ export interface SubscribeEmailToNewsletterOutput {
   /** Returns the status of the subscription request */
   status?: Maybe<SubscriptionStatusesEnum>;
 }
-export declare enum SubscriptionStatusesEnum {
+export enum SubscriptionStatusesEnum {
   NotActive = 'NOT_ACTIVE',
   Subscribed = 'SUBSCRIBED',
   Unconfirmed = 'UNCONFIRMED',

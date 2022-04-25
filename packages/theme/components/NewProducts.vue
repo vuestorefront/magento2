@@ -24,23 +24,23 @@
           :image-width="imageSizes.productCard.width"
           :image-height="imageSizes.productCard.height"
           :image="
-              getMagentoImage(productGetters.getProductThumbnailImage(product))
-            "
+            getMagentoImage(productGetters.getProductThumbnailImage(product))
+          "
           :nuxt-img-config="{
-              fit: 'cover',
-            }"
+            fit: 'cover',
+          }"
           :regular-price="$fc(productGetters.getPrice(product).regular)"
           :special-price="
-              productGetters.getPrice(product).special &&
-                $fc(productGetters.getPrice(product).special)
-            "
+            productGetters.getPrice(product).special &&
+              $fc(productGetters.getPrice(product).special)
+          "
           :link="
-              localePath(
-                `/p/${productGetters.getProductSku(
-                  product
-                )}${productGetters.getSlug(product, product.categories[0])}`
-              )
-            "
+            localePath(
+              `/p/${productGetters.getProductSku(
+                product
+              )}${productGetters.getSlug(product, product.categories[0])}`
+            )
+          "
           :max-rating="5"
           :score-rating="productGetters.getAverageRating(product)"
           :reviews-count="productGetters.getTotalReviews(product)"
@@ -58,22 +58,18 @@
 
 <script lang="ts">
 import {
-  SfProductCard,
-  SfSection,
-  SfLoader,
-  SfButton,
+  SfButton, SfLoader, SfProductCard, SfSection,
 } from '@storefront-ui/vue';
 
 import {
-  defineComponent,
-  computed,
-  ref,
-  onMounted,
+  computed, defineComponent, onMounted, ref,
 } from '@nuxtjs/composition-api';
-import { useProduct } from '~/composables';
+import {
+  useImage, useProduct, useUser, useWishlist,
+} from '~/composables';
 import { productGetters } from '~/getters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage, useWishlist, useUser } from '~/composables';
+import { SortEnum } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'NewProducts',
@@ -122,12 +118,12 @@ export default defineComponent({
         pageSize: 4,
         currentPage: 1,
         sort: {
-          position: 'ASC',
+          position: SortEnum.Asc,
         },
       });
 
       if (newestProducts?.items?.length) {
-        products.value = newestProducts.items
+        products.value = newestProducts.items;
       }
     });
 
