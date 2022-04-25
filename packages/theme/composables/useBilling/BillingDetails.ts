@@ -1,5 +1,5 @@
 /** The object used by {@link useBilling} to save new billing information. */
-interface BillingDetails {
+export interface BillingDetails {
   apartment?: string;
   city?: string;
   country_code?: string;
@@ -15,4 +15,3 @@ interface BillingDetails {
   telephone?: string;
 }
 
-export default BillingDetails;
