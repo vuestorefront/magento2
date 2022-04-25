@@ -1,13 +1,13 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
+import type { ShippingCartAddress } from '~/modules/GraphQL/types';
 import type {
   UseShippingErrors,
   UseShippingInterface,
   UseShippingLoadParams,
   UseShippingSaveParams,
-} from '~/composables/useShipping/useShipping';
-import type { ShippingCartAddress } from '~/modules/GraphQL/types';
+} from './useShipping';
 
 /**
  * The `useShipping()` composable allows loading the shipping information for
@@ -106,4 +106,5 @@ export function useShipping(): UseShippingInterface {
   };
 }
 
+export * from './useShipping';
 export default useShipping;

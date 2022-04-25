@@ -1,6 +1,6 @@
-import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import { ShippingCartAddress } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs } from '~/composables/types';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { ShippingCartAddress } from '~/modules/GraphQL/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
  * The {@link useShipping} error object. The properties values' are the errors
@@ -36,7 +36,7 @@ export interface UseShippingInterface {
   loading: Readonly<Ref<boolean>>;
 
   /** Loads the shipping information for current cart. */
-  load(params: UseShippingLoadParams): Promise<ShippingCartAddress | {}>;
+  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | {}>;
 
   /** Save new shipping information for current cart. */
   save(params: UseShippingSaveParams): Promise<ShippingCartAddress | {}>;
