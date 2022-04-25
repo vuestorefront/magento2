@@ -1,8 +1,8 @@
-import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import type { FetchResult } from '@apollo/client/core';
+import type { CustomQuery } from '@vue-storefront/core';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
-import { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
-import { Context } from '../../types/context';
+import type { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
+import type { Context } from '../../types/context';
 
 /**
  * Sets a shipping method on received cart.

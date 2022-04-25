@@ -2,7 +2,7 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useCart } from '~/composables';
 import { setShippingMethodsOnCartCommand } from '~/composables/useShippingProvider/commands/setShippingMethodsOnCartCommand';
-import { SetShippingMethodsOnCartInput } from '~/modules/GraphQL/types';
+import type { SetShippingMethodsOnCartInput } from '~/modules/GraphQL/types';
 import type {
   UseShippingProviderErrors,
   UseShippingProviderInterface,
