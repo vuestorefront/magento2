@@ -1,16 +1,18 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
 import { Category, FacetInterface } from '~/composables/types';
+import type FiltersData from './FiltersData';
+import type RouteQuery from './RouteQuery';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-function reduceFilters(query) {
-  return (prev, curr: string) => {
+function reduceFilters(query: RouteQuery) {
+  return (prev: FiltersData, curr: string): FiltersData => {
     const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
     return {
       ...prev,
-      [curr]: makeArray ? query[curr] : [query[curr]],
+      [curr]: makeArray ? query[curr] : [query[curr] as string],
     };
   };
 }
@@ -20,7 +22,7 @@ function useUiHelpers() {
   const router = useRouter();
   let { query } = route.value;
 
-  const resolveQuery = () => {
+  const resolveQuery = (): RouteQuery => {
     if (typeof window !== 'undefined') {
       query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
     }
