@@ -1,8 +1,5 @@
 import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import {
-  Maybe,
-  SelectedShippingMethod,
-} from '~/modules/GraphQL/types';
+import { SelectedShippingMethod } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/types/core';
 
 export interface UseShippingProviderErrors {
@@ -21,6 +18,6 @@ export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
 export interface UseShippingProviderInterface {
   error: DeepReadonly<Ref<UseShippingProviderErrors>>;
   loading: Readonly<Ref<boolean>>;
-  load(): Promise<Maybe<SelectedShippingMethod>>;
-  save(params: UseShippingProviderSaveParams): Promise<Maybe<SelectedShippingMethod>>;
+  load(): Promise<SelectedShippingMethod | null>;
+  save(params: UseShippingProviderSaveParams): Promise<SelectedShippingMethod | null>;
 }
