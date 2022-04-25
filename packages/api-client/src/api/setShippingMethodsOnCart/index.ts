@@ -1,11 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
-import setShippingMethodsOnCart from './setShippingMethodsOnCart';
-import {
-  SetShippingMethodsOnCartInput,
-  SetShippingMethodsOnCartMutation,
-  SetShippingMethodsOnCartMutationVariables,
-} from '../../types/GraphQL';
+import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
+import { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
 /**
@@ -15,23 +11,20 @@ import { Context } from '../../types/context';
  * @param input params with cart ID and shipping method.
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  */
-export default async (
+export default async function setShippingMethodsOnCart(
   context: Context,
   input: SetShippingMethodsOnCartInput,
   customQuery: CustomQuery = { setShippingMethodsOnCart: 'setShippingMethodsOnCart' },
-): Promise<FetchResult<SetShippingMethodsOnCartMutation>> => {
-  const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      setShippingMethodsOnCart: {
-        query: setShippingMethodsOnCart,
-        variables: { input },
-      },
+): Promise<FetchResult<SetShippingMethodsOnCartMutation>> {
+  const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(customQuery, {
+    setShippingMethodsOnCart: {
+      query: setShippingMethodsOnCartMutation,
+      variables: { input },
     },
-  );
+  });
 
   return context.client.mutate<SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables>({
     mutation: setShippingMethodsOnCartGQL.query,
     variables: setShippingMethodsOnCartGQL.variables,
   });
-};
+}
