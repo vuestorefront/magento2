@@ -26,7 +26,7 @@ export * from './useMakeOrder';
 export * from './usePaymentProvider';
 export { default as useProduct } from './useProduct';
 export { default as useRelatedProducts } from './useRelatedProducts';
-export { default as useReview } from './useReview';
+export * from './useReview';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
 export * from './useStore';
