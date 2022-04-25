@@ -7,34 +7,6 @@ import { productsMock } from './productsMock';
 
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
-localVue.component('NuxtImg', { render(h) { return h('div'); } });
-
-localVue.prototype.$nuxt = {
-  context: {
-    $vsf: {
-      $magento: {
-        config: {
-          imageProvider: '',
-          magentoBaseUrl: '',
-        },
-      },
-    },
-    app: {
-      $fc: jest.fn((label) => label),
-      localePath: jest.fn(),
-      $vsf: {
-        $magento: {
-          config: {
-            state: '',
-          },
-        },
-      },
-    },
-    i18n: {
-      t: jest.fn((label) => label),
-    },
-  },
-};
 
 describe('CategoryProductGrid', () => {
   it('shows skeleton loader when loading', async () => {
@@ -44,7 +16,14 @@ describe('CategoryProductGrid', () => {
   });
 
   it('shows products when loaded', async () => {
-    const { findAllByTestId } = render(CategoryProductGrid, { props: { loading: false, products: productsMock }, localVue, pinia: createTestingPinia() });
+    const { findAllByTestId } = render(CategoryProductGrid, {
+      props: {
+        loading: false,
+        products: productsMock,
+      },
+      localVue,
+      pinia: createTestingPinia(),
+    });
     const products = await findAllByTestId('product-card');
     expect(products).toHaveLength(productsMock.length);
   });
