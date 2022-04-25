@@ -113,6 +113,7 @@ module.exports = {
           ['/api-reference/magento-theme.usepaymentprovider', 'usePaymentProvider()'],
           ['/api-reference/magento-theme.useproduct', 'useProduct()'],
           ['/api-reference/magento-theme.usereview.html', 'useReview()'],
+          ['/api-reference/magento-theme.useshippingprovider.html', 'useShippingProvider()'],
           ['/api-reference/magento-theme.usestore.html', 'useStore()'],
           ['/api-reference/magento-theme.useuinotification.html', 'useUiNotification()'],
           ['/api-reference/magento-theme.useuistate.html', 'useUiState()'],

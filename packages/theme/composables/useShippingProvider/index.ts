@@ -10,6 +10,11 @@ import type {
   UseShippingProviderSaveParams,
 } from './useShippingProvider';
 
+/**
+ * The `useShippingProvider()` composable allows loading the shipping provider
+ * for the current cart and saving (selecting) other shipping provider for the
+ * same cart.
+ */
 export function useShippingProvider(): UseShippingProviderInterface {
   const loading = ref(false);
   const error = ref<UseShippingProviderErrors>({
