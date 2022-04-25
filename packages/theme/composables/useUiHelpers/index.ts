@@ -4,16 +4,18 @@ import { Category, FacetInterface } from '~/composables/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-const reduceFilters = (query) => (prev, curr: string) => {
-  const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
+function reduceFilters(query) {
+  return (prev, curr: string) => {
+    const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
-  return {
-    ...prev,
-    [curr]: makeArray ? query[curr] : [query[curr]],
+    return {
+      ...prev,
+      [curr]: makeArray ? query[curr] : [query[curr]],
+    };
   };
-};
+}
 
-const useUiHelpers = () => {
+function useUiHelpers() {
   const route = useRoute();
   const router = useRouter();
   let { query } = route.value;
@@ -28,10 +30,12 @@ const useUiHelpers = () => {
 
   const getFiltersDataFromUrl = (onlyFilters = false) => {
     const currentQuery = resolveQuery();
-    return Object.keys(currentQuery)
-      .filter((f) => (onlyFilters ? !nonFilters.has(f) : f))
-      // eslint-disable-next-line unicorn/prefer-object-from-entries
-      .reduce(reduceFilters(currentQuery), {});
+    return (
+      Object.keys(currentQuery)
+        .filter((f) => (onlyFilters ? !nonFilters.has(f) : f))
+        // eslint-disable-next-line unicorn/prefer-object-from-entries
+        .reduce(reduceFilters(currentQuery), {})
+    );
   };
 
   const getFacetsFromURL = () => {
@@ -41,7 +45,7 @@ const useUiHelpers = () => {
       filters: getFiltersDataFromUrl(true),
       itemsPerPage: Number.parseInt(currentQuery.itemsPerPage as string, 10) || 10,
       page: Number.parseInt(currentQuery.page as string, 10) || 1,
-      sort: currentQuery.sort as string || '',
+      sort: (currentQuery.sort as string) || '',
       term: currentQuery.term as string,
     };
   };
@@ -78,11 +82,7 @@ const useUiHelpers = () => {
           sort,
         },
       });
-      window.history.pushState(
-        {},
-        null,
-        routeData.href,
-      );
+      window.history.pushState({}, null, routeData.href);
     }
   };
 
@@ -107,11 +107,7 @@ const useUiHelpers = () => {
           ...filters,
         },
       });
-      window.history.pushState(
-        {},
-        null,
-        routeData.href,
-      );
+      window.history.pushState({}, null, routeData.href);
     }
   };
 
@@ -124,11 +120,7 @@ const useUiHelpers = () => {
       const routeData = router.resolve({
         query: {},
       });
-      window.history.pushState(
-        {},
-        null,
-        routeData.href,
-      );
+      window.history.pushState({}, null, routeData.href);
     }
   };
 
@@ -153,11 +145,7 @@ const useUiHelpers = () => {
           itemsPerPage,
         },
       });
-      window.history.pushState(
-        {},
-        null,
-        routeData.href,
-      );
+      window.history.pushState({}, null, routeData.href);
     }
   };
 
@@ -187,6 +175,6 @@ const useUiHelpers = () => {
     getSearchTermFromUrl,
     changeSearchTerm,
   };
-};
+}
 
 export default useUiHelpers;
