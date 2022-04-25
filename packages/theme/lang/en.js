@@ -137,6 +137,7 @@ export default {
   "Search results": "Search results",
   "Sections that interest you": "Sections that interest you",
   "See all results": "See all results",
+  "See mores": "See more",
   "Select payment method": "Select payment method",
   "Select shipping method": "Select shipping method",
   "Send my feedback": "Send my feedback",
