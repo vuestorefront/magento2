@@ -18,6 +18,9 @@ type Variables = {
   sort?: ProductAttributeSortInput;
 };
 
+/**
+ * Returns reviews of the provided product
+ */
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
