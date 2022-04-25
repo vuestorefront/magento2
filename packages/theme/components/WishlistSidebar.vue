@@ -3,6 +3,7 @@
     <SfSidebar
       :visible="isWishlistSidebarOpen"
       :button="false"
+      position="right"
       title="My Wishlist"
       class="sidebar sf-sidebar--right"
       @close="toggleWishlistSidebar"
@@ -40,30 +41,25 @@
           </div>
           <div class="collected-product-list">
             <SfCollectedProduct
-              v-for="(product, item) in products"
-              :key="item"
-              :image="wishlistGetters.getItemImage(product)"
-              :title="wishlistGetters.getItemName(product)"
+              v-for="(wishlistItem, itemKey) in wishlistItems"
+              :key="itemKey"
+              :image="wishlistItem.product.thumbnail.url"
+              :title="wishlistItem.product.name"
               :regular-price="
-                $fc(wishlistGetters.getItemPrice(product).regular)
+                $fc(getItemPrice(wishlistItem).regular)
               "
               :link="
                 localePath(
-                  `/p/${wishlistGetters.getItemSku(
-                    product
-                  )}${productGetters.getSlug(
-                    product.product,
-                    product.product.categories[0]
+                  `/p/${wishlistItem.product.sku}${productGetters.getSlug(
+                    wishlistItem.product,
+                    wishlistItem.product.categories[0]
                   )}`
                 )
               "
-              :special-price="
-                wishlistGetters.getItemPrice(product).special &&
-                  $fc(wishlistGetters.getItemPrice(product).special)
-              "
+              :special-price="getItemPrice(wishlistItem).special && $fc(getItemPrice(wishlistItem).special)"
               :stock="99999"
               class="collected-product"
-              @click:remove="removeItem({ product: product.product })"
+              @click:remove="removeItem({ product: wishlistItem.product })"
             >
               <template #input>
                 <div />
@@ -72,39 +68,38 @@
                 <SfLink
                   :link="
                     localePath(
-                      `/p/${wishlistGetters.getItemSku(
-                        product
-                      )}${productGetters.getSlug(
-                        product.product,
-                        product.product.categories[0]
+                      `/p/${wishlistItem.product.sku}${productGetters.getSlug(
+                        wishlistItem.product,
+                        wishlistItem.product.categories[0]
                       )}`
                     )
                   "
                 >
                   <SfImage
                     image-tag="nuxt-img"
-                    :src="
-                      getMagentoImage(wishlistGetters.getItemImage(product))
-                    "
-                    :alt="wishlistGetters.getItemName(product)"
-                    :width="140"
-                    :height="200"
+                    :src="getMagentoImage(wishlistItem.product.thumbnail.url)"
+                    :alt="wishlistItem.product.name"
+                    :width="imageSizes.productCard.width"
+                    :height="imageSizes.productCard.height"
+                    :nuxt-img-config="{
+                      fit: 'cover',
+                    }"
                     class="sf-collected-product__image"
                   />
                 </SfLink>
               </template>
               <template #configuration>
-                <div v-if="getAttributes(product).length > 0">
+                <div v-if="getAttributes(wishlistItem).length > 0">
                   <SfProperty
-                    v-for="(attr, index) in getAttributes(product)"
+                    v-for="(attr, index) in getAttributes(wishlistItem)"
                     :key="index"
                     :name="attr.option_label"
                     :value="attr.value_label"
                   />
                 </div>
-                <div v-if="getBundles(product).length > 0">
+                <div v-if="getBundles(wishlistItem).length > 0">
                   <SfProperty
-                    v-for="(bundle, i) in getBundles(product)"
+                    v-for="(bundle, i) in getBundles(wishlistItem)"
                     :key="i"
                     :value="bundle"
                   >
@@ -125,7 +120,7 @@
               class="sf-property--full-width my-wishlist__total-price"
             >
               <template #name>
-                <span class="my-wishlist__total-price-label">Total price:</span>
+                <span class="my-wishlist__total-price-label">{{ $t('Total price') }}:</span>
               </template>
               <template #value>
                 <SfPrice :regular="$fc(totals.subtotal)" />
@@ -168,7 +163,7 @@
     </SfSidebar>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfSidebar,
   SfHeading,
@@ -180,12 +175,14 @@ import {
   SfLoader,
   SfImage,
 } from '@storefront-ui/vue';
-import { computed, defineComponent, onMounted, ref } from '@nuxtjs/composition-api';
-import { wishlistGetters, productGetters } from '~/getters';
 import {
-  useUiState, useImage, useWishlist, useUser,
+  computed, defineComponent, onMounted,
+} from '@nuxtjs/composition-api';
+import { productGetters } from '~/getters';
+import {
+  useUiState, useImage, useWishlist, useUser, AgnosticPrice, WishlistItemInterface,
 } from '~/composables';
-import { useCustomerStore } from '../stores/customer';
+import { useCustomerStore } from '~/stores/customer';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
@@ -209,15 +206,40 @@ export default defineComponent({
     } = useWishlist();
     const { isAuthenticated } = useUser();
     const customerStore = useCustomerStore();
-    const wishlist = ref({});
-    const products = computed(
-      () => wishlistGetters.getProducts(wishlist.value) ?? [],
+    const wishlistItems = computed<WishlistItemInterface[]>(
+      () => customerStore.wishlist?.items_v2?.items ?? [],
     );
-    const totals = computed(
-      () => wishlistGetters.getTotals(wishlist.value) ?? {},
+
+    const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
+      let regular = 0;
+      let special = null;
+
+      if (product?.product?.price_range) {
+        regular = product?.product?.price_range.minimum_price.regular_price.value;
+        const final = product?.product?.price_range.minimum_price.final_price.value;
+
+        if (final < regular) {
+          special = final;
+        }
+      }
+
+      return {
+        regular,
+        special,
+      };
+    };
+
+    const totals = computed<{ total: number, subtotal: number }>(
+      () => ((customerStore.wishlist?.items_v2?.items ?? []).length > 0
+        ? customerStore.wishlist?.items_v2?.items.reduce((acc, curr) => ({
+          total: acc.total + getItemPrice(curr).special,
+          subtotal: acc.subtotal + getItemPrice(curr).regular,
+        }), ({ total: 0, subtotal: 0 }))
+        : ({ total: 0, subtotal: 0 })),
     );
+
     const totalItems = computed(
-      () => wishlistGetters.getTotalItems(wishlist.value) ?? 0,
+      () => customerStore.wishlist?.items_count ?? 0,
     );
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
@@ -225,15 +247,9 @@ export default defineComponent({
 
     const { getMagentoImage, imageSizes } = useImage();
 
-    onMounted(() => {
+    onMounted(async () => {
       if (!customerStore.wishlist.id) {
-        // eslint-disable-next-line promise/catch-or-return
-        loadWishlist()
-          .then((response) => {
-            wishlist.value = response;
-
-            return response;
-          });
+        await loadWishlist();
       }
     });
 
@@ -242,17 +258,17 @@ export default defineComponent({
       getBundles,
       isAuthenticated,
       isWishlistSidebarOpen,
-      products,
+      wishlistItems,
       removeItem,
       toggleWishlistSidebar,
       totalItems,
       totals,
-      wishlistGetters,
-      wishlist,
+      wishlist: customerStore.wishlist,
       productGetters,
       getMagentoImage,
       imageSizes,
       loading,
+      getItemPrice,
     };
   },
 });
