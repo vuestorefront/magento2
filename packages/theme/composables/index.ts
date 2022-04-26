@@ -38,6 +38,7 @@ export * from './useUser';
 export * from './useUserAddress';
 export * from './useUserOrder';
 export * from './useWishlist';
+export * from './useMagentoConfiguration';
 
 export * from './types';
 export * from '../modules/GraphQL/types';
