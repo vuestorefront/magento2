@@ -1,6 +1,7 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
 import { Category, FacetInterface } from '~/composables/types';
 import type { Params, FilterParams } from './Params';
+import type { UseUiHelpersInterface } from './useUiHelpers';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -15,7 +16,7 @@ function reduceFilters(query: FilterParams) {
   };
 }
 
-function useUiHelpers() {
+function useUiHelpers(): UseUiHelpersInterface {
   const route = useRoute();
   const router = useRouter();
   let { query } = route.value;
@@ -163,18 +164,20 @@ function useUiHelpers() {
   const isFacetCheckbox = (): boolean => false;
 
   return {
-    getFacetsFromURL,
-    getCatLink,
-    changeSorting,
     changeFilters,
     changeItemsPerPage,
-    clearFilters,
-    setTermForUrl,
-    isFacetColor,
-    isFacetCheckbox,
-    getSearchTermFromUrl,
     changeSearchTerm,
+    changeSorting,
+    clearFilters,
+    getCatLink,
+    getFacetsFromURL,
+    getSearchTermFromUrl,
+    isFacetCheckbox,
+    isFacetColor,
+    setTermForUrl,
   };
 }
 
+export * from './Params';
+export * from './useUiHelpers';
 export default useUiHelpers;

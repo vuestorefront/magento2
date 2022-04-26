@@ -30,7 +30,7 @@ export * from './useReview';
 export { default as useShipping } from './useShipping';
 export { default as useShippingProvider } from './useShippingProvider';
 export * from './useStore';
-export { default as useUiHelpers } from './useUiHelpers';
+export * from './useUiHelpers';
 export * from './useUiNotification';
 export * from './useUiState';
 export * from './useUpsellProducts';
