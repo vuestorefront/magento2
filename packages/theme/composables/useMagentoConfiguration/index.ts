@@ -6,12 +6,16 @@ import type { UseMagentoConfigurationInterface } from './UseMagentoConfiguration
  * The `useMagentoConfiguration()` composable allows getting the Magento's major
  * definitions, e.g., the selected currency, store, locale, and config object.
  */
-export const useMagentoConfiguration = (): UseMagentoConfigurationInterface => {
-  const { app: { $vsf: { $magento: { config } } } } = useContext();
-
+export function useMagentoConfiguration(): UseMagentoConfigurationInterface {
   const {
-    config: storeConfig,
-  } = useConfig();
+    app: {
+      $vsf: {
+        $magento: { config },
+      },
+    },
+  } = useContext();
+
+  const { config: storeConfig } = useConfig();
 
   const selectedCurrency = computed<string | undefined>(() => config.state.getCurrency());
   const selectedLocale = computed<string | undefined>(() => config.state.getLocale());
@@ -23,4 +27,4 @@ export const useMagentoConfiguration = (): UseMagentoConfigurationInterface => {
     selectedLocale,
     selectedStore,
   };
-};
+}
