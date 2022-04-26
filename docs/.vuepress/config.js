@@ -125,6 +125,7 @@ module.exports = {
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
+          ['/api-reference/magento-theme.usemagentoconfiguration', 'useMagentoConfiguration()'],
         ],
       },
       {
