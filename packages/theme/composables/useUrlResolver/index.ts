@@ -1,4 +1,9 @@
-import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
+import {
+  readonly,
+  ref,
+  useRoute,
+  useContext,
+} from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type { EntityUrl } from '~/modules/GraphQL/types';
 import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
@@ -39,8 +44,8 @@ export const useUrlResolver = (): UseUrlResolverInterface => {
 
   return {
     path,
-    error,
     search,
-    loading,
+    error: readonly(error),
+    loading: readonly(loading),
   };
 };

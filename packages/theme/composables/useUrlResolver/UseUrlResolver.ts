@@ -1,4 +1,4 @@
-import type { Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { EntityUrl } from '~/modules/GraphQL/types';
 
 export interface UseUrlResolverErrors {
@@ -7,7 +7,7 @@ export interface UseUrlResolverErrors {
 
 export interface UseUrlResolverInterface {
   path: string;
-  error: Ref<UseUrlResolverErrors>;
-  loading: Ref<boolean>;
+  error: DeepReadonly<Ref<UseUrlResolverErrors>>;
+  loading: Readonly<Ref<boolean>>;
   search(): Promise<EntityUrl | {}>;
 }
