@@ -1,12 +1,21 @@
 import { useContext } from '@nuxtjs/composition-api';
 import type { Variables } from 'graphql-request';
+import type { UseApiInterface } from './UseApi';
 
-type Request = <T = any, V = Variables>(document: string, variables?: V, requestHeaders?: HeadersInit) => Promise<T>;
-
-export const useApi = () => {
+export const useApi = (): UseApiInterface => {
   const context = useContext();
-  const query : Request = (document, variables, headers) => context.$graphql.query.request(document, variables, headers);
-  const mutate : Request = (document, variables, headers) => context.$graphql.mutation.request(document, variables, headers);
+
+  const query = <DATA = any, VARIABLES extends Variables = Variables>(
+    document: string,
+    variables?: VARIABLES,
+    headers?: HeadersInit,
+  ): Promise<DATA> => context.$graphql.query.request(document, variables, headers);
+
+  const mutate = <DATA = any, VARIABLES extends Variables = Variables>(
+    document: string,
+    variables?: VARIABLES,
+    headers?: HeadersInit,
+  ): Promise<DATA> => context.$graphql.mutation.request(document, variables, headers);
 
   return { query, mutate };
 };
