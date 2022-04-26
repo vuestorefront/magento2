@@ -93,7 +93,7 @@
                 <div
                   v-if="option.attribute_code === 'color'"
                   :key="option.uid"
-                  class="product__colors desktop-only"
+                  class="product__colors"
                 >
                   <p class="product__color-label">
                     {{ option.label }}:
@@ -674,6 +674,10 @@ export default defineComponent({
     display: flex;
     align-items: center;
     margin-top: var(--spacer-xl);
+
+    @include for-mobile {
+      margin-left: var(--spacer-sm);
+    }
   }
 
   &__color-label {
