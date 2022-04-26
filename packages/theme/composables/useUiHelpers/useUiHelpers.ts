@@ -18,7 +18,7 @@ export interface UseUiHelpersInterface {
   changeItemsPerPage(itemsPerPage: number, forcePush?: boolean): Promise<void>;
 
   /**
-   * Returns received term. Use {@link UseUiHelpersInterface#changeSearchTerm}
+   * Returns received term. Use {@link UseUiHelpersInterface#setTermForUrl}
    * instead.
    */
   changeSearchTerm(term: string): string;
