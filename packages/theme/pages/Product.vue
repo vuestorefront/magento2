@@ -769,14 +769,15 @@ export default defineComponent({
 }
 
 @keyframes moveicon {
+
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotate(90deg) scale(1, -1);
   }
   50% {
-    transform: translate3d(0, 30%, 0);
+    transform: translate3d(10%, 0, 0) rotate(90deg) scale(1, -1);
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotate(90deg) scale(1, -1);
   }
 }
 
