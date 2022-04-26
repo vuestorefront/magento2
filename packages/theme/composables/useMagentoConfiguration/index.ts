@@ -28,3 +28,6 @@ export function useMagentoConfiguration(): UseMagentoConfigurationInterface {
     selectedStore,
   };
 }
+
+export * from './UseMagentoConfiguration';
+export default useMagentoConfiguration;
