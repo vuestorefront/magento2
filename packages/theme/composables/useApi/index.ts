@@ -20,4 +20,5 @@ export const useApi = (): UseApiInterface => {
   return { query, mutate };
 };
 
+export * from './UseApi';
 export default useApi;

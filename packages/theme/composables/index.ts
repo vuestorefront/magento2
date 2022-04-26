@@ -6,6 +6,7 @@
  *
  * @packageDocumentation
  */
+export * from './useApi';
 export * from './useAddresses';
 export * from './useBilling';
 export * from './useCart';
