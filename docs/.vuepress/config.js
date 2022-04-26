@@ -117,11 +117,11 @@ module.exports = {
           ['/api-reference/magento-theme.useuinotification.html', 'useUiNotification()'],
           ['/api-reference/magento-theme.useuistate.html', 'useUiState()'],
           ['/api-reference/magento-theme.useupsellproducts.html', 'useUpsellProducts()'],
+          ['/api-reference/magento-theme.useurlresolver', 'useUrlResolver()'],
           ['/api-reference/magento-theme.useuser', 'useUser()'],
           ['/api-reference/magento-theme.useuseraddress', 'useUserAddress()'],
           ['/api-reference/magento-theme.useuserorder', 'useUserOrder()'],
           ['/api-reference/magento-theme.usewishlist', 'useWishlist()'],
-          ['/api-reference/magento-theme.useurlresolver', 'useUrlResolver()'],
         ],
       },
       {
