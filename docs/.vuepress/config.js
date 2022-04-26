@@ -94,6 +94,7 @@ module.exports = {
         title: 'Composables',
         children: [
           ['/api-reference/magento-theme.useaddresses', 'useAddresses()'],
+          ['/api-reference/magento-theme.useapi', 'useApi()'],
           ['/api-reference/magento-theme.usebilling', 'useBilling()'],
           ['/api-reference/magento-theme.usecart', 'useCart()'],
           ['/api-reference/magento-theme.usecategory', 'useCategory()'],

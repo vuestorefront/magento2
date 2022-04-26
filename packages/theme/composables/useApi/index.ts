@@ -2,6 +2,7 @@ import { useContext } from '@nuxtjs/composition-api';
 import type { Variables } from 'graphql-request';
 import type { UseApiInterface } from './UseApi';
 
+/** The `useApi()` composable allows executing GraphQL queries and mutations. */
 export function useApi(): UseApiInterface {
   const context = useContext();
 
