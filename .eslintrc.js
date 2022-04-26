@@ -32,6 +32,13 @@ module.exports = {
   ],
   rules: {
     "@typescript-eslint/no-floating-promises": "off",
-    "jest/expect-expect": "off"
+    "jest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "getByRole", "getByTestId"],
+      }
+    ],
+    "no-plusplus": "off",
   }
 }
+

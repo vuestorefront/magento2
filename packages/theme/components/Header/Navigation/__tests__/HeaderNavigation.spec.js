@@ -34,17 +34,59 @@ describe('HeaderNavigation', () => {
     getByRole('link', { name: /jackets/i });
   });
 
-  it('subcategories are displayed on @keyup.tab', async () => {
+  it('main link is focused on @keyup.tab', async () => {
     const user = userEvent.setup();
-    const { getByTestId, getByRole } = render(HeaderNavigation, sharedOptions);
-    const womenCategory = getByRole('link', { name: /women/i });
+    const { getByTestId } = render(HeaderNavigation, sharedOptions);
+    const womenCategory = getByTestId('MjA=');
 
     await user.tab(); // "What's new" no children category
     await user.tab(); // "Women" category with children
 
     expect(womenCategory).toHaveFocus();
+  });
+
+  it('user can traverse cat links with arrow keys', async () => {
+    const user = userEvent.setup();
+    const { getByTestId } = render(HeaderNavigation, sharedOptions);
+    const whatsNewCategory = getByTestId('Mzg=');
+    const womenCategory = getByTestId('MjA=');
+    const menCategory = getByTestId('MTE=');
+    const gearCategory = getByTestId('Mw==');
+
+    // Moving right
+    await user.tab(); // "What's new" no children category
+    expect(whatsNewCategory).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(womenCategory).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(menCategory).toHaveFocus();
+    await user.keyboard('{ArrowRight}');
+    expect(gearCategory).toHaveFocus();
+
+    // Moving left
+    await user.keyboard('{ArrowLeft}');
+    expect(menCategory).toHaveFocus();
+    await user.keyboard('{ArrowLeft}');
+    expect(womenCategory).toHaveFocus();
+    await user.keyboard('{ArrowLeft}');
+    expect(whatsNewCategory).toHaveFocus();
+  });
+
+  it('user can open submenu with @keydown.down and close it with @keydown.up', async () => {
+    const user = userEvent.setup();
+    const { getByTestId, getByRole, queryByTestId } = render(HeaderNavigation, sharedOptions);
+    const womenCategory = getByTestId('MjA=');
+
+    await user.tab(); // "What's new" no children category
+    await user.keyboard('{ArrowRight}');
+    expect(womenCategory).toHaveFocus();
+
+    await user.keyboard('{ArrowDown}');
     getByTestId(/navigation-subcategories/i);
     getByRole('link', { name: /tops/i });
     getByRole('link', { name: /jackets/i });
+
+    await user.keyboard('{ArrowUp}');
+    expect(queryByTestId('navigation-subcategories')).toBeFalsy();
   });
 });

@@ -1,23 +1,31 @@
 <template>
-  <div
-    class="header-navigation"
-  >
-    <div class="header-navigation__main">
+  <div class="header-navigation">
+    <div class="sf-header-navigation-item__item sf-header-navigation-item__item--desktop">
       <HeaderNavigationItem
         v-for="(category, index) in categoryTree"
         :key="index"
+        ref="lvl0CatRefs"
         :data-testid="category.uid"
-        class="nav-item"
         :label="category.name"
         :link="localePath(getCatLink(category))"
-        @mouseenter.native="setCurrentCategory(category)"
-        @keyup.tab.native="setCurrentCategory(category)"
+        tabindex="1"
+        aria-haspopup="true"
+        class="nav-item"
+        :data-index="index"
+        :has-children="hasChildren(category)"
+        @mouseenter.native.prevent="onMouseEnter(category)"
+        @keydown.down.native.prevent="setCurrentCategory(category)"
+        @keydown.up.native.prevent="setCurrentCategory(null)"
+        @keyup.tab.native.prevent="setFocus($event)"
+        @keydown.right.native.prevent="navRight()"
+        @keydown.left.native.prevent="navLeft()"
       />
     </div>
     <HeaderNavigationSubcategories
       v-if="hasChildren(currentCategory)"
       :current-category="currentCategory"
-      @hideSubcategories="setCurrentCategory(null)"
+      :has-focus="hasFocus"
+      @hideSubcategories="focusRootElementAndHideSubcategories"
     />
   </div>
 </template>
@@ -44,7 +52,12 @@ export default defineComponent({
   },
   setup() {
     const { getCatLink } = useUiHelpers();
+
     const currentCategory = ref<CategoryTree>(null);
+    const lvl0CatRefs = ref([]);
+    const hasFocus = ref(false);
+    let lvl0CatFocusIdx = 0;
+    let focusedElement = null;
 
     const setCurrentCategory = (category: CategoryTree | null) => {
       currentCategory.value = category;
@@ -52,11 +65,55 @@ export default defineComponent({
 
     const hasChildren = (category: CategoryTree) => Boolean(category?.children);
 
+    const setFocus = (event) => {
+      focusedElement = event.target;
+      lvl0CatFocusIdx = Number(event.target.dataset.index);
+      hasFocus.value = true;
+    };
+
+    const focusRootElementAndHideSubcategories = () => {
+      setCurrentCategory(null);
+      if (focusedElement !== null) focusedElement.focus();
+    };
+
+    const navRight = () => {
+      lvl0CatFocusIdx++;
+      if (lvl0CatRefs.value[lvl0CatFocusIdx]) {
+        lvl0CatRefs.value[lvl0CatFocusIdx].$el.focus();
+        focusedElement = lvl0CatRefs.value[lvl0CatFocusIdx].$el;
+      } else {
+        lvl0CatFocusIdx--;
+      }
+    };
+
+    const navLeft = () => {
+      lvl0CatFocusIdx--;
+      if (lvl0CatRefs.value[lvl0CatFocusIdx]) {
+        lvl0CatRefs.value[lvl0CatFocusIdx].$el.focus();
+        focusedElement = lvl0CatRefs.value[lvl0CatFocusIdx].$el;
+      } else {
+        lvl0CatFocusIdx++;
+      }
+    };
+
+    const onMouseEnter = (category: CategoryTree) => {
+      currentCategory.value = category;
+      focusedElement = null;
+      hasFocus.value = false;
+    };
+
     return {
       getCatLink,
       setCurrentCategory,
       currentCategory,
       hasChildren,
+      setFocus,
+      focusRootElementAndHideSubcategories,
+      lvl0CatRefs,
+      navRight,
+      navLeft,
+      hasFocus,
+      onMouseEnter,
     };
   },
 });
