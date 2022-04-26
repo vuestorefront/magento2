@@ -9,13 +9,14 @@ export interface NonFilterParams {
   term?: string;
 }
 
-/**
- * Parameters received by URL search/query params to filter products and other
- * entities. It also includes non-filter parameters for searching, sorting and
- * pagination.
- */
-export interface FilterParams extends NonFilterParams {
+/** Parameters received by URL search/query params. */
+export interface QueryParams extends NonFilterParams {
   [key: string]: string | (string | null)[];
+}
+
+/** Parameters to filter products and other entities. */
+export interface FilterParams {
+  [key: string]: (null | string)[];
 }
 
 /**

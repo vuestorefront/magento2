@@ -1,17 +1,17 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
 import { Category, FacetInterface } from '~/composables/types';
-import type { Params, FilterParams } from './Params';
+import type { Params, QueryParams, FilterParams } from './Params';
 import type { UseUiHelpersInterface } from './useUiHelpers';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-function reduceFilters(query: FilterParams) {
+function reduceFilters(query: QueryParams) {
   return (prev: FilterParams, curr: string): FilterParams => {
     const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
     return {
       ...prev,
-      [curr]: makeArray ? query[curr] : [query[curr] as string],
+      [curr]: makeArray ? query[curr] as string[] : [query[curr] as string],
     };
   };
 }
@@ -25,7 +25,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
   const router = useRouter();
   let { query } = route.value;
 
-  const resolveQuery = (): FilterParams => {
+  const resolveQuery = (): QueryParams => {
     if (typeof window !== 'undefined') {
       query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
     }
