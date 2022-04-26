@@ -1,64 +1,43 @@
-import { Ref } from '@nuxtjs/composition-api';
-import {
-  AvailableShippingMethod,
-  CartAddressCountry, CartAddressRegion,
-  CartItemInterface,
-  CartItemQuantity,
-  Maybe,
-  Scalars,
-  SelectedShippingMethod,
-} from '~/modules/GraphQL/types';
+import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { ShippingCartAddress } from '~/modules/GraphQL/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
 
-export declare type ComputedProperty<T> = Readonly<Ref<Readonly<T>>>;
-export declare type CustomQuery = Record<string, string>;
-
+/**
+ * The {@link useShipping} error object. The properties values' are the errors
+ * thrown by its methods.
+ */
 export interface UseShippingErrors {
-  load: Error;
-  save: Error;
+  /** Error when loading the shipping information fails, otherwise is `null`. */
+  load: Error | null;
+
+  /** Error when saving new shipping information fails, otherwise is `null`. */
+  save: Error | null;
 }
 
-export interface CartAddressInterface {
-  city: Scalars['String'];
-  company?: Maybe<Scalars['String']>;
-  country: CartAddressCountry;
-  firstname: Scalars['String'];
-  lastname: Scalars['String'];
-  postcode?: Maybe<Scalars['String']>;
-  region?: Maybe<CartAddressRegion>;
-  street: Array<Maybe<Scalars['String']>>;
-  telephone: Scalars['String'];
-}
+/** The params received by {@link useShipping}'s `load` method. */
+export type UseShippingLoadParams = ComposableFunctionArgs<{}>;
 
-export interface ShippingCartAddress extends CartAddressInterface {
-  available_shipping_methods?: Maybe<Array<Maybe<AvailableShippingMethod>>>;
-  /** @deprecated `cart_items_v2` should be used instead */
-  cart_items?: Maybe<Array<Maybe<CartItemQuantity>>>;
-  cart_items_v2?: Maybe<Array<Maybe<CartItemInterface>>>;
-  city: Scalars['String'];
-  company?: Maybe<Scalars['String']>;
-  country: CartAddressCountry;
-  customer_notes?: Maybe<Scalars['String']>;
-  firstname: Scalars['String'];
-  /** @deprecated This information shoud not be exposed on frontend */
-  items_weight?: Maybe<Scalars['Float']>;
-  lastname: Scalars['String'];
-  pickup_location_code?: Maybe<Scalars['String']>;
-  postcode?: Maybe<Scalars['String']>;
-  region?: Maybe<CartAddressRegion>;
-  selected_shipping_method?: Maybe<SelectedShippingMethod>;
-  street: Array<Maybe<Scalars['String']>>;
-  telephone: Scalars['String'];
-}
+/** The params received by {@link useShipping}'s `save` method. */
+export type UseShippingSaveParams = ComposableFunctionArgs<{
+  params: any;
+  shippingDetails: any;
+}>;
 
-export interface UseShippingInterface<SHIPPING_ADDRESS> {
-  error: ComputedProperty<UseShippingErrors>;
-  loading: ComputedProperty<boolean>;
-  load(params: {
-    customQuery?: CustomQuery;
-  }): Promise<SHIPPING_ADDRESS | {}>;
-  save: (params: {
-    params: any;
-    shippingDetails: any;
-    customQuery?: CustomQuery;
-  }) => Promise<SHIPPING_ADDRESS | {} >;
+/** The interface provided by {@link useShipping} composable. */
+export interface UseShippingInterface {
+  /**
+   * Contains errors from any of the composable methods.
+   *
+   * @see {@link UseShippingErrors} documentation for more details.
+   */
+  error: DeepReadonly<Ref<UseShippingErrors>>;
+
+  /** Indicates whether any of the composable methods is in progress. */
+  loading: Readonly<Ref<boolean>>;
+
+  /** Loads the shipping information for current cart. */
+  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | {}>;
+
+  /** Save new shipping information for current cart. */
+  save(params: UseShippingSaveParams): Promise<ShippingCartAddress | {}>;
 }
