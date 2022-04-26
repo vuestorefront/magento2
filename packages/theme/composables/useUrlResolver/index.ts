@@ -1,18 +1,28 @@
-import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
+import {
+  readonly,
+  ref,
+  useRoute,
+  useContext,
+} from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { EntityUrl, Maybe } from '~/modules/GraphQL/types';
+import type { EntityUrl } from '~/modules/GraphQL/types';
+import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
 
-export const useUrlResolver = () => {
+/**
+ * The `useUrlResolver()` composable allows searching the resolver for current
+ * route path (URL).
+ */
+export function useUrlResolver(): UseUrlResolverInterface {
   const route = useRoute();
   const { error: nuxtError, app } = useContext();
   const context = app.$vsf;
   const { path } = route.value;
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseUrlResolverErrors>({
     search: null,
   });
 
-  const search = async (): Promise<Maybe<EntityUrl>> => {
+  const search = async (): Promise<EntityUrl | {}> => {
     loading.value = true;
     let results: EntityUrl = {};
 
@@ -38,8 +48,11 @@ export const useUrlResolver = () => {
 
   return {
     path,
-    error,
     search,
-    loading,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
+
+export * from './UseUrlResolver';
+export default useUrlResolver;
