@@ -8,6 +8,10 @@ import { Logger } from '~/helpers/logger';
 import type { EntityUrl } from '~/modules/GraphQL/types';
 import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
 
+/**
+ * The `useUrlResolver()` composable allows searching the resolver for current
+ * route path (URL).
+ */
 export function useUrlResolver(): UseUrlResolverInterface {
   const route = useRoute();
   const { error: nuxtError, app } = useContext();
