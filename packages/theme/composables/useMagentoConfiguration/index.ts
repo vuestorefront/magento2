@@ -2,6 +2,10 @@ import { computed, useContext } from '@nuxtjs/composition-api';
 import { useConfig } from '~/composables';
 import type { UseMagentoConfigurationInterface } from './UseMagentoConfiguration';
 
+/**
+ * The `useMagentoConfiguration()` composable allows getting the Magento's major
+ * definitions, e.g., the selected currency, store, locale, and config object.
+ */
 export const useMagentoConfiguration = (): UseMagentoConfigurationInterface => {
   const { app: { $vsf: { $magento: { config } } } } = useContext();
 
