@@ -4,6 +4,13 @@ import { UrlResolverQuery, UrlResolverQueryVariables } from '../../types/GraphQL
 import urlResolver from './urlResolver';
 import { Context } from '../../types/context';
 
+/**
+ * Fetches the resolver for received URL.
+ *
+ * @param context VSF Context
+ * @param url the URL to be resolved
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
 export default async (
   context: Context,
   url: string,
