@@ -114,6 +114,7 @@ module.exports = {
           ['/api-reference/magento-theme.useproduct', 'useProduct()'],
           ['/api-reference/magento-theme.userelatedproducts', 'useRelatedProducts()'],
           ['/api-reference/magento-theme.usereview.html', 'useReview()'],
+          ['/api-reference/magento-theme.useshippingprovider.html', 'useShippingProvider()'],
           ['/api-reference/magento-theme.useshipping', 'useShipping()'],
           ['/api-reference/magento-theme.usestore.html', 'useStore()'],
           ['/api-reference/magento-theme.useuinotification.html', 'useUiNotification()'],

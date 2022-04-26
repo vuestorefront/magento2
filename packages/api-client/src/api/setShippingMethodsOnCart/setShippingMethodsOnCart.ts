@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation that sets a shipping method on received cart. */
 export default gql`
   mutation setShippingMethodsOnCart($input: SetShippingMethodsOnCartInput) {
     setShippingMethodsOnCart(input: $input) {
