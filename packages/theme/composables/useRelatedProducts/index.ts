@@ -1,20 +1,26 @@
-import { ref, useContext, Ref } from '@nuxtjs/composition-api';
+import { ref, useContext, readonly } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { ComposableFunctionArgs, ProductsSearchParams, GetProductSearchParams } from '~/composables/types';
-import { UseRelatedProductsError, RelatedProducts, UseRelatedProductsInterface } from '~/composables/useRelatedProducts/useRelatedProducts';
+import type { GetProductSearchParams } from '~/composables/types';
+import type {
+  RelatedProduct,
+  UseRelatedProductsErrors,
+  UseRelatedProductsInterface,
+  UseRelatedProductsSearchParams,
+} from './useRelatedProducts';
 
-export const useRelatedProducts = (): UseRelatedProductsInterface => {
+/**
+ * The `useRelatedProducts()` composable allows searching for related products
+ * with params for sort, filter and pagination.
+ */
+export function useRelatedProducts(): UseRelatedProductsInterface {
   const { app } = useContext();
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseRelatedProductsError> = ref({
+  const loading = ref(false);
+  const error = ref<UseRelatedProductsErrors>({
     search: null,
   });
 
-  const search = async (params: ComposableFunctionArgs<ProductsSearchParams>): Promise<Array<RelatedProducts>> => {
-    const {
-      customQuery,
-      ...searchParams
-    } = params;
+  const search = async (params: UseRelatedProductsSearchParams): Promise<RelatedProduct[]> => {
+    const { customQuery, ...searchParams } = params;
 
     let results = null;
 
@@ -23,11 +29,7 @@ export const useRelatedProducts = (): UseRelatedProductsInterface => {
 
       Logger.debug('[Magento] Load related products based on ', { searchParams });
 
-      const { data } = await app
-        .$vsf
-        .$magento
-        .api
-        .relatedProduct(searchParams as GetProductSearchParams);
+      const { data } = await app.$vsf.$magento.api.relatedProduct(searchParams as GetProductSearchParams);
 
       Logger.debug('[Result] Related products:', { data });
 
@@ -45,9 +47,10 @@ export const useRelatedProducts = (): UseRelatedProductsInterface => {
 
   return {
     search,
-    loading,
-    error,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export * from './useRelatedProducts';
 export default useRelatedProducts;
