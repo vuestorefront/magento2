@@ -34,6 +34,7 @@ export { default as useUiHelpers } from './useUiHelpers';
 export * from './useUiNotification';
 export * from './useUiState';
 export * from './useUpsellProducts';
+export * from './useUrlResolver';
 export * from './useUser';
 export * from './useUserAddress';
 export * from './useUserOrder';

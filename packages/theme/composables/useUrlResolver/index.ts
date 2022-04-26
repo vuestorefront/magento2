@@ -53,3 +53,6 @@ export function useUrlResolver(): UseUrlResolverInterface {
     loading: readonly(loading),
   };
 }
+
+export * from './UseUrlResolver';
+export default useUrlResolver;
