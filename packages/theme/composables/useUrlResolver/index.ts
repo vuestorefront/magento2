@@ -1,18 +1,19 @@
 import { useRoute, useContext, ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { EntityUrl, Maybe } from '~/modules/GraphQL/types';
+import type { EntityUrl } from '~/modules/GraphQL/types';
+import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
 
-export const useUrlResolver = () => {
+export const useUrlResolver = (): UseUrlResolverInterface => {
   const route = useRoute();
   const { error: nuxtError, app } = useContext();
   const context = app.$vsf;
   const { path } = route.value;
   const loading = ref(false);
-  const error = ref({
+  const error = ref<UseUrlResolverErrors>({
     search: null,
   });
 
-  const search = async (): Promise<Maybe<EntityUrl>> => {
+  const search = async (): Promise<EntityUrl | {}> => {
     loading.value = true;
     let results: EntityUrl = {};
 
