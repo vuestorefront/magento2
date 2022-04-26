@@ -2,7 +2,7 @@ import { useContext } from '@nuxtjs/composition-api';
 import type { Variables } from 'graphql-request';
 import type { UseApiInterface } from './UseApi';
 
-export const useApi = (): UseApiInterface => {
+export function useApi(): UseApiInterface {
   const context = useContext();
 
   const query = <DATA = any, VARIABLES extends Variables = Variables>(
@@ -18,7 +18,7 @@ export const useApi = (): UseApiInterface => {
   ): Promise<DATA> => context.$graphql.mutation.request(document, variables, headers);
 
   return { query, mutate };
-};
+}
 
 export * from './UseApi';
 export default useApi;
