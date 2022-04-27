@@ -1,4 +1,4 @@
-import { Country } from '~/modules/GraphQL/types';
+import { CategoryInterface, Country } from '~/modules/GraphQL/types';
 import {
   AgnosticAttribute, Countries, AgnosticPrice, AgnosticTotals,
   AgnosticCoupon, AgnosticDiscount, AgnosticCategoryTree, AgnosticBreadcrumb,
@@ -32,7 +32,7 @@ export interface ProductGetters<PRODUCT> {
   getFormattedPrice: (price: number) => string;
   getTotalReviews: (product: PRODUCT) => number;
   getAverageRating: (product: PRODUCT) => number;
-  getBreadcrumbs?: (product: PRODUCT) => AgnosticBreadcrumb[];
+  getBreadcrumbs?: (product: PRODUCT, category?: CategoryInterface) => AgnosticBreadcrumb[];
   [getterName: string]: any;
 }
 
