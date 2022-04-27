@@ -6,7 +6,7 @@
     "target": "ES2019",
     "module": "ES2015",
     "moduleResolution": "node",
-    "lib": ["ES2019"],
+    "lib": ["DOM", "ES2019"],
     "esModuleInterop": true,
     "allowJs": true,
     "outDir": "dist",
@@ -16,5 +16,8 @@
     },
     "skipLibCheck": true
   },
-  "files": ["./composables/index.ts"]
+  "files": [
+    "./composables/index.ts",
+    "./plugins/graphqlClient.ts"
+  ]
 }
