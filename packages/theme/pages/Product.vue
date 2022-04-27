@@ -444,8 +444,8 @@ export default defineComponent({
 
     const changeTab = (tabNumber, callback) => {
       document.querySelector('#tabs').scrollIntoView({
+        block: 'start',
         behavior: 'smooth',
-        block: 'end',
       });
       openTab.value = tabNumber;
       if (callback && typeof callback === 'function') callback();
