@@ -1,4 +1,5 @@
-import { Ref, ref, useContext } from '@nuxtjs/composition-api';
+import { ref, useContext } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/helpers/userAddressManipulator';
 import type { ComposableFunctionArgs } from '~/composables/types';
@@ -7,82 +8,10 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
 /**
  * @public
  *
- * The `useAddresses` composable provides functions and refs to handle customer
- * addresses from Magento API. And in Magento, the customer addresses can be
- * used for both billing and shipping.
+ * The `useAddresses` composable allows loading and manipulating addresses of the current user. These
+ * addresses can be used for both billing and shipping.
  *
- * With `useAddresses` provided functions, we're able to:
- *
- * - Load the customer addresses;
- *
- * - Save new customer address;
- *
- * - Update an existing customer address;
- *
- * - Remove an existing customer address;
- *
- * @remarks
- *
- * Under the hood, it calls the following Server Middleware API methods:
- *
- * - {@link @vue-storefront/magento-api#getCustomerAddresses} for loading customer addresses;
- *
- * - {@link @vue-storefront/magento-api#createCustomerAddress} for saving new customer address;
- *
- * - {@link @vue-storefront/magento-api#updateCustomerAddress} for updating existing customer address;
- *
- * - {@link @vue-storefront/magento-api#deleteCustomerAddress} for removing existing customer address;
- *
- * @example
- *
- * Initialization in component:
- *
- * ```typescript
- * import { useAddresses } from '~/composables';
- *
- * export default {
- *   setup(props) {
- *     const { load, save, update, remove, error, loading } = useAddresses();
- *   }
- * }
- * ```
- *
- * @example
- *
- * Load customer addresses and allow saving new ones:
- *
- * ```typescript
- * import { useFetch, ref } from '@nuxtjs/composition-api';
- * import { useAddresses, UseAddressesParamsInput } from '~/composables';
- *
- * export default {
- *   setup(props) {
- *     const { load, save, error, loading } = useAddresses();
- *
- *     const addresses = ref([]);
- *
- *     useFetch(async () => {
- *       addresses.value = await load();
- *
- *       if (error.value.load) {
- *         // handle loading error
- *       }
- *     });
- *
- *     const onSave = async (params: UseAddressesParamsInput) => {
- *       const newAddress = await save(params);
- *
- *       if (error.value.save) {
- *         // handle saving error
- *       }
- *
- *       addresses.value.push(newAddress);
- *     };
- *
- *     return { onSave, loading, addresses };
- *   }
- * }
- * ```
+ * See the {@link UseAddressesInterface} for a list of methods and values available in this composable.
  */
 export function useAddresses(): UseAddressesInterface {
   const error: Ref<UseAddressesErrors> = ref({
@@ -115,15 +44,15 @@ export function useAddresses(): UseAddressesInterface {
     return results;
   };
 
-  const save = async (saveParams: ComposableFunctionArgs<UseAddressesParamsInput>) => {
-    Logger.debug('[Magento] save user address:', saveParams.address);
+  const save = async (params: ComposableFunctionArgs<UseAddressesParamsInput>) => {
+    Logger.debug('[Magento] save user address:', params.address);
     let results = null;
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(saveParams));
+      const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
       results = data?.createCustomerAddress ?? {};
-      Logger.debug('[Magento] save user address results:', saveParams.address);
+      Logger.debug('[Magento] save user address results:', params.address);
       error.value.save = null;
     } catch (err) {
       error.value.save = err;
@@ -135,13 +64,13 @@ export function useAddresses(): UseAddressesInterface {
     return results;
   };
 
-  const update = async (updateParams: ComposableFunctionArgs<UseAddressesParamsInput>) => {
-    Logger.debug('[Magento] update user address:', updateParams.address);
+  const update = async (params: ComposableFunctionArgs<UseAddressesParamsInput>) => {
+    Logger.debug('[Magento] update user address:', params.address);
     let results = null;
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(updateParams));
+      const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
       results = data?.updateCustomerAddress ?? {};
       Logger.debug('[Magento] update user address results:', results);
       error.value.update = null;
@@ -155,13 +84,13 @@ export function useAddresses(): UseAddressesInterface {
     return results;
   };
 
-  const remove = async (removeParams: ComposableFunctionArgs<UseAddressesParamsInput>) => {
-    Logger.debug('[Magento] remove user address:', removeParams.address);
+  const remove = async (params: ComposableFunctionArgs<UseAddressesParamsInput>) => {
+    Logger.debug('[Magento] remove user address:', params.address);
     let results = null;
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.deleteCustomerAddress(removeParams.address.id);
+      const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
       results = !!data.deleteCustomerAddress;
       Logger.debug('[Magento] remove user address results:', results);
       error.value.remove = null;
@@ -186,5 +115,4 @@ export function useAddresses(): UseAddressesInterface {
 }
 
 export * from './useAddresses';
-
 export default useAddresses;

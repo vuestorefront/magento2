@@ -1,9 +1,9 @@
-import { Ref } from '@nuxtjs/composition-api';
-import { ComposableFunctionArgs } from '~/types/core';
-import { CustomerAddress } from '~/modules/GraphQL/types';
+import type { Ref } from '@nuxtjs/composition-api';
+import type { ComposableFunctionArgs } from '~/types/core';
+import type { CustomerAddress } from '~/modules/GraphQL/types';
 
 /**
- * The {@link useAddresses} error object. The properties values' are the errors thrown by its methods.
+ * Errors that occured in the {@link useAddresses|useAddresses()} composable
  *
  * @example
  *
@@ -49,66 +49,56 @@ export interface UseAddressesParamsInput {
 }
 
 /**
- * The refs and methods returned by {@link useAddresses} composable.
+ * The refs and methods returned by the {@link useAddresses|useAddresses()} composable.
  */
 export interface UseAddressesInterface {
-  /** The error object */
+  /**
+   * Contains errors from the composable methods
+   */
   error: Ref<UseAddressesErrors>;
 
-  /** The loading state. It's `true` when loading, saving, updating, or removing customer addresses and `false` otherwise. */
+  /**
+   * Indicates whether any of the methods is in progress
+   */
   loading: Ref<boolean>;
 
   /**
-   * Loads customer addresses.
+   * Loads addresses of the current customer
    *
-   * Returns a `Promise` that resolves to a list of {@link CustomerAddress} objects.
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#getCustomerAddresses} API endpoint
+   * and doesn't accept custom queries.
    *
    * @example
    *
-   * Load customer addresses on client side using the `onMounted` Composition API hook:
+   * Loading customer addresses on client side using the `onMounted` Composition API hook:
    *
-   * ```vue
-   * <template>
-   *   <div v-if="loading">
-   *     Loading…
-   *   </div>
-   *   <div v-else-if="error.load">
-   *     Error: {{ error.load.message }}
-   *   </div>
-   *   <div v-else-if="addresses.length === 0">
-   *     No addresses found.
-   *   </div>
-   *   <div v-else>
-   *     <!-- Display addresses in 'v-for' -->
-   *   </div>
-   * </template>
-   *
-   * <script lang="ts">
+   * ```typescript
    * import { onMounted, ref } from '@nuxtjs/composition-api';
    * import { useAddresses } from '~/composables';
    *
    * export function {
    *   setup() {
-   *     const { error, load, loading } = useAddresses();
-   *
+   *     const { load } = useAddresses();
    *     const addresses = ref([]);
    *
    *     onMounted(async () => {
    *       addresses.value = await load();
    *     });
-   *
-   *     return { error, loading, addresses };
    *   }
    * }
-   * </script>
    * ```
    */
-  load: () => Promise<CustomerAddress[]>;
+  load(): Promise<CustomerAddress[]>;
 
   /**
-   * Saves a new customer address.
+   * Saves a new address in the profile of the current customer
    *
-   * Returns a `Promise` that resolves to the new {@link CustomerAddress} object.
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#createCustomerAddress} API endpoint
+   * and doesn't accept custom queries.
    *
    * @example
    *
@@ -120,8 +110,7 @@ export interface UseAddressesInterface {
    *
    * export default {
    *   setup(props) {
-   *     const { error, load, loading, save } = useAddresses();
-   *
+   *     const { error, load } = useAddresses();
    *     const addresses = ref([]);
    *
    *     useFetch(async () => {
@@ -137,18 +126,19 @@ export interface UseAddressesInterface {
    *
    *       addresses.value.push(newAddress);
    *     };
-   *
-   *     return { addresses, loading, onSaveAddress };
    *   }
    * }
    * ```
    */
-  save: (saveParams: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<CustomerAddress>;
+  save(params: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<CustomerAddress>;
 
   /**
-   * Updates an existing customer address.
+   * Updates an existing address in the profile of the current customer
    *
-   * Returns a `Promise` that resolves to the updated {@link CustomerAddress} object.
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#updateCustomerAddress} API endpoint
+   * and doesn't accept custom queries.
    *
    * @example
    *
@@ -160,8 +150,7 @@ export interface UseAddressesInterface {
    *
    * export default {
    *   setup(props) {
-   *     const { error, load, loading, update } = useAddresses();
-   *
+   *     const { error, load, update } = useAddresses();
    *     const addresses = ref([]);
    *
    *     useFetch(async () => {
@@ -183,18 +172,19 @@ export interface UseAddressesInterface {
    *         return address;
    *       });
    *     };
-   *
-   *     return { addresses, loading, onUpdateAddress };
    *   }
    * }
    * ```
    */
-  update: (updateParams?: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<CustomerAddress>;
+  update(params?: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<CustomerAddress>;
 
   /**
-   * Removes an existing customer address.
+   * Removes an existing address from the profile of the current customer
    *
-   * Returns a `Promise` that resolves to a `boolean`, which is `true` when successful and `false` otherwise.
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#deleteCustomerAddress} API endpoint
+   * and doesn't accept custom queries.
    *
    * @example
    *
@@ -206,8 +196,7 @@ export interface UseAddressesInterface {
    *
    * export default {
    *   setup(props) {
-   *     const { error, load, loading, remove } = useAddresses();
-   *
+   *     const { error, load, remove } = useAddresses();
    *     const addresses = ref([]);
    *
    *     useFetch(async () => {
@@ -225,11 +214,9 @@ export interface UseAddressesInterface {
    *         return address.id !== input.address.id;
    *       });
    *     };
-   *
-   *     return { addresses, loading, onRemoveAddress };
    *   }
    * }
    * ```
    */
-  remove: (removeParams?: ComposableFunctionArgs<UseAddressesParamsInput>) => Promise<boolean>;
+  remove(params?: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<boolean>;
 }
