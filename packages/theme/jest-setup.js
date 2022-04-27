@@ -5,6 +5,9 @@ import { config } from '@vue/test-utils';
 config.stubs = {
   NuxtImg: { render(h) { return h('img'); } },
 };
+config.mocks = {
+  $t: (text) => text
+}
 
 const $vsf = {
   $magento: {
