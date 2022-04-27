@@ -1,6 +1,26 @@
 import { useContext } from '@nuxtjs/composition-api';
 import type { Variables } from 'graphql-request';
-import type { UseApiInterface } from './UseApi';
+
+type Request = <DATA = any, VARIABLES extends Variables = Variables>(
+  document: string,
+  variables?: VARIABLES,
+  requestHeaders?: HeadersInit
+) => Promise<DATA>;
+
+/** The interface provided by {@link useApi} composable. */
+export interface UseApiInterface {
+  /**
+   * Executes received GraphQL Query with optional variables and headers and
+   * returns the result.
+   */
+  query: Request;
+
+  /**
+   * Executes received GraphQL Mutation with optional variables and headers and
+   * returns the result.
+   */
+  mutate: Request;
+}
 
 /**
  * The `useApi()` composable allows executing GraphQL queries and mutations.
@@ -12,6 +32,18 @@ import type { UseApiInterface } from './UseApi';
  * ```ts
  * import { ref, readonly } from '@nuxtjs/composition-api';
  * import { useApi } from '~/composables/useApi';
+ *
+ * type GetCartPriceQueryVariables = { cartId: string };
+ *
+ * type GetCartPriceQueryData = {
+ *   cart: {
+ *     prices: {
+ *       subtotal_excluding_tax: {
+ *         value: number;
+ *       };
+ *     }[];
+ *   };
+ * };
  *
  * const GET_CART_PRICE_QUERY = `
  *   query GET_CART_PRICE_QUERY($cartId: String!) {
@@ -36,11 +68,14 @@ import type { UseApiInterface } from './UseApi';
  *     const getCartPrice = async (cartId: string) => {
  *       loading.value = false;
  *       try {
- *         const result = await query(GET_CART_PRICE_QUERY, { cartId }, {
+ *         const result = await query<
+ *           GetCartPriceQueryData,
+ *           GetCartPriceQueryVariables,
+ *         >(GET_CART_PRICE_QUERY, { cartId }, {
  *           'Accept': 'application/json',
  *         });
  *
- *         price.value = result.data?.cart?.prices?.[0]?.subtotal_excluding_tax?.value ?? null;
+ *         price.value = result.cart?.prices?.subtotal_excluding_tax?.value ?? null;
  *         error.value = null;
  *       } catch (error) {
  *         price.value = null;
@@ -63,20 +98,19 @@ import type { UseApiInterface } from './UseApi';
 export function useApi(): UseApiInterface {
   const context = useContext();
 
-  const query = <DATA = any, VARIABLES extends Variables = Variables>(
-    document: string,
-    variables?: VARIABLES,
-    headers?: HeadersInit,
-  ): Promise<DATA> => context.$graphql.query.request(document, variables, headers);
+  const query: Request = (
+    document,
+    variables,
+    headers,
+  ) => context.$graphql.query.request(document, variables, headers);
 
-  const mutate = <DATA = any, VARIABLES extends Variables = Variables>(
-    document: string,
-    variables?: VARIABLES,
-    headers?: HeadersInit,
-  ): Promise<DATA> => context.$graphql.mutation.request(document, variables, headers);
+  const mutate: Request = (
+    document,
+    variables,
+    headers,
+  ) => context.$graphql.mutation.request(document, variables, headers);
 
   return { query, mutate };
 }
 
-export * from './UseApi';
 export default useApi;
