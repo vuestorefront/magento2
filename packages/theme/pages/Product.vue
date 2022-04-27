@@ -12,7 +12,7 @@
         <div class="product">
           <SfLoader
             class="loading--product-gallery"
-            :loading="$fetchState.pending"
+            :loading="fetchProductsState.pending"
           >
             <SfGallery
               :images="productGallery"
@@ -80,7 +80,7 @@
                 </SfButton>
               </div>
             </div>
-            <div>
+            <div v-if="product !== null ">
               <HTMLContent
                 v-if="productShortDescription"
                 :content="productShortDescription"
@@ -134,14 +134,14 @@
                   </SfSelectOption>
                 </SfSelect>
               </template>
-              <template v-if="product !== null && product.__typename === 'GroupedProduct'">
+              <template v-if="product.__typename === 'GroupedProduct'">
                 <grouped-product-selector
                   :can-add-to-cart="canAddToCart"
                   :product="product"
                   @update-price="basePrice = $event"
                 />
               </template>
-              <template v-else-if="product !== null && product.__typename === 'BundleProduct'">
+              <template v-else-if="product.__typename === 'BundleProduct'">
                 <BundleProductSelector
                   :can-add-to-cart="canAddToCart"
                   :product="product"
@@ -352,6 +352,7 @@ export default defineComponent({
     const router = useRouter();
     const { getProductDetails, loading: productLoading } = useProduct();
     const { addItem, loading } = useCart();
+
     const {
       search: searchReviews,
       loading: reviewsLoading,
@@ -462,63 +463,59 @@ export default defineComponent({
       });
     };
 
-    let firstFetch = true;
-    const { fetch } = useFetch(async () => {
-      const { params: { id } } = route.value;
-
-      const baseSearchQuery = {
-        filter: {
-          sku: {
-            eq: id,
-          },
+    const { params: { id } } = route.value;
+    const baseSearchQuery = () => ({
+      filter: {
+        sku: {
+          eq: id,
         },
-        configurations: productConfiguration.value.map(
-          (config) => config[1],
-        ) as string[],
-      };
+      },
+      configurations: productConfiguration.value.map(
+        (config) => config[1],
+      ) as string[],
+    });
 
+    const { fetch: fetchProducts, fetchState: fetchProductsState } = useFetch(async () => {
       const result = await getProductDetails({
-        ...baseSearchQuery,
+        ...baseSearchQuery(),
       });
 
       product.value = result.items[0] as Product ?? null;
       if (Boolean(product?.value?.sku) === false) nuxtError({ statusCode: 404 });
 
-      if (firstFetch) {
-        firstFetch = false;
-        const productReviews = await searchReviews(baseSearchQuery);
+      const tags = [
+        {
+          prefix: CacheTagPrefix.View,
+          value: `product-${route.value.params.id}`,
+        },
+      ];
 
-        const baseReviews = Array.isArray(productReviews)
-          ? [...productReviews].shift()
-          : productReviews;
+      const productTags = [{
+        prefix: CacheTagPrefix.Product,
+        value: product.value.uid,
+      }];
 
-        reviews.value = reviewGetters.getItems(baseReviews);
-        totalReviews.value = reviewGetters.getTotalReviews(product.value);
-        averageRating.value = reviewGetters.getAverageRating(product.value);
+      const categoriesTags = categories.value.map((catId) => ({
+        prefix: CacheTagPrefix.Category,
+        value: catId,
+      }));
 
-        const tags = [
-          {
-            prefix: CacheTagPrefix.View,
-            value: `product-${route.value.params.id}`,
-          },
-        ];
-
-        const productTags = [{
-          prefix: CacheTagPrefix.Product,
-          value: product.value.uid,
-        }];
-
-        const categoriesTags = categories.value.map((catId) => ({
-          prefix: CacheTagPrefix.Category,
-          value: catId,
-        }));
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        addTags([...tags, ...productTags, ...categoriesTags]);
-      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      addTags([...tags, ...productTags, ...categoriesTags]);
     });
 
-    const updateProductConfiguration = (label, value) => {
+    useFetch(async () => {
+      const productReviews = await searchReviews(baseSearchQuery());
+      const baseReviews = Array.isArray(productReviews)
+        ? productReviews[0]
+        : productReviews;
+
+      reviews.value = reviewGetters.getItems(baseReviews);
+      totalReviews.value = reviewGetters.getTotalReviews(product.value);
+      averageRating.value = reviewGetters.getAverageRating(product.value);
+    });
+
+    const updateProductConfiguration = (label: string, value: string) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       productConfiguration.value.push([label, value]);
       const routeData = router.resolve({
@@ -530,7 +527,7 @@ export default defineComponent({
 
       window.history.pushState({}, null, routeData.href);
 
-      fetch();
+      fetchProducts();
     };
     return {
       addItem,
@@ -570,6 +567,8 @@ export default defineComponent({
       totalReviews,
       updateProductConfiguration,
       imageSizes,
+      fetchProducts,
+      fetchProductsState,
     };
   },
 });
