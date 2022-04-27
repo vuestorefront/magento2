@@ -1,7 +1,7 @@
 <template>
   <div id="product">
     <SfLoader
-      :class="{ 'loading--product': productDataIsLoading }"
+      class="loading--product"
       :loading="productDataIsLoading"
     >
       <div>
@@ -10,30 +10,28 @@
           :breadcrumbs="breadcrumbs"
         />
         <div class="product">
-          <LazyHydrate when-idle>
-            <SfLoader
-              :class="{ 'loading--product-gallery': productLoading }"
-              :loading="productLoading"
-            >
-              <SfGallery
-                :images="productGallery"
-                :image-width="imageSizes.productGallery.imageWidth"
-                :image-height="imageSizes.productGallery.imageHeight"
-                :thumb-width="imageSizes.productGallery.thumbWidth"
-                :thumb-height="imageSizes.productGallery.thumbHeight"
-                :enable-zoom="true"
-                image-tag="nuxt-img"
-                thumb-image-tag="nuxt-img"
-                class="product__gallery"
-                :nuxt-img-config="{
-                  fit: 'cover',
-                }"
-                :thumb-nuxt-img-config="{
-                  fit: 'cover',
-                }"
-              />
-            </SfLoader>
-          </LazyHydrate>
+          <SfLoader
+            class="loading--product-gallery"
+            :loading="$fetchState.pending"
+          >
+            <SfGallery
+              :images="productGallery"
+              :image-width="imageSizes.productGallery.imageWidth"
+              :image-height="imageSizes.productGallery.imageHeight"
+              :thumb-width="imageSizes.productGallery.thumbWidth"
+              :thumb-height="imageSizes.productGallery.thumbHeight"
+              :enable-zoom="true"
+              image-tag="nuxt-img"
+              thumb-image-tag="nuxt-img"
+              class="product__gallery"
+              :nuxt-img-config="{
+                fit: 'cover',
+              }"
+              :thumb-nuxt-img-config="{
+                fit: 'cover',
+              }"
+            />
+          </SfLoader>
           <div class="product__info">
             <div class="product__header">
               <SfHeading
@@ -136,14 +134,14 @@
                   </SfSelectOption>
                 </SfSelect>
               </template>
-              <template v-if="product.__typename === 'GroupedProduct'">
+              <template v-if="product !== null && product.__typename === 'GroupedProduct'">
                 <grouped-product-selector
                   :can-add-to-cart="canAddToCart"
                   :product="product"
                   @update-price="basePrice = $event"
                 />
               </template>
-              <template v-else-if="product.__typename === 'BundleProduct'">
+              <template v-else-if="product !== null && product.__typename === 'BundleProduct'">
                 <BundleProductSelector
                   :can-add-to-cart="canAddToCart"
                   :product="product"
@@ -265,7 +263,7 @@
     </LazyHydrate>
   </div>
 </template>
-<script>
+<script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfAddToCart,
@@ -288,7 +286,7 @@ import {
   useRoute,
   useRouter,
   defineComponent,
-  useAsync,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import productGetters, {
@@ -303,10 +301,8 @@ import reviewGetters, {
   getReviewRating,
 } from '~/getters/reviewGetters';
 import {
-  useProduct, useCart, useWishlist, useUser, useReview,
+  useProduct, useCart, useWishlist, useUser, useReview, Product,
 } from '~/composables';
-
-import { productData } from '~/helpers/product/productData';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
@@ -350,9 +346,7 @@ export default defineComponent({
   setup() {
     const { addTags } = useCache();
     const qty = ref(1);
-    const products = ref([]);
-
-    const { product, id } = productData(products);
+    const product = ref<Product | null>(null);
     const { getMagentoImage, imageSizes } = useImage();
     const route = useRoute();
     const router = useRouter();
@@ -363,7 +357,7 @@ export default defineComponent({
       loading: reviewsLoading,
       addReview,
     } = useReview();
-    const productReviews = ref([]);
+
     const { isAuthenticated } = useUser();
     const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
     const { error: nuxtError, app } = useContext();
@@ -373,37 +367,34 @@ export default defineComponent({
       () => productLoading.value && !productGetters.getName(product.value),
     );
     const productShortDescription = computed(
-      () => product.value.short_description?.html || '',
+      () => product.value?.short_description?.html || '',
     );
     const productDescription = computed(
-      () => product.value.description?.html || '',
+      () => product.value?.description?.html || '',
     );
     const canAddToCart = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
-      if (product.value.__typename === 'ConfigurableProduct') {
-        return !!product.value.configurable_product_options_selection?.variant
+      if (product.value?.__typename === 'ConfigurableProduct') {
+        return !!product.value?.configurable_product_options_selection?.variant
           ?.uid;
       }
-      const inStock = product.value.stock_status || '';
-      const stockLeft = product.value.only_x_left_in_stock === null
+      const inStock = product.value?.stock_status || '';
+      const stockLeft = product.value?.only_x_left_in_stock === null
         ? true
-        : qty.value <= product.value.only_x_left_in_stock;
+        : qty.value <= product.value?.only_x_left_in_stock;
       return inStock && stockLeft;
     });
     const categories = computed(() => productGetters.getCategoryIds(product.value));
-    const baseReviews = computed(() => (Array.isArray(productReviews.value)
-      ? [...productReviews.value].shift()
-      : productReviews.value));
-    const reviews = computed(() => reviewGetters.getItems(baseReviews.value));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const totalReviews = computed(() => reviewGetters.getTotalReviews(baseReviews.value));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const averageRating = computed(() => reviewGetters.getAverageRating(baseReviews.value));
+
+    const reviews = ref(null);
+    const totalReviews = ref(null);
+    const averageRating = ref(null);
+
     const breadcrumbs = computed(() => {
-      const productCategories = product.value.categories;
+      const productCategories = product.value?.categories ?? [];
       return productGetters.getBreadcrumbs(
         product.value,
-        Array.isArray(productCategories) ? [...productCategories].pop() : [],
+        Array.isArray(productCategories) ? [...productCategories].pop() : null,
       );
     });
     const productGallery = computed(() => productGetters.getGallery(product.value).map((img) => ({
@@ -411,16 +402,16 @@ export default defineComponent({
       desktop: { url: getMagentoImage(img.normal) },
       big: { url: getMagentoImage(img.big) },
       // eslint-disable-next-line no-underscore-dangle
-      alt: product.value._name || product.value.name,
+      alt: product.value.name,
     })));
 
     const configurableOptions = computed(
-      () => product.value.configurable_options,
+      () => product.value?.configurable_options ?? {},
     );
     const productConfiguration = ref(Object.entries(route.value.query));
     const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
-      switch (product.value.__typename) {
+      switch (product.value?.__typename) {
         case 'BundleProduct':
           return basePrice.value;
         case 'GroupedProduct':
@@ -435,7 +426,7 @@ export default defineComponent({
     );
     const productSpecialPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
-      switch (product.value.__typename) {
+      switch (product.value?.__typename) {
         case 'SimpleProduct':
         default:
           return productGetters.getPrice(product.value).special;
@@ -450,6 +441,7 @@ export default defineComponent({
       openTab.value = tabNumber;
       if (callback && typeof callback === 'function') callback();
     };
+
     const changeNewReview = () => {
       changeTab(2, () => {
         setTimeout(
@@ -470,61 +462,76 @@ export default defineComponent({
       });
     };
 
-    const updateProductConfiguration = async (label, value) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      productConfiguration.value.push([label, value]);
+    let firstFetch = true;
+    const { fetch } = useFetch(async () => {
+      const { params: { id } } = route.value;
 
-      await router.push({
-        path: `${app.localePath(route.value.fullPath)}`,
-        query: {
-          ...Object.fromEntries(productConfiguration.value),
-        },
-      });
-    };
-
-    useAsync(async () => {
       const baseSearchQuery = {
         filter: {
           sku: {
             eq: id,
           },
         },
-        ...(productConfiguration.value.length > 0
-          ? {
-            configurations: productConfiguration.value.map(
-              (config) => config[1],
-            ),
-          }
-          : {}),
+        configurations: productConfiguration.value.map(
+          (config) => config[1],
+        ) as string[],
       };
 
-      products.value = await getProductDetails({
+      const result = await getProductDetails({
         ...baseSearchQuery,
       });
 
-      if (product?.value?.length === 0) nuxtError({ statusCode: 404 });
+      product.value = result.items[0] as Product ?? null;
+      if (Boolean(product?.value?.sku) === false) nuxtError({ statusCode: 404 });
 
-      productReviews.value = await searchReviews(baseSearchQuery);
+      if (firstFetch) {
+        firstFetch = false;
+        const productReviews = await searchReviews(baseSearchQuery);
 
-      const tags = [
-        {
-          prefix: CacheTagPrefix.View,
-          value: `product-${route.value.params.id}`,
-        },
-      ];
-      const productTags = [{
-        prefix: CacheTagPrefix.Product,
-        value: product.value.uid,
-      }];
+        const baseReviews = Array.isArray(productReviews)
+          ? [...productReviews].shift()
+          : productReviews;
 
-      const categoriesTags = categories.value.map((catId) => ({
-        prefix: CacheTagPrefix.Category,
-        value: catId,
-      }));
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags([...tags, ...productTags, ...categoriesTags]);
+        reviews.value = reviewGetters.getItems(baseReviews);
+        totalReviews.value = reviewGetters.getTotalReviews(product.value);
+        averageRating.value = reviewGetters.getAverageRating(product.value);
+
+        const tags = [
+          {
+            prefix: CacheTagPrefix.View,
+            value: `product-${route.value.params.id}`,
+          },
+        ];
+
+        const productTags = [{
+          prefix: CacheTagPrefix.Product,
+          value: product.value.uid,
+        }];
+
+        const categoriesTags = categories.value.map((catId) => ({
+          prefix: CacheTagPrefix.Category,
+          value: catId,
+        }));
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        addTags([...tags, ...productTags, ...categoriesTags]);
+      }
     });
 
+    const updateProductConfiguration = (label, value) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      productConfiguration.value.push([label, value]);
+      const routeData = router.resolve({
+        path: `${app.localePath(window.location.pathname)}`,
+        query: {
+          ...Object.fromEntries(productConfiguration.value),
+        },
+      });
+
+      window.history.pushState({}, null, routeData.href);
+
+      fetch();
+    };
     return {
       addItem,
       addItemToWishlist,
@@ -549,7 +556,6 @@ export default defineComponent({
       getProductSwatchData,
       productLoading,
       productPrice,
-      productReviews,
       productShortDescription,
       productSpecialPrice,
       qty,
@@ -796,10 +802,12 @@ export default defineComponent({
 
   &--product-gallery {
     padding: var(--spacer-3xl) auto;
+    height: 700px;
     @include for-desktop {
       padding-top: 3.75rem;
       padding-bottom: 3.75rem;
     }
   }
 }
+
 </style>

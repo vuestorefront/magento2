@@ -79,7 +79,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
    *
    * This is `true` when loading, saving, updating, or removing customer addresses and `false` otherwise.
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
   /** The error object */
   error: DeepReadonly<Ref<UseCartErrors>>;
 }
