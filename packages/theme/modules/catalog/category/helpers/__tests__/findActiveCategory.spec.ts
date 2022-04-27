@@ -33,8 +33,14 @@ describe('Find active category', () => {
   });
 
   it('returns null if findBy key does not exists', () => {
+    // @ts-expect-error intentional breach of typedefs
     const result = findActiveCategory(categoryTreeData[0], 'woman', 'invalid_key');
 
     expect(result).toBeNull();
+  });
+
+  it('correctly returns child category', () => {
+    const result = findActiveCategory(categoryTreeData[0], 'women/tops-women');
+    expect(result).toStrictEqual(categoryTreeData[0].children[1].children[0]);
   });
 });

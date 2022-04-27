@@ -18,8 +18,12 @@ export function useTraverseCategory() {
   const loadCategoryTree = () => categoryStore.load();
   const activeCategory = computed(() => {
     // on localhost the default store is localhost:3000/default/ but in a multi-store Magento instance this can change
-    const slugToFind = route.value.fullPath.replace(context.app.localePath('/c'), '');
-    return categoryTree.value === null ? null : findActiveCategory(categoryTree.value, slugToFind);
+    const urlPathToFind = route.value.fullPath
+      .replace(context.app.localePath('/c'), '')
+      .replace(/^\//, '')
+      .replace('.html', '');
+
+    return categoryTree.value === null ? null : findActiveCategory(categoryTree.value, urlPathToFind);
   });
 
   const categoryAncestors = computed(() => (activeCategory.value === null
