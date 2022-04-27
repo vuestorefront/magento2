@@ -10,7 +10,7 @@ import { CategoryTree } from '~/modules/GraphQL/types';
  *
  * @return CategoryTree
  */
-export function findActiveCategory(categoryTree: CategoryTree, toFind: string, findBy: string = 'url_path'): CategoryTree | null {
+export function findActiveCategory(categoryTree: CategoryTree, toFind: string, findBy: keyof CategoryTree = 'url_path'): CategoryTree | null {
   const categories = categoryTree?.children;
   return categories
     ? findDeep(categories, (value: string, key: string) => key === findBy && toFind.includes(value as string))?.parent ?? null

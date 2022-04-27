@@ -33,6 +33,7 @@ describe('Find active category', () => {
   });
 
   it('returns null if findBy key does not exists', () => {
+    // @ts-expect-error intentional breach of typedefs
     const result = findActiveCategory(categoryTreeData[0], 'woman', 'invalid_key');
 
     expect(result).toBeNull();
