@@ -237,6 +237,22 @@ export default () => {
     baseConfig.image.cloudinary = {
       baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL,
     };
+
+    if (process.env.VSF_IMAGE_PROVIDER_DOMAIN) {
+      const preconnectConfig = [
+        {
+          rel: 'preconnect',
+          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+          crossorigin: true,
+        },
+        {
+          rel: 'dns-prefetch',
+          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+        },
+      ];
+
+      baseConfig.head.link.push(...preconnectConfig);
+    }
   }
 
   if (process.env.VSF_RECAPTCHA_ENABLED === 'true') {
