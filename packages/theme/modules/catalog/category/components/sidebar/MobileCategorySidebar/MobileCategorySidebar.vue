@@ -24,8 +24,8 @@
         />
       </template>
       <SfMenuItem
-        v-for="(category, index) in currentItems || categoryTree.children"
-        :key="index"
+        v-for="category in itemsIncludedInMenu"
+        :key="category.uid"
         :label="category.name"
         class="mobile-menu-sidebar__item"
         @click="category.children ? navigate(category) : onGoCategoryDown(category)"
@@ -38,12 +38,12 @@ import {
   SfSidebar, SfList, SfMenuItem,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, useRouter, useContext,
+  defineComponent, useRouter, useContext, computed,
 } from '@nuxtjs/composition-api';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
-import { useMobileCategoryTree } from './logic';
 import { CategoryTree } from '~/modules/GraphQL/types';
+import { useMobileCategoryTree } from './logic';
 
 export default defineComponent({
   components: {
@@ -74,16 +74,22 @@ export default defineComponent({
       current: currentCategory, history, currentItems, onGoCategoryUp, onGoCategoryDown,
     } = useMobileCategoryTree(initialHistoryWithSnippedSubcategoryLessTail);
 
+    const itemsIncludedInMenu = computed(() => {
+      const topLevelItems = categoryTree.value.children;
+      const maybeCurrentCategoryItems = currentItems.value || topLevelItems;
+
+      return maybeCurrentCategoryItems.filter((item) => item.include_in_menu);
+    });
+
     return {
       currentCategory,
-      currentItems,
       onGoCategoryUp,
       onGoCategoryDown,
-      categoryTree,
       history,
       navigate,
       isMobileMenuOpen,
       toggleMobileMenu,
+      itemsIncludedInMenu,
     };
   },
 });

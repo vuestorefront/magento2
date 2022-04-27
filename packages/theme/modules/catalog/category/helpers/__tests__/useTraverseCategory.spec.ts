@@ -2,7 +2,7 @@ import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTrave
 import { useCategoryStore } from '~/stores/category';
 import categoryTreeData from '~/test-utils/mocks/categoryTreeDataMock';
 
-const mockUseCategoryStore = { categories: categoryTreeData, load: jest.fn() };
+const mockUseCategoryStore = { categories: categoryTreeData[0], load: jest.fn() };
 
 jest.mock('~/stores/category', () => {
   const originalModule = jest.requireActual('~/stores/category');
@@ -18,8 +18,8 @@ jest.mock('@nuxtjs/composition-api', () => {
 
   return {
     ...originalModule,
-    useContext: jest.fn(),
-    useRoute: jest.fn(),
+    useContext: jest.fn(() => ({ app: { localePath: (suffix: unknown) => `/default${suffix}` } })),
+    useRoute: jest.fn(() => ({ value: { fullPath: '/default/c/what-is-new.html' } })),
   };
 });
 
@@ -31,7 +31,13 @@ describe('UseTraverseCategory', () => {
   it('categoryTree() returns data from the store', () => {
     const { categoryTree } = useTraverseCategory();
     expect(useCategoryStore).toBeCalledTimes(1);
-    expect(categoryTree.value).toEqual(categoryTreeData);
+    expect(categoryTree.value).toEqual(categoryTreeData[0]);
+  });
+
+  it('activeCategory() returns activeCategory', () => {
+    const { activeCategory } = useTraverseCategory();
+    expect(useCategoryStore).toBeCalledTimes(1);
+    expect(activeCategory.value).toStrictEqual(categoryTreeData[0].children[0]);
   });
 
   it('isCategoryTreeLoaded() returns true if store has data', () => {
