@@ -55,7 +55,7 @@ export interface UseReviewInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Contains errors from any of the composable methods
