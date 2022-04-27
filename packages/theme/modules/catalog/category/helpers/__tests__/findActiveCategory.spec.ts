@@ -38,4 +38,9 @@ describe('Find active category', () => {
 
     expect(result).toBeNull();
   });
+
+  it('correctly returns child category', () => {
+    const result = findActiveCategory(categoryTreeData[0], 'women/tops-women');
+    expect(result).toStrictEqual(categoryTreeData[0].children[1].children[0]);
+  });
 });

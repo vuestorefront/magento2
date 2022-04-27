@@ -13,6 +13,6 @@ import { CategoryTree } from '~/modules/GraphQL/types';
 export function findActiveCategory(categoryTree: CategoryTree, toFind: string, findBy: keyof CategoryTree = 'url_path'): CategoryTree | null {
   const categories = categoryTree?.children;
   return categories
-    ? findDeep(categories, (value: string, key: string) => key === findBy && toFind.includes(value as string))?.parent ?? null
+    ? findDeep(categories, (value: string, key: string) => key === findBy && value.includes(toFind))?.parent ?? null
     : null;
 }
