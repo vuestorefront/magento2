@@ -175,7 +175,7 @@ import {
 import {
   computed, defineComponent, onMounted,
 } from '@nuxtjs/composition-api';
-import { productGetters } from '~/getters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiState, useImage, useWishlist, useUser, AgnosticPrice, WishlistItemInterface,
 } from '~/composables';

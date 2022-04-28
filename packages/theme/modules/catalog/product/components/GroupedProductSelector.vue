@@ -10,20 +10,20 @@
           image-tag="nuxt-img"
           :src="
             getMagentoImage(
-              productGetters.getProductThumbnailImage(groupedItem.product)
+              getProductThumbnailImage(groupedItem.product)
             )
           "
-          :alt="productGetters.getName(groupedItem.product)"
+          :alt="getProductName(groupedItem.product)"
           :width="60"
           :height="60"
         />
         <div>
-          <p>{{ productGetters.getName(groupedItem.product) }}</p>
+          <p>{{ getProductName(groupedItem.product) }}</p>
           <SfPrice
-            :regular="$fc(productGetters.getPrice(groupedItem.product).regular)"
+            :regular="$fc(getProductPrice(groupedItem.product).regular)"
             :special="
-              productGetters.getPrice(groupedItem.product).special &&
-                $fc(productGetters.getPrice(groupedItem.product).special)
+              getProductPrice(groupedItem.product).special &&
+                $fc(getProductPrice(groupedItem.product).special)
             "
           />
         </div>
@@ -43,7 +43,7 @@
     </SfButton>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfList,
   SfPrice,
@@ -52,10 +52,19 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  computed, watch, ref, defineComponent,
+  computed, watch, ref, defineComponent, PropType,
 } from '@nuxtjs/composition-api';
-import { productGetters } from '~/getters';
+
+import {
+  getGroupedProducts,
+  getName as getProductName,
+  getPrice as getProductPrice,
+  getProductThumbnailImage,
+} from '~/modules/catalog/product/getters/productGetters';
+
 import { useCart, useImage } from '~/composables';
+import type { WithTypename } from '~/modules/catalog/product/types';
+import type { GroupedProduct, ProductInterface } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'GroupedProductSelector',
@@ -73,7 +82,7 @@ export default defineComponent({
       default: true,
     },
     product: {
-      type: Object,
+      type: Object as PropType<WithTypename<GroupedProduct>>,
       required: true,
     },
   },
@@ -81,8 +90,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const { addItem } = useCart();
     const loading = ref(false);
-    const groupedItems = computed(() => productGetters.getGroupedProducts(props.product));
-
+    const groupedItems = computed(() => getGroupedProducts(props.product));
     const addToCart = async () => {
       try {
         loading.value = true;
@@ -104,14 +112,14 @@ export default defineComponent({
     watch(
       groupedItems,
       (newValue) => {
-        const getProductPrice = (p) => {
-          const { regular, special } = productGetters.getPrice(p);
+        const evalProductPrice = (p: ProductInterface) => {
+          const { regular, special } = getProductPrice(p);
 
           return regular > special ? regular : special;
         };
 
         const price = newValue.reduce(
-          (acc, curr) => curr.qty * getProductPrice(curr.product) + acc,
+          (acc, curr) => curr.qty * evalProductPrice(curr.product) + acc,
           0,
         );
 
@@ -128,8 +136,10 @@ export default defineComponent({
       addToCart,
       groupedItems,
       loading,
-      productGetters,
       getMagentoImage,
+      getProductName,
+      getProductPrice,
+      getProductThumbnailImage,
     };
   },
 });

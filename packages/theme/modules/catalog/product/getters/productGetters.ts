@@ -1,17 +1,44 @@
-import {
+import type {
   AgnosticAttribute,
   AgnosticBreadcrumb,
   AgnosticMediaGalleryItem,
   AgnosticPrice,
   Category,
-  Product,
 } from '~/composables/types';
-import { ProductGetters as ProductGettersBase } from '~/getters/types';
-import {
+import type { Product } from '~/modules/catalog/product/types';
+import type {
   BundleProduct, CategoryInterface, GroupedProduct, ProductInterface,
 } from '~/modules/GraphQL/types';
+
 import { htmlDecode } from '~/helpers/htmlDecoder';
-import reviewGetters from './reviewGetters';
+import { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
+
+export interface ProductGetters {
+  getName: (product: ProductInterface) => string;
+  getSlug(product: ProductInterface, category?: CategoryInterface): string;
+  getPrice: (product: ProductInterface) => AgnosticPrice;
+  getGallery: (product: ProductInterface) => AgnosticMediaGalleryItem[];
+  getCoverImage: (product: ProductInterface) => string;
+  getAttributes: (products: ProductInterface[] | ProductInterface, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+  getDescription: (product: ProductInterface) => string;
+  getCategoryIds: (product: ProductInterface) => string[];
+  getId: (product: ProductInterface) => string;
+  getFormattedPrice: (price: number) => string;
+  getTotalReviews: (product: ProductInterface) => number;
+  getAverageRating: (product: ProductInterface) => number;
+  getBreadcrumbs?: (product: ProductInterface, category?: CategoryInterface) => AgnosticBreadcrumb[];
+  getCategory(product: Product, currentUrlPath: string): Category | null;
+  getProductRelatedProduct(product: ProductInterface): Product[];
+  getProductSku(product: ProductInterface): string;
+  getProductThumbnailImage(product: ProductInterface): string;
+  getProductUpsellProduct(product: ProductInterface): ProductInterface[];
+  getShortDescription(product: ProductInterface): string;
+  getTypeId(product: ProductInterface): string;
+  getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
+  getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
+  getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
+  [getterName: string]: any;
+}
 
 export const getName = (product: ProductInterface): string => {
   if (!product) {
@@ -40,7 +67,7 @@ export const getSlug = (product: ProductInterface, category?: Category | Categor
   return url;
 };
 
-export const getPrice = (product: Product): AgnosticPrice => {
+export const getPrice = (product: ProductInterface): AgnosticPrice => {
   let regular = 0;
   let special = null;
 
@@ -239,9 +266,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
   return breadcrumbs;
 };
 
-export const { getTotalReviews } = reviewGetters;
-
-export const { getAverageRating } = reviewGetters;
+export { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
 
 export const getProductRelatedProduct = (product: any): Product[] => product?.related_products || [];
 
@@ -256,20 +281,6 @@ export const getGroupedProducts = (product: GroupedProduct & { __typename: strin
 
 // eslint-disable-next-line no-underscore-dangle
 export const getBundleProducts = (product: BundleProduct & { __typename: string }): BundleProduct['items'] | undefined => product.__typename === 'BundleProduct' && product?.items?.sort(sortProduct);
-
-export interface ProductGetters extends ProductGettersBase<Product> {
-  getCategory(product: Product, currentUrlPath: string): Category | null;
-  getProductRelatedProduct(product: Product): Product[];
-  getProductSku(product: Product): string;
-  getProductThumbnailImage(product: Product): string;
-  getProductUpsellProduct(product: Product): Product[];
-  getShortDescription(product: Product): string;
-  getSlug(product: ProductInterface, category?: CategoryInterface): string;
-  getTypeId(product: Product): string;
-  getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
-  getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
-  getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
-}
 
 const productGetters: ProductGetters = {
   getAttributes,

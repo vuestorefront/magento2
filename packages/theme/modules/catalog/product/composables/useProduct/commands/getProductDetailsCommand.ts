@@ -1,5 +1,5 @@
 import type { useContext } from '@nuxtjs/composition-api';
-import type { GetProductSearchParams } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 type Context = ReturnType<typeof useContext>;
 

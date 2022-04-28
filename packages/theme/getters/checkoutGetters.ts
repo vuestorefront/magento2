@@ -1,5 +1,5 @@
 import { ShippingMethod } from '~/composables/types';
-import productGetters from './productGetters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getShippingMethodId = (shippingMethod: ShippingMethod): string => '';

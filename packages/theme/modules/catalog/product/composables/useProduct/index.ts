@@ -1,8 +1,8 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { getProductListCommand } from '~/composables/useProduct/commands/getProductListCommand';
-import { getProductDetailsCommand } from '~/composables/useProduct/commands/getProductDetailsCommand';
-import type { GetProductSearchParams } from '~/composables/types';
+import { getProductListCommand } from '~/modules/catalog/product/composables/useProduct/commands/getProductListCommand';
+import { getProductDetailsCommand } from '~/modules/catalog/product/composables/useProduct/commands/getProductDetailsCommand';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import type {
   ProductDetails,
   ProductList,

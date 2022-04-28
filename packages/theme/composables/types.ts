@@ -1,14 +1,6 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
-  BundleProduct,
-  ConfigurableProduct,
-  DownloadableProduct,
-  GroupedProduct,
-  ProductInterface,
-  VirtualProduct,
   CategoryTree,
-  ProductAttributeFilterInput,
-  ProductAttributeSortInput,
   AvailableStoresQuery,
   CountriesListQuery,
   CartItemInterface,
@@ -70,20 +62,10 @@ export declare type CustomerProductReviewParams = {
   currentPage: number;
 };
 
-export declare type GetProductSearchParams = {
-  pageSize?: number;
-  currentPage?: number;
-  search?: string;
-  filter?: ProductAttributeFilterInput;
-  sort?: ProductAttributeSortInput;
-  configurations?: string[];
-};
-
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
 export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
 export declare type Category = CategoryTree;
-export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> { __typename: string }
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];
 export declare type ShippingMethod = AvailableShippingMethod;
