@@ -67,7 +67,7 @@ import {
 import {
   useImage, useProduct, useUser, useWishlist,
 } from '~/composables';
-import { productGetters } from '~/getters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { SortEnum } from '~/modules/GraphQL/types';
 

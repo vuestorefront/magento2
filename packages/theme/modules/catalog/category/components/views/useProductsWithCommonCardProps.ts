@@ -1,12 +1,13 @@
 import { computed, Ref, useContext } from '@nuxtjs/composition-api';
 import {
-  Product, useImage, useUser, useWishlist,
+  useImage, useUser, useWishlist,
 } from '~/composables';
 import {
   getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
-} from '~/getters/productGetters';
+} from '~/modules/catalog/product/getters/productGetters';
 import { getAverageRating, getTotalReviews } from '~/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
+import type { Product } from '~/modules/catalog/product/types';
 
 export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) => {
   const { getMagentoImage } = useImage();

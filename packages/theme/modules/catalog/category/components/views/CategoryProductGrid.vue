@@ -46,7 +46,8 @@
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from '@nuxtjs/composition-api';
 import { SfProductCard, SfPrice } from '@storefront-ui/vue';
-import { Product, useImage } from '~/composables';
+import { useImage } from '~/composables';
+import type { Product } from '~/modules/catalog/product/types';
 
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useProductsWithCommonProductCardProps } from './useProductsWithCommonCardProps';

@@ -1,4 +1,5 @@
-import { AgnosticAttribute, Product } from '~/composables/types';
+import type { Product } from '~/modules/catalog/product/types';
+import { AgnosticAttribute } from '~/composables/types';
 
 export const getAttributeValue = (attribute) => attribute.values;
 

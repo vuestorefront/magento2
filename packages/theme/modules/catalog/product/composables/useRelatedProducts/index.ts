@@ -1,6 +1,6 @@
 import { ref, useContext, readonly } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { GetProductSearchParams } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import type {
   RelatedProduct,
   UseRelatedProductsErrors,

@@ -1,6 +1,7 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { AgnosticFacetSearchParams, ComposableFunctionArgs, GetProductSearchParams } from '~/composables/types';
+import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import type { UseFacetInterface, UseFacetErrors, UseFacetSearchResult } from './useFacet';
 
 const availableSortingOptions = [
