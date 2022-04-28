@@ -1,6 +1,6 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ProductsListQuery, ProductDetailsQuery } from '~/modules/GraphQL/types';
-import type { GetProductSearchParams } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 export type ProductList = ProductsListQuery['products'];
 

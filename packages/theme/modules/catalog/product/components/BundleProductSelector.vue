@@ -17,14 +17,14 @@
           >
             <template v-if="bundle.options.length === 1">
               <div class="bundle_products--options-option__container">
-                <p>{{ productGetters.getName(option.product) }}</p>
+                <p>{{ getProductName(option.product) }}</p>
                 <SfPrice
                   :regular="
-                    $fc(productGetters.getPrice(option.product).regular)
+                    $fc(getProductPrice(option.product).regular)
                   "
                   :special="
-                    productGetters.getPrice(option.product).special &&
-                      $fc(productGetters.getPrice(option.product).special)
+                    getProductPrice(option.product).special &&
+                      $fc(getProductPrice(option.product).special)
                   "
                 />
               </div>
@@ -35,9 +35,9 @@
                 v-model="selectedOptions[bundle.uid].uid"
                 :name="bundle.uid"
                 :value="option.uid"
-                :label="productGetters.getName(option.product)"
+                :label="getProductName(option.product)"
                 @change="
-                  selectedOptions[bundle.uid].price = productGetters.getPrice(
+                  selectedOptions[bundle.uid].price = getProductPrice(
                     option.product
                   ).regular
                 "
@@ -45,11 +45,11 @@
                 <template #description>
                   <SfPrice
                     :regular="
-                      $fc(productGetters.getPrice(option.product).regular)
+                      $fc(getProductPrice(option.product).regular)
                     "
                     :special="
-                      productGetters.getPrice(option.product).special &&
-                        $fc(productGetters.getPrice(option.product).special)
+                      getProductPrice(option.product).special &&
+                        $fc(getProductPrice(option.product).special)
                     "
                   />
                 </template>
@@ -75,7 +75,7 @@
     </SfButton>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfList,
   SfPrice,
@@ -84,11 +84,18 @@ import {
   SfButton,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, ref, watch,
+  computed, defineComponent, PropType, ref, watch,
 } from '@nuxtjs/composition-api';
-import { productGetters } from '~/getters';
+import {
+  getBundleProducts,
+  getName as getProductName,
+  getPrice as getProductPrice,
+} from '~/modules/catalog/product/getters/productGetters';
+import { bundleProductInitialSelector } from '~/modules/catalog/product/helpers/bundleProduct';
+import type { WithTypename } from '~/modules/catalog/product/types';
+import type { BundleProduct } from '~/modules/GraphQL/types';
+
 import { useCart } from '~/composables';
-import { bundleProductInitialSelector } from '~/helpers/product/bundleProduct';
 
 export default defineComponent({
   name: 'BundleProductSelector',
@@ -106,19 +113,16 @@ export default defineComponent({
       default: true,
     },
     product: {
-      type: Object,
+      type: Object as PropType<WithTypename<BundleProduct>>,
       required: true,
     },
   },
   emits: ['update-bundle', 'update-price'],
   setup(props, { emit }) {
     const { loading, addItem } = useCart();
+    const bundleProduct = computed(() => getBundleProducts(props.product));
+    const selectedOptions = ref({});
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const bundleProduct = computed(() => productGetters.getBundleProducts(props.product));
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const selectedOptions = ref(() => []);
     selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
 
     const canChangeQuantity = (bundle) => {
@@ -133,7 +137,7 @@ export default defineComponent({
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .reduce(
         (s, k) => s
-            + Number.parseFloat(selectedOptions.value[k].price)
+            + Number.parseFloat(selectedOptions?.value[k]?.price as string)
               * selectedOptions.value[k].quantity,
         0,
       ));
@@ -151,7 +155,7 @@ export default defineComponent({
         product: {
           ...props.product,
           bundle_options: bundleProductData.value,
-        },
+        } as BundleProduct,
         quantity: 1,
       });
     };
@@ -179,8 +183,8 @@ export default defineComponent({
       canChangeQuantity,
       loading,
       price,
-      product,
-      productGetters,
+      getProductName,
+      getProductPrice,
       selectedOptions,
     };
   },

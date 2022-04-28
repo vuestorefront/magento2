@@ -1,8 +1,8 @@
-import { CategoryInterface, Country } from '~/modules/GraphQL/types';
+import { Country } from '~/modules/GraphQL/types';
 import {
   AgnosticAttribute, Countries, AgnosticPrice, AgnosticTotals,
   AgnosticCoupon, AgnosticDiscount, AgnosticCategoryTree, AgnosticBreadcrumb,
-  GroupedFacetInterface, AgnosticSort, AgnosticMediaGalleryItem, AgnosticPagination, AgnosticFacetSearchParams, FacetInterface,
+  GroupedFacetInterface, AgnosticSort, AgnosticPagination, AgnosticFacetSearchParams, FacetInterface,
 } from '~/composables/types';
 
 export interface AddressGetter {
@@ -17,23 +17,6 @@ export interface AddressGetter {
     label: string;
     abbreviation: string;
   }[];
-}
-
-export interface ProductGetters<PRODUCT> {
-  getName: (product: PRODUCT) => string;
-  getSlug: (product: PRODUCT) => string;
-  getPrice: (product: PRODUCT) => AgnosticPrice;
-  getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[];
-  getCoverImage: (product: PRODUCT) => string;
-  getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
-  getDescription: (product: PRODUCT) => string;
-  getCategoryIds: (product: PRODUCT) => string[];
-  getId: (product: PRODUCT) => string;
-  getFormattedPrice: (price: number) => string;
-  getTotalReviews: (product: PRODUCT) => number;
-  getAverageRating: (product: PRODUCT) => number;
-  getBreadcrumbs?: (product: PRODUCT, category?: CategoryInterface) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
 }
 
 export interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {

@@ -5,7 +5,7 @@ export { default as checkoutGetters } from './checkoutGetters';
 export { default as facetGetters } from './facetGetters';
 export { default as forgotPasswordGetters } from './forgotPasswordGetters';
 export { default as orderGetters } from './orderGetters';
-export { default as productGetters } from './productGetters';
+export { default as productGetters } from '~/modules/catalog/product/getters/productGetters';
 export { default as reviewGetters } from './reviewGetters';
 export { default as storeGetters } from './storeGetters';
 export { default as userAddressesGetters } from './userAddressesGetters';
