@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 
 export default defineComponent({
@@ -46,27 +46,41 @@ export default defineComponent({
     },
     background: {
       type: String,
+      default: 'transparent',
+    },
+    image: {
+      type: [Object, String],
       default: '',
     },
-    desktopImage: {
+    imageTag: {
       type: String,
-      default: '',
+      default: null,
     },
     link: {
       type: String,
       default: null,
     },
-    mobileImage: {
-      type: String,
-      default: '',
+    nuxtImgConfig: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props) {
-    const styles = ref({
-      '--hero-background-image': `url('${props.desktopImage}')`,
-      '--hero-background-image-mobile': `url('${props.mobileImage}')`,
-      'background-color': props.background,
-    });
+    const { app } = useContext();
+    const image = props.image;
+    const isImageString = typeof image === 'string';
+    const styles = ref({ 'background-color': props.background });
+    const nuxtImgConvert = (imgUrl) => {
+      return imgUrl ? `url('${app.$img(imgUrl, props.nuxtImgConfig)}')` : 'none';
+    };
+
+    if (props.imageTag === 'nuxt-img' || props.imageTag === 'nuxt-picture') {
+      styles.value['--hero-background-image'] = nuxtImgConvert(isImageString ? image : image.desktop);
+      styles.value['--hero-background-image-mobile'] = nuxtImgConvert(isImageString ? image : image.mobile);
+    } else {
+      styles.value['--hero-background-image'] = `url('${isImageString ? image : image.desktop}')`;
+      styles.value['--hero-background-image-mobile'] = `url('${isImageString ? image : image.mobile})`;
+    }
 
     return { styles };
   },
@@ -82,7 +96,7 @@ export default defineComponent({
   width: 100%;
   min-height: 14rem;
   color: var(--c-text);
-  background-image: var(--hero-background-image, var(--hero-background-image-mobile));
+  background-image: var(--hero-background-image-mobile);
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -130,7 +144,7 @@ export default defineComponent({
   }
 
   @include for-desktop {
-    background-image: var(--hero-background-image);
+    background-image: var(--hero-background-image, var(--hero-background-image-mobile));
     min-height: 36.625rem;
 
     &__wrapper {

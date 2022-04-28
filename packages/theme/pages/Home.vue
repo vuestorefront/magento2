@@ -7,8 +7,11 @@
       :button-text="$t('Learn more')"
       link="/c/women.html"
       background="#eceff1"
-      desktop-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg"
-      mobile-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg"
+      image-tag="nuxt-img"
+      :image="{
+        desktop: '/w_1240,h_400,c_fit/homepage/bannerB.webp',
+        mobile: '/w_328,h_224,c_fit/homepage/bannerB.webp'
+      }"
     />
     <LazyHydrate when-visible>
       <SfBannerGrid
@@ -25,6 +28,7 @@
             :subtitle="item.subtitle"
             :description="item.description"
             :button-text="item.buttonText"
+            image-tag="nuxt-img"
             :image="item.image"
             :class="item.class"
           />
@@ -39,18 +43,19 @@
         link="/c/women.html"
       />
     </LoadWhenVisible>
+    <CallToAction
+      :title="$t('Subscribe to Newsletters')"
+      :button-text="$t('Subscribe')"
+      :description="$t('Be aware of upcoming sales and events. Receive gifts and special offers!')"
+      image-tag="nuxt-img"
+      :image="{
+        desktop: '/w_1240,h_202,c_fit/homepage/newsletter.webp',
+        mobile: '/w_400,h_200,c_fit/homepage/newsletter.webp'
+      }"
+      class="call-to-action"
+    />
     <LoadWhenVisible>
-      <SfCallToAction
-        :title="$t('Subscribe to Newsletters')"
-        :button-text="$t('Subscribe')"
-        :description="
-          $t(
-            'Be aware of upcoming sales and events. Receive gifts and special offers!'
-          )
-        "
-        image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
-        class="call-to-action"
-      />
+
     </LoadWhenVisible>
     <LoadWhenVisible>
       <InstagramFeed />
@@ -89,10 +94,10 @@ export default defineComponent({
     SfButton,
     SfBanner,
     SfBannerGrid,
+    CallToAction: () => import(/* webpackPrefetch: true */ '~/components/CallToAction.vue'),
     InstagramFeed: () => import(/* webpackPrefetch: true */ '~/components/InstagramFeed.vue'),
     MobileStoreBanner: () => import(/* webpackPrefetch: true */ '~/components/MobileStoreBanner.vue'),
     NewProducts: () => import(/* webpackPrefetch: true */ '~/components/NewProducts.vue'),
-    SfCallToAction: () => import(/* webpackPrefetch: true */ '@storefront-ui/vue'),
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
@@ -110,9 +115,9 @@ export default defineComponent({
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
+            '/w_328,h_343,c_fit/homepage/bannerB.webp',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
+            '/w_332,h_840,c_fit/homepage/bannerF.webp',
         },
         class: 'sf-banner--slim desktop-only',
         link: '/c/women/women-clothing-skirts',
@@ -127,9 +132,9 @@ export default defineComponent({
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
+            '/w_328,h_343,c_fit/homepage/bannerE.webp',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
+            '/w_496,h_840,c_fit/homepage/bannerE.webp',
         },
         class: 'sf-banner--slim banner-central desktop-only',
         link: '/c/women/women-clothing-dresses',
@@ -140,9 +145,9 @@ export default defineComponent({
         title: app.i18n.t('The Office Life'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
+            '/w_328,h_343,c_fit/homepage/bannerC.webp',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
+            '/w_332,h_400,c_fit/homepage/bannerC.webp',
         },
         class: 'sf-banner--slim banner__tshirt',
         link: '/c/women/women-clothing-shirts',
@@ -153,9 +158,9 @@ export default defineComponent({
         title: app.i18n.t('Eco Sandals'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
+            '/w_328,h_343,c_fit/homepage/bannerG.webp',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
+            '/w_332,h_400,c_fit/homepage/bannerG.webp',
         },
         class: 'sf-banner--slim',
         link: '/c/women/women-shoes-sandals',
