@@ -30,6 +30,7 @@
           v-if="isShowProducts"
           :sort-by="sortBy"
           :pagination="pagination"
+          :is-loading="$fetchState.pending"
           @reloadProducts="fetch"
         />
         <div class="products">
