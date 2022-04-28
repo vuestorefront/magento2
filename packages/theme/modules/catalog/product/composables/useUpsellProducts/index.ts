@@ -1,11 +1,12 @@
-import { ref, readonly, useContext } from '@nuxtjs/composition-api';
 import type { Ref } from '@nuxtjs/composition-api';
-import { Logger } from '~/helpers/logger';
+import { ref, readonly, useContext } from '@nuxtjs/composition-api';
 import type {
   UseUpsellProductsError,
   UseUpsellProductsInterface,
   UseUpsellProductsSearchParams,
 } from './useUpsellProducts';
+
+import { Logger } from '~/helpers/logger';
 
 /**
  * The `useUpsellProducts()` composable allows loading upsell products.

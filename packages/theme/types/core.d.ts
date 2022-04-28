@@ -34,14 +34,6 @@ export type CustomQuery = Record<string, string>;
 
 export type ComposableFunctionArgs <T> = T & { customQuery?: CustomQuery };
 
-export interface ProductsSearchParams {
-  perPage?: number;
-  page?: number;
-  sort?: any;
-  term?: any;
-  filters?: any;
-  [x: string]: any;
-}
 export interface UseProductErrors {
   search: Error;
 }

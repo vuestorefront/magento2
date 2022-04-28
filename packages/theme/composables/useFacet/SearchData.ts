@@ -1,5 +1,6 @@
-import type { Category, Filter, Product } from '~/composables/types';
+import type { Category, Filter } from '~/composables/types';
 import type { UseFacetSearchResult } from './useFacet';
+import type { Product } from '~/modules/catalog/product/types';
 
 /** The object with data returned by {@link useFacet} search method. */
 export type SearchData = UseFacetSearchResult<{

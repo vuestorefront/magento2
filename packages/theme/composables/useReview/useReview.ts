@@ -1,5 +1,7 @@
 import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
-import type { GetProductSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
+
 import type {
   CreateProductReviewInput,
   ProductReviewQuery,

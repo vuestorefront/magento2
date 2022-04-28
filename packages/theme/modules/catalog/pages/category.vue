@@ -117,7 +117,8 @@ import {
   useUiState,
 } from '~/composables';
 
-import { AgnosticPagination, Product } from '~/composables/types';
+import { AgnosticPagination } from '~/composables/types';
+import { Product } from '~/modules/catalog/product/types';
 import { useUrlResolver } from '~/composables/useUrlResolver';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';

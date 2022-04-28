@@ -2,23 +2,28 @@
   <ProductsCarousel
     v-if="!loading && products && products.length > 0"
     :products="products"
-    :title="$t('Other products you might like')"
+    :title="$t('Match it with')"
   />
 </template>
-<script>
-import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api';
-import { useUpsellProducts } from '~/composables';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import { productData } from '~/helpers/product/productData';
+<script lang="ts">
+import {
+  defineComponent, ref, onMounted, useRoute,
+} from '@nuxtjs/composition-api';
+import useRelatedProducts from '~/modules/catalog/product/composables/useRelatedProducts';
+import ProductsCarousel from '~/modules/catalog/product/components/ProductsCarousel.vue';
 
 export default defineComponent({
-  name: 'UpsellProducts',
+  name: 'RelatedProducts',
   components: {
     ProductsCarousel,
   },
   setup() {
-    const { id } = productData();
-    const { search, loading } = useUpsellProducts(id);
+    const route = useRoute();
+    const { params: { id } } = route.value;
+    const {
+      search,
+      loading,
+    } = useRelatedProducts();
     const products = ref([]);
 
     onMounted(async () => {

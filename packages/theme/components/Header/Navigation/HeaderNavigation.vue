@@ -1,5 +1,8 @@
 <template>
-  <div class="header-navigation">
+  <div
+    class="header-navigation"
+    @mouseleave="setCurrentCategory(null)"
+  >
     <div class="sf-header-navigation-item__item sf-header-navigation-item__item--desktop">
       <HeaderNavigationItem
         v-for="(category, index) in categoryTree"

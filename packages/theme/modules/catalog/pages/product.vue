@@ -289,10 +289,16 @@ import {
   useFetch,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import productGetters, {
+
+import {
   getSwatchData as getProductSwatchData,
   getName as getProductName,
-} from '~/getters/productGetters';
+  getCategoryIds,
+  getBreadcrumbs,
+  getGallery as getProductGallery,
+  getPrice as getProductPrice,
+} from '~/modules/catalog/product/getters/productGetters';
+
 import reviewGetters, {
   getReviewId,
   getReviewAuthor,
@@ -300,20 +306,26 @@ import reviewGetters, {
   getReviewMessage,
   getReviewRating,
 } from '~/getters/reviewGetters';
+
 import {
-  useProduct, useCart, useWishlist, useUser, useReview, Product,
+  useCart, useWishlist, useUser, useReview,
 } from '~/composables';
+
+import useProduct from '~/modules/catalog/product/composables/useProduct';
+import type { Product } from '~/modules/catalog/product/types';
+
+import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
+import GroupedProductSelector from '~/modules/catalog/product/components/GroupedProductSelector.vue';
+import UpsellProducts from '~/modules/catalog/product/components/UpsellProducts.vue';
+import RelatedProducts from '~/modules/catalog/product/components/RelatedProducts.vue';
+
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
-import BundleProductSelector from '~/components/Products/BundleProductSelector.vue';
-import GroupedProductSelector from '~/components/Products/GroupedProductSelector.vue';
-import UpsellProducts from '~/components/UpsellProducts.vue';
-import RelatedProducts from '~/components/RelatedProducts.vue';
 import HTMLContent from '~/components/HTMLContent.vue';
 import AddToWishlist from '~/components/AddToWishlist.vue';
-import useImage from '~/composables/useImage/index';
+import useImage from '~/composables/useImage';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -365,7 +377,7 @@ export default defineComponent({
     const basePrice = ref(0);
     const openTab = ref(1);
     const productDataIsLoading = computed(
-      () => productLoading.value && !productGetters.getName(product.value),
+      () => productLoading.value && !getProductName(product.value),
     );
     const productShortDescription = computed(
       () => product.value?.short_description?.html || '',
@@ -385,7 +397,7 @@ export default defineComponent({
         : qty.value <= product.value?.only_x_left_in_stock;
       return inStock && stockLeft;
     });
-    const categories = computed(() => productGetters.getCategoryIds(product.value));
+    const categories = computed(() => getCategoryIds(product.value));
 
     const reviews = ref(null);
     const totalReviews = ref(null);
@@ -393,12 +405,12 @@ export default defineComponent({
 
     const breadcrumbs = computed(() => {
       const productCategories = product.value?.categories ?? [];
-      return productGetters.getBreadcrumbs(
+      return getBreadcrumbs(
         product.value,
         Array.isArray(productCategories) ? [...productCategories].pop() : null,
       );
     });
-    const productGallery = computed(() => productGetters.getGallery(product.value).map((img) => ({
+    const productGallery = computed(() => getProductGallery(product.value).map((img) => ({
       mobile: { url: getMagentoImage(img.small) },
       desktop: { url: getMagentoImage(img.normal) },
       big: { url: getMagentoImage(img.big) },
@@ -423,14 +435,14 @@ export default defineComponent({
     });
     const productPrice = computed(
       () => productTypedPrice.value
-        || productGetters.getPrice(product.value).regular,
+        || getProductPrice(product.value).regular,
     );
     const productSpecialPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
       switch (product.value?.__typename) {
         case 'SimpleProduct':
         default:
-          return productGetters.getPrice(product.value).special;
+          return getProductPrice(product.value).special;
       }
     });
 

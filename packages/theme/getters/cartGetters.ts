@@ -4,8 +4,11 @@ import {
   AgnosticAttribute,
   AgnosticCoupon,
   AgnosticDiscount,
-  Product, CartItem, AgnosticPaymentMethod,
+  CartItem, AgnosticPaymentMethod,
 } from '~/composables/types';
+
+import type { Product } from '~/modules/catalog/product/types';
+
 import {
   Cart,
   Discount,
@@ -14,7 +17,8 @@ import {
   ConfigurableCartItem,
 } from '~/modules/GraphQL/types';
 import { CartGetters as CartGettersBase } from '~/getters/types';
-import productGetters from './productGetters';
+
+import { getName, getSlug as getSlugGetter, getProductThumbnailImage } from '~/modules/catalog/product/getters/productGetters';
 
 export const getItems = (cart: Cart): CartItem[] => {
   if (!cart || !cart.items) {
@@ -24,11 +28,10 @@ export const getItems = (cart: Cart): CartItem[] => {
   return cart.items;
 };
 
-export const getItemName = (product: CartItem): string => productGetters.getName(product.product as Product);
+export const getItemName = (product: CartItem): string => getName(product.product as Product);
+export const getSlug = (product: CartItem): string => getSlugGetter(product.product as Product);
 
-export const getSlug = (product: CartItem): string => productGetters.getSlug(product.product as Product);
-
-export const getItemImage = (product: CartItem): string => productGetters.getProductThumbnailImage(product.product as Product);
+export const getItemImage = (product: CartItem): string => getProductThumbnailImage(product.product as Product);
 
 export const getItemPrice = (product: CartItem): AgnosticPrice => {
   if (!product || !product.prices) {
@@ -136,7 +139,7 @@ export const getTotalItems = (cart: Cart): number => {
 export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | null => product?.configured_variant || null;
 
 // eslint-disable-next-line import/no-named-as-default-member
-export const getFormattedPrice = (price: number) => productGetters.getFormattedPrice(price);
+export const getFormattedPrice = (price: number) => getFormattedPrice(price);
 
 export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
