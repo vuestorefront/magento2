@@ -7,6 +7,7 @@
  * @packageDocumentation
  */
 export * from './useAddresses';
+export * from './useApi';
 export * from './useBilling';
 export * from './useCart';
 export * from './useCategory';
@@ -21,14 +22,15 @@ export * from './useForgotPassword';
 export * from './useGetShippingMethods';
 export * from './useGuestUser';
 export * from './useImage';
-export * from './useNewsletter';
+export * from './useMagentoConfiguration';
 export * from './useMakeOrder';
+export * from './useNewsletter';
 export * from './usePaymentProvider';
 export * from './useProduct';
 export * from './useRelatedProducts';
 export * from './useReview';
-export * from './useShippingProvider';
 export * from './useShipping';
+export * from './useShippingProvider';
 export * from './useStore';
 export * from './useUiHelpers';
 export * from './useUiNotification';
@@ -39,7 +41,6 @@ export * from './useUser';
 export * from './useUserAddress';
 export * from './useUserOrder';
 export * from './useWishlist';
-export * from './useMagentoConfiguration';
 
 export * from './types';
 export * from '../modules/GraphQL/types';
