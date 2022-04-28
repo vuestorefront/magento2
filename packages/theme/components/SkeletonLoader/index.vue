@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div
+    :class="componentClass"
+    :style="componentStyle"
+  >
     <slot v-if="!isLoading" />
-    <span
-      v-else
-      :class="componentClass"
-      :style="componentStyle"
-    />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({

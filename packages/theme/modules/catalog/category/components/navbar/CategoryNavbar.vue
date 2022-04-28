@@ -15,7 +15,15 @@
     </SfButton>
     <div class="navbar__sort">
       <span class="navbar__label desktop-only">{{ $t('Sort by') }}:</span>
+      <SkeletonLoader
+        v-if="isLoading"
+        class="navbar__select navbar__select-skeleton"
+        height="26px"
+        width="185px"
+        margin="0"
+      />
       <SfSelect
+        v-else
         :value="sortBy.selected"
         class="navbar__select"
         @input="doChangeSorting"
@@ -32,11 +40,17 @@
     </div>
 
     <div class="navbar__counter">
-      <span class="navbar__label desktop-only">{{ $t('Products found') }}</span>
-      <span class="desktop-only">{{ pagination.totalItems }}</span>
-      <span class="navbar__label smartphone-only">{{ pagination.totalItems }} {{
-        $t('Items')
-      }}</span>
+      <span class="navbar__label desktop-only">{{ $t('Products found') }}: </span>
+      <SkeletonLoader
+        v-if="isLoading"
+        width="15px"
+        height="26px"
+        margin="0"
+      />
+      <span
+        v-else
+      >{{ pagination.totalItems }}</span>
+      <span class="navbar__label smartphone-only">&nbsp;{{ $t('Items') }}</span>
     </div>
 
     <div class="navbar__view">
@@ -73,9 +87,11 @@ import {
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useUiHelpers, useUiState } from '~/composables';
 import { AgnosticPagination, AgnosticSort } from '~/composables/types';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 
 export default defineComponent({
   components: {
+    SkeletonLoader,
     SvgImage,
     SfSelect,
     SfButton,
@@ -88,6 +104,10 @@ export default defineComponent({
     pagination: {
       type: Object as PropType<AgnosticPagination>,
       required: true,
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(_, { emit }) {
@@ -197,7 +217,7 @@ export default defineComponent({
   }
 
   &__select {
-    --select-width: 220px;
+    --select-width: 185px;
     --select-padding: 0;
     --select-height: auto;
     --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
@@ -214,10 +234,6 @@ export default defineComponent({
 
     ::v-deep .sf-select__placeholder {
       --select-option-font-size: var(--font-size-sm);
-    }
-
-    @include for-mobile {
-      --select-width: 135px;
     }
   }
 
