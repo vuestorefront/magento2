@@ -31,6 +31,14 @@ module.exports = {
     '@vue-storefront/eslint-config-jest',
   ],
   rules: {
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "jest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "getByRole", "getByTestId"],
+      }
+    ],
+    "no-plusplus": "off",
   }
 }
+
