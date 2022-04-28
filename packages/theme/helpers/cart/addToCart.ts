@@ -25,8 +25,18 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
-        const path = `/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`;
-        await router.push(String(app.localePath(path)));
+        const sku = productGetters.getProductSku(product);
+        const slug = productGetters.getSlug(product).replace(/^\//, ''); // remove leading slash from getSlug
+
+        const path = app.localeRoute({
+          name: 'product',
+          params: {
+            id: sku,
+            slug,
+          },
+        });
+
+        await router.push(path);
         break;
       default:
         throw new Error(`Product Type ${productType} not supported in add to cart yet`);
