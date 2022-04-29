@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { ref } from '@nuxtjs/composition-api';
+import { computed, ref, useRoute } from '@nuxtjs/composition-api';
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { addBasePath } from '~/helpers/addBasePath';
 
@@ -98,6 +98,7 @@ export default {
   },
   setup(props, context) {
     context.emit('changeStep', 4);
+    const route = useRoute();
 
     const companyDetails = ref({
       name: 'Divante Headquarter',
@@ -105,7 +106,7 @@ export default {
       city: 'Wroclaw, Poland',
       email: 'demo@vuestorefront.io',
     });
-    const orderNumber = ref('80932031-030-00');
+    const orderNumber = computed(() => route.value.query.order ?? '');
 
     return {
       addBasePath,
