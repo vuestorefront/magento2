@@ -39,7 +39,7 @@
 
 <script>
 import { toRef, computed, defineComponent } from '@nuxtjs/composition-api';
-import { userAddressesGetters } from '~/getters';
+import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
 
 export default defineComponent({
   name: 'UserAddressDetails',

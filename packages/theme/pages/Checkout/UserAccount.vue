@@ -148,10 +148,11 @@ import {
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import {
-  useUiNotification, useUser, useGuestUser, useCart,
+  useUiNotification, useGuestUser, useCart,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
-import { customerPasswordRegExp, invalidPasswordMsg } from '~/helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 
 extend('required', {
   ...required,
