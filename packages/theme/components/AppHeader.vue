@@ -116,9 +116,9 @@ import {
   useFetch,
 } from '@nuxtjs/composition-api';
 import HeaderNavigation from '~/components/Header/Navigation/HeaderNavigation.vue';
+import useCategory from '~/modules/catalog/category/composables/useCategory';
 import {
   useCart,
-  useCategory,
   useUiHelpers,
   useUiState,
   useWishlist,

@@ -1,6 +1,5 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
-  CategoryTree,
   AvailableStoresQuery,
   CountriesListQuery,
   CartItemInterface,
@@ -65,7 +64,6 @@ export declare type CustomerProductReviewParams = {
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
 export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
-export declare type Category = CategoryTree;
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];
 export declare type ShippingMethod = AvailableShippingMethod;

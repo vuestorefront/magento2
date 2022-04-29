@@ -1,7 +1,6 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { CategorySearchQueryVariables } from '~/modules/GraphQL/types';
-import type { Category } from '~/composables/types';
+import type { CategorySearchQueryVariables, CategoryTree } from '~/modules/GraphQL/types';
 import type { UseCategorySearchErrors, UseCategorySearchInterface } from './useCategorySearch';
 
 /**
@@ -14,7 +13,7 @@ export function useCategorySearch(): UseCategorySearchInterface {
   const error = ref<UseCategorySearchErrors>({
     search: null,
   });
-  const result = ref<Category[] | null>(null);
+  const result = ref<CategoryTree[] | null>(null);
 
   const search = async (searchParams: CategorySearchQueryVariables) => {
     Logger.debug('useCategory/search', searchParams);
