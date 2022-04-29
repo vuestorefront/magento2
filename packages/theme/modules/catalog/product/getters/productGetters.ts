@@ -3,11 +3,14 @@ import type {
   AgnosticBreadcrumb,
   AgnosticMediaGalleryItem,
   AgnosticPrice,
-  Category,
 } from '~/composables/types';
 import type { Product } from '~/modules/catalog/product/types';
 import type {
-  BundleProduct, CategoryInterface, GroupedProduct, ProductInterface,
+  BundleProduct,
+  CategoryInterface,
+  GroupedProduct,
+  ProductInterface,
+  CategoryTree,
 } from '~/modules/GraphQL/types';
 
 import { htmlDecode } from '~/helpers/htmlDecoder';
@@ -27,7 +30,7 @@ export interface ProductGetters {
   getTotalReviews: (product: ProductInterface) => number;
   getAverageRating: (product: ProductInterface) => number;
   getBreadcrumbs?: (product: ProductInterface, category?: CategoryInterface) => AgnosticBreadcrumb[];
-  getCategory(product: Product, currentUrlPath: string): Category | null;
+  getCategory(product: Product, currentUrlPath: string): CategoryTree | null;
   getProductRelatedProduct(product: ProductInterface): Product[];
   getProductSku(product: ProductInterface): string;
   getProductThumbnailImage(product: ProductInterface): string;
@@ -48,7 +51,7 @@ export const getName = (product: ProductInterface): string => {
   return htmlDecode(product.name);
 };
 
-export const getSlug = (product: ProductInterface, category?: Category | CategoryInterface): string => {
+export const getSlug = (product: ProductInterface, category?: CategoryTree | CategoryInterface): string => {
   const rewrites = product?.url_rewrites;
   let url = product?.sku ? `/p/${product.sku}` : '';
   if (!rewrites || rewrites.length === 0) {
@@ -177,7 +180,7 @@ export const getCategoryIds = (product: Product): string[] => {
   return product.categories.map((category) => category.uid);
 };
 
-export const getCategory = (product: any, currentUrlPath: string): Category | null => {
+export const getCategory = (product: any, currentUrlPath: string): CategoryTree | null => {
   if (!product?.categories || product?.categories.length === 0) {
     return null;
   }

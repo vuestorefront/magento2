@@ -1,4 +1,5 @@
-import type { Category, FacetInterface } from '~/composables/types';
+import type { FacetInterface } from '~/composables/types';
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import type { FilterParams, Params } from './Params';
 
 /** The interface provided by {@link useUiHelpers} composable. */
@@ -38,7 +39,7 @@ export interface UseUiHelpersInterface {
   clearFilters(forcePush?: boolean): Promise<void>;
 
   /** Gets route link for received category. */
-  getCatLink(category: Category): string;
+  getCatLink(category: CategoryTree): string;
 
   /** Gets facets parameters from current URL query/search params. */
   getFacetsFromURL(): Params;

@@ -1,6 +1,6 @@
 import type { Ref } from '@nuxtjs/composition-api';
-import type { Category, ComposableFunctionArgs } from '~/composables/types';
-
+import type { ComposableFunctionArgs } from '~/composables/types';
+import type{ CategoryTree } from '~/modules/GraphQL/types';
 /**
  * The {@link useCategory} error object. Its properties values' are the errors
  * thrown by composable methods.
@@ -11,7 +11,7 @@ import type { Category, ComposableFunctionArgs } from '~/composables/types';
  *
  * ```typescript
  * import { useFetch } from '@nuxtjs/composition-api';
- * import { useCategory } from '~/composables';
+ * import { useCategory } from '~/modules/catalog/category/composables/useCategory';
  *
  * export default {
  *   setup() {
@@ -43,8 +43,8 @@ export interface UseCategoryParamsInput {
 
 /** The {@link useCategory} interface with the refs and the `load` function. */
 export interface UseCategoryInterface {
-  /** The array of {@link Category} fetched in the `load` method, otherwise is `null`. */
-  categories: Ref<Category[] | null>;
+  /** The array of {@link CategoryTree} fetched in the `load` method, otherwise is `null`. */
+  categories: Ref<CategoryTree[] | null>;
 
   /** The error object */
   error: Ref<UseCategoryErrors>;
@@ -57,7 +57,7 @@ export interface UseCategoryInterface {
   loading: Ref<boolean>;
 
   /**
-   * A method that loads the list of {@link Category} and updates `categories`.
+   * A method that loads the list of {@link CategoryTree} and updates `categories`.
    *
    * @example
    *
@@ -65,7 +65,7 @@ export interface UseCategoryInterface {
    *
    * ```typescript
    * import { useFetch } from '@nuxtjs/composition-api';
-   * import { useCategory } from '~/composables';
+   * import { useCategory } from '~/modules/catalog/category/composables/useCategory';
    *
    * export default {
    *   setup() {
