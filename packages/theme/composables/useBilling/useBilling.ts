@@ -1,6 +1,6 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { BillingCartAddress } from '~/modules/GraphQL/types';
-import { ComposableFunctionArgs } from '~/types/core';
+import { ComposableFunctionArgs } from '~/composables/types';
 import type { BillingDetails } from './BillingDetails';
 
 /**

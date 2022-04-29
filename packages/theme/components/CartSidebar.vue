@@ -267,9 +267,9 @@ import {
   useCart,
   useUiState,
   useUiNotification,
-  useUser,
   useExternalCheckout,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
 import CouponCode from './CouponCode.vue';

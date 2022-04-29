@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Wishlist, Cart } from '~/modules/GraphQL/types';
-import type { User } from '~/composables/useUser/useUser';
+import type { User } from '~/modules/customer/composables/useUser/useUser';
 
 interface CustomerState {
   wishlist: Wishlist,

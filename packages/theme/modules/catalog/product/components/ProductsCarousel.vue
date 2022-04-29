@@ -94,7 +94,8 @@ import {
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage, useWishlist, useUser } from '~/composables';
+import { useImage, useWishlist } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { Product } from '~/modules/catalog/product/types';
 

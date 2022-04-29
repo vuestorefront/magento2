@@ -180,8 +180,9 @@ import {
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiState, useImage, useWishlist, useUser, AgnosticPrice, WishlistItemInterface,
+  useUiState, useImage, useWishlist, AgnosticPrice, WishlistItemInterface,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { useCustomerStore } from '~/stores/customer';
 import SvgImage from '~/components/General/SvgImage.vue';
 

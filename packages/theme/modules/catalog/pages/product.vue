@@ -308,10 +308,10 @@ import reviewGetters, {
 } from '~/getters/reviewGetters';
 
 import {
-  useCart, useWishlist, useUser, useReview,
+  useCart, useWishlist, useReview,
 } from '~/composables';
 
-import useProduct from '~/modules/catalog/product/composables/useProduct';
+import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import type { Product } from '~/modules/catalog/product/types';
 
 import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
@@ -325,7 +325,8 @@ import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import HTMLContent from '~/components/HTMLContent.vue';
 import AddToWishlist from '~/components/AddToWishlist.vue';
-import useImage from '~/composables/useImage';
+import { useImage } from '~/composables/useImage';
+import { useUser } from '~/modules/customer/composables/useUser';
 
 export default defineComponent({
   name: 'ProductPage',

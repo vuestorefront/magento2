@@ -6,7 +6,6 @@ import type {
   CartItemInterface,
   AvailableShippingMethod,
   ProductReviewRatingsMetadataQuery,
-  CustomerAddress,
 } from '~/modules/GraphQL/types';
 
 export interface Context<CLIENT = any, CONFIG = any, API = any> {
@@ -255,12 +254,4 @@ export interface AgnosticReviewMetadata {
     label: string | number;
     id: string;
   }[];
-}
-
-export interface TransformedCustomerAddress extends CustomerAddress {
-  apartment: string,
-  neighborhood: string,
-  extra: string,
-  phone: string,
-  email: string,
 }
