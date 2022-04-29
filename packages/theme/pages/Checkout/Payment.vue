@@ -242,11 +242,13 @@ export default defineComponent({
       $magento.config.state.setCartId();
       await load();
       await removeItem('checkout');
-      await router.push(
-        `${app.localePath(
-          `/checkout/thank-you?order=${order.value.order_number}`,
-        )}`,
-      );
+      const thankYouRoute = app.localeRoute({
+        name: 'thank-you',
+        query: {
+          order: order.value.order.order_number,
+        },
+      });
+      await router.push(thankYouRoute);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
