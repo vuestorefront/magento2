@@ -65,9 +65,10 @@ import {
   computed, defineComponent, onMounted, ref,
 } from '@nuxtjs/composition-api';
 import {
-  useImage, useProduct, useUser, useWishlist,
+  useImage, useProduct, useWishlist,
 } from '~/composables';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { SortEnum } from '~/modules/GraphQL/types';
 

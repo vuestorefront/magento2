@@ -8,11 +8,6 @@ export function getRoutes(themeDir = path.dirname(url.fileURLToPath(import.meta.
     component: path.resolve(themeDir, 'pages/Home.vue'),
   },
   {
-    name: 'my-account',
-    path: '/my-account/:pageName?',
-    component: path.resolve(themeDir, 'pages/MyAccount.vue'),
-  },
-  {
     name: 'checkout',
     path: '/checkout',
     component: path.resolve(themeDir, 'pages/Checkout.vue'),

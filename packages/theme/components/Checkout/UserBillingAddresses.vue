@@ -28,7 +28,7 @@
 <script>
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
-import { userBillingGetters } from '~/getters';
+import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({

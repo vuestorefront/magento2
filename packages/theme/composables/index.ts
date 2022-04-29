@@ -6,8 +6,8 @@
  *
  * @packageDocumentation
  */
-export * from './useAddresses';
 export * from './useApi';
+export * from '~/modules/customer/composables/useAddresses';
 export * from './useBilling';
 export * from './useCart';
 export * from './useCategory';
@@ -18,9 +18,9 @@ export * from './useCountrySearch';
 export * from './useCurrency';
 export * from './useExternalCheckout';
 export * from './useFacet';
-export * from './useForgotPassword';
+export * from '~/modules/customer/composables/useForgotPassword';
 export * from './useGetShippingMethods';
-export * from './useGuestUser';
+export * from '~/modules/customer/composables/useGuestUser';
 export * from './useImage';
 export * from './useMagentoConfiguration';
 export * from './useMakeOrder';
@@ -37,10 +37,11 @@ export * from './useUiNotification';
 export * from './useUiState';
 export * from '~/modules/catalog/product/composables/useUpsellProducts';
 export * from './useUrlResolver';
-export * from './useUser';
-export * from './useUserAddress';
-export * from './useUserOrder';
-export * from './useWishlist';
+export * from '~/modules/customer/composables/useUser';
+export * from '~/modules/customer/composables/useUserAddress';
+export * from '~/modules/customer/composables/useUserOrder';
+export * from '~/modules/customer/composables/useWishlist';
+export * from './useMagentoConfiguration';
 
 export * from './types';
 export * from '~/modules/GraphQL/types';

@@ -1,6 +1,6 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { SelectedShippingMethod } from '~/modules/GraphQL/types';
-import type { ComposableFunctionArgs } from '~/types/core';
+import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
  * The {@link useShippingProvider} error object. The properties values' are the

@@ -8,7 +8,8 @@ import {
   useReviewMock,
 } from '~/test-utils';
 
-import { useReview, useUser } from '~/composables';
+import { useReview } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import ProductAddReviewForm from '../ProductAddReviewForm';
 
 jest.mock('~/composables', () => {
