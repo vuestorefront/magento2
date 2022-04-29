@@ -1,6 +1,58 @@
-<script>
-import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
-import { SfCallToAction } from '@storefront-ui/vue';
+<template>
+  <section class="sf-call-to-action">
+    <SfImage
+      :image-tag="imageTag"
+      :src="imageSrc"
+      :alt="title"
+      :width="imageWidth"
+      :height="imageHeight"
+      :nuxt-img-config="nuxtImgConfig"
+      class="sf-call-to-action__image"
+    />
+    <div class="sf-call-to-action__text-container">
+      <slot
+        name="title"
+        v-bind="{ title }"
+      >
+        <h2
+          v-if="title"
+          class="sf-call-to-action__title"
+        >
+          {{ title }}
+        </h2>
+      </slot>
+      <slot
+        name="description"
+        v-bind="{ description }"
+      >
+        <p
+          v-if="description"
+          class="sf-call-to-action__description"
+        >
+          {{ description }}
+        </p>
+      </slot>
+    </div>
+    <slot
+      name="button"
+      v-bind="{ buttonText, link }"
+    >
+      <SfButton
+        v-if="buttonText"
+        :link="link"
+        class="sf-call-to-action__button"
+        @click="$emit('click')"
+      >
+        {{ buttonText }}
+      </SfButton>
+    </slot>
+  </section>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
+import { SfButton, SfCallToAction, SfImage } from '@storefront-ui/vue';
+import { ImageModifiers } from '@nuxt/image';
 
 const ExtendedCallToAction = {
   ...SfCallToAction,
@@ -9,35 +61,56 @@ const ExtendedCallToAction = {
 
 export default defineComponent({
   name: 'CallToAction',
+  components: {
+    SfButton,
+    SfImage,
+  },
   extends: ExtendedCallToAction,
   props: {
+    imageHeight: {
+      type: [Number, String],
+      default: '',
+    },
+    imageSrc: {
+      type: String,
+      default: '',
+    },
     imageTag: {
       type: String,
-      default: null,
+      default: '',
+    },
+    imageWidth: {
+      type: [Number, String],
+      default: '',
     },
     nuxtImgConfig: {
-      type: Object,
+      type: Object as PropType<ImageModifiers | {}>,
       default: () => ({}),
     },
   },
-  setup(props) {
-    const { app } = useContext();
-    const image = props.image;
-    const isImageString = typeof image === 'string';
-    const style = ref({ '--_call-to-action-background-color': props.background });
-    const nuxtImgConvert = (imgUrl) => {
-      return imgUrl ? `url('${app.$img(imgUrl, props.nuxtImgConfig)}')` : 'none';
-    };
-
-    if (props.imageTag === 'nuxt-img' || props.imageTag === 'nuxt-picture') {
-      style.value['--_call-to-action-background-desktop-image'] = nuxtImgConvert(isImageString ? image : image.desktop);
-      style.value['--_call-to-action-background-image'] = nuxtImgConvert(isImageString ? image : image.mobile);
-    } else {
-      style.value['--_call-to-action-background-desktop-image'] = `url('${isImageString ? image : image.desktop}')`;
-      style.value['--_call-to-action-background-image'] = `url('${isImageString ? image : image.mobile})`;
-    }
-
-    return { style };
-  },
 });
 </script>
+
+<style lang="scss" scoped>
+.sf-call-to-action {
+  position: relative;
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    ::v-deep img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text-container {
+    position: relative;
+  }
+}
+</style>

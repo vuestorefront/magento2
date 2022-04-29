@@ -1,17 +1,41 @@
 <template>
-  <div class="hero" :style="styles">
+  <div class="hero">
+    <SfImage
+      :image-tag="imageTag"
+      :src="imageSrc"
+      :alt="title"
+      :width="imageWidth"
+      :height="imageHeight"
+      :nuxt-img-config="nuxtImgConfig"
+      class="hero__image"
+    />
     <div class="hero__wrapper">
-      <slot name="subtitle" v-bind="{ subtitle }">
-        <span v-show="subtitle" class="hero__subtitle">
+      <slot
+        name="subtitle"
+        v-bind="{ subtitle }"
+      >
+        <span
+          v-show="subtitle"
+          class="hero__subtitle"
+        >
           {{ subtitle }}
         </span>
       </slot>
-      <slot name="title" v-bind="{ title }">
-        <span v-show="title" class="hero__title">
+      <slot
+        name="title"
+        v-bind="{ title }"
+      >
+        <span
+          v-show="title"
+          class="hero__title"
+        >
           {{ title }}
         </span>
       </slot>
-      <slot name="call-to-action" v-bind="{ buttonText, link }">
+      <slot
+        name="call-to-action"
+        v-bind="{ buttonText, link }"
+      >
         <SfButton
           v-if="buttonText && link"
           :link="localePath(link)"
@@ -24,13 +48,17 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
-import { SfButton } from '@storefront-ui/vue';
+<script lang="ts">
+import { defineComponent, PropType } from '@nuxtjs/composition-api';
+import { ImageModifiers } from '@nuxt/image';
+import { SfButton, SfImage } from '@storefront-ui/vue';
 
 export default defineComponent({
-  name: 'Hero',
-  components: { SfButton },
+  name: 'HeroSection',
+  components: {
+    SfButton,
+    SfImage,
+  },
   props: {
     title: {
       type: String,
@@ -44,45 +72,30 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    background: {
-      type: String,
-      default: 'transparent',
+    imageHeight: {
+      type: [Number, String],
+      default: '',
     },
-    image: {
-      type: [Object, String],
+    imageSrc: {
+      type: String,
       default: '',
     },
     imageTag: {
       type: String,
-      default: null,
+      default: '',
+    },
+    imageWidth: {
+      type: [Number, String],
+      default: '',
     },
     link: {
       type: String,
-      default: null,
+      default: '',
     },
     nuxtImgConfig: {
-      type: Object,
+      type: Object as PropType<ImageModifiers | {}>,
       default: () => ({}),
     },
-  },
-  setup(props) {
-    const { app } = useContext();
-    const image = props.image;
-    const isImageString = typeof image === 'string';
-    const styles = ref({ 'background-color': props.background });
-    const nuxtImgConvert = (imgUrl) => {
-      return imgUrl ? `url('${app.$img(imgUrl, props.nuxtImgConfig)}')` : 'none';
-    };
-
-    if (props.imageTag === 'nuxt-img' || props.imageTag === 'nuxt-picture') {
-      styles.value['--hero-background-image'] = nuxtImgConvert(isImageString ? image : image.desktop);
-      styles.value['--hero-background-image-mobile'] = nuxtImgConvert(isImageString ? image : image.mobile);
-    } else {
-      styles.value['--hero-background-image'] = `url('${isImageString ? image : image.desktop}')`;
-      styles.value['--hero-background-image-mobile'] = `url('${isImageString ? image : image.mobile})`;
-    }
-
-    return { styles };
   },
 });
 </script>
@@ -96,15 +109,27 @@ export default defineComponent({
   width: 100%;
   min-height: 14rem;
   color: var(--c-text);
-  background-image: var(--hero-background-image-mobile);
-  background-repeat: no-repeat;
-  background-size: cover;
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    ::v-deep img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
   &__wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    position: relative;
     width: 100%;
     padding: var(--spacer-sm);
     text-decoration: none;
@@ -144,7 +169,6 @@ export default defineComponent({
   }
 
   @include for-desktop {
-    background-image: var(--hero-background-image, var(--hero-background-image-mobile));
     min-height: 36.625rem;
 
     &__wrapper {
