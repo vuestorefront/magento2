@@ -79,7 +79,8 @@
 <script>
 import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
-import { useUiState, useUser } from '~/composables';
+import { useUiState } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useCategoryStore } from '~/stores/category';
 

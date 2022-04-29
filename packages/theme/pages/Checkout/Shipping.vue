@@ -272,8 +272,13 @@ import {
 } from '@nuxtjs/composition-api';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { userShippingGetters, addressGetter } from '~/getters';
-import { useUser, useShipping, useUserAddress, useCountrySearch } from '~/composables';
+import userShippingGetters from '~/modules/customer/getters/userShippingGetters';
+import addressGetter from '~/modules/customer/getters/addressGetter';
+import {
+  useShipping, useCountrySearch,
+} from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useUserAddress } from '~/modules/customer/composables/useUserAddress';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';

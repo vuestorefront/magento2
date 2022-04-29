@@ -157,8 +157,9 @@ import {
 import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiHelpers, useImage, useWishlist, useUser,
+  useUiHelpers, useImage, useWishlist,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({

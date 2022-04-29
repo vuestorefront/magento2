@@ -64,8 +64,9 @@ import {
 import { SfProductCardHorizontal, SfButton, SfProperty } from '@storefront-ui/vue';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 
-import { useImage, useUser } from '~/composables';
+import { useImage } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { useProductsWithCommonProductCardProps } from './useProductsWithCommonCardProps';
 
 export default defineComponent({

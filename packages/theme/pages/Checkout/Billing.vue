@@ -286,10 +286,13 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
-import { userBillingGetters, addressGetter } from '~/getters';
+import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
+import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
-  useShipping, useUser, useBilling, useUserAddress, useCountrySearch,
+  useShipping, useBilling, useCountrySearch,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useUserAddress } from '~/modules/customer/composables/useUserAddress';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   addressFromApiToForm,

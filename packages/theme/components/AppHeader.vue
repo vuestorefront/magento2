@@ -122,8 +122,8 @@ import {
   useUiHelpers,
   useUiState,
   useWishlist,
-  useUser,
 } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 
 import type { CategoryTree } from '~/modules/GraphQL/types';
 import CurrencySelector from '~/components/CurrencySelector.vue';

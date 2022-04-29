@@ -2,7 +2,8 @@
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
 import { useRouter } from '@nuxtjs/composition-api';
-import { useGuestUser, useUser } from '~/composables';
+import { useGuestUser } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { render, useUserMock, useGuestUserMock } from '~/test-utils';
 
 import UserAccount from '../UserAccount';

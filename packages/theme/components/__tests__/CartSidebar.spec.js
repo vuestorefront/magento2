@@ -1,9 +1,10 @@
 import userEvent from '@testing-library/user-event';
 import {
   useCart,
-  useUser,
   useUiState,
 } from '~/composables';
+
+import { useUser } from '~/modules/customer/composables/useUser';
 
 import {
   render, useCartMock, useUserMock, useUiStateMock, useEmptyCartMock,
@@ -14,9 +15,9 @@ jest.mock('~/composables', () => ({
   ...jest.requireActual('~/composables'),
   useExternalCheckout: jest.fn(() => ({ initializeCheckout: {} })),
   useCart: jest.fn(),
-  useUser: jest.fn(),
 }));
 
+jest.mock('~/modules/customer/composables/useUser');
 jest.mock('~/composables/useUiState');
 
 useUser.mockReturnValue(useUserMock());

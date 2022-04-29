@@ -1,8 +1,8 @@
 import type { Plugin } from '@nuxt/types';
 import type { ApolloQueryResult } from '@apollo/client/core/types';
 import type { UiNotification } from '~/composables/useUiNotification';
-import loginStatusPingQueryGql from '~/composables/useUser/loginStatusPingQuery.gql';
 import { useCustomerStore } from '~/stores/customer';
+import loginStatusPingQueryGql from '~/modules/customer/composables/useUser/loginStatusPingQuery.gql';
 
 export const hasGraphqlAuthorizationError = (res: ApolloQueryResult<unknown>) => res?.errors
   ?.some((error) => error.extensions.category === 'graphql-authorization') ?? false;
