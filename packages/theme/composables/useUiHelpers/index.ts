@@ -1,7 +1,8 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import { Category, FacetInterface } from '~/composables/types';
+import type { FacetInterface } from '~/composables/types';
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import type { Params, QueryParams, FilterParams } from './Params';
-import type { UseUiHelpersInterface } from './useUiHelpers';
+import type { UseUiHelpersInterface } from '~/composables';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -69,7 +70,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
     };
   };
 
-  const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
+  const getCatLink = (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`;
 
   /**
    * Force push for a backward compatibility in other places, should be removed

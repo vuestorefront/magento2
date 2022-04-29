@@ -1,6 +1,6 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { Category } from '~/composables/types';
+import type{ CategoryTree } from '~/modules/GraphQL/types';
 import type {
   UseCategoryErrors,
   UseCategoryInterface,
@@ -45,7 +45,7 @@ import type {
  *
  * <script>
  * import { onMounted } from '@nuxtjs/composition-api';
- * import { useCategory } from '~/composables';
+ * import { useCategory } from '~/modules/catalog/category/composables/useCategory';
  *
  * export default {
  *   setup() {
@@ -71,7 +71,7 @@ export function useCategory(): UseCategoryInterface {
   const error: Ref<UseCategoryErrors> = ref({
     load: null,
   });
-  const categories: Ref<Array<Category>> = ref(null);
+  const categories: Ref<Array<CategoryTree>> = ref(null);
 
   const load = async (params: UseCategoryParamsInput) => {
     Logger.debug('useCategory/load', params);
