@@ -368,7 +368,6 @@ export default defineComponent({
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
