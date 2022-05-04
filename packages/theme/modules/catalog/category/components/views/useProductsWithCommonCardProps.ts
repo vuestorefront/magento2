@@ -1,7 +1,8 @@
 import { computed, Ref, useContext } from '@nuxtjs/composition-api';
 import {
-  useImage, useUser, useWishlist,
+  useImage, useUser,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import {
   getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
 } from '~/modules/catalog/product/getters/productGetters';

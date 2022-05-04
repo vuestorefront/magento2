@@ -1,4 +1,4 @@
-import type { Ref, ComputedRef, DeepReadonly } from '@nuxtjs/composition-api';
+import type { Ref, ComputedRef } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
@@ -106,12 +106,12 @@ export interface UseUserInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Contains errors from any of the composable methods
    */
-  error: DeepReadonly<Ref<UseUserErrors>>;
+  error: Readonly<Ref<UseUserErrors>>;
 
   /**
    * Main data object populated by the `load()` method and updated by other methods in this composable

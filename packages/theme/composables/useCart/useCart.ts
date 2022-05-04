@@ -51,7 +51,7 @@ type UseCartIsInCartParams<PRODUCT> = {
  */
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   /** Loads the current cart */
-  load(params: ComposableFunctionArgs<{ realCart?: boolean }>): Promise<void>;
+  load(params?: ComposableFunctionArgs<{ realCart?: boolean }>): Promise<void>;
   /** Updates the global application state with the current total quantity of the cart */
   loadTotalQty(): Promise<void>;
   /** Takes in a `product` and its `quantity` and adds it to the cart */

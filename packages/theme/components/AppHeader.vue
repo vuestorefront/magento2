@@ -121,16 +121,15 @@ import {
   useCart,
   useUiHelpers,
   useUiState,
-  useWishlist,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
-
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import type { CategoryTree } from '~/modules/GraphQL/types';
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import StoreSwitcher from '~/components/StoreSwitcher.vue';
-import { useCustomerStore } from '~/stores/customer';
 
 export default defineComponent({
   components: {
@@ -158,10 +157,10 @@ export default defineComponent({
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
     const { categories: categoryList, load: categoriesListLoad } = useCategory();
 
-    const customerStore = useCustomerStore();
+    const wishlistStore = useWishlistStore();
     const isSearchOpen = ref(false);
     const result = ref(null);
-    const wishlistItemsQty = computed(() => customerStore.wishlist?.items_count ?? 0);
+    const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));

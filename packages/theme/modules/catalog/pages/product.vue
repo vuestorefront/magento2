@@ -308,9 +308,9 @@ import reviewGetters, {
 } from '~/getters/reviewGetters';
 
 import {
-  useCart, useWishlist, useReview,
+  useCart, useReview,
 } from '~/composables';
-
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import type { Product } from '~/modules/catalog/product/types';
 

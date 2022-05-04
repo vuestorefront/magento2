@@ -40,7 +40,7 @@ export * from './useUrlResolver';
 export * from '~/modules/customer/composables/useUser';
 export * from '~/modules/customer/composables/useUserAddress';
 export * from '~/modules/customer/composables/useUserOrder';
-export * from '~/modules/customer/composables/useWishlist';
+export * from '~/modules/wishlist/composables/useWishlist';
 export * from './useMagentoConfiguration';
 
 export * from './types';

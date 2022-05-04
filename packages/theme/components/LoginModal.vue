@@ -299,8 +299,9 @@ import {
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import {
-  useUiState, useWishlist, useForgotPassword, useCart,
+  useUiState, useForgotPassword, useCart,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 
