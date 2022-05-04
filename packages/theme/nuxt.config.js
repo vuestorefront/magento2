@@ -94,6 +94,8 @@ export default () => {
     modules: [
       '~/modules/catalog',
       '~/modules/customer',
+      '~/modules/wishlist',
+      '~/modules/theme',
       ['nuxt-i18n', {
         baseUrl: process.env.VSF_STORE_URL || 'http://localhost:3000',
       }],

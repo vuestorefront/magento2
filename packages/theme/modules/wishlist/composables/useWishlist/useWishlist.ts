@@ -1,9 +1,14 @@
 import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { Wishlist, ProductInterface } from '~/modules/GraphQL/types';
+import {
+  BundleProduct, ConfigurableProduct, DownloadableProduct, GroupedProduct, VirtualProduct,
+} from '~/modules/GraphQL/types';
+
+export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> { __typename: string }
 
 /**
- * Errors that occured in the `useWishlist` composable
+ * Errors that occurred in the `useWishlist` composable
  */
 export interface UseWishlistErrors {
   addItem: Error | null;
@@ -23,13 +28,13 @@ export type UseWishlistLoadItemsCountParams = ComposableFunctionArgs<{
 /**
  * Parameters accepted by the `isInWishlist` method in the `useWishlist` composable
  */
-export type UseWishlistIsInWishlistParams = { product: ProductInterface };
+export type UseWishlistIsInWishlistParams = { product: Product };
 
 /**
  * Parameters accepted by the `addItem` method in the `useWishlist` composable
  */
 export type UseWishlistAddItemParams = ComposableFunctionArgs<{
-  product: any; // TODO: add product interface
+  product: Product;
 }>;
 
 /**
@@ -46,14 +51,14 @@ export type UseWishlistLoadParams = ComposableFunctionArgs<{
  * Parameters accepted by the `removeItem` method in the `useWishlist` composable
  */
 export type UseWishlistRemoveItemParams = ComposableFunctionArgs<{
-  product: any; // TODO: add product interface
+  product: Product;
 }>;
 
 /**
  * Parameters accepted by the `clear` method in the `useWishlist` composable
  */
 export type UseWishlistClearParams = {
-  currentWishlist: any; // TODO: Add type
+  currentWishlist: Wishlist;
 };
 
 /**
@@ -63,7 +68,7 @@ export interface UseWishlistInterface {
   /**
    * Returns a total number of items added to the wishlist of the current user
    */
-  loadItemsCount(params: UseWishlistLoadItemsCountParams): Promise<number | null>;
+  loadItemsCount(params?: UseWishlistLoadItemsCountParams): Promise<number | null>;
 
   /**
    * Checks if given product is in the wishlist of the current user

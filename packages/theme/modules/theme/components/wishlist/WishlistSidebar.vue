@@ -177,11 +177,15 @@ import {
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiState, useImage, useWishlist, AgnosticPrice, WishlistItemInterface,
+  useUiState, useImage, AgnosticPrice,
 } from '~/composables';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
-import { useCustomerStore } from '~/stores/customer';
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+
 import SvgImage from '~/components/General/SvgImage.vue';
+
+import type { WishlistItemInterface } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -203,9 +207,9 @@ export default defineComponent({
       removeItem, load: loadWishlist, loading,
     } = useWishlist();
     const { isAuthenticated } = useUser();
-    const customerStore = useCustomerStore();
+    const wishlistStore = useWishlistStore();
     const wishlistItems = computed<WishlistItemInterface[]>(
-      () => customerStore.wishlist?.items_v2?.items ?? [],
+      () => wishlistStore.wishlist?.items_v2?.items ?? [],
     );
 
     const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
@@ -228,8 +232,8 @@ export default defineComponent({
     };
 
     const totals = computed<{ total: number, subtotal: number }>(
-      () => ((customerStore.wishlist?.items_v2?.items ?? []).length > 0
-        ? customerStore.wishlist?.items_v2?.items.reduce((acc, curr) => ({
+      () => ((wishlistStore.wishlist?.items_v2?.items ?? []).length > 0
+        ? wishlistStore.wishlist?.items_v2?.items.reduce((acc, curr) => ({
           total: acc.total + getItemPrice(curr).special,
           subtotal: acc.subtotal + getItemPrice(curr).regular,
         }), ({ total: 0, subtotal: 0 }))
@@ -237,7 +241,7 @@ export default defineComponent({
     );
 
     const totalItems = computed(
-      () => customerStore.wishlist?.items_count ?? 0,
+      () => wishlistStore.wishlist?.items_count ?? 0,
     );
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
@@ -246,7 +250,7 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
 
     onMounted(async () => {
-      if (!customerStore.wishlist.id) {
+      if (!wishlistStore.wishlist.id) {
         await loadWishlist();
       }
     });
@@ -261,7 +265,7 @@ export default defineComponent({
       toggleWishlistSidebar,
       totalItems,
       totals,
-      wishlist: customerStore.wishlist,
+      wishlist: wishlistStore.wishlist,
       productGetters,
       getMagentoImage,
       imageSizes,

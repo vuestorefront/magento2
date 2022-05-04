@@ -1,7 +1,7 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
-import { findItemOnWishlist } from '~/modules/customer/composables/useWishlist/helpers';
+import { findItemOnWishlist } from '~/modules/wishlist/helpers/findItemOnWishlist';
 import { Logger } from '~/helpers/logger';
-import { useCustomerStore } from '~/stores/customer';
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import type { Wishlist } from '~/modules/GraphQL/types';
 import type {
   UseWishlistAddItemParams,
@@ -10,7 +10,7 @@ import type {
   UseWishlistIsInWishlistParams,
   UseWishlistLoadParams,
   UseWishlistRemoveItemParams,
-} from '~/modules/customer/composables/useWishlist/useWishlist';
+} from '~/modules/wishlist/composables/useWishlist/useWishlist';
 
 /**
  * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
@@ -18,7 +18,7 @@ import type {
  * See the {@link UseWishlistInterface} page for more information.
  */
 export function useWishlist(): UseWishlistInterface {
-  const customerStore = useCustomerStore();
+  const wishlistStore = useWishlistStore();
   const { app } = useContext();
   const loading = ref(false);
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -45,7 +45,7 @@ export function useWishlist(): UseWishlistInterface {
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
-        customerStore.wishlist = loadedWishlist[0] ?? {};
+        wishlistStore.wishlist = loadedWishlist[0] ?? {};
       }
 
       error.value.load = null;
@@ -56,19 +56,19 @@ export function useWishlist(): UseWishlistInterface {
       loading.value = false;
     }
 
-    return customerStore.wishlist;
+    return wishlistStore.wishlist;
   };
 
   const isInWishlist = ({ product }: UseWishlistIsInWishlistParams) => {
     Logger.debug('useWishlist/isInWishlist', product);
 
-    const wishlistProduct = findItemOnWishlist(customerStore.wishlist, product);
+    const wishlistProduct = findItemOnWishlist(wishlistStore.wishlist, product);
 
     return !!(wishlistProduct?.id && wishlistProduct?.quantity);
   };
 
   const setWishlist = (newWishlist: Wishlist) => {
-    customerStore.wishlist = newWishlist;
+    wishlistStore.wishlist = newWishlist;
     Logger.debug('useWishlist/setWishlist', newWishlist);
   };
 
@@ -78,12 +78,12 @@ export function useWishlist(): UseWishlistInterface {
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', {
-        currentWishlist: customerStore.wishlist,
+        currentWishlist: wishlistStore.wishlist,
         product,
         customQuery,
       });
 
-      const itemOnWishlist = findItemOnWishlist(customerStore.wishlist, product);
+      const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
       const { data } = await app.context.$vsf.$magento.api.removeProductsFromWishlist({
         id: '0',
         items: [itemOnWishlist.id],
@@ -91,7 +91,7 @@ export function useWishlist(): UseWishlistInterface {
 
       Logger.debug('[Result]:', { data });
       error.value.removeItem = null;
-      customerStore.$patch((state) => {
+      wishlistStore.$patch((state) => {
         state.wishlist = data?.removeProductsFromWishlist?.wishlist ?? {};
       });
     } catch (err) {
@@ -116,7 +116,7 @@ export function useWishlist(): UseWishlistInterface {
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
         itemsCount = calculateWishlistTotal(loadedWishlist);
-        customerStore.$patch((state) => {
+        wishlistStore.$patch((state) => {
           state.wishlist = { items_count: itemsCount };
         });
       }
@@ -137,16 +137,16 @@ export function useWishlist(): UseWishlistInterface {
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.addItem params->', {
-        currentWishlist: customerStore.wishlist,
+        currentWishlist: wishlistStore.wishlist,
         product,
         customQuery,
       });
 
-      if (!customerStore.wishlist) {
+      if (!wishlistStore.wishlist) {
         await load({});
       }
 
-      const itemOnWishlist = findItemOnWishlist(customerStore.wishlist, product);
+      const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
 
       // todo: legacy code, should be double-checked and probably removed
       if (itemOnWishlist) {
@@ -177,7 +177,7 @@ export function useWishlist(): UseWishlistInterface {
 
           Logger.debug('[Result]:', { data });
 
-          customerStore.$patch((state) => {
+          wishlistStore.$patch((state) => {
             state.wishlist = data?.addProductsToWishlist?.wishlist ?? {};
           });
 
@@ -195,7 +195,7 @@ export function useWishlist(): UseWishlistInterface {
 
           Logger.debug('[Result]:', { data: configurableProductData });
 
-          customerStore.$patch((state) => {
+          wishlistStore.$patch((state) => {
             state.wishlist = configurableProductData?.addProductsToWishlist?.wishlist ?? {};
           });
 
@@ -207,13 +207,13 @@ export function useWishlist(): UseWishlistInterface {
             items: [{
               sku: product.sku,
               quantity: 1,
-              entered_options: product.bundle_options ? [...product.bundle_options] : [],
+              entered_options: [],
             }],
           }, customQuery);
 
           Logger.debug('[Result]:', { data: bundleProductData });
 
-          customerStore.$patch((state) => {
+          wishlistStore.$patch((state) => {
             state.wishlist = bundleProductData?.addProductsToWishlist?.wishlist ?? {};
           });
 
@@ -240,7 +240,7 @@ export function useWishlist(): UseWishlistInterface {
     try {
       loading.value = true;
       error.value.clear = null;
-      customerStore.$patch((state) => {
+      wishlistStore.$patch((state) => {
         state.wishlist = {};
       });
     } catch (err) {
