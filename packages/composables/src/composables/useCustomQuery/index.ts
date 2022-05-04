@@ -8,6 +8,10 @@ import {
 } from '../../factories/useCustomQueryFactory';
 import { FetchPolicy } from '../../types';
 
+/**
+ * @deprecated Will be removed in 1.1.0 release
+ * @use @vue-storefront/magento-theme/composables/useApi instead
+ */
 export default useCustomQueryFactory({
   query: async (context: Context, {
     query,
