@@ -134,7 +134,7 @@ export default defineComponent({
 
       await router.push(
         `${app.localePath({
-          path: `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
+          path: `/customer/${getTranslatedUrlAddress('Addresses details')}`,
           query: { id: addressId },
         })}`,
       );
@@ -154,7 +154,7 @@ export default defineComponent({
         const data = await actionMethod({ address: form });
         await router.push(
           app.localePath(
-            `/my-account/${getTranslatedUrlAddress('Addresses details')}`,
+            `/customer/${getTranslatedUrlAddress('Addresses details')}`,
           ),
         );
         userAddresses.value = userAddressesGetters.getAddresses(data);
