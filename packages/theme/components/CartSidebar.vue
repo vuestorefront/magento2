@@ -264,11 +264,11 @@ import {
 import _debounce from 'lodash.debounce';
 import { cartGetters } from '~/getters';
 import {
-  useCart,
   useUiState,
   useUiNotification,
   useExternalCheckout,
 } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';

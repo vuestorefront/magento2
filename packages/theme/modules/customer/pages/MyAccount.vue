@@ -85,7 +85,7 @@ import MyWishlist from '~/modules/customer/pages/MyWishlist.vue';
 import OrderHistory from '~/modules/customer/pages/OrderHistory.vue';
 import MyReviews from '~/modules/customer/pages/MyReviews.vue';
 import { useUser } from '~/modules/customer/composables/useUser';
-import { useCart } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
   name: 'MyAccount',

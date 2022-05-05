@@ -299,10 +299,12 @@ import {
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
 import {
-  useUiState, useForgotPassword, useCart,
+  useUiState,
 } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
-import { useUser } from '~/modules/customer/composables/useUser';
+import useForgotPassword from '~/modules/customer/composables/useForgotPassword';
+import useUser from '~/modules/customer/composables/useUser';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 
 extend('email', {
