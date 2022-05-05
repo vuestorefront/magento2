@@ -95,7 +95,7 @@ import { bundleProductInitialSelector } from '~/modules/catalog/product/helpers/
 import type { WithTypename } from '~/modules/catalog/product/types';
 import type { BundleProduct } from '~/modules/GraphQL/types';
 
-import { useCart } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
   name: 'BundleProductSelector',

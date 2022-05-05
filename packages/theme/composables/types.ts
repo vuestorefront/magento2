@@ -2,7 +2,6 @@ import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
   AvailableStoresQuery,
   CountriesListQuery,
-  CartItemInterface,
   AvailableShippingMethod,
   ProductReviewRatingsMetadataQuery,
 } from '~/modules/GraphQL/types';
@@ -61,11 +60,9 @@ export declare type CustomerProductReviewParams = {
 };
 
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
-export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];
-export declare type ShippingMethod = AvailableShippingMethod;
 export declare type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
 
 export declare type ComposableFunctionArgs<T> = T & {
@@ -238,11 +235,6 @@ export interface AgnosticStore {
   address?: AgnosticAddress;
   geoLocation?: AgnosticGeoLocation;
   [x: string]: unknown;
-}
-
-export interface AgnosticPaymentMethod {
-  label: string;
-  value: string;
 }
 
 export interface AgnosticReviewMetadata {
