@@ -20,11 +20,8 @@ const plugin : Plugin = async ({ $pinia, app }) => {
       return res;
     }
     customerStore.setIsLoggedIn(false);
-    // @ts-ignore
     app.$vsf.$magento.config.state.removeCustomerToken();
-    // @ts-ignore
     app.$vsf.$magento.config.state.removeCartId();
-    // @ts-ignore
     app.$vsf.$magento.config.state.setMessage<UiNotification>({
       id: Symbol(''),
       message: app.i18n.t('You are not authorized, please log in.') as string,
