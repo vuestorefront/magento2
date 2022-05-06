@@ -41,7 +41,9 @@ import { useUser } from '~/modules/customer/composables/useUser';
 import ProfileUpdateForm from '~/modules/customer/pages/MyProfile/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/modules/customer/pages/MyProfile/PasswordResetForm.vue';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
-import type { FormFn, OnFormComplete, OnFormError } from '~/modules/customer/helpers/passwordValidation';
+import type {
+  OnFormComplete, OnFormError, ProfileUpdateFormFields, PasswordResetFormFields, SubmitEventPayload,
+} from '~/modules/customer/pages/MyProfile/types';
 
 extend('required', {
   ...required,
@@ -78,15 +80,15 @@ export default defineComponent({
       error,
     } = useUser();
 
-    const formHandler = async (
-      fn: FormFn,
+    const formHandler = async <T extends () => Promise<unknown>>(
+      onSubmit: T,
       onComplete: OnFormComplete,
       onError: OnFormError,
     ) => {
-      await fn();
+      await onSubmit();
       const actionErr = error.value.changePassword || error.value.updateUser;
       if (actionErr) {
-        onError(actionErr);
+        onError(actionErr.toString());
       } else {
         onComplete();
       }
@@ -96,8 +98,8 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(
-      async () => updateUser({ user: form.value }),
+    } : SubmitEventPayload<ProfileUpdateFormFields>) => formHandler(
+      async () => updateUser({ user: form }),
       onComplete,
       onError,
     );
@@ -106,10 +108,11 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(async () => changePassword({
-      current: form.value.currentPassword,
-      new: form.value.newPassword,
-    }), onComplete, onError);
+    } : SubmitEventPayload<PasswordResetFormFields>) => formHandler(
+      async () => changePassword({ current: form.currentPassword, new: form.newPassword }),
+      onComplete,
+      onError,
+    );
 
     return {
       loading,

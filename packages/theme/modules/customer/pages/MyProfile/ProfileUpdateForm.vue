@@ -113,7 +113,7 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 import userGetters from '~/modules/customer/getters/userGetters';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useUiNotification } from '~/composables';
-import type { SubmitEventPayload } from '~/modules/customer/pages/MyProfile/types';
+import type { SubmitEventPayload, ProfileUpdateFormFields } from '~/modules/customer/pages/MyProfile/types';
 
 extend('email', {
   ...email,
@@ -121,7 +121,6 @@ extend('email', {
 });
 
 export default defineComponent({
-  name: 'ProfileUpdateForm',
   components: {
     SfInput,
     SfButton,
@@ -141,18 +140,18 @@ export default defineComponent({
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
-    const resetForm = () => ({
+    const getInitialForm = () : ProfileUpdateFormFields => ({
       firstname: userGetters.getFirstName(user.value),
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
     });
     const { send: sendNotification } = useUiNotification();
 
-    const form = ref(resetForm());
+    const form = ref(getInitialForm());
 
     const submitForm = (resetValidationFn: () => void) => () => {
       const onComplete = () => {
-        form.value = resetForm();
+        form.value = getInitialForm();
         requirePassword.value = false;
         currentPassword.value = '';
         sendNotification({
@@ -177,17 +176,16 @@ export default defineComponent({
         });
       };
 
-      if (
-        userGetters.getEmailAddress(user.value) !== form.value.email
-        && !requirePassword.value
-      ) {
+      const isEmailChanged = userGetters.getEmailAddress(user.value) !== form.value.email;
+
+      if (isEmailChanged && !requirePassword.value) {
         requirePassword.value = true;
       } else {
         if (currentPassword.value) {
           form.value.password = currentPassword.value;
         }
 
-        const eventPayload : SubmitEventPayload = { form, onComplete, onError };
+        const eventPayload : SubmitEventPayload<ProfileUpdateFormFields> = { form: form.value, onComplete, onError };
 
         emit('submit', eventPayload);
       }

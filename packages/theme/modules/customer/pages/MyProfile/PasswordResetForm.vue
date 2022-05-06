@@ -67,7 +67,7 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
-import { SubmitEventPayload } from './types';
+import type { SubmitEventPayload, PasswordResetFormFields } from '~/modules/customer/pages/MyProfile/types';
 
 export default defineComponent({
   components: {
@@ -78,7 +78,7 @@ export default defineComponent({
   },
 
   setup(_, { emit }) {
-    const resetForm = () => ({
+    const getInitialForm = () : PasswordResetFormFields => ({
       currentPassword: '',
       newPassword: '',
       repeatPassword: '',
@@ -87,11 +87,11 @@ export default defineComponent({
       send: sendNotification,
     } = useUiNotification();
 
-    const form = ref(resetForm());
+    const form = ref(getInitialForm());
 
     const submitForm = (resetValidationFn: () => void) => () => {
       const onComplete = () => {
-        form.value = resetForm();
+        form.value = getInitialForm();
         sendNotification({
           id: Symbol('password_updated'),
           message: 'The user password was changed successfully updated!',
@@ -114,7 +114,7 @@ export default defineComponent({
         });
       };
 
-      const eventPayload : SubmitEventPayload = { form, onComplete, onError };
+      const eventPayload : SubmitEventPayload<PasswordResetFormFields> = { form: form.value, onComplete, onError };
 
       emit('submit', eventPayload);
     };
