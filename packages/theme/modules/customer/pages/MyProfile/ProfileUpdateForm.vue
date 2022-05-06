@@ -106,14 +106,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 import userGetters from '~/modules/customer/getters/userGetters';
-import { useUiNotification } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
-import type { SubmitFormFn, SubmitEventPayload } from './types';
+import { useUiNotification } from '~/composables';
+import type { SubmitEventPayload } from '~/modules/customer/pages/MyProfile/types';
 
 extend('email', {
   ...email,
