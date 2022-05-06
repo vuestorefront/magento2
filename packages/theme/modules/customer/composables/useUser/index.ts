@@ -81,9 +81,9 @@ export function useUser(): UseUserInterface {
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        Logger.error(errors.map((e) => e.message).join(','));
-        error.value.updateUser = errors.map((e) => e.message).join(',');
+        const allErrorMessages = errors.map((e) => e.message).join(',');
+        Logger.error(allErrorMessages);
+        error.value.updateUser = allErrorMessages;
       }
 
       customerStore.user = data?.updateCustomerV2?.customer || {};
