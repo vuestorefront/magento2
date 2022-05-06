@@ -1,9 +1,9 @@
 import { gql } from 'graphql-request';
 
 export default gql`
-  query category($id: Int!) {
-    category(id: $id) {
-      id
+  query getCategoryContentData($filters: CategoryFilterInput) {
+    categoryList(filters: $filters) {
+      uid
       display_mode
       landing_page
       cms_block {

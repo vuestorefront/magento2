@@ -1,31 +1,40 @@
 <template>
-  <SfBreadcrumbs :breadcrumbs="breadcrumbs" />
+  <SfBreadcrumbs
+    :breadcrumbs="breadcrumbs"
+    class="breadcrumbs"
+  />
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, computed, PropType,
+  defineComponent, useFetch, ref,
 } from '@nuxtjs/composition-api';
 import { SfBreadcrumbs } from '@storefront-ui/vue';
-import type { CategoryTree } from '~/modules/GraphQL/types';
 import { useUiHelpers } from '~/composables';
+import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 
 type Breadcrumb = { text: string, link: string };
 
 export default defineComponent({
   components: { SfBreadcrumbs },
-  props: {
-    categoryAncestors: {
-      type: Array as PropType<CategoryTree[]>,
-      default: () => [],
-    },
-  },
-  setup(props) {
+  setup() {
     const { getCatLink } = useUiHelpers();
-    const breadcrumbs = computed<Breadcrumb[]>(() => props.categoryAncestors.map((category) => ({
-      text: category.name,
-      link: getCatLink(category),
-    })));
+
+    const {
+      categoryAncestors, isCategoryTreeLoaded, loadCategoryTree,
+    } = useTraverseCategory();
+    const breadcrumbs = ref<Breadcrumb[]>([]);
+
+    useFetch(async () => {
+      if (!isCategoryTreeLoaded.value) {
+        await loadCategoryTree();
+      }
+
+      breadcrumbs.value = categoryAncestors.value.slice(0, -1).map((category) => ({
+        text: category.name,
+        link: getCatLink(category),
+      }));
+    });
 
     return {
       breadcrumbs,
@@ -33,3 +42,12 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+.breadcrumbs {
+  margin-left: var(--spacer-sm);
+
+  @include for-mobile {
+    margin-top: var(--spacer-lg)
+  }
+}
+</style>

@@ -21,10 +21,11 @@ interface CmsContentInterface {
 export const useCategoryContent = () => {
   const { query } = useApi();
 
-  const getContentData = async (id: number): Promise<CmsContentInterface> => {
-    const data = await query(categoryContentQuery, { id });
-    const cmsBlock = data?.category?.cms_block ?? { cmsBlock: { content: '' } };
-    const displayMode = data?.category?.display_mode ?? displayModesEnum.PRODUCTS;
+  const getContentData = async (uid: string): Promise<CmsContentInterface> => {
+    const data = await query(categoryContentQuery, { filters: { category_uid: { eq: uid } } });
+    const category = data.categoryList[0] ?? {};
+    const cmsBlock = category?.cms_block ?? { cmsBlock: { content: '' } };
+    const displayMode = category?.display_mode ?? displayModesEnum.PRODUCTS;
     const isShowCms = displayMode === displayModesEnum.PAGE || displayMode === displayModesEnum.PRODUCTS_AND_PAGE;
     const isShowProducts = displayMode === displayModesEnum.PRODUCTS || displayMode === displayModesEnum.PRODUCTS_AND_PAGE;
 
