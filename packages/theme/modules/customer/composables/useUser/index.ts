@@ -8,10 +8,10 @@ import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/stores/customer';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
+import { Customer } from '~/modules/GraphQL/types';
 import type {
-  User,
   UseUserInterface,
   UseUserLoadParams,
   UseUserLoginParams,
@@ -41,7 +41,7 @@ export function useUser(): UseUserInterface {
   });
   const error: Ref = ref(errorsFactory());
 
-  const setUser = (newUser: User) => {
+  const setUser = (newUser: Customer) => {
     customerStore.user = newUser;
     Logger.debug('useUserFactory.setUser', newUser);
   };
