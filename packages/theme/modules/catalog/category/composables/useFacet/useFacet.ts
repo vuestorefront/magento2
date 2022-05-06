@@ -1,16 +1,43 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import type { AgnosticFacetSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
+import { ProductInterface } from '~/modules/GraphQL/types';
+import { SortingOptionsInterface } from '~/modules/catalog/category/composables/useFacet/SortingOptions';
+
+/**
+ * The {@link useFacet} search params data structure
+ */
+export interface FacetSearchParams {
+  categorySlug?: string;
+  rootCatSlug?: string;
+  term?: string;
+  page?: number;
+  itemsPerPage?: number;
+  sort?: string;
+  filters?: Record<string, string[]>;
+  metadata?: any;
+  [x: string]: any;
+}
+
+/**
+ * The {@link useFacet} search result data structure
+ */
+export interface SearchResultData {
+  items: ProductInterface[],
+  total: number,
+  availableSortingOptions: SortingOptionsInterface[],
+  perPageOptions: number[],
+  itemsPerPage: number
+}
 
 /**
  * The {@link useFacet} search results contain the parameters used to filter and
  * the obtained data that matches it.
  */
-export interface UseFacetSearchResult<DATA> {
+export interface UseFacetSearchResult {
   /** The data obtained in the search. */
-  data: DATA;
-
+  data: SearchResultData;
   /** The parameters used to filter the search. */
-  input: AgnosticFacetSearchParams;
+  input: FacetSearchParams;
 }
 
 /**
@@ -23,7 +50,7 @@ export interface UseFacetErrors {
 }
 
 /** The params received by {@link useFacet}'s `search` method. */
-export type UseFacetSearchParams = ComposableFunctionArgs<AgnosticFacetSearchParams>;
+export type UseFacetSearchParams = ComposableFunctionArgs<FacetSearchParams>;
 
 /** The interface provided by {@link useFacet} composable. */
 export interface UseFacetInterface {
@@ -39,7 +66,7 @@ export interface UseFacetInterface {
    *
    * Read {@link UseFacetSearchResult} documentation for more details.
    */
-  result: Ref<UseFacetSearchResult<any>>;
+  result: Ref<UseFacetSearchResult>;
 
   /** Indicates whether any of the composable methods is in progress. */
   loading: Readonly<Ref<boolean>>;

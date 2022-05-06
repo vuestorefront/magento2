@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 export { default as addressGetter } from '~/modules/customer/getters/addressGetter';
 export { default as cartGetters } from '~/modules/checkout/getters/cartGetters';
-export { default as facetGetters } from './facetGetters';
+export { default as facetGetters } from '~/modules/catalog/category/getters/facetGetters';
 export { default as forgotPasswordGetters } from '~/modules/customer/getters/forgotPasswordGetters';
 export { default as orderGetters } from '~/modules/checkout/getters/orderGetters';
 export { default as productGetters } from '~/modules/catalog/product/getters/productGetters';

@@ -17,7 +17,7 @@ export * from './useContent';
 export * from './useCountrySearch';
 export * from './useCurrency';
 export * from './useExternalCheckout';
-export * from './useFacet';
+export * from '~/modules/catalog/category/composables/useFacet';
 export * from '~/modules/customer/composables/useForgotPassword';
 export * from '~/modules/checkout/composables/useGetShippingMethods';
 export * from '~/modules/customer/composables/useGuestUser';
