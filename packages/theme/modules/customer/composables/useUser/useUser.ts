@@ -1,6 +1,6 @@
 import type { Ref, ComputedRef } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
-import type { Customer } from '~/modules/GraphQL/types';
+import type { Customer, ChangeCustomerPasswordMutation } from '~/modules/GraphQL/types';
 
 /**
  * Errors that occured in the `useUser` composable
@@ -18,7 +18,7 @@ export interface UseUserErrors {
  * Parameters accepted by the `updateUser` method in the `useUser` composable
  */
 export type UseUserUpdateUserParams = ComposableFunctionArgs<{
-  user: Customer & { password: string } & NonNullable<Pick<Customer, 'email'>>;
+  user: ChangeCustomerPasswordMutation['changeCustomerPassword'] & { email?: string, password?: string }
 }>;
 
 /**
