@@ -56,9 +56,7 @@
         persistent
         @close="requirePassword = false"
       >
-        {{
-          $t('Please type your current password to change your email address.')
-        }}
+        {{ $t('Please type your current password to change your email address.') }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -79,9 +77,7 @@
         v-if="requirePassword"
         class="smartphone-only"
       >
-        {{
-          $t('Please type your current password to change your email address.')
-        }}
+        {{ $t('Please type your current password to change your email address.') }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -109,7 +105,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
@@ -117,6 +113,7 @@ import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
 import userGetters from '~/modules/customer/getters/userGetters';
 import { useUiNotification } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
+import type { SubmitFormFn, SubmitEventPayload } from './types';
 
 extend('email', {
   ...email,
@@ -140,7 +137,7 @@ export default defineComponent({
     },
   },
   emits: ['submit'],
-  setup(props, { emit }) {
+  setup(_props, { emit }) {
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
@@ -153,7 +150,7 @@ export default defineComponent({
 
     const form = ref(resetForm());
 
-    const submitForm = (resetValidationFn) => () => {
+    const submitForm = (resetValidationFn: () => void) => () => {
       const onComplete = () => {
         form.value = resetForm();
         requirePassword.value = false;
@@ -169,10 +166,10 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = (msg) => {
+      const onError = (message: string) => {
         sendNotification({
           id: Symbol('user_updated'),
-          message: msg,
+          message,
           type: 'danger',
           icon: 'cross',
           persist: false,
@@ -190,7 +187,9 @@ export default defineComponent({
           form.value.password = currentPassword.value;
         }
 
-        emit('submit', { form, onComplete, onError });
+        const eventPayload : SubmitEventPayload = { form, onComplete, onError };
+
+        emit('submit', eventPayload);
       }
     };
 
