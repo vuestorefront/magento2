@@ -41,25 +41,27 @@
           </div>
         </div>
         <div class="sf-content-pages__content">
-          <router-view />
+          <router-view v-if="!$fetchState.pending" />
         </div>
       </section>
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import {
   SfMenuItem, SfList, SfBar,
 } from '@storefront-ui/vue';
+
 import {
   defineComponent,
   useContext,
   useRouter,
   useRoute,
   computed,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import { useSidebarLinkGroups } from './useSidebarLinkGroups';
+import { useUser } from '../../composables/useUser';
 
 export default defineComponent({
   name: 'MyAccount',
@@ -73,12 +75,19 @@ export default defineComponent({
     const route = useRoute();
     const router = useRouter();
     const { i18n, localeRoute } = useContext();
+    const { user, load: loadUser } = useUser();
+
+    useFetch(async () => {
+      if (user.value === null) {
+        await loadUser();
+      }
+    });
+
+    const { sidebarLinkGroups } = useSidebarLinkGroups();
 
     const isOnSubpage = computed(() => route.value.matched.length > 1);
     const goToTopLevelRoute = () => router.push(localeRoute({ name: 'customer' }));
     const title = computed(() => i18n.t(route.value.matched.at(-1)?.meta.titleLabel as string));
-
-    const { sidebarLinkGroups } = useSidebarLinkGroups();
 
     return {
       sidebarLinkGroups,
