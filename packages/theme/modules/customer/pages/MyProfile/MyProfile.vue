@@ -28,7 +28,7 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import { extend } from 'vee-validate';
 import {
   required,
@@ -38,9 +38,10 @@ import {
 import { SfTabs } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 import { useUser } from '~/modules/customer/composables/useUser';
-import ProfileUpdateForm from '~/modules/customer/components/ProfileUpdateForm.vue';
-import PasswordResetForm from '~/modules/customer/components/PasswordResetForm.vue';
+import ProfileUpdateForm from '~/modules/customer/pages/MyProfile/ProfileUpdateForm.vue';
+import PasswordResetForm from '~/modules/customer/pages/MyProfile/PasswordResetForm.vue';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
+import type { FormFn, OnFormComplete, OnFormError } from '~/modules/customer/helpers/passwordValidation';
 
 extend('required', {
   ...required,
@@ -54,8 +55,7 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  validate: (value) => customerPasswordRegExp.test(value),
+  validate: (value: string) => customerPasswordRegExp.test(value),
 });
 
 extend('confirmed', {
@@ -64,8 +64,6 @@ extend('confirmed', {
 });
 
 export default defineComponent({
-  name: 'PersonalDetails',
-
   components: {
     SfTabs,
     ProfileUpdateForm,
@@ -75,13 +73,16 @@ export default defineComponent({
   setup() {
     const {
       changePassword,
-      errors,
       loading,
       updateUser,
       error,
     } = useUser();
 
-    const formHandler = async (fn, onComplete, onError) => {
+    const formHandler = async (
+      fn: FormFn,
+      onComplete: OnFormComplete,
+      onError: OnFormError,
+    ) => {
       await fn();
       const actionErr = error.value.changePassword || error.value.updateUser;
       if (actionErr) {
@@ -112,7 +113,6 @@ export default defineComponent({
 
     return {
       loading,
-      errors,
       updatePersonalData,
       updatePassword,
     };
