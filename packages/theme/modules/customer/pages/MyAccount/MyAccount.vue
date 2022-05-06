@@ -62,6 +62,7 @@ import {
 import { useSidebarLinkGroups } from './useSidebarLinkGroups';
 
 export default defineComponent({
+  name: 'MyAccount',
   components: {
     SfBar,
     SfList,
