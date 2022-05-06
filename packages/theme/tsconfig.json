@@ -30,7 +30,8 @@
       "cookie-universal-nuxt",
       "nuxt-i18n",
       "@nuxt/image",
-      "jest"
+      "jest",
+      "./types/plugins"
     ],
     "typeRoots": ["../../node_modules/@types"],
     "resolveJsonModule": true,

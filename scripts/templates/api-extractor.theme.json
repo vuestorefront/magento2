@@ -1,6 +1,6 @@
 {
   "extends": "../../api-extractor.base.json",
-  "mainEntryPointFilePath": "./dist/composables/index.d.ts",
+  "mainEntryPointFilePath": "./lib/composables/index.d.ts",
   "compiler": {
     "tsconfigFilePath": "./tsconfig.theme.json"
   },

@@ -104,9 +104,9 @@ import {
 } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
-import { forgotPasswordGetters } from '~/getters';
+import { forgotPasswordGetters } from '~/modules/customer/getters/forgotPasswordGetters';
 import { useForgotPassword } from '~/composables';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 
 extend('email', {
   ...email,

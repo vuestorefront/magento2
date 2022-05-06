@@ -77,8 +77,9 @@ import {
 } from '@storefront-ui/vue';
 
 import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
-import { cartGetters } from '~/getters';
-import { useCart, useShippingProvider } from '~/composables';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
+import useCart from '~/modules/checkout/composables/useCart';
+import useShippingProvider from '~/modules/checkout/composables/useShippingProvider';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default defineComponent({

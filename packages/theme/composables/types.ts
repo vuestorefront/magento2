@@ -1,20 +1,9 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
-  BundleProduct,
-  ConfigurableProduct,
-  DownloadableProduct,
-  GroupedProduct,
-  ProductInterface,
-  VirtualProduct,
-  CategoryTree,
-  ProductAttributeFilterInput,
-  ProductAttributeSortInput,
   AvailableStoresQuery,
   CountriesListQuery,
-  CartItemInterface,
   AvailableShippingMethod,
   ProductReviewRatingsMetadataQuery,
-  CustomerAddress,
 } from '~/modules/GraphQL/types';
 
 export interface Context<CLIENT = any, CONFIG = any, API = any> {
@@ -70,23 +59,10 @@ export declare type CustomerProductReviewParams = {
   currentPage: number;
 };
 
-export declare type GetProductSearchParams = {
-  pageSize?: number;
-  currentPage?: number;
-  search?: string;
-  filter?: ProductAttributeFilterInput;
-  sort?: ProductAttributeSortInput;
-  configurations?: string[];
-};
-
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
-export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
-export declare type Category = CategoryTree;
-export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> { __typename: string }
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];
-export declare type ShippingMethod = AvailableShippingMethod;
 export declare type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
 
 export declare type ComposableFunctionArgs<T> = T & {
@@ -261,11 +237,6 @@ export interface AgnosticStore {
   [x: string]: unknown;
 }
 
-export interface AgnosticPaymentMethod {
-  label: string;
-  value: string;
-}
-
 export interface AgnosticReviewMetadata {
   id: string;
   name: string;
@@ -273,12 +244,4 @@ export interface AgnosticReviewMetadata {
     label: string | number;
     id: string;
   }[];
-}
-
-export interface TransformedCustomerAddress extends CustomerAddress {
-  apartment: string,
-  neighborhood: string,
-  extra: string,
-  phone: string,
-  email: string,
 }

@@ -20,7 +20,7 @@ export const categoryTreeData: CategoryTree[] = [
         uid: 'Mzg=',
         url_path: 'what-is-new',
         url_suffix: '.html',
-        include_in_menu: 0,
+        include_in_menu: 1,
         redirect_code: 301,
         children: [],
       },

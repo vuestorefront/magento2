@@ -1,43 +1,15 @@
 <template>
   <div id="home">
-    <SfHero class="hero">
-      <SfHeroItem
-        v-for="(hero, i) in heroes"
-        :key="i"
-        :title="hero.title"
-        :subtitle="hero.subtitle"
-        :button-text="hero.buttonText"
-        :background="hero.background"
-        :image="hero.image"
-        :class="hero.className"
-      />
-      <template #prev="prevArrow">
-        <SfButton
-          aria-label="previous"
-          class="hero__arrow"
-          @click="prevArrow.go('prev')"
-        >
-          <SvgImage
-            icon="arrow_left"
-            width="24"
-            height="24"
-          />
-        </SfButton>
-      </template>
-      <template #next="nextArrow">
-        <SfButton
-          aria-label="next"
-          class="hero__arrow"
-          @click="nextArrow.go('next')"
-        >
-          <SvgImage
-            icon="arrow_right"
-            width="24"
-            height="24"
-          />
-        </SfButton>
-      </template>
-    </SfHero>
+    <Hero
+      class="hero-section"
+      :title="$t('Colorful summer dresses are already in store')"
+      :subtitle="$t('SUMMER COLLECTION {year}', { year })"
+      :button-text="$t('Learn more')"
+      link="/c/women.html"
+      background="#eceff1"
+      desktop-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg"
+      mobile-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg"
+    />
     <LazyHydrate when-visible>
       <SfBannerGrid
         :banner-grid="1"
@@ -91,7 +63,6 @@
 <script type="module">
 import {
   SfButton,
-  SfHero,
   SfBanner,
   SfBannerGrid,
 } from '@storefront-ui/vue';
@@ -104,19 +75,20 @@ import {
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import Hero from '~/components/Hero.vue';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
+    Hero,
     LazyHydrate,
     LoadWhenVisible,
     SvgImage,
     SfButton,
     SfBanner,
     SfBannerGrid,
-    SfHero,
     InstagramFeed: () => import(/* webpackPrefetch: true */ '~/components/InstagramFeed.vue'),
     MobileStoreBanner: () => import(/* webpackPrefetch: true */ '~/components/MobileStoreBanner.vue'),
     NewProducts: () => import(/* webpackPrefetch: true */ '~/components/NewProducts.vue'),
@@ -127,49 +99,6 @@ export default defineComponent({
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
-    const heroes = ref([
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#eceff1',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg',
-        },
-        link: '/c/women/women-clothing-shirts',
-      },
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#fce4ec',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg',
-        },
-        link: '/c/women/women-clothing-dresses',
-      },
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#efebe9',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg',
-        },
-        link: '/c/women/women-shoes-sandals',
-        className:
-          'sf-hero-item--position-bg-top-left sf-hero-item--align-right',
-      },
-    ]);
     const banners = ref([
       {
         slot: 'banner-A',
@@ -240,7 +169,7 @@ export default defineComponent({
     // @ts-ignore
     return {
       banners,
-      heroes,
+      year,
     };
   },
 });
@@ -278,9 +207,8 @@ export default defineComponent({
   }
 }
 
-.hero {
+.hero-section {
   margin: var(--spacer-xl) auto var(--spacer-lg);
-  --hero-item-background-position: center;
 
   ::v-deep .sf-link:hover {
     color: var(--c-white);
@@ -289,40 +217,6 @@ export default defineComponent({
   @include for-desktop {
     margin: var(--spacer-xl) auto var(--spacer-2xl);
   }
-
-  &__arrow {
-    --button-height: 2.75rem;
-    --button-width: 2.75rem;
-    --button-padding: 0 var(--spacer-xs);
-    --button-background: transparent;
-    --button-color: var(--c-dark);
-    display: flex;
-    align-content: center;
-    justify-content: center;
-
-    &:hover {
-      --button-background: transparent;
-      --button-box-shadow-opacity: 0;
-    }
-  }
-
-  .sf-hero-item {
-    &:nth-child(even) {
-      --hero-item-background-position: left;
-      @include for-mobile {
-        --hero-item-background-position: 30%;
-        --hero-item-wrapper-text-align: right;
-        --hero-item-subtitle-width: 100%;
-        --hero-item-title-width: 100%;
-        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm)
-          var(--spacer-sm) var(--spacer-2xl);
-      }
-    }
-  }
-}
-
-::v-deep .sf-hero__controls {
-  --hero-controls-display: none;
 }
 
 .banner-grid {

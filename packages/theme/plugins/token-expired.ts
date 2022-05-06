@@ -1,8 +1,8 @@
 import type { Plugin } from '@nuxt/types';
 import type { ApolloQueryResult } from '@apollo/client/core/types';
 import type { UiNotification } from '~/composables/useUiNotification';
-import loginStatusPingQueryGql from '~/composables/useUser/loginStatusPingQuery.gql';
 import { useCustomerStore } from '~/stores/customer';
+import loginStatusPingQueryGql from '~/modules/customer/composables/useUser/loginStatusPingQuery.gql';
 
 export const hasGraphqlAuthorizationError = (res: ApolloQueryResult<unknown>) => res?.errors
   ?.some((error) => error.extensions.category === 'graphql-authorization') ?? false;
@@ -20,8 +20,11 @@ const plugin : Plugin = async ({ $pinia, app }) => {
       return res;
     }
     customerStore.setIsLoggedIn(false);
+    // @ts-ignore
     app.$vsf.$magento.config.state.removeCustomerToken();
+    // @ts-ignore
     app.$vsf.$magento.config.state.removeCartId();
+    // @ts-ignore
     app.$vsf.$magento.config.state.setMessage<UiNotification>({
       id: Symbol(''),
       message: app.i18n.t('You are not authorized, please log in.') as string,

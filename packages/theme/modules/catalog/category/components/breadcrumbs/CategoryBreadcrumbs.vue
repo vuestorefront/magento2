@@ -7,7 +7,7 @@ import {
   defineComponent, computed, PropType,
 } from '@nuxtjs/composition-api';
 import { SfBreadcrumbs } from '@storefront-ui/vue';
-import { CategoryTree } from '~/modules/GraphQL/types';
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import { useUiHelpers } from '~/composables';
 
 type Breadcrumb = { text: string, link: string };

@@ -1,5 +1,7 @@
 import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
-import type { GetProductSearchParams, ComposableFunctionArgs } from '~/composables/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
+
 import type {
   CreateProductReviewInput,
   ProductReviewQuery,
@@ -55,7 +57,7 @@ export interface UseReviewInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Contains errors from any of the composable methods

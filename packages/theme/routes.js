@@ -1,57 +1,11 @@
-const path = require('path');
+import path from 'node:path';
+import url from 'node:url';
 
-export function getRoutes(themeDir = __dirname) {
+export function getRoutes(themeDir = path.dirname(url.fileURLToPath(import.meta.url))) {
   return [{
     name: 'home',
     path: '/',
     component: path.resolve(themeDir, 'pages/Home.vue'),
-  },
-  {
-    name: 'product',
-    path: '/p/:id/:slug/',
-    component: path.resolve(themeDir, 'pages/Product.vue'),
-  },
-  {
-    name: 'my-account',
-    path: '/my-account/:pageName?',
-    component: path.resolve(themeDir, 'pages/MyAccount.vue'),
-  },
-  {
-    name: 'checkout',
-    path: '/checkout',
-    component: path.resolve(themeDir, 'pages/Checkout.vue'),
-    children: [
-      {
-        path: 'user-account',
-        name: 'user-account',
-        component: path.resolve(themeDir, 'pages/Checkout/UserAccount.vue'),
-      },
-      {
-        path: 'shipping',
-        name: 'shipping',
-        component: path.resolve(themeDir, 'pages/Checkout/Shipping.vue'),
-      },
-      {
-        path: 'billing',
-        name: 'billing',
-        component: path.resolve(themeDir, 'pages/Checkout/Billing.vue'),
-      },
-      {
-        path: 'payment',
-        name: 'payment',
-        component: path.resolve(themeDir, 'pages/Checkout/Payment.vue'),
-      },
-      {
-        path: 'thank-you',
-        name: 'thank-you',
-        component: path.resolve(themeDir, 'pages/Checkout/ThankYou.vue'),
-      },
-      {
-        path: 'external-thank-you',
-        name: 'external-thank-you',
-        component: path.resolve(themeDir, 'pages/Checkout/ExternalCheckoutThankYou.vue'),
-      },
-    ],
   },
   {
     name: 'reset-password',

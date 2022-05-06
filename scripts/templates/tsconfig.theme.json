@@ -1,20 +1,15 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
-    "target": "ES2019",
-    "module": "ES2015",
-    "moduleResolution": "node",
-    "lib": ["ES2019"],
+    "noEmit": false,
     "esModuleInterop": true,
-    "allowJs": true,
     "outDir": "dist",
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
-    },
     "skipLibCheck": true
   },
-  "files": ["./composables/index.ts"]
+  "files": [
+    "./composables/index.ts"
+  ]
 }

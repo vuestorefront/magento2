@@ -146,7 +146,7 @@
     </SfMegaMenu>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfMegaMenu,
   SfProductCard,
@@ -155,10 +155,12 @@ import {
   SfButton,
 } from '@storefront-ui/vue';
 import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
-import { productGetters } from '~/getters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiHelpers, useImage, useWishlist, useUser,
+  useUiHelpers, useImage,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({

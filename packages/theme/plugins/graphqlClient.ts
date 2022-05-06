@@ -71,13 +71,3 @@ const plugin : Plugin = (ctx, inject) => {
 };
 
 export default plugin;
-
-declare module '@nuxt/types' {
-  interface NuxtAppOptions {
-    $graphql: GraphQlClients;
-  }
-
-  interface Context {
-    $graphql: GraphQlClients;
-  }
-}

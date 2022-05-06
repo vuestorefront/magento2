@@ -1,7 +1,7 @@
 import { useApi } from '~/composables/useApi';
 import getPricesQuery from '~/modules/catalog/pricing/getPricesQuery.gql';
 import { PriceRange } from '~/modules/GraphQL/types';
-import { GetProductSearchParams } from '~/composables/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 export interface PriceItem {
   price_range: PriceRange;

@@ -1,4 +1,3 @@
-import type { FetchResult } from '@apollo/client/core';
 import type { CustomQuery } from '@vue-storefront/core';
 import createCustomerAddressMutation from './createCustomerAddress';
 import type {
@@ -6,6 +5,7 @@ import type {
   CreateCustomerAddressMutationVariables,
   CustomerAddressInput,
 } from '../../types/GraphQL';
+import type { FetchResult } from '~/types/core';
 import type { Context } from '../../types/context';
 
 /**

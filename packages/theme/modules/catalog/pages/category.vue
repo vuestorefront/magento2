@@ -30,6 +30,7 @@
           v-if="isShowProducts"
           :sort-by="sortBy"
           :pagination="pagination"
+          :is-loading="$fetchState.pending"
           @reloadProducts="fetch"
         />
         <div class="products">
@@ -112,18 +113,18 @@ import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
 import { facetGetters } from '~/getters';
 import {
   useFacet,
-  useWishlist,
   useUiHelpers,
   useUiState,
 } from '~/composables';
-
-import { AgnosticPagination, Product } from '~/composables/types';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { AgnosticPagination } from '~/composables/types';
+import { Product } from '~/modules/catalog/product/types';
 import { useUrlResolver } from '~/composables/useUrlResolver';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
-import type { ProductInterface, EntityUrl } from '~/modules/GraphQL/types';
+import type { EntityUrl } from '~/modules/GraphQL/types';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 
@@ -172,7 +173,7 @@ export default defineComponent({
     const { result, search } = useFacet();
     const { addItemToCart } = useAddToCart();
 
-    const addItemToWishlist = async (product: ProductInterface) => {
+    const addItemToWishlist = async (product: Product) => {
       await (isInWishlist({ product })
         ? removeItemFromWishlist({ product })
         : addItemToWishlistBase({ product }));
