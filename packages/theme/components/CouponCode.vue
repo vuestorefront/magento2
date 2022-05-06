@@ -1,41 +1,41 @@
 <template>
   <div>
     <span
-      v-if="promoIsApplied"
+      v-if="isPromoCodeApplied"
       class="applied-coupon"
     >
       {{ $t('Applied Coupon') }}:
-      <span class="applied-coupon__code">{{ promoCode }}</span>
+      <span class="applied-coupon__code">{{ verifiedPromoCodeAppliedToCart }}</span>
     </span>
     <div class="promo-code">
       <SfInput
-        v-model="promoCode"
+        v-model="promoCodeUserInput"
         name="promoCode"
-        :disabled="promoIsApplied"
+        :disabled="isPromoCodeApplied"
         :label="$t('Enter promo code')"
         class="sf-input--filled promo-code__input"
+        :error-message="$t('An error occurred')"
+        :valid="!hasAnyError"
       />
       <SfButton
         class="promo-code__button"
-        @click="handleCoupon"
+        @click="applyOrRemovePromoCode"
       >
-        {{ promoIsApplied ? $t('Remove') : $t('Apply') }}
+        {{ isPromoCodeApplied ? $t('Remove') : $t('Apply') }}
       </SfButton>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfButton, SfInput } from '@storefront-ui/vue';
 import {
   computed,
-  onMounted,
-  watch,
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
   name: 'CouponCode',
@@ -44,29 +44,36 @@ export default defineComponent({
     SfInput,
   },
   setup() {
-    const { cart, applyCoupon, removeCoupon } = useCart();
-    const promoCode = ref('');
-    const promoIsApplied = computed(
-      () => cartGetters.getAppliedCoupon(cart.value)?.code,
-    );
+    const {
+      cart, applyCoupon, removeCoupon, error,
+    } = useCart();
 
-    const setCartCoupon = () => {
-      promoCode.value = promoIsApplied.value;
+    const promoCodeUserInput = ref('');
+
+    const verifiedPromoCodeAppliedToCart = computed(() => cartGetters.getAppliedCoupon(cart.value)?.code);
+    const isPromoCodeApplied = computed(() => verifiedPromoCodeAppliedToCart.value !== undefined);
+
+    const applyOrRemovePromoCode = async () => {
+      try {
+        // eslint-disable-next-line unicorn/prefer-ternary
+        if (isPromoCodeApplied.value) {
+          await removeCoupon({});
+        } else {
+          await applyCoupon({ couponCode: promoCodeUserInput.value });
+        }
+      } finally {
+        promoCodeUserInput.value = '';
+      }
     };
 
-    const handleCoupon = async () => {
-      await (promoIsApplied.value
-        ? removeCoupon({ currentCart: cart.value })
-        : applyCoupon({ couponCode: promoCode.value }));
-    };
-
-    onMounted(setCartCoupon);
-    watch(promoIsApplied, setCartCoupon);
+    const hasAnyError = computed(() => Object.values(error.value).some((value) => value instanceof Error));
 
     return {
-      handleCoupon,
-      promoIsApplied,
-      promoCode,
+      promoCodeUserInput,
+      verifiedPromoCodeAppliedToCart,
+      isPromoCodeApplied,
+      applyOrRemovePromoCode,
+      hasAnyError,
     };
   },
 });
@@ -99,6 +106,10 @@ export default defineComponent({
 .promo-code {
   display: flex;
   align-items: flex-start;
+  margin: {
+    top: var(--spacer-sm);
+    bottom: var(--spacer-sm);
+  }
 
   &__button {
     --button-width: 6.3125rem;
