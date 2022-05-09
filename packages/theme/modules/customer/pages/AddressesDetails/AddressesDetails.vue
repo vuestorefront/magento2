@@ -1,37 +1,10 @@
 <template>
   <transition name="fade">
-    <SfTabs
-      v-if="editingAddress"
-      key="edit-address"
-      :open-tab="1"
-      class="tab-orphan"
-    >
-      <SfTab
-        :title="isNewAddress ? $t('Add the address') : $t('Update the address')"
-      >
-        <p class="message">
-          {{ $t('Contact details updated') }}
-        </p>
-
-        <AddressForm
-          :address="activeAddress"
-          :is-new="isNewAddress"
-          v-if="activeAddress && activeAddress.id || isNewAddress"
-          @submit="saveAddress"
-        />
-      </SfTab>
-    </SfTabs>
-
-    <SfTabs
-      v-else
-      key="address-list"
-      :open-tab="1"
-      class="tab-orphan"
-    >
+    <SfTabs class="tab-orphan">
       <SfTab :title="$t('Addresses details')">
-        <p class="message">
-          {{ $t('Manage addresses') }}
-        </p>
+        <p
+          v-t="'Manage addresses'"
+        />
         <transition-group
           tag="div"
           name="fade"
@@ -48,13 +21,13 @@
               </div>
             </div>
             <div class="addresses__actions">
-              <SfButton @click="changeAddress(address)">
+              <SfButton @click="goToEditAddressPage(address.id)">
                 {{ $t('Change') }}
               </SfButton>
 
               <SfButton
                 v-if="!isDefault(address)"
-                class="color-light addresses__button-delete desktop-only"
+                class="desktop-only color-light addresses__button-delete"
                 @click="removeAddress(address)"
               >
                 {{ $t('Delete') }}
@@ -66,14 +39,14 @@
               role="button"
               width="14"
               height="14"
-              class="addresses__remove smartphone-only"
+              class="smartphone-only addresses__remove"
               @click.native="removeAddress(address)"
             />
           </div>
         </transition-group>
         <SfButton
           class="action-button"
-          @click="changeAddress()"
+          @click="goToCreateAddressPage()"
         >
           {{ $t('Add new address') }}
         </SfButton>
@@ -81,98 +54,56 @@
     </SfTabs>
   </transition>
 </template>
-<script>
+<script lang="ts">
 import { SfTabs, SfButton } from '@storefront-ui/vue';
 import {
-  computed,
   defineComponent,
   useRouter,
-  useRoute,
   useContext,
   ref,
   useFetch,
 } from '@nuxtjs/composition-api';
-import { useAddresses } from '~/composables';
+import { CustomerAddress, useAddresses } from '~/composables';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
-import AddressForm from '~/modules/customer/components/AddressForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
-  name: 'ShippingDetails',
+  name: 'AddressesDetails',
   components: {
-    SfTabs,
-    SfButton,
-    AddressForm,
-    SvgImage,
-    UserAddressDetails,
+    SfTabs, SfButton, SvgImage, UserAddressDetails,
   },
   setup() {
-    const {
-      load, remove, update, save,
-    } = useAddresses();
+    const context = useContext();
     const router = useRouter();
-    const route = useRoute();
-    const { app } = useContext();
+
     const userAddresses = ref([]);
-    const activeAddress = ref({});
-    const getTranslatedUrlAddress = (title) => app.i18n.t(`${title}`).toLowerCase().replace(' ', '-');
-    const isNewAddress = computed(() => route.value.query.id === 'new');
-    const editingAddress = computed(() => !!route.value.query.id);
+    const { load, remove } = useAddresses();
     const { fetch } = useFetch(async () => {
       const addressesData = await load();
       userAddresses.value = userAddressesGetters.getAddresses(addressesData);
-
-      const activeAddressData = userAddresses.value
-        .filter((address) => String(address?.id) === route.value.query.id)
-        .pop();
-
-      activeAddress.value = activeAddressData;
     });
-    const changeAddress = async (address) => {
-      const addressId = address?.id || 'new';
 
-      await router.push(
-        `${app.localePath({
-          path: `/customer/${getTranslatedUrlAddress('Addresses details')}`,
-          query: { id: addressId },
-        })}`,
-      );
-    };
+    const goToCreateAddressPage = () => router.push(
+      context.localeRoute({ name: 'customer-addresses-details-new' }),
+    );
 
-    const removeAddress = async (address) => {
-      const isDefault = userAddressesGetters.isDefault(address);
-      if (!isDefault) {
-        await remove({ address });
-        fetch();
-      }
-    };
+    const goToEditAddressPage = (addressId: number) => router.push(
+      context.localeRoute({ name: 'customer-addresses-details-edit', params: { addressId: String(addressId) } }),
+    );
 
-    const saveAddress = async ({ form, onError }) => {
-      try {
-        const actionMethod = isNewAddress.value ? save : update;
-        const data = await actionMethod({ address: form });
-        await router.push(
-          app.localePath(
-            `/customer/${getTranslatedUrlAddress('Addresses details')}`,
-          ),
-        );
-        userAddresses.value = userAddressesGetters.getAddresses(data);
-      } catch (error) {
-        onError(error);
-      }
+    const removeAddress = async (address: CustomerAddress) => {
+      await remove({ address });
+      fetch();
     };
 
     return {
-      changeAddress,
-      update,
-      removeAddress,
-      saveAddress,
-      ...userAddressesGetters,
       userAddresses,
-      editingAddress,
-      activeAddress,
-      isNewAddress,
+      goToCreateAddressPage,
+      goToEditAddressPage,
+      removeAddress,
+      getId: userAddressesGetters.getId,
+      isDefault: userAddressesGetters.isDefault,
     };
   },
 });
