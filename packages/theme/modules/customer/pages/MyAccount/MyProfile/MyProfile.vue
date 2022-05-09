@@ -38,12 +38,12 @@ import {
 import { SfTabs } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 import { useUser } from '~/modules/customer/composables/useUser';
-import ProfileUpdateForm from '~/modules/customer/pages/MyProfile/ProfileUpdateForm.vue';
-import PasswordResetForm from '~/modules/customer/pages/MyProfile/PasswordResetForm.vue';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
+import ProfileUpdateForm from '~/modules/customer/pages/MyAccount/MyProfile/ProfileUpdateForm.vue';
+import PasswordResetForm from '~/modules/customer/pages/MyAccount/MyProfile/PasswordResetForm.vue';
 import type {
   OnFormComplete, OnFormError, ProfileUpdateFormFields, PasswordResetFormFields, SubmitEventPayload,
-} from '~/modules/customer/pages/MyProfile/types';
+} from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 extend('required', {
   ...required,

@@ -18,7 +18,7 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-my-profile',
       path: 'my-profile',
-      component: path.resolve(moduleDir, 'pages/MyProfile/MyProfile.vue'),
+      component: path.resolve(moduleDir, 'pages/MyAccount/MyProfile/MyProfile.vue'),
       meta: {
         titleLabel: 'My profile',
       },
