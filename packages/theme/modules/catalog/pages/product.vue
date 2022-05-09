@@ -313,12 +313,11 @@ import {
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import type { Product } from '~/modules/catalog/product/types';
-
 import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
 import GroupedProductSelector from '~/modules/catalog/product/components/GroupedProductSelector.vue';
 import UpsellProducts from '~/modules/catalog/product/components/UpsellProducts.vue';
 import RelatedProducts from '~/modules/catalog/product/components/RelatedProducts.vue';
-
+import { ProductTypeUnion } from '~/modules/catalog/product/enums/ProductTypeUnion';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
@@ -327,6 +326,9 @@ import HTMLContent from '~/components/HTMLContent.vue';
 import AddToWishlist from '~/components/AddToWishlist.vue';
 import { useImage } from '~/composables/useImage';
 import { useUser } from '~/modules/customer/composables/useUser';
+
+import { getGroupedProductPriceCommand } from '~/modules/catalog/pricing/getGroupedProductPriceCommand';
+import { getConfigurableProductPriceCommand } from '~/modules/catalog/pricing/getConfigurableProductPriceCommand';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -425,10 +427,13 @@ export default defineComponent({
     const productConfiguration = ref(Object.entries(route.value.query));
     const productTypedPrice = computed(() => {
       // eslint-disable-next-line no-underscore-dangle
-      switch (product.value?.__typename) {
-        case 'BundleProduct':
-          return basePrice.value;
+      switch (product.value?.__typename as ProductTypeUnion) {
+        case 'ConfigurableProduct':
+          return getConfigurableProductPriceCommand(product.value);
         case 'GroupedProduct':
+          console.log(product.value);
+          return getGroupedProductPriceCommand(product.value);
+        case 'BundleProduct':
           return basePrice.value;
         default:
           return 0;

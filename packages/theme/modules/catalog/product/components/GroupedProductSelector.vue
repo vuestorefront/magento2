@@ -62,10 +62,12 @@ import {
   getProductThumbnailImage,
 } from '~/modules/catalog/product/getters/productGetters';
 
+import { getGroupedProductPriceCommand } from '~/modules/catalog/pricing/getGroupedProductPriceCommand';
+
 import { useImage } from '~/composables';
 import useCart from '~/modules/checkout/composables/useCart';
 import type { WithTypename } from '~/modules/catalog/product/types';
-import type { GroupedProduct, ProductInterface } from '~/modules/GraphQL/types';
+import type { GroupedProduct } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'GroupedProductSelector',
@@ -111,18 +113,9 @@ export default defineComponent({
     };
 
     watch(
-      groupedItems,
+      () => props.product,
       (newValue) => {
-        const evalProductPrice = (p: ProductInterface) => {
-          const { regular, special } = getProductPrice(p);
-
-          return regular > special ? regular : special;
-        };
-
-        const price = newValue.reduce(
-          (acc, curr) => curr.qty * evalProductPrice(curr.product) + acc,
-          0,
-        );
+        const price = getGroupedProductPriceCommand(newValue);
 
         emit('update-price', price);
       },
