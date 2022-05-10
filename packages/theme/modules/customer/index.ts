@@ -35,9 +35,7 @@ const moduleRoutes : NuxtRouteConfig = {
       name: 'customer-addresses-details-edit',
       path: 'addresses-details/edit/:addressId',
       component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsEdit.vue'),
-      props: (route) => ({
-        addressId: Number.parseInt(route.params.addressId, 10),
-      }),
+      props: true,
       meta: { titleLabel: 'Addresses details' },
     },
     {

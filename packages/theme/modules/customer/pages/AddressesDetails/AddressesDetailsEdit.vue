@@ -34,13 +34,16 @@ export default defineComponent({
   components: { SfTabs, AddressForm },
   props: {
     addressId: {
-      type: Number, // because typeof CustomerAddress['id'] is number
+      type: String,
       required: true,
     },
   },
   setup(props) {
     const router = useRouter();
     const context = useContext();
+
+    // because CustomerAddress['id'] is numeric for below find expr.
+    const numericAddressId = Number.parseInt(props.addressId, 10);
 
     const addressesComposable = useAddresses();
     const address = ref(null);
@@ -49,12 +52,12 @@ export default defineComponent({
       const addressesData = await addressesComposable.load();
       address.value = userAddressesGetters
         .getAddresses(addressesData)
-        .find(({ id }) => id === props.addressId);
+        .find(({ id }) => id === numericAddressId);
     });
 
     const update = async ({ form, onError }) => {
       try {
-        await addressesComposable.update({ address: { ...form, id: props.addressId } });
+        await addressesComposable.update({ address: { ...form, id: numericAddressId } });
         await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
       } catch (error) {
         onError(error);
