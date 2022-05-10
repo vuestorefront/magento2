@@ -90,6 +90,87 @@ Here's a recording of these steps:
 
 <Asciinema id="493276" />
 
+### Setting up the authentication
+
+In the Magento 2 folder, copy the `src/auth.json.sample` file to `src/auth.json`.
+
+```sh
+cp src/auth.json.sample src/auth.json
+```
+
+Update the username and password values with your Magento public and private keys, respectively.
+
+```json
+{
+    "http-basic": {
+        "repo.magento.com": {
+            "username": "a1c69cb…",
+            "password": "af041560…"
+        }
+    }
+}
+```
+
+Finally, copy the file to the container by running `bin/copytocontainer auth.json`.
+
+```sh
+bin/copytocontainer auth.json
+```
+
+### Populating with sample data
+
+In the Magento 2 folder, execute the the commands below to add deploy sample data to your store.
+
+```sh
+bin/magento sampledata:deploy
+```
+
+And make sure the configuration was correctly registered.
+
+```sh
+bin/magento setup:upgrade
+```
+
+### Enabling CORS
+
+In order to accept requests from other domains, e.g. `magento.dev`, you may need to enable CORS origins in your Magento store.
+
+In the Magento 2 folder, add the package `graycore/magento2-cors` by running the command below.
+
+```sh
+bin/composer require graycore/magento2-cors
+```
+
+Add the following configuration at the end of `src/app/etc/env.php`.
+
+```php
+    'system' => [
+        'default' => [
+            'web' => [
+                'graphql' => [
+                    'cors_max_age' => 86400,
+                    'cors_allow_credentials' => 0,
+                    'cors_allowed_methods' => 'POST, OPTIONS, GET',
+                    'cors_allowed_headers' => 'Content-Currency, Store, X-Magento-Cache-Id, X-Captcha, Content-Type, Authorization, DNT, TE',
+                    'cors_allowed_origins' => '*'
+                ]
+            ]
+        ]
+    ]
+```
+
+Enable the graycore cors.
+
+```sh
+bin/magento module:enable Graycore_Cors
+```
+
+Make sure the configuration was correctly registered.
+
+```sh
+bin/magento setup:upgrade
+```
+
 ## Creating the Vue Storefront for Magento 2
 
 That's the easy part, you just need to execute the `init` command of Vue Storefront CLI in the project root folder. It will ask you for the project name and the integration. Keep in mind that the project name will also be used as the project folder name, and be sure to select the Magento 2 integration.
