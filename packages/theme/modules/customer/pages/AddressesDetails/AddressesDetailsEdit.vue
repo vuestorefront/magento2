@@ -51,7 +51,6 @@ export default defineComponent({
     // TODO don't fetch all addresses just to pluck one address
       const addressesData = await addressesComposable.load();
       address.value = userAddressesGetters
-        // @ts-expect-error Doesn't have to be TransformedCustomerAddress
         .getAddresses(addressesData)
         .find(({ id }) => id === numericAddressId);
     });
