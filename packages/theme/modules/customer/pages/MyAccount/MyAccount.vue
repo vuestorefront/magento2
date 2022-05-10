@@ -107,6 +107,7 @@ export default defineComponent({
 }
 
 .my-account {
+  height: 100%;
   @include for-mobile {
     --content-pages-sidebar-category-title-font-weight: var(
       --font-weight--normal
