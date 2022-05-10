@@ -1,5 +1,13 @@
-import formatCurrency from '~/helpers/formatCurrency';
 import { Plugin } from '@nuxt/types';
+import formatCurrency from '~/helpers/formatCurrency';
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $fc(value: number | string): string;
+    $fc(value: number | string, options?: Intl.NumberFormatOptions): string;
+    $fc(value: number | string, locale?: string, options?: Intl.NumberFormatOptions): string;
+  }
+}
 
 const plugin : Plugin = (context, inject) => {
   inject('fc', (value: number | string, locale?: string, options = {}): string => {

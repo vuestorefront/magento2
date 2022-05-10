@@ -176,7 +176,7 @@ export interface UseAddressesInterface {
    * }
    * ```
    */
-  update(params?: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<CustomerAddress>;
+  update(params: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<CustomerAddress>;
 
   /**
    * Removes an existing address from the profile of the current customer
@@ -218,5 +218,5 @@ export interface UseAddressesInterface {
    * }
    * ```
    */
-  remove(params?: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<boolean>;
+  remove(params: ComposableFunctionArgs<UseAddressesParamsInput>): Promise<boolean>;
 }

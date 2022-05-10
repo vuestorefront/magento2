@@ -1,7 +1,7 @@
 import { ref, useContext } from '@nuxtjs/composition-api';
 import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '../../helpers/userAddressManipulator';
+import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/modules/customer/helpers/userAddressManipulator';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from './useAddresses';
 

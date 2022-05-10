@@ -7,7 +7,15 @@
     "noEmit": false,
     "esModuleInterop": true,
     "outDir": "dist",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
   },
   "files": [
     "./composables/index.ts"
