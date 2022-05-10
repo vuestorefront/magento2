@@ -6,10 +6,7 @@
           v-t="'Contact details added'"
           class="message"
         />
-        <AddressForm
-          v-if="!$fetchState.pending"
-          @submit="create"
-        >
+        <AddressForm @submit="createAddress">
           <template #submit-button-content>
             {{ $t('Add the address') }}
           </template>
@@ -33,9 +30,9 @@ export default defineComponent({
     const router = useRouter();
     const useAddressesComposable = useAddresses();
 
-    const create = async ({ form, onError }) => {
+    const createAddress = async ({ form, onError }) => {
       try {
-        await useAddressesComposable.update({ address: form });
+        await useAddressesComposable.save({ address: form });
         await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
       } catch (error) {
         onError(error);
@@ -43,7 +40,7 @@ export default defineComponent({
     };
 
     return {
-      create,
+      createAddress,
     };
   },
 

@@ -11,9 +11,7 @@ const moduleRoutes : NuxtRouteConfig = {
   name: 'customer',
   path: '/customer',
   component: path.resolve(moduleDir, 'pages/MyAccount/MyAccount.vue'),
-  meta: {
-    titleLabel: 'My Account',
-  },
+  meta: { titleLabel: 'My Account' },
   children: [
     {
       name: 'customer-my-profile',
@@ -30,8 +28,7 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-addresses-details-new',
       path: 'addresses-details/create',
-      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsEdit.vue'),
-      props: { isNewAddress: true },
+      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsNew.vue'),
       meta: { titleLabel: 'Addresses details' },
     },
     {
@@ -40,7 +37,6 @@ const moduleRoutes : NuxtRouteConfig = {
       component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsEdit.vue'),
       props: (route) => ({
         addressId: Number.parseInt(route.params.addressId, 10),
-        isNewAddress: false,
       }),
       meta: { titleLabel: 'Addresses details' },
     },
