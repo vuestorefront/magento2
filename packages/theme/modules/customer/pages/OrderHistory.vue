@@ -183,6 +183,7 @@ import { AgnosticOrderStatus } from '~/composables/types';
 import { orderGetters } from '~/getters';
 import { useUiHelpers } from '~/composables';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
+import { CustomerOrder } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'PersonalDetails',
@@ -225,7 +226,7 @@ export default defineComponent({
       'Status',
     ];
 
-    const getStatusTextClass = (order) => {
+    const getStatusTextClass = (order: CustomerOrder) => {
       const status = orderGetters.getStatus(order);
       switch (status) {
         case AgnosticOrderStatus.Open:
@@ -244,6 +245,7 @@ export default defineComponent({
       getStatusTextClass,
       loading,
       orderGetters,
+      // @ts-ignore
       orders: computed(() => orderGetters.getItems(orders.value)),
       pagination,
       tableHeaders,

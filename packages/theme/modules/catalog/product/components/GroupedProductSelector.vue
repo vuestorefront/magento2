@@ -62,7 +62,8 @@ import {
   getProductThumbnailImage,
 } from '~/modules/catalog/product/getters/productGetters';
 
-import { useCart, useImage } from '~/composables';
+import { useImage } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 import type { WithTypename } from '~/modules/catalog/product/types';
 import type { GroupedProduct, ProductInterface } from '~/modules/GraphQL/types';
 

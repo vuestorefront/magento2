@@ -40,7 +40,7 @@ export default defineComponent({
     TopBar,
     AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
     CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
-    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/modules/theme/components/wishlist/WishlistSidebar.vue'),
+    WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/modules/wishlist/components/WishlistSidebar.vue'),
     LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
     Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification.vue'),
   },

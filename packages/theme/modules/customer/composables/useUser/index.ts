@@ -8,7 +8,7 @@ import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/stores/customer';
-import { useCart } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
 import type {
   User,
