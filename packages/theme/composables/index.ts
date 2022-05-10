@@ -45,6 +45,4 @@ export * from './useMagentoConfiguration';
 
 export * from './types';
 export * from '../modules/GraphQL/types';
-export { default as InjectDOMPurify } from '../plugins/dompurify';
-export { default as InjectFormatCurrency } from '../plugins/fcPlugin';
 export { default as InjectGraphQLClient } from '../plugins/graphqlClient';
