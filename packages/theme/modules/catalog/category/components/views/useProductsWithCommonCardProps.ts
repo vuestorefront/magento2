@@ -47,7 +47,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
       scoreRating: getAverageRating(product),
     };
 
-    const link = context.app.localePath(`/p/${getProductSku(product)}${getSlug(product, product.categories[0])}`);
+    const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
 
     const commonProps = {
       title: getName(product),

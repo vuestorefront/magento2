@@ -1,40 +1,7 @@
-import { CategoryInterface, Country } from '~/modules/GraphQL/types';
 import {
-  AgnosticAttribute, Countries, AgnosticPrice, AgnosticTotals,
-  AgnosticCoupon, AgnosticDiscount, AgnosticCategoryTree, AgnosticBreadcrumb,
-  GroupedFacetInterface, AgnosticSort, AgnosticMediaGalleryItem, AgnosticPagination, AgnosticFacetSearchParams, FacetInterface,
+  AgnosticAttribute, AgnosticPrice, AgnosticTotals,
+  AgnosticCoupon, AgnosticDiscount,
 } from '~/composables/types';
-
-export interface AddressGetter {
-  countriesList(countries: Countries[]): {
-    id: string;
-    label: string;
-    englishLabel: string;
-    abbreviation: string;
-  }[];
-  regionList(country: Country): {
-    id: number;
-    label: string;
-    abbreviation: string;
-  }[];
-}
-
-export interface ProductGetters<PRODUCT> {
-  getName: (product: PRODUCT) => string;
-  getSlug: (product: PRODUCT) => string;
-  getPrice: (product: PRODUCT) => AgnosticPrice;
-  getGallery: (product: PRODUCT) => AgnosticMediaGalleryItem[];
-  getCoverImage: (product: PRODUCT) => string;
-  getAttributes: (products: PRODUCT[] | PRODUCT, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
-  getDescription: (product: PRODUCT) => string;
-  getCategoryIds: (product: PRODUCT) => string[];
-  getId: (product: PRODUCT) => string;
-  getFormattedPrice: (price: number) => string;
-  getTotalReviews: (product: PRODUCT) => number;
-  getAverageRating: (product: PRODUCT) => number;
-  getBreadcrumbs?: (product: PRODUCT, category?: CategoryInterface) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
-}
 
 export interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
   getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
@@ -60,22 +27,6 @@ export interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
 export interface ForgotPasswordGetters<FORGOT_PASSWORD_RESULT> {
   getResetPasswordToken: (result: FORGOT_PASSWORD_RESULT) => string
   isPasswordChanged: (result: FORGOT_PASSWORD_RESULT) => boolean
-}
-
-export interface FacetsGetters<SEARCH_DATA, RESULTS, CRITERIA = any> {
-  getAll: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => FacetInterface[];
-  getGrouped: (searchData: FacetSearchResult<SEARCH_DATA>, criteria?: CRITERIA) => GroupedFacetInterface[];
-  getCategoryTree: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticCategoryTree;
-  getSortOptions: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticSort;
-  getProducts: (searchData: FacetSearchResult<SEARCH_DATA>) => RESULTS;
-  getPagination: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticPagination;
-  getBreadcrumbs: (searchData: FacetSearchResult<SEARCH_DATA>) => AgnosticBreadcrumb[];
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-
-export interface FacetSearchResult<S> {
-  data: S;
-  input: AgnosticFacetSearchParams;
 }
 
 export interface UserShippingGetters<USER_SHIPPING, USER_SHIPPING_ITEM> {

@@ -2,7 +2,6 @@ import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
   AvailableStoresQuery,
   CountriesListQuery,
-  AvailableShippingMethod,
   ProductReviewRatingsMetadataQuery,
 } from '~/modules/GraphQL/types';
 
@@ -39,18 +38,6 @@ export interface ProductsSearchParams {
   sort?: any;
   term?: any;
   filters?: any;
-  [x: string]: any;
-}
-
-export interface AgnosticFacetSearchParams {
-  categorySlug?: string;
-  rootCatSlug?: string;
-  term?: string;
-  page?: number;
-  itemsPerPage?: number;
-  sort?: string;
-  filters?: Record<string, string[]>;
-  metadata?: any;
   [x: string]: any;
 }
 

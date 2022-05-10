@@ -4,14 +4,11 @@
       v-if="isShowCms"
       :content="cmsContent"
     />
-    <CategoryBreadcrumbs
-      :category-ancestors="categoryAncestorsWithoutActiveCategory"
-      class="breadcrumbs"
-    />
+    <CategoryBreadcrumbs />
     <SfHeading
       v-if="isShowProducts"
       :level="2"
-      :title="activeCategoryLabel"
+      :title="activeCategoryName"
       class="category-title"
     />
     <div class="category-layout">
@@ -154,7 +151,6 @@ export default defineComponent({
     const isShowProducts = ref(false);
     const products = ssrRef<Product[]>([]);
     const sortBy = ref({});
-    const facets = ref([]);
     const pagination = ref<AgnosticPagination>({});
 
     const { search: resolveUrl } = useUrlResolver();
@@ -187,27 +183,26 @@ export default defineComponent({
       });
     };
 
-    const {
-      categoryAncestors, isCategoryTreeLoaded, loadCategoryTree, activeCategory,
-    } = useTraverseCategory();
-    const activeCategoryLabel = computed(() => activeCategory.value?.name ?? '');
-    const categoryAncestorsWithoutActiveCategory = computed(() => categoryAncestors.value.slice(0, -1));
+    const { activeCategory } = useTraverseCategory();
+    const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
     const routeData = ref<EntityUrl>({});
 
     const { fetch } = useFetch(async () => {
       routeData.value = await resolveUrl();
-      const content = await getContentData(routeData.value?.id);
+
+      const [content] = await Promise.all([
+        getContentData(routeData.value?.entity_uid),
+        searchCategoryProduct(routeData.value?.entity_uid),
+      ]);
+
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
 
-      await searchCategoryProduct(routeData.value?.entity_uid);
       products.value = facetGetters.getProducts(result.value) ?? [];
       sortBy.value = facetGetters.getSortOptions(result.value);
-      facets.value = facetGetters.getGrouped(
-        result.value,
-      );
       pagination.value = facetGetters.getPagination(result.value);
+
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
       // eslint-disable-next-line no-underscore-dangle
       const productTags = products.value.map((product) => ({
@@ -217,10 +212,6 @@ export default defineComponent({
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags([...tags, ...productTags]);
-
-      if (!isCategoryTreeLoaded.value) {
-        await loadCategoryTree();
-      }
     });
 
     const isPriceLoaded = ref(false);
@@ -252,15 +243,13 @@ export default defineComponent({
       isFilterSidebarOpen,
       addItemToCart,
       addItemToWishlist,
-      facets,
       pagination,
       products,
       sortBy,
       isShowCms,
       isShowProducts,
       cmsContent,
-      categoryAncestorsWithoutActiveCategory,
-      activeCategoryLabel,
+      activeCategoryName,
       routeData,
       doChangeItemsPerPage,
       fetch,
@@ -314,14 +303,6 @@ export default defineComponent({
 
 .main {
   display: flex;
-}
-
-.breadcrumbs {
-  margin-left: var(--spacer-sm);
-
-  @include for-mobile {
-    margin-top: var(--spacer-lg)
-  }
 }
 
 .category-title  {
