@@ -189,7 +189,7 @@
   </ValidationObserver>
 </template>
 
-<script type="module">
+<script lang="ts">
 import {
   SfInput,
   SfButton,
@@ -210,7 +210,9 @@ import {
   ref,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
-import { useCountrySearch } from '~/composables';
+import type {
+  Countries, Country, useCountrySearch, UseCountrySearchParams,
+} from '~/composables';
 import addressGetter from '~/modules/customer/getters/addressGetter';
 
 extend('required', {
@@ -269,10 +271,9 @@ export default defineComponent({
       search: searchCountry,
     } = useCountrySearch();
 
-    const countries = ref([]);
-    const country = ref(null);
-
-    const reloadCountry = async (params) => {
+    const countries = ref<Countries[]>([]);
+    const country = ref<Country | null>(null);
+    const reloadCountry = async (params: UseCountrySearchParams) => {
       country.value = await searchCountry(params);
     };
 

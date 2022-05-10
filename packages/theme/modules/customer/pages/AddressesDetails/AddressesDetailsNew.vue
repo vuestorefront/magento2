@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, useContext, useRouter } from '@nuxtjs/composition-api';
 import { SfTabs } from '@storefront-ui/vue';
-import { useAddresses } from '~/composables';
+import { useAddresses } from '~/modules/customer/composables/useAddresses';
 import AddressForm from '~/modules/customer/pages/AddressesDetails/AddressForm.vue';
 
 export default defineComponent({
