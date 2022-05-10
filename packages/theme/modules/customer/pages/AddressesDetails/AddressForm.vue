@@ -183,7 +183,7 @@
         class="form__button"
         type="submit"
       >
-        {{ isNew ? $t('Add the address') : $t('Update the address') }}
+        <slot name="submit-button-content" />
       </SfButton>
     </form>
   </ValidationObserver>
@@ -261,10 +261,6 @@ export default defineComponent({
         default_billing: false,
       }),
     },
-    isNew: {
-      type: Boolean,
-      required: true,
-    },
   },
 
   setup(props, { emit }) {
@@ -296,9 +292,8 @@ export default defineComponent({
       telephone: props.address.telephone,
       default_shipping: props.address.default_shipping || false,
       default_billing: props.address.default_billing || false,
-      ...(props.isNew ? {} : { id: props.address.id }),
     });
-    // @ts-ignore
+
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 

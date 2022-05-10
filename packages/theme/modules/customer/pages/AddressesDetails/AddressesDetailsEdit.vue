@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <SfTabs class="tab-orphan">
-      <SfTab :title="$t(isNewAddress ? 'Add the address' : 'Update the address')">
+      <SfTab :title="$t('Update the address')">
         <p
           v-t="'Contact details updated'"
           class="message"
@@ -9,9 +9,12 @@
         <AddressForm
           v-if="!$fetchState.pending"
           :address="address"
-          :is-new="isNewAddress"
-          @submit="saveOrUpdateAddress"
-        />
+          @submit="update"
+        >
+          <template #submit-button-content>
+            {{ $t('Update the address') }}
+          </template>
+        </AddressForm>
       </SfTab>
     </SfTabs>
   </transition>
@@ -23,40 +26,35 @@ import {
 } from '@nuxtjs/composition-api';
 import { SfTabs } from '@storefront-ui/vue';
 import AddressForm from '~/modules/customer/pages/AddressesDetails/AddressForm.vue';
-import { useAddresses } from '../../composables/useAddresses';
-import userAddressesGetters from '../../getters/userAddressesGetters';
+import { useAddresses } from '~/modules/customer/composables/useAddresses';
+import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
 
 export default defineComponent({
+  name: 'AddressesDetailsEdit',
   components: { SfTabs, AddressForm },
   props: {
     addressId: {
-      type: Number,
-      required: true,
-    },
-    isNewAddress: {
-      type: Boolean,
+      type: Number, // because typeof CustomerAddress['id'] is number
       required: true,
     },
   },
   setup(props) {
-    const address = ref(null);
-
-    const { load, update, save } = useAddresses();
-
     const router = useRouter();
     const context = useContext();
 
+    const addressesComposable = useAddresses();
+    const address = ref(null);
     useFetch(async () => {
-      const addressesData = await load();
+    // TODO don't fetch all addresses just to pluck one address
+      const addressesData = await addressesComposable.load();
       address.value = userAddressesGetters
         .getAddresses(addressesData)
         .find(({ id }) => id === props.addressId);
     });
 
-    const saveOrUpdateAddress = async ({ form, onError }) => {
+    const update = async ({ form, onError }) => {
       try {
-        // TODO this is weird, just use emiit save and emit update
-        await (props.isNewAddress ? save : update)({ address: form });
+        await addressesComposable.update({ address: { ...form, id: props.addressId } });
         await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
       } catch (error) {
         onError(error);
@@ -65,7 +63,7 @@ export default defineComponent({
 
     return {
       address,
-      saveOrUpdateAddress,
+      update,
     };
   },
 
