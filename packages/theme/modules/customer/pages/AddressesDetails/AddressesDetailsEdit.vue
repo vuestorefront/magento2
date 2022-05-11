@@ -55,13 +55,9 @@ export default defineComponent({
         .find(({ id }) => id === numericAddressId);
     });
 
-    const update = async ({ form, onError }) => {
-      try {
-        await addressesComposable.update({ address: { ...form, id: numericAddressId } });
-        await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
-      } catch (error) {
-        onError(error);
-      }
+    const update = async ({ form } : SubmitEventPayload<CustomerAddress>) => {
+      await addressesComposable.update({ address: { ...form, id: numericAddressId } });
+      await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
     };
 
     return { address, update };
