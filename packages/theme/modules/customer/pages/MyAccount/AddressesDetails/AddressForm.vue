@@ -206,6 +206,8 @@ import {
   onBeforeMount,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
+import { PropType } from 'vue';
+import { CustomerAddress } from '~/modules/GraphQL/types';
 import { useCountrySearch } from '~/composables';
 import type { Countries, Country, UseCountrySearchParams } from '~/composables';
 import addressGetter from '~/modules/customer/getters/addressGetter';
@@ -239,7 +241,7 @@ export default defineComponent({
 
   props: {
     address: {
-      type: Object,
+      type: Object as PropType<CustomerAddress>,
       default: () => ({
         apartment: '',
         city: '',

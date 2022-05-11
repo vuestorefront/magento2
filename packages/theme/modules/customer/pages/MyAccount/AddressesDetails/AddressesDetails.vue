@@ -64,10 +64,11 @@ import {
   ref,
   useFetch,
 } from '@nuxtjs/composition-api';
-import { CustomerAddress, useAddresses } from '~/composables';
+import { useAddresses } from '~/modules/customer/composables/useAddresses';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
 import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
+import { CustomerAddress } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'AddressesDetails',
