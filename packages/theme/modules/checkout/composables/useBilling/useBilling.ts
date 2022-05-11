@@ -2,7 +2,9 @@ import type { Ref } from '@nuxtjs/composition-api';
 import type { BillingCartAddress } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/composables/types';
 
-/** The object used by {@link useBilling} to save new billing information. */
+/**
+ * The object used by {@link useBilling|useBilling()} to save new billing information.
+ */
 export interface BillingDetails {
   apartment?: string;
   city?: string;
