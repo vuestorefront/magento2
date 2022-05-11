@@ -243,16 +243,12 @@
             </LazyHydrate>
           </div>
         </div>
-        <LazyHydrate
-          when-visible
-        >
+        <LoadWhenVisible>
           <RelatedProducts />
-        </LazyHydrate>
-        <LazyHydrate
-          when-visible
-        >
+        </LoadWhenVisible>
+        <LoadWhenVisible>
           <UpsellProducts />
-        </LazyHydrate>
+        </LoadWhenVisible>
       </div>
     </SfLoader>
     <LazyHydrate when-visible>
@@ -315,8 +311,6 @@ import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import type { Product } from '~/modules/catalog/product/types';
 import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
 import GroupedProductSelector from '~/modules/catalog/product/components/GroupedProductSelector.vue';
-import UpsellProducts from '~/modules/catalog/product/components/UpsellProducts.vue';
-import RelatedProducts from '~/modules/catalog/product/components/RelatedProducts.vue';
 import { ProductTypeUnion } from '~/modules/catalog/product/enums/ProductTypeUnion';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
@@ -329,10 +323,12 @@ import { useUser } from '~/modules/customer/composables/useUser';
 
 import { getGroupedProductPriceCommand } from '~/modules/catalog/pricing/getGroupedProductPriceCommand';
 import { getConfigurableProductPriceCommand } from '~/modules/catalog/pricing/getConfigurableProductPriceCommand';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
+    LoadWhenVisible,
     BundleProductSelector,
     GroupedProductSelector,
     HTMLContent,
@@ -340,7 +336,8 @@ export default defineComponent({
     LazyHydrate,
     MobileStoreBanner,
     ProductAddReviewForm,
-    RelatedProducts,
+    RelatedProducts: () => import('~/modules/catalog/product/components/RelatedProducts.vue'),
+    UpsellProducts: () => import('~/modules/catalog/product/components/UpsellProducts.vue'),
     SfAddToCart,
     SfBreadcrumbs,
     SfButton,
@@ -355,7 +352,6 @@ export default defineComponent({
     SfTabs,
     AddToWishlist,
     SvgImage,
-    UpsellProducts,
   },
   transition: 'fade',
   setup() {
