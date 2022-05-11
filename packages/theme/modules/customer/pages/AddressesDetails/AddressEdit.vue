@@ -26,13 +26,15 @@ import {
 } from '@nuxtjs/composition-api';
 import { SfTabs } from '@storefront-ui/vue';
 import AddressForm from '~/modules/customer/pages/AddressesDetails/AddressForm.vue';
+
 import { useAddresses } from '~/modules/customer/composables/useAddresses';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
-import { CustomerAddress } from '~/modules/GraphQL/types';
-import { SubmitEventPayload } from '../../types/form';
+
+import type { CustomerAddress } from '~/modules/GraphQL/types';
+import type { SubmitEventPayload } from '~/modules/customer/types/form';
 
 export default defineComponent({
-  name: 'AddressesDetailsEdit',
+  name: 'AddressEdit',
   components: { SfTabs, AddressForm },
   props: {
     addressId: {

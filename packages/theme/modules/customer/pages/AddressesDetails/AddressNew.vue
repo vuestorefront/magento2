@@ -25,7 +25,7 @@ import { CustomerAddress } from '~/modules/GraphQL/types';
 import { SubmitEventPayload } from '../../types/form';
 
 export default defineComponent({
-  name: 'AddressesDetailsNew',
+  name: 'AddressNew',
   components: { SfTabs, AddressForm },
   setup() {
     const context = useContext();

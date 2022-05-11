@@ -1,7 +1,7 @@
 import path from 'node:path';
 import url from 'node:url';
-import { Module } from '@nuxt/types';
-import { NuxtRouteConfig } from '@nuxt/types/config/router';
+import type { Module } from '@nuxt/types';
+import type { NuxtRouteConfig } from '@nuxt/types/config/router';
 
 const moduleDir = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -28,13 +28,14 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-addresses-details-new',
       path: 'addresses-details/create',
-      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsNew.vue'),
+      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressNew.vue'),
       meta: { titleLabel: 'Addresses details' },
     },
     {
       name: 'customer-addresses-details-edit',
       path: 'addresses-details/edit/:addressId',
-      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressesDetailsEdit.vue'),
+      component: path.resolve(moduleDir, 'pages/AddressesDetails/AddressEdit.vue'),
+      // @ts-expect-error NuxtRouteConfig and RouteConfig conflict
       props: true,
       meta: { titleLabel: 'Addresses details' },
     },
