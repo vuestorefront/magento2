@@ -1,7 +1,7 @@
 import path from 'node:path';
 import url from 'node:url';
-import { Module } from '@nuxt/types';
-import { NuxtRouteConfig } from '@nuxt/types/config/router';
+import type { Module } from '@nuxt/types';
+import type { NuxtRouteConfig } from '@nuxt/types/config/router';
 
 const moduleDir = path.dirname(url.fileURLToPath(import.meta.url));
 
@@ -11,62 +11,61 @@ const moduleRoutes : NuxtRouteConfig = {
   name: 'customer',
   path: '/customer',
   component: path.resolve(moduleDir, 'pages/MyAccount/MyAccount.vue'),
-  meta: {
-    titleLabel: 'My Account',
-  },
+  meta: { titleLabel: 'My Account' },
   children: [
     {
       name: 'customer-my-profile',
       path: 'my-profile',
       component: path.resolve(moduleDir, 'pages/MyAccount/MyProfile/MyProfile.vue'),
-      meta: {
-        titleLabel: 'My profile',
-      },
+      meta: { titleLabel: 'My profile' },
     },
     {
       name: 'customer-addresses-details',
       path: 'addresses-details',
-      // component: path.resolve(moduleDir, 'pages/AddressesDetails.vue'),
-      component: stub,
-      meta: {
-        titleLabel: 'Addresses details',
-      },
+      component: path.resolve(moduleDir, 'pages/MyAccount/AddressesDetails/AddressesDetails.vue'),
+      meta: { titleLabel: 'Addresses details' },
+    },
+    {
+      name: 'customer-addresses-details-new',
+      path: 'addresses-details/create',
+      component: path.resolve(moduleDir, 'pages/MyAccount/AddressesDetails/AddressNew.vue'),
+      meta: { titleLabel: 'Addresses details' },
+    },
+    {
+      name: 'customer-addresses-details-edit',
+      path: 'addresses-details/edit/:addressId',
+      component: path.resolve(moduleDir, 'pages/MyAccount/AddressesDetails/AddressEdit.vue'),
+      // @ts-expect-error NuxtRouteConfig and RouteConfig conflict
+      props: true,
+      meta: { titleLabel: 'Addresses details' },
     },
     {
       name: 'customer-my-newsletter',
       path: 'my-newsletter',
       // component: path.resolve(moduleDir, 'pages/MyNewsletter.vue'),
       component: stub,
-      meta: {
-        titleLabel: 'My newsletter',
-      },
+      meta: { titleLabel: 'My newsletter' },
     },
     {
       name: 'customer-my-wishlist',
       path: 'my-wishlist',
       // component: path.resolve(moduleDir, 'pages/MyWishlist.vue'),
       component: stub,
-      meta: {
-        titleLabel: 'My wishlist',
-      },
+      meta: { titleLabel: 'My wishlist' },
     },
     {
       name: 'customer-order-history',
       path: 'order-history',
       // component: path.resolve(moduleDir, 'pages/OrderHistory.vue'),
       component: stub,
-      meta: {
-        titleLabel: 'Order history',
-      },
+      meta: { titleLabel: 'Order history' },
     },
     {
       name: 'customer-my-reviews',
       path: 'my-reviews',
       // component: path.resolve(moduleDir, 'pages/MyReviews.vue'),
       component: stub,
-      meta: {
-        titleLabel: 'My reviews',
-      },
+      meta: { titleLabel: 'My reviews' },
     },
   ],
 };

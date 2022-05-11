@@ -67,7 +67,9 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
-import type { SubmitEventPayload, PasswordResetFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
+
+import type { SubmitEventPayload } from '~/modules/customer/types/form';
+import type { PasswordResetFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 export default defineComponent({
   components: {
