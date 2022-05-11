@@ -4,6 +4,7 @@
       <SfTab :title="$t('Addresses details')">
         <p
           v-t="'Manage addresses'"
+          class="message"
         />
         <transition-group
           tag="div"
