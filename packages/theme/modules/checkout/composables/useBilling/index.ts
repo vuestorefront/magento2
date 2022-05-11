@@ -12,8 +12,10 @@ import type {
 } from './useBilling';
 
 /**
- * The `useBilling()` composable allows loading and saving billing information
+ * The `useBilling` composable allows loading and saving billing information
  * of the current cart.
+ *
+ * See the {@link UseBillingInterface} for a list of methods and values available in this composable.
  */
 export function useBilling(): UseBillingInterface {
   const context = useContext();
