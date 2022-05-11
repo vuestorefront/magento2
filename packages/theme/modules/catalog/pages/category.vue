@@ -175,7 +175,7 @@ export default defineComponent({
         : addItemToWishlistBase({ product }));
     };
 
-    const searchCategoryProduct = async (categoryId: string) => {
+    const searchCategoryProduct = async (categoryId: number) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await search({
         ...uiHelpers.getFacetsFromURL(),
@@ -192,7 +192,7 @@ export default defineComponent({
 
       const [content] = await Promise.all([
         getContentData(routeData.value?.entity_uid),
-        searchCategoryProduct(routeData.value?.entity_uid),
+        searchCategoryProduct(routeData.value?.id),
       ]);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';

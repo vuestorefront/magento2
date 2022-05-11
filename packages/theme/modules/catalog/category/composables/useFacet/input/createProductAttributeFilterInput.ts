@@ -8,15 +8,9 @@ export function createProductAttributeFilterInput(params: ComposableFunctionArgs
   const attributeFilter = {};
   const inputFilters = params?.filters ?? {};
 
-  const categoryFilter = params.categoryId && !inputFilters.category_id
-    ? {
-      category_uid: {
-        ...(Array.isArray(params.categoryId)
-          ? { in: params.categoryId }
-          : { eq: params.categoryId }),
-      },
-    }
-    : {};
+  const categoryFilter = {
+    category_id: { in: [params.categoryId, ...inputFilters.category_id ?? []] },
+  };
 
   Object.keys(inputFilters).forEach((key: string) => {
     if (rangeFilters.includes(key)) {
