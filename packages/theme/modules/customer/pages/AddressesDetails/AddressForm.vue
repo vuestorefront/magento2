@@ -140,7 +140,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="reloadCountry({ id: $event })"
+            @input="updateCountry({ id: $event })"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -197,22 +197,17 @@ import {
   SfCheckbox,
 } from '@storefront-ui/vue';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import {
-  ValidationProvider,
-  ValidationObserver,
-  extend,
-} from 'vee-validate';
-import {
+  ref,
   reactive,
   computed,
-  onBeforeMount,
   defineComponent,
-  ref,
+  onBeforeMount,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
-import type {
-  Countries, Country, useCountrySearch, UseCountrySearchParams,
-} from '~/composables';
+import { useCountrySearch } from '~/composables';
+import type { Countries, Country, UseCountrySearchParams } from '~/composables';
 import addressGetter from '~/modules/customer/getters/addressGetter';
 
 extend('required', {
@@ -246,7 +241,6 @@ export default defineComponent({
     address: {
       type: Object,
       default: () => ({
-        id: undefined,
         apartment: '',
         city: '',
         country_code: '',
@@ -266,16 +260,17 @@ export default defineComponent({
   },
 
   setup(props, { emit }) {
-    const {
-      load: loadCountries,
-      search: searchCountry,
-    } = useCountrySearch();
+    const { load: loadCountries, search: searchCountry } = useCountrySearch();
 
     const countries = ref<Countries[]>([]);
+    const countriesList = computed(() => addressGetter.countriesList(countries.value));
+
     const country = ref<Country | null>(null);
-    const reloadCountry = async (params: UseCountrySearchParams) => {
+    const updateCountry = async (params: UseCountrySearchParams) => {
       country.value = await searchCountry(params);
     };
+
+    const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const form = reactive({
       apartment: props.address.apartment,
@@ -295,9 +290,6 @@ export default defineComponent({
       default_billing: props.address.default_billing || false,
     });
 
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
-
     const submitForm = () => {
       const regionId = regionInformation.value.find((r) => r.abbreviation === form.region.region_code)?.id;
       if (regionId) {
@@ -314,7 +306,7 @@ export default defineComponent({
     onBeforeMount(async () => {
       countries.value = await loadCountries();
       if (props.address.country_code) {
-        country.value = await searchCountry({ id: props.address.country_code });
+        await updateCountry({ id: props.address.country_code });
       }
     });
 
@@ -323,7 +315,7 @@ export default defineComponent({
       submitForm,
       countriesList,
       regionInformation,
-      reloadCountry,
+      updateCountry,
     };
   },
 });
@@ -344,7 +336,6 @@ export default defineComponent({
 
     ::v-deep .sf-select__dropdown {
       font-size: var(--font-size--lg);
-      // margin: 0;
       font-family: var(--font-family--secondary);
       font-weight: var(--font-weight--normal);
     }

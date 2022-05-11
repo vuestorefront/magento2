@@ -22,12 +22,14 @@
 
 <script lang="ts">
 import {
-  ref, useFetch, defineComponent, useRouter, useContext,
+  ref, defineComponent, useFetch, useRouter, useContext,
 } from '@nuxtjs/composition-api';
 import { SfTabs } from '@storefront-ui/vue';
 import AddressForm from '~/modules/customer/pages/AddressesDetails/AddressForm.vue';
 import { useAddresses } from '~/modules/customer/composables/useAddresses';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
+import { CustomerAddress } from '~/modules/GraphQL/types';
+import { SubmitEventPayload } from '../../types/form';
 
 export default defineComponent({
   name: 'AddressesDetailsEdit',
@@ -42,14 +44,12 @@ export default defineComponent({
     const router = useRouter();
     const context = useContext();
 
-    // because CustomerAddress['id'] is numeric for below find expr.
-    const numericAddressId = Number.parseInt(props.addressId, 10);
-
     const addressesComposable = useAddresses();
     const address = ref(null);
+    const numericAddressId = Number.parseInt(props.addressId, 10); // because in below find(), CustomerAddress['id'] is numeric
+
     useFetch(async () => {
-    // TODO don't fetch all addresses just to pluck one address
-      const addressesData = await addressesComposable.load();
+      const addressesData = await addressesComposable.load(); // TODO don't fetch all addresses just to pluck one address
       address.value = userAddressesGetters
         .getAddresses(addressesData)
         .find(({ id }) => id === numericAddressId);
@@ -64,12 +64,8 @@ export default defineComponent({
       }
     };
 
-    return {
-      address,
-      update,
-    };
+    return { address, update };
   },
-
 });
 
 </script>
