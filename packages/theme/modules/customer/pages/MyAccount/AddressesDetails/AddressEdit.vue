@@ -25,7 +25,7 @@ import {
   ref, defineComponent, useFetch, useRouter, useContext,
 } from '@nuxtjs/composition-api';
 import { SfTabs } from '@storefront-ui/vue';
-import AddressForm from '~/modules/customer/pages/AddressesDetails/AddressForm.vue';
+import AddressForm from '~/modules/customer/pages/MyAccount/AddressesDetails/AddressForm.vue';
 
 import { useAddresses } from '~/modules/customer/composables/useAddresses';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
