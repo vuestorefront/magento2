@@ -1,11 +1,19 @@
 import { Plugin } from '@nuxt/types';
 import formatCurrency from '~/helpers/formatCurrency';
 
+interface FormatCurrency {
+  $fc(value: number | string): string;
+  $fc(value: number | string, options?: Intl.NumberFormatOptions): string;
+  $fc(value: number | string, locale?: string, options?: Intl.NumberFormatOptions): string;
+}
+
 declare module 'vue/types/vue' {
-  interface Vue {
-    $fc(value: number | string): string;
-    $fc(value: number | string, options?: Intl.NumberFormatOptions): string;
-    $fc(value: number | string, locale?: string, options?: Intl.NumberFormatOptions): string;
+  interface Vue extends FormatCurrency {
+  }
+}
+
+declare module '@nuxt/types' {
+  interface Context extends FormatCurrency {
   }
 }
 
