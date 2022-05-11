@@ -56,8 +56,15 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-order-history',
       path: 'order-history',
-      // component: path.resolve(moduleDir, 'pages/OrderHistory.vue'),
-      component: stub,
+      component: path.resolve(moduleDir, 'pages/MyAccount/OrderHistory/OrderHistory.vue'),
+      meta: { titleLabel: 'Order history' },
+    },
+    {
+      name: 'customer-single-order',
+      path: 'order-history/:orderId',
+      component: path.resolve(moduleDir, 'pages/MyAccount/OrderHistory/SingleOrder.vue'),
+      // @ts-expect-error NuxtRouteConfig and RouteConfig conflict
+      props: true,
       meta: { titleLabel: 'Order history' },
     },
     {
