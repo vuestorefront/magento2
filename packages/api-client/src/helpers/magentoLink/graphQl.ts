@@ -29,7 +29,13 @@ const createErrorHandler = () => onError(({
       message,
       locations,
       path,
+      extensions,
     }) => {
+      // Mute all GraphQL authorization errors
+      if (extensions?.category === 'graphql-authorization') {
+        return;
+      }
+
       if (!message.includes('Resource Owner Password Credentials Grant')) {
         if (!locations) {
           Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
