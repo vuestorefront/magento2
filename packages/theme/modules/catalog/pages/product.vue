@@ -258,9 +258,9 @@
     <LazyHydrate when-visible>
       <InstagramFeed />
     </LazyHydrate>
-    <LazyHydrate when-visible>
+    <LoadWhenVisible>
       <MobileStoreBanner />
-    </LazyHydrate>
+    </LoadWhenVisible>
   </div>
 </template>
 <script lang="ts">
@@ -319,7 +319,6 @@ import UpsellProducts from '~/modules/catalog/product/components/UpsellProducts.
 import RelatedProducts from '~/modules/catalog/product/components/RelatedProducts.vue';
 import { ProductTypeUnion } from '~/modules/catalog/product/enums/ProductTypeUnion';
 import InstagramFeed from '~/components/InstagramFeed.vue';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import HTMLContent from '~/components/HTMLContent.vue';
@@ -329,16 +328,18 @@ import { useUser } from '~/modules/customer/composables/useUser';
 
 import { getGroupedProductPriceCommand } from '~/modules/catalog/pricing/getGroupedProductPriceCommand';
 import { getConfigurableProductPriceCommand } from '~/modules/catalog/pricing/getConfigurableProductPriceCommand';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
+    LoadWhenVisible,
     BundleProductSelector,
     GroupedProductSelector,
     HTMLContent,
     InstagramFeed,
     LazyHydrate,
-    MobileStoreBanner,
+    MobileStoreBanner: () => import('~/components/MobileStoreBanner.vue'),
     ProductAddReviewForm,
     RelatedProducts,
     SfAddToCart,
