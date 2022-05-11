@@ -3,7 +3,7 @@
     <slot v-if="isVisible" />
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   defineComponent, onMounted, onUnmounted, ref,
 } from '@nuxtjs/composition-api';

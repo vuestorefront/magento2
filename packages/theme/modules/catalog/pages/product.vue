@@ -251,9 +251,9 @@
         </LoadWhenVisible>
       </div>
     </SfLoader>
-    <LazyHydrate when-visible>
+    <LoadWhenVisible>
       <InstagramFeed />
-    </LazyHydrate>
+    </LoadWhenVisible>
     <LoadWhenVisible>
       <MobileStoreBanner />
     </LoadWhenVisible>
@@ -312,7 +312,6 @@ import type { Product } from '~/modules/catalog/product/types';
 import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
 import GroupedProductSelector from '~/modules/catalog/product/components/GroupedProductSelector.vue';
 import { ProductTypeUnion } from '~/modules/catalog/product/enums/ProductTypeUnion';
-import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import HTMLContent from '~/components/HTMLContent.vue';
@@ -331,7 +330,7 @@ export default defineComponent({
     BundleProductSelector,
     GroupedProductSelector,
     HTMLContent,
-    InstagramFeed,
+    InstagramFeed: () => import('~/components/InstagramFeed.vue'),
     LazyHydrate,
     MobileStoreBanner: () => import('~/components/MobileStoreBanner.vue'),
     ProductAddReviewForm,
