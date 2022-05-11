@@ -1,5 +1,5 @@
-import formatCurrency from '~/helpers/formatCurrency';
 import { Plugin } from '@nuxt/types';
+import formatCurrency from '~/helpers/formatCurrency';
 
 declare module 'vue/types/vue' {
   interface Vue {

@@ -43,7 +43,6 @@
     "@graphql-codegen/typescript-operations": "^2.2.3",
     "@graphql-tools/utils": "^8.6.1",
     "@manypkg/cli": "^0.19.1",
-    "@microsoft/api-extractor": "^7.20.0",
     "@types/graphql": "^14.5.0",
     "@types/jest": "^27.4.0",
     "@types/jsdom": "^16.2.14",
