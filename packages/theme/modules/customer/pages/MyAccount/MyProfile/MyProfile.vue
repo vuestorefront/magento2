@@ -41,9 +41,8 @@ import { useUser } from '~/modules/customer/composables/useUser';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 import ProfileUpdateForm from '~/modules/customer/pages/MyAccount/MyProfile/ProfileUpdateForm.vue';
 import PasswordResetForm from '~/modules/customer/pages/MyAccount/MyProfile/PasswordResetForm.vue';
-import type {
-  OnFormComplete, OnFormError, ProfileUpdateFormFields, PasswordResetFormFields, SubmitEventPayload,
-} from '~/modules/customer/pages/MyAccount/MyProfile/types';
+import type { OnFormComplete, OnFormError, SubmitEventPayload } from '~/modules/customer/types/form';
+import type { ProfileUpdateFormFields, PasswordResetFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 extend('required', {
   ...required,
@@ -66,6 +65,7 @@ extend('confirmed', {
 });
 
 export default defineComponent({
+  name: 'MyProfile',
   components: {
     SfTabs,
     ProfileUpdateForm,

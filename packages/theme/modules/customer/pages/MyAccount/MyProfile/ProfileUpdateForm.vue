@@ -113,7 +113,9 @@ import { defineComponent, ref } from '@nuxtjs/composition-api';
 import userGetters from '~/modules/customer/getters/userGetters';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useUiNotification } from '~/composables';
-import type { SubmitEventPayload, ProfileUpdateFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
+
+import type { SubmitEventPayload } from '~/modules/customer/types/form';
+import type { ProfileUpdateFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 extend('email', {
   ...email,
