@@ -3,7 +3,7 @@
     <SfTabs class="tab-orphan">
       <SfTab :title="$t('Add the address')">
         <p
-          v-t="'Contact details added'"
+          v-t="'Contact details updated'"
           class="message"
         />
         <AddressForm @submit="createAddress">
@@ -41,3 +41,12 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.message {
+  font-family: var(--font-family--primary);
+  line-height: 1.6;
+  font-size: var(--font-size--base);
+  margin: 0 0 var(--spacer-base);
+}
+</style>
