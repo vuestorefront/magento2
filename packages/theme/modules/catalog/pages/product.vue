@@ -243,16 +243,12 @@
             </LazyHydrate>
           </div>
         </div>
-        <LazyHydrate
-          when-visible
-        >
+        <LoadWhenVisible>
           <RelatedProducts />
-        </LazyHydrate>
-        <LazyHydrate
-          when-visible
-        >
+        </LoadWhenVisible>
+        <LoadWhenVisible>
           <UpsellProducts />
-        </LazyHydrate>
+        </LoadWhenVisible>
       </div>
     </SfLoader>
     <LazyHydrate when-visible>
@@ -315,8 +311,6 @@ import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import type { Product } from '~/modules/catalog/product/types';
 import BundleProductSelector from '~/modules/catalog/product/components/BundleProductSelector.vue';
 import GroupedProductSelector from '~/modules/catalog/product/components/GroupedProductSelector.vue';
-import UpsellProducts from '~/modules/catalog/product/components/UpsellProducts.vue';
-import RelatedProducts from '~/modules/catalog/product/components/RelatedProducts.vue';
 import { ProductTypeUnion } from '~/modules/catalog/product/enums/ProductTypeUnion';
 import InstagramFeed from '~/components/InstagramFeed.vue';
 import ProductAddReviewForm from '~/components/ProductAddReviewForm.vue';
@@ -341,7 +335,8 @@ export default defineComponent({
     LazyHydrate,
     MobileStoreBanner: () => import('~/components/MobileStoreBanner.vue'),
     ProductAddReviewForm,
-    RelatedProducts,
+    RelatedProducts: () => import('~/modules/catalog/product/components/RelatedProducts.vue'),
+    UpsellProducts: () => import('~/modules/catalog/product/components/UpsellProducts.vue'),
     SfAddToCart,
     SfBreadcrumbs,
     SfButton,
@@ -356,7 +351,6 @@ export default defineComponent({
     SfTabs,
     AddToWishlist,
     SvgImage,
-    UpsellProducts,
   },
   transition: 'fade',
   setup() {
