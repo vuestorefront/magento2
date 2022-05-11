@@ -1,23 +1,23 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true,
-    "target": "ES2019",
-    "module": "ES2015",
-    "moduleResolution": "node",
-    "lib": ["DOM", "ES2019"],
+    "noEmit": false,
     "esModuleInterop": true,
-    "allowJs": true,
     "outDir": "dist",
+    "skipLibCheck": true,
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
-    "skipLibCheck": true
   },
   "files": [
-    "./composables/index.ts",
-    "./plugins/graphqlClient.ts"
+    "./composables/index.ts"
   ]
 }

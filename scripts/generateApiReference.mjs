@@ -63,5 +63,5 @@ import { execa } from 'execa';
 
   unlinkSync(extractorConfigDestination);
   unlinkSync(tsConfigPathDestination);
-  rmSync(resolve(themeFolderPath, 'dist'), { recursive: true });
+  rmSync(resolve(themeFolderPath, 'lib'), { recursive: true });
 })();
