@@ -67,7 +67,7 @@
                 </div>
                 <SfButton
                   class="sf-button--text"
-                  @click="changeTab(2)"
+                  @click="changeTab(tabConfig.reviews)"
                 >
                   {{ $t('Read all reviews') }}
                 </SfButton>
@@ -362,6 +362,11 @@ export default defineComponent({
     const { getProductDetails, loading: productLoading } = useProduct();
     const { addItem, loading } = useCart();
 
+    const tabConfig = {
+      description: 1,
+      reviews: 2,
+      additional_info: 3,
+    };
     const {
       search: searchReviews,
       loading: reviewsLoading,
@@ -446,37 +451,8 @@ export default defineComponent({
       }
     });
 
-    const changeTab = (tabNumber, callback) => {
-      document.querySelector('#tabs').scrollIntoView({
-        block: 'start',
-        behavior: 'smooth',
-      });
-      openTab.value = tabNumber;
-      if (callback && typeof callback === 'function') callback();
-    };
-
-    const changeNewReview = () => {
-      changeTab(2, () => {
-        setTimeout(
-          () => document.querySelector('#addReview').scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-          }),
-          500,
-        );
-      });
-    };
-    const successAddReview = async (reviewData) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      await addReview(reviewData);
-      document.querySelector('#tabs').scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-      });
-    };
-
     const { params: { id } } = route.value;
-    const baseSearchQuery = () => ({
+    const getBaseSearchQuery = () => ({
       filter: {
         sku: {
           eq: id,
@@ -487,9 +463,60 @@ export default defineComponent({
       ) as string[],
     });
 
+    const fetchReviews = async (query = getBaseSearchQuery()) => {
+      const productReviews = await searchReviews(query);
+      const baseReviews = Array.isArray(productReviews)
+        ? productReviews[0]
+        : productReviews;
+
+      reviews.value = reviewGetters.getItems(baseReviews);
+    };
+
+    let lastReviewsQuery = '';
+    const changeTab = (tabNumber, callback) => {
+      document.querySelector('#tabs').scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+      if (tabNumber === openTab.value) return;
+
+      if (tabNumber === tabConfig.reviews) {
+        const newQuery = getBaseSearchQuery();
+        const stringNewQuery = JSON.stringify(newQuery);
+        if (lastReviewsQuery !== stringNewQuery) {
+          lastReviewsQuery = stringNewQuery;
+          fetchReviews(newQuery);
+        }
+      }
+
+      openTab.value = tabNumber;
+      if (callback && typeof callback === 'function') callback();
+    };
+
+    const changeNewReview = () => {
+      changeTab(tabConfig.reviews, () => {
+        setTimeout(
+          () => document.querySelector('#addReview').scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          }),
+          500,
+        );
+      });
+    };
+
+    const successAddReview = async (reviewData) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      await addReview(reviewData);
+      document.querySelector('#tabs').scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    };
+
     const { fetch: fetchProducts, fetchState: fetchProductsState } = useFetch(async () => {
       const result = await getProductDetails({
-        ...baseSearchQuery(),
+        ...getBaseSearchQuery(),
       });
 
       product.value = result.items[0] as Product ?? null;
@@ -512,19 +539,11 @@ export default defineComponent({
         value: catId,
       }));
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      addTags([...tags, ...productTags, ...categoriesTags]);
-    });
-
-    useFetch(async () => {
-      const productReviews = await searchReviews(baseSearchQuery());
-      const baseReviews = Array.isArray(productReviews)
-        ? productReviews[0]
-        : productReviews;
-
-      reviews.value = reviewGetters.getItems(baseReviews);
       totalReviews.value = reviewGetters.getTotalReviews(product.value);
       averageRating.value = reviewGetters.getAverageRating(product.value);
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      addTags([...tags, ...productTags, ...categoriesTags]);
     });
 
     const updateProductConfiguration = (label: string, value: string) => {
@@ -581,6 +600,7 @@ export default defineComponent({
       imageSizes,
       fetchProducts,
       fetchProductsState,
+      tabConfig,
     };
   },
 });
