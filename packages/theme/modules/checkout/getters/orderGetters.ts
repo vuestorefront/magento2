@@ -3,7 +3,7 @@ import { CustomerOrder, OrderItemInterface } from '~/modules/GraphQL/types';
 
 export const getDate = (order: CustomerOrder): string => new Date(order?.order_date).toLocaleDateString() || '';
 
-export const getId = (order: CustomerOrder): string => String(Number.parseInt(order?.number, 10) || Math.floor(Math.random() * 100));
+export const getId = (order: CustomerOrder): string => String(Number.parseInt(order?.number, 10) || '');
 
 export const getStatus = (order: CustomerOrder): string => order?.status || 'Failed';
 
