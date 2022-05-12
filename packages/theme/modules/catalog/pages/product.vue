@@ -805,6 +805,12 @@ export default defineComponent({
   }
 }
 
+.sf-gallery {
+  ::v-deep .glide__slide {
+    flex: none;
+  }
+}
+
 .breadcrumbs {
   margin: var(--spacer-base) auto var(--spacer-lg);
 }
