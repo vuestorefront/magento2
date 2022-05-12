@@ -7,7 +7,7 @@ export default gql`
         items {
           order_number
           id
-          created_at
+          order_date
           grand_total
           total {
             discounts {
