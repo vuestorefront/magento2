@@ -42,8 +42,7 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-my-newsletter',
       path: 'my-newsletter',
-      // component: path.resolve(moduleDir, 'pages/MyNewsletter.vue'),
-      component: stub,
+      component: path.resolve(moduleDir, 'pages/MyAccount/MyNewsletter.vue'),
       meta: { titleLabel: 'My newsletter' },
     },
     {
