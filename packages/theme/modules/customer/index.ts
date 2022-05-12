@@ -70,8 +70,7 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-my-reviews',
       path: 'my-reviews',
-      // component: path.resolve(moduleDir, 'pages/MyReviews.vue'),
-      component: stub,
+      component: path.resolve(moduleDir, 'pages/MyAccount/MyReviews.vue'),
       meta: { titleLabel: 'My reviews' },
     },
   ],
