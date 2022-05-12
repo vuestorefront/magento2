@@ -2,12 +2,13 @@
   <SfBreadcrumbs
     :breadcrumbs="breadcrumbs"
     class="breadcrumbs"
+    data-testid="breadcrumbs"
   />
 </template>
 
 <script lang="ts">
 import {
-  defineComponent, useFetch, ref,
+  defineComponent, useContext, useFetch, ref,
 } from '@nuxtjs/composition-api';
 import { SfBreadcrumbs } from '@storefront-ui/vue';
 import { useUiHelpers } from '~/composables';
@@ -19,6 +20,7 @@ export default defineComponent({
   components: { SfBreadcrumbs },
   setup() {
     const { getCatLink } = useUiHelpers();
+    const { localePath } = useContext();
 
     const {
       categoryAncestors, isCategoryTreeLoaded, loadCategoryTree,
@@ -32,7 +34,7 @@ export default defineComponent({
 
       breadcrumbs.value = categoryAncestors.value.slice(0, -1).map((category) => ({
         text: category.name,
-        link: getCatLink(category),
+        link: localePath(getCatLink(category)),
       }));
     });
 
