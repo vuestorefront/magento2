@@ -68,9 +68,10 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
 
-export default defineComponent({
-  name: 'PasswordResetForm',
+import type { SubmitEventPayload } from '~/modules/customer/types/form';
+import type { PasswordResetFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
+export default defineComponent({
   components: {
     SfInput,
     SfButton,
@@ -79,7 +80,7 @@ export default defineComponent({
   },
 
   setup(_, { emit }) {
-    const resetForm = () => ({
+    const getInitialForm = () : PasswordResetFormFields => ({
       currentPassword: '',
       newPassword: '',
       repeatPassword: '',
@@ -88,11 +89,11 @@ export default defineComponent({
       send: sendNotification,
     } = useUiNotification();
 
-    const form = ref(resetForm());
+    const form = ref(getInitialForm());
 
-    const submitForm = (resetValidationFn) => () => {
+    const submitForm = (resetValidationFn: () => void) => () => {
       const onComplete = () => {
-        form.value = resetForm();
+        form.value = getInitialForm();
         sendNotification({
           id: Symbol('password_updated'),
           message: 'The user password was changed successfully updated!',
@@ -104,10 +105,10 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = (msg) => {
+      const onError = (message: string) => {
         sendNotification({
           id: Symbol('password_not_updated'),
-          message: msg,
+          message,
           type: 'danger',
           icon: 'cross',
           persist: false,
@@ -115,7 +116,9 @@ export default defineComponent({
         });
       };
 
-      emit('submit', { form, onComplete, onError });
+      const eventPayload : SubmitEventPayload<PasswordResetFormFields> = { form: form.value, onComplete, onError };
+
+      emit('submit', eventPayload);
     };
 
     return {

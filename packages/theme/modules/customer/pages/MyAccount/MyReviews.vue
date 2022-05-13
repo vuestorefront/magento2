@@ -1,8 +1,5 @@
 <template>
-  <SfTabs
-    :open-tab="1"
-    class="tab-orphan"
-  >
+  <SfTabs class="tab-orphan">
     <SfTab :title="$t('My reviews')">
       <div v-if="loading">
         <SfLoader />
@@ -51,14 +48,15 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfTabs, SfLoader, SfReview, SfRating,
 } from '@storefront-ui/vue';
-import { reviewGetters } from '~/getters';
 import {
-  computed, defineComponent, onMounted, ref,
+  ref, computed, defineComponent, onMounted,
 } from '@nuxtjs/composition-api';
+import { reviewGetters } from '~/getters';
+import { Customer } from '~/modules/GraphQL/types';
 import { useReview } from '~/composables';
 
 export default defineComponent({
@@ -71,11 +69,12 @@ export default defineComponent({
   },
   setup() {
     const { loading, loadCustomerReviews } = useReview();
-    const reviews = ref([]);
+    const reviews = ref<Customer['reviews'] | null>(null);
 
     const userReviews = computed(() => reviewGetters.getItems(reviews.value));
 
     onMounted(async () => {
+      // @ts-expect-error loadCustomerReviews type is wrong in theme and in api-client, see M2-579
       reviews.value = await loadCustomerReviews();
     });
 

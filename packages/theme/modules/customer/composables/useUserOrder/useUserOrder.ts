@@ -2,7 +2,7 @@ import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type {
   Maybe,
-  CustomerOrdersQuery,
+  CustomerOrders,
   CustomerOrdersQueryVariables,
 } from '~/modules/GraphQL/types';
 
@@ -25,7 +25,7 @@ export interface UseUserOrderInterface {
   /**
    * Fetches orders of the current customer
    */
-  search(params: UseUserOrderSearchParams) : Promise<Maybe<Array<CustomerOrdersQuery['customer']['orders']['items']>>>;
+  search(params: UseUserOrderSearchParams) : Promise<Maybe<CustomerOrders>>;
 
   /**
    * Indicates whether any of the methods is in progress
