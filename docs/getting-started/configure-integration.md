@@ -56,19 +56,23 @@ For other properties please follow official [nuxt-i18n documentation](https://i1
 
 In the example configuration below, you need to have two Magento store views with corresponding store codes: `default` and `german`.
 
-```json
-locales: [
-  {
-    code: 'default',
-    file: 'en.js',
-    iso: 'en_US',
-  },
-  {
-    code: 'german',
-    file: 'de.js',
-    iso: 'de_DE',
-  }
-]
+```javascript
+// nuxt.config.js
+
+export default {
+  locales: [
+    {
+      code: 'default',
+      file: 'en.js',
+      iso: 'en_US',
+    },
+    {
+      code: 'german',
+      file: 'de.js',
+      iso: 'de_DE',
+    }
+  ]
+};
 ```
 
 ### Translations
