@@ -100,6 +100,8 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
+@import '@storefront-ui/shared/styles/components/organisms/SfContentPages.scss';
+
 ::v-deep {
   .nuxt-link-exact-active > .sf-menu-item__label {
     color: var(--c-primary);
