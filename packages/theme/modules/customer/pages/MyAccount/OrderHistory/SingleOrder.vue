@@ -13,17 +13,8 @@
           class="sf-button--text all-orders"
           @click="$router.push(ordersRoute)"
         >
-          All Orders
+          {{ $t('All Orders') }}
         </SfButton>
-        <div class="highlighted highlighted--total">
-          <SfProperty
-            v-for="property in currentOrder.properties"
-            :key="property.name"
-            :name="$t(property.name)"
-            :value="property.value"
-            class="sf-property--full-width property"
-          />
-        </div>
         <SfTable class="products">
           <SfTableHeading>
             <SfTableHeader class="products__name">
@@ -42,6 +33,15 @@
             <SfTableData>{{ item.quantity }}</SfTableData>
             <SfTableData>{{ $fc(item.price) }}</SfTableData>
           </SfTableRow>
+          <SfTableRow
+            v-for="property in currentOrder.properties"
+            :key="property.name"
+            class="order-summary"
+          >
+            <SfTableData class="order-summary__spacer" />
+            <SfTableData>{{ property.name }}</SfTableData>
+            <SfTableData>{{ property.value }}</SfTableData>
+          </SfTableRow>
         </SfTable>
       </div>
     </SfTab>
@@ -53,19 +53,18 @@ import {
   SfTabs,
   SfTable,
   SfButton,
-  SfProperty,
   SfLoader,
 } from '@storefront-ui/vue';
 import {
   computed, defineComponent, useAsync, useContext,
 } from '@nuxtjs/composition-api';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
+import { orderGetters } from '~/getters';
 
 export default defineComponent({
   name: 'SingleOrder',
   components: {
     SfButton,
-    SfProperty,
     SfTable,
     SfTabs,
     SfLoader,
@@ -85,10 +84,22 @@ export default defineComponent({
 
       return {
         properties: [
-          { name: 'Order ID', value: props.orderId },
-          { name: 'Date', value: new Date(order?.order_date).toLocaleDateString() ?? '' },
-          { name: 'Status', value: order?.status },
-          { name: 'Price', value: context.$fc(order?.total?.grand_total?.value ?? 0) },
+          {
+            name: context.i18n.t('Order ID'),
+            value: orderGetters.getId(order),
+          },
+          {
+            name: context.i18n.t('Date'),
+            value: orderGetters.getDate(order),
+          },
+          {
+            name: context.i18n.t('Status'),
+            value: orderGetters.getStatus(order),
+          },
+          {
+            name: context.i18n.t('Price'),
+            value: context.$fc(orderGetters.getPrice(order)),
+          },
         ],
         items: order.items?.map(({
           product_sku, product_name, quantity_ordered = 0, product_sale_price = { value: 0 },
@@ -131,41 +142,68 @@ export default defineComponent({
     }
   }
 }
+
 .products {
   --table-column-flex: 1;
+
+  th, td {
+    order: 0;
+
+    &:not(:first-child) {
+      --table-column-text-align: right;
+    }
+  }
+
   &__name {
-    margin-right: var(--spacer-sm);
+    --table-column-text-align: left;
+
     @include for-desktop {
       --table-column-flex: 2;
     }
   }
 }
 
-.highlighted {
-  box-sizing: border-box;
-  width: 100%;
+.order-summary {
+  position: relative;
+  display: block;
   background-color: var(--c-light);
-  padding: var(--spacer-sm);
-  --property-value-font-size: var(--font-size--base);
-  --property-name-font-size: var(--font-size--base);
-  &:last-child {
-    margin-bottom: 0;
+  pointer-events: none;
+
+  @include for-mobile {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      display: block;
+      background-color: var(--c-light);
+      top: 0;
+      height: 100%;
+      width: var(--spacer-sm);
+    }
+
+    &:before {
+      left: calc(-1 * var(--spacer-sm));
+    }
+
+    &:after {
+      right: calc(-1 * var(--spacer-sm));
+    }
   }
-  ::v-deep .sf-property__name {
-    white-space: nowrap;
+
+  ::v-deep tr {
+    --table-row-padding: var(--spacer-xs) var(--spacer-sm);
   }
-  ::v-deep .sf-property__value {
-    text-align: right;
+
+  &:last-of-type {
+    td {
+      --table-data-font-weight: var(--font-weight--semibold);
+    }
   }
-  &--total {
-    margin-bottom: var(--spacer-sm);
-  }
-  @include for-desktop {
-    padding: var(--spacer-xl);
-    --property-name-font-size: var(--font-size--lg);
-    --property-name-font-weight: var(--font-weight--medium);
-    --property-value-font-size: var(--font-size--lg);
-    --property-value-font-weight: var(--font-weight--semibold);
+
+  &__spacer {
+    @include for-desktop {
+      --table-column-flex: 2;
+    }
   }
 }
 
