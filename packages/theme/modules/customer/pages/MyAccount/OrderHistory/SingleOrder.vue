@@ -29,6 +29,13 @@
           >
             <SfTableData class="products__name">
               {{ item.name }}
+              <div
+                v-for="option in item.configurableProductOptions"
+                :key="option.label"
+              >
+                <span class="configurable-option-label">{{ option.label }}</span>
+                <span>{{ option.value }}</span>
+              </div>
             </SfTableData>
             <SfTableData>{{ item.quantity }}</SfTableData>
             <SfTableData>{{ $fc(item.price) }}</SfTableData>
@@ -102,10 +109,15 @@ export default defineComponent({
           },
         ],
         items: order.items?.map(({
-          product_sku, product_name, quantity_ordered = 0, product_sale_price = { value: 0 },
+          product_sku,
+          product_name,
+          quantity_ordered = 0,
+          product_sale_price = { value: 0 },
+          selected_options = [],
         }) => ({
           key: product_sku,
           name: product_name,
+          configurableProductOptions: selected_options,
           quantity: quantity_ordered,
           price: product_sale_price.value ?? 0,
         })) ?? [],
@@ -141,6 +153,10 @@ export default defineComponent({
       color: var(--c-text);
     }
   }
+}
+
+.configurable-option-label {
+  font-weight: var(--font-weight--semibold)
 }
 
 .products {
