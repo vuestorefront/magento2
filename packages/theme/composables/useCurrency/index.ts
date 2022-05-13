@@ -13,7 +13,11 @@ import type {
   UseCurrencyChangeParams,
 } from './useCurrency';
 
-/** The `useCurrency()` composable allows loading and changing the currency. */
+/**
+ * The `useCurrency()` composable allows loading and changing the currency.
+ *
+ * See the {@link UseCurrencyInterface} for a list of methods and values available in this composable.
+ */
 export function useCurrency(): UseCurrencyInterface {
   const { app } = useContext();
   const loading = ref(false);

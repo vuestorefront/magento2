@@ -13,7 +13,7 @@ import type { UseStoreInterface, UseStoreErrors } from '~/composables/useStore/u
 /**
  * The `useStore()` composable allows loading and changing currently active store
  *
- * See the {@link UseStoreInterface} page for more information.
+ * See the {@link UseStoreInterface} for a list of methods and values available in this composable.
  */
 export function useStore(): UseStoreInterface {
   const loading: Ref<boolean> = ref(false);

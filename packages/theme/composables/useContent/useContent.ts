@@ -2,37 +2,47 @@ import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { CmsPage, CmsBlock } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '../types';
 
+/**
+ * Errors that occured in the {@link useContent|useContent()} composable
+ */
 export interface UseContentErrors {
   /**
-   * Errors related to CMS page loading
+   * Contains error if `loadPage` method failed, otherwise is `null`
    */
-  page: Error;
+  page: Error | null;
+
   /**
-   * Errors related to CMS blocks loading
+   * Contains error if `loadBlocks` method failed, otherwise is `null`
    */
-  blocks: Error;
+  blocks: Error | null;
 }
 
 /**
- * `UseContentInterface` is used by useContent composable, and it's responsible for fetching CMS data from Magento.
+ * The refs and methods returned by the {@link useContent|useContent()} composable
  */
 export interface UseContentInterface {
   /**
-   * Loading state. It returns true when loading data from Magento is in progress
+   * Indicates whether any of the methods is in progress
    */
   loading: DeepReadonly<Ref<boolean>>;
 
   /**
-   * Contains errors from any of the methods.
+   * Contains errors from the composable methods
    */
   error: DeepReadonly<Ref<UseContentErrors>>;
+
   /**
-   * Load CMS Page from Magento
+   * Loads CMS page
    *
-   * Returns Promise with {@link CmsPage}
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#cmsPage} API endpoint
+   * and accepts custom query named `cmsPage`.
    *
    * @example
-   * Load CMS Page using the useFetch composition-api hook:
+   *
+   * Load CMS Page using the useFetch hook:
+   *
    * ```typescript
    * import { useFetch, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
@@ -48,69 +58,27 @@ export interface UseContentInterface {
    *       page.value = await loadPage({ identifier: pageId });
    *
    *       if (error?.value?.page || !page.value) {
-   *         // place for handle 404 error
-   *       }
-   *     });
-   *   }
-   * }
-   * ```
-   *
-   * @example
-   * Load CMS Page using the useAsync Composition API hook:
-   * ```typescript
-   * import { useAsync } from '@nuxtjs/composition-api';
-   * import { useContent } from '~/composables';
-   *
-   * export default {
-   *   setup() {
-   *     const { loadPage } = useContent();
-   *     const pageId = 'about-us'
-   *
-   *     const page = useAsync(async () => {
-   *       const pageData = await loadPage({ identifier: pageId });
-   *
-   *       if (!pageData.value) {
-   *         // place for handle 404 error
-   *       }
-   *
-   *       return pageData;
-   *     });
-   *   }
-   * }
-   * ```
-   *
-   * @example
-   * Load CMS Page on client side using the onMounted Composition API hook:
-   * ```typescript
-   * import { onMounted, ref } from '@nuxtjs/composition-api';
-   * import { useContent } from '~/composables';
-   *
-   * export default {
-   *   setup() {
-   *     const { loadPage } = useContent();
-   *     const page = ref({});
-   *     const pageId = 'about-us'
-   *
-   *     onMounted(async () => {
-   *       pageData.value = await loadPage({ identifier: pageId });
-   *
-   *       if (!pageData.value) {
-   *         // place for handle 404 error
+   *         // Handle error
    *       }
    *     });
    *   }
    * }
    * ```
    */
-  loadPage: (params: ComposableFunctionArgs<{ identifier: string }>) => Promise<CmsPage>;
+  loadPage(params: ComposableFunctionArgs<{ identifier: string }>): Promise<CmsPage>;
 
   /**
-   * Load CMS block from Magento
+   * Loads CMS block
    *
-   * Returns Promise with array of {@link CmsBlock}
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#cmsBlocks} API endpoint
+   * and accepts custom query named `cmsBlocks`.
    *
    * @example
-   * Load CMS Block on server side using the useFetch Composition API hook:
+   *
+   * Load CMS Block using the useFetch hook:
+   *
    * ```typescript
    * import { useFetch, ref } from '@nuxtjs/composition-api';
    * import { useContent } from '~/composables';
@@ -128,47 +96,6 @@ export interface UseContentInterface {
    *   }
    * }
    * ```
-   *
-   * @example
-   * Load CMS Block on server side using the useAsync Composition API hook:
-   * ```typescript
-   * import { useAsync } from '@nuxtjs/composition-api';
-   * import { useContent } from '~/composables';
-   *
-   * export default {
-   *   setup(props) {
-   *     const { loadBlocks } = useContent();
-   *
-   *     const blocks = useAsync(async () => {
-   *       if (props.identifiers) {
-   *         return await loadBlocks(['block-a', 'block-b`]);
-   *       }
-   *
-   *       return null;
-   *     });
-   *   }
-   * }
-   * ```
-   *
-   * @example
-   * Load CMS Block on client side using the onMounted Composition API hook:
-   * ```typescript
-   * import { onMounted, ref } from '@nuxtjs/composition-api';
-   * import { useContent } from '~/composables';
-   *
-   * export default {
-   *   setup(props) {
-   *     const { loadBlocks } = useContent();
-   *     const blocks = ref([]);
-   *
-   *     onMounted(async () => {
-   *       if (props.identifiers) {
-   *         blocks.value = await loadBlocks(['block-a', 'block-b`]);
-   *       }
-   *     });
-   *   }
-   * }
-   * ```
    */
-  loadBlocks: (params: ComposableFunctionArgs<{ identifiers: string[] }>) => Promise<CmsBlock[]>;
+  loadBlocks(params: ComposableFunctionArgs<{ identifiers: string[] }>): Promise<CmsBlock[]>;
 }

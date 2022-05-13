@@ -15,7 +15,7 @@ const state = reactive<StateInterface>({
 /**
  * The `useUiState()` composable is a global store for managing UI state
  *
- * See the {@link UseUiStateInterface} page for more information.
+ * See the {@link UseUiStateInterface} for a list of methods and values available in this composable.
  */
 export function useUiState(): UseUiStateInterface {
   const toggleMobileMenu = () => {

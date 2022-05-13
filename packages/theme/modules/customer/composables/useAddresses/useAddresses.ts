@@ -4,52 +4,38 @@ import type { CustomerAddress } from '~/modules/GraphQL/types';
 
 /**
  * Errors that occured in the {@link useAddresses|useAddresses()} composable
- *
- * @example
- *
- * Check if removing a customer address failed:
- *
- * ```typescript
- * import { useAddresses } from '~/modules/customer/composables/useAddresses';
- *
- * export default {
- *   setup(props) {
- *     const { error, remove } = useAddresses();
- *
- *     const onRemove = async (address: CustomerAddress) => {
- *       await remove(address);
- *
- *       if (error.value.remove) {
- *         // handle removing error
- *       }
- *     };
- *
- *     return { onRemove };
- *   }
- * }
- * ```
  */
 export interface UseAddressesErrors {
-  /** Error when loading customer addresses fails, otherwise is `null`. */
+  /**
+   * Contains error if `load` method failed, otherwise is `null`
+   */
   load: Error | null;
 
-  /** Error when saving a new customer address fails, otherwise is `null`. */
+  /**
+   * Contains error if `save` method failed, otherwise is `null`
+   */
   save: Error | null;
 
-  /** Error when removing a customer address fails, otherwise is `null`. */
+  /**
+   * Contains error if `remove` method failed, otherwise is `null`
+   */
   remove: Error | null;
 
-  /** Error when updating a customer address fails, otherwise is `null`. */
+  /**
+   * Contains error if `update` method failed, otherwise is `null`
+   */
   update: Error | null;
 }
 
-/** The params object required to **save**, **update** or **remove** a customer address. */
+/**
+ * The params object accepted by the `save`, `update` and `remove` methods in the {@link useAddresses|useAddresses()} composable
+ */
 export interface UseAddressesParamsInput {
   address: CustomerAddress;
 }
 
 /**
- * The refs and methods returned by the {@link useAddresses|useAddresses()} composable.
+ * The refs and methods returned by the {@link useAddresses|useAddresses()} composable
  */
 export interface UseAddressesInterface {
   /**

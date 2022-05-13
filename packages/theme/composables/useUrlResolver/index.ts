@@ -11,6 +11,8 @@ import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlReso
 /**
  * The `useUrlResolver()` composable allows searching the resolver for current
  * route path (URL).
+ *
+ * See the {@link UseUrlResolverInterface} for a list of methods and values available in this composable.
  */
 export function useUrlResolver(): UseUrlResolverInterface {
   const route = useRoute();

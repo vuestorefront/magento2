@@ -19,7 +19,7 @@ import type {
 /**
  * The `useUserAddress()` composable allows loading and manipulating addresses of the current user.
  *
- * See the {@link UseUserAddressInterface} page for more information.
+ * See the {@link UseUserAddressInterface} for a list of methods and values available in this composable.
  */
 export function useUserAddress(): UseUserAddressInterface {
   const loading = ref(false);

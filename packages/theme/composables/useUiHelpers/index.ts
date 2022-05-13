@@ -20,6 +20,8 @@ function reduceFilters(query: QueryParams) {
 /**
  * The `useUiHelpers()` composable allows handling the parameters for filtering,
  * searching, sorting and pagination in the URL search/query params.
+ *
+ * See the {@link UseUiHelpersInterface} for a list of methods and values available in this composable.
  */
 export function useUiHelpers(): UseUiHelpersInterface {
   const route = useRoute();
