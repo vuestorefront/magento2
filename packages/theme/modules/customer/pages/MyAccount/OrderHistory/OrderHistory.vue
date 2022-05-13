@@ -41,9 +41,9 @@
           </SfTableHeading>
           <SfTableRow
             v-for="order in orders"
-            :key="orderGetters.getId(order)"
+            :key="order.order_number"
           >
-            <SfTableData>{{ orderGetters.getId(order) }}</SfTableData>
+            <SfTableData>{{ order.order_number }}</SfTableData>
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
             <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
             <SfTableData>
