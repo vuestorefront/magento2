@@ -190,6 +190,7 @@ export default defineComponent({
       getStatusTextClass,
       loading,
       orderGetters,
+      // @ts-expect-error Wrong type returned by useUserOrder. See M2-579 in VSF Jira
       orders: computed(() => orderGetters.getItems(orders.value)),
       pagination,
       tableHeaders,
