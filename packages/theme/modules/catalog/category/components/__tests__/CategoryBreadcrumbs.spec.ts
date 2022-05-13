@@ -21,20 +21,16 @@ jest.mock('@nuxtjs/composition-api', () => {
 jest.mock('~/composables');
 jest.mock('~/modules/catalog/category/helpers/useTraverseCategory');
 
-describe('CategoryBreadcrumbs.vue', () => {
-  beforeEach(() => {
-    const { useContext } = composables;
-    jest.resetAllMocks();
-    (useContext as jest.Mock).mockReturnValue({
-      localePath: jest.fn((path: string) => path),
-    });
-    (useUiHelpers as jest.Mock).mockReturnValue({
-      getCatLink: jest.fn(
-        (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`,
-      ),
-    });
-  });
+(composables.useContext as jest.Mock).mockReturnValue({
+  localePath: jest.fn((path: string) => path),
+});
+(useUiHelpers as jest.Mock).mockReturnValue({
+  getCatLink: jest.fn(
+    (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`,
+  ),
+});
 
+describe('CategoryBreadcrumbs.vue', () => {
   it('Breadcrumbs should not render if there is only a first level category', () => {
     (useTraverseCategory as jest.Mock).mockReturnValue(useTraverseCategoryMock(categoryAncestorsFirstLevelMock));
     const wrapper = mount(CategoryBreadcrumbs);
