@@ -37,6 +37,7 @@ module.exports = {
     '@vuepress/search',
   ],
   themeConfig: {
+    sidebarDepth: 0,
     repo: 'https://github.com/vuestorefront/magento2/',
     editLinks: true,
     docsDir: 'docs',
@@ -49,7 +50,7 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: 'Essentials',
+        title: '',
         collapsable: false,
         children: [
           ['/', 'Introduction'],

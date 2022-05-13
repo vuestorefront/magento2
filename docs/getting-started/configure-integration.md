@@ -7,7 +7,7 @@ This guide explains the steps needed to install and set up Vue Storefront for Ma
 Before you can get started, you need the following:
 
 - **Node.js 16** installed,
-- Magento 2 server configured following the [Configuring Magento store](/getting-started/configure-magento.html) guide.
+- Magento 2 server configured following the [Configuring Magento](/getting-started/configure-magento.html) guide.
 
 ## Creating the Vue Storefront for Magento 2
 
