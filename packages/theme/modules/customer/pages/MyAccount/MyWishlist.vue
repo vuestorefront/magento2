@@ -252,16 +252,17 @@ import {
 import {
   computed,
   defineComponent,
+  onMounted,
   useRouter,
   useRoute,
   useContext,
-  useAsync,
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import type { Product } from '~/modules/catalog/product/types';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 
 import {
   useUiHelpers,
@@ -297,19 +298,10 @@ export default defineComponent({
     const th = useUiHelpers();
     const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
-    const wishlist = useAsync(async () => {
-      const wishlistData = await load({
-        searchParams: {
-          currentPage: page ? Number.parseInt(page.toString(), 10) : 1,
-          pageSize: itemsPerPage ? Number.parseInt(itemsPerPage.toString(), 10) : 10,
-        },
-      });
+    const wishlistStore = useWishlistStore();
 
-      return wishlistData;
-    });
-
-    const products = computed(() => wishlistGetters.getProducts(wishlist?.value));
-    const pagination = computed(() => wishlistGetters.getPagination(wishlist?.value?.[0]));
+    const products = computed(() => wishlistGetters.getProducts(wishlistStore.wishlist));
+    const pagination = computed(() => wishlistGetters.getPagination(wishlistStore.wishlist));
 
     const addItemToCart = async ({ product, quantity }: { product: Product, quantity: number }) => {
       // eslint-disable-next-line no-underscore-dangle
@@ -342,6 +334,15 @@ export default defineComponent({
 
     const { getMagentoImage, imageSizes } = useImage();
 
+    onMounted(async () => {
+      await load({
+        searchParams: {
+          currentPage: page ? Number.parseInt(page.toString(), 10) : 1,
+          pageSize: itemsPerPage ? Number.parseInt(itemsPerPage.toString(), 10) : 10,
+        },
+      });
+    });
+
     return {
       ...uiState,
       addItemToCart,
@@ -352,7 +353,6 @@ export default defineComponent({
       productGetters,
       products,
       th,
-      wishlist,
       getMagentoImage,
       imageSizes,
     };
