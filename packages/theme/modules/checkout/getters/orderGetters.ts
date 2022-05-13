@@ -1,13 +1,13 @@
 import { AgnosticPagination } from '~/composables/types';
 import { CustomerOrder, OrderItemInterface } from '~/modules/GraphQL/types';
 
-export const getDate = (order: CustomerOrder): string => new Date(order?.order_date).toLocaleDateString() || '';
+export const getDate = (order: CustomerOrder): string => new Date(order?.order_date?.replace(/ /g, 'T')).toLocaleDateString() || '';
 
-export const getId = (order: CustomerOrder): string => String(Number.parseInt(order?.number, 10) || '');
+export const getId = (order: CustomerOrder): string => order?.number || '';
 
 export const getStatus = (order: CustomerOrder): string => order?.status || 'Failed';
 
-export const getPrice = (order: CustomerOrder): number | null => order?.total?.grand_total?.value || 0;
+export const getPrice = (order: CustomerOrder): number | null => order?.total?.base_grand_total?.value || 0;
 
 export const getItems = (order: CustomerOrder): OrderItemInterface[] => order?.items || [];
 
