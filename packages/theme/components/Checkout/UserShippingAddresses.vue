@@ -30,7 +30,7 @@
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 
-import { userShippingGetters } from '~/getters';
+import userShippingGetters from '~/modules/customer/getters/userShippingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({

@@ -11,8 +11,8 @@ For configure the integration using `environment variables`, you can have a `.en
 STORE_ENV=dev # Store environment (Usage for file configuration)
 NUXT_APP_ENV=development # Define nuxt application environment
 NUXT_APP_PORT=3000 # Define nuxt port
-MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
-MAGENTO_EXTERNAL_CHECKOUT=false # Flag if VSF will use External Checkout
+MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
+MAGENTO_EXTERNAL_CHECKOUT_ENABLED=false # Flag if VSF will use External Checkout
 MAGENTO_EXTERNAL_CHECKOUT_URL=https://{YOUR_SITE_FRONT_URL} # External checkout URL
 MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=/vue/cart/sync # External Checkout synchronization path
 MAGENTO_BASE_URL={YOUR_SITE_FRONT_URL} # base url of your Magento instance
@@ -44,6 +44,12 @@ Then on the `config` folder create a file `dev.json` with your configurations.
   "imageProviderBaseUrl": "https://res-4.cloudinary.com/{YOUR_CLOUD_ID}/image/upload/" // define image provider base url - this is example from cloudinary
 }
 ```
+
+
+## Store Config
+This type contains information about the Magento's Store Configuration which is stored in Pinia `$state.storeConfig`. To avoid over fetch, by default, the amount of data pulled from Magento is minimal but as your application grows you might want to pull more config data for different purposes.
+
+Plugin `plugins/storeConfigPlugin.ts` is responsible for initial population of the Store Config data based on query in `plugins/query/StoreConfig.gql.ts`. To modify the initial Store Configuration state simply adjust the query to your needs.
 
 ## Multistore and localization
 
@@ -93,9 +99,9 @@ By default, we use the `ipx` provider. that means the images are fetched from Ma
 2. Configure your provider in `nuxt.config.js`. Here is the example:
 ```javascript
 image: {
-  provider: config.get('imageProvider'),
+  provider: process.env.VSF_IMAGE_PROVIDER
   magekit: {
-    baseURL: config.get('imageProviderBaseUrl'),
+    baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL
   }
 },
 ```

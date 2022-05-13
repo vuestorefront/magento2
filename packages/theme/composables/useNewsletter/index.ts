@@ -1,25 +1,33 @@
-import { ref, useContext } from '@nuxtjs/composition-api';
+import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { UseNewsletter, UseNewsletterErrors } from '~/composables/useNewsletter/useNewsletter';
-import SubscriptionStatusesEnum from '~/composables/useNewsletter/enums/SubscriptionStatusesEnum';
+import { SubscriptionStatusesEnum } from '~/modules/GraphQL/types';
 import { updateSubscriptionCommand } from './commands/updateSubscriptionCommand';
+import type {
+  UseNewsletterErrors,
+  UseNewsletterInterface,
+  UseNewsletterUpdateSubscriptionParams,
+} from './useNewsletter';
 
-const useNewsletter = (): UseNewsletter => {
-  const { app } = useContext();
+/**
+ * The `useNewsletter()` composable allows updating the subscription status of
+ * an email in the newsletter.
+ */
+export function useNewsletter(): UseNewsletterInterface {
+  const context = useContext();
   const loading = ref(false);
   const error = ref<UseNewsletterErrors>({
     updateSubscription: null,
   });
 
-  const updateSubscription = async (params) => {
+  const updateSubscription = async (params: UseNewsletterUpdateSubscriptionParams) => {
     Logger.debug('[Magento]: Update user newsletter subscription', { params });
-    let result = SubscriptionStatusesEnum.UNSUBSCRIBED;
+    let result = SubscriptionStatusesEnum.Unsubscribed;
 
     try {
       loading.value = true;
       error.value.updateSubscription = null;
 
-      result = await updateSubscriptionCommand.execute(app.context, params);
+      result = await updateSubscriptionCommand.execute(context, params);
     } catch (err) {
       error.value.updateSubscription = err;
       Logger.error('useNewsletter/updateSubscription', err);
@@ -31,10 +39,11 @@ const useNewsletter = (): UseNewsletter => {
   };
 
   return {
-    error,
-    loading,
     updateSubscription,
+    error: readonly(error),
+    loading: readonly(loading),
   };
-};
+}
 
+export * from './useNewsletter';
 export default useNewsletter;

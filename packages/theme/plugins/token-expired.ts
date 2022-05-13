@@ -1,44 +1,40 @@
-import cookieNames from '~/enums/cookieNameEnum';
+import type { Plugin } from '@nuxt/types';
+import type { ApolloQueryResult } from '@apollo/client/core/types';
+import type { UiNotification } from '~/composables/useUiNotification';
+import { useCustomerStore } from '~/stores/customer';
+import loginStatusPingQueryGql from '~/modules/customer/composables/useUser/loginStatusPingQuery.gql';
 
-const hasAuthorizationError = (res): boolean => {
-  if (!res?.data?.errors) {
-    return false;
+export const hasGraphqlAuthorizationError = (res: ApolloQueryResult<unknown>) => res?.errors
+  ?.some((error) => error.extensions.category === 'graphql-authorization') ?? false;
+
+const plugin : Plugin = async ({ $pinia, app }) => {
+  const customerStore = useCustomerStore($pinia);
+
+  const responseOfLoginStatusPing = await app.$vsf.$magento.api.customQuery({ query: loginStatusPingQueryGql });
+  if (!hasGraphqlAuthorizationError(responseOfLoginStatusPing)) {
+    customerStore.setIsLoggedIn(true);
   }
 
-  const { errors } = res.data;
-
-  let isAuthErr = false;
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const error of errors) {
-    if (error?.extensions?.category === 'graphql-authorization') {
-      isAuthErr = true;
-      break;
-    }
-  }
-
-  return isAuthErr;
-};
-
-export default ({ app }) => {
-  app.$vsf.$magento.client.interceptors.response.use(async (res): Promise<any> => {
-    if (!hasAuthorizationError(res)) {
+  app.$vsf.$magento.client.interceptors.response.use((res) => {
+    if (!hasGraphqlAuthorizationError(res.data as ApolloQueryResult<unknown>)) {
       return res;
     }
-
-    app.$cookies.remove(cookieNames.customerCookieName);
-    app.$cookies.remove(cookieNames.cartCookieName);
-
-    await app.$cookies.set(cookieNames.messageCookieName, {
-      message: app.i18n.t('You are not authorized, please log in.'),
+    customerStore.setIsLoggedIn(false);
+    app.$vsf.$magento.config.state.removeCustomerToken();
+    app.$vsf.$magento.config.state.removeCartId();
+    app.$vsf.$magento.config.state.setMessage<UiNotification>({
+      id: Symbol(''),
+      message: app.i18n.t('You are not authorized, please log in.') as string,
       type: 'warning',
       icon: null,
       persist: true,
       title: null,
     });
 
-    app.router.go(app.localePath('/'));
+    app.router.push(app.localePath('/'));
 
     return false;
   });
 };
+
+export default plugin;

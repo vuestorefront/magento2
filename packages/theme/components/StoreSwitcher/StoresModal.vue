@@ -13,28 +13,20 @@
           href="/"
           class="container__store--link"
           :class="
-            storeGetters.getSelected(storeConfig, store)
+            storeConfig.store_code === store.store_code
               ? 'container__store--selected'
               : ''
           "
-          @click="
-            handleChanges({
-              callback: () => changeStore(store),
-              redirect: false,
-              windowRefresh: true,
-            })
-          "
+          @click.prevent="changeStore(store)"
         >
           <SfCharacteristic class="language">
             <template #title>
-              <span>{{ storeConfigGetters.getName(store) }}</span>
+              <span>{{ store.store_name }}</span>
             </template>
             <template #icon>
               <SfImage
                 image-tag="nuxt-img"
-                :src="`/icons/langs/${storeConfigGetters.getLocale(
-                  store
-                )}.webp`"
+                :src="`/icons/langs/${store.locale}.webp`"
                 width="20"
                 height="20"
                 alt="Flag"
@@ -47,17 +39,18 @@
     </SfList>
   </SfBottomModal>
 </template>
-<script>
-import { defineComponent, onMounted, computed } from '@nuxtjs/composition-api';
+<script lang="ts">
+import {
+  defineComponent, onMounted, computed, PropType,
+} from '@nuxtjs/composition-api';
 import {
   SfList,
   SfBottomModal,
   SfCharacteristic,
   SfImage,
 } from '@storefront-ui/vue';
+import { StoreConfig } from '~/modules/GraphQL/types';
 import { useStore } from '~/composables';
-import { storeGetters, storeConfigGetters } from '~/getters';
-import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
 
 export default defineComponent({
   name: 'StoresModal',
@@ -69,12 +62,13 @@ export default defineComponent({
   },
   props: {
     isLangModalOpen: Boolean,
-    storeConfig: Object,
+    storeConfig: {
+      type: Object as PropType<StoreConfig | {}>,
+      default: () => {},
+    },
   },
   emits: ['closeModal'],
   setup() {
-    const { handleChanges } = useHandleChanges();
-
     const {
       stores,
       change: changeStore,
@@ -89,9 +83,6 @@ export default defineComponent({
     });
 
     return {
-      storeGetters,
-      storeConfigGetters,
-      handleChanges,
       availableStores,
       changeStore,
     };

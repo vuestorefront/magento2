@@ -26,7 +26,7 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { usePaymentProvider } from '~/composables';
+import usePaymentProvider from '~/modules/checkout/composables/usePaymentProvider';
 
 export default defineComponent({
   name: 'VsfPaymentProvider',

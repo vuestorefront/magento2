@@ -15,7 +15,8 @@ module.exports = {
       resolve(__dirname, './tsconfig.json'),
       resolve(__dirname, './packages/api-client/tsconfig.json'),
       resolve(__dirname, './packages/composables/tsconfig.json'),
-      resolve(__dirname, './packages/theme/tsconfig.json')
+      resolve(__dirname, './packages/theme/tsconfig.json'),
+      resolve(__dirname, './packages/theme/tests/e2e/tsconfig.json'),
     ],
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue'],
@@ -30,6 +31,14 @@ module.exports = {
     '@vue-storefront/eslint-config-jest',
   ],
   rules: {
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "jest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "getByRole", "getByTestId"],
+      }
+    ],
+    "no-plusplus": "off",
   }
 }
+

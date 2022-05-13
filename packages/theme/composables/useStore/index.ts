@@ -1,18 +1,27 @@
 import {
   computed,
-  ref, Ref, useContext,
+  readonly,
+  ref,
+  useContext,
 } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import { StoreConfig } from '~/modules/GraphQL/types';
-import { storeConfigGetters } from '~/getters';
-import { UseStoreInterface, UseStore, UseStoreErrors } from '~/composables/useStore/useStore';
 import { useConfigStore } from '~/stores/config';
+import type { StoreConfig } from '~/modules/GraphQL/types';
+import type { UseStoreInterface, UseStoreErrors } from '~/composables/useStore/useStore';
 
-const useStore: UseStore = (): UseStoreInterface => {
+/**
+ * The `useStore()` composable allows loading and changing currently active store
+ *
+ * See the {@link UseStoreInterface} page for more information.
+ */
+export function useStore(): UseStoreInterface {
   const loading: Ref<boolean> = ref(false);
-  const error: Ref<UseStoreErrors> = ref({ load: null, change: null });
+  const error: Ref<UseStoreErrors> = ref({
+    load: null,
+    change: null,
+  });
   const configStore = useConfigStore();
-  const stores = computed(() => configStore.stores);
   const { app } = useContext();
 
   const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
@@ -40,9 +49,11 @@ const useStore: UseStore = (): UseStoreInterface => {
 
     try {
       loading.value = true;
-      app.$vsf.$magento.config.state.setStore(storeConfigGetters.getCode(store));
-      app.$vsf.$magento.config.state.setCurrency(storeConfigGetters.getCurrency(store));
-      app.$vsf.$magento.config.state.setLocale(storeConfigGetters.getCode(store));
+      app.$vsf.$magento.config.state.setStore(store.store_code);
+      app.$vsf.$magento.config.state.setCurrency(store.default_display_currency_code);
+      app.$vsf.$magento.config.state.setLocale(store.store_code);
+      const newStoreUrl = app.switchLocalePath(store.store_code);
+      window.location.replace(newStoreUrl);
     } catch (err) {
       error.value.change = err;
     }
@@ -51,12 +62,13 @@ const useStore: UseStore = (): UseStoreInterface => {
   };
 
   return {
+    stores: computed(() => configStore.stores),
     load,
     change,
-    stores,
-    loading,
-    error,
+    loading: readonly(loading),
+    error: readonly(error),
   };
-};
+}
 
 export default useStore;
+export * from './useStore';

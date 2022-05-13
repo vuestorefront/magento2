@@ -4,11 +4,17 @@ import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
 
-export default async (
+/**
+ * Fetch CMS Page from Magento
+ * @param context - VSF Context
+ * @param identifier - identifier of CMS page
+ * @param customQuery - (optional) - custom query that extends default cmsPage GraphQL query
+ */
+export default async function getCmsPage(
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: 'cmsPage' },
-): Promise<ApolloQueryResult<CmsPageQuery>> => {
+): Promise<ApolloQueryResult<CmsPageQuery>> {
   try {
     const { cmsPage: cmsPageGQL } = context.extendQuery(
       customQuery,

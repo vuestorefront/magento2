@@ -12,38 +12,34 @@ const state = reactive<StateInterface>({
   isMobileMenuOpen: false,
 });
 
-export const useUiState = (): UseUiStateInterface => {
-  const isMobileMenuOpen = computed(() => state.isMobileMenuOpen);
+/**
+ * The `useUiState()` composable is a global store for managing UI state
+ *
+ * See the {@link UseUiStateInterface} page for more information.
+ */
+export function useUiState(): UseUiStateInterface {
   const toggleMobileMenu = () => {
     state.isMobileMenuOpen = !state.isMobileMenuOpen;
   };
 
-  const isCartSidebarOpen = computed(() => state.isCartSidebarOpen);
   const toggleCartSidebar = () => {
     if (state.isMobileMenuOpen) toggleMobileMenu();
     state.isCartSidebarOpen = !state.isCartSidebarOpen;
   };
 
-  const isWishlistSidebarOpen = computed(() => state.isWishlistSidebarOpen);
   const toggleWishlistSidebar = () => {
     if (state.isMobileMenuOpen) toggleMobileMenu();
     state.isWishlistSidebarOpen = !state.isWishlistSidebarOpen;
   };
 
-  const isLoginModalOpen = computed(() => state.isLoginModalOpen);
   const toggleLoginModal = () => {
     if (state.isMobileMenuOpen) toggleMobileMenu();
     state.isLoginModalOpen = !state.isLoginModalOpen;
   };
 
-  const isNewsletterModalOpen = computed(() => state.isNewsletterModalOpen);
   const toggleNewsletterModal = () => {
     state.isNewsletterModalOpen = !state.isNewsletterModalOpen;
   };
-
-  const isCategoryGridView = computed(() => state.isCategoryGridView);
-
-  const isWishlistGridView = computed(() => state.isWishlistGridView);
 
   const changeToCategoryGridView = () => {
     state.isCategoryGridView = true;
@@ -59,21 +55,20 @@ export const useUiState = (): UseUiStateInterface => {
   const changeToWishlistListView = () => {
     state.isWishlistGridView = false;
   };
-
-  const isFilterSidebarOpen = computed(() => state.isFilterSidebarOpen);
   const toggleFilterSidebar = () => {
     state.isFilterSidebarOpen = !state.isFilterSidebarOpen;
   };
 
   return {
-    isCartSidebarOpen,
-    isWishlistSidebarOpen,
-    isLoginModalOpen,
-    isNewsletterModalOpen,
-    isCategoryGridView,
-    isWishlistGridView,
-    isFilterSidebarOpen,
-    isMobileMenuOpen,
+    isMobileMenuOpen: computed(() => state.isMobileMenuOpen),
+    isCartSidebarOpen: computed(() => state.isCartSidebarOpen),
+    isWishlistSidebarOpen: computed(() => state.isWishlistSidebarOpen),
+    isLoginModalOpen: computed(() => state.isLoginModalOpen),
+    isNewsletterModalOpen: computed(() => state.isNewsletterModalOpen),
+    isCategoryGridView: computed(() => state.isCategoryGridView),
+    isWishlistGridView: computed(() => state.isWishlistGridView),
+    isFilterSidebarOpen: computed(() => state.isFilterSidebarOpen),
+    toggleMobileMenu,
     toggleCartSidebar,
     toggleWishlistSidebar,
     toggleLoginModal,
@@ -83,8 +78,8 @@ export const useUiState = (): UseUiStateInterface => {
     changeToWishlistGridView,
     changeToWishlistListView,
     toggleFilterSidebar,
-    toggleMobileMenu,
   };
-};
+}
 
 export default useUiState;
+export * from './useUiState';

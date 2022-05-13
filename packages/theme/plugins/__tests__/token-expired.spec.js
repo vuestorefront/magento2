@@ -1,5 +1,6 @@
+import { createPinia, setActivePinia } from 'pinia';
+import { useCustomerStore } from '~/stores/customer';
 import tokenExpiredPlugin from '../token-expired';
-import cookieNames from '~/enums/cookieNameEnum';
 
 const errRes = {
   data: {
@@ -19,7 +20,7 @@ const validRes = {
   },
 };
 
-const appMockFactory = (callbackResponse) => ({
+const appMockFactory = (callbackResponse, authResponse) => ({
   $vsf: {
     $magento: {
       client: {
@@ -31,6 +32,16 @@ const appMockFactory = (callbackResponse) => ({
           },
         },
       },
+      api: {
+        customQuery: jest.fn(() => authResponse),
+      },
+      config: {
+        state: {
+          removeCustomerToken: jest.fn(),
+          removeCartId: jest.fn(),
+          setMessage: jest.fn(),
+        },
+      },
     },
   },
   $cookies: {
@@ -38,52 +49,61 @@ const appMockFactory = (callbackResponse) => ({
     set: jest.fn(),
   },
   router: {
-    go: jest.fn(),
+    push: jest.fn(),
   },
-  localePath: (t) => t,
+  localePath: jest.fn(),
   i18n: {
-    t: (t) => t,
+    t: jest.fn(),
   },
 });
 
 describe('Token Expired plugin', () => {
   beforeEach(() => {
     jest.resetAllMocks();
+    setActivePinia(createPinia());
+  });
+
+  it('sets initial login status', async () => {
+    const appMock = appMockFactory(validRes, validRes);
+    const customerStore = useCustomerStore();
+    jest.spyOn(customerStore, 'setIsLoggedIn');
+
+    await tokenExpiredPlugin({ app: appMock });
+
+    expect(customerStore.setIsLoggedIn).toHaveBeenCalledWith(true);
+  });
+
+  it('doesn\'t set initial login status if not logged in', async () => {
+    const appMock = appMockFactory(validRes, errRes.data); // need .data because it's ApolloGraphQlResponse, not axios
+    const customerStore = useCustomerStore();
+
+    await tokenExpiredPlugin({ app: appMock });
+
+    expect(customerStore.isLoggedIn).toBe(false);
   });
 
   it('should be executed only if there is the "graphql-authorization" error', async () => {
     const appMock = appMockFactory(validRes);
 
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await tokenExpiredPlugin({ app: appMock });
 
-    expect(appMock.router.go).toHaveBeenCalledTimes(0);
+    expect(appMock.router.push).toHaveBeenCalledTimes(0);
   });
 
   it('should set message cookie', async () => {
     const appMock = appMockFactory(errRes);
 
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await tokenExpiredPlugin({ app: appMock });
 
-    const messageMock = {
-      icon: null,
-      message: 'You are not authorized, please log in.',
-      persist: true,
-      title: null,
-      type: 'warning',
-    };
-
-    expect(appMock.$cookies.set).toHaveBeenCalledWith('vsf-message', messageMock);
+    expect(appMock.$vsf.$magento.config.state.setMessage).toHaveBeenCalledWith(expect.any(Object));
   });
 
   it('should clear customer token and clear cart id', async () => {
     const appMock = appMockFactory(errRes);
 
-    // eslint-disable-next-line @typescript-eslint/await-thenable
     await tokenExpiredPlugin({ app: appMock });
 
-    expect(appMock.$cookies.remove).toHaveBeenCalledTimes(2);
-    expect(appMock.$cookies.remove).toHaveBeenCalledWith(cookieNames.customerCookieName);
+    expect(appMock.$vsf.$magento.config.state.removeCustomerToken).toHaveBeenCalled();
+    expect(appMock.$vsf.$magento.config.state.removeCustomerToken).toHaveBeenCalledWith();
   });
 });

@@ -1,21 +1,19 @@
 import { defineStore } from 'pinia';
-import type { Pinia } from 'pinia';
-import categoryListGql from '~/modules/catalog/category/components/sidebar/command/categoryList.gql';
-import { buildCategoryTree } from '~/modules/catalog/category/helpers';
-import type { useApi } from '~/composables/useApi';
-import { CategoryTreeInterface } from '~/modules/catalog/category/types';
+import { CategoryResult } from '~/composables';
+import categoryListGql from './graphql/categoryList.gql';
 
 interface CategoryState {
-  rawCategories: { categories: { items: CategoryTreeInterface[] } } | null
+  rawCategories: CategoryResult | null
 }
 
-export const useCategoryStore = (api: ReturnType<typeof useApi>, $pinia?: Pinia) => defineStore('category', {
+export const useCategoryStore = defineStore('category', {
   state: (): CategoryState => ({
     rawCategories: null,
   }),
   actions: {
     async load() {
-      this.rawCategories = await api.query(categoryListGql);
+      const response = await this.$nuxt.$graphql.query.request<{ categories: CategoryResult }>(categoryListGql);
+      this.rawCategories = response.categories ?? null;
     },
   },
   getters: {
@@ -23,11 +21,8 @@ export const useCategoryStore = (api: ReturnType<typeof useApi>, $pinia?: Pinia)
       if (state.rawCategories === null) {
         return null;
       }
-      const rootCategory = state.rawCategories?.categories.items[0];
-      const shouldIncludeProductCounts = true;
-      const currentCategory = '';
-      const agnosticCategoryTree = buildCategoryTree(rootCategory, currentCategory, shouldIncludeProductCounts);
-      return agnosticCategoryTree;
+
+      return state.rawCategories?.items[0];
     },
   },
-})($pinia);
+});

@@ -53,8 +53,8 @@
 <script>
 import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
 import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
-import { cartGetters } from '~/getters';
-import { useCart } from '~/composables';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
+import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import CouponCode from '../CouponCode.vue';
 

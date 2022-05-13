@@ -1,43 +1,17 @@
 <template>
   <div id="home">
-    <SfHero class="hero">
-      <SfHeroItem
-        v-for="(hero, i) in heroes"
-        :key="i"
-        :title="hero.title"
-        :subtitle="hero.subtitle"
-        :button-text="hero.buttonText"
-        :background="hero.background"
-        :image="hero.image"
-        :class="hero.className"
-      />
-      <template #prev="prevArrow">
-        <SfButton
-          aria-label="previous"
-          class="hero__arrow"
-          @click="prevArrow.go('prev')"
-        >
-          <SvgImage
-            icon="arrow_left"
-            width="24"
-            height="24"
-          />
-        </SfButton>
-      </template>
-      <template #next="nextArrow">
-        <SfButton
-          aria-label="next"
-          class="hero__arrow"
-          @click="nextArrow.go('next')"
-        >
-          <SvgImage
-            icon="arrow_right"
-            width="24"
-            height="24"
-          />
-        </SfButton>
-      </template>
-    </SfHero>
+    <HeroSection
+      class="hero-section"
+      :title="hero.title"
+      :subtitle="hero.subtitle"
+      :button-text="hero.buttonText"
+      :link="hero.link"
+      :image-src="hero.imageSrc"
+      :image-width="hero.imageWidth"
+      :image-height="hero.imageHeight"
+      :nuxt-img-config="hero.imageConfig"
+      image-tag="nuxt-img"
+    />
     <LazyHydrate when-visible>
       <SfBannerGrid
         :banner-grid="1"
@@ -53,130 +27,88 @@
             :subtitle="item.subtitle"
             :description="item.description"
             :button-text="item.buttonText"
+            image-tag="nuxt-img"
             :image="item.image"
+            :nuxt-img-config="item.imageConfig"
             :class="item.class"
           />
         </template>
       </SfBannerGrid>
     </LazyHydrate>
-    <LazyHydrate when-visible>
-      <ProductsCarousel
-        :products="newProducts"
-        :loading="newProductsLoading"
+    <LoadWhenVisible>
+      <NewProducts
+        class="products"
+        :button-text="$t('See more')"
         :title="$t('New Products')"
+        link="/c/women.html"
       />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
-      <SfCallToAction
-        :title="$t('Subscribe to Newsletters')"
-        :button-text="$t('Subscribe')"
-        :description="
-          $t(
-            'Be aware of upcoming sales and events. Receive gifts and special offers!'
-          )
-        "
-        image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
+    </LoadWhenVisible>
+    <LoadWhenVisible>
+      <CallToAction
+        :title="callToAction.title"
+        :button-text="callToAction.buttonText"
+        :description="callToAction.description"
+        image-tag="nuxt-img"
+        :image-src="callToAction.imageSrc"
+        :image-width="callToAction.imageWidth"
+        :image-height="callToAction.imageHeight"
+        :nuxt-img-config="callToAction.imageConfig"
         class="call-to-action"
       />
-    </LazyHydrate>
-    <LazyHydrate when-visible>
+    </LoadWhenVisible>
+    <LoadWhenVisible>
       <InstagramFeed />
-    </LazyHydrate>
-
-    <LazyHydrate when-visible>
+    </LoadWhenVisible>
+    <LoadWhenVisible>
       <MobileStoreBanner />
-    </LazyHydrate>
+    </LoadWhenVisible>
   </div>
 </template>
-<script type="module">
+<script lang="ts" type="module">
 import {
-  SfButton,
-  SfHero,
-  SfBanner,
-  SfCallToAction,
-  SfBannerGrid,
-} from '@storefront-ui/vue';
-
-import {
-  computed,
   defineComponent,
   ref,
   useContext,
-  useAsync,
+  onMounted,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import { productGetters } from '~/getters';
-import { useProduct } from '~/composables';
-import MobileStoreBanner from '~/components/MobileStoreBanner.vue';
-import InstagramFeed from '~/components/InstagramFeed.vue';
-import ProductsCarousel from '~/components/ProductsCarousel.vue';
-import SvgImage from '~/components/General/SvgImage.vue';
+import { SfBanner, SfBannerGrid } from '@storefront-ui/vue';
+import HeroSection from '~/components/HeroSection.vue';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
-    InstagramFeed,
+    HeroSection,
     LazyHydrate,
-    MobileStoreBanner,
-    ProductsCarousel,
-    SvgImage,
-    SfButton,
+    LoadWhenVisible,
     SfBanner,
     SfBannerGrid,
-    SfCallToAction,
-    SfHero,
+    CallToAction: () => import(/* webpackPrefetch: true */ '~/components/CallToAction.vue'),
+    InstagramFeed: () => import(/* webpackPrefetch: true */ '~/components/InstagramFeed.vue'),
+    MobileStoreBanner: () => import(/* webpackPrefetch: true */ '~/components/MobileStoreBanner.vue'),
+    NewProducts: () => import(/* webpackPrefetch: true */ '~/components/NewProducts.vue'),
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
-    const { getProductList, loading: newProductsLoading } = useProduct();
-    const heroes = ref([
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#eceff1',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg',
-        },
-        link: '/c/women/women-clothing-shirts',
+    const { isDesktop } = app.$device;
+    const hero = ref({
+      title: app.i18n.t('Colorful summer dresses are already in store'),
+      subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+      buttonText: app.i18n.t('Learn more'),
+      imageSrc: '/homepage/bannerB',
+      imageWidth: isDesktop ? 1240 : 328,
+      imageHeight: isDesktop ? 400 : 224,
+      imageConfig: {
+        fit: 'cover',
+        format: 'webp',
       },
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#fce4ec',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerH_1240x400.jpg',
-        },
-        link: '/c/women/women-clothing-dresses',
-      },
-      {
-        title: app.i18n.t('Colorful summer dresses are already in store'),
-        subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
-        buttonText: app.i18n.t('Learn more'),
-        background: '#efebe9',
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_328x224.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerA_1240x400.jpg',
-        },
-        link: '/c/women/women-shoes-sandals',
-        className:
-          'sf-hero-item--position-bg-top-left sf-hero-item--align-right',
-      },
-    ]);
+      link: '/c/women.html',
+    });
     const banners = ref([
       {
         slot: 'banner-A',
@@ -188,9 +120,15 @@ export default defineComponent({
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
+            '/homepage/bannerB',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
+            '/homepage/bannerF',
+        },
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 840 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim desktop-only',
         link: '/c/women/women-clothing-skirts',
@@ -203,11 +141,12 @@ export default defineComponent({
           'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
         ),
         buttonText: app.i18n.t('Shop now'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
+        image: '/homepage/bannerE',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 496 : 328,
+          height: isDesktop ? 840 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim banner-central desktop-only',
         link: '/c/women/women-clothing-dresses',
@@ -216,11 +155,12 @@ export default defineComponent({
         slot: 'banner-C',
         subtitle: app.i18n.t('T-Shirts'),
         title: app.i18n.t('The Office Life'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
+        image: '/homepage/bannerC',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 400 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim banner__tshirt',
         link: '/c/women/women-clothing-shirts',
@@ -229,39 +169,39 @@ export default defineComponent({
         slot: 'banner-D',
         subtitle: app.i18n.t('Summer Sandals'),
         title: app.i18n.t('Eco Sandals'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
+        image: '/homepage/bannerG',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 400 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim',
         link: '/c/women/women-shoes-sandals',
       },
     ]);
+    const callToAction = ref({
+      title: app.i18n.t('Subscribe to Newsletters'),
+      description: app.i18n.t('Be aware of upcoming sales and events. Receive gifts and special offers!'),
+      buttonText: app.i18n.t('Subscribe'),
+      imageSrc: '/homepage/newsletter',
+      imageWidth: isDesktop ? 1240 : 400,
+      imageHeight: isDesktop ? 202 : 200,
+      imageConfig: {
+        fit: 'cover',
+        format: 'webp',
+      },
+    });
 
-    const products = useAsync(async () => {
-      const productsData = await getProductList({
-        pageSize: 10,
-        currentPage: 1,
-        sort: {
-          position: 'ASC',
-        },
-      });
-
+    onMounted(() => {
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
-      return productsData;
     });
 
     // @ts-ignore
-    const newProducts = computed(() => productGetters.getFiltered(products.value?.items, { master: true }));
-
     return {
       banners,
-      heroes,
-      newProducts,
-      newProductsLoading,
-      productGetters,
+      callToAction,
+      hero,
     };
   },
 });
@@ -299,9 +239,8 @@ export default defineComponent({
   }
 }
 
-.hero {
+.hero-section {
   margin: var(--spacer-xl) auto var(--spacer-lg);
-  --hero-item-background-position: center;
 
   ::v-deep .sf-link:hover {
     color: var(--c-white);
@@ -310,40 +249,6 @@ export default defineComponent({
   @include for-desktop {
     margin: var(--spacer-xl) auto var(--spacer-2xl);
   }
-
-  &__arrow {
-    --button-height: 2.75rem;
-    --button-width: 2.75rem;
-    --button-padding: 0 var(--spacer-xs);
-    --button-background: transparent;
-    --button-color: var(--c-dark);
-    display: flex;
-    align-content: center;
-    justify-content: center;
-
-    &:hover {
-      --button-background: transparent;
-      --button-box-shadow-opacity: 0;
-    }
-  }
-
-  .sf-hero-item {
-    &:nth-child(even) {
-      --hero-item-background-position: left;
-      @include for-mobile {
-        --hero-item-background-position: 30%;
-        --hero-item-wrapper-text-align: right;
-        --hero-item-subtitle-width: 100%;
-        --hero-item-title-width: 100%;
-        --hero-item-wrapper-padding: var(--spacer-sm) var(--spacer-sm)
-          var(--spacer-sm) var(--spacer-2xl);
-      }
-    }
-  }
-}
-
-::v-deep .sf-hero__controls {
-  --hero-controls-display: none;
 }
 
 .banner-grid {
@@ -394,6 +299,10 @@ export default defineComponent({
   @include for-desktop {
     margin: var(--spacer-xl) 0 var(--spacer-2xl) 0;
   }
+}
+
+.products {
+  margin-top: var(--spacer-base);
 }
 
 .carousel {

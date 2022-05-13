@@ -79,10 +79,10 @@
 <script>
 import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
-import { useUiState, useUser } from '~/composables';
+import { useUiState } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useCategoryStore } from '~/stores/category';
-import { useApi } from '~/composables/useApi';
 
 const MobileCategorySidebar = () => import('~/modules/catalog/category/components/sidebar/MobileCategorySidebar/MobileCategorySidebar.vue');
 
@@ -104,17 +104,16 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const router = useRouter();
     const { app } = useContext();
-    const api = useApi();
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(app.localeRoute({ name: 'customer' }));
       } else {
         toggleLoginModal();
       }
     };
 
     const loadCategoryMenu = async () => {
-      const categories = useCategoryStore(api);
+      const categories = useCategoryStore();
       if (categories.categories === null) {
         await categories.load();
       }

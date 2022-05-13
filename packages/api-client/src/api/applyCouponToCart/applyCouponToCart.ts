@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL Mutation to apply a coupon to a card */
 export default gql`
   mutation applyCouponToCart($input: ApplyCouponToCartInput) {
     applyCouponToCart(input: $input) {

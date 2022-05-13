@@ -130,7 +130,7 @@ export interface AgnosticBreadcrumb {
   link: string;
 }
 
-export interface AgnosticFacet {
+export interface FacetInterface {
   type: string;
   id: string;
   value: any;
@@ -140,19 +140,11 @@ export interface AgnosticFacet {
   metadata?: any;
 }
 
-export interface CategoryTreeInterface {
+export interface GroupedFacetInterface {
+  id: string;
   label: string;
-  slug?: string;
-  items: CategoryTreeInterface[];
-  isCurrent: boolean;
   count?: number;
-  [x: string]: unknown;
-}
-
-export interface CategoryGetters<CATEGORY> {
-  getTree: (category: CATEGORY) => CategoryTreeInterface | null;
-  getBreadcrumbs?: (category: CATEGORY) => AgnosticBreadcrumb[];
-  [getterName: string]: any;
+  options: FacetInterface[];
 }
 
 /** category tree implementation */

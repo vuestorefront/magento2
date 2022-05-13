@@ -15,33 +15,6 @@
           class="search__wrapper-results"
         >
           <SfMegaMenuColumn
-            :title="$t('Categories')"
-            class="sf-mega-menu-column--pined-content-on-mobile search__categories"
-          >
-            <template #title="{ title }">
-              <SfMenuItem :label="title">
-                <template #mobile-nav-icon>
-                  &#8203;
-                </template>
-              </SfMenuItem>
-            </template>
-            <SfList v-if="categories.length > 0">
-              <SfListItem
-                v-for="(category, key) in categories"
-                :key="key"
-              >
-                <SfMenuItem
-                  :label="category.label"
-                  :link="localePath(th.getAgnosticCatLink(category))"
-                >
-                  <template #mobile-nav-icon>
-                    &#8203;
-                  </template>
-                </SfMenuItem>
-              </SfListItem>
-            </SfList>
-          </SfMegaMenuColumn>
-          <SfMegaMenuColumn
             :title="$t('Product suggestions')"
             class="sf-mega-menu-column--pined-content-on-mobile search__results"
           >
@@ -77,6 +50,9 @@
                       productGetters.getProductThumbnailImage(product)
                     )
                   "
+                  :nuxt-img-config="{
+                    fit: 'cover',
+                  }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
                   :link="
@@ -113,6 +89,9 @@
                     productGetters.getProductThumbnailImage(product)
                   )
                 "
+                :nuxt-img-config="{
+                  fit: 'cover',
+                }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
                 :link="
@@ -167,27 +146,27 @@
     </SfMegaMenu>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfMegaMenu,
-  SfList,
   SfProductCard,
   SfScrollable,
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
 import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
-import { productGetters } from '~/getters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiHelpers, useImage, useWishlist, useUser,
+  useUiHelpers, useImage,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
   components: {
     SfMegaMenu,
-    SfList,
     SfProductCard,
     SfScrollable,
     SfMenuItem,
@@ -211,7 +190,6 @@ export default defineComponent({
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
-    const categories = computed(() => props.result?.categories);
 
     const addItemToWishlist = async (product) => {
       await (isInWishlist({ product })
@@ -226,7 +204,6 @@ export default defineComponent({
       isSearchOpen,
       productGetters,
       products,
-      categories,
       addItemToWishlist,
       isInWishlist,
       isAuthenticated,
@@ -255,9 +232,6 @@ export default defineComponent({
       flex-direction: row;
       flex: 1;
     }
-  }
-  &__categories {
-    flex: 0 0 220px;
   }
   &__results {
     flex: 1;

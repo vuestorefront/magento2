@@ -1,5 +1,9 @@
 import gql from 'graphql-tag';
 
+/**
+ * GraphQL Query that searches for related products using params for sorting,
+ * filtering and pagination.
+ */
 export default gql`
   query relatedProduct(
     $search: String = ""

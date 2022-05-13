@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "target": "ES2019",
-    "module": "ES2015",
+    "module": "ES2020",
     "moduleResolution": "node",
     "lib": [
       "ES2019",
@@ -12,6 +12,7 @@
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
+    "noImplicitThis": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
@@ -24,6 +25,7 @@
     },
     "types": [
       "node",
+      "@pinia/nuxt",
       "@nuxt/types",
       "cookie-universal-nuxt",
       "nuxt-i18n",

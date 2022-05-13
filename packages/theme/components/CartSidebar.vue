@@ -4,6 +4,7 @@
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('My Cart')"
+      position="right"
       class="sf-sidebar--right"
       @close="toggleCartSidebar"
     >
@@ -111,6 +112,19 @@
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
                 >
+                  <template #image>
+                    <SfImage
+                      image-tag="nuxt-img"
+                      :src="getMagentoImage(cartGetters.getItemImage(product))"
+                      :alt="cartGetters.getItemName(product)"
+                      :width="imageSizes.cart.imageWidth"
+                      :height="imageSizes.cart.imageHeight"
+                      class="sf-collected-product__image"
+                      :nuxt-img-config="{
+                        fit: 'cover',
+                      }"
+                    />
+                  </template>
                   <template #input>
                     <div
                       v-if="isInStock(product)"
@@ -237,6 +251,7 @@ import {
   SfCollectedProduct,
   SfQuantitySelector,
   SfBadge,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -246,18 +261,19 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import { cartGetters } from '~/getters';
 import _debounce from 'lodash.debounce';
+import { cartGetters } from '~/getters';
 import {
-  useCart,
   useUiState,
   useUiNotification,
-  useUser,
   useExternalCheckout,
 } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
+import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
 import CouponCode from './CouponCode.vue';
+import { useImage } from '~/composables/index.ts';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -274,10 +290,12 @@ export default defineComponent({
     SfBadge,
     CouponCode,
     SvgImage,
+    SfImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
+    const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
     const {
@@ -316,7 +334,7 @@ export default defineComponent({
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout({
+      const redirectUrl = initializeCheckout({
         baseUrl: '/checkout/user-account',
       });
       await router.push(`${app.localePath(redirectUrl)}`);
@@ -372,6 +390,8 @@ export default defineComponent({
       getAttributes,
       getBundles,
       isInStock,
+      imageSizes,
+      getMagentoImage,
     };
   },
 });

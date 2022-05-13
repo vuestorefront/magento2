@@ -12,6 +12,9 @@ export type CustomerProductReviewParams = {
   currentPage: number;
 };
 
+/**
+ * Returns product reviews created by the current customer
+ */
 export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,

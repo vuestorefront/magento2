@@ -1,0 +1,10 @@
+.slide {
+ &-enter {
+  opacity: 0;
+  transform: scale(0.5);
+   &-active {
+     transition: all 0.2s ease;
+     transition-delay: calc(0.1s * var(--index));
+   }
+ }
+}

@@ -100,7 +100,7 @@
           </ValidationProvider>
         </div>
         <recaptcha v-if="isRecaptchaEnabled" />
-        <SfButton class="form__button">
+        <SfButton class="form__button" type="submit">
           Add review
         </SfButton>
       </form>
@@ -121,8 +121,10 @@ import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
   SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
-import { reviewGetters, userGetters } from '~/getters';
-import { useUser, useReview } from '~/composables';
+import { reviewGetters } from '~/getters';
+import  userGetters  from '~/modules/customer/getters/userGetters';
+import { useReview } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 
 extend('required', {
   ...required,

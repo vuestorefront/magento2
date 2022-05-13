@@ -2,7 +2,8 @@
 import { ref } from '@nuxtjs/composition-api';
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
-import { useUser, useForgotPassword, useCart } from '~/composables';
+import { useForgotPassword, useCart } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import {
   render, useUserMock, useForgotPasswordMock, useCartMock,
 } from '~/test-utils';

@@ -1,10 +1,17 @@
-import { Context as NuxtContext, Plugin as NuxtPlugin } from '@nuxt/types';
+import { Context as NuxtContext } from '@nuxt/types';
+import { Inject } from '@nuxt/types/app';
 import axios from 'axios';
 import { createExtendIntegrationInCtx, createAddIntegrationToCtx } from './context';
 import { getIntegrationConfig, createProxiedApi } from './_proxyUtils';
 
-type InjectFn = (key: string, value: any) => void;
-export type IntegrationPlugin = (pluginFn: NuxtPlugin) => NuxtPlugin;
+interface IntegrationContext {
+  integration: {
+    configure: (tag: string, configuration: any) => void;
+    extend: (tag: string, integrationProperties: any) => void;
+  }
+}
+
+type NuxtPluginWithIntegration = (ctx: NuxtContext & IntegrationContext, inject: Inject) => void | Promise<void>;
 
 const parseCookies = (cookieString: string): Record<string, string> => Object.fromEntries(cookieString
   .split(';')
@@ -22,8 +29,8 @@ const setCookieValues = (cookieValues: Record<string, string>, cookieString = ''
   return Object.entries(parsed).map(([name, value]) => `${name}=${value}`).join('; ');
 };
 
-export const integrationPlugin = (pluginFn: NuxtPlugin) => (nuxtCtx: NuxtContext, inject: InjectFn) => {
-  const configure = (tag, configuration) => {
+export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtCtx: NuxtContext, inject: Inject) => {
+  const configure = (tag: string, configuration) => {
     const injectInContext = createAddIntegrationToCtx({ tag, nuxtCtx, inject });
     const config = getIntegrationConfig(nuxtCtx, configuration);
     const { middlewareUrl, ssrMiddlewareUrl } = (nuxtCtx as any).$config;
@@ -41,7 +48,6 @@ export const integrationPlugin = (pluginFn: NuxtPlugin) => (nuxtCtx: NuxtContext
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       client.defaults.headers.cookie = setCookieValues((nuxtCtx.app.i18n as any).cookieValues, (client.defaults.headers as any).cookie);
     }
-
     injectInContext({ api, client, config });
   };
 
@@ -51,5 +57,5 @@ export const integrationPlugin = (pluginFn: NuxtPlugin) => (nuxtCtx: NuxtContext
 
   const integration = { configure, extend };
 
-  pluginFn({ ...nuxtCtx, integration } as NuxtContext, inject);
+  pluginFn({ ...nuxtCtx, integration }, inject);
 };

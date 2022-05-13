@@ -1,6 +1,6 @@
 <template>
   <SfSidebar
-    :title="currentCategory && currentCategory.label || $t('Menu')"
+    :title="currentCategory && currentCategory.name || $t('Menu')"
     visible
     class="mobile-menu-sidebar sf-sidebar--left"
     @close="toggleMobileMenu"
@@ -19,18 +19,16 @@
 
         <SfMenuItem
           class="mobile-menu-sidebar__item"
-          :label="$i18n.t('AllProductsFromCategory', { categoryName: currentCategory.label })"
-          :count="currentCategory.count"
+          :label="$i18n.t('AllProductsFromCategory', { categoryName: currentCategory.name })"
           @click="navigate(currentCategory)"
         />
       </template>
       <SfMenuItem
-        v-for="(category, index) in currentItems || categoryTree.items"
-        :key="index"
-        :label="category.label"
-        :count="category.count"
+        v-for="category in itemsIncludedInMenu"
+        :key="category.uid"
+        :label="category.name"
         class="mobile-menu-sidebar__item"
-        @click="category.items.length === 0 ? navigate(category) : onGoCategoryDown(category)"
+        @click="category.children ? navigate(category) : onGoCategoryDown(category)"
       />
     </SfList>
   </SfSidebar>
@@ -40,13 +38,11 @@ import {
   SfSidebar, SfList, SfMenuItem,
 } from '@storefront-ui/vue';
 import {
-  defineComponent, useRouter, useContext, useRoute,
+  defineComponent, useRouter, useContext, computed,
 } from '@nuxtjs/composition-api';
 import { useUiHelpers, useUiState } from '~/composables';
-import { CategoryTreeInterface } from '~/modules/catalog/category/types';
-import { findActiveCategory, findCategoryAncestors } from '~/modules/catalog/category/helpers';
-import { useApi } from '~/composables/useApi';
-import { useCategoryStore } from '~/stores/category';
+import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
+import { CategoryTree } from '~/modules/GraphQL/types';
 import { useMobileCategoryTree } from './logic';
 
 export default defineComponent({
@@ -56,45 +52,44 @@ export default defineComponent({
     SfMenuItem,
   },
   setup() {
-    const api = useApi();
     const { isMobileMenuOpen, toggleMobileMenu } = useUiState();
-    const { getAgnosticCatLink } = useUiHelpers();
+    const { getCatLink } = useUiHelpers();
     const router = useRouter();
-    const route = useRoute();
     const app = useContext();
 
-    const categoryStore = useCategoryStore(api);
-    const categoryTree = categoryStore.categories;
+    const { categoryAncestors: initialHistory, categoryTree } = useTraverseCategory();
 
-    const navigate = (category: CategoryTreeInterface) => {
+    const navigate = (category: CategoryTree) => {
       toggleMobileMenu();
-      const path = app.localePath(getAgnosticCatLink(category) as string);
+      const path = app.localePath(getCatLink(category) as string);
       router.push(path);
     };
 
-    const activeCategory = findActiveCategory(categoryTree, route.value.fullPath.replace('/default/c', ''));
-    const initialHistory: CategoryTreeInterface[] = activeCategory === null ? [] : findCategoryAncestors(categoryTree, activeCategory);
-
-    // A category-less category can't be entered into - it can only navigated to
-    const initialHistoryWithSnippedSubcategorylessTail = initialHistory.at(-1)?.items.length
-      ? initialHistory
-      : initialHistory.slice(0, -1);
+    // A category with no child categories can't be entered into - it can only navigated to
+    const initialHistoryWithSnippedSubcategoryLessTail = initialHistory.value.at(-1)?.children.length
+      ? initialHistory.value
+      : initialHistory.value.slice(0, -1);
 
     const {
       current: currentCategory, history, currentItems, onGoCategoryUp, onGoCategoryDown,
-    } = useMobileCategoryTree(initialHistoryWithSnippedSubcategorylessTail);
+    } = useMobileCategoryTree(initialHistoryWithSnippedSubcategoryLessTail);
+
+    const itemsIncludedInMenu = computed(() => {
+      const topLevelItems = categoryTree.value.children;
+      const maybeCurrentCategoryItems = currentItems.value || topLevelItems;
+
+      return maybeCurrentCategoryItems.filter((item) => item.include_in_menu);
+    });
 
     return {
       currentCategory,
-      currentItems,
       onGoCategoryUp,
       onGoCategoryDown,
-      categoryTree,
       history,
-
       navigate,
       isMobileMenuOpen,
       toggleMobileMenu,
+      itemsIncludedInMenu,
     };
   },
 });

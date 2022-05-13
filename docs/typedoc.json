@@ -1,9 +1,0 @@
-{
-  "hideBreadcrumbs": true,
-  "hideInPageTOC": true,
-  "readme": "none",
-  "plugin": "typedoc-plugin-markdown",
-  "theme": "./typedoc-vsf-theme",
-  "entryPoints": ["src/index.ts", "src/api/index.ts"],
-  "out": "../../docs/api-client"
-}

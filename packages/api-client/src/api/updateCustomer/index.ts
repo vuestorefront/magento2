@@ -8,6 +8,9 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 
+/**
+ * Updates the data of the current customer. To override the default query, use the `updateCustomer` query key.
+ */
 export default async (
   context: Context,
   input: CustomerUpdateInput,

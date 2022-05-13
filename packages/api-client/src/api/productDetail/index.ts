@@ -1,14 +1,14 @@
-import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
-import {
+import type { ApolloQueryResult } from '@apollo/client/core';
+import productDetailsQuery from './productDetailsQuery';
+import type {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductDetailsQueryVariables,
 } from '../../types/GraphQL';
-import detailQuery from './productDetailsQuery';
-import { Context } from '../../types/context';
-import { GetProductSearchParams } from '../../types/API';
+import type { Context } from '../../types/context';
+import type { GetProductSearchParams } from '../../types/API';
 
 type Variables = {
   pageSize: number;
@@ -18,11 +18,18 @@ type Variables = {
   sort?: ProductAttributeSortInput;
 };
 
-export default async (
+/**
+ * Fetches the list of products with details using sort, filters and pagination.
+ *
+ * @param context VSF context
+ * @param searchParams params with sort, filters and pagination
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ */
+export default async function productDetail(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { productDetail: 'productDetail' },
-): Promise<ApolloQueryResult<ProductDetailsQuery>> => {
+): Promise<ApolloQueryResult<ProductDetailsQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -41,17 +48,17 @@ export default async (
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { productDetail } = context.extendQuery(customQuery, {
+  const { productDetail: productDetailGQL } = context.extendQuery(customQuery, {
     productDetail: {
-      query: detailQuery,
+      query: productDetailsQuery,
       variables,
     },
   });
 
   try {
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
-      query: productDetail.query,
-      variables: productDetail.variables,
+      query: productDetailGQL.query,
+      variables: productDetailGQL.variables,
     });
 
     if (result.data.products.items.length === 0) throw new Error('No products found');
@@ -71,4 +78,4 @@ export default async (
     Logger.error(error);
     throw error.networkError?.result || error;
   }
-};
+}

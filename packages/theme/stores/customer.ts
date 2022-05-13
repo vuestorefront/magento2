@@ -1,22 +1,23 @@
 import { defineStore } from 'pinia';
-import { Wishlist, Cart } from '~/modules/GraphQL/types';
-
-const wishlist: Wishlist = { items_count: 0 };
-const user: any = {};
-const cart: Cart = {
-  id: '', is_virtual: false, total_quantity: 0, shipping_addresses: [],
-};
+import type { Cart, Customer } from '~/modules/GraphQL/types';
 
 interface CustomerState {
-  wishlist,
-  user,
-  cart,
+  cart: Cart,
+  user: Customer | null,
+  isLoggedIn: boolean,
 }
 
 export const useCustomerStore = defineStore('customer', {
   state: (): CustomerState => ({
-    wishlist,
-    user,
-    cart,
+    user: null,
+    cart: {
+      id: '', is_virtual: false, total_quantity: 0, shipping_addresses: [],
+    },
+    isLoggedIn: false,
   }),
+  actions: {
+    setIsLoggedIn(isLoggedIn: boolean) {
+      this.isLoggedIn = isLoggedIn;
+    },
+  },
 });
