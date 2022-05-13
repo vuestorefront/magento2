@@ -12,7 +12,15 @@
       :selected="Boolean(selected(filter.attribute_code, option.value))"
       class="filters__item"
       @change="$emit('selectFilter', option)"
-    />
+    >
+      <template #label="{ label }">
+        <span
+          :class="{ 'display-none': !label }"
+          class="sf-checkbox__label"
+          v-html="$dompurify(label)"
+        />
+      </template>
+    </SfCheckbox>
   </component>
 </template>
 <script lang="ts">
