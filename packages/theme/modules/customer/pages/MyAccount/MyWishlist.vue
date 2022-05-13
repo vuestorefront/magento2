@@ -257,15 +257,16 @@ import {
   useContext,
   useAsync,
 } from '@nuxtjs/composition-api';
-import type { Product } from '~/modules/catalog/product/types';
-import { wishlistGetters } from '~/getters';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
+import type { Product } from '~/modules/catalog/product/types';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
+import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
+
 import {
-  useCart,
   useUiHelpers,
   useUiState,
   useImage,
-  useWishlist,
 } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
