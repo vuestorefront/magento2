@@ -46,10 +46,6 @@ module.exports = {
     nav: [
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
-      { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
-      { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2' },
-      { text: 'Roadmap', link: 'https://docs.vuestorefront.io/magento/guide/roadmap.html' },
-      { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html' },
     ],
     sidebar: [
       {
@@ -60,26 +56,23 @@ module.exports = {
           ['/guide/environments', 'Demo environments'],
           ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
-          ['/guide/roadmap', 'Roadmap'],
         ],
       },
       {
-        title: 'Creating a Storefront',
+        title: 'Getting started',
         collapsable: false,
         children: [
-          ['/guide/creating-a-store', 'Creating a Store'],
-          ['/guide/configuration', 'Configuration'],
+          ['/getting-started/configure-magento', 'Configuring Magento'],
+          ['/getting-started/configure-integration', 'Configuring Vue Storefront'],
+        ],
+      },
+      {
+        title: 'Guides',
+        collapsable: false,
+        children: [
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
           ['/guide/recaptcha', 'ReCaptcha'],
-        ],
-      },
-      {
-        title: 'Performance',
-        collapsable: false,
-        children: [
-          ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
-          ['/guide/ssr', 'Server Side Rendering Cache'],
         ],
       },
       {
