@@ -16,7 +16,15 @@
       :value="option.value"
       name="filter__price"
       @change="$emit('selectFilter', option)"
-    />
+    >
+      <template #label="{ label }">
+        <span
+          :class="{ 'display-none': !label }"
+          class="sf-radio__label"
+          v-html="$dompurify(label)"
+        />
+      </template>
+    </SfRadio>
   </component>
 </template>
 <script lang="ts">
