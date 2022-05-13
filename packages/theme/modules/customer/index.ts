@@ -5,8 +5,6 @@ import type { NuxtRouteConfig } from '@nuxt/types/config/router';
 
 const moduleDir = path.dirname(url.fileURLToPath(import.meta.url));
 
-const stub = path.resolve(moduleDir, 'components/RoutePlaceholder.vue');
-
 const moduleRoutes : NuxtRouteConfig = {
   name: 'customer',
   path: '/customer',
@@ -48,8 +46,7 @@ const moduleRoutes : NuxtRouteConfig = {
     {
       name: 'customer-my-wishlist',
       path: 'my-wishlist',
-      // component: path.resolve(moduleDir, 'pages/MyWishlist.vue'),
-      component: stub,
+      component: path.resolve(moduleDir, 'pages/MyAccount/MyWishlist.vue'),
       meta: { titleLabel: 'My wishlist' },
     },
     {
