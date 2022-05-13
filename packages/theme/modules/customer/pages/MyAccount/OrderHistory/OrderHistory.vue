@@ -43,7 +43,7 @@
             v-for="order in orders"
             :key="order.order_number"
           >
-            <SfTableData>{{ orderGetters.getId(order) }}</SfTableData>
+            <SfTableData>{{ order.order_number }}</SfTableData>
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
             <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
             <SfTableData>
@@ -52,7 +52,7 @@
             <SfTableData class="orders__view orders__element--right">
               <SfLink
                 data-cy="order-history-btn_view"
-                :link="localeRoute({ name: 'customer-single-order', params: { orderId: orderGetters.getId(order) } })"
+                :link="localeRoute({ name: 'customer-single-order', params: { orderId: order.order_number } })"
               >
                 {{ $t('View details') }}
               </SfLink>
