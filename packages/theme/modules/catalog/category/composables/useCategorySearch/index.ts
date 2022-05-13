@@ -4,8 +4,10 @@ import type { CategorySearchQueryVariables, CategoryTree } from '~/modules/Graph
 import type { UseCategorySearchErrors, UseCategorySearchInterface } from './useCategorySearch';
 
 /**
- * The `useCategorySearch()` composable allows searching for categories. It is
+ * The `useCategorySearch` composable allows searching for categories. It is
  * commonly used in subtrees navigation.
+ *
+ * See the {@link UseCategorySearchInterface} for a list of methods and values available in this composable.
  */
 export function useCategorySearch(): UseCategorySearchInterface {
   const { app } = useContext();

@@ -15,7 +15,7 @@ import type {
 /**
  * The `useReview()` composable allows loading and adding product reviews
  *
- * See the {@link UseReviewInterface} page for more information.
+ * See the {@link UseReviewInterface} for a list of methods and values available in this composable.
  */
 export function useReview(): UseReviewInterface {
   const loading = ref(false);

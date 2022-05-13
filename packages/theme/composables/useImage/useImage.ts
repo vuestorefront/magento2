@@ -23,10 +23,17 @@ export type ImageSizes = {
   },
 };
 
-/** Represent data and methods returned by the {@link useImage} composable */
+/**
+ * The refs and methods returned by the {@link useImage|useImage()} composable
+ */
 export interface UseImageInterface {
-  /** Extract image path from Magento URL. */
-  getMagentoImage (fullImageUrl: string): string
-  /** Available image sizes */
+  /**
+   * Extracts image path from Magento URL.
+   */
+  getMagentoImage(fullImageUrl: string): string
+
+  /**
+   * Available image sizes
+   */
   imageSizes: ImageSizes
 }

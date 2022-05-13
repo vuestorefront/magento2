@@ -1,14 +1,27 @@
 import { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
 
+/**
+ * The params object accepted by the `initializeCheckout` method in the {@link useExternalCheckout|useExternalCheckout()} composable
+ */
 export type UseExternalCheckoutInitializeParams = ComposableFunctionArgs<{ baseUrl: string }>;
 
-/** Represents the data and methods returned by the {@link useExternalCheckout} composable */
+/**
+ * The refs and methods returned by the {@link useExternalCheckout|useExternalCheckout()} composable
+ */
 export interface UseExternalCheckoutInterface {
-  /** Initializes the checkout provider with the `baseUrl` */
+  /**
+   * Initializes the checkout provider with the `baseUrl`
+   */
   initializeCheckout(params: UseExternalCheckoutInitializeParams): string
-  /** Returns the loading state as a computed boolean */
+
+  /**
+   * Indicates whether any of the methods is in progress
+   */
   loading: DeepReadonly<Ref<boolean>>,
-  /** Returns errors when intializing the checkout */
+
+  /**
+   * Contains errors from the composable methods
+   */
   error: DeepReadonly<Ref<string>>,
 }

@@ -3,41 +3,59 @@ import type { SelectedShippingMethod } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
- * The {@link useShippingProvider} error object. The properties values' are the
- * errors thrown by its methods.
+ * Errors that occured in the {@link useShippingProvider|useShippingProvider()} composable
  */
 export interface UseShippingProviderErrors {
-  /** Error when loading the shipping provider fails, otherwise is `null`. */
+  /**
+   * Contains error if `load` method failed, otherwise is `null`
+   */
   load: Error | null;
 
-  /** Error when saving new shipping provider fails, otherwise is `null`. */
+  /**
+   * Contains error if `save` method failed, otherwise is `null`
+   */
   save: Error | null;
 }
 
-/** The params received by {@link useShippingProvider}'s `load` method. */
+/**
+ * The params object accepted by the `load` method in the {@link useShippingProvider|useShippingProvider()} composable
+ */
 export type UseShippingProviderLoadParams = ComposableFunctionArgs<{}>;
 
-/** The params received by {@link useShippingProvider}'s `save` method. */
+/**
+ * The params object accepted by the `save` method in the {@link useShippingProvider|useShippingProvider()} composable
+ */
 export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
   // TODO: Define this type.
   shippingMethod: any;
 }>;
 
-/** The interface provided by {@link useShippingProvider} composable. */
+/**
+ * The refs and methods returned by the {@link useShippingProvider|useShippingProvider()} composable
+ */
 export interface UseShippingProviderInterface {
   /**
-   * Contains errors from any of the composable methods.
-   *
-   * @see {@link UseShippingProviderErrors} documentation for more details.
+   * Contains errors from the composable methods
    */
   error: Readonly<Ref<UseShippingProviderErrors>>;
 
-  /** Indicates whether any of the composable methods is in progress. */
+  /**
+   * Indicates whether any of the methods is in progress
+   */
   loading: Readonly<Ref<boolean>>;
 
-  /** Loads the shipping provider for current cart. */
+  /**
+   * Loads the shipping provider for current cart
+   */
   load(params?: UseShippingProviderLoadParams): Promise<SelectedShippingMethod | null>;
 
-  /** Save new shipping provider for current cart. */
+  /**
+   * Save new shipping provider for current cart
+   *
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#setShippingMethodsOnCart} API endpoint
+   * and accepts the custom queries named `setShippingMethodsOnCart`.
+   */
   save(params: UseShippingProviderSaveParams): Promise<SelectedShippingMethod | null>;
 }

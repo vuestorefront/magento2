@@ -2,32 +2,36 @@ import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { EntityUrl } from '~/modules/GraphQL/types';
 
 /**
- * The {@link useUrlResolver} error object. The properties values' are the
- * errors thrown by its methods.
+ * Errors that occured in the {@link UseUrlResolverErrors|UseUrlResolverErrors()} composable
  */
 export interface UseUrlResolverErrors {
   /**
-   * Error when searching the resolver for current route URL fails, otherwise is
-   * `null`.
+   * Contains error if `search` method failed, otherwise is `null`
    */
   search: Error | null;
 }
 
-/** The interface provided by {@link useUrlResolver} composable. */
+/**
+ * The refs and methods returned by the {@link useUrlResolver|useUrlResolver()} composable
+ */
 export interface UseUrlResolverInterface {
-  /** The current route path. */
+  /**
+   * The current route path
+   */
   path: string;
 
   /**
-   * Contains errors from any of the composable methods.
-   *
-   * @see {@link UseUrlResolverErrors} documentation for more details.
+   * Contains errors from the composable methods
    */
   error: DeepReadonly<Ref<UseUrlResolverErrors>>;
 
-  /** Indicates whether any of the composable methods is in progress. */
+  /**
+   * Indicates whether any of the methods is in progress
+   */
   loading: Readonly<Ref<boolean>>;
 
-  /** Searches the resolver for current route URL. */
+  /**
+   * Searches the resolver for current route URL
+   */
   search(): Promise<EntityUrl | {}>;
 }

@@ -3,7 +3,7 @@ import type { BillingCartAddress } from '~/modules/GraphQL/types';
 import { ComposableFunctionArgs } from '~/composables/types';
 
 /**
- * The object used by {@link useBilling|useBilling()} to save new billing information.
+ * The object used by the {@link useBilling|useBilling()} composable to save new billing information
  */
 export interface BillingDetails {
   apartment?: string;
@@ -22,26 +22,35 @@ export interface BillingDetails {
 }
 
 /**
- * The {@link useBilling} error object. The properties values' are the errors
- * thrown by its methods.
+ * Errors that occured in the {@link useBilling|useBilling()} composable
  */
 export interface UseBillingError {
-  /** Error when loading the billing information fails, otherwise is `null`. */
+  /**
+   * Contains error if `load` method failed, otherwise is `null`
+   */
   load: Error | null;
 
-  /** Error when saving the billing information fails, otherwise is `null`. */
+  /**
+   * Contains error if `save` method failed, otherwise is `null`
+   */
   save: Error | null;
 }
 
-/** The params received by {@link useBilling}'s `load` method. */
+/**
+ * The params object accepted by the `load` method in the {@link useBilling|useBilling()} composable
+ */
 export type UseBillingLoadParams = ComposableFunctionArgs<{}>;
 
-/** The params received by {@link useBilling}'s `save` method. */
+/**
+ * The params object accepted by the `save` method in the {@link useBilling|useBilling()} composable
+ */
 export interface UseBillingSaveParams {
   billingDetails: BillingDetails;
 }
 
-/** The interface provided by {@link useBilling} composable. */
+/**
+ * The refs and methods returned by the {@link useBilling|useBilling()} composable
+ */
 export interface UseBillingInterface {
   /**
    * Loads the billing information. It returns a `Promise` that resolves into
@@ -55,9 +64,13 @@ export interface UseBillingInterface {
    */
   save(params: UseBillingSaveParams): Promise<BillingCartAddress | null>;
 
-  /** Contains errors from any of the composable methods. */
+  /**
+   * Contains errors from the composable methods
+   */
   error: Readonly<Ref<UseBillingError>>;
 
-  /** Indicates whether any of the methods is in progress. */
+  /**
+   * Indicates whether any of the methods is in progress
+   */
   loading: Readonly<Ref<boolean>>;
 }
