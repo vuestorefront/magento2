@@ -336,7 +336,7 @@ export default defineComponent({
       }
     };
 
-    const removeItemFromWishlist = async (product) => {
+    const removeItemFromWishlist = async (product: Product) => {
       await removeItem({ product });
     };
 
