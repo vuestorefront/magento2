@@ -117,7 +117,7 @@ export function useWishlist(): UseWishlistInterface {
         const loadedWishlist = data?.customer?.wishlists ?? [];
         itemsCount = calculateWishlistTotal(loadedWishlist);
         wishlistStore.$patch((state) => {
-          state.wishlist = { items_count: itemsCount };
+          state.wishlist.items_count = itemsCount;
         });
       }
     } catch (err) {
