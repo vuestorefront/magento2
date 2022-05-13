@@ -1,8 +1,5 @@
 <template>
-  <SfTabs
-    :open-tab="1"
-    class="tab-orphan"
-  >
+  <SfTabs class="tab-orphan">
     <SfTab :title="$t('My newsletter')">
       <p class="message">
         {{ $t('Set up newsletter') }}
@@ -46,7 +43,7 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfTabs, SfCheckbox, SfButton, SfLink,
 } from '@storefront-ui/vue';
@@ -68,15 +65,11 @@ export default defineComponent({
       isAuthenticated,
     } = useUser();
 
-    const isSubscribed = ref(!!user.value.is_subscribed);
+    const isSubscribed = ref<boolean>(!!user.value.is_subscribed);
 
     const saveForm = async () => {
       if (isAuthenticated.value && !!user.value.email) {
-        await updateUser({
-          user: {
-            is_subscribed: isSubscribed.value,
-          },
-        });
+        await updateUser({ user: { is_subscribed: isSubscribed.value } });
       }
     };
 

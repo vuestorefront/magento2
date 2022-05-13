@@ -140,7 +140,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="reloadCountry({ id: $event })"
+            @input="updateCountry({ id: $event })"
           >
             <SfSelectOption
               v-for="countryOption in countriesList"
@@ -183,13 +183,13 @@
         class="form__button"
         type="submit"
       >
-        {{ isNew ? $t('Add the address') : $t('Update the address') }}
+        <slot name="submit-button-content" />
       </SfButton>
     </form>
   </ValidationObserver>
 </template>
 
-<script type="module">
+<script lang="ts">
 import {
   SfInput,
   SfButton,
@@ -197,20 +197,19 @@ import {
   SfCheckbox,
 } from '@storefront-ui/vue';
 import { required, min, oneOf } from 'vee-validate/dist/rules';
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import {
-  ValidationProvider,
-  ValidationObserver,
-  extend,
-} from 'vee-validate';
-import {
+  ref,
   reactive,
   computed,
-  onBeforeMount,
   defineComponent,
-  ref,
+  onBeforeMount,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
+import { PropType } from 'vue';
+import { CustomerAddress } from '~/modules/GraphQL/types';
 import { useCountrySearch } from '~/composables';
+import type { Countries, Country, UseCountrySearchParams } from '~/composables';
 import addressGetter from '~/modules/customer/getters/addressGetter';
 
 extend('required', {
@@ -242,9 +241,8 @@ export default defineComponent({
 
   props: {
     address: {
-      type: Object,
+      type: Object as PropType<CustomerAddress>,
       default: () => ({
-        id: undefined,
         apartment: '',
         city: '',
         country_code: '',
@@ -261,24 +259,20 @@ export default defineComponent({
         default_billing: false,
       }),
     },
-    isNew: {
-      type: Boolean,
-      required: true,
-    },
   },
 
   setup(props, { emit }) {
-    const {
-      load: loadCountries,
-      search: searchCountry,
-    } = useCountrySearch();
+    const { load: loadCountries, search: searchCountry } = useCountrySearch();
 
-    const countries = ref([]);
-    const country = ref(null);
+    const countries = ref<Countries[]>([]);
+    const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
-    const reloadCountry = async (params) => {
+    const country = ref<Country | null>(null);
+    const updateCountry = async (params: UseCountrySearchParams) => {
       country.value = await searchCountry(params);
     };
+
+    const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const form = reactive({
       apartment: props.address.apartment,
@@ -296,11 +290,7 @@ export default defineComponent({
       telephone: props.address.telephone,
       default_shipping: props.address.default_shipping || false,
       default_billing: props.address.default_billing || false,
-      ...(props.isNew ? {} : { id: props.address.id }),
     });
-    // @ts-ignore
-    const countriesList = computed(() => addressGetter.countriesList(countries.value));
-    const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const submitForm = () => {
       const regionId = regionInformation.value.find((r) => r.abbreviation === form.region.region_code)?.id;
@@ -318,7 +308,7 @@ export default defineComponent({
     onBeforeMount(async () => {
       countries.value = await loadCountries();
       if (props.address.country_code) {
-        country.value = await searchCountry({ id: props.address.country_code });
+        await updateCountry({ id: props.address.country_code });
       }
     });
 
@@ -327,7 +317,7 @@ export default defineComponent({
       submitForm,
       countriesList,
       regionInformation,
-      reloadCountry,
+      updateCountry,
     };
   },
 });
@@ -348,7 +338,6 @@ export default defineComponent({
 
     ::v-deep .sf-select__dropdown {
       font-size: var(--font-size--lg);
-      // margin: 0;
       font-family: var(--font-family--secondary);
       font-weight: var(--font-weight--normal);
     }

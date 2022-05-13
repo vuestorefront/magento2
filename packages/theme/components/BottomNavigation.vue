@@ -106,7 +106,7 @@ export default defineComponent({
     const { app } = useContext();
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(app.localeRoute({ name: 'customer' }));
       } else {
         toggleLoginModal();
       }

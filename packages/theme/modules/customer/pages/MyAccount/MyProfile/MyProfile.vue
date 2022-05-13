@@ -28,7 +28,7 @@
   </SfTabs>
 </template>
 
-<script>
+<script lang="ts">
 import { extend } from 'vee-validate';
 import {
   required,
@@ -38,9 +38,11 @@ import {
 import { SfTabs } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 import { useUser } from '~/modules/customer/composables/useUser';
-import ProfileUpdateForm from '~/modules/customer/components/ProfileUpdateForm.vue';
-import PasswordResetForm from '~/modules/customer/components/PasswordResetForm.vue';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
+import ProfileUpdateForm from '~/modules/customer/pages/MyAccount/MyProfile/ProfileUpdateForm.vue';
+import PasswordResetForm from '~/modules/customer/pages/MyAccount/MyProfile/PasswordResetForm.vue';
+import type { OnFormComplete, OnFormError, SubmitEventPayload } from '~/modules/customer/types/form';
+import type { ProfileUpdateFormFields, PasswordResetFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 extend('required', {
   ...required,
@@ -54,8 +56,7 @@ extend('min', {
 
 extend('password', {
   message: invalidPasswordMsg,
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  validate: (value) => customerPasswordRegExp.test(value),
+  validate: (value: string) => customerPasswordRegExp.test(value),
 });
 
 extend('confirmed', {
@@ -64,8 +65,7 @@ extend('confirmed', {
 });
 
 export default defineComponent({
-  name: 'PersonalDetails',
-
+  name: 'MyProfile',
   components: {
     SfTabs,
     ProfileUpdateForm,
@@ -75,17 +75,20 @@ export default defineComponent({
   setup() {
     const {
       changePassword,
-      errors,
       loading,
       updateUser,
       error,
     } = useUser();
 
-    const formHandler = async (fn, onComplete, onError) => {
-      await fn();
+    const formHandler = async <T extends () => Promise<unknown>>(
+      onSubmit: T,
+      onComplete: OnFormComplete,
+      onError: OnFormError,
+    ) => {
+      await onSubmit();
       const actionErr = error.value.changePassword || error.value.updateUser;
       if (actionErr) {
-        onError(actionErr);
+        onError(actionErr.toString());
       } else {
         onComplete();
       }
@@ -95,8 +98,8 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(
-      async () => updateUser({ user: form.value }),
+    } : SubmitEventPayload<ProfileUpdateFormFields>) => formHandler(
+      async () => updateUser({ user: form }),
       onComplete,
       onError,
     );
@@ -105,14 +108,14 @@ export default defineComponent({
       form,
       onComplete,
       onError,
-    }) => formHandler(async () => changePassword({
-      current: form.value.currentPassword,
-      new: form.value.newPassword,
-    }), onComplete, onError);
+    } : SubmitEventPayload<PasswordResetFormFields>) => formHandler(
+      async () => changePassword({ current: form.currentPassword, new: form.newPassword }),
+      onComplete,
+      onError,
+    );
 
     return {
       loading,
-      errors,
       updatePersonalData,
       updatePassword,
     };

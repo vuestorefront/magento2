@@ -8,10 +8,10 @@ import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/stores/customer';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
+import { Customer } from '~/modules/GraphQL/types';
 import type {
-  User,
   UseUserInterface,
   UseUserLoadParams,
   UseUserLoginParams,
@@ -41,7 +41,7 @@ export function useUser(): UseUserInterface {
   });
   const error: Ref = ref(errorsFactory());
 
-  const setUser = (newUser: User) => {
+  const setUser = (newUser: Customer) => {
     customerStore.user = newUser;
     Logger.debug('useUserFactory.setUser', newUser);
   };
@@ -81,9 +81,9 @@ export function useUser(): UseUserInterface {
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        Logger.error(errors.map((e) => e.message).join(','));
-        error.value.updateUser = errors.map((e) => e.message).join(',');
+        const allErrorMessages = errors.map((e) => e.message).join(',');
+        Logger.error(allErrorMessages);
+        error.value.updateUser = allErrorMessages;
       }
 
       customerStore.user = data?.updateCustomerV2?.customer || {};

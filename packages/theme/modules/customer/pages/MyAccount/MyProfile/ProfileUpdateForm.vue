@@ -56,9 +56,7 @@
         persistent
         @close="requirePassword = false"
       >
-        {{
-          $t('Please type your current password to change your email address.')
-        }}
+        {{ $t('Please type your current password to change your email address.') }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -79,9 +77,7 @@
         v-if="requirePassword"
         class="smartphone-only"
       >
-        {{
-          $t('Please type your current password to change your email address.')
-        }}
+        {{ $t('Please type your current password to change your email address.') }}
         <SfInput
           v-model="currentPassword"
           type="password"
@@ -109,14 +105,17 @@
   </ValidationObserver>
 </template>
 
-<script>
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+<script lang="ts">
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
+import { defineComponent, ref } from '@nuxtjs/composition-api';
 import userGetters from '~/modules/customer/getters/userGetters';
-import { useUiNotification } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
+import { useUiNotification } from '~/composables';
+
+import type { SubmitEventPayload } from '~/modules/customer/types/form';
+import type { ProfileUpdateFormFields } from '~/modules/customer/pages/MyAccount/MyProfile/types';
 
 extend('email', {
   ...email,
@@ -124,7 +123,6 @@ extend('email', {
 });
 
 export default defineComponent({
-  name: 'ProfileUpdateForm',
   components: {
     SfInput,
     SfButton,
@@ -140,22 +138,22 @@ export default defineComponent({
     },
   },
   emits: ['submit'],
-  setup(props, { emit }) {
+  setup(_props, { emit }) {
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
-    const resetForm = () => ({
+    const getInitialForm = () : ProfileUpdateFormFields => ({
       firstname: userGetters.getFirstName(user.value),
       lastname: userGetters.getLastName(user.value),
       email: userGetters.getEmailAddress(user.value),
     });
     const { send: sendNotification } = useUiNotification();
 
-    const form = ref(resetForm());
+    const form = ref(getInitialForm());
 
-    const submitForm = (resetValidationFn) => () => {
+    const submitForm = (resetValidationFn: () => void) => () => {
       const onComplete = () => {
-        form.value = resetForm();
+        form.value = getInitialForm();
         requirePassword.value = false;
         currentPassword.value = '';
         sendNotification({
@@ -169,10 +167,10 @@ export default defineComponent({
         resetValidationFn();
       };
 
-      const onError = (msg) => {
+      const onError = (message: string) => {
         sendNotification({
           id: Symbol('user_updated'),
-          message: msg,
+          message,
           type: 'danger',
           icon: 'cross',
           persist: false,
@@ -180,17 +178,18 @@ export default defineComponent({
         });
       };
 
-      if (
-        userGetters.getEmailAddress(user.value) !== form.value.email
-        && !requirePassword.value
-      ) {
+      const isEmailChanged = userGetters.getEmailAddress(user.value) !== form.value.email;
+
+      if (isEmailChanged && !requirePassword.value) {
         requirePassword.value = true;
       } else {
         if (currentPassword.value) {
           form.value.password = currentPassword.value;
         }
 
-        emit('submit', { form, onComplete, onError });
+        const eventPayload : SubmitEventPayload<ProfileUpdateFormFields> = { form: form.value, onComplete, onError };
+
+        emit('submit', eventPayload);
       }
     };
 

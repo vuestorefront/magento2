@@ -1,10 +1,9 @@
 import { defineStore } from 'pinia';
-import type { Cart } from '~/modules/GraphQL/types';
-import type { User } from '~/modules/customer/composables/useUser/useUser';
+import type { Cart, Customer } from '~/modules/GraphQL/types';
 
 interface CustomerState {
   cart: Cart,
-  user: User | null,
+  user: Customer | null,
   isLoggedIn: boolean,
 }
 
