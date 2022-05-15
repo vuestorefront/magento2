@@ -4,7 +4,7 @@
       data-cy="order-history-tab_my-orders"
       :title="$t('My orders')"
     >
-      <div v-if="loading || currentOrder === null">
+      <div v-if="asyncData === null">
         <SfLoader />
       </div>
       <div v-else>
@@ -24,31 +24,94 @@
             <SfTableHeader>{{ $t('Price') }}</SfTableHeader>
           </SfTableHeading>
           <SfTableRow
-            v-for="item in currentOrder.items"
-            :key="item.key"
+            v-for="item in asyncData.order.items"
+            :key="item.product_sku"
           >
             <SfTableData class="products__name">
-              {{ item.name }}
+              {{ item.product_name }}
               <div
-                v-for="option in item.configurableProductOptions"
+                v-for="option in item.selected_options"
                 :key="option.label"
               >
                 <span class="configurable-option-label">{{ option.label }}</span>
                 <span>{{ option.value }}</span>
               </div>
             </SfTableData>
-            <SfTableData>{{ item.quantity }}</SfTableData>
-            <SfTableData>{{ $fc(item.price) }}</SfTableData>
+            <SfTableData>{{ item.quantity_ordered }}</SfTableData>
+            <SfTableData>{{ $fc(item.product_sale_price.value) }}</SfTableData>
           </SfTableRow>
-          <SfTableRow
-            v-for="property in currentOrder.properties"
-            :key="property.name"
-            class="order-summary"
+
+          <OrderSummaryRow>
+            <template #label>
+              {{ $t('Order ID') }}
+            </template>
+            <template #value>
+              {{ asyncData.order.number }}
+            </template>
+          </OrderSummaryRow>
+
+          <OrderSummaryRow>
+            <template #label>
+              {{ $t('Date') }}
+            </template>
+            <template #value>
+              {{ getDate(asyncData.order) }}
+            </template>
+          </OrderSummaryRow>
+
+          <OrderSummaryRow>
+            <template #label>
+              {{ $t('Status') }}
+            </template>
+            <template #value>
+              {{ getStatus(asyncData.order) }}
+            </template>
+          </OrderSummaryRow>
+
+          <OrderSummaryRow bold>
+            <template #label>
+              {{ $t('Price') }}
+            </template>
+            <template #value>
+              {{ $fc(asyncData.order.total.base_grand_total.value) }}
+            </template>
+          </OrderSummaryRow>
+
+          <OrderSummaryAddressRow
+            :address="asyncData.order.shipping_address"
+            :countries="asyncData.countries"
           >
-            <SfTableData class="order-summary__spacer" />
-            <SfTableData>{{ property.name }}</SfTableData>
-            <SfTableData>{{ property.value }}</SfTableData>
-          </SfTableRow>
+            <template #label>
+              {{ $t('Shipping Address') }}
+            </template>
+          </OrderSummaryAddressRow>
+
+          <OrderSummaryRow>
+            <template #label>
+              {{ $t('Shipping Method') }}
+            </template>
+            <template #value>
+              {{ asyncData.order.shipping_method }}
+            </template>
+          </OrderSummaryRow>
+
+          <OrderSummaryAddressRow
+            :address="asyncData.order.billing_address"
+            :countries="asyncData.countries"
+          >
+            <template #label>
+              {{ $t('Billing Address') }}
+            </template>
+          </OrderSummaryAddressRow>
+
+          <OrderSummaryRow>
+            <template #label>
+              {{ $t('Payment Method') }}
+            </template>
+            <template #value>
+              {{ asyncData.order.payment_methods[0].name }}
+            </template>
+          </OrderSummaryRow>
         </SfTable>
       </div>
     </SfTab>
@@ -63,10 +126,13 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, useAsync, useContext,
+  defineComponent, useAsync, useContext,
 } from '@nuxtjs/composition-api';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
-import { orderGetters } from '~/getters';
+import orderGetters from '~/modules/checkout/getters/orderGetters';
+import OrderSummaryRow from '~/modules/customer/pages/MyAccount/OrderHistory/OrderSummaryRow.vue';
+import OrderSummaryAddressRow from '~/modules/customer/pages/MyAccount/OrderHistory/OrderSummaryAddressRow.vue';
+import { useCountrySearch } from '~/composables';
 
 export default defineComponent({
   name: 'SingleOrder',
@@ -75,62 +141,36 @@ export default defineComponent({
     SfTable,
     SfTabs,
     SfLoader,
+    OrderSummaryRow,
+    OrderSummaryAddressRow,
   },
   props: { orderId: { type: String, required: true } },
   setup(props) {
     const context = useContext();
     const { search, loading } = useUserOrder();
-    const currentOrderRawData = useAsync(() => search({ filter: { number: { eq: props.orderId } } }), props.orderId);
+    const { search: searchCountries } = useCountrySearch();
+    const asyncData = useAsync(async () => {
+      const orderResult = await search({ filter: { number: { eq: props.orderId } } });
+      const order = orderResult.items[0] ?? null;
 
-    const currentOrder = computed(() => {
-      const order = currentOrderRawData.value?.items[0] ?? null;
-
-      if (order === null) {
-        return null;
-      }
+      const uniqueCountryCodePromises = [...new Set([order.shipping_address.country_code, order.billing_address.country_code])]
+        .map((countryCode) => searchCountries({ id: countryCode }));
+      const countries = await Promise.all(uniqueCountryCodePromises);
 
       return {
-        properties: [
-          {
-            name: context.i18n.t('Order ID'),
-            value: orderGetters.getId(order),
-          },
-          {
-            name: context.i18n.t('Date'),
-            value: orderGetters.getDate(order),
-          },
-          {
-            name: context.i18n.t('Status'),
-            value: orderGetters.getStatus(order),
-          },
-          {
-            name: context.i18n.t('Price'),
-            value: context.$fc(orderGetters.getPrice(order)),
-          },
-        ],
-        items: order.items?.map(({
-          product_sku,
-          product_name,
-          quantity_ordered = 0,
-          product_sale_price = { value: 0 },
-          selected_options = [],
-        }) => ({
-          key: product_sku,
-          name: product_name,
-          configurableProductOptions: selected_options,
-          quantity: quantity_ordered,
-          price: product_sale_price.value ?? 0,
-        })) ?? [],
+        order,
+        countries,
       };
     });
 
     const ordersRoute = context.localeRoute({ name: 'customer-order-history' });
 
     return {
-      currentOrder,
       loading,
       ordersRoute,
-      currentOrderRawData,
+      asyncData,
+      getDate: orderGetters.getDate,
+      getStatus: orderGetters.getStatus,
     };
   },
 });
@@ -173,50 +213,6 @@ export default defineComponent({
   &__name {
     --table-column-text-align: left;
 
-    @include for-desktop {
-      --table-column-flex: 2;
-    }
-  }
-}
-
-.order-summary {
-  position: relative;
-  display: block;
-  background-color: var(--c-light);
-  pointer-events: none;
-
-  @include for-mobile {
-    &:before,
-    &:after {
-      content: "";
-      position: absolute;
-      display: block;
-      background-color: var(--c-light);
-      top: 0;
-      height: 100%;
-      width: var(--spacer-sm);
-    }
-
-    &:before {
-      left: calc(-1 * var(--spacer-sm));
-    }
-
-    &:after {
-      right: calc(-1 * var(--spacer-sm));
-    }
-  }
-
-  ::v-deep tr {
-    --table-row-padding: var(--spacer-xs) var(--spacer-sm);
-  }
-
-  &:last-of-type {
-    td {
-      --table-data-font-weight: var(--font-weight--semibold);
-    }
-  }
-
-  &__spacer {
     @include for-desktop {
       --table-column-flex: 2;
     }
