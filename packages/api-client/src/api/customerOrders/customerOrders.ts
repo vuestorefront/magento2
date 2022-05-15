@@ -238,6 +238,18 @@ export default gql`
             suffix
             telephone
           }
+          billing_address {
+            city
+            country_code
+            firstname
+            lastname
+            postcode
+            prefix
+            region
+            street
+            suffix
+            telephone
+          }
           shipping_method
         }
         page_info {
