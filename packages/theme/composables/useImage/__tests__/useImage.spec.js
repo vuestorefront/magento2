@@ -1,5 +1,5 @@
 import { useContext } from '@nuxtjs/composition-api';
-import useImage from '../index';
+import { useImage } from '../index';
 
 jest.mock('@nuxtjs/composition-api', () => ({
   useContext: jest.fn(),
