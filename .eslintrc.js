@@ -39,6 +39,16 @@ module.exports = {
       }
     ],
     "no-plusplus": "off",
-  }
+  },
+  overrides: [
+    {
+      "files": ["packages/theme/tests/e2e/**/*"],
+      "rules": {
+        "jest/expect-expect": "off",
+        "promise/catch-or-return": "off", // conflicts with Cypress.Chainable
+        "promise/always-return": "off",
+      }
+    }
+  ]
 }
 
