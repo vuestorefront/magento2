@@ -100,7 +100,7 @@ export default defineComponent({
   flex: 1 1 50%;
 
   @include for-desktop {
-    flex: 1 1 25%;
+    flex: 1 1 23%;
     --product-card-title-font-weight: var(--font-weight--normal);
     --product-card-add-button-bottom: var(--spacer-base);
     --product-card-title-margin: var(--spacer-sm) 0 0 0;
