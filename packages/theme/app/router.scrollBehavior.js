@@ -3,4 +3,4 @@ export default function (_to, _from, savedPosition) {
     x: 0,
     y: 0,
   };
-};
+}

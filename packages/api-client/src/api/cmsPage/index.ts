@@ -45,4 +45,4 @@ export default async function getCmsPage(
     Logger.error(error);
     throw error.networkError?.result || error;
   }
-};
+}
