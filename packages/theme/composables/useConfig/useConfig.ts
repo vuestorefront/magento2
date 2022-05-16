@@ -1,4 +1,4 @@
-import { ComputedRef, Readonly, Ref } from '@nuxtjs/composition-api';
+import { ComputedRef, DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { StoreConfig } from '~/modules/GraphQL/types';
 
 /**
@@ -23,7 +23,7 @@ export interface UseConfigInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: Readonly<Ref<boolean>>,
+  loading: DeepReadonly<Ref<boolean>>,
 
   /**
    * Loads store configuration
