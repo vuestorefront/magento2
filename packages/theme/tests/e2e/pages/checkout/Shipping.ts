@@ -1,7 +1,7 @@
-import { Customer } from '../types/customer';
-import { el } from './utils/element';
+import { Customer } from '../../types/customer';
+import { el } from '../utils/element';
 
-class Shipping {
+export class Shipping {
   get firstName(): Cypress.Chainable {
     return el('firstName');
   }
@@ -66,44 +66,3 @@ class Shipping {
     this.phone.type(customer.address.shipping.phone);
   }
 }
-
-class Billing {
-  get continueToPaymentButton(): Cypress.Chainable {
-    return el('continue-to-payment');
-  }
-
-  get heading(): Cypress.Chainable {
-    return el('heading-billing');
-  }
-
-  get copyAddressLabel(): Cypress.Chainable {
-    return el('copy-address', 'label');
-  }
-}
-
-class Payment {
-  get makeAnOrderButton(): Cypress.Chainable {
-    return el('make-an-order');
-  }
-
-  get paymentMethods(): Cypress.Chainable {
-    return el('payment-method');
-  }
-
-  get terms(): Cypress.Chainable {
-    return el('terms', 'label');
-  }
-}
-
-class ThankYou {
-  get heading(): Cypress.Chainable {
-    return el('thank-you-banner', 'h2');
-  }
-}
-
-export {
-  Shipping,
-  Billing,
-  Payment,
-  ThankYou,
-};
