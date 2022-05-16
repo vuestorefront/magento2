@@ -85,6 +85,7 @@ export default {
   "Login": "Login",
   "login in to your account": "login in to your account",
   "Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.": "Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.",
+  "Looks like you haven’t added any items to the Wishlist.": "Looks like you haven’t added any items to the Wishlist.",
   "Make an order": "Make an order",
   "Manage addresses": "Manage all the addresses you want (work place, home address...) This way you won\"t have to enter the address manually with each order.",
   "Manage billing addresses": "Manage all the billing addresses you want (work place, home address...) This way you won\"t have to enter the billing address manually with each order.",

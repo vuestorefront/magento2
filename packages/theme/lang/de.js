@@ -87,6 +87,7 @@ export default {
   "Login": "Anmeldung",
   "login in to your account": "Anmelden bei Ihrem Konto",
   "Looks like you haven’t added any items to the bag yet. Start shopping to fill it in.": "Sieht so aus, als hätten Sie der Tasche noch keine Artikel hinzugefügt. Beginnen Sie mit dem Einkaufen, um es auszufüllen.",
+  "Looks like you haven’t added any items to the Wishlist.": "Sieht so aus, als hätten Sie keine Artikel zur Wunschliste hinzugefügt.",
   "Make an order": "Bestellung aufgeben",
   "Manage addresses": "Verwalten Sie alle gewünschten Adressen (Arbeitsplatz, Privatadresse...) Auf diese Weise müssen Sie die Adresse nicht bei jeder Bestellung manuell eingeben.",
   "Manage billing addresses": "Alle gewünschten Rechnungsadressen verwalten (Arbeitsplatz, Privatadresse ...) Auf diese Weise müssen Sie die Rechnungsadresse nicht bei jeder Bestellung manuell eingeben.",

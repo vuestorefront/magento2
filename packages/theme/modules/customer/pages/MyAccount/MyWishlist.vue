@@ -7,22 +7,22 @@
       <div v-if="loading">
         <SfLoader />
       </div>
-      <div v-else>
+      <div v-else-if="products && products.length > 0">
         <div class="navbar section">
           <div class="navbar__main">
             <div class="navbar__counter">
-              <span class="navbar__label desktop-only">{{
-                $t('Products found')
-              }}</span>
+              <span class="navbar__label desktop-only">
+                {{ $t('Products found') }}
+              </span>
               <span class="desktop-only">{{ pagination.totalItems }}</span>
               <span class="navbar__label smartphone-only">
                 {{ pagination.totalItems }} {{ $t('Items') }}</span>
             </div>
 
             <div class="navbar__view">
-              <span class="navbar__view-label desktop-only">{{
-                $t('View')
-              }}</span>
+              <span class="navbar__view-label desktop-only">
+                {{ $t('View') }}
+              </span>
               <SvgImage
                 icon="tiles"
                 :label="$t('Change to grid view')"
@@ -80,7 +80,6 @@
                     fit: 'cover',
                   }"
                   :is-added-to-cart="isInCart({ product: product.product })"
-                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -100,7 +99,6 @@
                   :score-rating="
                     productGetters.getAverageRating(product.product)
                   "
-                  :show-add-to-cart-button="true"
                   :special-price="
                     productGetters.getPrice(product.product).special &&
                       $fc(productGetters.getPrice(product.product).special)
@@ -108,6 +106,8 @@
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
+                  is-in-wishlist
+                  show-add-to-cart-button
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="
                     addItemToCart({ product: product.product, quantity: 1 })
@@ -137,7 +137,6 @@
                   :nuxt-img-config="{
                     fit: 'cover',
                   }"
-                  :is-in-wishlist="true"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -164,6 +163,7 @@
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
+                  is-in-wishlist
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="
                     addItemToCart({ product: product.product, quantity: 1 })
@@ -209,9 +209,9 @@
                 v-show="pagination.totalPages > 1"
                 class="products__show-on-page"
               >
-                <span class="products__show-on-page__label">{{
-                  $t('Show on page')
-                }}</span>
+                <span class="products__show-on-page__label">
+                  {{ $t('Show on page') }}
+                </span>
                 <LazyHydrate on-interaction>
                   <SfSelect
                     :value="pagination.itemsPerPage.toString()"
@@ -233,6 +233,7 @@
           </SfLoader>
         </div>
       </div>
+      <EmptyWishlist v-else />
     </SfTab>
   </SfTabs>
 </template>
@@ -263,6 +264,7 @@ import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 import {
   useUiHelpers,
@@ -282,6 +284,7 @@ export default defineComponent({
     SfPagination,
     SfSelect,
     SfProperty,
+    EmptyWishlist,
     LazyHydrate,
     SvgImage,
   },
