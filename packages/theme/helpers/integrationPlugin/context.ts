@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
+type IntegrationProperties = Record<string, unknown>;
 /**
  * It extends given integartion, defined by `tag` in the context.
  */
-export const createExtendIntegrationInCtx = ({ tag, nuxtCtx, inject }) => (integrationProperties) => {
+export const createExtendIntegrationInCtx = ({ tag, nuxtCtx, inject }) => (integrationProperties: IntegrationProperties) => {
   const integrationKey = `$${tag}`;
 
   if (!nuxtCtx.$vsf || !nuxtCtx.$vsf[integrationKey]) {
@@ -19,7 +20,7 @@ export const createExtendIntegrationInCtx = ({ tag, nuxtCtx, inject }) => (integ
 /**
  * It creates a function that adds an integration to the context under the given name, defined by `tag`.
  */
-export const createAddIntegrationToCtx = ({ tag, nuxtCtx, inject }) => (integrationProperties) => {
+export const createAddIntegrationToCtx = ({ tag, nuxtCtx, inject }) => (integrationProperties: IntegrationProperties) => {
   const integrationKey = `$${tag}`;
 
   if (nuxtCtx.$vsf && !nuxtCtx.$vsf[integrationKey]) {
