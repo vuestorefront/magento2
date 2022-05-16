@@ -6,7 +6,47 @@
           v-t="'Manage addresses'"
           class="message"
         />
+        <template v-if="$fetchState.pending">
+          <div
+            v-for="number in 5"
+            :key="number"
+            class="address-skeleton"
+          >
+            <span>
+              <SkeletonLoader
+                class="address-skeleton__item"
+                width="10em"
+              />
+              <SkeletonLoader
+                class="address-skeleton__item"
+                width="10em"
+              />
+              <SkeletonLoader
+                class="address-skeleton__item"
+                width="15em"
+              />
+              <SkeletonLoader
+                class="address-skeleton__item"
+                width="10em"
+              />
+            </span>
+            <span class="address-skeleton__button">
+              <SkeletonLoader
+                width="131px"
+                height="51px"
+                margin="0"
+              />
+              <SkeletonLoader
+                class="desktop-only"
+                width="131px"
+                height="51px"
+                margin="0 0 0 var(--spacer-base) "
+              />
+            </span>
+          </div>
+        </template>
         <transition-group
+          v-else
           tag="div"
           name="fade"
           class="addresses-list"
@@ -69,11 +109,16 @@ import userAddressesGetters from '~/modules/customer/getters/userAddressesGetter
 import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { CustomerAddress } from '~/modules/GraphQL/types';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 
 export default defineComponent({
   name: 'AddressesDetails',
   components: {
-    SfTabs, SfButton, SvgImage, UserAddressDetails,
+    SfTabs,
+    SfButton,
+    SvgImage,
+    UserAddressDetails,
+    SkeletonLoader,
   },
   setup() {
     const context = useContext();
@@ -203,6 +248,26 @@ export default defineComponent({
         padding: 0;
       }
     }
+  }
+}
+
+.address-skeleton {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: {
+    top: var(--spacer-xl);
+    bottom: var(--spacer-xl);
+  }
+  border-top: 1px solid var(--c-light);
+
+  &__item {
+    display: block;
+    line-height: 1.6;
+  }
+
+  &__button {
+    align-self: center;
   }
 }
 </style>
