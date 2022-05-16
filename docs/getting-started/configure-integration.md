@@ -17,10 +17,6 @@ To install Vue Storefront, run the command below. It will ask you for the projec
 npx @vue-storefront/cli init
 ```
 
-Here's a recording of these steps:
-
-<Asciinema id="493286" />
-
 ## Setting environment variables
 
 After installation, the first step is to configure the integration using the environment variables.

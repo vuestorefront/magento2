@@ -36,10 +36,6 @@ Run the command below to create the store. It will ask you for the Username and 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.4
 ```
 
-Here's a recording of these steps:
-
-<Asciinema id="493276" />
-
 ### Setting up the authentication
 
 In the Magento 2 folder, copy the `src/auth.json.sample` file and rename it to `src/auth.json`. You can do it manually or use the following command:
