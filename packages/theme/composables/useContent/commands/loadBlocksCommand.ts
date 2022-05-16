@@ -1,5 +1,6 @@
 import { Logger } from '~/helpers/logger';
 import { VsfContext } from '~/composables/context';
+
 export const loadBlocksCommand = {
   execute: async (context: VsfContext, params) => {
     Logger.debug('[Magento]: Load CMS Blocks content', { params });

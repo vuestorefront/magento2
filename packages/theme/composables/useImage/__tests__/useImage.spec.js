@@ -1,11 +1,9 @@
 import { useContext } from '@nuxtjs/composition-api';
-import useImage from '../index';
+import { useImage } from '../index';
 
-jest.mock('@nuxtjs/composition-api', () => {
-  return {
-    useContext: jest.fn(),
-  };
-});
+jest.mock('@nuxtjs/composition-api', () => ({
+  useContext: jest.fn(),
+}));
 
 describe('useImage composable', () => {
   const testURL = 'https://mymagento.dev/media/image.png';
@@ -33,7 +31,7 @@ describe('useImage composable', () => {
         $magento: {
           config: {
             imageProvider: 'cloudinary',
-            magentoBaseUrl: 'https://mymagento.dev/'
+            magentoBaseUrl: 'https://mymagento.dev/',
           },
         },
       },
