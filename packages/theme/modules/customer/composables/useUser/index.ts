@@ -167,16 +167,16 @@ export function useUser(): UseUserInterface {
         },
         customQuery || {},
       );
-
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        error.value.login = { message: joinedErrors };
+
+        return;
       }
 
-      if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
-        Logger.error('Customer sign-in error'); // todo: handle errors in better way
-      }
       customerStore.setIsLoggedIn(true);
       apiState.setCustomerToken(data.generateCustomerToken.token);
 
