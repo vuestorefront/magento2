@@ -94,7 +94,7 @@ const getProducts = (wishlistData: Wishlist[] | Wishlist): {
     quantity: item.quantity,
     added_at: item.added_at,
     id: item.id,
-  }))];
+  })) ?? []];
 
   const mapper = (item) => ({
     product: item.product,
