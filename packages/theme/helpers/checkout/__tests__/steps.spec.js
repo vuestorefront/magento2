@@ -5,7 +5,7 @@ const CHECKOUT_DATA = {
 };
 
 describe('steps :: steps helper for the checkout', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     localStorage.clear();
 
     localStorage.setItem('vsf-checkout', JSON.stringify(CHECKOUT_DATA));
