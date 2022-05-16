@@ -24,7 +24,7 @@ export const getReviewDate = (item: ProductReview): string => item.created_at;
 
 export const getTotalReviews = (review: ProductInterface): number => review?.review_count || 0;
 
-export const getAverageRating = (review: ProductInterface): number => (review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) / (review?.review_count || 1) || 0;
+export const getAverageRating = (review: ProductInterface): number => ((review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) ?? 0) / (review?.review_count || 1) || 0;
 
 export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
 
