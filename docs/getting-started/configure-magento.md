@@ -18,7 +18,7 @@ mkdir server
 cd server
 ```
 
-### Getting access keys for Magento
+### 1. Get Magento Marketplace access keys
 
 Registry that stores Magento and other third-party packages requires authentication. You'll need to generate access keys in the Magento Marketplace to install them.
 
@@ -26,7 +26,7 @@ Follow the [Get your authentication keys](https://devdocs.magento.com/guides/v2.
 
 ![Access keys generated in Magento Marketplace](../assets/images/magento-marketplace-access-keys.jpg)
 
-### Setting up the Magento 2 store
+### 2. Install Magento 2 store
 
 To simplify the setup, let's use the [`markshust/docker-magento`](https://github.com/markshust/docker-magento) script.
 
@@ -36,7 +36,7 @@ Run the command below to create the store. It will ask you for the Username and 
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test 2.4.4
 ```
 
-### Setting up the authentication
+### 3. Setup authentication
 
 In the Magento 2 folder, copy the `src/auth.json.sample` file and rename it to `src/auth.json`. You can do it manually or use the following command:
 
@@ -63,21 +63,26 @@ Finally, copy the file to the container by running the following command:
 bin/copytocontainer auth.json
 ```
 
-### Populating with sample data
+### 4. Increse default GraphQL query complexity
 
-In the Magento 2 folder, execute the commands below to add sample data to your store.
+By default, Magento 2 allows maximum GraphQL query complexity of 300 and depth of 20 (see [#32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)). You need to change these values using the [GraphQL CustomConfig module](https://github.com/caravelx/module-graphql-config), which allows configuring these values in the admin panel.
 
-```sh
-bin/magento sampledata:deploy
+To install the Magento 2 GraphQL Config module, run the following commands on your Magento installation:
+
+```bash
+composer require caravelx/module-graphql-config
+php bin/magento module:enable Caravel_GraphQlConfig
+php bin/magento setup:upgrade
+php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy
 ```
 
-Then update the configuration:
+Then go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module and set:
 
-```sh
-bin/magento setup:upgrade
-```
+- **complexity** to 1500,
+- **depth** to 20.
 
-### Enabling CORS
+### 5. Enable CORS
 
 You may need to enable CORS origins in your Magento store to accept requests from other domains, e.g., `magento.dev`. In the Magento 2 folder, add the package `graycore/magento2-cors` by running the command below:
 
@@ -107,6 +112,20 @@ Enable the graycore cors.
 
 ```sh
 bin/magento module:enable Graycore_Cors
+```
+
+Then update the configuration:
+
+```sh
+bin/magento setup:upgrade
+```
+
+### 6. Populate store with sample data (optional)
+
+In the Magento 2 folder, execute the commands below to add sample data to your store.
+
+```sh
+bin/magento sampledata:deploy
 ```
 
 Then update the configuration:

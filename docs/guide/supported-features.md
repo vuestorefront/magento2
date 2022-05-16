@@ -30,11 +30,11 @@ This page shows the Magento 2 features supported by this integration. If the fea
 | Grid/list mode                | ✅         |
 | Adding product to cart        | ✅         |
 | Adding product to wishlist    | ✅         |
-| Configurable product swatches | ❌         |
+| Configurable product swatches | ✅         |
 | Filtering                     | ✅         |
 | Sorting                       | ✅         |
-| Breadcrumb                    | ❌         |
-| Category Landing Pages        | ❌         |
+| Breadcrumb                    | ✅         |
+| Category Landing Pages        | ✅         |
 
 ## Product page
 

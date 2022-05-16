@@ -71,6 +71,7 @@ module.exports = {
         title: 'Guides',
         collapsable: false,
         children: [
+          ['/guide/image-optimization', 'Image optimization'],
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
           ['/guide/recaptcha', 'ReCaptcha'],
