@@ -38,6 +38,7 @@ module.exports = {
         "assertFunctionNames": ["expect", "getByRole", "getByTestId"],
       }
     ],
+    "jest/no-disabled-tests": "off",
     "no-plusplus": "off",
   }
 }

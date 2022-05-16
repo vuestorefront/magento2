@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import userEvent from '@testing-library/user-event';
-import { waitFor } from '@testing-library/vue';
-import { useRouter } from '@nuxtjs/composition-api';
 import {
   useBilling, useUserBilling, useShipping, useCountrySearch, useGuestUser,
 } from '~/composables';
@@ -31,19 +28,18 @@ jest.mock('@nuxtjs/composition-api', () => {
   };
 });
 
-describe('Checkout :: <Billing/>', () => {
+describe.skip('Checkout :: <Billing/>', () => {
   test.todo('Test onMount');
-  // it('Form fields are rendered and validated', async () => {
-  //
-  //   useBilling.mockReturnValue(useBillingMock());
-  //   useUserBilling.mockReturnValue(useUserBillingMock());
-  //   useShipping.mockReturnValue(useShippingMock());
-  //   useCountrySearch.mockReturnValue(useCountrySearchMock());
-  //   useUser.mockReturnValue(useUserMock());
-  //   useGuestUser.mockReturnValue(useGuestUserMock());
-  //
-  //   const { getByRole, findAllByText, html } = render(Billing);
-  //
-  //   console.log(html)
-  // });
+  it.todo('Form fields are rendered and validated', () => {
+    useBilling.mockReturnValue(useBillingMock());
+    useUserBilling.mockReturnValue(useUserBillingMock());
+    useShipping.mockReturnValue(useShippingMock());
+    useCountrySearch.mockReturnValue(useCountrySearchMock());
+    useUser.mockReturnValue(useUserMock());
+    useGuestUser.mockReturnValue(useGuestUserMock());
+
+    const { /* getByRole, findAllByText, */ html } = render(Billing);
+
+    console.log(html);
+  });
 });
