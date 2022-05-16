@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
  * It extends given integartion, defined by `tag` in the context.
  */
