@@ -1,5 +1,4 @@
 **/node_modules/**/*
 **/lib/*
-packages/composables/**/*
 packages/api-client/src/types/GraphQL.ts
 packages/theme/static/sw.js
