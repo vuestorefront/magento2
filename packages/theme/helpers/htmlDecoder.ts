@@ -1,4 +1,4 @@
-export function htmlDecode(input) {
+export function htmlDecode(input: string) {
   const formatName = () => {
     try {
       const domParser = new DOMParser();
