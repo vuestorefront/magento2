@@ -20,7 +20,7 @@ cd server
 
 ### 1. Get Magento Marketplace access keys
 
-Registry that stores Magento and other third-party packages requires authentication. You'll need to generate access keys in the Magento Marketplace to install them.
+Registry that stores Magento and other third-party packages require authentication. You'll need to generate access keys in the Magento Marketplace to install them.
 
 Follow the [Get your authentication keys](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html) guide to generate new access keys.
 
@@ -63,9 +63,9 @@ Finally, copy the file to the container by running the following command:
 bin/copytocontainer auth.json
 ```
 
-### 4. Increse default GraphQL query complexity
+### 4. Increase default GraphQL query complexity
 
-By default, Magento 2 allows maximum GraphQL query complexity of 300 and depth of 20 (see [#32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)). You need to change these values using the [GraphQL CustomConfig module](https://github.com/caravelx/module-graphql-config), which allows configuring these values in the admin panel.
+For security reasons, Magento 2, by default, allows maximum GraphQL query complexity of 300 and depth of 20. You need to change these values using the [GraphQL CustomConfig module](https://github.com/caravelx/module-graphql-config), which allows configuring these values in the admin panel.
 
 To install the Magento 2 GraphQL Config module, run the following commands on your Magento installation:
 
@@ -77,10 +77,12 @@ php bin/magento setup:di:compile
 php bin/magento setup:static-content:deploy
 ```
 
-Then go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module and set:
+Then go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module, and set:
 
 - **complexity** to 1500,
 - **depth** to 20.
+
+For more information, see the [GraphQL security configuration](https://devdocs.magento.com/guides/v2.4/graphql/security-configuration.html) page.
 
 ### 5. Enable CORS
 
