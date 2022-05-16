@@ -5,7 +5,6 @@ export default gql`
     customer {
       orders(currentPage: $currentPage, filter: $filter, pageSize: $pageSize) {
         items {
-          order_number
           number
           id
           order_date
