@@ -25,7 +25,7 @@ npx @vue-storefront/cli init
 
 ### 1. Configure environment variables
 
-After installation, the first step is to configure the integration using the environment variables.
+After installation, the first step is configuring the integration using the environment variables.
 
 1. Go to the root folder of your project.
 2. Make a copy of the `.env.example` file and rename it to `.env`. You can do it manually or use the following command:
