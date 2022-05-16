@@ -15,7 +15,7 @@ describe('asyncLocalStorage :: Promised Based Localstorage Management', () => {
 
     expect(localStorage.setItem).toHaveBeenLastCalledWith(VSF_KEY, VSF_VALUE);
     expect(localStorage.__STORE__[VSF_KEY]).toBe(VSF_VALUE);
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(1);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(1);
   });
 
   test('getItem :: should get value from localStorage by key', async () => {
@@ -44,30 +44,30 @@ describe('asyncLocalStorage :: Promised Based Localstorage Management', () => {
     await setItem(KEY, VALUE);
 
     expect(localStorage.__STORE__[VSF_KEY]).toBe(VSF_VALUE);
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(1);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(1);
 
     await mergeItem(KEY, MERGE_VALUE);
 
     expect(localStorage.__STORE__[VSF_KEY]).toBe(VSF_MERGE_VALUE);
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(1);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(1);
   });
 
   test('remove :: should remove a key and value from localStorage', async () => {
     const KEY = 'jest';
     const VSF_KEY = `vsf-${KEY}`;
 
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(1);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(1);
 
     await removeItem(KEY);
 
     expect(localStorage.removeItem).toHaveBeenCalledWith(VSF_KEY);
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(0);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(0);
   });
 
   test('clear :: should clear all values and keys from localStorage', async () => {
     await clear();
 
     expect(localStorage.clear).toHaveBeenCalledWith();
-    expect(Object.keys(localStorage.__STORE__)).toHaveLength(0);
+    expect(Object.keys(localStorage.__STORE__ as Object)).toHaveLength(0);
   });
 });
