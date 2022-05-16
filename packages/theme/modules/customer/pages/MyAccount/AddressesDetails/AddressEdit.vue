@@ -7,8 +7,8 @@
           class="message"
         />
         <AddressForm
-          v-if="!$fetchState.pending"
-          :address="address"
+          :address="address || undefined /* use default address prop value during loading */"
+          :loading="$fetchState.pending"
           @submit="update"
         >
           <template #submit-button-content>
