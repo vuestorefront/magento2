@@ -128,26 +128,7 @@
             </SfProperty>
           </div>
         </div>
-        <div
-          v-else
-          key="empty-wishlist"
-          class="empty-wishlist"
-        >
-          <div class="empty-wishlist__banner">
-            <SvgImage
-              icon="empty_cart_image"
-              :label="$t('Empty bag')"
-              width="211"
-              height="143"
-              class="empty-wishlist__icon"
-            />
-            <SfHeading
-              title="Your bag is empty"
-              description="Looks like you haven’t added any items to the Wishlist."
-              class="empty-wishlist__label"
-            />
-          </div>
-        </div>
+        <EmptyWishlist v-else />
       </SfLoader>
       <template #content-bottom>
         <SfButton
@@ -182,6 +163,7 @@ import {
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 import SvgImage from '~/components/General/SvgImage.vue';
 
@@ -199,6 +181,7 @@ export default defineComponent({
     SfLink,
     SfLoader,
     SfImage,
+    EmptyWishlist,
     SvgImage,
   },
   setup() {
@@ -306,38 +289,7 @@ export default defineComponent({
     }
   }
 }
-.empty-wishlist {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  &__banner {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  &__label,
-  &__description {
-    text-align: center;
-  }
-  &__label {
-    --heading-description-margin: 0 0 var(--spacer-xl) 0;
-    --heading-title-margin: 0 0 var(--spacer-xl) 0;
-    --heading-title-color: var(--c-primary);
-    --heading-title-font-weight: var(--font-weight--semibold);
-    @include for-desktop {
-      --heading-title-font-size: var(--font-size--xl);
-      --heading-title-margin: 0 0 var(--spacer-sm) 0;
-    }
-  }
-  &__icon {
-    --image-width: 16rem;
-    margin: 0 0 var(--spacer-2xl) 7.5rem;
-  }
-}
+
 .heading {
   &__wrapper {
     --heading-title-color: var(--c-link);
