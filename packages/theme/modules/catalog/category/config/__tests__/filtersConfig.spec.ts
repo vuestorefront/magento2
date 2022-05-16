@@ -1,8 +1,8 @@
+import config, { FilterTypeEnum } from '~/modules/catalog/category/config/config';
+import RendererTypesEnum from '~/modules/catalog/category/components/filters/renderer/RendererTypesEnum';
 import {
   getFilterConfig, getDisabledFilters,
 } from '../FiltersConfig';
-import config, { FilterTypeEnum } from '~/modules/catalog/category/config/config';
-import RendererTypesEnum from '~/modules/catalog/category/components/filters/renderer/RendererTypesEnum';
 
 jest.mock('~/modules/catalog/category/config/config');
 
