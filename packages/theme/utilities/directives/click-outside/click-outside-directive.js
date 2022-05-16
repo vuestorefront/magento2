@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable no-param-reassign */
 
 export const clickOutside = {
   bind(el, binding) {
     binding.name = 'click-outside';
     const closeHandler = binding.value;
-    el._outsideClickHandler = function (event) {
+    el._outsideClickHandler = function clickOutsideHandler(event) {
       if (!el.contains(event.target)) {
         event.stopPropagation();
         closeHandler(event, el);
