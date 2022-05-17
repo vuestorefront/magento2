@@ -5,6 +5,5 @@ module.exports = {
     './rules/extends',
     './rules/rules',
     './rules/settings',
-  // eslint-disable-next-line unicorn/no-array-callback-reference
-  ].map(require.resolve),
+  ].map((element) => require.resolve(element)),
 };
