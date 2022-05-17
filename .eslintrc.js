@@ -48,6 +48,12 @@ module.exports = {
         "promise/catch-or-return": "off", // conflicts with Cypress.Chainable
         "promise/always-return": "off",
       }
+    },
+    {
+      "files": ["internals/**/*"],
+      "rules": {
+        "unicorn/prefer-module": "off",
+      }
     }
   ]
 }
