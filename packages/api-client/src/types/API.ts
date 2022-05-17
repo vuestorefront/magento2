@@ -203,7 +203,7 @@ export interface MagentoApiMethods {
   applyCouponToCart(
     input: ApplyCouponToCartInput,
     customQuery?: CustomQuery
-  ): Promise<FetchResult<ApplyCouponToCartMutation>>;
+  ): Promise<ApolloQueryResult<ApplyCouponToCartMutation>>;
 
   availableStores(customQuery?: CustomQuery): Promise<ApolloQueryResult<AvailableStoresQuery>>;
 
@@ -355,7 +355,7 @@ export interface MagentoApiMethods {
   removeCouponFromCart(
     input: RemoveCouponFromCartInput,
     customQuery?: CustomQuery
-  ): Promise<FetchResult<RemoveCouponFromCartMutation>>;
+  ): Promise<ApolloQueryResult<RemoveCouponFromCartMutation>>;
 
   removeItemFromCart(
     input: RemoveItemFromCartInput,
