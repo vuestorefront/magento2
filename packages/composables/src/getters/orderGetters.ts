@@ -12,7 +12,7 @@ export const getStatus = (order: CustomerOrder): string => order?.status || 'Fai
 
 export const getPrice = (order: CustomerOrder): number | null => order?.grand_total || 0;
 
-export const getItems = (order: CustomerOrder): any[] => order?.items || [];
+export const getItems = (order: CustomerOrder): OrderItemInterface[] => order?.items || [];
 
 export const getItemSku = (item: OrderItemInterface): string => item?.product_sku || '';
 
