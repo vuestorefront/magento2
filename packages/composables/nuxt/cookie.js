@@ -9,7 +9,6 @@ const baseSetCookieOptions = {
 const isBrowser = () => typeof window !== 'undefined';
 
 export default (req, res) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const cookie = isBrowser() ? CookieUniversal() : CookieUniversal(req, res);
 
   const setCookie = (id, data, options = {}) => {
