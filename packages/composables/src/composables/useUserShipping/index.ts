@@ -31,7 +31,7 @@ const factoryParams: UseUserShippingFactoryParams<any, any> = {
 
   deleteAddress: async (context: Context, params) => {
     Logger.debug('[Magento] delete shipping address', { params });
-    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
+    const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id as number);
 
     return data?.deleteCustomerAddress ?? {};
   },

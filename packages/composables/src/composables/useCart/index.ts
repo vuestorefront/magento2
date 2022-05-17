@@ -67,8 +67,8 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
           return createVirtualCart();
         }
 
-        cartId = await createRealCart();
-        apiState.setCartId(cartId);
+        const realCart = await createRealCart();
+        apiState.setCartId(realCart);
       }
 
       return getCartData(cartId);

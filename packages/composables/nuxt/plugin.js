@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+// for removal of reliance on Vue Storefront Core
 import { integrationPlugin } from '@vue-storefront/magento-theme/helpers/integrationPlugin';
 import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
 import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';

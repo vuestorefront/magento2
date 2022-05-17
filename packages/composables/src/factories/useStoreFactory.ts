@@ -39,8 +39,7 @@ export function useStoreFactory<STORES, STORE,
       }
     };
 
-    // eslint-disable-next-line @typescript-eslint/require-await
-    const change = async (store: ComposableFunctionArgs<STORE>): Promise<void> => {
+    const change = (store: ComposableFunctionArgs<STORE>) => {
       loading.value = true;
       try {
         _factoryParams.change(store);
