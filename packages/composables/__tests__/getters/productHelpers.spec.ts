@@ -1,3 +1,4 @@
+import { Product } from '@vue-storefront/magento-api';
 import {
   getAttributes,
   getCategoryIds,
@@ -124,7 +125,7 @@ const product = {
     label: 'Image',
     __typename: 'ProductImage',
   }],
-} as any;
+} as unknown as Product;
 
 describe('[magento-getters] product getters', () => {
   it('returns default values', () => {
@@ -157,7 +158,8 @@ describe('[magento-getters] product getters', () => {
   });
 
   it('returns cover image', () => {
-    expect(getCoverImage({ images: [] } as any)).toEqual(null);
+    // @ts-expect-error intentional lack of image
+    expect(getCoverImage({})).toEqual(null);
     expect(getCoverImage(product)).toEqual('https://m2.caravelx.com/media/catalog/product/cache/746ba992681b73af7e339699b3e0caf7/m/b/mb01-blue-0.jpg');
   });
 
