@@ -105,7 +105,7 @@ export const getProductThumbnailImage = (product: Product): string => {
   return product.thumbnail.url;
 };
 
-export const getFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
+export const getFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => {
   if (!products) {
     return [];
   }
@@ -213,7 +213,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: any, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
