@@ -1,28 +1,13 @@
 import {
   getAttributes,
-  getAverageRating,
-  getBreadcrumbs,
-  getCategory,
   getCategoryIds,
   getCoverImage,
-  getDescription,
   getFiltered,
-  getFormattedPrice,
   getGallery,
   getId,
   getName,
   getPrice,
-  getProductRelatedProduct,
-  getProductSku,
-  getProductThumbnailImage,
-  getProductUpsellProduct,
-  getShortDescription,
   getSlug,
-  getTotalReviews,
-  getTypeId,
-  getSwatchData,
-  getGroupedProducts,
-  getBundleProducts,
 } from '../../src/getters/productGetters';
 
 const product = {
