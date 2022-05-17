@@ -197,21 +197,35 @@ PRODUCT
     }
   };
 
+  const handleCoupon = async (couponCode = null, customQuery = null): Promise<void> => {
+    const variables = {
+      currentCart: cart.value,
+      customQuery,
+      couponCode,
+    };
+
+    const { updatedCart, errors } = couponCode
+      ? await applyCouponCommand.execute(context, variables)
+      : await removeCouponCommand.execute(context, variables);
+
+    if (errors) {
+      throw errors[0];
+    }
+
+    if (updatedCart) {
+      customerStore.$patch((state) => {
+        state.cart = updatedCart;
+      });
+    }
+  };
+
   const applyCoupon = async ({ couponCode, customQuery }): Promise<void> => {
     Logger.debug('useCart.applyCoupon');
 
     try {
       loading.value = true;
-      const { updatedCart } = await applyCouponCommand.execute(context, {
-        currentCart: cart.value,
-        couponCode,
-        customQuery,
-      });
-
+      await handleCoupon(couponCode, customQuery);
       error.value.applyCoupon = null;
-      customerStore.$patch((state) => {
-        state.cart = updatedCart;
-      });
     } catch (err) {
       error.value.applyCoupon = err;
       Logger.error('useCart/applyCoupon', err);
@@ -225,16 +239,8 @@ PRODUCT
 
     try {
       loading.value = true;
-      const { updatedCart } = await removeCouponCommand.execute(context, {
-        currentCart: cart.value,
-        customQuery,
-      });
-
-      error.value.removeCoupon = null;
-      customerStore.$patch((state) => {
-        state.cart = updatedCart;
-      });
-      loading.value = false;
+      await handleCoupon(null, customQuery);
+      error.value.applyCoupon = null;
     } catch (err) {
       error.value.removeCoupon = err;
       Logger.error('useCart/removeCoupon', err);

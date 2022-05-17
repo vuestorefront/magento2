@@ -14,7 +14,7 @@
         :disabled="isCouponCodeApplied"
         :label="$t('Enter promo code')"
         class="sf-input--filled coupon-code__input"
-        :error-message="$t('An error occurred')"
+        :error-message="$t(applyCouponMsg.message)"
         :valid="!hasAnyError"
       />
       <SfButton
@@ -52,9 +52,8 @@ export default defineComponent({
 
     const couponCodeAppliedToCart = computed(() => cartGetters.getAppliedCoupon(cart.value)?.code);
     const isCouponCodeApplied = computed(() => couponCodeAppliedToCart.value !== undefined);
-
-    const hasAnyError = computed(() => Object.values(error.value).some((value) => value instanceof Error));
-
+    const hasAnyError = computed(() => Object.values(error.value).some((value) => value !== null));
+    const applyCouponMsg = computed<Error>(() => error.value.applyCoupon || error.value.removeCoupon || { message: '', name: 'apply-coupon' });
     const applyOrRemoveCoupon = async () => {
       const operationPromise = isCouponCodeApplied.value
         ? removeCoupon({})
@@ -67,8 +66,9 @@ export default defineComponent({
       couponCodeUserInput,
       couponCodeAppliedToCart,
       isCouponCodeApplied,
-      hasAnyError,
+      applyCouponMsg,
       applyOrRemoveCoupon,
+      hasAnyError,
     };
   },
 });

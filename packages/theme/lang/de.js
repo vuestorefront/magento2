@@ -10,6 +10,7 @@ export default {
   "All Orders": "Alle Bestellungen",
   "Allow order notifications": "Bestellbenachrichtigungen zulassen",
   "Apply": "Übernehmen",
+  "Applied Coupon": "Angewendeter Gutschein",
   "Attention!": "Attention!",
   "Back to home": "Zurück Zur Startseite",
   "Back to homepage": "Zurück zur Homepage",
@@ -131,6 +132,7 @@ export default {
   "Read reviews": "Bewertungen lesen",
   "Register": "Registrieren",
   "Register today": "Melde dich noch heute an",
+  "Remove": "Löschen",
   "Remove Address": "Adresse entfernen",
   "Remove from Wishlist": "Von Wunschliste entfernen",
   "Repeat Password": "Wiederhole das Passwort",
@@ -266,5 +268,6 @@ export default {
   "Show less": "Zeige weniger",
   "Yes": "Ja",
   "No": "Nein",
-  "Apply filters": "Filter anwenden"
+  "Apply filters": "Filter anwenden",
+  "The coupon code isn't valid. Verify the code and try again.": "Der Gutscheincode ist ungültig. Überprüfen Sie den Code und versuchen Sie es erneut."
 };

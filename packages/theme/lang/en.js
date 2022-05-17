@@ -10,6 +10,7 @@ export default {
   "All Orders": "All Orders",
   "Allow order notifications": "Allow order notifications",
   "Apply": "Apply",
+  "Applied Coupon": "Applied Coupon",
   "Attention!": "Attention!",
   "Back to home": "Back to home",
   "Back to homepage": "Back to homepage",
@@ -127,6 +128,7 @@ export default {
   "Read reviews": "Read reviews",
   "Register": "Register",
   "Register today": "Register today",
+  "Remove": "Remove",
   "Remove Address": "Remove Address",
   "Remove from Wishlist": "Remove from Wishlist",
   "Repeat Password": "Repeat Password",
@@ -264,5 +266,6 @@ export default {
   "Show less": "Show less",
   "Yes": "Yes",
   "No": "No",
-  "Apply filters": "Apply filters"
+  "Apply filters": "Apply filters",
+  "The coupon code isn't valid. Verify the code and try again.": "The coupon code isn't valid. Verify the code and try again.",
 };
