@@ -6,7 +6,6 @@ import {
   ComposableFunctionArgs,
   configureFactoryParams,
   Context,
-  CustomQuery,
   FactoryParams,
   Logger,
   sharedRef,

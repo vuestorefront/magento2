@@ -12,6 +12,7 @@ import {
   ComposableFunctionArgs,
   PlatformApi,
 } from '@vue-storefront/core';
+import { Wishlist } from '@vue-storefront/magento-api';
 import { UseWishlist, UseWishlistErrors } from '../types/composables';
 
 export interface UseWishlistFactoryParams<WISHLIST,
@@ -52,7 +53,7 @@ export interface UseWishlistFactoryParams<WISHLIST,
 export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseWishlistFactoryParams<WISHLIST, WISHLIST_ITEM, PRODUCT, API>,
 ) => {
-  const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
+  const calculateWishlistTotal = (wishlists: Wishlist[]) => wishlists.reduce((prev, next) => prev + (next?.items_count ?? 0), 0);
 
   const useWishlist = (ssrKey = 'useWishlistFactory'): UseWishlist<WISHLIST, WISHLIST_ITEM, PRODUCT, API> => {
     const loading: Ref<boolean> = sharedRef<boolean>(false, `useWishlist-loading-${ssrKey}`);
@@ -135,9 +136,9 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
       Logger.debug(`useWishlist/${ssrKey}/load`);
       try {
         loading.value = true;
-        const loadedWishlist = await _factoryParams.load(params);
+        const loadedWishlist : WISHLIST = await _factoryParams.load(params);
         wishlist.value = loadedWishlist;
-        itemsCount.value = calculateWishlistTotal(loadedWishlist);
+        itemsCount.value = calculateWishlistTotal([loadedWishlist]);
         error.value.load = null;
       } catch (err) {
         error.value.load = err;
@@ -152,8 +153,8 @@ export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends
     }) => {
       Logger.debug(`useWishlist/${ssrKey}/loadItemsCount`);
       try {
-        const loadedWishlist = await _factoryParams.loadItemsCount(params);
-        itemsCount.value = calculateWishlistTotal(loadedWishlist);
+        const loadedWishlist : WISHLIST = await _factoryParams.loadItemsCount(params);
+        itemsCount.value = calculateWishlistTotal([loadedWishlist]);
         error.value.loadItemsCount = null;
       } catch (err) {
         error.value.loadItemsCount = err;

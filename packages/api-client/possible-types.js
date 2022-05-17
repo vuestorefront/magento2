@@ -1,7 +1,9 @@
+/* eslint-disable unicorn/prefer-module */
 require('dotenv').config();
 const fetch = require('cross-fetch');
 const fs = require('fs');
 
+// eslint-disable-next-line promise/catch-or-return
 fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
@@ -22,9 +24,11 @@ fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
     `,
   }),
 }).then((result) => result.json())
+  // eslint-disable-next-line promise/always-return
   .then((result) => {
     const possibleTypes = {};
 
+    // eslint-disable-next-line no-underscore-dangle
     result.data.__schema.types.forEach((supertype) => {
       if (supertype.possibleTypes) {
         possibleTypes[supertype.name] = supertype.possibleTypes.map((subtype) => subtype.name);

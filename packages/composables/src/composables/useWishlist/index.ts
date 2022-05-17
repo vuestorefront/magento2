@@ -121,10 +121,7 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
     }
   },
   removeItem: async (context, params) => {
-    const {
-      product,
-      currentWishlist,
-    } = params;
+    const { currentWishlist } = params;
     Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', params);
     const itemOnWishlist = findItemOnWishlist(currentWishlist, params.product);
 
@@ -137,8 +134,8 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
     return data?.removeProductsFromWishlist?.wishlist ?? {};
   },
-  clear: async ({ currentWishlist }) => ({}),
-  isInWishlist: (context, params) => {
+  clear: () => (Promise.resolve()),
+  isInWishlist: (_context, params) => {
     const {
       currentWishlist,
       product,

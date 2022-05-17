@@ -11,9 +11,10 @@
     "internals/*"
   ],
   "scripts": {
-    "build": "yarn build:api-client && yarn build:theme",
+    "build": "yarn build:api-client && yarn build:theme && yarn build:composables",
     "build:api-client": "cd packages/api-client && yarn build",
     "build:theme": "cd packages/theme && yarn build",
+    "build:composables": "cd packages/composables && yarn build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "dev:api-client": "cd packages/api-client && yarn dev",
@@ -22,7 +23,7 @@
     "docs:dev": "cd docs && yarn dev",
     "docs:build": "cd docs && yarn build",
     "graphql:codegen": "graphql-codegen --config codegen.yml",
-    "lint": "eslint . --ext .ts,.vue --fix",
+    "lint": "eslint .",
     "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
     "publish:api-client": "node ./scripts/publishApi.js",
     "start": "cd packages/theme && yarn start",
