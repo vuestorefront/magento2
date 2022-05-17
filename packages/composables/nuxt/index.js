@@ -11,7 +11,7 @@ const getMissingFields = (options) => [
   'locales',
 ].filter((o) => options[o] === undefined);
 
-export default function (moduleOptions) {
+export default function composablesModule(moduleOptions) {
   const options = isNuxtI18nUsed(moduleOptions)
     ? {
       ...moduleOptions,
