@@ -10,7 +10,7 @@ import {
 } from '@vue-storefront/core';
 import {
   BundleProduct,
-  Category, GroupedProduct,
+  Category, CategoryTree, GroupedProduct,
   Product,
 } from '@vue-storefront/magento-api';
 
@@ -213,7 +213,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: Product, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: Product, category?: CategoryTree): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -221,7 +221,7 @@ export const getBreadcrumbs = (product: Product, category?: Category): AgnosticB
   }
 
   if (category) {
-    breadcrumbs = categoryGetters.getBreadcrumbs(category) as AgnosticBreadcrumb[];
+    breadcrumbs = categoryGetters.getBreadcrumbs(category);
   }
 
   breadcrumbs.push({
