@@ -1,11 +1,11 @@
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
-import { useCategoryStore } from '~/stores/category';
+import { useCategoryStore } from '~/modules/catalog/category/stores/category';
 import categoryTreeData from '~/test-utils/mocks/categoryTreeDataMock';
 
 const mockUseCategoryStore = { categories: categoryTreeData[0], load: jest.fn() };
 
-jest.mock('~/stores/category', () => {
-  const originalModule = jest.requireActual('~/stores/category');
+jest.mock('~/modules/catalog/category/stores/category', () => {
+  const originalModule = jest.requireActual('~/modules/catalog/category/stores/category');
 
   return {
     ...originalModule,
