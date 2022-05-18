@@ -13,6 +13,7 @@ import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { useCartStore } from '~/modules/checkout/stores/cart';
 import { UseCartErrors, UseCartInterface } from './useCart';
+import { Product } from '~/modules/catalog/product/types';
 
 /**
  * The `useCart` composable provides functions and refs to deal with a user's cart from Magento API.
@@ -248,6 +249,20 @@ PRODUCT
       loading.value = false;
     }
   };
+
+  const canAddToCart = (product: Product, qty = 1) => {
+    // eslint-disable-next-line no-underscore-dangle
+    if (product?.__typename === 'ConfigurableProduct') {
+      return !!product?.configurable_product_options_selection?.variant
+        ?.uid;
+    }
+    const inStock = product?.stock_status || '';
+    const stockLeft = product?.only_x_left_in_stock === null
+      ? true
+      : qty <= product?.only_x_left_in_stock;
+    return inStock && stockLeft;
+  };
+
   return {
     setCart,
     cart,
@@ -260,6 +275,7 @@ PRODUCT
     updateItemQty,
     applyCoupon,
     removeCoupon,
+    canAddToCart,
     loading: readonly(loading),
     error: readonly(error),
   };

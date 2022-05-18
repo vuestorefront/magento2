@@ -100,14 +100,17 @@
           </ValidationProvider>
         </div>
         <recaptcha v-if="isRecaptchaEnabled" />
-        <SfButton class="form__button" type="submit">
+        <SfButton
+          class="form__button"
+          type="submit"
+        >
           Add review
         </SfButton>
       </form>
     </ValidationObserver>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   defineComponent,
   ref,
@@ -122,9 +125,10 @@ import {
   SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
 import { reviewGetters } from '~/getters';
-import  userGetters  from '~/modules/customer/getters/userGetters';
+import userGetters from '~/modules/customer/getters/userGetters';
 import { useReview } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
+import type { ProductReviewRatingMetadata } from '~/modules/GraphQL/types';
 
 extend('required', {
   ...required,
@@ -164,6 +168,8 @@ export default defineComponent({
     const {
       params: { id },
     } = route.value;
+
+    // @ts-ignore
     const { $recaptcha, $config } = useContext();
     const isRecaptchaEnabled = ref(
       typeof $recaptcha !== 'undefined' && $config.isRecaptcha,
@@ -177,7 +183,7 @@ export default defineComponent({
 
     const form = ref(BASE_FORM(id));
 
-    const metadata = ref([]);
+    const metadata = ref<ProductReviewRatingMetadata[]>([]);
 
     const ratingMetadata = computed(() => reviewGetters.getReviewMetadata([...metadata.value]));
 
