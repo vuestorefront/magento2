@@ -1,4 +1,4 @@
-import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import type {
@@ -96,5 +96,5 @@ export interface UseReviewInterface {
   /**
    * Contains errors from any of the composable methods
    */
-  error: DeepReadonly<Ref<UseReviewErrors>>;
+  error: Readonly<Ref<UseReviewErrors>>;
 }

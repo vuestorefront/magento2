@@ -1,5 +1,6 @@
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
+import { Product } from '~/modules/catalog/product/types';
 
 /**
  * Parameters accepted by the `addItem` method in the {@link useCart} composable
@@ -74,6 +75,8 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   setCart(newCart: CART): void;
   /** Returns the Items in the Cart as a `computed` property */
   cart: ComputedRef<CART>;
+  /** Checks wheter a `product` can be added to the `cart` */
+  canAddToCart(product: Product, qty: number);
   /**
    * The loading state.
    *
