@@ -11,7 +11,7 @@ import { removeItemCommand } from '~/modules/checkout/composables/useCart/comman
 import { updateItemQtyCommand } from '~/modules/checkout/composables/useCart/commands/updateItemQtyCommand';
 import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
-import { useCustomerStore } from '~/stores/customer';
+import { useCartStore } from '~/modules/checkout/stores/cart';
 import { UseCartErrors, UseCartInterface } from './useCart';
 
 /**
@@ -37,8 +37,8 @@ PRODUCT
   });
   const { app } = useContext();
   const context = app.$vsf;
-  const customerStore = useCustomerStore();
-  const cart = computed(() => customerStore.cart as CART);
+  const cartStore = useCartStore();
+  const cart = computed(() => cartStore.cart as CART);
   const apiState = context.$magento.config.state;
 
   /**
@@ -50,7 +50,7 @@ PRODUCT
   const setCart = (newCart: CART): void => {
     Logger.debug('useCart.setCart', newCart);
 
-    customerStore.$patch((state) => {
+    cartStore.$patch((state) => {
       state.cart = newCart;
     });
   };
@@ -70,7 +70,7 @@ PRODUCT
     try {
       loading.value = true;
       const loadedCart = await loadCartCommand.execute(context, { customQuery, realCart });
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = loadedCart;
       });
       error.value.load = null;
@@ -90,7 +90,7 @@ PRODUCT
       clearCartCommand.execute(context);
       const loadedCart = await loadCartCommand.execute(context, { customQuery });
 
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = loadedCart;
       });
     } catch (err) {
@@ -108,7 +108,7 @@ PRODUCT
       loading.value = true;
       const totalQuantity = await loadTotalQtyCommand.execute(context);
 
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart.total_quantity = totalQuantity;
       });
     } catch (err) {
@@ -135,7 +135,7 @@ PRODUCT
         quantity,
       });
       error.value.addItem = null;
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = updatedCart;
       });
     } catch (err) {
@@ -157,7 +157,7 @@ PRODUCT
       });
 
       error.value.removeItem = null;
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = updatedCart;
       });
     } catch (err) {
@@ -185,7 +185,7 @@ PRODUCT
         });
 
         error.value.updateItemQty = null;
-        customerStore.$patch((state) => {
+        cartStore.$patch((state) => {
           state.cart = updatedCart;
         });
       } catch (err) {
@@ -213,7 +213,7 @@ PRODUCT
     }
 
     if (updatedCart) {
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = updatedCart;
       });
     }

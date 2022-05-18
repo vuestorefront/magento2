@@ -1,5 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia';
-import { useCustomerStore } from '~/stores/customer';
+import { useCustomerStore } from '~/modules/customer/stores/customer';
 import tokenExpiredPlugin from '../token-expired';
 
 const errRes = {
