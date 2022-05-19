@@ -18,32 +18,6 @@
               <span class="navbar__label smartphone-only">
                 {{ pagination.totalItems }} {{ $t('Items') }}</span>
             </div>
-
-            <div class="navbar__view">
-              <span class="navbar__view-label desktop-only">
-                {{ $t('View') }}
-              </span>
-              <SvgImage
-                icon="tiles"
-                :label="$t('Change to grid view')"
-                :aria-pressed="isWishlistGridView"
-                width="12"
-                height="12"
-                class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': isWishlistGridView }"
-                @click.native="changeToWishlistGridView"
-              />
-              <SvgImage
-                icon="list"
-                :label="$t('Change to list view')"
-                :aria-pressed="!isWishlistGridView"
-                width="12"
-                height="12"
-                class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': !isWishlistGridView }"
-                @click.native="changeToWishlistListView"
-              />
-            </div>
           </div>
         </div>
 
@@ -57,7 +31,6 @@
               class="products"
             >
               <transition-group
-                v-if="isWishlistGridView"
                 appear
                 name="products__slide"
                 tag="div"
@@ -114,86 +87,6 @@
                   "
                 />
               </transition-group>
-              <transition-group
-                v-else
-                appear
-                name="products__slide"
-                tag="div"
-                class="products__list"
-              >
-                <SfProductCardHorizontal
-                  v-for="(product, i) in products"
-                  :key="productGetters.getSlug(product.product)"
-                  class="products__product-card-horizontal"
-                  image-tag="nuxt-img"
-                  :description="productGetters.getDescription(product.product)"
-                  :image="
-                    getMagentoImage(
-                      productGetters.getProductThumbnailImage(product.product)
-                    )
-                  "
-                  :image-width="imageSizes.productCardHorizontal.width"
-                  :image-height="imageSizes.productCardHorizontal.height"
-                  :nuxt-img-config="{
-                    fit: 'cover',
-                  }"
-                  :link="
-                    localePath(
-                      `/p/${productGetters.getProductSku(
-                        product.product
-                      )}${productGetters.getSlug(
-                        product.product,
-                        product.product.categories[0]
-                      )}`
-                    )
-                  "
-                  :regular-price="
-                    $fc(productGetters.getPrice(product.product).regular)
-                  "
-                  :reviews-count="
-                    productGetters.getTotalReviews(product.product)
-                  "
-                  :score-rating="
-                    productGetters.getAverageRating(product.product)
-                  "
-                  :special-price="
-                    productGetters.getPrice(product.product).special &&
-                      $fc(productGetters.getPrice(product.product).special)
-                  "
-                  :style="{ '--index': i }"
-                  :title="productGetters.getName(product.product)"
-                  wishlist-icon
-                  is-in-wishlist
-                  @click:wishlist="removeItemFromWishlist(product.product)"
-                  @click:add-to-cart="
-                    addItemToCart({ product: product.product, quantity: 1 })
-                  "
-                >
-                  <template #configuration>
-                    <SfProperty
-                      class="desktop-only"
-                      :name="$t('Size')"
-                      value="XS"
-                      style="margin: 0 0 1rem 0"
-                    />
-                    <SfProperty
-                      class="desktop-only"
-                      :name="$t('Color')"
-                      value="white"
-                    />
-                  </template>
-                  <template #actions>
-                    <SfButton
-                      class="sf-button--text desktop-only"
-                      style="margin: 0 0 1rem auto; display: block"
-                      @click="removeItemFromWishlist(product.product)"
-                    >
-                      {{ $t('Remove from Wishlist') }}
-                    </SfButton>
-                  </template>
-                </SfProductCardHorizontal>
-              </transition-group>
-
               <LazyHydrate on-interaction>
                 <SfPagination
                   v-if="!loading"
@@ -243,12 +136,9 @@ import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfLoader,
   SfTabs,
-  SfButton,
   SfProductCard,
-  SfProductCardHorizontal,
   SfPagination,
   SfSelect,
-  SfProperty,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -266,27 +156,18 @@ import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
-import {
-  useUiHelpers,
-  useUiState,
-  useImage,
-} from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
+import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
   components: {
     SfLoader,
     SfTabs,
-    SfButton,
     SfProductCard,
-    SfProductCardHorizontal,
     SfPagination,
     SfSelect,
-    SfProperty,
     EmptyWishlist,
     LazyHydrate,
-    SvgImage,
   },
   setup() {
     const {
@@ -299,7 +180,6 @@ export default defineComponent({
     } = route.value;
     const router = useRouter();
     const th = useUiHelpers();
-    const uiState = useUiState();
     const { addItem: addItemToCartBase, isInCart } = useCart();
     const wishlistStore = useWishlistStore();
 
@@ -347,7 +227,6 @@ export default defineComponent({
     });
 
     return {
-      ...uiState,
       addItemToCart,
       removeItemFromWishlist,
       isInCart,
@@ -566,8 +445,7 @@ export default defineComponent({
     }
   }
 
-  &__grid,
-  &__list {
+  &__grid {
     display: flex;
     flex-wrap: wrap;
   }
@@ -581,16 +459,6 @@ export default defineComponent({
       --product-card-title-font-weight: var(--font-weight--normal);
       --product-card-add-button-bottom: var(--spacer-base);
       --product-card-title-margin: var(--spacer-sm) 0 0 0;
-    }
-  }
-
-  &__product-card-horizontal {
-    flex: 0 0 100%;
-    @include for-mobile {
-      ::v-deep .sf-image {
-        --image-width: 5.3125rem;
-        --image-height: 7.0625rem;
-      }
     }
   }
 
@@ -618,9 +486,6 @@ export default defineComponent({
     }
     &__product-card {
       flex: 1 1 25%;
-    }
-    &__list {
-      margin: 0 0 0 var(--spacer-sm);
     }
   }
 
