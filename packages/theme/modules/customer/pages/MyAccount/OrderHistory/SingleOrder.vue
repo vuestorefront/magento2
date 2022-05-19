@@ -64,7 +64,7 @@
               {{ $t('Status') }}
             </template>
             <template #value>
-              {{ getStatus(asyncData.order) }}
+              {{ asyncData.order.status }}
             </template>
           </OrderSummaryRow>
 
@@ -170,7 +170,6 @@ export default defineComponent({
       ordersRoute,
       asyncData,
       getDate: orderGetters.getDate,
-      getStatus: orderGetters.getStatus,
     };
   },
 });

@@ -47,7 +47,7 @@
             <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
             <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
             <SfTableData>
-              <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
+              <span :class="getStatusTextClass(order)">{{ order.status }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfLink
@@ -173,8 +173,7 @@ export default defineComponent({
     ];
 
     const getStatusTextClass = (order: CustomerOrder) => {
-      const status = orderGetters.getStatus(order);
-      switch (status) {
+      switch (order.status) {
         case AgnosticOrderStatus.Open:
           return 'text-warning';
         case AgnosticOrderStatus.Complete:
@@ -190,7 +189,6 @@ export default defineComponent({
       getStatusTextClass,
       loading,
       orderGetters,
-      // @ts-expect-error Wrong type returned by useUserOrder. See M2-579 in VSF Jira
       orders: computed(() => orders.value.items),
       pagination,
       tableHeaders,
