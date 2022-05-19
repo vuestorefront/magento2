@@ -8,19 +8,6 @@
         <SfLoader />
       </div>
       <div v-else-if="products && products.length > 0">
-        <div class="navbar section">
-          <div class="navbar__main">
-            <div class="navbar__counter">
-              <span class="navbar__label desktop-only">
-                {{ $t('Products found') }}
-              </span>
-              <span class="desktop-only">{{ pagination.totalItems }}</span>
-              <span class="navbar__label smartphone-only">
-                {{ pagination.totalItems }} {{ $t('Items') }}</span>
-            </div>
-          </div>
-        </div>
-
         <div class="main section">
           <SfLoader
             :class="{ loading }"
