@@ -94,22 +94,6 @@
         </div>
       </div>
     </SfTab>
-    <SfTab
-      data-cy="order-history-tab_returns"
-      :title="$t('Returns')"
-    >
-      <p class="message">
-        This feature is not implemented yet! Please take a look at
-        <br>
-        <SfLink
-          class="message__link"
-          link="#"
-        >
-          https://github.com/vuestorefront/magento2/projects/5
-        </SfLink>
-        for our Roadmap!
-      </p>
-    </SfTab>
   </SfTabs>
 </template>
 
