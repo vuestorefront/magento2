@@ -63,8 +63,10 @@
         </SfButton>
       </div>
     </div>
+    <!-- Do not use :visible="isVisible" - it causes M2-571 -->
     <SfSidebar
-      :visible="isVisible"
+      v-if="isVisible"
+      visible
       class="sidebar-filters smartphone-only"
       title="Filters"
       @close="$emit('close')"
