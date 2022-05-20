@@ -1,4 +1,4 @@
-import { computed } from '@nuxtjs/composition-api';
+import { computed, Ref } from '@nuxtjs/composition-api';
 import { getGallery as getProductGallery } from '~/modules/catalog/product/getters/productGetters';
 import { useImage } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
@@ -9,13 +9,13 @@ import type { UseProductGalleryInterface } from '~/modules/catalog/product/compo
  *
  * See the {@link UseProductGalleryInterface} page for more information.
  */
-export function useProductGallery(product: Product): UseProductGalleryInterface {
+export function useProductGallery(product: Ref<Product>): UseProductGalleryInterface {
   const { getMagentoImage, imageSizes } = useImage();
-  const productGallery = computed(() => getProductGallery(product).map((img) => ({
+  const productGallery = computed(() => getProductGallery(product.value).map((img) => ({
     mobile: { url: getMagentoImage(img.small) },
     desktop: { url: getMagentoImage(img.normal) },
     big: { url: getMagentoImage(img.big) },
-    alt: product.name,
+    alt: product.value.name,
   })));
 
   return {
