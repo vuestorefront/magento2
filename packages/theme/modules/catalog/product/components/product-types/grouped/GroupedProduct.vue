@@ -114,7 +114,7 @@ import {
   ref,
   computed,
   defineComponent,
-  PropType,
+  PropType, toRef,
 } from '@nuxtjs/composition-api';
 
 import {
@@ -170,7 +170,8 @@ export default defineComponent({
   setup(props) {
     const qty = ref(1);
     const { addItem, canAddToCart } = useCart();
-    const { productGallery, imageSizes } = useProductGallery(props.product);
+    const product = toRef(props, 'product');
+    const { productGallery, imageSizes } = useProductGallery(product);
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
     const { isAuthenticated } = useUser();
