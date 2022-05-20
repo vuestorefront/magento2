@@ -18,26 +18,27 @@
   </SfTopBar>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api';
 import { SfButton, SfTopBar } from '@storefront-ui/vue';
-import useTopBar from './useTopBar';
+import { useTopBar } from './useTopBar';
 
-export default {
+export default defineComponent({
   components: {
-    CurrencySelector: () => import('../CurrencySelector'),
+    CurrencySelector: () => import('../CurrencySelector.vue'),
+    StoreSwitcher: () => import('../StoreSwitcher.vue'),
     SfTopBar,
     SfButton,
-    StoreSwitcher: () => import('../StoreSwitcher'),
   },
   setup() {
-    const { hasStoresToSelect, hasCurrencyToSelect } = useTopBar();
+    const { hasCurrencyToSelect, hasStoresToSelect } = useTopBar();
 
     return {
-      hasStoresToSelect,
       hasCurrencyToSelect,
+      hasStoresToSelect,
     };
   },
-};
+});
 
 </script>
 <style lang="scss" scoped>
