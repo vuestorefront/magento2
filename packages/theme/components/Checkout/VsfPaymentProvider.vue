@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfRadio } from '@storefront-ui/vue';
 import {
   ref,

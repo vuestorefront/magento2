@@ -39,7 +39,7 @@
     </template>
   </SfBanner>
 </template>
-<script type="module">
+<script lang="ts">
 import {
   SfBanner,
   SfLink,
