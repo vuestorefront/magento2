@@ -8,6 +8,16 @@ import { productsMock } from './productsMock';
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
 
+jest.mock('~/composables', () => {
+  const originalComposables = jest.requireActual('~/composables');
+  return {
+    ...originalComposables,
+    useUiNotification: jest.fn(() => ({
+      send: jest.fn(),
+    })),
+  };
+});
+
 describe('CategoryProductGrid', () => {
   it('shows skeleton loader when loading', async () => {
     const { findAllByTestId } = render(CategoryProductGrid, { props: { loading: true, products: [] }, localVue, pinia: createTestingPinia() });

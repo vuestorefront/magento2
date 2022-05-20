@@ -48,14 +48,7 @@
               :regular-price="
                 $fc(getItemPrice(wishlistItem).regular)
               "
-              :link="
-                localePath(
-                  `/p/${wishlistItem.product.sku}${productGetters.getSlug(
-                    wishlistItem.product,
-                    wishlistItem.product.categories[0]
-                  )}`
-                )
-              "
+              :link="getItemLink(wishlistItem)"
               :special-price="getItemPrice(wishlistItem).special && $fc(getItemPrice(wishlistItem).special)"
               :stock="99999"
               class="collected-product"
@@ -65,16 +58,7 @@
                 <div />
               </template>
               <template #image>
-                <SfLink
-                  :link="
-                    localePath(
-                      `/p/${wishlistItem.product.sku}${productGetters.getSlug(
-                        wishlistItem.product,
-                        wishlistItem.product.categories[0]
-                      )}`
-                    )
-                  "
-                >
+                <SfLink :link="getItemLink(wishlistItem)">
                   <SfImage
                     image-tag="nuxt-img"
                     :src="getMagentoImage(wishlistItem.product.thumbnail.url)"
@@ -154,7 +138,11 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, onMounted,
+  computed,
+  defineComponent,
+  onMounted,
+  useContext,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
@@ -185,6 +173,8 @@ export default defineComponent({
     SvgImage,
   },
   setup() {
+    const { localeRoute } = useContext();
+    const router = useRouter();
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const {
       removeItem, load: loadWishlist, loading,
@@ -229,6 +219,15 @@ export default defineComponent({
 
     const getAttributes = (product) => product?.product?.configurable_options || [];
     const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+    const getItemLink = (item: WishlistItemInterface) => localeRoute({
+      path: `/p/${item.product.sku}${productGetters.getSlug(
+        item.product,
+        item.product.categories[0],
+      )}`,
+      query: {
+        wishlist: 'true',
+      },
+    });
 
     const { getMagentoImage, imageSizes } = useImage();
 
@@ -238,9 +237,16 @@ export default defineComponent({
       }
     });
 
+    router.afterEach(() => {
+      if (isWishlistSidebarOpen.value) {
+        toggleWishlistSidebar();
+      }
+    });
+
     return {
       getAttributes,
       getBundles,
+      getItemLink,
       isAuthenticated,
       isWishlistSidebarOpen,
       wishlistItems,
@@ -249,7 +255,6 @@ export default defineComponent({
       totalItems,
       totals,
       wishlist: wishlistStore.wishlist,
-      productGetters,
       getMagentoImage,
       imageSizes,
       loading,

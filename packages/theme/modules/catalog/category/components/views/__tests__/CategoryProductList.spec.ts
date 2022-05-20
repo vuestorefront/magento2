@@ -8,6 +8,16 @@ import CategoryProductList from '../CategoryProductList.vue';
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
 
+jest.mock('~/composables', () => {
+  const originalComposables = jest.requireActual('~/composables');
+  return {
+    ...originalComposables,
+    useUiNotification: jest.fn(() => ({
+      send: jest.fn(),
+    })),
+  };
+});
+
 describe('CategoryProductList', () => {
   it.each([
     [true, true],

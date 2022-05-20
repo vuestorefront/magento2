@@ -16,6 +16,7 @@ export interface UseWishlistErrors {
   load: Error | null;
   clear: Error | null;
   loadItemsCount: Error | null;
+  afterAddingWishlistItemToCart: Error | null,
 }
 
 /**
@@ -62,6 +63,14 @@ export type UseWishlistClearParams = {
 };
 
 /**
+ * Parameters accepted by the `afterAddingWishlistItemToCart` method in the `useWishlist` composable
+ */
+export type UseWishlistAfterAddingWishlistItemToCartParams = ComposableFunctionArgs<{
+  product: Product;
+  cartError: Error;
+}>;
+
+/**
  * Represents the data returned from and functions available in the `useWishlist()` composable.
  */
 export interface UseWishlistInterface {
@@ -99,6 +108,11 @@ export interface UseWishlistInterface {
    * Overrides the wishlist of the current user
    */
   setWishlist(newWishlist: Wishlist): void;
+
+  /**
+   * After adding a product from the wishlist to the cart
+   */
+  afterAddingWishlistItemToCart(params: UseWishlistAfterAddingWishlistItemToCartParams): void;
 
   /**
    * Indicates whether any of the methods is in progress

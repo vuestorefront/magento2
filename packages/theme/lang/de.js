@@ -193,6 +193,7 @@ export default {
   "Who we are": "Wer wir sind",
   "Wishlist": "Wunschliste",
   "Women fashion": "Damenmode",
+  "You added {product} to your shopping cart.": "Sie haben {product} zu Ihrem Warenkorb hinzugefügt.",
   "You are not authorized, please log in": "Sie sind nicht autorisiert, bitte melden Sie sich an",
   "You can unsubscribe at any time": "Sie können sich jederzeit abmelden",
   "You currently have no orders": "Sie haben derzeit keine Bestellungen",
