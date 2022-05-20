@@ -14,7 +14,10 @@
       @click:close="notification.dismiss"
       @click:action="notification.action && notification.action.onClick()"
     >
-      <template v-if="notification.icon" #icon>
+      <template
+        v-if="notification.icon"
+        #icon
+      >
         <SvgImage
           :icon="notification.icon"
           width="25"
@@ -25,7 +28,7 @@
   </transition-group>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 import { SfNotification } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
