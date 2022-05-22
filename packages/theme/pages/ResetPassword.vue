@@ -89,7 +89,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfButton,
   SfLoader,
@@ -101,6 +101,7 @@ import {
   computed,
   defineComponent,
   useContext,
+  useRoute,
 } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email, required } from 'vee-validate/dist/rules';
@@ -120,7 +121,7 @@ extend('required', {
 
 extend('password', {
   message: invalidPasswordMsg,
-  validate: (value) => customerPasswordRegExp.test(value),
+  validate: (value: string) => customerPasswordRegExp.test(value),
 });
 
 export default defineComponent({
@@ -133,28 +134,36 @@ export default defineComponent({
     ValidationProvider,
     ValidationObserver,
   },
+  // eslint-disable-next-line consistent-return
   middleware({ redirect, route }) {
     if (!route.query.token) {
       return redirect('/');
     }
   },
-  setup(props, context) {
+  setup() {
     const {
       result,
       setNew,
       error: forgotPasswordError,
       loading: forgotPasswordLoading,
     } = useForgotPassword();
-    const passwordMatchError = ref(false);
-    const form = ref({});
+    const passwordMatchError = ref<string | null>(null);
+
+    const form = ref({
+      email: '',
+      password: '',
+      repeatPassword: '',
+    });
     const isPasswordChanged = computed(() => forgotPasswordGetters.isPasswordChanged(result.value));
 
-    const { token } = context.root.$route.query;
+    const route = useRoute();
+    const { token } = route.value.query;
+    // @ts-expect-error Recaptcha is not registered as a Nuxt module. Its absence is handled in the code
     const { $recaptcha, $config } = useContext();
     const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
     const setNewPassword = async () => {
-      passwordMatchError.value = false;
+      passwordMatchError.value = null;
       if (form.value.password !== form.value.repeatPassword) {
         passwordMatchError.value = 'Passwords do not match';
         return;
@@ -168,14 +177,14 @@ export default defineComponent({
         const recaptchaToken = await $recaptcha.getResponse();
 
         await setNew({
-          tokenValue: token,
+          tokenValue: token as string,
           newPassword: form.value.password,
           email: form.value.email,
           recaptchaToken,
         });
       } else {
         await setNew({
-          tokenValue: token,
+          tokenValue: token as string,
           newPassword: form.value.password,
           email: form.value.email,
         });
