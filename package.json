@@ -23,7 +23,7 @@
     "docs:dev": "cd docs && yarn dev",
     "docs:build": "cd docs && yarn build",
     "graphql:codegen": "graphql-codegen --config codegen.yml",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .ts,.vue",
     "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
     "publish:api-client": "node ./scripts/publishApi.js",
     "start": "cd packages/theme && yarn start",
