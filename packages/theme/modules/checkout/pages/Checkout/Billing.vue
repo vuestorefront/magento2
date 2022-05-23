@@ -267,7 +267,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
@@ -303,6 +303,8 @@ import {
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
+import type { ShippingCartAddress } from '~/modules/GraphQL/types';
+
 const NOT_SELECTED_ADDRESS = '';
 
 extend('required', {
@@ -334,7 +336,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const shippingDetails = ref({});
+    const shippingDetails = ref<ShippingCartAddress | {}>({});
     const billingAddress = ref({});
     const userBilling = ref({});
 
@@ -416,7 +418,7 @@ export default defineComponent({
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
         shippingDetails.value = await loadShipping();
-        country.value = await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: (shippingDetails.value as ShippingCartAddress).country.code });
         oldBilling = { ...billingDetails.value };
         billingDetails.value = {
           ...formatAddressReturnToData(shippingDetails.value),
