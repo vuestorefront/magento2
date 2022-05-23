@@ -76,43 +76,53 @@
               {{ $fc(asyncData.order.total.base_grand_total.value) }}
             </template>
           </OrderSummaryRow>
-
-          <OrderSummaryAddressRow
-            :address="asyncData.order.shipping_address"
-            :countries="asyncData.countries"
-          >
-            <template #label>
-              {{ $t('Shipping Address') }}
-            </template>
-          </OrderSummaryAddressRow>
-
-          <OrderSummaryRow>
-            <template #label>
-              {{ $t('Shipping Method') }}
-            </template>
-            <template #value>
-              {{ asyncData.order.shipping_method }}
-            </template>
-          </OrderSummaryRow>
-
-          <OrderSummaryAddressRow
-            :address="asyncData.order.billing_address"
-            :countries="asyncData.countries"
-          >
-            <template #label>
-              {{ $t('Billing Address') }}
-            </template>
-          </OrderSummaryAddressRow>
-
-          <OrderSummaryRow>
-            <template #label>
-              {{ $t('Payment Method') }}
-            </template>
-            <template #value>
-              {{ asyncData.order.payment_methods[0].name }}
-            </template>
-          </OrderSummaryRow>
         </SfTable>
+
+        <SfHeading
+          class="order-information-heading"
+          :level="3"
+          :title="$t('Order information')"
+        />
+
+        <div class="order-information">
+          <div>
+            <header class="order-information__column-heading">
+              {{ $t('Shipping Address') }}
+            </header>
+            <OrderInformationAddressColumn
+              :address="asyncData.order.shipping_address"
+              :countries="asyncData.countries"
+            />
+          </div>
+
+          <div>
+            <header class="order-information__column-heading">
+              {{ $t('Shipping Method') }}
+            </header>
+            <div>
+              {{ asyncData.order.shipping_method }}
+            </div>
+          </div>
+
+          <div>
+            <header class="order-information__column-heading">
+              {{ $t('Billing Address') }}
+            </header>
+            <OrderInformationAddressColumn
+              :address="asyncData.order.billing_address"
+              :countries="asyncData.countries"
+            />
+          </div>
+
+          <div>
+            <header class="order-information__column-heading">
+              {{ $t('Payment Method') }}
+            </header>
+            <div>
+              {{ asyncData.order.payment_methods[0].name }}
+            </div>
+          </div>
+        </div>
       </div>
     </SfTab>
   </SfTabs>
@@ -124,25 +134,25 @@ import {
   SfTable,
   SfButton,
   SfLoader,
+  SfHeading,
 } from '@storefront-ui/vue';
-import {
-  defineComponent, useAsync, useContext,
-} from '@nuxtjs/composition-api';
+import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
 import orderGetters from '~/modules/checkout/getters/orderGetters';
-import OrderSummaryRow from '~/modules/customer/pages/MyAccount/OrderHistory/OrderSummaryRow.vue';
-import OrderSummaryAddressRow from '~/modules/customer/pages/MyAccount/OrderHistory/OrderSummaryAddressRow.vue';
 import { useCountrySearch } from '~/composables';
+import OrderSummaryRow from '~/modules/customer/pages/MyAccount/OrderHistory/SingleOrder/OrderSummaryRow.vue';
+import OrderInformationAddressColumn from '~/modules/customer/pages/MyAccount/OrderHistory/SingleOrder/OrderInformationAddressColumn.vue';
 
 export default defineComponent({
   name: 'SingleOrder',
   components: {
+    SfHeading,
     SfButton,
     SfTable,
     SfTabs,
     SfLoader,
     OrderSummaryRow,
-    OrderSummaryAddressRow,
+    OrderInformationAddressColumn,
   },
   props: { orderId: { type: String, required: true } },
   setup(props) {
@@ -242,5 +252,20 @@ export default defineComponent({
       font-size: var(--font-size--sm);
     }
   }
+}
+
+.order-information {
+  &-heading {
+    text-align: left;
+    margin-top: var(--spacer-lg);
+    margin-bottom: var(--spacer-sm);
+  }
+  &__column-heading {
+    font-weight: var(--font-weight--normal);
+    margin-bottom: var(--spacer-sm);
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 </style>
