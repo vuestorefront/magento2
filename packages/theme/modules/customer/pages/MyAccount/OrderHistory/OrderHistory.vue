@@ -4,7 +4,7 @@
       data-cy="order-history-tab_my-orders"
       :title="$t('My orders')"
     >
-      <div v-if="loading">
+      <div v-if="$fetchState.pending">
         <SfLoader />
       </div>
       <div v-else>
@@ -44,8 +44,8 @@
             :key="order.number"
           >
             <SfTableData>{{ order.number }}</SfTableData>
-            <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
+            <SfTableData>{{ getDate(order) }}</SfTableData>
+            <SfTableData>{{ $fc(getPrice(order)) }}</SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(order)">{{ order.status }}</span>
             </SfTableData>
@@ -61,7 +61,7 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            v-if="!loading"
+            v-if="!$fetchState.pending"
             v-show="pagination.totalPages > 1"
             class="products__pagination desktop-only"
             :current="pagination.currentPage"
@@ -108,14 +108,14 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, useRoute, useAsync,
+  ref, computed, defineComponent, useRoute, useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { AgnosticOrderStatus } from '~/composables/types';
-import { orderGetters } from '~/getters';
+import orderGetters from '~/modules/checkout/getters/orderGetters';
 import { useUiHelpers } from '~/composables';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
-import { CustomerOrder } from '~/modules/GraphQL/types';
+import type { CustomerOrders, CustomerOrder } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'OrderHistory',
@@ -130,7 +130,7 @@ export default defineComponent({
     SfLoader,
   },
   setup() {
-    const { search, loading } = useUserOrder();
+    const { search } = useUserOrder();
     const route = useRoute();
     const th = useUiHelpers();
     const {
@@ -140,13 +140,13 @@ export default defineComponent({
       },
     } = route.value;
 
-    const orders = useAsync(async () => {
-      const ordersData = await search({
+    const rawCustomerOrders = ref<CustomerOrders | null>(null);
+
+    useFetch(async () => {
+      rawCustomerOrders.value = await search({
         currentPage: Number.parseInt(page as string, 10) || 1,
         pageSize: Number.parseInt(itemsPerPage as string, 10) || 10,
       });
-
-      return ordersData;
     });
 
     const tableHeaders = [
@@ -167,13 +167,15 @@ export default defineComponent({
       }
     };
 
-    const pagination = computed(() => orderGetters.getPagination(orders.value));
+    const pagination = computed(() => orderGetters.getPagination(rawCustomerOrders.value));
 
     return {
       getStatusTextClass,
-      loading,
       orderGetters,
-      orders: computed(() => orders.value.items),
+      getDate: orderGetters.getDate,
+      getPrice: orderGetters.getPrice,
+      orders: computed(() => rawCustomerOrders.value?.items ?? []),
+      rawCustomerOrders,
       pagination,
       tableHeaders,
       th,
