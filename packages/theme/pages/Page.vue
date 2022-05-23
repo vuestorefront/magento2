@@ -20,6 +20,7 @@ import {
   defineComponent, ref, useContext, useFetch, useRoute,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import type { MetaInfo } from 'vue-meta';
 import { useContent } from '~/composables';
 import type { CmsPage } from '~/modules/GraphQL/types';
 import HTMLContent from '~/components/HTMLContent.vue';
@@ -61,20 +62,18 @@ export default defineComponent({
       loading,
     };
   },
-  head() {
-    // eslint-disable-next-line prefer-destructuring
-    const page : CmsPage | null = this.page;
-    if (!page) {
+  head() : MetaInfo {
+    if (!this.page) {
       return null;
     }
 
-    const title = page?.meta_title ? page.meta_title : page.title;
+    const title = this.page?.meta_title ? this.page.meta_title : this.page.title;
     const meta = [];
-    if (page.meta_description) {
+    if (this.page.meta_description) {
       meta.push({
         hid: 'description',
         name: 'description',
-        content: page.meta_description,
+        content: this.page.meta_description,
       });
     }
     return {
