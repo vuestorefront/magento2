@@ -279,7 +279,7 @@ export default defineComponent({
         sendNotification({
           id: Symbol('user_form_error'),
           message: 'Something went wrong during form submission. Please try again later',
-          type: 'error',
+          type: 'danger',
           icon: 'error',
           persist: false,
           title: 'Error',
