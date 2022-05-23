@@ -13,8 +13,7 @@ export type UseCartAddItemParams<PRODUCT> = ComposableFunctionArgs<{
 /**
  * Parameters accepted by the `removeItem` method in the {@link useCart} composable
  */
-type UseCartRemoveItemParams<CART, CART_ITEM> = ComposableFunctionArgs<{
-  currentCart: CART
+type UseCartRemoveItemParams<CART_ITEM> = ComposableFunctionArgs<{
   product: CART_ITEM
 }>;
 
@@ -60,7 +59,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
     params: UseCartAddItemParams<PRODUCT>
   ): Promise<void>;
   /** Removes an `item` from a `cart` */
-  removeItem(params: UseCartRemoveItemParams<CART, CART_ITEM>): Promise<void>;
+  removeItem(params: UseCartRemoveItemParams< CART_ITEM>): Promise<void>;
   /** Updates the `quantity` of an `item` in a cart */
   updateItemQty(params: UseCartUpdateItemQtyParams<CART_ITEM>): Promise<void>;
   /** Removes all items from the cart */
