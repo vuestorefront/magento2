@@ -143,7 +143,7 @@ import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
-
+import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
 import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
@@ -187,7 +187,7 @@ export default defineComponent({
       const productType = product.__typename;
 
       switch (productType) {
-        case 'SimpleProduct':
+        case ProductTypeEnum.SIMPLE_PRODUCT:
           await addItemToCartBase({
             product,
             quantity,
@@ -197,8 +197,9 @@ export default defineComponent({
             cartError: cartError.value.addItem,
           });
           break;
-        case 'BundleProduct':
-        case 'ConfigurableProduct':
+        case ProductTypeEnum.CONFIGURABLE_PRODUCT:
+        case ProductTypeEnum.BUNDLE_PRODUCT:
+        case ProductTypeEnum.GROUPED_PRODUCT:
           const path = `/p/${productGetters.getProductSku(
             product,
           )}${productGetters.getSlug(product, product.categories[0])}`;

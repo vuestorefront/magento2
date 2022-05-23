@@ -13,7 +13,6 @@ import type {
   UseWishlistAfterAddingWishlistItemToCartParams,
 } from '~/modules/wishlist/composables/useWishlist/useWishlist';
 import { useUiNotification } from '~/composables';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 
 /**
  * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
@@ -282,7 +281,7 @@ export function useWishlist(): UseWishlistInterface {
               id: Symbol('product_added_to_cart_from_wishlist'),
               message: app.i18n.t(
                 'You added {product} to your shopping cart.',
-                { product: productGetters.getName(product) },
+                { product: product.name },
               ) as string,
               type: 'success',
               icon: 'check',
