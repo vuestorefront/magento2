@@ -46,7 +46,11 @@ export default defineComponent({
   }
 
   ::v-deep tr {
-    --table-row-padding: var(--spacer-xs) var(--spacer-sm);
+    --table-row-padding: var(--spacer-xs) 0;
+
+    @include for-desktop {
+      --table-row-padding: var(--spacer-xs) var(--spacer-sm);
+    }
   }
 
   &--bold {
@@ -58,6 +62,14 @@ export default defineComponent({
   &__spacer {
     @include for-desktop {
       --table-column-flex: 2;
+    }
+  }
+
+  td {
+    order: 0;
+
+    &:not(:first-child) {
+      --table-column-text-align: right;
     }
   }
 }
