@@ -135,6 +135,7 @@ module.exports = {
         children: [
           ['/plugins/', 'Plugins'],
           ['/api-reference/', 'API Reference'],
+          ['/migration-guides/', 'Migration guides'],
         ],
       },
       {
