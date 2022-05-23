@@ -158,7 +158,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfTable,
@@ -204,7 +204,7 @@ export default defineComponent({
     const order = ref(null);
     const { cart, load, setCart } = useCart();
     const { make, loading } = useMakeOrder();
-    const { app, $vsf: { $magento } } = useContext();
+    const { app } = useContext();
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
@@ -223,7 +223,7 @@ export default defineComponent({
     const processOrder = async () => {
       order.value = await make();
       setCart(null);
-      $magento.config.state.setCartId();
+      app.$vsf.$magento.config.state.removeCartId();
       await load();
       await removeItem('checkout');
       const thankYouRoute = app.localeRoute({
