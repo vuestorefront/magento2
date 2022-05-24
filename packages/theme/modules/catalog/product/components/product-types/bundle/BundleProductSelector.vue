@@ -134,7 +134,6 @@ export default defineComponent({
     };
 
     const price = computed(() => Object.keys(selectedOptions.value)
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .reduce(
         (s, k) => s
             + Number.parseFloat(selectedOptions?.value[k]?.price as string)

@@ -64,6 +64,7 @@ export default defineComponent({
   setup() {
     const product = ref<Product | null>(null);
     const { addTags } = useCache();
+    const { localePath } = useContext();
     const route = useRoute();
     const { getProductDetails, loading } = useProduct();
     const { error: nuxtError } = useContext();
@@ -74,7 +75,7 @@ export default defineComponent({
       return getBreadcrumbs(
         product.value,
         Array.isArray(productCategories) ? [...productCategories].pop() : null,
-      );
+      ).map((breadcrumb) => ({ ...breadcrumb, link: localePath(breadcrumb.link) }));
     });
 
     const getBaseSearchQuery = () => ({

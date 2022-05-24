@@ -59,6 +59,7 @@ export declare type ComposableFunctionArgs<T> = T & {
 export interface AgnosticPrice {
   regular: number | null;
   special?: number | null;
+  maximum?: number | null;
 }
 
 export interface AgnosticMediaGalleryItem {

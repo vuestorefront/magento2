@@ -269,4 +269,7 @@ export default {
   "No": "No",
   "Apply filters": "Apply filters",
   "The coupon code isn't valid. Verify the code and try again.": "The coupon code isn't valid. Verify the code and try again.",
+  "From": "From",
+  "To": "To",
+  "Your customization": "Your customization",
 };
