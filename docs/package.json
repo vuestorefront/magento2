@@ -7,7 +7,7 @@
   "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build --max-concurrency=32",
+    "build": "yarn api-extract && vuepress build --max-concurrency=32",
     "api-extract": "rimraf api-reference && yarn api-ref && yarn theme-ref && yarn ref-md",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
     "theme-ref": "cd ../scripts && node generateApiReference.mjs",
