@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+/** GraphQL query to fetch a cart */
 export default gql`
   query cart($cartId: String!) {
     cart(cart_id:$cartId) {

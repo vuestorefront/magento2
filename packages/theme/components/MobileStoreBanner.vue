@@ -6,31 +6,35 @@
     class="sf-banner--left desktop-only banner-app"
   >
     <template #call-to-action>
-      <div class="banner-app__call-to-action">
-        <SfButton
-          class="banner-app__button sf-button--pure"
+      <div class="app-banner__call-to-action">
+        <SfLink
+          class="app-banner__button sf-banner__call-to-action"
           aria-label="Go to Apple Product"
-          @click="() => {}"
+          data-testid="banner-cta-button"
+          link="#"
         >
-          <nuxt-img
+          <SfImage
             src="/homepage/apple.png"
             loading="lazy"
-            width="174"
-            height="57"
+            alt="Apple"
+            :width="134"
+            :height="44"
           />
-        </SfButton>
-        <SfButton
-          class="banner-app__button sf-button--pure"
+        </SfLink>
+        <SfLink
+          class="app-banner__button sf-banner__call-to-action"
           aria-label="Go to Google Product"
-          @click="() => {}"
+          data-testid="banner-cta-button"
+          link="#"
         >
-          <nuxt-img
+          <SfImage
             src="/homepage/google.png"
             loading="lazy"
-            width="174"
-            height="57"
+            alt="Google"
+            :width="134"
+            :height="44"
           />
-        </SfButton>
+        </SfLink>
       </div>
     </template>
   </SfBanner>
@@ -38,7 +42,8 @@
 <script type="module">
 import {
   SfBanner,
-  SfButton,
+  SfLink,
+  SfImage,
 } from '@storefront-ui/vue';
 import { defineComponent } from '@nuxtjs/composition-api';
 
@@ -46,40 +51,45 @@ export default defineComponent({
   name: 'AppStoreBanner',
   components: {
     SfBanner,
-    SfButton,
+    SfLink,
+    SfImage,
   },
 });
 </script>
 <style lang="scss" scoped>
-
-.banner-app {
+.app-banner {
   --banner-title-margin: var(--spacer-base) 0 var(--spacer-xl) 0;
   --banner-padding: 0 0 var(--spacer-2xl);
   --banner-title-font-size: var(--h1-font-size);
   --banner-subtitle-font-size: var(--font-size--xl);
   --banner-title-font-weight: var(--font-weight--semibold);
   --banner-subtitle-font-weight: var(--font-weight--medium);
-  --banner-title-text-transform: capitalize;
   --banner-title-text-transform: none;
   --banner-background-size: contain;
   --banner-background-position: right;
+  &__title {
+    margin: var(--spacer-base) 0 var(--spacer-xl) 0;
+    font-size: var(--h1-font-size);
+    font-family: var(--font-family--secondary);
+    font-weight: var(--font-weight--semibold);
+    text-transform: capitalize;
+  }
   display: block;
   min-height: 26.25rem;
-  max-width: 77.5rem;
+  max-width: 65rem;
   margin: 0 auto;
-  padding: 5.625rem 31.25rem 0 5.625rem;
+  padding: 0 calc(25% + var(--spacer-2xl)) 0 var(--spacer-xl);
   &__call-to-action {
+    --button-background: transparent;
     display: flex;
-    flex-wrap: nowrap;
   }
   &__button {
-    --image-width: 10.875rem;
-    --image-height: 3.5625rem;
-    pointer-events: visible;
+    --button-padding: 0;
+    --button-width: 8.375rem;
+    --button-height: 2.75rem;
     & + & {
-      margin: 0 0 0 var(--spacer-base);
+      margin: 0 0 0 calc(var(--spacer-xl) / 2);
     }
   }
 }
-
 </style>

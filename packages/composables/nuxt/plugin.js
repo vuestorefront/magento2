@@ -1,10 +1,11 @@
-import { integrationPlugin } from '@vue-storefront/core'
+import { integrationPlugin } from '@vue-storefront/magento-theme/helpers/integrationPlugin'
 import { mapConfigToSetupObject } from '@vue-storefront/magento/nuxt/helpers';
 import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 import cookie from '@vue-storefront/magento/nuxt/cookie';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
+// TODO should be moved to THEME and expose consistent cookie management API
 export default integrationPlugin(({ app, res, req, integration }) => {
   const cartCookieName = moduleOptions.cookies?.cartCookieName || defaultConfig.cookies.cartCookieName;
   const customerCookieName = moduleOptions.cookies?.customerCookieName || defaultConfig.cookies.customerCookieName;

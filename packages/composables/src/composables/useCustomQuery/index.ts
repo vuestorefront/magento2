@@ -1,3 +1,7 @@
+/**
+ * @deprecated Will be removed in 1.1.0 release
+ * @use @vue-storefront/magento-theme/composables/useApi instead
+ */
 import { Context, Logger } from '@vue-storefront/core';
 import {
   useCustomQueryFactory,

@@ -1,12 +1,15 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   configureFactoryParams,
   Context,
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCustomMutation } from '../types/composables';
 import { FetchPolicy } from '../types';
 

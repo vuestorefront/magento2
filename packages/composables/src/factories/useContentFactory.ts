@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed, Ref } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
@@ -6,8 +9,8 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseContentErrors, UseContent } from '../types/composables';
 
 export interface UseContentFactoryParams<CONTENT, BLOCK, API extends PlatformApi = any> extends FactoryParams<API>{

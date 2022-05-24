@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { CategoryGetters, AgnosticCategoryTree, AgnosticBreadcrumb } from '@vue-storefront/core';
 import { Category } from '@vue-storefront/magento-api';
 import { buildCategoryTree } from '../helpers/buildCategoryTree';

@@ -1,7 +1,7 @@
-import {
-  Ref,
-  computed,
-} from '@vue/composition-api';
+/**
+ * @deprecated since version 1.0.0
+ */
+import { Ref } from '@vue/composition-api';
 import {
   configureFactoryParams,
   Context,
@@ -9,8 +9,9 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseWishlist, UseWishlistErrors } from '../types/composables';
 
 export interface UseWishlistFactoryParams<WISHLIST,
@@ -45,6 +46,9 @@ export interface UseWishlistFactoryParams<WISHLIST,
   isInWishlist: (context: Context, params: { currentWishlist: WISHLIST; product: PRODUCT }) => boolean;
 }
 
+/**
+ * @deprecated since version 1.0.0
+ */
 export const useWishlistFactory = <WISHLIST, WISHLIST_ITEM, PRODUCT, API extends PlatformApi = any>(
   factoryParams: UseWishlistFactoryParams<WISHLIST, WISHLIST_ITEM, PRODUCT, API>,
 ) => {

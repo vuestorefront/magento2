@@ -1,4 +1,6 @@
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import { UserGetters as BaseUserGetters } from '@vue-storefront/core';
 import { Customer } from '@vue-storefront/magento-api';
 

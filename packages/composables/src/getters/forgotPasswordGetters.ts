@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { ForgotPasswordGetters } from '@vue-storefront/core';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

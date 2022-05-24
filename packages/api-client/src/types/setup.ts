@@ -38,16 +38,25 @@ export type Store = {
 export type ConfigState = {
   getCartId(): string;
   setCartId(id?: string | null): void;
+  removeCartId(): void;
   getCustomerToken(): string;
   setCustomerToken(token?: string | null): void;
+  removeCustomerToken(): void;
   getStore(): string;
   setStore(id?: string | null): void;
+  removeStore(): void;
   getCurrency(): string;
   setCurrency(id?: string | null): void;
+  removeCurrency(): void;
   getLocale(): string;
   setLocale(id?: string | null): void;
+  removeLocale(): void;
   getCountry(): string;
   setCountry(id?: string | null): void;
+  removeCountry(): void;
+  getMessage<T>(): T;
+  setMessage<T>(id?: T | null): void;
+  removeMessage(): void;
 };
 
 export interface ClientConfig {
@@ -84,6 +93,7 @@ export interface Config<T = any> extends ClientConfig {
   storage: Storage;
   customOptions?: ApolloClientOptions<any>;
   customApolloHttpLinkOptions?: HttpOptions;
+  magentoApiEndpoint: string;
   overrides: MagentoApiMethods;
   recaptcha: RecaptchaConfig;
 }

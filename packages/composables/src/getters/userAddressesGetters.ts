@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { UserAddressesGetters as BaseGetters } from '../types/getters';
 import { transformUserGetter } from '../helpers/userAddressManipulator';
 

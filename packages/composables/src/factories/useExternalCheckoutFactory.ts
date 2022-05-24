@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   ComposableFunctionArgs,
   configureFactoryParams,
@@ -5,9 +8,9 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseExternalCheckout } from '../types/composables';
 
 export interface UseExternalCheckoutFactoryParams<API extends PlatformApi = any> extends FactoryParams<API> {

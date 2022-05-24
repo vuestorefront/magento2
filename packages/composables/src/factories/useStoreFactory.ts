@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed } from '@vue/composition-api';
 import {
   Context,
@@ -5,8 +8,9 @@ import {
   Logger,
   configureFactoryParams,
   FactoryParams,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseStore } from '../types/composables';
 
 export interface UseStoreFactoryParams<STORES, STORE, API extends PlatformApi = any> extends FactoryParams<API> {

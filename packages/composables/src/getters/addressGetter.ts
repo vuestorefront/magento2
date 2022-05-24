@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { Countries, Country } from '@vue-storefront/magento-api';
 import { AddressGetter } from '../types';
 

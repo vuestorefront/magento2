@@ -15,41 +15,10 @@
           class="search__wrapper-results"
         >
           <SfMegaMenuColumn
-            :title="$t('Categories')"
-            class="sf-mega-menu-column--pined-content-on-mobile search__categories"
-          >
-            <template #title="{title}">
-              <SfMenuItem
-                :label="title"
-              >
-                <template #mobile-nav-icon>
-                  &#8203;
-                </template>
-              </SfMenuItem>
-            </template>
-            <SfList
-              v-if="categories.length > 0"
-            >
-              <SfListItem
-                v-for="(category, key) in categories"
-                :key="key"
-              >
-                <SfMenuItem
-                  :label="category.label"
-                  :link="localePath(th.getAgnosticCatLink(category))"
-                >
-                  <template #mobile-nav-icon>
-                    &#8203;
-                  </template>
-                </SfMenuItem>
-              </SfListItem>
-            </SfList>
-          </SfMegaMenuColumn>
-          <SfMegaMenuColumn
             :title="$t('Product suggestions')"
             class="sf-mega-menu-column--pined-content-on-mobile search__results"
           >
-            <template #title="{title}">
+            <template #title="{ title }">
               <SfMenuItem
                 :label="title"
                 class="sf-mega-menu-column__header search__header"
@@ -69,51 +38,38 @@
                   v-for="(product, index) in products"
                   :key="index"
                   class="result-card"
+                  image-tag="nuxt-img"
                   :regular-price="$fc(productGetters.getPrice(product).regular)"
                   :max-rating="5"
                   :score-rating="productGetters.getAverageRating(product)"
                   :reviews-count="productGetters.getTotalReviews(product)"
                   :image-width="imageSizes.productCard.width"
                   :image-height="imageSizes.productCard.height"
-                  :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+                  :image="
+                    getMagentoImage(
+                      productGetters.getProductThumbnailImage(product)
+                    )
+                  "
+                  :nuxt-img-config="{
+                    fit: 'cover',
+                  }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+                  :link="
+                    localePath(
+                      `/p/${productGetters.getProductSku(
+                        product
+                      )}${productGetters.getSlug(
+                        product,
+                        product.categories[0]
+                      )}`
+                    )
+                  "
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
                   @click:wishlist="addItemToWishlist(product)"
-                >
-                  <template #image="imageSlotProps">
-                    <SfButton
-                      :link="imageSlotProps.link"
-                      class="sf-button--pure sf-product-card__link"
-                      data-testid="product-link"
-                      aria-label="Go To Product"
-                      v-on="$listeners"
-                    >
-                      <template v-if="Array.isArray(imageSlotProps.image)">
-                        <nuxt-img
-                          v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                          :key="key"
-                          class="sf-product-card__picture"
-                          :src="picture"
-                          :alt="imageSlotProps.title"
-                          :width="imageSlotProps.imageWidth"
-                          :height="imageSlotProps.imageHeight"
-                        />
-                      </template>
-                      <nuxt-img
-                        v-else
-                        class="sf-product-card__image lol"
-                        :src="imageSlotProps.image"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </SfButton>
-                  </template>
-                </SfProductCard>
+                />
               </div>
             </SfScrollable>
             <div class="results--mobile smartphone-only">
@@ -121,51 +77,35 @@
                 v-for="(product, index) in products"
                 :key="index"
                 class="result-card"
+                image-tag="nuxt-img"
                 :regular-price="$fc(productGetters.getPrice(product).regular)"
                 :max-rating="5"
                 :score-rating="productGetters.getAverageRating(product)"
                 :reviews-count="productGetters.getTotalReviews(product)"
                 :image-width="imageSizes.productCardHorizontal.width"
                 :image-height="imageSizes.productCardHorizontal.height"
-                :image="getMagentoImage(productGetters.getProductThumbnailImage(product))"
+                :image="
+                  getMagentoImage(
+                    productGetters.getProductThumbnailImage(product)
+                  )
+                "
+                :nuxt-img-config="{
+                  fit: 'cover',
+                }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="localePath(`/p/${productGetters.getProductSku(product)}${productGetters.getSlug(product, product.categories[0])}`)"
+                :link="
+                  localePath(
+                    `/p/${productGetters.getProductSku(
+                      product
+                    )}${productGetters.getSlug(product, product.categories[0])}`
+                  )
+                "
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
                 @click:wishlist="addItemToWishlist(product)"
-              >
-                <template #image="imageSlotProps">
-                  <SfButton
-                    :link="imageSlotProps.link"
-                    class="sf-button--pure sf-product-card__link"
-                    data-testid="product-link"
-                    aria-label="Go To Product"
-                    v-on="$listeners"
-                  >
-                    <template v-if="Array.isArray(imageSlotProps.image)">
-                      <nuxt-img
-                        v-for="(picture, key) in imageSlotProps.image.slice(0, 2)"
-                        :key="key"
-                        class="sf-product-card__picture"
-                        :src="picture"
-                        :alt="imageSlotProps.title"
-                        :width="imageSlotProps.imageWidth"
-                        :height="imageSlotProps.imageHeight"
-                      />
-                    </template>
-                    <nuxt-img
-                      v-else
-                      class="sf-product-card__image lol"
-                      :src="imageSlotProps.image"
-                      :alt="imageSlotProps.title"
-                      :width="imageSlotProps.imageWidth"
-                      :height="imageSlotProps.imageHeight"
-                    />
-                  </SfButton>
-                </template>
-              </SfProductCard>
+              />
             </div>
           </SfMegaMenuColumn>
           <div class="action-buttons smartphone-only">
@@ -206,29 +146,27 @@
     </SfMegaMenu>
   </div>
 </template>
-<script>
+<script lang="ts">
 import {
   SfMegaMenu,
-  SfList,
   SfProductCard,
   SfScrollable,
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
+import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  ref,
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
-import { productGetters, useUser, useWishlist } from '@vue-storefront/magento';
-import { useUiHelpers, useImage } from '~/composables';
+  useUiHelpers, useImage,
+} from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'SearchResults',
   components: {
     SfMegaMenu,
-    SfList,
     SfProductCard,
     SfScrollable,
     SfMenuItem,
@@ -247,19 +185,16 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist('GlobalWishlist');
+    const { isInWishlist, addItem, removeItem } = useWishlist();
 
     const th = useUiHelpers();
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
-    const categories = computed(() => props.result?.categories);
 
     const addItemToWishlist = async (product) => {
-      await (
-        isInWishlist({ product })
-          ? removeItem({ product })
-          : addItem({ product })
-      );
+      await (isInWishlist({ product })
+        ? removeItem({ product })
+        : addItem({ product }));
     };
 
     const { getMagentoImage, imageSizes } = useImage();
@@ -269,7 +204,6 @@ export default defineComponent({
       isSearchOpen,
       productGetters,
       products,
-      categories,
       addItemToWishlist,
       isInWishlist,
       isAuthenticated,
@@ -299,11 +233,8 @@ export default defineComponent({
       flex: 1;
     }
   }
-  &__categories {
-    flex: 0 0 220px;
-  }
   &__results {
-    flex: 1
+    flex: 1;
   }
   &__header {
     margin-left: var(--spacer-sm);
@@ -328,7 +259,7 @@ export default defineComponent({
     justify-content: space-around;
     background: var(--c-white);
     padding: var(--spacer-base) var(--spacer-sm);
-    --product-card-max-width: 9rem ;
+    --product-card-max-width: 9rem;
   }
 }
 .see-all {

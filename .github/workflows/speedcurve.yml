@@ -1,0 +1,25 @@
+name: "Run SpeedCurve test"
+
+on:
+  deployment_status
+
+jobs:
+  speedcurve:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Wait for container deployed on VSF Cloud to come online'
+        run: 'sleep 300'
+        shell: 'bash'
+
+      - name: Shorten deployment commit SHA
+        id: vars
+        shell: bash
+        run: echo "::set-output name=sha_short::$(echo ${{ github.event.deployment.sha }} | cut -c1-8)"
+
+      - name: 'Ask SpeedCurve to run performance tests'
+        uses: SpeedCurve-Metrics/speedcurve-test-action@v1.2.2
+        with:
+          api_key: ${{ secrets.SPEEDCURVE_API_KEY }}
+          site_id: 744017
+          note: commit ${{ steps.vars.outputs.sha_short }}

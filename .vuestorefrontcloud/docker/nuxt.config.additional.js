@@ -10,7 +10,7 @@ export default () => {
       '@nuxtjs/sentry'
     ],
     sentry: {
-      dsn: process.env.SENTRY_DSN,
+      dsn: process.env.VSF_SENTRY_DSN,
       tracing: true,
     },
   };

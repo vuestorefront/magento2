@@ -134,22 +134,25 @@ import {
   SfButton,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import { onSSR } from '@vue-storefront/core';
 import {
   ref,
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted,
+  useContext,
+  useFetch,
+  onMounted,
 } from '@nuxtjs/composition-api';
-import { useUser, useGuestUser } from '@vue-storefront/magento';
 import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import { useUiNotification } from '~/composables';
+import {
+  useUiNotification, useGuestUser, useCart,
+} from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
-import { customerPasswordRegExp, invalidPasswordMsg } from '../../helpers/customer/regex';
+import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
 
 extend('required', {
   ...required,
@@ -190,6 +193,8 @@ export default defineComponent({
       loading: loadingGuestUser,
       error: errorGuestUser,
     } = useGuestUser();
+
+    const { cart } = useCart();
 
     const {
       load,
@@ -233,7 +238,7 @@ export default defineComponent({
 
         await (
           !createUserAccount.value
-            ? attachToCart({ email: form.value.email })
+            ? attachToCart({ email: form.value.email, cart })
             : register({ user: form.value })
         );
       }
@@ -275,8 +280,10 @@ export default defineComponent({
       }
     };
 
-    onSSR(async () => {
-      await load();
+    useFetch(async () => {
+      if(user.value === null) {
+        await load();
+      }
       if (isAuthenticated.value) {
         form.value.firstname = user.value.firstname;
         form.value.lastname = user.value.lastname;

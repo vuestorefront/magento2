@@ -1,6 +1,6 @@
-import { ShippingMethod } from '@vue-storefront/magento-api';
+import { AvailableShippingMethod } from '~/modules/GraphQL/types';
 
-export default (shippingMethod: ShippingMethod) => {
+export default (shippingMethod: AvailableShippingMethod) => {
   const value = shippingMethod?.amount?.value;
   const priceWithTax = shippingMethod?.price_incl_tax?.value;
 

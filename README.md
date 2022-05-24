@@ -5,19 +5,21 @@
 
 ### Stay connected
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)](https://github.com/vuestorefront/vue-storefront)
-[![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)](https://twitter.com/vuestorefront)
-[![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)](https://www.youtube.com/c/VueStorefront)
+![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/vuestorefront?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
 [![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
 
 <hr />
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
 
@@ -77,23 +79,19 @@ Find more information about the module [GraphQl Custom Config](https://github.co
     ```bash
     yarn install
     ```
-5. Define a store running environment by adding a `STORE_ENV` to your running project or execute the code
+5. Copy `.env.example` to `.env`
     ```bash
-    echo "STORE_ENV=dev" >> .env
+    cp packages/theme/.env.example packages/theme/.env
     ```
-6. Copy `config/example.json` to an environment named config and update GraphQL Endpoint
-    ```bash
-    cp packages/theme/config/example.json packages/theme/config/dev.json
+6. Update `MAGENTO_GRAPHQL_URL` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
     ```
-7. Update `magentoGraphQl` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
+    MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
     ```
-    "magentoGraphQl": "https://{YOUR_SITE_FRONT_URL}/graphql",
-    ```
-8. Build dependencies `yarn build:api-client && yarn build:composables`
+7. Build dependencies `yarn build:api-client && yarn build:composables`
     ```bash
     yarn build:api-client && yarn build:composables
     ```
-9. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
     ```bash
     yarn dev:theme
     ```
@@ -107,12 +105,11 @@ Find more information about the module [GraphQl Custom Config](https://github.co
 
 ## Support
 
-If you have any questions about this integration we will be happy to answer them on  `magento2` channel on [our Discord](http://discord.vuestorefront.io).
+If you have any questions about this integration we will be happy to answer them on  `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io).
 
 ## Contributors ✨
 
 ### Honorable Mentions
-- [Caravel x](https://www.caravelx.com/)
 - [Cyberfuze](https://cyberfuze.com/)
 - [Leonex](https://www.leonex.de/)
 
@@ -131,23 +128,17 @@ Thanks go to these wonderful people 🙌:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/patrickmonteiro"><img src="https://avatars.githubusercontent.com/u/13258255?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Patrick Monteiro</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=patrickmonteiro" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/KevinGorjan"><img src="https://avatars.githubusercontent.com/u/789614?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Kevin Gorjan</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=kevingorjan" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=kevingorjan" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/bartoszherba"><img src="https://avatars.githubusercontent.com/u/16045377?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Bartosz Herba</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bartoszherba" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=bartoszherba" title="Documentation">📖</a> <a href="#maintenance-bartoszherba" title="Maintenance">🚧</a> <a href="#mentoring-bartoszherba" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3Abartoszherba" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/Frodigo"><img src="https://avatars.githubusercontent.com/u/11998249?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Marcin Kwiatkowski</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Frodigo" title="Code">💻</a> <a href="#projectManagement-Frodigo" title="Project Management">📆</a> <a href="#business-Frodigo" title="Business development">💼</a> <a href="https://github.com/vuestorefront/magento2/commits?author=Frodigo" title="Documentation">📖</a> <a href="#ideas-Frodigo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-Frodigo" title="Maintenance">🚧</a> <a href="#mentoring-Frodigo" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3AFrodigo" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/KevinGorjan"><img src="https://avatars.githubusercontent.com/u/789614?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Kevin Gorjan</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=kevingorjan" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/bartoszherba"><img src="https://avatars.githubusercontent.com/u/16045377?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Bartosz Herba</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=bartoszherba" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Frodigo"><img src="https://avatars.githubusercontent.com/u/11998249?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Marcin Kwiatkowski</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Frodigo" title="Code">💻</a> <a href="#projectManagement-Frodigo" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/filrak"><img src="https://avatars.githubusercontent.com/u/15185752?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Filip Rakowski</b></sub></a><br /><a href="#question-filrak" title="Answering Questions">💬</a> <a href="#mentoring-filrak" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3Afilrak" title="Reviewed Pull Requests">👀</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/filipsobol"><img src="https://avatars.githubusercontent.com/u/4145208?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Filip Sobol</b></sub></a><br /><a href="#question-filipsobol" title="Answering Questions">💬</a> <a href="#mentoring-filipsobol" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3Afilipsobol" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/vuestorefront/magento2/commits?author=filipsobol" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/filipsobol"><img src="https://avatars.githubusercontent.com/u/4145208?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Filip Sobol</b></sub></a><br /><a href="#question-filipsobol" title="Answering Questions">💬</a> <a href="#mentoring-filipsobol" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3Afilipsobol" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/andrzejewsky"><img src="https://avatars.githubusercontent.com/u/7943292?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Patryk Andrzejewski</b></sub></a><br /><a href="#question-andrzejewsky" title="Answering Questions">💬</a> <a href="#mentoring-andrzejewsky" title="Mentoring">🧑‍🏫</a> <a href="https://github.com/vuestorefront/magento2/pulls?q=is%3Apr+reviewed-by%3Aandrzejewsky" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/renanoliveira0"><img src="https://avatars.githubusercontent.com/u/1081576?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Renan Oliveira</b></sub></a><br /><a href="#tool-renanoliveira0" title="Tools">🔧</a> <a href="#plugin-renanoliveira0" title="Plugin/utility libraries">🔌</a></td>
     <td align="center"><a href="https://github.com/domideimel"><img src="https://avatars.githubusercontent.com/u/32941053?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Dominik Deimel</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Code">💻</a> <a href="https://github.com/vuestorefront/magento2/commits?author=domideimel" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/LiorLindvor"><img src="https://avatars.githubusercontent.com/u/6757942?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Lior Lindvor</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=LiorLindvor" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/sethidden"><img src="https://avatars.githubusercontent.com/u/5359825?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Artur Tagisow</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=sethidden" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jonathanribas"><img src="https://avatars.githubusercontent.com/u/3003782?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Jonathan Ribas</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=jonathanribas" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Aliaaaam"><img src="https://avatars.githubusercontent.com/u/88658555?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Ali Ghanei</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Aliaaaam" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/mayashavin"><img src="https://avatars.githubusercontent.com/u/6650139?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Maya Shavin</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=mayashavin" title="Documentation">📖</a></td>
   </tr>
 </table>
 

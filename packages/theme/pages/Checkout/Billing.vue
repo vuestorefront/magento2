@@ -6,9 +6,7 @@
       :title="$t('Billing address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-    <form
-      @submit.prevent="handleSubmit(handleAddressSubmit(reset))"
-    >
+    <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <SfCheckbox
         v-e2e="'copy-address'"
         :selected="sameAsShipping"
@@ -23,7 +21,12 @@
       >
         <div class="copy__shipping__address">
           <div class="sf-address">
-            <UserAddressDetails :address="{... billingDetails, region: {region_code: billingDetails.region}}" />
+            <UserAddressDetails
+              :address="{
+                ...billingDetails,
+                region: { region_code: billingDetails.region },
+              }"
+            />
           </div>
         </div>
       </div>
@@ -32,6 +35,7 @@
         v-model="setAsDefault"
         v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :billing-addresses="addresses"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -53,7 +57,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="firstname => changeBillingDetails('firstname', firstname)"
+            @input="(firstname) => changeBillingDetails('firstname', firstname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -71,7 +75,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="lastname => changeBillingDetails('lastname', lastname)"
+            @input="(lastname) => changeBillingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -89,13 +93,13 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="street => changeBillingDetails('street', street)"
+            @input="(street) => changeBillingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
           name="apartment"
-          rules="required|min:2"
+          rules="required|min:1"
           slim
         >
           <SfInput
@@ -107,7 +111,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="apartment => changeBillingDetails('apartment', apartment)"
+            @input="(apartment) => changeBillingDetails('apartment', apartment)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -125,7 +129,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="city => changeBillingDetails('city', city)"
+            @input="(city) => changeBillingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -135,7 +139,9 @@
           slim
         >
           <SfInput
-            v-if="!billingDetails.country_code || regionInformation.length === 0"
+            v-if="
+              !billingDetails.country_code || regionInformation.length === 0
+            "
             v-model="billingDetails.region"
             v-e2e="'state'"
             label="State/Province"
@@ -145,7 +151,7 @@
             :disabled="!billingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
-            @input="region => changeBillingDetails('region', region)"
+            @input="(region) => changeBillingDetails('region', region)"
           />
           <SfSelect
             v-else
@@ -157,7 +163,7 @@
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
-            @input="state => changeBillingDetails('region', state)"
+            @input="(state) => changeBillingDetails('region', state)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -209,7 +215,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="postcode => changeBillingDetails('postcode', postcode)"
+            @input="(postcode) => changeBillingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -227,7 +233,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="telephone => changeBillingDetails('telephone', telephone)"
+            @input="(telephone) => changeBillingDetails('telephone', telephone)"
           />
         </ValidationProvider>
       </div>
@@ -269,15 +275,6 @@ import {
   SfSelect,
   SfCheckbox,
 } from '@storefront-ui/vue';
-import {
-  useUserBilling,
-  userBillingGetters,
-  useUser,
-  useBilling,
-  useShipping,
-  useCountrySearch,
-  addressGetter,
-} from '@vue-storefront/magento';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import {
@@ -289,8 +286,18 @@ import {
   defineComponent,
   useContext,
 } from '@nuxtjs/composition-api';
+import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
+import addressGetter from '~/modules/customer/getters/addressGetter';
+import {
+  useShipping, useBilling, useCountrySearch,
+} from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useUserAddress } from '~/modules/customer/composables/useUserAddress';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
-import { addressFromApiToForm, formatAddressReturnToData } from '~/helpers/checkout/address';
+import {
+  addressFromApiToForm,
+  formatAddressReturnToData,
+} from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
@@ -325,40 +332,41 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
+    const shippingDetails = ref({});
+    const billingAddress = ref({});
+    const userBilling = ref({});
+
     const {
-      load,
-      save,
-      loading,
-      billing: address,
+      save, load: loadBilling, loading,
     } = useBilling();
     const {
-      billing: userBilling,
       load: loadUserBilling,
       setDefaultAddress,
-    } = useUserBilling();
+    } = useUserAddress();
     const {
-      shipping: shippingDetails,
       load: loadShipping,
     } = useShipping();
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('Step:Billing');
+    } = useCountrySearch();
+
+    const countries = ref([]);
+    const country = ref(null);
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
-    const billingDetails = ref(addressFromApiToForm(address.value) || {});
+    const billingDetails = ref(addressFromApiToForm(billingAddress.value));
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
-
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
 
     const isBillingDetailsStepCompleted = ref(false);
+    const addresses = computed(() => userBillingGetters.getAddresses(userBilling.value) ?? []);
 
     const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       billingDetails.value,
     ).length > 0);
 
@@ -366,12 +374,13 @@ export default defineComponent({
       if (!isAuthenticated.value || !userBilling.value) {
         return false;
       }
-      const addresses = userBillingGetters.getAddresses(userBilling.value);
-      return Boolean(addresses?.length);
+      return addresses.value.length > 0;
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
     const handleAddressSubmit = (reset) => async () => {
@@ -385,12 +394,14 @@ export default defineComponent({
       };
       await save(billingDetailsData);
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userBillingGetters.getAddresses(
+        const [chosenAddress] = userBillingGetters.getAddresses(
           userBilling.value,
           { id: addressId },
         );
-        if (chosenAddress && chosenAddress.length > 0) {
-          await setDefaultAddress({ address: chosenAddress[0] });
+        chosenAddress.default_billing = setAsDefault.value;
+        if (chosenAddress) {
+          await setDefaultAddress({ address: chosenAddress });
+          userBilling.value = loadUserBilling(true);
         }
       }
       reset();
@@ -402,23 +413,22 @@ export default defineComponent({
     const handleCheckSameAddress = async () => {
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
-        if (!shippingDetails.value) {
-          await loadShipping();
-
-          await searchCountry({ id: shippingDetails.value.country_code });
-        }
+        shippingDetails.value = await loadShipping();
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
         oldBilling = { ...billingDetails.value };
-        billingDetails.value = { ...formatAddressReturnToData(shippingDetails.value) };
+        billingDetails.value = {
+          ...formatAddressReturnToData(shippingDetails.value),
+        };
         currentAddressId.value = NOT_SELECTED_ADDRESS;
         setAsDefault.value = false;
         if (billingDetails.value.country_code) {
-          await searchCountry({ id: billingDetails?.value.country_code });
+          country.value = await searchCountry({ id: billingDetails?.value.country_code });
         }
         return;
       }
       billingDetails.value = oldBilling;
       if (billingDetails.value.country_code) {
-        await searchCountry({ id: billingDetails?.value.country_code });
+        country.value = await searchCountry({ id: billingDetails?.value.country_code });
       }
     };
 
@@ -457,10 +467,10 @@ export default defineComponent({
 
     const changeCountry = async (id) => {
       changeBillingDetails('country_code', id);
-      await searchCountry({ id });
+      country.value = await searchCountry({ id });
     };
 
-    watch(address, (addr) => {
+    watch(billingAddress, (addr) => {
       billingDetails.value = addressFromApiToForm(addr || {});
     });
 
@@ -470,24 +480,26 @@ export default defineComponent({
         await router.push(app.localePath('/checkout/user-account'));
       }
 
-      await Promise.all([
-        loadCountries(),
-        load(),
-      ]);
+      const [loadedCountries, loadedBilling] = await Promise.all([loadCountries(), loadBilling()]);
+      countries.value = loadedCountries;
+      billingAddress.value = loadedBilling;
 
       if (billingDetails.value?.country_code) {
-        await searchCountry({ id: billingDetails.value.country_code });
+        country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
 
       if (!userBilling.value?.addresses && isAuthenticated.value) {
-        await loadUserBilling();
+        userBilling.value = await loadUserBilling();
       }
-      const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
+      const billingAddresses = userBillingGetters.getAddresses(
+        userBilling.value,
+      );
 
       if (!billingAddresses || billingAddresses.length === 0) {
         return;
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyBillingDetails = !billingDetails.value || Object.keys(billingDetails.value).length === 0;
       if (hasEmptyBillingDetails) {
         selectDefaultAddress();
@@ -512,7 +524,6 @@ export default defineComponent({
       isAuthenticated,
       isFormSubmitted,
       isBillingDetailsStepCompleted,
-      load,
       loading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
@@ -520,6 +531,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+      addresses,
     };
   },
 });

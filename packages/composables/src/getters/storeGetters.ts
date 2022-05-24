@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { AvailableStores, StoreConfig } from '@vue-storefront/magento-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

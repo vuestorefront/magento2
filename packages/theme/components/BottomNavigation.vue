@@ -18,7 +18,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         label="Menu"
-        @click="toggleMobileMenu"
+        @click="loadCategoryMenu"
       >
         <template #icon>
           <SvgImage
@@ -72,23 +72,25 @@
         </template>
       </SfBottomNavigationItem>
     </SfBottomNavigation>
-    <MobileMenuSidebar />
+    <MobileCategorySidebar v-if="isMobileMenuOpen" />
   </div>
 </template>
 
 <script>
 import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
-import { useUser } from '@vue-storefront/magento';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
-import MobileMenuSidebar from '~/components/MobileMenuSidebar.vue';
+import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
+import { useCategoryStore } from '~/stores/category';
+
+const MobileCategorySidebar = () => import('~/modules/catalog/category/components/sidebar/MobileCategorySidebar/MobileCategorySidebar.vue');
 
 export default defineComponent({
   components: {
     SfBottomNavigation,
     SfCircleIcon,
-    MobileMenuSidebar,
+    MobileCategorySidebar,
     SvgImage,
   },
   setup() {
@@ -110,12 +112,21 @@ export default defineComponent({
       }
     };
 
+    const loadCategoryMenu = async () => {
+      const categories = useCategoryStore();
+      if (categories.categories === null) {
+        await categories.load();
+      }
+      toggleMobileMenu();
+    };
+
     return {
       isAuthenticated,
       isMobileMenuOpen,
       toggleWishlistSidebar,
       toggleCartSidebar,
       toggleMobileMenu,
+      loadCategoryMenu,
       handleAccountClick,
       app,
     };

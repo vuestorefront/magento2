@@ -48,19 +48,15 @@
   </SfSearchBar>
 </template>
 
-<script>
+<script lang="ts">
 import { SfButton, SfSearchBar } from '@storefront-ui/vue';
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import {
+  defineComponent, ref, watch, useRoute,
+} from '@nuxtjs/composition-api';
+import debounce from 'lodash.debounce';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive.js';
 import SvgImage from '~/components/General/SvgImage.vue';
-
-import debounce from 'lodash.debounce';
-import {
-  categoryGetters,
-  useCategorySearch,
-  useFacet,
-} from '@vue-storefront/magento';
-import { watch, useRoute } from '@nuxtjs/composition-api';
+import { useFacet } from '~/composables';
 
 export default defineComponent({
   name: 'SearchBar',
@@ -85,17 +81,12 @@ export default defineComponent({
     const isSearchOpen = ref(false);
     const result = ref(null);
 
-    const route = useRoute()
+    const route = useRoute();
 
     const {
       result: searchResult,
       search: productsSearch,
-    } = useFacet('AppHeader:Products');
-
-    const {
-      result: categories,
-      search: categoriesSearch,
-    } = useCategorySearch('AppHeader:Categories');
+    } = useFacet();
 
     const showSearch = () => {
       if (!isSearchOpen.value) {
@@ -128,8 +119,10 @@ export default defineComponent({
 
     const closeSearch = (event) => {
       if (document) {
-        const searchResultsEl = document.getElementsByClassName('search');
-        if (!searchResultsEl[0].contains(event.target)) {
+        const searchResultsEl = document.querySelectorAll('.search');
+        const closeTriggerElement = event.target as HTMLElement;
+
+        if (!searchResultsEl[0]?.contains(closeTriggerElement)) {
           hideSearch();
           term.value = '';
         }
@@ -143,18 +136,13 @@ export default defineComponent({
       term.value = !paramValue.target ? paramValue : paramValue.target.value;
       if (term.value.length < minTermLen) return;
 
-      await Promise.all([
-        productsSearch({
-          itemsPerPage,
-          term: term.value,
-        }),
-        categoriesSearch({ filters: { name: { match: `${term.value}` } } }),
-      ]);
+      await productsSearch({
+        itemsPerPage,
+        term: term.value,
+      });
 
       result.value = {
         products: searchResult.value?.data?.items,
-        categories: (categories?.value ?? [])
-          .map((element) => categoryGetters.getCategoryTree(element)),
       };
 
       emit('SearchBar:result', result.value);

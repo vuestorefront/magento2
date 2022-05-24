@@ -1,5 +1,6 @@
-/* istanbul ignore file */
-
+/**
+ * @deprecated since version 1.0.0
+ */
 import { AgnosticPagination } from '@vue-storefront/core';
 
 export const getDate = (order: any): string => new Date(order?.created_at).toLocaleDateString() || '';

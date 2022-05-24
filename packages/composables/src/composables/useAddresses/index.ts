@@ -1,4 +1,7 @@
 /* eslint-disable no-param-reassign, consistent-return */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   Context,
   Logger,
@@ -30,7 +33,7 @@ CustomQueryParams,
 SaveAddressInput,
 UpdateAddressInput,
 RemoveAddressInput> = {
-  load: async (context: Context, params?: CustomQueryParams) => {
+  load: async (context: Context) => {
     Logger.debug('[Magento] load user addresses');
 
     const { data } = await context.$magento.api.getCustomerAddresses();

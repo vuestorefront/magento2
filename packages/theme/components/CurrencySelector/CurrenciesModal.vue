@@ -14,11 +14,7 @@
         <a
           href="/"
           :class="selectedCurrency === currency ? 'container__currency--selected-label' : ''"
-          @click.prevent="handleChanges({
-            callback: () => changeCurrency({id: currency}),
-            redirect: false,
-            refresh: true
-          })"
+          @click.prevent="changeCurrency({id: currency})"
         >
           <SfCharacteristic class="currency">
             <template #title>
@@ -30,7 +26,7 @@
     </SfList>
   </SfBottomModal>
 </template>
-<script>
+<script lang="ts">
 import {
   defineComponent, computed, onMounted,
 } from '@nuxtjs/composition-api';
@@ -41,8 +37,7 @@ import {
 } from '@storefront-ui/vue';
 import {
   useCurrency,
-} from '@vue-storefront/magento';
-import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
+} from '~/composables';
 
 export default defineComponent({
   name: 'CurrenciesModal',
@@ -58,12 +53,10 @@ export default defineComponent({
   emits: ['closeModal'],
   setup() {
     const {
-      currencies,
+      currency: currencies,
       change: changeCurrency,
       load: loadCurrencies,
-    } = useCurrency('header-currency');
-
-    const { handleChanges } = useHandleChanges();
+    } = useCurrency();
 
     const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
 
@@ -74,7 +67,6 @@ export default defineComponent({
 
     return {
       changeCurrency,
-      handleChanges,
       availableCurrencies,
     };
   },

@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { Logger, UserShippingGetters } from '@vue-storefront/core';
 
 const userShippingGetters: UserShippingGetters<any, any> = {

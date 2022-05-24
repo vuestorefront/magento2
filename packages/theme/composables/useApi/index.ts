@@ -1,48 +1,116 @@
 import { useContext } from '@nuxtjs/composition-api';
-import { request as graphQLRequest, GraphQLClient } from 'graphql-request';
-import cookieNames from '~/enums/cookieNameEnum';
+import type { Variables } from 'graphql-request';
 
-export const useApi = () => {
-  const { app } = useContext();
-  const customerToken = app.$cookies.get(cookieNames.customerCookieName);
-  const storeCode = app.$cookies.get(cookieNames.storeCookieName);
-  const magentoConfig = app.$vsf.$magento.config;
-  const { useGETForQueries } = magentoConfig.customApolloHttpLinkOptions;
-  const defaultEndpoint = magentoConfig.magentoApiEndpoint as string;
-  const defaultHeaders: {
-    authorization?: string,
-    store?: string
-  } = {};
+type Request = <DATA = any, VARIABLES extends Variables = Variables>(
+  document: string,
+  variables?: VARIABLES,
+  requestHeaders?: HeadersInit
+) => Promise<DATA>;
 
-  if (customerToken) {
-    defaultHeaders.authorization = `Bearer ${customerToken}`;
-  }
+/** The interface provided by {@link useApi} composable. */
+export interface UseApiInterface {
+  /**
+   * Executes received GraphQL Query with optional variables and headers and
+   * returns the result.
+   */
+  query: Request;
 
-  if (storeCode) {
-    defaultHeaders.store = storeCode;
-  }
+  /**
+   * Executes received GraphQL Mutation with optional variables and headers and
+   * returns the result.
+   */
+  mutate: Request;
+}
 
-  const query = (
-    document: string,
-    endpoint = defaultEndpoint,
-    variables = null,
-    requestHeaders = defaultHeaders,
-  ) => new GraphQLClient(endpoint, {
-    method: useGETForQueries ? 'GET' : 'POST',
-    headers: requestHeaders,
-  }).request(document, variables);
+/**
+ * The `useApi()` composable allows executing GraphQL queries and mutations.
+ *
+ * @example
+ *
+ * Execute a GraphQL Query and handle its error, loading and result:
+ *
+ * ```ts
+ * import { ref, readonly } from '@nuxtjs/composition-api';
+ * import { useApi } from '~/composables/useApi';
+ *
+ * type GetCartPriceQueryVariables = { cartId: string };
+ *
+ * type GetCartPriceQueryData = {
+ *   cart: {
+ *     prices: {
+ *       subtotal_excluding_tax: {
+ *         value: number;
+ *       };
+ *     }[];
+ *   };
+ * };
+ *
+ * const GET_CART_PRICE_QUERY = `
+ *   query GET_CART_PRICE_QUERY($cartId: String!) {
+ *     cart(cart_id: $cartId) {
+ *       prices {
+ *         subtotal_excluding_tax {
+ *           value
+ *         }
+ *       }
+ *     }
+ *   }
+ * `;
+ *
+ * export default {
+ *   setup() {
+ *     const { query } = useApi();
+ *
+ *     const price = ref<number | null>(null);
+ *     const loading = ref(false);
+ *     const error = ref<Error | null>(null);
+ *
+ *     const getCartPrice = async (cartId: string) => {
+ *       loading.value = false;
+ *       try {
+ *         const result = await query<
+ *           GetCartPriceQueryData,
+ *           GetCartPriceQueryVariables,
+ *         >(GET_CART_PRICE_QUERY, { cartId }, {
+ *           'Accept': 'application/json',
+ *         });
+ *
+ *         price.value = result.cart?.prices?.subtotal_excluding_tax?.value ?? null;
+ *         error.value = null;
+ *       } catch (error) {
+ *         price.value = null;
+ *         error.value = error;
+ *       } finally {
+ *         loading.value = false;
+ *       }
+ *     };
+ *
+ *     return {
+ *       price: readonly(price),
+ *       error: readonly(error),
+ *       loading: readonly(loading),
+ *       getCartPrice,
+ *     };
+ *   },
+ * };
+ * ```
+ */
+export function useApi(): UseApiInterface {
+  const context = useContext();
 
-  const mutate = (
-    document: string,
-    endpoint = defaultEndpoint,
-    variables = null,
-    requestHeaders = defaultHeaders,
-  ) => graphQLRequest(endpoint, document, variables, requestHeaders);
+  const query: Request = (
+    document,
+    variables,
+    headers,
+  ) => context.$graphql.query.request(document, variables, headers);
 
-  return {
-    query,
-    mutate,
-  };
-};
+  const mutate: Request = (
+    document,
+    variables,
+    headers,
+  ) => context.$graphql.mutation.request(document, variables, headers);
+
+  return { query, mutate };
+}
 
 export default useApi;

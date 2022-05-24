@@ -1,13 +1,9 @@
 <template>
   <div>
-    <div
-      v-if="reviewSent && !error.addReview"
-    >
+    <div v-if="reviewSent && !error.addReview">
       <p>Your review was submitted!</p>
     </div>
-    <div
-      v-else-if="error.addReview"
-    >
+    <div v-else-if="error.addReview">
       <p>{{ error.addReview }}</p>
     </div>
     <ValidationObserver
@@ -104,7 +100,7 @@
           </ValidationProvider>
         </div>
         <recaptcha v-if="isRecaptchaEnabled" />
-        <SfButton class="form__button">
+        <SfButton class="form__button" type="submit">
           Add review
         </SfButton>
       </form>
@@ -120,17 +116,15 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
-import {
-  reviewGetters, useReview, userGetters, useUser,
-} from '@vue-storefront/magento';
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
 import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
-  SfInput,
-  SfButton,
-  SfSelect,
-  SfTextarea,
+  SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
+import { reviewGetters } from '~/getters';
+import  userGetters  from '~/modules/customer/getters/userGetters';
+import { useReview } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 
 extend('required', {
   ...required,
@@ -167,20 +161,23 @@ export default defineComponent({
   emits: ['add-review'],
   setup(_, { emit }) {
     const route = useRoute();
-    const { params: { id } } = route.value;
-    const { $recaptcha, $config } = useContext();
-    const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
     const {
-      loading,
-      loadReviewMetadata,
-      metadata,
-      error,
-    } = useReview(`productReviews-${id}`);
+      params: { id },
+    } = route.value;
+    const { $recaptcha, $config } = useContext();
+    const isRecaptchaEnabled = ref(
+      typeof $recaptcha !== 'undefined' && $config.isRecaptcha,
+    );
+    const {
+      loading, loadReviewMetadata, error,
+    } = useReview();
     const { isAuthenticated, user } = useUser();
 
     const reviewSent = ref(false);
 
     const form = ref(BASE_FORM(id));
+
+    const metadata = ref([]);
 
     const ratingMetadata = computed(() => reviewGetters.getReviewMetadata([...metadata.value]));
 
@@ -203,14 +200,16 @@ export default defineComponent({
     });
 
     const submitForm = (reset) => async () => {
-      if (!(
-        formSubmitValue.value.ratings[0].value_id
-        || formSubmitValue.value.ratings[0].id
-        || formSubmitValue.value.nickname
-        || formSubmitValue.value.summary
-        || formSubmitValue.value.sku
-        || formSubmitValue.value.text
-      )) return;
+      if (
+        !(
+          formSubmitValue.value.ratings[0].value_id
+          || formSubmitValue.value.ratings[0].id
+          || formSubmitValue.value.nickname
+          || formSubmitValue.value.summary
+          || formSubmitValue.value.sku
+          || formSubmitValue.value.text
+        )
+      ) return;
       try {
         if (isRecaptchaEnabled.value) {
           $recaptcha.init();
@@ -236,7 +235,7 @@ export default defineComponent({
     };
 
     onBeforeMount(async () => {
-      await loadReviewMetadata();
+      metadata.value = await loadReviewMetadata();
     });
 
     return {
@@ -254,7 +253,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .form {
   &__element {
     display: block;

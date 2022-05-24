@@ -2,9 +2,10 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
-import config from './config.js';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
+
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
 const {
   integrations: {
@@ -13,7 +14,6 @@ const {
         cookies,
         externalCheckout,
         defaultStore,
-        facets,
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
@@ -26,9 +26,9 @@ const {
 export default () => {
   const baseConfig = {
     ssr: true,
-    dev: config.get('nuxtAppEnvironment') !== 'production',
+    dev: process.env.VSF_NUXT_APP_ENV !== 'production',
     server: {
-      port: process.env.PORT || config.get('nuxtAppPort'),
+      port: process.env.VSF_NUXT_APP_PORT,
       host: '0.0.0.0',
     },
     head: {
@@ -61,56 +61,53 @@ export default () => {
       // to core
       '@nuxtjs/composition-api/module',
       '@nuxt/typescript-build',
-      '@nuxtjs/google-fonts',
       '@nuxtjs/pwa',
       '@nuxtjs/style-resources',
       '@nuxtjs/device',
       ['@vue-storefront/nuxt', {
-        // @core-development-only-start
-        coreDevelopment: true,
-        logger: {
-          verbosity: 'debug',
-        },
-        // @core-development-only-end
-        useRawSource: {
-          dev: [
-            '@vue-storefront/magento',
-            '@vue-storefront/core',
-          ],
-          prod: [
-            '@vue-storefront/magento',
-            '@vue-storefront/core',
-          ],
+        // selectively disabling certain @vue-storefront/core plugins for migration
+        context: false,
+        logger: false,
+        ssr: false,
+        sfui: false,
+        i18nExtension: false,
+        e2e: true,
+        performance: {
+          httpPush: false,
+          purgeCSS: {
+            enabled: false,
+          },
         },
       }],
-      ['@vue-storefront/magento/nuxt', {
-        i18n: {
-          useNuxtI18nConfig: true,
-        },
+      ['~/modules/magento', {
         cookies,
         externalCheckout,
         defaultStore,
-        facets,
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
         customApolloHttpLinkOptions,
       }],
       '@nuxt/image',
+      '@pinia/nuxt',
     ],
     modules: [
+      '~/modules/catalog',
+      '~/modules/customer',
+      '~/modules/wishlist',
+      '~/modules/theme',
       ['nuxt-i18n', {
-        baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+        baseUrl: process.env.VSF_STORE_URL || 'http://localhost:3000',
       }],
       'cookie-universal-nuxt',
       'vue-scrollto/nuxt',
       '@vue-storefront/middleware/nuxt',
       '@nuxt/image',
       ['@vue-storefront/cache/nuxt', {
-        enabled: !!process.env.REDIS__ENABLED,
+        enabled: process.env.VSF_REDIS_ENABLED === 'true',
         invalidation: {
-          endpoint: process.env.REDIS__CACHE_INVALIDATE_URL,
-          key: process.env.REDIS__CACHE_INVALIDATE_KEY,
+          endpoint: process.env.VSF_REDIS_CACHE_INVALIDATE_URL,
+          key: process.env.VSF_REDIS_CACHE_INVALIDATE_KEY,
           handlers: [
             '@vue-storefront/cache/defaultHandler',
           ],
@@ -118,11 +115,12 @@ export default () => {
         driver: [
           '@vue-storefront/redis-cache',
           {
+            defaultTimeout: 86_400,
             // docs: https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options
             redis: {
-              keyPrefix: process.env.REDIS__KEY_PREFIX,
-              host: process.env.REDIS__HOST,
-              port: process.env.REDIS__PORT,
+              keyPrefix: process.env.VSF_REDIS_KEY_PREFIX,
+              host: process.env.VSF_REDIS_HOST,
+              port: process.env.VSF_REDIS_PORT,
             },
           },
         ],
@@ -146,11 +144,6 @@ export default () => {
         },
       ],
       defaultLocale: 'default',
-      autoChangeCookie: {
-        currency: false,
-        locale: false,
-        country: false,
-      },
       lazy: true,
       seo: true,
       langDir: 'lang/',
@@ -180,51 +173,17 @@ export default () => {
         theme_color: '#5ECE7B',
       },
     },
-    googleFonts: {
-      families: {
-        Raleway: {
-          wght: [300, 400, 500, 600, 700],
-          ital: [400],
-        },
-        Roboto: {
-          wght: [300, 400, 500, 700],
-          ital: [300, 400],
-        },
-      },
-      display: 'swap',
-    },
     styleResources: {
       scss: [require.resolve('@storefront-ui/shared/styles/_helpers.scss', { paths: [process.cwd()] })],
     },
     build: {
-      babel: {
-        plugins: [
-          ['@babel/plugin-proposal-private-methods', { loose: true }],
-        ],
-      },
       extractCSS: true,
-      optimization: {
-        splitChunks: {
-          cacheGroups: {
-            styles: {
-              name: 'styles',
-              test: /\.(css|vue)$/,
-              chunks: 'all',
-              enforce: true,
-            },
-          },
-        },
-      },
       optimizeCSS: true,
       parallel: true,
-      splitChunks: {
-        layouts: true,
-        pages: true,
-        commons: true,
+      extend(cfg) {
+        // eslint-disable-next-line no-param-reassign
+        cfg.devtool = 'source-map';
       },
-      transpile: [
-        'vee-validate/dist/rules',
-      ],
       plugins: [
         new webpack.DefinePlugin({
           'process.VERSION': JSON.stringify({
@@ -233,6 +192,22 @@ export default () => {
             lastCommit: process.env.LAST_COMMIT || '',
           }),
         }),
+        new GoogleFontsPlugin({
+          fonts: [
+            { family: 'Raleway', variants: ['300', '400', '500', '600', '700', '400italic'], display: 'swap' },
+            { family: 'Roboto', variants: ['300', '400', '500', '700', '300italic', '400italic'], display: 'swap' },
+          ],
+          name: 'fonts',
+          filename: 'fonts.css',
+          path: 'assets/fonts/',
+          local: true,
+          formats: ['eot', 'woff', 'woff2', 'ttf', 'svg'],
+          apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
+        }),
+      ],
+      transpile: [
+        'vee-validate',
+        /^@storefront-ui/,
       ],
     },
     plugins: [
@@ -240,6 +215,8 @@ export default () => {
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
       '~/plugins/dompurify',
+      '~/plugins/graphqlClient',
+      '~/plugins/storeConfigPlugin',
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
@@ -252,29 +229,48 @@ export default () => {
       },
     },
     image: {
-      provider: config.get('imageProvider'),
+      provider: process.env.VSF_IMAGE_PROVIDER,
+    },
+    env: {
+      VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
   };
 
-  if (config.get('imageProvider') === 'cloudinary') {
+  if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
     baseConfig.image.cloudinary = {
-      baseURL: config.get('imageProviderBaseUrl'),
+      baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL,
     };
+
+    if (process.env.VSF_IMAGE_PROVIDER_DOMAIN) {
+      const preconnectConfig = [
+        {
+          rel: 'preconnect',
+          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+          crossorigin: true,
+        },
+        {
+          rel: 'dns-prefetch',
+          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+        },
+      ];
+
+      baseConfig.head.link.push(...preconnectConfig);
+    }
   }
 
-  if (config.get('recaptchaEnabled')) {
+  if (process.env.VSF_RECAPTCHA_ENABLED === 'true') {
     baseConfig.modules.push('@nuxtjs/recaptcha');
 
     baseConfig.recaptcha = {
-      hideBadge: config.get('recaptchaHideBadge'), // Hide badge element (v3 & v2 via size=invisible)
-      siteKey: config.get('recaptchaSiteKey'), // Site key for requests
-      version: config.get('recaptchaVersion'), // Version 2 or 3
-      size: config.get('recaptchaSize'), // Size: 'compact', 'normal', 'invisible' (v2)
+      hideBadge: process.env.VSF_RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
+      siteKey: process.env.VSF_RECAPTCHA_SITE_KEY, // Site key for requests
+      version: process.env.VSF_RECAPTCHA_VERSION, // Version 2 or 3
+      size: process.env.VSF_RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
     };
 
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
-      isRecaptcha: config.get('recaptchaEnabled'),
+      isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
     };
   }
 

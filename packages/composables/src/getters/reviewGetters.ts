@@ -1,4 +1,6 @@
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import { ReviewGetters, AgnosticRateCount } from '@vue-storefront/core';
 import {
   ProductReview,

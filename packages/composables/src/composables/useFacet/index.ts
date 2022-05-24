@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   ComposableFunctionArgs,
   Context,
@@ -58,6 +61,9 @@ const constructSortObject = (sortData: string) => {
   return baseData.length > 0 ? Object.fromEntries([baseData]) : {};
 };
 
+/**
+ * @deprecated since version 1.0.0
+ */
 const factoryParams = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search: async (context: Context, params: ComposableFunctionArgs<FacetSearchResult<any>>) => {

@@ -4,6 +4,7 @@
       v-e2e="'sidebar-cart'"
       :visible="isCartSidebarOpen"
       :title="$t('My Cart')"
+      position="right"
       class="sf-sidebar--right"
       @close="toggleCartSidebar"
     >
@@ -88,7 +89,7 @@
               >
                 <SfCollectedProduct
                   v-for="product in products"
-                  :key="cartGetters.getItemSku(product)"
+                  :key="product.product.original_sku"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
                   :regular-price="
@@ -102,7 +103,7 @@
                   "
                   :link="
                     localePath(
-                      `/p/${cartGetters.getItemSku(product)}${cartGetters.getSlug(
+                      `/p/${product.product.original_sku}${cartGetters.getSlug(
                         product
                       )}`
                     )
@@ -111,6 +112,19 @@
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
                 >
+                  <template #image>
+                    <SfImage
+                      image-tag="nuxt-img"
+                      :src="getMagentoImage(cartGetters.getItemImage(product))"
+                      :alt="cartGetters.getItemName(product)"
+                      :width="imageSizes.cart.imageWidth"
+                      :height="imageSizes.cart.imageHeight"
+                      class="sf-collected-product__image"
+                      :nuxt-img-config="{
+                        fit: 'cover',
+                      }"
+                    />
+                  </template>
                   <template #input>
                     <div
                       v-if="isInStock(product)"
@@ -120,7 +134,9 @@
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
-                        @input="delayedUpdateItemQty({ product, quantity: $event })"
+                        @input="
+                          delayedUpdateItemQty({ product, quantity: $event })
+                        "
                       />
                     </div>
                     <SfBadge
@@ -187,18 +203,13 @@
           <div v-if="totalItems">
             <SfProperty
               :name="$t('Subtotal price')"
-              class="
-                sf-property--full-width sf-property--large
-                my-cart__total-price
-              "
+              class="sf-property--full-width sf-property--large my-cart__total-price"
             >
               <template #value>
                 <SfPrice
                   :regular="$fc(totals.subtotal)"
                   :special="
-                    totals.subtotal <= totals.special
-                      ? ''
-                      : $fc(totals.special)
+                    totals.subtotal <= totals.special ? '' : $fc(totals.special)
                   "
                 />
               </template>
@@ -240,25 +251,29 @@ import {
   SfCollectedProduct,
   SfQuantitySelector,
   SfBadge,
+  SfImage,
 } from '@storefront-ui/vue';
 import {
   computed,
   defineComponent,
   ref,
   useRouter,
-  useContext, onMounted,
+  useContext,
+  onMounted,
 } from '@nuxtjs/composition-api';
+import _debounce from 'lodash.debounce';
+import { cartGetters } from '~/getters';
 import {
   useCart,
-  useUser,
-  cartGetters,
+  useUiState,
+  useUiNotification,
   useExternalCheckout,
-} from '@vue-storefront/magento';
-import _debounce from 'lodash.debounce';
-import { useUiState, useUiNotification } from '~/composables';
+} from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
-import CouponCode from './CouponCode.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
+import CouponCode from './CouponCode.vue';
+import { useImage } from '~/composables/index.ts';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -275,10 +290,12 @@ export default defineComponent({
     SfBadge,
     CouponCode,
     SvgImage,
+    SfImage,
   },
   setup() {
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
+    const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
     const {
@@ -295,7 +312,14 @@ export default defineComponent({
     const products = computed(() => cartGetters
       .getItems(cart.value)
       .filter(Boolean)
-      .map((item) => ({ ...item, product: { ...item.product, ...item.configured_variant } })));
+      .map((item) => ({
+        ...item,
+        product: {
+          ...item.product,
+          ...item.configured_variant,
+          original_sku: item.product.sku,
+        },
+      })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product) => product.configurable_options || [];
@@ -304,13 +328,15 @@ export default defineComponent({
     const tempProduct = ref();
 
     onMounted(() => {
-      if (cart.value === null) {
+      if (!cart.value.id) {
         loadCart();
       }
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = await initializeCheckout({ baseUrl: '/checkout/user-account' });
+      const redirectUrl = initializeCheckout({
+        baseUrl: '/checkout/user-account',
+      });
       await router.push(`${app.localePath(redirectUrl)}`);
     };
 
@@ -338,7 +364,10 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-    const delayedUpdateItemQty = _debounce((params) => updateItemQty(params), 1000);
+    const delayedUpdateItemQty = _debounce(
+      (params) => updateItemQty(params),
+      1000,
+    );
     const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
@@ -361,6 +390,8 @@ export default defineComponent({
       getAttributes,
       getBundles,
       isInStock,
+      imageSizes,
+      getMagentoImage,
     };
   },
 });

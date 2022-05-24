@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { AgnosticAttribute } from '@vue-storefront/core';
 import { Product } from '@vue-storefront/magento-api';
 
@@ -17,8 +20,11 @@ export const getVariantByAttributes = (products: Product[], attributes: any): Pr
     return null;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const configurationKeys = Object.keys(attributes);
 
+  // @ts-ignore
   return products[0].configurable_children.find((product) => configurationKeys
+    // @ts-ignore
     .every((attrName) => product[attrName] && product[attrName] === attributes[attrName])) || products[0].configurable_children[0];
 };

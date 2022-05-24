@@ -1,74 +1,161 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { Category } from '@vue-storefront/magento-api';
-import { AgnosticCategoryTree, AgnosticFacet } from '@vue-storefront/core';
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
+import type { FacetInterface } from '~/composables/types';
+import type { CategoryTree } from '~/modules/GraphQL/types';
+import type { Params, QueryParams, FilterParams } from './Params';
+import type { UseUiHelpersInterface } from '~/composables';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
-const reduceFilters = (query) => (prev, curr) => {
-  const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
+function reduceFilters(query: QueryParams) {
+  return (prev: FilterParams, curr: string): FilterParams => {
+    const makeArray = Array.isArray(query[curr]) || nonFilters.has(curr);
 
-  return {
-    ...prev,
-    [curr]: makeArray ? query[curr] : [query[curr]],
+    return {
+      ...prev,
+      [curr]: makeArray ? query[curr] as string[] : [query[curr] as string],
+    };
   };
-};
+}
 
-const useUiHelpers = () => {
+/**
+ * The `useUiHelpers()` composable allows handling the parameters for filtering,
+ * searching, sorting and pagination in the URL search/query params.
+ */
+export function useUiHelpers(): UseUiHelpersInterface {
   const route = useRoute();
   const router = useRouter();
-  const { query } = route.value;
+  let { query } = route.value;
 
-  const getFiltersDataFromUrl = (onlyFilters) => Object.keys(query)
-    .filter((f) => (onlyFilters ? !nonFilters.has(f) : nonFilters.has(f)))
-  // eslint-disable-next-line unicorn/prefer-object-from-entries
-    .reduce(reduceFilters(query), {});
+  const resolveQuery = (): QueryParams => {
+    if (typeof window !== 'undefined') {
+      query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
+    }
 
-  const getFacetsFromURL = () => ({
-    filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort as string || '',
-    term: query.term as string,
-  });
+    return query;
+  };
+
+  const getFiltersDataFromUrl = (onlyFilters = false): FilterParams => {
+    const currentQuery = resolveQuery();
+    return (
+      Object.keys(currentQuery)
+        .filter((f) => (onlyFilters ? !nonFilters.has(f) : f))
+        // eslint-disable-next-line unicorn/prefer-object-from-entries
+        .reduce(reduceFilters(currentQuery), {})
+    );
+  };
+
+  const getFacetsFromURL = (): Params => {
+    const currentQuery = resolveQuery();
+
+    return {
+      filters: getFiltersDataFromUrl(true),
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage, 10) || 10,
+      page: Number.parseInt(currentQuery.page, 10) || 1,
+      sort: currentQuery.sort ?? '',
+      term: currentQuery.term,
+    };
+  };
 
   const changeSearchTerm = (term: string) => term;
 
-  const getSearchTermFromUrl = () => ({
-    page: Number.parseInt(query.page as string, 10) || 1,
-    sort: query.sort || '',
-    filters: getFiltersDataFromUrl(true),
-    itemsPerPage: Number.parseInt(query.itemsPerPage as string, 10) || 10,
-    term: query.term,
-  });
+  const getSearchTermFromUrl = (): Params => {
+    const currentQuery = resolveQuery();
 
-  const getCatLink = (category: Category): string => `/c/${category.url_path}${category.url_suffix || ''}`;
-
-  const getAgnosticCatLink = (category: AgnosticCategoryTree): string => `/c${category.slug}`;
-
-  const changeSorting = async (sort: string) => {
-    await router.push({ query: { ...query, sort } });
+    return {
+      page: Number.parseInt(currentQuery.page, 10) || 1,
+      sort: currentQuery.sort ?? '',
+      filters: getFiltersDataFromUrl(true),
+      itemsPerPage: Number.parseInt(currentQuery.itemsPerPage, 10) || 10,
+      term: currentQuery.term,
+    };
   };
 
-  const changeFilters = async (filters: any) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        ...filters,
-      },
-    });
+  const getCatLink = (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`;
+
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param sort
+   * @param forcePush
+   */
+  const changeSorting = async (sort: string, forcePush = true): Promise<void> => {
+    if (forcePush) {
+      await router.push({ query: { ...query, sort } });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          sort,
+        },
+      });
+      window.history.pushState({}, null, routeData.href);
+    }
   };
 
-  const changeItemsPerPage = async (itemsPerPage: number) => {
-    await router.push({
-      query: {
-        ...getFiltersDataFromUrl(false),
-        itemsPerPage,
-      },
-    });
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param filters
+   * @param forcePush
+   */
+  const changeFilters = async (filters: FilterParams, forcePush = true): Promise<void> => {
+    if (forcePush) {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          ...filters,
+        },
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          ...filters,
+        },
+      });
+      window.history.pushState({}, null, routeData.href);
+    }
   };
 
-  const setTermForUrl = async (term: string) => {
+  const clearFilters = async (forcePush = true): Promise<void> => {
+    if (forcePush) {
+      await router.push({
+        query: {},
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {},
+      });
+      window.history.pushState({}, null, routeData.href);
+    }
+  };
+
+  /**
+   * Force push for a backward compatibility in other places, should be removed
+   *
+   * @param itemsPerPage
+   * @param forcePush
+   */
+  const changeItemsPerPage = async (itemsPerPage: number, forcePush = true): Promise<void> => {
+    if (forcePush) {
+      await router.push({
+        query: {
+          ...getFiltersDataFromUrl(false),
+          itemsPerPage: itemsPerPage.toString(10),
+        },
+      });
+    } else {
+      const routeData = router.resolve({
+        query: {
+          ...getFiltersDataFromUrl(),
+          itemsPerPage: itemsPerPage.toString(10),
+        },
+      });
+      window.history.pushState({}, null, routeData.href);
+    }
+  };
+
+  const setTermForUrl = async (term: string): Promise<void> => {
     await router.push({
       query: {
         ...getFiltersDataFromUrl(false),
@@ -77,23 +164,25 @@ const useUiHelpers = () => {
     });
   };
 
-  const isFacetColor = (facet: AgnosticFacet): boolean => facet.id === 'color';
+  const isFacetColor = (facet: FacetInterface): boolean => facet.id === 'color';
 
   const isFacetCheckbox = (): boolean => false;
 
   return {
-    getFacetsFromURL,
-    getCatLink,
-    getAgnosticCatLink,
-    changeSorting,
     changeFilters,
     changeItemsPerPage,
-    setTermForUrl,
-    isFacetColor,
-    isFacetCheckbox,
-    getSearchTermFromUrl,
     changeSearchTerm,
+    changeSorting,
+    clearFilters,
+    getCatLink,
+    getFacetsFromURL,
+    getSearchTermFromUrl,
+    isFacetCheckbox,
+    isFacetColor,
+    setTermForUrl,
   };
-};
+}
 
+export * from './Params';
+export * from './useUiHelpers';
 export default useUiHelpers;

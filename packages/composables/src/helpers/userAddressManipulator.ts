@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { CustomerAddressInput } from '@vue-storefront/magento-api';
 
 export const transformUserCreateAddressInput = (addressInputParams): CustomerAddressInput => {

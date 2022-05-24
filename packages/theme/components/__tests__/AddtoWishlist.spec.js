@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { render } from '~/test-utils';
 // @ts-ignore
-import AddToWishlist from '../AddToWishlist';
+import AddToWishlist from '../AddToWishlist.vue';
 
 describe('<AddToWishlist>', () => {
   it('Should not render add to wishlist button because isShow prop equals false by default', () => {
@@ -33,7 +33,9 @@ describe('<AddToWishlist>', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('Should emit clock event when add to wishlist button is clicked', () => {
+  it('Should emit clock event when add to wishlist button is clicked', async () => {
+    const user = userEvent.setup();
+
     const { getByText, emitted } = render(AddToWishlist, {
       props: {
         isShow: true,
@@ -42,7 +44,7 @@ describe('<AddToWishlist>', () => {
 
     const button = getByText('Add to wishlist');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    userEvent.click(button);
+    await user.click(button);
 
     expect(emitted()).toHaveProperty('addToWishlist');
   });

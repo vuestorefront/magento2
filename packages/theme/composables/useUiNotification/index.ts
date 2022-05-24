@@ -1,19 +1,11 @@
 import { computed, reactive, useContext } from '@nuxtjs/composition-api';
-import cookieNames from '~/enums/cookieNameEnum';
-
-interface UiNotification {
-  message: string;
-  title?: string;
-  action?: { text: string; onClick: (...args: any) => void };
-  type: 'danger' | 'success' | 'info';
-  icon: string;
-  persist?: boolean;
-  id: symbol;
-  dismiss?: () => void;
-}
+import type {
+  UiNotification,
+  UseUiNotificationInterface,
+} from './useUiNotification';
 
 interface Notifications {
-  notifications: Array<UiNotification>;
+  notifications: UiNotification[];
 }
 
 const state = reactive<Notifications>({
@@ -22,9 +14,15 @@ const state = reactive<Notifications>({
 const maxVisibleNotifications = 3;
 const timeToLive = 3000;
 
-const useUiNotification = () => {
+/**
+ * The `useUiNotification()` composable allows showing notifications to the user.
+ *
+ * See the {@link UseUiNotificationInterface} page for more information.
+ */
+export function useUiNotification(): UseUiNotificationInterface {
   const { app } = useContext();
-  const cookieMessage: UiNotification = app.$cookies.get(cookieNames.messageCookieName);
+  // @ts-ignore
+  const cookieMessage = app.$vsf.$magento.config.state.getMessage<UiNotification>();
 
   const send = (notification: UiNotification) => {
     const id = Symbol('id');
@@ -34,7 +32,8 @@ const useUiNotification = () => {
 
       if (index !== -1) state.notifications.splice(index, 1);
 
-      app.$cookies.remove(cookieNames.messageCookieName);
+      // @ts-ignore
+      app.$vsf.$magento.config.state.removeMessage();
     };
 
     const newNotification = {
@@ -57,13 +56,18 @@ const useUiNotification = () => {
   };
 
   if (cookieMessage) {
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     send(cookieMessage);
+    // @ts-ignore
+    app.$vsf.$magento.config.state.removeMessage();
   }
 
   return {
     send,
     notifications: computed(() => state.notifications),
   };
-};
+}
 
 export default useUiNotification;
+export * from './useUiNotification';

@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   configureFactoryParams,
   Context,
@@ -5,9 +8,10 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { CustomQueryParams, UseAddresses, UseAddressesErrors } from '../types/composables';
 
 export interface UseAddressesParams<ADDRESS,
@@ -23,6 +27,9 @@ export interface UseAddressesParams<ADDRESS,
   remove: (context: Context, params: ComposableFunctionArgs<REMOVE_ADDRESS_PARAMS>) => Promise<boolean>;
 }
 
+/**
+ * @deprecated since version 1.0.0
+ */
 export const useAddressesFactory = <ADDRESS,
   LOAD_ADDRESS_PARAMS extends { customQuery?: CustomQuery },
   SAVE_ADDRESS_PARAMS extends { customQuery?: CustomQuery },

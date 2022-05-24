@@ -1,5 +1,7 @@
-import { Product, productGetters, useCart } from '@vue-storefront/magento';
 import { useRouter, useContext } from '@nuxtjs/composition-api';
+import type { Product } from '~/modules/catalog/product/types';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
+import { useCart } from '~/composables';
 
 export const useAddToCart = () => {
   const {
@@ -10,8 +12,8 @@ export const useAddToCart = () => {
   const { app } = useContext();
   const addItemToCart = async (params: { product: Product, quantity: number }) => {
     const { product, quantity } = params;
-    // eslint-disable-next-line no-underscore-dangle
     // @ts-ignore
+    // eslint-disable-next-line no-underscore-dangle
     const productType = product.__typename;
 
     switch (productType) {
@@ -23,10 +25,18 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
-        const path = `/p/${productGetters.getProductSku(product)}${
-          productGetters.getSlug(product, product.categories[0])
-        }`;
-        await router.push(String(app.localePath(path)));
+        const sku = productGetters.getProductSku(product);
+        const slug = productGetters.getSlug(product).replace(/^\//, ''); // remove leading slash from getSlug
+
+        const path = app.localeRoute({
+          name: 'product',
+          params: {
+            id: sku,
+            slug,
+          },
+        });
+
+        await router.push(path);
         break;
       default:
         throw new Error(`Product Type ${productType} not supported in add to cart yet`);

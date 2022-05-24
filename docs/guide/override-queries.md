@@ -1,6 +1,6 @@
 # Override default queries
 
-To override one or multiple queries without creating a custom composable for each usage, you can override the defaults ones with the `customQueries` attribute in the `middleware.config.js`file. 
+To override one or multiple queries without creating a custom composable for each usage, you can override the defaults ones with the `customQueries` attribute in the `middleware.config.js`file.
 
 ## Examples
 
@@ -16,9 +16,9 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
 
 ---
 
-1. Inside the theme's root let's create a `customQueries` directory, and [copy the content of the default `productsList` query from `vuestorefront/magento2/packages/api-client/src/api/products/productsList.ts` file](https://github.com/vuestorefront/magento2/blob/main/packages/api-client/src/api/products/productsList.ts) into the newly created directory. 
+1. Inside the theme's root let's create a `customQueries` directory, and [copy the content of the default `productsList` query from `vuestorefront/magento2/packages/api-client/src/api/products/productsList.ts` file](https://github.com/vuestorefront/magento2/blob/main/packages/api-client/src/api/products/productsList.ts) into the newly created directory.
 
-  You can modify the query inside this file by adding `cld_data` with fields to the existing query as below:
+You can modify the query inside this file by adding `cld_data` with fields to the existing query as below:
 
   ```typescript
   import gql from 'graphql-tag';
@@ -54,10 +54,10 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
   `;
 
   ```
-  
-  ::: warning
-  Make sure you have `graphgl-tag` installed as dependency prior using this sample code.
-  :::
+
+::: warning
+Make sure you have `graphgl-tag` installed as dependency prior using this sample code.
+:::
 
 2. In `middleware.config.js`, import the modified query
 
@@ -66,14 +66,14 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
   ```
 
 3.  Add a new property field `customQueries` under `integrations.magento` with the following code:
-  
+
   ```js
     module.exports = {
       integrations: {
         magento: {
           customQueries: {
             /* This is where we override the default query */
-            products: (context) => ({ 
+            products: (context) => ({
               ...context,
               query: customProductsQuery,  // Your custom query
             })
@@ -92,6 +92,6 @@ In order to query `cld_data`, you need to have [Cloudinary Magento extension](ht
 
 ### Important notes
 
-**Only** attributes presented on `ProductInterface` are accessible via GraphQL without any additional modification on the Magento side. 
+**Only** attributes presented on `ProductInterface` are accessible via GraphQL without any additional modification on the Magento side.
 
 To be able to get any custom attributes you must extend GraphQL schema in the Magento2. Follow [Magento 2 documentation](https://devdocs.magento.com/guides/v2.4/graphql/develop/extend-existing-schema.html) to achieve that.

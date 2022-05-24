@@ -1,8 +1,20 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
-  UseCart as UseCartCore, Context, FactoryParams, UseCartErrors as UseCartErrorsCore, PlatformApi, sharedRef, Logger, configureFactoryParams, ComposableFunctionArgs,
+  UseCart as UseCartCore,
+  Context,
+  FactoryParams,
+  UseCartErrors as UseCartErrorsCore,
+  PlatformApi,
+  sharedRef,
+  Logger,
+  configureFactoryParams,
+  ComposableFunctionArgs,
+  ComputedProperty,
+  CustomQuery,
 } from '@vue-storefront/core';
 import { computed, Ref } from '@vue/composition-api';
-import { ComputedProperty, CustomQuery } from '@vue-storefront/core/lib/src/types';
 
 export interface UseCartFactoryParams<CART, CART_ITEM, PRODUCT, API extends PlatformApi = any> extends FactoryParams<API> {
   load: (context: Context, params: ComposableFunctionArgs<{ realCart?: boolean; }>) => Promise<CART>;

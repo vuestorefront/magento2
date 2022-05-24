@@ -1,12 +1,16 @@
+/**
+ * @deprecated Will be removed in 1.1.0 release
+ * @use @vue-storefront/magento-theme/composables/useApi instead
+ */
 import {
   configureFactoryParams,
   Context,
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
 import { computed } from '@vue/composition-api';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { FetchPolicy } from '../types';
 import { UseCustomQuery } from '../types/composables';
 

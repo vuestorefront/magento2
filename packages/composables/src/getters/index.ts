@@ -1,4 +1,6 @@
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 export { default as addressGetter } from './addressGetter';
 export { default as cartGetters } from './cartGetters';
 export { default as categoryGetters } from './categoryGetters';

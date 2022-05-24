@@ -2,23 +2,14 @@
   <div>
     <SfHeader
       class="sf-header--has-mobile-search"
-      :class="{'header-on-top': isSearchOpen}"
+      :class="{ 'header-on-top': isSearchOpen }"
     >
       <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
         <HeaderLogo />
       </template>
-      <template
-        #navigation
-      >
-        <HeaderNavigationItem
-          v-for="(category, index) in categoryTree"
-          :key="index"
-          v-e2e="'app-header-url_women'"
-          class="nav-item"
-          :label="category.label"
-          :link="localePath(getAgnosticCatLink(category))"
-        />
+      <template #navigation>
+        <HeaderNavigation :category-tree="categoryTree" />
       </template>
       <template #aside>
         <div class="sf-header__switchers">
@@ -26,9 +17,7 @@
           <StoreSwitcher class="smartphone-only" />
         </div>
       </template>
-      <template
-        #header-icons="{activeIcon}"
-      >
+      <template #header-icons="{ activeIcon }">
         <div class="sf-header__icons">
           <SfButton
             v-e2e="'app-header-account'"
@@ -112,20 +101,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
-  SfOverlay,
-  SfHeader,
-  SfButton,
-  SfBadge,
+  SfOverlay, SfHeader, SfButton, SfBadge,
 } from '@storefront-ui/vue';
 
-import {
-  categoryGetters,
-  useCart,
-  useCategory,
-  useUser, useWishlist,
-} from '@vue-storefront/magento';
 import {
   computed,
   ref,
@@ -135,11 +115,17 @@ import {
   onMounted,
   useFetch,
 } from '@nuxtjs/composition-api';
-import HeaderNavigationItem from '~/components/Header/Navigation/HeaderNavigationItem.vue';
+import HeaderNavigation from '~/components/Header/Navigation/HeaderNavigation.vue';
+import useCategory from '~/modules/catalog/category/composables/useCategory';
 import {
+  useCart,
   useUiHelpers,
   useUiState,
 } from '~/composables';
+import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -147,7 +133,7 @@ import StoreSwitcher from '~/components/StoreSwitcher.vue';
 
 export default defineComponent({
   components: {
-    HeaderNavigationItem,
+    HeaderNavigation,
     SfHeader,
     SfOverlay,
     CurrencySelector,
@@ -157,54 +143,57 @@ export default defineComponent({
     SfButton,
     SfBadge,
     SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
-    SearchResults: () => import(/* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'),
+    SearchResults: () => import(
+      /* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'
+    ),
   },
   setup() {
     const router = useRouter();
     const { app } = useContext();
     const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
-    const { setTermForUrl, getAgnosticCatLink } = useUiHelpers();
+    const { setTermForUrl, getCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
-    const { totalQuantity: cartTotalItems, loadTotalQty: loadCartTotalQty } = useCart();
-    const { itemsCount: wishlistItemsQty, loadItemsCount: loadWishlistItemsCount } = useWishlist('GlobalWishlist');
+    const { loadTotalQty: loadCartTotalQty, cart } = useCart();
+    const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
+    const { categories: categoryList, load: categoriesListLoad } = useCategory();
 
-    const {
-      categories: categoryList,
-      search: categoriesListSearch,
-    } = useCategory('AppHeader:CategoryList');
-
+    const wishlistStore = useWishlistStore();
     const isSearchOpen = ref(false);
     const result = ref(null);
+    const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
     const accountIcon = computed(() => (isAuthenticated.value ? 'profile_fill' : 'profile'));
-    const categoryTree = categoryGetters.getCategoryTree(categoryList.value?.[0])?.items.filter((c) => c.count > 0);
-
+    const categoryTree = ref<CategoryTree[]>([]);
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(`${app.localePath('/my-account/my-profile')}`);
       } else {
         toggleLoginModal();
       }
     };
 
     useFetch(async () => {
-      await categoriesListSearch({ pageSize: 20 });
+      await categoriesListLoad({ pageSize: 20 });
+
+      categoryTree.value = categoryList.value?.[0]?.children
+        .filter((category) => category.include_in_menu);
     });
 
-    onMounted(() => {
+    onMounted(async () => {
       if (app.$device.isDesktop) {
-        loadCartTotalQty();
-        loadWishlistItemsCount();
+        await loadCartTotalQty();
+        // eslint-disable-next-line promise/catch-or-return
+        await loadWishlistItemsCount({});
       }
     });
 
     return {
       accountIcon,
-      cartTotalItems,
+      cartTotalItems: computed(() => cart.value?.total_quantity ?? 0),
       categoryTree,
-      getAgnosticCatLink,
+      getCatLink,
       handleAccountClick,
       isAuthenticated,
       isSearchOpen,
@@ -233,14 +222,6 @@ export default defineComponent({
 
 .header-on-top {
   z-index: 2;
-}
-
-.nav-item {
-  --header-navigation-item-margin: 0 var(--spacer-sm);
-
-  .sf-header-navigation-item__item--mobile {
-    display: none;
-  }
 }
 
 .cart-badge {

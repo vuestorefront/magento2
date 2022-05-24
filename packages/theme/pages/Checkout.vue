@@ -5,7 +5,7 @@
         <SfSteps
           v-if="!isThankYou"
           :active="currentStepIndex"
-          :class="{ 'checkout__steps': true }"
+          :class="{ checkout__steps: true }"
           @change="handleStepClick"
         >
           <SfStep
@@ -33,13 +33,17 @@
 </template>
 <script>
 import { SfSteps } from '@storefront-ui/vue';
+import { cartGetters } from '~/getters';
 import {
-  useCart,
-  cartGetters,
-} from '@vue-storefront/magento';
-import {
-  computed, defineComponent, ref, useRoute, useRouter, useContext, onMounted,
+  computed,
+  defineComponent,
+  ref,
+  useRoute,
+  useRouter,
+  useContext,
+  onMounted,
 } from '@nuxtjs/composition-api';
+import { useCart } from '~/composables';
 import CartPreview from '~/components/Checkout/CartPreview.vue';
 
 export default defineComponent({
@@ -57,29 +61,26 @@ export default defineComponent({
     const products = computed(() => cartGetters.getItems(cart.value));
     const currentStep = computed(() => path.split('/').pop());
 
-    const STEPS = ref(
-      [
-        {
-          title: 'User Account',
-          url: 'user-account',
-        },
-        {
-          title: 'Shipping',
-          url: 'shipping',
-        },
-        {
-          title: 'Billing',
-          url: 'billing',
-        },
-        {
-          title: 'Payment',
-          url: 'payment',
-        },
-      ],
-    );
+    const STEPS = ref([
+      {
+        title: 'User Account',
+        url: 'user-account',
+      },
+      {
+        title: 'Shipping',
+        url: 'shipping',
+      },
+      {
+        title: 'Billing',
+        url: 'billing',
+      },
+      {
+        title: 'Payment',
+        url: 'payment',
+      },
+    ]);
 
-    const currentStepIndex = computed(() => STEPS.value
-      .findIndex((step) => step.url === currentStep.value));
+    const currentStepIndex = computed(() => STEPS.value.findIndex((step) => step.url === currentStep.value));
     const isThankYou = computed(() => currentStep.value === 'thank-you');
 
     const handleStepClick = async (stepIndex) => {
@@ -149,5 +150,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>

@@ -7,14 +7,7 @@
     />
     <div class="form">
       <SfLoader :loading="isLoading">
-        <div v-if="errorUseGetShippingMethods.load">
-          {{
-            $t(
-              'There was some error while trying to fetch shipping methods. We are sorry, please try with a different shipping details.'
-            )
-          }}
-        </div>
-        <div v-else-if="errorShippingProvider.save">
+        <div v-if="errorShippingProvider.save">
           {{
             $t(
               'There was some error while trying to select this shipping method. We are sorry, please try with a different shipping method.'
@@ -37,8 +30,7 @@
           :label="method.method_title"
           :value="method.method_code"
           :selected="
-            selectedShippingMethod &&
-              selectedShippingMethod.method_code
+            selectedShippingMethod && selectedShippingMethod.method_code
           "
           name="shippingMethod"
           :description="method.carrier_title"
@@ -68,9 +60,7 @@
           class="form__action-button"
           type="button"
           :disabled="
-            !isShippingMethodStepCompleted ||
-              isLoading ||
-              loadingShippingProvider.save
+            !isShippingMethodStepCompleted || isLoading.save
           "
           @click="$emit('submit')"
         >
@@ -83,16 +73,12 @@
 
 <script>
 import {
-  useCart,
-  useShippingProvider,
-  cartGetters,
-  useGetShippingMethods,
-} from '@vue-storefront/magento';
-import {
   SfHeading, SfButton, SfRadio, SfLoader,
 } from '@storefront-ui/vue';
 
-import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
+import { cartGetters } from '~/getters';
+import { useCart, useShippingProvider } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
 export default defineComponent({
@@ -103,25 +89,24 @@ export default defineComponent({
     SfRadio,
     SfLoader,
   },
+  props: {
+    shippingMethods: {
+      type: Array,
+      default: () => [],
+    },
+  },
   setup() {
-    const {
-      result: shippingMethods,
-      loading: loadingShippingMethods,
-      error: errorUseGetShippingMethods,
-    } = useGetShippingMethods();
     const { cart } = useCart();
+    const state = ref({});
+
     const {
-      state,
       save: saveShippingProvider,
       error: errorShippingProvider,
-      loading: loadingShippingProvider,
-      setState,
+      loading: isLoading,
     } = useShippingProvider();
+
     const selectedShippingMethod = computed(() => state.value);
     const totals = computed(() => cartGetters.getTotals(cart.value));
-    const isLoading = computed(
-      () => loadingShippingMethods.value || loadingShippingProvider.value,
-    );
     const isShippingMethodStepCompleted = computed(
       () => state.value?.method_code && !isLoading.value,
     );
@@ -135,22 +120,18 @@ export default defineComponent({
         method_code: method.method_code,
       };
 
-      setState(shippingData);
-      await saveShippingProvider({
+      state.value = await saveShippingProvider({
         shippingMethod: shippingData,
       });
     };
 
     return {
       errorShippingProvider,
-      errorUseGetShippingMethods,
       getShippingMethodPrice,
       isLoading,
       isShippingMethodStepCompleted,
-      loadingShippingProvider,
       selectedShippingMethod,
       selectShippingMethod,
-      shippingMethods,
       state,
       totals,
     };

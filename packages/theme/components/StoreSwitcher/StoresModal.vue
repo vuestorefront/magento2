@@ -1,12 +1,10 @@
 <template>
   <SfBottomModal
     :is-open="isLangModalOpen"
-    :title="availableStores.length > 0 ? 'Change Store': ''"
+    :title="availableStores.length > 0 ? 'Change Store' : ''"
     @click:close="closeModal"
   >
-    <SfList
-      v-if="availableStores.length > 1"
-    >
+    <SfList v-if="availableStores.length > 1">
       <SfListItem
         v-for="store in availableStores"
         :key="store.id"
@@ -14,20 +12,21 @@
         <a
           href="/"
           class="container__store--link"
-          :class="storeGetters.getSelected(storeConfig, store) ? 'container__store--selected' : ''"
-          @click="handleChanges({
-            callback: () => changeStore(store),
-            redirect: false,
-            windowRefresh: true,
-          })"
+          :class="
+            storeConfig.store_code === store.store_code
+              ? 'container__store--selected'
+              : ''
+          "
+          @click.prevent="changeStore(store)"
         >
           <SfCharacteristic class="language">
             <template #title>
-              <span>{{ storeConfigGetters.getName(store) }}</span>
+              <span>{{ store.store_name }}</span>
             </template>
             <template #icon>
-              <nuxt-img
-                :src="`/icons/langs/${storeConfigGetters.getLocale(store)}.webp`"
+              <SfImage
+                image-tag="nuxt-img"
+                :src="`/icons/langs/${store.locale}.webp`"
                 width="20"
                 height="20"
                 alt="Flag"
@@ -40,23 +39,18 @@
     </SfList>
   </SfBottomModal>
 </template>
-<script>
+<script lang="ts">
 import {
-  defineComponent,
-  onMounted,
-  computed,
+  defineComponent, onMounted, computed, PropType,
 } from '@nuxtjs/composition-api';
 import {
   SfList,
   SfBottomModal,
   SfCharacteristic,
+  SfImage,
 } from '@storefront-ui/vue';
-import {
-  useStore,
-  storeConfigGetters,
-  storeGetters,
-} from '@vue-storefront/magento';
-import { useHandleChanges } from '~/helpers/magentoConfig/handleChanges';
+import { StoreConfig } from '~/modules/GraphQL/types';
+import { useStore } from '~/composables';
 
 export default defineComponent({
   name: 'StoresModal',
@@ -64,20 +58,22 @@ export default defineComponent({
     SfList,
     SfBottomModal,
     SfCharacteristic,
+    SfImage,
   },
   props: {
     isLangModalOpen: Boolean,
-    storeConfig: Object,
+    storeConfig: {
+      type: Object as PropType<StoreConfig | {}>,
+      default: () => {},
+    },
   },
   emits: ['closeModal'],
   setup() {
-    const { handleChanges } = useHandleChanges();
-
     const {
       stores,
       change: changeStore,
       load: loadStores,
-    } = useStore('header-stores');
+    } = useStore();
 
     const availableStores = computed(() => stores.value ?? []);
 
@@ -87,9 +83,6 @@ export default defineComponent({
     });
 
     return {
-      storeGetters,
-      storeConfigGetters,
-      handleChanges,
       availableStores,
       changeStore,
     };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="`${currentAddressId}`"
+      :selected="`${selectedAddress}`"
       class="billing__addresses"
       @change="setCurrentAddress($event)"
     >
@@ -26,17 +26,9 @@
 </template>
 
 <script>
-import {
-  SfCheckbox,
-  SfAddressPicker,
-} from '@storefront-ui/vue';
-import {
-  useUserBilling,
-  userBillingGetters,
-} from '@vue-storefront/magento';
-import {
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
+import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 
 export default defineComponent({
@@ -55,23 +47,30 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    billingAddresses: {
+      type: Array,
+      required: true,
+    },
   },
   emits: ['setCurrentAddress'],
-  setup(_, { emit }) {
-    const { billing: userBilling } = useUserBilling();
-
+  setup(props, { emit }) {
     const setCurrentAddress = (addressId) => {
-      const selectedAddress = userBillingGetters.getAddresses(userBilling.value, { id: Number.parseInt(addressId, 10) });
+      const selectedAddress = props.billingAddresses.find((address) => address.id === Number(addressId));
       if (!selectedAddress || selectedAddress.length === 0) {
         return;
       }
-      emit('setCurrentAddress', selectedAddress[0]);
+
+      emit('setCurrentAddress', selectedAddress);
     };
 
-    const billingAddresses = userBillingGetters.getAddresses(userBilling.value);
+    const selectedAddress = computed(() => (
+      props.currentAddressId
+        ? props.currentAddressId
+        : props.billingAddresses.find((address) => address.default_billing)?.id ?? ''
+    ));
 
     return {
-      billingAddresses,
+      selectedAddress,
       setCurrentAddress,
       userBillingGetters,
     };
@@ -103,7 +102,8 @@ export default defineComponent({
   }
 }
 
-.sf-divider, .form__action-button--margin-bottom {
+.sf-divider,
+.form__action-button--margin-bottom {
   margin-bottom: var(--spacer-xl);
 }
 </style>

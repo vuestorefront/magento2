@@ -13,6 +13,7 @@
         v-model="setAsDefault"
         v-e2e="'shipping-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :shipping-addresses="addresses"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -34,7 +35,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="firstname => changeShippingDetails('firstname', firstname)"
+            @input="
+              (firstname) => changeShippingDetails('firstname', firstname)
+            "
           />
         </ValidationProvider>
         <ValidationProvider
@@ -52,7 +55,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="lastname => changeShippingDetails('lastname', lastname)"
+            @input="(lastname) => changeShippingDetails('lastname', lastname)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -70,13 +73,13 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="street => changeShippingDetails('street', street)"
+            @input="(street) => changeShippingDetails('street', street)"
           />
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
           name="apartment"
-          rules="required|min:2"
+          rules="required|min:1"
           slim
         >
           <SfInput
@@ -88,7 +91,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="apartment => changeShippingDetails('apartment', apartment)"
+            @input="
+              (apartment) => changeShippingDetails('apartment', apartment)
+            "
           />
         </ValidationProvider>
         <ValidationProvider
@@ -106,17 +111,23 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="city => changeShippingDetails('city', city)"
+            @input="(city) => changeShippingDetails('city', city)"
           />
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
           name="region"
-          :rules="!shippingDetails.country_code || regionInformation.length === 0 ? null : 'required|min:2'"
+          :rules="
+            !shippingDetails.country_code || regionInformation.length === 0
+              ? null
+              : 'required|min:2'
+          "
           slim
         >
           <SfInput
-            v-if="!shippingDetails.country_code || regionInformation.length === 0"
+            v-if="
+              !shippingDetails.country_code || regionInformation.length === 0
+            "
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
             label="State/Province"
@@ -124,8 +135,12 @@
             name="state"
             class="form__element form__element--half form__element--half-even"
             :valid="!!shippingDetails.country_code"
-            :error-message="!shippingDetails.country_code ? $t('Please select a country first') : ''"
-            @input="region => changeShippingDetails('region', region)"
+            :error-message="
+              !shippingDetails.country_code
+                ? $t('Please select a country first')
+                : ''
+            "
+            @input="(region) => changeShippingDetails('region', region)"
           />
           <SfSelect
             v-else
@@ -136,7 +151,7 @@
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="region => changeShippingDetails('region', region)"
+            @input="(region) => changeShippingDetails('region', region)"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -188,7 +203,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="postcode => changeShippingDetails('postcode', postcode)"
+            @input="(postcode) => changeShippingDetails('postcode', postcode)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -206,7 +221,9 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="telephone => changeShippingDetails('telephone', telephone)"
+            @input="
+              (telephone) => changeShippingDetails('telephone', telephone)
+            "
           />
         </ValidationProvider>
       </div>
@@ -223,7 +240,7 @@
           <SfButton
             v-if="!(isShippingDetailsStepCompleted && !dirty)"
             v-e2e="'select-shipping'"
-            :disabled="loading"
+            :disabled="isShippingLoading"
             class="form__action-button"
             type="submit"
           >
@@ -233,6 +250,7 @@
       </div>
       <VsfShippingProvider
         v-if="isShippingDetailsStepCompleted && !dirty"
+        :shipping-methods="shippingMethods"
         @submit="$router.push(`${localePath('/checkout/billing')}`)"
       />
     </form>
@@ -241,28 +259,26 @@
 
 <script>
 import {
-  SfHeading,
-  SfInput,
-  SfButton,
-  SfSelect,
+  SfHeading, SfInput, SfButton, SfSelect,
 } from '@storefront-ui/vue';
 import {
   ref,
   computed,
   watch,
   onMounted,
-  defineComponent, useRouter, useContext,
+  defineComponent,
+  useRouter,
+  useContext,
 } from '@nuxtjs/composition-api';
-import {
-  addressGetter,
-  useCountrySearch,
-  userShippingGetters,
-  useShipping,
-  useUser,
-  useUserShipping,
-} from '@vue-storefront/magento';
 import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
+import userShippingGetters from '~/modules/customer/getters/userShippingGetters';
+import addressGetter from '~/modules/customer/getters/addressGetter';
+import {
+  useShipping, useCountrySearch,
+} from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useUserAddress } from '~/modules/customer/composables/useUserAddress';
 import { addressFromApiToForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -297,25 +313,27 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
+    const address = ref({});
+    const userShipping = ref({});
     const {
-      load,
-      save,
-      loading,
-      shipping: address,
+      load: loadShipping,
+      save: saveShipping,
+      loading: isShippingLoading,
     } = useShipping();
     const {
-      shipping: userShipping,
       load: loadUserShipping,
       setDefaultAddress,
-    } = useUserShipping();
+    } = useUserAddress();
+
     const {
       load: loadCountries,
-      countries,
       search: searchCountry,
-      country,
-    } = useCountrySearch('Step:Shipping');
+    } = useCountrySearch();
+    const countries = ref([]);
+    const country = ref(null);
     const { isAuthenticated } = useUser();
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
+    const shippingMethods = ref([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
@@ -323,8 +341,9 @@ export default defineComponent({
     const canAddNewAddress = ref(true);
 
     const isShippingDetailsStepCompleted = ref(false);
+    const addresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
-    const canMoveForward = computed(() => !loading.value && shippingDetails.value && Object.keys(
+    const canMoveForward = computed(() => !isShippingLoading.value && shippingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       shippingDetails.value,
     ).length > 0);
@@ -333,8 +352,7 @@ export default defineComponent({
       if (!isAuthenticated.value || !userShipping.value) {
         return false;
       }
-      const addresses = userShippingGetters.getAddresses(userShipping.value);
-      return Boolean(addresses?.length);
+      return addresses.value.length > 0;
     });
     // @ts-ignore
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
@@ -350,14 +368,18 @@ export default defineComponent({
       await mergeItem('checkout', { shipping: shippingDetailsData });
       // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
       // @ts-ignore
-      await save({ shippingDetails: shippingDetailsData });
+      const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
+      shippingMethods.value = shippingInfo.available_shipping_methods;
+
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
-        const chosenAddress = userShippingGetters.getAddresses(
+        const [chosenAddress] = userShippingGetters.getAddresses(
           userShipping.value,
           { id: addressId },
         );
-        if (chosenAddress && chosenAddress.length > 0) {
-          await setDefaultAddress({ address: chosenAddress[0] });
+        chosenAddress.default_shipping = setAsDefault.value;
+        if (chosenAddress) {
+          await setDefaultAddress({ address: chosenAddress });
+          userShipping.value = await loadUserShipping(true);
         }
       }
       reset();
@@ -399,37 +421,43 @@ export default defineComponent({
 
     const changeCountry = async (id) => {
       changeShippingDetails('country_code', id);
-      await searchCountry({ id });
+      country.value = await searchCountry({ id });
     };
 
     watch(address, (addr) => {
       shippingDetails.value = addressFromApiToForm(addr || {});
     });
-
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
       if (!validStep) {
         await router.push(app.localePath('/checkout/user-account'));
       }
-
-      await Promise.all([
-        loadCountries(),
-        load(),
+      const [loadedShippingInfo, loadedUserShipping, loadedCountries] = await Promise.all([
+        loadShipping(),
         loadUserShipping(),
+        loadCountries(),
       ]);
 
+      address.value = loadedShippingInfo;
+      userShipping.value = loadedUserShipping;
+      countries.value = loadedCountries;
+
       if (shippingDetails.value?.country_code) {
-        await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
       }
 
-      const shippingAddresses = userShippingGetters.getAddresses(userShipping.value);
+      const shippingAddresses = userShippingGetters.getAddresses(
+        userShipping.value,
+      );
 
       if (!shippingAddresses || shippingAddresses.length === 0) {
         return;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      const hasEmptyShippingDetails = !shippingDetails.value || Object.keys(shippingDetails.value).length === 0;
+      const hasEmptyShippingDetails = !shippingDetails.value
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();
       }
@@ -450,13 +478,14 @@ export default defineComponent({
       isAuthenticated,
       isFormSubmitted,
       isShippingDetailsStepCompleted,
-      load,
-      loading,
+      isShippingLoading,
       NOT_SELECTED_ADDRESS,
       regionInformation,
       searchCountry,
       setAsDefault,
       shippingDetails,
+      shippingMethods,
+      addresses,
     };
   },
 });

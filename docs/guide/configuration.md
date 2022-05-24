@@ -11,8 +11,8 @@ For configure the integration using `environment variables`, you can have a `.en
 STORE_ENV=dev # Store environment (Usage for file configuration)
 NUXT_APP_ENV=development # Define nuxt application environment
 NUXT_APP_PORT=3000 # Define nuxt port
-MAGENTO_GRAPHQL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
-MAGENTO_EXTERNAL_CHECKOUT=false # Flag if VSF will use External Checkout
+MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql # Define Magento GraphQL endpoint
+MAGENTO_EXTERNAL_CHECKOUT_ENABLED=false # Flag if VSF will use External Checkout
 MAGENTO_EXTERNAL_CHECKOUT_URL=https://{YOUR_SITE_FRONT_URL} # External checkout URL
 MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=/vue/cart/sync # External Checkout synchronization path
 MAGENTO_BASE_URL={YOUR_SITE_FRONT_URL} # base url of your Magento instance
@@ -44,6 +44,12 @@ Then on the `config` folder create a file `dev.json` with your configurations.
   "imageProviderBaseUrl": "https://res-4.cloudinary.com/{YOUR_CLOUD_ID}/image/upload/" // define image provider base url - this is example from cloudinary
 }
 ```
+
+
+## Store Config
+This type contains information about the Magento's Store Configuration which is stored in Pinia `$state.storeConfig`. To avoid over fetch, by default, the amount of data pulled from Magento is minimal but as your application grows you might want to pull more config data for different purposes.
+
+Plugin `plugins/storeConfigPlugin.ts` is responsible for initial population of the Store Config data based on query in `plugins/query/StoreConfig.gql.ts`. To modify the initial Store Configuration state simply adjust the query to your needs.
 
 ## Multistore and localization
 
@@ -87,23 +93,23 @@ By default, we use the `ipx` provider. that means the images are fetched from Ma
 ### How to configure external image provider
 
 1. Configure ENV variables
-   1. `MAGENTO_BASE_URL` - base URL of Magento shop. It's used by the `useImage` composable to extract image's path from full Magento URL.
-   2. `IMAGE_PROVIDER` - for example: `cloudinary`. List of available providers is [here](https://image.nuxtjs.org/getting-started/providers)
-   3. `IMAGE_PROVIDER_BASE_URL` - the base url of your project in for example cloudinary or other image providers
+  1. `MAGENTO_BASE_URL` - base URL of Magento shop. It's used by the `useImage` composable to extract image's path from full Magento URL.
+  2. `IMAGE_PROVIDER` - for example: `cloudinary`. List of available providers is [here](https://image.nuxtjs.org/getting-started/providers)
+  3. `IMAGE_PROVIDER_BASE_URL` - the base url of your project in for example cloudinary or other image providers
 2. Configure your provider in `nuxt.config.js`. Here is the example:
 ```javascript
 image: {
-  provider: config.get('imageProvider'),
+  provider: process.env.VSF_IMAGE_PROVIDER
   magekit: {
-    baseURL: config.get('imageProviderBaseUrl'),
+    baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL
   }
 },
 ```
 3. Sync your Magento images with external provider
-   1. For example if you have anb image in Magento with path `{YOUR_MAGENTO_BASE_URL}o/media/catalog/product/w/g/wg02-bk-0.jpg`
-   you should have corresponding image in your external provider: `media/catalog/product/w/g/wg02-bk-0.jpg`
+  1. For example if you have anb image in Magento with path `{YOUR_MAGENTO_BASE_URL}o/media/catalog/product/w/g/wg02-bk-0.jpg`
+     you should have corresponding image in your external provider: `media/catalog/product/w/g/wg02-bk-0.jpg`
 4. Sync your local images with external provider
-   1. Upload content of `static` directory to your external media library
+  1. Upload content of `static` directory to your external media library
 
 ### The useImage composable
 
@@ -117,20 +123,21 @@ That methods returns an URL to image, without magento base url, and cache part. 
 When you want to use this composable you need to:
 
 1. import it in component
-`import { useImage } from '~/composables';`
+   `import { useImage } from '~/composables';`
 2. Export `getMagentoImage to a template
 ```javascript
 // component body (typically a setup() function)
 const { getMagentoImage } = useImage();
 
 return {
-   ... // other things like computed properties, methods and so on
-   getMagentoImage
+  ... // other things like computed properties, methods and so on
+    getMagentoImage
 }
 ```
 3. Use the `getMagentoImage` method in template like this:
 ```vue
-<nuxt-img
+<SfImage
+  image-tag="nuxt-img"
   :src="getMagentoImage(wishlistGetters.getItemImage(product))"
   :alt="wishlistGetters.getItemName(product)"
   :width="140"

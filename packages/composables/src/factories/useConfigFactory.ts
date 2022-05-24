@@ -1,11 +1,16 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed } from '@vue/composition-api';
 import {
   Context,
   sharedRef,
   Logger,
-  configureFactoryParams, FactoryParams, ComposableFunctionArgs,
+  configureFactoryParams,
+  FactoryParams,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseConfig } from '../types/composables';
 
 export interface UseConfigFactoryParams<CONFIG, API extends PlatformApi = any> extends FactoryParams<API>{

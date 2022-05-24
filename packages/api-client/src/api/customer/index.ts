@@ -4,6 +4,9 @@ import { CustomerQuery } from '../../types/GraphQL';
 import customer from './customer';
 import { Context } from '../../types/context';
 
+/**
+ * Returns the information about the current customer. To override the default query, use the `customer` query key.
+ */
 export default async (
   context: Context,
   customQuery: CustomQuery = { customer: 'customer' },

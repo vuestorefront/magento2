@@ -2,17 +2,17 @@
   "compilerOptions": {
     "declaration": true,
     "target": "ES2019",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "ES2020",
+    "moduleResolution": "node",
     "lib": [
-      "ESNext",
-      "ESNext.AsyncIterable",
+      "ES2019",
       "DOM"
     ],
     "esModuleInterop": true,
     "allowJs": true,
     "sourceMap": true,
     "strict": false,
+    "noImplicitThis": true,
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
@@ -24,18 +24,20 @@
       ]
     },
     "types": [
-      "@types/node",
+      "node",
+      "@pinia/nuxt",
       "@nuxt/types",
+      "cookie-universal-nuxt",
       "nuxt-i18n",
-      "@nuxt/image"
+      "@nuxt/image",
+      "jest"
     ],
+    "typeRoots": ["../../node_modules/@types"],
     "resolveJsonModule": true,
     "rootDir": "./",
     "declarationDir": "./lib",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["tests/e2e/**"]
 }

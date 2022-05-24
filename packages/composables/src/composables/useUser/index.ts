@@ -1,11 +1,14 @@
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
-  Context, Logger,
+  Context,
+  CustomQuery,
+  Logger,
   useUserFactory,
   UseUserFactoryParams as UserUserFactoryParamsBase,
 } from '@vue-storefront/core';
 import { CustomerCreateInput, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-api';
-import { CustomQuery } from '@vue-storefront/core/lib/src/types';
 import useCart from '../useCart';
 import { generateUserData } from '../../helpers/userDataGenerator';
 
@@ -174,6 +177,7 @@ CustomerCreateInput
 
     return factoryParams.load(context);
   },
+
   changePassword: async (context: Context, params) => {
     Logger.debug('[Magento] changing user password');
     const { data, errors } = await context.$magento.api.changeCustomerPassword(params);

@@ -1,6 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
-import gql from 'graphql-tag';
 import { GraphQLError } from 'graphql';
 import resetPasswordMutation from './resetPassword';
 import {
@@ -10,11 +9,17 @@ import {
 import { Context } from '../../types/context';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 
-export default async (
+/**
+ * Resets a user's password
+ * @param context VSF Context
+ * @param input Params used to reset a user's password
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
+export default async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
   customQuery: CustomQuery = { resetPassword: 'resetPassword' },
-): Promise<FetchResult<ResetPasswordMutation>> => {
+): Promise<FetchResult<ResetPasswordMutation>> {
   const {
     recaptchaToken, ...variables
   } = input;
@@ -33,7 +38,7 @@ export default async (
     }
   }
 
-  const { resetPassword } = context.extendQuery(customQuery, {
+  const { resetPassword: extendedResetPasswordMutation } = context.extendQuery(customQuery, {
     resetPassword: {
       query: resetPasswordMutation,
       variables: { ...variables },
@@ -43,11 +48,11 @@ export default async (
   Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
   const result = await context.client
     .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
-    mutation: resetPassword.query,
-    variables: resetPassword.variables,
+    mutation: extendedResetPasswordMutation.query,
+    variables: extendedResetPasswordMutation.variables,
   });
 
   if (!result.data.resetPassword) throw new Error('It was not possible to change the user password.');
 
   return result;
-};
+}

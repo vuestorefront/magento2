@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed, Ref } from '@vue/composition-api';
 import {
   configureFactoryParams,
@@ -5,9 +8,11 @@ import {
   Logger,
   Context,
   ProductsSearchParams,
-  sharedRef, UseProductFactoryParams,
+  sharedRef,
+  UseProductFactoryParams,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseUpsellProducts, UseUpsellProductsErrors } from '../types/composables';
 
 export interface UseUpsellProductsFactoryParams<

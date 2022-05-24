@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/require-await */
-/* istanbul ignore file */
+/**
+ * @deprecated since version 1.0.0
+ */
 import {
   Context,
   Logger,
@@ -8,6 +9,9 @@ import useUser from '../useUser';
 import { findItemOnWishlist } from '../../helpers/findItemOnWishlist';
 import { useWishlistFactory, UseWishlistFactoryParams } from '../../factories/useWishlistFactory';
 
+/**
+ * @deprecated since version 1.0.0
+ */
 // @ts-ignore
 const factoryParams: UseWishlistFactoryParams<any, any, any> = {
   provide() {

@@ -3,8 +3,9 @@
     :to="localePath('/')"
     class="sf-header__logo"
   >
-    <nuxt-img
+    <SfImage
       v-if="logoSrc"
+      image-tag="nuxt-img"
       :src="logoSrc"
       :alt="logoAlt"
       :title="logoAlt"
@@ -21,36 +22,35 @@
   </nuxt-link>
 </template>
 
-<script>
+<script lang="ts">
+import { SfImage } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
-import { useConfig, storeConfigGetters } from '@vue-storefront/magento';
+import { useConfig } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 
 export default defineComponent({
   name: 'HeaderLogo',
-  components: { SvgImage },
+  components: { SvgImage, SfImage },
   setup() {
     const { config } = useConfig();
 
-    const logoSrc = computed(
-      () => {
-        const baseMediaUrl = storeConfigGetters.getBaseMediaUrl(config.value);
-        const logo = storeConfigGetters.getLogoSrc(config.value);
+    const logoSrc = computed(() => {
+      const baseMediaUrl = config.value.base_media_url;
+      const logo = config.value.header_logo_src;
 
-        return baseMediaUrl && logo ? `${baseMediaUrl}logo/${logo}` : ''
-      }
-    );
+      return baseMediaUrl && logo ? `${baseMediaUrl}logo/${logo}` : '';
+    });
 
     const logoWidth = computed(
-      () => storeConfigGetters.getLogoWidth(config.value) || '35',
+      () => config.value.logo_width || '35',
     );
 
     const logoHeight = computed(
-      () => storeConfigGetters.getLogoHeight(config.value) || '34',
+      () => config.value.logo_height || '34',
     );
 
     const logoAlt = computed(
-      () => storeConfigGetters.getLogoAlt(config.value) || '',
+      () => config.value.logo_alt || '',
     );
 
     return {

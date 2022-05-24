@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { computed } from '@vue/composition-api';
 import {
   configureFactoryParams,
@@ -5,8 +8,9 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  ComposableFunctionArgs,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { ComposableFunctionArgs, PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseCategorySearch, UseCategorySearchErrors } from '../types/composables';
 
 export interface UseCategorySearchFactory<CATEGORY, CATEGORY_SEARCH_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {

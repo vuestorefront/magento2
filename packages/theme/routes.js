@@ -1,25 +1,11 @@
-const path = require('path');
+import path from 'node:path';
+import url from 'node:url';
 
-export function getRoutes(themeDir = __dirname) {
+export function getRoutes(themeDir = path.dirname(url.fileURLToPath(import.meta.url))) {
   return [{
     name: 'home',
     path: '/',
     component: path.resolve(themeDir, 'pages/Home.vue'),
-  },
-  {
-    name: 'product',
-    path: '/p/:id/:slug/',
-    component: path.resolve(themeDir, 'pages/Product.vue'),
-  },
-  {
-    name: 'category',
-    path: '/c/:slug_1/:slug_2?/:slug_3?/:slug_4?/:slug_5?',
-    component: path.resolve(themeDir, 'pages/Category.vue'),
-  },
-  {
-    name: 'my-account',
-    path: '/my-account/:pageName?',
-    component: path.resolve(themeDir, 'pages/MyAccount.vue'),
   },
   {
     name: 'checkout',

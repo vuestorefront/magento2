@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { ShippingMethod } from '@vue-storefront/magento-api';
 import productGetters from './productGetters';
 

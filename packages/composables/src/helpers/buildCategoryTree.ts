@@ -1,4 +1,6 @@
-import { Category } from '@vue-storefront/magento-api';
+/**
+ * @deprecated since version 1.0.0
+ */
 import { AgnosticCategoryTree } from '@vue-storefront/core';
 import { htmlDecode } from './htmlDecoder';
 

@@ -1,18 +1,23 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { StoreConfigQuery } from '../../types/GraphQL';
-import storeConfig from './storeConfig';
+import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
 
-export default async (
+/**
+ * Fetches the store configuration from the API
+ * @param context VSF Context
+ * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ */
+export default async function storeConfig(
   context: Context,
   customQuery: CustomQuery = { storeConfig: 'storeConfig' },
-): Promise<ApolloQueryResult<StoreConfigQuery>> => {
+): Promise<ApolloQueryResult<StoreConfigQuery>> {
   const { storeConfig: storeConfigGQL } = context.extendQuery(
     customQuery,
     {
       storeConfig: {
-        query: storeConfig,
+        query: storeConfigMutation,
       },
     },
   );
@@ -20,4 +25,4 @@ export default async (
   return context.client.query<StoreConfigQuery>({
     query: storeConfigGQL.query,
   });
-};
+}

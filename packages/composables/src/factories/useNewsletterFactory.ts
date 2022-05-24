@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version1.0.0
+ */
 import { Ref, computed } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
@@ -6,8 +9,8 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UseNewsletter, UseNewsletterErrors } from '../types/composables';
 
 export interface UseNewsletterFactoryParams<NEWSLETTER, UPDATE_NEWSLETTER_PARAMS, API extends PlatformApi = any> extends FactoryParams<API> {

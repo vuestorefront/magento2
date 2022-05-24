@@ -4,11 +4,18 @@ import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';
 
-export default async (
+/**
+ * Fetch CMS Blocks from Magento Api.
+ *
+ * @param context - VSF Context
+ * @param identifiers - identifiers of CMS blocks
+ * @param [customQuery] - (optional) - custom GraphQL query that extends the default cmsBlocks query
+ */
+export default async function getCmsBlocks(
   context: Context,
   identifiers: string,
   customQuery: CustomQuery = { cmsBlocks: 'cmsBlocks' },
-): Promise<ApolloQueryResult<CmsBlockQuery>> => {
+): Promise<ApolloQueryResult<CmsBlockQuery>> {
   const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(
     customQuery,
     {
@@ -22,4 +29,4 @@ export default async (
     query: cmsBlocksGQL.query,
     variables: cmsBlocksGQL.variables,
   });
-};
+}

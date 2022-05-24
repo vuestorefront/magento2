@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { UserBillingGetters as BaseGetters } from '@vue-storefront/core';
 
 interface UserBillingGetters extends BaseGetters<any, any>{

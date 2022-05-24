@@ -25,11 +25,15 @@
         class="table__row"
       >
         <SfTableData class="table__image">
-          <nuxt-img
+          <SfImage
+            image-tag="nuxt-img"
             :src="getMagentoImage(cartGetters.getItemImage(product))"
             :alt="cartGetters.getItemName(product)"
-            :width="imageSizes.cartItem.width"
-            :height="imageSizes.cartItem.height"
+            :width="imageSizes.checkout.imageWidth"
+            :height="imageSizes.checkout.imageHeight"
+            :nuxt-img-config="{
+              fit: 'cover',
+            }"
           />
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
@@ -39,9 +43,7 @@
           <div class="product-sku">
             {{ cartGetters.getItemSku(product) }}
           </div>
-          <template
-            v-if="getAttributes(product).length > 0"
-          >
+          <template v-if="getAttributes(product).length > 0">
             <p
               v-for="attr in getAttributes(product)"
               :key="attr.option_label"
@@ -50,9 +52,7 @@
               <strong>{{ `${attr.option_label}:` }}</strong>{{ `${attr.value_label}` }}
             </p>
           </template>
-          <template
-            v-if="getBundles(product).length > 0"
-          >
+          <template v-if="getBundles(product).length > 0">
             <p
               v-for="bundle in getBundles(product)"
               :key="bundle.label"
@@ -68,7 +68,10 @@
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$fc(cartGetters.getItemPrice(product).regular)"
-            :special="cartGetters.getItemPrice(product).special && $fc(cartGetters.getItemPrice(product).special)"
+            :special="
+              cartGetters.getItemPrice(product).special &&
+                $fc(cartGetters.getItemPrice(product).special)
+            "
             class="product-price"
           />
         </SfTableData>
@@ -99,7 +102,9 @@
           >
             <template #name>
               <span class="sf-property__name">
-                {{ selectedShippingMethod.carrier_title }} (<small>{{ selectedShippingMethod.method_title }}</small>)
+                {{ selectedShippingMethod.carrier_title }} (<small>{{
+                  selectedShippingMethod.method_title
+                }}</small>)
               </span>
             </template>
           </SfProperty>
@@ -113,9 +118,7 @@
           class="sf-property--full-width sf-property--large summary__property-total"
         />
 
-        <VsfPaymentProvider
-          @status="isPaymentReady = true"
-        />
+        <VsfPaymentProvider @status="isPaymentReady = true" />
 
         <SfCheckbox
           v-model="terms"
@@ -126,7 +129,7 @@
           <template #label>
             <div class="sf-checkbox__label">
               {{ $t('I agree to') }}
-              <SfLink href="#">
+              <SfLink link="#">
                 {{ $t('Terms and conditions') }}
               </SfLink>
             </div>
@@ -165,22 +168,19 @@ import {
   SfPrice,
   SfProperty,
   SfLink,
+  SfImage,
 } from '@storefront-ui/vue';
-import { useVSFContext } from '@vue-storefront/core';
 import {
   ref,
   computed,
   defineComponent,
   useRouter,
-  useContext, onMounted,
+  useContext,
+  onMounted,
 } from '@nuxtjs/composition-api';
-import {
-  useMakeOrder,
-  useCart,
-  cartGetters,
-} from '@vue-storefront/magento';
+import { cartGetters } from '~/getters';
+import { useCart, useImage, useMakeOrder } from '~/composables';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import { useImage } from '~/composables';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
@@ -195,13 +195,14 @@ export default defineComponent({
     SfPrice,
     SfProperty,
     SfLink,
+    SfImage,
     VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
   },
   setup() {
+    const order = ref(null);
     const { cart, load, setCart } = useCart();
-    const { order, make, loading } = useMakeOrder();
-    const { $magento } = useVSFContext();
-    const { app } = useContext();
+    const { make, loading } = useMakeOrder();
+    const { app, $vsf: { $magento } } = useContext();
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
@@ -217,27 +218,26 @@ export default defineComponent({
       await load();
     });
 
-    onMounted(async () => {
-      const validStep = await isPreviousStepValid('billing');
-      if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
-      }
-
-      await load();
-    });
-
     const processOrder = async () => {
-      await make();
+      order.value = await make();
       setCart(null);
       $magento.config.state.setCartId();
       await load();
       await removeItem('checkout');
-      await router.push(`${app.localePath(`/checkout/thank-you?order=${order.value.order_number}`)}`);
+      const thankYouRoute = app.localeRoute({
+        name: 'thank-you',
+        query: {
+          order: order.value.order.order_number,
+        },
+      });
+      await router.push(thankYouRoute);
     };
 
     const discounts = computed(() => cartGetters.getDiscounts(cart.value));
     const hasDiscounts = computed(() => discounts.value.length > 0);
-    const discountsAmount = computed(() => -1 * discounts.value.reduce((a, el) => el.value + a, 0));
+    const discountsAmount = computed(
+      () => -1 * discounts.value.reduce((a, el) => el.value + a, 0),
+    );
 
     const { getMagentoImage, imageSizes } = useImage();
 

@@ -1,3 +1,6 @@
+/**
+ * @deprecated since version 1.0.0
+ */
 import { Ref, computed } from '@vue/composition-api';
 import {
   ComposableFunctionArgs,
@@ -6,8 +9,8 @@ import {
   FactoryParams,
   Logger,
   sharedRef,
+  PlatformApi,
 } from '@vue-storefront/core';
-import { PlatformApi } from '@vue-storefront/core/lib/src/types';
 import { UsePaymentProvider, UsePaymentProviderErrors } from '../types/composables';
 
 export interface UsePaymentProviderParams<STATE, PAYMENT_METHOD, API extends PlatformApi = any> extends FactoryParams<API> {

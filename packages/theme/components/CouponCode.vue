@@ -27,7 +27,7 @@
 
 <script>
 import { SfButton, SfInput } from '@storefront-ui/vue';
-import { useCart, cartGetters } from '@vue-storefront/magento';
+import { cartGetters } from '~/getters';
 import {
   computed,
   onMounted,
@@ -35,6 +35,7 @@ import {
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
+import { useCart } from '~/composables';
 
 export default defineComponent({
   name: 'CouponCode',

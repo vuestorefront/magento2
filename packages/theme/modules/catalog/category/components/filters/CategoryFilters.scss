@@ -1,0 +1,72 @@
+.filters {
+  position: relative;
+  &__title {
+    --heading-title-font-size: var(--font-size--xl);
+    margin: var(--spacer-xl) 0 var(--spacer-base) 0;
+
+    &:first-child {
+      margin: var(--spacer-base) 0 var(--spacer-xs) 0;
+    }
+  }
+
+  &__chosen {
+    color: var(--c-text-muted);
+    font-weight: var(--font-weight--normal);
+    font-family: var(--font-family--secondary);
+    position: absolute;
+    right: var(--spacer-xl);
+  }
+
+  &__item {
+    --radio-container-padding: 0 var(--spacer-sm) 0 var(--spacer-xl);
+    --radio-background: transparent;
+    --filter-label-color: var(--c-secondary-variant);
+    --filter-count-color: var(--c-secondary-variant);
+    --checkbox-padding: 0 var(--spacer-sm) 0 var(--spacer-xl);
+    padding: var(--spacer-sm) 0;
+    border-bottom: 1px solid var(--c-light);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    @include for-desktop {
+      --checkbox-padding: 0;
+      margin: var(--spacer-sm) 0;
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  &__accordion-item {
+    --accordion-item-content-padding: 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+  }
+
+  &__buttons {
+    margin: var(--spacer-sm) 0;
+    @include for-desktop {
+      background-color: #fff;
+      position: sticky;
+      bottom: 0;
+    }
+  }
+
+  &__button-clear {
+    --button-background: var(--c-light);
+    --button-color: var(--c-dark-variant);
+    margin: var(--spacer-xs) 0 0 0;
+  }
+}
+.heading__title {
+  border: 1px solid var(--c-light);
+  border-width: 1px 0 0 0;
+  padding: var(--spacer-xs) 0;
+  font-weight: normal;
+  margin-bottom: var(--spacer-sm);
+}

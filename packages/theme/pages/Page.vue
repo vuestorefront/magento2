@@ -2,12 +2,13 @@
   <SfLoader :loading="loading">
     <div class="cms-page">
       <SfHeading
-        v-if="page.content_heading"
+        v-if="page && page.content_heading"
         :title="page.content_heading"
         :level="1"
         class="sf-heading--no-underline sf-heading--left"
       />
       <HTMLContent
+        v-if="page && page.content"
         :content="page.content"
       />
     </div>
@@ -18,13 +19,15 @@ import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { useContent } from '@vue-storefront/magento';
-import { onSSR } from '@vue-storefront/core';
-import { defineComponent, useContext, useRoute } from '@nuxtjs/composition-api';
+import {
+  defineComponent, ref, useContext, useFetch, useRoute,
+} from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import { useContent } from '~/composables';
 import HTMLContent from '~/components/HTMLContent';
 
 export default defineComponent({
+  name: 'CmsPage',
   components: {
     HTMLContent,
     SfLoader,
@@ -39,18 +42,22 @@ export default defineComponent({
   setup(props) {
     const { addTags } = useCache();
     const {
-      page,
+      loadPage,
       error,
-      loadContent,
       loading,
     } = useContent('cmsPage');
-    const route = useRoute();
-    const { error: nuxtError } = useContext();
-    const { params } = route.value;
 
-    onSSR(async () => {
-      await loadContent({ identifier: params.slug || props.identifier });
-      if (error?.value?.content) nuxtError({ statusCode: 404 });
+    const route = useRoute();
+    const { error: nuxtError, app } = useContext();
+    const { params } = route.value;
+    const page = ref({});
+
+    useFetch(async () => {
+      page.value = await loadPage({ identifier: params.slug || props.identifier });
+
+      if (error?.value?.page || !page.value) {
+        return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') });
+      }
 
       addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
     });
@@ -60,7 +67,11 @@ export default defineComponent({
     };
   },
   head() {
-    const title = this.page.meta_title ? this.page.meta_title : this.page.title;
+    if (!this.page) {
+      return null;
+    }
+
+    const title = this.page?.meta_title ? this.page.meta_title : this.page.title;
     const meta = [];
     if (this.page.meta_description) {
       meta.push({

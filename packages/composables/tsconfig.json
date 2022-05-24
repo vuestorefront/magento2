@@ -1,18 +1,20 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "include": ["src"],
-  "exclude": ["node_modules", "lib"],
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "ESNext"],
-    "resolveJsonModule": true,
+    "outDir": "./lib",
     "rootDir": "./src",
-    "declaration": true,
-    "declarationDir": "./lib",
-    "sourceMap": true,
-    "importHelpers": true,
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "declarationMap": true,
+    "baseUrl": "./",
+    "lib": [
+      "DOM"
+    ]
   },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "__tests__",
+    "lib",
+    "node_modules"
+  ],
   "files": ["types/shims-graphql.d.ts"]
 }
