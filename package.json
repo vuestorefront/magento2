@@ -26,6 +26,7 @@
     "lint": "eslint . --ext .ts,.vue --fix",
     "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
     "publish:api-client": "node ./scripts/publishApi.js",
+    "publish:composables": "node ./scripts/publishComposable.js",
     "start": "cd packages/theme && yarn start",
     "test": "yarn test:api-client && yarn test:theme",
     "test:api-client": "cd packages/api-client && yarn test --passWithNoTests",
