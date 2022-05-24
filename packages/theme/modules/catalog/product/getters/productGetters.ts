@@ -73,10 +73,12 @@ export const getSlug = (product: ProductInterface, category?: CategoryTree | Cat
 export const getPrice = (product: ProductInterface): AgnosticPrice => {
   let regular = 0;
   let special = null;
+  let maximum = null;
 
   if (product?.price_range) {
     regular = product.price_range.minimum_price.regular_price.value;
     const final = product.price_range.minimum_price.final_price.value;
+    maximum = product.price_range.maximum_price.final_price.value;
 
     if (final < regular) {
       special = final;
@@ -86,6 +88,7 @@ export const getPrice = (product: ProductInterface): AgnosticPrice => {
   return {
     regular,
     special,
+    maximum,
   };
 };
 

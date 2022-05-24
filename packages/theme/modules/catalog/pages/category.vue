@@ -45,6 +45,7 @@
           <CategoryProductList
             v-else
             :products="products"
+            :prices-loaded="isPriceLoaded"
             :loading="$fetchState.pending"
             @click:wishlist="addItemToWishlist"
             @click:add-to-cart="addItemToCart"

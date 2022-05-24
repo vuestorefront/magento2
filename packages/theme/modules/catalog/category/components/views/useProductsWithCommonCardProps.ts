@@ -40,6 +40,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
     const priceProps = {
       regularPrice: context.app.$fc(price.regular),
       specialPrice: price.special && context.app.$fc(getPrice(product).special),
+      maximumPrice: price.maximum && context.app.$fc(getPrice(product).maximum),
     };
 
     const reviewProps = {

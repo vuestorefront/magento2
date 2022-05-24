@@ -37,10 +37,21 @@
         />
       </div>
       <div class="product__price-and-rating">
-        <SfPrice
-          :regular="$fc(productPrice)"
-          :special="productSpecialPrice && $fc(productSpecialPrice)"
-        />
+        <div class="product__price">
+          <span class="product__price-label">{{ $t('From') }}</span>
+          <SfPrice
+            :regular="$fc(productPrice)"
+            :special="productSpecialPrice && $fc(productSpecialPrice)"
+          />
+          <span class="product__price-label">{{ $t('To') }}</span>
+          <SfPrice
+            :regular="$fc(productMaximumPrice)"
+          />
+          <span class="product__price-label">{{ $t('Your customization') }}</span>
+          <SfPrice
+            :regular="$fc(customizationPrice)"
+          />
+        </div>
         <div>
           <div class="product__rating">
             <SfRating
@@ -80,7 +91,7 @@
         <BundleProductSelector
           :can-add-to-cart="canAddToCart(product, qty)"
           :product="product"
-          @update-price="basePrice = $event"
+          @update-price="customizationPrice = $event"
         />
         <div class="product__additional-actions">
           <AddToWishlist
@@ -176,8 +187,6 @@ export default defineComponent({
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
     const { isAuthenticated } = useUser();
     const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
-    const basePrice = ref(0);
-
     const productShortDescription = computed(
       () => props.product?.short_description?.html || '',
     );
@@ -186,8 +195,11 @@ export default defineComponent({
       () => props.product?.description?.html || '',
     );
 
-    const productPrice = computed(() => getProductPrice(props.product).regular);
-    const productSpecialPrice = 0; // TODO add logic for special price calculation;
+    const productPrice = ref(getProductPrice(props.product).regular);
+    const productSpecialPrice = ref(getProductPrice(props.product).special);
+    const productMaximumPrice = ref(getProductPrice(props.product).maximum);
+    const customizationPrice = ref(productSpecialPrice.value ?? productPrice.value);
+
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
 
@@ -195,7 +207,6 @@ export default defineComponent({
       addItem,
       addItemToWishlist,
       averageRating,
-      basePrice,
       canAddToCart,
       isAuthenticated,
       isInWishlist: computed(() => isInWishlist({ product: props.product })),
@@ -204,8 +215,10 @@ export default defineComponent({
       getProductName,
       getProductSwatchData,
       productPrice,
-      productShortDescription,
       productSpecialPrice,
+      productMaximumPrice,
+      customizationPrice,
+      productShortDescription,
       qty,
       totalReviews,
       imageSizes,
@@ -219,4 +232,11 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 @import '../styles.scss';
+
+.product__price {
+  &-label {
+    display: flex;
+    margin: var(--spacer-xs) 0 0 0;
+  }
+}
 </style>

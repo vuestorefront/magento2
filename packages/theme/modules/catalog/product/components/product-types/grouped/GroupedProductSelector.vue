@@ -30,6 +30,7 @@
         <SfQuantitySelector
           v-model="groupedItem.qty"
           :disabled="loading || !canAddToCart"
+          :min="0"
         />
       </SfListItem>
     </SfList>

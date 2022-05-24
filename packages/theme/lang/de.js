@@ -269,5 +269,8 @@ export default {
   "Yes": "Ja",
   "No": "Nein",
   "Apply filters": "Filter anwenden",
-  "The coupon code isn't valid. Verify the code and try again.": "Der Gutscheincode ist ungültig. Überprüfen Sie den Code und versuchen Sie es erneut."
+  "The coupon code isn't valid. Verify the code and try again.": "Der Gutscheincode ist ungültig. Überprüfen Sie den Code und versuchen Sie es erneut.",
+  "From": "Aus",
+  "To": "Zu",
+  "Your customization": "Ihre Anpassung",
 };
