@@ -14,6 +14,7 @@
     "build": "yarn build:api-client && yarn build:theme",
     "build:api-client": "cd packages/api-client && yarn build",
     "build:theme": "cd packages/theme && yarn build",
+    "build:composables": "cd packages/composables && yarn build",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "dev:api-client": "cd packages/api-client && yarn dev",
