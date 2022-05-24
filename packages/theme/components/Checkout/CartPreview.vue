@@ -50,7 +50,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
 import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
 import cartGetters from '~/modules/checkout/getters/cartGetters';

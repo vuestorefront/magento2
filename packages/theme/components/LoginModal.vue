@@ -279,7 +279,7 @@
     </transition>
   </SfModal>
 </template>
-<script>
+<script lang="ts">
 import {
   ref,
   watch,
@@ -319,8 +319,17 @@ extend('required', {
 
 extend('password', {
   message: invalidPasswordMsg,
-  validate: (value) => customerPasswordRegExp.test(value),
+  validate: (value: string) => customerPasswordRegExp.test(value),
 });
+
+type Form = {
+  username?: string,
+  email?: string,
+  firstName?: string,
+  lastName?: string,
+  password?: string,
+  recaptchaInstance?: string,
+};
 
 export default defineComponent({
   name: 'LoginModal',
@@ -337,13 +346,14 @@ export default defineComponent({
   setup() {
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const isSubscribed = ref(false);
-    const form = ref({});
+    const form = ref<Form>({});
     const isLogin = ref(true);
     const createAccount = ref(false);
     const rememberMe = ref(false);
     const isForgotten = ref(false);
     const isThankYouAfterForgotten = ref(false);
     const userEmail = ref('');
+    // @ts-expect-error Recaptcha is not registered as a Nuxt module. Its absence is handled in the code
     const { $recaptcha, $config } = useContext();
     const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 

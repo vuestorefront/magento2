@@ -257,7 +257,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading, SfInput, SfButton, SfSelect,
 } from '@storefront-ui/vue';
@@ -277,6 +277,7 @@ import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
   useCountrySearch,
 } from '~/composables';
+import type { Country, AvailableShippingMethod, ShippingCartAddress } from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
@@ -330,11 +331,11 @@ export default defineComponent({
       load: loadCountries,
       search: searchCountry,
     } = useCountrySearch();
-    const countries = ref([]);
-    const country = ref(null);
+    const countries = ref<Country[]>([]);
+    const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
     const shippingDetails = ref(addressFromApiToForm(address.value) || {});
-    const shippingMethods = ref([]);
+    const shippingMethods = ref<AvailableShippingMethod[]>([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
     const setAsDefault = ref(false);
@@ -367,9 +368,9 @@ export default defineComponent({
         customerAddressId: addressId,
       };
       await mergeItem('checkout', { shipping: shippingDetailsData });
-      // @TODO remove ignore when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
-      // @ts-ignore
-      const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
+      // @TODO remove expect-error when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
+      // @ts-expect-error
+      const shippingInfo : ShippingCartAddress = await saveShipping({ shippingDetails: shippingDetailsData });
       shippingMethods.value = shippingInfo.available_shipping_methods;
 
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {

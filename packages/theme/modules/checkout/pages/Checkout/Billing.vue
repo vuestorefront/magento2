@@ -267,7 +267,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
@@ -303,6 +303,8 @@ import {
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
+import type { ShippingCartAddress, Customer } from '~/modules/GraphQL/types';
+
 const NOT_SELECTED_ADDRESS = '';
 
 extend('required', {
@@ -334,9 +336,9 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const shippingDetails = ref({});
+    const shippingDetails = ref<ShippingCartAddress | {}>({});
     const billingAddress = ref({});
-    const userBilling = ref({});
+    const userBilling = ref<Customer | {}>({});
 
     const {
       save, load: loadBilling, loading,
@@ -403,7 +405,7 @@ export default defineComponent({
         chosenAddress.default_billing = setAsDefault.value;
         if (chosenAddress) {
           await setDefaultAddress({ address: chosenAddress });
-          userBilling.value = loadUserBilling(true);
+          userBilling.value = await loadUserBilling(true);
         }
       }
       reset();
@@ -416,7 +418,7 @@ export default defineComponent({
       sameAsShipping.value = !sameAsShipping.value;
       if (sameAsShipping.value) {
         shippingDetails.value = await loadShipping();
-        country.value = await searchCountry({ id: shippingDetails.value.country_code });
+        country.value = await searchCountry({ id: (shippingDetails.value as ShippingCartAddress).country.code });
         oldBilling = { ...billingDetails.value };
         billingDetails.value = {
           ...formatAddressReturnToData(shippingDetails.value),
@@ -490,7 +492,7 @@ export default defineComponent({
         country.value = await searchCountry({ id: billingDetails.value.country_code });
       }
 
-      if (!userBilling.value?.addresses && isAuthenticated.value) {
+      if (!(userBilling.value as Customer)?.addresses && isAuthenticated.value) {
         userBilling.value = await loadUserBilling();
       }
       const billingAddresses = userBillingGetters.getAddresses(

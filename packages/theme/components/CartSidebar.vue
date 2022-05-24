@@ -238,7 +238,7 @@
     </SfSidebar>
   </div>
 </template>
-<script>
+<script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   SfLoader,
@@ -267,13 +267,15 @@ import {
   useUiState,
   useUiNotification,
   useExternalCheckout,
+  useImage,
 } from '~/composables';
 import useCart from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
 import CouponCode from './CouponCode.vue';
-import { useImage } from '~/composables/index.ts';
+
+import type { ConfigurableCartItem } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -316,7 +318,7 @@ export default defineComponent({
         ...item,
         product: {
           ...item.product,
-          ...item.configured_variant,
+          ...[(item as ConfigurableCartItem).configured_variant ?? {}],
           original_sku: item.product.sku,
         },
       })));

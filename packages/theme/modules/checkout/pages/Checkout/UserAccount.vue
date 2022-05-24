@@ -127,7 +127,7 @@
   </ValidationObserver>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfInput,
@@ -186,6 +186,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter();
+    // @ts-expect-error Recaptcha is not registered as a Nuxt module. Its absence is handled in the code
     const { app, $recaptcha, $config } = useContext();
     const isRecaptchaEnabled = ref(typeof $recaptcha !== 'undefined' && $config.isRecaptcha);
 
@@ -217,7 +218,17 @@ export default defineComponent({
     const canMoveForward = computed(() => !(loading.value));
     const hasError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
 
-    const form = ref({
+    type Form = {
+      firstname: string,
+      lastname: string,
+      email: string,
+      password: string,
+      is_subscribed: boolean,
+      recaptchaToken?: string,
+      recaptchaInstance?: string,
+    };
+
+    const form = ref<Form>({
       firstname: '',
       lastname: '',
       email: '',
@@ -245,7 +256,7 @@ export default defineComponent({
       }
 
       if (loginUserAccount.value) {
-        const recaptchaParams = {};
+        const recaptchaParams : { recaptchaToken?: string } = {};
         if (isRecaptchaEnabled.value) {
           recaptchaParams.recaptchaToken = await $recaptcha.getResponse();
         }
@@ -268,7 +279,7 @@ export default defineComponent({
         sendNotification({
           id: Symbol('user_form_error'),
           message: 'Something went wrong during form submission. Please try again later',
-          type: 'error',
+          type: 'danger',
           icon: 'error',
           persist: false,
           title: 'Error',

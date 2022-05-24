@@ -68,13 +68,14 @@
   </SfFooter>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfFooter, SfList, SfImage, SfMenuItem,
 } from '@storefront-ui/vue';
+import { defineComponent } from '@nuxtjs/composition-api';
 import { addBasePath } from '~/helpers/addBasePath';
 
-export default {
+export default defineComponent({
   components: {
     SfFooter,
     SfList,
@@ -97,7 +98,7 @@ export default {
       desktopMin: 1024,
     };
   },
-};
+});
 </script>
 
 <style lang="scss">
