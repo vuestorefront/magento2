@@ -8,7 +8,7 @@ export const defaultConfig = {
     storeCookieName: 'vsf-store',
     messageCookieName: 'vsf-message',
   },
-  locale: undefined,
-  country: undefined,
-  currency: undefined,
+  locale: undefined as undefined,
+  country: undefined as undefined,
+  currency: undefined as undefined,
 } as const;
