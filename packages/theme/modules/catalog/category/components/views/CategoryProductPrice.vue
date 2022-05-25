@@ -63,8 +63,8 @@ export default defineComponent({
   },
   props: {
     product: {
-      type: Object as PropType<typeof useProductsWithCommonProductCardProps | null>,
-      default: () => null,
+      type: Object as PropType<ReturnType<typeof useProductsWithCommonProductCardProps>['productsWithCommonProductCardProps']['value'][number] | null>,
+      required: true,
     },
   },
 });
