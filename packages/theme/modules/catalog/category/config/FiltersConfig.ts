@@ -13,6 +13,7 @@ export const getFilterConfig = (attrCode: string): FilterConfigInterface => {
     attrCode,
     type: FilterTypeEnum.CHECKBOX,
     component: RendererTypesEnum.CHECKBOX,
+    disabled: false,
   };
 
   const find = config().find((cfgItem) => cfgItem.attrCode === attrCode) ?? {};
@@ -20,3 +21,4 @@ export const getFilterConfig = (attrCode: string): FilterConfigInterface => {
 };
 
 export const getDisabledFilters = () => config().filter((filter) => filter.disabled).map((filter) => filter.attrCode);
+export const isFilterEnabled = (attrCode: string) => config().find((attr) => attr.attrCode === attrCode && !attr.disabled);

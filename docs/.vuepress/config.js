@@ -73,6 +73,7 @@ module.exports = {
         children: [
           ['/guide/image-optimization', 'Image optimization'],
           ['/guide/override-queries', 'Override queries'],
+          ['/guide/filters', 'Filters'],
           ['/guide/testing', 'Testing'],
           ['/guide/recaptcha', 'ReCaptcha'],
         ],
