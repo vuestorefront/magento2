@@ -63,10 +63,8 @@
         </SfButton>
       </div>
     </div>
-    <!-- Do not use :visible="isVisible" - it causes M2-571 -->
     <SfSidebar
-      v-if="isVisible"
-      visible
+      :visible="isVisible"
       class="sidebar-filters smartphone-only"
       title="Filters"
       @close="$emit('close')"
@@ -114,7 +112,7 @@
 </template>
 <script lang="ts">
 import {
-  defineComponent, onMounted, provide, Ref, ref,
+  defineComponent, onMounted, provide, Ref, ref, nextTick, watch,
 } from '@nuxtjs/composition-api';
 import {
   SfAccordion,
@@ -125,6 +123,7 @@ import {
   SfSidebar,
 } from '@storefront-ui/vue';
 
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useUiHelpers } from '~/composables';
 import { getFilterConfig, isFilterEnabled } from '~/modules/catalog/category/config/FiltersConfig';
@@ -205,6 +204,14 @@ export default defineComponent({
       emit('reloadProducts');
       emit('close');
     };
+
+    watch(() => props.isVisible, (newValue) => {
+      // disable Storefrontt UI's body scroll lock which is launched when :visible prop on SfSidebar changes
+      // two next ticks because SfSidebar uses nextTick aswell, and we want to do something after that tick.
+      if (newValue) {
+        nextTick(() => nextTick(() => clearAllBodyScrollLocks()));
+      }
+    });
 
     onMounted(async () => {
       const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: props.catUid });
