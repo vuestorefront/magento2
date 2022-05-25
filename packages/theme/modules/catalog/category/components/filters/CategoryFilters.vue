@@ -127,7 +127,7 @@ import {
 
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useUiHelpers } from '~/composables';
-import { getFilterConfig, getDisabledFilters } from '~/modules/catalog/category/config/FiltersConfig';
+import { getFilterConfig, isFilterEnabled } from '~/modules/catalog/category/config/FiltersConfig';
 import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
 import { getProductFilterByCategoryCommand } from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
 
@@ -208,7 +208,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: props.catUid });
-      filters.value = loadedFilters.filter((filter) => !getDisabledFilters().includes(filter.attribute_code));
+      filters.value = loadedFilters.filter((filter) => isFilterEnabled(filter.attribute_code));
       updateRemovableFilters();
       isLoading.value = false;
     });
