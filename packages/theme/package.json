@@ -42,6 +42,7 @@
     "@vue-storefront/redis-cache": "^1.0.1",
     "axios": "^0.26.1",
     "body-parser": "1.19.2",
+    "body-scroll-lock": "^3.0.1",
     "cookie-universal-nuxt": "^2.1.5",
     "deepdash": "^5.3.9",
     "express": "4.17.3",
