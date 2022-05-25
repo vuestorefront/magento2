@@ -155,7 +155,7 @@ import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 import SvgImage from '~/components/General/SvgImage.vue';
 
-import type { WishlistItemInterface } from '~/modules/GraphQL/types';
+import type { WishlistItemInterface, ConfigurableProduct, BundleProduct } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -217,8 +217,8 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_count ?? 0,
     );
 
-    const getAttributes = (product) => product?.product?.configurable_options || [];
-    const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+    const getAttributes = (product: ConfigurableProduct) => product?.product?.configurable_options || [];
+    const getBundles = (product: BundleProduct) => product?.product?.items?.map((b) => b.title).flat() || [];
     const getItemLink = (item: WishlistItemInterface) => localeRoute({
       path: `/p/${item.product.sku}${productGetters.getSlug(
         item.product,
