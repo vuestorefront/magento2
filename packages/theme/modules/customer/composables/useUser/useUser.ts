@@ -25,14 +25,14 @@ export type UseUserUpdateUserParams = ComposableFunctionArgs<{
  * Parameters accepted by the `register` method in the `useUser` composable
  */
 export type UseUserRegisterParams = ComposableFunctionArgs<{
-  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data
+  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data, M2-664
 }>;
 
 /**
  * Parameters accepted by the `login` method in the `useUser` composable
  */
 export type UseUserLoginParams = ComposableFunctionArgs<{
-  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data
+  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data, M2-664
 }>;
 
 /**
