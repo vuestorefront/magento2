@@ -394,12 +394,12 @@ export default defineComponent({
       }
     });
 
-    const setIsLoginValue = (value) => {
+    const setIsLoginValue = (value: boolean) => {
       resetErrorValues();
       isLogin.value = value;
     };
 
-    const setIsForgottenValue = (value) => {
+    const setIsForgottenValue = (value: boolean) => {
       resetErrorValues();
       isForgotten.value = value;
       isLogin.value = !value;
@@ -412,7 +412,7 @@ export default defineComponent({
       toggleLoginModal();
     };
 
-    const handleForm = (fn) => async () => {
+    const handleForm = (fn: typeof register) => async () => {
       resetErrorValues();
 
       if (isRecaptchaEnabled.value) {
