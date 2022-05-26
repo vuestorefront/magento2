@@ -134,7 +134,7 @@ export default defineComponent({
       isInWishlist: isInWishlist({ product }),
     })));
 
-    const addItemToWishlist = async (product) => {
+    const addItemToWishlist = async (product: Product) => {
       await (isInWishlist({ product })
         ? removeItem({ product })
         : addItem({ product }));
