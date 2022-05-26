@@ -303,7 +303,7 @@ import {
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-import type { ShippingCartAddress, Customer, Country } from '~/modules/GraphQL/types';
+import type { ShippingCartAddress, BillingCartAddress, Country, Customer } from '~/modules/GraphQL/types';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -336,9 +336,9 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const shippingDetails = ref<ShippingCartAddress | {}>({});
-    const billingAddress = ref({});
-    const userBilling = ref<Customer | {}>({});
+    const shippingDetails = ref<ShippingCartAddress | null>(null);
+    const billingAddress = ref<BillingCartAddress | null>(null);
+    const userBilling = ref<Customer | null>(null);
 
     const {
       save, load: loadBilling, loading,

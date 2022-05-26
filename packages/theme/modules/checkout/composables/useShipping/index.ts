@@ -22,7 +22,7 @@ export function useShipping(): UseShippingInterface {
 
   const load = async (params: UseShippingLoadParams = {}): Promise<ShippingCartAddress | null> => {
     Logger.debug('useShipping.load');
-    let shippingInfo = null;
+    let shippingInfo : ShippingCartAddress | null = null;
 
     try {
       loading.value = true;
@@ -38,13 +38,12 @@ export function useShipping(): UseShippingInterface {
     } finally {
       loading.value = false;
     }
-
     return shippingInfo;
   };
 
-  const save = async ({ shippingDetails }: UseShippingSaveParams) => {
+  const save = async ({ shippingDetails }: UseShippingSaveParams): Promise<ShippingCartAddress | null> => {
     Logger.debug('useShipping.save');
-    let shippingInfo = null;
+    let shippingInfo : ShippingCartAddress | null = null;
 
     try {
       loading.value = true;
