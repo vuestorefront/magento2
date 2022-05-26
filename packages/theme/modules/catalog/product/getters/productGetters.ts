@@ -26,7 +26,6 @@ export interface ProductGetters {
   getDescription: (product: ProductInterface) => string;
   getCategoryIds: (product: ProductInterface) => string[];
   getId: (product: ProductInterface) => string;
-  getFormattedPrice: (price: number) => string;
   getTotalReviews: (product: ProductInterface) => number;
   getAverageRating: (product: ProductInterface) => number;
   getBreadcrumbs?: (product: ProductInterface, category?: CategoryInterface) => AgnosticBreadcrumb[];
@@ -215,22 +214,6 @@ export const getProductSku = (product: Product): string => product.sku;
 // eslint-disable-next-line no-underscore-dangle
 export const getTypeId = (product: Product): string => product.__typename;
 
-export const getFormattedPrice = (price: number) => {
-  if (price === null) {
-    return null;
-  }
-
-  // TODO get correct data from api
-  const locale = 'en';
-  const country = 'en';
-  const currency = 'USD';
-
-  return new Intl.NumberFormat(`${locale}-${country}`, {
-    style: 'currency',
-    currency,
-  }).format(price);
-};
-
 const getCategoryBreadcrumbs = (category: CategoryInterface): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
@@ -296,7 +279,6 @@ const productGetters: ProductGetters = {
   getCategoryIds,
   getCoverImage,
   getDescription,
-  getFormattedPrice,
   getGallery,
   getId,
   getName,

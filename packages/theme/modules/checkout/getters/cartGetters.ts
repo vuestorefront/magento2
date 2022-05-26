@@ -138,9 +138,6 @@ export const getTotalItems = (cart: Cart): number => {
 
 export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | null => product?.configured_variant || null;
 
-// eslint-disable-next-line import/no-named-as-default-member
-export const getFormattedPrice = (price: number) => getFormattedPrice(price);
-
 export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
   name: c.code,
@@ -187,7 +184,6 @@ const cartGetters: CartGetters = {
   getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
-  getFormattedPrice,
   getItemAttributes,
   getItemImage,
   getItemName,

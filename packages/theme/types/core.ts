@@ -646,7 +646,6 @@ export interface ProductGetters<PRODUCT> {
   getDescription: (product: PRODUCT) => string;
   getCategoryIds: (product: PRODUCT) => string[];
   getId: (product: PRODUCT) => string;
-  getFormattedPrice: (price: number) => string;
   getTotalReviews: (product: PRODUCT) => number;
   getAverageRating: (product: PRODUCT) => number;
   getBreadcrumbs?: (product: PRODUCT) => AgnosticBreadcrumb[];
@@ -664,7 +663,6 @@ export interface CartGetters<CART, CART_ITEM> {
   getTotals: (cart: CART) => AgnosticTotals;
   getShippingPrice: (cart: CART) => number;
   getTotalItems: (cart: CART) => number;
-  getFormattedPrice: (price: number) => string;
   // @deprecated - use getDiscounts instead
   getCoupons: (cart: CART) => AgnosticCoupon[];
   getDiscounts: (cart: CART) => AgnosticDiscount[];
@@ -680,7 +678,6 @@ export interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
   getItemSku: (wishlistItem: WISHLIST_ITEM) => string;
   getTotals: (wishlist: WISHLIST) => AgnosticTotals;
   getTotalItems: (wishlist: WISHLIST) => number;
-  getFormattedPrice: (price: number) => string;
   [getterName: string]: (element: any, options?: any) => unknown;
 }
 
@@ -702,7 +699,6 @@ export interface UserOrderGetters<ORDER, ORDER_ITEM> {
   getItemName: (item: ORDER_ITEM) => string;
   getItemQty: (item: ORDER_ITEM) => number;
   getItemPrice: (item: ORDER_ITEM) => number;
-  getFormattedPrice: (price: number) => string;
   getOrdersTotal: (orders: {
     offset: number;
     count: number;

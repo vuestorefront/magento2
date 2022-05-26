@@ -69,9 +69,6 @@ export const getShippingPrice = (wishlist: Wishlist): number => 0;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getTotalItems = (wishlist: Wishlist): number => (Array.isArray(wishlist) ? wishlist[0]?.items_count : (wishlist?.items_count || 0));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getFormattedPrice = (price: number): string => '';
-
 const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
@@ -133,7 +130,6 @@ const wishlistGetters: WishlistGetters = {
   getItemAttributes,
   getItemSku,
   getTotalItems,
-  getFormattedPrice,
   getPagination,
   getProducts,
 };
