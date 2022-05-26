@@ -44,7 +44,7 @@
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
             :is-in-wishlist="isInWishlist({ product })"
-            :is-added-to-cart="isInCart({ product })"
+            :is-added-to-cart="isInCart(product)"
             :wishlist-icon="isAuthenticated ? 'heart' : ''"
             :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
             @click:wishlist="addItemToWishlist(product)"

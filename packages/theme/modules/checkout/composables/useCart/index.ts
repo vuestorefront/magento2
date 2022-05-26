@@ -65,8 +65,7 @@ PRODUCT
    *
    * @return boolean
    */
-  // TODO rework parameter {product} => product, wrapping obj is not necessary
-  const isInCart = ({ product }: { product: PRODUCT }): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
+  const isInCart = (product: PRODUCT): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
 
   const load = async ({ customQuery = {}, realCart = false } = { customQuery: { cart: 'cart' } }): Promise<void> => {
     Logger.debug('useCart.load');
