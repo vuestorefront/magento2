@@ -1,6 +1,7 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import type { ComposableFunctionArgs, ProductsSearchParams } from '~/composables/types';
+import type { ComposableFunctionArgs } from '~/composables/types';
 import type { RelatedProductQuery } from '~/modules/GraphQL/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 export type RelatedProduct = RelatedProductQuery['products']['items'][number]['related_products'];
 
@@ -14,7 +15,7 @@ export interface UseRelatedProductsErrors {
 }
 
 /** The params received by {@link useRelatedProducts}'s `search` method. */
-export type UseRelatedProductsSearchParams = ComposableFunctionArgs<ProductsSearchParams>;
+export type UseRelatedProductsSearchParams = ComposableFunctionArgs<GetProductSearchParams>;
 
 /** The interface provided by {@link useRelatedProducts} composable. */
 export interface UseRelatedProductsInterface {
