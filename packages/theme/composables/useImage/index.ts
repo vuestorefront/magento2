@@ -8,8 +8,7 @@ import { UseImageInterface } from './useImage';
  * See the {@link UseImageInterface} for a list of methods and values available in this composable.
  * */
 export function useImage(): UseImageInterface {
-  // @ts-ignore
-  const { $vsf } = useContext();
+  const context = useContext();
   /**
    * Extract image path from Magento URL.
    *
@@ -18,7 +17,7 @@ export function useImage(): UseImageInterface {
    * @return {string}
    */
   const getMagentoImage = (fullImageUrl: string) => {
-    const { imageProvider, magentoBaseUrl } = $vsf.$magento.config;
+    const { imageProvider, magentoBaseUrl } = context.$vsf.$magento.config;
 
     if (imageProvider !== 'ipx') {
       const url = fullImageUrl.split(`${magentoBaseUrl}`);
