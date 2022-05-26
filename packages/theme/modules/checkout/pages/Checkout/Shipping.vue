@@ -277,7 +277,9 @@ import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
   useCountrySearch,
 } from '~/composables';
-import type { Country, AvailableShippingMethod, CustomerAddress } from '~/modules/GraphQL/types';
+import type {
+  Country, AvailableShippingMethod, ShippingCartAddress, CustomerAddress, Customer
+} from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
@@ -315,8 +317,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const address = ref({});
-    const userShipping = ref({});
+    const address = ref<ShippingCartAddress | null>(null);
+    const userShipping = ref<Customer | null>(null);
     const {
       load: loadShipping,
       save: saveShipping,
@@ -334,7 +336,7 @@ export default defineComponent({
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
-    const shippingDetails = ref(addressFromApiToForm(address.value) || {});
+    const shippingDetails = ref(addressFromApiToForm(address.value) || null);
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 

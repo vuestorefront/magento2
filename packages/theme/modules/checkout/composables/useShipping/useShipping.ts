@@ -35,7 +35,7 @@ export interface UseShippingInterface {
   loading: Readonly<Ref<boolean>>;
 
   /** Loads the shipping information for current cart. */
-  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | {}>;
+  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | null>
 
   /** Save new shipping information for current cart. */
   save(params: UseShippingSaveParams): Promise<ShippingCartAddress | null>;
