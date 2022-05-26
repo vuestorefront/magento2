@@ -450,7 +450,7 @@ export default defineComponent({
       isBillingDetailsStepCompleted.value = false;
     };
 
-    const changeBillingDetails = (field, value) => {
+    const changeBillingDetails = (field: string, value: unknown) => {
       billingDetails.value = {
         ...billingDetails.value,
         [field]: value,
