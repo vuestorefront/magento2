@@ -1,5 +1,5 @@
 import {
-  computed, readonly, ref, useContext,
+  computed, readonly, ref, useContext, useRoute,
 } from '@nuxtjs/composition-api';
 import { addItemCommand } from '~/modules/checkout/composables/useCart/commands/addItemCommand';
 import { applyCouponCommand } from '~/modules/checkout/composables/useCart/commands/applyCouponCommand';
@@ -12,6 +12,7 @@ import { updateItemQtyCommand } from '~/modules/checkout/composables/useCart/com
 import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { useCartStore } from '~/modules/checkout/stores/cart';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { UseCartErrors, UseCartInterface } from './useCart';
 import { Product } from '~/modules/catalog/product/types';
 
@@ -38,9 +39,11 @@ PRODUCT
   });
   const { app } = useContext();
   const context = app.$vsf;
+  const route = useRoute();
   const cartStore = useCartStore();
   const cart = computed(() => cartStore.cart as CART);
   const apiState = context.$magento.config.state;
+  const { loading: wishlistLoading, afterAddingWishlistItemToCart } = useWishlist();
 
   /**
    * Assign new cart object
@@ -143,6 +146,12 @@ PRODUCT
       error.value.addItem = err;
       Logger.error('useCart/addItem', err);
     } finally {
+      if (!wishlistLoading.value && route.value.query?.wishlist) {
+        afterAddingWishlistItemToCart({
+          product,
+          cartError: error.value.addItem,
+        });
+      }
       loading.value = false;
     }
   };

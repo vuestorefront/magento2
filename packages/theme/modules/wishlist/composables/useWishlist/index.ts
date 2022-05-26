@@ -10,7 +10,9 @@ import type {
   UseWishlistIsInWishlistParams,
   UseWishlistLoadParams,
   UseWishlistRemoveItemParams,
+  UseWishlistAfterAddingWishlistItemToCartParams,
 } from '~/modules/wishlist/composables/useWishlist/useWishlist';
+import { useUiNotification } from '~/composables';
 
 /**
  * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
@@ -20,6 +22,7 @@ import type {
 export function useWishlist(): UseWishlistInterface {
   const wishlistStore = useWishlistStore();
   const { app } = useContext();
+  const { send: sendNotification } = useUiNotification();
   const loading = ref(false);
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
@@ -29,6 +32,7 @@ export function useWishlist(): UseWishlistInterface {
     load: null,
     clear: null,
     loadItemsCount: null,
+    afterAddingWishlistItemToCart: null,
   });
 
   // eslint-disable-next-line consistent-return
@@ -251,6 +255,47 @@ export function useWishlist(): UseWishlistInterface {
     }
   };
 
+  const afterAddingWishlistItemToCart = (
+    { product, cartError }: UseWishlistAfterAddingWishlistItemToCartParams,
+  ) => {
+    Logger.debug('useWishlist/afterAddingItemToCart', product);
+
+    if (!isInWishlist({ product })) return;
+
+    try {
+      if (cartError?.message) {
+        sendNotification({
+          id: Symbol('product_added_to_cart_from_wishlist_error'),
+          message: cartError.message,
+          type: 'danger',
+          icon: 'cross',
+          persist: false,
+          title: 'Wishlist error',
+        });
+      } else {
+        // eslint-disable-next-line promise/catch-or-return
+        removeItem({ product })
+          // eslint-disable-next-line promise/always-return
+          .then(() => {
+            sendNotification({
+              id: Symbol('product_added_to_cart_from_wishlist'),
+              message: app.i18n.t(
+                'You added {product} to your shopping cart.',
+                { product: product.name },
+              ) as string,
+              type: 'success',
+              icon: 'check',
+              persist: false,
+              title: 'Wishlist',
+            });
+          });
+      }
+    } catch (err) {
+      error.value.afterAddingWishlistItemToCart = err;
+      Logger.error('useWishlist/afterAddingWishlistItemToCart', err);
+    }
+  };
+
   return {
     loadItemsCount,
     isInWishlist,
@@ -259,6 +304,7 @@ export function useWishlist(): UseWishlistInterface {
     removeItem,
     clear,
     setWishlist,
+    afterAddingWishlistItemToCart,
     loading: readonly(loading),
     error: readonly(error),
   };

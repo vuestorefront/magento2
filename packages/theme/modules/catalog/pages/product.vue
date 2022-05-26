@@ -84,9 +84,11 @@ export default defineComponent({
           eq: id,
         },
       },
-      configurations: Object.entries(route.value.query).map(
-        (config) => config[1],
-      ) as string[],
+      configurations: Object.entries(route.value.query)
+        .filter((config) => config[0] !== 'wishlist')
+        .map(
+          (config) => config[1],
+        ) as string[],
     });
 
     // eslint-disable-next-line no-underscore-dangle
@@ -108,7 +110,7 @@ export default defineComponent({
       const tags = [
         {
           prefix: CacheTagPrefix.View,
-          value: `product-${route.value.params.id}`,
+          value: `product-${id}`,
         },
       ];
 

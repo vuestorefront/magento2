@@ -68,6 +68,7 @@
                   wishlist-icon
                   is-in-wishlist
                   show-add-to-cart-button
+                  :add-to-cart-disabled="isCartLoading"
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="
                     addItemToCart({ product: product.product, quantity: 1 })
@@ -142,7 +143,7 @@ import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
-
+import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
 import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
@@ -158,16 +159,24 @@ export default defineComponent({
   },
   setup() {
     const {
-      load, loading, removeItem,
+      load,
+      loading,
+      removeItem,
+      afterAddingWishlistItemToCart,
     } = useWishlist();
     const route = useRoute();
-    const { app } = useContext();
+    const { localeRoute } = useContext();
     const {
       query: { page, itemsPerPage },
     } = route.value;
     const router = useRouter();
     const th = useUiHelpers();
-    const { addItem: addItemToCartBase, isInCart } = useCart();
+    const {
+      addItem: addItemToCartBase,
+      error: cartError,
+      isInCart,
+      loading: isCartLoading,
+    } = useCart();
     const wishlistStore = useWishlistStore();
 
     const products = computed(() => wishlistGetters.getProducts(wishlistStore.wishlist));
@@ -178,18 +187,28 @@ export default defineComponent({
       const productType = product.__typename;
 
       switch (productType) {
-        case 'SimpleProduct':
+        case ProductTypeEnum.SIMPLE_PRODUCT:
           await addItemToCartBase({
             product,
             quantity,
           });
+          afterAddingWishlistItemToCart({
+            product,
+            cartError: cartError.value.addItem,
+          });
           break;
-        case 'BundleProduct':
-        case 'ConfigurableProduct':
+        case ProductTypeEnum.CONFIGURABLE_PRODUCT:
+        case ProductTypeEnum.BUNDLE_PRODUCT:
+        case ProductTypeEnum.GROUPED_PRODUCT:
           const path = `/p/${productGetters.getProductSku(
             product,
           )}${productGetters.getSlug(product, product.categories[0])}`;
-          await router.push(`${app.localePath(path)}`);
+          await router.push(localeRoute({
+            path,
+            query: {
+              wishlist: 'true',
+            },
+          }));
           break;
         default:
           throw new Error(
@@ -217,6 +236,7 @@ export default defineComponent({
       addItemToCart,
       removeItemFromWishlist,
       isInCart,
+      isCartLoading,
       loading,
       pagination,
       productGetters,

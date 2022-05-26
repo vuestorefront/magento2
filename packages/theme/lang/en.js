@@ -188,6 +188,7 @@ export default {
   "Who we are": "Who we are",
   "Wishlist": "Wishlist",
   "Women fashion": "Women fashion",
+  "You added {product} to your shopping cart.": "You added {product} to your shopping cart.",
   "You are not authorized, please log in": "You are not authorized, please log in",
   "You can unsubscribe at any time": "You can unsubscribe at any time",
   "You currently have no orders": "You currently have no orders",
