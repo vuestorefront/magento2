@@ -13,6 +13,7 @@ import { generateUserData } from '~/modules/customer/helpers/generateUserData';
 import { Customer } from '~/modules/GraphQL/types';
 import type {
   UseUserInterface,
+  UseUserErrors,
   UseUserLoadParams,
   UseUserLoginParams,
   UseUserLogoutParams,
@@ -31,7 +32,7 @@ export function useUser(): UseUserInterface {
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const errorsFactory = () => ({
+  const errorsFactory = () : UseUserErrors => ({
     updateUser: null,
     register: null,
     login: null,
