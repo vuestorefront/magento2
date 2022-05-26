@@ -113,6 +113,11 @@ export interface UseWishlistInterface {
   afterAddingWishlistItemToCart(params: UseWishlistAfterAddingWishlistItemToCartParams): void;
 
   /**
+   * Adds item to the wishlist if is not already added, otherwise remove it from the wishlist
+   */
+  addOrRemoveItem(params: UseWishlistAddItemParams): Promise<void>;
+
+  /**
    * Indicates whether any of the methods is in progress
    */
   loading: Readonly<Ref<boolean>>;

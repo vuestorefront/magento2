@@ -175,7 +175,7 @@ export default defineComponent({
     const { addItem, loading: isCartLoading, canAddToCart } = useCart();
     const { productGallery, imageSizes } = useProductGallery(product);
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const { addOrRemoveItem, isInWishlist } = useWishlist();
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
     const productShortDescription = computed(
@@ -189,7 +189,7 @@ export default defineComponent({
 
     return {
       addItem,
-      addItemToWishlist,
+      addItemToWishlist: addOrRemoveItem,
       averageRating,
       totalReviews,
       canAddToCart,

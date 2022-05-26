@@ -186,7 +186,7 @@ export default defineComponent({
     const { productGallery, imageSizes } = useProductGallery(product);
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const { addOrRemoveItem, isInWishlist } = useWishlist();
     const productShortDescription = computed(
       () => props.product?.short_description?.html || '',
     );
@@ -205,7 +205,7 @@ export default defineComponent({
 
     return {
       addItem,
-      addItemToWishlist,
+      addItemToWishlist: addOrRemoveItem,
       averageRating,
       canAddToCart,
       isAuthenticated,

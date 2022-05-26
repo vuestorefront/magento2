@@ -175,7 +175,7 @@ export default defineComponent({
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const { addOrRemoveItem, isInWishlist } = useWishlist();
     const basePrice = ref(0);
     const openTab = ref(1);
 
@@ -190,7 +190,7 @@ export default defineComponent({
 
     return {
       addItem,
-      addItemToWishlist,
+      addItemToWishlist: addOrRemoveItem,
       averageRating,
       basePrice,
       canAddToCart,

@@ -2,6 +2,7 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { findItemOnWishlist } from '~/modules/wishlist/helpers/findItemOnWishlist';
 import { Logger } from '~/helpers/logger';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+import { useUser } from '~/modules/customer/composables/useUser';
 import type { Wishlist } from '~/modules/GraphQL/types';
 import type {
   UseWishlistAddItemParams,
@@ -34,6 +35,8 @@ export function useWishlist(): UseWishlistInterface {
     loadItemsCount: null,
     afterAddingWishlistItemToCart: null,
   });
+
+  const { isAuthenticated } = useUser();
 
   // eslint-disable-next-line consistent-return
   const load = async (params?: UseWishlistLoadParams) => {
@@ -152,14 +155,11 @@ export function useWishlist(): UseWishlistInterface {
 
       const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
 
-      // todo: legacy code, should be double-checked and probably removed
       if (itemOnWishlist) {
-        return await removeItem({
-          product,
-        });
+        return;
       }
 
-      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after sueCart composable will be refactored
+      if (!isAuthenticated) {
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 
@@ -224,7 +224,6 @@ export function useWishlist(): UseWishlistInterface {
           break;
         }
         default:
-          // todo implement other options
           // @ts-ignore
           // eslint-disable-next-line no-underscore-dangle
           Logger.error(`Product Type ${product.__typename} not supported in add to wishlist yet`);
@@ -296,6 +295,10 @@ export function useWishlist(): UseWishlistInterface {
     }
   };
 
+  const addOrRemoveItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
+    await (isInWishlist({ product }) ? removeItem({ product, customQuery }) : addItem({ product, customQuery }));
+  };
+
   return {
     loadItemsCount,
     isInWishlist,
@@ -305,6 +308,7 @@ export function useWishlist(): UseWishlistInterface {
     clear,
     setWishlist,
     afterAddingWishlistItemToCart,
+    addOrRemoveItem,
     loading: readonly(loading),
     error: readonly(error),
   };

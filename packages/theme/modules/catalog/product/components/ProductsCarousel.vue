@@ -125,7 +125,7 @@ export default defineComponent({
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addOrRemoveItem } = useWishlist();
     const { addItemToCart, isInCart } = useAddToCart();
 
     const mappedProducts = computed(() => props.products.map((product) => ({
@@ -135,9 +135,7 @@ export default defineComponent({
     })));
 
     const addItemToWishlist = async (product) => {
-      await (isInWishlist({ product })
-        ? removeItem({ product })
-        : addItem({ product }));
+      await addOrRemoveItem({ product });
     };
 
     const { getMagentoImage, imageSizes } = useImage();
