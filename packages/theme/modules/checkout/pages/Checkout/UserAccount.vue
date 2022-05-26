@@ -263,7 +263,7 @@ export default defineComponent({
 
         await login({
           user: {
-            username: form.value.email,
+            email: form.value.email,
             password: form.value.password,
             ...recaptchaParams,
           },

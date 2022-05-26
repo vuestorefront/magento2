@@ -7,7 +7,7 @@ import { Product } from '~/modules/catalog/product/types';
  */
 export type UseCartAddItemParams<PRODUCT> = ComposableFunctionArgs<{
   product: PRODUCT;
-  quantity: any; // TODO: Update type
+  quantity: number;
 }>;
 
 /**

@@ -2,7 +2,6 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { findItemOnWishlist } from '~/modules/wishlist/helpers/findItemOnWishlist';
 import { Logger } from '~/helpers/logger';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
-import { useUser } from '~/modules/customer/composables/useUser';
 import type { Wishlist } from '~/modules/GraphQL/types';
 import type {
   UseWishlistAddItemParams,
@@ -35,8 +34,6 @@ export function useWishlist(): UseWishlistInterface {
     loadItemsCount: null,
     afterAddingWishlistItemToCart: null,
   });
-
-  const { isAuthenticated } = useUser();
 
   // eslint-disable-next-line consistent-return
   const load = async (params?: UseWishlistLoadParams) => {
@@ -159,7 +156,7 @@ export function useWishlist(): UseWishlistInterface {
         return;
       }
 
-      if (!isAuthenticated) {
+      if (!app.$vsf.$magento.config.state.getCustomerToken()) {
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 

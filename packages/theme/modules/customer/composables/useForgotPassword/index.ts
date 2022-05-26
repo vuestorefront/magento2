@@ -42,6 +42,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
       const { data } = await app.context.$vsf.$magento.api.requestPasswordResetEmail({ email: resetPasswordParams.email, recaptchaToken: resetPasswordParams.recaptchaToken });
       Logger.debug('[Result]:', { data });
       error.value.request = data;
+      result.value.resetPasswordResult = data?.requestPasswordResetEmail ?? false;
     } catch (err) {
       error.value.request = err;
       Logger.error('useForgotPassword/request', err);
@@ -63,8 +64,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
       });
 
       Logger.debug('[Result]:', { data });
-
-      result.value = data;
+      result.value.setNewPasswordResult = data?.resetPassword ?? false;
       error.value.setNew = null;
     } catch (err) {
       error.value.setNew = err;

@@ -161,7 +161,7 @@ export function useUser(): UseUserInterface {
 
       const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
         {
-          email: providedUser.username,
+          email: providedUser.email,
           password: providedUser.password,
           recaptchaToken: providedUser.recaptchaToken,
         },
@@ -255,7 +255,7 @@ export function useUser(): UseUserInterface {
       //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
       // }
       error.value.register = null;
-      await login({ user: { username: email, password }, customQuery: {} });
+      await login({ user: { email, password }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);
