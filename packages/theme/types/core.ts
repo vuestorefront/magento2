@@ -583,17 +583,6 @@ export interface AgnosticRateCount {
   count: number;
 }
 
-// TODO - remove this interface
-export enum AgnosticOrderStatus {
-  Open = 'Open',
-  Pending = 'Pending',
-  Confirmed = 'Confirmed',
-  Shipped = 'Shipped',
-  Complete = 'Complete',
-  Cancelled = 'Cancelled',
-  Refunded = 'Refunded',
-}
-
 export interface AgnosticFacet {
   type: string;
   id: string;
