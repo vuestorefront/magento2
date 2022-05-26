@@ -75,7 +75,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/789614?v=4",
       "profile": "https://github.com/KevinGorjan",
       "contributions": [
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
@@ -84,7 +85,11 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/16045377?v=4",
       "profile": "https://github.com/bartoszherba",
       "contributions": [
-        "code"
+        "code",
+        "doc",
+        "maintenance",
+        "mentoring",
+        "review"
       ]
     },
     {
@@ -94,7 +99,13 @@
       "profile": "https://github.com/Frodigo",
       "contributions": [
         "code",
-        "projectManagement"
+        "projectManagement",
+        "business",
+        "doc",
+        "ideas",
+        "maintenance",
+        "mentoring",
+        "review"
       ]
     },
     {
@@ -116,7 +127,8 @@
       "contributions": [
         "question",
         "mentoring",
-        "review"
+        "review",
+        "doc"
       ]
     },
     {
@@ -157,6 +169,42 @@
       "profile": "https://github.com/LiorLindvor",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "sethidden",
+      "name": "Artur Tagisow",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5359825?v=4",
+      "profile": "https://github.com/sethidden",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jonathanribas",
+      "name": "Jonathan Ribas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3003782?v=4",
+      "profile": "https://github.com/jonathanribas",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Aliaaaam",
+      "name": "Ali Ghanei",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88658555?v=4",
+      "profile": "https://github.com/Aliaaaam",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mayashavin",
+      "name": "Maya Shavin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6650139?v=4",
+      "profile": "https://github.com/mayashavin",
+      "contributions": [
+        "doc"
       ]
     }
   ],
