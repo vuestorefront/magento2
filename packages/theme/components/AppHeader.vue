@@ -184,7 +184,7 @@ export default defineComponent({
       if (app.$device.isDesktop) {
         await loadCartTotalQty();
         // eslint-disable-next-line promise/catch-or-return
-        await loadWishlistItemsCount({});
+        await loadWishlistItemsCount();
       }
     });
 

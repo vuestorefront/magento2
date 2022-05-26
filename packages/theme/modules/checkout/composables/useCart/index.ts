@@ -130,9 +130,9 @@ PRODUCT
       loading.value = true;
 
       if (!apiState.getCartId()) {
-        // TODO if cart is not loaded throw error instead to decouple this method
         await load({ realCart: true });
       }
+
       const updatedCart = await addItemCommand.execute(context, {
         currentCart: cart.value,
         product,
