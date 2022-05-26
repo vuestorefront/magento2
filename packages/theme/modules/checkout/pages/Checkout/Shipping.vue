@@ -417,7 +417,7 @@ export default defineComponent({
       const defaultAddress = userShippingGetters.getAddresses(
         userShipping.value,
         { default_shipping: true },
-      ) as [CustomerAddress] || [];
+      ) as [CustomerAddress] | [];
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }
