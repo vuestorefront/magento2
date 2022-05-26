@@ -1,8 +1,11 @@
+import type { useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
 
+type Context = ReturnType<typeof useContext>;
+
 export const attachToCartCommand = {
-  execute: async (context, params): Promise<void> => {
+  execute: async (context: Context, params): Promise<void> => {
     Logger.debug('[Magento]: Attach guest cart to user');
 
     const emailOnCartInput: SetGuestEmailOnCartInput = {
@@ -10,7 +13,7 @@ export const attachToCartCommand = {
       cart_id: params?.cart?.value?.id,
     };
 
-    await context.$magento.api.setGuestEmailOnCart({
+    await context.app.$vsf.$magento.api.setGuestEmailOnCart({
       ...emailOnCartInput,
     });
   },

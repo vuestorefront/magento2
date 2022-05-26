@@ -12,8 +12,7 @@ import { attachToCartCommand } from '~/modules/customer/composables/useGuestUser
 export function useGuestUser<PARAMS extends AttachToCartParams>(): UseGuestUserInterface<PARAMS> {
   const loading = ref(false);
   const error = ref<UseGuestUserErrors>({ attachToCart: null });
-  const { app } = useContext();
-  const context = app.$vsf;
+  const context = useContext();
 
   const attachToCart = async (params: ComposableFunctionArgs<PARAMS>) => {
     Logger.debug('useGuestUserFactory.attachToCart', { params });
