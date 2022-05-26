@@ -303,7 +303,7 @@ import {
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-import type { ShippingCartAddress, Customer } from '~/modules/GraphQL/types';
+import type { ShippingCartAddress, Customer, Country } from '~/modules/GraphQL/types';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -355,8 +355,8 @@ export default defineComponent({
       search: searchCountry,
     } = useCountrySearch();
 
-    const countries = ref([]);
-    const country = ref(null);
+    const countries = ref<Country[]>([]);
+    const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
     let oldBilling = null;
     const sameAsShipping = ref(false);
@@ -381,13 +381,10 @@ export default defineComponent({
       return addresses.value.length > 0;
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
-    const handleAddressSubmit = (reset) => async () => {
+    const handleAddressSubmit = (reset: () => void) => async () => {
       const addressId = currentAddressId.value;
       const billingDetailsData = {
         billingDetails: {
@@ -469,7 +466,7 @@ export default defineComponent({
       }
     };
 
-    const changeCountry = async (id) => {
+    const changeCountry = async (id: string) => {
       changeBillingDetails('country_code', id);
       country.value = await searchCountry({ id });
     };
