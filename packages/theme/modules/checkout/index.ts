@@ -1,11 +1,12 @@
-import { Module } from '@nuxt/types';
 import path from 'node:path';
 import url from 'node:url';
+import type { Module } from '@nuxt/types';
+import type { NuxtRouteConfig } from '@nuxt/types/config/router';
 
 const nuxtModule : Module = function checkoutModule() {
   const moduleDir = path.dirname(url.fileURLToPath(import.meta.url));
 
-  this.extendRoutes((routes) => {
+  this.extendRoutes((routes: NuxtRouteConfig[]) => {
     routes.unshift(
       {
         name: 'checkout',

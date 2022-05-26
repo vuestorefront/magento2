@@ -24,8 +24,7 @@ export function useWishlist(): UseWishlistInterface {
   const { app } = useContext();
   const { send: sendNotification } = useUiNotification();
   const loading = ref(false);
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-  const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
+  const calculateWishlistTotal = (wishlists: Wishlist[]) => wishlists.reduce((acc, current) => acc + (current?.items_count ?? 0), 0);
   const error = ref<UseWishlistErrors>({
     addItem: null,
     removeItem: null,
@@ -35,21 +34,23 @@ export function useWishlist(): UseWishlistInterface {
     afterAddingWishlistItemToCart: null,
   });
 
-  // eslint-disable-next-line consistent-return
   const load = async (params?: UseWishlistLoadParams) => {
     Logger.debug('useWishlist/load');
 
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.load params->', params);
-      const apiState = app.context.$vsf.$magento.config.state;
+      const apiState = app.$vsf.$magento.config.state;
 
       if (apiState.getCustomerToken()) {
-        const { data } = await app.context.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
+        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
-        wishlistStore.wishlist = loadedWishlist[0] ?? {};
+        if (loadedWishlist[0]) {
+          // @ts-expect-error M2-579
+          [wishlistStore.wishlist] = loadedWishlist;
+        }
       }
 
       error.value.load = null;
@@ -109,7 +110,8 @@ export function useWishlist(): UseWishlistInterface {
   const loadItemsCount = async (): Promise<number | null> => {
     Logger.debug('useWishlist/wishlistItemsCount');
     const apiState = app.context.$vsf.$magento.config.state;
-    let itemsCount = null;
+
+    let itemsCount : number | null = null;
 
     try {
       loading.value = true;
@@ -118,7 +120,7 @@ export function useWishlist(): UseWishlistInterface {
         const { data } = await app.context.$vsf.$magento.api.wishlistItemsCount();
 
         Logger.debug('[Result]:', { data });
-        const loadedWishlist = data?.customer?.wishlists ?? [];
+        const loadedWishlist : Wishlist[] = data?.customer?.wishlists ?? [];
         itemsCount = calculateWishlistTotal(loadedWishlist);
         wishlistStore.$patch((state) => {
           state.wishlist.items_count = itemsCount;
@@ -159,7 +161,7 @@ export function useWishlist(): UseWishlistInterface {
         });
       }
 
-      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after sueCart composable will be refactored
+      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after useCart composable will be refactored
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 

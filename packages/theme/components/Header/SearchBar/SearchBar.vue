@@ -117,7 +117,7 @@ export default defineComponent({
       }
     };
 
-    const closeSearch = (event) => {
+    const closeSearch = (event: MouseEvent) => {
       if (document) {
         const searchResultsEl = document.querySelectorAll('.search');
         const closeTriggerElement = event.target as HTMLElement;

@@ -5,7 +5,7 @@ import type { FacetSearchParams } from '../useFacet';
 export const rangeFilters = ['price'];
 
 export function createProductAttributeFilterInput(params: ComposableFunctionArgs<FacetSearchParams>): ProductAttributeFilterInput {
-  const attributeFilter = {};
+  const attributeFilter : Record<string, { from: number, to: number } | { eq: unknown } | { in: unknown }> = {};
   const inputFilters = params?.filters ?? {};
 
   const categoryFilter = {

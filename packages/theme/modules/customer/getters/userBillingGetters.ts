@@ -1,4 +1,5 @@
 import { UserBillingGetters as BaseGetters } from '~/modules/customer/getters/types';
+import type { Customer, CustomerAddress } from '~/modules/GraphQL/types';
 
 interface UserBillingGetters extends BaseGetters<any, any>{
   getNeighborhood: (address: any) => string
@@ -6,17 +7,16 @@ interface UserBillingGetters extends BaseGetters<any, any>{
 }
 
 const userBillingGetters: UserBillingGetters = {
-  getAddresses: (billing, criteria?: Record<string, any>) => {
+  getAddresses: (billing: Customer, criteria?: Record<string, any>) => {
     if (!criteria || Object.keys(criteria).length === 0) {
       return billing.addresses;
     }
 
     const entries = Object.entries(criteria);
-    return billing.addresses.filter((address) => entries.every(([key, value]) => address[key] === value));
+    return billing.addresses.filter((address) => entries.every(([key, value]) => address[key as keyof CustomerAddress] === value));
   },
-  getDefault: (billing) => billing.addresses.find(({ isDefault }) => isDefault),
-  getTotal: (billing) => billing.addresses.length,
-
+  getDefault: (billing: Customer) => billing.addresses.find(({ default_billing }) => default_billing),
+  getTotal: (billing: Customer) => billing.addresses.length,
   getPostCode: (address) => address?.postcode || '',
   getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : ''),
   getStreetNumber: (address) => address?.streetNumber || '',
