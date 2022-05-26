@@ -126,7 +126,6 @@ import type { EntityUrl } from '~/modules/GraphQL/types';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 
-// TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {

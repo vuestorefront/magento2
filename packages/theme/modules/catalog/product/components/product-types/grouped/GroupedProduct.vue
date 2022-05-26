@@ -184,7 +184,7 @@ export default defineComponent({
     );
 
     const productPrice = computed(() => getGroupedProductPriceCommand(props.product));
-    const productSpecialPrice = 0; // TODO add logic for special price calculation;
+    const productSpecialPrice = 0;
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
 

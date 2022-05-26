@@ -368,7 +368,7 @@ export default defineComponent({
         customerAddressId: addressId,
       };
       await mergeItem('checkout', { shipping: shippingDetailsData });
-      // @TODO remove expect-error when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
+      // @TODO remove expect-error below
       // @ts-expect-error
       const shippingInfo : ShippingCartAddress = await saveShipping({ shippingDetails: shippingDetailsData });
       shippingMethods.value = shippingInfo.available_shipping_methods;

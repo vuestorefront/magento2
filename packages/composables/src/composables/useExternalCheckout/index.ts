@@ -25,7 +25,6 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
 
     if (externalCheckout.enable) {
       if (userToken && cartToken) {
-        // @TODO: Implements Multiple Store
         /* if (Object.keys(externalCheckout.stores).length) {
 
         } */

@@ -4,7 +4,6 @@
       class="sf-header--has-mobile-search"
       :class="{ 'header-on-top': isSearchOpen }"
     >
-      <!-- TODO: add mobile view buttons after SFUI team PR -->
       <template #logo>
         <HeaderLogo />
       </template>

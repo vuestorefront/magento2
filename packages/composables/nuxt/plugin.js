@@ -7,7 +7,6 @@ import cookie from '@vue-storefront/magento/nuxt/cookie';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
-// TODO should be moved to THEME and expose consistent cookie management API
 export default integrationPlugin(({
   app, res, req, integration,
 }) => {
