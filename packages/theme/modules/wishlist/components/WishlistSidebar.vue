@@ -217,8 +217,8 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_count ?? 0,
     );
 
-    const getAttributes = (product: ConfigurableProduct) => product?.product?.configurable_options || [];
-    const getBundles = (product: BundleProduct) => product?.product?.items?.map((b) => b.title).flat() || [];
+    const getAttributes = (product: WishlistItemInterface) => (product?.product as ConfigurableProduct)?.configurable_options || [];
+    const getBundles = (product: WishlistItemInterface) => (product?.product as BundleProduct)?.items?.map((b) => b.title).flat() || [];
     const getItemLink = (item: WishlistItemInterface) => localeRoute({
       path: `/p/${item.product.sku}${productGetters.getSlug(
         item.product,
