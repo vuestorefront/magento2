@@ -1,10 +1,8 @@
-import type { useContext } from '@nuxtjs/composition-api';
+import { UseContextReturn } from '~/composables/types';
 import { CustomerAddressInput } from '~/modules/GraphQL/types';
 
-type Context = ReturnType<typeof useContext>;
-
 export const updateCustomerAddressCommand = {
-  execute: async (context: Context, params: {
+  execute: async (context: UseContextReturn, params: {
     addressId: number;
     input: CustomerAddressInput;
   }) => {

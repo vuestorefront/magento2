@@ -1,11 +1,9 @@
-import type { useContext } from '@nuxtjs/composition-api';
+import { UseContextReturn } from '~/composables/types';
 import { Logger } from '~/helpers/logger';
 import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
 
-type Context = ReturnType<typeof useContext>;
-
 export const attachToCartCommand = {
-  execute: async (context: Context, params): Promise<void> => {
+  execute: async (context: UseContextReturn, params): Promise<void> => {
     Logger.debug('[Magento]: Attach guest cart to user');
 
     const emailOnCartInput: SetGuestEmailOnCartInput = {

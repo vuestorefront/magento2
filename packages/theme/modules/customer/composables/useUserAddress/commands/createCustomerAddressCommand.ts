@@ -1,10 +1,8 @@
-import type { useContext } from '@nuxtjs/composition-api';
+import { UseContextReturn } from '~/composables/types';
 import { CustomerAddressInput } from '~/modules/GraphQL/types';
 
-type Context = ReturnType<typeof useContext>;
-
 export const createCustomerAddressCommand = {
-  execute: async (context: Context, params: CustomerAddressInput) => {
+  execute: async (context: UseContextReturn, params: CustomerAddressInput) => {
     const { data } = await context.app.$vsf.$magento.api.createCustomerAddress(params);
 
     return data?.createCustomerAddress ?? {};
