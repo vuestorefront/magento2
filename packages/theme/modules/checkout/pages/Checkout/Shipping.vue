@@ -277,7 +277,7 @@ import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
   useCountrySearch,
 } from '~/composables';
-import type { Country, AvailableShippingMethod, ShippingCartAddress } from '~/modules/GraphQL/types';
+import type { Country, AvailableShippingMethod } from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
@@ -368,10 +368,9 @@ export default defineComponent({
         customerAddressId: addressId,
       };
       await mergeItem('checkout', { shipping: shippingDetailsData });
-      // @TODO remove expect-error below
-      // @ts-expect-error
-      const shippingInfo : ShippingCartAddress = await saveShipping({ shippingDetails: shippingDetailsData });
-      shippingMethods.value = shippingInfo.available_shipping_methods;
+
+      const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
+      shippingMethods.value = shippingInfo?.available_shipping_methods ?? [];
 
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const [chosenAddress] = userShippingGetters.getAddresses(
