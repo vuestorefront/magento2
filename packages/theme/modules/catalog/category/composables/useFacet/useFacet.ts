@@ -52,7 +52,9 @@ export interface UseFacetErrors {
 /** The params received by {@link useFacet}'s `search` method. */
 export type UseFacetSearchParams = ComposableFunctionArgs<FacetSearchParams>;
 
-/** The interface provided by {@link useFacet} composable. */
+/**
+ * Data and methods returned from the {@link useFacet} composable.
+ */
 export interface UseFacetInterface {
   /**
    * Contains errors from any of the composable methods.

@@ -10,9 +10,11 @@ import type {
 /**
  * @public
  *
- * The `useCategory` composable allows loading categories from Magento API. It
+ * Allows loading categories from Magento API. It
  * is commonly used in navigation menus, and provides the load function and
  * refs for the categories, loading and error.
+ *
+ * See the {@link UseCategoryInterface} for a list of methods and values available in this composable.
  *
  * @remarks
  *

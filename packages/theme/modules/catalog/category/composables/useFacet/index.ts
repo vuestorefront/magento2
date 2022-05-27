@@ -14,10 +14,9 @@ import type {
 } from './useFacet';
 
 /**
- * The `useFacet()` composable allows searching for products using facets.
+ * Allows searching for products with pagination, totals and sorting options.
  *
- * What makes it powerful is the ability to accept multiple filters, allowing to
- * narrow down the results to a specific category, search term, etc.
+ * See the {@link UseFacetInterface} for a list of methods and values available in this composable.
  */
 export function useFacet(): UseFacetInterface {
   const { query } = useApi();

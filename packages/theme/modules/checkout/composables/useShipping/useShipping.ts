@@ -22,7 +22,9 @@ export type UseShippingSaveParams = ComposableFunctionArgs<{
   shippingDetails: any;
 }>;
 
-/** The interface provided by {@link useShipping} composable. */
+/**
+ * Data and methods returned from the {@link useShipping} composable.
+ */
 export interface UseShippingInterface {
   /**
    * Contains errors from any of the composable methods.

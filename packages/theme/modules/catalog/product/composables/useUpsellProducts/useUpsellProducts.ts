@@ -18,7 +18,7 @@ export type UpsellProducts = UpsellProductsQuery['products']['items'][0]['upsell
 export type UseUpsellProductsSearchParams = ComposableFunctionArgs<GetProductSearchParams>;
 
 /**
- * Represents the data returned from and functions available in the `useUpsellProducts()` composable.
+ * Data and methods returned from the {@link useUpsellProducts|useUpsellProducts()} composable
  */
 export interface UseUpsellProductsInterface {
   /**

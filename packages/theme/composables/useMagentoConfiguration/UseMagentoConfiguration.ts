@@ -2,7 +2,7 @@ import type { ComputedRef } from '@nuxtjs/composition-api';
 import type { StoreConfig } from '~/../api-client/lib';
 
 /**
- * The refs and methods returned by the {@link useMagentoConfiguration|useMagentoConfiguration()} composable
+ * Data and methods returned from the {@link useMagentoConfiguration|useMagentoConfiguration()} composable
  */
 export interface UseMagentoConfigurationInterface {
   /**

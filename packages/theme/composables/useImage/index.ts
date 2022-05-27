@@ -3,7 +3,7 @@ import imageSizes from '~/enums/imageEnums';
 import { UseImageInterface } from './useImage';
 
 /**
- * The `useImage` composable allows extracting image paths from magento URL.
+ * Allows extracting image paths from magento URL.
  *
  * See the {@link UseImageInterface} for a list of methods and values available in this composable.
  * */
@@ -17,6 +17,7 @@ export function useImage(): UseImageInterface {
    * @return {string}
    */
   const getMagentoImage = (fullImageUrl: string) => {
+    // @ts-ignore
     const { imageProvider, magentoBaseUrl } = context.$vsf.$magento.config;
 
     if (imageProvider !== 'ipx') {

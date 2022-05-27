@@ -12,7 +12,7 @@ export interface StateInterface {
 }
 
 /**
- * Represents the data returned from and functions available in the `useUiState()` composable.
+ * Data and methods returned from the {@link useUiState|useUiState()} composable
  */
 export interface UseUiStateInterface {
   /**

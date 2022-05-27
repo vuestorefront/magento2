@@ -8,7 +8,9 @@ export interface UseGetShippingMethodsErrors {
   load: Error;
 }
 
-/** Represents data and methods returned by the {@link useGetShippingMethods} composable */
+/**
+ * Data and methods returned from the {@link useGetShippingMethods} composable
+ */
 export interface UseGetShippingMethodsInterface<SHIPPING_METHOD> {
   /** Loads the shipping methods for a cart */
   load (params: ComposableFunctionArgs<{ cartId: string }>): Promise<SHIPPING_METHOD[]>;

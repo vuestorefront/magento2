@@ -3,7 +3,7 @@ import { Logger } from '~/helpers/logger';
 import type { UseExternalCheckoutInterface } from '~/composables/useExternalCheckout/useExternalCheckout';
 
 /**
- * The `useExternalCheckout` composable allows redirecting to external checkout process. It depends on the {@link https://github.com/Vendic/magento2-external-checkout | magento2-external-checkout repository}.
+ * Allows redirecting to external checkout process. It depends on the {@link https://github.com/Vendic/magento2-external-checkout | magento2-external-checkout repository}.
  *
  * See the {@link UseExternalCheckoutInterface} for a list of methods and values available in this composable.
  */

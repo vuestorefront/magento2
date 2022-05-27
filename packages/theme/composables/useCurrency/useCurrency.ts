@@ -28,7 +28,7 @@ export type UseCurrencyLoadParams = ComposableFunctionArgs<{}>;
 export type UseCurrencyChangeParams = { id: string };
 
 /**
- * The refs and methods returned by the {@link useCurrency|useCurrency()} composable
+ * Data and methods returned from the {@link useCurrency|useCurrency()} composable
  */
 export interface UseCurrencyInterface {
   /**

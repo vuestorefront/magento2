@@ -15,9 +15,9 @@ import type {
 import { useUiNotification } from '~/composables';
 
 /**
- * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
+ * Allows loading and manipulating wishlist of the current user.
  *
- * See the {@link UseWishlistInterface} page for more information.
+ * See the {@link UseWishlistInterface} for a list of methods and values available in this composable.
  */
 export function useWishlist(): UseWishlistInterface {
   const wishlistStore = useWishlistStore();

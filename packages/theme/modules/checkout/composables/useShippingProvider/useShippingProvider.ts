@@ -30,7 +30,7 @@ export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * The refs and methods returned by the {@link useShippingProvider|useShippingProvider()} composable
+ * Data and methods returned from the {@link useShippingProvider|useShippingProvider()} composable
  */
 export interface UseShippingProviderInterface {
   /**

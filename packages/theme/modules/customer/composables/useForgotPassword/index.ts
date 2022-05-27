@@ -15,9 +15,9 @@ import {
 } from '~/modules/customer/composables/useForgotPassword/useForgotPassword';
 
 /**
- * The `useForgotPassword` composable alows to request a password reset email and to set a new password to a user
+ * Allows to request a password reset email and to set a new password to a user.
  *
- * Se the {@link UseForgotPasswordInterface} page for more information
+ * Se the {@link UseForgotPasswordInterface} for a list of methods and values available in this composable.
  */
 export function useForgotPassword(): UseForgotPasswordInterface {
   const { app } = useContext();

@@ -23,9 +23,9 @@ import type {
 } from './useUser';
 
 /**
- * The `useUser()` composable allows loading and manipulating data of the current user.
+ * Allows loading and manipulating data of the current user.
  *
- * See the {@link UseUserInterface} page for more information.
+ * See the {@link UseUserInterface} for a list of methods and values available in this composable.
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();

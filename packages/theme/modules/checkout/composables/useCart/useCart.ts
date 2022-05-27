@@ -40,7 +40,7 @@ type UseCartApplyCouponParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * Represents data and methods returned from the {@link useCart} composable
+ * Data and methods returned from the {@link useCart} composable
  */
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   /** Loads the current cart */

@@ -10,9 +10,11 @@ import type {
 } from './useShipping';
 
 /**
- * The `useShipping()` composable allows loading the shipping information for
+ * Allows loading the shipping information for
  * the current cart and saving (selecting) other shipping information for the
  * same cart.
+ *
+ * See the {@link UseShippingInterface} for a list of methods and values available in this composable.
  */
 export function useShipping(): UseShippingInterface {
   const loading = ref(false);

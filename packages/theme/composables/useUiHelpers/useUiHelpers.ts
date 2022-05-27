@@ -2,7 +2,9 @@ import type { FacetInterface } from '~/composables/types';
 import type { CategoryTree } from '~/modules/GraphQL/types';
 import type { FilterParams, Params } from './Params';
 
-/** The interface provided by {@link useUiHelpers} composable. */
+/**
+ * Data and methods returned from the {@link useUiHelpers} composable.
+ */
 export interface UseUiHelpersInterface {
   /**
    * Updates current URL with filters as query/search params.

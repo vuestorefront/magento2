@@ -8,9 +8,9 @@ import type {
 } from './useUpsellProducts';
 
 /**
- * The `useUpsellProducts()` composable allows loading upsell products.
+ * Allows loading upsell products.
  *
- * See the {@link UseUpsellProductsInterface} page for more information.
+ * See the {@link UseUpsellProductsInterface} for a list of methods and values available in this composable.
  */
 export function useUpsellProducts(): UseUpsellProductsInterface {
   const { app } = useContext();

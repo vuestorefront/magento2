@@ -14,7 +14,9 @@ export interface AttachToCartParams {
   [x: string]: any;
 }
 
-/** Represents the data and methods returned by the {@link useGuestUser}  composable */
+/**
+ * Data and methods returned from the {@link useGuestUser}  composable
+ */
 export interface UseGuestUserInterface<REGISTER_GUEST_USER_PARAMS extends AttachToCartParams, API extends PlatformApi = any> extends Composable<API> {
   /** Attaches guest cart to user */
   attachToCart(params: ComposableFunctionArgs<REGISTER_GUEST_USER_PARAMS>): Promise<void>;

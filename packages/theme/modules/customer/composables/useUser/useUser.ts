@@ -56,7 +56,7 @@ export type UseUserChangePasswordParams = ComposableFunctionArgs<{
 export type UseUserLoadParams = ComposableFunctionArgs<{}>;
 
 /**
- * Represents the data returned from and functions available in the `useUser()` composable.
+ * Data and methods returned from the {@link useUser|useUser()} composable
  */
 export interface UseUserInterface {
   /**

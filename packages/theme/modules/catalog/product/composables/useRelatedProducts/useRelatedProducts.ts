@@ -17,7 +17,9 @@ export interface UseRelatedProductsErrors {
 /** The params received by {@link useRelatedProducts}'s `search` method. */
 export type UseRelatedProductsSearchParams = ComposableFunctionArgs<GetProductSearchParams>;
 
-/** The interface provided by {@link useRelatedProducts} composable. */
+/**
+ * Data and methods returned from the {@link useRelatedProducts} composable.
+ */
 export interface UseRelatedProductsInterface {
   /**
    * Contains errors from any of the composable methods.

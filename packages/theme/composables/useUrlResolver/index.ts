@@ -9,7 +9,7 @@ import type { EntityUrl } from '~/modules/GraphQL/types';
 import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
 
 /**
- * The `useUrlResolver()` composable allows searching the resolver for current
+ * Allows searching the resolver for current
  * route path (URL).
  *
  * See the {@link UseUrlResolverInterface} for a list of methods and values available in this composable.

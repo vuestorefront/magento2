@@ -69,7 +69,7 @@ export type UseWishlistAfterAddingWishlistItemToCartParams = ComposableFunctionA
 }>;
 
 /**
- * Represents the data returned from and functions available in the `useWishlist()` composable.
+ * Data and methods returned from the {@link useWishlist|useWishlist()} composable
  */
 export interface UseWishlistInterface {
   /**

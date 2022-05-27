@@ -18,7 +18,9 @@ export interface UseProductErrors {
   getProductDetails: Error | null;
 }
 
-/** The interface provided by {@link useProduct} composable. */
+/**
+ * Data and methods returned from the {@link useProduct} composable.
+ */
 export interface UseProductInterface {
   /**
    * Contains errors from any of the composable methods.

@@ -12,7 +12,7 @@ export interface UseConfigErrors {
 }
 
 /**
- * The refs and methods returned by the {@link useConfig|useConfig()} composable
+ * Data and methods returned from the {@link useConfig|useConfig()} composable
  */
 export interface UseConfigInterface {
   /**

@@ -28,7 +28,7 @@ export interface UseForgotPasswordSetNewParams {
 }
 
 /**
- * Represents the data and methods returned by the {@link useForgotPassword} composable
+ * Data and methods returned from the {@link useForgotPassword} composable
  */
 export interface UseForgotPasswordInterface {
   /** Returns the result of the reset operation */
