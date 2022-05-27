@@ -19,16 +19,19 @@
           :is-visible="isFilterSidebarOpen"
           :cat-uid="routeData.entity_uid"
           @close="toggleFilterSidebar"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
       </div>
-      <div class="main section column">
+      <div
+        ref="productContainerElement"
+        class="main section column"
+      >
         <CategoryNavbar
           v-if="isShowProducts"
           :sort-by="sortBy"
           :pagination="pagination"
           :is-loading="$fetchState.pending"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
         <div class="products">
           <CategoryEmptyResults v-if="products.length === 0 && !$fetchState.pending && isShowProducts" />
@@ -153,6 +156,8 @@ export default defineComponent({
     const sortBy = ref({});
     const pagination = ref<AgnosticPagination>({});
 
+    const productContainerElement = ref<HTMLElement | null>(null);
+
     const { search: resolveUrl } = useUrlResolver();
     const {
       toggleFilterSidebar,
@@ -233,6 +238,11 @@ export default defineComponent({
       fetch();
     };
 
+    const onReloadProducts = () => {
+      fetch();
+      productContainerElement.value.scrollIntoView();
+    };
+
     return {
       isPriceLoaded,
       ...uiHelpers,
@@ -252,7 +262,8 @@ export default defineComponent({
       activeCategoryName,
       routeData,
       doChangeItemsPerPage,
-      fetch,
+      productContainerElement,
+      onReloadProducts,
     };
   },
 });

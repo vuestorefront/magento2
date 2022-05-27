@@ -277,7 +277,7 @@ import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
   useCountrySearch,
 } from '~/composables';
-import type { Country, AvailableShippingMethod } from '~/modules/GraphQL/types';
+import type { Country, AvailableShippingMethod, CustomerAddress } from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
@@ -361,7 +361,7 @@ export default defineComponent({
 
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
-    const handleAddressSubmit = (reset) => async () => {
+    const handleAddressSubmit = (reset: () => void) => async () => {
       const addressId = currentAddressId.value;
       const shippingDetailsData = {
         ...shippingDetails.value,
@@ -394,14 +394,14 @@ export default defineComponent({
       isShippingDetailsStepCompleted.value = false;
     };
 
-    const handleSetCurrentAddress = (addr) => {
+    const handleSetCurrentAddress = (addr: CustomerAddress) => {
       shippingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = addr?.id;
+      currentAddressId.value = String(addr?.id);
       canAddNewAddress.value = false;
       isShippingDetailsStepCompleted.value = false;
     };
 
-    const changeShippingDetails = (field, value) => {
+    const changeShippingDetails = (field: string, value: unknown) => {
       shippingDetails.value = {
         ...shippingDetails.value,
         [field]: value,
@@ -414,13 +414,13 @@ export default defineComponent({
       const defaultAddress = userShippingGetters.getAddresses(
         userShipping.value,
         { default_shipping: true },
-      );
+      ) as [CustomerAddress] | [];
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }
     };
 
-    const changeCountry = async (id) => {
+    const changeCountry = async (id: string) => {
       changeShippingDetails('country_code', id);
       country.value = await searchCountry({ id });
     };

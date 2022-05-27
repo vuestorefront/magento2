@@ -1,6 +1,7 @@
+import { NuxtAppOptions } from '@nuxt/types';
 import { defaultConfig } from '~/modules/magento/defaultConfig';
 
-export const getLocaleSettings = (app, moduleOptions, additionalProperties) => {
+export const getLocaleSettings = (app: NuxtAppOptions, moduleOptions: Record<string, unknown>, additionalProperties: any) => {
   const localeSettings = moduleOptions.cookies
     ? {
       currency: additionalProperties.state.getCurrency(),
@@ -16,7 +17,8 @@ export const getLocaleSettings = (app, moduleOptions, additionalProperties) => {
   };
 };
 
-export const mapConfigToSetupObject = ({ app, moduleOptions, additionalProperties = {} }) => ({
+export const mapConfigToSetupObject = ({ app, moduleOptions, additionalProperties = {} } :
+{ app: NuxtAppOptions, moduleOptions: Record<string, unknown>, additionalProperties: Record<string, unknown> }) => ({
   ...defaultConfig,
   ...moduleOptions,
   ...additionalProperties,

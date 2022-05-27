@@ -273,9 +273,8 @@ import useCart from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
+import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
 import CouponCode from './CouponCode.vue';
-
-import type { ConfigurableCartItem } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -324,8 +323,8 @@ export default defineComponent({
       })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const getAttributes = (product) => product.configurable_options || [];
-    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
+    const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
+    const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
     const visible = ref(false);
     const tempProduct = ref();
 
@@ -342,7 +341,7 @@ export default defineComponent({
       await router.push(`${app.localePath(redirectUrl)}`);
     };
 
-    const sendToRemove = ({ product }) => {
+    const sendToRemove = ({ product }: { product: CartItemInterface }) => {
       if (notifications.value.length > 0) {
         notifications.value[0].dismiss();
       }
@@ -351,7 +350,7 @@ export default defineComponent({
       tempProduct.value = product;
     };
 
-    const actionRemoveItem = async (product) => {
+    const actionRemoveItem = async (product: CartItemInterface) => {
       await removeItem({ product });
       visible.value = false;
 
@@ -370,7 +369,7 @@ export default defineComponent({
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
+    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
 
     return {
       sendToRemove,

@@ -205,7 +205,7 @@ export default defineComponent({
       };
     });
 
-    const submitForm = (reset) => async () => {
+    const submitForm = (reset: () => void) => async () => {
       if (
         !(
           formSubmitValue.value.ratings[0].value_id

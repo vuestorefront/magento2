@@ -1,4 +1,4 @@
-import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref, useContext } from '@nuxtjs/composition-api';
 import type {
   AvailableStoresQuery,
   CountriesListQuery,
@@ -222,3 +222,5 @@ export interface AgnosticReviewMetadata {
     id: string;
   }[];
 }
+
+export type UseContextReturn = ReturnType<typeof useContext>;

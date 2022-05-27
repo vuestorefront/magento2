@@ -51,7 +51,7 @@ export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtC
     injectInContext({ api, client, config });
   };
 
-  const extend = (tag, integrationProperties: Record<string, unknown>) => {
+  const extend = (tag: string, integrationProperties: Record<string, unknown>) => {
     createExtendIntegrationInCtx({ tag, nuxtCtx, inject })(integrationProperties);
   };
 

@@ -185,7 +185,7 @@ export const categoryAncestorsThirdLevelMock = [
   } as CategoryTree,
 ];
 
-export const useTraverseCategoryMock = (categoryAncestors = [], extend = []) => ({
+export const useTraverseCategoryMock = (categoryAncestors : CategoryTree[] = [], extend : any[] = []) => ({
   loadCategoryTree: jest.fn(),
   isCategoryTreeLoaded: ref(true),
   categoryAncestors: ref(categoryAncestors),

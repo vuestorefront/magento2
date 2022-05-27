@@ -236,7 +236,7 @@ export default defineComponent({
       is_subscribed: false,
     });
 
-    const handleFormSubmit = (reset) => async () => {
+    const handleFormSubmit = (reset: () => void) => async () => {
       if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
