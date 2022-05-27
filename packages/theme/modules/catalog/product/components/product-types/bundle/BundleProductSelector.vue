@@ -39,7 +39,7 @@
                 @change="
                   selectedOptions[bundle.uid].price = getProductPrice(
                     option.product
-                  ).regular
+                  ).final
                 "
               >
                 <template #description>

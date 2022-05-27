@@ -60,6 +60,7 @@ export interface AgnosticPrice {
   regular: number | null;
   special?: number | null;
   maximum?: number | null;
+  final?: number | null;
 }
 
 export interface AgnosticMediaGalleryItem {
