@@ -5,7 +5,7 @@ export function getGroupedProductPriceCommand(product: GroupedProduct): number {
   const evalProductPrice = (p: ProductInterface) => {
     const { regular, special } = getProductPrice(p);
 
-    return regular > special ? regular : special;
+    return regular > special && special !== null ? special : regular;
   };
 
   return product.items.reduce(
