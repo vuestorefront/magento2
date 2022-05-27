@@ -95,8 +95,6 @@ export default defineComponent({
       if (products.value.length === 0 && currentStep.value !== 'thank-you') {
         await router.push(app.localePath('/'));
       }
-
-      return null;
     });
 
     return {
