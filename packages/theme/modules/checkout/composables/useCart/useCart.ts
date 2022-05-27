@@ -7,7 +7,7 @@ import { Product } from '~/modules/catalog/product/types';
  */
 export type UseCartAddItemParams<PRODUCT> = ComposableFunctionArgs<{
   product: PRODUCT;
-  quantity: any; // TODO: Update type
+  quantity: number;
 }>;
 
 /**
@@ -40,13 +40,6 @@ type UseCartApplyCouponParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * Parameters accepted by the `isInCart` method in the {@link useCart} composable
- */
-type UseCartIsInCartParams<PRODUCT> = {
-  product: PRODUCT
-};
-
-/**
  * Represents data and methods returned from the {@link useCart} composable
  */
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
@@ -68,8 +61,8 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   applyCoupon(params: UseCartApplyCouponParams): Promise<void>;
   /** Removes applied coupon from the cart */
   removeCoupon(params: ComposableFunctionArgs<{}>): Promise<void>;
-  /** Checks wheter a `product` is in the `cart` */
-  isInCart(params: UseCartIsInCartParams<PRODUCT>): boolean;
+  /** Checks whether a `product` is in the `cart` */
+  isInCart(PRODUCT): boolean;
   /** Sets the contents of the cart */
   setCart(newCart: CART): void;
   /** Returns the Items in the Cart as a `computed` property */

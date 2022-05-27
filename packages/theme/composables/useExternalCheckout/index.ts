@@ -26,10 +26,6 @@ export function useExternalCheckout(): UseExternalCheckoutInterface {
 
       if (externalCheckout.enable) {
         if (userToken && cartToken) {
-          // @TODO: Implements Multiple Store
-          /* if (Object.keys(externalCheckout.stores).length) {
-
-          } */
           window.location.replace(`${externalCheckout.cmsUrl}${externalCheckout.syncUrlPath}/token/${userToken}/cart/${cartToken}`);
           return '';
         }

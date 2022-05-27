@@ -65,8 +65,7 @@ PRODUCT
    *
    * @return boolean
    */
-  // TODO rework parameter {product} => product, wrapping obj is not necessary
-  const isInCart = ({ product }: { product: PRODUCT }): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
+  const isInCart = (product: PRODUCT): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
 
   const load = async ({ customQuery = {}, realCart = false } = { customQuery: { cart: 'cart' } }): Promise<void> => {
     Logger.debug('useCart.load');
@@ -130,9 +129,9 @@ PRODUCT
       loading.value = true;
 
       if (!apiState.getCartId()) {
-        // TODO if cart is not loaded throw error instead to decouple this method
         await load({ realCart: true });
       }
+
       const updatedCart = await addItemCommand.execute(context, {
         currentCart: cart.value,
         product,

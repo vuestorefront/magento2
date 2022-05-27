@@ -324,10 +324,10 @@ extend('password', {
 
 type Form = {
   username?: string,
-  email?: string,
-  firstName?: string,
-  lastName?: string,
-  password?: string,
+  email: string,
+  firstname: string,
+  lastname: string,
+  password: string,
   recaptchaInstance?: string,
 };
 
@@ -344,9 +344,15 @@ export default defineComponent({
     SfBar,
   },
   setup() {
+    const emptyFormData = {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+    };
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const isSubscribed = ref(false);
-    const form = ref<Form>({});
+    const form = ref<Form>(emptyFormData);
     const isLogin = ref(true);
     const createAccount = ref(false);
     const rememberMe = ref(false);
@@ -389,7 +395,7 @@ export default defineComponent({
 
     watch(isLoginModalOpen, () => {
       if (isLoginModalOpen) {
-        form.value = {};
+        form.value = emptyFormData;
         resetErrorValues();
       }
     });
@@ -412,7 +418,7 @@ export default defineComponent({
       toggleLoginModal();
     };
 
-    const handleForm = (fn: typeof register) => async () => {
+    const handleForm = (fn: typeof register | typeof login) => async () => {
       resetErrorValues();
 
       if (isRecaptchaEnabled.value) {

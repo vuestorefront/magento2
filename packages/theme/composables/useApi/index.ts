@@ -51,8 +51,6 @@ export interface UseApiInterface {
    */
   query: Request;
 
-  // TODO: Add code sample
-
   /**
    * Executes received GraphQL Mutation with optional variables and headers and
    * returns the result.

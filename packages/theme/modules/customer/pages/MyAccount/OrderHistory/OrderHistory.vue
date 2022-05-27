@@ -111,11 +111,11 @@ import {
   ref, computed, defineComponent, useRoute, useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
-import { AgnosticOrderStatus } from '~/composables/types';
 import orderGetters from '~/modules/checkout/getters/orderGetters';
 import { useUiHelpers } from '~/composables';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
 import type { CustomerOrders, CustomerOrder } from '~/modules/GraphQL/types';
+import { OrderStatusEnum } from '~/modules/customer/enums/OrderStatusEnum';
 
 export default defineComponent({
   name: 'OrderHistory',
@@ -158,9 +158,9 @@ export default defineComponent({
 
     const getStatusTextClass = (order: CustomerOrder) => {
       switch (order.status) {
-        case AgnosticOrderStatus.Open:
+        case OrderStatusEnum.OPEN:
           return 'text-warning';
-        case AgnosticOrderStatus.Complete:
+        case OrderStatusEnum.COMPLETE:
           return 'text-success';
         default:
           return '';

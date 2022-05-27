@@ -59,8 +59,6 @@ export const getTotalItems = (wishlist: Wishlist | Wishlist[]): number => (Array
   ? wishlist[0]?.items_count
   : (wishlist?.items_count || 0));
 
-export const getFormattedPrice = (_price: number): string => '';
-
 const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
@@ -126,7 +124,6 @@ const wishlistGetters: WishlistGetters = {
   getItemAttributes,
   getItemSku,
   getTotalItems,
-  getFormattedPrice,
   getPagination,
   getProducts,
 };

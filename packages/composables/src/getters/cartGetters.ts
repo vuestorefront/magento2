@@ -55,7 +55,6 @@ export const getItemPrice = (product: CartItem): AgnosticPrice => {
     special: specialPrice || 0,
     // @ts-ignore
     credit: Math.round(specialPrice / 10),
-    // @TODO: Who set this installment value?
     installment: Math.round((specialPrice * 1.1046) / 10),
     discountPercentage: 100 - Math.round((specialPrice / regularPrice) * 100),
     total: product.prices?.row_total?.value,

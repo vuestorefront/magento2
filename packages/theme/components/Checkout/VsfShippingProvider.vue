@@ -114,10 +114,7 @@ export default defineComponent({
     const isShippingMethodStepCompleted = computed(
       () => state.value?.method_code && !isLoading.value,
     );
-    /**
-     * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
-     * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
-     */
+
     const selectShippingMethod = async (method: AvailableShippingMethod) => {
       const shippingData = {
         carrier_code: method.carrier_code,

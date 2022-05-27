@@ -39,7 +39,7 @@
                   :nuxt-img-config="{
                     fit: 'cover',
                   }"
-                  :is-added-to-cart="isInCart({ product: product.product })"
+                  :is-added-to-cart="isInCart(product.product)"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(

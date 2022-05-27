@@ -56,8 +56,6 @@ export const getItemPrice = (product: CartItemInterface): AgnosticPrice => {
     special: specialPrice || 0,
     // @ts-ignore
     credit: Math.round(specialPrice / 10),
-    // @TODO: Who set this installment value?
-    installment: Math.round((specialPrice * 1.1046) / 10),
     discountPercentage: 100 - Math.round((specialPrice / regularPrice) * 100),
     total: product.prices?.row_total?.value,
   };
@@ -140,9 +138,6 @@ export const getTotalItems = (cart: Cart): number => {
 
 export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | null => product?.configured_variant || null;
 
-// eslint-disable-next-line import/no-named-as-default-member
-export const getFormattedPrice = (price: number) => getFormattedPrice(price);
-
 export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
   name: c.code,
@@ -189,7 +184,6 @@ const cartGetters: CartGetters = {
   getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
-  getFormattedPrice,
   getItemAttributes,
   getItemImage,
   getItemName,

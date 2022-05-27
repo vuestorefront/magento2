@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: create logic with isActive prop for BottomNavigationItems -->
   <div class="smartphone-only">
     <SfBottomNavigation class="navigation-bottom">
       <SfBottomNavigationItem

@@ -17,7 +17,6 @@ export interface Product extends ProductInterface, ConfigurableProduct, Omit<Bun
  */
 export type WithTypename<TProduct> = TProduct & { __typename: string };
 
-// TODO I am sure that we do not need both interfaces, both are used in the same queries types and both share the same fields
 export declare type GetProductSearchParams = {
   search?: string;
   filter?: ProductAttributeFilterInput;
@@ -26,12 +25,3 @@ export declare type GetProductSearchParams = {
   sort?: ProductAttributeSortInput;
   configurations?: string[];
 };
-
-export interface ProductsSearchParams {
-  perPage?: number;
-  page?: number;
-  sort?: any;
-  term?: any;
-  filters?: any;
-  [x: string]: any;
-}

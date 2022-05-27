@@ -110,7 +110,6 @@ export function useWishlist(): UseWishlistInterface {
   const loadItemsCount = async (): Promise<number | null> => {
     Logger.debug('useWishlist/wishlistItemsCount');
     const apiState = app.context.$vsf.$magento.config.state;
-
     let itemsCount : number | null = null;
 
     try {
@@ -154,14 +153,11 @@ export function useWishlist(): UseWishlistInterface {
 
       const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
 
-      // todo: legacy code, should be double-checked and probably removed
       if (itemOnWishlist) {
-        return await removeItem({
-          product,
-        });
+        return;
       }
 
-      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after useCart composable will be refactored
+      if (!app.$vsf.$magento.config.state.getCustomerToken()) {
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 
@@ -226,7 +222,6 @@ export function useWishlist(): UseWishlistInterface {
           break;
         }
         default:
-          // todo implement other options
           // @ts-ignore
           // eslint-disable-next-line no-underscore-dangle
           Logger.error(`Product Type ${product.__typename} not supported in add to wishlist yet`);
@@ -298,6 +293,10 @@ export function useWishlist(): UseWishlistInterface {
     }
   };
 
+  const addOrRemoveItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
+    await (isInWishlist({ product }) ? removeItem({ product, customQuery }) : addItem({ product, customQuery }));
+  };
+
   return {
     loadItemsCount,
     isInWishlist,
@@ -307,6 +306,7 @@ export function useWishlist(): UseWishlistInterface {
     clear,
     setWishlist,
     afterAddingWishlistItemToCart,
+    addOrRemoveItem,
     loading: readonly(loading),
     error: readonly(error),
   };

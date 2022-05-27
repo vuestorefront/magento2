@@ -202,7 +202,6 @@ export const getFormattedPrice = (price: number) => {
     return null;
   }
 
-  // TODO get correct data from api
   const locale = 'en';
   const country = 'en';
   const currency = 'USD';

@@ -1,6 +1,8 @@
 import type { Ref, ComputedRef } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
-import type { Customer, ChangeCustomerPasswordMutation } from '~/modules/GraphQL/types';
+import type {
+  Customer, ChangeCustomerPasswordMutation, CustomerCreateInput, GenerateCustomerTokenMutationVariables,
+} from '~/modules/GraphQL/types';
 
 /**
  * Errors that occured in the `useUser` composable
@@ -25,14 +27,14 @@ export type UseUserUpdateUserParams = ComposableFunctionArgs<{
  * Parameters accepted by the `register` method in the `useUser` composable
  */
 export type UseUserRegisterParams = ComposableFunctionArgs<{
-  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data, M2-664
+  user: CustomerCreateInput;
 }>;
 
 /**
  * Parameters accepted by the `login` method in the `useUser` composable
  */
 export type UseUserLoginParams = ComposableFunctionArgs<{
-  user: any; // TODO: Neither `Customer`, nor `CustomerCreateInput` match expected data, M2-664
+  user: GenerateCustomerTokenMutationVariables & { recaptchaToken?: string }
 }>;
 
 /**

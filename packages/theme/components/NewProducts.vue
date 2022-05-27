@@ -45,7 +45,7 @@
           :score-rating="productGetters.getAverageRating(product)"
           :reviews-count="productGetters.getTotalReviews(product)"
           :is-in-wishlist="isInWishlist({ product })"
-          :is-added-to-cart="isInCart({ product })"
+          :is-added-to-cart="isInCart(product)"
           :wishlist-icon="isAuthenticated ? 'heart' : ''"
           :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
           @click:wishlist="addItemToWishlist(product)"
@@ -98,7 +98,7 @@ export default defineComponent({
   setup() {
     const { isAuthenticated } = useUser();
     const { getProductList, loading } = useProduct();
-    const { isInWishlist, addItem, removeItem } = useWishlist();
+    const { isInWishlist, addOrRemoveItem } = useWishlist();
     const { addItemToCart, isInCart } = useAddToCart();
     const products = ref([]);
 
@@ -108,9 +108,7 @@ export default defineComponent({
     })));
 
     const addItemToWishlist = async (product) => {
-      await (isInWishlist({ product })
-        ? removeItem({ product })
-        : addItem({ product }));
+      await addOrRemoveItem({ product });
     };
 
     const { getMagentoImage, imageSizes } = useImage();

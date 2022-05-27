@@ -235,7 +235,7 @@ export default defineComponent({
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const { addOrRemoveItem, isInWishlist } = useWishlist();
     const { app } = useContext();
 
     const productShortDescription = computed(
@@ -282,7 +282,7 @@ export default defineComponent({
     };
     return {
       addItem,
-      addItemToWishlist,
+      addItemToWishlist: addOrRemoveItem,
       canAddToCart,
       configurableOptions,
       updateProductConfiguration,
