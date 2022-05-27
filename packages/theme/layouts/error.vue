@@ -16,7 +16,9 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
+import type { NuxtError } from '@nuxt/types';
 
 export default defineComponent({
   components: {
@@ -24,7 +26,7 @@ export default defineComponent({
   },
   props: {
     error: {
-      type: Object,
+      type: Object as PropType<NuxtError>,
       required: true,
     },
   },
