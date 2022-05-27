@@ -12,6 +12,7 @@
 import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 import { useContent } from '~/composables';
+import type { CmsBlock } from '~/modules/GraphQL/types';
 import ContentBlock from './ContentBlock.vue';
 
 export default defineComponent({
@@ -29,7 +30,7 @@ export default defineComponent({
     const {
       loadBlocks,
     } = useContent();
-    const blocks = ref([]);
+    const blocks = ref<CmsBlock[]>([]);
 
     useFetch(async () => {
       if (props.identifiers) {
