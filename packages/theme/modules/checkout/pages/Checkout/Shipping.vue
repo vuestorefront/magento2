@@ -278,12 +278,12 @@ import {
   useCountrySearch,
 } from '~/composables';
 import type {
-  Country, AvailableShippingMethod, ShippingCartAddress, CustomerAddress, Customer
+  Country, AvailableShippingMethod, ShippingCartAddress, CustomerAddress, Customer,
 } from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
-import { addressFromApiToForm } from '~/helpers/checkout/address';
+import { addressFromApiToForm, CheckoutAddressForm, getInitialCheckoutAddressForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
@@ -336,7 +336,7 @@ export default defineComponent({
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
-    const shippingDetails = ref(addressFromApiToForm(address.value) || null);
+    const shippingDetails = ref<CheckoutAddressForm>(address.value ? addressFromApiToForm(address.value) : getInitialCheckoutAddressForm());
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
@@ -348,7 +348,6 @@ export default defineComponent({
     const addresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
     const canMoveForward = computed(() => !isShippingLoading.value && shippingDetails.value && Object.keys(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       shippingDetails.value,
     ).length > 0);
 
@@ -358,7 +357,7 @@ export default defineComponent({
       }
       return addresses.value.length > 0;
     });
-    // @ts-ignore
+
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
     const regionInformation = computed(() => addressGetter.regionList(country.value));
@@ -391,7 +390,7 @@ export default defineComponent({
 
     const handleAddNewAddressBtnClick = () => {
       currentAddressId.value = NOT_SELECTED_ADDRESS;
-      shippingDetails.value = {};
+      shippingDetails.value = getInitialCheckoutAddressForm();
       canAddNewAddress.value = true;
       isShippingDetailsStepCompleted.value = false;
     };
@@ -428,7 +427,7 @@ export default defineComponent({
     };
 
     watch(address, (addr) => {
-      shippingDetails.value = addressFromApiToForm(addr || {});
+      shippingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
     });
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
@@ -457,9 +456,7 @@ export default defineComponent({
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyShippingDetails = !shippingDetails.value
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();

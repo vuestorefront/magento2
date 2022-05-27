@@ -298,12 +298,16 @@ import { useUserAddress } from '~/modules/customer/composables/useUserAddress';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import {
   addressFromApiToForm,
+  CheckoutAddressForm,
   formatAddressReturnToData,
+  getInitialCheckoutAddressForm,
 } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-import type { ShippingCartAddress, BillingCartAddress, Country, Customer } from '~/modules/GraphQL/types';
+import type {
+  ShippingCartAddress, BillingCartAddress, Country, Customer, CustomerAddress,
+} from '~/modules/GraphQL/types';
 
 const NOT_SELECTED_ADDRESS = '';
 
@@ -358,16 +362,20 @@ export default defineComponent({
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
-    let oldBilling = null;
+    let oldBilling : CheckoutAddressForm | null = null;
     const sameAsShipping = ref(false);
-    const billingDetails = ref(addressFromApiToForm(billingAddress.value));
+    const billingDetails = ref<CheckoutAddressForm>(
+      billingAddress.value
+        ? addressFromApiToForm(billingAddress.value)
+        : getInitialCheckoutAddressForm(),
+    );
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
 
     const isBillingDetailsStepCompleted = ref(false);
-    const addresses = computed(() => userBillingGetters.getAddresses(userBilling.value) ?? []);
+    const addresses = computed(() => (userBilling.value ? userBillingGetters.getAddresses(userBilling.value) : []));
 
     const canMoveForward = computed(() => !loading.value && billingDetails.value && Object.keys(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -435,14 +443,14 @@ export default defineComponent({
 
     const handleAddNewAddressBtnClick = () => {
       currentAddressId.value = NOT_SELECTED_ADDRESS;
-      billingDetails.value = {};
+      billingDetails.value = getInitialCheckoutAddressForm();
       canAddNewAddress.value = true;
       isBillingDetailsStepCompleted.value = false;
     };
 
-    const handleSetCurrentAddress = (addr) => {
+    const handleSetCurrentAddress = (addr: CustomerAddress) => {
       billingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = addr?.id;
+      currentAddressId.value = String(addr?.id);
       canAddNewAddress.value = false;
       isBillingDetailsStepCompleted.value = false;
     };
@@ -472,7 +480,7 @@ export default defineComponent({
     };
 
     watch(billingAddress, (addr) => {
-      billingDetails.value = addressFromApiToForm(addr || {});
+      billingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
     });
 
     onMounted(async () => {
@@ -492,9 +500,7 @@ export default defineComponent({
       if (!(userBilling.value as Customer)?.addresses && isAuthenticated.value) {
         userBilling.value = await loadUserBilling();
       }
-      const billingAddresses = userBillingGetters.getAddresses(
-        userBilling.value,
-      );
+      const billingAddresses = userBilling.value ? userBillingGetters.getAddresses(userBilling.value) : [];
 
       if (!billingAddresses || billingAddresses.length === 0) {
         return;

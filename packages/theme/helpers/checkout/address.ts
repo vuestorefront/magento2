@@ -1,6 +1,6 @@
-import type { CustomerAddress } from '~/modules/GraphQL/types';
+import type { CustomerAddress, CartAddressInterface } from '~/modules/GraphQL/types';
 
-export const formatAddressReturnToData = (address) => ({
+export const formatAddressReturnToData = (address: CartAddressInterface) => ({
   firstname: address.firstname,
   lastname: address.lastname,
   street: address.street[0],
@@ -12,14 +12,20 @@ export const formatAddressReturnToData = (address) => ({
   telephone: address.telephone,
 });
 
-export const addressFromApiToForm = (address: CustomerAddress) : CheckoutAddressForm => ({
+/**
+ * Converts addresses that were:
+ * * added to the logged in user's account
+ * * saved in the cart (eg. completed the shipping address step and saved in the Checkout page, then went to some other page)
+ * into the form data format used by Billing and Shipping forms in the Checkout page
+ */
+export const addressFromApiToForm = (address: CustomerAddress | CartAddressInterface) : CheckoutAddressForm => ({
   firstname: address.firstname,
   lastname: address.lastname,
   street: address.street?.[0],
   apartment: address.street?.[1],
   city: address.city,
-  region: address?.region.region_code,
-  country_code: address?.country_code,
+  region: (address as CustomerAddress)?.region?.region_code ?? (address as CartAddressInterface).region.code,
+  country_code: (address as CustomerAddress)?.country_code ?? (address as CartAddressInterface).region.code,
   postcode: address.postcode,
   telephone: address.telephone,
 });
