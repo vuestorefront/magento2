@@ -2,7 +2,7 @@ import { Context as NuxtContext } from '@nuxt/types';
 import { Inject } from '@nuxt/types/app';
 import axios from 'axios';
 import { createExtendIntegrationInCtx, createAddIntegrationToCtx } from './context';
-import { getIntegrationConfig, createProxiedApi } from './_proxyUtils';
+import { getIntegrationConfig, createProxiedApi, ApiClientMethod } from './_proxyUtils';
 
 interface IntegrationContext {
   integration: {
@@ -30,7 +30,7 @@ const setCookieValues = (cookieValues: Record<string, string>, cookieString = ''
 };
 
 export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtCtx: NuxtContext, inject: Inject) => {
-  const configure = (tag: string, configuration) => {
+  const configure = (tag: string, configuration: { api: Record<string, ApiClientMethod> }) => {
     const injectInContext = createAddIntegrationToCtx({ tag, nuxtCtx, inject });
     const config = getIntegrationConfig(nuxtCtx, configuration);
     const { middlewareUrl, ssrMiddlewareUrl } = (nuxtCtx as any).$config;
@@ -51,7 +51,7 @@ export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtC
     injectInContext({ api, client, config });
   };
 
-  const extend = (tag, integrationProperties) => {
+  const extend = (tag: string, integrationProperties: Record<string, unknown>) => {
     createExtendIntegrationInCtx({ tag, nuxtCtx, inject })(integrationProperties);
   };
 

@@ -7,7 +7,6 @@ import {
   ApplyCouponToCartMutationVariables,
 } from '../../types/GraphQL';
 import applyCouponToCartMutation from './applyCouponToCart';
-// @TODO : Add Mutation FROM CodeGEN
 
 /**
  * Applies a coupon to a given card

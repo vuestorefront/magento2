@@ -55,7 +55,7 @@ export type UseUserAddressSetDefaultAddressParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * The refs and methods returned by the {@link useUserAddress|useUserAddress()} composable
+ * Data and methods returned from the {@link useUserAddress|useUserAddress()} composable
  */
 export interface UseUserAddressInterface {
   /**

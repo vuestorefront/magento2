@@ -158,7 +158,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading,
   SfTable,
@@ -185,6 +185,7 @@ import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
+import type { BundleCartItem, ConfigurableCartItem } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -204,12 +205,12 @@ export default defineComponent({
     const order = ref(null);
     const { cart, load, setCart } = useCart();
     const { make, loading } = useMakeOrder();
-    const { app, $vsf: { $magento } } = useContext();
+    const { app } = useContext();
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
-    const getAttributes = (product) => product.configurable_options || [];
-    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
+    const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
+    const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid('billing');
@@ -223,7 +224,7 @@ export default defineComponent({
     const processOrder = async () => {
       order.value = await make();
       setCart(null);
-      $magento.config.state.setCartId();
+      app.$vsf.$magento.config.state.removeCartId();
       await load();
       await removeItem('checkout');
       const thankYouRoute = app.localeRoute({

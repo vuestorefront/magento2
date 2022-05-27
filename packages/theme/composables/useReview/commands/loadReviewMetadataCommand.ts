@@ -1,7 +1,6 @@
 import { Logger } from '~/helpers/logger';
 import { VsfContext } from '~/composables/context';
 
-
 export const loadReviewMetadataCommand = {
   execute: async (context: VsfContext) => {
     Logger.debug('[Magento] load review metadata');

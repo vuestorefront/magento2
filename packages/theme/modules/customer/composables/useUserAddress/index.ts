@@ -17,7 +17,7 @@ import type {
 } from './useUserAddress';
 
 /**
- * The `useUserAddress()` composable allows loading and manipulating addresses of the current user.
+ * Allows loading and manipulating addresses of the current user.
  *
  * See the {@link UseUserAddressInterface} for a list of methods and values available in this composable.
  */

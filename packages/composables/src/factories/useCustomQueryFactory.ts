@@ -14,6 +14,10 @@ import { computed } from '@vue/composition-api';
 import { FetchPolicy } from '../types';
 import { UseCustomQuery } from '../types/composables';
 
+/**
+ * @deprecated Will be removed in 1.1.0 release
+ * @use @vue-storefront/magento-theme/composables/useApi instead
+ */
 export interface UseCustomQueryFactoryFactoryParams<QUERY_VARIABLES, QUERY_RETURN, API extends PlatformApi = any> extends FactoryParams<API> {
   query: (context: Context, {
     variables,

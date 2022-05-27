@@ -9,9 +9,9 @@ import { UseGetShippingMethodsInterface } from '~/modules/checkout/composables/u
 import { AvailableShippingMethod } from '~/modules/GraphQL/types';
 
 /**
- * The `useGetShippingMethods` composable returns the shipping methods for a given cart
+ * Allows fetching shipping methods available for a given cart.
  *
- * Se the {@link UseGetShippingMethodsInterface} page for more information
+ * See the {@link UseGetShippingMethodsInterface} for a list of methods and values available in this composable.
  */
 export function useGetShippingMethods(): UseGetShippingMethodsInterface<AvailableShippingMethod> {
   const loading = ref(false);

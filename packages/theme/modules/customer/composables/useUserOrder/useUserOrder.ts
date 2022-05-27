@@ -19,7 +19,7 @@ export interface UseUserOrderErrors {
 export type UseUserOrderSearchParams = ComposableFunctionArgs<CustomerOrdersQueryVariables>;
 
 /**
- * Represents the data returned from and functions available in the `useUserOrder()` composable
+ * Data and methods returned from the {@link useUserOrder|useUserOrder()} composable
  */
 export interface UseUserOrderInterface {
   /**

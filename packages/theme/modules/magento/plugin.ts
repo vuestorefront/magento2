@@ -7,7 +7,7 @@ import { defaultConfig } from '~/modules/magento/defaultConfig';
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
 export default integrationPlugin((plugin) => {
-  const getCookieName = (property: string) : string => moduleOptions.cookies?.[property] ?? defaultConfig.cookies[property];
+  const getCookieName = (property: keyof typeof defaultConfig['cookies']) : string => moduleOptions.cookies?.[property] ?? defaultConfig.cookies[property];
 
   const cookieNames = {
     cart: getCookieName('cartCookieName'),

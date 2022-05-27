@@ -24,7 +24,7 @@ export type ImageSizes = {
 };
 
 /**
- * The refs and methods returned by the {@link useImage|useImage()} composable
+ * Data and methods returned from the {@link useImage|useImage()} composable
  */
 export interface UseImageInterface {
   /**

@@ -12,7 +12,7 @@ export interface UseUrlResolverErrors {
 }
 
 /**
- * The refs and methods returned by the {@link useUrlResolver|useUrlResolver()} composable
+ * Data and methods returned from the {@link useUrlResolver|useUrlResolver()} composable
  */
 export interface UseUrlResolverInterface {
   /**

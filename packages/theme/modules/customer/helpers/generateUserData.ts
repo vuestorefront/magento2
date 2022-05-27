@@ -1,6 +1,6 @@
 import type { CustomerCreateInput } from '~/modules/GraphQL/types';
 
-export const generateUserData = (userData): CustomerCreateInput => {
+export const generateUserData = (userData: any): CustomerCreateInput => {
   const baseData = {
     email: userData.email,
     firstname: userData.firstName || userData.firstname,

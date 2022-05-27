@@ -18,7 +18,7 @@ export interface UseContentErrors {
 }
 
 /**
- * The refs and methods returned by the {@link useContent|useContent()} composable
+ * Data and methods returned from the {@link useContent|useContent()} composable
  */
 export interface UseContentInterface {
   /**

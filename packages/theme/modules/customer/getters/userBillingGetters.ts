@@ -1,25 +1,20 @@
-import { UserBillingGetters as BaseGetters } from '~/modules/customer/getters/types';
+import { Customer, CustomerAddress } from '~/modules/GraphQL/types';
+import { UserBillingGetters } from '~/modules/customer/getters/types';
+import { TransformedCustomerAddress } from '../composables/types';
 
-interface UserBillingGetters extends BaseGetters<any, any>{
-  getNeighborhood: (address: any) => string
-  getAddressExtra: (address: any) => string
-}
-
-const userBillingGetters: UserBillingGetters = {
+const userBillingGetters: UserBillingGetters<Customer, CustomerAddress, TransformedCustomerAddress> = {
   getAddresses: (billing, criteria?: Record<string, any>) => {
     if (!criteria || Object.keys(criteria).length === 0) {
       return billing.addresses;
     }
 
     const entries = Object.entries(criteria);
-    return billing.addresses.filter((address) => entries.every(([key, value]) => address[key] === value));
+    return billing.addresses.filter((address) => entries.every(([key, value]: [keyof CustomerAddress, unknown]) => address[key] === value));
   },
-  getDefault: (billing) => billing.addresses.find(({ isDefault }) => isDefault),
+  getDefault: (billing) => billing.addresses.find(({ default_billing }) => default_billing),
   getTotal: (billing) => billing.addresses.length,
-
   getPostCode: (address) => address?.postcode || '',
   getStreetName: (address) => (Array.isArray(address?.street) ? address?.street[0] : ''),
-  getStreetNumber: (address) => address?.streetNumber || '',
   getCity: (address) => address?.city || '',
   getFirstName: (address) => address?.firstname || '',
   getLastName: (address) => address?.lastname || '',
@@ -30,7 +25,6 @@ const userBillingGetters: UserBillingGetters = {
   getCompanyName: (address) => address?.company || '',
   getNeighborhood: (address) => (Array.isArray(address?.street) ? address?.street[2] : address?.neighborhood),
   getAddressExtra: (address) => (Array.isArray(address?.street) ? address?.street[3] : address?.extra),
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTaxNumber: (address) => address.vat_id || '',
   getId: (address) => address?.id || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : ''),

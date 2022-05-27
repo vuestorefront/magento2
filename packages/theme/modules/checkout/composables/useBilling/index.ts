@@ -12,7 +12,7 @@ import type {
 } from './useBilling';
 
 /**
- * The `useBilling` composable allows loading and saving billing information
+ * Allows loading and saving billing information
  * of the current cart.
  *
  * See the {@link UseBillingInterface} for a list of methods and values available in this composable.

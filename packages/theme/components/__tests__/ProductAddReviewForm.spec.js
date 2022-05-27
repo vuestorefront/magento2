@@ -10,7 +10,7 @@ import {
 
 import { useReview } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
-import ProductAddReviewForm from '../ProductAddReviewForm';
+import ProductAddReviewForm from '../../modules/catalog/product/components/ProductAddReviewForm';
 
 jest.mock('~/composables', () => {
   const originalModule = jest.requireActual('~/composables');

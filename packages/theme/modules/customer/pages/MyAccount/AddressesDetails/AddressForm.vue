@@ -19,6 +19,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -34,6 +35,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
           />
         </ValidationProvider>
       </div>
@@ -50,6 +52,7 @@
           required
           :valid="!errors[0]"
           :error-message="$t(errors[0])"
+          :disabled="loading"
         />
       </ValidationProvider>
       <SfInput
@@ -72,6 +75,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -85,10 +89,10 @@
             v-model="form.region.region"
             v-e2e="'shipping-state'"
             :label="$t('State/Province')"
-            :disabled="!form.country_code"
             name="state"
             :valid="!!form.country_code"
             :error-message="!form.country_code ? $t('Please select a country first') : ''"
+            :disabled="!form.country_code || loading"
           />
           <SfSelect
             v-else
@@ -99,6 +103,7 @@
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
           >
             <SfSelectOption
               v-for="regionOption in regionInformation"
@@ -124,6 +129,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -140,6 +146,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
+            :disabled="loading"
             @input="updateCountry({ id: $event })"
           >
             <SfSelectOption
@@ -165,6 +172,7 @@
           required
           :valid="!errors[0]"
           :error-message="$t(errors[0])"
+          :disabled="loading"
         />
       </ValidationProvider>
       <SfCheckbox
@@ -172,16 +180,19 @@
         name="isDefaultShipping"
         :label="$t('Set as default shipping')"
         class="form__checkbox-isDefaultShipping"
+        :disabled="loading"
       />
       <SfCheckbox
         v-model="form.default_billing"
         name="isDefaultBilling"
         :label="$t('Set as default billing')"
         class="form__checkbox-isDefaultBilling"
+        :disabled="loading"
       />
       <SfButton
         class="form__button"
         type="submit"
+        :disabled="loading"
       >
         <slot name="submit-button-content" />
       </SfButton>
@@ -200,17 +211,17 @@ import { required, min, oneOf } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import {
   ref,
-  reactive,
+  watch,
   computed,
   defineComponent,
   onBeforeMount,
 } from '@nuxtjs/composition-api';
 import omitDeep from 'omit-deep';
 import { PropType } from 'vue';
-import { CustomerAddress } from '~/modules/GraphQL/types';
-import { useCountrySearch } from '~/composables';
+import { CountryCodeEnum, useCountrySearch } from '~/composables';
 import type { Countries, Country, UseCountrySearchParams } from '~/composables';
 import addressGetter from '~/modules/customer/getters/addressGetter';
+import type { TransformedCustomerAddress } from '~/modules/customer/composables/types';
 
 extend('required', {
   ...required,
@@ -241,11 +252,11 @@ export default defineComponent({
 
   props: {
     address: {
-      type: Object as PropType<CustomerAddress>,
+      type: Object as PropType<TransformedCustomerAddress>,
       default: () => ({
         apartment: '',
         city: '',
-        country_code: '',
+        country_code: '' as CountryCodeEnum,
         firstname: '',
         lastname: '',
         postcode: '',
@@ -258,6 +269,10 @@ export default defineComponent({
         default_shipping: false,
         default_billing: false,
       }),
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -274,32 +289,36 @@ export default defineComponent({
 
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
-    const form = reactive({
-      apartment: props.address.apartment,
-      city: props.address.city,
-      country_code: props.address.country_code,
-      firstname: props.address.firstname,
-      lastname: props.address.lastname,
-      postcode: props.address.postcode,
-      region: {
-        region_code: '',
-        region_id: null,
-        ...props.address.region,
-      },
-      street: props.address.street,
-      telephone: props.address.telephone,
-      default_shipping: props.address.default_shipping || false,
-      default_billing: props.address.default_billing || false,
-    });
+    const form = ref<TransformedCustomerAddress | null>(null);
+
+    watch(() => props.address, () => {
+      form.value = {
+        apartment: props.address.apartment,
+        city: props.address.city,
+        country_code: props.address.country_code,
+        firstname: props.address.firstname,
+        lastname: props.address.lastname,
+        postcode: props.address.postcode,
+        region: {
+          region_code: '',
+          region_id: null,
+          ...props.address.region,
+        },
+        street: props.address.street,
+        telephone: props.address.telephone,
+        default_shipping: props.address.default_shipping || false,
+        default_billing: props.address.default_billing || false,
+      } as TransformedCustomerAddress;
+    }, { immediate: true });
 
     const submitForm = () => {
-      const regionId = regionInformation.value.find((r) => r.abbreviation === form.region.region_code)?.id;
+      const regionId = regionInformation.value.find((r) => r.abbreviation === form.value.region.region_code)?.id;
       if (regionId) {
-        form.region.region_id = regionId;
+        form.value.region.region_id = regionId;
       }
 
       emit('submit', {
-        form: omitDeep(form, ['__typename']),
+        form: omitDeep(form.value, ['__typename']),
         // TODO: Handle Error
         onError: () => {},
       });

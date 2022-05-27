@@ -37,15 +37,17 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { toRef, computed, defineComponent } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
 import userAddressesGetters from '~/modules/customer/getters/userAddressesGetters';
+import type { TransformedCustomerAddress } from '~/modules/customer/composables/types';
 
 export default defineComponent({
   name: 'UserAddressDetails',
   props: {
     address: {
-      type: Object,
+      type: Object as PropType<TransformedCustomerAddress>,
       required: true,
     },
   },

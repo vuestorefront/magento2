@@ -5,9 +5,11 @@
       :key="key"
       class="selected-filter"
     >
-      <span class="selected-filter__label">
-        {{ filter.label }}
-      </span>
+      <HTMLContent
+        class="selected-filter__label"
+        tag="span"
+        :content="getLabel(filter)"
+      />
       <button
         type="button"
         class="selected-filter__remove"
@@ -25,19 +27,39 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, PropType, useContext } from '@nuxtjs/composition-api';
 import { SfBadge, SfIcon } from '@storefront-ui/vue';
+import HTMLContent from '~/components/HTMLContent.vue';
+import type { RemovableFilterInterface } from '~/modules/catalog/category/components/filters/useFilters';
+import { FilterTypeEnum } from '~/modules/catalog/category/config/config';
 
 export default defineComponent({
   components: {
+    HTMLContent,
     SfBadge,
     SfIcon,
   },
   props: {
     removableFilters: {
-      type: Array,
+      type: Array as PropType<RemovableFilterInterface[]>,
       default: () => [],
     },
+  },
+  setup() {
+    const { app: { i18n } } = useContext();
+
+    const getLabel = (filter: RemovableFilterInterface) => {
+      if (filter.type === FilterTypeEnum.YES_NO) {
+        const yesNo = filter.label === '1' ? i18n.t('Yes') : i18n.t('No');
+        return `${filter.name}: ${yesNo}`;
+      }
+
+      return filter.label;
+    };
+
+    return {
+      getLabel,
+    };
   },
 });
 </script>

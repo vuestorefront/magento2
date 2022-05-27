@@ -31,7 +31,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { SfSteps } from '@storefront-ui/vue';
 import {
   computed,
@@ -83,7 +83,7 @@ export default defineComponent({
     const currentStepIndex = computed(() => STEPS.value.findIndex((step) => step.url === currentStep.value));
     const isThankYou = computed(() => currentStep.value === 'thank-you');
 
-    const handleStepClick = async (stepIndex) => {
+    const handleStepClick = async (stepIndex: number) => {
       if (stepIndex <= currentStepIndex.value) {
         const { url } = STEPS.value[stepIndex];
         await router.push(`${app.localePath(`/checkout/${url}`)}`);
@@ -95,8 +95,6 @@ export default defineComponent({
       if (products.value.length === 0 && currentStep.value !== 'thank-you') {
         await router.push(app.localePath('/'));
       }
-
-      return null;
     });
 
     return {

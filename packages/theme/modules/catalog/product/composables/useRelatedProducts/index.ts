@@ -9,8 +9,10 @@ import type {
 } from './useRelatedProducts';
 
 /**
- * The `useRelatedProducts()` composable allows searching for related products
+ * Allows searching for related products
  * with params for sort, filter and pagination.
+ *
+ * See the {@link UseRelatedProductsInterface} for a list of methods and values available in this composable.
  */
 export function useRelatedProducts(): UseRelatedProductsInterface {
   const { app } = useContext();

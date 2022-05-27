@@ -114,17 +114,13 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
         return bundleProductData?.addProductsToWishlist?.wishlist ?? {};
       default:
-        // todo implement other options
         // @ts-ignore
         // eslint-disable-next-line no-underscore-dangle
         throw new Error(`Product Type ${product.__typename} not supported in add to wishlist yet`);
     }
   },
   removeItem: async (context, params) => {
-    const {
-      product,
-      currentWishlist,
-    } = params;
+    const { currentWishlist } = params;
     Logger.debug('[Magento Storefront]: useWishlist.removeItem params->', params);
     const itemOnWishlist = findItemOnWishlist(currentWishlist, params.product);
 
@@ -137,8 +133,8 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
     return data?.removeProductsFromWishlist?.wishlist ?? {};
   },
-  clear: async ({ currentWishlist }) => ({}),
-  isInWishlist: (context, params) => {
+  clear: () => (Promise.resolve()),
+  isInWishlist: (_context, params) => {
     const {
       currentWishlist,
       product,

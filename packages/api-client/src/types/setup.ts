@@ -96,6 +96,8 @@ export interface Config<T = any> extends ClientConfig {
   magentoApiEndpoint: string;
   overrides: MagentoApiMethods;
   recaptcha: RecaptchaConfig;
+  imageProvider: string;
+  magentoBaseUrl: string;
 }
 
 export interface ClientInstance extends ApolloClient<any> {

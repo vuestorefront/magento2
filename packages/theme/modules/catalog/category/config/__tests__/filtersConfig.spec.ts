@@ -1,8 +1,8 @@
-import {
-  getFilterConfig, getDisabledFilters,
-} from '../FiltersConfig';
 import config, { FilterTypeEnum } from '~/modules/catalog/category/config/config';
 import RendererTypesEnum from '~/modules/catalog/category/components/filters/renderer/RendererTypesEnum';
+import {
+  getFilterConfig, getDisabledFilters, isFilterEnabled,
+} from '../FiltersConfig';
 
 jest.mock('~/modules/catalog/category/config/config');
 
@@ -35,11 +35,12 @@ const defaultFiltersConfig = [
 describe('FiltersConfig', () => {
   it('getFilterConfig with a configured attribute', () => {
     (config as jest.Mock).mockReturnValueOnce(defaultFiltersConfig);
-    const result = getFilterConfig('price');
+    const result = getFilterConfig('sale');
     const expected = {
-      attrCode: 'price',
+      attrCode: 'sale',
       type: FilterTypeEnum.RADIO,
-      component: RendererTypesEnum.RADIO,
+      component: RendererTypesEnum.YES_NO,
+      disabled: true,
     };
     expect(result).toEqual(expected);
   });
@@ -51,6 +52,7 @@ describe('FiltersConfig', () => {
       attrCode: 'size',
       type: FilterTypeEnum.CHECKBOX,
       component: RendererTypesEnum.CHECKBOX,
+      disabled: false,
     };
     expect(result).toEqual(expected);
   });
@@ -62,6 +64,7 @@ describe('FiltersConfig', () => {
       attrCode: 'ANYTHING',
       type: FilterTypeEnum.CHECKBOX,
       component: RendererTypesEnum.CHECKBOX,
+      disabled: false,
     };
     expect(result).toEqual(expected);
   });
@@ -71,5 +74,11 @@ describe('FiltersConfig', () => {
     const result = getDisabledFilters();
     const expected = ['sale'];
     expect(result).toEqual(expected);
+  });
+
+  it('isFilterEnabled', () => {
+    (config as jest.Mock).mockReturnValue(defaultFiltersConfig);
+    expect(isFilterEnabled('invalid')).toBeFalsy();
+    expect(isFilterEnabled('size')).toBeTruthy();
   });
 });

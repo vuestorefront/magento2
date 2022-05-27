@@ -31,12 +31,7 @@
         @click:add-to-cart="$emit('click:add-to-cart', { product, quantity: 1 })"
       >
         <template #price>
-          <SfPrice
-            v-if="pricesLoaded || product.commonProps.regularPrice"
-            class="sf-product-card__price"
-            :regular="product.commonProps.regularPrice"
-            :special="product.commonProps.specialPrice"
-          />
+          <CategoryProductPrice :product="product" />
         </template>
       </SfProductCard>
     </template>
@@ -45,17 +40,18 @@
 
 <script lang="ts">
 import { defineComponent, PropType, toRefs } from '@nuxtjs/composition-api';
-import { SfProductCard, SfPrice } from '@storefront-ui/vue';
+import { SfProductCard } from '@storefront-ui/vue';
 import { useImage } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
 
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useProductsWithCommonProductCardProps } from './useProductsWithCommonCardProps';
+import CategoryProductPrice from '~/modules/catalog/category/components/views/CategoryProductPrice.vue';
 
 export default defineComponent({
   components: {
+    CategoryProductPrice,
     SfProductCard,
-    SfPrice,
     SkeletonLoader,
   },
   props: {
@@ -100,10 +96,11 @@ export default defineComponent({
   flex: 1 1 50%;
 
   @include for-desktop {
-    flex: 1 1 25%;
+    flex: 1 1 23%;
     --product-card-title-font-weight: var(--font-weight--normal);
     --product-card-add-button-bottom: var(--spacer-base);
     --product-card-title-margin: var(--spacer-sm) 0 0 0;
   }
 }
+
 </style>

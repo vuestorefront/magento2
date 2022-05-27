@@ -20,7 +20,7 @@ export type UseNewsletterUpdateSubscriptionParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * The refs and methods returned by the {@link useNewsletter|useNewsletter()} composable
+ * Data and methods returned from the {@link useNewsletter|useNewsletter()} composable
  */
 export interface UseNewsletterInterface {
   /**

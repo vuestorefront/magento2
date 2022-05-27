@@ -1,4 +1,8 @@
 **/node_modules/**/*
 **/lib/*
-packages/composables/nuxt/plugin.js
-packages/api-client/types/GraphQL.ts
+packages/api-client/src/types/GraphQL.ts
+packages/api-client/server
+packages/composables/lib
+packages/api-client/lib
+packages/theme/static/sw.js
+.eslintrc.js

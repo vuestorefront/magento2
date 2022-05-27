@@ -34,7 +34,7 @@ jobs:
           NPM_PASS: ${{ secrets.CLOUD_PASSWORD }}
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
 
-          VSF_STORE_URL: '' # TODO
+          VSF_STORE_URL: ''
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql

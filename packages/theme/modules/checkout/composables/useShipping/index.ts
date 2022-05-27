@@ -10,9 +10,11 @@ import type {
 } from './useShipping';
 
 /**
- * The `useShipping()` composable allows loading the shipping information for
+ * Allows loading the shipping information for
  * the current cart and saving (selecting) other shipping information for the
  * same cart.
+ *
+ * See the {@link UseShippingInterface} for a list of methods and values available in this composable.
  */
 export function useShipping(): UseShippingInterface {
   const loading = ref(false);
@@ -20,9 +22,9 @@ export function useShipping(): UseShippingInterface {
   const { cart, load: loadCart } = useCart();
   const { app } = useContext();
 
-  const load = async (params: UseShippingLoadParams = {}): Promise<ShippingCartAddress | {}> => {
+  const load = async (params: UseShippingLoadParams = {}): Promise<ShippingCartAddress | null> => {
     Logger.debug('useShipping.load');
-    let shippingInfo = null;
+    let shippingInfo : ShippingCartAddress | null = null;
 
     try {
       loading.value = true;
@@ -32,21 +34,18 @@ export function useShipping(): UseShippingInterface {
 
       [shippingInfo] = cart.value.shipping_addresses;
       error.value.load = null;
-
-      return shippingInfo;
     } catch (err) {
       error.value.load = err;
       Logger.error('useShipping/load', err);
     } finally {
       loading.value = false;
     }
-
-    return {};
+    return shippingInfo;
   };
 
-  const save = async ({ shippingDetails }: UseShippingSaveParams): Promise<ShippingCartAddress | {}> => {
+  const save = async ({ shippingDetails }: UseShippingSaveParams): Promise<ShippingCartAddress | null> => {
     Logger.debug('useShipping.save');
-    let shippingInfo = null;
+    let shippingInfo : ShippingCartAddress | null = null;
 
     try {
       loading.value = true;
@@ -86,8 +85,6 @@ export function useShipping(): UseShippingInterface {
       [shippingInfo] = data.setShippingAddressesOnCart.cart.shipping_addresses;
 
       error.value.save = null;
-
-      return shippingInfo;
     } catch (err) {
       error.value.save = err;
       Logger.error('useShipping/save', err);
@@ -95,7 +92,7 @@ export function useShipping(): UseShippingInterface {
       loading.value = false;
     }
 
-    return {};
+    return shippingInfo;
   };
 
   return {

@@ -1,5 +1,5 @@
-import CategoryEmptyResults from '../CategoryEmptyResults.vue';
 import { render } from '~/test-utils';
+import CategoryEmptyResults from '../CategoryEmptyResults.vue';
 
 describe('CategoryEmptyResults.vue', () => {
   it('Renders with a default value', () => {

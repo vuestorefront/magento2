@@ -89,7 +89,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { defineComponent, ref } from '@nuxtjs/composition-api';
 
@@ -100,7 +100,7 @@ export default defineComponent({
     SfButton,
     SfCallToAction,
   },
-  setup(props, context) {
+  setup(_props, context) {
     context.emit('changeStep', 4);
 
     const companyDetails = ref({

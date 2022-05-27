@@ -19,16 +19,19 @@
           :is-visible="isFilterSidebarOpen"
           :cat-uid="routeData.entity_uid"
           @close="toggleFilterSidebar"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
       </div>
-      <div class="main section column">
+      <div
+        ref="productContainerElement"
+        class="main section column"
+      >
         <CategoryNavbar
           v-if="isShowProducts"
           :sort-by="sortBy"
           :pagination="pagination"
           :is-loading="$fetchState.pending"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
         <div class="products">
           <CategoryEmptyResults v-if="products.length === 0 && !$fetchState.pending && isShowProducts" />
@@ -45,6 +48,7 @@
           <CategoryProductList
             v-else
             :products="products"
+            :prices-loaded="isPriceLoaded"
             :loading="$fetchState.pending"
             @click:wishlist="addItemToWishlist"
             @click:add-to-cart="addItemToCart"
@@ -125,7 +129,6 @@ import type { EntityUrl } from '~/modules/GraphQL/types';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 
-// TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
 export default defineComponent({
   name: 'CategoryPage',
   components: {
@@ -152,6 +155,8 @@ export default defineComponent({
     const products = ssrRef<Product[]>([]);
     const sortBy = ref({});
     const pagination = ref<AgnosticPagination>({});
+
+    const productContainerElement = ref<HTMLElement | null>(null);
 
     const { search: resolveUrl } = useUrlResolver();
     const {
@@ -233,6 +238,11 @@ export default defineComponent({
       fetch();
     };
 
+    const onReloadProducts = () => {
+      fetch();
+      productContainerElement.value.scrollIntoView();
+    };
+
     return {
       isPriceLoaded,
       ...uiHelpers,
@@ -252,7 +262,8 @@ export default defineComponent({
       activeCategoryName,
       routeData,
       doChangeItemsPerPage,
-      fetch,
+      productContainerElement,
+      onReloadProducts,
     };
   },
 });

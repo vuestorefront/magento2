@@ -1,5 +1,5 @@
 import {
-  computed, readonly, ref, useContext,
+  computed, readonly, ref, useContext, useRoute,
 } from '@nuxtjs/composition-api';
 import { addItemCommand } from '~/modules/checkout/composables/useCart/commands/addItemCommand';
 import { applyCouponCommand } from '~/modules/checkout/composables/useCart/commands/applyCouponCommand';
@@ -11,13 +11,15 @@ import { removeItemCommand } from '~/modules/checkout/composables/useCart/comman
 import { updateItemQtyCommand } from '~/modules/checkout/composables/useCart/commands/updateItemQtyCommand';
 import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
-import { useCustomerStore } from '~/stores/customer';
+import { useCartStore } from '~/modules/checkout/stores/cart';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { UseCartErrors, UseCartInterface } from './useCart';
+import { Product } from '~/modules/catalog/product/types';
 
 /**
- * The `useCart` composable provides functions and refs to deal with a user's cart from Magento API.
+ * Allows loading and manipulating cart of the current user.
  *
- * See the {@link UseCartInterface} page for more information.
+ * See the {@link UseCartInterface} for a list of methods and values available in this composable.
  */
 export function useCart<CART extends Cart, CART_ITEM extends CartItemInterface, PRODUCT extends ProductInterface>(): UseCartInterface<
 CART,
@@ -37,9 +39,11 @@ PRODUCT
   });
   const { app } = useContext();
   const context = app.$vsf;
-  const customerStore = useCustomerStore();
-  const cart = computed(() => customerStore.cart as CART);
+  const route = useRoute();
+  const cartStore = useCartStore();
+  const cart = computed(() => cartStore.cart as CART);
   const apiState = context.$magento.config.state;
+  const { loading: wishlistLoading, afterAddingWishlistItemToCart } = useWishlist();
 
   /**
    * Assign new cart object
@@ -50,7 +54,7 @@ PRODUCT
   const setCart = (newCart: CART): void => {
     Logger.debug('useCart.setCart', newCart);
 
-    customerStore.$patch((state) => {
+    cartStore.$patch((state) => {
       state.cart = newCart;
     });
   };
@@ -61,8 +65,7 @@ PRODUCT
    *
    * @return boolean
    */
-  // TODO rework parameter {product} => product, wrapping obj is not necessary
-  const isInCart = ({ product }: { product: PRODUCT }): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
+  const isInCart = (product: PRODUCT): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
 
   const load = async ({ customQuery = {}, realCart = false } = { customQuery: { cart: 'cart' } }): Promise<void> => {
     Logger.debug('useCart.load');
@@ -70,7 +73,7 @@ PRODUCT
     try {
       loading.value = true;
       const loadedCart = await loadCartCommand.execute(context, { customQuery, realCart });
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = loadedCart;
       });
       error.value.load = null;
@@ -90,7 +93,7 @@ PRODUCT
       clearCartCommand.execute(context);
       const loadedCart = await loadCartCommand.execute(context, { customQuery });
 
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = loadedCart;
       });
     } catch (err) {
@@ -108,7 +111,7 @@ PRODUCT
       loading.value = true;
       const totalQuantity = await loadTotalQtyCommand.execute(context);
 
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart.total_quantity = totalQuantity;
       });
     } catch (err) {
@@ -126,22 +129,28 @@ PRODUCT
       loading.value = true;
 
       if (!apiState.getCartId()) {
-        // TODO if cart is not loaded throw error instead to decouple this method
         await load({ realCart: true });
       }
+
       const updatedCart = await addItemCommand.execute(context, {
         currentCart: cart.value,
         product,
         quantity,
       });
       error.value.addItem = null;
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = updatedCart;
       });
     } catch (err) {
       error.value.addItem = err;
       Logger.error('useCart/addItem', err);
     } finally {
+      if (!wishlistLoading.value && route.value.query?.wishlist) {
+        afterAddingWishlistItemToCart({
+          product,
+          cartError: error.value.addItem,
+        });
+      }
       loading.value = false;
     }
   };
@@ -157,7 +166,7 @@ PRODUCT
       });
 
       error.value.removeItem = null;
-      customerStore.$patch((state) => {
+      cartStore.$patch((state) => {
         state.cart = updatedCart;
       });
     } catch (err) {
@@ -185,7 +194,7 @@ PRODUCT
         });
 
         error.value.updateItemQty = null;
-        customerStore.$patch((state) => {
+        cartStore.$patch((state) => {
           state.cart = updatedCart;
         });
       } catch (err) {
@@ -197,21 +206,35 @@ PRODUCT
     }
   };
 
+  const handleCoupon = async (couponCode = null, customQuery = null): Promise<void> => {
+    const variables = {
+      currentCart: cart.value,
+      customQuery,
+      couponCode,
+    };
+
+    const { updatedCart, errors } = couponCode
+      ? await applyCouponCommand.execute(context, variables)
+      : await removeCouponCommand.execute(context, variables);
+
+    if (errors) {
+      throw errors[0];
+    }
+
+    if (updatedCart) {
+      cartStore.$patch((state) => {
+        state.cart = updatedCart;
+      });
+    }
+  };
+
   const applyCoupon = async ({ couponCode, customQuery }): Promise<void> => {
     Logger.debug('useCart.applyCoupon');
 
     try {
       loading.value = true;
-      const { updatedCart } = await applyCouponCommand.execute(context, {
-        currentCart: cart.value,
-        couponCode,
-        customQuery,
-      });
-
+      await handleCoupon(couponCode, customQuery);
       error.value.applyCoupon = null;
-      customerStore.$patch((state) => {
-        state.cart = updatedCart;
-      });
     } catch (err) {
       error.value.applyCoupon = err;
       Logger.error('useCart/applyCoupon', err);
@@ -225,16 +248,8 @@ PRODUCT
 
     try {
       loading.value = true;
-      const { updatedCart } = await removeCouponCommand.execute(context, {
-        currentCart: cart.value,
-        customQuery,
-      });
-
-      error.value.removeCoupon = null;
-      customerStore.$patch((state) => {
-        state.cart = updatedCart;
-      });
-      loading.value = false;
+      await handleCoupon(null, customQuery);
+      error.value.applyCoupon = null;
     } catch (err) {
       error.value.removeCoupon = err;
       Logger.error('useCart/removeCoupon', err);
@@ -242,6 +257,20 @@ PRODUCT
       loading.value = false;
     }
   };
+
+  const canAddToCart = (product: Product, qty = 1) => {
+    // eslint-disable-next-line no-underscore-dangle
+    if (product?.__typename === 'ConfigurableProduct') {
+      return !!product?.configurable_product_options_selection?.variant
+        ?.uid;
+    }
+    const inStock = product?.stock_status || '';
+    const stockLeft = product?.only_x_left_in_stock === null
+      ? true
+      : qty <= product?.only_x_left_in_stock;
+    return inStock && stockLeft;
+  };
+
   return {
     setCart,
     cart,
@@ -254,6 +283,7 @@ PRODUCT
     updateItemQty,
     applyCoupon,
     removeCoupon,
+    canAddToCart,
     loading: readonly(loading),
     error: readonly(error),
   };

@@ -20,6 +20,7 @@ const factoryParams: UseCategorySearchFactory<Category, CategorySearchQueryVaria
   },
 };
 
+// eslint-disable-next-line max-len
 const useCategorySearch: (cacheId?: string) => UseCategorySearch<Category, CategorySearchQueryVariables> = useCategorySearchFactory<Category, CategorySearchQueryVariables>(factoryParams);
 
 export default useCategorySearch;

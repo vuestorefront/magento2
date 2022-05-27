@@ -13,16 +13,17 @@ export const applyCouponCommand = {
       currentCart,
     });
 
-    const { data } = await context.$magento.api.applyCouponToCart({
+    const { data, errors } = await context.$magento.api.applyCouponToCart({
       cart_id: currentCart.id,
       coupon_code: couponCode,
     }, customQuery);
 
-    Logger.debug('[Result]:', { data });
+    Logger.debug('[Result]:', { data, errors });
 
     return {
-      updatedCart: data.applyCouponToCart.cart as unknown as Cart,
+      updatedCart: data.applyCouponToCart?.cart as unknown as Cart,
       updatedCoupon: { code: couponCode },
+      errors,
     };
   },
 };

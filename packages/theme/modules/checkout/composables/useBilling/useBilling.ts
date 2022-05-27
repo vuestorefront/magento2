@@ -49,7 +49,7 @@ export interface UseBillingSaveParams {
 }
 
 /**
- * The refs and methods returned by the {@link useBilling|useBilling()} composable
+ * Data and methods returned from the {@link useBilling|useBilling()} composable
  */
 export interface UseBillingInterface {
   /**

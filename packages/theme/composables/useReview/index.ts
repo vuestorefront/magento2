@@ -13,7 +13,7 @@ import type {
 } from './useReview';
 
 /**
- * The `useReview()` composable allows loading and adding product reviews
+ * Allows loading and adding product reviews.
  *
  * See the {@link UseReviewInterface} for a list of methods and values available in this composable.
  */

@@ -8,6 +8,14 @@ import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
 
 export interface SelectedFiltersInterface {[p: string]: string[]}
 
+export interface RemovableFilterInterface {
+  id: string;
+  name: string;
+  label: string;
+  value: string;
+  type: string;
+}
+
 export function useFilters() {
   // @ts-ignore
   const { getFacetsFromURL } = useUiHelpers();
@@ -42,7 +50,7 @@ export function useFilters() {
       set(selectedFilters.value, filter.attribute_code, []);
     }
 
-    if (config.type === FilterTypeEnum.RADIO) {
+    if (config.type === FilterTypeEnum.RADIO || config.type === FilterTypeEnum.YES_NO) {
       selectedFilters.value[filter.attribute_code] = [option.value];
       return;
     }
@@ -57,14 +65,16 @@ export function useFilters() {
     selectedFilters.value[filter.attribute_code].push(String(option.value));
   };
 
-  const getRemovableFilters = (filters: Aggregation[], selected: SelectedFiltersInterface) => {
+  const getRemovableFilters = (filters: Aggregation[], selected: SelectedFiltersInterface): RemovableFilterInterface[] => {
     const result = [];
 
     filters.forEach((filter) => {
       filter.options.forEach((option) => {
         if ((selected[filter.attribute_code] ?? []).includes(option.value)) {
+          const filterConfig = getFilterConfig(filter.attribute_code);
+
           result.push({
-            id: filter.attribute_code, name: filter.label, label: option.label, value: option.value,
+            id: filter.attribute_code, name: filter.label, label: option.label, value: option.value, type: filterConfig.type,
           });
         }
       });

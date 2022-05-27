@@ -48,14 +48,7 @@
               :regular-price="
                 $fc(getItemPrice(wishlistItem).regular)
               "
-              :link="
-                localePath(
-                  `/p/${wishlistItem.product.sku}${productGetters.getSlug(
-                    wishlistItem.product,
-                    wishlistItem.product.categories[0]
-                  )}`
-                )
-              "
+              :link="getItemLink(wishlistItem)"
               :special-price="getItemPrice(wishlistItem).special && $fc(getItemPrice(wishlistItem).special)"
               :stock="99999"
               class="collected-product"
@@ -65,16 +58,7 @@
                 <div />
               </template>
               <template #image>
-                <SfLink
-                  :link="
-                    localePath(
-                      `/p/${wishlistItem.product.sku}${productGetters.getSlug(
-                        wishlistItem.product,
-                        wishlistItem.product.categories[0]
-                      )}`
-                    )
-                  "
-                >
+                <SfLink :link="getItemLink(wishlistItem)">
                   <SfImage
                     image-tag="nuxt-img"
                     :src="getMagentoImage(wishlistItem.product.thumbnail.url)"
@@ -128,26 +112,7 @@
             </SfProperty>
           </div>
         </div>
-        <div
-          v-else
-          key="empty-wishlist"
-          class="empty-wishlist"
-        >
-          <div class="empty-wishlist__banner">
-            <SvgImage
-              icon="empty_cart_image"
-              :label="$t('Empty bag')"
-              width="211"
-              height="143"
-              class="empty-wishlist__icon"
-            />
-            <SfHeading
-              title="Your bag is empty"
-              description="Looks like you haven’t added any items to the Wishlist."
-              class="empty-wishlist__label"
-            />
-          </div>
-        </div>
+        <EmptyWishlist v-else />
       </SfLoader>
       <template #content-bottom>
         <SfButton
@@ -173,7 +138,11 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, onMounted,
+  computed,
+  defineComponent,
+  onMounted,
+  useContext,
+  useRouter,
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
@@ -182,10 +151,11 @@ import {
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 import SvgImage from '~/components/General/SvgImage.vue';
 
-import type { WishlistItemInterface } from '~/modules/GraphQL/types';
+import type { WishlistItemInterface, ConfigurableProduct, BundleProduct } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -199,9 +169,12 @@ export default defineComponent({
     SfLink,
     SfLoader,
     SfImage,
+    EmptyWishlist,
     SvgImage,
   },
   setup() {
+    const { localeRoute } = useContext();
+    const router = useRouter();
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
     const {
       removeItem, load: loadWishlist, loading,
@@ -244,8 +217,17 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_count ?? 0,
     );
 
-    const getAttributes = (product) => product?.product?.configurable_options || [];
-    const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+    const getAttributes = (product: WishlistItemInterface) => (product?.product as ConfigurableProduct)?.configurable_options || [];
+    const getBundles = (product: WishlistItemInterface) => (product?.product as BundleProduct)?.items?.map((b) => b.title).flat() || [];
+    const getItemLink = (item: WishlistItemInterface) => localeRoute({
+      path: `/p/${item.product.sku}${productGetters.getSlug(
+        item.product,
+        item.product.categories[0],
+      )}`,
+      query: {
+        wishlist: 'true',
+      },
+    });
 
     const { getMagentoImage, imageSizes } = useImage();
 
@@ -255,9 +237,16 @@ export default defineComponent({
       }
     });
 
+    router.afterEach(() => {
+      if (isWishlistSidebarOpen.value) {
+        toggleWishlistSidebar();
+      }
+    });
+
     return {
       getAttributes,
       getBundles,
+      getItemLink,
       isAuthenticated,
       isWishlistSidebarOpen,
       wishlistItems,
@@ -266,7 +255,6 @@ export default defineComponent({
       totalItems,
       totals,
       wishlist: wishlistStore.wishlist,
-      productGetters,
       getMagentoImage,
       imageSizes,
       loading,
@@ -306,38 +294,7 @@ export default defineComponent({
     }
   }
 }
-.empty-wishlist {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  &__banner {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  &__label,
-  &__description {
-    text-align: center;
-  }
-  &__label {
-    --heading-description-margin: 0 0 var(--spacer-xl) 0;
-    --heading-title-margin: 0 0 var(--spacer-xl) 0;
-    --heading-title-color: var(--c-primary);
-    --heading-title-font-weight: var(--font-weight--semibold);
-    @include for-desktop {
-      --heading-title-font-size: var(--font-size--xl);
-      --heading-title-margin: 0 0 var(--spacer-sm) 0;
-    }
-  }
-  &__icon {
-    --image-width: 16rem;
-    margin: 0 0 var(--spacer-2xl) 7.5rem;
-  }
-}
+
 .heading {
   &__wrapper {
     --heading-title-color: var(--c-link);

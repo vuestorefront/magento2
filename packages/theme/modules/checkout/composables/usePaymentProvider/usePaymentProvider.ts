@@ -24,7 +24,9 @@ export type UsePaymentProviderSaveParams = ComposableFunctionArgs<{
   paymentMethod: PaymentMethodInput;
 }>;
 
-/** The interface provided by {@link usePaymentProvider} composable. */
+/**
+ * Data and methods returned from the {@link usePaymentProvider} composable.
+ */
 export interface UsePaymentProviderInterface {
   /** Indicates whether any of the composable methods is in progress. */
   loading: Readonly<Ref<boolean>>;

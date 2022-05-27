@@ -35,7 +35,7 @@ export interface UseAddressesParamsInput {
 }
 
 /**
- * The refs and methods returned by the {@link useAddresses|useAddresses()} composable
+ * Data and methods returned from the {@link useAddresses|useAddresses()} composable
  */
 export interface UseAddressesInterface {
   /**

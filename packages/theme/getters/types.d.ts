@@ -67,7 +67,6 @@ export interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
   getItemSku: (wishlistItem: WISHLIST_ITEM) => string;
   getTotals: (wishlist: WISHLIST) => AgnosticTotals;
   getTotalItems: (wishlist: WISHLIST) => number;
-  getFormattedPrice: (price: number) => string;
   [getterName: string]: (element: any, options?: any) => unknown;
 }
 
@@ -82,7 +81,6 @@ export interface CartGetters<CART, CART_ITEM> {
   getTotals: (cart: CART) => AgnosticTotals;
   getShippingPrice: (cart: CART) => number;
   getTotalItems: (cart: CART) => number;
-  getFormattedPrice: (price: number) => string;
   // @deprecated - use getDiscounts instead
   getCoupons: (cart: CART) => AgnosticCoupon[];
   getDiscounts: (cart: CART) => AgnosticDiscount[];

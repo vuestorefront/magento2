@@ -85,12 +85,14 @@
   </div>
 </template>
 
-<script>
-import { computed, ref, useRoute } from '@nuxtjs/composition-api';
+<script lang="ts">
+import {
+  computed, ref, useRoute, defineComponent,
+} from '@nuxtjs/composition-api';
 import { SfHeading, SfButton, SfCallToAction } from '@storefront-ui/vue';
 import { addBasePath } from '~/helpers/addBasePath';
 
-export default {
+export default defineComponent({
   components: {
     SfHeading,
     SfButton,
@@ -114,7 +116,7 @@ export default {
       orderNumber,
     };
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 #thank-you {

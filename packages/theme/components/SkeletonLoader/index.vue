@@ -2,6 +2,7 @@
   <div
     :class="componentClass"
     :style="componentStyle"
+    data-testid="skeletonLoader"
   >
     <slot v-if="!isLoading" />
   </div>

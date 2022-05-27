@@ -5,18 +5,17 @@ import {
 } from '~/composables/types';
 
 import { WishlistGetters as BaseWishlistGetters } from '~/getters/types';
-import { Wishlist, WishlistQuery } from '~/modules/GraphQL/types';
+import {
+  Wishlist, ProductInterface, WishlistItemInterface,
+} from '~/modules/GraphQL/types';
 
-export type WishlistProduct = WishlistQuery['customer']['wishlists'][0]['items_v2']['items'][0] & { variant: any };
+export const getItems = (wishlist: Wishlist): WishlistItemInterface[] => wishlist.items_v2.items;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItems = (wishlist): WishlistProduct[] => wishlist.items_v2.items;
+export const getItemName = (product: WishlistItemInterface): string => product?.product?.name || '';
 
-export const getItemName = (product: WishlistProduct): string => product?.product?.name || '';
+export const getItemImage = (product: WishlistItemInterface): string => product?.product?.thumbnail.url || '';
 
-export const getItemImage = (product: WishlistProduct): string => product?.product?.thumbnail.url || '';
-
-export const getItemPrice = (product: WishlistProduct): AgnosticPrice => {
+export const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
   let regular = 0;
   let special = null;
 
@@ -35,42 +34,30 @@ export const getItemPrice = (product: WishlistProduct): AgnosticPrice => {
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemQty = (product: WishlistProduct): number => product.quantity;
+export const getItemQty = (product: WishlistItemInterface): number => product.quantity;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemAttributes = (product: WishlistProduct, filterByAttributeName?: string[]) => ({ '': '' });
+export const getItemAttributes = (_product: WishlistItemInterface, _filterByAttributeName?: string[]) => ({ '': '' });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getItemSku = (product: WishlistProduct): string => product?.product?.sku || '';
+export const getItemSku = (product: WishlistItemInterface): string => product?.product?.sku || '';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// @ts-ignore
-export const getTotals = (wishlist): AgnosticTotals => {
+export const getTotals = (wishlist: Wishlist[] | Wishlist): AgnosticTotals => {
   if (Array.isArray(wishlist)) {
     return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands,@typescript-eslint/no-unsafe-argument
       total: acc.total + getItemPrice(curr).special,
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands,@typescript-eslint/no-unsafe-argument
       subtotal: acc.subtotal + getItemPrice(curr).regular,
     }), ({ total: 0, subtotal: 0 }));
   }
   return wishlist?.items_v2?.items.reduce((acc, curr) => ({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/restrict-plus-operands
     total: acc.total + getItemPrice(curr).special,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/restrict-plus-operands
     subtotal: acc.subtotal + getItemPrice(curr).regular,
   }), ({ total: 0, subtotal: 0 }));
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getShippingPrice = (wishlist: Wishlist): number => 0;
+export const getShippingPrice = (_wishlist: Wishlist): number => 0;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getTotalItems = (wishlist: Wishlist): number => (Array.isArray(wishlist) ? wishlist[0]?.items_count : (wishlist?.items_count || 0));
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getFormattedPrice = (price: number): string => '';
+export const getTotalItems = (wishlist: Wishlist | Wishlist[]): number => (Array.isArray(wishlist)
+  ? wishlist[0]?.items_count
+  : (wishlist?.items_count || 0));
 
 const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
@@ -80,23 +67,26 @@ const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
   pageOptions: [10, 50, 100],
 });
 
-const getProducts = (wishlistData: Wishlist[] | Wishlist): {
-  product: WishlistProduct;
-  quantity: number;
-  added_at: string;
-}[] => {
+type MappedProduct = {
+  product: ProductInterface,
+  quantity: number,
+  added_at: string,
+  id: string,
+};
+
+const getProducts = (wishlistData: Wishlist[] | Wishlist): MappedProduct[] => {
   if (!wishlistData || (Array.isArray(wishlistData) && wishlistData.length === 0)) {
     return [];
   }
 
-  const reducer = (acc, curr) => [...acc, ...curr?.items_v2?.items.map((item) => ({
+  const reducer = (acc: MappedProduct[], curr: Wishlist) : MappedProduct[] => [...acc, ...curr?.items_v2?.items.map((item) => ({
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
     id: item.id,
-  }))];
+  })) ?? []];
 
-  const mapper = (item) => ({
+  const mapper = (item: WishlistItemInterface): MappedProduct => ({
     product: item.product,
     quantity: item.quantity,
     added_at: item.added_at,
@@ -104,21 +94,22 @@ const getProducts = (wishlistData: Wishlist[] | Wishlist): {
   });
 
   return Array.isArray(wishlistData)
-    ? wishlistData.reduce((acc, curr) => reducer(acc, curr), [])
+    ? wishlistData.reduce((acc, curr) => reducer(acc, curr), [] as MappedProduct[])
     : wishlistData?.items_v2?.items.map((e) => mapper(e));
 };
 
-export interface WishlistGetters extends BaseWishlistGetters<Wishlist, WishlistProduct> {
+export interface WishlistGetters extends BaseWishlistGetters<Wishlist, WishlistItemInterface> {
   getShippingPrice(wishlist: Wishlist): number;
 
-  getItemQty(product: WishlistProduct): number;
+  getItemQty(product: WishlistItemInterface): number;
 
-  getPagination(wishlistData): AgnosticPagination;
+  getPagination(wishlistData: Wishlist | Wishlist[]): AgnosticPagination;
 
-  getProducts(wishlistData): {
-    product: WishlistProduct;
+  getProducts(wishlistData: Wishlist | Wishlist[]): {
+    product: ProductInterface;
     quantity: number;
     added_at: string;
+    id: string;
   }[];
 }
 
@@ -133,7 +124,6 @@ const wishlistGetters: WishlistGetters = {
   getItemAttributes,
   getItemSku,
   getTotalItems,
-  getFormattedPrice,
   getPagination,
   getProducts,
 };

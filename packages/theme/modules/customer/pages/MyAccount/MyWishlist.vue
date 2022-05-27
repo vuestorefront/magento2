@@ -7,46 +7,7 @@
       <div v-if="loading">
         <SfLoader />
       </div>
-      <div v-else>
-        <div class="navbar section">
-          <div class="navbar__main">
-            <div class="navbar__counter">
-              <span class="navbar__label desktop-only">{{
-                $t('Products found')
-              }}</span>
-              <span class="desktop-only">{{ pagination.totalItems }}</span>
-              <span class="navbar__label smartphone-only">
-                {{ pagination.totalItems }} {{ $t('Items') }}</span>
-            </div>
-
-            <div class="navbar__view">
-              <span class="navbar__view-label desktop-only">{{
-                $t('View')
-              }}</span>
-              <SvgImage
-                icon="tiles"
-                :label="$t('Change to grid view')"
-                :aria-pressed="isWishlistGridView"
-                width="12"
-                height="12"
-                class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': isWishlistGridView }"
-                @click.native="changeToWishlistGridView"
-              />
-              <SvgImage
-                icon="list"
-                :label="$t('Change to list view')"
-                :aria-pressed="!isWishlistGridView"
-                width="12"
-                height="12"
-                class="navbar__view-icon"
-                :class="{ 'navbar__view-icon--active': !isWishlistGridView }"
-                @click.native="changeToWishlistListView"
-              />
-            </div>
-          </div>
-        </div>
-
+      <div v-else-if="products && products.length > 0">
         <div class="main section">
           <SfLoader
             :class="{ loading }"
@@ -57,7 +18,6 @@
               class="products"
             >
               <transition-group
-                v-if="isWishlistGridView"
                 appear
                 name="products__slide"
                 tag="div"
@@ -79,8 +39,7 @@
                   :nuxt-img-config="{
                     fit: 'cover',
                   }"
-                  :is-added-to-cart="isInCart({ product: product.product })"
-                  :is-in-wishlist="true"
+                  :is-added-to-cart="isInCart(product.product)"
                   :link="
                     localePath(
                       `/p/${productGetters.getProductSku(
@@ -100,7 +59,6 @@
                   :score-rating="
                     productGetters.getAverageRating(product.product)
                   "
-                  :show-add-to-cart-button="true"
                   :special-price="
                     productGetters.getPrice(product.product).special &&
                       $fc(productGetters.getPrice(product.product).special)
@@ -108,92 +66,15 @@
                   :style="{ '--index': i }"
                   :title="productGetters.getName(product.product)"
                   wishlist-icon
+                  is-in-wishlist
+                  show-add-to-cart-button
+                  :add-to-cart-disabled="isCartLoading"
                   @click:wishlist="removeItemFromWishlist(product.product)"
                   @click:add-to-cart="
                     addItemToCart({ product: product.product, quantity: 1 })
                   "
                 />
               </transition-group>
-              <transition-group
-                v-else
-                appear
-                name="products__slide"
-                tag="div"
-                class="products__list"
-              >
-                <SfProductCardHorizontal
-                  v-for="(product, i) in products"
-                  :key="productGetters.getSlug(product.product)"
-                  class="products__product-card-horizontal"
-                  image-tag="nuxt-img"
-                  :description="productGetters.getDescription(product.product)"
-                  :image="
-                    getMagentoImage(
-                      productGetters.getProductThumbnailImage(product.product)
-                    )
-                  "
-                  :image-width="imageSizes.productCardHorizontal.width"
-                  :image-height="imageSizes.productCardHorizontal.height"
-                  :nuxt-img-config="{
-                    fit: 'cover',
-                  }"
-                  :is-in-wishlist="true"
-                  :link="
-                    localePath(
-                      `/p/${productGetters.getProductSku(
-                        product.product
-                      )}${productGetters.getSlug(
-                        product.product,
-                        product.product.categories[0]
-                      )}`
-                    )
-                  "
-                  :regular-price="
-                    $fc(productGetters.getPrice(product.product).regular)
-                  "
-                  :reviews-count="
-                    productGetters.getTotalReviews(product.product)
-                  "
-                  :score-rating="
-                    productGetters.getAverageRating(product.product)
-                  "
-                  :special-price="
-                    productGetters.getPrice(product.product).special &&
-                      $fc(productGetters.getPrice(product.product).special)
-                  "
-                  :style="{ '--index': i }"
-                  :title="productGetters.getName(product.product)"
-                  wishlist-icon
-                  @click:wishlist="removeItemFromWishlist(product.product)"
-                  @click:add-to-cart="
-                    addItemToCart({ product: product.product, quantity: 1 })
-                  "
-                >
-                  <template #configuration>
-                    <SfProperty
-                      class="desktop-only"
-                      :name="$t('Size')"
-                      value="XS"
-                      style="margin: 0 0 1rem 0"
-                    />
-                    <SfProperty
-                      class="desktop-only"
-                      :name="$t('Color')"
-                      value="white"
-                    />
-                  </template>
-                  <template #actions>
-                    <SfButton
-                      class="sf-button--text desktop-only"
-                      style="margin: 0 0 1rem auto; display: block"
-                      @click="removeItemFromWishlist(product.product)"
-                    >
-                      {{ $t('Remove from Wishlist') }}
-                    </SfButton>
-                  </template>
-                </SfProductCardHorizontal>
-              </transition-group>
-
               <LazyHydrate on-interaction>
                 <SfPagination
                   v-if="!loading"
@@ -209,9 +90,9 @@
                 v-show="pagination.totalPages > 1"
                 class="products__show-on-page"
               >
-                <span class="products__show-on-page__label">{{
-                  $t('Show on page')
-                }}</span>
+                <span class="products__show-on-page__label">
+                  {{ $t('Show on page') }}
+                </span>
                 <LazyHydrate on-interaction>
                   <SfSelect
                     :value="pagination.itemsPerPage.toString()"
@@ -233,6 +114,7 @@
           </SfLoader>
         </div>
       </div>
+      <EmptyWishlist v-else />
     </SfTab>
   </SfTabs>
 </template>
@@ -242,12 +124,9 @@ import LazyHydrate from 'vue-lazy-hydration';
 import {
   SfLoader,
   SfTabs,
-  SfButton,
   SfProductCard,
-  SfProductCardHorizontal,
   SfPagination,
   SfSelect,
-  SfProperty,
 } from '@storefront-ui/vue';
 import {
   computed,
@@ -263,41 +142,41 @@ import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
-
-import {
-  useUiHelpers,
-  useUiState,
-  useImage,
-} from '~/composables';
-import SvgImage from '~/components/General/SvgImage.vue';
+import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
+import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
+import { useUiHelpers, useImage } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
   components: {
     SfLoader,
     SfTabs,
-    SfButton,
     SfProductCard,
-    SfProductCardHorizontal,
     SfPagination,
     SfSelect,
-    SfProperty,
+    EmptyWishlist,
     LazyHydrate,
-    SvgImage,
   },
   setup() {
     const {
-      load, loading, removeItem,
+      load,
+      loading,
+      removeItem,
+      afterAddingWishlistItemToCart,
     } = useWishlist();
     const route = useRoute();
-    const { app } = useContext();
+    const { localeRoute } = useContext();
     const {
       query: { page, itemsPerPage },
     } = route.value;
     const router = useRouter();
     const th = useUiHelpers();
-    const uiState = useUiState();
-    const { addItem: addItemToCartBase, isInCart } = useCart();
+    const {
+      addItem: addItemToCartBase,
+      error: cartError,
+      isInCart,
+      loading: isCartLoading,
+    } = useCart();
     const wishlistStore = useWishlistStore();
 
     const products = computed(() => wishlistGetters.getProducts(wishlistStore.wishlist));
@@ -308,18 +187,28 @@ export default defineComponent({
       const productType = product.__typename;
 
       switch (productType) {
-        case 'SimpleProduct':
+        case ProductTypeEnum.SIMPLE_PRODUCT:
           await addItemToCartBase({
             product,
             quantity,
           });
+          afterAddingWishlistItemToCart({
+            product,
+            cartError: cartError.value.addItem,
+          });
           break;
-        case 'BundleProduct':
-        case 'ConfigurableProduct':
+        case ProductTypeEnum.CONFIGURABLE_PRODUCT:
+        case ProductTypeEnum.BUNDLE_PRODUCT:
+        case ProductTypeEnum.GROUPED_PRODUCT:
           const path = `/p/${productGetters.getProductSku(
             product,
           )}${productGetters.getSlug(product, product.categories[0])}`;
-          await router.push(`${app.localePath(path)}`);
+          await router.push(localeRoute({
+            path,
+            query: {
+              wishlist: 'true',
+            },
+          }));
           break;
         default:
           throw new Error(
@@ -344,10 +233,10 @@ export default defineComponent({
     });
 
     return {
-      ...uiState,
       addItemToCart,
       removeItemFromWishlist,
       isInCart,
+      isCartLoading,
       loading,
       pagination,
       productGetters,
@@ -563,8 +452,7 @@ export default defineComponent({
     }
   }
 
-  &__grid,
-  &__list {
+  &__grid {
     display: flex;
     flex-wrap: wrap;
   }
@@ -578,16 +466,6 @@ export default defineComponent({
       --product-card-title-font-weight: var(--font-weight--normal);
       --product-card-add-button-bottom: var(--spacer-base);
       --product-card-title-margin: var(--spacer-sm) 0 0 0;
-    }
-  }
-
-  &__product-card-horizontal {
-    flex: 0 0 100%;
-    @include for-mobile {
-      ::v-deep .sf-image {
-        --image-width: 5.3125rem;
-        --image-height: 7.0625rem;
-      }
     }
   }
 
@@ -615,9 +493,6 @@ export default defineComponent({
     }
     &__product-card {
       flex: 1 1 25%;
-    }
-    &__list {
-      margin: 0 0 0 var(--spacer-sm);
     }
   }
 

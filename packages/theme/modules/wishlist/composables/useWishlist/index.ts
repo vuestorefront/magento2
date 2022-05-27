@@ -10,42 +10,47 @@ import type {
   UseWishlistIsInWishlistParams,
   UseWishlistLoadParams,
   UseWishlistRemoveItemParams,
+  UseWishlistAfterAddingWishlistItemToCartParams,
 } from '~/modules/wishlist/composables/useWishlist/useWishlist';
+import { useUiNotification } from '~/composables';
 
 /**
- * The `useWishlist()` composable allows loading and manipulating wishlist of the current user.
+ * Allows loading and manipulating wishlist of the current user.
  *
- * See the {@link UseWishlistInterface} page for more information.
+ * See the {@link UseWishlistInterface} for a list of methods and values available in this composable.
  */
 export function useWishlist(): UseWishlistInterface {
   const wishlistStore = useWishlistStore();
   const { app } = useContext();
+  const { send: sendNotification } = useUiNotification();
   const loading = ref(false);
-  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-  const calculateWishlistTotal = (wishlists) => wishlists.reduce((prev, next) => (prev?.items_count ?? 0) + (next?.items_count ?? 0), 0);
+  const calculateWishlistTotal = (wishlists: Wishlist[]) => wishlists.reduce((acc, current) => acc + (current?.items_count ?? 0), 0);
   const error = ref<UseWishlistErrors>({
     addItem: null,
     removeItem: null,
     load: null,
     clear: null,
     loadItemsCount: null,
+    afterAddingWishlistItemToCart: null,
   });
 
-  // eslint-disable-next-line consistent-return
   const load = async (params?: UseWishlistLoadParams) => {
     Logger.debug('useWishlist/load');
 
     try {
       loading.value = true;
       Logger.debug('[Magento Storefront]: useWishlist.load params->', params);
-      const apiState = app.context.$vsf.$magento.config.state;
+      const apiState = app.$vsf.$magento.config.state;
 
       if (apiState.getCustomerToken()) {
-        const { data } = await app.context.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
+        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
-        wishlistStore.wishlist = loadedWishlist[0] ?? {};
+        if (loadedWishlist[0]) {
+          // @ts-expect-error M2-579
+          [wishlistStore.wishlist] = loadedWishlist;
+        }
       }
 
       error.value.load = null;
@@ -105,7 +110,7 @@ export function useWishlist(): UseWishlistInterface {
   const loadItemsCount = async (): Promise<number | null> => {
     Logger.debug('useWishlist/wishlistItemsCount');
     const apiState = app.context.$vsf.$magento.config.state;
-    let itemsCount = null;
+    let itemsCount : number | null = null;
 
     try {
       loading.value = true;
@@ -114,7 +119,7 @@ export function useWishlist(): UseWishlistInterface {
         const { data } = await app.context.$vsf.$magento.api.wishlistItemsCount();
 
         Logger.debug('[Result]:', { data });
-        const loadedWishlist = data?.customer?.wishlists ?? [];
+        const loadedWishlist : Wishlist[] = data?.customer?.wishlists ?? [];
         itemsCount = calculateWishlistTotal(loadedWishlist);
         wishlistStore.$patch((state) => {
           state.wishlist.items_count = itemsCount;
@@ -148,14 +153,11 @@ export function useWishlist(): UseWishlistInterface {
 
       const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
 
-      // todo: legacy code, should be double-checked and probably removed
       if (itemOnWishlist) {
-        return await removeItem({
-          product,
-        });
+        return;
       }
 
-      if (!app.$vsf.$magento.config.state.getCustomerToken()) { // TODO: replace by value from pinia store after sueCart composable will be refactored
+      if (!app.$vsf.$magento.config.state.getCustomerToken()) {
         Logger.error('Need to be authenticated to add a product to wishlist');
       }
 
@@ -220,7 +222,6 @@ export function useWishlist(): UseWishlistInterface {
           break;
         }
         default:
-          // todo implement other options
           // @ts-ignore
           // eslint-disable-next-line no-underscore-dangle
           Logger.error(`Product Type ${product.__typename} not supported in add to wishlist yet`);
@@ -251,6 +252,51 @@ export function useWishlist(): UseWishlistInterface {
     }
   };
 
+  const afterAddingWishlistItemToCart = (
+    { product, cartError }: UseWishlistAfterAddingWishlistItemToCartParams,
+  ) => {
+    Logger.debug('useWishlist/afterAddingItemToCart', product);
+
+    if (!isInWishlist({ product })) return;
+
+    try {
+      if (cartError?.message) {
+        sendNotification({
+          id: Symbol('product_added_to_cart_from_wishlist_error'),
+          message: cartError.message,
+          type: 'danger',
+          icon: 'cross',
+          persist: false,
+          title: 'Wishlist error',
+        });
+      } else {
+        // eslint-disable-next-line promise/catch-or-return
+        removeItem({ product })
+          // eslint-disable-next-line promise/always-return
+          .then(() => {
+            sendNotification({
+              id: Symbol('product_added_to_cart_from_wishlist'),
+              message: app.i18n.t(
+                'You added {product} to your shopping cart.',
+                { product: product.name },
+              ) as string,
+              type: 'success',
+              icon: 'check',
+              persist: false,
+              title: 'Wishlist',
+            });
+          });
+      }
+    } catch (err) {
+      error.value.afterAddingWishlistItemToCart = err;
+      Logger.error('useWishlist/afterAddingWishlistItemToCart', err);
+    }
+  };
+
+  const addOrRemoveItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
+    await (isInWishlist({ product }) ? removeItem({ product, customQuery }) : addItem({ product, customQuery }));
+  };
+
   return {
     loadItemsCount,
     isInWishlist,
@@ -259,6 +305,8 @@ export function useWishlist(): UseWishlistInterface {
     removeItem,
     clear,
     setWishlist,
+    afterAddingWishlistItemToCart,
+    addOrRemoveItem,
     loading: readonly(loading),
     error: readonly(error),
   };

@@ -36,5 +36,10 @@ jobs:
       - name: Build packages
         run: yarn build
 
+        # typescript-eslint needs all packages to be built
+        # to check type-related linting rules
+      - name: Check for linting errors
+        run: yarn lint
+
       - name: Test theme
         run: yarn test:theme

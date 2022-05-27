@@ -16,14 +16,13 @@ export interface UseWishlistErrors {
   load: Error | null;
   clear: Error | null;
   loadItemsCount: Error | null;
+  afterAddingWishlistItemToCart: Error | null,
 }
 
 /**
  * Parameters accepted by the `loadItemsCount` method in the `useWishlist` composable
  */
-export type UseWishlistLoadItemsCountParams = ComposableFunctionArgs<{
-  // TODO: Add type
-}>;
+export type UseWishlistLoadItemsCountParams = ComposableFunctionArgs<{}>;
 
 /**
  * Parameters accepted by the `isInWishlist` method in the `useWishlist` composable
@@ -62,13 +61,21 @@ export type UseWishlistClearParams = {
 };
 
 /**
- * Represents the data returned from and functions available in the `useWishlist()` composable.
+ * Parameters accepted by the `afterAddingWishlistItemToCart` method in the `useWishlist` composable
+ */
+export type UseWishlistAfterAddingWishlistItemToCartParams = ComposableFunctionArgs<{
+  product: Product;
+  cartError: Error;
+}>;
+
+/**
+ * Data and methods returned from the {@link useWishlist|useWishlist()} composable
  */
 export interface UseWishlistInterface {
   /**
    * Returns a total number of items added to the wishlist of the current user
    */
-  loadItemsCount(params?: UseWishlistLoadItemsCountParams): Promise<number | null>;
+  loadItemsCount(): Promise<number | null>;
 
   /**
    * Checks if given product is in the wishlist of the current user
@@ -99,6 +106,16 @@ export interface UseWishlistInterface {
    * Overrides the wishlist of the current user
    */
   setWishlist(newWishlist: Wishlist): void;
+
+  /**
+   * After adding a product from the wishlist to the cart
+   */
+  afterAddingWishlistItemToCart(params: UseWishlistAfterAddingWishlistItemToCartParams): void;
+
+  /**
+   * Adds item to the wishlist if is not already added, otherwise remove it from the wishlist
+   */
+  addOrRemoveItem(params: UseWishlistAddItemParams): Promise<void>;
 
   /**
    * Indicates whether any of the methods is in progress

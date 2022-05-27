@@ -10,7 +10,7 @@ import {
 } from '@vue-storefront/core';
 import {
   BundleProduct,
-  Category, GroupedProduct,
+  Category, CategoryTree, GroupedProduct,
   Product,
 } from '@vue-storefront/magento-api';
 
@@ -105,7 +105,7 @@ export const getProductThumbnailImage = (product: Product): string => {
   return product.thumbnail.url;
 };
 
-export const getFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
+export const getFiltered = (products: Product[], _filters: ProductVariantFilters | any = {}): Product[] => {
   if (!products) {
     return [];
   }
@@ -202,7 +202,6 @@ export const getFormattedPrice = (price: number) => {
     return null;
   }
 
-  // TODO get correct data from api
   const locale = 'en';
   const country = 'en';
   const currency = 'USD';
@@ -213,7 +212,7 @@ export const getFormattedPrice = (price: number) => {
   }).format(price);
 };
 
-export const getBreadcrumbs = (product: any, category?: Category): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: Product, category?: CategoryTree): AgnosticBreadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -221,7 +220,7 @@ export const getBreadcrumbs = (product: any, category?: Category): AgnosticBread
   }
 
   if (category) {
-    breadcrumbs = categoryGetters.getBreadcrumbs(category) as AgnosticBreadcrumb[];
+    breadcrumbs = categoryGetters.getBreadcrumbs(category);
   }
 
   breadcrumbs.push({

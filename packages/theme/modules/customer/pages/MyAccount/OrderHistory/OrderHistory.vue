@@ -4,7 +4,7 @@
       data-cy="order-history-tab_my-orders"
       :title="$t('My orders')"
     >
-      <div v-if="loading">
+      <div v-if="$fetchState.pending">
         <SfLoader />
       </div>
       <div v-else>
@@ -41,18 +41,18 @@
           </SfTableHeading>
           <SfTableRow
             v-for="order in orders"
-            :key="order.order_number"
+            :key="order.number"
           >
-            <SfTableData>{{ order.order_number }}</SfTableData>
-            <SfTableData>{{ orderGetters.getDate(order) }}</SfTableData>
-            <SfTableData>{{ $fc(orderGetters.getPrice(order)) }}</SfTableData>
+            <SfTableData>{{ order.number }}</SfTableData>
+            <SfTableData>{{ getDate(order) }}</SfTableData>
+            <SfTableData>{{ $fc(getPrice(order)) }}</SfTableData>
             <SfTableData>
-              <span :class="getStatusTextClass(order)">{{ orderGetters.getStatus(order) }}</span>
+              <span :class="getStatusTextClass(order)">{{ order.status }}</span>
             </SfTableData>
             <SfTableData class="orders__view orders__element--right">
               <SfLink
                 data-cy="order-history-btn_view"
-                :link="localeRoute({ name: 'customer-single-order', params: { orderId: order.order_number } })"
+                :link="localeRoute({ name: 'customer-single-order', params: { orderId: order.number } })"
               >
                 {{ $t('View details') }}
               </SfLink>
@@ -61,7 +61,7 @@
         </SfTable>
         <LazyHydrate on-interaction>
           <SfPagination
-            v-if="!loading"
+            v-if="!$fetchState.pending"
             v-show="pagination.totalPages > 1"
             class="products__pagination desktop-only"
             :current="pagination.currentPage"
@@ -94,22 +94,6 @@
         </div>
       </div>
     </SfTab>
-    <SfTab
-      data-cy="order-history-tab_returns"
-      :title="$t('Returns')"
-    >
-      <p class="message">
-        This feature is not implemented yet! Please take a look at
-        <br>
-        <SfLink
-          class="message__link"
-          link="#"
-        >
-          https://github.com/vuestorefront/magento2/projects/5
-        </SfLink>
-        for our Roadmap!
-      </p>
-    </SfTab>
   </SfTabs>
 </template>
 
@@ -124,14 +108,14 @@ import {
   SfLoader,
 } from '@storefront-ui/vue';
 import {
-  computed, defineComponent, useRoute, useAsync,
+  ref, computed, defineComponent, useRoute, useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
-import { AgnosticOrderStatus } from '~/composables/types';
-import { orderGetters } from '~/getters';
+import orderGetters from '~/modules/checkout/getters/orderGetters';
 import { useUiHelpers } from '~/composables';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
-import { CustomerOrder } from '~/modules/GraphQL/types';
+import type { CustomerOrders, CustomerOrder } from '~/modules/GraphQL/types';
+import { OrderStatusEnum } from '~/modules/customer/enums/OrderStatusEnum';
 
 export default defineComponent({
   name: 'OrderHistory',
@@ -146,7 +130,7 @@ export default defineComponent({
     SfLoader,
   },
   setup() {
-    const { search, loading } = useUserOrder();
+    const { search } = useUserOrder();
     const route = useRoute();
     const th = useUiHelpers();
     const {
@@ -156,13 +140,13 @@ export default defineComponent({
       },
     } = route.value;
 
-    const orders = useAsync(async () => {
-      const ordersData = await search({
+    const rawCustomerOrders = ref<CustomerOrders | null>(null);
+
+    useFetch(async () => {
+      rawCustomerOrders.value = await search({
         currentPage: Number.parseInt(page as string, 10) || 1,
         pageSize: Number.parseInt(itemsPerPage as string, 10) || 10,
       });
-
-      return ordersData;
     });
 
     const tableHeaders = [
@@ -173,25 +157,25 @@ export default defineComponent({
     ];
 
     const getStatusTextClass = (order: CustomerOrder) => {
-      const status = orderGetters.getStatus(order);
-      switch (status) {
-        case AgnosticOrderStatus.Open:
+      switch (order.status) {
+        case OrderStatusEnum.OPEN:
           return 'text-warning';
-        case AgnosticOrderStatus.Complete:
+        case OrderStatusEnum.COMPLETE:
           return 'text-success';
         default:
           return '';
       }
     };
 
-    const pagination = computed(() => orderGetters.getPagination(orders.value));
+    const pagination = computed(() => orderGetters.getPagination(rawCustomerOrders.value));
 
     return {
       getStatusTextClass,
-      loading,
       orderGetters,
-      // @ts-expect-error Wrong type returned by useUserOrder. See M2-579 in VSF Jira
-      orders: computed(() => orderGetters.getItems(orders.value)),
+      getDate: orderGetters.getDate,
+      getPrice: orderGetters.getPrice,
+      orders: computed(() => rawCustomerOrders.value?.items ?? []),
+      rawCustomerOrders,
       pagination,
       tableHeaders,
       th,

@@ -3,7 +3,7 @@ import { useConfig } from '~/composables';
 import type { UseMagentoConfigurationInterface } from './UseMagentoConfiguration';
 
 /**
- * The `useMagentoConfiguration()` composable allows getting the Magento's major
+ * Allows getting the Magento's major
  * definitions, e.g., the selected currency, store, locale, and config object.
  *
  * See the {@link UseMagentoConfigurationInterface} for a list of methods and values available in this composable.

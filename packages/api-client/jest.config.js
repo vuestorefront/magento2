@@ -23,7 +23,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(m)js$': 'babel-jest',
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.ts$': 'ts-jest',
   },
   transformIgnorePatterns: [
     'node_modules',

@@ -6,7 +6,7 @@ import { useConfigStore } from '~/stores/config';
 import { UseConfigErrors, UseConfigInterface } from './useConfig';
 
 /**
- * The `useConfig` composable allows interacting with the store configuration.
+ * Allows interacting with the store configuration.
  *
  * See the {@link UseConfigInterface} for a list of methods and values available in this composable.
  */

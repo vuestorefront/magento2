@@ -7,8 +7,8 @@
           class="message"
         />
         <AddressForm
-          v-if="!$fetchState.pending"
-          :address="address"
+          :address="address || undefined /* use default address prop value during loading */"
+          :loading="$fetchState.pending"
           @submit="update"
         >
           <template #submit-button-content>
@@ -46,19 +46,19 @@ export default defineComponent({
     const router = useRouter();
     const context = useContext();
 
-    const addressesComposable = useAddresses();
+    const { load: loadAddress, update: updateAddress } = useAddresses();
     const address = ref(null);
     const numericAddressId = Number.parseInt(props.addressId, 10); // because in below find(), CustomerAddress['id'] is numeric
 
     useFetch(async () => {
-      const addressesData = await addressesComposable.load(); // TODO don't fetch all addresses just to pluck one address
+      const addressesData = await loadAddress();
       address.value = userAddressesGetters
         .getAddresses(addressesData)
         .find(({ id }) => id === numericAddressId);
     });
 
     const update = async ({ form } : SubmitEventPayload<CustomerAddress>) => {
-      await addressesComposable.update({ address: { ...form, id: numericAddressId } });
+      await updateAddress({ address: { ...form, id: numericAddressId } });
       await router.push(context.localeRoute({ name: 'customer-addresses-details' }));
     };
 

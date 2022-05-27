@@ -1,17 +1,16 @@
 import type { Ref } from '@nuxtjs/composition-api';
 import { ref, readonly, useContext } from '@nuxtjs/composition-api';
+import { Logger } from '~/helpers/logger';
 import type {
   UseUpsellProductsError,
   UseUpsellProductsInterface,
   UseUpsellProductsSearchParams,
 } from './useUpsellProducts';
 
-import { Logger } from '~/helpers/logger';
-
 /**
- * The `useUpsellProducts()` composable allows loading upsell products.
+ * Allows loading upsell products.
  *
- * See the {@link UseUpsellProductsInterface} page for more information.
+ * See the {@link UseUpsellProductsInterface} for a list of methods and values available in this composable.
  */
 export function useUpsellProducts(): UseUpsellProductsInterface {
   const { app } = useContext();

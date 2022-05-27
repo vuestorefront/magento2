@@ -11,7 +11,7 @@ import type {
 } from './useShippingProvider';
 
 /**
- * The `useShippingProvider` composable allows loading the shipping provider
+ * Allows loading the shipping provider
  * for the current cart and saving (selecting) other shipping provider for the
  * same cart.
  *

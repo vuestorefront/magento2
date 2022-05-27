@@ -1,4 +1,4 @@
-import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { DeepReadonly, Ref, useContext } from '@nuxtjs/composition-api';
 import type {
   AvailableStoresQuery,
   CountriesListQuery,
@@ -59,6 +59,7 @@ export declare type ComposableFunctionArgs<T> = T & {
 export interface AgnosticPrice {
   regular: number | null;
   special?: number | null;
+  maximum?: number | null;
 }
 
 export interface AgnosticMediaGalleryItem {
@@ -160,17 +161,6 @@ export interface AgnosticRateCount {
   count: number;
 }
 
-// TODO - remove this interface
-export enum AgnosticOrderStatus {
-  Open = 'Open',
-  Pending = 'Pending',
-  Confirmed = 'Confirmed',
-  Shipped = 'Shipped',
-  Complete = 'Complete',
-  Cancelled = 'Cancelled',
-  Refunded = 'Refunded',
-}
-
 export interface FacetInterface {
   type: string;
   id: string;
@@ -232,3 +222,5 @@ export interface AgnosticReviewMetadata {
     id: string;
   }[];
 }
+
+export type UseContextReturn = ReturnType<typeof useContext>;

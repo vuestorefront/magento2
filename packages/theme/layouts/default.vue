@@ -26,7 +26,7 @@ import AppHeader from '~/components/AppHeader.vue';
 import BottomNavigation from '~/components/BottomNavigation.vue';
 import IconSprite from '~/components/General/IconSprite.vue';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
-import TopBar from '~/components/TopBar/index.vue';
+import TopBar from '~/components/TopBar/TopBar.vue';
 
 export default defineComponent({
   name: 'DefaultLayout',

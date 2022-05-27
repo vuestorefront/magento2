@@ -7,12 +7,13 @@ import {
 import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
-import { useCustomerStore } from '~/stores/customer';
+import { useCustomerStore } from '~/modules/customer/stores/customer';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
 import { Customer } from '~/modules/GraphQL/types';
 import type {
   UseUserInterface,
+  UseUserErrors,
   UseUserLoadParams,
   UseUserLoginParams,
   UseUserLogoutParams,
@@ -22,16 +23,16 @@ import type {
 } from './useUser';
 
 /**
- * The `useUser()` composable allows loading and manipulating data of the current user.
+ * Allows loading and manipulating data of the current user.
  *
- * See the {@link UseUserInterface} page for more information.
+ * See the {@link UseUserInterface} for a list of methods and values available in this composable.
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const errorsFactory = () => ({
+  const errorsFactory = () : UseUserErrors => ({
     updateUser: null,
     register: null,
     login: null,
@@ -161,22 +162,22 @@ export function useUser(): UseUserInterface {
 
       const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
         {
-          email: providedUser.username,
+          email: providedUser.email,
           password: providedUser.password,
           recaptchaToken: providedUser.recaptchaToken,
         },
         customQuery || {},
       );
-
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        error.value.login = { message: joinedErrors };
+
+        return;
       }
 
-      if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
-        Logger.error('Customer sign-in error'); // todo: handle errors in better way
-      }
       customerStore.setIsLoggedIn(true);
       apiState.setCustomerToken(data.generateCustomerToken.token);
 
@@ -255,7 +256,7 @@ export function useUser(): UseUserInterface {
       //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
       // }
       error.value.register = null;
-      await login({ user: { username: email, password }, customQuery: {} });
+      await login({ user: { email, password }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);

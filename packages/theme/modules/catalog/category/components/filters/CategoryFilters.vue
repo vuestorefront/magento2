@@ -112,7 +112,7 @@
 </template>
 <script lang="ts">
 import {
-  defineComponent, onMounted, provide, Ref, ref,
+  defineComponent, onMounted, provide, Ref, ref, nextTick, watch,
 } from '@nuxtjs/composition-api';
 import {
   SfAccordion,
@@ -123,9 +123,10 @@ import {
   SfSidebar,
 } from '@storefront-ui/vue';
 
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useUiHelpers } from '~/composables';
-import { getFilterConfig, getDisabledFilters } from '~/modules/catalog/category/config/FiltersConfig';
+import { getFilterConfig, isFilterEnabled } from '~/modules/catalog/category/config/FiltersConfig';
 import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
 import { getProductFilterByCategoryCommand } from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
 
@@ -204,9 +205,17 @@ export default defineComponent({
       emit('close');
     };
 
+    watch(() => props.isVisible, (newValue) => {
+      // disable Storefrontt UI's body scroll lock which is launched when :visible prop on SfSidebar changes
+      // two next ticks because SfSidebar uses nextTick aswell, and we want to do something after that tick.
+      if (newValue) {
+        nextTick(() => nextTick(() => clearAllBodyScrollLocks()));
+      }
+    });
+
     onMounted(async () => {
       const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: props.catUid });
-      filters.value = loadedFilters.filter((filter) => !getDisabledFilters().includes(filter.attribute_code));
+      filters.value = loadedFilters.filter((filter) => isFilterEnabled(filter.attribute_code));
       updateRemovableFilters();
       isLoading.value = false;
     });

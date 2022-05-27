@@ -8,7 +8,7 @@ import type { ComposableFunctionArgs } from '../types';
 import type { UseContentInterface, UseContentErrors } from './useContent';
 
 /**
- * The `useContent` composable allows loading CMS Pages or Blocks from Magento API.
+ * Allows loading CMS Pages or Blocks from Magento API.
  *
  * See the {@link UseContentInterface} for a list of methods and values available in this composable.
  */

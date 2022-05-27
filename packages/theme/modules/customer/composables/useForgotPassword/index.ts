@@ -15,9 +15,9 @@ import {
 } from '~/modules/customer/composables/useForgotPassword/useForgotPassword';
 
 /**
- * The `useForgotPassword` composable alows to request a password reset email and to set a new password to a user
+ * Allows to request a password reset email and to set a new password to a user.
  *
- * Se the {@link UseForgotPasswordInterface} page for more information
+ * Se the {@link UseForgotPasswordInterface} for a list of methods and values available in this composable.
  */
 export function useForgotPassword(): UseForgotPasswordInterface {
   const { app } = useContext();
@@ -42,6 +42,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
       const { data } = await app.context.$vsf.$magento.api.requestPasswordResetEmail({ email: resetPasswordParams.email, recaptchaToken: resetPasswordParams.recaptchaToken });
       Logger.debug('[Result]:', { data });
       error.value.request = data;
+      result.value.resetPasswordResult = data?.requestPasswordResetEmail ?? false;
     } catch (err) {
       error.value.request = err;
       Logger.error('useForgotPassword/request', err);
@@ -63,8 +64,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
       });
 
       Logger.debug('[Result]:', { data });
-
-      result.value = data;
+      result.value.setNewPasswordResult = data?.resetPassword ?? false;
       error.value.setNew = null;
     } catch (err) {
       error.value.setNew = err;

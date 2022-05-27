@@ -1,5 +1,5 @@
 import type { Ref } from '@nuxtjs/composition-api';
-import type { SelectedShippingMethod } from '~/modules/GraphQL/types';
+import type { SelectedShippingMethod, ShippingMethodInput } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/composables/types';
 
 /**
@@ -26,12 +26,11 @@ export type UseShippingProviderLoadParams = ComposableFunctionArgs<{}>;
  * The params object accepted by the `save` method in the {@link useShippingProvider|useShippingProvider()} composable
  */
 export type UseShippingProviderSaveParams = ComposableFunctionArgs<{
-  // TODO: Define this type.
-  shippingMethod: any;
+  shippingMethod: ShippingMethodInput;
 }>;
 
 /**
- * The refs and methods returned by the {@link useShippingProvider|useShippingProvider()} composable
+ * Data and methods returned from the {@link useShippingProvider|useShippingProvider()} composable
  */
 export interface UseShippingProviderInterface {
   /**

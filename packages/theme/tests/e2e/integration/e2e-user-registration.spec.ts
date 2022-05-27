@@ -1,6 +1,7 @@
 import generator from '../utils/data-generator';
 import page from '../pages/factory';
 import requests from '../api/requests';
+import { Customer } from '../types/customer';
 
 before(() => {
   cy.fixture('test-data/e2e-user-registration.json').then((fixture) => {
@@ -16,7 +17,7 @@ context(['regression'], 'User registration', () => {
     data.customer.email = generator.email;
     page.home.visit();
     page.home.header.openLoginModal();
-    page.components.loginModal.fillForm(data.customer);
+    page.components.loginModal.fillForm(data.customer as Customer);
     page.components.loginModal.iWantToCreateAccountCheckbox.click();
     page.components.loginModal.submitButton.click();
     page.components.loginModal.container.should('not.exist');
@@ -28,13 +29,13 @@ context(['regression'], 'User registration', () => {
     const data = cy.fixtures.data['Existing user - should display an error'];
     data.customer.email = generator.email;
 
-    requests.createCustomer(data.customer).then(() => {
+    requests.createCustomer(data.customer as Customer).then(() => {
       cy.clearCookies();
     });
 
     page.home.visit();
     page.home.header.openLoginModal();
-    page.components.loginModal.fillForm(data.customer);
+    page.components.loginModal.fillForm(data.customer as Customer);
     page.components.loginModal.iWantToCreateAccountCheckbox.click();
     page.components.loginModal.submitButton.click();
     page.components.loginModal.container.contains(`${data.errorMessage} '"${data.customer.email}"'`).should('be.visible');

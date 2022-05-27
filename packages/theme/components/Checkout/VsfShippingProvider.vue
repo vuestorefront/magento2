@@ -71,16 +71,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {
   SfHeading, SfButton, SfRadio, SfLoader,
 } from '@storefront-ui/vue';
 
 import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
 import useCart from '~/modules/checkout/composables/useCart';
 import useShippingProvider from '~/modules/checkout/composables/useShippingProvider';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
+
+import type { SelectedShippingMethod, AvailableShippingMethod } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'VsfShippingProvider',
@@ -92,13 +95,13 @@ export default defineComponent({
   },
   props: {
     shippingMethods: {
-      type: Array,
+      type: Array as PropType<AvailableShippingMethod[]>,
       default: () => [],
     },
   },
   setup() {
     const { cart } = useCart();
-    const state = ref({});
+    const state = ref<SelectedShippingMethod | null>(null);
 
     const {
       save: saveShippingProvider,
@@ -111,11 +114,8 @@ export default defineComponent({
     const isShippingMethodStepCompleted = computed(
       () => state.value?.method_code && !isLoading.value,
     );
-    /**
-     * @TODO: Do not run the setShippingMethodsOnCart mutation on in-store pickup orders.
-     * Instead, specify the pickup_location_code attribute in the setShippingAddressesOnCart mutation.
-     */
-    const selectShippingMethod = async (method) => {
+
+    const selectShippingMethod = async (method: AvailableShippingMethod) => {
       const shippingData = {
         carrier_code: method.carrier_code,
         method_code: method.method_code,

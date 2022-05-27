@@ -12,6 +12,7 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
       cart: useCart(),
     };
   },
+  // eslint-disable-next-line @typescript-eslint/require-await
   initializeCheckout: async (context: Context, params) => {
     Logger.debug('[Magento]: Initialize external checkout', { params });
 
@@ -24,7 +25,6 @@ const factoryParams: UseExternalCheckoutFactoryParams = {
 
     if (externalCheckout.enable) {
       if (userToken && cartToken) {
-        // @TODO: Implements Multiple Store
         /* if (Object.keys(externalCheckout.stores).length) {
 
         } */

@@ -1,19 +1,19 @@
 import { ComputedRef, Ref } from '@nuxtjs/composition-api';
 import { ComposableFunctionArgs } from '~/composables/types';
+import { Product } from '~/modules/catalog/product/types';
 
 /**
  * Parameters accepted by the `addItem` method in the {@link useCart} composable
  */
 export type UseCartAddItemParams<PRODUCT> = ComposableFunctionArgs<{
   product: PRODUCT;
-  quantity: any; // TODO: Update type
+  quantity: number;
 }>;
 
 /**
  * Parameters accepted by the `removeItem` method in the {@link useCart} composable
  */
-type UseCartRemoveItemParams<CART, CART_ITEM> = ComposableFunctionArgs<{
-  currentCart: CART
+type UseCartRemoveItemParams<CART_ITEM> = ComposableFunctionArgs<{
   product: CART_ITEM
 }>;
 
@@ -40,14 +40,7 @@ type UseCartApplyCouponParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * Parameters accepted by the `isInCart` method in the {@link useCart} composable
- */
-type UseCartIsInCartParams<PRODUCT> = {
-  product: PRODUCT
-};
-
-/**
- * Represents data and methods returned from the {@link useCart} composable
+ * Data and methods returned from the {@link useCart} composable
  */
 export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   /** Loads the current cart */
@@ -59,7 +52,7 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
     params: UseCartAddItemParams<PRODUCT>
   ): Promise<void>;
   /** Removes an `item` from a `cart` */
-  removeItem(params: UseCartRemoveItemParams<CART, CART_ITEM>): Promise<void>;
+  removeItem(params: UseCartRemoveItemParams< CART_ITEM>): Promise<void>;
   /** Updates the `quantity` of an `item` in a cart */
   updateItemQty(params: UseCartUpdateItemQtyParams<CART_ITEM>): Promise<void>;
   /** Removes all items from the cart */
@@ -68,12 +61,14 @@ export interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
   applyCoupon(params: UseCartApplyCouponParams): Promise<void>;
   /** Removes applied coupon from the cart */
   removeCoupon(params: ComposableFunctionArgs<{}>): Promise<void>;
-  /** Checks wheter a `product` is in the `cart` */
-  isInCart(params: UseCartIsInCartParams<PRODUCT>): boolean;
+  /** Checks whether a `product` is in the `cart` */
+  isInCart(PRODUCT): boolean;
   /** Sets the contents of the cart */
   setCart(newCart: CART): void;
   /** Returns the Items in the Cart as a `computed` property */
   cart: ComputedRef<CART>;
+  /** Checks wheter a `product` can be added to the `cart` */
+  canAddToCart(product: Product, qty: number);
   /**
    * The loading state.
    *

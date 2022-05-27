@@ -7,9 +7,9 @@ import type {
 } from './useUserOrder';
 
 /**
- * The `useUserOrder()` composable allows fetching customer orders.
+ * Allows fetching customer orders.
  *
- * See the {@link UseUserOrderInterface} page for more information.
+ * See the {@link UseUserOrderInterface} for a list of methods and values available in this composable.
  */
 export function useUserOrder(): UseUserOrderInterface {
   const { app } = useContext();

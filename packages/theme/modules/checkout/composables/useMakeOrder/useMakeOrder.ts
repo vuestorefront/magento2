@@ -10,7 +10,9 @@ export interface UseMakeOrderErrors {
   make: Error | null;
 }
 
-/** The interface provided by {@link useMakeOrder} composable. */
+/**
+ * Data and methods returned from the {@link useRelatedProducts} composable.
+ */
 export interface UseMakeOrderInterface {
   /** Makes an order with current cart. */
   make(): Promise<PlaceOrderOutput | null>;

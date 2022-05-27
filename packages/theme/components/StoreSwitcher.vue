@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 
 import { SfButton, SfCharacteristic, SfImage } from '@storefront-ui/vue';
