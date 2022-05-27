@@ -15,9 +15,11 @@
       :selected="selected(filter.attribute_code, option.value)"
       :value="option.value"
       name="filter__price"
+      data-testid="category-filter"
       @change="$emit('selectFilter', option)"
     >
       <template #label="{ label }">
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <span
           :class="{ 'display-none': !label }"
           class="sf-radio__label"

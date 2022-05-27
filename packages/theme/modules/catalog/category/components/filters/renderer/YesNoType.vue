@@ -8,6 +8,7 @@
       :selected="selected(filter.attribute_code, option.value)"
       :value="option.value"
       name="filter__price"
+      data-testid="category-filter"
       @change="$emit('selectFilter', option)"
     />
   </div>
