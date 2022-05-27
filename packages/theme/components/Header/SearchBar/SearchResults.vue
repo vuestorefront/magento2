@@ -162,6 +162,7 @@ import {
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
+import type { Product } from '~/modules/catalog/product/types';
 
 export default defineComponent({
   name: 'SearchResults',
@@ -191,7 +192,7 @@ export default defineComponent({
     const isSearchOpen = ref(props.visible);
     const products = computed(() => props.result?.products);
 
-    const addItemToWishlist = async (product) => {
+    const addItemToWishlist = async (product: Product) => {
       await addOrRemoveItem({ product });
     };
 
