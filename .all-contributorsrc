@@ -195,8 +195,7 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/88658555?v=4",
       "profile": "https://github.com/Aliaaaam",
       "contributions": [
-        "code",
-        "design"
+        "code"
       ]
     },
     {
@@ -206,6 +205,15 @@
       "profile": "https://github.com/mayashavin",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "AlexanderDevitsky",
+      "name": "Alexander Devitsky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14941520?v=4",
+      "profile": "https://github.com/AlexanderDevitsky",
+      "contributions": [
+        "code"
       ]
     }
   ],
