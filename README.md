@@ -18,7 +18,7 @@ This project is a Magento 2 integration for Vue Storefront 2.
 <hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
@@ -150,6 +150,7 @@ Thanks go to these wonderful people 🙌:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/Diegoalbag"><img src="https://avatars.githubusercontent.com/u/72459310?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Diego Alba</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Diegoalbag" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/aelmizeb"><img src="https://avatars.githubusercontent.com/u/19288561?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Abdellatif EL MIZEB</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=aelmizeb" title="Code">💻</a></td>
   </tr>
 </table>
 
