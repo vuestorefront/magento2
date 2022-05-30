@@ -4,6 +4,7 @@
       v-for="(filter, key) in removableFilters"
       :key="key"
       class="selected-filter"
+      data-testid="selected-filter"
     >
       <HTMLContent
         class="selected-filter__label"
@@ -13,7 +14,8 @@
       <button
         type="button"
         class="selected-filter__remove"
-        @click.prevent="$emit('removeFilter', {id: filter.id, value: filter.value})"
+        data-testid="selected-filter-remove"
+        @click.prevent="$emit('removeFilter', { id: filter.id, value: filter.value })"
       >
         <SfIcon
           class="sf-cross__icon"
