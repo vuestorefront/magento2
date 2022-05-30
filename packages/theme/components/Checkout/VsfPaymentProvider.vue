@@ -2,17 +2,17 @@
   <div>
     <SfRadio
       v-for="method in paymentMethods"
-      :key="method.value"
+      :key="method.code"
       v-e2e="'payment-method'"
-      :label="method.label"
-      :value="method.value"
-      :selected="selectedMethod"
+      :label="method.title"
+      :value="method.code"
+      :selected="selectedPaymentMethodCode"
       name="paymentMethod"
       class="form__radio payment"
-      @input="definePaymentMethods(method.value)"
+      @input="definePaymentMethods(method.code)"
     >
       <div class="payment__label">
-        {{ method.label }}
+        {{ method.title }}
       </div>
     </SfRadio>
   </div>
@@ -20,57 +20,40 @@
 
 <script lang="ts">
 import { SfRadio } from '@storefront-ui/vue';
-import {
-  ref,
-  onMounted,
-  computed,
-  defineComponent,
-} from '@nuxtjs/composition-api';
+import { ref, onMounted, defineComponent } from '@nuxtjs/composition-api';
 import usePaymentProvider from '~/modules/checkout/composables/usePaymentProvider';
+import type { AvailablePaymentMethod } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'VsfPaymentProvider',
-
   components: {
     SfRadio,
   },
-
   emits: ['status'],
-
-  setup(props, { emit }) {
-    const state = ref(null);
+  setup(_props, { emit }) {
+    const paymentMethods = ref<AvailablePaymentMethod[]>([]);
     const { load, save } = usePaymentProvider();
-    const selectedMethod = ref(null);
+    const selectedPaymentMethodCode = ref<string | null>(null);
 
     onMounted(async () => {
-      state.value = await load();
+      paymentMethods.value = await load();
     });
 
-    const paymentMethods = computed(() => (Array.isArray(state.value) ? state.value.map((p) => ({
-      label: p.title,
-      value: p.code,
-    })) : []));
+    const definePaymentMethods = async (paymentMethodCode: string) => {
+      paymentMethods.value = await save({
+        paymentMethod: {
+          code: paymentMethodCode,
+        },
+      });
 
-    const definePaymentMethods = async (paymentMethod) => {
-      try {
-        state.value = await save({
-          paymentMethod: {
-            code: paymentMethod,
-          },
-        });
+      selectedPaymentMethodCode.value = paymentMethodCode;
 
-        selectedMethod.value = paymentMethod;
-
-        emit('status', paymentMethod);
-      } catch (e) {
-        console.error(e);
-      }
+      emit('status', paymentMethodCode);
     };
 
     return {
-      state,
       paymentMethods,
-      selectedMethod,
+      selectedPaymentMethodCode,
       definePaymentMethods,
     };
   },
