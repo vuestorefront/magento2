@@ -3,9 +3,7 @@
     class="sf-header-navigation-item__link"
     :link="link"
   >
-    {{
-      label
-    }}
+    {{ label }}
     <SfIcon
       v-if="hasChildren"
       icon="chevron_down"
@@ -18,8 +16,9 @@
 </template>
 <script lang="ts">
 import { SfLink, SfIcon } from '@storefront-ui/vue';
+import { defineComponent } from '@nuxtjs/composition-api';
 
-export default {
+export default defineComponent({
   name: 'HeaderNavigationItem',
   components: {
     SfLink,
@@ -39,7 +38,7 @@ export default {
       default: false,
     },
   },
-};
+});
 </script>
 <style lang="scss">
 .sf-header-navigation-item__link {
