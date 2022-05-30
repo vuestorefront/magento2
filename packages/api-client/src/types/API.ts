@@ -112,6 +112,7 @@ import {
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
 import { AddProductsToCartInput } from '../api/addProductsToCart';
+import type { RouteQuery } from '../api/route';
 
 export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> {
 }
@@ -439,6 +440,11 @@ export interface MagentoApiMethods {
     url: string,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<UrlResolverQuery>>;
+
+  route<ROUTE_TYPE>(
+    url: string,
+    customQuery?: CustomQuery
+  ): Promise<ApolloQueryResult<RouteQuery<ROUTE_TYPE>>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,
