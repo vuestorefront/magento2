@@ -11,9 +11,11 @@
       :label="option.label + `${option.count ? ` (${option.count})` : ''}`"
       :selected="Boolean(selected(filter.attribute_code, option.value))"
       class="filters__item"
+      data-testid="category-filter"
       @change="$emit('selectFilter', option)"
     >
       <template #label="{ label }">
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <span
           :class="{ 'display-none': !label }"
           class="sf-checkbox__label"
