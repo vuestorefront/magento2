@@ -124,7 +124,7 @@ export default defineComponent({
     const context = useContext();
     const router = useRouter();
 
-    const userAddresses = ref([]);
+    const userAddresses = ref<CustomerAddress[]>([]);
     const { load, remove } = useAddresses();
     const { fetch } = useFetch(async () => {
       const addressesData = await load();
