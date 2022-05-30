@@ -1,66 +1,125 @@
 import userEvent from '@testing-library/user-event';
+import { inject, ref, useContext } from '@nuxtjs/composition-api';
 import { render } from '~/test-utils';
-// import { mount } from '@vue/test-utils';
 import CategoryFilters from '../CategoryFilters.vue';
 import { useUiHelpers } from '~/composables';
+import { Aggregation } from '~/modules/GraphQL/types';
+import { categoryFiltersData } from '~/test-utils/mocks/categoryFiltersMock';
+import { useUiHelpersMock } from '~/test-utils/mocks/useUiHelpersMock';
 
+jest.mock('@nuxtjs/composition-api', () => {
+  const compositionApi = jest.requireActual('@nuxtjs/composition-api');
+  return {
+    ...compositionApi,
+    inject: jest.fn(),
+    useContext: jest.fn(),
+  };
+});
 jest.mock('~/composables');
-
 jest.mock('~/composables/useApi', () => ({
   useApi: jest.fn().mockReturnValue({
     query: jest.fn(),
   }),
 }));
 
-(useUiHelpers as jest.Mock).mockReturnValue({});
+(useContext as jest.Mock).mockReturnValue({
+  app: {
+    i18n: {
+      t: jest.fn((text: string): string => text),
+    },
+  },
+});
+
+(inject as jest.Mock).mockReturnValue({
+  isFilterSelected: jest.fn(
+    (id: string, optVal: string): boolean => id === optVal,
+  ),
+});
+
+(useUiHelpers as jest.Mock).mockReturnValue(useUiHelpersMock());
 
 describe('CategoryFilters', () => {
-  it('CategoryFilters Mobile sidebar should be hidden if isVisible false', () => {
-    (useUiHelpers as jest.Mock).mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: {} })) });
+  it('Should render Skeleton when isLoading is true', () => {
+    const { queryByTestId } = render(CategoryFilters, {
+      props: {
+        catUid: '1',
+      },
+      setup() {
+        return {
+          isLoading: ref(true),
+        };
+      },
+    });
 
-    const { container } = render(CategoryFilters, {
+    expect(queryByTestId('skeleton-loader')).not.toBeNull();
+  });
+
+  it('CategoryFilters Mobile sidebar should be hidden if isVisible false', () => {
+    const { queryByTestId } = render(CategoryFilters, {
       props: {
         catUid: '1',
         isVisible: false,
       },
     });
 
-    const mobileSidebarFilters = container.querySelector('.sidebar-filters.smartphone-only');
+    expect(queryByTestId('mobile-sidebar').children).toHaveLength(0);
+  });
 
-    expect(mobileSidebarFilters).toBeNull();
+  it('Should render filters if these are exist', () => {
+    const { getAllByTestId } = render(CategoryFilters, {
+      props: {
+        catUid: '1',
+        isVisible: false,
+      },
+      setup() {
+        return {
+          isLoading: ref(false),
+          filters: ref(categoryFiltersData as Aggregation[]),
+        };
+      },
+    });
+    const filters = getAllByTestId('category-filter');
+
+    expect(filters).toHaveLength(categoryFiltersData.length);
   });
 
   it('CategoryFilters Mobile sidebar should be visible if isVisible true', () => {
-    (useUiHelpers as jest.Mock).mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: {} })) });
-
-    const { container } = render(CategoryFilters, {
+    const { queryByTestId } = render(CategoryFilters, {
       props: {
         catUid: '1',
         isVisible: true,
       },
     });
 
-    const mobileSidebarFilters = container.querySelector('.sidebar-filters.smartphone-only');
-
-    expect(mobileSidebarFilters).not.toBeNull();
+    expect(queryByTestId('mobile-sidebar').children).not.toHaveLength(0);
   });
 
-  it('Should emit reload product when clicked on "Clear all"', () => {
-    const user = userEvent.setup();
-    // (useUiHelpers as jest.Mock).mockReturnValue({ getFacetsFromURL: jest.fn(() => ({ filters: {} })) });
-
-    const { emitted, getByText } = render(CategoryFilters, {
+  it('"Apply filters" and "Clear all" buttons should be clickable', async () => {
+    const doApplyFilters = jest.fn();
+    const doClearFilters = jest.fn();
+    const { getByTestId } = render(CategoryFilters, {
       props: {
         catUid: '1',
         isVisible: false,
       },
+      setup() {
+        return {
+          isLoading: ref(false),
+          filters: ref(categoryFiltersData as Aggregation[]),
+          doApplyFilters,
+          doClearFilters,
+        };
+      },
     });
+    const applyFiltersButton = getByTestId('apply-filters');
+    const clearFiltersButton = getByTestId('clear-filters');
 
-    const clearAllButton = getByText('Clear All');
+    await userEvent.click(applyFiltersButton);
 
-    user.click(clearAllButton);
+    expect(doApplyFilters).toHaveBeenCalledTimes(1);
 
-    expect(emitted().reloadProducts).toBeCalled();
-    expect(emitted().close).toBeCalled();
+    await userEvent.click(clearFiltersButton);
+
+    expect(doClearFilters).toHaveBeenCalledTimes(1);
   });
 });
