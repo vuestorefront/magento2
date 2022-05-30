@@ -177,7 +177,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5359825?v=4",
       "profile": "https://github.com/sethidden",
       "contributions": [
-        "code"
+        "code",
+        "question",
+        "ideas",
+        "infra",
+        "maintenance",
+        "review",
+        "test",
+        "tool"
       ]
     },
     {
@@ -205,6 +212,33 @@
       "profile": "https://github.com/mayashavin",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "AlexanderDevitsky",
+      "name": "Alexander Devitsky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14941520?v=4",
+      "profile": "https://github.com/AlexanderDevitsky",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Diegoalbag",
+      "name": "Diego Alba",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72459310?v=4",
+      "profile": "https://github.com/Diegoalbag",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "aelmizeb",
+      "name": "Abdellatif EL MIZEB",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19288561?v=4",
+      "profile": "https://github.com/aelmizeb",
+      "contributions": [
+        "code"
       ]
     }
   ],
