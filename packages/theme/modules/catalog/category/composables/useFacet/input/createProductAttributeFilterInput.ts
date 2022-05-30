@@ -8,9 +8,9 @@ export function createProductAttributeFilterInput(params: ComposableFunctionArgs
   const attributeFilter : Record<string, { from: number, to: number } | { eq: unknown } | { in: unknown }> = {};
   const inputFilters = params?.filters ?? {};
 
-  const categoryFilter = {
-    category_id: { in: [params.categoryId, ...inputFilters.category_id ?? []] },
-  };
+  const maybeCategoryFilter = params.categoryId
+    ? { category_id: { in: [params.categoryId, ...inputFilters.category_id ?? []] } }
+    : {};
 
   Object.keys(inputFilters).forEach((key: string) => {
     if (rangeFilters.includes(key)) {
@@ -33,5 +33,5 @@ export function createProductAttributeFilterInput(params: ComposableFunctionArgs
     }
   });
 
-  return { ...attributeFilter, ...categoryFilter };
+  return { ...attributeFilter, ...maybeCategoryFilter };
 }

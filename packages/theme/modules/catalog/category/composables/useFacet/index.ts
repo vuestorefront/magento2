@@ -35,12 +35,14 @@ export function useFacet(): UseFacetInterface {
 
       const pageSize = params.itemsPerPage ? params.itemsPerPage : defaultItemsPerPage;
 
+      const filter = createProductAttributeFilterInput(params);
+
       const productSearchParams: GetProductSearchParams = {
         pageSize,
         search: params.term ? params.term : '',
-        filter: createProductAttributeFilterInput(params),
         sort: createProductAttributeSortInput(params.sort || ''),
         currentPage: params.page,
+        ...(Object.keys(filter).length === 0 ? { filter } : {}),
       };
 
       const { products } = await query<{ products: Products }>(GetFacetDataQuery, productSearchParams);

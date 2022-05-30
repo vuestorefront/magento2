@@ -55,16 +55,7 @@
                   }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="
-                    localePath(
-                      `/p/${productGetters.getProductSku(
-                        product
-                      )}${productGetters.getSlug(
-                        product,
-                        product.categories[0]
-                      )}`
-                    )
-                  "
+                  :link="localePath(`/p/${productGetters.getProductSku(product)}`) "
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
@@ -94,13 +85,7 @@
                 }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="
-                  localePath(
-                    `/p/${productGetters.getProductSku(
-                      product
-                    )}${productGetters.getSlug(product, product.categories[0])}`
-                  )
-                "
+                :link="localePath(`/p/${productGetters.getProductSku(product)}`)"
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
