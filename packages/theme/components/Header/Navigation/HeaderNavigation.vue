@@ -36,10 +36,11 @@
 import {
   defineComponent, PropType, ref,
 } from '@nuxtjs/composition-api';
-import HeaderNavigationItem from './HeaderNavigationItem.vue';
 
 import { CategoryTree } from '~/modules/GraphQL/types';
 import { useUiHelpers } from '~/composables';
+import type { ComponentTemplateRef } from '~/types/componentTemplateRef';
+import HeaderNavigationItem from './HeaderNavigationItem.vue';
 
 export default defineComponent({
   name: 'HeaderNavigation',
@@ -56,11 +57,11 @@ export default defineComponent({
   setup() {
     const { getCatLink } = useUiHelpers();
 
-    const currentCategory = ref<CategoryTree>(null);
-    const lvl0CatRefs = ref([]);
+    const currentCategory = ref<CategoryTree | null>(null);
+    const lvl0CatRefs = ref<ComponentTemplateRef[]>();
     const hasFocus = ref(false);
     let lvl0CatFocusIdx = 0;
-    let focusedElement = null;
+    let focusedElement : HTMLElement | null = null;
 
     const setCurrentCategory = (category: CategoryTree | null) => {
       currentCategory.value = category;
@@ -68,7 +69,7 @@ export default defineComponent({
 
     const hasChildren = (category: CategoryTree) => Boolean(category?.children);
 
-    const setFocus = (event) => {
+    const setFocus = (event: MouseEvent & { target: HTMLElement }) => {
       focusedElement = event.target;
       lvl0CatFocusIdx = Number(event.target.dataset.index);
       hasFocus.value = true;
