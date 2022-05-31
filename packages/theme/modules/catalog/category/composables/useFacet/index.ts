@@ -3,12 +3,12 @@ import { Logger } from '~/helpers/logger';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import useApi from '~/composables/useApi';
-import { SortingOptions } from '~/modules/catalog/category/composables/useFacet/SortingOptions';
-import { PerPageOptions } from '~/modules/catalog/category/composables/useFacet/PerPageOptions';
+import { sortingOptions } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
+import { perPageOptions } from '~/modules/catalog/category/composables/useFacet/perPageOptions';
 import { createProductAttributeFilterInput } from '~/modules/catalog/category/composables/useFacet/input/createProductAttributeFilterInput';
 import { createProductAttributeSortInput } from '~/modules/catalog/category/composables/useFacet/input/createProductAttributeSortInput';
 import { Products } from '~/modules/GraphQL/types';
-import GetFacetDataQuery from './getFacetData.gql';
+import getFacetDataQuery from './getFacetData.gql';
 import type {
   UseFacetInterface, UseFacetErrors, UseFacetSearchResult, FacetSearchParams,
 } from './useFacet';
@@ -43,15 +43,15 @@ export function useFacet(): UseFacetInterface {
         currentPage: params.page,
       };
 
-      const { products } = await query<{ products: Products }>(GetFacetDataQuery, productSearchParams);
+      const { products } = await query<{ products: Products }>(getFacetDataQuery, productSearchParams);
 
       Logger.debug('[Result]:', { products });
 
       result.value.data = {
         items: products?.items ?? [],
         total: products?.total_count,
-        availableSortingOptions: SortingOptions,
-        perPageOptions: PerPageOptions,
+        availableSortingOptions: sortingOptions,
+        perPageOptions,
         itemsPerPage: pageSize,
       };
       error.value.search = null;

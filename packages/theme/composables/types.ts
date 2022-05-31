@@ -179,11 +179,6 @@ export interface GroupedFacetInterface {
   options: FacetInterface[];
 }
 
-export interface AgnosticSort {
-  options: FacetInterface[];
-  selected: string;
-}
-
 export interface AgnosticPagination {
   currentPage?: number;
   totalPages?: number;
