@@ -4,6 +4,7 @@ export const useUiStateMock = (extend = {}) => ({
   changeToCategoryListView: jest.fn(),
   toggleCartSidebar: jest.fn(),
   toggleFilterSidebar: jest.fn(),
+  toggleMobileMenu: jest.fn(),
   ...extend,
 });
 
