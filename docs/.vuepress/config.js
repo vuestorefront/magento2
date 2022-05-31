@@ -92,13 +92,27 @@ module.exports = {
         ],
       },
       {
+        title: 'Modules',
+        collapsable: false,
+        sidebarDepth: 2,
+        children: [
+          {
+            title: 'Catalog',
+            collapsable: true,
+            children: [
+              ['/modules/catalog/filters', 'Filters'],
+              ['/modules/catalog/product-types', 'Product Types'],
+            ],
+          },
+        ],
+      },
+      {
         title: 'Guides',
         collapsable: false,
         children: [
           ['/guide/global-state-management', 'Global state management'],
           ['/guide/image-optimization', 'Image optimization'],
           ['/guide/override-queries', 'Override queries'],
-          ['/guide/filters', 'Filters'],
           ['/guide/testing', 'Testing'],
           ['/guide/recaptcha', 'ReCaptcha'],
         ],
