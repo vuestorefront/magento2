@@ -184,13 +184,6 @@ export default defineComponent({
         : addItemToWishlistBase({ product }));
     };
 
-    const searchCategoryProduct = async (categoryId: number) => {
-      await search({
-        ...uiHelpers.getFacetsFromURL(),
-        categoryId,
-      });
-    };
-
     const { activeCategory } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
     const routeData = ref<EntityUrl>({});
@@ -198,9 +191,11 @@ export default defineComponent({
     const { fetch } = useFetch(async () => {
       routeData.value = await resolveUrl();
 
+      const categoryId = routeData.value?.id;
+
       const [content] = await Promise.all([
         getContentData(routeData.value?.entity_uid),
-        searchCategoryProduct(routeData.value?.id),
+        search({ ...uiHelpers.getFacetsFromURL(), categoryId }),
       ]);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';
