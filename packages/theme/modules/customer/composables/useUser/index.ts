@@ -161,7 +161,7 @@ export function useUser(): UseUserInterface {
 
       const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
         {
-          email: providedUser.username,
+          email: providedUser.email,
           password: providedUser.password,
           recaptchaToken: providedUser.recaptchaToken,
         },
