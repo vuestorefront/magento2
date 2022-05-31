@@ -31,10 +31,10 @@ jest.mock('@nuxtjs/composition-api', () => {
 
 describe('YesNoType.vue', () => {
   it('Should show filters if options are exist', () => {
-    const { getAllByTestId } = render(YesNoType, { props: { filter: categoryFiltersData as Aggregation } });
+    const { getAllByTestId } = render(YesNoType, { props: { filter: categoryFiltersData[0] as Aggregation } });
     const filters = getAllByTestId('category-filter');
 
-    expect(filters).toHaveLength(categoryFiltersData.options.length);
+    expect(filters).toHaveLength(categoryFiltersData[0].options.length);
   });
 
   it('Default filter should not be active', () => {

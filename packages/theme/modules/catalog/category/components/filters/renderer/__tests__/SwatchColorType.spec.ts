@@ -18,10 +18,10 @@ jest.mock('@nuxtjs/composition-api', () => {
 
 describe('SwatchColorType.vue', () => {
   it('Should show filters if options are exist', () => {
-    const { getAllByRole } = render(SwatchColorType, { props: { filter: categoryFiltersData as Aggregation } });
+    const { getAllByRole } = render(SwatchColorType, { props: { filter: categoryFiltersData[0] as Aggregation } });
     const filters = getAllByRole('button');
 
-    expect(filters).toHaveLength(categoryFiltersData.options.length);
+    expect(filters).toHaveLength(categoryFiltersData[0].options.length);
   });
 
   it('Default filter should not be active', () => {

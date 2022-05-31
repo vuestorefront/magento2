@@ -3,7 +3,10 @@
     <h4 class="heading__title h4 desktop-only">
       {{ $t('Filters') }}
     </h4>
-    <div v-if="isLoading">
+    <div
+      v-if="isLoading"
+      data-testid="skeleton-loader"
+    >
       <div
         v-for="n in 3"
         :key="n"
@@ -35,6 +38,7 @@
       <div
         v-for="(filter, i) in filters"
         :key="i"
+        data-testid="category-filter"
       >
         <SfHeading
           :key="`filter-title-${filter.attribute_code}`"
@@ -51,12 +55,14 @@
       <div class="filters__buttons">
         <SfButton
           class="sf-button--full-width"
+          data-testid="apply-filters"
           @click="doApplyFilters"
         >
           {{ $t('Apply filters') }}
         </SfButton>
         <SfButton
           class="sf-button--full-width filters__button-clear"
+          data-testid="clear-filters"
           @click="doClearFilters"
         >
           {{ $t('Clear all') }}
@@ -67,6 +73,7 @@
       :visible="isVisible"
       class="sidebar-filters smartphone-only"
       title="Filters"
+      data-testid="mobile-sidebar"
       @close="$emit('close')"
     >
       <SfAccordion class="filters smartphone-only">
