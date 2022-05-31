@@ -31,7 +31,7 @@
               rules="required|email"
             >
               <SfInput
-                v-model="form.username"
+                v-model="form.email"
                 v-e2e="'login-modal-email'"
                 :valid="!errors[0]"
                 :error-message="$t(errors[0])"
