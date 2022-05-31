@@ -1,7 +1,7 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
-import { ProductInterface } from '~/modules/GraphQL/types';
-import { SortingOptionsInterface } from '~/modules/catalog/category/composables/useFacet/SortingOptions';
+import type { ProductInterface } from '~/modules/GraphQL/types';
+import type { SortingOption } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 
 /**
  * The {@link useFacet} search params data structure
@@ -24,7 +24,7 @@ export interface FacetSearchParams {
 export interface SearchResultData {
   items: ProductInterface[],
   total: number,
-  availableSortingOptions: SortingOptionsInterface[],
+  availableSortingOptions: SortingOption[],
   perPageOptions: number[],
   itemsPerPage: number
 }
