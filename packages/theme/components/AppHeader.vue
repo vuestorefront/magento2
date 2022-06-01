@@ -86,15 +86,16 @@
       </template>
       <template #search>
         <SearchBar
-          @SearchBar:toggle="isSearchOpen = $event"
-          @SearchBar:result="result = $event"
+          :is-search-open="isSearchOpen"
+          @set-is-open="isSearchOpen = $event"
+          @set-search-results="productSearchResults = $event"
         />
       </template>
     </SfHeader>
     <SearchResults
       v-if="isSearchOpen"
       :visible="isSearchOpen"
-      :result="result"
+      :search-results="productSearchResults"
     />
     <SfOverlay :visible="isSearchOpen" />
   </div>
@@ -115,16 +116,16 @@ import {
   useFetch,
 } from '@nuxtjs/composition-api';
 import HeaderNavigation from '~/components/Header/Navigation/HeaderNavigation.vue';
-import useCategory from '~/modules/catalog/category/composables/useCategory';
+import { useCategory } from '~/modules/catalog/category/composables/useCategory';
 import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import useCart from '~/modules/checkout/composables/useCart';
-import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useCart } from '~/modules/checkout/composables/useCart';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
-import type { CategoryTree } from '~/modules/GraphQL/types';
+import type { CategoryTree, ProductInterface } from '~/modules/GraphQL/types';
 import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -156,9 +157,10 @@ export default defineComponent({
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
     const { categories: categoryList, load: categoriesListLoad } = useCategory();
 
-    const wishlistStore = useWishlistStore();
     const isSearchOpen = ref(false);
-    const result = ref(null);
+    const productSearchResults = ref<ProductInterface[] | null>(null);
+
+    const wishlistStore = useWishlistStore();
     const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
 
     const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
@@ -196,7 +198,7 @@ export default defineComponent({
       handleAccountClick,
       isAuthenticated,
       isSearchOpen,
-      result,
+      productSearchResults,
       setTermForUrl,
       toggleCartSidebar,
       toggleWishlistSidebar,

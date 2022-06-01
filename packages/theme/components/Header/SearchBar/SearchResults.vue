@@ -1,7 +1,7 @@
 <template>
   <div>
     <SfMegaMenu
-      :visible="isSearchOpen"
+      :visible="visible"
       :title="$t('Search results')"
       class="search"
     >
@@ -10,7 +10,7 @@
         mode="out-in"
       >
         <div
-          v-if="products && products.length > 0"
+          v-if="searchResults && searchResults.length > 0"
           key="results"
           class="search__wrapper-results"
         >
@@ -35,7 +35,7 @@
             >
               <div class="results-listing">
                 <SfProductCard
-                  v-for="(product, index) in products"
+                  v-for="(product, index) in searchResultsWithWishlistInfo"
                   :key="index"
                   class="result-card"
                   image-tag="nuxt-img"
@@ -68,13 +68,13 @@
                   :wishlist-icon="isAuthenticated ? 'heart' : ''"
                   :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                   :is-in-wishlist="product.isInWishlist"
-                  @click:wishlist="addItemToWishlist(product)"
+                  @click:wishlist="addOrRemoveWishlistItem(product)"
                 />
               </div>
             </SfScrollable>
             <div class="results--mobile smartphone-only">
               <SfProductCard
-                v-for="(product, index) in products"
+                v-for="(product, index) in searchResultsWithWishlistInfo"
                 :key="index"
                 class="result-card"
                 image-tag="nuxt-img"
@@ -104,7 +104,7 @@
                 :wishlist-icon="isAuthenticated ? 'heart' : ''"
                 :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
                 :is-in-wishlist="product.isInWishlist"
-                @click:wishlist="addItemToWishlist(product)"
+                @click:wishlist="addOrRemoveWishlistItem(product)"
               />
             </div>
           </SfMegaMenuColumn>
@@ -154,12 +154,11 @@ import {
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
-import { ref, computed, defineComponent } from '@nuxtjs/composition-api';
+import { defineComponent, computed } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
-import {
-  useUiHelpers, useImage,
-} from '~/composables';
-import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import { useUiHelpers, useImage } from '~/composables';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { Product } from '~/modules/catalog/product/types';
@@ -179,35 +178,32 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    result: {
-      type: Object,
-      default: () => ({}),
+    searchResults: {
+      type: Array as PropType<Product[] | null>,
+      default: () => [],
     },
   },
   setup(props) {
     const { isAuthenticated } = useUser();
-    const { isInWishlist, addOrRemoveItem } = useWishlist();
+    const { isInWishlist, addOrRemoveItem: addOrRemoveWishlistItem } = useWishlist();
 
     const th = useUiHelpers();
-    const isSearchOpen = ref(props.visible);
-    const products = computed(() => props.result?.products);
-
-    const addItemToWishlist = async (product: Product) => {
-      await addOrRemoveItem({ product });
-    };
+    const searchResultsWithWishlistInfo = computed(() => props.searchResults?.map((product) => ({
+      ...product,
+      isInWishlist: isInWishlist({ product }),
+    })));
 
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
       th,
-      isSearchOpen,
       productGetters,
-      products,
-      addItemToWishlist,
+      addOrRemoveWishlistItem,
       isInWishlist,
       isAuthenticated,
       getMagentoImage,
       imageSizes,
+      searchResultsWithWishlistInfo,
     };
   },
 });
