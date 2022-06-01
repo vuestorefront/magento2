@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import { CustomerAddressInput } from '~/modules/GraphQL/types';
 
 export const updateCustomerAddressCommand = {

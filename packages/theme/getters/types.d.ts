@@ -1,7 +1,24 @@
-import {
-  AgnosticAttribute, AgnosticPrice, AgnosticTotals,
-  AgnosticCoupon, AgnosticDiscount,
+import type {
+  Totals,
 } from '~/composables/types';
+
+import type { ProductAttribute } from '~/modules/catalog/product/types';
+import type { Price } from '~/modules/catalog/types';
+
+export interface Coupon {
+  id: string;
+  name: string;
+  code: string;
+  value: number;
+}
+
+export interface CartDiscount {
+  id: string;
+  name: string;
+  description: string;
+  value: number;
+  code?: string;
+}
 
 export interface UserBillingGetters<USER_BILLING, USER_BILLING_ITEM> {
   getAddresses: (billing: USER_BILLING, criteria?: Record<string, any>) => USER_BILLING_ITEM[];
@@ -62,10 +79,10 @@ export interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
   getItems: (wishlist: WISHLIST) => WISHLIST_ITEM[];
   getItemName: (wishlistItem: WISHLIST_ITEM) => string;
   getItemImage: (wishlistItem: WISHLIST_ITEM) => string;
-  getItemPrice: (wishlistItem: WISHLIST_ITEM) => AgnosticPrice;
-  getItemAttributes: (wishlistItem: WISHLIST_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+  getItemPrice: (wishlistItem: WISHLIST_ITEM) => Price;
+  getItemAttributes: (wishlistItem: WISHLIST_ITEM, filters?: Array<string>) => Record<string, ProductAttribute | string>;
   getItemSku: (wishlistItem: WISHLIST_ITEM) => string;
-  getTotals: (wishlist: WISHLIST) => AgnosticTotals;
+  getTotals: (wishlist: WISHLIST) => Totals;
   getTotalItems: (wishlist: WISHLIST) => number;
   [getterName: string]: (element: any, options?: any) => unknown;
 }
@@ -74,15 +91,15 @@ export interface CartGetters<CART, CART_ITEM> {
   getItems: (cart: CART) => CART_ITEM[];
   getItemName: (cartItem: CART_ITEM) => string;
   getItemImage: (cartItem: CART_ITEM) => string;
-  getItemPrice: (cartItem: CART_ITEM) => AgnosticPrice;
+  getItemPrice: (cartItem: CART_ITEM) => Price;
   getItemQty: (cartItem: CART_ITEM) => number;
-  getItemAttributes: (cartItem: CART_ITEM, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+  getItemAttributes: (cartItem: CART_ITEM, filters?: Array<string>) => Record<string, ProductAttribute | string>;
   getItemSku: (cartItem: CART_ITEM) => string;
-  getTotals: (cart: CART) => AgnosticTotals;
+  getTotals: (cart: CART) => Totals;
   getShippingPrice: (cart: CART) => number;
   getTotalItems: (cart: CART) => number;
   // @deprecated - use getDiscounts instead
-  getCoupons: (cart: CART) => AgnosticCoupon[];
-  getDiscounts: (cart: CART) => AgnosticDiscount[];
+  getCoupons: (cart: CART) => Coupon[];
+  getDiscounts: (cart: CART) => CartDiscount[];
   [getterName: string]: (element: any, options?: any) => unknown;
 }

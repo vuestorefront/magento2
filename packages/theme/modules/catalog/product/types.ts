@@ -7,6 +7,12 @@ import {
   VirtualProduct,
 } from '~/modules/GraphQL/types';
 
+export interface ProductAttribute {
+  name?: string;
+  value: string | Record<string, any>;
+  label: string;
+}
+
 /**
  * There is no __typename in GraphQL definitions but type_id is marked as a deprecated
  */

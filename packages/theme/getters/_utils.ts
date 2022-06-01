@@ -1,9 +1,8 @@
-import type { Product } from '~/modules/catalog/product/types';
-import { AgnosticAttribute } from '~/composables/types';
+import type { Product, ProductAttribute } from '~/modules/catalog/product/types';
 
 export const getAttributeValue = (attribute) => attribute.values;
 
-export const formatAttributeList = (attributes): AgnosticAttribute[] => attributes.map((attr) => {
+export const formatAttributeList = (attributes): ProductAttribute[] => attributes.map((attr) => {
   const attrValue = getAttributeValue(attr);
   return {
     name: attr.attribute_code,

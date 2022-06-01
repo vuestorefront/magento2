@@ -13,8 +13,7 @@ import {
 import { SfBreadcrumbs } from '@storefront-ui/vue';
 import { useUiHelpers } from '~/composables';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
-
-type Breadcrumb = { text: string, link: string };
+import { Breadcrumb } from '~/modules/catalog/types';
 
 export default defineComponent({
   components: { SfBreadcrumbs },

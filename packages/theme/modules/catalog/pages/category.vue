@@ -130,7 +130,7 @@ import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrum
 
 import type { EntityUrl, ProductInterface } from '~/modules/GraphQL/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
-import type { AgnosticPagination } from '~/composables/types';
+import type { Pagination } from '~/composables/types';
 import type { Product } from '~/modules/catalog/product/types';
 
 export default defineComponent({
@@ -158,7 +158,7 @@ export default defineComponent({
     const isShowProducts = ref(false);
     const products = ssrRef<ProductInterface[]>([]);
     const sortBy = ref<SortingModel>({ selected: '', options: [] });
-    const pagination = ref<AgnosticPagination>({});
+    const pagination = ref<Pagination>({});
 
     const productContainerElement = ref<HTMLElement | null>(null);
 

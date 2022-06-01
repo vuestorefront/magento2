@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import { Logger } from '~/helpers/logger';
 import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
 

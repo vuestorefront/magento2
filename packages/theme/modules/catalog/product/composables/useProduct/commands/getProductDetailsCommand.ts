@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 export const getProductDetailsCommand = {
