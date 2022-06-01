@@ -37,6 +37,7 @@ const appMockFactory = (callbackResponse, authResponse) => ({
       },
       config: {
         state: {
+          getCustomerToken: jest.fn(),
           removeCustomerToken: jest.fn(),
           removeCartId: jest.fn(),
           setMessage: jest.fn(),
@@ -65,6 +66,7 @@ describe('Token Expired plugin', () => {
 
   it('sets initial login status', async () => {
     const appMock = appMockFactory(validRes, validRes);
+    appMock.$vsf.$magento.config.state.getCustomerToken.mockReturnValue(true);
     const customerStore = useCustomerStore();
     jest.spyOn(customerStore, 'setIsLoggedIn');
 
@@ -75,6 +77,7 @@ describe('Token Expired plugin', () => {
 
   it('doesn\'t set initial login status if not logged in', async () => {
     const appMock = appMockFactory(validRes, errRes.data); // need .data because it's ApolloGraphQlResponse, not axios
+    appMock.$vsf.$magento.config.state.getCustomerToken.mockReturnValue(false);
     const customerStore = useCustomerStore();
 
     await tokenExpiredPlugin({ app: appMock });
