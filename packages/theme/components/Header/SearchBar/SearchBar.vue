@@ -56,7 +56,8 @@ import {
 import debounce from 'lodash.debounce';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive';
 import SvgImage from '~/components/General/SvgImage.vue';
-import { useFacet } from '~/modules/catalog/category/composables/useFacet';
+import { useProduct } from '~/modules/catalog/product/composables/useProduct';
+import { Products } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'SearchBar',
@@ -67,6 +68,10 @@ export default defineComponent({
   },
   directives: { clickOutside },
   props: {
+    isSearchOpen: {
+      type: Boolean,
+      default: false,
+    },
     itemsPerPage: {
       type: Number,
       default: 12,
@@ -76,22 +81,15 @@ export default defineComponent({
       default: 3,
     },
   },
-  setup({ itemsPerPage, minTermLen }, { emit }) {
+  setup(props, { emit }) {
     const term = ref('');
-    const isSearchOpen = ref(false);
-    const result = ref(null);
-
     const route = useRoute();
 
-    const {
-      result: searchResult,
-      search: productsSearch,
-    } = useFacet();
+    const { getProductList } = useProduct();
 
     const showSearch = () => {
-      if (!isSearchOpen.value) {
-        isSearchOpen.value = true;
-        emit('SearchBar:toggle', true);
+      if (!props.isSearchOpen) {
+        emit('set-is-open', true);
         if (document) {
           document.body.classList.add('no-scroll');
         }
@@ -99,10 +97,9 @@ export default defineComponent({
     };
 
     const hideSearch = () => {
-      if (isSearchOpen.value) {
-        isSearchOpen.value = false;
-        emit('SearchBar:toggle', false);
-        emit('SearchBar:result', {});
+      if (props.isSearchOpen) {
+        emit('set-is-open', false);
+        emit('result', null);
         if (document) {
           document.body.classList.remove('no-scroll');
         }
@@ -110,7 +107,7 @@ export default defineComponent({
     };
 
     const toggleSearch = () => {
-      if (isSearchOpen.value) {
+      if (props.isSearchOpen) {
         hideSearch();
       } else {
         showSearch();
@@ -119,10 +116,10 @@ export default defineComponent({
 
     const closeSearch = (event: MouseEvent) => {
       if (document) {
-        const searchResultsEl = document.querySelectorAll('.search');
+        const searchResultsEl = document.querySelector('.search');
         const closeTriggerElement = event.target as HTMLElement;
 
-        if (!searchResultsEl[0]?.contains(closeTriggerElement)) {
+        if (!searchResultsEl?.contains(closeTriggerElement)) {
           hideSearch();
           term.value = '';
         }
@@ -134,18 +131,15 @@ export default defineComponent({
 
     const handleSearch = debounce(async (paramValue) => {
       term.value = !paramValue.target ? paramValue : paramValue.target.value;
-      if (term.value.length < minTermLen) return;
+      if (term.value.length < props.minTermLen) return;
 
-      await productsSearch({
-        itemsPerPage,
-        term: term.value,
-      });
+      // M2-579
+      const productList : Products = await getProductList({
+        pageSize: props.itemsPerPage,
+        search: term.value,
+      }) as unknown as Products;
 
-      result.value = {
-        products: searchResult.value?.data?.items,
-      };
-
-      emit('SearchBar:result', result.value);
+      emit('result', productList!.items);
     }, 1000);
 
     watch(route, () => {
@@ -159,7 +153,6 @@ export default defineComponent({
       hideSearch,
       toggleSearch,
       handleSearch,
-      isSearchOpen,
       term,
     };
   },
