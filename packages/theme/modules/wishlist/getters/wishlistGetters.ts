@@ -1,11 +1,7 @@
-/* istanbul ignore file */
-import {
-  AgnosticPrice,
-  AgnosticTotals, AgnosticPagination,
-} from '~/composables/types';
-
-import { WishlistGetters as BaseWishlistGetters } from '~/getters/types';
-import {
+import type { Totals, Pagination } from '~/composables/types';
+import type { Price } from '~/modules/catalog/types';
+import type { WishlistGetters as BaseWishlistGetters } from '~/getters/types';
+import type {
   Wishlist, ProductInterface, WishlistItemInterface,
 } from '~/modules/GraphQL/types';
 
@@ -15,7 +11,7 @@ export const getItemName = (product: WishlistItemInterface): string => product?.
 
 export const getItemImage = (product: WishlistItemInterface): string => product?.product?.thumbnail.url || '';
 
-export const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
+export const getItemPrice = (product: WishlistItemInterface): Price => {
   let regular = 0;
   let special = null;
 
@@ -40,7 +36,7 @@ export const getItemAttributes = (_product: WishlistItemInterface, _filterByAttr
 
 export const getItemSku = (product: WishlistItemInterface): string => product?.product?.sku || '';
 
-export const getTotals = (wishlist: Wishlist[] | Wishlist): AgnosticTotals => {
+export const getTotals = (wishlist: Wishlist[] | Wishlist): Totals => {
   if (Array.isArray(wishlist)) {
     return wishlist[0]?.items_v2?.items.reduce((acc, curr) => ({
       total: acc.total + getItemPrice(curr).special,
@@ -59,7 +55,7 @@ export const getTotalItems = (wishlist: Wishlist | Wishlist[]): number => (Array
   ? wishlist[0]?.items_count
   : (wishlist?.items_count || 0));
 
-const getPagination = (wishlistData: Wishlist): AgnosticPagination => ({
+const getPagination = (wishlistData: Wishlist): Pagination => ({
   currentPage: wishlistData?.items_v2?.page_info?.current_page || 1,
   totalPages: wishlistData?.items_v2?.page_info?.total_pages || 1,
   totalItems: wishlistData?.items_count || 0,
@@ -103,7 +99,7 @@ export interface WishlistGetters extends BaseWishlistGetters<Wishlist, WishlistI
 
   getItemQty(product: WishlistItemInterface): number;
 
-  getPagination(wishlistData: Wishlist | Wishlist[]): AgnosticPagination;
+  getPagination(wishlistData: Wishlist | Wishlist[]): Pagination;
 
   getProducts(wishlistData: Wishlist | Wishlist[]): {
     product: ProductInterface;

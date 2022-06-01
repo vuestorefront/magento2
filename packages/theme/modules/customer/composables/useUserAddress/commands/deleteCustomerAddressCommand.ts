@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import { CustomerAddress } from '~/modules/GraphQL/types';
 
 export const deleteCustomerAddressCommand = {

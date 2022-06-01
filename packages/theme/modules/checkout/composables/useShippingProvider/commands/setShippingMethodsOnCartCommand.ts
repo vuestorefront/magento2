@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import type { SetShippingMethodsOnCartInput, Cart } from '~/modules/GraphQL/types';
 
 export const setShippingMethodsOnCartCommand = {

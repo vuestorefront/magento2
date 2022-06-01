@@ -1,6 +1,6 @@
-import { AgnosticPagination } from '~/composables/types';
+import { Pagination } from '~/composables/types';
 
-export const paginationData: AgnosticPagination = {
+export const paginationData: Pagination = {
   currentPage: 1,
   totalPages: 2,
   totalItems: 11,

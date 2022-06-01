@@ -6,7 +6,7 @@ import {
 } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type { EntityUrl } from '~/modules/GraphQL/types';
-import type { UseUrlResolverErrors, UseUrlResolverInterface } from './UseUrlResolver';
+import type { UseUrlResolverErrors, UseUrlResolverInterface } from '~/composables';
 
 /**
  * Allows searching the resolver for current

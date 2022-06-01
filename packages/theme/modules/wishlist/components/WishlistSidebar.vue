@@ -146,8 +146,9 @@ import {
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiState, useImage, AgnosticPrice,
+  useUiState, useImage,
 } from '~/composables';
+import type { Price } from '~/modules/catalog/types';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
@@ -185,7 +186,7 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_v2?.items ?? [],
     );
 
-    const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
+    const getItemPrice = (product: WishlistItemInterface): Price => {
       let regular = 0;
       let special = null;
 

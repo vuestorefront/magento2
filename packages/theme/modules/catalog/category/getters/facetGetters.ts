@@ -1,13 +1,13 @@
 import { perPageOptions } from '~/modules/catalog/category/composables/useFacet/perPageOptions';
 import type { ProductInterface } from '~/modules/GraphQL/types';
-import type { AgnosticPagination } from '~/composables/types';
+import type { Pagination } from '~/composables/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 import type { UseFacetSearchResult } from '~/modules/catalog/category/composables/useFacet/useFacet';
 
 export interface FacetsGetters {
   getSortOptions: (searchData: UseFacetSearchResult) => SortingModel;
   getProducts: (searchData: UseFacetSearchResult) => ProductInterface[];
-  getPagination: (searchData: UseFacetSearchResult) => AgnosticPagination;
+  getPagination: (searchData: UseFacetSearchResult) => Pagination;
 }
 
 const facetGetters: FacetsGetters = {

@@ -1,8 +1,8 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import type { FacetInterface } from '~/composables/types';
 import type { CategoryTree } from '~/modules/GraphQL/types';
 import type { UseUiHelpersInterface } from '~/composables';
 import type { Params, QueryParams, FilterParams } from './Params';
+import type { FacetInterface } from '~/modules/catalog/category/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 

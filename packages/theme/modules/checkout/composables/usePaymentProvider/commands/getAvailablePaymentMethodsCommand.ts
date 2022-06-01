@@ -1,4 +1,4 @@
-import { UseContextReturn } from '~/composables/types';
+import { UseContextReturn } from '~/types/core';
 import type { AvailablePaymentMethod } from '~/modules/GraphQL/types';
 
 export const getAvailablePaymentMethodsCommand = {

@@ -1,11 +1,23 @@
-/* istanbul ignore file */
-import { AgnosticReviewMetadata, AgnosticRateCount } from '~/composables/types';
 import {
   ProductInterface,
   ProductReview,
   ProductReviewRatingMetadata,
   ProductReviews,
 } from '~/modules/GraphQL/types';
+
+export interface RateCount {
+  rate: number;
+  count: number;
+}
+
+export interface ReviewMetadata {
+  id: string;
+  name: string;
+  values: {
+    label: string | number;
+    id: string;
+  }[];
+}
 
 export const getItems = (review): ProductReview[] => review?.reviews?.items || [];
 
@@ -26,11 +38,11 @@ export const getTotalReviews = (review: ProductInterface): number => review?.rev
 
 export const getAverageRating = (review: ProductInterface): number => ((review?.reviews?.items?.reduce((acc, curr) => Number.parseInt(`${acc}`, 10) + getReviewRating(curr), 0)) ?? 0) / (review?.review_count || 1) || 0;
 
-export const getRatesCount = (_review: ProductReviews): AgnosticRateCount[] => [];
+export const getRatesCount = (_review: ProductReviews): RateCount[] => [];
 
 export const getReviewsPage = (review: ProductInterface): number => review?.reviews.page_info?.page_size || 0;
 
-export const getReviewMetadata = (reviewData: ProductReviewRatingMetadata[]): AgnosticReviewMetadata[] => reviewData?.map((m) => ({
+export const getReviewMetadata = (reviewData: ProductReviewRatingMetadata[]): ReviewMetadata[] => reviewData?.map((m) => ({
   ...m,
   values: m.values.map((v) => ({
     label: (Number.parseInt(v.value, 10) || v.value),

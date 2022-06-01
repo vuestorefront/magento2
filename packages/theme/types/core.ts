@@ -1,3 +1,7 @@
+import { useContext } from '@nuxtjs/composition-api';
+
+export type UseContextReturn = ReturnType<typeof useContext>;
+
 export type CustomQuery = Record<string, string>;
 
 export type ApiClientMethods<T> = {
