@@ -127,6 +127,7 @@ import facetGetters from '~/modules/catalog/category/getters/facetGetters';
 
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
+import { isCategoryTreeRoute } from '~/modules/GraphQL/CategoryTreeRouteTypeguard';
 
 import type { ProductInterface, CategoryTree } from '~/modules/GraphQL/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
@@ -162,7 +163,7 @@ export default defineComponent({
 
     const productContainerElement = ref<HTMLElement | null>(null);
 
-    const { search: resolveUrl } = useUrlResolver<CategoryTree>();
+    const { search: resolveUrl } = useUrlResolver();
     const {
       toggleFilterSidebar,
       changeToCategoryListView,
@@ -189,7 +190,8 @@ export default defineComponent({
     const routeData = ref<CategoryTree | null>(null);
 
     const { fetch } = useFetch(async () => {
-      routeData.value = await resolveUrl();
+      const resolvedUrl = await resolveUrl();
+      if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
       const categoryId = routeData.value?.id;
 

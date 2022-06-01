@@ -4,7 +4,7 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
-import type { RoutableInterface } from '@vue-storefront/magento-api';
+import { RoutableInterface } from '~/modules/GraphQL/types';
 import { Logger } from '~/helpers/logger';
 import type { UseUrlResolverErrors, UseUrlResolverInterface } from '~/composables';
 
@@ -14,7 +14,7 @@ import type { UseUrlResolverErrors, UseUrlResolverInterface } from '~/composable
  *
  * See the {@link UseUrlResolverInterface} for a list of methods and values available in this composable.
  */
-export function useUrlResolver<ROUTE_TYPE extends RoutableInterface>(): UseUrlResolverInterface<ROUTE_TYPE> {
+export function useUrlResolver(): UseUrlResolverInterface {
   const route = useRoute();
   const { error: nuxtError, app } = useContext();
   const context = app.$vsf;
@@ -24,16 +24,15 @@ export function useUrlResolver<ROUTE_TYPE extends RoutableInterface>(): UseUrlRe
     search: null,
   });
 
-  const search = async (): Promise<ROUTE_TYPE> => {
+  const search = async (): Promise<RoutableInterface | null> => {
     loading.value = true;
-    let results: ROUTE_TYPE | null = null;
+    let results: RoutableInterface | null = null;
 
     try {
       const clearUrl = path.replace(/[a-z]+\/[cp|]\//gi, '');
       Logger.debug('[Magento] Find information based on URL', { clearUrl });
       const { data } = await context.$magento.api.route(clearUrl);
-      // @ts-ignore
-      results = data.route;
+      results = data?.route ?? null;
 
       if (!results) nuxtError({ statusCode: 404 });
 

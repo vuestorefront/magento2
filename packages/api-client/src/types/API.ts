@@ -107,7 +107,7 @@ import {
   ChangeCustomerPasswordMutation,
   CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct, CustomerOrdersFilterInput,
+  VirtualProduct, CustomerOrdersFilterInput, RoutableInterface,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -441,10 +441,10 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<UrlResolverQuery>>;
 
-  route<ROUTE_TYPE>(
+  route(
     url: string,
     customQuery?: CustomQuery
-  ): Promise<ApolloQueryResult<RouteQuery<ROUTE_TYPE>>>;
+  ): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,

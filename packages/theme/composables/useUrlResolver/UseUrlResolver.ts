@@ -1,5 +1,5 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import { RoutableInterface } from '@vue-storefront/magento-api';
+import { RoutableInterface } from '~/modules/GraphQL/types';
 
 /**
  * Errors that occured in the {@link UseUrlResolverErrors|UseUrlResolverErrors()} composable
@@ -19,7 +19,7 @@ export interface UseUrlResolverErrors {
  * `ROUTE_TYPE` is a generic type and can be one of: `CategoryTree`, `CmsPage`, `VirtualProduct`, `SimpleProduct`,
  * `DownloadableProduct`, `BundleProduct`, `GroupedProduct` or `ConfigurableProduct`
  */
-export interface UseUrlResolverInterface<ROUTE_TYPE extends RoutableInterface> {
+export interface UseUrlResolverInterface {
   /**
    * The current route path
    */
@@ -38,5 +38,5 @@ export interface UseUrlResolverInterface<ROUTE_TYPE extends RoutableInterface> {
   /**
    * Searches the resolver for current route URL
    */
-  search(): Promise<ROUTE_TYPE>;
+  search(): Promise<RoutableInterface>;
 }

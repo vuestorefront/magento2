@@ -15,11 +15,11 @@ export type RouteQuery<ROUTE_TYPE> = {
  * @param url the URL to be resolved
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  */
-export default async function route<ROUTE_TYPE extends RoutableInterface>(
+export default async function route(
   context: Context,
   url: string,
   customQuery: CustomQuery = { route: 'route' },
-): Promise<ApolloQueryResult<RouteQuery<ROUTE_TYPE>>> {
+): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>> {
   const { route: routeGQL } = context.extendQuery(customQuery, {
     route: {
       query: routeQuery,
@@ -27,7 +27,7 @@ export default async function route<ROUTE_TYPE extends RoutableInterface>(
     },
   });
 
-  return context.client.query<RouteQuery<ROUTE_TYPE>, QueryRouteArgs>({
+  return context.client.query<RouteQuery<RoutableInterface>, QueryRouteArgs>({
     query: routeGQL.query,
     variables: routeGQL.variables,
   });
