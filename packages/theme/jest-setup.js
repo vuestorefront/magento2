@@ -23,6 +23,7 @@ const $vsf = {
 Vue.prototype.$nuxt = {
   context: {
     $vsf,
+    $fc: jest.fn((label) => label),
     localeRoute: jest.fn(() => 'some_url'),
     localePath: jest.fn((link) => link),
     app: {
