@@ -2,16 +2,13 @@ import type { Plugin } from '@nuxt/types';
 import type { ApolloQueryResult } from '@apollo/client/core/types';
 import type { UiNotification } from '~/composables/useUiNotification';
 import { useCustomerStore } from '~/stores/customer';
-import loginStatusPingQueryGql from '~/modules/customer/composables/useUser/loginStatusPingQuery.gql';
 
 export const hasGraphqlAuthorizationError = (res: ApolloQueryResult<unknown>) => res?.errors
   ?.some((error) => error.extensions.category === 'graphql-authorization') ?? false;
 
-const plugin : Plugin = async ({ $pinia, app }) => {
+const plugin : Plugin = ({ $pinia, app }) => {
   const customerStore = useCustomerStore($pinia);
-
-  const responseOfLoginStatusPing = await app.$vsf.$magento.api.customQuery({ query: loginStatusPingQueryGql });
-  if (!hasGraphqlAuthorizationError(responseOfLoginStatusPing)) {
+  if (app.$vsf.$magento.config.state.getCustomerToken()) {
     customerStore.setIsLoggedIn(true);
   }
 
