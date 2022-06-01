@@ -1,43 +1,41 @@
 # Global state management
 
-For global state management, we decided to use the [Pinia](https://pinia.vuejs.org/ssr/nuxt.html) library. We assume that only data needed in more than one place of the application should be kept globally. For example:
+We use the [Pinia](https://pinia.vuejs.org/ssr/nuxt.html) for global state management. However, to make the application performant and easy to work with, we use it only to store a specific set of data.
 
-- store config
-- categories used in navigation (different components for desktop and mobile)
-- customer (user) data
-- cart/checkout data
+This document describes what data we store inside the global state and how we do it.
 
-Data that is used in one place in the application should be stored locally in composables
+## Local and global state
 
-## Difference between global and local state
+Before we can dive deeper into the details, we need to answer one key question - what is the difference between global and local states?
 
-An example of local state is when you download product data from Magento and display it . You need those products only in that one view. So you should keep that data contained locally only to that view.
+**Local state** is the state loaded and available only in one view. It might be a single component or group of components that share the data using component props. An example could be product information loaded from the API because you likely only need this data on one page.
 
-On the other hand, some data should be accessible from more than one place in the app. Examples:
+**Global state** is the state re-used across multiple views or components that are not directly related. This includes, but is not limited to:
 
-- cart - you fetch cart data so you can show its contents in the cart sidebar,  but also need cart data when  adding product to the cart from a product category page or a single product's page.
-- UI state - information about global UI elements state (for example isOpen) like sidebars should be accessible globally.
-- navigation - because of screen size limitations, certain UI elements use the same data, but display it in a different way. For example, when browsing the product category tree in our integration, the mobile category menu is a full page overlay, while on the desktop it's embedded in the page's top header. The mobile and desktop components are far away from each other in the application's structure, but thanks to global state they can get data from the same source.
+- store configuration,
+- categories in the navigation,
+- customer (user) data,
+- cart and checkout data.
 
-## Pinia stores provided by Vue Storefront 2 for Magento integration
+## Pinia stores
 
-Take a look at stores provided by the integration OOTB:
+Let's look at stores available out of the box:
 
-- **Config store** - it provides information about available Magento stores, currency, and active store configuration
-- **Category store** - it provides information about product categories
-- **Customer store** - it provides information about the currently logged-in customer.  Initially, it contains a boolean flag that lets you know if there's a valid login session. If necessary, more detailed data (shipping, billing addresses etc.) are fetched.
-- **Cart store** - it provides information about cart like items in cart, quantity and totals
+- **Config store** - provides information about available Magento stores, currency, and active store configuration.
+- **Category store** - provides information about product categories.
+- **Customer store** - provides information about the currently logged-in customer. Initially, it contains a boolean flag that indicates if there's a valid login session. The application loads more detailed data (shipping, billing addresses, etc.) if necessary.
+- **Cart store** - provides information about the cart, such as added items, quantity, and totals
 
-## How to create a Pinia store
+## How to create a store
 
-In the following example, I define a new store named `useWishlistStore`
+In the following example, we define a new store named `useWishlistStore`.
 
 ```typescript
 import { defineStore } from 'pinia';
 import type { Wishlist } from '~/modules/GraphQL/types';
 
 interface WishlistStore {
-  wishlist: Wishlist[] | null
+  wishlist: Wishlist[] | null;
 }
 
 export const useWishlistStore = defineStore('wishlist', {
@@ -47,31 +45,31 @@ export const useWishlistStore = defineStore('wishlist', {
 });
 ```
 
-The `useWishlistStore` has one state field: `wishlist` that is initially null.
+The `useWishlistStore` has one state field: `wishlist` that is initially `null`.
 
-### Cosuming data from Pinia store
+### Consuming data from the store
 
-Consuming data from the store is really straightforward. Basically you need to import it and use similarly as composable:
+Consuming data from the store is straightforward. All you need to do is to import it and use it similarly to composables:
 
 ```typescript
-import { useWishlistStore } from '~/stores/wishlistStore'
+import { useWishlistStore } from '~/stores/wishlistStore';
 
 export default {
   setup() {
-    const wishlistStore = useWishlistStore()
+    const wishlistStore = useWishlistStore();
 
     return {
       // you can return the whole store instance to use it in the template
       wishlistStore
-    }
+    };
   },
 }
 ```
 
-In case you want to return only **specific fields**, you need to wrap the field with `computed()`. If you don’t do that, reactivity will break.
+If you want to return a specific set of fields, you need to wrap the field with `computed()`. If you don’t do that, reactivity will break.
 
 ```javascript
-import { useWishlistStore } from '~/stores/wishlistStore'
+import { useWishlistStore } from '~/stores/wishlistStore';
 
 export default {
   setup() {
@@ -79,14 +77,14 @@ export default {
 
     return {
       wishlistItems: computed(() => wishlist.items),
-    }
+    };
   },
 }
 ```
 
-### Modifying data in Pinia store
+### Modifying data in the store
 
-To write data to the store we recommend using $patch like this:
+To write data to the store, we recommend using $patch like this:
 
 ```javascript
 const { data } = await app.$vsf.$magento.api.wishlist();
@@ -95,19 +93,16 @@ const { data } = await app.$vsf.$magento.api.wishlist();
   });
 ```
 
-## How to use API in Pinia stores
+## How to call the API in the store
 
-If you want to communicate with an API directly in store it’s possibly by using the
-$graphql Nuxt plugin. To do so you need to define a new action in store,
-let’s define the `load` action that use the graphql plugin to fetch data from the API.
+If you want to communicate with an API directly from the store, you need to use the `$graphql` Nuxt plugin accessible in the `this` keyword. It provides two objects:
 
-GraphQL plugin is accessible by the `this` keyword. It provides two objects: `query` (for getting data)and `mutate` (for saving data).
+- The `query` object for fetching data. It contains the `request` method that accepts GraphQL query as an argument.
+- The `mutate` for submitting data. It contains the `mutate` method that accepts a GraphQL mutation as an argument
 
-They `query` and `mutate` objects provides the request method that receives GraphQL query as and argument and the mutate method receive a GraphQL mutation as an argument.
+Both methods return a **Promise**.
 
-The request method returns a **Promise**.
-
-Take a look at the example:
+Let's see an example in which we define a new `load` action in the store:
 
 ```javascript
 import { defineStore } from 'pinia';
@@ -115,7 +110,7 @@ import type { Wishlist } from '~/modules/GraphQL/types';
 import wishlistGql from "./categoryList.gql";
 
 interface WishlistStore {
-  wishlist: Wishlist[] | null
+  wishlist: Wishlist[] | null;
 }
 
 export const useWishlistStore = defineStore('wishlist', {
@@ -131,7 +126,7 @@ export const useWishlistStore = defineStore('wishlist', {
 });
 ```
 
-The `wishlistGql` is the GraphQL query and can looks like this:
+The `wishlistGql` is the GraphQL query that can look like this:
 
 ```javascript
 import { gql } from 'graphql-request';
@@ -148,14 +143,14 @@ export default gql`
 `;
 ```
 
-When you want to use the load action from the example above in a component you can do something like this:
+When you want to use the `load` action from the example above in a component, you can do it like so:
 
 ```javascript
-import { useWishlistStore } from '~/stores/wishlistStore'
+import { useWishlistStore } from '~/stores/wishlistStore';
 
 export default {
   setup() {
-    const wishlistStore = useWishlistStore()
+    const wishlistStore = useWishlistStore();
     const wishlist = computed(() => wishlistStore.wishlist);
 
     onMounted(() => {
@@ -164,7 +159,7 @@ export default {
 
     return {
       wishlist,
-    }
+    };
   },
 }
 ```
