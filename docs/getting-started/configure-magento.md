@@ -4,7 +4,7 @@ This guide explains the step needed to install and set up Magento 2 store for Vu
 
 ## Prerequisites
 
-Before you can get started, you need the following:
+Before you can get started, you need:
 
 - **Docker Desktop** to setup Magento 2 locally,
 - **Magento Marketplace account** to download Magento 2. To create it, visit [this page](https://account.magento.com/customer/account/create/).
@@ -24,7 +24,7 @@ Registry that stores Magento and other third-party packages require authenticati
 
 Follow the [Get your authentication keys](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html) guide to generate new access keys.
 
-![Access keys generated in Magento Marketplace](../assets/images/magento-marketplace-access-keys.jpg)
+![Access keys generated in Magento Marketplace](../assets/images/magento-marketplace-access-keys.webp)
 
 ### 2. Install Magento 2 store
 

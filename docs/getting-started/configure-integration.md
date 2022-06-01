@@ -1,27 +1,15 @@
 # Configuring Vue Storefront for Magento 2
 
-This guide explains the steps needed to install and set up Vue Storefront for Magento 2.
+This guide explains the steps needed to set up Vue Storefront for Magento 2.
 
 ## Prerequisites
 
-Before you can get started, you need the following:
+Before you can get started, you need:
 
-- **Node.js 16** installed,
+- Vue Storefront project created following the [Installation](/getting-started/installation.html) guide.
 - Magento 2 server configured following the [Configuring Magento](/getting-started/configure-magento.html) guide.
 
-To check the Node version you are using, run the following command:
-
-```bash
-node -v
-```
-
 ## Creating the Vue Storefront for Magento 2
-
-To install Vue Storefront, run the command below. It will ask you for the project name and the integration of your choice. Keep in mind that the project name will also be used as the folder name, and be sure to select the Magento 2 integration.
-
-```sh
-npx @vue-storefront/cli init
-```
 
 ### 1. Configure environment variables
 
