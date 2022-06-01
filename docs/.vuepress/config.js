@@ -3,24 +3,39 @@ module.exports = {
   base: '/',
   description: 'Documentation for the Magento connector for Vue Storefront 2',
   head: [['link', { rel: 'icon', href: '/favicon.png' }]],
-  configureWebpack: (config) => {
-    config.module.rules = config.module.rules.map((rule) => ({
-      ...rule,
-      use:
-        rule.use &&
-        rule.use.map((useRule) => ({
-          ...useRule,
-          options:
-            useRule.loader === 'url-loader'
-              ? /**
-            Hack for loading images properly.
-            ref: https://github.com/vuejs/vue-loader/issues/1612#issuecomment-559366730
-           */
-                { ...useRule.options, esModule: false }
-              : useRule.options,
-        })),
-    }));
+
+  /**
+   * Ref：https://v1.vuepress.vuejs.org/config/#configurewebpack
+   */
+   configureWebpack: (config) => {
+    // Add support for webp images
+    config.module.rules.push({
+      test: /\.(webp)(\?.*)?$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'assets/img/[name].[hash:8].[ext]'
+         }
+        }
+      ]
+    });
+
+    // Fix image loading. Ref: https://github.com/vuejs/vue-loader/issues/1612#issuecomment-559366730
+    config.module.rules = config.module.rules.map((rule) => {
+      rule.use = rule.use && rule.use.map((useRule) => {
+        if (useRule.loader === 'url-loader') {
+          useRule.options.esModule = false;
+        }
+
+        return useRule;
+      });
+
+      return rule;
+    });
   },
+
   /**
    * Ref：https://v1.vuepress.vuejs.org/plugin/
    */
@@ -63,6 +78,7 @@ module.exports = {
         title: 'Getting started',
         collapsable: false,
         children: [
+          ['/getting-started/installation', 'Installation'],
           ['/getting-started/configure-magento', 'Configuring Magento'],
           ['/getting-started/configure-integration', 'Configuring Vue Storefront'],
         ],
