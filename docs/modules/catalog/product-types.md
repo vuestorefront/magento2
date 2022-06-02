@@ -1,22 +1,40 @@
 # Product Types
-In the Magento there are different types of products and each of it might require different way of presenting data. To address this problem in the Vue Storefront we introduced four most commonly used renderer types. Each is a standalone Vue component encapsulating differences of a multiple product types.
 
-### Components
-* Simple - modules/catalog/product/components/product-types/simple
-* Grouped - modules/catalog/product/components/product-types/grouped
-* Configurable - modules/catalog/product/components/product-types/configurable
-* Bundle - modules/catalog/product/components/product-types/bundle
+Magento has different types of products, and each of them requires a different way of presenting data. To address this problem, we introduced Vue components for the four most commonly used product types:
 
-### Resolving product type renderer
-Each renderer is a [dynamic component](https://vuejs.org/guide/essentials/component-basics.html). Resolving component is simple, and you can find the relevant code in `modules/catalog/pages/product.vue`
+- Simple
+- Grouped
+- Configurable
+- Bundle
 
-**Resolver**
+These components are located in the `modules/catalog/product/components/product-types` folder.
+
+## Product rendering
+
+The `modules/catalog/pages/product.vue` component that powers the `/product` route dynamically switches between components based on the type of the current product.
+
+Firstly, components for all product types are registered using dynamic imports:
+
+```typescript
+export default {
+  components: {
+    SimpleProduct: () => import('...'),
+    BundleProduct: () => import('...'),
+    ConfigurableProduct: () => import('...'),
+    GroupedProduct: () => import('...'),
+  }
+}
+```
+
+Then, the `renderer` variable reads the type of the current product based on the data from Magento API (with a fallback to the `simple` type).
+
 ```typescript
 const renderer = computed(() => product.value?.__typename ?? ProductTypeEnum.SIMPLE_PRODUCT);
 ```
 
-**Component**
-```vue
+Component passes this variable to the `:is` attribute of the dynamic `<component>` to switch between product components.
+
+```html{2}
 <component
   :is="renderer"
   v-if="product"
@@ -25,10 +43,31 @@ const renderer = computed(() => product.value?.__typename ?? ProductTypeEnum.SIM
   @fetchProduct="fetchProduct($event.query)"
 />
 ```
-Renderer is resolved based on the `product.__typename`. Default fallback is a `simple` renderer.
 
-### How to add custom product type?
-1. Create your renderer component inside `modules/catalog/product/components/product-types` directory. Implementation is the matter of business requirement and will be not cover in this documentation.
-2. Open `modules/catalog/pages/product.vue` and lazy-import your component in the same way as the rest of renderers.
-3. Make sure that the name of renderer matches the `__typename` value.
-4. Once done, renderer will be resolved automatically once product data are fetched.
+## How to add a custom product type?
+
+To add support for custom product types, create a new component inside the `modules/catalog/product/components/product-types` folder.
+
+It should accept two props:
+
+- `product` (type: [Product](http://localhost:8080/api-reference/magento-theme.product.html)) - product object fetched from the API,
+- `isFetching` (type: `boolean`) - a flag indicating whether the `product.vue` components currently fetches product data .
+
+```typescript
+export default {
+  props: {
+    product: {
+      type: [Object, null] as PropType<Product>,
+      default: null,
+    },
+    isFetching: {
+      type: Boolean,
+      default: true,
+    },
+  }
+};
+```
+
+Then, open the `modules/catalog/pages/product.vue` file and register the newly created component in the `components` object using dynamic import. Make sure that the name of this component matches the `__typename` value returned from the Magento API.
+
+Once done, the page should dynamically import the component and feed it with product data.
