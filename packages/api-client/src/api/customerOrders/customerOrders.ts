@@ -5,9 +5,9 @@ export default gql`
     customer {
       orders(currentPage: $currentPage, filter: $filter, pageSize: $pageSize) {
         items {
-          order_number
+          number
           id
-          created_at
+          order_date
           grand_total
           total {
             discounts {
@@ -226,6 +226,18 @@ export default gql`
             }
           }
           shipping_address {
+            city
+            country_code
+            firstname
+            lastname
+            postcode
+            prefix
+            region
+            street
+            suffix
+            telephone
+          }
+          billing_address {
             city
             country_code
             firstname

@@ -1,41 +1,41 @@
 <template>
   <div>
-    <span
-      v-if="promoIsApplied"
-      class="applied-coupon"
-    >
+    <span v-if="isCouponCodeApplied">
       {{ $t('Applied Coupon') }}:
-      <span class="applied-coupon__code">{{ promoCode }}</span>
+      <span
+        class="applied-coupon-code"
+        v-text="couponCodeAppliedToCart"
+      />
     </span>
-    <div class="promo-code">
+    <div class="coupon-code">
       <SfInput
-        v-model="promoCode"
-        name="promoCode"
-        :disabled="promoIsApplied"
+        v-model="couponCodeUserInput"
+        name="couponCode"
+        :disabled="isCouponCodeApplied"
         :label="$t('Enter promo code')"
-        class="sf-input--filled promo-code__input"
+        class="sf-input--filled coupon-code__input"
+        :error-message="$t(applyCouponMsg.message)"
+        :valid="!hasAnyError"
       />
       <SfButton
-        class="promo-code__button"
-        @click="handleCoupon"
+        class="coupon-code__button"
+        @click="applyOrRemoveCoupon"
       >
-        {{ promoIsApplied ? $t('Remove') : $t('Apply') }}
+        {{ $t(isCouponCodeApplied ? 'Remove' : 'Apply') }}
       </SfButton>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfButton, SfInput } from '@storefront-ui/vue';
-import { cartGetters } from '~/getters';
 import {
   computed,
-  onMounted,
-  watch,
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { useCart } from '~/composables';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
   name: 'CouponCode',
@@ -44,61 +44,48 @@ export default defineComponent({
     SfInput,
   },
   setup() {
-    const { cart, applyCoupon, removeCoupon } = useCart();
-    const promoCode = ref('');
-    const promoIsApplied = computed(
-      () => cartGetters.getAppliedCoupon(cart.value)?.code,
-    );
+    const {
+      cart, applyCoupon, removeCoupon, error,
+    } = useCart();
 
-    const setCartCoupon = () => {
-      promoCode.value = promoIsApplied.value;
+    const couponCodeUserInput = ref('');
+
+    const couponCodeAppliedToCart = computed(() => cartGetters.getAppliedCoupon(cart.value)?.code);
+    const isCouponCodeApplied = computed(() => couponCodeAppliedToCart.value !== undefined);
+    const hasAnyError = computed(() => Object.values(error.value).some((value) => value !== null));
+    const applyCouponMsg = computed<Error>(() => error.value.applyCoupon || error.value.removeCoupon || { message: '', name: 'apply-coupon' });
+    const applyOrRemoveCoupon = async () => {
+      const operationPromise = isCouponCodeApplied.value
+        ? removeCoupon({})
+        : applyCoupon({ couponCode: couponCodeUserInput.value });
+      await operationPromise;
+      couponCodeUserInput.value = '';
     };
-
-    const handleCoupon = async () => {
-      await (promoIsApplied.value
-        ? removeCoupon({ currentCart: cart.value })
-        : applyCoupon({ couponCode: promoCode.value }));
-    };
-
-    onMounted(setCartCoupon);
-    watch(promoIsApplied, setCartCoupon);
 
     return {
-      handleCoupon,
-      promoIsApplied,
-      promoCode,
+      couponCodeUserInput,
+      couponCodeAppliedToCart,
+      isCouponCodeApplied,
+      applyCouponMsg,
+      applyOrRemoveCoupon,
+      hasAnyError,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.applied-coupon {
-  &__code {
+.applied-coupon-code {
     font-weight: bold;
-  }
-}
-.highlighted {
-  box-sizing: border-box;
-  width: 100%;
-  background-color: var(--c-light);
-  padding: var(--spacer-xl) var(--spacer-xl) 0;
-
-  &:last-child {
-    padding-bottom: var(--spacer-xl);
-  }
-
-  .promo-code {
-    &__input {
-      --input-background: var(--c-white);
-      flex: 1;
-    }
-  }
 }
 
-.promo-code {
+.coupon-code {
   display: flex;
   align-items: flex-start;
+  margin: {
+    top: var(--spacer-sm);
+    bottom: var(--spacer-sm);
+  }
 
   &__button {
     --button-width: 6.3125rem;
@@ -106,8 +93,10 @@ export default defineComponent({
   }
 
   &__input {
-    --input-background: var(--c-light);
     flex: 1;
+    ::v-deep input {
+      --input-background: var(--c-white);
+    }
   }
 }
 </style>

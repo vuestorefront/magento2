@@ -2,8 +2,9 @@
 
 ## Resources
 
-- [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
-- [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
+- [GitHub repository](https://github.com/vuestorefront/magento2/)
+- [Vue Storefront website](https://www.vuestorefront.io/)
+- [Core Documentation](https://docs.vuestorefront.io/v2/)
 - [Community Chat](https://discord.vuestorefront.io)
 
 ## Support

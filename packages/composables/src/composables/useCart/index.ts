@@ -67,6 +67,7 @@ const factoryParams: UseCartFactoryParams<Cart, CartItem, Product> = {
           return createVirtualCart();
         }
 
+        // eslint-disable-next-line no-param-reassign
         cartId = await createRealCart();
         apiState.setCartId(cartId);
       }

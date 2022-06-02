@@ -17,7 +17,7 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, computed } from '@nuxtjs/composition-api';
 import { SfButton } from '@storefront-ui/vue';
 import SvgImage from '~/components/General/SvgImage.vue';

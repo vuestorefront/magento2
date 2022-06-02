@@ -11,6 +11,8 @@ import type {
 /**
  * The `useNewsletter()` composable allows updating the subscription status of
  * an email in the newsletter.
+ *
+ * See the {@link UseNewsletterInterface} for a list of methods and values available in this composable.
  */
 export function useNewsletter(): UseNewsletterInterface {
   const context = useContext();

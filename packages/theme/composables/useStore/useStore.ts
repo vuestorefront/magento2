@@ -3,15 +3,22 @@ import type { StoreConfig } from '~/modules/GraphQL/types';
 import type { AvailableStores } from '~/composables/types';
 
 /**
- * Errors that occured in the `useStore` composable
+ * Errors that occured in the {@link useStore|useStore()} composable
  */
 export interface UseStoreErrors {
+  /**
+   * Contains error if `load` method failed, otherwise is `null`
+   */
   load: Error | null;
+
+  /**
+   * Contains error if `change` method failed, otherwise is `null`
+   */
   change: Error | null;
 }
 
 /**
- * Represents the data returned from and functions available in the `useStore()` composable.
+ * The refs and methods returned by the {@link useStore|useStore()} composable
  */
 export interface UseStoreInterface {
   /**
@@ -21,6 +28,11 @@ export interface UseStoreInterface {
 
   /**
    * Fetches a list of available stores
+   *
+   * @remarks
+   *
+   * Internally, it calls the {@link @vue-storefront/magento-api#availableStores} API endpoint
+   * and accepts the custom queries named `availableStores`.
    */
   load(customQuery?: { availableStores: string }): Promise<void>;
 
@@ -35,7 +47,7 @@ export interface UseStoreInterface {
   loading: DeepReadonly<Ref<boolean>>;
 
   /**
-   * Contains errors from any of the composable methods
+   * Contains errors from the composable methods
    */
   error: DeepReadonly<Ref<UseStoreErrors>>;
 }

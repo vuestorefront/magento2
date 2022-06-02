@@ -1,0 +1,15 @@
+import type { GroupedProduct, ProductInterface } from '~/modules/GraphQL/types';
+import { getPrice as getProductPrice } from '~/modules/catalog/product/getters/productGetters';
+
+export function getGroupedProductPriceCommand(product: GroupedProduct): number {
+  const evalProductPrice = (p: ProductInterface) => {
+    const { regular, special } = getProductPrice(p);
+
+    return regular > special ? regular : special;
+  };
+
+  return product.items.reduce(
+    (acc, curr) => curr.qty * evalProductPrice(curr.product) + acc,
+    0,
+  );
+}

@@ -76,13 +76,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfBottomNavigation, SfCircleIcon } from '@storefront-ui/vue';
 import { defineComponent, useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUiState } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
-import { useCategoryStore } from '~/stores/category';
+import { useCategoryStore } from '~/modules/catalog/category/stores/category';
 
 const MobileCategorySidebar = () => import('~/modules/catalog/category/components/sidebar/MobileCategorySidebar/MobileCategorySidebar.vue');
 
@@ -106,7 +106,7 @@ export default defineComponent({
     const { app } = useContext();
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account')}`);
+        await router.push(app.localeRoute({ name: 'customer' }));
       } else {
         toggleLoginModal();
       }

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import defaultConfig from '@vue-storefront/magento/nuxt/defaultConfig';
 
 export const getLocaleSettings = (app, moduleOptions) => {

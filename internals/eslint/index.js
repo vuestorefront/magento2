@@ -6,5 +6,5 @@ module.exports = {
     './rules/plugins',
     './rules/extends',
     './rules/rules',
-  ].map(require.resolve),
+  ].map((element) => require.resolve(element)),
 };

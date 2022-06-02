@@ -1,5 +1,5 @@
 import request from '../../setup/request';
-import {STORE_CONFIG_MOCK_RESP} from './../../mockData/api/storeConfig'
+import { STORE_CONFIG_MOCK_RESP } from '../../mockData/api/storeConfig';
 
 describe('[Magento-API-Client] storeConfig', () => {
   it('Fetching the storeConfig', async () => {
@@ -60,8 +60,8 @@ describe('[Magento-API-Client] storeConfig', () => {
               welcome
             }
           }
-        `
-      })
+        `,
+      }),
     });
     const { data } = await res.json();
 

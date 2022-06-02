@@ -1,7 +1,7 @@
 import {
   computed, useContext, useRoute,
 } from '@nuxtjs/composition-api';
-import { useCategoryStore } from '~/stores/category';
+import { useCategoryStore } from '~/modules/catalog/category/stores/category';
 import { findActiveCategory } from '~/modules/catalog/category/helpers/findActiveCategory';
 import { findCategoryAncestors } from '~/modules/catalog/category/helpers/findCategoryAncestors';
 

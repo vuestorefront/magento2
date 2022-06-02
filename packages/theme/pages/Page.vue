@@ -14,17 +14,16 @@
     </div>
   </SfLoader>
 </template>
-<script>
-import {
-  SfLoader,
-  SfHeading,
-} from '@storefront-ui/vue';
+<script lang="ts">
+import { SfLoader, SfHeading } from '@storefront-ui/vue';
 import {
   defineComponent, ref, useContext, useFetch, useRoute,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
+import type { MetaInfo } from 'vue-meta';
 import { useContent } from '~/composables';
-import HTMLContent from '~/components/HTMLContent';
+import type { CmsPage } from '~/modules/GraphQL/types';
+import HTMLContent from '~/components/HTMLContent.vue';
 
 export default defineComponent({
   name: 'CmsPage',
@@ -41,22 +40,19 @@ export default defineComponent({
   },
   setup(props) {
     const { addTags } = useCache();
-    const {
-      loadPage,
-      error,
-      loading,
-    } = useContent('cmsPage');
+    const { loadPage, error, loading } = useContent();
 
     const route = useRoute();
     const { error: nuxtError, app } = useContext();
     const { params } = route.value;
-    const page = ref({});
+    const page = ref<CmsPage | null>(null);
 
+    // eslint-disable-next-line consistent-return
     useFetch(async () => {
       page.value = await loadPage({ identifier: params.slug || props.identifier });
 
       if (error?.value?.page || !page.value) {
-        return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') });
+        return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') as string });
       }
 
       addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
@@ -66,7 +62,7 @@ export default defineComponent({
       loading,
     };
   },
-  head() {
+  head() : MetaInfo {
     if (!this.page) {
       return null;
     }

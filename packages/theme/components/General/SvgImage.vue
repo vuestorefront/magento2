@@ -5,13 +5,16 @@
     :role="role || (label ? 'img' : null)"
     class="svg-image"
   >
-    <svg :width="width" :height="height">
+    <svg
+      :width="width"
+      :height="height"
+    >
       <use :xlink:href="`#${icon}`" />
     </svg>
   </component>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 
 export default defineComponent({

@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfRadio } from '@storefront-ui/vue';
 import {
   ref,
@@ -26,7 +26,7 @@ import {
   computed,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { usePaymentProvider } from '~/composables';
+import usePaymentProvider from '~/modules/checkout/composables/usePaymentProvider';
 
 export default defineComponent({
   name: 'VsfPaymentProvider',

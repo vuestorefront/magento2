@@ -42,6 +42,9 @@
             value="white"
           />
         </template>
+        <template #price>
+          <CategoryProductPrice :product="product" />
+        </template>
         <template #actions>
           <SfButton
             v-if="isAuthenticated"
@@ -61,16 +64,20 @@
 import {
   defineComponent, computed, useContext, PropType, toRefs,
 } from '@nuxtjs/composition-api';
-import { SfProductCardHorizontal, SfButton, SfProperty } from '@storefront-ui/vue';
+import {
+  SfProductCardHorizontal, SfButton, SfProperty,
+} from '@storefront-ui/vue';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 
 import { useImage } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useProductsWithCommonProductCardProps } from './useProductsWithCommonCardProps';
+import CategoryProductPrice from '~/modules/catalog/category/components/views/CategoryProductPrice.vue';
 
 export default defineComponent({
   components: {
+    CategoryProductPrice,
     SfProductCardHorizontal,
     SfButton,
     SfProperty,
@@ -81,6 +88,7 @@ export default defineComponent({
       type: Array as PropType<Product[]>,
       required: true,
     },
+    pricesLoaded: Boolean,
     loading: Boolean,
   },
   emits: ['click:wishlist', 'click:add-to-cart'],
@@ -88,7 +96,6 @@ export default defineComponent({
     const context = useContext();
 
     const { products } = toRefs(props);
-
     const { productsWithCommonProductCardProps } = useProductsWithCommonProductCardProps(products);
 
     const productsFormatted = computed(() => productsWithCommonProductCardProps.value.map((product) => {
@@ -157,4 +164,5 @@ export default defineComponent({
     display: block;
   }
 }
+
 </style>

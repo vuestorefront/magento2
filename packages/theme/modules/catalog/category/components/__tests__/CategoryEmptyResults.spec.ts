@@ -1,13 +1,12 @@
-import CategoryEmptyResults from '../CategoryEmptyResults.vue';
 import { render } from '~/test-utils';
-import { expect } from '@jest/globals';
+import CategoryEmptyResults from '../CategoryEmptyResults.vue';
 
 describe('CategoryEmptyResults.vue', () => {
   it('Renders with a default value', () => {
     const { getByRole, queryByText } = render(CategoryEmptyResults);
-  
+
     const svgImage = getByRole('img');
-    const paragraph = queryByText(`We can't find products matching the selection.`);
+    const paragraph = queryByText('We can\'t find products matching the selection.');
 
     expect(svgImage).toBeDefined();
     expect(paragraph).toBeDefined();
@@ -16,8 +15,8 @@ describe('CategoryEmptyResults.vue', () => {
   it('Renders content from the "default" slot', () => {
     const wrapper = render(CategoryEmptyResults, {
       slots: {
-        default: `<div id="testSlot"></div>`
-      }
+        default: '<div id="testSlot"></div>',
+      },
     });
     expect(wrapper.html()).toContain('<div id="testSlot"></div>');
   });

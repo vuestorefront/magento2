@@ -1,4 +1,3 @@
-import { Context } from '@nuxt/types';
 import { Logger } from '~/helpers/logger';
 import { VsfContext } from '~/composables/context';
 

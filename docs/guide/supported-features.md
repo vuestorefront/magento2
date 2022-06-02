@@ -1,6 +1,6 @@
 # Supported features
 
-This page shows the Magento 2 features supported by this integration. If the feature you need is not supported, check out our [Roadmap](./roadmap.html) or reach out to us on [our Discord server](https://discord.vuestorefront.io/).
+This page shows the Magento 2 features supported by this integration. If the feature you need is not supported, reach out to us on [our Discord server](https://discord.vuestorefront.io/).
 
 ## Product types
 
@@ -33,8 +33,8 @@ This page shows the Magento 2 features supported by this integration. If the fea
 | Configurable product swatches | ❌         |
 | Filtering                     | ✅         |
 | Sorting                       | ✅         |
-| Breadcrumb                    | ❌         |
-| Category Landing Pages        | ❌         |
+| Breadcrumb                    | ✅         |
+| Category Landing Pages        | ✅         |
 
 ## Product page
 

@@ -40,6 +40,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
     const priceProps = {
       regularPrice: context.app.$fc(price.regular),
       specialPrice: price.special && context.app.$fc(getPrice(product).special),
+      maximumPrice: price.maximum && context.app.$fc(getPrice(product).maximum),
     };
 
     const reviewProps = {
@@ -47,7 +48,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
       scoreRating: getAverageRating(product),
     };
 
-    const link = context.app.localePath(`/p/${getProductSku(product)}${getSlug(product, product.categories[0])}`);
+    const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
 
     const commonProps = {
       title: getName(product),

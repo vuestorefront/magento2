@@ -118,10 +118,10 @@ import {
 import HeaderNavigation from '~/components/Header/Navigation/HeaderNavigation.vue';
 import useCategory from '~/modules/catalog/category/composables/useCategory';
 import {
-  useCart,
   useUiHelpers,
   useUiState,
 } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
@@ -168,7 +168,7 @@ export default defineComponent({
 
     const handleAccountClick = async () => {
       if (isAuthenticated.value) {
-        await router.push(`${app.localePath('/my-account/my-profile')}`);
+        await router.push(app.localeRoute({ name: 'customer-my-profile' }));
       } else {
         toggleLoginModal();
       }

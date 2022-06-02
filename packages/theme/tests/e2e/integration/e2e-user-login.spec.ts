@@ -1,6 +1,7 @@
 import generator from '../utils/data-generator';
 import page from '../pages/factory';
 import requests from '../api/requests';
+import { Customer } from '../types/customer';
 
 before(() => {
   cy.clearLocalStorage();
@@ -16,7 +17,7 @@ context(['regression'], 'User login', () => {
     const data = cy.fixtures.data['Should successfully login'];
     data.customer.email = generator.email;
 
-    requests.createCustomer(data.customer).then(() => {
+    requests.createCustomer(data.customer as Customer).then(() => {
       cy.clearCookies();
     });
 
@@ -24,7 +25,7 @@ context(['regression'], 'User login', () => {
 
     page.home.header.openLoginModal();
     page.components.loginModal.loginToAccountButton.click();
-    page.components.loginModal.fillForm(data.customer);
+    page.components.loginModal.fillForm(data.customer as Customer);
     page.components.loginModal.loginBtn.click();
     page.components.loginModal.container.should('not.exist');
     page.home.header.account.click();
@@ -37,8 +38,8 @@ context(['regression'], 'User login', () => {
     page.home.visit();
     page.home.header.openLoginModal();
     page.components.loginModal.loginToAccountButton.click();
-    page.components.loginModal.fillForm(data.customer);
+    page.components.loginModal.fillForm(data.customer as Customer);
     page.components.loginModal.loginBtn.click();
-    page.components.loginModal.container.contains(data.errorMessage).should('be.visible');
+    page.components.loginModal.container.contains(data.errorMessage as string).should('be.visible');
   });
 });

@@ -1,14 +1,16 @@
 <template>
   <div id="home">
-    <Hero
+    <HeroSection
       class="hero-section"
-      :title="$t('Colorful summer dresses are already in store')"
-      :subtitle="$t('SUMMER COLLECTION {year}', { year })"
-      :button-text="$t('Learn more')"
-      link="/c/women.html"
-      background="#eceff1"
-      desktop-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_1240x400.jpg"
-      mobile-image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x224.jpg"
+      :title="hero.title"
+      :subtitle="hero.subtitle"
+      :button-text="hero.buttonText"
+      :link="hero.link"
+      :image-src="hero.imageSrc"
+      :image-width="hero.imageWidth"
+      :image-height="hero.imageHeight"
+      :nuxt-img-config="hero.imageConfig"
+      image-tag="nuxt-img"
     />
     <LazyHydrate when-visible>
       <SfBannerGrid
@@ -25,7 +27,9 @@
             :subtitle="item.subtitle"
             :description="item.description"
             :button-text="item.buttonText"
+            image-tag="nuxt-img"
             :image="item.image"
+            :nuxt-img-config="item.imageConfig"
             :class="item.class"
           />
         </template>
@@ -40,15 +44,15 @@
       />
     </LoadWhenVisible>
     <LoadWhenVisible>
-      <SfCallToAction
-        :title="$t('Subscribe to Newsletters')"
-        :button-text="$t('Subscribe')"
-        :description="
-          $t(
-            'Be aware of upcoming sales and events. Receive gifts and special offers!'
-          )
-        "
-        image="https://cdn.shopify.com/s/files/1/0407/1902/4288/files/newsletter_1240x202.jpg?v=1616496568"
+      <CallToAction
+        :title="callToAction.title"
+        :button-text="callToAction.buttonText"
+        :description="callToAction.description"
+        image-tag="nuxt-img"
+        :image-src="callToAction.imageSrc"
+        :image-width="callToAction.imageWidth"
+        :image-height="callToAction.imageHeight"
+        :nuxt-img-config="callToAction.imageConfig"
         class="call-to-action"
       />
     </LoadWhenVisible>
@@ -60,13 +64,7 @@
     </LoadWhenVisible>
   </div>
 </template>
-<script type="module">
-import {
-  SfButton,
-  SfBanner,
-  SfBannerGrid,
-} from '@storefront-ui/vue';
-
+<script lang="ts" type="module">
 import {
   defineComponent,
   ref,
@@ -75,30 +73,42 @@ import {
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import Hero from '~/components/Hero.vue';
-import LoadWhenVisible from '~/components/utils/LoadWhenVisible';
-import SvgImage from '~/components/General/SvgImage.vue';
+import { SfBanner, SfBannerGrid } from '@storefront-ui/vue';
+import HeroSection from '~/components/HeroSection.vue';
+import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
   name: 'HomePage',
   components: {
-    Hero,
+    HeroSection,
     LazyHydrate,
     LoadWhenVisible,
-    SvgImage,
-    SfButton,
     SfBanner,
     SfBannerGrid,
+    CallToAction: () => import(/* webpackPrefetch: true */ '~/components/CallToAction.vue'),
     InstagramFeed: () => import(/* webpackPrefetch: true */ '~/components/InstagramFeed.vue'),
     MobileStoreBanner: () => import(/* webpackPrefetch: true */ '~/components/MobileStoreBanner.vue'),
     NewProducts: () => import(/* webpackPrefetch: true */ '~/components/NewProducts.vue'),
-    SfCallToAction: () => import(/* webpackPrefetch: true */ '@storefront-ui/vue'),
   },
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { addTags } = useCache();
     const { app } = useContext();
     const year = new Date().getFullYear();
+    const { isDesktop } = app.$device;
+    const hero = ref({
+      title: app.i18n.t('Colorful summer dresses are already in store'),
+      subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
+      buttonText: app.i18n.t('Learn more'),
+      imageSrc: '/homepage/bannerB',
+      imageWidth: isDesktop ? 1240 : 328,
+      imageHeight: isDesktop ? 400 : 224,
+      imageConfig: {
+        fit: 'cover',
+        format: 'webp',
+      },
+      link: '/c/women.html',
+    });
     const banners = ref([
       {
         slot: 'banner-A',
@@ -110,9 +120,15 @@ export default defineComponent({
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerB_328x343.jpg',
+            '/homepage/bannerB',
           desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerF_332x840.jpg',
+            '/homepage/bannerF',
+        },
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 840 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim desktop-only',
         link: '/c/women/women-clothing-skirts',
@@ -125,11 +141,12 @@ export default defineComponent({
           'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
         ),
         buttonText: app.i18n.t('Shop now'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerE_496x840.jpg',
+        image: '/homepage/bannerE',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 496 : 328,
+          height: isDesktop ? 840 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim banner-central desktop-only',
         link: '/c/women/women-clothing-dresses',
@@ -138,11 +155,12 @@ export default defineComponent({
         slot: 'banner-C',
         subtitle: app.i18n.t('T-Shirts'),
         title: app.i18n.t('The Office Life'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerC_332x400.jpg',
+        image: '/homepage/bannerC',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 400 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim banner__tshirt',
         link: '/c/women/women-clothing-shirts',
@@ -151,16 +169,29 @@ export default defineComponent({
         slot: 'banner-D',
         subtitle: app.i18n.t('Summer Sandals'),
         title: app.i18n.t('Eco Sandals'),
-        image: {
-          mobile:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_328x343.jpg',
-          desktop:
-            'https://cdn.shopify.com/s/files/1/0407/1902/4288/files/bannerG_332x400.jpg',
+        image: '/homepage/bannerG',
+        imageConfig: {
+          fit: 'cover',
+          width: isDesktop ? 332 : 328,
+          height: isDesktop ? 400 : 343,
+          format: 'webp',
         },
         class: 'sf-banner--slim',
         link: '/c/women/women-shoes-sandals',
       },
     ]);
+    const callToAction = ref({
+      title: app.i18n.t('Subscribe to Newsletters'),
+      description: app.i18n.t('Be aware of upcoming sales and events. Receive gifts and special offers!'),
+      buttonText: app.i18n.t('Subscribe'),
+      imageSrc: '/homepage/newsletter',
+      imageWidth: isDesktop ? 1240 : 400,
+      imageHeight: isDesktop ? 202 : 200,
+      imageConfig: {
+        fit: 'cover',
+        format: 'webp',
+      },
+    });
 
     onMounted(() => {
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
@@ -169,7 +200,8 @@ export default defineComponent({
     // @ts-ignore
     return {
       banners,
-      year,
+      callToAction,
+      hero,
     };
   },
 });

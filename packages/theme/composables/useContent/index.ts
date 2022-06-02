@@ -8,83 +8,9 @@ import type { ComposableFunctionArgs } from '../types';
 import type { UseContentInterface, UseContentErrors } from './useContent';
 
 /**
- * @public
  * The `useContent` composable allows loading CMS Pages or Blocks from Magento API.
  *
- * @remarks
- * Under the hood, it calls the following Server Middleware API methods:
- *
- * - {@link @vue-storefront/magento-api#cmsBlocks} for loading CMS blocks
- *
- * - {@link @vue-storefront/magento-api#cmsPage} for loading CMS pages
- *
- * It is currently used in:
- *
- * - `components/ContentBlocks.vue`
- *
- * - `pages/Page.vue`
- *
- * @example
- * Initialization in component:
- *
- * ```typescript
- * import { useContent } from '~/composables';
- *
- * export default {
- *   setup() {
- *     const { loading, error, loadPage, loadBlocks } = useContent();
- *   }
- * }
- * ```
- *
- * @example
- * Load CMS Page:
- *
- * ```typescript
- * import { useFetch } from '@nuxtjs/composition-api';
- * import { useContent } from '~/composables';
- *
- * export default {
- *   setup() {
- *     const { loading, error, loadPage } = useContent();
- *
- *     const page = ref({});
- *     const pageId = 'about-us'
- *
- *     useFetch(async () => {
- *       page.value = await loadPage({ identifier: pageId });
- *
- *       if (error?.value?.page || !page.value) {
- *         // place for handle 404 error
- *       }
- *     });
- *   }
- * }
- * ```
- * More example with loading CMS Page: {@link UseContentInterface.loadPage}.
- *
- * @example
- * Load CMS Block:
- *
- * ```typescript
- * import { useFetch, ref } from '@nuxtjs/composition-api';
- * import { useContent } from '~/composables';
- *
- * export default {
- *   setup(props) {
- *     const { loadBlocks } = useContent();
- *     const blocks = ref([]);
- *
- *     useFetch(async () => {
- *       if (props.identifiers) {
- *         blocks.value = await loadBlocks(['block-a', 'block-b`]);
- *       }
- *     });
- *   }
- * }
- * ```
- *
- * More example with loading CMS Page: {@link UseContentInterface.loadBlocks}.
+ * See the {@link UseContentInterface} for a list of methods and values available in this composable.
  */
 export function useContent(): UseContentInterface {
   const loading: Ref<boolean> = ref(false);

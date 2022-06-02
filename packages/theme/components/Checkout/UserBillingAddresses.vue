@@ -25,11 +25,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
 import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
+import { CustomerAddress } from '~/composables';
 
 export default defineComponent({
   name: 'UserBillingAddresses',
@@ -48,15 +50,15 @@ export default defineComponent({
       required: true,
     },
     billingAddresses: {
-      type: Array,
+      type: Array as PropType<CustomerAddress[]>,
       required: true,
     },
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
-    const setCurrentAddress = (addressId) => {
+    const setCurrentAddress = (addressId: string) => {
       const selectedAddress = props.billingAddresses.find((address) => address.id === Number(addressId));
-      if (!selectedAddress || selectedAddress.length === 0) {
+      if (!selectedAddress) {
         return;
       }
 

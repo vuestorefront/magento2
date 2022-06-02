@@ -7,7 +7,7 @@ import { useCurrencyFactory, UseCurrencyFactoryParams } from '../../factories/us
 import { UseCurrency } from '../../types/composables';
 
 const factoryParams: UseCurrencyFactoryParams<Currency, null> = {
-  load: async (context: Context, params): Promise<Currency> => {
+  load: async (context: Context, _params): Promise<Currency> => {
     const { data } = await context.$magento.api.currency();
 
     return data.currency || {};

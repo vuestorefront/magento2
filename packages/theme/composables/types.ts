@@ -2,8 +2,6 @@ import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type {
   AvailableStoresQuery,
   CountriesListQuery,
-  CartItemInterface,
-  AvailableShippingMethod,
   ProductReviewRatingsMetadataQuery,
 } from '~/modules/GraphQL/types';
 
@@ -43,29 +41,15 @@ export interface ProductsSearchParams {
   [x: string]: any;
 }
 
-export interface AgnosticFacetSearchParams {
-  categorySlug?: string;
-  rootCatSlug?: string;
-  term?: string;
-  page?: number;
-  itemsPerPage?: number;
-  sort?: string;
-  filters?: Record<string, string[]>;
-  metadata?: any;
-  [x: string]: any;
-}
-
 export declare type CustomerProductReviewParams = {
   pageSize: number;
   currentPage: number;
 };
 
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
-export declare type CartItem = CartItemInterface;
 export declare type CustomQuery = Record<string, string>;
 export declare type Filter = Record<string, any>;
 export declare type Countries = CountriesListQuery['countries'][0];
-export declare type ShippingMethod = AvailableShippingMethod;
 export declare type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
 
 export declare type ComposableFunctionArgs<T> = T & {
@@ -75,6 +59,7 @@ export declare type ComposableFunctionArgs<T> = T & {
 export interface AgnosticPrice {
   regular: number | null;
   special?: number | null;
+  maximum?: number | null;
 }
 
 export interface AgnosticMediaGalleryItem {
@@ -238,11 +223,6 @@ export interface AgnosticStore {
   address?: AgnosticAddress;
   geoLocation?: AgnosticGeoLocation;
   [x: string]: unknown;
-}
-
-export interface AgnosticPaymentMethod {
-  label: string;
-  value: string;
 }
 
 export interface AgnosticReviewMetadata {

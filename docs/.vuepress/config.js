@@ -51,6 +51,7 @@ module.exports = {
   ],
   themeConfig: {
     GTM_TAG,
+    sidebarDepth: 0,
     repo: 'https://github.com/vuestorefront/magento2/',
     editLinks: true,
     docsDir: 'docs',
@@ -76,11 +77,18 @@ module.exports = {
         ],
       },
       {
-        title: 'Creating a Storefront',
+        title: 'Getting started',
         collapsable: false,
         children: [
-          ['/guide/creating-a-store', 'Creating a Store'],
-          ['/guide/configuration', 'Configuration'],
+          ['/getting-started/configure-magento', 'Configuring Magento'],
+          ['/getting-started/configure-integration', 'Configuring Vue Storefront'],
+        ],
+      },
+      {
+        title: 'Guides',
+        collapsable: false,
+        children: [
+          ['/guide/image-optimization', 'Image optimization'],
           ['/guide/override-queries', 'Override queries'],
           ['/guide/testing', 'Testing'],
           ['/guide/recaptcha', 'ReCaptcha'],

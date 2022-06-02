@@ -5,9 +5,11 @@
       :key="key"
       class="selected-filter"
     >
-      <span class="selected-filter__label">
-        {{ filter.label }}
-      </span>
+      <HTMLContent
+        class="selected-filter__label"
+        :tag="span"
+        :content="filter.label"
+      />
       <button
         type="button"
         class="selected-filter__remove"
@@ -27,9 +29,11 @@
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api';
 import { SfBadge, SfIcon } from '@storefront-ui/vue';
+import HTMLContent from '~/components/HTMLContent.vue';
 
 export default defineComponent({
   components: {
+    HTMLContent,
     SfBadge,
     SfIcon,
   },

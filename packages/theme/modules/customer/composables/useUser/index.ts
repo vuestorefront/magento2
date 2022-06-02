@@ -7,11 +7,11 @@ import {
 import type { Ref } from '@nuxtjs/composition-api';
 import mask from '~/composables/utils/mask';
 import { Logger } from '~/helpers/logger';
-import { useCustomerStore } from '~/stores/customer';
-import { useCart } from '~/composables';
+import { useCustomerStore } from '~/modules/customer/stores/customer';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
+import { Customer } from '~/modules/GraphQL/types';
 import type {
-  User,
   UseUserInterface,
   UseUserLoadParams,
   UseUserLoginParams,
@@ -41,7 +41,7 @@ export function useUser(): UseUserInterface {
   });
   const error: Ref = ref(errorsFactory());
 
-  const setUser = (newUser: User) => {
+  const setUser = (newUser: Customer) => {
     customerStore.user = newUser;
     Logger.debug('useUserFactory.setUser', newUser);
   };
@@ -81,9 +81,9 @@ export function useUser(): UseUserInterface {
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        Logger.error(errors.map((e) => e.message).join(','));
-        error.value.updateUser = errors.map((e) => e.message).join(',');
+        const allErrorMessages = errors.map((e) => e.message).join(',');
+        Logger.error(allErrorMessages);
+        error.value.updateUser = allErrorMessages;
       }
 
       customerStore.user = data?.updateCustomerV2?.customer || {};
@@ -161,22 +161,22 @@ export function useUser(): UseUserInterface {
 
       const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
         {
-          email: providedUser.username,
+          email: providedUser.email,
           password: providedUser.password,
           recaptchaToken: providedUser.recaptchaToken,
         },
         customQuery || {},
       );
-
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        error.value.login = { message: joinedErrors };
+
+        return;
       }
 
-      if (!data.generateCustomerToken || !data.generateCustomerToken.token) {
-        Logger.error('Customer sign-in error'); // todo: handle errors in better way
-      }
       customerStore.setIsLoggedIn(true);
       apiState.setCustomerToken(data.generateCustomerToken.token);
 

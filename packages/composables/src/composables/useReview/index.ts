@@ -46,7 +46,7 @@ ProductReviewRatingMetadata> = {
 
     return data?.createProductReview?.review ?? {};
   },
-  loadReviewMetadata: async (context: Context, params) => {
+  loadReviewMetadata: async (context: Context, _params) => {
     Logger.debug('[Magento] load review metadata');
 
     const { data } = await context.$magento.api.productReviewRatingsMetadata();

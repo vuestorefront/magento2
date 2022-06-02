@@ -6,9 +6,9 @@ import { useConfigStore } from '~/stores/config';
 import { UseConfigErrors, UseConfigInterface } from './useConfig';
 
 /**
- * The `useConfig` composable is responsible for interactions with the configuration in your eCommerce.
+ * The `useConfig` composable allows interacting with the store configuration.
  *
- * See the {@link UseConfigInterface} page for more information.
+ * See the {@link UseConfigInterface} for a list of methods and values available in this composable.
  */
 export function useConfig(): UseConfigInterface {
   const { app } = useContext();

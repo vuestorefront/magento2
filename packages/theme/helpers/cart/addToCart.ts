@@ -1,7 +1,7 @@
 import { useRouter, useContext } from '@nuxtjs/composition-api';
 import type { Product } from '~/modules/catalog/product/types';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
-import { useCart } from '~/composables';
+import useCart from '~/modules/checkout/composables/useCart';
 
 export const useAddToCart = () => {
   const {

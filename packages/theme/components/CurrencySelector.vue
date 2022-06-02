@@ -14,7 +14,7 @@
     />
   </div>
 </template>
-<script>
+<script lang="ts">
 import { SfButton } from '@storefront-ui/vue';
 import {
   ref,
@@ -22,7 +22,7 @@ import {
   defineComponent,
 } from '@nuxtjs/composition-api';
 import { useMagentoConfiguration } from '~/composables/useMagentoConfiguration';
-import CurrenciesModal from './CurrencySelector/CurrenciesModal';
+import CurrenciesModal from './CurrencySelector/CurrenciesModal.vue';
 
 export default defineComponent({
   name: 'CurrencySelector',

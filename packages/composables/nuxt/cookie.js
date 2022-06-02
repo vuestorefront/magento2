@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import CookieUniversal from 'cookie-universal';
 
 const baseSetCookieOptions = {

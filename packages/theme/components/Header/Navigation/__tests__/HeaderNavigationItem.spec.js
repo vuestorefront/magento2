@@ -1,5 +1,5 @@
-import HeaderNavigationItem from '../HeaderNavigationItem.vue';
 import { render } from '~/test-utils';
+import HeaderNavigationItem from '../HeaderNavigationItem.vue';
 
 describe('HeaderNavigationItem', () => {
   it('display proper label and link', () => {

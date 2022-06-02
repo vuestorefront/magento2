@@ -1,17 +1,27 @@
 import type { ComputedRef } from '@nuxtjs/composition-api';
 import type { StoreConfig } from '@vue-storefront/magento-api';
 
-/** The interface provided by {@link useMagentoConfiguration} composable. */
+/**
+ * The refs and methods returned by the {@link useMagentoConfiguration|useMagentoConfiguration()} composable
+ */
 export interface UseMagentoConfigurationInterface {
-  /** The store configuration object. */
+  /**
+   * Store configuration object.
+   */
   storeConfig: ComputedRef<StoreConfig>;
 
-  /** The selected currency. */
+  /**
+   * Currently active currency
+   */
   selectedCurrency: ComputedRef<string | undefined>;
 
-  /** The selected locale. */
+  /**
+   * Currently active locale
+   */
   selectedLocale: ComputedRef<string | undefined>;
 
-  /** The selected store. */
+  /**
+   * Currently active store
+   */
   selectedStore: ComputedRef<string | undefined>;
 }
