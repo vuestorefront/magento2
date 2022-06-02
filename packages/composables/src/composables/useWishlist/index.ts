@@ -114,7 +114,6 @@ const factoryParams: UseWishlistFactoryParams<any, any, any> = {
 
         return bundleProductData?.addProductsToWishlist?.wishlist ?? {};
       default:
-        // todo implement other options
         // @ts-ignore
         // eslint-disable-next-line no-underscore-dangle
         throw new Error(`Product Type ${product.__typename} not supported in add to wishlist yet`);

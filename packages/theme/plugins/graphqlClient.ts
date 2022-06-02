@@ -26,7 +26,7 @@ const getHeaderProxy = (ctx: NuxtContext) => {
         Authorization: `Bearer ${getCustomerToken()}`,
         store: getStore(),
         'Content-Currency': getCurrency(),
-      }[key] ?? undefined;
+      }[key as string] ?? undefined;
     },
     ownKeys() {
       // Important to get fresh values on each read of ownKeys

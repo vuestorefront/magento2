@@ -19,16 +19,19 @@
           :is-visible="isFilterSidebarOpen"
           :cat-uid="routeData.entity_uid"
           @close="toggleFilterSidebar"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
       </div>
-      <div class="main section column">
+      <div
+        ref="productContainerElement"
+        class="main section column"
+      >
         <CategoryNavbar
           v-if="isShowProducts"
           :sort-by="sortBy"
           :pagination="pagination"
           :is-loading="$fetchState.pending"
-          @reloadProducts="fetch"
+          @reloadProducts="onReloadProducts"
         />
         <div class="products">
           <CategoryEmptyResults v-if="products.length === 0 && !$fetchState.pending && isShowProducts" />
@@ -108,25 +111,28 @@ import {
   defineComponent, onMounted, ref, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
-import { facetGetters } from '~/getters';
 import {
   useFacet,
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import useWishlist from '~/modules/wishlist/composables/useWishlist';
-import { AgnosticPagination } from '~/composables/types';
-import { Product } from '~/modules/catalog/product/types';
-import { useUrlResolver } from '~/composables/useUrlResolver';
+
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
+import { useUrlResolver } from '~/composables/useUrlResolver';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
-import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
-import type { EntityUrl } from '~/modules/GraphQL/types';
+import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
+import facetGetters from '~/modules/catalog/category/getters/facetGetters';
+
+import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
 
-// TODO(addToCart qty, horizontal): https://github.com/vuestorefront/storefront-ui/issues/1606
+import type { EntityUrl, ProductInterface } from '~/modules/GraphQL/types';
+import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
+import type { Pagination } from '~/composables/types';
+import type { Product } from '~/modules/catalog/product/types';
+
 export default defineComponent({
   name: 'CategoryPage',
   components: {
@@ -150,9 +156,11 @@ export default defineComponent({
     const cmsContent = ref('');
     const isShowCms = ref(false);
     const isShowProducts = ref(false);
-    const products = ssrRef<Product[]>([]);
-    const sortBy = ref({});
-    const pagination = ref<AgnosticPagination>({});
+    const products = ssrRef<ProductInterface[]>([]);
+    const sortBy = ref<SortingModel>({ selected: '', options: [] });
+    const pagination = ref<Pagination>({});
+
+    const productContainerElement = ref<HTMLElement | null>(null);
 
     const { search: resolveUrl } = useUrlResolver();
     const {
@@ -176,14 +184,6 @@ export default defineComponent({
         : addItemToWishlistBase({ product }));
     };
 
-    const searchCategoryProduct = async (categoryId: number) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      await search({
-        ...uiHelpers.getFacetsFromURL(),
-        categoryId,
-      });
-    };
-
     const { activeCategory } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
     const routeData = ref<EntityUrl>({});
@@ -191,9 +191,11 @@ export default defineComponent({
     const { fetch } = useFetch(async () => {
       routeData.value = await resolveUrl();
 
+      const categoryId = routeData.value?.id;
+
       const [content] = await Promise.all([
         getContentData(routeData.value?.entity_uid),
-        searchCategoryProduct(routeData.value?.id),
+        search({ ...uiHelpers.getFacetsFromURL(), categoryId }),
       ]);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';
@@ -205,13 +207,11 @@ export default defineComponent({
       pagination.value = facetGetters.getPagination(result.value);
 
       const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
-      // eslint-disable-next-line no-underscore-dangle
       const productTags = products.value.map((product) => ({
         prefix: CacheTagPrefix.Product,
         value: product.uid,
       }));
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       addTags([...tags, ...productTags]);
     });
 
@@ -234,6 +234,11 @@ export default defineComponent({
       fetch();
     };
 
+    const onReloadProducts = () => {
+      fetch();
+      productContainerElement.value.scrollIntoView();
+    };
+
     return {
       isPriceLoaded,
       ...uiHelpers,
@@ -253,7 +258,8 @@ export default defineComponent({
       activeCategoryName,
       routeData,
       doChangeItemsPerPage,
-      fetch,
+      productContainerElement,
+      onReloadProducts,
     };
   },
 });

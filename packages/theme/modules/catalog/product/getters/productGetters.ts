@@ -1,10 +1,7 @@
-import type {
-  AgnosticAttribute,
-  AgnosticBreadcrumb,
-  AgnosticMediaGalleryItem,
-  AgnosticPrice,
-} from '~/composables/types';
-import type { Product } from '~/modules/catalog/product/types';
+import type { Price, MediaGalleryItem } from '~/modules/catalog/types';
+import type { Product, ProductAttribute } from '~/modules/catalog/product/types';
+import { Breadcrumb } from '~/modules/catalog/types';
+
 import type {
   BundleProduct,
   CategoryInterface,
@@ -19,17 +16,16 @@ import { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
 export interface ProductGetters {
   getName: (product: ProductInterface) => string;
   getSlug(product: ProductInterface, category?: CategoryInterface): string;
-  getPrice: (product: ProductInterface) => AgnosticPrice;
-  getGallery: (product: ProductInterface) => AgnosticMediaGalleryItem[];
+  getPrice: (product: ProductInterface) => Price;
+  getGallery: (product: ProductInterface) => MediaGalleryItem[];
   getCoverImage: (product: ProductInterface) => string;
-  getAttributes: (products: ProductInterface[] | ProductInterface, filters?: Array<string>) => Record<string, AgnosticAttribute | string>;
+  getAttributes: (products: ProductInterface[] | ProductInterface, filters?: Array<string>) => Record<string, ProductAttribute | string>;
   getDescription: (product: ProductInterface) => string;
   getCategoryIds: (product: ProductInterface) => string[];
   getId: (product: ProductInterface) => string;
-  getFormattedPrice: (price: number) => string;
   getTotalReviews: (product: ProductInterface) => number;
   getAverageRating: (product: ProductInterface) => number;
-  getBreadcrumbs?: (product: ProductInterface, category?: CategoryInterface) => AgnosticBreadcrumb[];
+  getBreadcrumbs?: (product: ProductInterface, category?: CategoryInterface) => Breadcrumb[];
   getCategory(product: Product, currentUrlPath: string): CategoryTree | null;
   getProductRelatedProduct(product: ProductInterface): Product[];
   getProductSku(product: ProductInterface): string;
@@ -70,14 +66,14 @@ export const getSlug = (product: ProductInterface, category?: CategoryTree | Cat
   return url;
 };
 
-export const getPrice = (product: ProductInterface): AgnosticPrice => {
+export const getPrice = (product: ProductInterface): Price => {
   let regular = 0;
   let special = null;
   let maximum = null;
-
+  let final = null;
   if (product?.price_range) {
     regular = product.price_range.minimum_price.regular_price.value;
-    const final = product.price_range.minimum_price.final_price.value;
+    final = product.price_range.minimum_price.final_price.value;
     maximum = product.price_range.maximum_price.final_price.value;
 
     if (final < regular) {
@@ -89,10 +85,11 @@ export const getPrice = (product: ProductInterface): AgnosticPrice => {
     regular,
     special,
     maximum,
+    final,
   };
 };
 
-export const getGallery = (product: Product): AgnosticMediaGalleryItem[] => {
+export const getGallery = (product: Product): MediaGalleryItem[] => {
   const images = [];
 
   if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
@@ -134,7 +131,7 @@ export const getProductThumbnailImage = (product: Product): string => {
 export const getAttributes = (
   products: Product,
   _filterByAttributeName?: string[],
-): Record<string, AgnosticAttribute | string> => {
+): Record<string, ProductAttribute | string> => {
   if (!products || !products?.configurable_options) {
     return {};
   }
@@ -145,14 +142,14 @@ export const getAttributes = (
   // eslint-disable-next-line no-restricted-syntax
   for (const option of configurableOptions) {
     attributes[option.attribute_code] = {
-      name: option.attribute_code,
+      code: option.attribute_code,
       label: option.label,
       value: option.values.map((value) => {
         const obj = {};
         obj[value.value_index] = value.label;
         return obj;
       }),
-    } as AgnosticAttribute;
+    } as ProductAttribute;
   }
   return attributes;
 };
@@ -215,23 +212,7 @@ export const getProductSku = (product: Product): string => product.sku;
 // eslint-disable-next-line no-underscore-dangle
 export const getTypeId = (product: Product): string => product.__typename;
 
-export const getFormattedPrice = (price: number) => {
-  if (price === null) {
-    return null;
-  }
-
-  // TODO get correct data from api
-  const locale = 'en';
-  const country = 'en';
-  const currency = 'USD';
-
-  return new Intl.NumberFormat(`${locale}-${country}`, {
-    style: 'currency',
-    currency,
-  }).format(price);
-};
-
-const getCategoryBreadcrumbs = (category: CategoryInterface): AgnosticBreadcrumb[] => {
+const getCategoryBreadcrumbs = (category: CategoryInterface): Breadcrumb[] => {
   let breadcrumbs = [];
 
   if (!category) {
@@ -242,18 +223,18 @@ const getCategoryBreadcrumbs = (category: CategoryInterface): AgnosticBreadcrumb
     breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
       text: breadcrumb.category_name,
       link: `/c/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
-    } as AgnosticBreadcrumb));
+    } as Breadcrumb));
   }
 
   breadcrumbs.push({
     text: category.name,
     link: `/c/${category.url_path}${category.url_suffix || ''}`,
-  } as AgnosticBreadcrumb);
+  } as Breadcrumb);
 
   return breadcrumbs;
 };
 
-export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInterface): AgnosticBreadcrumb[] => {
+export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInterface): Breadcrumb[] => {
   let breadcrumbs = [];
 
   if (!product) {
@@ -261,7 +242,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
   }
 
   if (category) {
-    breadcrumbs = getCategoryBreadcrumbs(category) as AgnosticBreadcrumb[];
+    breadcrumbs = getCategoryBreadcrumbs(category) as Breadcrumb[];
   }
 
   breadcrumbs.push({
@@ -296,7 +277,6 @@ const productGetters: ProductGetters = {
   getCategoryIds,
   getCoverImage,
   getDescription,
-  getFormattedPrice,
   getGallery,
   getId,
   getName,

@@ -1,6 +1,11 @@
-import { ComposableFunctionArgs, CustomerProductReviewParams } from '~/composables/types';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { VsfContext } from '~/composables/context';
 import { Logger } from '~/helpers/logger';
+
+export type CustomerProductReviewParams = {
+  pageSize: number;
+  currentPage: number;
+};
 
 export const loadCustomerReviewsCommand = {
   execute: async (context: VsfContext, params?: ComposableFunctionArgs<CustomerProductReviewParams>) => {

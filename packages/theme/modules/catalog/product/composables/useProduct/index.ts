@@ -11,8 +11,10 @@ import type {
 } from './useProduct';
 
 /**
- * The `useProduct()` composable allows loading product details or list with
+ * Allows loading product details or list with
  * params for sorting, filtering and pagination.
+ *
+ * See the {@link UseProductInterface} for a list of methods and values available in this composable.
  */
 export function useProduct(id?: string): UseProductInterface {
   const loading = ref(false);

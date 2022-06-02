@@ -7,7 +7,7 @@ import { ComposableFunctionArgs } from '~/composables/types';
 export type UseExternalCheckoutInitializeParams = ComposableFunctionArgs<{ baseUrl: string }>;
 
 /**
- * The refs and methods returned by the {@link useExternalCheckout|useExternalCheckout()} composable
+ * Data and methods returned from the {@link useExternalCheckout|useExternalCheckout()} composable
  */
 export interface UseExternalCheckoutInterface {
   /**

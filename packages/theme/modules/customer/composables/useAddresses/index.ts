@@ -8,7 +8,7 @@ import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors
 /**
  * @public
  *
- * The `useAddresses` composable allows loading and manipulating addresses of the current user. These
+ * Allows loading and manipulating addresses of the current user. These
  * addresses can be used for both billing and shipping.
  *
  * See the {@link UseAddressesInterface} for a list of methods and values available in this composable.

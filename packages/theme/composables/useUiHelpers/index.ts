@@ -1,8 +1,8 @@
 import { useRoute, useRouter } from '@nuxtjs/composition-api';
-import type { FacetInterface } from '~/composables/types';
 import type { CategoryTree } from '~/modules/GraphQL/types';
 import type { UseUiHelpersInterface } from '~/composables';
 import type { Params, QueryParams, FilterParams } from './Params';
+import type { FacetInterface } from '~/modules/catalog/category/types';
 
 const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
 
@@ -18,7 +18,7 @@ function reduceFilters(query: QueryParams) {
 }
 
 /**
- * The `useUiHelpers()` composable allows handling the parameters for filtering,
+ * Allows handling the parameters for filtering,
  * searching, sorting and pagination in the URL search/query params.
  *
  * See the {@link UseUiHelpersInterface} for a list of methods and values available in this composable.

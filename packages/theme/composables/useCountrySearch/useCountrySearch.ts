@@ -25,7 +25,7 @@ export type UseCountrySearchParams = ComposableFunctionArgs<{
 }>;
 
 /**
- * The refs and methods returned by the {@link useCountrySearch|useCountrySearch()} composable
+ * Data and methods returned from the {@link useCountrySearch|useCountrySearch()} composable
  */
 export interface UseCountrySearchInterface {
   /**

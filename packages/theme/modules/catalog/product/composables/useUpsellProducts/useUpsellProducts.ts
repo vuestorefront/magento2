@@ -1,7 +1,7 @@
 import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
 import type { Maybe, UpsellProductsQuery } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/composables/types';
-import type { ProductsSearchParams } from '~/modules/catalog/product/types';
+import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 
 /**
  * Errors that occured in the `useUpsellProducts` composable
@@ -15,10 +15,10 @@ export type UpsellProducts = UpsellProductsQuery['products']['items'][0]['upsell
 /**
  * Parameters accepted by the `search` method in the `useUpsellProducts` composable
  */
-export type UseUpsellProductsSearchParams = ComposableFunctionArgs<ProductsSearchParams>;
+export type UseUpsellProductsSearchParams = ComposableFunctionArgs<GetProductSearchParams>;
 
 /**
- * Represents the data returned from and functions available in the `useUpsellProducts()` composable.
+ * Data and methods returned from the {@link useUpsellProducts|useUpsellProducts()} composable
  */
 export interface UseUpsellProductsInterface {
   /**

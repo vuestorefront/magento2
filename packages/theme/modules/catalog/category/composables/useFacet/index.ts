@@ -3,21 +3,20 @@ import { Logger } from '~/helpers/logger';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import useApi from '~/composables/useApi';
-import { SortingOptions } from '~/modules/catalog/category/composables/useFacet/SortingOptions';
-import { PerPageOptions } from '~/modules/catalog/category/composables/useFacet/PerPageOptions';
+import { sortingOptions } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
+import { perPageOptions } from '~/modules/catalog/category/composables/useFacet/perPageOptions';
 import { createProductAttributeFilterInput } from '~/modules/catalog/category/composables/useFacet/input/createProductAttributeFilterInput';
 import { createProductAttributeSortInput } from '~/modules/catalog/category/composables/useFacet/input/createProductAttributeSortInput';
 import { Products } from '~/modules/GraphQL/types';
-import GetFacetDataQuery from './getFacetData.gql';
+import getFacetDataQuery from './getFacetData.gql';
 import type {
   UseFacetInterface, UseFacetErrors, UseFacetSearchResult, FacetSearchParams,
 } from './useFacet';
 
 /**
- * The `useFacet()` composable allows searching for products using facets.
+ * Allows searching for products with pagination, totals and sorting options.
  *
- * What makes it powerful is the ability to accept multiple filters, allowing to
- * narrow down the results to a specific category, search term, etc.
+ * See the {@link UseFacetInterface} for a list of methods and values available in this composable.
  */
 export function useFacet(): UseFacetInterface {
   const { query } = useApi();
@@ -44,15 +43,15 @@ export function useFacet(): UseFacetInterface {
         currentPage: params.page,
       };
 
-      const { products } = await query<{ products: Products }>(GetFacetDataQuery, productSearchParams);
+      const { products } = await query<{ products: Products }>(getFacetDataQuery, productSearchParams);
 
       Logger.debug('[Result]:', { products });
 
       result.value.data = {
         items: products?.items ?? [],
         total: products?.total_count,
-        availableSortingOptions: SortingOptions,
-        perPageOptions: PerPageOptions,
+        availableSortingOptions: sortingOptions,
+        perPageOptions,
         itemsPerPage: pageSize,
       };
       error.value.search = null;

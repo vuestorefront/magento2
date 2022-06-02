@@ -14,6 +14,9 @@ const customRender = (component, options = {}, callback = null) => render(compon
     $fc,
     $dompurify,
     localePath,
+    $i18n: {
+      t: jest.fn((value) => value),
+    },
     $nuxt: {
       context: {
         app: {

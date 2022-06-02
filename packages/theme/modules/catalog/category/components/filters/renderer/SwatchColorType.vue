@@ -6,6 +6,7 @@
       :color="option.label"
       :selected="Boolean(selected(filter.attribute_code, option.value))"
       class="swatch_color"
+      role="button"
       @click="$emit('selectFilter', option)"
     />
   </div>

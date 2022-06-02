@@ -14,7 +14,7 @@ import type {
 } from './useCurrency';
 
 /**
- * The `useCurrency()` composable allows loading and changing the currency.
+ * Allows loading and changing the currency.
  *
  * See the {@link UseCurrencyInterface} for a list of methods and values available in this composable.
  */

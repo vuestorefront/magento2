@@ -146,8 +146,9 @@ import {
 } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiState, useImage, AgnosticPrice,
+  useUiState, useImage,
 } from '~/composables';
+import type { Price } from '~/modules/catalog/types';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
@@ -155,7 +156,7 @@ import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 import SvgImage from '~/components/General/SvgImage.vue';
 
-import type { WishlistItemInterface } from '~/modules/GraphQL/types';
+import type { WishlistItemInterface, ConfigurableProduct, BundleProduct } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'WishlistSidebar',
@@ -185,7 +186,7 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_v2?.items ?? [],
     );
 
-    const getItemPrice = (product: WishlistItemInterface): AgnosticPrice => {
+    const getItemPrice = (product: WishlistItemInterface): Price => {
       let regular = 0;
       let special = null;
 
@@ -217,8 +218,8 @@ export default defineComponent({
       () => wishlistStore.wishlist?.items_count ?? 0,
     );
 
-    const getAttributes = (product) => product?.product?.configurable_options || [];
-    const getBundles = (product) => product?.product?.items?.map((b) => b.title).flat() || [];
+    const getAttributes = (product: WishlistItemInterface) => (product?.product as ConfigurableProduct)?.configurable_options || [];
+    const getBundles = (product: WishlistItemInterface) => (product?.product as BundleProduct)?.items?.map((b) => b.title).flat() || [];
     const getItemLink = (item: WishlistItemInterface) => localeRoute({
       path: `/p/${item.product.sku}${productGetters.getSlug(
         item.product,

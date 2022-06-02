@@ -10,4 +10,7 @@ declare module '@nuxt/types' {
   interface NuxtAppOptions {
     $vsf: VsfContext
   }
+  interface Context {
+    $vsf: VsfContext
+  }
 }

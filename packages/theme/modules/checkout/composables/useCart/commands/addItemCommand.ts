@@ -35,7 +35,6 @@ export const addItemCommand = {
     if (!product) {
       return;
     }
-    // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     switch (product.__typename) {
       case 'SimpleProduct':
@@ -85,7 +84,6 @@ export const addItemCommand = {
           .cart as unknown as Cart;
       case 'BundleProduct':
         const createEnteredOptions = () =>
-        // @ts-ignore
         // eslint-disable-next-line implicit-arrow-linebreak
           product.bundle_options.map((bundleOption) => ({
             ...bundleOption,
@@ -159,8 +157,6 @@ export const addItemCommand = {
           .addVirtualProductsToCart
           .cart as unknown as Cart;
       default:
-        // todo implement other options
-        // @ts-ignore
         // eslint-disable-next-line no-underscore-dangle
         throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
     }

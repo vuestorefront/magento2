@@ -5,6 +5,7 @@ export enum FilterTypeEnum {
   RADIO = 'radio',
   CHECKBOX = 'checkbox',
   SWATCH_COLOR = 'swatch_color',
+  YES_NO = 'yes_no',
 }
 
 /**
@@ -26,23 +27,27 @@ export default function config(): FilterConfigInterface[] {
       attrCode: 'size',
     },
     {
+      attrCode: 'material',
+    },
+    {
+      attrCode: 'strap_bags',
+    },
+    {
+      attrCode: 'style_bottom',
+    },
+    {
       attrCode: 'color',
       type: FilterTypeEnum.SWATCH_COLOR,
       component: RendererTypesEnum.SWATCH_COLOR,
     },
     {
       attrCode: 'new',
-      type: FilterTypeEnum.RADIO,
-      component: RendererTypesEnum.YES_NO,
-    },
-    {
-      attrCode: 'performance_fabric',
-      type: FilterTypeEnum.RADIO,
+      type: FilterTypeEnum.YES_NO,
       component: RendererTypesEnum.YES_NO,
     },
     {
       attrCode: 'sale',
-      type: FilterTypeEnum.RADIO,
+      type: FilterTypeEnum.YES_NO,
       component: RendererTypesEnum.YES_NO,
     },
   ];

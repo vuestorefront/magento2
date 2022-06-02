@@ -140,13 +140,6 @@ export interface FacetInterface {
   metadata?: any;
 }
 
-export interface GroupedFacetInterface {
-  id: string;
-  label: string;
-  count?: number;
-  options: FacetInterface[];
-}
-
 /** category tree implementation */
 export interface CategoryTree extends CategoryInterface, RoutableInterface {
   available_sort_by?: Maybe<Array<Maybe<Scalars['String']>>>;

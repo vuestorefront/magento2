@@ -18,7 +18,7 @@ export interface UseStoreErrors {
 }
 
 /**
- * The refs and methods returned by the {@link useStore|useStore()} composable
+ * Data and methods returned from the {@link useStore|useStore()} composable
  */
 export interface UseStoreInterface {
   /**

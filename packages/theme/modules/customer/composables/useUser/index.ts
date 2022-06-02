@@ -13,6 +13,7 @@ import { generateUserData } from '~/modules/customer/helpers/generateUserData';
 import { Customer } from '~/modules/GraphQL/types';
 import type {
   UseUserInterface,
+  UseUserErrors,
   UseUserLoadParams,
   UseUserLoginParams,
   UseUserLogoutParams,
@@ -22,16 +23,16 @@ import type {
 } from './useUser';
 
 /**
- * The `useUser()` composable allows loading and manipulating data of the current user.
+ * Allows loading and manipulating data of the current user.
  *
- * See the {@link UseUserInterface} page for more information.
+ * See the {@link UseUserInterface} for a list of methods and values available in this composable.
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const { setCart } = useCart();
   const loading: Ref<boolean> = ref(false);
-  const errorsFactory = () => ({
+  const errorsFactory = () : UseUserErrors => ({
     updateUser: null,
     register: null,
     login: null,
@@ -255,7 +256,7 @@ export function useUser(): UseUserInterface {
       //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
       // }
       error.value.register = null;
-      await login({ user: { username: email, password }, customQuery: {} });
+      await login({ user: { email, password }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);

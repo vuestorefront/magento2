@@ -175,7 +175,7 @@ export default defineComponent({
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
     const { isAuthenticated } = useUser();
-    const { addItem: addItemToWishlist, isInWishlist } = useWishlist();
+    const { addOrRemoveItem, isInWishlist } = useWishlist();
     const basePrice = ref(0);
     const openTab = ref(1);
 
@@ -184,13 +184,13 @@ export default defineComponent({
     );
 
     const productPrice = computed(() => getGroupedProductPriceCommand(props.product));
-    const productSpecialPrice = 0; // TODO add logic for special price calculation;
+    const productSpecialPrice = 0;
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
 
     return {
       addItem,
-      addItemToWishlist,
+      addItemToWishlist: addOrRemoveItem,
       averageRating,
       basePrice,
       canAddToCart,

@@ -55,11 +55,11 @@
 import {
   SfLink, SfList,
 } from '@storefront-ui/vue';
-import {
-  defineComponent, PropType, ref, onMounted,
-} from '@nuxtjs/composition-api';
-import { CategoryTree } from '~/modules/GraphQL/types';
+import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api';
+import type { PropType } from '@nuxtjs/composition-api';
+import type { CategoryTree } from '~/modules/GraphQL/types';
 import { useUiHelpers } from '~/composables';
+import type { ComponentTemplateRef } from '~/types/componentTemplateRef';
 
 export default defineComponent({
   name: 'HeaderNavigationSubcategories',
@@ -79,17 +79,19 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { getCatLink } = useUiHelpers();
-    const hasChildren = (category: CategoryTree) => Boolean(category?.children.length > 0);
-    const lvl1CatRefs = ref([]);
-    const lvl2CatRefs = ref([]);
-    const lvl2GroupedCatRefs = ref([]);
+    const lvl1CatRefs = ref<ComponentTemplateRef[]>();
+    const lvl2CatRefs = ref<ComponentTemplateRef[]>();
+    const lvl2GroupedCatRefs = ref<ComponentTemplateRef[][]>();
 
-    const getGroupedLvl2CatRefs = () => {
+    const hasChildren = (category: CategoryTree) => Boolean(category?.children.length > 0);
+
+    const getGroupedLvl2CatRefs = () : ComponentTemplateRef[][] => {
       let current = 0;
-      const result = [];
+      const result : ComponentTemplateRef[][] = [];
       lvl1CatRefs.value.forEach((lvl1CatRef) => {
-        const groupCount = Number(lvl1CatRef.$attrs['data-children']);
-        result.push(lvl2CatRefs.value.slice(current, current + groupCount));
+        const groupCount = Number(lvl1CatRef.$el.dataset.children);
+        const group = lvl2CatRefs.value.slice(current, current + groupCount);
+        result.push(group);
         current += groupCount;
       });
 

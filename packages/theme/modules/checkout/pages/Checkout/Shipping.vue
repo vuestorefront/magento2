@@ -277,11 +277,13 @@ import addressGetter from '~/modules/customer/getters/addressGetter';
 import {
   useCountrySearch,
 } from '~/composables';
-import type { Country, AvailableShippingMethod, ShippingCartAddress } from '~/modules/GraphQL/types';
+import type {
+  Country, AvailableShippingMethod, ShippingCartAddress, CustomerAddress, Customer,
+} from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
-import { addressFromApiToForm } from '~/helpers/checkout/address';
+import { addressFromApiToForm, CheckoutAddressForm, getInitialCheckoutAddressForm } from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
@@ -315,8 +317,8 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const address = ref({});
-    const userShipping = ref({});
+    const address = ref<ShippingCartAddress | null>(null);
+    const userShipping = ref<Customer | null>(null);
     const {
       load: loadShipping,
       save: saveShipping,
@@ -334,7 +336,7 @@ export default defineComponent({
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
-    const shippingDetails = ref(addressFromApiToForm(address.value) || {});
+    const shippingDetails = ref<CheckoutAddressForm>(address.value ? addressFromApiToForm(address.value) : getInitialCheckoutAddressForm());
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
 
@@ -346,7 +348,6 @@ export default defineComponent({
     const addresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
 
     const canMoveForward = computed(() => !isShippingLoading.value && shippingDetails.value && Object.keys(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       shippingDetails.value,
     ).length > 0);
 
@@ -356,22 +357,21 @@ export default defineComponent({
       }
       return addresses.value.length > 0;
     });
-    // @ts-ignore
+
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
 
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
-    const handleAddressSubmit = (reset) => async () => {
+    const handleAddressSubmit = (reset: () => void) => async () => {
       const addressId = currentAddressId.value;
       const shippingDetailsData = {
         ...shippingDetails.value,
         customerAddressId: addressId,
       };
       await mergeItem('checkout', { shipping: shippingDetailsData });
-      // @TODO remove expect-error when https://github.com/vuestorefront/vue-storefront/issues/5967 is applied
-      // @ts-expect-error
-      const shippingInfo : ShippingCartAddress = await saveShipping({ shippingDetails: shippingDetailsData });
-      shippingMethods.value = shippingInfo.available_shipping_methods;
+
+      const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
+      shippingMethods.value = shippingInfo?.available_shipping_methods ?? [];
 
       if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
         const [chosenAddress] = userShippingGetters.getAddresses(
@@ -390,19 +390,19 @@ export default defineComponent({
 
     const handleAddNewAddressBtnClick = () => {
       currentAddressId.value = NOT_SELECTED_ADDRESS;
-      shippingDetails.value = {};
+      shippingDetails.value = getInitialCheckoutAddressForm();
       canAddNewAddress.value = true;
       isShippingDetailsStepCompleted.value = false;
     };
 
-    const handleSetCurrentAddress = (addr) => {
+    const handleSetCurrentAddress = (addr: CustomerAddress) => {
       shippingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = addr?.id;
+      currentAddressId.value = String(addr?.id);
       canAddNewAddress.value = false;
       isShippingDetailsStepCompleted.value = false;
     };
 
-    const changeShippingDetails = (field, value) => {
+    const changeShippingDetails = (field: string, value: unknown) => {
       shippingDetails.value = {
         ...shippingDetails.value,
         [field]: value,
@@ -415,19 +415,19 @@ export default defineComponent({
       const defaultAddress = userShippingGetters.getAddresses(
         userShipping.value,
         { default_shipping: true },
-      );
+      ) as [CustomerAddress] | [];
       if (defaultAddress && defaultAddress.length > 0) {
         handleSetCurrentAddress(defaultAddress[0]);
       }
     };
 
-    const changeCountry = async (id) => {
+    const changeCountry = async (id: string) => {
       changeShippingDetails('country_code', id);
       country.value = await searchCountry({ id });
     };
 
     watch(address, (addr) => {
-      shippingDetails.value = addressFromApiToForm(addr || {});
+      shippingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
     });
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
@@ -456,9 +456,7 @@ export default defineComponent({
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const hasEmptyShippingDetails = !shippingDetails.value
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         || Object.keys(shippingDetails.value).length === 0;
       if (hasEmptyShippingDetails) {
         selectDefaultAddress();

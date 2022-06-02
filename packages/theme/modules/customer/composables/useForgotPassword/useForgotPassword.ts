@@ -3,8 +3,8 @@ import { ComposableFunctionArgs } from '~/composables/types';
 
 /** Represents the result of a password change or reset operation */
 export interface UseForgotPasswordResults {
-  resetPasswordResult: any, // TODO: Add types
-  setNewPasswordResult: any // TODO: Add types
+  resetPasswordResult: boolean,
+  setNewPasswordResult: boolean
 }
 
 /** Errors returned by the {@link useForgotPassword} composable */
@@ -28,7 +28,7 @@ export interface UseForgotPasswordSetNewParams {
 }
 
 /**
- * Represents the data and methods returned by the {@link useForgotPassword} composable
+ * Data and methods returned from the {@link useForgotPassword} composable
  */
 export interface UseForgotPasswordInterface {
   /** Returns the result of the reset operation */

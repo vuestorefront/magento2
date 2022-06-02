@@ -1,6 +1,8 @@
 export const useUiHelpersMock = (extend = {}) => ({
-  getCatLink: jest.fn((val) => val),
   changeSorting: jest.fn(),
+  clearFilters: jest.fn(),
+  getCatLink: jest.fn((val) => val),
+  getFacetsFromURL: jest.fn(() => ({ filters: {} })),
   ...extend,
 });
 

@@ -19,11 +19,12 @@ export type UseShippingLoadParams = ComposableFunctionArgs<{}>;
 
 /** The params received by {@link useShipping}'s `save` method. */
 export type UseShippingSaveParams = ComposableFunctionArgs<{
-  params: any;
   shippingDetails: any;
 }>;
 
-/** The interface provided by {@link useShipping} composable. */
+/**
+ * Data and methods returned from the {@link useShipping} composable.
+ */
 export interface UseShippingInterface {
   /**
    * Contains errors from any of the composable methods.
@@ -36,8 +37,8 @@ export interface UseShippingInterface {
   loading: Readonly<Ref<boolean>>;
 
   /** Loads the shipping information for current cart. */
-  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | {}>;
+  load(params?: UseShippingLoadParams): Promise<ShippingCartAddress | null>
 
   /** Save new shipping information for current cart. */
-  save(params: UseShippingSaveParams): Promise<ShippingCartAddress | {}>;
+  save(params: UseShippingSaveParams): Promise<ShippingCartAddress | null>;
 }

@@ -1,14 +1,39 @@
 import { computed, Ref, useContext } from '@nuxtjs/composition-api';
-import {
-  useImage, useUser,
-} from '~/composables';
-import useWishlist from '~/modules/wishlist/composables/useWishlist';
+import type { Route } from 'vue-router';
+import type { ImageModifiers } from '@nuxt/image';
+import { useImage } from '~/composables';
+import { useUser } from '~/modules/customer/composables/useUser';
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import {
   getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
 } from '~/modules/catalog/product/getters/productGetters';
 import { getAverageRating, getTotalReviews } from '~/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import type { Product } from '~/modules/catalog/product/types';
+
+interface ProductCommonCardProps {
+  title: string;
+  link: Route,
+  style: Record<string, string | number> | string,
+  isAddedToCart: boolean,
+
+  image: string,
+  imageTag: string,
+  nuxtImgConfig: { [key in keyof ImageModifiers]?: ImageModifiers[key] },
+
+  isInWishlist: boolean,
+  isInWishlistIcon: string,
+  wishlistIcon: string,
+
+  regularPrice: string,
+  specialPrice: string,
+  maximumPrice: string,
+
+  reviewsCount: number,
+  scoreRating: number,
+}
+
+export type ProductWithCommondProductCardProps = Product & { commonProps: ProductCommonCardProps };
 
 export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) => {
   const { getMagentoImage } = useImage();
@@ -22,49 +47,51 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
    * To avoid passing tens of props to both components two times,
    * instead the below object is passed to them using `v-bind="product.commonProps"`
    */
-  const productsWithCommonProductCardProps = computed(() => products.value.map((product, index) => {
-    const imageProps = {
-      image: getMagentoImage(getProductThumbnailImage(product)),
-      imageTag: 'nuxt-img',
-      nuxtImgConfig: { fit: 'cover' },
-    };
+  const productsWithCommonProductCardProps = computed<ProductWithCommondProductCardProps[]>(
+    () => products.value.map((product, index) => {
+      const imageProps = {
+        image: getMagentoImage(getProductThumbnailImage(product)),
+        imageTag: 'nuxt-img',
+        nuxtImgConfig: { fit: 'cover' },
+      };
 
-    const wishlistProps = {
-      isInWishlist: isInWishlist({ product }),
-      isInWishlistIcon: isAuthenticated.value ? 'heart_fill' : '',
-      wishlistIcon: isAuthenticated.value ? 'heart' : '',
-    };
+      const wishlistProps = {
+        isInWishlist: isInWishlist({ product }),
+        isInWishlistIcon: isAuthenticated.value ? 'heart_fill' : '',
+        wishlistIcon: isAuthenticated.value ? 'heart' : '',
+      };
 
-    const price = getPrice(product);
+      const price = getPrice(product);
 
-    const priceProps = {
-      regularPrice: context.app.$fc(price.regular),
-      specialPrice: price.special && context.app.$fc(getPrice(product).special),
-      maximumPrice: price.maximum && context.app.$fc(getPrice(product).maximum),
-    };
+      const priceProps = {
+        regularPrice: context.$fc(price.regular),
+        specialPrice: price.special && context.$fc(getPrice(product).special),
+        maximumPrice: price.maximum && context.$fc(getPrice(product).maximum),
+      };
 
-    const reviewProps = {
-      reviewsCount: getTotalReviews(product),
-      scoreRating: getAverageRating(product),
-    };
+      const reviewProps = {
+        reviewsCount: getTotalReviews(product),
+        scoreRating: getAverageRating(product),
+      };
 
-    const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
+      const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
 
-    const commonProps = {
-      title: getName(product),
-      link,
-      style: { '--index': index }, // used for transition animation
-      isAddedToCart: isInCart({ product }),
-      ...imageProps,
-      ...wishlistProps,
-      ...priceProps,
-      ...reviewProps,
-    };
+      const commonProps = {
+        title: getName(product),
+        link,
+        style: { '--index': index }, // used for transition animation
+        isAddedToCart: isInCart(product),
+        ...imageProps,
+        ...wishlistProps,
+        ...priceProps,
+        ...reviewProps,
+      };
 
-    return {
-      ...product,
-      commonProps,
-    };
-  }));
+      return {
+        ...product,
+        commonProps,
+      };
+    }),
+  );
   return { productsWithCommonProductCardProps };
 };

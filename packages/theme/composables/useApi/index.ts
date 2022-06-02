@@ -8,7 +8,7 @@ export type Request = <DATA = any, VARIABLES extends Variables = Variables>(
 ) => Promise<DATA>;
 
 /**
- * Methods returned by the {@link useApi|useApi()} composable.
+ * Data and methods returned from the {@link useApi|useApi()} composable.
  */
 export interface UseApiInterface {
   /**
@@ -51,8 +51,6 @@ export interface UseApiInterface {
    */
   query: Request;
 
-  // TODO: Add code sample
-
   /**
    * Executes received GraphQL Mutation with optional variables and headers and
    * returns the result.
@@ -61,7 +59,9 @@ export interface UseApiInterface {
 }
 
 /**
- * The `useApi()` composable allows executing GraphQL queries and mutations.
+ * Allows executing arbitrary GraphQL queries and mutations.
+ *
+ * See the {@link UseApiInterface} for a list of methods and values available in this composable.
  */
 export function useApi(): UseApiInterface {
   const context = useContext();

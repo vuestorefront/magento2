@@ -110,7 +110,7 @@
               rules="required|email"
             >
               <SfInput
-                v-model="form.email"
+                v-model="form.username"
                 v-e2e="'forgot-modal-email'"
                 :valid="!errors[0]"
                 :error-message="$t(errors[0])"
@@ -324,10 +324,10 @@ extend('password', {
 
 type Form = {
   username?: string,
-  email?: string,
-  firstName?: string,
-  lastName?: string,
-  password?: string,
+  email: string,
+  firstname: string,
+  lastname: string,
+  password: string,
   recaptchaInstance?: string,
 };
 
@@ -344,9 +344,15 @@ export default defineComponent({
     SfBar,
   },
   setup() {
+    const emptyFormData = {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+    };
     const { isLoginModalOpen, toggleLoginModal } = useUiState();
     const isSubscribed = ref(false);
-    const form = ref<Form>({});
+    const form = ref<Form>(emptyFormData);
     const isLogin = ref(true);
     const createAccount = ref(false);
     const rememberMe = ref(false);
@@ -389,17 +395,17 @@ export default defineComponent({
 
     watch(isLoginModalOpen, () => {
       if (isLoginModalOpen) {
-        form.value = {};
+        form.value = emptyFormData;
         resetErrorValues();
       }
     });
 
-    const setIsLoginValue = (value) => {
+    const setIsLoginValue = (value: boolean) => {
       resetErrorValues();
       isLogin.value = value;
     };
 
-    const setIsForgottenValue = (value) => {
+    const setIsForgottenValue = (value: boolean) => {
       resetErrorValues();
       isForgotten.value = value;
       isLogin.value = !value;
@@ -412,7 +418,7 @@ export default defineComponent({
       toggleLoginModal();
     };
 
-    const handleForm = (fn) => async () => {
+    const handleForm = (fn: typeof register | typeof login) => async () => {
       resetErrorValues();
 
       if (isRecaptchaEnabled.value) {

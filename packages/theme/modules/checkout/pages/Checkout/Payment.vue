@@ -185,6 +185,7 @@ import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
+import type { BundleCartItem, ConfigurableCartItem } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -208,8 +209,8 @@ export default defineComponent({
     const router = useRouter();
     const isPaymentReady = ref(false);
     const terms = ref(false);
-    const getAttributes = (product) => product.configurable_options || [];
-    const getBundles = (product) => product.bundle_options?.map((b) => b.values).flat() || [];
+    const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
+    const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid('billing');

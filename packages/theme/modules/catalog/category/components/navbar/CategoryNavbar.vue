@@ -47,9 +47,7 @@
         height="26px"
         margin="0"
       />
-      <span
-        v-else
-      >{{ pagination.totalItems }}</span>
+      <span v-else>{{ pagination.totalItems }}</span>
       <span class="navbar__label smartphone-only">&nbsp;{{ $t('Items') }}</span>
     </div>
 
@@ -86,8 +84,9 @@ import {
 } from '@storefront-ui/vue';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useUiHelpers, useUiState } from '~/composables';
-import { AgnosticPagination, AgnosticSort } from '~/composables/types';
+import { Pagination } from '~/composables/types';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
+import { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 
 export default defineComponent({
   components: {
@@ -98,11 +97,11 @@ export default defineComponent({
   },
   props: {
     sortBy: {
-      type: Object as PropType<AgnosticSort>,
+      type: Object as PropType<SortingModel>,
       required: true,
     },
     pagination: {
-      type: Object as PropType<AgnosticPagination>,
+      type: Object as PropType<Pagination>,
       required: true,
     },
     isLoading: {

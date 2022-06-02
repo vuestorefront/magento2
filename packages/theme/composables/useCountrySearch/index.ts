@@ -5,9 +5,9 @@ import { Maybe, Country } from '~/modules/GraphQL/types';
 import { UseCountrySearchInterface } from './useCountrySearch';
 
 /**
- * The `useCountrySearch` composable allows fetching a list of countries or a single country by ID
+ * Allows fetching a list of countries or a single country by ID
  *
- * See the {@link UseCountrySearchInterface} page for more information.
+ * See the {@link UseCountrySearchInterface} for a list of methods and values available in this composable.
  */
 export function useCountrySearch(): UseCountrySearchInterface {
   const { app } = useContext();

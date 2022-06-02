@@ -1,3 +1,13 @@
+export interface SortingModel {
+  selected: string,
+  options: SortingOption[]
+}
+
+export interface SortingOption {
+  label: string,
+  value: SortingOptionsValuesEnum
+}
+
 export enum SortingOptionsValuesEnum {
   DEFAULT = '',
   NAME_ASC = 'name_ASC',
@@ -6,12 +16,7 @@ export enum SortingOptionsValuesEnum {
   PRICE_DESC = 'price_DESC',
 }
 
-export interface SortingOptionsInterface {
-  label: string,
-  value: SortingOptionsValuesEnum
-}
-
-export const SortingOptions: SortingOptionsInterface[] = [
+export const sortingOptions: SortingOption[] = [
   {
     label: 'Sort: Default',
     value: SortingOptionsValuesEnum.DEFAULT,

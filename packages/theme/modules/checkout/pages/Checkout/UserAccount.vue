@@ -236,7 +236,7 @@ export default defineComponent({
       is_subscribed: false,
     });
 
-    const handleFormSubmit = (reset) => async () => {
+    const handleFormSubmit = (reset: () => void) => async () => {
       if (isRecaptchaEnabled.value) {
         $recaptcha.init();
       }
@@ -263,7 +263,7 @@ export default defineComponent({
 
         await login({
           user: {
-            username: form.value.email,
+            email: form.value.email,
             password: form.value.password,
             ...recaptchaParams,
           },

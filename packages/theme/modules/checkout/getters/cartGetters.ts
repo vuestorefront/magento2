@@ -1,13 +1,9 @@
-import {
-  AgnosticPrice,
-  AgnosticTotals,
-  AgnosticAttribute,
-  AgnosticCoupon,
-  AgnosticDiscount,
+import type {
+  Totals,
 } from '~/composables/types';
-
+import type { Price } from '~/modules/catalog/types';
+import type { ProductAttribute, Product } from '~/modules/catalog/product/types';
 import { PaymentMethodInterface } from '~/modules/checkout/types';
-
 import {
   CartItemInterface,
   Cart,
@@ -16,10 +12,7 @@ import {
   SelectedShippingMethod,
   ConfigurableCartItem,
 } from '~/modules/GraphQL/types';
-import type { Product } from '~/modules/catalog/product/types';
-
-import { CartGetters as CartGettersBase } from '~/getters/types';
-
+import { CartGetters as CartGettersBase, CartDiscount, Coupon } from '~/getters/types';
 import { getName, getSlug as getSlugGetter, getProductThumbnailImage } from '~/modules/catalog/product/getters/productGetters';
 
 export const getItems = (cart: Cart): CartItemInterface[] => {
@@ -35,7 +28,7 @@ export const getSlug = (product: CartItemInterface): string => getSlugGetter(pro
 
 export const getItemImage = (product: CartItemInterface): string => getProductThumbnailImage(product.product as Product);
 
-export const getItemPrice = (product: CartItemInterface): AgnosticPrice => {
+export const getItemPrice = (product: CartItemInterface): Price => {
   if (!product || !product.prices) {
     return {
       regular: 0,
@@ -56,8 +49,6 @@ export const getItemPrice = (product: CartItemInterface): AgnosticPrice => {
     special: specialPrice || 0,
     // @ts-ignore
     credit: Math.round(specialPrice / 10),
-    // @TODO: Who set this installment value?
-    installment: Math.round((specialPrice * 1.1046) / 10),
     discountPercentage: 100 - Math.round((specialPrice / regularPrice) * 100),
     total: product.prices?.row_total?.value,
   };
@@ -70,7 +61,7 @@ export const getItemQty = (product: CartItemInterface): number => product.quanti
 export const getItemAttributes = (
   { product }: CartItemInterface & { product: Product },
   _filterByAttributeName?: Array<string>,
-): Record<string, AgnosticAttribute | string> => {
+): Record<string, ProductAttribute | string> => {
   const attributes = {};
 
   if (!product || !product.configurable_options) {
@@ -89,7 +80,7 @@ export const getItemAttributes = (
         obj[value.value_index] = value.label;
         return obj;
       }),
-    } as AgnosticAttribute;
+    } as ProductAttribute;
   }
   return attributes;
 };
@@ -98,15 +89,15 @@ export const getItemSku = (product: CartItemInterface): string => product?.produ
 
 const calculateDiscounts = (discounts: Discount[]): number => discounts.reduce((a, b) => Number.parseFloat(`${a}`) + Number.parseFloat(`${b.amount.value}`), 0);
 
-export const getTotals = (cart: Cart): AgnosticTotals => {
-  if (!cart || !cart.prices) return {} as AgnosticTotals;
+export const getTotals = (cart: Cart): Totals => {
+  if (!cart || !cart.prices) return {} as Totals;
 
   const subtotal = cart.prices.subtotal_including_tax.value;
   return {
     total: cart.prices.grand_total.value,
     subtotal: cart.prices.subtotal_including_tax.value,
     special: (cart.prices.discounts) ? subtotal - calculateDiscounts(cart.prices.discounts) : subtotal,
-  } as AgnosticTotals;
+  } as Totals;
 };
 
 export const getShippingPrice = (cart: Cart): number => {
@@ -140,25 +131,24 @@ export const getTotalItems = (cart: Cart): number => {
 
 export const getConfiguredVariant = (product: ConfigurableCartItem): ProductInterface | null => product?.configured_variant || null;
 
-// eslint-disable-next-line import/no-named-as-default-member
-export const getFormattedPrice = (price: number) => getFormattedPrice(price);
-
-export const getCoupons = (cart: Cart): AgnosticCoupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
+export const getCoupons = (cart: Cart): Coupon[] => (Array.isArray(cart?.applied_coupons) ? cart.applied_coupons.map((c) => ({
   id: c.code,
   name: c.code,
   value: 0,
   code: c.code,
-} as AgnosticCoupon)) : []);
+} as Coupon)) : []);
 
-export const getDiscounts = (cart: Cart): AgnosticDiscount[] => (Array.isArray(cart?.prices?.discounts) ? cart.prices.discounts.map((d) => ({
+export const getDiscounts = (cart: Cart): CartDiscount[] => (Array.isArray(cart?.prices?.discounts) ? cart.prices.discounts.map((d) => ({
   id: d.label,
   name: d.label,
   description: '',
   value: d.amount.value,
   code: d.label,
-} as AgnosticDiscount)) : []);
+} as CartDiscount)) : []);
 
-export const getAppliedCoupon = (cart: Cart): AgnosticCoupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
+export const getDiscountAmount = (cart: Cart): number => calculateDiscounts(cart?.prices?.discounts ?? []);
+
+export const getAppliedCoupon = (cart: Cart): Coupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
   id: cart.applied_coupons[0].code,
   name: cart.applied_coupons[0].code,
   value: 0,
@@ -176,7 +166,7 @@ export const getAvailablePaymentMethods = (cart: Cart): PaymentMethodInterface[]
 
 export const getStockStatus = (product: CartItemInterface): string => product.product.stock_status;
 export interface CartGetters extends CartGettersBase<Cart, CartItemInterface> {
-  getAppliedCoupon(cart: Cart): AgnosticCoupon | null;
+  getAppliedCoupon(cart: Cart): Coupon | null;
   getAvailablePaymentMethods(cart: Cart): PaymentMethodInterface[];
   getSelectedShippingMethod(cart: Cart): SelectedShippingMethod | null;
   productHasSpecialPrice(product: CartItemInterface): boolean;
@@ -189,7 +179,6 @@ const cartGetters: CartGetters = {
   getAvailablePaymentMethods,
   getCoupons,
   getDiscounts,
-  getFormattedPrice,
   getItemAttributes,
   getItemImage,
   getItemName,
@@ -202,6 +191,7 @@ const cartGetters: CartGetters = {
   getShippingPrice,
   getTotalItems,
   getTotals,
+  getDiscountAmount,
   productHasSpecialPrice,
   getStockStatus,
   getConfiguredVariant,

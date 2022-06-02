@@ -18,7 +18,7 @@ export interface UseCategorySearchErrors {
 export type UseCategorySearchParams = ComposableFunctionArgs<CategorySearchQueryVariables>;
 
 /**
- * The refs and methods returned by the {@link useCategorySearch|useCategorySearch()} composable
+ * Data and methods returned from the {@link useCategorySearch|useCategorySearch()} composable
  */
 export interface UseCategorySearchInterface {
   /**

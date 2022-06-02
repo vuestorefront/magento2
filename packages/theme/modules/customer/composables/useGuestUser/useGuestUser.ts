@@ -1,5 +1,5 @@
 import { ComputedRef, DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import { PlatformApi, Composable, ComposableFunctionArgs } from '~/composables/types';
+import { ComposableFunctionArgs } from '~/composables/types';
 import { Cart } from '~/modules/GraphQL/types';
 
 /** Errors returned by the {@link useGuestUser} composable */
@@ -14,8 +14,10 @@ export interface AttachToCartParams {
   [x: string]: any;
 }
 
-/** Represents the data and methods returned by the {@link useGuestUser}  composable */
-export interface UseGuestUserInterface<REGISTER_GUEST_USER_PARAMS extends AttachToCartParams, API extends PlatformApi = any> extends Composable<API> {
+/**
+ * Data and methods returned from the {@link useGuestUser}  composable
+ */
+export interface UseGuestUserInterface<REGISTER_GUEST_USER_PARAMS extends AttachToCartParams> {
   /** Attaches guest cart to user */
   attachToCart(params: ComposableFunctionArgs<REGISTER_GUEST_USER_PARAMS>): Promise<void>;
   /** Indicates the loading state for `attachToCart` */

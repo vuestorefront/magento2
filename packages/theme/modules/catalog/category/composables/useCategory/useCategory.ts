@@ -41,7 +41,9 @@ export interface UseCategoryParamsInput {
   pageSize: number;
 }
 
-/** The {@link useCategory} interface with the refs and the `load` function. */
+/**
+ * Data and methods returned from the {@link useCategory} composable
+ * */
 export interface UseCategoryInterface {
   /** The array of {@link CategoryTree} fetched in the `load` method, otherwise is `null`. */
   categories: Ref<CategoryTree[] | null>;
@@ -84,5 +86,5 @@ export interface UseCategoryInterface {
    * };
    * ```
    */
-  load: (params: ComposableFunctionArgs<UseCategoryParamsInput>) => Promise<void>;
+  load(params: ComposableFunctionArgs<UseCategoryParamsInput>): Promise<void>;
 }

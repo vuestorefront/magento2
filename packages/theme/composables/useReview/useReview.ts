@@ -45,7 +45,7 @@ export type UseReviewSearchParams = ComposableFunctionArgs<GetProductSearchParam
 export type UseReviewAddReviewParams = ComposableFunctionArgs<CreateProductReviewInput>;
 
 /**
- * The refs and methods returned by the {@link useCountrySearch|useCountrySearch()} composable
+ * Data and methods returned from the {@link useCountrySearch|useCountrySearch()} composable
  */
 export interface UseReviewInterface {
   /**

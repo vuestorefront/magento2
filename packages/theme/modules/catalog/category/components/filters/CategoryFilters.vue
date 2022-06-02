@@ -3,7 +3,10 @@
     <h4 class="heading__title h4 desktop-only">
       {{ $t('Filters') }}
     </h4>
-    <div v-if="isLoading">
+    <div
+      v-if="isLoading"
+      data-testid="skeleton-loader"
+    >
       <div
         v-for="n in 3"
         :key="n"
@@ -35,6 +38,7 @@
       <div
         v-for="(filter, i) in filters"
         :key="i"
+        data-testid="category-filter"
       >
         <SfHeading
           :key="`filter-title-${filter.attribute_code}`"
@@ -51,24 +55,25 @@
       <div class="filters__buttons">
         <SfButton
           class="sf-button--full-width"
+          data-testid="apply-filters"
           @click="doApplyFilters"
         >
           {{ $t('Apply filters') }}
         </SfButton>
         <SfButton
           class="sf-button--full-width filters__button-clear"
+          data-testid="clear-filters"
           @click="doClearFilters"
         >
           {{ $t('Clear all') }}
         </SfButton>
       </div>
     </div>
-    <!-- Do not use :visible="isVisible" - it causes M2-571 -->
     <SfSidebar
-      v-if="isVisible"
-      visible
+      :visible="isVisible"
       class="sidebar-filters smartphone-only"
       title="Filters"
+      data-testid="mobile-sidebar"
       @close="$emit('close')"
     >
       <SfAccordion class="filters smartphone-only">
@@ -114,7 +119,7 @@
 </template>
 <script lang="ts">
 import {
-  defineComponent, onMounted, provide, Ref, ref,
+  defineComponent, onMounted, provide, Ref, ref, nextTick, watch,
 } from '@nuxtjs/composition-api';
 import {
   SfAccordion,
@@ -125,9 +130,10 @@ import {
   SfSidebar,
 } from '@storefront-ui/vue';
 
+import { clearAllBodyScrollLocks } from 'body-scroll-lock';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import { useUiHelpers } from '~/composables';
-import { getFilterConfig, getDisabledFilters } from '~/modules/catalog/category/config/FiltersConfig';
+import { getFilterConfig, isFilterEnabled } from '~/modules/catalog/category/config/FiltersConfig';
 import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
 import { getProductFilterByCategoryCommand } from '~/modules/catalog/category/components/filters/command/getProductFilterByCategoryCommand';
 
@@ -206,9 +212,17 @@ export default defineComponent({
       emit('close');
     };
 
+    watch(() => props.isVisible, (newValue) => {
+      // disable Storefrontt UI's body scroll lock which is launched when :visible prop on SfSidebar changes
+      // two next ticks because SfSidebar uses nextTick aswell, and we want to do something after that tick.
+      if (newValue) {
+        nextTick(() => nextTick(() => clearAllBodyScrollLocks()));
+      }
+    });
+
     onMounted(async () => {
       const loadedFilters = await getProductFilterByCategoryCommand.execute({ eq: props.catUid });
-      filters.value = loadedFilters.filter((filter) => !getDisabledFilters().includes(filter.attribute_code));
+      filters.value = loadedFilters.filter((filter) => isFilterEnabled(filter.attribute_code));
       updateRemovableFilters();
       isLoading.value = false;
     });

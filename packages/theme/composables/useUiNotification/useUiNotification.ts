@@ -17,7 +17,7 @@ export interface UiNotification {
 }
 
 /**
- * Represents the data returned from and functions available in the `useUiNotification()` composable.
+ * Data and methods returned from the {@link useUiNotification|useUiNotification()} composable
  */
 export interface UseUiNotificationInterface {
   /**
