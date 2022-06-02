@@ -67,14 +67,6 @@ export interface UserShippingGetters<USER_SHIPPING, USER_SHIPPING_ITEM> {
   isDefault: (address: USER_SHIPPING_ITEM) => boolean;
 }
 
-export interface UserGetters<USER> {
-  getFirstName: (customer: USER) => string;
-  getLastName: (customer: USER) => string;
-  getFullName: (customer: USER) => string;
-  getEmailAddress: (customer: USER) => string;
-  [getterName: string]: (element: any, options?: any) => unknown;
-}
-
 export interface WishlistGetters<WISHLIST, WISHLIST_ITEM> {
   getItems: (wishlist: WISHLIST) => WISHLIST_ITEM[];
   getItemName: (wishlistItem: WISHLIST_ITEM) => string;
@@ -101,5 +93,6 @@ export interface CartGetters<CART, CART_ITEM> {
   // @deprecated - use getDiscounts instead
   getCoupons: (cart: CART) => Coupon[];
   getDiscounts: (cart: CART) => CartDiscount[];
+  getDiscountAmount: (cart: CART) => number;
   [getterName: string]: (element: any, options?: any) => unknown;
 }
