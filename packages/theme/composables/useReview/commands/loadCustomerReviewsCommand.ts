@@ -2,7 +2,7 @@ import { ComposableFunctionArgs } from '~/composables/types';
 import { VsfContext } from '~/composables/context';
 import { Logger } from '~/helpers/logger';
 
-export declare type CustomerProductReviewParams = {
+export type CustomerProductReviewParams = {
   pageSize: number;
   currentPage: number;
 };
