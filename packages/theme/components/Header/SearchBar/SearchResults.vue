@@ -35,7 +35,7 @@
             >
               <div class="results-listing">
                 <SfProductCard
-                  v-for="(product, index) in searchResultsWithWishlistInfo"
+                  v-for="(product, index) in searchResults"
                   :key="index"
                   class="result-card"
                   image-tag="nuxt-img"
@@ -59,22 +59,16 @@
                     localePath(
                       `/p/${productGetters.getProductSku(
                         product
-                      )}${productGetters.getSlug(
-                        product,
-                        product.categories[0]
-                      )}`
+                      )}${productGetters.getSlug(product, product.categories[0])}`
                     )
                   "
-                  :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                  :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-                  :is-in-wishlist="product.isInWishlist"
-                  @click:wishlist="addOrRemoveWishlistItem(product)"
+                  :wishlist-icon="false"
                 />
               </div>
             </SfScrollable>
             <div class="results--mobile smartphone-only">
               <SfProductCard
-                v-for="(product, index) in searchResultsWithWishlistInfo"
+                v-for="(product, index) in searchResults"
                 :key="index"
                 class="result-card"
                 image-tag="nuxt-img"
@@ -101,10 +95,7 @@
                     )}${productGetters.getSlug(product, product.categories[0])}`
                   )
                 "
-                :wishlist-icon="isAuthenticated ? 'heart' : ''"
-                :is-in-wishlist-icon="isAuthenticated ? 'heart_fill' : ''"
-                :is-in-wishlist="product.isInWishlist"
-                @click:wishlist="addOrRemoveWishlistItem(product)"
+                :wishlist-icon="false"
               />
             </div>
           </SfMegaMenuColumn>
@@ -154,12 +145,10 @@ import {
   SfMenuItem,
   SfButton,
 } from '@storefront-ui/vue';
-import { defineComponent, computed } from '@nuxtjs/composition-api';
+import { defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
-import { useUiHelpers, useImage } from '~/composables';
-import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
-import { useUser } from '~/modules/customer/composables/useUser';
+import { useImage } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { Product } from '~/modules/catalog/product/types';
 
@@ -183,27 +172,13 @@ export default defineComponent({
       default: () => [],
     },
   },
-  setup(props) {
-    const { isAuthenticated } = useUser();
-    const { isInWishlist, addOrRemoveItem: addOrRemoveWishlistItem } = useWishlist();
-
-    const th = useUiHelpers();
-    const searchResultsWithWishlistInfo = computed(() => props.searchResults?.map((product) => ({
-      ...product,
-      isInWishlist: isInWishlist({ product }),
-    })));
-
+  setup() {
     const { getMagentoImage, imageSizes } = useImage();
 
     return {
-      th,
       productGetters,
-      addOrRemoveWishlistItem,
-      isInWishlist,
-      isAuthenticated,
       getMagentoImage,
       imageSizes,
-      searchResultsWithWishlistInfo,
     };
   },
 });
