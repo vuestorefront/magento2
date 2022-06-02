@@ -202,15 +202,37 @@
         <transition name="sf-fade">
           <div v-if="totalItems">
             <SfProperty
-              :name="$t('Subtotal price')"
-              class="sf-property--full-width sf-property--large my-cart__total-price"
+              v-if="totals.subtotal !== totals.total"
+              :name="$t('Subtotal')"
+              class="sf-property--full-width sf-property--small"
             >
               <template #value>
                 <SfPrice
                   :regular="$fc(totals.subtotal)"
-                  :special="
-                    totals.subtotal <= totals.special ? '' : $fc(totals.special)
-                  "
+                  class="my-cart__subtotal-price"
+                />
+              </template>
+            </SfProperty>
+            <SfProperty
+              v-if="discount"
+              :name="$t('Discount')"
+              class="sf-property--full-width sf-property--small"
+            >
+              <template #value>
+                <SfPrice
+                  :regular="$fc(discount)"
+                  class="my-cart__discount"
+                />
+              </template>
+            </SfProperty>
+            <hr class="sf-divider">
+            <SfProperty
+              :name="$t('Order Total')"
+              class="sf-property--full-width sf-property--large my-cart__total-price"
+            >
+              <template #value>
+                <SfPrice
+                  :regular="$fc(totals.total)"
                 />
               </template>
             </SfProperty>
@@ -322,6 +344,7 @@ export default defineComponent({
         },
       })));
     const totals = computed(() => cartGetters.getTotals(cart.value));
+    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
     const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
     const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
@@ -393,6 +416,7 @@ export default defineComponent({
       isInStock,
       imageSizes,
       getMagentoImage,
+      discount,
     };
   },
 });
@@ -451,10 +475,14 @@ export default defineComponent({
     margin: 0;
   }
 
+  &__subtotal, &__discount {
+    --price-font-weight: var(--font-weight--light);
+  }
+
   &__total-price {
-    --price-font-size: var(--font-size--xl);
+    --price-font-size: var(--font-size--lg);
     --price-font-weight: var(--font-weight--medium);
-    margin: 0 0 var(--spacer-base) 0;
+    margin: var(--spacer-base) 0 var(--spacer-base) 0;
   }
 }
 

@@ -146,6 +146,8 @@ export const getDiscounts = (cart: Cart): CartDiscount[] => (Array.isArray(cart?
   code: d.label,
 } as CartDiscount)) : []);
 
+export const getDiscountAmount = (cart: Cart): number => calculateDiscounts(cart?.prices?.discounts ?? []);
+
 export const getAppliedCoupon = (cart: Cart): Coupon | null => (Array.isArray(cart?.applied_coupons) && cart?.applied_coupons.length > 0 ? {
   id: cart.applied_coupons[0].code,
   name: cart.applied_coupons[0].code,
@@ -189,6 +191,7 @@ const cartGetters: CartGetters = {
   getShippingPrice,
   getTotalItems,
   getTotals,
+  getDiscountAmount,
   productHasSpecialPrice,
   getStockStatus,
   getConfiguredVariant,
