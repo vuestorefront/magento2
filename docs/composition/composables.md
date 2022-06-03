@@ -25,7 +25,7 @@ To make composables easily distinguishable from standard methods, we follow the 
 Let's take a closer look at how it might look like using the [useUser](/api-reference/magento-theme.useuserinterface.html) composable as an example:
 
 <img
-  src="../assets/images/useUser-composable-anatomy.png"
+  src="../assets/images/useUser-composable-anatomy.webp"
   alt="Anatomy of the useUser composable"
   style="display: block; margin: 0 auto;">
 
@@ -97,7 +97,7 @@ You can use one or more hooks simultaneously, even in the same component.
 You might be wondering what happened within the composable when we called the `load` method in the example above. The behavior of methods is different between composables, but in the case of the `useUser` composable, the `load` method updated the `loading`, `error`, and `user` properties to reflect the current state, and later the result of the API call corresponding to this method.
 
 <img
-  src="../assets/images/useUser-load-flow.png"
+  src="../assets/images/useUser-load-flow.webp"
   alt="Flow of the load method from the useUser composable"
   style="display: block; margin: 0 auto;">
 
