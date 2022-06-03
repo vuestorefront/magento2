@@ -14,7 +14,9 @@ const $vsf = {
     config: {
       imageProvider: '',
       magentoBaseUrl: '',
-      state: {},
+      state: {
+        getMessage: jest.fn(),
+      },
     },
   },
 };
@@ -29,6 +31,9 @@ Vue.prototype.$nuxt = {
     app: {
       // $vsf intentionally doubled in context top level AND in context.app - this is the way it's in the app
       $vsf,
+      context: {
+        $vsf,
+      },
       $fc: jest.fn((label) => label),
       localePath: jest.fn((link) => link),
       localeRoute: jest.fn(() => 'some_url'),

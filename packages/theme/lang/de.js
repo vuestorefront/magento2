@@ -179,6 +179,7 @@ export default {
   "Subtotal price": "Zwischensumme Preis",
   "Successful placed order": "Sie haben die Bestellung erfolgreich aufgegeben. Sie können den Status Ihres Bestellen Sie über unsere Lieferstatusfunktion. Sie erhalten eine Bestellung Bestätigungs-E-Mail mit Details Ihrer Bestellung und einem Link zum Verfolgen der Bestellung Fortschritt.",
   "Terms and conditions": "Allgemeine Geschäftsbedingungen",
+  "Thank you": "Danke",
   "Thank You Inbox": "Wenn die Nachricht nicht in Ihrem Posteingang ankommt, versuchen Sie es mit einer anderen E-Mail-Adresse, mit der Sie sich möglicherweise registriert haben.",
   "Total": "Gesamt",
   "Total items": "Gesamtanzahl",

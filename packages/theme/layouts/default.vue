@@ -3,7 +3,10 @@
     <IconSprite />
     <CartSidebar v-if="isCartSidebarOpen" />
     <WishlistSidebar v-if="isWishlistSidebarOpen" />
-    <LoginModal v-if="isLoginModalOpen" />
+    <LoginModal
+      v-if="isLoginModalOpen"
+      @close="toggleLoginModal"
+    />
     <LazyHydrate when-visible>
       <Notification />
     </LazyHydrate>
@@ -41,18 +44,21 @@ export default defineComponent({
     AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
     CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
     WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/modules/wishlist/components/WishlistSidebar.vue'),
-    LoginModal: () => import(/* webpackPrefetch: true */ '~/components/LoginModal.vue'),
+    LoginModal: () => import(/* webpackPrefetch: true */ '~/modules/customer/components/LoginModal/LoginModal.vue'),
     Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification.vue'),
   },
 
   setup() {
     const route = useRoute();
-    const { isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen } = useUiState();
+    const {
+      isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen, toggleLoginModal,
+    } = useUiState();
 
     return {
       isCartSidebarOpen,
       isWishlistSidebarOpen,
       isLoginModalOpen,
+      toggleLoginModal,
       route,
     };
   },
