@@ -26,14 +26,14 @@ function reduceFilters(query: QueryParams) {
 export function useUiHelpers(): UseUiHelpersInterface {
   const route = useRoute();
   const router = useRouter();
-  let { query } = route.value;
+  let { query: routerQuery } = route.value;
 
   const resolveQuery = (): QueryParams => {
     if (typeof window !== 'undefined') {
-      query = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
+      routerQuery = router.resolve((window.location.pathname + window.location.search).slice(1)).route.query;
     }
 
-    return query;
+    return routerQuery;
   };
 
   const getFiltersDataFromUrl = (onlyFilters = false): FilterParams => {
@@ -82,7 +82,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
    */
   const changeSorting = async (sort: string, forcePush = true): Promise<void> => {
     if (forcePush) {
-      await router.push({ query: { ...query, sort } });
+      await router.push({ query: { ...routerQuery, sort } });
     } else {
       const routeData = router.resolve({
         query: {
@@ -101,20 +101,15 @@ export function useUiHelpers(): UseUiHelpersInterface {
    * @param forcePush
    */
   const changeFilters = async (filters: FilterParams, forcePush = true): Promise<void> => {
+    const query = {
+      ...getFiltersDataFromUrl(false),
+      ...filters,
+    };
+
     if (forcePush) {
-      await router.push({
-        query: {
-          ...getFiltersDataFromUrl(false),
-          ...filters,
-        },
-      });
+      await router.push({ query });
     } else {
-      const routeData = router.resolve({
-        query: {
-          ...getFiltersDataFromUrl(),
-          ...filters,
-        },
-      });
+      const routeData = router.resolve({ query });
       window.history.pushState({}, null, routeData.href);
     }
   };
@@ -139,20 +134,29 @@ export function useUiHelpers(): UseUiHelpersInterface {
    * @param forcePush
    */
   const changeItemsPerPage = async (itemsPerPage: number, forcePush = true): Promise<void> => {
+    const query = {
+      ...getFiltersDataFromUrl(false),
+      itemsPerPage: itemsPerPage.toString(10),
+    };
+
     if (forcePush) {
-      await router.push({
-        query: {
-          ...getFiltersDataFromUrl(false),
-          itemsPerPage: itemsPerPage.toString(10),
-        },
-      });
+      await router.push({ query });
     } else {
-      const routeData = router.resolve({
-        query: {
-          ...getFiltersDataFromUrl(),
-          itemsPerPage: itemsPerPage.toString(10),
-        },
-      });
+      const routeData = router.resolve({ query });
+      window.history.pushState({}, null, routeData.href);
+    }
+  };
+
+  const changePage = async (page: number, forcePush = true): Promise<void> => {
+    const query = {
+      ...getFiltersDataFromUrl(false),
+      page: page.toString(),
+    };
+
+    if (forcePush) {
+      await router.push({ query });
+    } else {
+      const routeData = router.resolve({ query });
       window.history.pushState({}, null, routeData.href);
     }
   };
@@ -182,6 +186,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
     isFacetCheckbox,
     isFacetColor,
     setTermForUrl,
+    changePage,
   };
 }
 
