@@ -127,8 +127,9 @@ import facetGetters from '~/modules/catalog/category/getters/facetGetters';
 
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
+import { isCategoryTreeRoute } from '~/modules/GraphQL/CategoryTreeRouteTypeguard';
 
-import type { EntityUrl, ProductInterface } from '~/modules/GraphQL/types';
+import type { ProductInterface, CategoryTree } from '~/modules/GraphQL/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 import type { Pagination } from '~/composables/types';
 import type { Product } from '~/modules/catalog/product/types';
@@ -186,15 +187,16 @@ export default defineComponent({
 
     const { activeCategory } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
-    const routeData = ref<EntityUrl>({});
+    const routeData = ref<CategoryTree | null>(null);
 
     const { fetch } = useFetch(async () => {
-      routeData.value = await resolveUrl();
+      const resolvedUrl = await resolveUrl();
+      if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
       const categoryId = routeData.value?.id;
 
       const [content] = await Promise.all([
-        getContentData(routeData.value?.entity_uid),
+        getContentData(routeData.value?.uid),
         search({ ...uiHelpers.getFacetsFromURL(), categoryId }),
       ]);
 

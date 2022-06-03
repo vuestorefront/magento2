@@ -1,5 +1,5 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
-import type { EntityUrl } from '~/modules/GraphQL/types';
+import { RoutableInterface } from '~/modules/GraphQL/types';
 
 /**
  * Errors that occured in the {@link UseUrlResolverErrors|UseUrlResolverErrors()} composable
@@ -12,7 +12,12 @@ export interface UseUrlResolverErrors {
 }
 
 /**
- * Data and methods returned from the {@link useUrlResolver|useUrlResolver()} composable
+ * Data and methods returned from the {@link useUrlResolver|useUrlResolver()} composable.
+ *
+ * @remarks
+ *
+ * `ROUTE_TYPE` is a generic type and can be one of: `CategoryTree`, `CmsPage`, `VirtualProduct`, `SimpleProduct`,
+ * `DownloadableProduct`, `BundleProduct`, `GroupedProduct` or `ConfigurableProduct`
  */
 export interface UseUrlResolverInterface {
   /**
@@ -33,5 +38,5 @@ export interface UseUrlResolverInterface {
   /**
    * Searches the resolver for current route URL
    */
-  search(): Promise<EntityUrl | {}>;
+  search(): Promise<RoutableInterface>;
 }

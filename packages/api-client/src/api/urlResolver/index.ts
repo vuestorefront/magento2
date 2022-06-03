@@ -10,6 +10,7 @@ import type { Context } from '../../types/context';
  * @param context VSF Context
  * @param url the URL to be resolved
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @deprecated - use route instead
  */
 export default async function urlResolver(
   context: Context,

@@ -4,8 +4,8 @@ import {
   useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
+import { RoutableInterface } from '~/modules/GraphQL/types';
 import { Logger } from '~/helpers/logger';
-import type { EntityUrl } from '~/modules/GraphQL/types';
 import type { UseUrlResolverErrors, UseUrlResolverInterface } from '~/composables';
 
 /**
@@ -24,15 +24,15 @@ export function useUrlResolver(): UseUrlResolverInterface {
     search: null,
   });
 
-  const search = async (): Promise<EntityUrl | {}> => {
+  const search = async (): Promise<RoutableInterface | null> => {
     loading.value = true;
-    let results: EntityUrl = {};
+    let results: RoutableInterface | null = null;
 
     try {
       const clearUrl = path.replace(/[a-z]+\/[cp|]\//gi, '');
       Logger.debug('[Magento] Find information based on URL', { clearUrl });
-      const { data } = await context.$magento.api.urlResolver(clearUrl);
-      results = data.urlResolver;
+      const { data } = await context.$magento.api.route(clearUrl);
+      results = data?.route ?? null;
 
       if (!results) nuxtError({ statusCode: 404 });
 

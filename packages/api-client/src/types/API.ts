@@ -107,11 +107,12 @@ import {
   ChangeCustomerPasswordMutation,
   CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct, CustomerOrdersFilterInput,
+  VirtualProduct, CustomerOrdersFilterInput, RoutableInterface,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
 import { AddProductsToCartInput } from '../api/addProductsToCart';
+import type { RouteQuery } from '../api/route';
 
 export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> {
 }
@@ -439,6 +440,11 @@ export interface MagentoApiMethods {
     url: string,
     customQuery?: CustomQuery
   ): Promise<ApolloQueryResult<UrlResolverQuery>>;
+
+  route(
+    url: string,
+    customQuery?: CustomQuery
+  ): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,
