@@ -20,6 +20,22 @@ describe('Find active category', () => {
     expect(result).toMatchObject(sharedMatch);
   });
 
+  it('find category node by default key with overlapping keys value (women, men)', () => {
+    const result = findActiveCategory(categoryTreeData[0], 'men');
+
+    expect(result).toMatchObject({
+      is_anchor: 0,
+      name: 'Men',
+      position: 3,
+      product_count: 0,
+      uid: 'MTE=',
+      url_path: 'men',
+      url_suffix: '.html',
+      include_in_menu: 1,
+      redirect_code: 301,
+    });
+  });
+
   it('find category node by custom key', () => {
     const result = findActiveCategory(categoryTreeData[0], 'MjA=', 'uid');
 
