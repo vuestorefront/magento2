@@ -174,6 +174,7 @@ export default {
   "Subtotal price": "Subtotal price",
   "Successful placed order": "You have successfully placed the order. You can check status of your order by using our delivery status feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.",
   "Terms and conditions": "Terms and conditions",
+  "Thank you": "Thank you",
   "Thank You Inbox": "If the message is not arriving in your inbox, try another email address you might’ve used to register.",
   "Total": "Total",
   "Total items": "Total items",
