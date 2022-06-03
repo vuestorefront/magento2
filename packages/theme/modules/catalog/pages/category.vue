@@ -53,18 +53,18 @@
             @click:wishlist="addItemToWishlist"
             @click:add-to-cart="addItemToCart"
           />
-
           <div
             v-if="!$fetchState.pending"
             class="products__display-opt"
           >
             <LazyHydrate on-interaction>
-              <SfPagination
+              <CategoryPagination
                 v-show="pagination.totalPages > 1"
                 :current="pagination.currentPage"
                 :total="pagination.totalPages"
                 :visible="5"
                 class="products__pagination"
+                @click="goToPage($event)"
               />
             </LazyHydrate>
 
@@ -102,7 +102,6 @@
 <script lang="ts">
 import LazyHydrate from 'vue-lazy-hydration';
 import {
-  SfPagination,
   SfSelect,
   SfHeading,
 } from '@storefront-ui/vue';
@@ -111,6 +110,7 @@ import {
   defineComponent, onMounted, ref, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {
   useFacet,
   useUiHelpers,
@@ -136,6 +136,7 @@ import type { Product } from '~/modules/catalog/product/types';
 export default defineComponent({
   name: 'CategoryPage',
   components: {
+    CategoryPagination,
     CategoryEmptyResults: () => import('~/modules/catalog/category/components/CategoryEmptyResults.vue'),
     CategoryFilters: () => import('~/modules/catalog/category/components/filters/CategoryFilters.vue'),
     CmsContent: () => import('~/modules/catalog/category/components/cms/CmsContent.vue'),
@@ -143,7 +144,6 @@ export default defineComponent({
     CategoryProductList: () => import('~/modules/catalog/category/components/views/CategoryProductList.vue'),
     CategoryNavbar,
     CategoryBreadcrumbs,
-    SfPagination,
     SfSelect,
     LazyHydrate,
     SfHeading,
@@ -239,6 +239,11 @@ export default defineComponent({
       productContainerElement.value.scrollIntoView();
     };
 
+    const goToPage = (page: number) => {
+      uiHelpers.changePage(page, false);
+      fetch();
+    };
+
     return {
       isPriceLoaded,
       ...uiHelpers,
@@ -260,6 +265,7 @@ export default defineComponent({
       doChangeItemsPerPage,
       productContainerElement,
       onReloadProducts,
+      goToPage,
     };
   },
 });

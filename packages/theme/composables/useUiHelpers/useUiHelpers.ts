@@ -40,6 +40,13 @@ export interface UseUiHelpersInterface {
    */
   clearFilters(forcePush?: boolean): Promise<void>;
 
+  /**
+   * Updates current URL with a page as a query/search param.
+   *
+   * It forces the navigation to updated URL when `forcePush` is `true`.
+   */
+  changePage(page: number, forcePush?: boolean): Promise<void>;
+
   /** Gets route link for received category. */
   getCatLink(category: CategoryTree): string;
 
@@ -59,4 +66,5 @@ export interface UseUiHelpersInterface {
    * navigates to it.
    */
   setTermForUrl(term?: string): Promise<void>;
+
 }
