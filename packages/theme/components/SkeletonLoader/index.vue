@@ -11,6 +11,8 @@
 <script lang="ts">
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 
+type ComponentStyles = { width?: string, height?: string, borderRadius: string, margin: string };
+
 export default defineComponent({
   name: 'SkeletonLoader',
   props: {
@@ -24,11 +26,9 @@ export default defineComponent({
     },
     width: {
       type: String,
-      default: '100%',
     },
     height: {
       type: String,
-      default: '1em',
     },
     margin: {
       type: String,
@@ -50,12 +50,18 @@ export default defineComponent({
       props.animation ? `skeleton--${props.animation}` : null,
     ]);
 
-    const componentStyle = computed(() => ({
-      width: props.width,
-      height: props.height,
+    const componentStyle = computed<ComponentStyles>(() => ({
       borderRadius: props.radius,
       margin: props.margin,
     }));
+
+    if (props.width) {
+      componentStyle.value.width = props.width;
+    }
+
+    if (props.height) {
+      componentStyle.value.height = props.height;
+    }
 
     return {
       componentClass,
@@ -72,6 +78,8 @@ export default defineComponent({
   vertical-align: middle;
   background-color: #f1f2f3;
   user-select: none;
+  width: 100%;
+  height: 1em;
 
   &--shimmer {
     position: relative;

@@ -12,6 +12,7 @@
         :is-fetching="loading"
         @fetchProduct="fetchProduct($event.query)"
       />
+      <ProductSkeleton v-else />
       <LoadWhenVisible>
         <RelatedProducts />
       </LoadWhenVisible>
@@ -44,10 +45,12 @@ import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 import type { Product } from '~/modules/catalog/product/types';
+import ProductSkeleton from '~/modules/catalog/product/components/ProductSkeleton.vue';
 
 export default defineComponent({
   name: 'ProductPage',
   components: {
+    ProductSkeleton,
     SimpleProduct: () => import('~/modules/catalog/product/components/product-types/simple/SimpleProduct.vue'),
     BundleProduct: () => import('~/modules/catalog/product/components/product-types/bundle/BundleProduct.vue'),
     ConfigurableProduct: () => import('~/modules/catalog/product/components/product-types/configurable/ConfigurableProduct.vue'),
