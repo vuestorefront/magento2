@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetch CMS Blocks from Magento Api.
@@ -28,5 +29,8 @@ export default async function getCmsBlocks(
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
     query: cmsBlocksGQL.query,
     variables: cmsBlocksGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

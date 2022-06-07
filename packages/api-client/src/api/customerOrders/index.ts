@@ -8,6 +8,7 @@ import {
 import customerOrdersQuery from './customerOrders';
 import { Context } from '../../types/context';
 import { GetOrdersSearchParams } from '../../types/API';
+import getHeaders from '../getHeaders';
 
 type Variables = {
   pageSize: number;
@@ -44,10 +45,12 @@ export default async (
   });
 
   try {
-    return await context.client
-      .query<CustomerOrdersQuery, CustomerOrdersQueryVariables>({
+    return await context.client.query<CustomerOrdersQuery, CustomerOrdersQueryVariables>({
       query: customerOrders.query,
       variables: customerOrders.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

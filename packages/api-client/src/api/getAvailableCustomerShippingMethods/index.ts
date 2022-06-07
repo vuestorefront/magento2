@@ -6,6 +6,7 @@ import CustomerAvailableShippingMethods from './CustomerShippingMethods';
 import {
   CustomerAvailableShippingMethodsQuery,
 } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 /**
  * Retrive available shipping methods for current customer
@@ -28,6 +29,9 @@ export default async function getAvailableCustomerShippingMethods(
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
       query: shippingMethods.query,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

@@ -7,6 +7,7 @@ import type {
   SetShippingAddressesOnCartMutationVariables,
 } from '../../types/GraphQL';
 import type { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Sets a shipping address on received cart.
@@ -30,5 +31,8 @@ export default async function setShippingAddressesOnCart(
   return context.client.mutate<SetShippingAddressesOnCartMutation, SetShippingAddressesOnCartMutationVariables>({
     mutation: setShippingAddressesOnCartGQL.query,
     variables: setShippingAddressesOnCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

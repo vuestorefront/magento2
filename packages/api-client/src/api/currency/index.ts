@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CurrencyQuery } from '../../types/GraphQL';
 import currencyQuery from './currency';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the currency information.
@@ -22,5 +23,8 @@ export default async function currency(
 
   return context.client.query<CurrencyQuery>({
     query: currencyGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

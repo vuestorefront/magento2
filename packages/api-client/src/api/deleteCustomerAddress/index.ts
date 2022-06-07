@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import deleteCustomerAddressMutation from './deleteCustomerAddress';
 import { Context } from '../../types/context';
 import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 /**
  * Deletes a customer address.
@@ -29,5 +30,8 @@ export default async function deleteCustomerAddress(
   return context.client.mutate<DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables>({
     mutation: deleteCustomerAddressGQL.query,
     variables: deleteCustomerAddressGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

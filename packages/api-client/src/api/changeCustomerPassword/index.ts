@@ -6,6 +6,7 @@ import {
   ChangeCustomerPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Changes password of the current customer. To override the default query, use the `changeCustomerPassword` query key.
@@ -29,6 +30,9 @@ export default async (
       .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
       mutation: changeCustomerPasswordGQL.query,
       variables: changeCustomerPasswordGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
   // For error in data we don't throw 500, because it's not server error

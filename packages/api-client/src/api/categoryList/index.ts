@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CategoryListQuery, CategoryListQueryVariables } from '../../types/GraphQL';
 import categoryListQuery from './categoryList';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the category list.
@@ -26,5 +27,8 @@ export default async function categoryList(
   return context.client.query<CategoryListQuery, CategoryListQueryVariables>({
     query: categoryListGQL.query,
     variables: categoryListGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

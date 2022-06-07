@@ -3,6 +3,7 @@ import type { CustomQuery } from '@vue-storefront/core';
 import type { UrlResolverQuery, UrlResolverQueryVariables } from '../../types/GraphQL';
 import urlResolverQuery from './urlResolver';
 import type { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the resolver for received URL.
@@ -27,5 +28,8 @@ export default async function urlResolver(
   return context.client.query<UrlResolverQuery, UrlResolverQueryVariables>({
     query: urlResolverGQL.query,
     variables: urlResolverGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { ProductReviewRatingsMetadataQuery } from '../../types/GraphQL';
 import productReviewRatingsMetadata from './productReviewRatingsMetadata';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Returns additional product reviews data
@@ -22,5 +23,8 @@ export default async (
 
   return context.client.query<ProductReviewRatingsMetadataQuery>({
     query: productReviewRatingsMetadataGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

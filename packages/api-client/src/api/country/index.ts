@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CountryInformationQuery, CountryInformationQueryVariables } from '../../types/GraphQL';
 import countryInformation from './countryInformation';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the information about a country given its ID
@@ -27,5 +28,8 @@ export default async function country(
   return context.client.query<CountryInformationQuery, CountryInformationQueryVariables>({
     query: countryGQL.query,
     variables: countryGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

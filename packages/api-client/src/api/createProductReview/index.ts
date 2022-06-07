@@ -5,6 +5,7 @@ import { CreateProductReviewMutation, CreateProductReviewInput } from '../../typ
 import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
+import getHeaders from '../getHeaders';
 
 /**
  * Creates a new product review
@@ -45,5 +46,8 @@ export default async (
   return context.client.mutate<CreateProductReviewMutation, { input: CreateProductReviewInput }>({
     mutation: createProductReviewGQL.query,
     variables: createProductReviewGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

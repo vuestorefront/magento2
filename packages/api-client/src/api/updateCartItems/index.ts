@@ -7,6 +7,7 @@ import {
   UpdateCartItemsMutationVariables,
 } from '../../types/GraphQL';
 import updateCartItemsMutation from './updateCartItems';
+import getHeaders from '../getHeaders';
 
 /**
  * Updates the contents of the given cart
@@ -32,5 +33,8 @@ export default async function updateCartItems(
   return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
     mutation: updateCartItemsGQL.query,
     variables: updateCartItemsGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

@@ -7,6 +7,7 @@ import {
   RemoveCouponFromCartMutationVariables,
 } from '../../types/GraphQL';
 import removeCouponFromCartMutation from './removeCouponFromCart';
+import getHeaders from '../getHeaders';
 
 /**
  * Removes a coupon from a cart
@@ -32,5 +33,8 @@ export default async function removeCouponFromCart(
   return context.client.mutate<RemoveCouponFromCartMutation, RemoveCouponFromCartMutationVariables>({
     mutation: removeCouponFromCartGQL.query,
     variables: removeCouponFromCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

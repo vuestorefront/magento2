@@ -7,6 +7,7 @@ import {
   SetBillingAddressOnCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -26,5 +27,8 @@ export default async (
   return context.client.mutate<SetBillingAddressOnCartMutation, SetBillingAddressOnCartMutationVariables>({
     mutation: setBillingAddressOnCartGQL.query,
     variables: setBillingAddressOnCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

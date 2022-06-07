@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
 import CustomerAvailablePaymentMethods from './CustomerPaymentMethods';
 import { CustomerAvailablePaymentMethodsQuery } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -23,6 +24,9 @@ export default async (
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
       query: paymentMethods.query,
+      context: {
+        headers: getHeaders(context),
+      },
 
     });
   } catch (error) {

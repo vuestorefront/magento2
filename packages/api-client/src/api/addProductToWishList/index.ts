@@ -6,6 +6,7 @@ import {
   AddProductsToWishlistMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -24,5 +25,8 @@ export default async (
   return context.client.mutate<AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables>({
     mutation: addProductsToWishlistGQL.query,
     variables: addProductsToWishlistGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

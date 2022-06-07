@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/GraphQL';
 import categorySearchQuery from './categorySearch';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Searches for categories using received filters.
@@ -28,5 +29,8 @@ export default async function categorySearch(
   return context.client.query<CategorySearchQuery, CategorySearchQueryVariables>({
     query: categorySearchGQL.query,
     variables: categorySearchGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

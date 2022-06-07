@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
 import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the available payment methods for the received cart.
@@ -33,6 +34,9 @@ export default async function getAvailablePaymentMethods(
     return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({
       query: paymentMethods.query,
       variables: paymentMethods.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

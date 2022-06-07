@@ -9,6 +9,7 @@ import type {
   UpsellProductsQuery,
   UpsellProductsQueryVariables,
 } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 type Variables = {
   pageSize: number;
@@ -54,6 +55,9 @@ export default async (
     return await context.client.query<UpsellProductsQuery, UpsellProductsQueryVariables>({
       query: upsellProductsGQL.query,
       variables: upsellProductsGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

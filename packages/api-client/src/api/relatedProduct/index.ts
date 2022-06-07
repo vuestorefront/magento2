@@ -9,6 +9,7 @@ import type {
 import relatedProductQuery from './relatedProduct';
 import type { Context } from '../../types/context';
 import type { GetProductSearchParams } from '../../types/API';
+import getHeaders from '../getHeaders';
 
 type Variables = {
   pageSize: number;
@@ -59,6 +60,9 @@ export default async function relatedProduct(
     return await context.client.query<RelatedProductQuery, RelatedProductQueryVariables>({
       query: relatedProductGQL.query,
       variables: relatedProductGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

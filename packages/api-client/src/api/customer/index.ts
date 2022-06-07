@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CustomerQuery } from '../../types/GraphQL';
 import customer from './customer';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Returns the information about the current customer. To override the default query, use the `customer` query key.
@@ -22,5 +23,8 @@ export default async (
 
   return context.client.query<CustomerQuery>({
     query: customerGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

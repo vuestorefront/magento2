@@ -7,6 +7,7 @@ import {
   UpdateCustomerAddressMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Updates a customer address.
@@ -36,5 +37,8 @@ export default async function updateCustomerAddress(
   return context.client.mutate<UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables>({
     mutation: updateCustomerAddressGQL.query,
     variables: updateCustomerAddressGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

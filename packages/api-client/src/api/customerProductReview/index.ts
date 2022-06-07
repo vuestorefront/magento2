@@ -6,6 +6,7 @@ import {
 } from '../../types/GraphQL';
 import customerProductReview from './customerProductReview';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export type CustomerProductReviewParams = {
   pageSize: number;
@@ -41,6 +42,9 @@ export default async (
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
       query: reviews.query,
       variables: reviews.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

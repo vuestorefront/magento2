@@ -7,6 +7,7 @@ import {
   AddBundleProductsToCartInput,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -27,5 +28,8 @@ export default async (
     .mutate<any, AddBundleProductsToCartMutationVariables>({
     mutation: addBundleProductsToCartGQL.query,
     variables: addBundleProductsToCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

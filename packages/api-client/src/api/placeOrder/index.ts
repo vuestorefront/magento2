@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import placeOrderMutation from './placeOrder';
 import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Places an order for received cart.
@@ -27,6 +28,9 @@ export default async function placeOrder(
     return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
       mutation: placeOrderGQL.query,
       variables: placeOrderGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
