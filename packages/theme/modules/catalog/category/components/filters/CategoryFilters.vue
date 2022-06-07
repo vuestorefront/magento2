@@ -10,6 +10,7 @@
       <div
         v-for="n in 3"
         :key="n"
+        class="desktop-only"
       >
         <SkeletonLoader
           class="filters__title sf-heading--left sf-heading"
