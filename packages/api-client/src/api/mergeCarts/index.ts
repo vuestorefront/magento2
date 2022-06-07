@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import mergeCarts from './mergeCarts';
 import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -28,5 +29,8 @@ export default async (
   return context.client.mutate<MergeCartsMutation, MergeCartsMutationVariables>({
     mutation: mergeCartsGQL.query,
     variables: mergeCartsGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

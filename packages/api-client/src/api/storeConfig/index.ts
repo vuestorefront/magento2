@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { StoreConfigQuery } from '../../types/GraphQL';
 import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the store configuration from the API
@@ -24,5 +25,8 @@ export default async function storeConfig(
 
   return context.client.query<StoreConfigQuery>({
     query: storeConfigGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

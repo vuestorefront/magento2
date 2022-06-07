@@ -6,7 +6,7 @@ import { createMagentoConnection } from './helpers/magentoLink';
 import { defaultSettings } from './helpers/apiClient/defaultSettings';
 import { apolloClientFactory } from './helpers/magentoLink/graphQl';
 
-const onCreate = (settings: Config): { config: Config; client: ClientInstance } => {
+const init = (settings: Config) => {
   const config = {
     ...defaultSettings,
     ...settings,
@@ -46,6 +46,14 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
     config,
     client,
   };
+};
+
+const onCreate = (settings: Config): { config: Config; client: ClientInstance } => {
+  if (!settings?.client) {
+    return init(settings);
+  }
+
+  return { config: settings, client: settings.client };
 };
 
 const tokenExtension: ApiClientExtension = {
@@ -110,4 +118,5 @@ const { createApiClient } = apiClientFactory({
 
 export {
   createApiClient,
+  init,
 };

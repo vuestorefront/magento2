@@ -5,6 +5,7 @@ import {
   SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Set the guest user email on the cart
@@ -30,5 +31,8 @@ export default async function setGuestEmailOnCart(
   return context.client.mutate<SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables>({
     mutation: setGuestEmailOnCartGQL.query,
     variables: setGuestEmailOnCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

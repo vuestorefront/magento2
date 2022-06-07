@@ -5,6 +5,7 @@ import {
 } from '../../types/GraphQL';
 import availableStores from './availableStores';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Returns list of available stores
@@ -24,5 +25,8 @@ export default async (
 
   return context.client.query<AvailableStoresQuery>({
     query: availableStoresGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

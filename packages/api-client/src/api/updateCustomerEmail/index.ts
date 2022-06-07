@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import updateCustomerEmail from './updateCustomerEmail';
 import { Context } from '../../types/context';
 import { UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -22,5 +23,8 @@ export default async (
   return context.client.mutate<UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables>({
     mutation: updateCustomerEmailGQL.query,
     variables: updateCustomerEmailGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

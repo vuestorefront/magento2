@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CountriesListQuery } from '../../types/GraphQL';
 import countriesListQuery from './countriesList';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Loads the list of countries
@@ -23,5 +24,8 @@ export default async function countries(
   );
   return context.client.query<CountriesListQuery>({
     query: countriesGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

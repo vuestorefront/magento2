@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
 import type { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Subscribes an email in the newsletter.
@@ -27,5 +28,8 @@ export default async function subscribeEmailToNewsletter(
   return context.client.mutate<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>({
     mutation: subscribeEmailToNewsletterGQL.query,
     variables: subscribeEmailToNewsletterGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

@@ -3,6 +3,7 @@ import type { CustomQuery } from '@vue-storefront/core';
 import type { QueryRouteArgs, RoutableInterface } from '../../types/GraphQL';
 import routeQuery from './route';
 import type { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export type RouteQuery<ROUTE_TYPE> = {
   route: ROUTE_TYPE
@@ -30,5 +31,8 @@ export default async function route(
   return context.client.query<RouteQuery<RoutableInterface>, QueryRouteArgs>({
     query: routeGQL.query,
     variables: routeGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

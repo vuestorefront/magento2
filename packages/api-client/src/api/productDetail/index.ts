@@ -9,6 +9,7 @@ import type {
 } from '../../types/GraphQL';
 import type { Context } from '../../types/context';
 import type { GetProductSearchParams } from '../../types/API';
+import getHeaders from '../getHeaders';
 
 type Variables = {
   pageSize: number;
@@ -59,6 +60,9 @@ export default async function productDetail(
     const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query: productDetailGQL.query,
       variables: productDetailGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
 
     if (result.data.products.items.length === 0) throw new Error('No products found');

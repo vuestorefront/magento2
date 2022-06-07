@@ -3,6 +3,7 @@ import { CustomQuery, Logger } from '@vue-storefront/core';
 import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetch CMS Page from Magento
@@ -30,6 +31,9 @@ export default async function getCmsPage(
       .query<CmsPageQuery, CmsPageQueryVariables>({
       query: cmsPageGQL.query,
       variables: cmsPageGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

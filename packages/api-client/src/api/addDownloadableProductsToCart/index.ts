@@ -7,6 +7,7 @@ import {
   AddDownloadableProductsToCartMutationVariables,
 } from '../../types/GraphQL';
 import addDownloadableProductsToCartMutation from './addDownloadableProductsToCart';
+import getHeaders from '../getHeaders';
 
 /**
  * Adds a set of downloadable products to a specified cart
@@ -31,5 +32,8 @@ export default async function addDownloadableProductsToCart(
   return context.client.mutate<AddDownloadableProductsToCartMutation, AddDownloadableProductsToCartMutationVariables>({
     mutation: addDownloadableProductsToCartGQL.query,
     variables: addDownloadableProductsToCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

@@ -8,6 +8,7 @@ import {
   RequestPasswordResetEmailMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Requests a password reset email to be sent to the user
@@ -50,6 +51,9 @@ export default async function requestPasswordResetEmail(
     .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
     mutation: extendedMutation.query,
     variables: extendedMutation.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 
   if (!result.data.requestPasswordResetEmail) throw new Error('Email was not found, or not available.');

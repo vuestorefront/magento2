@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CreateEmptyCartMutation } from '../../types/GraphQL';
 import createEmptyCart from './createEmptyCart';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -19,5 +20,8 @@ export default async (
 
   return context.client.mutate<CreateEmptyCartMutation>({
     mutation: createEmptyCartGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

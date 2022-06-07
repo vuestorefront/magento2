@@ -6,6 +6,7 @@ import {
 } from '../../types/GraphQL';
 import wishlistQuery from './wishlist';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 type Variables = {
   pageSize: number;
@@ -39,6 +40,9 @@ export default async (
       .query<WishlistQuery, WishlistQueryVariables>({
       query: wishlist.query,
       variables: wishlist.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

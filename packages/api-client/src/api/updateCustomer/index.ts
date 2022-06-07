@@ -7,6 +7,7 @@ import {
   UpdateCustomerMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Updates the data of the current customer. To override the default query, use the `updateCustomer` query key.
@@ -29,5 +30,8 @@ export default async (
   return context.client.mutate<UpdateCustomerMutation, UpdateCustomerMutationVariables>({
     mutation: updateCustomerGQL.query,
     variables: updateCustomerGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 };

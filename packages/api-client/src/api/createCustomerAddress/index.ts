@@ -7,6 +7,7 @@ import {
   CustomerAddressInput,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Creates a customer address.
@@ -33,5 +34,8 @@ export default async function createCustomerAddress(
   return context.client.mutate<CreateCustomerAddressMutation, CreateCustomerAddressMutationVariables>({
     mutation: createCustomerAddressGQL.query,
     variables: createCustomerAddressGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

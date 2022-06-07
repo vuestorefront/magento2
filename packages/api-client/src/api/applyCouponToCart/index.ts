@@ -7,6 +7,7 @@ import {
   ApplyCouponToCartMutationVariables,
 } from '../../types/GraphQL';
 import applyCouponToCartMutation from './applyCouponToCart';
+import getHeaders from '../getHeaders';
 
 /**
  * Applies a coupon to a given card
@@ -31,5 +32,8 @@ export default async function applyCouponToCart(
   return context.client.mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
     mutation: applyCouponToCartGQL.query,
     variables: applyCouponToCartGQL.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

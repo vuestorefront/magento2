@@ -3,6 +3,7 @@ import type { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
 import type { CustomerCartQuery } from '../../types/GraphQL';
 import customerCartQuery from './customerCart';
+import getHeaders from '../getHeaders';
 
 /**
  * Fetches the cart of the current logged in user
@@ -24,5 +25,8 @@ export default async function customerCart(
 
   return context.client.query<CustomerCartQuery>({
     query: customerCartGQL.query,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 }

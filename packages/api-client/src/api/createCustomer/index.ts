@@ -9,6 +9,7 @@ import {
 } from '../../types/GraphQL';
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Registers a new customer. To override the default query, use the `createCustomer` query key.
@@ -47,11 +48,12 @@ export default async (
       },
     );
 
-    return await context
-      .client
-      .mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
+    return await context.client.mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
       mutation: createCustomerGQL.query,
       variables: createCustomerGQL.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error

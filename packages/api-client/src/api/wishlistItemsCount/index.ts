@@ -6,6 +6,7 @@ import {
 } from '../../types/GraphQL';
 import query from './wishlistItemsCount';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -17,9 +18,11 @@ export default async (
     },
   });
   try {
-    return await context.client
-      .query<WishlistQuery>({
+    return await context.client.query<WishlistQuery>({
       query: wishlistItemsCount.query,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

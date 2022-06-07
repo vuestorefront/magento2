@@ -8,6 +8,7 @@ import {
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
+import getHeaders from '../getHeaders';
 
 /**
  * Resets a user's password
@@ -50,6 +51,9 @@ export default async function resetPassword(
     .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
     mutation: extendedResetPasswordMutation.query,
     variables: extendedResetPasswordMutation.variables,
+    context: {
+      headers: getHeaders(context),
+    },
   });
 
   if (!result.data.resetPassword) throw new Error('It was not possible to change the user password.');

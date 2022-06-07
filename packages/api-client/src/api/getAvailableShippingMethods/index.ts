@@ -6,6 +6,7 @@ import {
   GuestAvailableShippingMethodsQuery,
   GuestAvailableShippingMethodsQueryVariables,
 } from '../../types/GraphQL';
+import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
@@ -29,6 +30,9 @@ export default async (
     GuestAvailableShippingMethodsQueryVariables>({
       query: shippingMethods.query,
       variables: shippingMethods.variables,
+      context: {
+        headers: getHeaders(context),
+      },
     });
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

@@ -8,6 +8,7 @@ import {
   GenerateCustomerTokenMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.
@@ -49,11 +50,15 @@ export default async (
       },
     );
 
-    return await context.client
-      .mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
-      mutation: generateCustomerTokenGQL.query,
-      variables: generateCustomerTokenGQL.variables,
-    });
+    return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>(
+      {
+        mutation: generateCustomerTokenGQL.query,
+        variables: generateCustomerTokenGQL.variables,
+        context: {
+          headers: getHeaders(context),
+        },
+      },
+    );
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
