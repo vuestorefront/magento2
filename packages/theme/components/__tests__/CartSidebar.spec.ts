@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/vue';
+import { render, waitFor, within } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 
 import { createLocalVue } from '@vue/test-utils';
@@ -99,6 +99,27 @@ describe('CartSidebar', () => {
 
       await waitFor(() => {
         expect(mockedRouterPush).toHaveBeenCalledWith('/checkout-url');
+      });
+    });
+
+    it('increases product quantity', async () => {
+      const useCartMockInstance = useCartMock();
+      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+
+      const { getByTestId } = render(
+        CartSidebar,
+        {
+          localVue,
+          pinia: createTestingPinia(),
+        },
+      );
+
+      const quantitySelector = getByTestId('cart-sidebar-quantity-selector');
+      const increaseQuantityButton = within(quantitySelector).getByTestId('increase');
+      userEvent.click(increaseQuantityButton);
+
+      await waitFor(() => {
+        expect(useCartMockInstance.updateItemQty).toHaveBeenCalledWith({ product: '', quantity: 2 });
       });
     });
 

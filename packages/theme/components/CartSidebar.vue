@@ -136,9 +136,8 @@
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
-                        @input="
-                          delayedUpdateItemQty({ product, quantity: $event })
-                        "
+                        data-testid="cart-sidebar-quantity-selector"
+                        @input="delayedUpdateItemQty({ product, quantity: $event })"
                       />
                     </div>
                     <SfBadge
