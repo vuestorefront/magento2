@@ -56,7 +56,7 @@
     <div class="action">
       <SfButton
         class="sf-button--text"
-        @click="$emit('go-to-forgot-password')"
+        @click="changeForm('forgotPassword')"
       >
         {{ $t('Forgotten password?') }}
       </SfButton>
@@ -67,7 +67,7 @@
       </p>
       <SfButton
         class="sf-button--text"
-        @click="$emit('go-to-register')"
+        @click="changeForm('register')"
       >
         {{ $t('Register today') }}
       </SfButton>
@@ -84,7 +84,7 @@ import {
   SfButton,
   SfLoader,
 } from '@storefront-ui/vue';
-import { LoginFormFields } from './types';
+import { LoginFormFields, FormName } from './types';
 
 extend('email', {
   ...email,
@@ -122,10 +122,17 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const formCopy = ref<LoginFormFields>();
     watch(() => props.form, (newForm) => { formCopy.value = { ...newForm }; }, { immediate: true, deep: true });
-    return { formCopy };
+    const changeForm = (formToNavigateTo: FormName) => {
+      emit('change-form', formToNavigateTo);
+    };
+
+    return {
+      formCopy,
+      changeForm,
+    };
   },
 });
 </script>

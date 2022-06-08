@@ -25,8 +25,7 @@
           :loading="loading"
           :form="loginForm"
           @submit="form => onLoginFormSubmit(form)"
-          @go-to-register="currentlyDisplayedForm = 'register'"
-          @go-to-forgot-password="currentlyDisplayedForm = 'forgotPassword'"
+          @change-form="currentlyDisplayedForm = $event"
         >
           <template #error>
             {{ userError.login && userError.login.message }}
@@ -39,7 +38,7 @@
           :loading="loading"
           :form="registerForm"
           @submit="form => onRegisterFormSubmit(form)"
-          @go-to-login="currentlyDisplayedForm = 'login'"
+          @change-form="currentlyDisplayedForm = $event"
         >
           <template #error>
             {{ userError.register && userError.register.message }}
@@ -91,9 +90,9 @@ import LoginForm from './forms/LoginForm.vue';
 import RegisterForm from './forms/RegisterForm.vue';
 import ForgotPasswordForm from './forms/ForgotPasswordForm.vue';
 import ForgotPasswordThankYou from './forms/ForgotPasswordThankYou.vue';
-import { ForgotPasswordFormFields, LoginFormFields, RegisterFormFields } from './forms/types';
-
-type FormName = 'login' | 'register' | 'forgotPassword' | 'forgotPasswordThankYou';
+import {
+  ForgotPasswordFormFields, LoginFormFields, RegisterFormFields, FormName,
+} from './forms/types';
 
 export default defineComponent({
   name: 'LoginModal',
