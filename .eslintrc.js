@@ -35,7 +35,7 @@ module.exports = {
     "jest/expect-expect": [
       "error",
       {
-        "assertFunctionNames": ["expect", "getByRole", "getByTestId"],
+        "assertFunctionNames": ["expect", "getByRole", "getByTestId", "getByText"],
       }
     ],
     "no-plusplus": "off",

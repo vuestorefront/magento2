@@ -68,6 +68,7 @@
         <SfProperty
           v-if="totalItems"
           class="sf-property--large cart-summary desktop-only"
+          data-testid="cart-summary"
           :name="$t('Total items')"
           :value="totalItems"
         />
@@ -291,7 +292,7 @@ import {
   useExternalCheckout,
   useImage,
 } from '~/composables';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
