@@ -91,6 +91,7 @@
                 <SfCollectedProduct
                   v-for="product in products"
                   :key="product.product.original_sku"
+                  data-testid="cart-sidebar-collected-product"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
                   :regular-price="
@@ -233,6 +234,7 @@
             >
               <template #value>
                 <SfPrice
+                  data-testid="cart-sidebar-total"
                   :regular="$fc(totals.total)"
                 />
               </template>
@@ -251,6 +253,7 @@
           <div v-else>
             <SfButton
               class="sf-button--full-width color-primary"
+              data-testid="cart-sidebar-back"
               @click="toggleCartSidebar"
             >
               {{ $t('Go back shopping') }}

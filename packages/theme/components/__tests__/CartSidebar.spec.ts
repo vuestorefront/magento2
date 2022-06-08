@@ -1,4 +1,4 @@
-import { render } from '@testing-library/vue';
+import { render, waitFor } from '@testing-library/vue';
 import userEvent from '@testing-library/user-event';
 
 import { createLocalVue } from '@vue/test-utils';
@@ -45,16 +45,16 @@ describe('CartSidebar', () => {
         expect(queryByText('Your cart is empty')).toBeTruthy();
       });
 
-      it('clicking go back button closes the sidebar', () => {
+      it('clicking go back button closes the sidebar', async () => {
         const uiStateMock = useUiStateMock({ isCartSidebarOpen: true });
         (useUiState as jest.Mock).mockReturnValue(uiStateMock);
-        const { queryByText } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-        const closeSidebarBtn = queryByText('Go back shopping');
-        expect(closeSidebarBtn).toBeTruthy();
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        const { queryByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
+        const closeSidebarBtn = queryByTestId('cart-sidebar-back');
         userEvent.click(closeSidebarBtn);
-        expect(uiStateMock.toggleCartSidebar).toHaveBeenCalledTimes(1);
+
+        await waitFor(() => {
+          expect(uiStateMock.toggleCartSidebar).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });
@@ -66,15 +66,17 @@ describe('CartSidebar', () => {
     });
 
     it('renders two product cards', () => {
-      const { container } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-      const productCards = container.querySelectorAll('div.sf-collected-product');
-      expect(productCards).toHaveLength(2);
+      const { queryAllByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
+      expect(queryAllByTestId('cart-sidebar-collected-product')).toHaveLength(2);
     });
 
-    it('displays proper item value', () => {
+    it('displays proper item value', async () => {
       const { getByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-      const totalValue = getByTestId('cart-summary');
-      expect(totalValue).toBe(2);
+      const totalValue = getByTestId('cart-sidebar-total');
+
+      await waitFor(() => {
+        expect(totalValue.textContent).toContain('37');
+      });
     });
 
     it('renders "go to checkout" button', () => {
@@ -84,7 +86,7 @@ describe('CartSidebar', () => {
 
     it('renders promo code input', () => {
       const { getByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-      getByTestId('promoCode');
+      getByTestId('promo-code');
     });
 
     describe('And exactly one product is out of stock', () => {
