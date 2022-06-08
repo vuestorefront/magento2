@@ -1,3 +1,15 @@
+import { ref } from '@nuxtjs/composition-api';
+
+const error = ref({
+  addItem: null,
+  removeItem: null,
+  updateItemQty: null,
+  load: null,
+  clear: null,
+  applyCoupon: null,
+  removeCoupon: null,
+  loadTotalQty: null,
+});
 export const useEmptyCartMock = (cartData = {}) => ({
   load: jest.fn(),
   loading: false,
@@ -7,6 +19,7 @@ export const useEmptyCartMock = (cartData = {}) => ({
   cart: {
     value: {},
   },
+  error,
   ...cartData,
 });
 
@@ -16,6 +29,7 @@ export const useCartMock = (cartData = {}) => ({
   removeItem: jest.fn(),
   updateItemQty: jest.fn(),
   loadTotalQty: jest.fn(() => 2),
+  error,
   cart: {
     value: {
       items: [
@@ -78,6 +92,7 @@ export const useCartMock = (cartData = {}) => ({
                 __typename: 'CategoryTree',
                 uid: 'MTM=',
                 name: 'Bottoms',
+
                 url_suffix: '.html',
                 url_path: 'men/bottoms-men',
                 breadcrumbs: [
