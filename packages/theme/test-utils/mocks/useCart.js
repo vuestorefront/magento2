@@ -1,6 +1,6 @@
 import { ref } from '@nuxtjs/composition-api';
 
-const error = ref({
+const createError = () => ref({
   addItem: null,
   removeItem: null,
   updateItemQty: null,
@@ -10,6 +10,7 @@ const error = ref({
   removeCoupon: null,
   loadTotalQty: null,
 });
+
 export const useEmptyCartMock = (cartData = {}) => ({
   load: jest.fn(),
   loading: false,
@@ -19,7 +20,7 @@ export const useEmptyCartMock = (cartData = {}) => ({
   cart: {
     value: {},
   },
-  error,
+  error: createError(),
   ...cartData,
 });
 
@@ -29,9 +30,26 @@ export const useCartMock = (cartData = {}) => ({
   removeItem: jest.fn(),
   updateItemQty: jest.fn(),
   loadTotalQty: jest.fn(() => 2),
-  error,
+  error: createError(),
   cart: {
     value: {
+      prices: {
+        __typename: 'CartPrices',
+        subtotal_excluding_tax: {
+          __typename: 'Money',
+          value: 37,
+        },
+        subtotal_including_tax: {
+          __typename: 'Money',
+          value: 37,
+        },
+        applied_taxes: [],
+        discounts: null,
+        grand_total: {
+          __typename: 'Money',
+          value: 37,
+        },
+      },
       items: [
         {
           __typename: 'Product1',
