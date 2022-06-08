@@ -123,6 +123,28 @@ describe('CartSidebar', () => {
       });
     });
 
+    it('removes products from cart', async () => {
+      const useCartMockInstance = useCartMock();
+      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+      const { getByTestId, getAllByTestId } = render(
+        CartSidebar,
+        {
+          localVue,
+          pinia: createTestingPinia(),
+        },
+      );
+      userEvent.click(getAllByTestId('collected-product-desktop-remove')[0]);
+      userEvent.click(getByTestId('cart-sidebar-remove-item-yes'));
+      await waitFor(() => {
+        const { uid: uidOfFirstProduct } = useCartMockInstance.cart.value.items[0];
+        expect(useCartMockInstance.removeItem).toHaveBeenCalledWith(
+          {
+            product: expect.objectContaining({ uid: uidOfFirstProduct }),
+          },
+        );
+      });
+    });
+
     it('renders promo code input', () => {
       const { getByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
       getByTestId('promo-code');

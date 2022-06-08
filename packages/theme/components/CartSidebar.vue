@@ -49,6 +49,7 @@
               <div class="button-wrap">
                 <SfButton
                   class="sf-button_remove_item"
+                  data-testid="cart-sidebar-remove-item-yes"
                   @click="actionRemoveItem(tempProduct)"
                 >
                   Yes
