@@ -215,7 +215,6 @@ export default () => {
       '~/plugins/i18n',
       '~/plugins/fcPlugin',
       '~/plugins/dompurify',
-      '~/plugins/graphqlClient',
       '~/plugins/storeConfigPlugin',
     ],
     serverMiddleware: [

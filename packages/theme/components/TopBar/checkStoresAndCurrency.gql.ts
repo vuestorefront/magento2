@@ -1,6 +1,4 @@
-import { gql } from 'graphql-request';
-
-export default gql`
+export default `
   query getStoresAndCurrencies {
       availableStores {
         store_code

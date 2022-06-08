@@ -10,7 +10,7 @@ export default async <MUTATION = any, MUTATION_VARIABLES = any>(
     mutationVariables,
     fetchPolicy,
   }: {
-    mutation: MUTATION,
+    mutation: string,
     mutationVariables: MUTATION_VARIABLES,
     fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
   },

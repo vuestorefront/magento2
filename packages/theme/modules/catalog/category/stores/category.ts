@@ -12,8 +12,8 @@ export const useCategoryStore = defineStore('category', {
   }),
   actions: {
     async load() {
-      const response = await this.$nuxt.$graphql.query.request<{ categories: CategoryResult }>(categoryListGql);
-      this.rawCategories = response.categories ?? null;
+      const { data }: { data: { categories?: CategoryResult } } = await this.$nuxt.app.$vsf.$magento.api.customQuery({ query: categoryListGql });
+      this.rawCategories = data?.categories ?? null;
     },
   },
   getters: {

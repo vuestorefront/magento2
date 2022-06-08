@@ -16,10 +16,11 @@ export const useTopBar = () => {
 
   onMounted(() => {
     query<StoresAndCurrencyQueryResponse>(checkStoresAndCurrencyQuery)
-      // eslint-disable-next-line promise/always-return
-      .then((data) => {
-        hasStoresToSelect.value = data.availableStores.length > 1;
-        hasCurrencyToSelect.value = data.currency.available_currency_codes.length > 1;
+      .then((response) => {
+        // eslint-disable-next-line promise/always-return
+        hasStoresToSelect.value = response?.data?.availableStores.length > 1 ?? false;
+        // eslint-disable-next-line promise/always-return
+        hasCurrencyToSelect.value = response?.data?.currency.available_currency_codes.length > 1 ?? false;
       })
       .catch(() => {
         hasStoresToSelect.value = false;

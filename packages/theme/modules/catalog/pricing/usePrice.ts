@@ -15,9 +15,9 @@ export interface PriceItems {
 export const usePrice = () => {
   const getPrices = async (variables: GetProductSearchParams): Promise<PriceItems> => {
     const { query } = useApi();
-    const { products } = await query(getPricesQuery, variables);
+    const { data } = await query<{ products: PriceItems }>(getPricesQuery, variables);
 
-    return products ?? { items: [] };
+    return data?.products ?? { items: [] };
   };
 
   const getPricesBySku = async (skus: string[], pageSize = 20, currentPage = 1): Promise<PriceItems> => getPrices(
