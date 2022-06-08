@@ -108,7 +108,7 @@
       <SfButton
         v-e2e="'login-modal-login-to-your-account'"
         class="sf-button--text"
-        @click="$emit('go-to-login')"
+        @click="changeForm('login')"
       >
         {{ $t('login in to your account') }}
       </SfButton>
@@ -128,7 +128,7 @@ import {
 } from '@storefront-ui/vue';
 import { required, email } from 'vee-validate/dist/rules';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';
-import { RegisterFormFields } from './types';
+import { RegisterFormFields, FormName } from './types';
 
 extend('email', {
   ...email,
@@ -168,10 +168,17 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const formCopy = ref<RegisterFormFields>();
     watch(() => props.form, (newForm) => { formCopy.value = { ...newForm }; }, { immediate: true, deep: true });
-    return { formCopy };
+    const changeForm = (formToNavigateTo: FormName) => {
+      emit('change-form', formToNavigateTo);
+    };
+
+    return {
+      formCopy,
+      changeForm,
+    };
   },
 });
 </script>

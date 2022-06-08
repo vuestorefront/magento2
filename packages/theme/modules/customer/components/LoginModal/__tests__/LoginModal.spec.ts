@@ -8,7 +8,9 @@ import { useUser } from '~/modules/customer/composables/useUser';
 import { useForgotPassword } from '~/modules/customer/composables/useForgotPassword';
 import { HTMLElementWithVue } from '~/types/vueTestingLibrary';
 import LoginModal from '../LoginModal.vue';
-import { ForgotPasswordFormFields, LoginFormFields, RegisterFormFields } from '../forms/types';
+import {
+  ForgotPasswordFormFields, FormName, LoginFormFields, RegisterFormFields,
+} from '../forms/types';
 
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
@@ -85,7 +87,7 @@ describe('LoginModal', () => {
     });
 
     await waitFor(() => {
-      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('go-to-register');
+      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('change-form', 'register' as FormName);
     });
     const registerForm = getByTestId('register-form') as HTMLElementWithVue;
     const form : RegisterFormFields = {
@@ -117,7 +119,7 @@ describe('LoginModal', () => {
     });
 
     await waitFor(() => {
-      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('go-to-register');
+      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('change-form', 'register' as FormName);
     });
     await waitFor(() => {
       getByText('error:register');
@@ -132,7 +134,7 @@ describe('LoginModal', () => {
     });
 
     await waitFor(() => {
-      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('go-to-forgot-password');
+      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('change-form', 'forgotPassword' as FormName);
     });
     const forgotPasswordForm = getByTestId('forgot-password-form') as HTMLElementWithVue;
     const form : ForgotPasswordFormFields = {
@@ -162,7 +164,7 @@ describe('LoginModal', () => {
     });
 
     await waitFor(() => {
-      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('go-to-forgot-password');
+      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('change-form', 'forgotPassword' as FormName);
     });
     await waitFor(() => {
       getByText('error:forgotpassword');

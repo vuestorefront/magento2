@@ -13,3 +13,5 @@ export type RegisterFormFields = {
 export type ForgotPasswordFormFields = {
   username: string,
 };
+
+export type FormName = 'login' | 'register' | 'forgotPassword' | 'forgotPasswordThankYou';
