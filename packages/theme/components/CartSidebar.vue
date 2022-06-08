@@ -243,6 +243,7 @@
             <a @click="goToCheckout">
               <SfButton
                 v-e2e="'go-to-checkout-btn'"
+                data-testid="category-sidebar-go-to-checkout"
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >
@@ -362,10 +363,8 @@ export default defineComponent({
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = initializeCheckout({
-        baseUrl: '/checkout/user-account',
-      });
-      await router.push(`${app.localePath(redirectUrl)}`);
+      const redirectUrl = initializeCheckout({ baseUrl: '/checkout/user-account' });
+      await router.push(app.localePath(redirectUrl));
     };
 
     const sendToRemove = ({ product }: { product: CartItemInterface }) => {

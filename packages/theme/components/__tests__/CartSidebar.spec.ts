@@ -14,7 +14,7 @@ import CartSidebar from '~/components/CartSidebar.vue';
 
 jest.mock('~/composables', () => ({
   ...(jest.requireActual('~/composables') as object),
-  useExternalCheckout: jest.fn(() => ({ initializeCheckout: {} })),
+  useExternalCheckout: jest.fn(() => ({ initializeCheckout: jest.fn(() => '/checkout-url') })),
   useUiState: jest.fn(),
 }));
 
@@ -79,9 +79,27 @@ describe('CartSidebar', () => {
       });
     });
 
-    it('renders "go to checkout" button', () => {
-      const { getByText } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-      getByText('Go to checkout');
+    it('handles navigating to checkout', async () => {
+      const mockedRouterPush = jest.fn();
+      const { getByTestId } = render(
+        CartSidebar,
+        {
+          localVue,
+          pinia: createTestingPinia(),
+          mocks: {
+            $router: {
+              push: mockedRouterPush,
+            },
+          },
+        },
+      );
+
+      const goToCheckoutButton = getByTestId('category-sidebar-go-to-checkout');
+      userEvent.click(goToCheckoutButton);
+
+      await waitFor(() => {
+        expect(mockedRouterPush).toHaveBeenCalledWith('/checkout-url');
+      });
     });
 
     it('renders promo code input', () => {
