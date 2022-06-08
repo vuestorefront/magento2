@@ -4,6 +4,7 @@ import { placeOrderCommand } from '~/modules/checkout/composables/useMakeOrder/c
 import useCart from '~/modules/checkout/composables/useCart';
 import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
 import type { UseMakeOrderErrors, UseMakeOrderInterface } from './useMakeOrder';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * Allows making an order from a cart.
@@ -16,12 +17,12 @@ export function useMakeOrder(): UseMakeOrderInterface {
   const { cart } = useCart();
   const context = useContext();
 
-  const make = async (): Promise<PlaceOrderOutput | null> => {
+  const make = async (params?: ComposableFunctionArgs<{}>): Promise<PlaceOrderOutput | null> => {
     Logger.debug('useMakeOrder.make');
     let placedOrder = null;
     try {
       loading.value = true;
-      placedOrder = await placeOrderCommand.execute(context, cart.value.id);
+      placedOrder = await placeOrderCommand.execute(context, cart.value.id, params?.customQuery ?? null);
       error.value.make = null;
     } catch (err) {
       error.value.make = err;

@@ -76,7 +76,7 @@ export interface UseReviewInterface {
    * Internally, it calls the {@link @vue-storefront/magento-api#productReviewRatingsMetadata} API endpoint
    * and accepts the custom queries named `productReviewRatingsMetadata`.
    */
-  loadReviewMetadata(): Promise<ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'] | []>;
+  loadReviewMetadata(params?: ComposableFunctionArgs<{}>): Promise<ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'] | []>;
 
   /**
    * Submits a new product review

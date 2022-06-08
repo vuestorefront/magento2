@@ -11,6 +11,7 @@ import type {
   UseReviewSearchParams,
   UseReviewAddReviewParams,
 } from './useReview';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * Allows loading and adding product reviews.
@@ -59,13 +60,13 @@ export function useReview(): UseReviewInterface {
     }
   };
 
-  const loadReviewMetadata = async () => {
+  const loadReviewMetadata = async (params?: ComposableFunctionArgs<{}>) => {
     Logger.debug('useReview/loadReviewMetadata');
 
     try {
       loading.value = true;
       error.value.loadReviewMetadata = null;
-      return await loadReviewMetadataCommand.execute(context);
+      return await loadReviewMetadataCommand.execute(context, params);
     } catch (err) {
       error.value.loadReviewMetadata = err;
       Logger.error('useReview/loadReviewMetadata', err);

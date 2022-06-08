@@ -5,7 +5,7 @@ export const loadBlocksCommand = {
   execute: async (context: VsfContext, params) => {
     Logger.debug('[Magento]: Load CMS Blocks content', { params });
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const { data } = await context.$magento.api.cmsBlocks(params.identifiers);
+    const { data } = await context.$magento.api.cmsBlocks(params.identifiers, params.customQuery ?? null);
 
     Logger.debug('[Result]:', { data });
 
