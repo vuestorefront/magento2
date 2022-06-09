@@ -36,8 +36,8 @@ jobs:
 
           VSF_STORE_URL: ''
 
-          VSF_MAGENTO_BASE_URL: https://magento2demo.frodigo.com/
-          VSF_MAGENTO_GRAPHQL_URL: https://magento2demo.frodigo.com/graphql
+          VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
+          VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql
           VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED: false
           VSF_MAGENTO_EXTERNAL_CHECKOUT_URL: ''
           VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH: ''
