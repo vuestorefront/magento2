@@ -9,7 +9,7 @@ export function createProductAttributeFilterInput(params: ComposableFunctionArgs
   const inputFilters = params?.filters ?? {};
 
   const categoryFilter = {
-    category_id: { in: [params.categoryId, ...inputFilters.category_id ?? []] },
+    category_uid: { in: [params.category_uid, ...inputFilters.category_uid ?? []] },
   };
 
   Object.keys(inputFilters).forEach((key: string) => {

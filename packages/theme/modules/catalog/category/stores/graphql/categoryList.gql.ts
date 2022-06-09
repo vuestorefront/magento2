@@ -1,4 +1,6 @@
-const fragmentCategory = `
+import gql from 'graphql-tag';
+
+const fragmentCategory = gql`
   fragment CategoryFields on CategoryTree {
     is_anchor
     name
@@ -11,7 +13,7 @@ const fragmentCategory = `
   }
 `;
 
-export default `
+export default gql`
   query categoryList {
     categories {
       items {

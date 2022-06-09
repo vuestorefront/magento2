@@ -46,6 +46,7 @@
     "cookie-universal-nuxt": "^2.1.5",
     "deepdash": "^5.3.9",
     "express": "4.17.3",
+    "graphql-tag": "^2.12.6",
     "is-https": "^4.0.0",
     "isomorphic-dompurify": "^0.18.0",
     "lodash.debounce": "^4.0.8",

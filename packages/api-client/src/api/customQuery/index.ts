@@ -1,5 +1,5 @@
-import gql from 'graphql-tag';
 import { ApolloQueryResult, FetchPolicy } from '@apollo/client/core';
+import { DocumentNode } from 'graphql';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
@@ -10,12 +10,12 @@ export default async <QUERY = any, QUERY_VARIABLES = any>(
     queryVariables,
     fetchPolicy,
   }: {
-    query: string,
+    query: DocumentNode,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
   },
 ): Promise<ApolloQueryResult<QUERY>> => context.client.query<QUERY, QUERY_VARIABLES>({
-  query: gql`${query}`,
+  query,
   variables: { ...queryVariables },
   fetchPolicy: fetchPolicy || 'no-cache',
   context: {
