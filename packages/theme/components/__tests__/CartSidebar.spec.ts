@@ -102,6 +102,28 @@ describe('CartSidebar', () => {
       });
     });
 
+    it('shows configurable options', async () => {
+      const useCartMockInstance = useCartMock();
+      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+
+      const { getAllByTestId } = render(
+        CartSidebar,
+        {
+          localVue,
+          pinia: createTestingPinia(),
+        },
+      );
+
+      const [{ configurable_options: attributes }] = useCartMockInstance.cart.value.items;
+
+      await waitFor(() => {
+        const attributeContainer = getAllByTestId('cart-sidebar-attribute-container')[0];
+        attributes.forEach(
+          ({ option_label }) => expect(attributeContainer.textContent).toContain(option_label),
+        );
+      });
+    });
+
     it('increases product quantity', async () => {
       const useCartMockInstance = useCartMock();
       (useCart as jest.Mock).mockReturnValue(useCartMockInstance);

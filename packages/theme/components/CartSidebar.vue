@@ -150,7 +150,10 @@
                     </SfBadge>
                   </template>
                   <template #configuration>
-                    <div v-if="getAttributes(product).length > 0">
+                    <div
+                      v-if="getAttributes(product).length > 0"
+                      data-testid="cart-sidebar-attribute-container"
+                    >
                       <SfProperty
                         v-for="(attr, index) in getAttributes(product)"
                         :key="index"
