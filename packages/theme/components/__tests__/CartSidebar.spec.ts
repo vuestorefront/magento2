@@ -106,7 +106,7 @@ describe('CartSidebar', () => {
       const useCartMockInstance = useCartMock();
       (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
 
-      const { getByTestId } = render(
+      const { getAllByTestId } = render(
         CartSidebar,
         {
           localVue,
@@ -114,13 +114,17 @@ describe('CartSidebar', () => {
         },
       );
 
-      const quantitySelector = getByTestId('cart-sidebar-quantity-selector');
-      const increaseQuantityButton = within(quantitySelector).getByTestId('increase');
+      const secondProductElement = getAllByTestId('cart-sidebar-collected-product')[1];
+      const increaseQuantityButton = within(secondProductElement).getByTestId('increase');
       userEvent.click(increaseQuantityButton);
 
       await waitFor(() => {
-        expect(useCartMockInstance.updateItemQty).toHaveBeenCalledWith({ product: '', quantity: 2 });
-      });
+        const { uid: uidOfSecondProduct } = useCartMockInstance.cart.value.items[1];
+        expect(useCartMockInstance.updateItemQty).toHaveBeenCalledWith({
+          product: expect.objectContaining({ uid: uidOfSecondProduct }),
+          quantity: 2,
+        });
+      }, { timeout: 4500 });
     });
 
     it('removes products from cart', async () => {

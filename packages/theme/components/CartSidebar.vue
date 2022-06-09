@@ -137,7 +137,6 @@
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
-                        data-testid="cart-sidebar-quantity-selector"
                         @input="delayedUpdateItemQty({ product, quantity: $event })"
                       />
                     </div>
