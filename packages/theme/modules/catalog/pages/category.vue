@@ -17,7 +17,7 @@
           v-if="isShowProducts"
           class="mobile-only"
           :is-visible="isFilterSidebarOpen"
-          :cat-uid="routeData.entity_uid"
+          :cat-uid="routeData.uid"
           @close="toggleFilterSidebar"
           @reloadProducts="onReloadProducts"
         />

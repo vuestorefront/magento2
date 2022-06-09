@@ -43,8 +43,8 @@ export function useFacet(): UseFacetInterface {
         currentPage: params.page,
       };
 
-      const { products } = await query<{ products: Products }>(getFacetDataQuery, productSearchParams);
-
+      const { data } = await query<{ products: Products }>(getFacetDataQuery, productSearchParams);
+      const products = data?.products ?? null;
       Logger.debug('[Result]:', { products });
 
       result.value.data = {

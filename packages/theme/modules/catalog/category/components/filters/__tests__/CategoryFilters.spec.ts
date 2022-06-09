@@ -18,7 +18,7 @@ jest.mock('@nuxtjs/composition-api', () => {
 jest.mock('~/composables');
 jest.mock('~/composables/useApi', () => ({
   useApi: jest.fn().mockReturnValue({
-    query: jest.fn(),
+    query: jest.fn(() => ({ data: {}, errors: [] })),
   }),
 }));
 

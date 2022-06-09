@@ -45,4 +45,3 @@ export * from './useMagentoConfiguration';
 
 export * from './types';
 export * from '../modules/GraphQL/types';
-export { default as InjectGraphQLClient } from '../plugins/graphqlClient';

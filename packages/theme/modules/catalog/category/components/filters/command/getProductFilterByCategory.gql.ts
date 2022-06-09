@@ -1,6 +1,4 @@
-import { gql } from 'graphql-request';
-
-export default gql`
+export default `
   query getProductFiltersByCategory($categoryIdFilter: FilterEqualTypeInput!) {
     products(filter: { category_uid: $categoryIdFilter }) {
       aggregations {

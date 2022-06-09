@@ -10,7 +10,7 @@ export default async <QUERY = any, QUERY_VARIABLES = any>(
     queryVariables,
     fetchPolicy,
   }: {
-    query: QUERY,
+    query: string,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
   },

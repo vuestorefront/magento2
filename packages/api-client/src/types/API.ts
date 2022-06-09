@@ -278,14 +278,14 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery,
   ): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
-  customQuery<QUERY = any, QUERY_VARIABLES = any>(params: {
-    query: QUERY,
+  customQuery<QUERY, QUERY_VARIABLES = any>(params: {
+    query: string,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
   }): Promise<ApolloQueryResult<QUERY>>;
 
-  customMutation<MUTATION = any, MUTATION_VARIABLES = any>(params: {
-    mutation: MUTATION,
+  customMutation<MUTATION, MUTATION_VARIABLES = any>(params: {
+    mutation: string,
     mutationVariables: MUTATION_VARIABLES,
     fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
   }): Promise<FetchResult<MUTATION>>;
