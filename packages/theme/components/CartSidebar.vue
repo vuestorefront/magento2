@@ -161,7 +161,10 @@
                         :value="attr.value_label"
                       />
                     </div>
-                    <div v-if="getBundles(product).length > 0">
+                    <div
+                      v-if="getBundles(product).length > 0"
+                      data-testid="cart-sidebar-bundle-container"
+                    >
                       <SfProperty
                         v-for="(bundle, i) in getBundles(product)"
                         :key="i"

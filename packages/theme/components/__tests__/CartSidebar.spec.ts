@@ -59,15 +59,15 @@ describe('CartSidebar', () => {
     });
   });
 
-  describe('If the cart has two products', () => {
+  describe('If the cart has three products', () => {
     beforeAll(() => {
       (useCart as jest.Mock).mockReturnValue(useCartMock());
       (useUiState as jest.Mock).mockReturnValue(useUiStateMock({ isCartSidebarOpen: true }));
     });
 
-    it('renders two product cards', () => {
-      const { queryAllByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
-      expect(queryAllByTestId('cart-sidebar-collected-product')).toHaveLength(2);
+    it('renders product cards', () => {
+      const { getAllByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
+      expect(getAllByTestId('cart-sidebar-collected-product')).toHaveLength(3);
     });
 
     it('displays proper item value', async () => {
@@ -120,6 +120,28 @@ describe('CartSidebar', () => {
         const attributeContainer = getAllByTestId('cart-sidebar-attribute-container')[0];
         attributes.forEach(
           ({ option_label }) => expect(attributeContainer.textContent).toContain(option_label),
+        );
+      });
+    });
+
+    it('shows products from bundle', async () => {
+      const useCartMockInstance = useCartMock();
+      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+
+      const { getByTestId } = render(
+        CartSidebar,
+        {
+          localVue,
+          pinia: createTestingPinia(),
+        },
+      );
+
+      const { bundle_options: bundleOptions } = useCartMockInstance.cart.value.items[2];
+
+      await waitFor(() => {
+        const bundleContainer = getByTestId('cart-sidebar-bundle-container');
+        bundleOptions.forEach(
+          ({ label }) => expect(bundleContainer.textContent).toContain(label),
         );
       });
     });
