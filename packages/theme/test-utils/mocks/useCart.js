@@ -37,17 +37,17 @@ export const useCartMock = (cartData = {}) => ({
         __typename: 'CartPrices',
         subtotal_excluding_tax: {
           __typename: 'Money',
-          value: 37,
+          value: 107,
         },
         subtotal_including_tax: {
           __typename: 'Money',
-          value: 37,
+          value: 107,
         },
         applied_taxes: [],
         discounts: null,
         grand_total: {
           __typename: 'Money',
-          value: 37,
+          value: 107,
         },
       },
       items: [
@@ -351,7 +351,19 @@ export const useCartMock = (cartData = {}) => ({
             original_sku: '24-WG080',
           },
           prices: {
-            row_total: { value: 70, __typename: 'Money' }, row_total_including_tax: { value: 70, __typename: 'Money' }, total_item_discount: { value: 0, __typename: 'Money' }, __typename: 'CartItemPrices',
+            __typename: 'CartItemPrices',
+            row_total: {
+              value: 70,
+              __typename: 'Money',
+            },
+            row_total_including_tax: {
+              value: 70,
+              __typename: 'Money',
+            },
+            total_item_discount: {
+              value: 0,
+              __typename: 'Money',
+            },
           },
           quantity: 1,
           bundle_options: [{

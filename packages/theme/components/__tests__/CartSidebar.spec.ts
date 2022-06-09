@@ -71,11 +71,13 @@ describe('CartSidebar', () => {
     });
 
     it('displays proper item value', async () => {
+      const useCartMockInstance = useCartMock();
       const { getByTestId } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
       const totalValue = getByTestId('cart-sidebar-total');
+      const expectedTotal = String(useCartMockInstance.cart.value.prices.grand_total.value);
 
       await waitFor(() => {
-        expect(totalValue.textContent).toContain('37');
+        expect(totalValue.textContent).toContain(expectedTotal);
       });
     });
 
