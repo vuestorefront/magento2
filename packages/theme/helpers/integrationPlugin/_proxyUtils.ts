@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'node:http';
 import { Context as NuxtContext } from '@nuxt/types';
-import merge from 'lodash.merge';
+import { merge } from 'lodash-es';
 
 export type ApiClientMethod = (...args: any) => Promise<any>;
 
