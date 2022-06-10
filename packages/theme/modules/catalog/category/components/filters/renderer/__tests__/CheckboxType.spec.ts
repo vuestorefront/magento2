@@ -41,9 +41,7 @@ describe('CheckboxType.vue', () => {
         filter: categoryFiltersDataWithOneOption as Aggregation,
       },
     });
-    const labelText = `${categoryFiltersDataWithOneOption.options[0].label}${categoryFiltersDataWithOneOption.options[0].count
-      ? ` (${categoryFiltersDataWithOneOption.options[0].count})`
-      : ''}`;
+    const labelText = `${categoryFiltersDataWithOneOption.options[0].label}`;
     const filterLabel = getByLabelText(labelText);
 
     await userEvent.click(filterLabel);
