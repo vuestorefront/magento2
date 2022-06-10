@@ -389,6 +389,7 @@ export default defineComponent({
       return addresses.value.length > 0;
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 

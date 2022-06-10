@@ -1,4 +1,4 @@
-# Override queries
+# Override default queries
 
 To override one or multiple queries without creating a custom composable for each usage, you can override the defaults ones with the `customQueries` attribute in the `middleware.config.js`file.
 
@@ -72,8 +72,9 @@ module.exports = {
   },
 };
 
+### Important notes
 
-```
+**Only** attributes presented on `ProductInterface` are accessible via GraphQL without any additional modification on the Magento side.
 
 **Important**
 

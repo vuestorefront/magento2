@@ -1,3 +1,5 @@
+const GTM_TAG = 'GTM-WMDC3CP';
+
 module.exports = {
   title: 'Vue Storefront 2 for Magento',
   base: '/',
