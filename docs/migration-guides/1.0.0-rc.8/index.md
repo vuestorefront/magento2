@@ -2,7 +2,7 @@
 
 Vue Storefront for Magento 1.0.0.rc.8  contains backward-incompatible changes. To review these backward-incompatible changes, see
 
-[1.0.0-rc.7 **Backward incompatible changes reference**](./rc.8-bic.md)
+[1.0.0-rc.8 **Backward incompatible changes reference**](./rc.8-bic.md)
 
 ## Vue Storefront for Magento 1.0.0-rc.8 highlights
 
