@@ -75,6 +75,7 @@
               </SfButton>
             </div>
             <SvgImage
+              v-if="!isDefault(address)"
               icon="cross"
               :label="$t('Remove Address')"
               role="button"
