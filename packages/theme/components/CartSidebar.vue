@@ -293,7 +293,7 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import { debounce } from 'lodash-es';
+import _debounce from 'lodash.debounce';
 import { cartGetters } from '~/getters';
 import {
   useUiState,
@@ -396,7 +396,7 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-    const delayedUpdateItemQty = debounce(
+    const delayedUpdateItemQty = _debounce(
       (params) => updateItemQty(params),
       1000,
     );

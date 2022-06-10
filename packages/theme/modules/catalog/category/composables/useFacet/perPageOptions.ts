@@ -1,1 +1,1 @@
-export const PerPageOptions = [10, 20, 50];
+export const perPageOptions = [10, 20, 50];
