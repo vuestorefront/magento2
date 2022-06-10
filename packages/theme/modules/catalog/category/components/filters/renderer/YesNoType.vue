@@ -35,7 +35,7 @@ export default defineComponent({
     const { app: { i18n } } = useContext();
     const { isFilterSelected } = inject('UseFiltersProvider');
     const selected = computed(() => ((id: string, optVal: string) => isFilterSelected(id, optVal)));
-    const label = (option: AggregationOption) => `${(option.value === '1' ? i18n.t('Yes') : i18n.t('No'))} ${`(${option.count})`}`;
+    const label = (option: AggregationOption) => `${(option.value === '1' ? i18n.t('Yes') : i18n.t('No'))}`;
     return { selected, label };
   },
 });

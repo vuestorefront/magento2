@@ -9,9 +9,7 @@
       v-for="option in filter.options"
       :key="`${filter.attribute_code}-${option.value}`"
       class="radio-filter"
-      :label="`${option.label}${
-        option.count ? ` (${option.count})` : ''
-      }`"
+      :label="`${option.label}`"
       :selected="selected(filter.attribute_code, option.value)"
       :value="option.value"
       name="filter__price"

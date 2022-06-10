@@ -8,7 +8,7 @@
     <SfCheckbox
       v-for="option in filter.options"
       :key="`${filter.attribute_code}-${option.value}`"
-      :label="option.label + `${option.count ? ` (${option.count})` : ''}`"
+      :label="option.label"
       :selected="Boolean(selected(filter.attribute_code, option.value))"
       class="filters__item"
       data-testid="category-filter"

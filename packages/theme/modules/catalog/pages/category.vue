@@ -193,11 +193,11 @@ export default defineComponent({
       const resolvedUrl = await resolveUrl();
       if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
-      const categoryId = routeData.value?.id;
+      const categoryUid = routeData.value?.uid;
 
       const [content] = await Promise.all([
         getContentData(routeData.value?.uid),
-        search({ ...uiHelpers.getFacetsFromURL(), categoryId }),
+        search({ ...uiHelpers.getFacetsFromURL(), category_uid: categoryUid }),
       ]);
 
       cmsContent.value = content?.cmsBlock?.content ?? '';

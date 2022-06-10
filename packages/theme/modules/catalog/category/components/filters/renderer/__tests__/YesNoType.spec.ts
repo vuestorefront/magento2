@@ -54,9 +54,7 @@ describe('YesNoType.vue', () => {
         filter: categoryFiltersDataWithOneOption as Aggregation,
       },
     });
-    const labelText = `No ${categoryFiltersDataWithOneOption.options[0].count
-      ? `(${categoryFiltersDataWithOneOption.options[0].count})`
-      : ''}`;
+    const labelText = 'No';
     const filterLabel = getByLabelText(labelText);
 
     await userEvent.click(filterLabel);
