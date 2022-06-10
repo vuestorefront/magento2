@@ -1,4 +1,4 @@
-import _unescape from 'lodash.unescape';
+import { unescape } from 'lodash-es';
 import DOMPurify from 'isomorphic-dompurify';
 import type { Plugin } from '@nuxt/types';
 
@@ -9,7 +9,7 @@ declare module 'vue/types/vue' {
 }
 
 const plugin : Plugin = (_, inject) => {
-  inject('dompurify', (html: string): string => _unescape(DOMPurify.sanitize(html)));
+  inject('dompurify', (html: string): string => unescape(DOMPurify.sanitize(html)));
 };
 
 export default plugin;
