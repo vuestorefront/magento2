@@ -10,6 +10,7 @@
     <div class="coupon-code">
       <SfInput
         v-model="couponCodeUserInput"
+        data-testid="promo-code"
         name="couponCode"
         :disabled="isCouponCodeApplied"
         :label="$t('Enter promo code')"

@@ -7,6 +7,8 @@ config.stubs = {
 };
 config.mocks = {
   $t: (text) => text,
+  $fc: (text) => text,
+  localePath: (text) => text,
 };
 
 const $vsf = {

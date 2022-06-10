@@ -49,6 +49,7 @@
               <div class="button-wrap">
                 <SfButton
                   class="sf-button_remove_item"
+                  data-testid="cart-sidebar-remove-item-yes"
                   @click="actionRemoveItem(tempProduct)"
                 >
                   Yes
@@ -68,6 +69,7 @@
         <SfProperty
           v-if="totalItems"
           class="sf-property--large cart-summary desktop-only"
+          data-testid="cart-summary"
           :name="$t('Total items')"
           :value="totalItems"
         />
@@ -90,6 +92,7 @@
                 <SfCollectedProduct
                   v-for="product in products"
                   :key="product.product.original_sku"
+                  data-testid="cart-sidebar-collected-product"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
                   :regular-price="
@@ -134,9 +137,7 @@
                         :disabled="loading"
                         :qty="cartGetters.getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
-                        @input="
-                          delayedUpdateItemQty({ product, quantity: $event })
-                        "
+                        @input="delayedUpdateItemQty({ product, quantity: $event })"
                       />
                     </div>
                     <SfBadge
@@ -149,7 +150,10 @@
                     </SfBadge>
                   </template>
                   <template #configuration>
-                    <div v-if="getAttributes(product).length > 0">
+                    <div
+                      v-if="getAttributes(product).length > 0"
+                      data-testid="cart-sidebar-attribute-container"
+                    >
                       <SfProperty
                         v-for="(attr, index) in getAttributes(product)"
                         :key="index"
@@ -157,7 +161,10 @@
                         :value="attr.value_label"
                       />
                     </div>
-                    <div v-if="getBundles(product).length > 0">
+                    <div
+                      v-if="getBundles(product).length > 0"
+                      data-testid="cart-sidebar-bundle-container"
+                    >
                       <SfProperty
                         v-for="(bundle, i) in getBundles(product)"
                         :key="i"
@@ -232,6 +239,7 @@
             >
               <template #value>
                 <SfPrice
+                  data-testid="cart-sidebar-total"
                   :regular="$fc(totals.total)"
                 />
               </template>
@@ -240,6 +248,7 @@
             <a @click="goToCheckout">
               <SfButton
                 v-e2e="'go-to-checkout-btn'"
+                data-testid="category-sidebar-go-to-checkout"
                 class="sf-button--full-width color-secondary"
                 @click="toggleCartSidebar"
               >
@@ -250,6 +259,7 @@
           <div v-else>
             <SfButton
               class="sf-button--full-width color-primary"
+              data-testid="cart-sidebar-back"
               @click="toggleCartSidebar"
             >
               {{ $t('Go back shopping') }}
@@ -291,7 +301,7 @@ import {
   useExternalCheckout,
   useImage,
 } from '~/composables';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -358,10 +368,8 @@ export default defineComponent({
     });
 
     const goToCheckout = async () => {
-      const redirectUrl = initializeCheckout({
-        baseUrl: '/checkout/user-account',
-      });
-      await router.push(`${app.localePath(redirectUrl)}`);
+      const redirectUrl = initializeCheckout({ baseUrl: '/checkout/user-account' });
+      await router.push(app.localePath(redirectUrl));
     };
 
     const sendToRemove = ({ product }: { product: CartItemInterface }) => {
