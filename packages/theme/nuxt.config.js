@@ -207,6 +207,7 @@ export default () => {
       ],
       transpile: [
         'vee-validate',
+        'lodash-es',
         /^@storefront-ui/,
       ],
     },
