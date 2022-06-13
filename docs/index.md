@@ -9,13 +9,13 @@ Welcome to the documentation of Vue Storefront 2 integration for Magento 2.
 
 It's part of our ecosystem of integrations and extensions, which you can learn more about in our [core documentation](https://docs.vuestorefront.io/v2/).
 
-## Demo
-
-If you want to see the integration in action, check out our [demo environments](/guide/environments.html).
-
 ## Where to start?
 
 To get started, see the following guides:
 
-- [Configuring Magento](/getting-started/configure-magento.html) to install the Magento server and configure it for Vue Storefront.
-- [Configuring Vue Storefront](/getting-started/configure-integration.html) to install Vue Storefront and configure it.
+- [Introduction](/getting-started/introduction.html) to learn what is Vue Storefront,
+- [Installation](/installation-setup/installation.html) to install and setup new Vue Storefront project.
+
+## Demo
+
+If you want to see the integration in action, check out our [demo environments](/guide/environments.html).

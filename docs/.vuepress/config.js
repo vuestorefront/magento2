@@ -63,6 +63,18 @@ module.exports = {
     '@vuepress/active-header-links',
     '@vuepress/search',
   ],
+  
+  /**
+   * Ref: https://v1.vuepress.vuejs.org/config/#markdown
+   */
+   markdown: {
+    extendMarkdown: md => {
+      md.use(require('markdown-it-video'), {
+        youtube: { width: 740, height: 416.25 }, // 16:9 ratio, where 740px is the width of the page content
+      });
+    }
+  },
+
   themeConfig: {
     GTM_TAG,
     sidebarDepth: 0,
@@ -91,13 +103,25 @@ module.exports = {
         ],
       },
       {
+        title: 'Installation & Setup',
+        collapsable: false,
+        children: [
+          ['/installation-setup/installation', 'Installation'],
+          ['/installation-setup/configure-magento', 'Configuring Magento'],
+          ['/installation-setup/configure-integration', 'Configuring Vue Storefront'],
+        ],
+      },
+      {
         title: 'Getting started',
         collapsable: false,
         children: [
-          ['/getting-started/installation', 'Installation'],
-          ['/getting-started/configure-magento', 'Configuring Magento'],
-          ['/getting-started/configure-integration', 'Configuring Vue Storefront'],
-        ],
+          ['/getting-started/introduction', 'Introduction'],
+          ['/getting-started/project-structure', 'Project structure'],
+          ['/getting-started/configuration', 'Configuration'],
+          ['/getting-started/layouts-and-routing', 'Layouts and Routing'],
+          ['/getting-started/theme', 'Theme'],
+          ['/getting-started/internationalization', 'Internationalization']
+        ]
       },
       {
         title: 'Composition',
