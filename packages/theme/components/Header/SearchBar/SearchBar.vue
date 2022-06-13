@@ -53,7 +53,7 @@ import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import {
   defineComponent, ref, watch, useRoute,
 } from '@nuxtjs/composition-api';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash-es';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';

@@ -40,7 +40,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
 
   transformIgnorePatterns: [
-    'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider)',
+    'node_modules/(?!(@storefront-ui)|vee-validate/dist/rules|nouislider|lodash-es)',
   ],
 
   testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
