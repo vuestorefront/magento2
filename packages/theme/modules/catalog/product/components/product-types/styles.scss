@@ -78,6 +78,10 @@
     }
   }
 
+  ::v-deep &__add-to-cart-error {
+    margin: var(--spacer-xs) 0;
+  }
+
   &__guide,
   &__compare,
   &__save {

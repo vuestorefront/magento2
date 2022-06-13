@@ -84,6 +84,12 @@
           class="product__add-to-cart"
           @click="addItem({ product, quantity: parseInt(qty) })"
         />
+        <SfAlert
+          :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
+          class="product__add-to-cart-error"
+          :message="addToCartError"
+          type="danger"
+        />
         <div class="product__additional-actions">
           <AddToWishlist
             :is-in-wishlist="isInWishlist"
@@ -112,6 +118,7 @@ import {
   SfLoader,
   SfPrice,
   SfRating,
+  SfAlert,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -154,6 +161,7 @@ export default defineComponent({
     SfLoader,
     SfPrice,
     SfRating,
+    SfAlert,
     AddToWishlist,
     SvgImage,
     ProductTabs,
@@ -172,7 +180,9 @@ export default defineComponent({
   setup(props) {
     const qty = ref(1);
     const product = toRef(props, 'product');
-    const { addItem, loading: isCartLoading, canAddToCart } = useCart();
+    const {
+      addItem, error: cartError, loading: isCartLoading, canAddToCart,
+    } = useCart();
     const { productGallery, imageSizes } = useProductGallery(product);
     const { isAuthenticated } = useUser();
     const { addOrRemoveItem, isInWishlist } = useWishlist();
@@ -186,6 +196,7 @@ export default defineComponent({
     const productSpecialPrice = computed(() => getProductPrice(props.product).special);
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
+    const addToCartError = computed(() => cartError.value?.addItem?.message);
 
     return {
       addItem,
@@ -207,6 +218,7 @@ export default defineComponent({
       openNewReviewTab,
       activeTab,
       TabsConfig,
+      addToCartError,
     };
   },
 });

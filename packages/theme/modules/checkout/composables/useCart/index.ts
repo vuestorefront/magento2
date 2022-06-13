@@ -137,6 +137,7 @@ PRODUCT
         product,
         quantity,
       });
+
       error.value.addItem = null;
       cartStore.$patch((state) => {
         state.cart = updatedCart;
