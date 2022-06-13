@@ -199,7 +199,7 @@ export default defineComponent({
     SfProperty,
     SfLink,
     SfImage,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
+    VsfPaymentProvider: () => import('~/modules/checkout/components/VsfPaymentProvider.vue'),
   },
   setup() {
     const order = ref(null);
