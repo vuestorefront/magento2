@@ -25,7 +25,7 @@ export const addressFromApiToForm = (address: CustomerAddress | CartAddressInter
   apartment: address.street?.[1],
   city: address.city,
   region: (address as CustomerAddress)?.region?.region_code ?? (address as CartAddressInterface).region.code,
-  country_code: (address as CustomerAddress)?.country_code ?? (address as CartAddressInterface).region.code,
+  country_code: (address as CustomerAddress)?.country_code ?? (address as CartAddressInterface).country.code,
   postcode: address.postcode,
   telephone: address.telephone,
 });

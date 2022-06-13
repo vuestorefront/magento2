@@ -3,7 +3,7 @@
     <SfHeading
       v-e2e="'shipping-heading'"
       :level="3"
-      :title="$t('Shipping')"
+      :title="$t('Shipping address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
 
@@ -311,8 +311,8 @@ export default defineComponent({
     SfSelect,
     ValidationProvider,
     ValidationObserver,
-    UserShippingAddresses: () => import('~/components/Checkout/UserShippingAddresses.vue'),
-    VsfShippingProvider: () => import('~/components/Checkout/VsfShippingProvider.vue'),
+    UserShippingAddresses: () => import('~/modules/checkout/components/UserShippingAddresses.vue'),
+    VsfShippingProvider: () => import('~/modules/checkout/components/VsfShippingProvider.vue'),
   },
   setup() {
     const router = useRouter();
@@ -339,7 +339,6 @@ export default defineComponent({
     const shippingDetails = ref<CheckoutAddressForm>(address.value ? addressFromApiToForm(address.value) : getInitialCheckoutAddressForm());
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
     const currentAddressId = ref(NOT_SELECTED_ADDRESS);
-
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
@@ -426,9 +425,17 @@ export default defineComponent({
       country.value = await searchCountry({ id });
     };
 
-    watch(address, (addr) => {
+    watch(address, async (addr) => {
       shippingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
+      country.value = await searchCountry({ id: shippingDetails.value.country_code });
     });
+
+    watch(country, (data) => {
+      if (!data?.available_regions) {
+        shippingDetails.value.region = '';
+      }
+    });
+
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
       if (!validStep) {
