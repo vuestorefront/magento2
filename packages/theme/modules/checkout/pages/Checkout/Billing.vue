@@ -334,7 +334,7 @@ export default defineComponent({
     SfCheckbox,
     ValidationProvider,
     ValidationObserver,
-    UserBillingAddresses: () => import('~/components/Checkout/UserBillingAddresses.vue'),
+    UserBillingAddresses: () => import('~/modules/checkout/components/UserBillingAddresses.vue'),
     UserAddressDetails,
   },
   setup() {
@@ -479,8 +479,15 @@ export default defineComponent({
       country.value = await searchCountry({ id });
     };
 
-    watch(billingAddress, (addr) => {
+    watch(billingAddress, async (addr) => {
       billingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
+      country.value = await searchCountry({ id: billingDetails.value.country_code });
+    });
+
+    watch(country, (data) => {
+      if (!data?.available_regions) {
+        billingDetails.value.region = '';
+      }
     });
 
     onMounted(async () => {

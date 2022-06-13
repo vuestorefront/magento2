@@ -56,7 +56,7 @@ import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
 import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
-import CouponCode from '../CouponCode.vue';
+import CouponCode from '../../../components/CouponCode.vue';
 
 const CHARACTERISTICS = [
   {
