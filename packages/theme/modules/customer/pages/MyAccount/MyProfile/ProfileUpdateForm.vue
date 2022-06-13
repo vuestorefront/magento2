@@ -7,7 +7,7 @@
       <div class="form__horizontal">
         <ValidationProvider
           v-slot="{ errors }"
-          rules="required|min:2"
+          rules="required"
           class="form__element"
         >
           <SfInput
@@ -21,7 +21,7 @@
         </ValidationProvider>
         <ValidationProvider
           v-slot="{ errors }"
-          rules="required|min:2"
+          rules="required"
           class="form__element"
         >
           <SfInput
