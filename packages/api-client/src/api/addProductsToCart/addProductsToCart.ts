@@ -185,6 +185,10 @@ export default gql`
           }
         }
       }
+      user_errors {
+        code
+        message
+      }
     }
   }
 `;
