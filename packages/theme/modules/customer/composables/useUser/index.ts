@@ -280,14 +280,17 @@ export function useUser(): UseUserInterface {
         customQuery: params.customQuery,
       });
 
+      let joinedErrors = null;
+
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
       }
 
       Logger.debug('[Result] ', { data });
 
       customerStore.user = data?.changeCustomerPassword;
-      error.value.changePassword = null;
+      error.value.changePassword = joinedErrors;
     } catch (err) {
       error.value.changePassword = err;
       Logger.error('useUser/changePassword', err);
