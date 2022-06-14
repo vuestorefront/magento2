@@ -10,7 +10,8 @@ import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/modules/customer/stores/customer';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
-import { Customer } from '~/modules/GraphQL/types';
+import { useUiNotification } from '~/composables/useUiNotification';
+import type { Customer } from '~/modules/GraphQL/types';
 import type {
   UseUserInterface,
   UseUserErrors,
@@ -31,6 +32,7 @@ export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
   const { app } = useContext();
   const { setCart } = useCart();
+  const { send: sendNotification } = useUiNotification();
   const loading: Ref<boolean> = ref(false);
   const errorsFactory = () : UseUserErrors => ({
     updateUser: null,
@@ -240,12 +242,16 @@ export function useUser(): UseUserInterface {
 
       Logger.debug('[Result]:', { data });
 
-      if (errors) {
+      if (errors || !data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
         Logger.error(errors.map((e) => e.message).join(','));
-      }
-
-      if (!data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
-        Logger.error('Customer registration error'); // todo: handle errors in better way
+        errors.map((registerError, i) => sendNotification({
+          icon: 'error',
+          id: Symbol(`registration_error-${i}`),
+          message: registerError.message,
+          persist: true,
+          title: 'Registration error',
+          type: 'danger',
+        }));
       }
 
       // if (recaptchaToken) { // todo: move recaptcha to separate module
