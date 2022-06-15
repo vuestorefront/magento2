@@ -571,6 +571,7 @@ export const defaultCategoryTreeData = [
     url_path: 'training',
     url_suffix: '.html',
     include_in_menu: 1,
+    children: [],
   },
 ];
 
