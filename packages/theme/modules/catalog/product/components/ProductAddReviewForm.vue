@@ -66,6 +66,7 @@
               :label="metadata.name"
               :name="metadata.name.toLowerCase()"
               class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
+              required
               :valid="!errors[0]"
               :error-message="$t(errors[0])"
             >
@@ -272,11 +273,16 @@ export default defineComponent({
     --select-option-font-size: var(--font-size--lg);
     flex-wrap: wrap;
 
-    ::v-deep .sf-select__dropdown {
-      font-size: var(--font-size--lg);
-      // margin: 0;
-      font-family: var(--font-family--secondary);
-      font-weight: var(--font-weight--normal);
+    ::v-deep .sf-select {
+      &__label {
+        --select-label-color: var(--c-text);
+      }
+      &__dropdown {
+        font-size: var(--font-size--lg);
+        // margin: 0;
+        font-family: var(--font-family--secondary);
+        font-weight: var(--font-weight--normal);
+      }
     }
   }
 
