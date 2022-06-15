@@ -28,7 +28,7 @@
         :key="category.uid"
         :label="category.name"
         class="mobile-menu-sidebar__item"
-        @click="category.children ? navigate(category) : onGoCategoryDown(category)"
+        @click="category.children && category.children.length > 0 ? onGoCategoryDown(category) : navigate(category)"
       />
     </SfList>
   </SfSidebar>
@@ -66,7 +66,7 @@ export default defineComponent({
     };
 
     // A category with no child categories can't be entered into - it can only navigated to
-    const initialHistoryWithSnippedSubcategoryLessTail = initialHistory.value.at(-1)?.children.length
+    const initialHistoryWithSnippedSubcategoryLessTail = initialHistory.value.at(-1)?.children?.length
       ? initialHistory.value
       : initialHistory.value.slice(0, -1);
 
