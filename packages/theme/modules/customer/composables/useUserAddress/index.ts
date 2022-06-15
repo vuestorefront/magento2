@@ -15,6 +15,7 @@ import type {
   UseUserAddressUpdateAddressParams,
   UseUserAddressSetDefaultAddressParams,
 } from './useUserAddress';
+import { CustomQuery } from '~/types/core';
 
 /**
  * Allows loading and manipulating addresses of the current user.
@@ -42,9 +43,8 @@ export function useUserAddress(): UseUserAddressInterface {
       const customerAddressInput = transformUserCreateAddressInput({
         address,
         shipping: shipping.value,
-        customQuery,
       });
-      result = await createCustomerAddressCommand.execute(context, customerAddressInput);
+      result = await createCustomerAddressCommand.execute(context, customerAddressInput, customQuery);
       error.value.addAddress = null;
     } catch (err) {
       error.value.addAddress = err;
@@ -58,13 +58,13 @@ export function useUserAddress(): UseUserAddressInterface {
     return result;
   };
 
-  const deleteAddress = async (address: CustomerAddress) => {
+  const deleteAddress = async (address: CustomerAddress, customQuery: CustomQuery) => {
     Logger.debug('useUserAddress.deleteAddress', address);
     let result = {};
 
     try {
       loading.value = true;
-      result = await deleteCustomerAddressCommand.execute(context, address);
+      result = await deleteCustomerAddressCommand.execute(context, address, customQuery);
       error.value.deleteAddress = null;
     } catch (err) {
       error.value.deleteAddress = err;
@@ -87,9 +87,8 @@ export function useUserAddress(): UseUserAddressInterface {
       const customerAddressInput = transformUserUpdateAddressInput({
         address,
         shipping: shipping.value,
-        customQuery,
       });
-      result = await updateCustomerAddressCommand.execute(context, customerAddressInput);
+      result = await updateCustomerAddressCommand.execute(context, customerAddressInput, customQuery);
       error.value.updateAddress = null;
     } catch (err) {
       error.value.updateAddress = err;
@@ -133,7 +132,7 @@ export function useUserAddress(): UseUserAddressInterface {
         customQuery,
       });
 
-      result = await updateCustomerAddressCommand.execute(context, updateAddressInput);
+      result = await updateCustomerAddressCommand.execute(context, updateAddressInput, customQuery);
       error.value.setDefaultAddress = null;
     } catch (err) {
       error.value.setDefaultAddress = err;

@@ -4,6 +4,7 @@ import { Logger } from '~/helpers/logger';
 import { transformUserCreateAddressInput, transformUserUpdateAddressInput } from '~/modules/customer/helpers/userAddressManipulator';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { UseAddressesInterface, UseAddressesParamsInput, UseAddressesErrors } from './useAddresses';
+import { CustomQuery } from '~/types/core';
 
 /**
  * @public
@@ -24,13 +25,13 @@ export function useAddresses(): UseAddressesInterface {
   const { app } = useContext();
   const context = app.$vsf;
 
-  const load = async () => {
+  const load = async (customQuery?: CustomQuery) => {
     Logger.debug('[Magento] load user addresses');
     let results = null;
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.getCustomerAddresses();
+      const { data } = await context.$magento.api.getCustomerAddresses(customQuery);
       results = data?.customer?.addresses ?? [];
       Logger.debug('[Magento] load user addresses results:', results);
       error.value.load = null;
@@ -50,7 +51,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params));
+      const { data } = await context.$magento.api.createCustomerAddress(transformUserCreateAddressInput(params), params?.customQuery ?? null);
       results = data?.createCustomerAddress ?? {};
       Logger.debug('[Magento] save user address results:', params.address);
       error.value.save = null;
@@ -70,7 +71,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params));
+      const { data } = await context.$magento.api.updateCustomerAddress(transformUserUpdateAddressInput(params), params?.customQuery ?? null);
       results = data?.updateCustomerAddress ?? {};
       Logger.debug('[Magento] update user address results:', results);
       error.value.update = null;
@@ -90,7 +91,7 @@ export function useAddresses(): UseAddressesInterface {
 
     try {
       loading.value = true;
-      const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id);
+      const { data } = await context.$magento.api.deleteCustomerAddress(params.address.id, params?.customQuery ?? null);
       results = !!data.deleteCustomerAddress;
       Logger.debug('[Magento] remove user address results:', results);
       error.value.remove = null;

@@ -1,5 +1,6 @@
 import type { Ref } from '@nuxtjs/composition-api';
 import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * The {@link useMakeOrder} error object. The properties values' are the errors
@@ -15,7 +16,7 @@ export interface UseMakeOrderErrors {
  */
 export interface UseMakeOrderInterface {
   /** Makes an order with current cart. */
-  make(): Promise<PlaceOrderOutput | null>;
+  make(params?: ComposableFunctionArgs<{}>): Promise<PlaceOrderOutput | null>;
 
   /**
    * Contains errors from any of the composable methods.

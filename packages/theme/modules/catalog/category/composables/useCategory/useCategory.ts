@@ -37,9 +37,9 @@ export interface UseCategoryErrors {
 }
 
 /** The {@link useCategory} params object received by `load` function. */
-export interface UseCategoryParamsInput {
+export type UseCategoryParamsInput = ComposableFunctionArgs< {
   pageSize: number;
-}
+}>;
 
 /**
  * Data and methods returned from the {@link useCategory} composable

@@ -44,9 +44,9 @@ export type UseBillingLoadParams = ComposableFunctionArgs<{}>;
 /**
  * The params object accepted by the `save` method in the {@link useBilling|useBilling()} composable
  */
-export interface UseBillingSaveParams {
+export type UseBillingSaveParams = ComposableFunctionArgs<{
   billingDetails: BillingDetails;
-}
+}>;
 
 /**
  * Data and methods returned from the {@link useBilling|useBilling()} composable

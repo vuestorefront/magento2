@@ -15,6 +15,7 @@ import { useCartStore } from '~/modules/checkout/stores/cart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { UseCartErrors, UseCartInterface } from './useCart';
 import { Product } from '~/modules/catalog/product/types';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * Allows loading and manipulating cart of the current user.
@@ -104,12 +105,12 @@ PRODUCT
     }
   };
 
-  const loadTotalQty = async (): Promise<void> => {
+  const loadTotalQty = async (params?: ComposableFunctionArgs<{}>): Promise<void> => {
     Logger.debug('useCart.loadTotalQty');
 
     try {
       loading.value = true;
-      const totalQuantity = await loadTotalQtyCommand.execute(context);
+      const totalQuantity = await loadTotalQtyCommand.execute(context, params);
 
       cartStore.$patch((state) => {
         state.cart.total_quantity = totalQuantity;
@@ -122,7 +123,7 @@ PRODUCT
     }
   };
 
-  const addItem = async ({ product, quantity }): Promise<void> => {
+  const addItem = async ({ product, quantity, customQuery }): Promise<void> => {
     Logger.debug('useCart.addItem', { product, quantity });
 
     try {
@@ -136,6 +137,7 @@ PRODUCT
         currentCart: cart.value,
         product,
         quantity,
+        customQuery,
       });
 
       error.value.addItem = null;
@@ -156,7 +158,7 @@ PRODUCT
     }
   };
 
-  const removeItem = async ({ product }) => {
+  const removeItem = async ({ product, customQuery }) => {
     Logger.debug('useCart.removeItem', { product });
 
     try {
@@ -164,6 +166,7 @@ PRODUCT
       const updatedCart = await removeItemCommand.execute(context, {
         currentCart: cart.value,
         product,
+        customQuery,
       });
 
       error.value.removeItem = null;

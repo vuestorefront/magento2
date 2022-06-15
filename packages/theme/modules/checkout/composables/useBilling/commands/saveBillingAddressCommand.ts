@@ -2,7 +2,7 @@ import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe, SetBillingAddressOnCartInput } from '~/modules/GraphQL/types';
 
 export const saveBillingAddressCommand = {
-  execute: async (context, cartId, billingDetails): Promise<Maybe<BillingCartAddress>> => {
+  execute: async (context, cartId, billingDetails, customQuery): Promise<Maybe<BillingCartAddress>> => {
     const {
       apartment,
       neighborhood,
@@ -29,6 +29,7 @@ export const saveBillingAddressCommand = {
 
     const { data } = await context.$vsf.$magento.api.setBillingAddressOnCart(
       setBillingAddressOnCartInput,
+      customQuery,
     );
 
     Logger.debug('[Result]:', { data });

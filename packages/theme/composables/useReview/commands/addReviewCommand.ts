@@ -12,7 +12,7 @@ export const addReviewCommand = {
       ...input
     } = params;
 
-    const { data } = await context.$magento.api.createProductReview(input);
+    const { data } = await context.$magento.api.createProductReview(input, params?.customQuery ?? null);
 
     Logger.debug('[Result]:', { data });
 
