@@ -80,7 +80,7 @@ export function useUser(): UseUserInterface {
         });
       }
 
-      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData);
+      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData, customQuery);
       Logger.debug('[Result]:', { data });
 
       if (errors) {
@@ -106,7 +106,7 @@ export function useUser(): UseUserInterface {
     try {
       const apiState = app.context.$vsf.$magento.config.state;
 
-      await app.context.$vsf.$magento.api.revokeCustomerToken({ customQuery });
+      await app.context.$vsf.$magento.api.revokeCustomerToken(customQuery);
 
       apiState.removeCustomerToken();
       apiState.removeCartId();
@@ -283,8 +283,7 @@ export function useUser(): UseUserInterface {
         currentUser: customerStore.user,
         currentPassword: params.current,
         newPassword: params.new,
-        customQuery: params.customQuery,
-      });
+      }, params.customQuery);
 
       let joinedErrors = null;
 

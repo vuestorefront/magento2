@@ -12,7 +12,7 @@ export const searchReviewsCommand = {
       ...input
     } = params;
 
-    const { data } = await context.$magento.api.productReview(input as GetProductSearchParams);
+    const { data } = await context.$magento.api.productReview(input as GetProductSearchParams, params?.customQuery ?? null);
 
     Logger.debug('[Result]:', { data });
 

@@ -1,5 +1,6 @@
 import { ComputedRef, DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import { StoreConfig } from '~/modules/GraphQL/types';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * Errors that occured in the {@link useConfig|useConfig()} composable
@@ -10,6 +11,11 @@ export interface UseConfigErrors {
    */
   load: Error | null;
 }
+
+/**
+ * The params object accepted by the `load` method in the {@link useConfig|useConfig()} composable
+ */
+export type UseConfigLoadParams = ComposableFunctionArgs<{}>;
 
 /**
  * Data and methods returned from the {@link useConfig|useConfig()} composable

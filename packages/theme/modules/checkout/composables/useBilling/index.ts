@@ -50,13 +50,13 @@ export function useBilling(): UseBillingInterface {
     return billingInfo;
   };
 
-  const save = async ({ billingDetails }: UseBillingSaveParams): Promise<Maybe<BillingCartAddress>> => {
+  const save = async ({ billingDetails, customQuery = null }: UseBillingSaveParams): Promise<Maybe<BillingCartAddress>> => {
     Logger.debug('useBilling.save');
     let billingInfo = null;
 
     try {
       loading.value = true;
-      billingInfo = await saveBillingAddressCommand.execute(context, cart.value.id, billingDetails);
+      billingInfo = await saveBillingAddressCommand.execute(context, cart.value.id, billingDetails, customQuery);
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       /**

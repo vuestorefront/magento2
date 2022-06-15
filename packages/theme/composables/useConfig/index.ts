@@ -3,7 +3,7 @@ import {
 } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { useConfigStore } from '~/stores/config';
-import { UseConfigErrors, UseConfigInterface } from './useConfig';
+import type { UseConfigErrors, UseConfigInterface, UseConfigLoadParams } from './useConfig';
 
 /**
  * Allows interacting with the store configuration.
@@ -17,14 +17,14 @@ export function useConfig(): UseConfigInterface {
   const configStore = useConfigStore();
   const config = computed(() => configStore.storeConfig);
 
-  const load = async () => {
+  const load = async (params?: UseConfigLoadParams) => {
     error.value.load = null;
     loading.value = true;
 
     Logger.debug('useConfig/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.storeConfig();
+      const { data } = await app.$vsf.$magento.api.storeConfig(params?.customQuery ?? null);
       configStore.$patch((state) => {
         state.storeConfig = data.storeConfig || {};
       });
