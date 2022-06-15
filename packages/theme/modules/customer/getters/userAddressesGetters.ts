@@ -11,7 +11,7 @@ export interface UserAddressesGetters<GENERIC_USER_ADDRESS_ITEM, SPECIFIC_USER_A
   getFirstName: (address: GENERIC_USER_ADDRESS_ITEM) => string;
   getLastName: (address: GENERIC_USER_ADDRESS_ITEM) => string;
   getCountry: (address: GENERIC_USER_ADDRESS_ITEM) => string;
-  getPhone: (address: SPECIFIC_USER_ADDRESS_ITEM) => string;
+  getPhone: (address: GENERIC_USER_ADDRESS_ITEM) => string;
   getEmail: (address: SPECIFIC_USER_ADDRESS_ITEM) => string;
   getApartmentNumber: (address: SPECIFIC_USER_ADDRESS_ITEM) => string | number;
   getProvince: (address: GENERIC_USER_ADDRESS_ITEM) => string;
@@ -48,7 +48,7 @@ const userAddressesGetters: UserAddressesGetters<CustomerAddress, TransformedCus
   getFirstName: (address) => address?.firstname || '',
   getLastName: (address) => address?.lastname || '',
   getCountry: (address) => address?.country_code || '',
-  getPhone: (address) => address?.phone || '',
+  getPhone: (address) => address?.telephone || '',
   getEmail: (address) => address?.email || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : address?.apartment),
   getProvince: (address) => (address?.region?.region_code || address?.region?.region) || '',
