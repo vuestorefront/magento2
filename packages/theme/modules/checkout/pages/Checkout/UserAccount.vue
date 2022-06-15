@@ -332,7 +332,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
-  --button-width: 100%;
 
   &__select {
     display: flex;
@@ -356,7 +355,6 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    --button-width: auto;
   }
 
   &__element {
@@ -379,7 +377,9 @@ export default defineComponent({
   }
 
   &__action {
+    --button-width: 100%;
     @include for-desktop {
+      --button-width: auto;
       flex: 0 0 100%;
       display: flex;
     }
