@@ -136,7 +136,9 @@ import {
   SfLoader,
   SfHeading,
 } from '@storefront-ui/vue';
-import { defineComponent, useAsync, useContext } from '@nuxtjs/composition-api';
+import {
+  defineComponent, useAsync, useContext, useRouter,
+} from '@nuxtjs/composition-api';
 import { useUserOrder } from '~/modules/customer/composables/useUserOrder';
 import orderGetters from '~/modules/checkout/getters/orderGetters';
 import { useCountrySearch } from '~/composables';
@@ -157,11 +159,18 @@ export default defineComponent({
   props: { orderId: { type: String, required: true } },
   setup(props) {
     const context = useContext();
+    const router = useRouter();
     const { search, loading } = useUserOrder();
     const { search: searchCountries } = useCountrySearch();
     const asyncData = useAsync(async () => {
       const orderResult = await search({ filter: { number: { eq: props.orderId } } });
       const order = orderResult.items[0] ?? null;
+
+      if (!order) {
+        router.push(context.localeRoute({ name: 'customer-order-history' }));
+
+        return null;
+      }
 
       const uniqueCountryCodePromises = [...new Set([order.shipping_address.country_code, order.billing_address.country_code])]
         .map((countryCode) => searchCountries({ id: countryCode }));
