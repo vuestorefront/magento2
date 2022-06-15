@@ -151,8 +151,6 @@ export default {
 };
 ```
 
-**Please note that only one currency can be set for each locale.**
-
 If this is a limitation for you, or if you don't want to have currencies tied to locales, you can disable this mechanism and provide your own.
 
 To disable it, set `autoChangeCookie.currency` to `false` as described in the section below.

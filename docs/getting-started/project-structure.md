@@ -1,6 +1,6 @@
 # Project structure
 
-If you followed our [Installation](/installation-setup/installation.html) guide, you should have a Vue Storefront project with some e-commerce platform already integrated. This project has a bunch of directories, Vue components, and files, but what does what?
+If you followed our [Installation](/installation-setup/installation.html) guide, you should have a Vue Storefront project with some Magento already integrated. This project has a bunch of directories, Vue components, and files, but what does what?
 
 In this section, you will learn how to navigate the Vue Storefront project and where to start developing.
 
