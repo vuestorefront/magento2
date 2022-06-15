@@ -96,6 +96,7 @@
       v-if="isSearchOpen"
       :visible="isSearchOpen"
       :search-results="productSearchResults"
+      @close="isSearchOpen = false"
     />
     <SfOverlay :visible="isSearchOpen" />
   </div>
