@@ -113,7 +113,7 @@ export default defineComponent({
     const handleHomeClick = async () => {
       const homePath = app.localeRoute({ name: 'home' });
       await router.push(homePath);
-      if (isMobileMenuOpen) {
+      if (isMobileMenuOpen.value) {
         toggleMobileMenu();
       }
     };
