@@ -1,5 +1,8 @@
+import { computed } from '@nuxtjs/composition-api';
+
 export const useUiStateMock = (extend = {}) => ({
-  isCartSidebarOpen: false,
+  isCartSidebarOpen: computed(() => false),
+  isMobileMenuOpen: computed(() => false),
   changeToCategoryGridView: jest.fn(),
   changeToCategoryListView: jest.fn(),
   toggleCartSidebar: jest.fn(),
