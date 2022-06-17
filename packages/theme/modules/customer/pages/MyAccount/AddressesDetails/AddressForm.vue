@@ -149,6 +149,8 @@
             :disabled="loading"
             @input="updateCountry({ id: $event })"
           >
+            <!-- don't use SfSelect :placeholder="" to avoid applying SfSelect is-selected class -->
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="countryOption in countriesList"
               :key="countryOption.id"
