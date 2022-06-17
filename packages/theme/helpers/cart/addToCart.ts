@@ -25,6 +25,7 @@ export const useAddToCart = () => {
         break;
       case 'BundleProduct':
       case 'ConfigurableProduct':
+      case 'GroupedProduct':
         const sku = productGetters.getProductSku(product);
         const slug = productGetters.getSlug(product).replace(/^\//, ''); // remove leading slash from getSlug
 
