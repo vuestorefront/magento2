@@ -82,7 +82,7 @@ export default defineComponent({
     @include for-desktop {
       margin-right: var(--spacer-sm);
       display: flex;
-      width: 100%;
+      width: calc(50% - var(--spacer-sm));
       flex-direction: column;
     }
   }
@@ -91,6 +91,8 @@ export default defineComponent({
     margin-bottom: var(--spacer-xl);
     @include for-desktop {
       display: flex;
+      flex-wrap: wrap;
+      margin-right: var(--spacer-sm)
     }
   }
 
