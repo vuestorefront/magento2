@@ -221,7 +221,7 @@ export default defineComponent({
     const isShowGoToWishlistButton = computed(() => wishlistStore.wishlist.items_count > wishlistStore.wishlist?.items_v2?.items.length);
 
     onMounted(async () => {
-      await loadWishlist();
+      await loadWishlist({ searchParams: { pageSize: 100 } });
     });
 
     router.afterEach(() => {
