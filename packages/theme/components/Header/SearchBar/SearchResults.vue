@@ -202,6 +202,7 @@ export default defineComponent({
       flex-direction: row;
       flex: 1;
     }
+    width: 100%;
   }
   &__results {
     flex: 1;
@@ -226,7 +227,7 @@ export default defineComponent({
   &--mobile {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     background: var(--c-white);
     padding: var(--spacer-base) var(--spacer-sm);
     --product-card-max-width: 9rem;
