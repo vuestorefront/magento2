@@ -37,10 +37,12 @@
         />
       </div>
       <div class="product__price-and-rating">
-        <SfPrice
-          :regular="$fc(productPrice)"
-          :special="productSpecialPrice && $fc(productSpecialPrice)"
-        />
+        <client-only>
+          <SfPrice
+            :regular="$fc(productPrice)"
+            :special="productSpecialPrice && $fc(productSpecialPrice)"
+          />
+        </client-only>
         <div>
           <div class="product__rating">
             <SfRating
@@ -77,11 +79,13 @@
           tag="p"
           class="product__description desktop-only"
         />
-        <grouped-product-selector
-          :can-add-to-cart="canAddToCart(product, qty)"
-          :product="product"
-          @update-price="basePrice = $event"
-        />
+        <client-only>
+          <grouped-product-selector
+            :can-add-to-cart="canAddToCart(product, qty)"
+            :product="product"
+            @update-price="basePrice = $event"
+          />
+        </client-only>
         <div class="product__additional-actions">
           <AddToWishlist
             :is-in-wishlist="isInWishlist"

@@ -37,21 +37,23 @@
         />
       </div>
       <div class="product__price-and-rating">
-        <div class="product__price">
-          <span class="product__price-label">{{ $t('From') }}</span>
-          <SfPrice
-            :regular="$fc(productPrice)"
-            :special="productSpecialPrice && $fc(productSpecialPrice)"
-          />
-          <span class="product__price-label">{{ $t('To') }}</span>
-          <SfPrice
-            :regular="$fc(productMaximumPrice)"
-          />
-          <span class="product__price-label">{{ $t('Your customization') }}</span>
-          <SfPrice
-            :regular="$fc(customizationPrice)"
-          />
-        </div>
+        <client-only>
+          <div class="product__price">
+            <span class="product__price-label">{{ $t('From') }}</span>
+            <SfPrice
+              :regular="$fc(productPrice)"
+              :special="productSpecialPrice && $fc(productSpecialPrice)"
+            />
+            <span class="product__price-label">{{ $t('To') }}</span>
+            <SfPrice
+              :regular="$fc(productMaximumPrice)"
+            />
+            <span class="product__price-label">{{ $t('Your customization') }}</span>
+            <SfPrice
+              :regular="$fc(customizationPrice)"
+            />
+          </div>
+        </client-only>
         <div>
           <div class="product__rating">
             <SfRating
@@ -88,11 +90,13 @@
           tag="p"
           class="product__description desktop-only"
         />
-        <BundleProductSelector
-          :can-add-to-cart="canAddToCart(product, qty)"
-          :product="product"
-          @update-price="customizationPrice = $event"
-        />
+        <client-only>
+          <BundleProductSelector
+            :can-add-to-cart="canAddToCart(product, qty)"
+            :product="product"
+            @update-price="customizationPrice = $event"
+          />
+        </client-only>
         <div class="product__additional-actions">
           <AddToWishlist
             :is-in-wishlist="isInWishlist"

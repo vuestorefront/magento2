@@ -37,10 +37,12 @@
         />
       </div>
       <div class="product__price-and-rating">
-        <SfPrice
-          :regular="$fc(productPrice)"
-          :special="productSpecialPrice && $fc(productSpecialPrice)"
-        />
+        <client-only>
+          <SfPrice
+            :regular="$fc(productPrice)"
+            :special="productSpecialPrice && $fc(productSpecialPrice)"
+          />
+        </client-only>
         <div>
           <div class="product__rating">
             <SfRating

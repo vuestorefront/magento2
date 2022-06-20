@@ -30,28 +30,6 @@ export default gql`
         url_rewrites {
           url
         }
-        price_range {
-          maximum_price {
-            final_price {
-              currency
-              value
-            }
-            regular_price {
-              currency
-              value
-            }
-          }
-          minimum_price {
-            final_price {
-              currency
-              value
-            }
-            regular_price {
-              currency
-              value
-            }
-          }
-        }
         categories {
           uid
           name
@@ -69,28 +47,6 @@ export default gql`
             average_rating
             ratings_breakdown {
               name
-              value
-            }
-          }
-        }
-        price_range {
-          maximum_price {
-            final_price {
-              currency
-              value
-            }
-            regular_price {
-              currency
-              value
-            }
-          }
-          minimum_price {
-            final_price {
-              currency
-              value
-            }
-            regular_price {
-              currency
               value
             }
           }
