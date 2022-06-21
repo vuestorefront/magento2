@@ -39,7 +39,7 @@
   }
 
   &__accordion-item {
-    --accordion-item-content-padding: 0;
+    --accordion-item-content-padding: var(--spacer-sm);
     position: relative;
     left: 50%;
     right: 50%;
