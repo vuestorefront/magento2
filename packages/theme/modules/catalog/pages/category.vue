@@ -236,14 +236,14 @@ export default defineComponent({
       fetch();
     };
 
-    const onReloadProducts = () => {
-      fetch();
-      productContainerElement.value.scrollIntoView();
-    };
-
     const goToPage = (page: number) => {
       uiHelpers.changePage(page, false);
       fetch();
+    };
+
+    const onReloadProducts = () => {
+      goToPage(0);
+      productContainerElement.value.scrollIntoView();
     };
 
     return {
