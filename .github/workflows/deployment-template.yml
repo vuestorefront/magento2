@@ -2,42 +2,23 @@
 on:
   workflow_call:
     inputs:
-      github_environment_name:
+      environment-code:
         required: true
         type: string
 
-      environment_code:
-        required: true
-        type: string
-
-      target_url:
-        required: true
-        type: string
     secrets:
-       cloud_username:
+       cloud-username:
          required: true
-       cloud_password:
+       cloud-password:
          required: true
-       deployment_status_token: # can be ${{ github.token }}
-         required: true
-
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: chrnorm/deployment-action@releases/v1
-        name: Create GitHub deployment
-        id: deployment
-        with:
-          token: ${{ secrets.deployment_status_token }}
-          environment: ${{ inputs.github_environment_name }}
-          initial_status: in_progress
-          target_url: ${{ inputs.target_url }}
-      - name: Deploy on ${{ inputs.target_url }}
-        run: |
-          if curl -s -H 'X-User-Id: ${{ secrets.cloud_username }}'  -H 'X-Api-Key: ${{ secrets.cloud_password }}' -H 'Content-Type: application/json' -X POST -d '{
-              "code":"${{ inputs.environment_code }}",
+      - run: |
+          if curl -s -H 'X-User-Id: ${{ secrets.cloud-username }}'  -H 'X-Api-Key: ${{ secrets.cloud-password }}' -H 'Content-Type: application/json' -X POST -d '{
+              "code":"${{ inputs.environment-code }}",
               "region":"europe-west1.gcp",
               "frontContainerVersion":"${{ github.sha }}"
             }' https://farmer.storefrontcloud.io/instances | grep -q '{"code":200,"result":"Instance updated!"}'; then
@@ -46,24 +27,3 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
-
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: ${{ secrets.deployment_status_token }}
-          target_url: ${{ inputs.target_url }}
-          state: success
-          description: Congratulations! The deploy is done.
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
-      - name: Update deployment status (failure)
-        if: failure()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: ${{ secrets.deployment_status_token }}
-          target_url: ${{ inputs.target_url }}
-          description: Unfortunately, the instance hasn't been updated.
-          state: failure
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
