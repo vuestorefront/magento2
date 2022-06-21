@@ -90,51 +90,29 @@ export default gql`
         }
         options_container
         special_to_date
-        ... on BundleProduct {
-          items {
-            position
-            required
-            sku
-            title
-            type
-            uid
-            options {
-              can_change_quantity
-              is_default
-              position
-              uid
-              quantity
-              product {
-                uid
-                sku
-                name
-                price_range {
-                  maximum_price {
-                    final_price {
-                      currency
-                      value
-                    }
-                    regular_price {
-                      currency
-                      value
-                    }
-                  }
-                  minimum_price {
-                    final_price {
-                      currency
-                      value
-                    }
-                    regular_price {
-                      currency
-                      value
-                    }
-                  }
-                }
+        ... on ConfigurableProduct {
+            price_range {
+            maximum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+            minimum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
               }
             }
           }
-        }
-        ... on ConfigurableProduct {
           configurable_options {
             attribute_code
             attribute_uid
@@ -190,47 +168,7 @@ export default gql`
             }
           }
         }
-        ... on GroupedProduct {
-          items {
-            position
-            qty
-            product {
-              uid
-              sku
-              name
-              stock_status
-              only_x_left_in_stock
-              price_range {
-                maximum_price {
-                  final_price {
-                    currency
-                    value
-                  }
-                  regular_price {
-                    currency
-                    value
-                  }
-                }
-                minimum_price {
-                  final_price {
-                    currency
-                    value
-                  }
-                  regular_price {
-                    currency
-                    value
-                  }
-                }
-              }
-              thumbnail {
-                url
-                position
-                disabled
-                label
-              }
-            }
-          }
-        }
+
         ... on DownloadableProduct {
           downloadable_product_samples {
             sample_url

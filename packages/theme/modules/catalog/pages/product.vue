@@ -38,6 +38,7 @@ import {
   useFetch,
   onMounted,
 } from '@nuxtjs/composition-api';
+import { merge } from 'lodash-es';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { SfBreadcrumbs, SfLoader } from '@storefront-ui/vue';
 import { getBreadcrumbs } from '~/modules/catalog/product/getters/productGetters';
@@ -106,7 +107,7 @@ export default defineComponent({
         ...searchQuery,
       });
 
-      product.value = result.items[0] as Product ?? null;
+      product.value = merge({}, product.value, result.items[0] as Product ?? null);
     };
 
     useFetch(async () => {
@@ -131,14 +132,9 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      if (product.value) {
-        const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, { sku: product.value.sku });
+      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, { sku: id });
 
-        product.value = {
-          ...product.value,
-          price_range: data.products?.items?.[0].price_range,
-        };
-      }
+      product.value = merge({}, product.value, data.products?.items?.[0] as Product);
     });
 
     return {

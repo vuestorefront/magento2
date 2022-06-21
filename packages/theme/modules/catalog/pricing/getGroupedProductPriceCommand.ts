@@ -8,8 +8,8 @@ export function getGroupedProductPriceCommand(product: GroupedProduct): number {
     return regular > special && special !== null ? special : regular;
   };
 
-  return product.items.reduce(
+  return product.items?.reduce(
     (acc, curr) => curr.qty * evalProductPrice(curr.product) + acc,
     0,
-  );
+  ) ?? 0;
 }

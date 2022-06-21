@@ -37,12 +37,10 @@
         />
       </div>
       <div class="product__price-and-rating">
-        <client-only>
-          <SfPrice
-            :regular="$fc(productPrice)"
-            :special="productSpecialPrice && $fc(productSpecialPrice)"
-          />
-        </client-only>
+        <SfPrice
+          :regular="$fc(productPrice)"
+          :special="productSpecialPrice && $fc(productSpecialPrice)"
+        />
         <div>
           <div class="product__rating">
             <SfRating
@@ -293,6 +291,7 @@ export default defineComponent({
 
       emit('fetchProduct', { query: getBaseSearchQuery() });
     };
+
     return {
       addItem,
       addItemToWishlist: addOrRemoveItem,
