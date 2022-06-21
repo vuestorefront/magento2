@@ -8,15 +8,62 @@ on:
       - release/*
 
 jobs:
+  create-deployment:
+    runs-on: ubuntu-latest
+    outputs:
+      environment-name: ${{ steps.determine-environment.outputs.name }}
+      environment-code: ${{ steps.determine-environment.outputs.code }}
+      deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    steps:
+      - name: Determine environment name
+        id: determine-environment
+        shell: bash
+        run: |
+          REF=${{ github.ref }}
+
+          if [ $REF = 'refs/heads/main' ]; then
+            ENVNAME='production'
+            ENVCODE='demo-magento2'
+
+          elif [ $REF = 'refs/heads/develop' ]; then
+            ENVNAME='dev'
+            ENVCODE='demo-magento2-dev'
+
+          elif [[ $REF = refs/heads/release* ]]; then
+            ENVNAME='canary'
+            ENVCODE='demo-magento2-canary'
+
+          elif [ $REF = 'refs/heads/enterprise' ]; then
+            ENVNAME='enterprise'
+            ENVCODE='demo-magento2-enterprise'
+
+          else
+              echo 'unrecognized branch name'
+              exit 1
+          fi
+
+          echo ::set-output name=name::$ENVNAME
+          echo ::set-output name=code::$ENVCODE
+
+      - name: Create GitHub deployment
+        id: deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          environment: ${{ steps.determine-environment.outputs.name }}
+          initial-status: in_progress
   build:
+    needs: create-deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
+
       - name: Setup node
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
+
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
@@ -65,54 +112,33 @@ jobs:
 
           LAST_COMMIT: ${{ github.sha  }}
 
-  deploy-main:
+  deploy:
+    needs: [create-deployment, build]
     uses: ./.github/workflows/deployment-template.yml
-    needs: build
-    if: github.ref == 'refs/heads/main'
     with:
-      github_environment_name: production
-      environment_code: demo-magento2
-      target_url: https://demo-magento2.europe-west1.gcp.storefrontcloud.io
+      environment-code: ${{ needs.create-deployment.outputs.environment-code }}
     secrets:
-      cloud_username: ${{ secrets.CLOUD_USERNAME }}
-      cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+      cloud-username: ${{ secrets.CLOUD_USERNAME }}
+      cloud-password: ${{ secrets.CLOUD_PASSWORD }}
 
-  deploy-develop:
-    uses: ./.github/workflows/deployment-template.yml
-    needs: build
-    if: github.ref == 'refs/heads/develop'
-    with:
-      github_environment_name: dev
-      environment_code: demo-magento2-dev
-      target_url: https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-    secrets:
-      cloud_username: ${{ secrets.CLOUD_USERNAME }}
-      cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
 
-  deploy-release:
-    uses: ./.github/workflows/deployment-template.yml
-    needs: build
-    if: startsWith(github.ref, 'refs/heads/release')
-    with:
-      github_environment_name: canary
-      environment_code: demo-magento2-canary
-      target_url: https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
-    secrets:
-      cloud_username: ${{ secrets.CLOUD_USERNAME }}
-      cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+  finalize-deployment:
+    runs-on: ubuntu-latest
+    needs: [create-deployment, build, deploy]
+    if: always()
+    steps:
+      - name: Update deployment status (success)
+        if: ${{ !(contains(join(needs.*.result, ','), 'failure') || contains(join(needs.*.result, ','), 'cancelled')) }}
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          deployment-id: ${{ needs.create-deployment.outputs.deployment_id }}
+          state: success
 
-  deploy-enterprise:
-    uses: ./.github/workflows/deployment-template.yml
-    needs: build
-    if: github.ref == 'refs/heads/enterprise'
-    with:
-      github_environment_name: enterprise
-      environment_code: demo-magento2-enterprise
-      target_url: https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io
-    secrets:
-      cloud_username: ${{ secrets.CLOUD_USERNAME }}
-      cloud_password: ${{ secrets.CLOUD_PASSWORD }}
-      deployment_status_token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+      - name: Update deployment status (failure)
+        if: ${{ contains(join(needs.*.result, ','), 'failure') || contains(join(needs.*.result, ','), 'cancelled')  }}
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          deployment-id: ${{ needs.create-deployment.outputs.deployment_id }}
+          state: failure
