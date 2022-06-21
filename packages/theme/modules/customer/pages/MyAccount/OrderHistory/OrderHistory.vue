@@ -63,7 +63,7 @@
           <SfPagination
             v-if="!$fetchState.pending"
             v-show="pagination.totalPages > 1"
-            class="products__pagination desktop-only"
+            class="products__pagination"
             :current="pagination.currentPage"
             :total="pagination.totalPages"
             :visible="5"
@@ -235,13 +235,10 @@ export default defineComponent({
   flex: 1;
   margin: 0;
 
-  @include for-desktop {
-
-    &__pagination {
-      display: flex;
-      justify-content: flex-start;
-      margin: var(--spacer-xl) 0 0 0;
-    }
+  &__pagination {
+    display: flex;
+    justify-content: flex-start;
+    margin: var(--spacer-xl) 0 0 0;
   }
 
   &__show-on-page {
