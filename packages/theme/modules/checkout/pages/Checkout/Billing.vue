@@ -191,6 +191,7 @@
             :error-message="$t(errors[0])"
             @input="changeCountry"
           >
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="countryOption in countriesList"
               :key="countryOption.id"
