@@ -27,3 +27,10 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
+
+        # the above curl only *asks* for the container to be deployed
+        # we don't know when the newly built Docker image replaces the old one
+        # but it takes less than 5 minutes
+      - name: 'Wait for container deployed on VSF Cloud to come online'
+        run: 'sleep 300'
+        shell: 'bash'
