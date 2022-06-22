@@ -51,7 +51,7 @@ const userAddressesGetters: UserAddressesGetters<CustomerAddress, TransformedCus
   getPhone: (address) => address?.telephone || '',
   getEmail: (address) => address?.email || '',
   getApartmentNumber: (address) => (Array.isArray(address?.street) ? address?.street[1] : address?.apartment),
-  getProvince: (address) => (address?.region?.region_code || address?.region?.region) || '',
+  getProvince: (address) => (address?.region?.region || address?.region?.region_code) || '',
   getCompanyName: (address) => address?.company || '',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getTaxNumber: (address) => address?.vat_id || '',
