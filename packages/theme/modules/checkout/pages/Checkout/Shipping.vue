@@ -14,6 +14,7 @@
         v-e2e="'shipping-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
         :shipping-addresses="addresses"
+        :countries="countries"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -475,6 +476,7 @@ export default defineComponent({
       canMoveForward,
       changeCountry,
       changeShippingDetails,
+      countries,
       countriesList,
       country,
       currentAddressId,

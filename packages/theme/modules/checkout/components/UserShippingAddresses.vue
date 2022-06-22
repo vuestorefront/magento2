@@ -6,12 +6,16 @@
       @change="setCurrentAddress($event)"
     >
       <SfAddress
-        v-for="shippingAddress in shippingAddresses"
+        v-for="shippingAddress in addressesWithCountryName"
         :key="userShippingGetters.getId(shippingAddress)"
         class="shipping__address"
         :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
-        <UserAddressDetails :address="shippingAddress" />
+        <UserAddressDetails :address="shippingAddress">
+          <template #country>
+            {{ shippingAddress.countryName }}
+          </template>
+        </UserAddressDetails>
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
@@ -28,12 +32,13 @@
 
 <script lang="ts">
 import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
-import { defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 
 import userShippingGetters from '~/modules/customer/getters/userShippingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { TransformedCustomerAddress } from '~/modules/customer/composables/types';
+import { Countries } from '~/composables';
 
 export default defineComponent({
   name: 'UserShippingAddresses',
@@ -55,11 +60,16 @@ export default defineComponent({
       type: Array as PropType<TransformedCustomerAddress[]>,
       required: true,
     },
+    countries: {
+      type: Array as PropType<Countries[]>,
+      default: () => [],
+
+    },
   },
   emits: ['setCurrentAddress'],
-  setup({ shippingAddresses }, { emit }) {
+  setup(props, { emit }) {
     const setCurrentAddress = (addressId: string | number) => {
-      const selectedAddress = shippingAddresses.find((address) => address.id === Number(addressId));
+      const selectedAddress = props.shippingAddresses.find((address) => address.id === Number(addressId));
       if (!selectedAddress) {
         return;
       }
@@ -67,8 +77,17 @@ export default defineComponent({
       emit('setCurrentAddress', selectedAddress);
     };
 
+    const addressesWithCountryName = computed(() => props.shippingAddresses.map((address) => ({
+      ...address,
+      countryName: props.countries
+        .find(({ id }) => id === address.country_code)
+        ?.full_name_locale
+        ?? address.country_code,
+    })));
+
     return {
       setCurrentAddress,
+      addressesWithCountryName,
       userShippingGetters,
     };
   },

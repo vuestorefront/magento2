@@ -36,6 +36,7 @@
         v-e2e="'billing-addresses'"
         :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
         :billing-addresses="addresses"
+        :countries="countries"
         @setCurrentAddress="handleSetCurrentAddress"
       />
       <div
@@ -528,6 +529,7 @@ export default defineComponent({
       changeCountry,
       changeBillingDetails,
       countriesList,
+      countries,
       country,
       currentAddressId,
       handleAddNewAddressBtnClick,

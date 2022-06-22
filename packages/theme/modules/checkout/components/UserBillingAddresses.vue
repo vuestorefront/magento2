@@ -6,12 +6,16 @@
       @change="setCurrentAddress($event)"
     >
       <SfAddress
-        v-for="billingAddress in billingAddresses"
+        v-for="billingAddress in addressesWithCountryName"
         :key="userBillingGetters.getId(billingAddress)"
         :name="`${userBillingGetters.getId(billingAddress)}`"
         class="billing__address"
       >
-        <UserAddressDetails :address="billingAddress" />
+        <UserAddressDetails :address="billingAddress">
+          <template #country>
+            {{ billingAddress.countryName }}
+          </template>
+        </UserAddressDetails>
       </SfAddress>
     </SfAddressPicker>
     <SfCheckbox
@@ -31,7 +35,7 @@ import { computed, defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
-import { CustomerAddress } from '~/composables';
+import type { Country, CustomerAddress } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'UserBillingAddresses',
@@ -53,6 +57,11 @@ export default defineComponent({
       type: Array as PropType<CustomerAddress[]>,
       required: true,
     },
+    countries: {
+      type: Array as PropType<Country[]>,
+      default: () => [],
+
+    },
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
@@ -71,9 +80,18 @@ export default defineComponent({
         : props.billingAddresses.find((address) => address.default_billing)?.id ?? ''
     ));
 
+    const addressesWithCountryName = computed(() => props.billingAddresses.map((address) => ({
+      ...address,
+      countryName: props.countries
+        .find(({ id }) => id === address.country_code)
+        ?.full_name_locale
+        ?? address.country_code,
+    })));
+
     return {
       selectedAddress,
       setCurrentAddress,
+      addressesWithCountryName,
       userBillingGetters,
     };
   },

@@ -10,7 +10,12 @@
       {{ userAddress.postalCode }}
     </p>
 
-    <p>{{ userAddress.country }}</p>
+    <p>
+      <slot name="country">
+        {{ userAddress.country }}
+      </slot>
+    </p>
+
     <p
       v-if="userAddress.phone"
       class="phone"
