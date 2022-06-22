@@ -548,31 +548,12 @@ export default defineComponent({
     }
   }
 
-  &__actions {
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &__save,
-  &__compare {
-    --button-padding: 0;
-
-    &:focus {
-      --cp-save-opacity: 1;
-      --cp-compare-opacity: 1;
-    }
-  }
-
-  &__save {
-    opacity: var(--cp-save-opacity, 0);
-  }
-
-  &__compare {
-    opacity: var(--cp-compare-opacity, 0);
+  ::v-deep .sf-collected-product__actions {
+    display: none;
   }
 
   &:hover {
-    --cp-save-opacity: 1;
-    --cp-compare-opacity: 1;
+    --collected-product-configuration-display: initial;
     @include for-desktop {
       .collected-product__properties {
         display: none;
