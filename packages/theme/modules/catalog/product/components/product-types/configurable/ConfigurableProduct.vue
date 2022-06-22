@@ -116,6 +116,7 @@
                 updateProductConfiguration(option.attribute_uid, $event)
             "
           >
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="attribute in option.values"
               :key="attribute.uid"
