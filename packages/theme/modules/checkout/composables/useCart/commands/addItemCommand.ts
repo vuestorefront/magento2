@@ -61,13 +61,16 @@ export const addItemCommand = {
           .addProductsToCart
           .cart as unknown as Cart;
       case 'ConfigurableProduct':
+        const selectedOptions = product.configurable_product_options_selection.options_available_for_selection
+          .flatMap((attr) => attr.option_value_uids);
+
         const configurableCartInput: AddProductsToCartInput = {
           cartId,
           cartItems: [
             {
-              parent_sku: product.sku,
               quantity,
-              sku: product.configurable_product_options_selection?.variant?.sku || '',
+              sku: product.sku,
+              selected_options: selectedOptions,
             },
           ],
         };
