@@ -40,17 +40,19 @@
         <div class="product__price">
           <span class="product__price-label">{{ $t('From') }}</span>
           <SfPrice
-            :regular="$fc(productPrice)"
-            :special="productSpecialPrice && $fc(productSpecialPrice)"
+            :regular="$fc(productPrices.regular)"
+            :special="productPrices.special && $fc(productPrices.special)"
           />
           <span class="product__price-label">{{ $t('To') }}</span>
           <SfPrice
-            :regular="$fc(productMaximumPrice)"
+            :regular="$fc(productPrices.maximum)"
           />
-          <span class="product__price-label">{{ $t('Your customization') }}</span>
-          <SfPrice
-            :regular="$fc(customizationPrice)"
-          />
+          <div v-if="customizationPrice">
+            <span class="product__price-label">{{ $t('Your customization') }}</span>
+            <SfPrice
+              :regular="$fc(customizationPrice)"
+            />
+          </div>
         </div>
         <div>
           <div class="product__rating">
@@ -89,10 +91,16 @@
           class="product__description desktop-only"
         />
         <BundleProductSelector
+          v-if="productPrices.regular"
           :can-add-to-cart="canAddToCart(product, qty)"
           :product="product"
           @update-price="customizationPrice = $event"
         />
+        <div v-else>
+          <BundleProductOptionSkeleton />
+          <BundleProductOptionSkeleton />
+          <BundleProductOptionSkeleton />
+        </div>
         <div class="product__additional-actions">
           <AddToWishlist
             :is-in-wishlist="isInWishlist"
@@ -151,10 +159,13 @@ import ProductTabs from '~/modules/catalog/product/components/tabs/ProductTabs.v
 import { useProductGallery } from '~/modules/catalog/product/composables/useProductGallery';
 import { Product } from '~/modules/catalog/product/types';
 import { TabsConfig, useProductTabs } from '~/modules/catalog/product/composables/useProductTabs';
+import BundleProductOptionSkeleton
+  from '~/modules/catalog/product/components/product-types/bundle/BundleProductOptionSkeleton.vue';
 
 export default defineComponent({
   name: 'BundleProduct',
   components: {
+    BundleProductOptionSkeleton,
     BundleProductSelector,
     HTMLContent,
     LazyHydrate,
@@ -195,11 +206,8 @@ export default defineComponent({
       () => props.product?.description?.html || '',
     );
 
-    const productPrice = ref(getProductPrice(props.product).regular);
-    const productSpecialPrice = ref(getProductPrice(props.product).special);
-    const productMaximumPrice = ref(getProductPrice(props.product).maximum);
-    const customizationPrice = ref(productSpecialPrice.value ?? productPrice.value);
-
+    const productPrices = computed(() => getProductPrice(props.product));
+    const customizationPrice = ref(productPrices.value.special ?? productPrices.value.regular);
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
 
@@ -214,9 +222,7 @@ export default defineComponent({
       productGallery,
       getProductName,
       getProductSwatchData,
-      productPrice,
-      productSpecialPrice,
-      productMaximumPrice,
+      productPrices,
       customizationPrice,
       productShortDescription,
       qty,

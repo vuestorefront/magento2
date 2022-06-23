@@ -126,8 +126,8 @@ export default defineComponent({
 
     watch(
       () => props.product,
-      (product) => {
-        const price = getGroupedProductPriceCommand(product);
+      (productNewValue) => {
+        const price = getGroupedProductPriceCommand(productNewValue);
         emit('update-price', price);
       },
       {

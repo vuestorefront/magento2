@@ -291,6 +291,7 @@ export default defineComponent({
 
       emit('fetchProduct', { query: getBaseSearchQuery() });
     };
+
     return {
       addItem,
       addItemToWishlist: addOrRemoveItem,
