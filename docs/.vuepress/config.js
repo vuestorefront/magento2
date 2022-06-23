@@ -1,8 +1,20 @@
+const GTM_TAG = 'GTM-WMDC3CP';
+
 module.exports = {
   title: 'Vue Storefront 2 for Magento',
   base: '/',
   description: 'Documentation for the Magento connector for Vue Storefront 2',
-  head: [['link', { rel: 'icon', href: '/favicon.png' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.png' }],
+    // Google Tag Manager
+    ['script', {}, [`
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','${GTM_TAG}');
+    `]],
+  ],
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#configurewebpack
@@ -52,6 +64,7 @@ module.exports = {
     '@vuepress/search',
   ],
   themeConfig: {
+    GTM_TAG,
     sidebarDepth: 0,
     repo: 'https://github.com/vuestorefront/magento2/',
     editLinks: true,
@@ -62,10 +75,13 @@ module.exports = {
     nav: [
       { text: 'Vue Storefront', link: 'https://vuestorefront.io/' },
       { text: 'Core Documentation', link: 'https://docs.vuestorefront.io/v2/' },
+      { text: 'Demo', link: 'https://demo-magento2.europe-west1.gcp.storefrontcloud.io/' },
+      { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2' },
+      { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html' },
     ],
     sidebar: [
       {
-        title: '',
+        title: 'Essentials',
         collapsable: false,
         children: [
           ['/', 'Introduction'],
@@ -130,6 +146,7 @@ module.exports = {
         children: [
           ['/plugins/', 'Plugins'],
           ['/api-reference/', 'API Reference'],
+          ['/migration-guides/', 'Migration Guides'],
         ],
       },
       {
