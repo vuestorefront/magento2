@@ -231,14 +231,14 @@ export default defineComponent({
       isPriceLoaded.value = true;
     });
 
-    const doChangeItemsPerPage = (itemsPerPage: number) => {
-      uiHelpers.changeItemsPerPage(itemsPerPage, false);
-      fetch();
-    };
-
     const goToPage = (page: number) => {
       uiHelpers.changePage(page, false);
       fetch();
+    };
+
+    const doChangeItemsPerPage = (itemsPerPage: number) => {
+      uiHelpers.changeItemsPerPage(itemsPerPage, false);
+      goToPage(0);
     };
 
     const onReloadProducts = () => {
