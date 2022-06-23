@@ -3,7 +3,6 @@ import {
 } from '@nuxtjs/composition-api';
 import { addItemCommand } from '~/modules/checkout/composables/useCart/commands/addItemCommand';
 import { applyCouponCommand } from '~/modules/checkout/composables/useCart/commands/applyCouponCommand';
-import { clearCartCommand } from '~/modules/checkout/composables/useCart/commands/clearCartCommand';
 import { loadCartCommand } from '~/modules/checkout/composables/useCart/commands/loadCartCommand';
 import { loadTotalQtyCommand } from '~/modules/checkout/composables/useCart/commands/loadTotalQtyCommand';
 import { removeCouponCommand } from '~/modules/checkout/composables/useCart/commands/removeCouponCommand';
@@ -13,9 +12,9 @@ import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
 import { useCartStore } from '~/modules/checkout/stores/cart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
-import { UseCartErrors, UseCartInterface } from './useCart';
 import { Product } from '~/modules/catalog/product/types';
 import { ComposableFunctionArgs } from '~/composables';
+import { UseCartErrors, UseCartInterface } from './useCart';
 
 /**
  * Allows loading and manipulating cart of the current user.
@@ -91,7 +90,7 @@ PRODUCT
 
     try {
       loading.value = true;
-      clearCartCommand.execute(context);
+      context.$magento.config.state.removeCartId();
       const loadedCart = await loadCartCommand.execute(context, { customQuery });
 
       cartStore.$patch((state) => {
