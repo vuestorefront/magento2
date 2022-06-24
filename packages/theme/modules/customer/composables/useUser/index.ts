@@ -252,6 +252,7 @@ export function useUser(): UseUserInterface {
           title: 'Registration error',
           type: 'danger',
         }));
+        return;
       }
 
       // if (recaptchaToken) { // todo: move recaptcha to separate module
