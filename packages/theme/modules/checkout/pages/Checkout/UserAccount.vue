@@ -249,9 +249,9 @@ export default defineComponent({
         }
 
         await (
-          !createUserAccount.value
-            ? attachToCart({ email: form.value.email, cart })
-            : register({ user: form.value })
+          createUserAccount.value
+            ? register({ user: form.value })
+            : attachToCart({ email: form.value.email, cart })
         );
       }
 
@@ -270,12 +270,7 @@ export default defineComponent({
         });
       }
 
-      if (!anyError.value) {
-        await mergeItem('checkout', { 'user-account': form.value });
-        await router.push(`${app.localePath('/checkout/shipping')}`);
-        reset();
-        isFormSubmitted.value = true;
-      } else {
+      if (anyError.value) {
         sendNotification({
           id: Symbol('user_form_error'),
           message: app.i18n.t(anyError.value.message) as string,
@@ -284,6 +279,11 @@ export default defineComponent({
           persist: false,
           title: 'Error',
         });
+      } else {
+        await mergeItem('checkout', { 'user-account': form.value });
+        await router.push(app.localeRoute({ name: 'shipping' }));
+        reset();
+        isFormSubmitted.value = true;
       }
 
       if (isRecaptchaEnabled.value) {
