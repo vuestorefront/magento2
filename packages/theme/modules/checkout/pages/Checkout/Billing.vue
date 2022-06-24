@@ -311,7 +311,7 @@ import type {
   ShippingCartAddress, BillingCartAddress, Country, Customer, CustomerAddress,
 } from '~/modules/GraphQL/types';
 
-const NOT_SELECTED_ADDRESS = '';
+const NOT_SELECTED_ADDRESS = -1;
 
 extend('required', {
   ...required,
@@ -371,7 +371,7 @@ export default defineComponent({
         ? addressFromApiToForm(billingAddress.value)
         : getInitialCheckoutAddressForm(),
     );
-    const currentAddressId = ref(NOT_SELECTED_ADDRESS);
+    const currentAddressId = ref<number>(NOT_SELECTED_ADDRESS);
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
@@ -400,7 +400,7 @@ export default defineComponent({
       const billingDetailsData = {
         billingDetails: {
           ...billingDetails.value,
-          customerAddressId: addressId,
+          customerAddressId: String(addressId),
           sameAsShipping: sameAsShipping.value,
         },
       };
@@ -453,7 +453,7 @@ export default defineComponent({
 
     const handleSetCurrentAddress = (addr: CustomerAddress) => {
       billingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = String(addr?.id);
+      currentAddressId.value = addr?.id;
       canAddNewAddress.value = false;
       isBillingDetailsStepCompleted.value = false;
     };

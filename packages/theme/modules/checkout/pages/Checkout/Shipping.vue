@@ -288,7 +288,7 @@ import { addressFromApiToForm, CheckoutAddressForm, getInitialCheckoutAddressFor
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-const NOT_SELECTED_ADDRESS = '';
+const NOT_SELECTED_ADDRESS = -1;
 
 extend('required', {
   ...required,
@@ -339,7 +339,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const shippingDetails = ref<CheckoutAddressForm>(address.value ? addressFromApiToForm(address.value) : getInitialCheckoutAddressForm());
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
-    const currentAddressId = ref(NOT_SELECTED_ADDRESS);
+    const currentAddressId = ref<number>(NOT_SELECTED_ADDRESS);
     const setAsDefault = ref(false);
     const isFormSubmitted = ref(false);
     const canAddNewAddress = ref(true);
@@ -397,7 +397,7 @@ export default defineComponent({
 
     const handleSetCurrentAddress = (addr: CustomerAddress) => {
       shippingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = String(addr?.id);
+      currentAddressId.value = addr?.id;
       canAddNewAddress.value = false;
       isShippingDetailsStepCompleted.value = false;
     };
