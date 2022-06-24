@@ -139,7 +139,7 @@ export default defineComponent({
   align-content: center;
   border: 1px solid var(--c-light);
   border-width: 0 0 1px 0;
-  padding: var(--spacer-sm);
+  padding: var(--spacer-sm) var(--spacer-xs);;
 
   @include for-desktop {
     border-width: 1px 0 1px 0;
@@ -216,7 +216,6 @@ export default defineComponent({
   }
 
   &__select {
-    --select-width: 185px;
     --select-padding: 0;
     --select-height: auto;
     --select-selected-padding: 0 var(--spacer-lg) 0 var(--spacer-2xs);
@@ -250,6 +249,11 @@ export default defineComponent({
     order: 1;
     display: flex;
     align-items: center;
+
+    margin: {
+      left: var(--spacer-xs);
+      right: var(--spacer-xs);
+    }
     @include for-desktop {
       margin: auto 0 auto auto;
       order: 0;
