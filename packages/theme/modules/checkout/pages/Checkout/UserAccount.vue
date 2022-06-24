@@ -216,7 +216,7 @@ export default defineComponent({
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !(loading.value));
-    const hasError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
+    const anyError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
 
     type Form = {
       firstname: string,
@@ -270,7 +270,7 @@ export default defineComponent({
         });
       }
 
-      if (!hasError.value) {
+      if (!anyError.value) {
         await mergeItem('checkout', { 'user-account': form.value });
         await router.push(`${app.localePath('/checkout/shipping')}`);
         reset();
@@ -278,7 +278,7 @@ export default defineComponent({
       } else {
         sendNotification({
           id: Symbol('user_form_error'),
-          message: 'Something went wrong during form submission. Please try again later',
+          message: app.i18n.t(anyError.value.message) as string,
           type: 'danger',
           icon: 'error',
           persist: false,
