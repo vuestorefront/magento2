@@ -216,7 +216,7 @@ export default defineComponent({
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !(loading.value));
-    const anyError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
+    const anyError = computed(() => errorUser.value.login || errorUser.value.register || errorGuestUser.value.attachToCart);
 
     type Form = {
       firstname: string,
@@ -287,7 +287,6 @@ export default defineComponent({
       }
 
       if (isRecaptchaEnabled.value) {
-        // reset recaptcha
         $recaptcha.reset();
       }
     };
