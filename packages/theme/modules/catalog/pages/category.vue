@@ -308,10 +308,12 @@ export default defineComponent({
 
 .main {
   &.section {
-    padding: var(--spacer-xs);
+    padding: 0;
 
-    @include for-desktop {
-      padding: 0;
+    @include for-mobile {
+      $padding: var(--spacer-xs);
+      padding: $padding;
+      width: calc(100% - 2 * $padding);
     }
   }
 }
