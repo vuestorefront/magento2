@@ -288,7 +288,7 @@ import { addressFromApiToForm, CheckoutAddressForm, getInitialCheckoutAddressFor
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
 
-const NOT_SELECTED_ADDRESS = -1;
+const NOT_SELECTED_ADDRESS = 0;
 
 extend('required', {
   ...required,
