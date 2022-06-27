@@ -162,7 +162,7 @@ export function useUser(): UseUserInterface {
       loading.value = true;
       const apiState = app.context.$vsf.$magento.config.state;
 
-      const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
+      const { data, errors } = await app.$vsf.$magento.api.generateCustomerToken(
         {
           email: providedUser.email,
           password: providedUser.password,
@@ -175,9 +175,16 @@ export function useUser(): UseUserInterface {
       if (errors) {
         const joinedErrors = errors.map((e) => e.message).join(',');
         Logger.error(joinedErrors);
-        error.value.login = { message: joinedErrors };
-
-        return;
+        errors.forEach((registerError, i) => sendNotification({
+          icon: 'error',
+          id: Symbol(`registration_error-${i}`),
+          message: registerError.message,
+          persist: true,
+          title: 'Registration error',
+          type: 'danger',
+        }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
       }
 
       customerStore.setIsLoggedIn(true);
@@ -230,7 +237,7 @@ export function useUser(): UseUserInterface {
         ...baseData
       } = generateUserData(providedUser);
 
-      const { data, errors } = await app.context.$vsf.$magento.api.createCustomer(
+      const { data, errors } = await app.$vsf.$magento.api.createCustomer(
         {
           email,
           password,
@@ -242,9 +249,10 @@ export function useUser(): UseUserInterface {
 
       Logger.debug('[Result]:', { data });
 
-      if (errors || !data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
-        Logger.error(errors.map((e) => e.message).join(','));
-        errors.map((registerError, i) => sendNotification({
+      if (errors) {
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        errors.forEach((registerError, i) => sendNotification({
           icon: 'error',
           id: Symbol(`registration_error-${i}`),
           message: registerError.message,
@@ -252,7 +260,8 @@ export function useUser(): UseUserInterface {
           title: 'Registration error',
           type: 'danger',
         }));
-        return;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
       }
 
       // if (recaptchaToken) { // todo: move recaptcha to separate module

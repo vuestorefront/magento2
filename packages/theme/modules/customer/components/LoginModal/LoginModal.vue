@@ -26,11 +26,7 @@
           :form="loginForm"
           @submit="form => onLoginFormSubmit(form)"
           @change-form="currentlyDisplayedForm = $event"
-        >
-          <template #error>
-            {{ userError.login && userError.login.message }}
-          </template>
-        </LoginForm>
+        />
         <RegisterForm
           v-else-if="currentlyDisplayedForm === 'register'"
           data-testid="register-form"
@@ -39,11 +35,7 @@
           :form="registerForm"
           @submit="form => onRegisterFormSubmit(form)"
           @change-form="currentlyDisplayedForm = $event"
-        >
-          <template #error>
-            {{ userError.register && userError.register.message }}
-          </template>
-        </RegisterForm>
+        />
         <ForgotPasswordForm
           v-else-if="currentlyDisplayedForm === 'forgotPassword'"
           data-testid="forgot-password-form"
