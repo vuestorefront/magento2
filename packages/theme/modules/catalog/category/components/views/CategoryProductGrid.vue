@@ -26,7 +26,7 @@
         data-testid="product-card"
         :image-height="imageSize.height"
         :image-width="imageSize.width"
-        show-add-to-cart-button
+        :show-add-to-cart-button="true"
         @click:wishlist="$emit('click:wishlist', product)"
         @click:add-to-cart="$emit('click:add-to-cart', { product, quantity: 1 })"
       >
@@ -99,6 +99,16 @@ export default defineComponent({
     --product-card-title-font-weight: var(--font-weight--normal);
     --product-card-title-margin: var(--spacer-sm) 0 0 0;
     --product-card-add-button-bottom: var(--spacer-base);
+  }
+}
+
+::v-deep .sf-product-card__add-button {
+  @include for-mobile {
+    opacity: 1;
+    display: flex;
+    z-index: 10;
+    bottom: 1rem;
+    right: 0;
   }
 }
 

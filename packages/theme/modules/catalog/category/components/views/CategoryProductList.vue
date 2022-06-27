@@ -165,4 +165,14 @@ export default defineComponent({
   }
 }
 
+::v-deep .sf-product-card__add-button {
+  @include for-mobile {
+    opacity: 1;
+    display: flex;
+    z-index: 10;
+    bottom: 1rem;
+    right: 0;
+  }
+}
+
 </style>

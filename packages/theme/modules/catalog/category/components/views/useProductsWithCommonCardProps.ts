@@ -33,7 +33,7 @@ interface ProductCommonCardProps {
   scoreRating: number,
 }
 
-export type ProductWithCommondProductCardProps = Product & { commonProps: ProductCommonCardProps };
+export type ProductWithCommonProductCardProps = Product & { commonProps: ProductCommonCardProps };
 
 export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) => {
   const { getMagentoImage } = useImage();
@@ -47,7 +47,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
    * To avoid passing tens of props to both components two times,
    * instead the below object is passed to them using `v-bind="product.commonProps"`
    */
-  const productsWithCommonProductCardProps = computed<ProductWithCommondProductCardProps[]>(
+  const productsWithCommonProductCardProps = computed<ProductWithCommonProductCardProps[]>(
     () => products.value.map((product, index) => {
       const imageProps = {
         image: getMagentoImage(getProductThumbnailImage(product)),
