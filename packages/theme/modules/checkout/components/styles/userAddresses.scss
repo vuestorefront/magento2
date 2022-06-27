@@ -1,0 +1,27 @@
+.address {
+  margin-bottom: var(--spacer-base);
+  @include for-desktop {
+    margin-right: var(--spacer-sm);
+    display: flex;
+    width: calc(50% - var(--spacer-sm));
+    flex-direction: column;
+  }
+}
+
+.addresses {
+  margin-bottom: var(--spacer-xl);
+  @include for-desktop {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: var(--spacer-sm)
+  }
+}
+
+.setAsDefault {
+  margin-bottom: var(--spacer-xl);
+}
+
+.sf-divider,
+.form__action-button--margin-bottom {
+  margin-bottom: var(--spacer-xl);
+}
