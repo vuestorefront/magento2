@@ -311,7 +311,7 @@ import type {
   ShippingCartAddress, BillingCartAddress, Country, Customer, CustomerAddress,
 } from '~/modules/GraphQL/types';
 
-const NOT_SELECTED_ADDRESS = -1;
+const NOT_SELECTED_ADDRESS = 0;
 
 extend('required', {
   ...required,
