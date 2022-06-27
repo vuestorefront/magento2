@@ -63,23 +63,6 @@ describe('LoginModal', () => {
     expect(useUserMock.login).toHaveBeenCalled();
   });
 
-  it('displays error message if login fails', async () => {
-    const useUserMockWithError = {
-      login: jest.fn(),
-      register: jest.fn(),
-      loading: false,
-      error: { login: { message: 'error:login' } },
-    };
-    (useUser as jest.Mock).mockReturnValueOnce(useUserMockWithError);
-    const { getByText } = render(LoginModal, {
-      localVue,
-      pinia: createTestingPinia(),
-    });
-    await waitFor(() => {
-      getByText('error:login');
-    });
-  });
-
   it('sends register form', async () => {
     const { getByTestId } = render(LoginModal, {
       localVue,
@@ -102,27 +85,6 @@ describe('LoginModal', () => {
 
     await waitFor(() => {
       expect(useUserMock.register).toHaveBeenCalled();
-    });
-  });
-
-  it('displays error message if register fails', async () => {
-    const useUserMockWithError = {
-      login: jest.fn(),
-      register: jest.fn(),
-      loading: false,
-      error: { register: { message: 'error:register' } },
-    };
-    (useUser as jest.Mock).mockReturnValueOnce(useUserMockWithError);
-    const { getByText, getByTestId } = render(LoginModal, {
-      localVue,
-      pinia: createTestingPinia(),
-    });
-
-    await waitFor(() => {
-      (getByTestId('login-form') as HTMLElementWithVue).__vue__.$emit('change-form', 'register' as FormName);
-    });
-    await waitFor(() => {
-      getByText('error:register');
     });
   });
 
