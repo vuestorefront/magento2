@@ -52,7 +52,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api';
 import { SfPrice } from '@storefront-ui/vue';
-import type { ProductWithCommondProductCardProps } from '~/modules/catalog/category/components/views/useProductsWithCommonCardProps';
+import type { ProductWithCommonProductCardProps } from '~/modules/catalog/category/components/views/useProductsWithCommonCardProps';
 
 export default defineComponent({
   name: 'CategoryProductPrice',
@@ -61,7 +61,7 @@ export default defineComponent({
   },
   props: {
     product: {
-      type: Object as PropType<ProductWithCommondProductCardProps>,
+      type: Object as PropType<ProductWithCommonProductCardProps>,
       required: true,
     },
   },
