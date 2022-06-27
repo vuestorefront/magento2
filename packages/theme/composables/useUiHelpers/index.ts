@@ -137,6 +137,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
     const query = {
       ...getFiltersDataFromUrl(false),
       itemsPerPage: itemsPerPage.toString(10),
+      page: '0',
     };
 
     if (forcePush) {
