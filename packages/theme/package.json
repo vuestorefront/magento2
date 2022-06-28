@@ -32,6 +32,7 @@
     "@nuxtjs/composition-api": "^0.31.0",
     "@nuxtjs/device": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/recaptcha": "^1.1.1",
     "@nuxtjs/style-resources": "^1.2.1",
     "@pinia/nuxt": "^0.1.8",
     "@storefront-ui/vue": "^0.13.0",
