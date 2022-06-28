@@ -26,7 +26,11 @@
                 ...billingDetails,
                 region: { region_code: billingDetails.region },
               }"
-            />
+            >
+              <template #country>
+                {{ shippingDetailsCountryName }}
+              </template>
+            </UserAddressDetails>
           </div>
         </div>
       </div>
@@ -360,6 +364,11 @@ export default defineComponent({
 
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
+
+    const shippingDetailsCountryName = computed(() => countries
+      .value
+      .find((countryItem) => countryItem.id === shippingDetails.value?.country.code)?.full_name_locale ?? '');
+
     const { isAuthenticated } = useUser();
     let oldBilling : CheckoutAddressForm | null = null;
     const sameAsShipping = ref(false);
@@ -481,13 +490,10 @@ export default defineComponent({
       const [defaultAddress = null] = userBillingGetters.getAddresses(loadedUserBilling, { default_shipping: true });
       const wasBillingAddressAlreadySetOnCart = Boolean(loadedBillingInfoBoundToCart);
 
-<<<<<<< HEAD
-=======
       // keep in mind default billing address is set on a customer's cart during cart creation
->>>>>>> 8578149e (chore: fix commit wording)
       if (wasBillingAddressAlreadySetOnCart) {
         const userAddressIdenticalToSavedCartAddress = findUserAddressIdenticalToSavedCartAddress(
-          loadedUserBilling.addresses,
+          loadedUserBilling?.addresses,
           loadedBillingInfoBoundToCart,
         );
 
@@ -523,6 +529,7 @@ export default defineComponent({
       setAsDefault,
       billingDetails,
       sameAsShipping,
+      shippingDetailsCountryName,
       addresses,
     };
   },

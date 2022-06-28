@@ -428,7 +428,7 @@ export default defineComponent({
 
       if (wasShippingAddressAlreadySetOnCart) {
         const userAddressIdenticalToSavedCartAddress = findUserAddressIdenticalToSavedCartAddress(
-          loadedUserShipping.addresses,
+          loadedUserShipping?.addresses,
           loadedShippingInfoBoundToCart,
         );
         handleSetCurrentAddress({ ...loadedShippingInfoBoundToCart, id: userAddressIdenticalToSavedCartAddress?.id });
