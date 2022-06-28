@@ -3,7 +3,7 @@
     <SfAddressPicker
       :selected="`${currentAddressId}`"
       class="addresses"
-      @change="setCurrentAddress($event)"
+      @change="emitSetCurrentAddress($event)"
     >
       <SfAddress
         v-for="shippingAddress in addressesWithCountryName"
@@ -49,8 +49,8 @@ export default defineComponent({
   },
   props: {
     currentAddressId: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: null,
     },
     value: {
       type: Boolean,
@@ -68,15 +68,12 @@ export default defineComponent({
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
-    const setCurrentAddress = (addressId: string | number) => {
-      const selectedAddress = props.shippingAddresses.find((address) => address.id === Number(addressId));
-      if (!selectedAddress) {
-        return;
+    const emitSetCurrentAddress = (addressId: number) => {
+      const address = props.shippingAddresses.find(({ id }) => id === Number(addressId));
+      if (address) {
+        emit('setCurrentAddress', address);
       }
-
-      emit('setCurrentAddress', selectedAddress);
     };
-
     const addressesWithCountryName = computed(() => props.shippingAddresses.map((address) => ({
       ...address,
       countryName: props.countries
@@ -86,7 +83,7 @@ export default defineComponent({
     })));
 
     return {
-      setCurrentAddress,
+      emitSetCurrentAddress,
       addressesWithCountryName,
       userShippingGetters,
     };
