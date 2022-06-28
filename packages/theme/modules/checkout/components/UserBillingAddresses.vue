@@ -2,14 +2,14 @@
   <div>
     <SfAddressPicker
       :selected="`${selectedAddress}`"
-      class="billing__addresses"
+      class="addresses"
       @change="setCurrentAddress($event)"
     >
       <SfAddress
         v-for="billingAddress in addressesWithCountryName"
         :key="userBillingGetters.getId(billingAddress)"
         :name="`${userBillingGetters.getId(billingAddress)}`"
-        class="billing__address"
+        class="address"
       >
         <UserAddressDetails :address="billingAddress">
           <template #country>
@@ -22,7 +22,7 @@
       :selected="value"
       name="setAsDefault"
       label="Use this address as my default one."
-      class="billing__setAsDefault"
+      class="setAsDefault"
       @change="$emit('input', $event)"
     />
     <hr class="sf-divider">
@@ -99,31 +99,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.billing {
-  &__address {
-    margin-bottom: var(--spacer-base);
-    @include for-desktop {
-      margin-right: var(--spacer-sm);
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-    }
-  }
-
-  &__addresses {
-    margin-bottom: var(--spacer-xl);
-    @include for-desktop {
-      display: flex;
-    }
-  }
-
-  &__setAsDefault {
-    margin-bottom: var(--spacer-xl);
-  }
-}
-
-.sf-divider,
-.form__action-button--margin-bottom {
-  margin-bottom: var(--spacer-xl);
-}
+@import "./styles/userAddresses";
 </style>
