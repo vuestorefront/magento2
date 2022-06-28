@@ -10,15 +10,15 @@
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <UserShippingAddresses
         v-if="isAuthenticated && hasSavedShippingAddress"
-        v-model="setAsDefault"
+        v-model="isSetAsDefaultRequested"
         v-e2e="'shipping-addresses'"
-        :current-address-id="currentAddressId || NOT_SELECTED_ADDRESS"
+        :current-address-id="currentAddressId"
         :shipping-addresses="addresses"
         :countries="countries"
-        @setCurrentAddress="handleSetCurrentAddress"
+        @setCurrentAddress="handleSetCurrentAddress($event)"
       />
       <div
-        v-if="canAddNewAddress"
+        v-if="isAddNewAddressFormVisible"
         class="form"
       >
         <ValidationProvider
@@ -36,9 +36,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="
-              (firstname) => changeShippingDetails('firstname', firstname)
-            "
+            @input=" changeShippingDetails('firstname', $event)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -56,7 +54,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="(lastname) => changeShippingDetails('lastname', lastname)"
+            @input="changeShippingDetails('lastname', $event)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -74,7 +72,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="(street) => changeShippingDetails('street', street)"
+            @input="changeShippingDetails('street', $event)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -92,9 +90,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="
-              (apartment) => changeShippingDetails('apartment', apartment)
-            "
+            @input="changeShippingDetails('apartment', $event) "
           />
         </ValidationProvider>
         <ValidationProvider
@@ -112,7 +108,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="(city) => changeShippingDetails('city', city)"
+            @input="changeShippingDetails('city', $event)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -141,7 +137,7 @@
                 ? $t('Please select a country first')
                 : ''
             "
-            @input="(region) => changeShippingDetails('region', region)"
+            @input="changeShippingDetails('region', $event)"
           />
           <SfSelect
             v-else
@@ -152,8 +148,9 @@
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="(region) => changeShippingDetails('region', region)"
+            @input="changeShippingDetails('region', $event)"
           >
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="regionOption in regionInformation"
               :key="regionOption.id"
@@ -180,6 +177,7 @@
             :error-message="$t(errors[0])"
             @input="changeCountry"
           >
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="countryOption in countriesList"
               :key="countryOption.id"
@@ -204,7 +202,7 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="(postcode) => changeShippingDetails('postcode', postcode)"
+            @input="changeShippingDetails('postcode', $event)"
           />
         </ValidationProvider>
         <ValidationProvider
@@ -222,14 +220,12 @@
             required
             :valid="!errors[0]"
             :error-message="$t(errors[0])"
-            @input="
-              (telephone) => changeShippingDetails('telephone', telephone)
-            "
+            @input="changeShippingDetails('telephone', $event)"
           />
         </ValidationProvider>
       </div>
       <SfButton
-        v-if="!canAddNewAddress"
+        v-if="!isAddNewAddressFormVisible"
         class="color-light form__action-button form__action-button--add-address"
         type="submit"
         @click="handleAddNewAddressBtnClick"
@@ -252,7 +248,7 @@
       <VsfShippingProvider
         v-if="isShippingDetailsStepCompleted && !dirty"
         :shipping-methods="shippingMethods"
-        @submit="$router.push(`${localePath('/checkout/billing')}`)"
+        @submit="$router.push(localeRoute({ name: 'billing' }))"
       />
     </form>
   </ValidationObserver>
@@ -265,7 +261,6 @@ import {
 import {
   ref,
   computed,
-  watch,
   onMounted,
   defineComponent,
   useRouter,
@@ -275,20 +270,18 @@ import { required, min, digits } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import userShippingGetters from '~/modules/customer/getters/userShippingGetters';
 import addressGetter from '~/modules/customer/getters/addressGetter';
-import {
-  useCountrySearch,
-} from '~/composables';
+import { useCountrySearch } from '~/composables';
 import type {
-  Country, AvailableShippingMethod, ShippingCartAddress, CustomerAddress, Customer,
+  Country, AvailableShippingMethod, CustomerAddress, Customer,
 } from '~/modules/GraphQL/types';
 import useShipping from '~/modules/checkout/composables/useShipping';
 import useUser from '~/modules/customer/composables/useUser';
 import useUserAddress from '~/modules/customer/composables/useUserAddress';
-import { addressFromApiToForm, CheckoutAddressForm, getInitialCheckoutAddressForm } from '~/helpers/checkout/address';
+import {
+  addressFromApiToForm, CheckoutAddressForm, findUserAddressIdenticalToSavedCartAddress, getInitialCheckoutAddressForm,
+} from '~/helpers/checkout/address';
 import { mergeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
-
-const NOT_SELECTED_ADDRESS = 0;
 
 extend('required', {
   ...required,
@@ -318,7 +311,6 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const address = ref<ShippingCartAddress | null>(null);
     const userShipping = ref<Customer | null>(null);
     const {
       load: loadShipping,
@@ -337,12 +329,13 @@ export default defineComponent({
     const countries = ref<Country[]>([]);
     const country = ref<Country | null>(null);
     const { isAuthenticated } = useUser();
-    const shippingDetails = ref<CheckoutAddressForm>(address.value ? addressFromApiToForm(address.value) : getInitialCheckoutAddressForm());
+    const shippingDetails = ref<CheckoutAddressForm>(getInitialCheckoutAddressForm());
     const shippingMethods = ref<AvailableShippingMethod[]>([]);
-    const currentAddressId = ref<number>(NOT_SELECTED_ADDRESS);
-    const setAsDefault = ref(false);
+    const currentAddressId = ref<number | null>(null);
+
+    const isSetAsDefaultRequested = ref(false);
     const isFormSubmitted = ref(false);
-    const canAddNewAddress = ref(true);
+    const isAddNewAddressFormVisible = ref(true);
 
     const isShippingDetailsStepCompleted = ref(false);
     const addresses = computed(() => userShippingGetters.getAddresses(userShipping.value));
@@ -373,12 +366,12 @@ export default defineComponent({
       const shippingInfo = await saveShipping({ shippingDetails: shippingDetailsData });
       shippingMethods.value = shippingInfo?.available_shipping_methods ?? [];
 
-      if (addressId !== NOT_SELECTED_ADDRESS && setAsDefault.value) {
+      if (addressId !== null && isSetAsDefaultRequested.value) {
         const [chosenAddress] = userShippingGetters.getAddresses(
           userShipping.value,
           { id: addressId },
         );
-        chosenAddress.default_shipping = setAsDefault.value;
+        chosenAddress.default_shipping = isSetAsDefaultRequested.value;
         if (chosenAddress) {
           await setDefaultAddress({ address: chosenAddress });
           userShipping.value = await loadUserShipping(true);
@@ -389,90 +382,65 @@ export default defineComponent({
     };
 
     const handleAddNewAddressBtnClick = () => {
-      currentAddressId.value = NOT_SELECTED_ADDRESS;
+      currentAddressId.value = null;
       shippingDetails.value = getInitialCheckoutAddressForm();
-      canAddNewAddress.value = true;
+      isAddNewAddressFormVisible.value = true;
       isShippingDetailsStepCompleted.value = false;
     };
 
-    const handleSetCurrentAddress = (addr: CustomerAddress) => {
-      shippingDetails.value = { ...addressFromApiToForm(addr) };
-      currentAddressId.value = addr?.id;
-      canAddNewAddress.value = false;
-      isShippingDetailsStepCompleted.value = false;
-    };
-
-    const changeShippingDetails = (field: string, value: unknown) => {
-      shippingDetails.value = {
-        ...shippingDetails.value,
-        [field]: value,
-      };
-      isShippingDetailsStepCompleted.value = false;
-      currentAddressId.value = NOT_SELECTED_ADDRESS;
-    };
-
-    const selectDefaultAddress = () => {
-      const defaultAddress = userShippingGetters.getAddresses(
-        userShipping.value,
-        { default_shipping: true },
-      ) as [CustomerAddress] | [];
-      if (defaultAddress && defaultAddress.length > 0) {
-        handleSetCurrentAddress(defaultAddress[0]);
+    const handleSetCurrentAddress = async (customerAddress: CustomerAddress) => {
+      const id = customerAddress?.id;
+      currentAddressId.value = id;
+      if (id) {
+        isAddNewAddressFormVisible.value = false;
       }
+      shippingDetails.value = addressFromApiToForm(customerAddress);
+      country.value = customerAddress.country_code ? await searchCountry({ id: customerAddress.country_code }) : null;
+      isShippingDetailsStepCompleted.value = false;
+    };
+
+    const changeShippingDetails = (field: keyof CheckoutAddressForm, value: string) => {
+      shippingDetails.value[field] = value;
+      isShippingDetailsStepCompleted.value = false;
+      currentAddressId.value = null;
     };
 
     const changeCountry = async (id: string) => {
       changeShippingDetails('country_code', id);
-      country.value = await searchCountry({ id });
+      const newCountry = await searchCountry({ id });
+      shippingDetails.value.region = '';
+      country.value = newCountry;
     };
-
-    watch(address, async (addr) => {
-      shippingDetails.value = addr ? addressFromApiToForm(addr) : getInitialCheckoutAddressForm();
-      country.value = await searchCountry({ id: shippingDetails.value.country_code });
-    });
-
-    watch(country, (data) => {
-      if (!data?.available_regions) {
-        shippingDetails.value.region = '';
-      }
-    });
 
     onMounted(async () => {
       const validStep = await isPreviousStepValid('user-account');
       if (!validStep) {
-        await router.push(app.localePath('/checkout/user-account'));
+        await router.push(app.localeRoute({ name: 'user-account' }));
       }
-      const [loadedShippingInfo, loadedUserShipping, loadedCountries] = await Promise.all([
+      const [loadedShippingInfoBoundToCart, loadedUserShipping, loadedCountries] = await Promise.all([
         loadShipping(),
         loadUserShipping(),
         loadCountries(),
       ]);
 
-      address.value = loadedShippingInfo;
+      const [defaultAddress = null] = userShippingGetters.getAddresses(loadedUserShipping, { default_shipping: true });
+      const wasShippingAddressAlreadySetOnCart = Boolean(loadedShippingInfoBoundToCart);
+
+      if (wasShippingAddressAlreadySetOnCart) {
+        const userAddressIdenticalToSavedCartAddress = findUserAddressIdenticalToSavedCartAddress(
+          loadedUserShipping.addresses,
+          loadedShippingInfoBoundToCart,
+        );
+        handleSetCurrentAddress({ ...loadedShippingInfoBoundToCart, id: userAddressIdenticalToSavedCartAddress?.id });
+      } else if (defaultAddress) {
+        handleSetCurrentAddress(defaultAddress);
+      }
       userShipping.value = loadedUserShipping;
       countries.value = loadedCountries;
-
-      if (shippingDetails.value?.country_code) {
-        country.value = await searchCountry({ id: shippingDetails.value.country_code });
-      }
-
-      const shippingAddresses = userShippingGetters.getAddresses(
-        userShipping.value,
-      );
-
-      if (!shippingAddresses || shippingAddresses.length === 0) {
-        return;
-      }
-
-      const hasEmptyShippingDetails = !shippingDetails.value
-        || Object.keys(shippingDetails.value).length === 0;
-      if (hasEmptyShippingDetails) {
-        selectDefaultAddress();
-      }
     });
 
     return {
-      canAddNewAddress,
+      isAddNewAddressFormVisible,
       canMoveForward,
       changeCountry,
       changeShippingDetails,
@@ -488,10 +456,9 @@ export default defineComponent({
       isFormSubmitted,
       isShippingDetailsStepCompleted,
       isShippingLoading,
-      NOT_SELECTED_ADDRESS,
       regionInformation,
       searchCountry,
-      setAsDefault,
+      isSetAsDefaultRequested,
       shippingDetails,
       shippingMethods,
       addresses,

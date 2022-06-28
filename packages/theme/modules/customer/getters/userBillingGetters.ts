@@ -4,6 +4,8 @@ import { TransformedCustomerAddress } from '../composables/types';
 
 const userBillingGetters: UserBillingGetters<Customer, CustomerAddress, TransformedCustomerAddress> = {
   getAddresses: (billing, criteria?: Record<string, any>) => {
+    if (!billing || !billing.addresses) return [] as CustomerAddress[];
+
     if (!criteria || Object.keys(criteria).length === 0) {
       return billing.addresses;
     }

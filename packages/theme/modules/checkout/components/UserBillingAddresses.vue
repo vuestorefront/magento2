@@ -1,9 +1,9 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="`${selectedAddress}`"
+      :selected="`${currentAddressId}`"
       class="addresses"
-      @change="setCurrentAddress($event)"
+      @change="emitSetCurrentAddress($event)"
     >
       <SfAddress
         v-for="billingAddress in addressesWithCountryName"
@@ -46,8 +46,8 @@ export default defineComponent({
   },
   props: {
     currentAddressId: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: null,
     },
     value: {
       type: Boolean,
@@ -65,21 +65,12 @@ export default defineComponent({
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
-    const setCurrentAddress = (addressId: string) => {
-      const selectedAddress = props.billingAddresses.find((address) => address.id === Number(addressId));
-      if (!selectedAddress) {
-        return;
+    const emitSetCurrentAddress = (addressId: number) => {
+      const address = props.billingAddresses.find(({ id }) => id === Number(addressId));
+      if (address) {
+        emit('setCurrentAddress', address);
       }
-
-      emit('setCurrentAddress', selectedAddress);
     };
-
-    const selectedAddress = computed(() => (
-      props.currentAddressId
-        ? props.currentAddressId
-        : props.billingAddresses.find((address) => address.default_billing)?.id ?? ''
-    ));
-
     const addressesWithCountryName = computed(() => props.billingAddresses.map((address) => ({
       ...address,
       countryName: props.countries
@@ -89,8 +80,7 @@ export default defineComponent({
     })));
 
     return {
-      selectedAddress,
-      setCurrentAddress,
+      emitSetCurrentAddress,
       addressesWithCountryName,
       userBillingGetters,
     };
