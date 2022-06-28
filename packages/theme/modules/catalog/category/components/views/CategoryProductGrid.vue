@@ -106,7 +106,6 @@ export default defineComponent({
   @include for-mobile {
     opacity: 1;
     display: flex;
-    z-index: 10;
     bottom: 1rem;
     right: 0;
   }
