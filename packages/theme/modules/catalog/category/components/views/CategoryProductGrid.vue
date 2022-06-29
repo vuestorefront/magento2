@@ -102,13 +102,23 @@ export default defineComponent({
   }
 }
 
-::v-deep .sf-product-card__add-button {
-  @include for-mobile {
-    opacity: 1;
-    display: flex;
-    bottom: 1rem;
-    right: 0;
+::v-deep .sf-product-card {
+  &__image-wrapper {
+    height: 257px;
   }
+
+  &__add-button {
+    @include for-mobile {
+      opacity: 1;
+      display: flex;
+      bottom: 1rem;
+      right: 0;
+    }
+  }
+}
+
+::v-deep .sf-product-card::after {
+  content: none;
 }
 
 </style>
