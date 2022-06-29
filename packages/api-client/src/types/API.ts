@@ -1,5 +1,5 @@
 import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client/core';
-import { DocumentNode, ExecutionResult } from 'graphql';
+import { ExecutionResult } from 'graphql';
 import { CustomQuery } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
@@ -278,13 +278,13 @@ export interface MagentoApiMethods {
   ): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
   customQuery<QUERY, QUERY_VARIABLES = any>(params: {
-    query: DocumentNode,
+    query: string,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
   }): Promise<ApolloQueryResult<QUERY>>;
 
   customMutation<MUTATION, MUTATION_VARIABLES = any>(params: {
-    mutation: DocumentNode,
+    mutation: string,
     mutationVariables: MUTATION_VARIABLES,
     fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
   }): Promise<FetchResult<MUTATION>>;
