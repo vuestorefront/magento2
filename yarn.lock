@@ -3938,6 +3938,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/k6@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@types/k6/-/k6-0.37.0.tgz#fb357d5218c8c2b5bc197dae818eebe7085906fc"
+  integrity sha512-8ou8tK3i/8HJFiyxz9ktrT1CWvtdItlq5ybaysnnwX7wSNLZv3TdR28Q2kW9byYVJKNhuwOnoecB2oM/NytN2Q==
+
 "@types/less@3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/less/-/less-3.0.2.tgz#2761d477678c8374cb9897666871662eb1d1115e"

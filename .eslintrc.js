@@ -30,6 +30,9 @@ module.exports = {
     '@vue-storefront/eslint-config-vue',
     '@vue-storefront/eslint-config-jest',
   ],
+  globals: {
+    "__ENV": "readonly",
+  },
   rules: {
     "@typescript-eslint/no-floating-promises": "off",
     "jest/expect-expect": [
