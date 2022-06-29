@@ -103,6 +103,10 @@ export default defineComponent({
 }
 
 ::v-deep .sf-product-card {
+  .card {
+    will-change: transform, opacity;
+  }
+
   &__image-wrapper {
     height: 257px;
   }
