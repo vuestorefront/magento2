@@ -122,7 +122,9 @@ PRODUCT
     }
   };
 
-  const addItem = async ({ product, quantity, customQuery }): Promise<void> => {
+  const addItem = async ({
+    product, quantity, productConfiguration, customQuery,
+  }): Promise<void> => {
     Logger.debug('useCart.addItem', { product, quantity });
 
     try {
@@ -136,6 +138,7 @@ PRODUCT
         currentCart: cart.value,
         product,
         quantity,
+        productConfiguration,
         customQuery,
       });
 
