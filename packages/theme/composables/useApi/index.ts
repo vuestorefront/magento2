@@ -1,5 +1,4 @@
 import { useContext } from '@nuxtjs/composition-api';
-import type { DocumentNode } from 'graphql';
 import { Logger } from '~/helpers/logger';
 
 export type FetchPolicy = 'cache-first' | 'network-only' | 'cache-only' | 'no-cache' | 'standby';
@@ -19,7 +18,7 @@ export type Error = {
 };
 
 export type Request = <DATA, VARIABLES extends Variables = Variables>(
-  request: DocumentNode,
+  request: string,
   variables?: VARIABLES,
   fetchPolicy?: FetchPolicy,
 ) => Promise<{ data: DATA, errors: Error[] }>;
@@ -75,10 +74,6 @@ export interface UseApiInterface {
   mutate: Request;
 }
 
-function getGqlString(doc: DocumentNode) {
-  return doc.loc && doc.loc.source.body;
-}
-
 /**
  * Allows executing arbitrary GraphQL queries and mutations.
  *
@@ -93,7 +88,7 @@ export function useApi(): UseApiInterface {
     variables,
   ) => {
     const reqID = `id${Math.random().toString(16).slice(2)}`;
-    Logger.debug(`customQuery/request/${reqID}`, getGqlString(request));
+    Logger.debug(`customQuery/request/${reqID}`, request);
     const { data, errors } = await context.app.$vsf.$magento.api.customQuery({ query: request, queryVariables: variables });
     Logger.debug(`customQuery/result/${reqID}`, { data, errors });
 
@@ -106,7 +101,7 @@ export function useApi(): UseApiInterface {
     variables,
   ) => {
     const reqID = `id${Math.random().toString(16).slice(2)}`;
-    Logger.debug(`customQuery/request/${reqID}`, getGqlString(request));
+    Logger.debug(`customQuery/request/${reqID}`, request);
     const { data, errors } = await context.app.$vsf.$magento.api.customMutation({ mutation: request, mutationVariables: variables });
     Logger.debug(`customQuery/result/${reqID}`, { data, errors });
 

@@ -1,10 +1,8 @@
-import gql from 'graphql-tag';
-
 /**
  * GraphQL Query that fetches products using received search term and the params
  * for filter, sort and pagination.
  */
-export default gql`
+export default `
   query getFacetData($search: String = "", $filter: ProductAttributeFilterInput, $pageSize: Int = 10, $currentPage: Int = 1, $sort: ProductAttributeSortInput) {
     products(search: $search, filter: $filter, pageSize: $pageSize, currentPage: $currentPage, sort: $sort) {
       items {
