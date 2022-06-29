@@ -19,6 +19,7 @@ export const addItemCommand = {
       product,
       quantity,
       currentCart,
+      productConfiguration,
       customQuery,
     },
   ) => {
@@ -61,8 +62,7 @@ export const addItemCommand = {
           .addProductsToCart
           .cart as unknown as Cart;
       case 'ConfigurableProduct':
-        const selectedOptions = product.configurable_product_options_selection.options_available_for_selection
-          .flatMap((attr) => attr.option_value_uids);
+        const selectedOptions = Object.values(productConfiguration as Object);
 
         const configurableCartInput: AddProductsToCartInput = {
           cartId,

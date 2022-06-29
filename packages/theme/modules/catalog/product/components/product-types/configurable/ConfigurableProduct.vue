@@ -131,7 +131,7 @@
           v-e2e="'product_add-to-cart'"
           :disabled="isCartLoading || !canAddToCart(product, qty) || isFetching"
           class="product__add-to-cart"
-          @click="addItem({ product, quantity: parseInt(qty) })"
+          @click="addItem({ product, quantity: parseInt(qty), productConfiguration })"
         />
         <SfAlert
           :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
