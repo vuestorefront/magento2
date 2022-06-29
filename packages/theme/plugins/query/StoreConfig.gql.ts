@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Query that fetches store configuration from the API */
-export const StoreConfigQuery = gql`
+export const StoreConfigQuery = `
   query storeConfig {
     storeConfig {
         store_code,

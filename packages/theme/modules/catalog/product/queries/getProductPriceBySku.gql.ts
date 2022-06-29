@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-const fragmentPriceRangeFields = gql`
+const fragmentPriceRangeFields = `
   fragment PriceRangeFields on PriceRange {
     maximum_price {
       final_price {
@@ -25,7 +23,7 @@ const fragmentPriceRangeFields = gql`
   }
 `;
 
-export default gql`
+export default `
   query getProductPriceBySku($sku: String) {
     products(filter: {sku: {eq: $sku}}) {
       items {
