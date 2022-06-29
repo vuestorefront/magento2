@@ -62,7 +62,7 @@ export const addItemCommand = {
           .addProductsToCart
           .cart as unknown as Cart;
       case 'ConfigurableProduct':
-        const selectedOptions = Object.values(productConfiguration as Object);
+        const selectedOptions = Object.values(productConfiguration as object);
 
         const configurableCartInput: AddProductsToCartInput = {
           cartId,
