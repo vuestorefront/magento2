@@ -196,23 +196,29 @@ export function useUser(): UseUserInterface {
       const cart = await app.context.$vsf.$magento.api.customerCart();
       const newCartId = cart.data.customerCart.id;
 
-      if (newCartId && currentCartId && currentCartId !== newCartId) {
-        const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
-          {
-            sourceCartId: currentCartId,
-            destinationCartId: newCartId,
-          },
-        );
+      try {
+        if (newCartId && currentCartId && currentCartId !== newCartId) {
+          const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
+            {
+              sourceCartId: currentCartId,
+              destinationCartId: newCartId,
+            },
+          );
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setCart(dataMergeCart.mergeCarts);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(dataMergeCart.mergeCarts);
 
-        apiState.setCartId(dataMergeCart.mergeCarts.id);
-      } else {
+          apiState.setCartId(dataMergeCart.mergeCarts.id);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(cart.data.customerCart);
+        }
+      } catch {
+        // Workaround for Magento 2.4.4 mergeCarts mutation error related with Bundle products
+        // It can be removed when Magento 2.4.5 will be release
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setCart(cart.data.customerCart);
       }
-
       error.value.login = null;
     } catch (err) {
       error.value.login = err;
