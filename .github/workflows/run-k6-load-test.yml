@@ -43,9 +43,9 @@ jobs:
       - name: Run k6 cloud test
         uses: grafana/k6-action@v0.2.0
         with:
-          cloud: ${{ github.events.inputs.cloud }}
+          cloud: ${{ github.event.inputs.cloud }}
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
-          filename: ${{ github.events.inputs.filename }}
-          flags: ${{ github.events.inputs.flags }}
+          filename: ${{ github.event.inputs.filename }}
+          flags: ${{ github.event.inputs.flags }}
         env:
-          BASE_URL: ${{ github.events.inputs.environment }}
+          BASE_URL: ${{ github.event.inputs.environment }}
