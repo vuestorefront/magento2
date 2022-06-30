@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@nuxtjs/composition-api';
+import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 
 type ComponentStyles = { width?: string, height?: string, borderRadius: string, margin: string };
 
@@ -26,9 +26,11 @@ export default defineComponent({
     },
     width: {
       type: String,
+      default: '',
     },
     height: {
       type: String,
+      default: '',
     },
     margin: {
       type: String,
@@ -50,10 +52,10 @@ export default defineComponent({
       props.animation ? `skeleton--${props.animation}` : null,
     ]);
 
-    const componentStyle = computed<ComponentStyles>(() => ({
+    const componentStyle = ref<ComponentStyles>({
       borderRadius: props.radius,
       margin: props.margin,
-    }));
+    });
 
     if (props.width) {
       componentStyle.value.width = props.width;

@@ -41,12 +41,6 @@
         :key="i"
         data-testid="category-filter"
       >
-        <SfHeading
-          :key="`filter-title-${filter.attribute_code}`"
-          :level="4"
-          :title="filter.label"
-          class="filters__title sf-heading--left"
-        />
         <component
           :is="getFilterConfig(filter.attribute_code).component"
           :filter="filter"
