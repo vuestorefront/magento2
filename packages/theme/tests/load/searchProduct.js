@@ -4,9 +4,20 @@ import http from 'k6/http';
 
 import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
 
+/**
+ * @type {import('k6/options').Options}
+ */
 export const options = {
   vus: 10,
   duration: '5m',
+  ext: {
+    loadimpact: {
+      name: 'Search products',
+      note: 'Guest user browsing through a product',
+      // eslint-disable-next-line unicorn/numeric-separators-style
+      projectID: 3591701,
+    },
+  },
 };
 
 const { BASE_URL } = __ENV;
