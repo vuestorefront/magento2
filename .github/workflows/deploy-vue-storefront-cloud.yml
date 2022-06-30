@@ -100,7 +100,7 @@ jobs:
           VSF_REDIS_CACHE_INVALIDATE_KEY: magento2vsf2
           VSF_REDIS_CACHE_INVALIDATE_URL: /cache-invalidate
 
-          VSF_RECAPTCHA_ENABLED: true
+          VSF_RECAPTCHA_ENABLED: false
           VSF_RECAPTCHA_HIDE_BADGE: false
           VSF_RECAPTCHA_VERSION: 3
           VSF_RECAPTCHA_SIZE: invisible
