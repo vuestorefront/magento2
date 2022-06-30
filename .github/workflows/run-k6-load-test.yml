@@ -17,13 +17,13 @@ on:
       environment:
         description: The full URL of the environment on which load tests will be ran
         required: true
-        default: https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
+        default: 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
         type: choice
         options:
-          - https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
-          - https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io
-          - https://demo-magento2.europe-west1.gcp.storefrontcloud.cloud
-          - https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io
+          - 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
+          - 'https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io'
+          - 'https://demo-magento2.europe-west1.gcp.storefrontcloud.cloud'
+          - 'https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io'
 
       flags:
         description: Additional argument and flags to provide to the k6 CLI. See https://k6.io/docs/using-k6/options for details.
