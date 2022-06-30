@@ -22,6 +22,10 @@ export const options = {
 
 const { BASE_URL } = __ENV;
 
+if (BASE_URL === undefined) {
+  throw new Error('BASE_URL is not set');
+}
+
 export default function main() {
   let response;
 
