@@ -45,7 +45,7 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           cloud: ${{ inputs.cloud }}
-          token: ${{ secrets.K6_CLOUD_API_TOKEN }}
+          token: ${{ secrets.K6_API_TOKEN }}
           filename: ${{ inputs.filename }}
           flags: ${{ inputs.flags }}
         env:
