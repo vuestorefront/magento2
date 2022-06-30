@@ -16,14 +16,11 @@ To learn about it in-depth, you can refer to the [Directory Structure in Nuxt.js
 
 * [**components**](https://nuxtjs.org/docs/2.x/directory-structure/components) contains Vue.js components used on different pages or parts of your application. You can import these components from pages, layouts, and other components.
 
-// TODO: Describe what `composables` folder contains
-* **composables**
+* **composables** provides business logic that can be used in any place in the app.
 
-// TODO: Describe what `getters` folder contains
-* **getters**
+* **getters** are functions that help to get commonly used data.
 
-// TODO: Describe what `helpers` folder contains
-* **helpers**
+* **helpers** are utility functions that help resolve some common tasks like for example format currency
 
 * [**lang**](https://docs.vuestorefront.io/v2/getting-started/internationalization.html) contains translations for your application. Available locales are configured in the `nuxt.config.js` file.
 
@@ -31,21 +28,15 @@ To learn about it in-depth, you can refer to the [Directory Structure in Nuxt.js
 
 * [**middleware**](https://nuxtjs.org/docs/2.x/directory-structure/middleware) contains JavaScript files that contain custom functions run before rendering a whole application or just a specific layout or page. These can be used, for example, to protect pages from unauthorized access or redirect if some conditions are not met.
 
-// TODO: Describe what `modules` folder contains
-* **modules**
+* **modules** contains code related to specific area of the app like customer, checkout and so on. Each module can have components, helpers, composables and other files and services
 
 * [**pages**](https://nuxtjs.org/docs/2.x/directory-structure/pages) contains Vue.js components that Nuxt.js automatically registers as routes.
 
 * [**static**](https://nuxtjs.org/docs/2.x/directory-structure/static) contains files that likely won't change, such as favicon, `robots.txt`, sitemap, or company logos.
 
-// TODO: Describe what `test-utils` folder contains
-* **test-utils**
+* **test-utils** contains utilities and helpers for unit testing.
 
-// TODO: Describe what `tests` folder contains
-* **tests**
-
-// TODO: Describe what `types` folder contains
-* **types**
+* **types** provides global TypeScript types
 
 * **middleware.config.js** and **nuxt.config.js** configurations file are described in detail in the [Configuration](./configuration.html) document.
 
