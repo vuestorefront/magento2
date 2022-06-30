@@ -35,7 +35,6 @@ jobs:
   build:
     name: Run k6 cloud test
     runs-on: ubuntu-latest
-    environment: test
 
     steps:
       - name: Checkout
@@ -44,9 +43,9 @@ jobs:
       - name: Run k6 cloud test
         uses: grafana/k6-action@v0.2.0
         with:
-          cloud: ${{ inputs.cloud }}
+          cloud: ${{ github.events.inputs.cloud }}
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
-          filename: ${{ inputs.filename }}
-          flags: ${{ inputs.flags }}
+          filename: ${{ github.events.inputs.filename }}
+          flags: ${{ github.events.inputs.flags }}
         env:
-          BASE_URL: ${{ inputs.environment }}
+          BASE_URL: ${{ github.events.inputs.environment }}
