@@ -46,4 +46,4 @@ jobs:
           cloud: ${{ github.event.inputs.cloud }}
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
           filename: ${{ github.event.inputs.filename }}
-          flags: -e BASE_URL=${github.event.inputs.environment} ${{ github.event.inputs.flags }}
+          flags: -e BASE_URL=${{ github.event.inputs.environment }} ${{ github.event.inputs.flags }}
