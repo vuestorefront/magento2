@@ -28,12 +28,15 @@
             :key="item.product_sku"
           >
             <SfTableData class="products__name">
-              {{ item.product_name }}
+              <span v-html="$dompurify(item.product_name)" />
               <div
                 v-for="option in item.selected_options"
                 :key="option.label"
               >
-                <span class="configurable-option-label">{{ option.label }}</span>
+                <span
+                  class="configurable-option-label"
+                  v-html="$dompurify(option.label)"
+                />
                 <span>{{ option.value }}</span>
               </div>
             </SfTableData>
