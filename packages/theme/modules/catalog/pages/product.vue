@@ -132,7 +132,7 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, { sku: id });
+      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, getBaseSearchQuery());
 
       product.value = merge({}, product.value, data.products?.items?.[0] as Product);
     });
