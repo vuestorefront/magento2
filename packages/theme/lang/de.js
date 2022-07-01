@@ -55,7 +55,7 @@ export default {
   "Enter promo code": "Geben Sie den Promo-Code ein",
   "Feedback": "Ihr Feedback ist uns wichtig. Lassen Sie uns wissen, was wir verbessern können.",
   "Feel free to edit": "Fühlen Sie sich frei, Ihre unten stehenden Daten zu bearbeiten, damit Ihr Konto immer auf dem neuesten Stand ist",
-  "Filters": "Filters",
+  "Filters": "Filter",
   "Find out more": "Finde mehr heraus",
   "First Name": "Vorname",
   "Forgot Password": "Wenn Sie Ihr Passwort vergessen haben, können Sie es zurücksetzen.",
