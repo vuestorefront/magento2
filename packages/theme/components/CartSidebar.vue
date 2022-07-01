@@ -92,6 +92,7 @@
                 <SfCollectedProduct
                   v-for="product in products"
                   :key="product.product.original_sku"
+                  :has-more-actions="false"
                   data-testid="cart-sidebar-collected-product"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
