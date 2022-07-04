@@ -60,12 +60,12 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        :label="$route.name && $route.name.startsWith('product') ? 'Add to Cart' : 'Basket'"
+        :label="$t('Cart')"
         data-testid="bottom-navigation-cart"
         @click="toggleCartSidebar"
       >
         <template #icon>
-          <SfCircleIcon aria-label="Add to cart">
+          <SfCircleIcon aria-label="Go to cart">
             <SvgImage
               icon="add_to_cart"
               width="25"
