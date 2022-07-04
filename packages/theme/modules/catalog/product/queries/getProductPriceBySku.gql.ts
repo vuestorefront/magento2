@@ -24,11 +24,60 @@ const fragmentPriceRangeFields = `
 `;
 
 export default `
-  query getProductPriceBySku($sku: String) {
-    products(filter: {sku: {eq: $sku}}) {
+  query getProductPriceBySku(
+    $filter: ProductAttributeFilterInput,
+    $configurations: [ID!]
+  ) {
+    products(filter: $filter) {
       items {
         price_range {
           ...PriceRangeFields
+        }
+
+        ... on ConfigurableProduct {
+          price_range {
+            maximum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+            minimum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+          }
+
+          configurable_product_options_selection(configurableOptionValueUids: $configurations) {
+            options_available_for_selection {
+              attribute_code
+              option_value_uids
+            }
+            media_gallery {
+              disabled
+              label
+              position
+              url
+            }
+            variant {
+              uid
+              sku
+              name
+              price_range {
+                ...PriceRangeFields
+              }
+            }
+          }
         }
 
         ... on BundleProduct {
@@ -50,26 +99,7 @@ export default `
                 sku
                 name
                 price_range {
-                  maximum_price {
-                    final_price {
-                      currency
-                      value
-                    }
-                    regular_price {
-                      currency
-                      value
-                    }
-                  }
-                  minimum_price {
-                    final_price {
-                      currency
-                      value
-                    }
-                    regular_price {
-                      currency
-                      value
-                    }
-                  }
+                   ...PriceRangeFields
                 }
               }
             }
