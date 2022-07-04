@@ -30,7 +30,8 @@ import type {
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
-  const { app } = useContext();
+  // @ts-ignore
+  const { app, $recaptcha } = useContext();
   const { setCart } = useCart();
   const { send: sendNotification } = useUiNotification();
   const loading: Ref<boolean> = ref(false);
@@ -269,16 +270,13 @@ export function useUser(): UseUserInterface {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         throw new Error(joinedErrors);
       }
-
-      // if (recaptchaToken) { // todo: move recaptcha to separate module
-      //   // generate a new token for the login action
-      //   const { recaptchaInstance } = params;
-      //   const newRecaptchaToken = await recaptchaInstance.getResponse();
-      //
-      //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
-      // }
       error.value.register = null;
-      await login({ user: { email, password }, customQuery: {} });
+      let loginRecaptchaToken = '';
+      if ($recaptcha && recaptchaToken) {
+        loginRecaptchaToken = await $recaptcha.getResponse();
+      }
+
+      await login({ user: { email, password, recaptchaToken: loginRecaptchaToken }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);
