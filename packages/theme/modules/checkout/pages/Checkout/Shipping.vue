@@ -435,6 +435,9 @@ export default defineComponent({
       } else if (defaultAddress) {
         handleSetCurrentAddress(defaultAddress);
       }
+      if (shippingDetails.value?.country_code) {
+        country.value = await searchCountry({ id: shippingDetails.value.country_code });
+      }
       userShipping.value = loadedUserShipping;
       countries.value = loadedCountries;
     });

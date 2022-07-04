@@ -4,7 +4,7 @@ import type { UiNotification } from '~/composables/useUiNotification';
 import { useCustomerStore } from '~/modules/customer/stores/customer';
 
 export const hasGraphqlAuthorizationError = (res: ApolloQueryResult<unknown>) => res?.errors
-  ?.some((error) => error.extensions.category === 'graphql-authorization') ?? false;
+  ?.some((error) => error?.extensions?.category === 'graphql-authorization') ?? false;
 
 const plugin : Plugin = ({ $pinia, app }) => {
   const customerStore = useCustomerStore($pinia);
