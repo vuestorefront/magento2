@@ -486,7 +486,6 @@ export default defineComponent({
         loadUserBilling(),
         loadCountries(),
       ]);
-
       const [defaultAddress = null] = userBillingGetters.getAddresses(loadedUserBilling, { default_shipping: true });
       const wasBillingAddressAlreadySetOnCart = Boolean(loadedBillingInfoBoundToCart);
 
@@ -501,7 +500,9 @@ export default defineComponent({
       } else if (defaultAddress) {
         handleSetCurrentAddress(defaultAddress);
       }
-
+      if (billingDetails.value?.country_code) {
+        country.value = await searchCountry({ id: billingDetails.value.country_code });
+      }
       userBilling.value = loadedUserBilling;
       countries.value = loadedCountries;
     });
