@@ -101,10 +101,9 @@ jobs:
           VSF_REDIS_CACHE_INVALIDATE_URL: /cache-invalidate
 
           VSF_RECAPTCHA_ENABLED: true
-          VSF_RECAPTCHA_HIDE_BADGE: false
           VSF_RECAPTCHA_VERSION: 3
           VSF_RECAPTCHA_SIZE: invisible
-          VSF_RECAPTCHA_MIN_SCORE: 0.5
+          VSF_RECAPTCHA_MIN_SCORE: 1.0
           VSF_RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           VSF_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
 
