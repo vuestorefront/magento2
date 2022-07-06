@@ -102,7 +102,7 @@ export default defineComponent({
     // eslint-disable-next-line no-underscore-dangle
     const renderer = computed(() => product.value?.__typename ?? ProductTypeEnum.SIMPLE_PRODUCT);
 
-    const fetchProduct = async (searchQuery = getBaseSearchQuery()) => {
+    const fetchProductBaseData = async (searchQuery = getBaseSearchQuery()) => {
       const result = await getProductDetails({
         ...searchQuery,
       });
@@ -110,8 +110,14 @@ export default defineComponent({
       product.value = merge({}, product.value, result.items[0] as Product ?? null);
     };
 
+    const fetchProductExtendedData = async (searchQuery = getBaseSearchQuery()) => {
+      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, searchQuery);
+
+      product.value = merge({}, product.value, data.products?.items?.[0] as Product);
+    };
+
     useFetch(async () => {
-      await fetchProduct();
+      await fetchProductBaseData();
 
       if (Boolean(product?.value?.sku) === false) nuxtError({ statusCode: 404 });
 
@@ -131,18 +137,14 @@ export default defineComponent({
       addTags([...tags, ...productTags]);
     });
 
-    onMounted(async () => {
-      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, getBaseSearchQuery());
-
-      product.value = merge({}, product.value, data.products?.items?.[0] as Product);
-    });
+    onMounted(async () => fetchProductExtendedData());
 
     return {
       renderer,
       loading,
       breadcrumbs,
       product,
-      fetchProduct,
+      fetchProduct: fetchProductExtendedData,
     };
   },
 });
