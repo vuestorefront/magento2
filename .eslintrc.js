@@ -50,6 +50,8 @@ module.exports = {
         "jest/expect-expect": "off",
         "promise/catch-or-return": "off", // conflicts with Cypress.Chainable
         "promise/always-return": "off",
+        "vue/no-v-text-v-html-on-component": "warn",
+        "vue/no-setup-props-destructure": "warn",
       }
     },
     {
