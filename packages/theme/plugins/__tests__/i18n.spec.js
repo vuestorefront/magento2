@@ -118,5 +118,8 @@ describe('i18n plugin', () => {
     expect(testCaseAppMock.$vsf.$magento.config.state.setLocale).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.state.setStore).toHaveBeenCalledWith('de_DE');
     expect(testCaseAppMock.$vsf.$magento.config.state.setCurrency).toHaveBeenCalledWith('EUR');
+    expect(callbackRequest.headers.cookie).toMatchInlineSnapshot(
+      '"vsf-store=de_DE; vsf-locale=de_DE; vsf-currency=EUR; vsf-country=PL; vsf-customer=12fg45; vsf-cart=123 "',
+    );
   });
 });
