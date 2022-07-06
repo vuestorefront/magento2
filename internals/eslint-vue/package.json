@@ -29,8 +29,8 @@
     "rules"
   ],
   "dependencies": {
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "eslint-plugin-vue": "^8.4.0"
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "eslint-plugin-vue": "^9.2.0"
   },
   "main": "index.js"
 }
