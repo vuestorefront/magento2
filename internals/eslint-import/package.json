@@ -29,8 +29,8 @@
     "rules"
   ],
   "dependencies": {
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "2.25.4"
+    "eslint-import-resolver-typescript": "^3.2.4",
+    "eslint-plugin-import": "2.26.0"
   },
   "main": "index.js"
 }

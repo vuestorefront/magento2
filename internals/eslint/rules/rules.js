@@ -64,6 +64,8 @@ module.exports = {
         ignore: ['^e(rr)?$'],
       },
     ],
+    'unicorn/prefer-logical-operator-over-ternary': 0,
+    'unicorn/prefer-node-protocol': 0,
     // endregion
   },
 };
