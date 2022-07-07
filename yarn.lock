@@ -4870,12 +4870,12 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@vue-storefront/cache@~2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/cache/-/cache-2.7.0.tgz#2be690c50a173ef1350ce7070a0e4e641aafb903"
-  integrity sha512-vFAa7ZU70T49Ch/R10RRQ3Q3995+gIUy2Jhz8Brse8kvp/gFYtdR5mxBLjm+uF3SAVpDIAuMPx85y4f4Hk47Vg==
+"@vue-storefront/cache@~2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/cache/-/cache-2.7.1.tgz#7e7db5daf8948e198f8f68c136577deca812ff02"
+  integrity sha512-AyTuuBlFo/PggrWE9xdjJtW4Oc5UgNWhpDQHJR7EZe8IBwzh9nr4pS+BjEJaCQ9e0CzzDl+OuUjoaFVUDErbnQ==
   dependencies:
-    "@vue-storefront/core" "~2.7.0"
+    "@vue-storefront/core" "~2.7.1"
 
 "@vue-storefront/core@~2.5.6":
   version "2.5.6"
@@ -4888,32 +4888,32 @@
     lodash-es "^4.17.15"
     vue "^2.6.11"
 
-"@vue-storefront/core@~2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/core/-/core-2.7.0.tgz#95875cfd3b768322da0f68385d17c5fa52416c66"
-  integrity sha512-Wf2v6n0QWN7gfjvLV+ewWJoWW4FGmyE8bu6k3wo97bnd9z23XtMzl3F6+h1gEZa5lRrwBie8dXt+k0vb1+RSGQ==
+"@vue-storefront/core@~2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/core/-/core-2.7.1.tgz#ff9ae1577e42783d97bd365c6694ca9b44c76883"
+  integrity sha512-YXr3oPtfd0KXp32XHUNcPJIhOWiIOSOHLLNJceSSR3ouan9aM2JtJsj1VHcHyTD/6MopTgM65EXncmh5o6/VRw==
   dependencies:
     axios "0.21.1"
     express "^4.17.1"
     lodash-es "^4.17.15"
     vue "^2.6.11"
 
-"@vue-storefront/middleware@~2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-2.7.0.tgz#478fce0997c8a7fcde275086f35837d170f73632"
-  integrity sha512-EAapEgkRF2weurhNzUjF/ixL8bXDq/RURlqnyIkDNHXL1Mn5OgSGOMPYiC+q3cScjfyuH7hcMFSdVjN/vbo8rA==
+"@vue-storefront/middleware@~2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-2.7.1.tgz#f289adca30ab5665bed13df2b55a7de879b9ff70"
+  integrity sha512-SqY/ew+n4ewazOdcUYeZQbqMOwHUjBMkaB/vgUFjwIomoMgi8zo/+K+emycY3CcTF9XS6KsT3lO7H5+MIxdUBg==
   dependencies:
-    "@vue-storefront/core" "~2.7.0"
+    "@vue-storefront/core" "~2.7.1"
     consola "2.15.3"
     cookie-parser "^1.4.5"
     cors "^2.8.5"
     express "^4.17.1"
     helmet "^5.0.2"
 
-"@vue-storefront/nuxt@~2.7.0":
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/nuxt/-/nuxt-2.7.0.tgz#5abcaefc1f736109b31cd86536a37009d9e1e5e7"
-  integrity sha512-RqcaYPidTcs/fpvbCEKllRIu+WrnnRc6Vn2m88O/Ai5/TUbF3682lIkJtkQMtF6zJAsxgy5+WwOPTkWCsmrLqg==
+"@vue-storefront/nuxt@~2.7.1":
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/nuxt/-/nuxt-2.7.1.tgz#56c7f5ad6262052720b4afa4266bf01dfc48f2bd"
+  integrity sha512-jhG/F24tSTqEmK84WYzMciZ2kShbZduwdUO7iWOWxs1VpFBYkcKQybGjFdqXpkaCcftCYjFwaVZfUiv3hiYK6g==
   dependencies:
     "@nuxt/typescript-build" "^2.0.0"
     "@nuxtjs/composition-api" "^0.29.3"
