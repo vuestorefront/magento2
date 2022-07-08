@@ -95,3 +95,7 @@ sw.*
 version
 .env.*
 !.env.example
+
+## SSL
+# Untrack all keys
+*.pem

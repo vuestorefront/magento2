@@ -8,6 +8,16 @@ const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
 
 export default integrationPlugin((plugin) => {
   const getCookieName = (property: keyof typeof defaultConfig['cookies']) : string => moduleOptions.cookies?.[property] ?? defaultConfig.cookies[property];
+  const cookieOpts = {
+    [defaultConfig.cookies.currencyCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+    [defaultConfig.cookies.localeCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+    [defaultConfig.cookies.storeCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+    [defaultConfig.cookies.customerCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+    [defaultConfig.cookies.cartCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+    [defaultConfig.cookies.messageCookieName]: { ...moduleOptions.cookiesDefaultOpts },
+  };
+
+  const getCookieOpt = (cookieName?: string): CookieSerializeOptions => cookieOpts[cookieName] ?? {};
 
   const cookieNames = {
     cart: getCookieName('cartCookieName'),
@@ -23,7 +33,7 @@ export default integrationPlugin((plugin) => {
 
   const createCookieOperationsInstance = <TValue = string>(cookies: NuxtCookies) => (cookieName: string) => ({
     get: (opts?: GetOptions) => cookies.get(cookieName, opts),
-    set: (value: TValue, opts?: CookieSerializeOptions) => cookies.set(cookieName, value, opts),
+    set: (value: TValue, opts?: CookieSerializeOptions) => cookies.set(cookieName, value, { ...getCookieOpt(cookieName), ...opts }),
     remove: (opts?: CookieSerializeOptions) => cookies.remove(cookieName, opts),
   });
 
