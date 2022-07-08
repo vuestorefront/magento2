@@ -4,12 +4,27 @@ import http from 'k6/http';
 
 import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
 
+/**
+ * @type {import('k6/options').Options}
+ */
 export const options = {
   vus: 10,
   duration: '5m',
+  ext: {
+    loadimpact: {
+      name: 'Search products',
+      note: 'Guest user browsing through a product',
+      // eslint-disable-next-line unicorn/numeric-separators-style
+      projectID: 3591701,
+    },
+  },
 };
 
 const { BASE_URL } = __ENV;
+
+if (BASE_URL === undefined) {
+  throw new Error('BASE_URL is not set');
+}
 
 export default function main() {
   let response;
@@ -80,7 +95,7 @@ export default function main() {
       }
     }
   }
-  
+
   fragment CategoryFields on CategoryTree {
     is_anchor
     name
@@ -299,7 +314,7 @@ export default function main() {
       }
     }
   }
-  
+
   fragment PriceRangeFields on PriceRange {
     maximum_price {
       final_price {
