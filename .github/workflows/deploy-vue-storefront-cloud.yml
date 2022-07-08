@@ -82,7 +82,7 @@ jobs:
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
 
           VSF_STORE_URL: ''
-          VSF_MIDDLEWARE_URL: ${{ secrets.VSF_MIDDLEWARE_URL }}
+          VSF_MIDDLEWARE_URL: https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql
