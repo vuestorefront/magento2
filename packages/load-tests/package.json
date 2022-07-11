@@ -1,0 +1,13 @@
+{
+  "name": "@vue-storefront/magento-load-tests",
+  "version": "1.0.0-rc.10",
+  "description": "Load tests for Magento 2 - VSF integration",
+  "main": "index.js",
+  "repository": "https://github.com/vuestorefront/magento2",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/k6": "^0.37.0",
+    "k6": "^0.0.0"
+  }
+}

@@ -11,7 +11,7 @@ on:
       filename:
         description: The K6 test file to run relative to repository root
         required: true
-        default: packages/theme/tests/load/searchProduct.js
+        default: packages/load-tests/src/scenarios/searchProduct.js
         type: string
 
       environment:
