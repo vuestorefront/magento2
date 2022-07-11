@@ -123,5 +123,5 @@ const { createApiClient } = apiClientFactory({
 
 export {
   createApiClient,
-  // init,
+  init,
 };
