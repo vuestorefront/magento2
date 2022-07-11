@@ -276,6 +276,23 @@ export function useUser(): UseUserInterface {
         loginRecaptchaToken = await $recaptcha.getResponse();
       }
 
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { customer: { customer_create_account_confirm } } = app.context.$vsf.$magento.config;
+
+      if (customer_create_account_confirm) {
+        return await new Promise((resolve) => {
+          sendNotification({
+            id: Symbol('registration_confirmation'),
+            message: app.i18n.t('You must confirm your account. Please check your email for the confirmation link.') as string,
+            persist: true,
+            title: 'Registration confirmation',
+            type: 'success',
+            icon: 'check',
+          });
+
+          resolve();
+        });
+      }
       await login({ user: { email, password, recaptchaToken: loginRecaptchaToken }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
