@@ -2,18 +2,13 @@
 <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
-## Vue Storefront 2 integration with Magento
+## [deprecated] @vue-storefront/magento
 
-### @vue-storefront/magento
+**If you are looking for Ve Storefront integration
+for Magento 2, please follow these links:**
+- [Vue Storefront for Magento 2 integration repository](https://github.com/vuestorefront/magento2)
+- [Vue Storefront for Magento 2 integration documentation](https://docs.vuestorefront.io/magento/)
 
-This is only the **composables** package, you need to install the other dependencies also.
-
-This project is a Magento 2 integration for Vue Storefront 2.
-This integration developed by superheroes from [Caravel](https://github.com/caravelx) ❤️
-<div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>
-</div>
-<hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
