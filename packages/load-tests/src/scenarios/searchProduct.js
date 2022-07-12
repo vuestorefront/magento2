@@ -8,7 +8,7 @@ import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
  * @type {import('k6/options').Options}
  */
 export const options = {
-  vus: 10,
+  vus: 200,
   duration: '5m',
   ext: {
     loadimpact: {

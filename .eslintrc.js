@@ -17,6 +17,7 @@ module.exports = {
       resolve(__dirname, './packages/composables/tsconfig.eslint.json'),
       resolve(__dirname, './packages/theme/tsconfig.json'),
       resolve(__dirname, './packages/theme/tests/e2e/tsconfig.json'),
+      resolve(__dirname, './packages/load-tests/tsconfig.json'),
     ],
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue'],
