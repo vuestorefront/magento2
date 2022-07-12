@@ -42,7 +42,7 @@
     "@vue-storefront/middleware": "~2.7.1",
     "@vue-storefront/nuxt": "~2.7.1",
     "@vue-storefront/redis-cache": "^1.0.1",
-    "axios": "^0.27.2",
+    "axios": "^0.26.1",
     "body-parser": "1.20.0",
     "body-scroll-lock": "^3.1.5",
     "cookie-universal-nuxt": "^2.2.1",
