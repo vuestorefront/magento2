@@ -282,7 +282,7 @@ export default () => {
     };
   }
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || process.env.IS_ENV_LOCAL) {
     baseConfig.server = {
       https: {
         key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),

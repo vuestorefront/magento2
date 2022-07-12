@@ -100,7 +100,7 @@ module.exports = {
 ### Install `mkcert`
 Please, follow the steps in the [official instruction](https://github.com/FiloSottile/mkcert). Different OS might require different steps to accomplish the task.
 
-### Generate certificate
+### Generate certificate for a local development
 If you set up your project from CLI run the command in the APP root directory.
 If you are a contributor and have cloned Vue Storefront repository, run the command in `packages/theme`.
 ```
@@ -108,8 +108,12 @@ mkcert localhost
 ```
 
 ### Start project
-```
+```bash
 yarn dev
+```
+or
+```bash
+yarn start:local #this will run local production mode
 ```
 
 You will see some NODE TLS warnings but this is just fine for a local development.
