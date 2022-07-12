@@ -71,3 +71,46 @@ When working with translation in your application, you need to:
 
 1. Add translations in Magento for products and categories.
 2. Update the `i18n.locales` array in the `nuxt.config.js` file and add translations to the corresponding files in the `lang` directory.
+
+### 4. Configure default cookies settings
+
+Vue Storefront app uses different cookies but all share the same default config. To adjust the configuration you have to modify `middleware.config.js`.
+Once done, rebuild your application.
+
+```js
+module.exports = {
+  integrations: {
+    magento: {
+      configuration: {
+        /*...*/
+        // Here you can override default cookies options
+        cookiesDefaultOpts: {
+          httpOnly: false,
+          secure: true, // Make sure that you have ssl configured, otherwise disable this flag
+        },
+        /*...*/
+      },
+    },
+  },
+};
+```
+
+### 5. Using HTTPS configuration for a local development
+
+### Install `mkcert`
+Please, follow the steps in the [official instruction](https://github.com/FiloSottile/mkcert). Different OS might require different steps to accomplish the task.
+
+### Generate certificate
+If you set up your project from CLI run the command in the APP root directory.
+If you are a contributor and have cloned Vue Storefront repository, run the command in `packages/theme`.
+```
+mkcert localhost
+```
+
+### Start project
+```
+yarn dev
+```
+
+You will see some NODE TLS warnings but this is just fine for a local development.
+For more details, please check example of using HTTPS configuration in the official [Nuxt documentation](https://nuxtjs.org/docs/configuration-glossary/configuration-server/)

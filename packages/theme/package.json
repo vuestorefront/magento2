@@ -10,7 +10,7 @@
   "scripts": {
     "build": "nuxt build --modern=client",
     "build:analyze": "nuxt build -a --modern=client",
-    "dev": "nuxt",
+    "dev": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && nuxt --env.NODE_TLS_REJECT_UNAUTHORIZED=0",
     "dev:debug": "node --inspect ../../node_modules/.bin/nuxt dev",
     "generate": "nuxt generate",
     "lint": "eslint . --ext .ts,.vue",
