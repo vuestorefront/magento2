@@ -17,6 +17,7 @@
     "lint:fix": "eslint . --ext .ts,.vue --fix",
     "precommit": "lint-staged",
     "start": "nuxt start --modern=client",
+    "start:local": "export NODE_TLS_REJECT_UNAUTHORIZED=0 && export IS_ENV_LOCAL=1 && nuxt start --modern=client --env.NODE_TLS_REJECT_UNAUTHORIZED=0",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
