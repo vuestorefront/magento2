@@ -1,5 +1,13 @@
 /* eslint-disable unicorn/prefer-module */
-const cookieNames = require('./enums/cookieNameEnum');
+const cookieNames = {
+  currencyCookieName: 'vsf-currency',
+  countryCookieName: 'vsf-country',
+  localeCookieName: 'vsf-locale',
+  cartCookieName: 'vsf-cart',
+  customerCookieName: 'vsf-customer',
+  storeCookieName: 'vsf-store',
+  messageCookieName: 'vsf-message',
+};
 
 const isCheckoutEnabled = process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED === 'true';
 

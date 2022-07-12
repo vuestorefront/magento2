@@ -304,9 +304,9 @@ import {
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
-import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
+import { ProductStockStatus } from '~/modules/GraphQL/types';
 import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
@@ -401,7 +401,7 @@ export default defineComponent({
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
+    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
 
     return {
       sendToRemove,

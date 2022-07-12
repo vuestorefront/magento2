@@ -26,3 +26,8 @@ export interface Pagination {
   itemsPerPage?: number;
   pageOptions?: number[];
 }
+
+// export enum ProductStockStatus {
+//   InStock = 'IN_STOCK',
+//   OutOfStock = 'OUT_OF_STOCK',
+// }
