@@ -4,7 +4,7 @@ import { waitFor } from '@testing-library/vue';
 import { useRouter } from '@nuxtjs/composition-api';
 import { useGuestUser } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
-import { render, useUserMock, useGuestUserMock } from '~/test-utils';
+import { render, useUserMock, useGuestUserMock } from '~/tests/unit/test-utils';
 
 import UserAccount from '../UserAccount';
 

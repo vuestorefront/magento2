@@ -1,6 +1,6 @@
 import type { Totals, Pagination } from '~/composables/types';
 import type { Price } from '~/modules/catalog/types';
-import type { WishlistGetters as BaseWishlistGetters } from '~/getters/types';
+import type { WishlistGetters as BaseWishlistGetters } from './types';
 import type {
   Wishlist, ProductInterface, WishlistItemInterface,
 } from '~/modules/GraphQL/types';

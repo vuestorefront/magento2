@@ -1,10 +1,10 @@
 import userEvent from '@testing-library/user-event';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import CategoryNavbar from '../CategoryNavbar.vue';
-import { paginationData, sortByData } from '~/test-utils/mocks/categoryNavbarMock';
+import { paginationData, sortByData } from '~/tests/unit/mocks/categoryNavbarMock';
 import { useUiHelpers, useUiState } from '~/composables';
-import useUiHelpersMock from '~/test-utils/mocks/useUiHelpersMock';
-import useUiStateMock from '~/test-utils/mocks/useUiState';
+import useUiHelpersMock from '~/tests/unit/mocks/useUiHelpersMock';
+import useUiStateMock from '~/tests/unit/mocks/useUiState';
 
 jest.mock('~/composables', () => ({
   ...jest.requireActual('~/composables'),

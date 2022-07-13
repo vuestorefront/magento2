@@ -136,7 +136,7 @@ import {
 import {
   getTotalReviews,
   getAverageRating,
-} from '~/getters/reviewGetters';
+} from '~/modules/review/getters/reviewGetters';
 
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import SvgImage from '~/components/General/SvgImage.vue';

@@ -74,8 +74,8 @@ import reviewGetters, {
   getReviewDate,
   getReviewMessage,
   getReviewRating,
-} from '~/getters/reviewGetters';
-import { useReview, UseReviewAddReviewParams } from '~/composables';
+} from '~/modules/review/getters/reviewGetters';
+import { useReview, UseReviewAddReviewParams } from '~/modules/review/composables/useReview';
 import { Product } from '~/modules/catalog/product/types';
 import { TabsConfig } from '~/modules/catalog/product/composables/useProductTabs';
 

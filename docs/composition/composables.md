@@ -41,7 +41,7 @@ Let's see how you can use the [useUser](/api-reference/magento-theme.useuserinte
 
 ```vue
 <script>
-import { useUser } from '~/composables/useReview';
+import { useUser } from '~/modules/customer/composables/useReview';
 import { useFetch } from '@nuxtjs/composition-api';
 
 export default {

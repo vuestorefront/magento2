@@ -1,5 +1,5 @@
 import { NuxtAppOptions } from '@nuxt/types';
-import { defaultConfig } from '~/modules/magento/defaultConfig';
+import { defaultConfig } from '~/modules/core/defaultConfig';
 
 export const getLocaleSettings = (app: NuxtAppOptions, moduleOptions: Record<string, unknown>, additionalProperties: any) => {
   const localeSettings = moduleOptions.cookies

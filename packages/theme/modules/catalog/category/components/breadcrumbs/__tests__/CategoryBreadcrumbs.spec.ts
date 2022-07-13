@@ -5,7 +5,7 @@ import {
   categoryAncestorsSecondLevelMock,
   categoryAncestorsThirdLevelMock,
   useTraverseCategoryMock,
-} from '~/test-utils/mocks/useTraverseCategoryMock';
+} from '~/tests/unit/mocks/useTraverseCategoryMock';
 import { useUiHelpers } from '~/composables';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
