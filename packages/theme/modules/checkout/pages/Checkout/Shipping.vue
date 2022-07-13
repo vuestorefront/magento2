@@ -7,6 +7,7 @@
       class="sf-heading--left sf-heading--no-underline title"
     />
     <SfHeading
+      v-if="hasSavedShippingAddress"
       v-e2e="'shipping-heading'"
       :level="4"
       :title="$t('Select previously saved address')"
@@ -27,6 +28,7 @@
         class="form"
       >
         <SfHeading
+          v-if="hasSavedShippingAddress"
           v-e2e="'shipping-heading'"
           :level="4"
           :title="$t('Enter different address')"
