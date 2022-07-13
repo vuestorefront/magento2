@@ -15,6 +15,10 @@ module.exports = {
   helmet: {
     crossOriginResourcePolicy: true,
     referrerPolicy: { policy: 'origin' },
+    frameguard: { action: 'deny' },
+    permittedCrossDomainPolicies: { permittedPolicies: 'none' },
+    contentSecurityPolicy: { useDefaults: true },
+    expectCt: { maxAge: 86_400 },
   },
   integrations: {
     magento: {
