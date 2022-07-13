@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { useContext } from '@nuxtjs/composition-api';
-import { render } from '~/test-utils';
-import { RemovableFilter, removableFiltersData } from '~/test-utils/mocks/removableFiltersMock';
+import { render } from '~/tests/unit/test-utils';
+import { RemovableFilter, removableFiltersData } from '~/tests/unit/mocks/removableFiltersMock';
 import SelectedFilters from '~/modules/catalog/category/components/filters/FiltersSidebar/SelectedFilters.vue';
 
 jest.mock('@nuxtjs/composition-api', () => {

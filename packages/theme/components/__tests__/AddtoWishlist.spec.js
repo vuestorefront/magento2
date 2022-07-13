@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 // @ts-ignore
 import AddToWishlist from '../AddToWishlist.vue';
 

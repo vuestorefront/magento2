@@ -1,4 +1,4 @@
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import CategoryEmptyResults from '../CategoryEmptyResults.vue';
 
 describe('CategoryEmptyResults.vue', () => {

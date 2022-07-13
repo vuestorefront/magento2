@@ -2,7 +2,7 @@
 import userEvent from '@testing-library/user-event';
 import { waitFor } from '@testing-library/vue';
 import { useForgotPassword } from '~/composables';
-import { render, useForgotPasswordMock } from '~/test-utils';
+import { render, useForgotPasswordMock } from '~/tests/unit/test-utils';
 
 import ResetPassword from '../ResetPassword';
 

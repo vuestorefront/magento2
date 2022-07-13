@@ -1,5 +1,5 @@
-import { render } from '~/test-utils';
-import { Content, cmsContentMock } from '~/test-utils/mocks/cmsContentMock';
+import { render } from '~/tests/unit/test-utils';
+import { Content, cmsContentMock } from '~/tests/unit/mocks/cmsContentMock';
 
 // eslint-disable-next-line jest/no-export
 export const cmsContentTest = (component) => {

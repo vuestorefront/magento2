@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import { inject } from '@nuxtjs/composition-api';
-import { render } from '~/test-utils';
-import { categoryFiltersData, categoryFiltersDataWithOneOption } from '~/test-utils/mocks/categoryFiltersMock';
-import { injectMock } from '~/test-utils/mocks/injectMock';
+import { render } from '~/tests/unit/test-utils';
+import { categoryFiltersData, categoryFiltersDataWithOneOption } from '~/tests/unit/mocks/categoryFiltersMock';
+import { injectMock } from '~/tests/unit/mocks/injectMock';
 import CheckboxType from '~/modules/catalog/category/components/filters/renderer/CheckboxType.vue';
 import type { Aggregation } from '~/modules/GraphQL/types';
 

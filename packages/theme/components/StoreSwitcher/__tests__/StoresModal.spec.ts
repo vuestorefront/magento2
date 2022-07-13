@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import StoresModal from '~/components/StoreSwitcher/StoresModal.vue';
-import { useStoreMock } from '~/test-utils/mocks/useStore';
+import { useStoreMock } from '~/tests/unit/mocks/useStore';
 import { useStore } from '~/composables';
 import { availableStoresMock } from '~/components/StoreSwitcher/__tests__/availableStores.mock';
 

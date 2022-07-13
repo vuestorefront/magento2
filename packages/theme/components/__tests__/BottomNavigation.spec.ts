@@ -7,7 +7,7 @@ import { createTestingPinia } from '@pinia/testing';
 import { ref } from '@nuxtjs/composition-api';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useUiState } from '~/composables';
-import { useUiStateMock, useUserMock } from '~/test-utils';
+import { useUiStateMock, useUserMock } from '~/tests/unit/test-utils';
 
 import { useCategoryStore } from '~/modules/catalog/category/stores/category';
 import BottomNavigation from '../BottomNavigation.vue';
