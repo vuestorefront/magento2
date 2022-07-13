@@ -83,7 +83,7 @@ export default () => {
           },
         },
       }],
-      ['~/modules/magento', {
+      ['~/modules/core', {
         cookies,
         cookiesDefaultOpts,
         externalCheckout,
