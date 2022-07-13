@@ -54,7 +54,7 @@ import {
   defineComponent, ref, watch, useRoute,
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
-import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive';
+import { clickOutside } from '~/components/directives/click-outside/click-outside-directive';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import { Products } from '~/modules/GraphQL/types';
