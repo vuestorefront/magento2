@@ -4,6 +4,10 @@ const cookieNames = require('./enums/cookieNameEnum');
 const isCheckoutEnabled = process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED === 'true';
 
 module.exports = {
+  helmet: {
+    crossOriginResourcePolicy: true,
+    referrerPolicy: { policy: 'origin' },
+  },
   integrations: {
     magento: {
       location: '@vue-storefront/magento-api/server',
