@@ -183,6 +183,7 @@ export default {
   "Thank you": "Danke",
   "Thank You Inbox": "Wenn die Nachricht nicht in Ihrem Posteingang ankommt, versuchen Sie es mit einer anderen E-Mail-Adresse, mit der Sie sich möglicherweise registriert haben.",
   "Total": "Gesamt",
+  "Order Total": "Auftragssumme",
   "Total items": "Gesamtanzahl",
   "Total price": "Gesamtpreis",
   "Update password": "Passwort aktualisieren",
@@ -280,4 +281,6 @@ export default {
   "Passwords don't match":"Passwörter stimmen nicht überein",
   "The password must be at least 8 characters long and must contain at least: 1 uppercase or lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)":"Das Passwort muss mindestens 8 Zeichen lang sein und muss mindestens enthalten: 1 Groß- oder Kleinbuchstabe, 1 Ziffer oder ein Sonderzeichen (z. B. , . _ & ? usw.)",
   "Show all products":"Alle Produkte anzeigen",
+  "Select previously saved address":"Zuvor gespeicherte Adresse auswählen",
+  "Enter different address":"Geben Sie eine andere Adresse ein",
 };

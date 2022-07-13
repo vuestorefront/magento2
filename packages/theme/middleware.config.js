@@ -16,6 +16,7 @@ module.exports = {
           httpOnly: false,
           secure: true,
           sameSite: 'Strict',
+          path: '/',
         },
         defaultStore: 'default',
         externalCheckout: {
