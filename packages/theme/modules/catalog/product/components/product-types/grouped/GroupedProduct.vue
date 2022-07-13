@@ -125,7 +125,7 @@ import {
 import {
   getTotalReviews,
   getAverageRating,
-} from '~/getters/reviewGetters';
+} from '~/modules/review/getters/reviewGetters';
 
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';

@@ -8,7 +8,7 @@ import {
   useReviewMock,
 } from '~/test-utils';
 
-import { useReview } from '~/composables';
+import { useReview } from '~/modules/review/composables/useReview';
 import { useUser } from '~/modules/customer/composables/useUser';
 import ProductAddReviewForm from '../../modules/catalog/product/components/ProductAddReviewForm';
 

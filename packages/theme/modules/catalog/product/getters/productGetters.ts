@@ -11,7 +11,7 @@ import type {
 } from '~/modules/GraphQL/types';
 
 import { htmlDecode } from '~/helpers/htmlDecoder';
-import { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
+import { getTotalReviews, getAverageRating } from '~/modules/review/getters/reviewGetters';
 
 export interface ProductGetters {
   getName: (product: ProductInterface) => string;
@@ -253,7 +253,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
   return breadcrumbs;
 };
 
-export { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
+export { getTotalReviews, getAverageRating } from '~/modules/review/getters/reviewGetters';
 
 export const getProductRelatedProduct = (product: any): Product[] => product?.related_products || [];
 

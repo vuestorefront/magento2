@@ -295,7 +295,7 @@ import {
   onMounted,
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
-import { cartGetters } from '~/getters';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
 import {
   useUiState,
   useUiNotification,

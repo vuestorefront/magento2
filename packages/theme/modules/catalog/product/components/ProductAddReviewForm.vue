@@ -125,9 +125,9 @@ import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
   SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
-import { reviewGetters } from '~/getters';
+import reviewGetters from '~/modules/review/getters/reviewGetters';
 import userGetters from '~/modules/customer/getters/userGetters';
-import { useReview } from '~/composables';
+import { useReview } from '~/modules/review/composables/useReview';
 import { useUser } from '~/modules/customer/composables/useUser';
 import type { ProductReviewRatingMetadata } from '~/modules/GraphQL/types';
 

@@ -55,9 +55,9 @@ import {
 import {
   ref, computed, defineComponent, onMounted,
 } from '@nuxtjs/composition-api';
-import { reviewGetters } from '~/getters';
+import reviewGetters from '~/modules/review/getters/reviewGetters';
 import { Customer } from '~/modules/GraphQL/types';
-import { useReview } from '~/composables';
+import { useReview } from '~/modules/review/composables/useReview';
 
 export default defineComponent({
   name: 'MyReviews',
