@@ -6,7 +6,12 @@
       :title="$t('Shipping address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
-
+    <SfHeading
+      v-e2e="'shipping-heading'"
+      :level="4"
+      :title="$t('Select previously saved address')"
+      class="sf-heading--left sf-heading--no-underline form-subtitle"
+    />
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <UserShippingAddresses
         v-if="isAuthenticated && hasSavedShippingAddress"
@@ -21,6 +26,12 @@
         v-if="isAddNewAddressFormVisible"
         class="form"
       >
+        <SfHeading
+          v-e2e="'shipping-heading'"
+          :level="4"
+          :title="$t('Enter different address')"
+          class="sf-heading--left sf-heading--no-underline form-subtitle"
+        />
         <ValidationProvider
           v-slot="{ errors }"
           name="firstname"
@@ -360,6 +371,7 @@ export default defineComponent({
       const shippingDetailsData = {
         ...shippingDetails.value,
         customerAddressId: addressId,
+        save_in_address_book: false,
       };
       await mergeItem('checkout', { shipping: shippingDetailsData });
 
@@ -422,7 +434,6 @@ export default defineComponent({
         loadUserShipping(),
         loadCountries(),
       ]);
-
       const [defaultAddress = null] = userShippingGetters.getAddresses(loadedUserShipping, { default_shipping: true });
       const wasShippingAddressAlreadySetOnCart = Boolean(loadedShippingInfoBoundToCart);
 
@@ -568,7 +579,15 @@ export default defineComponent({
   }
 }
 
-.title {
+.title, .form-subtitle {
   margin: var(--spacer-xl) 0 var(--spacer-base) 0;
+
+}
+
+.form-subtitle {
+  width: 100%;
+  .sf-heading__title {
+    font-weight: bold;
+  }
 }
 </style>

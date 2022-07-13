@@ -6,6 +6,12 @@
       :title="$t('Billing address')"
       class="sf-heading--left sf-heading--no-underline title"
     />
+    <SfHeading
+      v-e2e="'shipping-heading'"
+      :level="4"
+      :title="$t('Select previously saved address')"
+      class="sf-heading--left sf-heading--no-underline form-subtitle"
+    />
     <form @submit.prevent="handleSubmit(handleAddressSubmit(reset))">
       <SfCheckbox
         v-e2e="'copy-address'"
@@ -47,6 +53,12 @@
         v-if="!sameAsShipping && isAddNewAddressFormVisible"
         class="form"
       >
+        <SfHeading
+          v-e2e="'shipping-heading'"
+          :level="4"
+          :title="$t('Enter different address')"
+          class="sf-heading--left sf-heading--no-underline form-subtitle"
+        />
         <ValidationProvider
           v-slot="{ errors }"
           name="firstname"
@@ -403,6 +415,7 @@ export default defineComponent({
           ...billingDetails.value,
           customerAddressId: addressId === null ? null : String(addressId),
           sameAsShipping: sameAsShipping.value,
+          save_in_address_book: false,
         },
       };
       await save(billingDetailsData);
@@ -486,7 +499,7 @@ export default defineComponent({
         loadUserBilling(),
         loadCountries(),
       ]);
-      const [defaultAddress = null] = userBillingGetters.getAddresses(loadedUserBilling, { default_shipping: true });
+      const [defaultAddress = null] = userBillingGetters.getAddresses(loadedUserBilling, { default_billing: true });
       const wasBillingAddressAlreadySetOnCart = Boolean(loadedBillingInfoBoundToCart);
 
       // keep in mind default billing address is set on a customer's cart during cart creation
@@ -645,6 +658,18 @@ export default defineComponent({
     &:hover {
       color: white;
     }
+  }
+}
+
+.title, .form-subtitle {
+  margin: var(--spacer-xl) 0 var(--spacer-base) 0;
+
+}
+
+.form-subtitle {
+  width: 100%;
+  .sf-heading__title {
+    font-weight: bold;
   }
 }
 </style>

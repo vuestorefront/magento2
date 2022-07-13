@@ -178,6 +178,7 @@ export default {
   "Thank you": "Thank you",
   "Thank You Inbox": "If the message is not arriving in your inbox, try another email address you might’ve used to register.",
   "Total": "Total",
+  "Order Total": "Order Total",
   "Total items": "Total items",
   "Total price": "Total price",
   "Update password": "Update password",
@@ -278,5 +279,7 @@ export default {
   "Passwords don't match":"Passwords don't match",
   "The password must be at least 8 characters long and must contain at least: 1 uppercase or lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)":"The password must be at least 8 characters long and must contain at least: 1 uppercase or lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)",
   "Show all products":"Show all products",
+  "Select previously saved address":"Select previously saved address",
+  "Enter different address":"Enter different address",
   "You must confirm your account. Please check your email for the confirmation link.": "You must confirm your account. Please check your email for the confirmation link.",
 };

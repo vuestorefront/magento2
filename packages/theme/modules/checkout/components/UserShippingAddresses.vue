@@ -18,20 +18,12 @@
         </UserAddressDetails>
       </SfAddress>
     </SfAddressPicker>
-    <SfCheckbox
-      v-show="currentAddressId"
-      :selected="value"
-      name="setAsDefault"
-      label="Use this address as my default one."
-      class="setAsDefault"
-      @change="$emit('input', $event)"
-    />
     <hr class="sf-divider">
   </div>
 </template>
 
 <script lang="ts">
-import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { SfAddressPicker } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 
@@ -43,7 +35,6 @@ import { Countries } from '~/composables';
 export default defineComponent({
   name: 'UserShippingAddresses',
   components: {
-    SfCheckbox,
     SfAddressPicker,
     UserAddressDetails,
   },
