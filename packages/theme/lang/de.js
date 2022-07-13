@@ -280,4 +280,5 @@ export default {
   "Passwords don't match":"Passwörter stimmen nicht überein",
   "The password must be at least 8 characters long and must contain at least: 1 uppercase or lowercase letter, 1 number, or one special character (E.g. , . _ & ? etc)":"Das Passwort muss mindestens 8 Zeichen lang sein und muss mindestens enthalten: 1 Groß- oder Kleinbuchstabe, 1 Ziffer oder ein Sonderzeichen (z. B. , . _ & ? usw.)",
   "Show all products":"Alle Produkte anzeigen",
+  "You must confirm your account. Please check your email for the confirmation link.": "Sie müssen Ihr Konto bestätigen. Bitte überprüfen Sie Ihre E-Mail auf den Bestätigungslink.",
 };

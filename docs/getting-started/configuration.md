@@ -32,6 +32,77 @@ Your project might include some additional configuration files not described abo
 
 - [`jest.config.js`](https://jestjs.io/docs/configuration) configures Jest testing framework, used for writing and running unit tests.
 
+## Magento Configuration
+
+In some cases Magento doesn't provide configuration values by GraphQL API. Then we recommend to set up a configuration
+fields and values in the `middleware.config.js` file. Example:
+
+```javascript
+customer: {
+  customer_create_account_confirm: true
+}
+```
+
+### How to set a config flag in the middleware.config.js
+When you want to set a new flag, you need to:
+1. declare field in the `integrations.magento` object:
+```javascript
+module.exports = {
+    integrations: {
+        magento: {
+          // (...) other fields
+          foo: { // your new area of config
+            your_new_config_value: true // your new flag
+          }
+        }
+    }
+}
+```
+2. Get a new field in the `nuxt.config.js` file from the middleware config:
+```javascript
+import middleware from './middleware.config';
+
+const {
+  integrations: {
+    magento: {
+      configuration: {
+        cookies,
+        externalCheckout,
+        // (...) other fields
+        foo // your new object
+      },
+    },
+  },
+} = middleware;
+```
+3. Pass the new field to the `'~/modules/magento'` module configuration:
+```javascript
+['~/modules/magento', {
+  cookies,
+  externalCheckout,
+  // (...) other fields
+  foo // your new object
+}],
+```
+4. Now you can get the value of your config object in a composable/compoonent like this:
+```javascript
+import { useContext } from '@nuxtjs/composition-api';
+// (...)
+const { app } = useContext();
+const { foo } = app.context.$vsf.$magento.config; // here you go
+```
+
+#### Predefined Magento config fields
+##### Customer
+`customer_create_account_confirm` - it correspond to the Magento **Require Emails Confirmation** config flag:
+
+**Magento config:** `Stores -> Configuration -> Customers -> Customers configuration -> Require Emails Confirmation`
+**Possible values:** `boolean`
+
+**Consequences:**
+- when is set to true, then email confirmation is required after customer registration.
+- when is set to false, user can register and then is immediately logged-in as a customer.
+
 ## What's next
 
 As the next step, we will learn about [Layouts and Routing](./layouts-and-routing.html) and show what routes come predefined in every Vue Storefront project and how to register custom ones.

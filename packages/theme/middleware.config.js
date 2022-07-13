@@ -40,6 +40,9 @@ module.exports = {
           version: process.env.VSF_RECAPTCHA_VERSION,
           score: process.env.VSF_RECAPTCHA_MIN_SCORE,
         },
+        customer: {
+          customer_create_account_confirm: true,
+        },
       },
     },
   },
