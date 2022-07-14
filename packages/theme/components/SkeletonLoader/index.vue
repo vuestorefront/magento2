@@ -26,9 +26,11 @@ export default defineComponent({
     },
     width: {
       type: String,
+      default: null,
     },
     height: {
       type: String,
+      default: null,
     },
     margin: {
       type: String,
