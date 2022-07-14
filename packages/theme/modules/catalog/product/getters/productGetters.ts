@@ -89,7 +89,7 @@ export const getPrice = (product: ProductInterface): Price => {
   };
 };
 
-export const getGallery = (product: Product): MediaGalleryItem[] => {
+export const getGallery = (product: Product, maxGallerySize = 4): MediaGalleryItem[] => {
   const images = [];
 
   if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
@@ -109,7 +109,7 @@ export const getGallery = (product: Product): MediaGalleryItem[] => {
     });
   }
 
-  return images;
+  return images.slice(0, maxGallerySize);
 };
 
 export const getCoverImage = (product: Product): string => {
