@@ -67,7 +67,7 @@
     <SfSidebar
       :visible="isVisible"
       class="sidebar-filters smartphone-only"
-      title="Filters"
+      :title="$t('Filters')"
       data-testid="mobile-sidebar"
       @close="$emit('close')"
     >

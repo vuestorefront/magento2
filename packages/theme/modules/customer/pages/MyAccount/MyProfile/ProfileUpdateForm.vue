@@ -109,7 +109,7 @@
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { email } from 'vee-validate/dist/rules';
 import { SfInput, SfButton, SfModal } from '@storefront-ui/vue';
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
 import userGetters from '~/modules/customer/getters/userGetters';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useUiNotification } from '~/composables';
@@ -139,6 +139,7 @@ export default defineComponent({
   },
   emits: ['submit'],
   setup(_props, { emit }) {
+    const { app: { i18n } } = useContext();
     const { user } = useUser();
     const currentPassword = ref('');
     const requirePassword = ref(false);
@@ -158,7 +159,7 @@ export default defineComponent({
         currentPassword.value = '';
         sendNotification({
           id: Symbol('user_updated'),
-          message: 'The user account data was successfully updated!',
+          message: i18n.t('The user account data was successfully updated!') as string,
           type: 'success',
           icon: 'check',
           persist: false,
@@ -170,7 +171,7 @@ export default defineComponent({
       const onError = (message: string) => {
         sendNotification({
           id: Symbol('user_updated'),
-          message,
+          message: i18n.t(message) as string,
           type: 'danger',
           icon: 'cross',
           persist: false,

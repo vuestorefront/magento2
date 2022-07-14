@@ -17,7 +17,7 @@ describe('<AddToWishlist>', () => {
       },
     });
 
-    const button = getByText('Add to wishlist');
+    const button = getByText('Add to Wishlist');
     expect(button).toBeInTheDocument();
   });
 
@@ -29,7 +29,7 @@ describe('<AddToWishlist>', () => {
       },
     });
 
-    const button = getByText('Remove from wishlist');
+    const button = getByText('Remove from Wishlist');
     expect(button).toBeInTheDocument();
   });
 
@@ -42,7 +42,7 @@ describe('<AddToWishlist>', () => {
       },
     });
 
-    const button = getByText('Add to wishlist');
+    const button = getByText('Add to Wishlist');
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     await user.click(button);
 

@@ -41,8 +41,8 @@
           <SfNotification
             v-if="!loading"
             :visible="visible"
-            title="Are you sure?"
-            message="Are you sure you would like to remove this item from the shopping cart?"
+            :title="$t('Are you sure?')"
+            :message="$t('Are you sure you would like to remove this item from the shopping cart?')"
             type="secondary"
           >
             <template #action>
@@ -52,10 +52,10 @@
                   data-testid="cart-sidebar-remove-item-yes"
                   @click="actionRemoveItem(tempProduct)"
                 >
-                  Yes
+                  {{ $t('Yes') }}
                 </SfButton>
                 <SfButton @click="visible = false">
-                  Cancel
+                  {{ $t('Cancel') }}
                 </SfButton>
               </div>
             </template>
@@ -193,7 +193,7 @@
                 class="empty-cart__image"
               />
               <SfHeading
-                title="Your cart is empty"
+                :title="$t('Your cart is empty')"
                 :level="2"
                 class="empty-cart__heading"
                 :description="
@@ -327,6 +327,7 @@ export default defineComponent({
     SfImage,
   },
   setup() {
+    const { app: { i18n } } = useContext();
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const { getMagentoImage, imageSizes } = useImage();
@@ -388,9 +389,11 @@ export default defineComponent({
 
       sendNotification({
         id: Symbol('product_removed'),
-        message: `${cartGetters.getItemName(
-          product,
-        )} has been successfully removed from your cart.`,
+        message: i18n.t('{0} has been successfully removed from your cart', {
+          0: cartGetters.getItemName(
+            product,
+          ),
+        }) as string,
         type: 'success',
         icon: 'check',
         persist: false,

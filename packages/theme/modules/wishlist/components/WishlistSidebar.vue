@@ -4,7 +4,7 @@
       :visible="isWishlistSidebarOpen"
       :button="false"
       position="right"
-      title="My Wishlist"
+      :title="$t('My wishlist')"
       class="sidebar sf-sidebar--right"
       @close="toggleWishlistSidebar"
     >
@@ -12,7 +12,7 @@
         <div class="heading__wrapper">
           <SfHeading
             :level="3"
-            title="My wishlist"
+            :title="$t('My wishlist')"
             class="sf-heading--left"
           />
           <SfButton
@@ -37,7 +37,7 @@
           class="my-wishlist"
         >
           <div class="my-wishlist__total-items">
-            Total items: <strong>{{ totalItems }}</strong>
+            {{ $t('Total items') }}: <strong>{{ totalItems }}</strong>
           </div>
           <div class="collected-product-list">
             <SfCollectedProduct

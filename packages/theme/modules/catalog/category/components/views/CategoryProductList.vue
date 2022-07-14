@@ -166,18 +166,30 @@ export default defineComponent({
   }
 }
 
-::v-deep .sf-product-card {
-  &__image-wrapper {
-    height: 257px;
+::v-deep .sf-product-card-horizontal {
+  &__main {
+    @include  for-mobile {
+      align-items: flex-end;
+    }
   }
 
-  &__add-button {
+  &__add-to-cart {
     @include for-mobile {
       opacity: 1;
-      display: flex;
+      display: flex !important;
       bottom: 1rem;
       right: 0;
+      margin-top: var(--spacer-xs);
     }
+  }
+
+  .sf-add-to-cart__select-quantity {
+    display: none;
+  }
+
+  .sf-image {
+    width: auto;
+    height: auto;
   }
 }
 
