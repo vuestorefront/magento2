@@ -17,7 +17,7 @@ export interface ProductGetters {
   getName: (product: ProductInterface) => string;
   getSlug(product: ProductInterface, category?: CategoryInterface): string;
   getPrice: (product: ProductInterface) => Price;
-  getGallery: (product: ProductInterface) => MediaGalleryItem[];
+  getGallery: (product: ProductInterface, maxGallerySize: number) => MediaGalleryItem[];
   getCoverImage: (product: ProductInterface) => string;
   getAttributes: (products: ProductInterface[] | ProductInterface, filters?: Array<string>) => Record<string, ProductAttribute | string>;
   getDescription: (product: ProductInterface) => string;
