@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { SfInput, SfButton } from '@storefront-ui/vue';
 import { useUiNotification } from '~/composables';
@@ -80,6 +80,7 @@ export default defineComponent({
   },
 
   setup(_, { emit }) {
+    const { app: { i18n } } = useContext();
     const getInitialForm = () : PasswordResetFormFields => ({
       currentPassword: '',
       newPassword: '',
@@ -96,7 +97,7 @@ export default defineComponent({
         form.value = getInitialForm();
         sendNotification({
           id: Symbol('password_updated'),
-          message: 'The user password was changed successfully updated!',
+          message: i18n.t('The user password was changed successfully updated!') as string,
           type: 'success',
           icon: 'check',
           persist: false,
@@ -108,7 +109,7 @@ export default defineComponent({
       const onError = (message: string) => {
         sendNotification({
           id: Symbol('password_not_updated'),
-          message,
+          message: i18n.t(message) as string,
           type: 'danger',
           icon: 'cross',
           persist: false,

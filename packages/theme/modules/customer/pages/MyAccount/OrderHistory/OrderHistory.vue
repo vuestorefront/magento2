@@ -35,7 +35,7 @@
               v-for="tableHeader in tableHeaders"
               :key="tableHeader"
             >
-              {{ tableHeader }}
+              {{ $t(tableHeader) }}
             </SfTableHeader>
             <SfTableHeader class="orders__element--right" />
           </SfTableHeading>

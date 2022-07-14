@@ -3,7 +3,7 @@
     <SfBottomNavigation class="navigation-bottom">
       <SfBottomNavigationItem
         :class="{ 'sf-bottom-navigation__item--active': $route.name && $route.name.startsWith('home') }"
-        label="Home"
+        :label="$t('Home')"
         data-testid="bottom-navigation-home"
         @click="handleHomeClick"
       >
@@ -17,7 +17,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Menu"
+        :label="$t('Menu')"
         data-testid="bottom-navigation-menu"
         @click="loadCategoryMenu"
       >
@@ -32,7 +32,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         v-if="isAuthenticated"
-        label="Wishlist"
+        :label="$t('Wishlist')"
         data-testid="bottom-navigation-wishlist"
         @click="toggleWishlistSidebar"
       >
@@ -46,7 +46,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Account"
+        :label="$t('Account')"
         data-testid="bottom-navigation-account"
         @click="handleAccountClick"
       >

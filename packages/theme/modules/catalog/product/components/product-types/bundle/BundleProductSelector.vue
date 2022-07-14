@@ -57,7 +57,7 @@
             </template>
           </SfListItem>
         </SfList>
-        <p>Quantity</p>
+        <p>{{ $t('Quantity') }}</p>
         <SfQuantitySelector
           v-if="selectedOptions[bundle.uid]"
           v-model="selectedOptions[bundle.uid].quantity"
@@ -71,12 +71,12 @@
       class="color-primary bundle_products--add-to-cart"
       @click="addToCart"
     >
-      Add to Cart
+      {{ $t('Add to cart') }}
     </SfButton>
     <SfAlert
       :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
       class="product__add-to-cart-error"
-      :message="addToCartError"
+      :message="$t(addToCartError)"
       type="danger"
     />
   </div>

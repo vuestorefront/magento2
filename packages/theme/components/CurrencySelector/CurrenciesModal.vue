@@ -1,7 +1,7 @@
 <template>
   <SfBottomModal
     :is-open="isModalOpen"
-    title="Choose Currency"
+    :title="$t('Choose Currency')"
     @click:close="closeModal"
   >
     <SfList
@@ -24,6 +24,15 @@
         </a>
       </SfListItem>
     </SfList>
+    <template #close-mobile>
+      <SfButton
+        class="sf-button--full-width sf-bottom-modal__cancel"
+        aria-label="Close"
+        @click="closeModal"
+      >
+        {{ $t('Cancel') }}
+      </SfButton>
+    </template>
   </SfBottomModal>
 </template>
 <script lang="ts">
@@ -31,6 +40,7 @@ import {
   defineComponent, computed, onMounted,
 } from '@nuxtjs/composition-api';
 import {
+  SfButton,
   SfList,
   SfBottomModal,
   SfCharacteristic,
@@ -42,6 +52,7 @@ import {
 export default defineComponent({
   name: 'CurrenciesModal',
   components: {
+    SfButton,
     SfList,
     SfBottomModal,
     SfCharacteristic,

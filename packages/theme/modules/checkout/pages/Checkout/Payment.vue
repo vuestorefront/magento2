@@ -2,7 +2,7 @@
   <div>
     <SfHeading
       :level="3"
-      title="Payment"
+      :title="$t('Payment')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <SfTable class="sf-table--bordered table desktop-only">
@@ -16,7 +16,7 @@
           class="table__header"
           :class="{ table__description: tableHeader === 'Description' }"
         >
-          {{ tableHeader }}
+          {{ $t(tableHeader) }}
         </SfTableHeader>
       </SfTableHeading>
       <SfTableRow
@@ -78,7 +78,7 @@
       <div class="summary__group">
         <div class="summary__total">
           <SfProperty
-            name="Subtotal"
+            :name="$t('Subtotal')"
             :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
@@ -110,7 +110,7 @@
         <SfDivider />
 
         <SfProperty
-          name="Total price"
+          :name="$t('Total price')"
           :value="$fc(totals.total)"
           class="sf-property--full-width sf-property--large summary__property-total"
         />

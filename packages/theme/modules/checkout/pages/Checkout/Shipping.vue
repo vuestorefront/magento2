@@ -43,7 +43,7 @@
           <SfInput
             v-e2e="'shipping-firstName'"
             :value="shippingDetails.firstname"
-            label="First name"
+            :label="$t('First Name')"
             name="firstName"
             class="form__element form__element--half"
             required
@@ -61,7 +61,7 @@
           <SfInput
             v-e2e="'shipping-lastName'"
             :value="shippingDetails.lastname"
-            label="Last name"
+            :label="$t('Last Name')"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
             required
@@ -79,7 +79,7 @@
           <SfInput
             v-e2e="'shipping-streetName'"
             :value="shippingDetails.street"
-            label="Street name"
+            :label="$t('Street Name')"
             name="streetName"
             class="form__element form__element--half"
             required
@@ -97,7 +97,7 @@
           <SfInput
             v-e2e="'shipping-apartment'"
             :value="shippingDetails.apartment"
-            label="House/Apartment number"
+            :label="$t('House/Apartment number')"
             name="apartment"
             class="form__element form__element--half form__element--half-even"
             required
@@ -115,7 +115,7 @@
           <SfInput
             v-e2e="'shipping-city'"
             :value="shippingDetails.city"
-            label="City"
+            :label="$t('City')"
             name="city"
             class="form__element form__element--half"
             required
@@ -140,7 +140,7 @@
             "
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
-            label="State/Province"
+            :label="$t('State/Province')"
             :disabled="!shippingDetails.country_code"
             name="state"
             class="form__element form__element--half form__element--half-even"
@@ -156,7 +156,7 @@
             v-else
             v-e2e="'shipping-state'"
             :value="shippingDetails.region"
-            label="State/Province"
+            :label="$t('State/Province')"
             name="state"
             class="form__element form__element--half form__element--half-even form__select sf-select--underlined"
             :valid="!errors[0]"
@@ -182,7 +182,7 @@
           <SfSelect
             v-e2e="'shipping-country'"
             :value="shippingDetails.country_code"
-            label="Country"
+            :label="$t('Country')"
             name="country"
             class="form__element form__element--half form__select sf-select--underlined"
             required
@@ -209,7 +209,7 @@
           <SfInput
             v-e2e="'shipping-zipcode'"
             :value="shippingDetails.postcode"
-            label="Zip-code"
+            :label="$t('Zip-code')"
             name="zipCode"
             class="form__element form__element--half form__element--half-even"
             required
@@ -227,7 +227,7 @@
           <SfInput
             v-model="shippingDetails.telephone"
             v-e2e="'shipping-phone'"
-            label="Phone number"
+            :label="$t('Phone number')"
             name="phone"
             class="form__element form__element--half"
             required

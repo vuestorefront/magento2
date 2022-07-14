@@ -66,7 +66,7 @@
             class="sf-button--text"
             @click="openNewReviewTab"
           >
-            Add a review
+            {{ $t('Add a review') }}
           </SfButton>
         </div>
       </div>

@@ -90,7 +90,7 @@
         <div class="order-information">
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Shipping Address') }}
+              {{ $t('Shipping address') }}
             </header>
             <OrderInformationAddressColumn
               :address="asyncData.order.shipping_address"
@@ -100,7 +100,7 @@
 
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Shipping Method') }}
+              {{ $t('Shipping method') }}
             </header>
             <div>
               {{ asyncData.order.shipping_method }}
@@ -109,7 +109,7 @@
 
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Billing Address') }}
+              {{ $t('Billing address') }}
             </header>
             <OrderInformationAddressColumn
               :address="asyncData.order.billing_address"
