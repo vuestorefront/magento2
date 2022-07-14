@@ -114,7 +114,7 @@ jobs:
           VSF_IMAGE_PROVIDER_BASE_URL: https://res-4.cloudinary.com/dnozky7on/image/upload/
           VSF_IMAGE_PROVIDER_DOMAIN: https://res-4.cloudinary.com
 
-          VSF_REDIS_ENABLED: false
+          VSF_REDIS_ENABLED: true
           VSF_REDIS_HOST: redis # VSF cloud specific
           VSF_REDIS_PORT: 6379
           VSF_REDIS_KEY_PREFIX: ${{ github.sha }}
