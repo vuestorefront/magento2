@@ -63,8 +63,8 @@ export default defineComponent({
   props: {
     isLangModalOpen: Boolean,
     storeConfig: {
-      type: Object as PropType<StoreConfig | {}>,
-      default: () => {},
+      type: Object as PropType<StoreConfig>,
+      default: (): StoreConfig => ({}),
     },
   },
   emits: ['closeModal'],
