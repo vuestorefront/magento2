@@ -1,4 +1,4 @@
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 
 describe('EmptyWishlist.vue', () => {

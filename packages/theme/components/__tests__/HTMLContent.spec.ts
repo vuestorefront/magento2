@@ -1,4 +1,4 @@
-import { cmsContentTest } from '~/test-utils/tests/cmsContent';
+import { cmsContentTest } from '~/tests/unit/cmsContent.spec';
 import HTMLContent from '~/components/HTMLContent.vue';
 
 describe('HTMLContent.vue', () => {

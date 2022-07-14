@@ -181,7 +181,7 @@ export default defineComponent({
 .header-navigation {
   &__subcategories {
     position: absolute;
-    z-index: 10;
+    z-index: 1;
     background-color: #fff;
     box-shadow: 0 3px var(--c-primary);
     left: 0;

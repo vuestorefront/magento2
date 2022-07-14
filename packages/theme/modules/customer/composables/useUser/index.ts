@@ -30,7 +30,8 @@ import type {
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
-  const { app } = useContext();
+  // @ts-ignore
+  const { app, $recaptcha } = useContext();
   const { setCart } = useCart();
   const { send: sendNotification } = useUiNotification();
   const loading: Ref<boolean> = ref(false);
@@ -162,7 +163,7 @@ export function useUser(): UseUserInterface {
       loading.value = true;
       const apiState = app.context.$vsf.$magento.config.state;
 
-      const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
+      const { data, errors } = await app.$vsf.$magento.api.generateCustomerToken(
         {
           email: providedUser.email,
           password: providedUser.password,
@@ -175,9 +176,16 @@ export function useUser(): UseUserInterface {
       if (errors) {
         const joinedErrors = errors.map((e) => e.message).join(',');
         Logger.error(joinedErrors);
-        error.value.login = { message: joinedErrors };
-
-        return;
+        errors.forEach((registerError, i) => sendNotification({
+          icon: 'error',
+          id: Symbol(`registration_error-${i}`),
+          message: registerError.message,
+          persist: true,
+          title: 'Registration error',
+          type: 'danger',
+        }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
       }
 
       customerStore.setIsLoggedIn(true);
@@ -189,23 +197,29 @@ export function useUser(): UseUserInterface {
       const cart = await app.context.$vsf.$magento.api.customerCart();
       const newCartId = cart.data.customerCart.id;
 
-      if (newCartId && currentCartId && currentCartId !== newCartId) {
-        const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
-          {
-            sourceCartId: currentCartId,
-            destinationCartId: newCartId,
-          },
-        );
+      try {
+        if (newCartId && currentCartId && currentCartId !== newCartId) {
+          const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
+            {
+              sourceCartId: currentCartId,
+              destinationCartId: newCartId,
+            },
+          );
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setCart(dataMergeCart.mergeCarts);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(dataMergeCart.mergeCarts);
 
-        apiState.setCartId(dataMergeCart.mergeCarts.id);
-      } else {
+          apiState.setCartId(dataMergeCart.mergeCarts.id);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(cart.data.customerCart);
+        }
+      } catch {
+        // Workaround for Magento 2.4.4 mergeCarts mutation error related with Bundle products
+        // It can be removed when Magento 2.4.5 will be release
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setCart(cart.data.customerCart);
       }
-
       error.value.login = null;
     } catch (err) {
       error.value.login = err;
@@ -230,7 +244,7 @@ export function useUser(): UseUserInterface {
         ...baseData
       } = generateUserData(providedUser);
 
-      const { data, errors } = await app.context.$vsf.$magento.api.createCustomer(
+      const { data, errors } = await app.$vsf.$magento.api.createCustomer(
         {
           email,
           password,
@@ -242,9 +256,10 @@ export function useUser(): UseUserInterface {
 
       Logger.debug('[Result]:', { data });
 
-      if (errors || !data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
-        Logger.error(errors.map((e) => e.message).join(','));
-        errors.map((registerError, i) => sendNotification({
+      if (errors) {
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        errors.forEach((registerError, i) => sendNotification({
           icon: 'error',
           id: Symbol(`registration_error-${i}`),
           message: registerError.message,
@@ -252,18 +267,33 @@ export function useUser(): UseUserInterface {
           title: 'Registration error',
           type: 'danger',
         }));
-        return;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
+      }
+      error.value.register = null;
+      let loginRecaptchaToken = '';
+      if ($recaptcha && recaptchaToken) {
+        loginRecaptchaToken = await $recaptcha.getResponse();
       }
 
-      // if (recaptchaToken) { // todo: move recaptcha to separate module
-      //   // generate a new token for the login action
-      //   const { recaptchaInstance } = params;
-      //   const newRecaptchaToken = await recaptchaInstance.getResponse();
-      //
-      //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
-      // }
-      error.value.register = null;
-      await login({ user: { email, password }, customQuery: {} });
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { customer: { customer_create_account_confirm } } = app.context.$vsf.$magento.config;
+
+      if (customer_create_account_confirm) {
+        return await new Promise((resolve) => {
+          sendNotification({
+            id: Symbol('registration_confirmation'),
+            message: app.i18n.t('You must confirm your account. Please check your email for the confirmation link.') as string,
+            persist: true,
+            title: 'Registration confirmation',
+            type: 'success',
+            icon: 'check',
+          });
+
+          resolve();
+        });
+      }
+      await login({ user: { email, password, recaptchaToken: loginRecaptchaToken }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);

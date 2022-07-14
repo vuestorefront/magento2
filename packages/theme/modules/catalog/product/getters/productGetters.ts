@@ -11,13 +11,13 @@ import type {
 } from '~/modules/GraphQL/types';
 
 import { htmlDecode } from '~/helpers/htmlDecoder';
-import { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
+import { getTotalReviews, getAverageRating } from '~/modules/review/getters/reviewGetters';
 
 export interface ProductGetters {
   getName: (product: ProductInterface) => string;
   getSlug(product: ProductInterface, category?: CategoryInterface): string;
   getPrice: (product: ProductInterface) => Price;
-  getGallery: (product: ProductInterface) => MediaGalleryItem[];
+  getGallery: (product: ProductInterface, maxGallerySize: number) => MediaGalleryItem[];
   getCoverImage: (product: ProductInterface) => string;
   getAttributes: (products: ProductInterface[] | ProductInterface, filters?: Array<string>) => Record<string, ProductAttribute | string>;
   getDescription: (product: ProductInterface) => string;
@@ -89,7 +89,7 @@ export const getPrice = (product: ProductInterface): Price => {
   };
 };
 
-export const getGallery = (product: Product): MediaGalleryItem[] => {
+export const getGallery = (product: Product, maxGallerySize = 4): MediaGalleryItem[] => {
   const images = [];
 
   if (!product?.media_gallery && !product?.configurable_product_options_selection?.media_gallery) {
@@ -109,7 +109,7 @@ export const getGallery = (product: Product): MediaGalleryItem[] => {
     });
   }
 
-  return images;
+  return images.slice(0, maxGallerySize);
 };
 
 export const getCoverImage = (product: Product): string => {
@@ -253,7 +253,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
   return breadcrumbs;
 };
 
-export { getTotalReviews, getAverageRating } from '~/getters/reviewGetters';
+export { getTotalReviews, getAverageRating } from '~/modules/review/getters/reviewGetters';
 
 export const getProductRelatedProduct = (product: any): Product[] => product?.related_products || [];
 

@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/eslint-config-vue",
-  "version": "1.0.0-rc.9",
+  "version": "1.0.0-rc.10",
   "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -29,8 +29,8 @@
     "rules"
   ],
   "dependencies": {
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "eslint-plugin-vue": "^8.4.0"
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "eslint-plugin-vue": "^9.2.0"
   },
   "main": "index.js"
 }

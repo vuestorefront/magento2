@@ -6,9 +6,9 @@ import {
   render,
   useUserMock,
   useReviewMock,
-} from '~/test-utils';
+} from '~/tests/unit/test-utils';
 
-import { useReview } from '~/composables';
+import { useReview } from '~/modules/review/composables/useReview';
 import { useUser } from '~/modules/customer/composables/useUser';
 import ProductAddReviewForm from '../../modules/catalog/product/components/ProductAddReviewForm';
 
@@ -30,8 +30,8 @@ jest.mock('@nuxtjs/composition-api', () => {
   };
 });
 
-jest.mock('~/composables/useReview', () => {
-  const originalModule = jest.requireActual('~/composables/useReview');
+jest.mock('~/modules/review/composables/useReview', () => {
+  const originalModule = jest.requireActual('~/modules/review/composables/useReview');
   return {
     ...originalModule,
     useReview: jest.fn(),

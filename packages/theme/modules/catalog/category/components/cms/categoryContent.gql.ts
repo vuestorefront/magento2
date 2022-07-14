@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   query getCategoryContentData($filters: CategoryFilterInput) {
     categoryList(filters: $filters) {
       uid

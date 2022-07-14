@@ -20,7 +20,7 @@
           <SfInput
             v-model="form.firstname"
             v-e2e="'user-account-firstName'"
-            label="First name"
+            :label="$t('First Name')"
             name="firstName"
             class="form__element form__element--half"
             :required="!loginUserAccount"
@@ -38,7 +38,7 @@
           <SfInput
             v-model="form.lastname"
             v-e2e="'user-account-lastName'"
-            label="Last name"
+            :label="$t('Last Name')"
             name="lastName"
             class="form__element form__element--half form__element--half-even"
             :required="!loginUserAccount"
@@ -56,7 +56,7 @@
           <SfInput
             v-model="form.email"
             v-e2e="'user-account-email'"
-            label="E-mail"
+            :label="$t('E-mail')"
             name="email"
             class="form__element form__element--half"
             required
@@ -147,9 +147,7 @@ import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import {
-  useUiNotification, useGuestUser,
-} from '~/composables';
+import { useGuestUser } from '~/composables';
 import useCart from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
@@ -207,8 +205,6 @@ export default defineComponent({
       isAuthenticated,
       error: errorUser,
     } = useUser();
-
-    const { send: sendNotification } = useUiNotification();
 
     const isFormSubmitted = ref(false);
     const createUserAccount = ref(false);
@@ -270,16 +266,7 @@ export default defineComponent({
         });
       }
 
-      if (anyError.value) {
-        sendNotification({
-          id: Symbol('user_form_error'),
-          message: app.i18n.t(anyError.value.message) as string,
-          type: 'danger',
-          icon: 'error',
-          persist: false,
-          title: 'Error',
-        });
-      } else {
+      if (!anyError.value) {
         await mergeItem('checkout', { 'user-account': form.value });
         await router.push(app.localeRoute({ name: 'shipping' }));
         reset();

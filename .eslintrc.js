@@ -17,6 +17,7 @@ module.exports = {
       resolve(__dirname, './packages/composables/tsconfig.eslint.json'),
       resolve(__dirname, './packages/theme/tsconfig.json'),
       resolve(__dirname, './packages/theme/tests/e2e/tsconfig.json'),
+      resolve(__dirname, './packages/load-tests/tsconfig.json'),
     ],
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue'],
@@ -30,6 +31,9 @@ module.exports = {
     '@vue-storefront/eslint-config-vue',
     '@vue-storefront/eslint-config-jest',
   ],
+  globals: {
+    "__ENV": "readonly",
+  },
   rules: {
     "@typescript-eslint/no-floating-promises": "off",
     "jest/expect-expect": [
@@ -47,6 +51,8 @@ module.exports = {
         "jest/expect-expect": "off",
         "promise/catch-or-return": "off", // conflicts with Cypress.Chainable
         "promise/always-return": "off",
+        "vue/no-v-text-v-html-on-component": "warn",
+        "vue/no-setup-props-destructure": "warn",
       }
     },
     {

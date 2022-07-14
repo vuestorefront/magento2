@@ -11,7 +11,6 @@ export default gql`
     $pageSize: Int = 10,
     $currentPage: Int = 1,
     $sort: ProductAttributeSortInput
-    $configurations: [ID!]
   ) {
     products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
       items {
@@ -91,28 +90,6 @@ export default gql`
         options_container
         special_to_date
         ... on ConfigurableProduct {
-            price_range {
-            maximum_price {
-              final_price {
-                currency
-                value
-              }
-              regular_price {
-                currency
-                value
-              }
-            }
-            minimum_price {
-              final_price {
-                currency
-                value
-              }
-              regular_price {
-                currency
-                value
-              }
-            }
-          }
           configurable_options {
             attribute_code
             attribute_uid
@@ -126,45 +103,6 @@ export default gql`
                 value
               }
               uid
-            }
-          }
-          configurable_product_options_selection(configurableOptionValueUids: $configurations) {
-            options_available_for_selection {
-              attribute_code
-              option_value_uids
-            }
-            media_gallery {
-              disabled
-              label
-              position
-              url
-            }
-            variant {
-              uid
-              sku
-              name
-              price_range {
-                maximum_price {
-                  final_price {
-                    currency
-                    value
-                  }
-                  regular_price {
-                    currency
-                    value
-                  }
-                }
-                minimum_price {
-                  final_price {
-                    currency
-                    value
-                  }
-                  regular_price {
-                    currency
-                    value
-                  }
-                }
-              }
             }
           }
         }

@@ -1,4 +1,4 @@
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import HeaderNavigationItem from '../HeaderNavigationItem.vue';
 
 describe('HeaderNavigationItem', () => {

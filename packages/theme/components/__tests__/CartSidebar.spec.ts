@@ -9,7 +9,7 @@ import { useCart, useUiState } from '~/composables';
 
 import {
   useCartMock, useUserMock, useUiStateMock, useEmptyCartMock,
-} from '~/test-utils';
+} from '~/tests/unit/test-utils';
 import CartSidebar from '~/components/CartSidebar.vue';
 
 jest.mock('~/composables', () => ({

@@ -2,6 +2,8 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
+import fs from 'fs';
+import path from 'path';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
@@ -12,12 +14,14 @@ const {
     magento: {
       configuration: {
         cookies,
+        cookiesDefaultOpts,
         externalCheckout,
         defaultStore,
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
         customApolloHttpLinkOptions,
+        customer,
       },
     },
   },
@@ -34,7 +38,7 @@ export default () => {
     head: {
       title: process.env.npm_package_name || '',
       meta: [
-        { charset: 'utf-8' },
+        { charset: 'utf8' },
         {
           name: 'viewport',
           content: 'width=device-width, initial-scale=1',
@@ -79,14 +83,16 @@ export default () => {
           },
         },
       }],
-      ['~/modules/magento', {
+      ['~/modules/core', {
         cookies,
+        cookiesDefaultOpts,
         externalCheckout,
         defaultStore,
         magentoBaseUrl,
         imageProvider,
         magentoApiEndpoint,
         customApolloHttpLinkOptions,
+        customer,
       }],
       '@nuxt/image',
       '@pinia/nuxt',
@@ -96,6 +102,7 @@ export default () => {
       '~/modules/customer',
       '~/modules/wishlist',
       '~/modules/checkout',
+      '~/modules/review',
       ['nuxt-i18n', {
         baseUrl: process.env.VSF_STORE_URL || 'http://localhost:3000',
       }],
@@ -234,6 +241,10 @@ export default () => {
     env: {
       VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
+
+    publicRuntimeConfig: {
+      middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
+    },
   };
 
   if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
@@ -262,15 +273,24 @@ export default () => {
     baseConfig.modules.push('@nuxtjs/recaptcha');
 
     baseConfig.recaptcha = {
-      hideBadge: process.env.VSF_RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
+      hideBadge: Boolean(process.env.VSF_RECAPTCHA_HIDE_BADGE), // Hide badge element (v3 & v2 via size=invisible)
       siteKey: process.env.VSF_RECAPTCHA_SITE_KEY, // Site key for requests
-      version: process.env.VSF_RECAPTCHA_VERSION, // Version 2 or 3
-      size: process.env.VSF_RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
+      version: Number(process.env.VSF_RECAPTCHA_VERSION), // Version 2 or 3
+      size: process.env.VSF_RECAPTCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
     };
 
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
       isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
+    };
+  }
+
+  if (process.env.NODE_ENV === 'development' || process.env.IS_ENV_LOCAL) {
+    baseConfig.server = {
+      https: {
+        key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+        cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+      },
     };
   }
 

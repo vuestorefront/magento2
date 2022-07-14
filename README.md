@@ -23,12 +23,7 @@ This project is a Magento 2 integration for Vue Storefront 2.
 
 ## How to start if you want to try out the integration
 
-```
-yarn global add @vue-storefront/cli
-```
-```
-vsf init <project_name> && cd <project_name> && yarn && yarn dev
-```
+Please follow the [installation guide](https://docs.vuestorefront.io/magento/installation-setup/installation.html)
 
 ## How to start if you want to contribute?
 

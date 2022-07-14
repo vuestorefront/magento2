@@ -1,0 +1,49 @@
+name: Run K6 test file
+on:
+  workflow_dispatch:
+    inputs:
+      cloud:
+        description: True = run in K6 cloud; False = run on the test on GitHub Actions agent
+        required: true
+        default: false
+        type: boolean
+
+      filename:
+        description: The K6 test file to run relative to repository root
+        required: true
+        default: packages/load-tests/src/scenarios/searchProduct.js
+        type: string
+
+      environment:
+        description: The full URL of the environment on which load tests will be ran
+        required: true
+        default: 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
+        type: choice
+        options:
+          - 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
+          - 'https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io'
+          - 'https://demo-magento2.europe-west1.gcp.storefrontcloud.cloud'
+          - 'https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io'
+
+      flags:
+        description: Additional argument and flags to provide to the k6 CLI. See https://k6.io/docs/using-k6/options for details.
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  build:
+    name: Run k6 cloud test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Run k6 cloud test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          cloud: ${{ github.event.inputs.cloud }}
+          token: ${{ secrets.K6_CLOUD_API_TOKEN }}
+          filename: ${{ github.event.inputs.filename }}
+          flags: -e BASE_URL=${{ github.event.inputs.environment }} ${{ github.event.inputs.flags }}

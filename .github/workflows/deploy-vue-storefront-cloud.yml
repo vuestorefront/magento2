@@ -56,6 +56,26 @@ jobs:
     needs: create-deployment
     runs-on: ubuntu-latest
     steps:
+      - name: Set env VSF_MIDDLEWARE_URL
+        run: |
+          REF=${{ github.ref }}
+
+          if [ $REF = 'refs/heads/main' ]; then
+            echo "VSF_MIDDLEWARE_URL=https://demo-magento2.europe-west1.gcp.vuestorefront.cloud/api/" >> $GITHUB_ENV
+
+          elif [ $REF = 'refs/heads/develop' ]; then
+            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
+
+          elif [[ $REF = refs/heads/release* ]]; then
+            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
+
+          elif [ $REF = 'refs/heads/enterprise' ]; then
+            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
+
+          else
+              echo "VSF_MIDDLEWARE_URL=https://localhost:3000/api/" >> $GITHUB_ENV
+              exit 1
+          fi
       - name: Checkout code
         uses: actions/checkout@v1
 
@@ -73,7 +93,7 @@ jobs:
           password: ${{ secrets.CLOUD_PASSWORD }}
           dockerfile: .vuestorefrontcloud/docker/Dockerfile
           buildoptions: --compress
-          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,LAST_COMMIT,VSF_STORE_URL,VSF_MAGENTO_BASE_URL,VSF_MAGENTO_GRAPHQL_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED,VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,VSF_IMAGE_PROVIDER,VSF_IMAGE_PROVIDER_BASE_URL,VSF_IMAGE_PROVIDER_DOMAIN,VSF_REDIS_HOST,VSF_REDIS_PORT,VSF_REDIS_CACHE_INVALIDATE_KEY,VSF_REDIS_CACHE_INVALIDATE_URL,VSF_REDIS_KEY_PREFIX,VSF_REDIS_ENABLED,VSF_RECAPTCHA_ENABLED,VSF_RECAPTCHA_HIDE_BADGE,VSF_RECAPTCHA_VERSION,VSF_RECAPTCHA_SIZE,VSF_RECAPTCHA_MIN_SCORE,VSF_RECAPTCHA_SITE_KEY,VSF_RECAPTCHA_SECRET_KEY,VSF_SENTRY_DSN,
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,LAST_COMMIT,VSF_STORE_URL,VSF_MAGENTO_BASE_URL,VSF_MAGENTO_GRAPHQL_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED,VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,VSF_IMAGE_PROVIDER,VSF_IMAGE_PROVIDER_BASE_URL,VSF_IMAGE_PROVIDER_DOMAIN,VSF_REDIS_HOST,VSF_REDIS_PORT,VSF_REDIS_CACHE_INVALIDATE_KEY,VSF_REDIS_CACHE_INVALIDATE_URL,VSF_REDIS_KEY_PREFIX,VSF_REDIS_ENABLED,VSF_RECAPTCHA_ENABLED,VSF_RECAPTCHA_HIDE_BADGE,VSF_RECAPTCHA_VERSION,VSF_RECAPTCHA_SIZE,VSF_RECAPTCHA_MIN_SCORE,VSF_RECAPTCHA_SITE_KEY,VSF_RECAPTCHA_SECRET_KEY,VSF_SENTRY_DSN,VSF_MIDDLEWARE_URL
 
         env:
           NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
@@ -82,6 +102,7 @@ jobs:
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
 
           VSF_STORE_URL: ''
+          VSF_MIDDLEWARE_URL: ${{ env.VSF_MIDDLEWARE_URL }}
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql
@@ -100,11 +121,10 @@ jobs:
           VSF_REDIS_CACHE_INVALIDATE_KEY: magento2vsf2
           VSF_REDIS_CACHE_INVALIDATE_URL: /cache-invalidate
 
-          VSF_RECAPTCHA_ENABLED: false
-          VSF_RECAPTCHA_HIDE_BADGE: false
+          VSF_RECAPTCHA_ENABLED: true
           VSF_RECAPTCHA_VERSION: 3
           VSF_RECAPTCHA_SIZE: invisible
-          VSF_RECAPTCHA_MIN_SCORE: 0.5
+          VSF_RECAPTCHA_MIN_SCORE: 1.0
           VSF_RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           VSF_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
 

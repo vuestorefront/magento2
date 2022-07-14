@@ -28,7 +28,7 @@ export * from './useNewsletter';
 export * from '../modules/checkout/composables/usePaymentProvider';
 export * from '../modules/catalog/product/composables/useProduct';
 export * from '../modules/catalog/product/composables/useRelatedProducts';
-export * from './useReview';
+export * from '../modules/review/composables/useReview';
 export * from '../modules/checkout/composables/useShipping';
 export * from '../modules/checkout/composables/useShippingProvider';
 export * from './useStore';

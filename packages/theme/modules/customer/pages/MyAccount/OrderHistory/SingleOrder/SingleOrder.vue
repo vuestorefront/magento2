@@ -28,12 +28,15 @@
             :key="item.product_sku"
           >
             <SfTableData class="products__name">
-              {{ item.product_name }}
+              <span v-html="$dompurify(item.product_name)" />
               <div
                 v-for="option in item.selected_options"
                 :key="option.label"
               >
-                <span class="configurable-option-label">{{ option.label }}</span>
+                <span
+                  class="configurable-option-label"
+                  v-html="$dompurify(option.label)"
+                />
                 <span>{{ option.value }}</span>
               </div>
             </SfTableData>
@@ -87,7 +90,7 @@
         <div class="order-information">
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Shipping Address') }}
+              {{ $t('Shipping address') }}
             </header>
             <OrderInformationAddressColumn
               :address="asyncData.order.shipping_address"
@@ -97,7 +100,7 @@
 
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Shipping Method') }}
+              {{ $t('Shipping method') }}
             </header>
             <div>
               {{ asyncData.order.shipping_method }}
@@ -106,7 +109,7 @@
 
           <div>
             <header class="order-information__column-heading">
-              {{ $t('Billing Address') }}
+              {{ $t('Billing address') }}
             </header>
             <OrderInformationAddressColumn
               :address="asyncData.order.billing_address"

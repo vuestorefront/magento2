@@ -2,7 +2,7 @@
   <div>
     <SfHeading
       :level="3"
-      title="Payment"
+      :title="$t('Payment')"
       class="sf-heading--left sf-heading--no-underline title"
     />
     <SfTable class="sf-table--bordered table desktop-only">
@@ -16,7 +16,7 @@
           class="table__header"
           :class="{ table__description: tableHeader === 'Description' }"
         >
-          {{ tableHeader }}
+          {{ $t(tableHeader) }}
         </SfTableHeader>
       </SfTableHeading>
       <SfTableRow
@@ -68,10 +68,7 @@
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$fc(cartGetters.getItemPrice(product).regular)"
-            :special="
-              cartGetters.getItemPrice(product).special &&
-                $fc(cartGetters.getItemPrice(product).special)
-            "
+            :special=" cartGetters.getItemPrice(product).special && $fc(getRowTotal(product)) "
             class="product-price"
           />
         </SfTableData>
@@ -81,7 +78,7 @@
       <div class="summary__group">
         <div class="summary__total">
           <SfProperty
-            name="Subtotal"
+            :name="$t('Subtotal')"
             :value="$fc(totals.subtotal)"
             class="sf-property--full-width property"
           />
@@ -113,7 +110,7 @@
         <SfDivider />
 
         <SfProperty
-          name="Total price"
+          :name="$t('Total price')"
           :value="$fc(totals.total)"
           class="sf-property--full-width sf-property--large summary__property-total"
         />
@@ -178,6 +175,7 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
+
 import cartGetters from '~/modules/checkout/getters/cartGetters';
 import { useImage } from '~/composables';
 import useMakeOrder from '~/modules/checkout/composables/useMakeOrder';
@@ -185,7 +183,7 @@ import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
-import type { BundleCartItem, ConfigurableCartItem } from '~/modules/GraphQL/types';
+import type { BundleCartItem, ConfigurableCartItem, CartItemInterface } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -243,7 +241,7 @@ export default defineComponent({
     );
 
     const { getMagentoImage, imageSizes } = useImage();
-
+    const getRowTotal = (product: CartItemInterface) => cartGetters.getItemPrice(product).regular - cartGetters.getItemPrice(product).special;
     return {
       cart,
       cartGetters,
@@ -263,6 +261,7 @@ export default defineComponent({
       getBundles,
       getMagentoImage,
       imageSizes,
+      getRowTotal,
     };
   },
 });

@@ -1,5 +1,5 @@
 import { findCategoryAncestors } from '~/modules/catalog/category/helpers/findCategoryAncestors';
-import categoryTreeData from '~/test-utils/mocks/categoryTreeDataMock';
+import categoryTreeData from '~/tests/unit/mocks/categoryTreeDataMock';
 
 describe('findCategoryAncestors', () => {
   it('if "node" is equal to "toFind" then return starting array', () => {

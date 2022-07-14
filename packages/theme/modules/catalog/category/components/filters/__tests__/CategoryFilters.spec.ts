@@ -1,11 +1,11 @@
 import userEvent from '@testing-library/user-event';
 import { inject, ref, useContext } from '@nuxtjs/composition-api';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import CategoryFilters from '../CategoryFilters.vue';
 import { useUiHelpers } from '~/composables';
 import { Aggregation } from '~/modules/GraphQL/types';
-import { categoryFiltersData } from '~/test-utils/mocks/categoryFiltersMock';
-import { useUiHelpersMock } from '~/test-utils/mocks/useUiHelpersMock';
+import { categoryFiltersData } from '~/tests/unit/mocks/categoryFiltersMock';
+import { useUiHelpersMock } from '~/tests/unit/mocks/useUiHelpersMock';
 
 jest.mock('@nuxtjs/composition-api', () => {
   const compositionApi = jest.requireActual('@nuxtjs/composition-api');

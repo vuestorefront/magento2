@@ -51,7 +51,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const actionText = computed(() => (props.isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'));
+    const actionText = computed(() => (props.isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'));
 
     return {
       actionText,

@@ -1,15 +1,15 @@
 <template>
   <div>
     <SfAddressPicker
-      :selected="`${selectedAddress}`"
-      class="billing__addresses"
-      @change="setCurrentAddress($event)"
+      :selected="`${currentAddressId}`"
+      class="addresses"
+      @change="emitSetCurrentAddress($event)"
     >
       <SfAddress
         v-for="billingAddress in addressesWithCountryName"
         :key="userBillingGetters.getId(billingAddress)"
         :name="`${userBillingGetters.getId(billingAddress)}`"
-        class="billing__address"
+        class="address"
       >
         <UserAddressDetails :address="billingAddress">
           <template #country>
@@ -18,19 +18,12 @@
         </UserAddressDetails>
       </SfAddress>
     </SfAddressPicker>
-    <SfCheckbox
-      :selected="value"
-      name="setAsDefault"
-      label="Use this address as my default one."
-      class="billing__setAsDefault"
-      @change="$emit('input', $event)"
-    />
     <hr class="sf-divider">
   </div>
 </template>
 
 <script lang="ts">
-import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { SfAddressPicker } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 import userBillingGetters from '~/modules/customer/getters/userBillingGetters';
@@ -40,14 +33,13 @@ import type { Country, CustomerAddress } from '~/modules/GraphQL/types';
 export default defineComponent({
   name: 'UserBillingAddresses',
   components: {
-    SfCheckbox,
     SfAddressPicker,
     UserAddressDetails,
   },
   props: {
     currentAddressId: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: null,
     },
     value: {
       type: Boolean,
@@ -65,21 +57,12 @@ export default defineComponent({
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
-    const setCurrentAddress = (addressId: string) => {
-      const selectedAddress = props.billingAddresses.find((address) => address.id === Number(addressId));
-      if (!selectedAddress) {
-        return;
+    const emitSetCurrentAddress = (addressId: number) => {
+      const address = props.billingAddresses.find(({ id }) => id === Number(addressId));
+      if (address) {
+        emit('setCurrentAddress', address);
       }
-
-      emit('setCurrentAddress', selectedAddress);
     };
-
-    const selectedAddress = computed(() => (
-      props.currentAddressId
-        ? props.currentAddressId
-        : props.billingAddresses.find((address) => address.default_billing)?.id ?? ''
-    ));
-
     const addressesWithCountryName = computed(() => props.billingAddresses.map((address) => ({
       ...address,
       countryName: props.countries
@@ -89,8 +72,7 @@ export default defineComponent({
     })));
 
     return {
-      selectedAddress,
-      setCurrentAddress,
+      emitSetCurrentAddress,
       addressesWithCountryName,
       userBillingGetters,
     };
@@ -99,31 +81,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.billing {
-  &__address {
-    margin-bottom: var(--spacer-base);
-    @include for-desktop {
-      margin-right: var(--spacer-sm);
-      display: flex;
-      width: 100%;
-      flex-direction: column;
-    }
-  }
-
-  &__addresses {
-    margin-bottom: var(--spacer-xl);
-    @include for-desktop {
-      display: flex;
-    }
-  }
-
-  &__setAsDefault {
-    margin-bottom: var(--spacer-xl);
-  }
-}
-
-.sf-divider,
-.form__action-button--margin-bottom {
-  margin-bottom: var(--spacer-xl);
-}
+@import "./styles/userAddresses";
 </style>

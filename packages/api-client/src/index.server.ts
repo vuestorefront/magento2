@@ -6,12 +6,14 @@ import { createMagentoConnection } from './helpers/magentoLink';
 import { defaultSettings } from './helpers/apiClient/defaultSettings';
 import { apolloClientFactory } from './helpers/magentoLink/graphQl';
 
+const buildConfig = (settings: Config) => ({
+  ...defaultSettings,
+  ...settings,
+  state: settings.state || defaultSettings.state,
+} as unknown as Config);
+
 const init = (settings: Config) => {
-  const config = {
-    ...defaultSettings,
-    ...settings,
-    state: settings.state || defaultSettings.state,
-  } as unknown as Config;
+  const config = buildConfig(settings);
 
   if (settings.client) {
     return {
@@ -35,6 +37,7 @@ const init = (settings: Config) => {
     defaultOptions: {
       query: {
         errorPolicy: 'all',
+        fetchPolicy: 'no-cache',
       },
       mutate: {
         errorPolicy: 'all',
@@ -53,7 +56,9 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
     return init(settings);
   }
 
-  return { config: settings, client: settings.client };
+  const config = buildConfig(settings);
+
+  return { config, client: settings.client };
 };
 
 const tokenExtension: ApiClientExtension = {

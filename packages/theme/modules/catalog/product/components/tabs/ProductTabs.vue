@@ -5,7 +5,7 @@
     class="product__tabs"
     @click:tab="changeTab"
   >
-    <SfTab title="Description">
+    <SfTab :title="$t('Description')">
       <HTMLContent
         v-if="productDescription"
         :content="productDescription"
@@ -13,7 +13,7 @@
         class="product__description"
       />
     </SfTab>
-    <SfTab title="Read reviews">
+    <SfTab :title="$t('Read reviews')">
       <SfLoader
         v-if="isReviewsLoading"
         :loading="isReviewsLoading"
@@ -40,7 +40,7 @@
       </div>
     </SfTab>
     <SfTab
-      title="Additional Information"
+      :title="$t('Additional Information')"
       class="product__additional-info"
     >
       <div class="product__additional-info">
@@ -74,8 +74,8 @@ import reviewGetters, {
   getReviewDate,
   getReviewMessage,
   getReviewRating,
-} from '~/getters/reviewGetters';
-import { useReview, UseReviewAddReviewParams } from '~/composables';
+} from '~/modules/review/getters/reviewGetters';
+import { useReview, UseReviewAddReviewParams } from '~/modules/review/composables/useReview';
 import { Product } from '~/modules/catalog/product/types';
 import { TabsConfig } from '~/modules/catalog/product/composables/useProductTabs';
 

@@ -2,13 +2,13 @@
   <div>
     <SfAddressPicker
       :selected="`${currentAddressId}`"
-      class="shipping__addresses"
-      @change="setCurrentAddress($event)"
+      class="addresses"
+      @change="emitSetCurrentAddress($event)"
     >
       <SfAddress
         v-for="shippingAddress in addressesWithCountryName"
         :key="userShippingGetters.getId(shippingAddress)"
-        class="shipping__address"
+        class="address"
         :name="`${userShippingGetters.getId(shippingAddress)}`"
       >
         <UserAddressDetails :address="shippingAddress">
@@ -18,20 +18,12 @@
         </UserAddressDetails>
       </SfAddress>
     </SfAddressPicker>
-    <SfCheckbox
-      v-show="currentAddressId"
-      :selected="value"
-      name="setAsDefault"
-      label="Use this address as my default one."
-      class="shipping__setAsDefault"
-      @change="$emit('input', $event)"
-    />
     <hr class="sf-divider">
   </div>
 </template>
 
 <script lang="ts">
-import { SfCheckbox, SfAddressPicker } from '@storefront-ui/vue';
+import { SfAddressPicker } from '@storefront-ui/vue';
 import { computed, defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 
@@ -43,14 +35,13 @@ import { Countries } from '~/composables';
 export default defineComponent({
   name: 'UserShippingAddresses',
   components: {
-    SfCheckbox,
     SfAddressPicker,
     UserAddressDetails,
   },
   props: {
     currentAddressId: {
-      type: [String, Number],
-      required: true,
+      type: Number,
+      default: null,
     },
     value: {
       type: Boolean,
@@ -68,15 +59,12 @@ export default defineComponent({
   },
   emits: ['setCurrentAddress'],
   setup(props, { emit }) {
-    const setCurrentAddress = (addressId: string | number) => {
-      const selectedAddress = props.shippingAddresses.find((address) => address.id === Number(addressId));
-      if (!selectedAddress) {
-        return;
+    const emitSetCurrentAddress = (addressId: number) => {
+      const address = props.shippingAddresses.find(({ id }) => id === Number(addressId));
+      if (address) {
+        emit('setCurrentAddress', address);
       }
-
-      emit('setCurrentAddress', selectedAddress);
     };
-
     const addressesWithCountryName = computed(() => props.shippingAddresses.map((address) => ({
       ...address,
       countryName: props.countries
@@ -86,7 +74,7 @@ export default defineComponent({
     })));
 
     return {
-      setCurrentAddress,
+      emitSetCurrentAddress,
       addressesWithCountryName,
       userShippingGetters,
     };
@@ -95,33 +83,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.shipping {
-  &__address {
-    margin-bottom: var(--spacer-base);
-    @include for-desktop {
-      margin-right: var(--spacer-sm);
-      display: flex;
-      width: calc(50% - var(--spacer-sm));
-      flex-direction: column;
-    }
-  }
-
-  &__addresses {
-    margin-bottom: var(--spacer-xl);
-    @include for-desktop {
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: var(--spacer-sm)
-    }
-  }
-
-  &__setAsDefault {
-    margin-bottom: var(--spacer-xl);
-  }
-}
-
-.sf-divider,
-.form__action-button--margin-bottom {
-  margin-bottom: var(--spacer-xl);
-}
+@import "./styles/userAddresses";
 </style>

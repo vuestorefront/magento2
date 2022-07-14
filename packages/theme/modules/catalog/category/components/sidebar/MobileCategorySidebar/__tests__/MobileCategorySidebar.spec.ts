@@ -1,15 +1,15 @@
 import userEvent from '@testing-library/user-event';
 import { useRoute, useContext, useRouter } from '@nuxtjs/composition-api';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import { useUiHelpers, useUiState } from '~/composables';
 import { useCategoryStore } from '~/modules/catalog/category/stores/category';
-import useUiHelpersMock from '~/test-utils/mocks/useUiHelpersMock';
-import useUiStateMock from '~/test-utils/mocks/useUiState';
-import useRouteMock from '~/test-utils/mocks/useRoute';
-import useRouterMock from '~/test-utils/mocks/useRouter';
-import useContextMock from '~/test-utils/mocks/useContext';
-import { womanCategoryTreeData, defaultCategoryTreeData } from '~/test-utils/mocks/categoryTreeDataMock';
-import useCategoryStoreMock from '~/test-utils/mocks/useCategoryStore';
+import useUiHelpersMock from '~/tests/unit/mocks/useUiHelpersMock';
+import useUiStateMock from '~/tests/unit/mocks/useUiState';
+import useRouteMock from '~/tests/unit/mocks/useRoute';
+import useRouterMock from '~/tests/unit/mocks/useRouter';
+import useContextMock from '~/tests/unit/mocks/useContext';
+import { womanCategoryTreeData, defaultCategoryTreeData } from '~/tests/unit/mocks/categoryTreeDataMock';
+import useCategoryStoreMock from '~/tests/unit/mocks/useCategoryStore';
 import { useMobileCategoryTree } from '../logic';
 import MobileCategorySidebar from '../MobileCategorySidebar.vue';
 

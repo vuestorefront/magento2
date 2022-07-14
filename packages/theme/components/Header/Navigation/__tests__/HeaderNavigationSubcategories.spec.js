@@ -1,8 +1,8 @@
 import userEvent from '@testing-library/user-event';
-import { render } from '~/test-utils';
-import CategoryTreeDataMock from '~/test-utils/mocks/categoryTreeDataMock';
+import { render } from '~/tests/unit/test-utils';
+import CategoryTreeDataMock from '~/tests/unit/mocks/categoryTreeDataMock';
 import { useUiHelpers } from '~/composables';
-import useUiHelpersMock from '~/test-utils/mocks/useUiHelpersMock';
+import useUiHelpersMock from '~/tests/unit/mocks/useUiHelpersMock';
 import HeaderNavigationSubcategories from '../HeaderNavigationSubcategories.vue';
 
 jest.mock('~/composables');

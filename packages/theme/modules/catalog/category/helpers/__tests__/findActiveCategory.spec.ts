@@ -1,5 +1,5 @@
 import { findActiveCategory } from '~/modules/catalog/category/helpers/findActiveCategory';
-import categoryTreeData from '~/test-utils/mocks/categoryTreeDataMock';
+import categoryTreeData from '~/tests/unit/mocks/categoryTreeDataMock';
 
 describe('Find active category', () => {
   const sharedMatch = {

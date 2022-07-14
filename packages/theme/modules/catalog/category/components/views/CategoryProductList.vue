@@ -125,6 +125,7 @@ export default defineComponent({
 @import "./transition.scss";
 
 .list-layout {
+  will-change: transform;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -163,6 +164,37 @@ export default defineComponent({
 
     display: block;
   }
+}
+
+::v-deep .sf-product-card-horizontal {
+  &__main {
+    @include  for-mobile {
+      align-items: flex-end;
+    }
+  }
+
+  &__add-to-cart {
+    @include for-mobile {
+      opacity: 1;
+      display: flex !important;
+      bottom: 1rem;
+      right: 0;
+      margin-top: var(--spacer-xs);
+    }
+  }
+
+  .sf-add-to-cart__select-quantity {
+    display: none;
+  }
+
+  .sf-image {
+    width: auto;
+    height: auto;
+  }
+}
+
+::v-deep .sf-product-card::after {
+  content: none;
 }
 
 </style>

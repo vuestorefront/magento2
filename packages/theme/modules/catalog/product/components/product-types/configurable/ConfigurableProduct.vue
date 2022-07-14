@@ -66,7 +66,7 @@
             class="sf-button--text"
             @click="openNewReviewTab"
           >
-            Add a review
+            {{ $t('Add a review') }}
           </SfButton>
         </div>
       </div>
@@ -131,12 +131,21 @@
           v-e2e="'product_add-to-cart'"
           :disabled="isCartLoading || !canAddToCart(product, qty) || isFetching"
           class="product__add-to-cart"
-          @click="addItem({ product, quantity: parseInt(qty) })"
-        />
+        >
+          <template #add-to-cart-btn>
+            <SfButton
+              class="sf-add-to-cart__button"
+              :disabled="isCartLoading || !canAddToCart(product, qty) || isFetching"
+              @click="addItem({ product, quantity: parseInt(qty), productConfiguration })"
+            >
+              {{ $t('Add to cart') }}
+            </SfButton>
+          </template>
+        </SfAddToCart>
         <SfAlert
           :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
           class="product__add-to-cart-error"
-          :message="addToCartError"
+          :message="$t(addToCartError)"
           type="danger"
         />
         <div class="product__additional-actions">
@@ -189,7 +198,7 @@ import {
 import {
   getTotalReviews,
   getAverageRating,
-} from '~/getters/reviewGetters';
+} from '~/modules/review/getters/reviewGetters';
 
 import { useCart } from '~/modules/checkout/composables/useCart';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
@@ -254,7 +263,7 @@ export default defineComponent({
     );
 
     const configurableOptions = computed(
-      () => props.product?.configurable_options ?? {},
+      () => props.product?.configurable_options ?? [],
     );
 
     const productConfiguration = ref(route.value.query);

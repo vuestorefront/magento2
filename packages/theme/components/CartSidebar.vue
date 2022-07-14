@@ -41,8 +41,8 @@
           <SfNotification
             v-if="!loading"
             :visible="visible"
-            title="Are you sure?"
-            message="Are you sure you would like to remove this item from the shopping cart?"
+            :title="$t('Are you sure?')"
+            :message="$t('Are you sure you would like to remove this item from the shopping cart?')"
             type="secondary"
           >
             <template #action>
@@ -52,10 +52,10 @@
                   data-testid="cart-sidebar-remove-item-yes"
                   @click="actionRemoveItem(tempProduct)"
                 >
-                  Yes
+                  {{ $t('Yes') }}
                 </SfButton>
                 <SfButton @click="visible = false">
-                  Cancel
+                  {{ $t('Cancel') }}
                 </SfButton>
               </div>
             </template>
@@ -92,6 +92,7 @@
                 <SfCollectedProduct
                   v-for="product in products"
                   :key="product.product.original_sku"
+                  :has-more-actions="false"
                   data-testid="cart-sidebar-collected-product"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
@@ -192,7 +193,7 @@
                 class="empty-cart__image"
               />
               <SfHeading
-                title="Your cart is empty"
+                :title="$t('Your cart is empty')"
                 :level="2"
                 class="empty-cart__heading"
                 :description="
@@ -294,7 +295,7 @@ import {
   onMounted,
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
-import { cartGetters } from '~/getters';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
 import {
   useUiState,
   useUiNotification,
@@ -303,9 +304,9 @@ import {
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
-import stockStatusEnum from '~/enums/stockStatusEnum';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
+import { ProductStockStatus } from '~/modules/GraphQL/types';
 import CouponCode from './CouponCode.vue';
 
 export default defineComponent({
@@ -326,6 +327,7 @@ export default defineComponent({
     SfImage,
   },
   setup() {
+    const { app: { i18n } } = useContext();
     const { initializeCheckout } = useExternalCheckout();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const { getMagentoImage, imageSizes } = useImage();
@@ -387,9 +389,11 @@ export default defineComponent({
 
       sendNotification({
         id: Symbol('product_removed'),
-        message: `${cartGetters.getItemName(
-          product,
-        )} has been successfully removed from your cart.`,
+        message: i18n.t('{0} has been successfully removed from your cart', {
+          0: cartGetters.getItemName(
+            product,
+          ),
+        }) as string,
         type: 'success',
         icon: 'check',
         persist: false,
@@ -400,7 +404,7 @@ export default defineComponent({
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === stockStatusEnum.inStock;
+    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
 
     return {
       sendToRemove,

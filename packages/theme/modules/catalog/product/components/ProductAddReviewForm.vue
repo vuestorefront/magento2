@@ -26,7 +26,7 @@
             <SfInput
               v-model="form.nickname"
               name="name"
-              label="Name"
+              :label="$t('Name')"
               required
               :valid="!errors[0]"
               :error-message="$t(errors[0])"
@@ -43,7 +43,7 @@
             <SfInput
               v-model="form.summary"
               name="summary"
-              label="Title"
+              :label="$t('Title')"
               required
               :valid="!errors[0]"
               :error-message="$t(errors[0])"
@@ -89,7 +89,7 @@
           >
             <SfTextarea
               v-model="form.text"
-              label="Review"
+              :label="$t('Review')"
               name="review"
               :cols="60"
               :rows="10"
@@ -105,7 +105,7 @@
           class="form__button"
           type="submit"
         >
-          Add review
+          {{ $t('Add review') }}
         </SfButton>
       </form>
     </ValidationObserver>
@@ -125,9 +125,9 @@ import { min, oneOf, required } from 'vee-validate/dist/rules';
 import {
   SfInput, SfButton, SfSelect, SfTextarea,
 } from '@storefront-ui/vue';
-import { reviewGetters } from '~/getters';
+import reviewGetters from '~/modules/review/getters/reviewGetters';
 import userGetters from '~/modules/customer/getters/userGetters';
-import { useReview } from '~/composables';
+import { useReview } from '~/modules/review/composables/useReview';
 import { useUser } from '~/modules/customer/composables/useUser';
 import type { ProductReviewRatingMetadata } from '~/modules/GraphQL/types';
 

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <SfHeading
+      :key="`filter-title-${filter.attribute_code}`"
+      :level="4"
+      :title="filter.label"
+      class="filters__title sf-heading--left"
+    />
     <SfRadio
       v-for="option in filter.options"
       :key="`${filter.attribute_code}-${option.value}`"
@@ -18,12 +24,13 @@ import {
   computed,
   defineComponent, inject, PropType, useContext,
 } from '@nuxtjs/composition-api';
-import { SfRadio } from '@storefront-ui/vue';
+import { SfRadio, SfHeading } from '@storefront-ui/vue';
 import type { Aggregation, AggregationOption } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   components: {
     SfRadio,
+    SfHeading,
   },
   props: {
     filter: {

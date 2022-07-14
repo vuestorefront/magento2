@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/eslint-config-jest",
-  "version": "1.0.0-rc.9",
+  "version": "1.0.0-rc.10",
   "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -29,7 +29,7 @@
     "rules"
   ],
   "dependencies": {
-    "eslint-plugin-jest": "^26.0.0"
+    "eslint-plugin-jest": "^26.5.3"
   },
   "main": "index.js"
 }

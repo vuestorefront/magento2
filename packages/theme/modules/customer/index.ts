@@ -69,6 +69,12 @@ const moduleRoutes : NuxtRouteConfig = {
       component: path.resolve(moduleDir, 'pages/MyAccount/MyReviews.vue'),
       meta: { titleLabel: 'My reviews' },
     },
+    {
+      name: 'reset-password',
+      path: '/reset-password',
+      alias: '/customer/account/createPassword',
+      component: path.resolve(moduleDir, 'pages/MyAccount/ResetPassword.vue'),
+    },
   ],
 };
 

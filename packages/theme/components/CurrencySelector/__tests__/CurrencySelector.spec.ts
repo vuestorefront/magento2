@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
-import { render } from '~/test-utils';
+import { render } from '~/tests/unit/test-utils';
 import CurrenciesModal from '~/components/CurrencySelector/CurrenciesModal.vue';
-import { useCurrencyMock } from '~/test-utils/mocks/useCurrency';
+import { useCurrencyMock } from '~/tests/unit/mocks/useCurrency';
 import { useCurrency } from '~/composables';
 import { currencyDataMock } from '~/components/CurrencySelector/__tests__/currencyData.mock';
 

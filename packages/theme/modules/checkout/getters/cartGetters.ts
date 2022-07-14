@@ -5,14 +5,14 @@ import type { Price } from '~/modules/catalog/types';
 import type { ProductAttribute, Product } from '~/modules/catalog/product/types';
 import { PaymentMethodInterface } from '~/modules/checkout/types';
 import {
-  CartItemInterface,
   Cart,
   Discount,
   ProductInterface,
   SelectedShippingMethod,
   ConfigurableCartItem,
+  CartItemInterface,
 } from '~/modules/GraphQL/types';
-import { CartGetters as CartGettersBase, CartDiscount, Coupon } from '~/getters/types';
+import { CartGetters as CartGettersBase, CartDiscount, Coupon } from './types';
 import { getName, getSlug as getSlugGetter, getProductThumbnailImage } from '~/modules/catalog/product/getters/productGetters';
 
 export const getItems = (cart: Cart): CartItemInterface[] => {

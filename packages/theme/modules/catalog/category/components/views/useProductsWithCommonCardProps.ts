@@ -7,11 +7,11 @@ import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import {
   getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
 } from '~/modules/catalog/product/getters/productGetters';
-import { getAverageRating, getTotalReviews } from '~/getters/reviewGetters';
+import { getAverageRating, getTotalReviews } from '~/modules/review/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import type { Product } from '~/modules/catalog/product/types';
 
-interface ProductCommonCardProps {
+export interface ProductCommonCardProps {
   title: string;
   link: Route,
   style: Record<string, string | number> | string,
@@ -33,7 +33,7 @@ interface ProductCommonCardProps {
   scoreRating: number,
 }
 
-export type ProductWithCommondProductCardProps = Product & { commonProps: ProductCommonCardProps };
+export type ProductWithCommonProductCardProps = Product & { commonProps: ProductCommonCardProps };
 
 export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) => {
   const { getMagentoImage } = useImage();
@@ -47,7 +47,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
    * To avoid passing tens of props to both components two times,
    * instead the below object is passed to them using `v-bind="product.commonProps"`
    */
-  const productsWithCommonProductCardProps = computed<ProductWithCommondProductCardProps[]>(
+  const productsWithCommonProductCardProps = computed<ProductWithCommonProductCardProps[]>(
     () => products.value.map((product, index) => {
       const imageProps = {
         image: getMagentoImage(getProductThumbnailImage(product)),

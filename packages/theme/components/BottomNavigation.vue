@@ -3,7 +3,7 @@
     <SfBottomNavigation class="navigation-bottom">
       <SfBottomNavigationItem
         :class="{ 'sf-bottom-navigation__item--active': $route.name && $route.name.startsWith('home') }"
-        label="Home"
+        :label="$t('Home')"
         data-testid="bottom-navigation-home"
         @click="handleHomeClick"
       >
@@ -17,7 +17,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Menu"
+        :label="$t('Menu')"
         data-testid="bottom-navigation-menu"
         @click="loadCategoryMenu"
       >
@@ -32,7 +32,7 @@
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
         v-if="isAuthenticated"
-        label="Wishlist"
+        :label="$t('Wishlist')"
         data-testid="bottom-navigation-wishlist"
         @click="toggleWishlistSidebar"
       >
@@ -46,7 +46,7 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        label="Account"
+        :label="$t('Account')"
         data-testid="bottom-navigation-account"
         @click="handleAccountClick"
       >
@@ -60,12 +60,12 @@
         </template>
       </SfBottomNavigationItem>
       <SfBottomNavigationItem
-        :label="$route.name && $route.name.startsWith('product') ? 'Add to Cart' : 'Basket'"
+        :label="$t('Cart')"
         data-testid="bottom-navigation-cart"
         @click="toggleCartSidebar"
       >
         <template #icon>
-          <SfCircleIcon aria-label="Add to cart">
+          <SfCircleIcon aria-label="Go to cart">
             <SvgImage
               icon="add_to_cart"
               width="25"

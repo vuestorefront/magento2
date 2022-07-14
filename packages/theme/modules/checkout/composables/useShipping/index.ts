@@ -28,7 +28,7 @@ export function useShipping(): UseShippingInterface {
 
     try {
       loading.value = true;
-      if (!cart?.value?.shipping_addresses) {
+      if (cart?.value?.shipping_addresses.length === 0) {
         await loadCart(params);
       }
 

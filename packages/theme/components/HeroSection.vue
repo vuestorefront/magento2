@@ -7,6 +7,7 @@
       :width="imageWidth"
       :height="imageHeight"
       :nuxt-img-config="nuxtImgConfig"
+      placeholder="blur"
       class="hero__image"
     />
     <div class="hero__wrapper">
