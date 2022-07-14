@@ -60,7 +60,7 @@
           class="form__action-button"
           type="button"
           :disabled="
-            !isShippingMethodStepCompleted || isLoading.save
+            !isShippingMethodStepCompleted || isLoading
           "
           @click="$emit('submit')"
         >

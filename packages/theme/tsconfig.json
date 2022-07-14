@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "preserve",
     "declaration": true,
     "target": "ES2019",
     "module": "ES2020",
@@ -38,6 +39,9 @@
     "declarationDir": "./lib",
     "importHelpers": true,
     "allowSyntheticDefaultImports": true
+  },
+  "vueCompilerOptions": {
+    "target": 2
   },
   "exclude": ["tests/e2e/**"]
 }

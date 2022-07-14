@@ -254,7 +254,7 @@ export default defineComponent({
     );
 
     const configurableOptions = computed(
-      () => props.product?.configurable_options ?? {},
+      () => props.product?.configurable_options ?? [],
     );
 
     const productConfiguration = ref(route.value.query);

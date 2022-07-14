@@ -1,4 +1,4 @@
-import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
+import type { Ref } from '@nuxtjs/composition-api';
 import type { CmsPage, CmsBlock } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '../types';
 
@@ -24,12 +24,12 @@ export interface UseContentInterface {
   /**
    * Indicates whether any of the methods is in progress
    */
-  loading: DeepReadonly<Ref<boolean>>;
+  loading: Readonly<Ref<boolean>>;
 
   /**
    * Contains errors from the composable methods
    */
-  error: DeepReadonly<Ref<UseContentErrors>>;
+  error: Readonly<Ref<UseContentErrors>>;
 
   /**
    * Loads CMS page

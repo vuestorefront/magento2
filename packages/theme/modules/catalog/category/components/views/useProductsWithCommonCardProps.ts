@@ -11,7 +11,7 @@ import { getAverageRating, getTotalReviews } from '~/modules/review/getters/revi
 import { useAddToCart } from '~/helpers/cart/addToCart';
 import type { Product } from '~/modules/catalog/product/types';
 
-interface ProductCommonCardProps {
+export interface ProductCommonCardProps {
   title: string;
   link: Route,
   style: Record<string, string | number> | string,
