@@ -101,7 +101,7 @@
                   "
                   :special-price="
                     cartGetters.productHasSpecialPrice(product)
-                      ? getItemPrice(product).special &&
+                      ? cartGetters.getItemPrice(product).special &&
                         $fc(cartGetters.getItemPrice(product).special)
                       : ''
                   "
