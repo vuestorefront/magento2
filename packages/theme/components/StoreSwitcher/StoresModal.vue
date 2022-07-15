@@ -41,7 +41,7 @@
       <SfButton
         class="sf-button--full-width sf-bottom-modal__cancel"
         aria-label="Close"
-        @click="close"
+        @click="closeModal"
       >
         {{ $t('Cancel') }}
       </SfButton>
