@@ -9,7 +9,7 @@ import type { UseProductGalleryInterface } from '~/modules/catalog/product/compo
  *
  * See the {@link UseProductGalleryInterface} page for more information.
  */
-export function useProductGallery(product: Ref<Product>, imgPlaceholder = 'blur'): UseProductGalleryInterface {
+export function useProductGallery(product: Ref<Product>, imgPlaceholder = ''): UseProductGalleryInterface {
   const { getMagentoImage, imageSizes } = useImage();
   const productGallery = computed(() => getProductGallery(product.value).map((img) => ({
     mobile: { url: getMagentoImage(img.small) },
