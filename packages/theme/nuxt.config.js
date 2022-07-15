@@ -242,9 +242,9 @@ export default () => {
       VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
 
-    publicRuntimeConfig: {
-      middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
-    },
+    // publicRuntimeConfig: {
+    //   middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
+    // },
   };
 
   if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
