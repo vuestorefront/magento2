@@ -3,7 +3,7 @@
   height="100px"
 />
 
-# Vue Storefront 2 for Magento [BETA]
+# Vue Storefront 2 for Magento
 
 Welcome to the documentation of Vue Storefront 2 integration for Magento 2.
 
