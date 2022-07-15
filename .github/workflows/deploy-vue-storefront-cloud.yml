@@ -73,7 +73,7 @@ jobs:
             echo "VSF_MIDDLEWARE_URL=https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
 
           else
-              echo "VSF_MIDDLEWARE_URL=https://localhost:3000/api/" >> $GITHUB_ENV
+              echo "https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
               exit 1
           fi
       - name: Checkout code
