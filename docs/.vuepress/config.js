@@ -7,19 +7,25 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
     // Google Tag Manager
-    ['script', {}, [`
+    [
+      'script',
+      {},
+      [
+        `
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','${GTM_TAG}');
-    `]],
+    `,
+      ],
+    ],
   ],
 
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#configurewebpack
    */
-   configureWebpack: (config) => {
+  configureWebpack: (config) => {
     // Add support for webp images
     config.module.rules.push({
       test: /\.(webp)(\?.*)?$/,
@@ -28,52 +34,29 @@ module.exports = {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'assets/img/[name].[hash:8].[ext]'
-         }
-        }
-      ]
+            name: 'assets/img/[name].[hash:8].[ext]',
+          },
+        },
+      ],
     });
 
     // Fix image loading. Ref: https://github.com/vuejs/vue-loader/issues/1612#issuecomment-559366730
     config.module.rules = config.module.rules.map((rule) => {
-      rule.use = rule.use && rule.use.map((useRule) => {
-        if (useRule.loader === 'url-loader') {
-          useRule.options.esModule = false;
-        }
+      rule.use =
+        rule.use &&
+        rule.use.map((useRule) => {
+          if (useRule.loader === 'url-loader') {
+            useRule.options.esModule = false;
+          }
 
-        return useRule;
-      });
+          return useRule;
+        });
 
       return rule;
     });
   },
 
-  /**
-   * Ref：https://v1.vuepress.vuejs.org/plugin/
-   */
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    [
-      '@vuepress/plugin-medium-zoom',
-      {
-        // This selector excludes images from the "Integrations" page
-        selector: 'main :not(.tile-image) > img',
-      },
-    ],
-    '@vuepress/active-header-links',
-    '@vuepress/search',
-  ],
-  
-  /**
-   * Ref: https://v1.vuepress.vuejs.org/config/#markdown
-   */
-   markdown: {
-    extendMarkdown: md => {
-      md.use(require('markdown-it-video'), {
-        youtube: { width: 740, height: 416.25 }, // 16:9 ratio, where 740px is the width of the page content
-      });
-    }
-  },
+  theme: 'vsf-docs',
 
   themeConfig: {
     GTM_TAG,
@@ -120,8 +103,8 @@ module.exports = {
           ['/getting-started/configuration', 'Configuration'],
           ['/getting-started/layouts-and-routing', 'Layouts and Routing'],
           ['/getting-started/theme', 'Theme'],
-          ['/getting-started/internationalization', 'Internationalization']
-        ]
+          ['/getting-started/internationalization', 'Internationalization'],
+        ],
       },
       {
         title: 'Composition',
