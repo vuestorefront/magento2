@@ -4,7 +4,7 @@ on:
     branches:
       - main
       - develop
-      - enterprise
+      - M2-1039-product-detail-page-main-gallery-image-is-not-displayed-in-mobile-safari
       - release/*
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
             ENVCODE='demo-magento2-canary'
             MIDDLEWARE_URL='https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/api/'
 
-          elif [ $REF = 'refs/heads/enterprise' ]; then
+          elif [ $REF = 'refs/heads/M2-1039-product-detail-page-main-gallery-image-is-not-displayed-in-mobile-safari' ]; then
             ENVNAME='enterprise'
             ENVCODE='demo-magento2-enterprise'
             MIDDLEWARE_URL='https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/'
