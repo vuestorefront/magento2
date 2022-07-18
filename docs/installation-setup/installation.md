@@ -1,7 +1,5 @@
 # Installation
 
-[[toc]]
-
 ## Prerequisites
 
 Before proceeding, make sure you have [Node 16](https://nodejs.org/en/) installed. You can check this by running the following command:
