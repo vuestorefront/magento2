@@ -28,9 +28,17 @@ jobs:
             exit 1
           fi
 
-        # the above curl only *asks* for the container to be deployed
-        # we don't know when the newly built Docker image replaces the old one
-        # but it takes less than 5 minutes
-      - name: 'Wait for container deployed on VSF Cloud to come online'
-        run: 'sleep 300'
-        shell: 'bash'
+      - name: 'Poll for Farmer pod deployment status'
+        timeout-minutes: 5
+        run: |
+          query_deploy_check_endpoint () {
+             NAMESPACE=${{ inputs.environment-code }}-europe-west1-gcp-storefrontcloud-io
+             curl -s \
+              -H 'X-User-Id: ${{ secrets.cloud-username }}' \
+              -H 'X-Api-Key: ${{ secrets.cloud-password }}' \
+              -H 'Content-Type: application/json' \
+              https://farmer.storefrontcloud.io/deploy_check/$NAMESPACE/${{ github.sha }}
+          }
+          until $( query_deploy_check_endpoint | tee /dev/stderr | grep -q '{"code":200,"ready":"1","deployed":"1"}' ); do
+            sleep 10;
+          done;
