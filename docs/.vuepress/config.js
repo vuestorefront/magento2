@@ -76,18 +76,17 @@ module.exports = {
     ],
     sidebar: [
       {
-        title: 'Essentials',
+        title: '',
         collapsable: false,
         children: [
           ['/', 'Introduction'],
-          ['/guide/environments', 'Demo environments'],
           ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
         ],
       },
       {
         title: 'Installation & Setup',
-        collapsable: false,
+        collapsable: true,
         children: [
           ['/installation-setup/installation', 'Installation'],
           ['/installation-setup/configure-magento', 'Configuring Magento'],
@@ -96,7 +95,7 @@ module.exports = {
       },
       {
         title: 'Getting started',
-        collapsable: false,
+        collapsable: true,
         children: [
           ['/getting-started/introduction', 'Introduction'],
           ['/getting-started/project-structure', 'Project structure'],
@@ -108,7 +107,7 @@ module.exports = {
       },
       {
         title: 'Composition',
-        collapsable: false,
+        collapsable: true,
         children: [
           ['/composition/composables', 'Composables'],
           ['/composition/list-of-composables', 'List of composables'],
@@ -116,7 +115,7 @@ module.exports = {
       },
       {
         title: 'Modules',
-        collapsable: false,
+        collapsable: true,
         sidebarDepth: 2,
         children: [
           {
@@ -131,7 +130,7 @@ module.exports = {
       },
       {
         title: 'Guides',
-        collapsable: false,
+        collapsable: true,
         children: [
           ['/guide/global-state-management', 'Global state management'],
           ['/guide/image-optimization', 'Image optimization'],
@@ -142,7 +141,7 @@ module.exports = {
       },
       {
         title: 'Performance',
-        collapsable: false,
+        collapsable: true,
         children: [
           ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
           ['/guide/ssr', 'Server Side Rendering Cache'],
