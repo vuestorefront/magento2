@@ -5,12 +5,12 @@ on:
     branches:
       - main
       - develop
-      - release-**
+      - release/*
   pull_request:
     branches:
       - main
       - develop
-      - release-**
+      - release/*
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
