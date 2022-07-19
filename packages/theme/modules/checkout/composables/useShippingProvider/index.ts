@@ -26,7 +26,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
   const { cart, setCart, load: loadCart } = useCart();
   const context = useContext();
 
-  const save = async ({ shippingMethod }: UseShippingProviderSaveParams) => {
+  const save = async ({ shippingMethod, customQuery = null }: UseShippingProviderSaveParams) => {
     Logger.debug('useShippingProvider.save');
     let result = null;
     try {
@@ -37,7 +37,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
         shipping_methods: [shippingMethod],
       };
 
-      const cartData = await setShippingMethodsOnCartCommand.execute(context, shippingMethodParams);
+      const cartData = await setShippingMethodsOnCartCommand.execute(context, shippingMethodParams, customQuery);
       Logger.debug('[Result]:', { cartData });
 
       setCart(cartData);

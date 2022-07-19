@@ -1,9 +1,11 @@
 import { UseContextReturn } from '~/types/core';
 import { Logger } from '~/helpers/logger';
 import { SetGuestEmailOnCartInput } from '~/modules/GraphQL/types';
+import { AttachToCartParams } from '~/modules/customer/composables/useGuestUser';
+import { ComposableFunctionArgs } from '~/composables';
 
 export const attachToCartCommand = {
-  execute: async (context: UseContextReturn, params): Promise<void> => {
+  execute: async (context: UseContextReturn, params: ComposableFunctionArgs<AttachToCartParams>): Promise<void> => {
     Logger.debug('[Magento]: Attach guest cart to user');
 
     const emailOnCartInput: SetGuestEmailOnCartInput = {
@@ -13,6 +15,6 @@ export const attachToCartCommand = {
 
     await context.app.$vsf.$magento.api.setGuestEmailOnCart({
       ...emailOnCartInput,
-    });
+    }, params?.customQuery ?? null);
   },
 };

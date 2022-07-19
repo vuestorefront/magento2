@@ -36,16 +36,20 @@ import {
   useRoute,
   defineComponent,
   useFetch,
+  onMounted,
 } from '@nuxtjs/composition-api';
+import { merge } from 'lodash-es';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { SfBreadcrumbs, SfLoader } from '@storefront-ui/vue';
 import { getBreadcrumbs } from '~/modules/catalog/product/getters/productGetters';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
-
+import { useApi } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
+import type { ProductDetailsQuery } from '~/modules/GraphQL/types';
 import ProductSkeleton from '~/modules/catalog/product/components/ProductSkeleton.vue';
+import getProductPriceBySkuGql from '~/modules/catalog/product/queries/getProductPriceBySku.gql';
 
 export default defineComponent({
   name: 'ProductPage',
@@ -65,6 +69,7 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
+    const { query } = useApi();
     const product = ref<Product | null>(null);
     const { addTags } = useCache();
     const { localePath } = useContext();
@@ -97,16 +102,22 @@ export default defineComponent({
     // eslint-disable-next-line no-underscore-dangle
     const renderer = computed(() => product.value?.__typename ?? ProductTypeEnum.SIMPLE_PRODUCT);
 
-    const fetchProduct = async (query = getBaseSearchQuery()) => {
+    const fetchProductBaseData = async (searchQuery = getBaseSearchQuery()) => {
       const result = await getProductDetails({
-        ...query,
+        ...searchQuery,
       });
 
-      product.value = result.items[0] as Product ?? null;
+      product.value = merge({}, product.value, result.items[0] as Product ?? null);
+    };
+
+    const fetchProductExtendedData = async (searchQuery = getBaseSearchQuery()) => {
+      const { data } = await query<ProductDetailsQuery>(getProductPriceBySkuGql, searchQuery);
+
+      product.value = merge({}, product.value, data.products?.items?.[0] as Product);
     };
 
     useFetch(async () => {
-      await fetchProduct();
+      await fetchProductBaseData();
 
       if (Boolean(product?.value?.sku) === false) nuxtError({ statusCode: 404 });
 
@@ -126,12 +137,14 @@ export default defineComponent({
       addTags([...tags, ...productTags]);
     });
 
+    onMounted(async () => fetchProductExtendedData());
+
     return {
       renderer,
       loading,
       breadcrumbs,
       product,
-      fetchProduct,
+      fetchProduct: fetchProductExtendedData,
     };
   },
 });

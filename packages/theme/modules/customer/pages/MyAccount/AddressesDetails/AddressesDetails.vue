@@ -52,13 +52,17 @@
           class="addresses-list"
         >
           <div
-            v-for="address in userAddresses"
+            v-for="address in addressesWithCountryName"
             :key="getId(address)"
             class="addresses"
           >
             <div class="addresses__content">
               <div class="addresses__address">
-                <UserAddressDetails :address="address" />
+                <UserAddressDetails :address="address">
+                  <template #country>
+                    {{ address.countryName }}
+                  </template>
+                </UserAddressDetails>
               </div>
             </div>
             <div class="addresses__actions">
@@ -75,6 +79,7 @@
               </SfButton>
             </div>
             <SvgImage
+              v-if="!isDefault(address)"
               icon="cross"
               :label="$t('Remove Address')"
               role="button"
@@ -102,6 +107,7 @@ import {
   useRouter,
   useContext,
   ref,
+  computed,
   useFetch,
 } from '@nuxtjs/composition-api';
 import { useAddresses } from '~/modules/customer/composables/useAddresses';
@@ -110,6 +116,8 @@ import SvgImage from '~/components/General/SvgImage.vue';
 import UserAddressDetails from '~/components/UserAddressDetails.vue';
 import { CustomerAddress } from '~/modules/GraphQL/types';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
+import { useCountrySearch } from '~/composables/useCountrySearch';
+import type { Country } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'AddressesDetails',
@@ -125,10 +133,14 @@ export default defineComponent({
     const router = useRouter();
 
     const userAddresses = ref<CustomerAddress[]>([]);
+    const countries = ref<Country[]>([]);
     const { load, remove } = useAddresses();
+    const { load: loadCountries } = useCountrySearch();
+
     const { fetch } = useFetch(async () => {
-      const addressesData = await load();
-      userAddresses.value = userAddressesGetters.getAddresses(addressesData);
+      const [addressesResponse, countriesResponse] = await Promise.all([load(), loadCountries()]);
+      userAddresses.value = userAddressesGetters.getAddresses(addressesResponse);
+      countries.value = countriesResponse;
     });
 
     const goToCreateAddressPage = () => router.push(
@@ -144,8 +156,18 @@ export default defineComponent({
       fetch();
     };
 
+    const addressesWithCountryName = computed(() => userAddresses.value.map((address) => ({
+      ...address,
+      countryName: countries.value
+        .find(({ id }) => id === address.country_code)
+        ?.full_name_locale
+        ?? address.country_code,
+    })));
+
     return {
+      countries,
       userAddresses,
+      addressesWithCountryName,
       goToCreateAddressPage,
       goToEditAddressPage,
       removeAddress,

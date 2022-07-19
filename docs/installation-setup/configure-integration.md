@@ -6,8 +6,8 @@ This guide explains the steps needed to set up Vue Storefront for Magento 2.
 
 Before you can get started, you need:
 
-- Vue Storefront project created following the [Installation](/getting-started/installation.html) guide.
-- Magento 2 server configured following the [Configuring Magento](/getting-started/configure-magento.html) guide.
+- Vue Storefront project created following the [Installation](./installation.html) guide.
+- Magento 2 server configured following the [Configuring Magento](./configure-magento.html) guide.
 
 ## Creating the Vue Storefront for Magento 2
 

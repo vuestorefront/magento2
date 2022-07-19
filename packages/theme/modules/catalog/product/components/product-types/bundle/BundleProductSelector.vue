@@ -73,6 +73,12 @@
     >
       Add to Cart
     </SfButton>
+    <SfAlert
+      :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
+      class="product__add-to-cart-error"
+      :message="addToCartError"
+      type="danger"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -82,6 +88,7 @@ import {
   SfQuantitySelector,
   SfRadio,
   SfButton,
+  SfAlert,
 } from '@storefront-ui/vue';
 import {
   computed, defineComponent, PropType, ref, watch,
@@ -105,6 +112,7 @@ export default defineComponent({
     SfPrice,
     SfQuantitySelector,
     SfRadio,
+    SfAlert,
   },
   props: {
     canAddToCart: {
@@ -119,9 +127,10 @@ export default defineComponent({
   },
   emits: ['update-bundle', 'update-price'],
   setup(props, { emit }) {
-    const { loading, addItem } = useCart();
+    const { loading, addItem, error: cartError } = useCart();
     const bundleProduct = computed(() => getBundleProducts(props.product));
     const selectedOptions = ref({});
+    const addToCartError = computed(() => cartError.value?.addItem?.message);
 
     selectedOptions.value = bundleProductInitialSelector(bundleProduct.value);
 
@@ -185,6 +194,7 @@ export default defineComponent({
       getProductName,
       getProductPrice,
       selectedOptions,
+      addToCartError,
     };
   },
 });

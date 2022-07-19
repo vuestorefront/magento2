@@ -6,7 +6,7 @@ import {
 } from '@nuxtjs/composition-api';
 import { RoutableInterface } from '~/modules/GraphQL/types';
 import { Logger } from '~/helpers/logger';
-import type { UseUrlResolverErrors, UseUrlResolverInterface } from '~/composables';
+import type { ComposableFunctionArgs, UseUrlResolverErrors, UseUrlResolverInterface } from '~/composables';
 
 /**
  * Allows searching the resolver for current
@@ -24,14 +24,14 @@ export function useUrlResolver(): UseUrlResolverInterface {
     search: null,
   });
 
-  const search = async (): Promise<RoutableInterface | null> => {
+  const search = async (params?: ComposableFunctionArgs<{}>): Promise<RoutableInterface | null> => {
     loading.value = true;
     let results: RoutableInterface | null = null;
 
     try {
       const clearUrl = path.replace(/[a-z]+\/[cp|]\//gi, '');
       Logger.debug('[Magento] Find information based on URL', { clearUrl });
-      const { data } = await context.$magento.api.route(clearUrl);
+      const { data } = await context.$magento.api.route(clearUrl, params?.customQuery ?? null);
       results = data?.route ?? null;
 
       if (!results) nuxtError({ statusCode: 404 });

@@ -92,6 +92,7 @@
                 <SfCollectedProduct
                   v-for="product in products"
                   :key="product.product.original_sku"
+                  :has-more-actions="false"
                   data-testid="cart-sidebar-collected-product"
                   :image="cartGetters.getItemImage(product)"
                   :title="cartGetters.getItemName(product)"
@@ -293,7 +294,7 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import _debounce from 'lodash.debounce';
+import { debounce } from 'lodash-es';
 import { cartGetters } from '~/getters';
 import {
   useUiState,
@@ -396,7 +397,7 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
-    const delayedUpdateItemQty = _debounce(
+    const delayedUpdateItemQty = debounce(
       (params) => updateItemQty(params),
       1000,
     );
@@ -548,31 +549,12 @@ export default defineComponent({
     }
   }
 
-  &__actions {
-    transition: opacity 150ms ease-in-out;
-  }
-
-  &__save,
-  &__compare {
-    --button-padding: 0;
-
-    &:focus {
-      --cp-save-opacity: 1;
-      --cp-compare-opacity: 1;
-    }
-  }
-
-  &__save {
-    opacity: var(--cp-save-opacity, 0);
-  }
-
-  &__compare {
-    opacity: var(--cp-compare-opacity, 0);
+  ::v-deep .sf-collected-product__actions {
+    display: none;
   }
 
   &:hover {
-    --cp-save-opacity: 1;
-    --cp-compare-opacity: 1;
+    --collected-product-configuration-display: initial;
     @include for-desktop {
       .collected-product__properties {
         display: none;

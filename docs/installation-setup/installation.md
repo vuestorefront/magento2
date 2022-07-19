@@ -38,11 +38,11 @@ npm install
 
 ### Step 2. Setup and configure Magento
 
-Before you can configure the project, you need to set up and configure a new Magento instance that Vue Storefront will connect to. To do so, follow the [Configuring Magento](/getting-started/configure-magento.html) guide.
+Before you can configure the project, you need to set up and configure a new Magento instance that Vue Storefront will connect to. To do so, follow the [Configuring Magento](./configure-magento.html) guide.
 
 ### Step 3. Configure Vue Storefront
 
-With the Magento instance setup and configured, you can connect your project to it. To do so, follow the [Configuring Vue Storefront](/getting-started/configure-integration.html) guide.
+With the Magento instance setup and configured, you can connect your project to it. To do so, follow the [Configuring Vue Storefront](./configure-integration.html) guide.
 
 ### Step 4. Start the project
 

@@ -26,7 +26,7 @@
         data-testid="product-card"
         :image-height="imageSize.height"
         :image-width="imageSize.width"
-        show-add-to-cart-button
+        :show-add-to-cart-button="true"
         @click:wishlist="$emit('click:wishlist', product)"
         @click:add-to-cart="$emit('click:add-to-cart', { product, quantity: 1 })"
       >
@@ -90,17 +90,39 @@ export default defineComponent({
   }
 }
 .card {
-  --product-card-title-margin: var(--spacer-base) 0 0 0;
   --product-card-title-font-weight: var(--font-weight--medium);
   --product-card-title-margin: var(--spacer-xs) 0 0 0;
-  flex: 1 1 50%;
+  flex: 1 1 100%;
 
   @include for-desktop {
-    flex: 1 1 23%;
+    --product-card-max-width: 25%;
     --product-card-title-font-weight: var(--font-weight--normal);
-    --product-card-add-button-bottom: var(--spacer-base);
     --product-card-title-margin: var(--spacer-sm) 0 0 0;
+    --product-card-add-button-bottom: var(--spacer-base);
   }
+}
+
+::v-deep .sf-product-card {
+  .card {
+    will-change: transform, opacity;
+  }
+
+  &__image-wrapper {
+    height: 257px;
+  }
+
+  &__add-button {
+    @include for-mobile {
+      opacity: 1;
+      display: flex;
+      bottom: 1rem;
+      right: 0;
+    }
+  }
+}
+
+::v-deep .sf-product-card::after {
+  content: none;
 }
 
 </style>

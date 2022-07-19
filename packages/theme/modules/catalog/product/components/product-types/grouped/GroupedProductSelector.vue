@@ -42,6 +42,12 @@
     >
       Add to Cart
     </SfButton>
+    <SfAlert
+      :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
+      class="product__add-to-cart-error"
+      :message="addToCartError"
+      type="danger"
+    />
   </div>
 </template>
 <script lang="ts">
@@ -51,6 +57,7 @@ import {
   SfButton,
   SfQuantitySelector,
   SfImage,
+  SfAlert,
 } from '@storefront-ui/vue';
 import {
   computed, watch, ref, defineComponent, PropType,
@@ -78,6 +85,7 @@ export default defineComponent({
     SfButton,
     SfQuantitySelector,
     SfImage,
+    SfAlert,
   },
   props: {
     canAddToCart: {
@@ -92,7 +100,7 @@ export default defineComponent({
   },
   emits: ['update-price'],
   setup(props, { emit }) {
-    const { addItem } = useCart();
+    const { addItem, error: cartError } = useCart();
     const loading = ref(false);
     const groupedItems = computed(() => getGroupedProducts(props.product));
     const addToCart = async () => {
@@ -105,6 +113,9 @@ export default defineComponent({
           for (const p of groupedItemsFiltered) {
             // eslint-disable-next-line no-await-in-loop
             await addItem({ product: p.product, quantity: p.qty });
+            if (cartError.value.addItem) {
+              break;
+            }
           }
         }
         loading.value = false;
@@ -115,8 +126,8 @@ export default defineComponent({
 
     watch(
       () => props.product,
-      (product) => {
-        const price = getGroupedProductPriceCommand(product);
+      (productNewValue) => {
+        const price = getGroupedProductPriceCommand(productNewValue);
         emit('update-price', price);
       },
       {
@@ -125,6 +136,7 @@ export default defineComponent({
     );
 
     const { getMagentoImage } = useImage();
+    const addToCartError = computed(() => cartError.value?.addItem?.message);
 
     return {
       addToCart,
@@ -134,6 +146,7 @@ export default defineComponent({
       getProductName,
       getProductPrice,
       getProductThumbnailImage,
+      addToCartError,
     };
   },
 });

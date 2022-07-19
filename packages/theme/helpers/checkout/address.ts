@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash-es';
 import type { CustomerAddress, CartAddressInterface } from '~/modules/GraphQL/types';
 
 export const formatAddressReturnToData = (address: CartAddressInterface) => ({
@@ -25,7 +26,7 @@ export const addressFromApiToForm = (address: CustomerAddress | CartAddressInter
   apartment: address.street?.[1],
   city: address.city,
   region: (address as CustomerAddress)?.region?.region_code ?? (address as CartAddressInterface).region.code,
-  country_code: (address as CustomerAddress)?.country_code ?? (address as CartAddressInterface).region.code,
+  country_code: (address as CustomerAddress)?.country_code ?? (address as CartAddressInterface).country.code,
   postcode: address.postcode,
   telephone: address.telephone,
 });
@@ -53,3 +54,23 @@ export const getInitialCheckoutAddressForm = () : CheckoutAddressForm => ({
   postcode: '',
   telephone: '',
 });
+
+/**
+ * Try to find an address from the user's saved addresses that exactly matches the address that is bound to a cart.
+ *
+ * `useShipping().save()``sends an addressId to Magento to set the shipping address on the cart,
+ * but when you download the cart after that - the cart's endpoint response doesn't contain that addressId, just the address fields (street etc.)
+ * So the only choice left is to try to compare the fields of the addresses.
+ *
+ * This function exists because if a user returns to a cart whose shipping address was set before, we want the user address to be highlighted in the SfAddressPicker component.
+ *
+ * @param customerAddresses The addresses saved in a user's account
+ * @param cartAddress The address that is bound to the cart, @see Cart["billing_address"] Cart["shipping_addresses"]
+ *
+ */
+export const findUserAddressIdenticalToSavedCartAddress = (
+  customerAddresses: CustomerAddress[] | null,
+  cartAddress: CartAddressInterface,
+) : CustomerAddress => customerAddresses?.find(
+  (userAddress) => isEqual(addressFromApiToForm(userAddress), addressFromApiToForm(cartAddress)),
+) ?? null;

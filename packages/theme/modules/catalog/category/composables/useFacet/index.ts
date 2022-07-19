@@ -1,6 +1,5 @@
 import { readonly, ref } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { ComposableFunctionArgs } from '~/composables/types';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
 import useApi from '~/composables/useApi';
 import { sortingOptions } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
@@ -26,7 +25,7 @@ export function useFacet(): UseFacetInterface {
     search: null,
   });
   const defaultItemsPerPage = 20;
-  const search = async (params?: ComposableFunctionArgs<FacetSearchParams>) => {
+  const search = async (params?: FacetSearchParams) => {
     Logger.debug('useFacet/search', params);
 
     result.value.input = params;

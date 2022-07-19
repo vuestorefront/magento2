@@ -49,7 +49,8 @@ export const useSidebarLinkGroups = () => {
           label: 'Log out',
           listeners: {
             click: async () => {
-              await Promise.all([logout({}), clear({})]);
+              await logout({});
+              await clear({});
               await router.push(localeRoute({ name: 'home' }));
             },
           },

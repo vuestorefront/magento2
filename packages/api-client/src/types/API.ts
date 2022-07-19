@@ -3,13 +3,9 @@ import { ExecutionResult } from 'graphql';
 import { CustomQuery } from '@vue-storefront/core';
 import {
   AddConfigurableProductsToCartInput,
-  AddConfigurableProductsToCartMutation,
   AddSimpleProductsToCartInput,
-  AddSimpleProductsToCartMutation,
   AddDownloadableProductsToCartInput,
-  AddDownloadableProductsToCartMutation,
   AddVirtualProductsToCartInput,
-  AddVirtualProductsToCartMutation,
   AppliedCoupon,
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
@@ -95,11 +91,9 @@ import {
   RemoveProductsFromWishlistMutationVariables,
   RemoveProductsFromWishlistMutation,
   GetCustomerAddressesQuery,
-  AddProductsToCartMutation,
   CmsBlockQuery,
   GroupedProduct,
   AddBundleProductsToCartInput,
-  AddBundleProductsToCartMutation,
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
   ResetPasswordMutationVariables,
@@ -107,7 +101,12 @@ import {
   ChangeCustomerPasswordMutation,
   CreateCustomerAddressMutation,
   DownloadableProduct,
-  VirtualProduct, CustomerOrdersFilterInput, RoutableInterface,
+  VirtualProduct,
+  CustomerOrdersFilterInput,
+  RoutableInterface,
+  AddProductsToCartOutput,
+  AddConfigurableProductsToCartMutation,
+  AddBundleProductsToCartMutation, AddSimpleProductsToCartMutation, AddDownloadableProductsToCartMutation, AddVirtualProductsToCartMutation,
 } from './GraphQL';
 import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
 import { CustomerProductReviewParams } from '../api/customerProductReview';
@@ -179,7 +178,7 @@ export interface MagentoApiMethods {
   addProductsToCart(
     input: AddProductsToCartInput,
     customQuery?: CustomQuery
-  ): Promise<FetchResult<AddProductsToCartMutation>>;
+  ): Promise<FetchResult<{ addProductsToCart: AddProductsToCartOutput }>>;
 
   addProductToWishList(
     input: AddProductsToWishlistMutationVariables,

@@ -13,13 +13,15 @@
           data-testid="banner-cta-button"
           link="#"
         >
-          <SfImage
-            src="/homepage/apple.png"
-            loading="lazy"
-            alt="Apple"
-            :width="134"
-            :height="44"
-          />
+          <div class="app-store-image">
+            <SfImage
+              src="/homepage/apple.png"
+              loading="lazy"
+              alt="Apple"
+              :width="134"
+              :height="44"
+            />
+          </div>
         </SfLink>
         <SfLink
           class="app-banner__button sf-banner__call-to-action"
@@ -27,13 +29,15 @@
           data-testid="banner-cta-button"
           link="#"
         >
-          <SfImage
-            src="/homepage/google.png"
-            loading="lazy"
-            alt="Google"
-            :width="134"
-            :height="44"
-          />
+          <div class="app-store-image">
+            <SfImage
+              src="/homepage/google.png"
+              loading="lazy"
+              alt="Google"
+              :width="134"
+              :height="44"
+            />
+          </div>
         </SfLink>
       </div>
     </template>
@@ -91,5 +95,10 @@ export default defineComponent({
       margin: 0 0 0 calc(var(--spacer-xl) / 2);
     }
   }
+}
+// override ".sf-banner img" style spill
+::v-deep .app-store-image img {
+  position: initial;
+  margin-top: var(--spacer-base);
 }
 </style>

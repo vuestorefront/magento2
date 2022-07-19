@@ -12,8 +12,14 @@
       </template>
       <template #aside>
         <div class="sf-header__switchers">
-          <CurrencySelector class="smartphone-only" />
-          <StoreSwitcher class="smartphone-only" />
+          <CurrencySelector
+            v-if="hasCurrencyToSelect"
+            class="smartphone-only"
+          />
+          <StoreSwitcher
+            v-if="hasStoresToSelect"
+            class="smartphone-only"
+          />
         </div>
       </template>
       <template #header-icons="{ activeIcon }">
@@ -96,6 +102,7 @@
       v-if="isSearchOpen"
       :visible="isSearchOpen"
       :search-results="productSearchResults"
+      @close="isSearchOpen = false"
     />
     <SfOverlay :visible="isSearchOpen" />
   </div>
@@ -126,22 +133,21 @@ import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import type { CategoryTree, ProductInterface } from '~/modules/GraphQL/types';
-import CurrencySelector from '~/components/CurrencySelector.vue';
 import HeaderLogo from '~/components/HeaderLogo.vue';
 import SvgImage from '~/components/General/SvgImage.vue';
-import StoreSwitcher from '~/components/StoreSwitcher.vue';
+import { useTopBar } from './TopBar/useTopBar';
 
 export default defineComponent({
   components: {
     HeaderNavigation,
     SfHeader,
     SfOverlay,
-    CurrencySelector,
     HeaderLogo,
-    StoreSwitcher,
     SvgImage,
     SfButton,
     SfBadge,
+    CurrencySelector: () => import('~/components/CurrencySelector.vue'),
+    StoreSwitcher: () => import('~/components/StoreSwitcher.vue'),
     SearchBar: () => import('~/components/Header/SearchBar/SearchBar.vue'),
     SearchResults: () => import(
       /* webpackPrefetch: true */ '~/components/Header/SearchBar/SearchResults.vue'
@@ -156,6 +162,8 @@ export default defineComponent({
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
     const { loadItemsCount: loadWishlistItemsCount } = useWishlist();
     const { categories: categoryList, load: categoriesListLoad } = useCategory();
+
+    const { hasCurrencyToSelect, hasStoresToSelect } = useTopBar();
 
     const isSearchOpen = ref(false);
     const productSearchResults = ref<ProductInterface[] | null>(null);
@@ -204,6 +212,8 @@ export default defineComponent({
       toggleWishlistSidebar,
       wishlistHasProducts,
       wishlistItemsQty,
+      hasCurrencyToSelect,
+      hasStoresToSelect,
     };
   },
 });

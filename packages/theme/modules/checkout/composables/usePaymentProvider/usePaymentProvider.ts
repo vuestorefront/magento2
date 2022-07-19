@@ -1,11 +1,12 @@
 import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { AvailablePaymentMethod, PaymentMethodInput } from '~/modules/GraphQL/types';
+import { CustomQuery } from '~/types/core';
 
-export interface PaymentMethodParams {
+export type PaymentMethodParams = ComposableFunctionArgs<{
   cart_id: string;
   payment_method: PaymentMethodInput;
-}
+}>;
 
 /**
  * The {@link usePaymentProvider} error object. The properties values' are the
@@ -39,7 +40,7 @@ export interface UsePaymentProviderInterface {
   error: Readonly<Ref<UsePaymentProviderErrors>>;
 
   /** Loads the available payment methods for current cart. */
-  load(): Promise<AvailablePaymentMethod[] | null>;
+  load(customQuery?: CustomQuery): Promise<AvailablePaymentMethod[] | null>;
 
   /**
    * Saves the payment method for current cart. It returns the updated available

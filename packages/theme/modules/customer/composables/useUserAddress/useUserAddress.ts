@@ -2,6 +2,7 @@ import type { Ref, DeepReadonly } from '@nuxtjs/composition-api';
 import type { CustomerAddress } from '~/modules/GraphQL/types';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import { Customer } from '~/modules/GraphQL/types';
+import { CustomQuery } from '~/types/core';
 
 /**
  * Errors that occured in the {@link UseUserAddressErrors|UseUserAddressErrors()} composable
@@ -76,7 +77,7 @@ export interface UseUserAddressInterface {
    * Internally, it calls the {@link @vue-storefront/magento-api#deleteCustomerAddress} API endpoint
    * and accepts the custom queries named `deleteCustomerAddress`.
    */
-  deleteAddress(address: CustomerAddress): Promise<boolean | {}>; // TODO: Should accept custom queries
+  deleteAddress(address: CustomerAddress, customQuery: CustomQuery): Promise<boolean | {}>;
 
   /**
    * Updates an existing address from the profile of the current user

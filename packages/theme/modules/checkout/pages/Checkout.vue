@@ -44,7 +44,7 @@ import {
 } from '@nuxtjs/composition-api';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
 import useCart from '~/modules/checkout/composables/useCart';
-import CartPreview from '~/components/Checkout/CartPreview.vue';
+import CartPreview from '~/modules/checkout/components/CartPreview.vue';
 
 export default defineComponent({
   name: 'CheckoutPage',

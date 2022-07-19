@@ -68,10 +68,7 @@
         <SfTableData class="table__data price">
           <SfPrice
             :regular="$fc(cartGetters.getItemPrice(product).regular)"
-            :special="
-              cartGetters.getItemPrice(product).special &&
-                $fc(cartGetters.getItemPrice(product).special)
-            "
+            :special=" cartGetters.getItemPrice(product).special && $fc(getRowTotal(product)) "
             class="product-price"
           />
         </SfTableData>
@@ -178,6 +175,7 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
+
 import cartGetters from '~/modules/checkout/getters/cartGetters';
 import { useImage } from '~/composables';
 import useMakeOrder from '~/modules/checkout/composables/useMakeOrder';
@@ -185,7 +183,7 @@ import useCart from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
-import type { BundleCartItem, ConfigurableCartItem } from '~/modules/GraphQL/types';
+import type { BundleCartItem, ConfigurableCartItem, CartItemInterface } from '~/modules/GraphQL/types';
 
 export default defineComponent({
   name: 'ReviewOrderAndPayment',
@@ -199,7 +197,7 @@ export default defineComponent({
     SfProperty,
     SfLink,
     SfImage,
-    VsfPaymentProvider: () => import('~/components/Checkout/VsfPaymentProvider.vue'),
+    VsfPaymentProvider: () => import('~/modules/checkout/components/VsfPaymentProvider.vue'),
   },
   setup() {
     const order = ref(null);
@@ -243,7 +241,7 @@ export default defineComponent({
     );
 
     const { getMagentoImage, imageSizes } = useImage();
-
+    const getRowTotal = (product: CartItemInterface) => cartGetters.getItemPrice(product).regular - cartGetters.getItemPrice(product).special;
     return {
       cart,
       cartGetters,
@@ -263,6 +261,7 @@ export default defineComponent({
       getBundles,
       getMagentoImage,
       imageSizes,
+      getRowTotal,
     };
   },
 });

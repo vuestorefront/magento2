@@ -99,27 +99,16 @@
               </template>
             </SfCollectedProduct>
           </div>
-          <div class="sidebar-bottom">
-            <SfProperty
-              class="sf-property--full-width my-wishlist__total-price"
-            >
-              <template #name>
-                <span class="my-wishlist__total-price-label">{{ $t('Total price') }}:</span>
-              </template>
-              <template #value>
-                <SfPrice :regular="$fc(totals.subtotal)" />
-              </template>
-            </SfProperty>
-          </div>
         </div>
         <EmptyWishlist v-else />
       </SfLoader>
       <template #content-bottom>
         <SfButton
+          v-if="isShowGoToWishlistButton"
           class="sf-button--full-width color-secondary"
-          @click="toggleWishlistSidebar"
+          @click="$router.push(localeRoute({ name: 'customer-my-wishlist' }))"
         >
-          {{ $t('Start shopping') }}
+          {{ $t('Show all products') }}
         </SfButton>
       </template>
     </SfSidebar>
@@ -131,7 +120,6 @@ import {
   SfHeading,
   SfButton,
   SfProperty,
-  SfPrice,
   SfCollectedProduct,
   SfLink,
   SfLoader,
@@ -165,7 +153,6 @@ export default defineComponent({
     SfButton,
     SfHeading,
     SfProperty,
-    SfPrice,
     SfCollectedProduct,
     SfLink,
     SfLoader,
@@ -231,11 +218,10 @@ export default defineComponent({
     });
 
     const { getMagentoImage, imageSizes } = useImage();
+    const isShowGoToWishlistButton = computed(() => wishlistStore.wishlist.items_count > wishlistStore.wishlist?.items_v2?.items.length);
 
     onMounted(async () => {
-      if (!wishlistStore.wishlist.id) {
-        await loadWishlist();
-      }
+      await loadWishlist({ searchParams: { pageSize: 100 } });
     });
 
     router.afterEach(() => {
@@ -260,6 +246,7 @@ export default defineComponent({
       imageSizes,
       loading,
       getItemPrice,
+      isShowGoToWishlistButton,
     };
   },
 });
@@ -270,7 +257,7 @@ export default defineComponent({
   --sidebar-z-index: 3;
   --overlay-z-index: 3;
   --sidebar-top-padding: var(--spacer-lg) var(--spacer-base) 0
-    var(--spacer-base);
+  var(--spacer-base);
   --sidebar-content-padding: var(--spacer-lg) var(--spacer-base);
 }
 
@@ -280,7 +267,7 @@ export default defineComponent({
   flex-direction: column;
   &__total-items {
     font: var(--font-weight--normal) var(--font-size--lg) / 1.6
-      var(--font-family--secondary);
+    var(--font-family--secondary);
     color: var(--c-link);
     margin: 0;
   }
@@ -290,7 +277,7 @@ export default defineComponent({
     margin: 0 0 var(--spacer-xl) 0;
     &-label {
       font: var(--font-weight--normal) var(--font-size--2xl) / 1.6
-        var(--font-family--secondary);
+      var(--font-family--secondary);
       color: var(--c-link);
     }
   }

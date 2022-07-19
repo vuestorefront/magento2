@@ -147,9 +147,7 @@ import {
   required, min, email,
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
-import {
-  useUiNotification, useGuestUser,
-} from '~/composables';
+import { useGuestUser } from '~/composables';
 import useCart from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
@@ -208,15 +206,13 @@ export default defineComponent({
       error: errorUser,
     } = useUser();
 
-    const { send: sendNotification } = useUiNotification();
-
     const isFormSubmitted = ref(false);
     const createUserAccount = ref(false);
     const loginUserAccount = ref(false);
     const loading = computed(() => loadingUser.value || loadingGuestUser.value);
 
     const canMoveForward = computed(() => !(loading.value));
-    const hasError = computed(() => errorUser.value.register || errorGuestUser.value.attachToCart);
+    const anyError = computed(() => errorUser.value.login || errorUser.value.register || errorGuestUser.value.attachToCart);
 
     type Form = {
       firstname: string,
@@ -249,9 +245,9 @@ export default defineComponent({
         }
 
         await (
-          !createUserAccount.value
-            ? attachToCart({ email: form.value.email, cart })
-            : register({ user: form.value })
+          createUserAccount.value
+            ? register({ user: form.value })
+            : attachToCart({ email: form.value.email, cart })
         );
       }
 
@@ -270,24 +266,14 @@ export default defineComponent({
         });
       }
 
-      if (!hasError.value) {
+      if (!anyError.value) {
         await mergeItem('checkout', { 'user-account': form.value });
-        await router.push(`${app.localePath('/checkout/shipping')}`);
+        await router.push(app.localeRoute({ name: 'shipping' }));
         reset();
         isFormSubmitted.value = true;
-      } else {
-        sendNotification({
-          id: Symbol('user_form_error'),
-          message: 'Something went wrong during form submission. Please try again later',
-          type: 'danger',
-          icon: 'error',
-          persist: false,
-          title: 'Error',
-        });
       }
 
       if (isRecaptchaEnabled.value) {
-        // reset recaptcha
         $recaptcha.reset();
       }
     };
@@ -332,7 +318,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
-  --button-width: 100%;
 
   &__select {
     display: flex;
@@ -356,7 +341,6 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    --button-width: auto;
   }
 
   &__element {
@@ -379,7 +363,9 @@ export default defineComponent({
   }
 
   &__action {
+    --button-width: 100%;
     @include for-desktop {
+      --button-width: auto;
       flex: 0 0 100%;
       display: flex;
     }

@@ -125,6 +125,7 @@ export default defineComponent({
 @import "./transition.scss";
 
 .list-layout {
+  will-change: transform;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -163,6 +164,25 @@ export default defineComponent({
 
     display: block;
   }
+}
+
+::v-deep .sf-product-card {
+  &__image-wrapper {
+    height: 257px;
+  }
+
+  &__add-button {
+    @include for-mobile {
+      opacity: 1;
+      display: flex;
+      bottom: 1rem;
+      right: 0;
+    }
+  }
+}
+
+::v-deep .sf-product-card::after {
+  content: none;
 }
 
 </style>

@@ -50,7 +50,7 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import { StoreConfig } from '~/modules/GraphQL/types';
-import { useStore } from '~/composables';
+import { AvailableStores, useStore } from '~/composables';
 
 export default defineComponent({
   name: 'StoresModal',
@@ -75,7 +75,7 @@ export default defineComponent({
       load: loadStores,
     } = useStore();
 
-    const availableStores = computed(() => stores.value ?? []);
+    const availableStores = computed<AvailableStores>(() => stores.value ?? []);
 
     onMounted(() => {
       if (stores.value && stores.value?.length) return;

@@ -10,7 +10,8 @@ import { Logger } from '~/helpers/logger';
 import { useCustomerStore } from '~/modules/customer/stores/customer';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { generateUserData } from '~/modules/customer/helpers/generateUserData';
-import { Customer } from '~/modules/GraphQL/types';
+import { useUiNotification } from '~/composables/useUiNotification';
+import type { Customer } from '~/modules/GraphQL/types';
 import type {
   UseUserInterface,
   UseUserErrors,
@@ -29,8 +30,10 @@ import type {
  */
 export function useUser(): UseUserInterface {
   const customerStore = useCustomerStore();
-  const { app } = useContext();
+  // @ts-ignore
+  const { app, $recaptcha } = useContext();
   const { setCart } = useCart();
+  const { send: sendNotification } = useUiNotification();
   const loading: Ref<boolean> = ref(false);
   const errorsFactory = () : UseUserErrors => ({
     updateUser: null,
@@ -78,7 +81,7 @@ export function useUser(): UseUserInterface {
         });
       }
 
-      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData);
+      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData, customQuery);
       Logger.debug('[Result]:', { data });
 
       if (errors) {
@@ -104,7 +107,7 @@ export function useUser(): UseUserInterface {
     try {
       const apiState = app.context.$vsf.$magento.config.state;
 
-      await app.context.$vsf.$magento.api.revokeCustomerToken({ customQuery });
+      await app.context.$vsf.$magento.api.revokeCustomerToken(customQuery);
 
       apiState.removeCustomerToken();
       apiState.removeCartId();
@@ -160,7 +163,7 @@ export function useUser(): UseUserInterface {
       loading.value = true;
       const apiState = app.context.$vsf.$magento.config.state;
 
-      const { data, errors } = await app.context.$vsf.$magento.api.generateCustomerToken(
+      const { data, errors } = await app.$vsf.$magento.api.generateCustomerToken(
         {
           email: providedUser.email,
           password: providedUser.password,
@@ -173,9 +176,16 @@ export function useUser(): UseUserInterface {
       if (errors) {
         const joinedErrors = errors.map((e) => e.message).join(',');
         Logger.error(joinedErrors);
-        error.value.login = { message: joinedErrors };
-
-        return;
+        errors.forEach((registerError, i) => sendNotification({
+          icon: 'error',
+          id: Symbol(`registration_error-${i}`),
+          message: registerError.message,
+          persist: true,
+          title: 'Registration error',
+          type: 'danger',
+        }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
       }
 
       customerStore.setIsLoggedIn(true);
@@ -187,23 +197,29 @@ export function useUser(): UseUserInterface {
       const cart = await app.context.$vsf.$magento.api.customerCart();
       const newCartId = cart.data.customerCart.id;
 
-      if (newCartId && currentCartId && currentCartId !== newCartId) {
-        const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
-          {
-            sourceCartId: currentCartId,
-            destinationCartId: newCartId,
-          },
-        );
+      try {
+        if (newCartId && currentCartId && currentCartId !== newCartId) {
+          const { data: dataMergeCart } = await app.context.$vsf.$magento.api.mergeCarts(
+            {
+              sourceCartId: currentCartId,
+              destinationCartId: newCartId,
+            },
+          );
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        setCart(dataMergeCart.mergeCarts);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(dataMergeCart.mergeCarts);
 
-        apiState.setCartId(dataMergeCart.mergeCarts.id);
-      } else {
+          apiState.setCartId(dataMergeCart.mergeCarts.id);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          setCart(cart.data.customerCart);
+        }
+      } catch {
+        // Workaround for Magento 2.4.4 mergeCarts mutation error related with Bundle products
+        // It can be removed when Magento 2.4.5 will be release
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         setCart(cart.data.customerCart);
       }
-
       error.value.login = null;
     } catch (err) {
       error.value.login = err;
@@ -228,7 +244,7 @@ export function useUser(): UseUserInterface {
         ...baseData
       } = generateUserData(providedUser);
 
-      const { data, errors } = await app.context.$vsf.$magento.api.createCustomer(
+      const { data, errors } = await app.$vsf.$magento.api.createCustomer(
         {
           email,
           password,
@@ -241,22 +257,26 @@ export function useUser(): UseUserInterface {
       Logger.debug('[Result]:', { data });
 
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        const joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
+        errors.forEach((registerError, i) => sendNotification({
+          icon: 'error',
+          id: Symbol(`registration_error-${i}`),
+          message: registerError.message,
+          persist: true,
+          title: 'Registration error',
+          type: 'danger',
+        }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        throw new Error(joinedErrors);
       }
-
-      if (!data || !data.createCustomerV2 || !data.createCustomerV2.customer) {
-        Logger.error('Customer registration error'); // todo: handle errors in better way
-      }
-
-      // if (recaptchaToken) { // todo: move recaptcha to separate module
-      //   // generate a new token for the login action
-      //   const { recaptchaInstance } = params;
-      //   const newRecaptchaToken = await recaptchaInstance.getResponse();
-      //
-      //   return factoryParams.logIn(context, { username: email, password, recaptchaToken: newRecaptchaToken });
-      // }
       error.value.register = null;
-      await login({ user: { email, password }, customQuery: {} });
+      let loginRecaptchaToken = '';
+      if ($recaptcha && recaptchaToken) {
+        loginRecaptchaToken = await $recaptcha.getResponse();
+      }
+
+      await login({ user: { email, password, recaptchaToken: loginRecaptchaToken }, customQuery: {} });
     } catch (err) {
       error.value.register = err;
       Logger.error('useUser/register', err);
@@ -277,17 +297,19 @@ export function useUser(): UseUserInterface {
         currentUser: customerStore.user,
         currentPassword: params.current,
         newPassword: params.new,
-        customQuery: params.customQuery,
-      });
+      }, params.customQuery);
+
+      let joinedErrors = null;
 
       if (errors) {
-        Logger.error(errors.map((e) => e.message).join(','));
+        joinedErrors = errors.map((e) => e.message).join(',');
+        Logger.error(joinedErrors);
       }
 
       Logger.debug('[Result] ', { data });
 
       customerStore.user = data?.changeCustomerPassword;
-      error.value.changePassword = null;
+      error.value.changePassword = joinedErrors;
     } catch (err) {
       error.value.changePassword = err;
       Logger.error('useUser/changePassword', err);

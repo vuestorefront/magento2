@@ -30,7 +30,7 @@ export function useGetShippingMethods(): UseGetShippingMethodsInterface<Availabl
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         ? getGuestShippingMethodsCommand.execute(context, params)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        : getCustomerShippingMethodsCommand.execute(context)
+        : getCustomerShippingMethodsCommand.execute(context, params)
       );
 
       Logger.debug('[Result]:', { result });

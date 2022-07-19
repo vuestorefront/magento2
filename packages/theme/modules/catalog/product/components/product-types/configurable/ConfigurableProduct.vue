@@ -116,6 +116,7 @@
                 updateProductConfiguration(option.attribute_uid, $event)
             "
           >
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="attribute in option.values"
               :key="attribute.uid"
@@ -130,7 +131,13 @@
           v-e2e="'product_add-to-cart'"
           :disabled="isCartLoading || !canAddToCart(product, qty) || isFetching"
           class="product__add-to-cart"
-          @click="addItem({ product, quantity: parseInt(qty) })"
+          @click="addItem({ product, quantity: parseInt(qty), productConfiguration })"
+        />
+        <SfAlert
+          :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
+          class="product__add-to-cart-error"
+          :message="addToCartError"
+          type="danger"
         />
         <div class="product__additional-actions">
           <AddToWishlist
@@ -162,6 +169,7 @@ import {
   SfPrice,
   SfRating,
   SfSelect,
+  SfAlert,
 } from '@storefront-ui/vue';
 import {
   ref,
@@ -210,6 +218,7 @@ export default defineComponent({
     SfPrice,
     SfRating,
     SfSelect,
+    SfAlert,
     AddToWishlist,
     SvgImage,
     ProductTabs,
@@ -230,7 +239,9 @@ export default defineComponent({
     const product = toRef(props, 'product');
     const route = useRoute();
     const router = useRouter();
-    const { addItem, loading: isCartLoading, canAddToCart } = useCart();
+    const {
+      addItem, error: cartError, loading: isCartLoading, canAddToCart,
+    } = useCart();
     const { productGallery, imageSizes } = useProductGallery(product);
     const { activeTab, setActiveTab, openNewReviewTab } = useProductTabs();
 
@@ -264,7 +275,7 @@ export default defineComponent({
 
     const totalReviews = computed(() => getTotalReviews(props.product));
     const averageRating = computed(() => getAverageRating(props.product));
-
+    const addToCartError = computed(() => cartError.value?.addItem?.message);
     const updateProductConfiguration = (label: string, value: string) => {
       if (productConfiguration.value[label] === value) return;
 
@@ -280,6 +291,7 @@ export default defineComponent({
 
       emit('fetchProduct', { query: getBaseSearchQuery() });
     };
+
     return {
       addItem,
       addItemToWishlist: addOrRemoveItem,
@@ -304,6 +316,7 @@ export default defineComponent({
       openNewReviewTab,
       activeTab,
       TabsConfig,
+      addToCartError,
     };
   },
 });

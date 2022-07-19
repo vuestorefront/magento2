@@ -149,6 +149,8 @@
             :disabled="loading"
             @input="updateCountry({ id: $event })"
           >
+            <!-- don't use SfSelect :placeholder="" to avoid applying SfSelect is-selected class -->
+            <SfSelectOption :value="''" />
             <SfSelectOption
               v-for="countryOption in countriesList"
               :key="countryOption.id"
@@ -279,17 +281,20 @@ export default defineComponent({
   setup(props, { emit }) {
     const { load: loadCountries, search: searchCountry } = useCountrySearch();
 
+    const form = ref<TransformedCustomerAddress | null>(null);
+
     const countries = ref<Countries[]>([]);
     const countriesList = computed(() => addressGetter.countriesList(countries.value));
-
     const country = ref<Country | null>(null);
-    const updateCountry = async (params: UseCountrySearchParams) => {
-      country.value = await searchCountry(params);
-    };
-
     const regionInformation = computed(() => addressGetter.regionList(country.value));
 
-    const form = ref<TransformedCustomerAddress | null>(null);
+    const updateCountry = async (params: UseCountrySearchParams) => {
+      country.value = await searchCountry(params);
+      form.value.region = {
+        // let region SfSelect know it should display initial state
+        ...(regionInformation.value.length > 0 ? { region_id: null } : {}),
+      };
+    };
 
     watch(() => props.address, () => {
       form.value = {
@@ -327,7 +332,7 @@ export default defineComponent({
     onBeforeMount(async () => {
       countries.value = await loadCountries();
       if (props.address.country_code) {
-        await updateCountry({ id: props.address.country_code });
+        country.value = await searchCountry({ id: props.address.country_code });
       }
     });
 

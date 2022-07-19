@@ -1,12 +1,10 @@
 import { VsfContext } from '~/composables/context';
 import { Logger } from '~/helpers/logger';
 import {
-  AddConfigurableProductsToCartInput,
-  AddDownloadableProductsToCartInput,
-  AddVirtualProductsToCartInput,
   Cart,
   CartItemInput,
 } from '~/modules/GraphQL/types';
+import { CustomQuery } from '~/types/core';
 
 /** Params object used to add items to a cart */
 export declare type AddProductsToCartInput = {
@@ -21,6 +19,8 @@ export const addItemCommand = {
       product,
       quantity,
       currentCart,
+      productConfiguration,
+      customQuery,
     },
   ) => {
     Logger.debug('[Magento]: Add item to cart', {
@@ -30,7 +30,7 @@ export const addItemCommand = {
     });
 
     const apiState = context.$magento.config.state;
-    const currentCartId = apiState.getCartId();
+    const cartId = apiState.getCartId();
 
     if (!product) {
       return;
@@ -39,7 +39,7 @@ export const addItemCommand = {
     switch (product.__typename) {
       case 'SimpleProduct':
         const simpleCartInput: AddProductsToCartInput = {
-          cartId: currentCartId,
+          cartId,
           cartItems: [
             {
               quantity,
@@ -48,9 +48,13 @@ export const addItemCommand = {
           ],
         };
 
-        const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput);
+        const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput, customQuery as CustomQuery);
 
-        Logger.debug('[Result]:', { data: simpleProduct });
+        Logger.debug('[Result]:', { data: simpleProduct.data });
+
+        if (simpleProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(simpleProduct.data.addProductsToCart.user_errors[0].message));
+        }
 
         // eslint-disable-next-line consistent-return
         return simpleProduct
@@ -58,29 +62,29 @@ export const addItemCommand = {
           .addProductsToCart
           .cart as unknown as Cart;
       case 'ConfigurableProduct':
-        const cartItems = [
-          {
-            parent_sku: product.sku,
-            data: {
-              quantity,
-              sku: product.configurable_product_options_selection?.variant?.sku || '',
-            },
-          },
-        ];
+        const selectedOptions = Object.values(productConfiguration as object);
 
-        const configurableCartInput: AddConfigurableProductsToCartInput = {
-          cart_id: currentCartId,
-          cart_items: cartItems,
+        const configurableCartInput: AddProductsToCartInput = {
+          cartId,
+          cartItems: [
+            {
+              quantity,
+              sku: product.sku,
+              selected_options: selectedOptions,
+            },
+          ],
         };
 
-        const configurableProduct = await context.$magento.api.addConfigurableProductsToCart(configurableCartInput);
+        const configurableProduct = await context.$magento.api.addProductsToCart(configurableCartInput, customQuery as CustomQuery);
+        Logger.debug('[Result]:', { data: configurableProduct.data });
 
-        Logger.debug('[Result]:', { data: configurableProduct });
+        if (configurableProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(configurableProduct.data.addProductsToCart.user_errors[0].message));
+        }
 
         // eslint-disable-next-line consistent-return
-        return configurableProduct
-          .data
-          .addConfigurableProductsToCart
+        return configurableProduct.data
+          .addProductsToCart
           .cart as unknown as Cart;
       case 'BundleProduct':
         const createEnteredOptions = () =>
@@ -91,7 +95,7 @@ export const addItemCommand = {
           }));
 
         const bundleCartInput: AddProductsToCartInput = {
-          cartId: currentCartId,
+          cartId,
           cartItems: [
             {
               quantity,
@@ -101,9 +105,13 @@ export const addItemCommand = {
           ],
         };
 
-        const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput);
+        const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput, customQuery as CustomQuery);
 
         Logger.debug('[Result]:', { data: bundleProduct });
+
+        if (bundleProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(bundleProduct.data.addProductsToCart.user_errors[0].message));
+        }
 
         // eslint-disable-next-line consistent-return
         return bundleProduct
@@ -111,50 +119,51 @@ export const addItemCommand = {
           .addProductsToCart
           .cart as unknown as Cart;
       case 'DownloadableProduct':
-        const downloadableCartItems = [
-          {
-            data: {
+        const downloadableCartInput: AddProductsToCartInput = {
+          cartId,
+          cartItems: [
+            {
               quantity,
               sku: product.sku,
             },
-            downloadable_product_links: product.downloadable_product_links.map((dpl) => ({ link_id: dpl.id })),
-          },
-        ];
-
-        const downloadableCartInput: AddDownloadableProductsToCartInput = {
-          cart_id: currentCartId,
-          cart_items: downloadableCartItems,
+          ],
         };
 
-        const downloadableProduct = await context.$magento.api.addDownloadableProductsToCart(downloadableCartInput);
+        const downloadableProduct = await context.$magento.api.addProductsToCart(downloadableCartInput, customQuery as CustomQuery);
 
         Logger.debug('[Result DownloadableProduct]:', { data: downloadableProduct });
+
+        if (downloadableProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(downloadableProduct.data.addProductsToCart.user_errors[0].message));
+        }
 
         // eslint-disable-next-line consistent-return
         return downloadableProduct
           .data
-          .addDownloadableProductsToCart
+          .addProductsToCart
           .cart as unknown as Cart;
       case 'VirtualProduct':
-        const virtualCartInput: AddVirtualProductsToCartInput = {
-          cart_id: currentCartId,
-          cart_items: [
+        const virtualCartInput: AddProductsToCartInput = {
+          cartId,
+          cartItems: [
             {
-              data: {
-                quantity,
-                sku: product.sku,
-              },
+              quantity,
+              sku: product.sku,
             },
           ],
         };
-        const virtualProduct = await context.$magento.api.addVirtualProductsToCart(virtualCartInput);
+        const virtualProduct = await context.$magento.api.addProductsToCart(virtualCartInput, customQuery as CustomQuery);
 
         Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
+
+        if (downloadableProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(downloadableProduct.data.addProductsToCart.user_errors[0].message));
+        }
 
         // eslint-disable-next-line consistent-return
         return virtualProduct
           .data
-          .addVirtualProductsToCart
+          .addProductsToCart
           .cart as unknown as Cart;
       default:
         // eslint-disable-next-line no-underscore-dangle

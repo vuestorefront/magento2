@@ -5,8 +5,8 @@
     aria-label="Search"
     class="sf-header__search"
     :value="term"
-    @input="handleSearch"
-    @keydown.enter="handleSearch($event)"
+    @input="debouncedHandleSearch($event)"
+    @keyup.enter="handleKeydownEnter($event.target.value) /* https://github.com/vuestorefront/storefront-ui/issues/2453#issuecomment-1160231619 */"
     @keydown.tab="hideSearch"
     @focus="showSearch"
     @click="showSearch"
@@ -53,7 +53,7 @@ import { SfButton, SfSearchBar } from '@storefront-ui/vue';
 import {
   defineComponent, ref, watch, useRoute,
 } from '@nuxtjs/composition-api';
-import debounce from 'lodash.debounce';
+import { debounce } from 'lodash-es';
 import { clickOutside } from '~/utilities/directives/click-outside/click-outside-directive';
 import SvgImage from '~/components/General/SvgImage.vue';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
@@ -130,7 +130,7 @@ export default defineComponent({
       }
     };
 
-    const handleSearch = debounce(async (searchTerm: string) => {
+    const rawHandleSearch = async (searchTerm: string) => {
       term.value = searchTerm;
       if (term.value.length < props.minTermLen) return;
 
@@ -141,7 +141,15 @@ export default defineComponent({
       }) as unknown as Products;
 
       emit('set-search-results', productList!.items);
-    }, 1000);
+    };
+
+    const debouncedHandleSearch = debounce(rawHandleSearch, 1000);
+
+    const handleKeydownEnter = (searchTerm: string) => {
+      // cancel debounce timeout started by typing into the searchbar - this is to avoid making two network requests instead of one
+      debouncedHandleSearch.cancel();
+      rawHandleSearch(searchTerm);
+    };
 
     watch(route, () => {
       hideSearch();
@@ -153,7 +161,9 @@ export default defineComponent({
       showSearch,
       hideSearch,
       toggleSearch,
-      handleSearch,
+      rawHandleSearch,
+      debouncedHandleSearch,
+      handleKeydownEnter,
       term,
     };
   },

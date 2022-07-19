@@ -48,7 +48,10 @@ export default defineComponent({
   },
   props: {
     isModalOpen: Boolean,
-    selectedCurrency: String,
+    selectedCurrency: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['closeModal'],
   setup() {
@@ -58,7 +61,7 @@ export default defineComponent({
       load: loadCurrencies,
     } = useCurrency();
 
-    const availableCurrencies = computed(() => currencies.value?.available_currency_codes || []);
+    const availableCurrencies = computed<string[]>(() => currencies.value?.available_currency_codes || []);
 
     onMounted(() => {
       if (currencies.value && currencies.value?.available_currency_codes) return;

@@ -2,6 +2,7 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type { CategorySearchQueryVariables, CategoryTree } from '~/modules/GraphQL/types';
 import type { UseCategorySearchErrors, UseCategorySearchInterface } from './useCategorySearch';
+import { ComposableFunctionArgs } from '~/composables';
 
 /**
  * Allows searching for categories. It is
@@ -17,13 +18,13 @@ export function useCategorySearch(): UseCategorySearchInterface {
   });
   const result = ref<CategoryTree[] | null>(null);
 
-  const search = async (searchParams: CategorySearchQueryVariables) => {
-    Logger.debug('useCategory/search', searchParams);
+  const search = async (params: ComposableFunctionArgs<CategorySearchQueryVariables>) => {
+    Logger.debug('useCategory/search', params);
 
     try {
       loading.value = true;
-      const { filters } = searchParams;
-      const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters });
+      const { filters } = params;
+      const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters }, params?.customQuery ?? null);
 
       Logger.debug('[Result]:', { data });
 

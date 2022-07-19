@@ -5,8 +5,14 @@
       :content="cmsContent"
     />
     <CategoryBreadcrumbs />
+    <SkeletonLoader
+      v-if="!activeCategoryName"
+      height="57px"
+      width="200px"
+      margin="0"
+    />
     <SfHeading
-      v-if="isShowProducts"
+      v-else
       :level="2"
       :title="activeCategoryName"
       class="category-title"
@@ -110,6 +116,7 @@ import {
   defineComponent, onMounted, ref, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {
   useFacet,
@@ -148,6 +155,7 @@ export default defineComponent({
     SfSelect,
     LazyHydrate,
     SfHeading,
+    SkeletonLoader,
   },
   transition: 'fade',
   setup() {
@@ -185,11 +193,14 @@ export default defineComponent({
         : addItemToWishlistBase({ product }));
     };
 
-    const { activeCategory } = useTraverseCategory();
+    const { activeCategory, loadCategoryTree } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
     const routeData = ref<CategoryTree | null>(null);
 
     const { fetch } = useFetch(async () => {
+      if (!activeCategory.value) {
+        loadCategoryTree();
+      }
       const resolvedUrl = await resolveUrl();
       if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
@@ -231,19 +242,19 @@ export default defineComponent({
       isPriceLoaded.value = true;
     });
 
-    const doChangeItemsPerPage = (itemsPerPage: number) => {
-      uiHelpers.changeItemsPerPage(itemsPerPage, false);
-      fetch();
-    };
-
-    const onReloadProducts = () => {
-      fetch();
-      productContainerElement.value.scrollIntoView();
-    };
-
     const goToPage = (page: number) => {
       uiHelpers.changePage(page, false);
       fetch();
+    };
+
+    const doChangeItemsPerPage = (itemsPerPage: number) => {
+      uiHelpers.changeItemsPerPage(itemsPerPage, false);
+      goToPage(0);
+    };
+
+    const onReloadProducts = () => {
+      goToPage(0);
+      productContainerElement.value.scrollIntoView();
     };
 
     return {
@@ -308,10 +319,12 @@ export default defineComponent({
 
 .main {
   &.section {
-    padding: var(--spacer-xs);
+    padding: 0;
 
-    @include for-desktop {
-      padding: 0;
+    @include for-mobile {
+      $padding: var(--spacer-xs);
+      padding: $padding;
+      width: calc(100% - 2 * $padding);
     }
   }
 }

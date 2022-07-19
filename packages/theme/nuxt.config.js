@@ -207,6 +207,7 @@ export default () => {
       ],
       transpile: [
         'vee-validate',
+        'lodash-es',
         /^@storefront-ui/,
       ],
     },
@@ -261,10 +262,10 @@ export default () => {
     baseConfig.modules.push('@nuxtjs/recaptcha');
 
     baseConfig.recaptcha = {
-      hideBadge: process.env.VSF_RECAPTCHA_HIDE_BADGE, // Hide badge element (v3 & v2 via size=invisible)
+      hideBadge: Boolean(process.env.VSF_RECAPTCHA_HIDE_BADGE), // Hide badge element (v3 & v2 via size=invisible)
       siteKey: process.env.VSF_RECAPTCHA_SITE_KEY, // Site key for requests
-      version: process.env.VSF_RECAPTCHA_VERSION, // Version 2 or 3
-      size: process.env.VSF_RECATPCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
+      version: Number(process.env.VSF_RECAPTCHA_VERSION), // Version 2 or 3
+      size: process.env.VSF_RECAPTCHA_SIZE, // Size: 'compact', 'normal', 'invisible' (v2)
     };
 
     baseConfig.publicRuntimeConfig = {
