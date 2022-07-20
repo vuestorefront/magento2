@@ -82,6 +82,7 @@ Make sure you have `graphgl-tag` installed as dependency prior using this sample
         },
       },
     };
+```
 
 4. Now you can restart your dev environment and view the updated data queried.
 
