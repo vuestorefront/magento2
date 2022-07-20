@@ -17,13 +17,8 @@ on:
       environment:
         description: The full URL of the environment on which load tests will be ran
         required: true
-        default: 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
-        type: choice
-        options:
-          - 'https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io'
-          - 'https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io'
-          - 'https://demo-magento2.europe-west1.gcp.storefrontcloud.cloud'
-          - 'https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io'
+        default: canary
+        type: environment
 
       flags:
         description: Additional argument and flags to provide to the k6 CLI. See https://k6.io/docs/using-k6/options for details.
@@ -40,10 +35,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Run k6 cloud test
+      - run: |
+          cat .github/workflows/public_env_info/${{ inputs.environment }} >> $GITHUB_ENV
+
+      - name: Run k6 test
         uses: grafana/k6-action@v0.2.0
         with:
           cloud: ${{ github.event.inputs.cloud }}
           token: ${{ secrets.K6_CLOUD_API_TOKEN }}
           filename: ${{ github.event.inputs.filename }}
-          flags: -e BASE_URL=${{ github.event.inputs.environment }} ${{ github.event.inputs.flags }}
+          flags: -e BASE_URL=${{ env.BASE_URL }} -e MIDDLEWARE_URL=${{ env.MIDDLEWARE_URL }} -e MAGENTO_GRAPHQL_URL=${{ env.MAGENTO_GRAPHQL_URL }} ${{ github.event.inputs.flags }}
