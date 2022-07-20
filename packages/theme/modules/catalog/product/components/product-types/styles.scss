@@ -161,6 +161,12 @@
   }
 }
 
+::v-deep .sf-gallery__thumbs {
+  .sf-image-loaded {
+    display: block;
+  }
+}
+
 @keyframes moveicon {
   0% {
     transform: translate3d(0, 0, 0) rotate(90deg) scale(1, -1);

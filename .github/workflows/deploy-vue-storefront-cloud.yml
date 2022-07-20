@@ -13,9 +13,10 @@ jobs:
     outputs:
       environment-name: ${{ steps.determine-environment.outputs.name }}
       environment-code: ${{ steps.determine-environment.outputs.code }}
+      environment-middleware-url: ${{ steps.determine-environment.outputs.middleware-url}}
       deployment_id: ${{ steps.deployment.outputs.deployment_id }}
     steps:
-      - name: Determine environment name
+      - name: Determine environment-specific variables
         id: determine-environment
         shell: bash
         run: |
@@ -24,18 +25,22 @@ jobs:
           if [ $REF = 'refs/heads/main' ]; then
             ENVNAME='production'
             ENVCODE='demo-magento2'
+            MIDDLEWARE_URL='https://demo-magento2.europe-west1.gcp.vuestorefront.cloud/api/'
 
           elif [ $REF = 'refs/heads/develop' ]; then
             ENVNAME='dev'
             ENVCODE='demo-magento2-dev'
+            MIDDLEWARE_URL='https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/'
 
           elif [[ $REF = refs/heads/release* ]]; then
             ENVNAME='canary'
             ENVCODE='demo-magento2-canary'
+            MIDDLEWARE_URL='https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/api/'
 
           elif [ $REF = 'refs/heads/enterprise' ]; then
             ENVNAME='enterprise'
             ENVCODE='demo-magento2-enterprise'
+            MIDDLEWARE_URL='https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/'
 
           else
               echo 'unrecognized branch name'
@@ -44,6 +49,7 @@ jobs:
 
           echo ::set-output name=name::$ENVNAME
           echo ::set-output name=code::$ENVCODE
+          echo ::set-output name=middleware-url::$MIDDLEWARE_URL
 
       - name: Create GitHub deployment
         id: deployment
@@ -56,26 +62,6 @@ jobs:
     needs: create-deployment
     runs-on: ubuntu-latest
     steps:
-      - name: Set env VSF_MIDDLEWARE_URL
-        run: |
-          REF=${{ github.ref }}
-
-          if [ $REF = 'refs/heads/main' ]; then
-            echo "VSF_MIDDLEWARE_URL=https://demo-magento2.europe-west1.gcp.vuestorefront.cloud/api/" >> $GITHUB_ENV
-
-          elif [ $REF = 'refs/heads/develop' ]; then
-            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
-
-          elif [[ $REF = refs/heads/release* ]]; then
-            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
-
-          elif [ $REF = 'refs/heads/enterprise' ]; then
-            echo "VSF_MIDDLEWARE_URL=https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/" >> $GITHUB_ENV
-
-          else
-              echo "VSF_MIDDLEWARE_URL=https://localhost:3000/api/" >> $GITHUB_ENV
-              exit 1
-          fi
       - name: Checkout code
         uses: actions/checkout@v1
 
@@ -102,7 +88,7 @@ jobs:
           NPM_REGISTRY: https://registrynpm.storefrontcloud.io
 
           VSF_STORE_URL: ''
-          VSF_MIDDLEWARE_URL: ${{ env.VSF_MIDDLEWARE_URL }}
+          VSF_MIDDLEWARE_URL: ${{ needs.create-deployment.outputs.environment-middleware-url }}
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql

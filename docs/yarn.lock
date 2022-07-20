@@ -8336,6 +8336,16 @@ vuepress-plugin-smooth-scroll@^0.0.3:
   dependencies:
     smoothscroll-polyfill "^0.4.3"
 
+vuepress-theme-vsf-docs@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/vuepress-theme-vsf-docs/-/vuepress-theme-vsf-docs-1.0.14.tgz#87e9a4fd079f34548140cad7647d4cf04a02dc59"
+  integrity sha512-m57TPCuaA8iyEsk/Kvgg0Wi+ByLqPXgbPF7dwGSgqjGlcIjjW2bMoaFrI7yNNLxnKdfyYXhgR0rLsPVQTPmwgw==
+  dependencies:
+    "@vuepress/plugin-active-header-links" "1.9.7"
+    "@vuepress/plugin-nprogress" "1.9.7"
+    "@vuepress/plugin-search" "1.9.7"
+    vuepress-plugin-container "^2.0.2"
+
 vuepress@^1.9.7:
   version "1.9.7"
   resolved "https://registry.yarnpkg.com/vuepress/-/vuepress-1.9.7.tgz#2cd6709a2228f5cef588115aaeabf820ab9ed7cc"

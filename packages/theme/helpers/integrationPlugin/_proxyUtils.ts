@@ -1,4 +1,3 @@
-import { IncomingMessage } from 'node:http';
 import { Context as NuxtContext } from '@nuxt/types';
 import { merge } from 'lodash-es';
 
@@ -9,17 +8,6 @@ interface CreateProxiedApiParams {
   client: any;
   tag: string;
 }
-
-export const getBaseUrl = (req: IncomingMessage, basePath: string | undefined = '/'): string => {
-  if (!req) return `${basePath}api/`;
-  const { headers } = req;
-  // eslint-disable-next-line global-require, unicorn/prefer-module
-  const isHttps = require('is-https')(req);
-  const scheme = isHttps ? 'https' : 'http';
-  const host = headers['x-forwarded-host'] || headers.host;
-
-  return `${scheme}://${host}${basePath}api/`;
-};
 
 export const createProxiedApi = ({ givenApi, client, tag }: CreateProxiedApiParams) => new Proxy(givenApi, {
   get: (target, prop, receiver) => {
@@ -41,7 +29,6 @@ export const getIntegrationConfig = (context: NuxtContext, configuration: any) =
   const cookie = getCookies(context);
   const initialConfig = merge({
     axios: {
-      baseURL: getBaseUrl(context?.req, context?.base),
       headers: {
         ...(cookie ? { cookie } : {}),
       },

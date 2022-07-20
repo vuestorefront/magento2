@@ -55,7 +55,7 @@
         class="form"
       >
         <SfHeading
-          v-if="hasSavedShippingAddress"
+          v-if="hasSavedBillingAddress"
           v-e2e="'shipping-heading'"
           :level="4"
           :title="$t('Enter different address')"

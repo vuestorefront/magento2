@@ -63,7 +63,7 @@
             v-if="!$fetchState.pending"
             class="products__display-opt"
           >
-            <LazyHydrate on-interaction>
+            <LazyHydrate when-visible>
               <CategoryPagination
                 v-show="pagination.totalPages > 1"
                 :current="pagination.currentPage"
@@ -81,7 +81,7 @@
               <span class="products__show-on-page__label">{{
                 $t('Show')
               }}</span>
-              <LazyHydrate on-interaction>
+              <LazyHydrate when-visible>
                 <SfSelect
                   :value="pagination.itemsPerPage.toString()"
                   class="products__items-per-page"

@@ -41,7 +41,7 @@
       <SfButton
         class="sf-button--full-width sf-bottom-modal__cancel"
         aria-label="Close"
-        @click="close"
+        @click="closeModal"
       >
         {{ $t('Cancel') }}
       </SfButton>
@@ -74,8 +74,8 @@ export default defineComponent({
   props: {
     isLangModalOpen: Boolean,
     storeConfig: {
-      type: Object as PropType<StoreConfig | {}>,
-      default: () => {},
+      type: Object as PropType<StoreConfig>,
+      default: (): StoreConfig => ({}),
     },
   },
   emits: ['closeModal'],

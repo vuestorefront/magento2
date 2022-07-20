@@ -30,7 +30,7 @@
           <SfHeading
             :level="6"
             class="heading sf-heading--left sf-heading--no-underline"
-            $title="$t('Primary contacts for any questions')"
+            :title="$t('Primary contacts for any questions')"
           />
           <div class="contact">
             <p class="contact__name">
@@ -103,7 +103,7 @@ export default defineComponent({
     const route = useRoute();
 
     const companyDetails = ref({
-      name: 'Divante Headquarter',
+      name: 'Vue Storefront Headquarter',
       street: 'St. Dmowskiego 17, 53-534',
       city: 'Wroclaw, Poland',
       email: 'demo@vuestorefront.io',
