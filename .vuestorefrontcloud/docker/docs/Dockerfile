@@ -5,7 +5,7 @@ FROM node:16-alpine AS build
 
 WORKDIR /var/www
 
-# Installs latest Chromium (92) package.
+# Installs latest Chromium package
 RUN apk add --no-cache \
     chromium \
     nss \
