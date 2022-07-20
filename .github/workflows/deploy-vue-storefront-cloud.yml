@@ -21,47 +21,43 @@ jobs:
       deployment_id: ${{ steps.deployment.outputs.deployment_id }}
     steps:
       - name: Determine environment-specific variables
-        id: determine-environment
         shell: bash
         run: |
           REF=${{ github.ref }}
 
           if [ $REF = 'refs/heads/main' ]; then
-            ENVNAME='production'
-            ENVCODE='demo-magento2'
-            MIDDLEWARE_URL='https://demo-magento2.europe-west1.gcp.vuestorefront.cloud/api/'
+            ENVINFO_FILE=production
 
           elif [ $REF = 'refs/heads/develop' ]; then
-            ENVNAME='dev'
-            ENVCODE='demo-magento2-dev'
-            MIDDLEWARE_URL='https://demo-magento2-dev.europe-west1.gcp.storefrontcloud.io/api/'
+            ENVINFO_FILE=dev
 
           elif [[ $REF = refs/heads/release* ]]; then
-            ENVNAME='canary'
-            ENVCODE='demo-magento2-canary'
-            MIDDLEWARE_URL='https://magento2stage.vuestorefront.io/api/'
+            ENVINFO_FILE=canary
 
           elif [ $REF = 'refs/heads/enterprise' ]; then
-            ENVNAME='enterprise'
-            ENVCODE='demo-magento2-enterprise'
-            MIDDLEWARE_URL='https://demo-magento2-enterprise.europe-west1.gcp.storefrontcloud.io/api/'
+            ENVINFO_FILE=enterprise
 
           else
-              echo 'unrecognized branch name'
-              exit 1
+            echo 'unrecognized branch name'
+            exit 1
           fi
 
-          echo ::set-output name=name::$ENVNAME
-          echo ::set-output name=code::$ENVCODE
-          echo ::set-output name=middleware-url::$MIDDLEWARE_URL
+          cat .github/workflows/public_env_info/$ENVINFO_FILE >> $GITHUB_ENV
+
+      - id: determine-environment
+        run: |
+          echo ::set-output name=name::${{ env.ENVNAME }}
+          echo ::set-output name=code::${{ env.ENVCODE }}
+          echo ::set-output name=middleware-url::${{ env.MIDDLEWARE_URL }}
 
       - name: Create GitHub deployment
         id: deployment
         uses: chrnorm/deployment-action@v2
         with:
-          token: ${{ github.token }}
-          environment: ${{ steps.determine-environment.outputs.name }}
+          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          environment: ${{ env.ENVNAME }}
           initial-status: in_progress
+
   build:
     needs: create-deployment
     runs-on: ubuntu-latest
