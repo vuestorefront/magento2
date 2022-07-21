@@ -100,7 +100,7 @@ export default defineComponent({
       title: app.i18n.t('Colorful summer dresses are already in store'),
       subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
       buttonText: app.i18n.t('Learn more'),
-      imageSrc: '/homepage/bannerB',
+      imageSrc: '/homepage/bannerB.webp',
       imageWidth: isDesktop ? 1240 : 328,
       imageHeight: isDesktop ? 400 : 224,
       imageConfig: {
@@ -120,9 +120,9 @@ export default defineComponent({
         buttonText: app.i18n.t('Shop now'),
         image: {
           mobile:
-            '/homepage/bannerB',
+            '/homepage/bannerB.webp',
           desktop:
-            '/homepage/bannerF',
+            '/homepage/bannerF.webp',
         },
         imageConfig: {
           fit: 'cover',
@@ -141,7 +141,7 @@ export default defineComponent({
           'Find stunning women\'s cocktail dresses and party dresses. Stand out in lace and metallic cocktail dresses from all your favorite brands.',
         ),
         buttonText: app.i18n.t('Shop now'),
-        image: '/homepage/bannerE',
+        image: '/homepage/bannerE.webp',
         imageConfig: {
           fit: 'cover',
           width: isDesktop ? 496 : 328,
@@ -155,7 +155,7 @@ export default defineComponent({
         slot: 'banner-C',
         subtitle: app.i18n.t('T-Shirts'),
         title: app.i18n.t('The Office Life'),
-        image: '/homepage/bannerC',
+        image: '/homepage/bannerC.webp',
         imageConfig: {
           fit: 'cover',
           width: isDesktop ? 332 : 328,
@@ -169,7 +169,7 @@ export default defineComponent({
         slot: 'banner-D',
         subtitle: app.i18n.t('Summer Sandals'),
         title: app.i18n.t('Eco Sandals'),
-        image: '/homepage/bannerG',
+        image: '/homepage/bannerG.webp',
         imageConfig: {
           fit: 'cover',
           width: isDesktop ? 332 : 328,
@@ -184,7 +184,7 @@ export default defineComponent({
       title: app.i18n.t('Subscribe to Newsletters'),
       description: app.i18n.t('Be aware of upcoming sales and events. Receive gifts and special offers!'),
       buttonText: app.i18n.t('Subscribe'),
-      imageSrc: '/homepage/newsletter',
+      imageSrc: '/homepage/newsletter.webp',
       imageWidth: isDesktop ? 1240 : 400,
       imageHeight: isDesktop ? 202 : 200,
       imageConfig: {
