@@ -70,11 +70,11 @@ For security reasons, Magento 2, by default, allows maximum GraphQL query comple
 To install the Magento 2 GraphQL Config module, run the following commands on your Magento installation:
 
 ```bash
-composer require caravelx/module-graphql-config
-php bin/magento module:enable Caravel_GraphQlConfig
-php bin/magento setup:upgrade
-php bin/magento setup:di:compile
-php bin/magento setup:static-content:deploy
+bin/composer require caravelx/module-graphql-config
+bin/magento module:enable Caravel_GraphQlConfig
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento setup:static-content:deploy -f
 ```
 
 Then go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module, and set:
