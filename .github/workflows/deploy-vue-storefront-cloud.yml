@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - develop
+      - test-canary-deploy2
       - release/*
 
 jobs:
