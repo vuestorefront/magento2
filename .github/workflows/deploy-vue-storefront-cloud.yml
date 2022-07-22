@@ -10,6 +10,10 @@ on:
 jobs:
   create-deployment:
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+
     outputs:
       environment-name: ${{ steps.determine-environment.outputs.name }}
       environment-code: ${{ steps.determine-environment.outputs.code }}
@@ -55,7 +59,7 @@ jobs:
         id: deployment
         uses: chrnorm/deployment-action@v2
         with:
-          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           environment: ${{ steps.determine-environment.outputs.name }}
           initial-status: in_progress
   build:
@@ -130,6 +134,10 @@ jobs:
 
   finalize-deployment:
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+
     needs: [create-deployment, build, deploy]
     if: always()
     steps:
@@ -137,7 +145,7 @@ jobs:
         if: ${{ !(contains(join(needs.*.result, ','), 'failure') || contains(join(needs.*.result, ','), 'cancelled')) }}
         uses: chrnorm/deployment-status@v2
         with:
-          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           deployment-id: ${{ needs.create-deployment.outputs.deployment_id }}
           state: success
 
@@ -145,6 +153,6 @@ jobs:
         if: ${{ contains(join(needs.*.result, ','), 'failure') || contains(join(needs.*.result, ','), 'cancelled')  }}
         uses: chrnorm/deployment-status@v2
         with:
-          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           deployment-id: ${{ needs.create-deployment.outputs.deployment_id }}
           state: failure
