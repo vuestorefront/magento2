@@ -5,4 +5,5 @@ packages/api-client/server
 packages/composables
 packages/api-client/lib
 packages/theme/static/sw.js
+packages/load-tests/*
 .eslintrc.js
