@@ -309,8 +309,6 @@ export default defineComponent({
         margin-bottom: 0;
       }
       textarea {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
         width: 100%;
       }
