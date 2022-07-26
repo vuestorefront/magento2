@@ -251,13 +251,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tab-orphan {
-  @include for-mobile {
-    --tabs-title-display: none;
-    --tabs-content-padding: 0;
-    --tabs-conent-border-width: 0;
-  }
-}
+@import '../styles/shared.scss';
 
 .main {
   &.section {
@@ -459,7 +453,6 @@ export default defineComponent({
   }
 
   &__product-card {
-    --product-card-title-margin: var(--spacer-base) 0 0 0;
     --product-card-title-font-weight: var(--font-weight--medium);
     --product-card-title-margin: var(--spacer-xs) 0 0 0;
     flex: 1 1 50%;
