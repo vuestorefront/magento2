@@ -42,8 +42,7 @@ export default function main() {
 
   const vars = {};
   setDefaultCookies(BASE_URL);
-
-  group('Browsing for a product', () => {
+  group(`Browsing for a product - page ${BASE_URL}`, () => {
     group('Visit the homepage', () => {
       res = http.get(
         `${BASE_URL}/default`,
