@@ -4,7 +4,7 @@ import http from 'k6/http';
 
 import getHeaders from './utils/getHeaders.js';
 import { CreateCustomer } from '../../mutation/createCustomer.js';
-import { customerData } from './utils/customerData.js';
+import { customerData } from '../../utils/customerData.js';
 
 /**
  * @type {import('k6/options').Options}
