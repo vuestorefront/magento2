@@ -43,10 +43,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.message {
-  font-family: var(--font-family--primary);
-  line-height: 1.6;
-  font-size: var(--font-size--base);
-  margin: 0 0 var(--spacer-base);
-}
+@import "../../styles/shared.scss";
 </style>
