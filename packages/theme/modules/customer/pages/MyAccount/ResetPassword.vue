@@ -232,6 +232,7 @@ export default defineComponent({
     margin: 0 0 var(--spacer-xl) 0;
   }
 }
+
 .action {
   display: flex;
   align-items: center;
@@ -242,12 +243,15 @@ export default defineComponent({
     margin: 0 0 0 var(--spacer-xs);
   }
 }
+
 .action {
   margin: var(--spacer-xl) 0 var(--spacer-xl) 0;
 }
+
 .checkbox {
   margin-bottom: var(--spacer-2xl);
 }
+
 .bottom {
   text-align: center;
   margin-bottom: var(--spacer-lg);
