@@ -1,0 +1,26 @@
+.tab-orphan {
+  @include for-mobile {
+    --tabs-title-display: none;
+    --tabs-content-padding: 0;
+    --tabs-conent-border-width: 0;
+  }
+}
+
+.message {
+  font-family: var(--font-family--primary);
+  line-height: 1.6;
+  font-size: var(--font-size--base);
+  margin: 0 0 var(--spacer-base);
+
+  &__link {
+    color: var(--c-primary);
+    --link-weight: var(--font-weight--medium);
+    --link-font-family: var(--font-family--primary);
+    --link-font-size: var(--font-size--base);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--c-text);
+    }
+  }
+}

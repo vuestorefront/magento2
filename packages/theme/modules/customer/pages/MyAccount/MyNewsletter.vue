@@ -82,13 +82,7 @@ export default defineComponent({
 </script>
 
 <style lang='scss' scoped>
-.tab-orphan {
-  @include for-mobile {
-    --tabs-title-display: none;
-    --tabs-content-padding: 0;
-    --tabs-conent-border-width: 0;
-  }
-}
+@import '../styles/shared.scss';
 
 .form {
   &__element {
