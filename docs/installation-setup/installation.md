@@ -31,7 +31,7 @@ Go to the newly created directory and install the required dependencies:
 ```bash
 cd <project_name>
 
-npm install
+yarn install
 ```
 
 ### Step 2. Setup and configure Magento
@@ -47,7 +47,7 @@ With the Magento instance setup and configured, you can connect your project to 
 The project is now ready. You can start the application in development mode using the command below. You can read more about available commands and environments on the [Commands and deployment](https://nuxtjs.org/docs/2.x/get-started/commands/) page in Nuxt.js documentation.
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 ## Recommended tools
