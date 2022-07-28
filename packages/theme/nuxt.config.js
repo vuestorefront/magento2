@@ -135,6 +135,7 @@ export default () => {
     ],
     i18n: {
       country: 'US',
+      baseUrl: process.env.VSF_STORE_URL,
       strategy: 'prefix',
       locales: [
         {
