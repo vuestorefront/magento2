@@ -67,7 +67,7 @@ export default defineComponent({
       currentCategory.value = category;
     };
 
-    const hasChildren = (category: CategoryTree) => Boolean(category?.children);
+    const hasChildren = (category: CategoryTree) => Boolean(category?.children?.length);
 
     const setFocus = (event: MouseEvent & { target: HTMLElement }) => {
       focusedElement = event.target;
