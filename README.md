@@ -18,7 +18,7 @@ This project is a Magento 2 integration for Vue Storefront 2.
 <hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-23-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to try out the integration
@@ -147,6 +147,7 @@ Thanks go to these wonderful people 🙌:
     <td align="center"><a href="https://github.com/Diegoalbag"><img src="https://avatars.githubusercontent.com/u/72459310?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Diego Alba</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=Diegoalbag" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/aelmizeb"><img src="https://avatars.githubusercontent.com/u/19288561?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Abdellatif EL MIZEB</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=aelmizeb" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/bensinca"><img src="https://avatars.githubusercontent.com/u/13001260?v=4?s=80" width="80px;" alt=""/><br /><sub><b>Beniamin Sinca</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/issues?q=author%3Abensinca" title="Bug reports">🐛</a> <a href="https://github.com/vuestorefront/magento2/commits?author=bensinca" title="Code">💻</a></td>
+    <td align="center"><a href="https://blog.fts.scot/"><img src="https://avatars.githubusercontent.com/u/3168648?v=4?s=80" width="80px;" alt=""/><br /><sub><b>maaarghk</b></sub></a><br /><a href="https://github.com/vuestorefront/magento2/commits?author=maaarghk" title="Code">💻</a></td>
   </tr>
 </table>
 
