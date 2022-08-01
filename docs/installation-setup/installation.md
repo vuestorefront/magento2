@@ -1,5 +1,9 @@
 # Installation
 
+If you prefer a video guide - here's a quick start guide to get your project up and running.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/hKmyLaG1c8s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Prerequisites
 
 Before proceeding, make sure you have [Node 16](https://nodejs.org/en/) installed. You can check this by running the following command:

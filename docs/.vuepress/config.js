@@ -94,18 +94,6 @@ module.exports = {
         ],
       },
       {
-        title: 'Getting started',
-        collapsable: true,
-        children: [
-          ['/getting-started/introduction', 'Introduction'],
-          ['/getting-started/project-structure', 'Project structure'],
-          ['/getting-started/configuration', 'Configuration'],
-          ['/getting-started/layouts-and-routing', 'Layouts and Routing'],
-          ['/getting-started/theme', 'Theme'],
-          ['/getting-started/internationalization', 'Internationalization'],
-        ],
-      },
-      {
         title: 'Composition',
         collapsable: true,
         children: [
@@ -162,6 +150,18 @@ module.exports = {
           ['/improvements/security/', 'Security'],
           ['/improvements/logging/', 'Logging'],
           ['/improvements/analytics/', 'Analytics'],
+        ],
+      },
+      {
+        title: 'Learn Vue Storefront',
+        collapsable: true,
+        children: [
+          ['https://docs.vuestorefront.io/v2/getting-started/introduction.html', 'What is Vue Storefront?'],
+          ['https://docs.vuestorefront.io/v2/getting-started/project-structure.html', 'Project structure'],
+          ['https://docs.vuestorefront.io/v2/getting-started/configuration.html', 'Configuration'],
+          ['https://docs.vuestorefront.io/v2/getting-started/layouts-and-routing.html', 'Layouts and Routing'],
+          ['https://docs.vuestorefront.io/v2/getting-started/theme.html', 'Theme'],
+          ['https://docs.vuestorefront.io/v2/getting-started/internationalization.html', 'Internationalization'],
         ],
       },
     ],
