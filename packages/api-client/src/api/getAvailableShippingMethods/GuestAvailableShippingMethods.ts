@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export default gql`
   query GuestAvailableShippingMethods($cartId: String!) {
-    cart(cart_id:$cart_id) {
+    cart(cart_id:$cartId) {
       shipping_addresses {
         available_shipping_methods {
           amount {
