@@ -250,6 +250,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "maaarghk",
+      "name": "maaarghk",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3168648?v=4",
+      "profile": "https://blog.fts.scot/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 5
