@@ -26,16 +26,7 @@ export const useAddToCart = () => {
       case 'BundleProduct':
       case 'ConfigurableProduct':
       case 'GroupedProduct':
-        const sku = productGetters.getProductSku(product);
-        const slug = productGetters.getSlug(product).replace(/^\//, ''); // remove leading slash from getSlug
-
-        const path = app.localeRoute({
-          name: 'product',
-          params: {
-            id: sku,
-            slug,
-          },
-        });
+        const path = app.localeRoute(productGetters.getProductPath(product));
 
         await router.push(path);
         break;

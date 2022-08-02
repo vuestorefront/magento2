@@ -21,7 +21,7 @@ export const productsMock = [
     review_count: 0,
     reviews: { __typename: 'ProductReviews', items: [] },
     commonProps: {
-      title: 'Set of Sprite Yoga Straps', link: '/default/p/24-WG085_Group/set-of-sprite-yoga-straps.html', style: { '--index': 0 }, isAddedToCart: false, image: 'media/catalog/product/l/u/luma-yoga-strap-set.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$14.00', specialPrice: null, reviewsCount: 0, scoreRating: 0,
+      title: 'Set of Sprite Yoga Straps', link: '/default/set-of-sprite-yoga-straps.html', style: { '--index': 0 }, isAddedToCart: false, image: 'media/catalog/product/l/u/luma-yoga-strap-set.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$14.00', specialPrice: null, reviewsCount: 0, scoreRating: 0,
     },
   }, {
     __typename: 'BundleProduct',
@@ -45,7 +45,7 @@ export const productsMock = [
     review_count: 0,
     reviews: { __typename: 'ProductReviews', items: [] },
     commonProps: {
-      title: 'Sprite Yoga Companion Kit', link: '/default/p/24-WG080/sprite-yoga-companion-kit.html', style: { '--index': 1 }, isAddedToCart: false, image: 'media/catalog/product/l/u/luma-yoga-kit-2.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$61.00', specialPrice: null, reviewsCount: 0, scoreRating: 0,
+      title: 'Sprite Yoga Companion Kit', link: '/default/sprite-yoga-companion-kit.html', style: { '--index': 1 }, isAddedToCart: false, image: 'media/catalog/product/l/u/luma-yoga-kit-2.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$61.00', specialPrice: null, reviewsCount: 0, scoreRating: 0,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -73,7 +73,7 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 100, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '5' }] }, { __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }] },
     commonProps: {
-      title: 'Didi Sport Watch', link: '/default/p/24-WG02/didi-sport-watch.html', style: { '--index': 2 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg02-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$92.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.666_666_666_666_666_5,
+      title: 'Didi Sport Watch', link: '/default/didi-sport-watch.html', style: { '--index': 2 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg02-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$92.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.666_666_666_666_666_5,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -97,7 +97,7 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }] },
     commonProps: {
-      title: 'Clamber Watch', link: '/default/p/24-WG03/clamber-watch.html', style: { '--index': 3 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg03-gr-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$54.00', specialPrice: null, reviewsCount: 3, scoreRating: 2.666_666_666_666_666_5,
+      title: 'Clamber Watch', link: '/default/clamber-watch.html', style: { '--index': 3 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg03-gr-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$54.00', specialPrice: null, reviewsCount: 3, scoreRating: 2.666_666_666_666_666_5,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -121,7 +121,7 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }] },
     commonProps: {
-      title: 'Bolo Sport Watch', link: '/default/p/24-WG01/bolo-sport-watch.html', style: { '--index': 4 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg01-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$49.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.333_333_333_333_333_5,
+      title: 'Bolo Sport Watch', link: '/default/bolo-sport-watch.html', style: { '--index': 4 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg01-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$49.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.333_333_333_333_333_5,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -145,7 +145,7 @@ export const productsMock = [
     review_count: 2,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }] },
     commonProps: {
-      title: 'Luma Analog Watch', link: '/default/p/24-WG09/luma-analog-watch.html', style: { '--index': 5 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg09-gr-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$43.00', specialPrice: null, reviewsCount: 2, scoreRating: 4,
+      title: 'Luma Analog Watch', link: '/default/luma-analog-watch.html', style: { '--index': 5 }, isAddedToCart: false, image: 'media/catalog/product/w/g/wg09-gr-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$43.00', specialPrice: null, reviewsCount: 2, scoreRating: 4,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -173,7 +173,7 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }] },
     commonProps: {
-      title: 'Dash Digital Watch', link: '/default/p/24-MG02/dash-digital-watch.html', style: { '--index': 6 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg02-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$92.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.666_666_666_666_666_5,
+      title: 'Dash Digital Watch', link: '/default/dash-digital-watch.html', style: { '--index': 6 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg02-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$92.00', specialPrice: null, reviewsCount: 3, scoreRating: 3.666_666_666_666_666_5,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -201,7 +201,7 @@ export const productsMock = [
     review_count: 4,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 100, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '5' }] }, { __typename: 'ProductReview', average_rating: 80, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '4' }] }, { __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }, { __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }] },
     commonProps: {
-      title: 'Cruise Dual Analog Watch', link: '/default/p/24-MG05/cruise-dual-analog-watch.html', style: { '--index': 7 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg05-br-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$55.00', specialPrice: null, reviewsCount: 4, scoreRating: 3.25,
+      title: 'Cruise Dual Analog Watch', link: '/default/cruise-dual-analog-watch.html', style: { '--index': 7 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg05-br-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$55.00', specialPrice: null, reviewsCount: 4, scoreRating: 3.25,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -229,7 +229,7 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }, { __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }, { __typename: 'ProductReview', average_rating: 40, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '2' }] }] },
     commonProps: {
-      title: 'Summit Watch', link: '/default/p/24-MG03/summit-watch.html', style: { '--index': 8 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg03-br-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$54.00', specialPrice: null, reviewsCount: 3, scoreRating: 2.333_333_333_333_333_5,
+      title: 'Summit Watch', link: '/default/summit-watch.html', style: { '--index': 8 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg03-br-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$54.00', specialPrice: null, reviewsCount: 3, scoreRating: 2.333_333_333_333_333_5,
     },
   }, {
     __typename: 'SimpleProduct',
@@ -253,6 +253,6 @@ export const productsMock = [
     review_count: 3,
     reviews: { __typename: 'ProductReviews', items: [{ __typename: 'ProductReview', average_rating: 100, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '5' }] }, { __typename: 'ProductReview', average_rating: 100, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '5' }] }, { __typename: 'ProductReview', average_rating: 60, ratings_breakdown: [{ __typename: 'ProductReviewRating', name: 'Rating', value: '3' }] }] },
     commonProps: {
-      title: 'Endurance Watch', link: '/default/p/24-MG01/endurance-watch.html', style: { '--index': 9 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg01-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$49.00', specialPrice: null, reviewsCount: 3, scoreRating: 4.333_333_333_333_333,
+      title: 'Endurance Watch', link: '/default/endurance-watch.html', style: { '--index': 9 }, isAddedToCart: false, image: 'media/catalog/product/m/g/mg01-bk-0.jpg', imageTag: 'nuxt-img', nuxtImgConfig: { fit: 'cover' }, isInWishlist: false, isInWishlistIcon: 'heart_fill', wishlistIcon: 'heart', regularPrice: '$49.00', specialPrice: null, reviewsCount: 3, scoreRating: 4.333_333_333_333_333,
     },
   }];

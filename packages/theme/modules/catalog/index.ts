@@ -8,13 +8,9 @@ const nuxtModule : Module = function categoryModule() {
 
   this.extendRoutes((routes: NuxtRouteConfig[]) => {
     routes.unshift({
-      name: 'category',
-      path: '/c/:slug_1/:slug_2?/:slug_3?/:slug_4?/:slug_5?',
-      component: path.resolve(themeDir, 'pages/category.vue'),
-    }, {
-      name: 'product',
-      path: '/p/:id/:slug/',
-      component: path.resolve(themeDir, 'pages/product.vue'),
+      name: 'page',
+      path: '/:slug+',
+      component: path.resolve(themeDir, 'pages/page.vue'),
     });
   });
 };
