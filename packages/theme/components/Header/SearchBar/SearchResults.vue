@@ -55,13 +55,7 @@
                   }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="
-                    localePath(
-                      `/p/${productGetters.getProductSku(
-                        product
-                      )}${productGetters.getSlug(product, product.categories[0])}`
-                    )
-                  "
+                  :link="localePath(productGetters.getProductPath(product))"
                   :wishlist-icon="false"
                 />
               </div>
@@ -88,13 +82,7 @@
                 }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="
-                  localePath(
-                    `/p/${productGetters.getProductSku(
-                      product
-                    )}${productGetters.getSlug(product, product.categories[0])}`
-                  )
-                "
+                :link="localePath(productGetters.getProductPath(product))"
                 :wishlist-icon="false"
               />
             </div>
