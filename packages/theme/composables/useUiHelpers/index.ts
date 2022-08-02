@@ -72,7 +72,7 @@ export function useUiHelpers(): UseUiHelpersInterface {
     };
   };
 
-  const getCatLink = (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`;
+  const getCatLink = (category: CategoryTree): string => `/${category.url_path}${category.url_suffix || ''}`;
 
   /**
    * Force push for a backward compatibility in other places, should be removed

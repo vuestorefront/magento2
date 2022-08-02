@@ -34,13 +34,7 @@
             productGetters.getPrice(product).special &&
               $fc(productGetters.getPrice(product).special)
           "
-          :link="
-            localePath(
-              `/p/${productGetters.getProductSku(
-                product
-              )}${productGetters.getSlug(product, product.categories[0])}`
-            )
-          "
+          :link="localePath(productGetters.getProductPath(product))"
           :max-rating="5"
           :score-rating="productGetters.getAverageRating(product)"
           :reviews-count="productGetters.getTotalReviews(product)"

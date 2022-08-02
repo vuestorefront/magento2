@@ -5,7 +5,7 @@ import { useImage } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import {
-  getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
+  getName, getPrice, getProductThumbnailImage, getProductPath,
 } from '~/modules/catalog/product/getters/productGetters';
 import { getAverageRating, getTotalReviews } from '~/modules/review/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
@@ -74,7 +74,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
         scoreRating: getAverageRating(product),
       };
 
-      const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
+      const link = context.localeRoute(getProductPath(product));
 
       const commonProps = {
         title: getName(product),

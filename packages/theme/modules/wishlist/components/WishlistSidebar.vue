@@ -207,15 +207,8 @@ export default defineComponent({
 
     const getAttributes = (product: WishlistItemInterface) => (product?.product as ConfigurableProduct)?.configurable_options || [];
     const getBundles = (product: WishlistItemInterface) => (product?.product as BundleProduct)?.items?.map((b) => b.title).flat() || [];
-    const getItemLink = (item: WishlistItemInterface) => localeRoute({
-      path: `/p/${item.product.sku}${productGetters.getSlug(
-        item.product,
-        item.product.categories[0],
-      )}`,
-      query: {
-        wishlist: 'true',
-      },
-    });
+    // @ts-ignore
+    const getItemLink = (item: WishlistItemInterface) => localeRoute(productGetters.getProductPath(item.product));
 
     const { getMagentoImage, imageSizes } = useImage();
     const isShowGoToWishlistButton = computed(() => wishlistStore.wishlist.items_count > wishlistStore.wishlist?.items_v2?.items.length);

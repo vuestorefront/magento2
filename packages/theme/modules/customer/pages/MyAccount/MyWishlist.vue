@@ -40,16 +40,7 @@
                     fit: 'cover',
                   }"
                   :is-added-to-cart="isInCart(product.product)"
-                  :link="
-                    localePath(
-                      `/p/${productGetters.getProductSku(
-                        product.product
-                      )}${productGetters.getSlug(
-                        product.product,
-                        product.product.categories[0]
-                      )}`
-                    )
-                  "
+                  :link="localePath(productGetters.getProductPath(product.product))"
                   :regular-price="
                     $fc(productGetters.getPrice(product.product).regular)
                   "
@@ -201,15 +192,7 @@ export default defineComponent({
         case ProductTypeEnum.CONFIGURABLE_PRODUCT:
         case ProductTypeEnum.BUNDLE_PRODUCT:
         case ProductTypeEnum.GROUPED_PRODUCT:
-          const path = `/p/${productGetters.getProductSku(
-            product,
-          )}${productGetters.getSlug(product, product.categories[0])}`;
-          await router.push(localeRoute({
-            path,
-            query: {
-              wishlist: 'true',
-            },
-          }));
+          await router.push(localeRoute(productGetters.getProductPath(product)));
           break;
         default:
           throw new Error(
