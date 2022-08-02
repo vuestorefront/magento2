@@ -19,7 +19,7 @@ jest.mock('@nuxtjs/composition-api', () => {
   return {
     ...originalModule,
     useContext: jest.fn(() => ({ app: { localePath: (suffix: unknown) => `/default${suffix}` } })),
-    useRoute: jest.fn(() => ({ value: { path: '/default/c/what-is-new.html' } })),
+    useRoute: jest.fn(() => ({ value: { path: '/default/what-is-new.html' } })),
   };
 });
 

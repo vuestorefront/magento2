@@ -13,18 +13,17 @@ import {
   computed,
 } from '@nuxtjs/composition-api';
 import { usePageStore } from '~/modules/catalog/store/page';
-import { getPageComponent } from '~/modules/catalog/getters/pageGetters';
 
-import category from '~/modules/catalog/pages/category.vue';
-import cms from '~/modules/catalog/pages/cms.vue';
-import product from '~/modules/catalog/pages/product.vue';
+import CATEGORY from '~/modules/catalog/pages/category.vue';
+import CMS_PAGE from '~/modules/catalog/pages/cms.vue';
+import PRODUCT from '~/modules/catalog/pages/product.vue';
 
 export default defineComponent({
   name: 'PageResolver',
   components: {
-    category,
-    cms,
-    product,
+    CATEGORY,
+    CMS_PAGE,
+    PRODUCT,
   },
   middleware: [
     'url-resolver',
@@ -32,8 +31,7 @@ export default defineComponent({
   setup() {
     const { routeData } = usePageStore();
 
-    // eslint-disable-next-line no-underscore-dangle
-    const type = computed(() => getPageComponent(routeData?.__typename));
+    const type = computed(() => routeData?.type);
 
     return {
       type,

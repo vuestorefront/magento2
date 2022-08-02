@@ -1,7 +1,7 @@
 export const useRouteMock = (extend = {}) => ({
   value: {
-    path: '/default/c/gear.html',
-    fullPath: '/default/c/gear.html',
+    path: '/default/gear.html',
+    fullPath: '/default/gear.html',
   },
   ...extend,
 });

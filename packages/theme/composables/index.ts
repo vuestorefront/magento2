@@ -36,6 +36,7 @@ export * from './useUiHelpers';
 export * from './useUiNotification';
 export * from './useUiState';
 export * from '../modules/catalog/product/composables/useUpsellProducts';
+export * from './useUrlResolver';
 export * from '../modules/customer/composables/useUser';
 export * from '../modules/customer/composables/useUserAddress';
 export * from '../modules/customer/composables/useUserOrder';

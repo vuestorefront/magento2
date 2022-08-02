@@ -40,7 +40,7 @@
                     fit: 'cover',
                   }"
                   :is-added-to-cart="isInCart(product.product)"
-                  :link="localePath(productGetters.getProductPath(product.product))"
+                  :link="localePath(getProductPath(product.product))"
                   :regular-price="
                     $fc(productGetters.getPrice(product.product).regular)
                   "
@@ -136,7 +136,7 @@ import { useCart } from '~/modules/checkout/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
-import { useUiHelpers, useImage } from '~/composables';
+import { useUiHelpers, useImage, useProduct } from '~/composables';
 
 export default defineComponent({
   name: 'MyWishlist',
@@ -158,6 +158,7 @@ export default defineComponent({
     } = useWishlist();
     const route = useRoute();
     const { localeRoute } = useContext();
+    const { getProductPath } = useProduct();
     const {
       query: { page, itemsPerPage },
     } = route.value;
@@ -192,7 +193,7 @@ export default defineComponent({
         case ProductTypeEnum.CONFIGURABLE_PRODUCT:
         case ProductTypeEnum.BUNDLE_PRODUCT:
         case ProductTypeEnum.GROUPED_PRODUCT:
-          await router.push(localeRoute(productGetters.getProductPath(product)));
+          await router.push(localeRoute(getProductPath(product)));
           break;
         default:
           throw new Error(
@@ -228,6 +229,7 @@ export default defineComponent({
       th,
       getMagentoImage,
       imageSizes,
+      getProductPath,
     };
   },
 });
