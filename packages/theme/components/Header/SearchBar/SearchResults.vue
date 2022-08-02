@@ -55,7 +55,7 @@
                   }"
                   :alt="productGetters.getName(product)"
                   :title="productGetters.getName(product)"
-                  :link="localePath(productGetters.getProductPath(product))"
+                  :link="localePath(getProductPath(product))"
                   :wishlist-icon="false"
                 />
               </div>
@@ -82,7 +82,7 @@
                 }"
                 :alt="productGetters.getName(product)"
                 :title="productGetters.getName(product)"
-                :link="localePath(productGetters.getProductPath(product))"
+                :link="localePath(getProductPath(product))"
                 :wishlist-icon="false"
               />
             </div>
@@ -136,7 +136,7 @@ import {
 import { defineComponent } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
-import { useImage } from '~/composables';
+import { useImage, useProduct } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { Product } from '~/modules/catalog/product/types';
 
@@ -162,11 +162,13 @@ export default defineComponent({
   },
   setup() {
     const { getMagentoImage, imageSizes } = useImage();
+    const { getProductPath } = useProduct();
 
     return {
       productGetters,
       getMagentoImage,
       imageSizes,
+      getProductPath,
     };
   },
 });

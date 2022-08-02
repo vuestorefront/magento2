@@ -200,10 +200,10 @@ export default defineComponent({
         loadCategoryTree();
       }
 
-      const categoryUid = routeData.value?.uid;
+      const categoryUid = routeData.uid;
 
       const [content] = await Promise.all([
-        getContentData(routeData.uid as string),
+        getContentData(categoryUid as string),
         search({ ...uiHelpers.getFacetsFromURL(), category_uid: categoryUid }),
       ]);
 

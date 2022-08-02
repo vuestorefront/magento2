@@ -3,7 +3,7 @@ import { usePageStore } from '~/modules/catalog/store/page';
 import { Logger } from '~/helpers/logger';
 import { RoutableInterface } from '~/modules/GraphQL/types';
 
-const middleware : Middleware = async (context) => {
+const urlResolverMiddleware : Middleware = async (context) => {
   const pageStore = usePageStore();
   const { path } = context.route;
 
@@ -11,17 +11,17 @@ const middleware : Middleware = async (context) => {
 
   Logger.debug('middleware/url-resolver', clearUrl);
 
-  const { data } = await context.app.$vsf.$magento.api.route(clearUrl);
+  const { data, errors } = await context.app.$vsf.$magento.api.route(clearUrl);
 
-  Logger.debug('middleware/url-resolver/result', { data });
+  Logger.debug('middleware/url-resolver/result', { data, errors });
 
-  // @ts-ignore
   const results: RoutableInterface | null = data?.route ?? null;
 
-  if (!results) context.error({ statusCode: 404 });
+  if (!results || errors?.length) context.error({ statusCode: 404 });
+
   pageStore.$patch((state) => {
     state.routeData = results;
   });
 };
 
-export default middleware;
+export default urlResolverMiddleware;

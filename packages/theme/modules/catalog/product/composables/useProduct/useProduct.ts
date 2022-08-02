@@ -1,6 +1,7 @@
 import type { DeepReadonly, Ref } from '@nuxtjs/composition-api';
 import type { ProductsListQuery, ProductDetailsQuery } from '~/modules/GraphQL/types';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
+import { Product } from '~/modules/catalog/product/types';
 
 export type ProductList = ProductsListQuery['products'];
 
@@ -37,4 +38,7 @@ export interface UseProductInterface {
 
   /** Fetches a product details with sorting, filtering and pagination. */
   getProductDetails(searchParams: GetProductSearchParams): Promise<ProductDetails | null>;
+
+  /** Get a product path from url_rewrites or url_key */
+  getProductPath(product: Product): string;
 }

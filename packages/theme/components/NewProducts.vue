@@ -34,7 +34,7 @@
             productGetters.getPrice(product).special &&
               $fc(productGetters.getPrice(product).special)
           "
-          :link="localePath(productGetters.getProductPath(product))"
+          :link="localePath(getProductPath(product))"
           :max-rating="5"
           :score-rating="productGetters.getAverageRating(product)"
           :reviews-count="productGetters.getTotalReviews(product)"
@@ -59,7 +59,8 @@ import {
   computed, defineComponent, onMounted, ref,
 } from '@nuxtjs/composition-api';
 import {
-  useImage, useProduct,
+  useImage,
+  useProduct,
 } from '~/composables';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
@@ -91,7 +92,11 @@ export default defineComponent({
   },
   setup() {
     const { isAuthenticated } = useUser();
-    const { getProductList, loading } = useProduct();
+    const {
+      getProductList,
+      loading,
+      getProductPath,
+    } = useProduct();
     const { isInWishlist, addOrRemoveItem } = useWishlist();
     const { addItemToCart, isInCart } = useAddToCart();
     const products = ref([]);
@@ -132,6 +137,7 @@ export default defineComponent({
       productGetters,
       getMagentoImage,
       imageSizes,
+      getProductPath,
     };
   },
 });

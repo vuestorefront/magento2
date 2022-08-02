@@ -26,7 +26,7 @@ jest.mock('~/modules/catalog/category/helpers/useTraverseCategory');
 });
 (useUiHelpers as jest.Mock).mockReturnValue({
   getCatLink: jest.fn(
-    (category: CategoryTree): string => `/c/${category.url_path}${category.url_suffix || ''}`,
+    (category: CategoryTree): string => `/${category.url_path}${category.url_suffix || ''}`,
   ),
 });
 

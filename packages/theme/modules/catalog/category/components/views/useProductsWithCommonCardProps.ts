@@ -4,8 +4,9 @@ import type { ImageModifiers } from '@nuxt/image';
 import { useImage } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
+import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import {
-  getName, getPrice, getProductThumbnailImage, getProductPath,
+  getName, getPrice, getProductThumbnailImage,
 } from '~/modules/catalog/product/getters/productGetters';
 import { getAverageRating, getTotalReviews } from '~/modules/review/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
@@ -40,6 +41,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
   const { isInWishlist } = useWishlist();
   const { isAuthenticated } = useUser();
   const { isInCart } = useAddToCart();
+  const { getProductPath } = useProduct();
   const context = useContext();
 
   /**

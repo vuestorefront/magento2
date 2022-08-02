@@ -105,7 +105,7 @@
                         $fc(cartGetters.getItemPrice(product).special)
                       : ''
                   "
-                  :link="localePath(productGetters.getProductPath(product.product))"
+                  :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
@@ -296,6 +296,7 @@ import {
   useUiNotification,
   useExternalCheckout,
   useImage,
+  useProduct,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
@@ -328,6 +329,7 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
+    const { getProductPath } = useProduct();
     const {
       cart,
       removeItem,
@@ -425,6 +427,7 @@ export default defineComponent({
       imageSizes,
       getMagentoImage,
       discount,
+      getProductPath,
     };
   },
 });

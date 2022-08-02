@@ -36,7 +36,6 @@ export interface ProductGetters {
   getSwatchData(swatchData: Product['configurable_options'][0]['values'][0]['swatch_data']): string | undefined;
   getGroupedProducts(product: GroupedProduct): GroupedProduct['items'] | undefined;
   getBundleProducts(product: BundleProduct): BundleProduct['items'] | undefined;
-  getProductPath(product: Product): string;
   [getterName: string]: any;
 }
 
@@ -223,21 +222,16 @@ const getCategoryBreadcrumbs = (category: CategoryInterface): Breadcrumb[] => {
   if (Array.isArray(category?.breadcrumbs)) {
     breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
       text: breadcrumb.category_name,
-      link: `/c/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
+      link: `/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
     } as Breadcrumb));
   }
 
   breadcrumbs.push({
     text: category.name,
-    link: `/c/${category.url_path}${category.url_suffix || ''}`,
+    link: `/${category.url_path}${category.url_suffix || ''}`,
   } as Breadcrumb);
 
   return breadcrumbs;
-};
-
-export const getProductPath = (product: ProductInterface) => {
-  if (!product) return '/';
-  return `/${product?.url_rewrites?.[0]?.url ?? product.url_key}`;
 };
 
 export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInterface): Breadcrumb[] => {
@@ -253,7 +247,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
 
   breadcrumbs.push({
     text: getName(product),
-    link: getProductPath(product),
+    link: `/${product?.url_rewrites?.[0]?.url ?? product.url_key}`,
   });
 
   return breadcrumbs;
@@ -298,7 +292,6 @@ const productGetters: ProductGetters = {
   getSwatchData,
   getGroupedProducts,
   getBundleProducts,
-  getProductPath,
 };
 
 export default productGetters;
