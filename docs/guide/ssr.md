@@ -6,20 +6,22 @@ VueStorefront 2 - Magento 2 integrations use @vue-storefront/cache module that a
 rendered pages.
 
 ### What is cached
+
 The cached pages are:
 
-* Home page with the `Vhome` tag.
-* All CMS pages with the `V${page.identifier}` tag
-* Category page with the `Vcategory` tag and tags for products: `P${product.uid}` as well as categories `C${category.slug}`
-* Product page with the `Vproduct-${route.value.params.id}` tag and tags for the main product `P${product.uid}` as well as categories `C${cat.id}`
+- Home page with the `Vhome` tag.
+- All CMS pages with the `V${page.identifier}` tag
+- Category page with the `Vcategory` tag and tags for products: `P${product.uid}` as well as categories `C${category.slug}`
+- Product page with the `Vproduct-${route.value.params.id}` tag and tags for the main product `P${product.uid}` as well as categories `C${cat.id}`
 
 ## Invalidating tags
 
 To invalidate a tag and remove pages associated with that tag, use the [Invalidation endpoint](https://docs.vuestorefront.io/v2/performance/ssr-cache.html#invalidating-tags).
 
 Go to the route configured in the `.env` file under the `VSF_REDIS_CACHE_INVALIDATE_KEY` key with two query parameters:
-* `key` — string matching the `VSF_REDIS_CACHE_INVALIDATE_KEY` key in the `.env` file.
-* `tags` — a comma-separated list of tags for invalidation.
+
+- `key` — string matching the `VSF_REDIS_CACHE_INVALIDATE_KEY` key in the `.env` file.
+- `tags` — a comma-separated list of tags for invalidation.
 
 Assuming that you are running the application locally, the `VSF_REDIS_CACHE_INVALIDATE_URL` key is equal to `/cache-invalidate,` and the `VSF_REDIS_CACHE_INVALIDATE_KEY` key is equal to `secret_key`, and you want to invalidate the `Vhome` tag, the full URL will look like this:
 
@@ -33,16 +35,16 @@ You don't need to add any additional packages to cache more pages — just add o
 
 ## Cache drivers
 
-@vue-storefront/cache module is open source and provided Out Of The Box by Magento 2 integration.
+`@vue-storefront/cache` module is open source and provided Out Of The Box by Magento 2 integration.
 To set up caching in your store, you must install and configure a cache driver.
 You can use our enterprise `@vsf-enterprise/redis-cache` module, or build your cache driver.
 
 ### Redis cache (enterprise)
+
 Once you have access to the [Vue Storefront npm registry](https://docs.vuestorefront.io/v2/general/enterprise.htm),
 you can install the Redis cache driver by running this command in a console:
 
-``yarn add @vsf-enterprise/redis-cache``
-
+`yarn add @vsf-enterprise/redis-cache`
 
 #### redis cache configuration
 
@@ -85,6 +87,6 @@ Then you have to update `nuxt.config.js file` and add this to the `modules` obje
 
 ## Useful links
 
-- https://docs.vuestorefront.io/v2/performance/ssr-cache.html
-- https://docs.vuestorefront.io/v2/integrations/redis-cache.html
-- https://docs.vuestorefront.io/v2/integrate/cache-driver.html
+- [Server Side Rendering Cache](https://docs.vuestorefront.io/v2/performance/ssr-cache.html)
+- [Redis cache](https://docs.vuestorefront.io/v2/integrations/redis-cache.html)
+- [Integrating cache driver](https://docs.vuestorefront.io/v2/integrate/cache-driver.html)
