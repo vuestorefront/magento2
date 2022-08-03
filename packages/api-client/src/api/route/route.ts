@@ -5,22 +5,7 @@ export default gql`
   query route($url: String!) {
     route(url: $url) {
       type
-      ... on SimpleProduct {
-        sku
-      }
-      ... on GroupedProduct {
-        sku
-      }
-      ... on VirtualProduct {
-        sku
-      }
-      ... on DownloadableProduct {
-        sku
-      }
-      ... on ConfigurableProduct {
-        sku
-      }
-      ... on BundleProduct {
+       ... on ProductInterface {
         sku
       }
       ... on CategoryTree {
