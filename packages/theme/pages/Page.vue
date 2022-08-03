@@ -15,7 +15,7 @@ import {
 import { usePageStore } from '~/stores/page';
 
 import CATEGORY from '~/modules/catalog/pages/category.vue';
-import CMS_PAGE from '~/pages/cms.vue';
+import CMS_PAGE from '~/pages/Cms.vue';
 import PRODUCT from '~/modules/catalog/pages/product.vue';
 
 export default defineComponent({
