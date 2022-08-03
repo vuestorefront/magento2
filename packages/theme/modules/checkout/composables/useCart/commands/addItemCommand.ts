@@ -156,8 +156,8 @@ export const addItemCommand = {
 
         Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
 
-        if (downloadableProduct.data.addProductsToCart.user_errors.length > 0) {
-          throw new Error(String(downloadableProduct.data.addProductsToCart.user_errors[0].message));
+        if (virtualProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(virtualProduct.data.addProductsToCart.user_errors[0].message));
         }
 
         // eslint-disable-next-line consistent-return
