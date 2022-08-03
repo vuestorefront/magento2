@@ -75,6 +75,13 @@ export default gql`
             }
           }
         }
+        ... on GroupedProduct {
+          items {
+            product {
+              sku
+            }
+          }
+        }
       }
       page_info {
         current_page
