@@ -116,7 +116,7 @@ import {
   defineComponent, onMounted, ref, ssrRef, useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
-import { usePageStore } from '~/modules/catalog/store/page';
+import { usePageStore } from '~/stores/page';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {

@@ -12,10 +12,10 @@ import {
   defineComponent,
   computed,
 } from '@nuxtjs/composition-api';
-import { usePageStore } from '~/modules/catalog/store/page';
+import { usePageStore } from '~/stores/page';
 
 import CATEGORY from '~/modules/catalog/pages/category.vue';
-import CMS_PAGE from '~/modules/catalog/pages/cms.vue';
+import CMS_PAGE from '~/pages/cms.vue';
 import PRODUCT from '~/modules/catalog/pages/product.vue';
 
 export default defineComponent({
