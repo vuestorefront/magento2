@@ -165,6 +165,28 @@ export const addItemCommand = {
           .data
           .addProductsToCart
           .cart as unknown as Cart;
+      case 'GroupedProduct':
+        const groupedCartInput: AddProductsToCartInput = {
+          cartId,
+          cartItems: product.items.map((item) => ({
+            quantity,
+            sku: item.product.sku,
+          })),
+        };
+
+        const groupedProduct = await context.$magento.api.addProductsToCart(groupedCartInput, customQuery as CustomQuery);
+
+        Logger.debug('[Result GroupedProduct]:', { data: groupedProduct });
+
+        if (groupedProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(groupedProduct.data.addProductsToCart.user_errors[0].message));
+        }
+
+        // eslint-disable-next-line consistent-return
+        return groupedProduct
+          .data
+          .addProductsToCart
+          .cart as unknown as Cart;
       default:
         // eslint-disable-next-line no-underscore-dangle
         throw new Error(`Product Type ${product.__typename} not supported in add to cart yet`);
