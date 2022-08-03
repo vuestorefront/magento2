@@ -1,5 +1,5 @@
 import { Middleware } from '@nuxt/types';
-import { usePageStore } from '~/modules/catalog/store/page';
+import { usePageStore } from '~/stores/page';
 import { Logger } from '~/helpers/logger';
 import { RoutableInterface } from '~/modules/GraphQL/types';
 

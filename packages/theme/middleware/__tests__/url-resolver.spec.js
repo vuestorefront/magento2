@@ -1,5 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia';
-import { usePageStore } from '~/modules/catalog/store/page';
+import { usePageStore } from '~/stores/page';
 import urlResolverMiddleware from '../url-resolver';
 
 const errRes = {

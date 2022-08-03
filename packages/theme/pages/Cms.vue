@@ -23,7 +23,7 @@ import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import type { MetaInfo } from 'vue-meta';
 import { useContent } from '~/composables';
 import type { CmsPage } from '~/modules/GraphQL/types';
-import { usePageStore } from '~/modules/catalog/store/page';
+import { usePageStore } from '~/stores/page';
 import HTMLContent from '~/components/HTMLContent.vue';
 
 export default defineComponent({
