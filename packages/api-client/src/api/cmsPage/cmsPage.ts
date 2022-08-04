@@ -5,9 +5,10 @@ export default gql`
     cmsPage(identifier:$identifier) {
       identifier
       content
-      title,
+      title
       meta_title
       meta_description
+      meta_keywords
       content_heading
     }
   }

@@ -1,10 +1,12 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import type{ CategoryTree } from '~/modules/GraphQL/types';
+import categoryMetaGql from '~/modules/catalog/category/composables/useCategory/categoryMeta.gql';
 import type {
   UseCategoryErrors,
   UseCategoryInterface,
   UseCategoryParamsInput,
+  UseCategoryMetaParamsInput,
 } from './useCategory';
 
 /**
@@ -72,6 +74,7 @@ export function useCategory(): UseCategoryInterface {
   const loading: Ref<boolean> = ref(false);
   const error: Ref<UseCategoryErrors> = ref({
     load: null,
+    loadCategoryMeta: null,
   });
   const categories: Ref<Array<CategoryTree>> = ref(null);
 
@@ -92,8 +95,39 @@ export function useCategory(): UseCategoryInterface {
     }
   };
 
+  const loadCategoryMeta = async (params: UseCategoryMetaParamsInput): Promise<CategoryTree | null> => {
+    Logger.debug('useCategory/loadCategoryMeta', params);
+    let categoryMeta = null;
+
+    try {
+      loading.value = true;
+
+      const { data } = await app.context.$vsf.$magento.api.customQuery({
+        query: categoryMetaGql,
+        queryVariables: {
+          filters: {
+            category_uid: {
+              eq: params.category_uid,
+            },
+          },
+        },
+      });
+      Logger.debug('[Result]:', { data });
+      categoryMeta = data.categoryList?.[0] || null;
+      error.value.loadCategoryMeta = null;
+    } catch (err) {
+      error.value.loadCategoryMeta = err;
+      Logger.error('useCategory/loadCategoryMeta', err);
+    } finally {
+      loading.value = false;
+    }
+
+    return categoryMeta;
+  };
+
   return {
     load,
+    loadCategoryMeta,
     loading,
     error,
     categories,

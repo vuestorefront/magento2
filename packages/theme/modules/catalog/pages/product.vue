@@ -43,6 +43,7 @@ import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { SfBreadcrumbs, SfLoader } from '@storefront-ui/vue';
 import { getBreadcrumbs } from '~/modules/catalog/product/getters/productGetters';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 import { useApi } from '~/composables';
@@ -146,6 +147,9 @@ export default defineComponent({
       product,
       fetchProduct: fetchProductExtendedData,
     };
+  },
+  head() {
+    return getMetaInfo(this.product);
   },
 });
 </script>

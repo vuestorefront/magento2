@@ -113,12 +113,17 @@ import {
 } from '@storefront-ui/vue';
 import {
   computed,
-  defineComponent, onMounted, ref, ssrRef, useFetch,
+  defineComponent,
+  onMounted,
+  ref,
+  ssrRef,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {
+  useCategory,
   useFacet,
   useUiHelpers,
   useUiState,
@@ -131,6 +136,7 @@ import { usePrice } from '~/modules/catalog/pricing/usePrice';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import facetGetters from '~/modules/catalog/category/getters/facetGetters';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
 
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
@@ -160,6 +166,7 @@ export default defineComponent({
   transition: 'fade',
   setup() {
     const { getContentData } = useCategoryContent();
+    const { loadCategoryMeta } = useCategory();
     const { addTags } = useCache();
     const uiHelpers = useUiHelpers();
     const cmsContent = ref('');
@@ -187,6 +194,8 @@ export default defineComponent({
     const { result, search } = useFacet();
     const { addItemToCart } = useAddToCart();
 
+    const categoryMeta = ref(null);
+
     const addItemToWishlist = async (product: Product) => {
       await (isInWishlist({ product })
         ? removeItemFromWishlist({ product })
@@ -206,11 +215,13 @@ export default defineComponent({
 
       const categoryUid = routeData.value?.uid;
 
-      const [content] = await Promise.all([
+      const [content, categoryMetaData] = await Promise.all([
         getContentData(routeData.value?.uid),
+        loadCategoryMeta({ category_uid: routeData.value?.uid }),
         search({ ...uiHelpers.getFacetsFromURL(), category_uid: categoryUid }),
       ]);
 
+      categoryMeta.value = categoryMetaData;
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
@@ -277,9 +288,13 @@ export default defineComponent({
       routeData,
       doChangeItemsPerPage,
       productContainerElement,
+      categoryMeta,
       onReloadProducts,
       goToPage,
     };
+  },
+  head() {
+    return getMetaInfo(this.categoryMeta);
   },
 });
 </script>

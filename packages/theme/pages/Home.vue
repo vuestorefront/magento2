@@ -70,11 +70,15 @@ import {
   ref,
   useContext,
   onMounted,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { SfBanner, SfBannerGrid } from '@storefront-ui/vue';
+import { CmsPage } from '~/modules/GraphQL/types';
 import HeroSection from '~/components/HeroSection.vue';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
+import { useContent } from '~/composables';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
@@ -93,9 +97,12 @@ export default defineComponent({
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { addTags } = useCache();
+    const { loadPage } = useContent();
     const { app } = useContext();
     const year = new Date().getFullYear();
     const { isDesktop } = app.$device;
+
+    const page = ref<CmsPage | null>(null);
     const hero = ref({
       title: app.i18n.t('Colorful summer dresses are already in store'),
       subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
@@ -193,6 +200,10 @@ export default defineComponent({
       },
     });
 
+    useFetch(async () => {
+      page.value = await loadPage({ identifier: 'home' });
+    });
+
     onMounted(() => {
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
     });
@@ -202,7 +213,11 @@ export default defineComponent({
       banners,
       callToAction,
       hero,
+      page,
     };
+  },
+  head() {
+    return getMetaInfo(this.page);
   },
 });
 </script>
