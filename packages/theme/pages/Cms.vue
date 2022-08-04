@@ -17,7 +17,10 @@
 <script lang="ts">
 import { SfLoader, SfHeading } from '@storefront-ui/vue';
 import {
-  defineComponent, ref, useFetch,
+  defineComponent,
+  ref,
+  useFetch,
+  useContext,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import type { MetaInfo } from 'vue-meta';
@@ -36,12 +39,19 @@ export default defineComponent({
   setup() {
     const { routeData } = usePageStore();
     const { addTags } = useCache();
-    const { loadPage, loading } = useContent();
+    const { error: nuxtError } = useContext();
+    const {
+      loadPage,
+      loading,
+      error,
+    } = useContent();
 
     const page = ref<CmsPage | null>(null);
 
     useFetch(async () => {
       page.value = await loadPage({ identifier: routeData.identifier });
+
+      if (error?.value?.page || !page.value) nuxtError({ statusCode: 404 });
 
       addTags([{ prefix: CacheTagPrefix.View, value: routeData.identifier }]);
     });
