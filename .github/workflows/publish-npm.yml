@@ -30,6 +30,3 @@ jobs:
       - run: yarn build:api-client && yarn publish:api-client "${{ github.event.inputs.npmTag }}" "$NODE_AUTH_TOKEN"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: yarn build:composables && yarn publish:composables "${{ github.event.inputs.npmTag }}" "$NODE_AUTH_TOKEN"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

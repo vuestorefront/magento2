@@ -1,7 +1,7 @@
 import { useRouter, useContext } from '@nuxtjs/composition-api';
 import type { Product } from '~/modules/catalog/product/types';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 import useCart from '~/modules/checkout/composables/useCart';
+import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 
 export const useAddToCart = () => {
   const {
@@ -10,6 +10,7 @@ export const useAddToCart = () => {
   } = useCart();
   const router = useRouter();
   const { app } = useContext();
+  const { getProductPath } = useProduct();
   const addItemToCart = async (params: { product: Product, quantity: number }) => {
     const { product, quantity } = params;
     // @ts-ignore
@@ -26,16 +27,7 @@ export const useAddToCart = () => {
       case 'BundleProduct':
       case 'ConfigurableProduct':
       case 'GroupedProduct':
-        const sku = productGetters.getProductSku(product);
-        const slug = productGetters.getSlug(product).replace(/^\//, ''); // remove leading slash from getSlug
-
-        const path = app.localeRoute({
-          name: 'product',
-          params: {
-            id: sku,
-            slug,
-          },
-        });
+        const path = app.localeRoute(getProductPath(product));
 
         await router.push(path);
         break;

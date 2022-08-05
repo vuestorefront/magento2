@@ -222,13 +222,13 @@ const getCategoryBreadcrumbs = (category: CategoryInterface): Breadcrumb[] => {
   if (Array.isArray(category?.breadcrumbs)) {
     breadcrumbs = category.breadcrumbs.map((breadcrumb) => ({
       text: breadcrumb.category_name,
-      link: `/c/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
+      link: `/${breadcrumb.category_url_path}${category.url_suffix || ''}`,
     } as Breadcrumb));
   }
 
   breadcrumbs.push({
     text: category.name,
-    link: `/c/${category.url_path}${category.url_suffix || ''}`,
+    link: `/${category.url_path}${category.url_suffix || ''}`,
   } as Breadcrumb);
 
   return breadcrumbs;
@@ -247,7 +247,7 @@ export const getBreadcrumbs = (product: ProductInterface, category?: CategoryInt
 
   breadcrumbs.push({
     text: getName(product),
-    link: getSlug(product) || '',
+    link: `/${product?.url_rewrites?.[0]?.url ?? product.url_key}`,
   });
 
   return breadcrumbs;

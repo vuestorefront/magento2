@@ -40,7 +40,7 @@
         class="products"
         :button-text="$t('See more')"
         :title="$t('New Products')"
-        link="/c/women.html"
+        link="/women.html"
       />
     </LoadWhenVisible>
     <LoadWhenVisible>
@@ -114,7 +114,7 @@ export default defineComponent({
         fit: 'cover',
         format: 'webp',
       },
-      link: '/c/women.html',
+      link: '/women.html',
     });
     const banners = ref([
       {
@@ -138,7 +138,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim desktop-only',
-        link: '/c/women/women-clothing-skirts',
+        link: '/women/women-clothing-skirts',
       },
       {
         slot: 'banner-B',
@@ -156,7 +156,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim banner-central desktop-only',
-        link: '/c/women/women-clothing-dresses',
+        link: '/women/women-clothing-dresses',
       },
       {
         slot: 'banner-C',
@@ -170,7 +170,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim banner__tshirt',
-        link: '/c/women/women-clothing-shirts',
+        link: '/women/women-clothing-shirts',
       },
       {
         slot: 'banner-D',
@@ -184,7 +184,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim',
-        link: '/c/women/women-shoes-sandals',
+        link: '/women/women-shoes-sandals',
       },
     ]);
     const callToAction = ref({

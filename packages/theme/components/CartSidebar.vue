@@ -105,13 +105,7 @@
                         $fc(cartGetters.getItemPrice(product).special)
                       : ''
                   "
-                  :link="
-                    localePath(
-                      `/p/${product.product.original_sku}${cartGetters.getSlug(
-                        product
-                      )}`
-                    )
-                  "
+                  :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
@@ -296,11 +290,13 @@ import {
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiState,
   useUiNotification,
   useExternalCheckout,
   useImage,
+  useProduct,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
@@ -333,6 +329,7 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
+    const { getProductPath } = useProduct();
     const {
       cart,
       removeItem,
@@ -423,12 +420,14 @@ export default defineComponent({
       totals,
       totalItems,
       cartGetters,
+      productGetters,
       getAttributes,
       getBundles,
       isInStock,
       imageSizes,
       getMagentoImage,
       discount,
+      getProductPath,
     };
   },
 });

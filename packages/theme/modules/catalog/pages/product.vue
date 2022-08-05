@@ -44,6 +44,7 @@ import { SfBreadcrumbs, SfLoader } from '@storefront-ui/vue';
 import { getBreadcrumbs } from '~/modules/catalog/product/getters/productGetters';
 import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import { getMetaInfo } from '~/helpers/getMetaInfo';
+import { usePageStore } from '~/stores/page';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 import { useApi } from '~/composables';
@@ -70,6 +71,7 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
+    const { routeData } = usePageStore();
     const { query } = useApi();
     const product = ref<Product | null>(null);
     const { addTags } = useCache();
@@ -77,7 +79,6 @@ export default defineComponent({
     const route = useRoute();
     const { getProductDetails, loading } = useProduct();
     const { error: nuxtError } = useContext();
-    const { params: { id } } = route.value;
 
     const breadcrumbs = computed(() => {
       const productCategories = product.value?.categories ?? [];
@@ -90,7 +91,7 @@ export default defineComponent({
     const getBaseSearchQuery = () => ({
       filter: {
         sku: {
-          eq: id,
+          eq: routeData.sku,
         },
       },
       configurations: Object.entries(route.value.query)
@@ -125,7 +126,7 @@ export default defineComponent({
       const tags = [
         {
           prefix: CacheTagPrefix.View,
-          value: `product-${id}`,
+          value: `product-${routeData.sku}`,
         },
       ];
 

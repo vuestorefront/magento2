@@ -120,6 +120,7 @@ import {
   useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import { usePageStore } from '~/stores/page';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {
@@ -130,7 +131,6 @@ import {
 } from '~/composables';
 
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useUrlResolver } from '~/composables/useUrlResolver';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
@@ -140,9 +140,8 @@ import { getMetaInfo } from '~/helpers/getMetaInfo';
 
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
-import { isCategoryTreeRoute } from '~/modules/GraphQL/CategoryTreeRouteTypeguard';
 
-import type { ProductInterface, CategoryTree } from '~/modules/GraphQL/types';
+import type { ProductInterface } from '~/modules/GraphQL/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 import type { Pagination } from '~/composables/types';
 import type { Product } from '~/modules/catalog/product/types';
@@ -165,6 +164,7 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
+    const { routeData } = usePageStore();
     const { getContentData } = useCategoryContent();
     const { loadCategoryMeta } = useCategory();
     const { addTags } = useCache();
@@ -178,7 +178,6 @@ export default defineComponent({
 
     const productContainerElement = ref<HTMLElement | null>(null);
 
-    const { search: resolveUrl } = useUrlResolver();
     const {
       toggleFilterSidebar,
       changeToCategoryListView,
@@ -204,19 +203,16 @@ export default defineComponent({
 
     const { activeCategory, loadCategoryTree } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
-    const routeData = ref<CategoryTree | null>(null);
 
     const { fetch } = useFetch(async () => {
       if (!activeCategory.value) {
         loadCategoryTree();
       }
-      const resolvedUrl = await resolveUrl();
-      if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
-      const categoryUid = routeData.value?.uid;
+      const categoryUid = routeData.uid;
 
       const [content, categoryMetaData] = await Promise.all([
-        getContentData(routeData.value?.uid),
+        getContentData(categoryUid as string),
         loadCategoryMeta({ category_uid: routeData.value?.uid }),
         search({ ...uiHelpers.getFacetsFromURL(), category_uid: categoryUid }),
       ]);
@@ -230,7 +226,7 @@ export default defineComponent({
       sortBy.value = facetGetters.getSortOptions(result.value);
       pagination.value = facetGetters.getPagination(result.value);
 
-      const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
+      const tags = [{ prefix: CacheTagPrefix.View, value: routeData.uid }];
       const productTags = products.value.map((product) => ({
         prefix: CacheTagPrefix.Product,
         value: product.uid,
