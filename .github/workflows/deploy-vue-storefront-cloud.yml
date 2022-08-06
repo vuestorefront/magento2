@@ -20,6 +20,9 @@ jobs:
       environment-middleware-url: ${{ steps.determine-environment.outputs.middleware-url}}
       deployment_id: ${{ steps.deployment.outputs.deployment_id }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
       - name: Determine environment-specific variables
         shell: bash
         run: |
@@ -54,7 +57,7 @@ jobs:
         id: deployment
         uses: chrnorm/deployment-action@v2
         with:
-          token: ${{ secrets.DEPLOYMENT_PERSONAL_ACCESS_TOKEN }}
+          token: ${{ github.token }}
           environment: ${{ env.ENVNAME }}
           initial-status: in_progress
 
