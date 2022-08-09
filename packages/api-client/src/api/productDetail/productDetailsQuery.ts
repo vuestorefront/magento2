@@ -129,6 +129,13 @@ export default gql`
             sku
           }
         }
+        ... on GroupedProduct {
+          items {
+            product {
+              sku
+            }
+          }
+        }
       }
     }
   }

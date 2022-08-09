@@ -156,12 +156,34 @@ export const addItemCommand = {
 
         Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
 
-        if (downloadableProduct.data.addProductsToCart.user_errors.length > 0) {
-          throw new Error(String(downloadableProduct.data.addProductsToCart.user_errors[0].message));
+        if (virtualProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(virtualProduct.data.addProductsToCart.user_errors[0].message));
         }
 
         // eslint-disable-next-line consistent-return
         return virtualProduct
+          .data
+          .addProductsToCart
+          .cart as unknown as Cart;
+      case 'GroupedProduct':
+        const groupedCartInput: AddProductsToCartInput = {
+          cartId,
+          cartItems: product.items.map((item) => ({
+            quantity,
+            sku: item.product.sku,
+          })),
+        };
+
+        const groupedProduct = await context.$magento.api.addProductsToCart(groupedCartInput, customQuery as CustomQuery);
+
+        Logger.debug('[Result GroupedProduct]:', { data: groupedProduct });
+
+        if (groupedProduct.data.addProductsToCart.user_errors.length > 0) {
+          throw new Error(String(groupedProduct.data.addProductsToCart.user_errors[0].message));
+        }
+
+        // eslint-disable-next-line consistent-return
+        return groupedProduct
           .data
           .addProductsToCart
           .cart as unknown as Cart;
