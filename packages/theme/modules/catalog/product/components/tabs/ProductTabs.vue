@@ -59,7 +59,10 @@
 </template>
 <script lang="ts">
 import {
-  computed, defineComponent, PropType, ref, useRoute,
+  computed,
+  defineComponent,
+  PropType,
+  ref,
 } from '@nuxtjs/composition-api';
 import {
   SfReview,
@@ -78,6 +81,7 @@ import reviewGetters, {
 import { useReview, UseReviewAddReviewParams } from '~/modules/review/composables/useReview';
 import { Product } from '~/modules/catalog/product/types';
 import { TabsConfig } from '~/modules/catalog/product/composables/useProductTabs';
+import { usePageStore } from '~/stores/page';
 
 export default defineComponent({
   name: 'ProductTabs',
@@ -99,20 +103,19 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const route = useRoute();
+    const { routeData } = usePageStore();
     const reviews = ref(null);
+    const isReviewsLoading = ref(true);
 
     const {
       search: searchReviews,
-      loading: isReviewsLoading,
       addReview,
     } = useReview();
 
-    const { params: { id } } = route.value;
     const getSearchQuery = () => ({
       filter: {
         sku: {
-          eq: id,
+          eq: routeData.sku,
         },
       },
     });
@@ -143,6 +146,7 @@ export default defineComponent({
         if (lastReviewsQuery !== stringNewQuery) {
           lastReviewsQuery = stringNewQuery;
           fetchReviews(newQuery);
+          isReviewsLoading.value = false;
         }
       }
       emit('changeTab', tabNumber);
