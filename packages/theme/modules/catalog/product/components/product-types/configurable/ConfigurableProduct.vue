@@ -212,6 +212,7 @@ import { Product } from '~/modules/catalog/product/types';
 import ProductTabs from '~/modules/catalog/product/components/tabs/ProductTabs.vue';
 import { useProductGallery } from '~/modules/catalog/product/composables/useProductGallery';
 import { TabsConfig, useProductTabs } from '~/modules/catalog/product/composables/useProductTabs';
+import { usePageStore } from '~/stores/page';
 
 export default defineComponent({
   name: 'ConfigurableProduct',
@@ -248,6 +249,7 @@ export default defineComponent({
     const product = toRef(props, 'product');
     const route = useRoute();
     const router = useRouter();
+    const { routeData } = usePageStore();
     const {
       addItem, error: cartError, loading: isCartLoading, canAddToCart,
     } = useCart();
@@ -270,11 +272,10 @@ export default defineComponent({
     const productPrice = computed(() => getConfigurableProductPriceCommand(props.product));
     const productSpecialPrice = computed(() => getConfigurableProductSpecialPriceCommand(props.product));
 
-    const { params: { id } } = route.value;
     const getBaseSearchQuery = () => ({
       filter: {
         sku: {
-          eq: id,
+          eq: routeData.sku,
         },
       },
       configurations: Object.entries(productConfiguration.value).map(
@@ -289,14 +290,14 @@ export default defineComponent({
       if (productConfiguration.value[label] === value) return;
 
       productConfiguration.value[label] = value;
-      const routeData = router.resolve({
+      const routerData = router.resolve({
         path: `${app.localePath(window.location.pathname)}`,
         query: {
           ...productConfiguration.value,
         },
       });
 
-      window.history.pushState({}, null, routeData.href);
+      window.history.pushState({}, null, routerData.href);
 
       emit('fetchProduct', { query: getBaseSearchQuery() });
     };

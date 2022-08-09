@@ -7,10 +7,11 @@
 </template>
 <script lang="ts">
 import {
-  defineComponent, ref, onMounted, useRoute,
+  defineComponent, ref, onMounted,
 } from '@nuxtjs/composition-api';
 import ProductsCarousel from '~/modules/catalog/product/components/ProductsCarousel.vue';
 import useUpsellProducts from '~/modules/catalog/product/composables/useUpsellProducts';
+import { usePageStore } from '~/stores/page';
 
 export default defineComponent({
   name: 'UpsellProducts',
@@ -18,8 +19,7 @@ export default defineComponent({
     ProductsCarousel,
   },
   setup() {
-    const route = useRoute();
-    const { params: { id } } = route.value;
+    const { routeData } = usePageStore();
     const { search, loading } = useUpsellProducts();
     const products = ref([]);
 
@@ -27,7 +27,7 @@ export default defineComponent({
       const baseSearchQuery = {
         filter: {
           sku: {
-            eq: id,
+            eq: routeData.sku,
           },
         },
       };

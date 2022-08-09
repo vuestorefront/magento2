@@ -117,7 +117,6 @@ import {
   ref,
   onBeforeMount,
   computed,
-  useRoute,
   useContext,
 } from '@nuxtjs/composition-api';
 import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
@@ -130,6 +129,7 @@ import userGetters from '~/modules/customer/getters/userGetters';
 import { useReview } from '~/modules/review/composables/useReview';
 import { useUser } from '~/modules/customer/composables/useUser';
 import type { ProductReviewRatingMetadata } from '~/modules/GraphQL/types';
+import { usePageStore } from '~/stores/page';
 
 extend('required', {
   ...required,
@@ -165,10 +165,7 @@ export default defineComponent({
   },
   emits: ['add-review'],
   setup(_, { emit }) {
-    const route = useRoute();
-    const {
-      params: { id },
-    } = route.value;
+    const { routeData } = usePageStore();
 
     // @ts-ignore
     const { $recaptcha, $config } = useContext();
@@ -182,7 +179,7 @@ export default defineComponent({
 
     const reviewSent = ref(false);
 
-    const form = ref(BASE_FORM(id));
+    const form = ref(BASE_FORM(routeData.sku));
 
     const metadata = ref<ProductReviewRatingMetadata[]>([]);
 
