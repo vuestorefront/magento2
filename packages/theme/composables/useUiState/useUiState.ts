@@ -1,7 +1,6 @@
 import { ComputedRef } from '@nuxtjs/composition-api';
 
 export interface StateInterface {
-  isCartSidebarOpen: boolean;
   isWishlistSidebarOpen: boolean;
   isLoginModalOpen: boolean;
   isNewsletterModalOpen: boolean;
@@ -19,11 +18,6 @@ export interface UseUiStateInterface {
    * Indicates whether the mobile menu is open
    */
   isMobileMenuOpen: ComputedRef<boolean>;
-
-  /**
-   * Indicates whether the cart sidebar is open
-   */
-  isCartSidebarOpen: ComputedRef<boolean>;
 
   /**
    * Indicates whether the wishlist sidebar is open
@@ -99,9 +93,4 @@ export interface UseUiStateInterface {
    * Toggles the visibility of the filter sidebar
    */
   toggleFilterSidebar(): void;
-
-  /**
-   * Toggles the visibility of the cart modal
-   */
-  toggleCartSidebar(): void;
 }

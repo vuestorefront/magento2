@@ -1,16 +1,16 @@
 import {
   computed, readonly, ref, useContext, useRoute,
 } from '@nuxtjs/composition-api';
-import { addItemCommand } from '~/modules/checkout/composables/useCart/commands/addItemCommand';
-import { applyCouponCommand } from '~/modules/checkout/composables/useCart/commands/applyCouponCommand';
-import { loadCartCommand } from '~/modules/checkout/composables/useCart/commands/loadCartCommand';
-import { loadTotalQtyCommand } from '~/modules/checkout/composables/useCart/commands/loadTotalQtyCommand';
-import { removeCouponCommand } from '~/modules/checkout/composables/useCart/commands/removeCouponCommand';
-import { removeItemCommand } from '~/modules/checkout/composables/useCart/commands/removeItemCommand';
-import { updateItemQtyCommand } from '~/modules/checkout/composables/useCart/commands/updateItemQtyCommand';
+import { addItemCommand } from '~/modules/cart/composables/useCart/commands/addItemCommand';
+import { applyCouponCommand } from '~/modules/cart/composables/useCart/commands/applyCouponCommand';
+import { loadCartCommand } from '~/modules/cart/composables/useCart/commands/loadCartCommand';
+import { loadTotalQtyCommand } from '~/modules/cart/composables/useCart/commands/loadTotalQtyCommand';
+import { removeCouponCommand } from '~/modules/cart/composables/useCart/commands/removeCouponCommand';
+import { removeItemCommand } from '~/modules/cart/composables/useCart/commands/removeItemCommand';
+import { updateItemQtyCommand } from '~/modules/cart/composables/useCart/commands/updateItemQtyCommand';
 import { Logger } from '~/helpers/logger';
 import { Cart, CartItemInterface, ProductInterface } from '~/modules/GraphQL/types';
-import { useCartStore } from '~/modules/checkout/stores/cart';
+import { useCartStore } from '~/modules/cart/stores/cart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { Product } from '~/modules/catalog/product/types';
 import { ComposableFunctionArgs } from '~/composables';

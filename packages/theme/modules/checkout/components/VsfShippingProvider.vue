@@ -78,8 +78,8 @@ import {
 
 import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
-import useCart from '~/modules/checkout/composables/useCart';
+import { getTotals } from '~/modules/cart/getters/cartGetters';
+import { useCart } from '~/modules/cart/composables/useCart';
 import useShippingProvider from '~/modules/checkout/composables/useShippingProvider';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 
@@ -110,7 +110,7 @@ export default defineComponent({
     } = useShippingProvider();
 
     const selectedShippingMethod = computed(() => state.value);
-    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const totals = computed(() => getTotals(cart.value));
     const isShippingMethodStepCompleted = computed(
       () => state.value?.method_code && !isLoading.value,
     );

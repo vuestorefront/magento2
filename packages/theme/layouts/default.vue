@@ -1,7 +1,6 @@
 <template>
   <div>
     <IconSprite />
-    <CartSidebar v-if="isCartSidebarOpen" />
     <WishlistSidebar v-if="isWishlistSidebarOpen" />
     <LoginModal
       v-if="isLoginModalOpen"
@@ -42,7 +41,6 @@ export default defineComponent({
     IconSprite,
     TopBar,
     AppFooter: () => import(/* webpackPrefetch: true */ '~/components/AppFooter.vue'),
-    CartSidebar: () => import(/* webpackPrefetch: true */ '~/components/CartSidebar.vue'),
     WishlistSidebar: () => import(/* webpackPrefetch: true */ '~/modules/wishlist/components/WishlistSidebar.vue'),
     LoginModal: () => import(/* webpackPrefetch: true */ '~/modules/customer/components/LoginModal/LoginModal.vue'),
     Notification: () => import(/* webpackPrefetch: true */ '~/components/Notification.vue'),
@@ -51,11 +49,10 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     const {
-      isCartSidebarOpen, isWishlistSidebarOpen, isLoginModalOpen, toggleLoginModal,
+      isWishlistSidebarOpen, isLoginModalOpen, toggleLoginModal,
     } = useUiState();
 
     return {
-      isCartSidebarOpen,
       isWishlistSidebarOpen,
       isLoginModalOpen,
       toggleLoginModal,

@@ -127,7 +127,7 @@ import {
   getAverageRating,
 } from '~/modules/review/getters/reviewGetters';
 
-import { useCart } from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import GroupedProductSelector from '~/modules/catalog/product/components/product-types/grouped/GroupedProductSelector.vue';
 import SvgImage from '~/components/General/SvgImage.vue';

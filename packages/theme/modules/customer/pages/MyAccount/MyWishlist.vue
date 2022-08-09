@@ -132,7 +132,7 @@ import productGetters from '~/modules/catalog/product/getters/productGetters';
 import type { Product } from '~/modules/catalog/product/types';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import wishlistGetters from '~/modules/wishlist/getters/wishlistGetters';
-import { useCart } from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
 import EmptyWishlist from '~/modules/wishlist/components/EmptyWishlist.vue';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';

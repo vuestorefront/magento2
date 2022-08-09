@@ -73,7 +73,7 @@ import {
   SfBar,
 } from '@storefront-ui/vue';
 import { useUiState } from '~/composables/useUiState';
-import { useCart } from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useForgotPassword } from '~/modules/customer/composables/useForgotPassword';
 import { useUser } from '~/modules/customer/composables/useUser';

@@ -2,7 +2,6 @@ import { computed, reactive } from '@nuxtjs/composition-api';
 import { StateInterface, UseUiStateInterface } from '~/composables/useUiState/useUiState';
 
 const state = reactive<StateInterface>({
-  isCartSidebarOpen: false,
   isWishlistSidebarOpen: false,
   isLoginModalOpen: false,
   isNewsletterModalOpen: false,
@@ -20,11 +19,6 @@ const state = reactive<StateInterface>({
 export function useUiState(): UseUiStateInterface {
   const toggleMobileMenu = () => {
     state.isMobileMenuOpen = !state.isMobileMenuOpen;
-  };
-
-  const toggleCartSidebar = () => {
-    if (state.isMobileMenuOpen) toggleMobileMenu();
-    state.isCartSidebarOpen = !state.isCartSidebarOpen;
   };
 
   const toggleWishlistSidebar = () => {
@@ -61,7 +55,6 @@ export function useUiState(): UseUiStateInterface {
 
   return {
     isMobileMenuOpen: computed(() => state.isMobileMenuOpen),
-    isCartSidebarOpen: computed(() => state.isCartSidebarOpen),
     isWishlistSidebarOpen: computed(() => state.isWishlistSidebarOpen),
     isLoginModalOpen: computed(() => state.isLoginModalOpen),
     isNewsletterModalOpen: computed(() => state.isNewsletterModalOpen),
@@ -69,7 +62,6 @@ export function useUiState(): UseUiStateInterface {
     isWishlistGridView: computed(() => state.isWishlistGridView),
     isFilterSidebarOpen: computed(() => state.isFilterSidebarOpen),
     toggleMobileMenu,
-    toggleCartSidebar,
     toggleWishlistSidebar,
     toggleLoginModal,
     toggleNewsletterModal,

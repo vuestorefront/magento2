@@ -1,10 +1,10 @@
 import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { placeOrderCommand } from '~/modules/checkout/composables/useMakeOrder/commands/placeOrderCommand';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import type { PlaceOrderOutput } from '~/modules/GraphQL/types';
-import type { UseMakeOrderErrors, UseMakeOrderInterface } from './useMakeOrder';
 import { ComposableFunctionArgs } from '~/composables';
+import type { UseMakeOrderErrors, UseMakeOrderInterface } from './useMakeOrder';
 
 /**
  * Allows making an order from a cart.

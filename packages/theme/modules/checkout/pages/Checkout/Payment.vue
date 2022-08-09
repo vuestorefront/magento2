@@ -27,8 +27,8 @@
         <SfTableData class="table__image">
           <SfImage
             image-tag="nuxt-img"
-            :src="getMagentoImage(cartGetters.getItemImage(product))"
-            :alt="cartGetters.getItemName(product)"
+            :src="getMagentoImage(getItemImage(product))"
+            :alt="getItemName(product)"
             :width="imageSizes.checkout.imageWidth"
             :height="imageSizes.checkout.imageHeight"
             :nuxt-img-config="{
@@ -38,10 +38,10 @@
         </SfTableData>
         <SfTableData class="table__data table__description table__data">
           <div class="product-title">
-            {{ cartGetters.getItemName(product) }}
+            {{ getItemName(product) }}
           </div>
           <div class="product-sku">
-            {{ cartGetters.getItemSku(product) }}
+            {{ getItemSku(product) }}
           </div>
           <template v-if="getAttributes(product).length > 0">
             <p
@@ -63,12 +63,12 @@
           </template>
         </SfTableData>
         <SfTableData class="table__data">
-          {{ cartGetters.getItemQty(product) }}
+          {{ getItemQty(product) }}
         </SfTableData>
         <SfTableData class="table__data price">
           <SfPrice
-            :regular="$fc(cartGetters.getItemPrice(product).regular)"
-            :special=" cartGetters.getItemPrice(product).special && $fc(getRowTotal(product)) "
+            :regular="$fc(getItemPrice(product).regular)"
+            :special=" getItemPrice(product).special && $fc(getRowTotal(product)) "
             class="product-price"
           />
         </SfTableData>
@@ -176,10 +176,20 @@ import {
   onMounted,
 } from '@nuxtjs/composition-api';
 
-import cartGetters from '~/modules/checkout/getters/cartGetters';
+import {
+  getDiscounts,
+  getItemPrice,
+  getItems,
+  getSelectedShippingMethod,
+  getTotals,
+  getItemImage,
+  getItemName,
+  getItemSku,
+  getItemQty,
+} from '~/modules/cart/getters/cartGetters';
 import { useImage } from '~/composables';
-import useMakeOrder from '~/modules/checkout/composables/useMakeOrder';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useMakeOrder } from '~/modules/checkout/composables/useMakeOrder';
+import { useCart } from '~/modules/cart/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';
@@ -234,17 +244,16 @@ export default defineComponent({
       await router.push(thankYouRoute);
     };
 
-    const discounts = computed(() => cartGetters.getDiscounts(cart.value));
+    const discounts = computed(() => getDiscounts(cart.value));
     const hasDiscounts = computed(() => discounts.value.length > 0);
     const discountsAmount = computed(
       () => -1 * discounts.value.reduce((a, el) => el.value + a, 0),
     );
 
     const { getMagentoImage, imageSizes } = useImage();
-    const getRowTotal = (product: CartItemInterface) => cartGetters.getItemPrice(product).regular - cartGetters.getItemPrice(product).special;
+    const getRowTotal = (product: CartItemInterface) => getItemPrice(product).regular - getItemPrice(product).special;
     return {
       cart,
-      cartGetters,
       discounts,
       hasDiscounts,
       discountsAmount,
@@ -252,16 +261,21 @@ export default defineComponent({
       isPaymentReady,
       loading,
       processOrder,
-      products: computed(() => cartGetters.getItems(cart.value)),
-      selectedShippingMethod: computed(() => cartGetters.getSelectedShippingMethod(cart.value)),
+      products: computed(() => getItems(cart.value)),
+      selectedShippingMethod: computed(() => getSelectedShippingMethod(cart.value)),
       tableHeaders: ['Description', 'Quantity', 'Amount'],
       terms,
-      totals: computed(() => cartGetters.getTotals(cart.value)),
+      totals: computed(() => getTotals(cart.value)),
       getAttributes,
       getBundles,
       getMagentoImage,
       imageSizes,
       getRowTotal,
+      getItemImage,
+      getItemName,
+      getItemSku,
+      getItemQty,
+      getItemPrice,
     };
   },
 });

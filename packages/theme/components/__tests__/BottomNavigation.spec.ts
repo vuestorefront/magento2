@@ -135,10 +135,15 @@ describe('BottomNavigation', () => {
     const useUserMockInstance = useUserMock({ isAuthenticated: ref(true) });
     (useUser as jest.Mock).mockReturnValueOnce(useUserMockInstance);
 
+    const routerPushMock = jest.fn();
+
     const { getByTestId } = render(
       BottomNavigation,
       {
         mocks: {
+          $router: {
+            push: routerPushMock,
+          },
           $route: {
             name: 'home',
           },
@@ -151,7 +156,7 @@ describe('BottomNavigation', () => {
     const cartButton = getByTestId('bottom-navigation-cart');
     userEvent.click(cartButton);
     await waitFor(() => {
-      expect(useUiStateMockInstance.toggleCartSidebar).toHaveBeenCalled();
+      expect(routerPushMock).toHaveBeenCalledWith({ name: 'cart' });
     });
   });
 });

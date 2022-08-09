@@ -69,7 +69,7 @@
             v-e2e="'app-header-cart'"
             class="sf-button--pure sf-header__action"
             aria-label="Toggle cart sidebar"
-            @click="toggleCartSidebar"
+            @click="handleCartClick"
           >
             <SvgImage
               icon="empty_cart"
@@ -128,7 +128,7 @@ import {
   useUiHelpers,
   useUiState,
 } from '~/composables';
-import { useCart } from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
@@ -156,7 +156,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
     const { app } = useContext();
-    const { toggleCartSidebar, toggleWishlistSidebar, toggleLoginModal } = useUiState();
+    const { toggleWishlistSidebar, toggleLoginModal } = useUiState();
     const { setTermForUrl, getCatLink } = useUiHelpers();
     const { isAuthenticated } = useUser();
     const { loadTotalQty: loadCartTotalQty, cart } = useCart();
@@ -181,6 +181,10 @@ export default defineComponent({
       } else {
         toggleLoginModal();
       }
+    };
+
+    const handleCartClick = async () => {
+      await router.push(app.localeRoute({ name: 'cart' }));
     };
 
     useFetch(async () => {
@@ -208,12 +212,12 @@ export default defineComponent({
       isSearchOpen,
       productSearchResults,
       setTermForUrl,
-      toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
       wishlistItemsQty,
       hasCurrencyToSelect,
       hasStoresToSelect,
+      handleCartClick,
     };
   },
 });

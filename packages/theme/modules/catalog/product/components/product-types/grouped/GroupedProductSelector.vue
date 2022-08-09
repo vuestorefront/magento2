@@ -73,7 +73,7 @@ import {
 import { getGroupedProductPriceCommand } from '~/modules/catalog/pricing/getGroupedProductPriceCommand';
 
 import { useImage } from '~/composables';
-import useCart from '~/modules/checkout/composables/useCart';
+import { useCart } from '~/modules/cart/composables/useCart';
 import type { WithTypename } from '~/modules/catalog/product/types';
 import type { GroupedProduct } from '~/modules/GraphQL/types';
 

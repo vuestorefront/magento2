@@ -53,8 +53,14 @@
 <script lang="ts">
 import { SfHeading, SfProperty, SfCharacteristic } from '@storefront-ui/vue';
 import { computed, ref, defineComponent } from '@nuxtjs/composition-api';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
-import useCart from '~/modules/checkout/composables/useCart';
+import {
+  getItems,
+  getTotalItems,
+  getTotals,
+  getDiscountAmount,
+  getSelectedShippingMethod,
+} from '~/modules/cart/getters/cartGetters';
+import { useCart } from '~/modules/cart/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import CouponCode from '../../../components/CouponCode.vue';
 
@@ -89,12 +95,12 @@ export default defineComponent({
 
     const listIsHidden = ref(false);
 
-    const products = computed(() => cartGetters.getItems(cart.value));
-    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const totals = computed(() => cartGetters.getTotals(cart.value));
-    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
+    const products = computed(() => getItems(cart.value));
+    const totalItems = computed(() => getTotalItems(cart.value));
+    const totals = computed(() => getTotals(cart.value));
+    const discount = computed(() => -getDiscountAmount(cart.value));
     const hasDiscounts = computed(() => Math.abs(discount.value) > 0);
-    const selectedShippingMethod = computed(() => cartGetters.getSelectedShippingMethod(cart.value));
+    const selectedShippingMethod = computed(() => getSelectedShippingMethod(cart.value));
 
     return {
       cart,
@@ -106,7 +112,6 @@ export default defineComponent({
       totals,
       removeItem,
       updateItemQty,
-      cartGetters,
       getShippingMethodPrice,
       characteristics: CHARACTERISTICS,
       selectedShippingMethod,

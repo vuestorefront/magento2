@@ -42,8 +42,8 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
-import useCart from '~/modules/checkout/composables/useCart';
+import { getItems } from '~/modules/cart/getters/cartGetters';
+import { useCart } from '~/modules/cart/composables/useCart';
 import CartPreview from '~/modules/checkout/components/CartPreview.vue';
 
 export default defineComponent({
@@ -58,7 +58,7 @@ export default defineComponent({
     const { path } = route.value;
     const router = useRouter();
     const { cart, load } = useCart();
-    const products = computed(() => cartGetters.getItems(cart.value));
+    const products = computed(() => getItems(cart.value));
     const currentStep = computed(() => path.split('/').pop());
 
     const STEPS = ref([
