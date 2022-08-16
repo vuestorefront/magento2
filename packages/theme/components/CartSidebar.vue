@@ -94,24 +94,18 @@
                   :key="product.product.original_sku + productIndex"
                   :has-more-actions="false"
                   data-testid="cart-sidebar-collected-product"
-                  :image="cartGetters.getItemImage(product)"
-                  :title="cartGetters.getItemName(product)"
+                  :image="getItemImage(product)"
+                  :title="getItemName(product)"
                   :regular-price="
-                    $fc(cartGetters.getItemPrice(product).regular)
+                    $fc(getItemPrice(product).regular)
                   "
                   :special-price="
-                    cartGetters.productHasSpecialPrice(product)
-                      ? cartGetters.getItemPrice(product).special &&
-                        $fc(cartGetters.getItemPrice(product).special)
+                    productHasSpecialPrice(product)
+                      ? getItemPrice(product).special &&
+                        $fc(getItemPrice(product).special)
                       : ''
                   "
-                  :link="
-                    localePath(
-                      `/p/${product.product.original_sku}${cartGetters.getSlug(
-                        product
-                      )}`
-                    )
-                  "
+                  :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
@@ -119,8 +113,8 @@
                   <template #image>
                     <SfImage
                       image-tag="nuxt-img"
-                      :src="getMagentoImage(cartGetters.getItemImage(product))"
-                      :alt="cartGetters.getItemName(product)"
+                      :src="getMagentoImage(getItemImage(product))"
+                      :alt="getItemName(product)"
                       :width="imageSizes.cart.imageWidth"
                       :height="imageSizes.cart.imageHeight"
                       class="sf-collected-product__image"
@@ -136,7 +130,7 @@
                     >
                       <SfQuantitySelector
                         :disabled="loading"
-                        :qty="cartGetters.getItemQty(product)"
+                        :qty="getItemQty(product)"
                         class="sf-collected-product__quantity-selector"
                         @input="delayedUpdateItemQty({ product, quantity: $event })"
                       />
@@ -303,12 +297,24 @@ import {
   onMounted,
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
+import {
+  getItems,
+  getTotals,
+  getDiscountAmount,
+  getTotalItems,
+  getItemName,
+  getStockStatus,
+  getItemImage,
+  getItemPrice,
+  productHasSpecialPrice,
+  getItemQty,
+} from '~/modules/checkout/getters/cartGetters';
 import {
   useUiState,
   useUiNotification,
   useExternalCheckout,
   useImage,
+  useProduct,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
@@ -341,6 +347,7 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
+    const { getProductPath } = useProduct();
     const {
       cart,
       removeItem,
@@ -350,8 +357,7 @@ export default defineComponent({
     } = useCart();
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
-    const products = computed(() => cartGetters
-      .getItems(cart.value)
+    const products = computed(() => getItems(cart.value)
       .filter(Boolean)
       .map((item) => ({
         ...item,
@@ -361,9 +367,9 @@ export default defineComponent({
           original_sku: item.product.sku,
         },
       })));
-    const totals = computed(() => cartGetters.getTotals(cart.value));
-    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
-    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
+    const totals = computed(() => getTotals(cart.value));
+    const discount = computed(() => -getDiscountAmount(cart.value));
+    const totalItems = computed(() => getTotalItems(cart.value));
     const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
     const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
     const visible = ref(false);
@@ -393,7 +399,7 @@ export default defineComponent({
       sendNotification({
         id: Symbol('product_removed'),
         message: i18n.t('{0} has been successfully removed from your cart', {
-          0: cartGetters.getItemName(
+          0: getItemName(
             product,
           ),
         }) as string,
@@ -407,7 +413,7 @@ export default defineComponent({
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
+    const isInStock = (product: CartItemInterface) => getStockStatus(product) === ProductStockStatus.InStock;
     return {
       sendToRemove,
       actionRemoveItem,
@@ -425,13 +431,18 @@ export default defineComponent({
       goToCheckout,
       totals,
       totalItems,
-      cartGetters,
       getAttributes,
       getBundles,
       isInStock,
       imageSizes,
       getMagentoImage,
       discount,
+      getProductPath,
+      getItemImage,
+      getItemName,
+      getItemPrice,
+      productHasSpecialPrice,
+      getItemQty,
     };
   },
 });

@@ -274,7 +274,6 @@ import {
   productHasSpecialPrice,
   getItemQty,
 } from '~/modules/checkout/getters/cartGetters';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiNotification,
   useExternalCheckout,
@@ -414,7 +413,6 @@ export default defineComponent({
       goToCheckout,
       totals,
       totalItems,
-      productGetters,
       getAttributes,
       getBundles,
       isInStock,
