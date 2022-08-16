@@ -186,10 +186,10 @@ import {
   getItemName,
   getItemSku,
   getItemQty,
-} from '~/modules/cart/getters/cartGetters';
+} from '~/modules/checkout/getters/cartGetters';
 import { useImage } from '~/composables';
 import { useMakeOrder } from '~/modules/checkout/composables/useMakeOrder';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import { removeItem } from '~/helpers/asyncLocalStorage';
 import { isPreviousStepValid } from '~/helpers/checkout/steps';

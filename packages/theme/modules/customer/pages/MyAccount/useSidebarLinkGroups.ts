@@ -1,7 +1,7 @@
 import type { RawLocation } from 'vue-router';
 import { useRouter, useContext } from '@nuxtjs/composition-api';
 import { useUser } from '~/modules/customer/composables/useUser';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 
 type LinkGroup = { title: string, items: LinkGroupItem[] };
 type LinkGroupItem = { label: string, link?: RawLocation, listeners?: Record<string, () => (Promise<void> | void)> };

@@ -148,7 +148,7 @@ import {
 } from 'vee-validate/dist/rules';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate';
 import { useGuestUser } from '~/composables';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { getItem, mergeItem } from '~/helpers/asyncLocalStorage';
 import { customerPasswordRegExp, invalidPasswordMsg } from '~/modules/customer/helpers/passwordValidation';

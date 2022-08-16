@@ -62,7 +62,7 @@
       <SfBottomNavigationItem
         :label="$t('Cart')"
         data-testid="bottom-navigation-cart"
-        @click="handleCartClick"
+        @click="toggleCartSidebar"
       >
         <template #icon>
           <SfCircleIcon aria-label="Go to cart">
@@ -100,6 +100,7 @@ export default defineComponent({
   },
   setup() {
     const {
+      toggleCartSidebar,
       toggleWishlistSidebar,
       toggleLoginModal,
       toggleMobileMenu,
@@ -125,10 +126,6 @@ export default defineComponent({
       }
     };
 
-    const handleCartClick = async () => {
-      await router.push(app.localeRoute({ name: 'cart' }));
-    };
-
     const loadCategoryMenu = async () => {
       const categories = useCategoryStore();
       if (categories.categories === null) {
@@ -145,7 +142,7 @@ export default defineComponent({
       loadCategoryMenu,
       handleAccountClick,
       handleHomeClick,
-      handleCartClick,
+      toggleCartSidebar,
     };
   },
 });

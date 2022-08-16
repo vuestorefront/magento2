@@ -273,7 +273,7 @@ import {
   getItemPrice,
   productHasSpecialPrice,
   getItemQty,
-} from '~/modules/cart/getters/cartGetters';
+} from '~/modules/checkout/getters/cartGetters';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiNotification,
@@ -281,7 +281,7 @@ import {
   useImage,
   useProduct,
 } from '~/composables';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
 import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';

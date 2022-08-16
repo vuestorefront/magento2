@@ -59,8 +59,8 @@ import {
   getTotals,
   getDiscountAmount,
   getSelectedShippingMethod,
-} from '~/modules/cart/getters/cartGetters';
-import { useCart } from '~/modules/cart/composables/useCart';
+} from '~/modules/checkout/getters/cartGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 import CouponCode from '../../../components/CouponCode.vue';
 

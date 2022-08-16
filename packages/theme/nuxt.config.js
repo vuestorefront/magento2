@@ -101,7 +101,6 @@ export default () => {
       '~/modules/catalog',
       '~/modules/customer',
       '~/modules/wishlist',
-      '~/modules/cart',
       '~/modules/checkout',
       '~/modules/review',
       ['nuxt-i18n', {

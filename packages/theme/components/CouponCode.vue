@@ -35,8 +35,8 @@ import {
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { getAppliedCoupon } from '~/modules/cart/getters/cartGetters';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { getAppliedCoupon } from '~/modules/checkout/getters/cartGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
   name: 'CouponCode',

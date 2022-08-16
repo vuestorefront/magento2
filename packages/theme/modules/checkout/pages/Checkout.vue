@@ -42,8 +42,8 @@ import {
   useContext,
   onMounted,
 } from '@nuxtjs/composition-api';
-import { getItems } from '~/modules/cart/getters/cartGetters';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { getItems } from '~/modules/checkout/getters/cartGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import CartPreview from '~/modules/checkout/components/CartPreview.vue';
 
 export default defineComponent({

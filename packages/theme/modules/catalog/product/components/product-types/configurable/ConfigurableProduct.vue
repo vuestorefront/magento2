@@ -200,7 +200,7 @@ import {
   getAverageRating,
 } from '~/modules/review/getters/reviewGetters';
 
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import SvgImage from '~/components/General/SvgImage.vue';
 import HTMLContent from '~/components/HTMLContent.vue';

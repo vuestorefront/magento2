@@ -78,8 +78,8 @@ import {
 
 import { computed, defineComponent, ref } from '@nuxtjs/composition-api';
 import type { PropType } from '@nuxtjs/composition-api';
-import { getTotals } from '~/modules/cart/getters/cartGetters';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { getTotals } from '~/modules/checkout/getters/cartGetters';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import useShippingProvider from '~/modules/checkout/composables/useShippingProvider';
 import getShippingMethodPrice from '~/helpers/checkout/getShippingMethodPrice';
 

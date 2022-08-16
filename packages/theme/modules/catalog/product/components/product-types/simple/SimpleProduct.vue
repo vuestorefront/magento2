@@ -154,7 +154,7 @@ import HTMLContent from '~/components/HTMLContent.vue';
 import AddToWishlist from '~/components/AddToWishlist.vue';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { Product } from '~/modules/catalog/product/types';
-import { useCart } from '~/modules/cart/composables/useCart';
+import { useCart } from '~/modules/checkout/composables/useCart';
 import ProductTabs from '~/modules/catalog/product/components/tabs/ProductTabs.vue';
 import { useProductGallery } from '~/modules/catalog/product/composables/useProductGallery';
 import { TabsConfig, useProductTabs } from '~/modules/catalog/product/composables/useProductTabs';

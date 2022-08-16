@@ -40,6 +40,11 @@ const nuxtModule : Module = function checkoutModule() {
           },
         ],
       },
+      {
+        name: 'cart',
+        path: '/cart',
+        component: path.resolve(moduleDir, 'pages/Cart.vue'),
+      },
     );
   });
 };
