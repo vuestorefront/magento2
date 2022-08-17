@@ -1,7 +1,7 @@
 import type { NuxtCookies, GetOptions } from 'cookie-universal-nuxt';
 import type { CookieSerializeOptions } from 'cookie';
-import { integrationPlugin } from '~/helpers/integrationPlugin';
-import { mapConfigToSetupObject } from '~/modules/core/helpers';
+import { integrationPlugin } from '~/modules/core/integrationPlugin';
+import { mapConfigToSetupObject } from '~/modules/core/helpers/mapConfigToSetupObject';
 import { defaultConfig } from '~/modules/core/defaultConfig';
 
 const moduleOptions = JSON.parse('<%= JSON.stringify(options) %>');
