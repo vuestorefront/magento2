@@ -41,7 +41,9 @@ export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtC
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const client = axios.create(config.axios);
-    const api = createProxiedApi({ givenApi: configuration.api || {}, client, tag });
+    const api = createProxiedApi({
+      givenApi: configuration.api || {}, client, tag, nuxtCtx,
+    });
 
     if ((nuxtCtx.app.i18n as any).cookieValues) {
       // @ts-ignore
