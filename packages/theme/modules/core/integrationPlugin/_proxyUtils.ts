@@ -26,7 +26,9 @@ export const createProxiedApi = ({
       .then((r) => r.data)
       .catch((err) => {
         Logger.debug(err);
-        return nuxtCtx.error({ statusCode: err.statusCode, message: err });
+        nuxtCtx.error({ statusCode: err.statusCode, message: err });
+
+        return {};
       });
   },
 });
