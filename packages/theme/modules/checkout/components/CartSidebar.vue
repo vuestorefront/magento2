@@ -276,7 +276,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   SfLoader,
   SfNotification,
@@ -291,29 +290,16 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  computed,
   defineComponent,
-  ref,
   useRouter,
   useContext,
-  onMounted,
 } from '@nuxtjs/composition-api';
-import { debounce } from 'lodash-es';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiState,
-  useUiNotification,
-  useExternalCheckout,
-  useImage,
-  useProduct,
 } from '~/composables';
-import { useCart } from '~/modules/checkout/composables/useCart';
-import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
-import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
-import { ProductStockStatus } from '~/modules/GraphQL/types';
 import CouponCode from '~/components/CouponCode.vue';
+import { useCartBaseSetup } from '~/modules/checkout/helpers/useCartBaseSetup';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -333,115 +319,19 @@ export default defineComponent({
     SfImage,
   },
   setup() {
-    const { app: { i18n } } = useContext();
-    const { initializeCheckout } = useExternalCheckout();
+    const cartBaseSetup = useCartBaseSetup();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
-    const { getProductPath } = useProduct();
-    const {
-      cart,
-      removeItem,
-      updateItemQty,
-      load: loadCart,
-      loading,
-    } = useCart();
-    const { isAuthenticated } = useUser();
-    const { send: sendNotification, notifications } = useUiNotification();
-
-    const products = computed(() => cartGetters
-      .getItems(cart.value)
-      .filter(Boolean)
-      .map((item) => ({
-        ...item,
-        product: {
-          ...item.product,
-          ...[(item as ConfigurableCartItem).configured_variant ?? {}],
-          original_sku: item.product.sku,
-        },
-      })));
-    const totals = computed(() => cartGetters.getTotals(cart.value));
-    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
-    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
-    const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
-    const visible = ref(false);
-    const tempProduct = ref();
-
-    onMounted(() => {
-      if (!cart.value.id) {
-        loadCart();
-      }
-    });
 
     const goToCart = async () => {
       await router.push(app.localeRoute({ name: 'cart' }));
     };
 
-    const goToCheckout = async () => {
-      const redirectUrl = initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(app.localePath(redirectUrl));
-    };
-
-    const sendToRemove = ({ product }: { product: CartItemInterface }) => {
-      if (notifications.value.length > 0) {
-        notifications.value[0].dismiss();
-      }
-      visible.value = true;
-      tempProduct.value = product;
-    };
-
-    const actionRemoveItem = async (product: CartItemInterface) => {
-      await removeItem({ product });
-      visible.value = false;
-
-      sendNotification({
-        id: Symbol('product_removed'),
-        message: i18n.t('{0} has been successfully removed from your cart', {
-          0: cartGetters.getItemName(
-            product,
-          ),
-        }) as string,
-        type: 'success',
-        icon: 'check',
-        persist: false,
-        title: 'Product removed',
-      });
-    };
-
-    const delayedUpdateItemQty = debounce(
-      (params) => updateItemQty(params),
-      1000,
-    );
-
-    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
-
     return {
-      sendToRemove,
-      actionRemoveItem,
-      loading,
-      isAuthenticated,
-      products,
-      removeItem,
-      delayedUpdateItemQty,
+      ...cartBaseSetup,
       isCartSidebarOpen,
-      notifications,
-      visible,
-      tempProduct,
       toggleCartSidebar,
-      goToCheckout,
-      totals,
-      totalItems,
-      cartGetters,
-      productGetters,
-      getAttributes,
-      getBundles,
-      isInStock,
-      imageSizes,
-      getMagentoImage,
-      discount,
-      getProductPath,
       goToCart,
     };
   },
