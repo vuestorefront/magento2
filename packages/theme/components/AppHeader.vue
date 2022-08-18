@@ -208,12 +208,12 @@ export default defineComponent({
       isSearchOpen,
       productSearchResults,
       setTermForUrl,
+      toggleCartSidebar,
       toggleWishlistSidebar,
       wishlistHasProducts,
       wishlistItemsQty,
       hasCurrencyToSelect,
       hasStoresToSelect,
-      toggleCartSidebar,
     };
   },
 });

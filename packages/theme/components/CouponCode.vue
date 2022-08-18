@@ -35,7 +35,7 @@ import {
   ref,
   defineComponent,
 } from '@nuxtjs/composition-api';
-import { getAppliedCoupon } from '~/modules/checkout/getters/cartGetters';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
 import { useCart } from '~/modules/checkout/composables/useCart';
 
 export default defineComponent({
@@ -51,7 +51,7 @@ export default defineComponent({
 
     const couponCodeUserInput = ref('');
 
-    const couponCodeAppliedToCart = computed(() => getAppliedCoupon(cart.value)?.code);
+    const couponCodeAppliedToCart = computed(() => cartGetters.getAppliedCoupon(cart.value)?.code);
     const isCouponCodeApplied = computed(() => couponCodeAppliedToCart.value !== undefined);
     const hasAnyError = computed(() => Object.values(error.value).some((value) => value !== null));
     const applyCouponMsg = computed<Error>(() => error.value.applyCoupon || error.value.removeCoupon || { message: '', name: 'apply-coupon' });

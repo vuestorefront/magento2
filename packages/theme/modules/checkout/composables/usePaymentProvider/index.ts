@@ -2,15 +2,15 @@ import { readonly, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
 import { setPaymentMethodOnCartCommand } from '~/modules/checkout/composables/usePaymentProvider/commands/setPaymentMethodOnCartCommand';
 import { getAvailablePaymentMethodsCommand } from '~/modules/checkout/composables/usePaymentProvider/commands/getAvailablePaymentMethodsCommand';
-import { useCart } from '~/modules/checkout/composables/useCart';
+import useCart from '~/modules/checkout/composables/useCart';
 
-import { CustomQuery } from '~/types/core';
 import type {
   UsePaymentProviderErrors,
   UsePaymentProviderInterface,
   UsePaymentProviderSaveParams,
   PaymentMethodParams,
 } from './usePaymentProvider';
+import { CustomQuery } from '~/types/core';
 
 /**
  * Allows loading the available payment

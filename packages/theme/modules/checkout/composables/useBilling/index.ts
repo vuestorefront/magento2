@@ -3,7 +3,7 @@ import { Logger } from '~/helpers/logger';
 import { BillingCartAddress, Maybe } from '~/modules/GraphQL/types';
 import { saveBillingAddressCommand } from '~/modules/checkout/composables/useBilling/commands/saveBillingAddressCommand';
 import useShippingProvider from '~/modules/checkout/composables/useShippingProvider';
-import { useCart } from '~/modules/checkout/composables/useCart';
+import useCart from '~/modules/checkout/composables/useCart';
 import type {
   UseBillingError,
   UseBillingInterface,

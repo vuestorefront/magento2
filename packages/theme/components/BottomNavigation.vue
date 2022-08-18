@@ -138,11 +138,11 @@ export default defineComponent({
       isAuthenticated,
       isMobileMenuOpen,
       toggleWishlistSidebar,
+      toggleCartSidebar,
       toggleMobileMenu,
       loadCategoryMenu,
       handleAccountClick,
       handleHomeClick,
-      toggleCartSidebar,
     };
   },
 });

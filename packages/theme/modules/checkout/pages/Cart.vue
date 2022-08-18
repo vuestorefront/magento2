@@ -27,15 +27,15 @@
                       :key="product.product.original_sku + productIndex"
                       :has-more-actions="false"
                       data-testid="cart-sidebar-collected-product"
-                      :image="getItemImage(product)"
-                      :title="getItemName(product)"
+                      :image="cartGetters.getItemImage(product)"
+                      :title="cartGetters.getItemName(product)"
                       :regular-price="
-                        $fc(getItemPrice(product).regular)
+                        $fc(cartGetters.getItemPrice(product).regular)
                       "
                       :special-price="
-                        productHasSpecialPrice(product)
-                          ? getItemPrice(product).special &&
-                            $fc(getItemPrice(product).special)
+                        cartGetters.productHasSpecialPrice(product)
+                          ? cartGetters.getItemPrice(product).special &&
+                            $fc(cartGetters.getItemPrice(product).special)
                           : ''
                       "
                       :link="localePath(getProductPath(product.product))"
@@ -46,8 +46,8 @@
                       <template #image>
                         <SfImage
                           image-tag="nuxt-img"
-                          :src="getMagentoImage(getItemImage(product))"
-                          :alt="getItemName(product)"
+                          :src="getMagentoImage(cartGetters.getItemImage(product))"
+                          :alt="cartGetters.getItemName(product)"
                           :width="imageSizes.cart.imageWidth"
                           :height="imageSizes.cart.imageHeight"
                           class="sf-collected-product__image"
@@ -63,7 +63,7 @@
                         >
                           <SfQuantitySelector
                             :disabled="loading"
-                            :qty="getItemQty(product)"
+                            :qty="cartGetters.getItemQty(product)"
                             class="sf-collected-product__quantity-selector"
                             @input="delayedUpdateItemQty({ product, quantity: $event })"
                           />
@@ -238,6 +238,7 @@
     </div>
   </div>
 </template>
+
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
@@ -262,18 +263,7 @@ import {
   onMounted,
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
-import {
-  getItems,
-  getTotals,
-  getDiscountAmount,
-  getTotalItems,
-  getStockStatus,
-  getItemName,
-  getItemImage,
-  getItemPrice,
-  productHasSpecialPrice,
-  getItemQty,
-} from '~/modules/checkout/getters/cartGetters';
+import cartGetters from '~/modules/checkout/getters/cartGetters';
 import {
   useUiNotification,
   useExternalCheckout,
@@ -333,7 +323,8 @@ export default defineComponent({
       },
     ]);
 
-    const products = computed(() => getItems(cart.value)
+    const products = computed(() => cartGetters
+      .getItems(cart.value)
       .filter(Boolean)
       .map((item) => ({
         ...item,
@@ -343,9 +334,9 @@ export default defineComponent({
           original_sku: item.product.sku,
         },
       })));
-    const totals = computed(() => getTotals(cart.value));
-    const discount = computed(() => -getDiscountAmount(cart.value));
-    const totalItems = computed(() => getTotalItems(cart.value));
+    const totals = computed(() => cartGetters.getTotals(cart.value));
+    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
+    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
     const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
     const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
     const visible = ref(false);
@@ -382,7 +373,7 @@ export default defineComponent({
       sendNotification({
         id: Symbol('product_removed'),
         message: i18n.t('{0} has been successfully removed from your cart', {
-          0: getItemName(
+          0: cartGetters.getItemName(
             product,
           ),
         }) as string,
@@ -392,11 +383,13 @@ export default defineComponent({
         title: 'Product removed',
       });
     };
+
     const delayedUpdateItemQty = debounce(
       (params) => updateItemQty(params),
       1000,
     );
-    const isInStock = (product: CartItemInterface) => getStockStatus(product) === ProductStockStatus.InStock;
+
+    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
 
     return {
       breadcrumbs,
@@ -413,6 +406,7 @@ export default defineComponent({
       goToCheckout,
       totals,
       totalItems,
+      cartGetters,
       getAttributes,
       getBundles,
       isInStock,
@@ -421,23 +415,21 @@ export default defineComponent({
       discount,
       getProductPath,
       handleHomeClick,
-      getItemName,
-      getItemImage,
-      getItemPrice,
-      productHasSpecialPrice,
-      getItemQty,
     };
   },
 });
 </script>
+
 <style lang="scss" scoped>
 .cart-summary {
   padding-bottom: var(--spacer-sm);
 }
+
 .container {
   padding-left: var(--spacer-sm);
   padding-right: var(--spacer-sm);
 }
+
 .content {
   flex: 1;
 
@@ -445,6 +437,7 @@ export default defineComponent({
     padding-right: var(--spacer-sm);
   }
 }
+
 .sidebar {
   @include for-desktop {
     padding-left: var(--spacer-sm);
@@ -452,6 +445,7 @@ export default defineComponent({
     width: 100%;
   }
 }
+
 .breadcrumbs {
   @include for-mobile {
     margin-top: var(--spacer-lg)
@@ -468,8 +462,10 @@ export default defineComponent({
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 99999;
+
   .sf-notification {
     padding: 20px;
+
     .button-wrap {
       margin-top: 15px;
       display: flex;
@@ -571,12 +567,14 @@ export default defineComponent({
 
   &:hover {
     --collected-product-configuration-display: initial;
+
     @include for-desktop {
       .collected-product__properties {
         display: none;
       }
     }
   }
+
   .sf-badge__absolute {
     position: absolute;
     left: 0;
