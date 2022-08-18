@@ -288,6 +288,7 @@ export default () => {
 
   if (process.env.NODE_ENV === 'development' || process.env.VSF_NUXT_APP_ENV === 'development') {
     baseConfig.server = {
+      ...baseConfig.server,
       https: {
         key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
         cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
