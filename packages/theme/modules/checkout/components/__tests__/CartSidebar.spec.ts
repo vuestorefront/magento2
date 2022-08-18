@@ -123,7 +123,7 @@ describe('CartSidebar', () => {
       userEvent.click(goToCartButton);
 
       await waitFor(() => {
-        expect(mockedRouterPush).toHaveBeenCalledWith('/cart');
+        expect(mockedRouterPush).toHaveBeenCalledWith({ name: 'cart' });
       });
     });
 

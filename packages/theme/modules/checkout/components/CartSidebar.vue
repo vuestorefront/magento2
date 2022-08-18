@@ -105,13 +105,7 @@
                         $fc(cartGetters.getItemPrice(product).special)
                       : ''
                   "
-                  :link="
-                    localePath(
-                      `/p/${product.product.original_sku}${cartGetters.getSlug(
-                        product
-                      )}`
-                    )
-                  "
+                  :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
                   @click:remove="sendToRemove({ product })"
@@ -258,6 +252,7 @@
             </a>
             <a @click="goToCart">
               <SfButton
+                data-testid="category-sidebar-go-to-cart"
                 class="sf-button--full-width sidebar-go-to-cart"
                 @click="toggleCartSidebar"
               >
@@ -305,11 +300,13 @@ import {
 } from '@nuxtjs/composition-api';
 import { debounce } from 'lodash-es';
 import cartGetters from '~/modules/checkout/getters/cartGetters';
+import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiState,
   useUiNotification,
   useExternalCheckout,
   useImage,
+  useProduct,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
@@ -342,6 +339,7 @@ export default defineComponent({
     const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
+    const { getProductPath } = useProduct();
     const {
       cart,
       removeItem,
@@ -351,6 +349,7 @@ export default defineComponent({
     } = useCart();
     const { isAuthenticated } = useUser();
     const { send: sendNotification, notifications } = useUiNotification();
+
     const products = computed(() => cartGetters
       .getItems(cart.value)
       .filter(Boolean)
@@ -396,6 +395,7 @@ export default defineComponent({
     const actionRemoveItem = async (product: CartItemInterface) => {
       await removeItem({ product });
       visible.value = false;
+
       sendNotification({
         id: Symbol('product_removed'),
         message: i18n.t('{0} has been successfully removed from your cart', {
@@ -434,12 +434,14 @@ export default defineComponent({
       totals,
       totalItems,
       cartGetters,
+      productGetters,
       getAttributes,
       getBundles,
       isInStock,
       imageSizes,
       getMagentoImage,
       discount,
+      getProductPath,
       goToCart,
     };
   },
