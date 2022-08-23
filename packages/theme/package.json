@@ -38,6 +38,7 @@
     "@pinia/nuxt": "^0.1.9",
     "@storefront-ui/vue": "^0.13.3",
     "@vue-storefront/cache": "~2.7.1",
+    "@vue-storefront/http-cache": "^2.7.1",
     "@vue-storefront/magento-api": "^1.0.1",
     "@vue-storefront/middleware": "~2.7.1",
     "@vue-storefront/nuxt": "~2.7.1",
