@@ -59,7 +59,10 @@
 </template>
 <script lang="ts">
 import {
-  computed, defineComponent, PropType, ref,
+  computed,
+  defineComponent,
+  PropType,
+  ref,
 } from '@nuxtjs/composition-api';
 import {
   SfReview,
@@ -102,10 +105,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const { routeData } = usePageStore();
     const reviews = ref(null);
+    const isReviewsLoading = ref(true);
 
     const {
       search: searchReviews,
-      loading: isReviewsLoading,
       addReview,
     } = useReview();
 
@@ -143,6 +146,7 @@ export default defineComponent({
         if (lastReviewsQuery !== stringNewQuery) {
           lastReviewsQuery = stringNewQuery;
           fetchReviews(newQuery);
+          isReviewsLoading.value = false;
         }
       }
       emit('changeTab', tabNumber);
