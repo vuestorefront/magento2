@@ -40,7 +40,7 @@
         <div class="notifications">
           <SfNotification
             v-if="!loading"
-            :visible="visible"
+            :visible="isRemoveModalVisible"
             :title="$t('Are you sure?')"
             :message="$t('Are you sure you would like to remove this item from the shopping cart?')"
             type="secondary"
@@ -50,11 +50,11 @@
                 <SfButton
                   class="sf-button_remove_item"
                   data-testid="cart-sidebar-remove-item-yes"
-                  @click="actionRemoveItem(tempProduct)"
+                  @click="removeItemAndSendNotification(itemToRemove)"
                 >
                   {{ $t('Yes') }}
                 </SfButton>
-                <SfButton @click="visible = false">
+                <SfButton @click="isRemoveModalVisible = false">
                   {{ $t('Cancel') }}
                 </SfButton>
               </div>
@@ -108,7 +108,7 @@
                   :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
-                  @click:remove="sendToRemove({ product })"
+                  @click:remove="showRemoveItemModal({ product })"
                 >
                   <template #image>
                     <SfImage
@@ -299,7 +299,7 @@ import {
 } from '~/composables';
 import SvgImage from '~/components/General/SvgImage.vue';
 import CouponCode from '~/components/CouponCode.vue';
-import { useCartBaseSetup } from '~/modules/checkout/helpers/useCartBaseSetup';
+import { useCartView } from '~/modules/checkout/composables/useCartView';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -319,7 +319,7 @@ export default defineComponent({
     SfImage,
   },
   setup() {
-    const cartBaseSetup = useCartBaseSetup();
+    const cartView = useCartView();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
     const router = useRouter();
     const { app } = useContext();
@@ -329,7 +329,7 @@ export default defineComponent({
     };
 
     return {
-      ...cartBaseSetup,
+      ...cartView,
       isCartSidebarOpen,
       toggleCartSidebar,
       goToCart,

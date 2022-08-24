@@ -13,13 +13,19 @@ import {
   useExternalCheckout,
   useImage,
   useProduct,
+  UseCartViewInterface,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
 import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
 import { ProductStockStatus } from '~/modules/GraphQL/types';
 
-export function useCartBaseSetup() {
+/**
+ * Allows loading and manipulating cart view.
+ *
+ * See the {@link UseCartViewInterface} for a list of methods and values available in this composable.
+ */
+export function useCartView(): UseCartViewInterface {
   const { localePath, app: { i18n } } = useContext();
   const { initializeCheckout } = useExternalCheckout();
   const { getMagentoImage, imageSizes } = useImage();
@@ -51,8 +57,8 @@ export function useCartBaseSetup() {
   const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
   const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
   const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
-  const visible = ref(false);
-  const tempProduct = ref();
+  const isRemoveModalVisible = ref(false);
+  const itemToRemove = ref<CartItemInterface>();
 
   onMounted(() => {
     if (!cart.value.id) {
@@ -65,18 +71,18 @@ export function useCartBaseSetup() {
     await router.push(localePath(redirectUrl));
   };
 
-  const sendToRemove = ({ product }: { product: CartItemInterface }) => {
+  const showRemoveItemModal = ({ product }: { product: CartItemInterface }) => {
     if (notifications.value.length > 0) {
       notifications.value[0].dismiss();
     }
 
-    visible.value = true;
-    tempProduct.value = product;
+    isRemoveModalVisible.value = true;
+    itemToRemove.value = product;
   };
 
-  const actionRemoveItem = async (product: CartItemInterface) => {
+  const removeItemAndSendNotification = async (product: CartItemInterface) => {
     await removeItem({ product });
-    visible.value = false;
+    isRemoveModalVisible.value = false;
 
     sendNotification({
       id: Symbol('product_removed'),
@@ -100,26 +106,27 @@ export function useCartBaseSetup() {
   const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
 
   return {
-    sendToRemove,
-    actionRemoveItem,
-    loading,
-    isAuthenticated,
-    products,
-    removeItem,
+    showRemoveItemModal,
+    removeItemAndSendNotification,
     delayedUpdateItemQty,
-    notifications,
-    visible,
-    tempProduct,
     goToCheckout,
-    totals,
-    totalItems,
-    cartGetters,
     getAttributes,
     getBundles,
     isInStock,
-    imageSizes,
     getMagentoImage,
-    discount,
     getProductPath,
+    loading,
+    isAuthenticated,
+    products,
+    isRemoveModalVisible,
+    itemToRemove,
+    totals,
+    totalItems,
+    imageSizes,
+    discount,
+    cartGetters,
   };
 }
+
+export default useCartView;
+export * from './useCartView';

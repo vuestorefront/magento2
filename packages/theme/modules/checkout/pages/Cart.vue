@@ -41,7 +41,7 @@
                       :link="localePath(getProductPath(product.product))"
                       class="collected-product"
                       @input="delayedUpdateItemQty({ product, quantity: $event })"
-                      @click:remove="sendToRemove({ product })"
+                      @click:remove="showRemoveItemModal({ product })"
                     >
                       <template #image>
                         <SfImage
@@ -210,7 +210,7 @@
         <div class="notifications">
           <SfNotification
             v-if="!loading"
-            :visible="visible"
+            :visible="isRemoveModalVisible"
             :title="$t('Are you sure?')"
             :message="$t('Are you sure you would like to remove this item from the shopping cart?')"
             type="secondary"
@@ -220,11 +220,11 @@
                 <SfButton
                   class="sf-button_remove_item"
                   data-testid="cart-sidebar-remove-item-yes"
-                  @click="actionRemoveItem(tempProduct)"
+                  @click="removeItemAndSendNotification(itemToRemove)"
                 >
                   {{ $t('Yes') }}
                 </SfButton>
-                <SfButton @click="visible = false">
+                <SfButton @click="isRemoveModalVisible = false">
                   {{ $t('Cancel') }}
                 </SfButton>
               </div>
@@ -262,7 +262,7 @@ import {
 import SvgImage from '~/components/General/SvgImage.vue';
 import { Breadcrumb } from '~/modules/catalog/types';
 import CouponCode from '../../../components/CouponCode.vue';
-import { useCartBaseSetup } from '~/modules/checkout/helpers/useCartBaseSetup';
+import { useCartView } from '~/modules/checkout/composables/useCartView';
 
 export default defineComponent({
   name: 'CartPage',
@@ -282,7 +282,7 @@ export default defineComponent({
     SfImage,
   },
   setup() {
-    const cartBaseSetup = useCartBaseSetup();
+    const cartView = useCartView();
     const { localePath, app: { i18n } } = useContext();
     const router = useRouter();
 
@@ -302,7 +302,7 @@ export default defineComponent({
     };
 
     return {
-      ...cartBaseSetup,
+      ...cartView,
       breadcrumbs,
       handleHomeClick,
     };
