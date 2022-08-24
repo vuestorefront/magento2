@@ -16,11 +16,3 @@ export const getLocaleSettings = (app: NuxtAppOptions, moduleOptions: Record<str
     country: localeSettings.country || moduleOptions.country || defaultConfig.country || undefined,
   };
 };
-
-export const mapConfigToSetupObject = ({ app, moduleOptions, additionalProperties = {} } :
-{ app: NuxtAppOptions, moduleOptions: Record<string, unknown>, additionalProperties: Record<string, unknown> }) => ({
-  ...defaultConfig,
-  ...moduleOptions,
-  ...additionalProperties,
-  ...getLocaleSettings(app, moduleOptions, additionalProperties),
-});

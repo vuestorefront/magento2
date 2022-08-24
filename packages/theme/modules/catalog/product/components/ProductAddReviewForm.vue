@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="reviewSent && !error.addReview">
-      <p>Your review was submitted!</p>
+      <p>{{ $t('You submitted your review for moderation.') }}</p>
     </div>
     <div v-else-if="error.addReview">
       <p>{{ error.addReview }}</p>

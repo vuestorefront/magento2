@@ -23,7 +23,7 @@ import {
   useContext,
 } from '@nuxtjs/composition-api';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import type { MetaInfo } from 'vue-meta';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
 import { useContent } from '~/composables';
 import type { CmsPage } from '~/modules/GraphQL/types';
 import { usePageStore } from '~/stores/page';
@@ -60,24 +60,8 @@ export default defineComponent({
       loading,
     };
   },
-  head() : MetaInfo {
-    if (!this.page) {
-      return null;
-    }
-
-    const title = this.page?.meta_title ? this.page.meta_title : this.page.title;
-    const meta = [];
-    if (this.page.meta_description) {
-      meta.push({
-        hid: 'description',
-        name: 'description',
-        content: this.page.meta_description,
-      });
-    }
-    return {
-      title,
-      meta,
-    };
+  head() {
+    return getMetaInfo(this.page);
   },
 });
 </script>
