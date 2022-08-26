@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16-alpine
 
 ARG LAST_COMMIT
 ARG NPM_USER
@@ -76,12 +76,18 @@ WORKDIR /var/www
 COPY . .
 
 RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.config.js && cp .vuestorefrontcloud/docker/nuxt.config.additional.js /var/www/packages/theme/nuxt.config.js
-
-RUN yarn install
-
 RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing @nuxtjs/sentry
 
-RUN yarn build && yarn cache clean --all
+## Install and build
+RUN apk add --no-cache --virtual .gyp \
+        python3 \
+        make \
+        g++ \
+    && yarn install \
+    && yarn cache clean --all \
+    && apk del .gyp \
+    && rm -rf ./packages/api-client/src
+
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
 RUN chmod a+x /usr/local/bin/vue-storefront.sh
