@@ -13,10 +13,10 @@ import {
   useExternalCheckout,
   useImage,
   useProduct,
-  UseCartViewInterface,
 } from '~/composables';
 import { useCart } from '~/modules/checkout/composables/useCart';
 import { useUser } from '~/modules/customer/composables/useUser';
+import type { UseCartViewInterface } from '~/modules/checkout/composables/useCartView/useCartView';
 import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
 import { ProductStockStatus } from '~/modules/GraphQL/types';
 

@@ -9,3 +9,4 @@ export * from './useUser';
 export * from './useUserBilling';
 export * from './useReview';
 export * from './cartGetters';
+export * from './useCartView';

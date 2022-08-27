@@ -5,10 +5,10 @@ import { createLocalVue } from '@vue/test-utils';
 import { PiniaVuePlugin } from 'pinia';
 import { createTestingPinia } from '@pinia/testing';
 import { useUser } from '~/modules/customer/composables/useUser';
-import { useCart, useUiState } from '~/composables';
+import { useCart, useUiState, useCartView } from '~/composables';
 
 import {
-  useCartMock, useUserMock, useUiStateMock, useEmptyCartMock,
+  useCartMock, useUserMock, useUiStateMock, useEmptyCartMock, useCartViewMock,
 } from '~/tests/unit/test-utils';
 import CartSidebar from '~/modules/checkout/components/CartSidebar.vue';
 
@@ -20,9 +20,11 @@ jest.mock('~/composables', () => ({
 
 jest.mock('~/modules/customer/composables/useUser');
 jest.mock('~/modules/checkout/composables/useCart');
+jest.mock('~/modules/checkout/composables/useCartView');
 
 (useUser as jest.Mock).mockReturnValue(useUserMock());
 (useCart as jest.Mock).mockReturnValue(useCartMock());
+(useCartView as jest.Mock).mockReturnValue(useCartViewMock());
 
 const localVue = createLocalVue();
 localVue.use(PiniaVuePlugin);
@@ -41,6 +43,7 @@ describe('CartSidebar', () => {
     describe('And the cart sidebar is open', () => {
       it('renders empty state', () => {
         (useUiState as jest.Mock).mockReturnValue(useUiStateMock({ isCartSidebarOpen: true }));
+        (useCartView as jest.Mock).mockReturnValue(useCartViewMock({ totalItems: 0 }));
         const { queryByText } = render(CartSidebar, { localVue, pinia: createTestingPinia() });
         expect(queryByText('Your cart is empty')).toBeTruthy();
       });
@@ -62,6 +65,7 @@ describe('CartSidebar', () => {
   describe('If the cart has three products', () => {
     beforeAll(() => {
       (useCart as jest.Mock).mockReturnValue(useCartMock());
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMock());
       (useUiState as jest.Mock).mockReturnValue(useUiStateMock({ isCartSidebarOpen: true }));
     });
 
@@ -82,6 +86,8 @@ describe('CartSidebar', () => {
     });
 
     it('handles navigating to checkout', async () => {
+      const useCartViewMockInstance = useCartViewMock();
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMockInstance);
       const mockedRouterPush = jest.fn();
       const { getByTestId } = render(
         CartSidebar,
@@ -100,7 +106,7 @@ describe('CartSidebar', () => {
       userEvent.click(goToCheckoutButton);
 
       await waitFor(() => {
-        expect(mockedRouterPush).toHaveBeenCalledWith('/checkout-url');
+        expect(useCartViewMockInstance.goToCheckout).toBeCalledTimes(1);
       });
     });
 
@@ -128,8 +134,8 @@ describe('CartSidebar', () => {
     });
 
     it('shows configurable options', async () => {
-      const useCartMockInstance = useCartMock();
-      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+      const useCartViewMockInstance = useCartViewMock();
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMockInstance);
 
       const { getAllByTestId } = render(
         CartSidebar,
@@ -139,7 +145,7 @@ describe('CartSidebar', () => {
         },
       );
 
-      const [{ configurable_options: attributes }] = useCartMockInstance.cart.value.items;
+      const [{ configurable_options: attributes }] = useCartViewMockInstance.products;
 
       await waitFor(() => {
         const attributeContainer = getAllByTestId('cart-sidebar-attribute-container')[0];
@@ -150,8 +156,8 @@ describe('CartSidebar', () => {
     });
 
     it('shows products from bundle', async () => {
-      const useCartMockInstance = useCartMock();
-      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+      const useCartViewMockInstance = useCartViewMock();
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMockInstance);
 
       const { getByTestId } = render(
         CartSidebar,
@@ -161,7 +167,7 @@ describe('CartSidebar', () => {
         },
       );
 
-      const { bundle_options: bundleOptions } = useCartMockInstance.cart.value.items[2];
+      const { bundle_options: bundleOptions } = useCartViewMockInstance.products[2];
 
       await waitFor(() => {
         const bundleContainer = getByTestId('cart-sidebar-bundle-container');
@@ -172,8 +178,8 @@ describe('CartSidebar', () => {
     });
 
     it('increases product quantity', async () => {
-      const useCartMockInstance = useCartMock();
-      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+      const useCartViewMockInstance = useCartViewMock();
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMockInstance);
 
       const { getAllByTestId } = render(
         CartSidebar,
@@ -188,8 +194,8 @@ describe('CartSidebar', () => {
       userEvent.click(increaseQuantityButton);
 
       await waitFor(() => {
-        const { uid: uidOfSecondProduct } = useCartMockInstance.cart.value.items[1];
-        expect(useCartMockInstance.updateItemQty).toHaveBeenCalledWith({
+        const { uid: uidOfSecondProduct } = useCartViewMockInstance.products[1];
+        expect(useCartViewMockInstance.delayedUpdateItemQty).toHaveBeenCalledWith({
           product: expect.objectContaining({ uid: uidOfSecondProduct }),
           quantity: 2,
         });
@@ -197,8 +203,8 @@ describe('CartSidebar', () => {
     });
 
     it('removes products from cart', async () => {
-      const useCartMockInstance = useCartMock();
-      (useCart as jest.Mock).mockReturnValue(useCartMockInstance);
+      const useCartViewMockInstance = useCartViewMock();
+      (useCartView as jest.Mock).mockReturnValue(useCartViewMockInstance);
       const { getByTestId, getAllByTestId } = render(
         CartSidebar,
         {
@@ -209,12 +215,7 @@ describe('CartSidebar', () => {
       userEvent.click(getAllByTestId('collected-product-desktop-remove')[0]);
       userEvent.click(getByTestId('cart-sidebar-remove-item-yes'));
       await waitFor(() => {
-        const { uid: uidOfFirstProduct } = useCartMockInstance.cart.value.items[0];
-        expect(useCartMockInstance.removeItem).toHaveBeenCalledWith(
-          {
-            product: expect.objectContaining({ uid: uidOfFirstProduct }),
-          },
-        );
+        expect(useCartViewMockInstance.removeItemAndSendNotification).toHaveBeenCalledWith(useCartViewMockInstance.itemToRemove);
       });
     });
 
