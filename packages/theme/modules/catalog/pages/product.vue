@@ -46,8 +46,8 @@ import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import { getMetaInfo } from '~/helpers/getMetaInfo';
 import { usePageStore } from '~/stores/page';
 import { ProductTypeEnum } from '~/modules/catalog/product/enums/ProductTypeEnum';
+import { useWishlist, useApi } from '~/composables';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
-import { useApi } from '~/composables';
 import type { Product } from '~/modules/catalog/product/types';
 import type { ProductDetailsQuery } from '~/modules/GraphQL/types';
 import ProductSkeleton from '~/modules/catalog/product/components/ProductSkeleton.vue';
@@ -79,7 +79,7 @@ export default defineComponent({
     const route = useRoute();
     const { getProductDetails, loading } = useProduct();
     const { error: nuxtError } = useContext();
-
+    const { load: loadWishlist } = useWishlist();
     const breadcrumbs = computed(() => {
       const productCategories = product.value?.categories ?? [];
       return getBreadcrumbs(
@@ -139,7 +139,9 @@ export default defineComponent({
       addTags([...tags, ...productTags]);
     });
 
-    onMounted(async () => fetchProductExtendedData());
+    onMounted(async () => {
+      await Promise.all([fetchProductExtendedData(), loadWishlist()]);
+    });
 
     return {
       renderer,
