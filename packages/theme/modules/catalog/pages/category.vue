@@ -186,6 +186,7 @@ export default defineComponent({
       isFilterSidebarOpen,
     } = useUiState();
     const {
+      load: loadWishlist,
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
@@ -237,6 +238,7 @@ export default defineComponent({
 
     const isPriceLoaded = ref(false);
     onMounted(async () => {
+      loadWishlist();
       const { getPricesBySku } = usePrice();
       if (products.value.length > 0) {
         const skus = products.value.map((item) => item.sku);
