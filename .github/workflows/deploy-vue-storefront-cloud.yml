@@ -52,6 +52,7 @@ jobs:
           echo ::set-output name=name::${{ env.ENVNAME }}
           echo ::set-output name=code::${{ env.ENVCODE }}
           echo ::set-output name=middleware-url::${{ env.MIDDLEWARE_URL }}
+          echo ::set-output name=ssr-middleware-url::${{ env.SSR_MIDDLEWARE_URL }}
 
       - name: Create GitHub deployment
         id: deployment
@@ -92,6 +93,7 @@ jobs:
 
           VSF_STORE_URL: ''
           VSF_MIDDLEWARE_URL: ${{ needs.create-deployment.outputs.environment-middleware-url }}
+          VSF_SSR_MIDDLEWARE_URL: ${{ needs.create-deployment.outputs.environment-ssr-middleware-url }}
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql

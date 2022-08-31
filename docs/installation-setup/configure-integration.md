@@ -24,6 +24,64 @@ After installation, the first step is configuring the integration using the envi
 
 3. Update values in the `.env` file.
 
+4. Explanation of env variables
+
+    #### Nuxt application configuration options
+    ```
+    VSF_NUXT_APP_ENV=development  # application mode [production|development]
+    VSF_NUXT_APP_PORT=3000        # nuxt server port property
+    VSF_NUXT_APP_HOST=0.0.0.0     # nuxt server host property
+    ```
+
+    #### Storefront and middleware endpoints configuration
+    ```
+    VSF_STORE_URL=https://localhost:3000                # external base url
+    VSF_MIDDLEWARE_URL=https://localhost:3000/api/      # external middleware base url
+    VSF_SSR_MIDDLEWARE_URL=http://localhost:3000/api/   # internal middleware base url
+    ```
+    **NOTE**: *For many infrastructures `middleware_url` and `ssr_middleware_url` will be the same, but sometimes they might be different. For example, when it comes to deployment using a rolling-update strategy on the Kubernetes cluster, the Kubernetes is probing SSR if it's already up. SSR is trying to call middleware using an external URL (market...storefrontcloud.io) rather than localhost:3000/API, while the middleware isn't available publicly yet, because the SSR didn't respond with 200 in the first place.*
+
+    #### Magento 2 endpoints configuration and others
+    ```
+    VSF_MAGENTO_BASE_URL={YOUR_SITE_FRONT_URL}
+    VSF_MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
+
+    VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED=false
+    VSF_MAGENTO_EXTERNAL_CHECKOUT_URL=https://{YOUR_SITE_FRONT_URL}
+    VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH=/vue/cart/sync
+    ```
+
+    #### Image provider configuration
+    ```
+    VSF_IMAGE_PROVIDER=cloudinary
+    VSF_IMAGE_PROVIDER_BASE_URL=https://res-4.cloudinary.com/{YOUR_ID}/image/upload/
+    VSF_IMAGE_PROVIDER_DOMAIN=https://res-4.cloudinary.com
+    ```
+
+    #### Redis cache configuration
+    ```
+    VSF_REDIS_ENABLED=false
+    VSF_REDIS_HOST=127.0.0.1
+    VSF_REDIS_PORT=6379
+    VSF_REDIS_KEY_PREFIX=
+    VSF_REDIS_CACHE_INVALIDATE_URL=/cache-invalidate
+    ```
+    #### ReCaptcha configuration
+    ```
+    VSF_RECAPTCHA_ENABLED=false
+    VSF_RECAPTCHA_SITE_KEY=
+    VSF_RECAPTCHA_SECRET_KEY=
+    VSF_RECAPTCHA_HIDE_BADGE=
+    VSF_RECAPTCHA_SIZE=invisible
+    VSF_RECAPTCHA_MIN_SCORE=0.5
+    VSF_RECAPTCHA_VERSION=3
+    ```
+
+    #### Other
+    ```
+    NODE_TLS_REJECT_UNAUTHORIZED=0      # toggle TLS verification (eg. for a local development)
+```
+
 ### 2. Setup store configuration
 
 The `plugins/storeConfigPlugin.ts` plugin loads store configuration data from Magento and saves it into the Pinia store under the `$state.storeConfig` property. By default, the amount of data loaded from Magento is minimal to avoid over-fetching, but as your application grows, you might need to pull more data.
