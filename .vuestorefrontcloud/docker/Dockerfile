@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16
 
 ARG LAST_COMMIT
 ARG NPM_USER
@@ -66,27 +66,17 @@ ENV VSF_RECAPTCHA_SITE_KEY=${VSF_RECAPTCHA_SITE_KEY}
 ENV VSF_RECAPTCHA_SECRET_KEY=${VSF_RECAPTCHA_SECRET_KEY}
 ENV VSF_MIDDLEWARE_URL=${VSF_MIDDLEWARE_URL}
 
-RUN npm config set @vsf-enterprise:registry=https://registrynpm.storefrontcloud.io
-
-RUN npm install -g npm-cli-login \
-  && npm-cli-login
+RUN npm config set @vsf-enterprise:registry=https://registrynpm.storefrontcloud.io \
+    && npm install -g npm-cli-login \
+    && npm-cli-login
 
 WORKDIR /var/www
 
 COPY . .
 
 RUN mv /var/www/packages/theme/nuxt.config.js /var/www/packages/theme/base.nuxt.config.js && cp .vuestorefrontcloud/docker/nuxt.config.additional.js /var/www/packages/theme/nuxt.config.js
-RUN npx yarn@1.19.0 workspace @vue-storefront/magento-theme add @sentry/tracing @nuxtjs/sentry
 
-## Install and build
-RUN apk add --no-cache --virtual .gyp \
-        python3 \
-        make \
-        g++ \
-    && yarn install \
-    && yarn cache clean --all \
-    && apk del .gyp \
-    && rm -rf ./packages/api-client/src
+RUN yarn install && yarn build && yarn cache clean --all
 
 COPY .vuestorefrontcloud/docker/vue-storefront.sh /usr/local/bin/
 
