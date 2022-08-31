@@ -2,7 +2,7 @@
 
 Vue Storefront for Magento 1.0.0 contains backward-incompatible changes. To review these backward-incompatible changes, see
 
-[1.0.0 **Backward incompatible changes reference**](./1.0.0-bic)
+[1.0.0 **Backward incompatible changes reference**](./1.0.0-bic.md)
 
 ## Vue Storefront for Magento 1.0.0 highlights
 
