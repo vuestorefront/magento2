@@ -7,7 +7,6 @@ export default () => {
     ...baseDefaults,
     modules: [
       ...baseDefaults.modules,
-      '@nuxtjs/sentry',
     ],
     sentry: {
       dsn: process.env.VSF_SENTRY_DSN,
