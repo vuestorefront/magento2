@@ -33,7 +33,7 @@ export default () => {
     dev: process.env.VSF_NUXT_APP_ENV !== 'production',
     server: {
       port: process.env.VSF_NUXT_APP_PORT,
-      host: '0.0.0.0',
+      host: process.env.VSF_NUXT_APP_HOST || '0.0.0.0',
     },
     head: {
       title: process.env.npm_package_name || '',
@@ -250,9 +250,11 @@ export default () => {
     env: {
       VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
-
     publicRuntimeConfig: {
       middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
+      ssrMiddlewareUrl: process.env.VSF_SSR_MIDDLEWARE_URL
+        || process.env.VSF_MIDDLEWARE_URL
+        || 'http://localhost:3000/api/',
     },
   };
 
