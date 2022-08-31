@@ -253,6 +253,7 @@ export default () => {
 
     publicRuntimeConfig: {
       middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
+      ssrMiddlewareUrl: process.env.VSF_SSR_MIDDLEWARE_URL || 'http://localhost:3000/api/',
     },
   };
 

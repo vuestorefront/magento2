@@ -6,6 +6,7 @@ on:
       - develop
       - enterprise
       - release/*
+      - test/*
 
 jobs:
   create-deployment:
@@ -34,7 +35,10 @@ jobs:
           elif [ $REF = 'refs/heads/develop' ]; then
             ENVINFO_FILE=dev
 
-          elif [[ $REF = refs/heads/release* ]]; then
+          elif [ $REF = 'refs/heads/test/ssr-middleware-build' ]; then
+            ENVINFO_FILE=dev
+
+          elif [ $REF = refs/heads/release* ]; then
             ENVINFO_FILE=canary
 
           elif [ $REF = 'refs/heads/enterprise' ]; then
