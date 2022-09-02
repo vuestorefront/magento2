@@ -2,8 +2,6 @@
 /* eslint-disable unicorn/prefer-module */
 // @core-development-only-end
 import webpack from 'webpack';
-import fs from 'fs';
-import path from 'path';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 
@@ -293,16 +291,6 @@ export default () => {
     baseConfig.publicRuntimeConfig = {
       ...baseConfig.publicRuntimeConfig,
       isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
-    };
-  }
-
-  if (process.env.NODE_ENV === 'development' || process.env.VSF_NUXT_APP_ENV === 'development') {
-    baseConfig.server = {
-      ...baseConfig.server,
-      https: {
-        key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
-        cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
-      },
     };
   }
 

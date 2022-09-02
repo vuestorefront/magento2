@@ -119,6 +119,8 @@ jobs:
           VSF_RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           VSF_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
 
+          VSF_COOKIE_SECURE: true
+
           VSF_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
           LAST_COMMIT: ${{ github.sha  }}
