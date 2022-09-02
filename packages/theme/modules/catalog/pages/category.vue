@@ -207,7 +207,7 @@ export default defineComponent({
 
     const { fetch } = useFetch(async () => {
       if (!activeCategory.value) {
-        loadCategoryTree();
+        await loadCategoryTree();
       }
 
       const categoryUid = routeData.uid;
