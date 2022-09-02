@@ -77,6 +77,14 @@ After installation, the first step is configuring the integration using the envi
     VSF_RECAPTCHA_VERSION=3
     ```
 
+    #### Cookies configuration
+    ```
+    VSF_COOKIE_HTTP_ONLY=
+    VSF_COOKIE_SECURE=
+    VSF_COOKIE_SAME_SITE=
+    VSF_COOKIE_PATH=
+    ```
+
     #### Other
     ```
     NODE_TLS_REJECT_UNAUTHORIZED=0      # toggle TLS verification (eg. for a local development)
@@ -132,7 +140,7 @@ When working with translation in your application, you need to:
 
 ### 4. Configure default cookies settings
 
-Vue Storefront app uses different cookies but all share the same default config. To adjust the configuration you have to modify `middleware.config.js`.
+Vue Storefront app uses different cookies but all share the same default config. To adjust the configuration you have to add `env` variable, which is the recommended way, or modify `middleware.config.js`.
 Once done, rebuild your application.
 
 ```js
@@ -143,8 +151,8 @@ module.exports = {
         /*...*/
         // Here you can override default cookies options
         cookiesDefaultOpts: {
-          httpOnly: false,
-          secure: true, // Make sure that you have ssl configured, otherwise disable this flag
+          httpOnly: VSF_COOKIE_HTTP_ONLY || false,
+          secure: VSF_COOKIE_SECURE || true, // Make sure that you have ssl configured, otherwise disable this flag
         },
         /*...*/
       },
@@ -158,12 +166,27 @@ module.exports = {
 ### Install `mkcert`
 Please, follow the steps in the [official instruction](https://github.com/FiloSottile/mkcert). Different OS might require different steps to accomplish the task.
 
-### Generate certificate for a local development
+#### Update nuxt.config.js
+In the `nuxt.config.js` add the certificate configuration
+
+```
+baseConfig.server = {
+  ...baseConfig.server,
+  https: {
+    key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+    cert: fs.readFileSync(path.resolve(__dirname, 'localhost.pem')),
+  },
+};
+```
+
+
+#### Generate certificate for a local development
 If you set up your project from CLI run the command in the APP root directory.
 If you are a contributor and have cloned Vue Storefront repository, run the command in `packages/theme`.
 ```
 mkcert localhost
 ```
+
 
 ### Start project
 ```bash

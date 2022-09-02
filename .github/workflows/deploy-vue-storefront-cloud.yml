@@ -6,6 +6,7 @@ on:
       - develop
       - enterprise
       - release/*
+      - chore/*
 
 jobs:
   create-deployment:
@@ -32,6 +33,9 @@ jobs:
             ENVINFO_FILE=production
 
           elif [ $REF = 'refs/heads/develop' ]; then
+            ENVINFO_FILE=dev
+
+          elif [[ $REF = refs/heads/chore* ]]; then
             ENVINFO_FILE=dev
 
           elif [[ $REF = refs/heads/release* ]]; then
@@ -118,6 +122,8 @@ jobs:
           VSF_RECAPTCHA_MIN_SCORE: 1.0
           VSF_RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           VSF_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+
+          VSF_COOKIE_SECURE: true
 
           VSF_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
