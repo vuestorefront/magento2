@@ -162,6 +162,9 @@
 }
 
 ::v-deep .sf-gallery__thumbs {
+  .sf-image {
+    position: relative;
+  }
   .sf-image-loaded {
     display: block;
   }
