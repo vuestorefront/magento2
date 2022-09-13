@@ -1,7 +1,7 @@
 import baseNuxtConfig from '@vue-storefront/magento-theme/base.nuxt.config';
 
-export default () => {
-  const baseDefaults = baseNuxtConfig();
+export default async () => {
+  const baseDefaults = await baseNuxtConfig();
 
   return {
     ...baseDefaults,
