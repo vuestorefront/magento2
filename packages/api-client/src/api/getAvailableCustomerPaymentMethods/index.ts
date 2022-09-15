@@ -11,6 +11,7 @@ export default async (
     cartId: string;
   },
   customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
   const { paymentMethods } = context.extendQuery(
     customQuery,
@@ -25,7 +26,7 @@ export default async (
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
       query: paymentMethods.query,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
 
     });

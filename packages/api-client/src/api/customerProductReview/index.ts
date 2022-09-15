@@ -20,6 +20,7 @@ export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: 'reviews' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -43,7 +44,7 @@ export default async (
       query: reviews.query,
       variables: reviews.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

@@ -11,11 +11,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input params with cart ID and shipping method.
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function setShippingMethodsOnCart(
   context: Context,
   input: SetShippingMethodsOnCartInput,
   customQuery: CustomQuery = { setShippingMethodsOnCart: 'setShippingMethodsOnCart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<SetShippingMethodsOnCartMutation>> {
   const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(customQuery, {
     setShippingMethodsOnCart: {
@@ -28,7 +30,7 @@ export default async function setShippingMethodsOnCart(
     mutation: setShippingMethodsOnCartGQL.query,
     variables: setShippingMethodsOnCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

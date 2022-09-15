@@ -23,6 +23,7 @@ export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,
   customQuery: CustomQuery = { customerOrders: 'customerOrders' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -49,7 +50,7 @@ export default async (
       query: customerOrders.query,
       variables: customerOrders.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

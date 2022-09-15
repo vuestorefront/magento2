@@ -9,10 +9,12 @@ import getHeaders from '../getHeaders';
  * Fetches the store configuration from the API
  * @param context VSF Context
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function storeConfig(
   context: Context,
   customQuery: CustomQuery = { storeConfig: 'storeConfig' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<StoreConfigQuery>> {
   const { storeConfig: storeConfigGQL } = context.extendQuery(
     customQuery,
@@ -26,7 +28,7 @@ export default async function storeConfig(
   return context.client.query<StoreConfigQuery>({
     query: storeConfigGQL.query,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

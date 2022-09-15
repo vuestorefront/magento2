@@ -15,6 +15,7 @@ export default async (
   context: Context,
   params: { currentPassword: string; newPassword: string; },
   customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
   try {
     const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(
@@ -31,7 +32,7 @@ export default async (
       mutation: changeCustomerPasswordGQL.query,
       variables: changeCustomerPasswordGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

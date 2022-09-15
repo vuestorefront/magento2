@@ -11,12 +11,14 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param url the URL to be resolved
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  * @deprecated - use route instead
  */
 export default async function urlResolver(
   context: Context,
   url: string,
   customQuery: CustomQuery = { urlResolver: 'urlResolver' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<UrlResolverQuery>> {
   const { urlResolver: urlResolverGQL } = context.extendQuery(customQuery, {
     urlResolver: {
@@ -29,7 +31,7 @@ export default async function urlResolver(
     query: urlResolverGQL.query,
     variables: urlResolverGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

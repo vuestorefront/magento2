@@ -13,6 +13,7 @@ export default async (
   context: Context,
   input: AddSimpleProductsToCartInput,
   customQuery: CustomQuery = { addSimpleProductsToCart: 'addSimpleProductsToCart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
   const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(
     customQuery,
@@ -27,7 +28,7 @@ export default async (
     mutation: addSimpleProductsToCartGQL.query,
     variables: addSimpleProductsToCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

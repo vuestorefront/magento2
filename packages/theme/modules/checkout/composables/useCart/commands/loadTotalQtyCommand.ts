@@ -8,7 +8,11 @@ export const loadTotalQtyCommand = {
 
     const apiState = context.$magento.config.state;
     if (apiState.getCartId()) {
-      const { data } : any = await context.$magento.api.cartTotalQty(apiState.getCartId(), params?.customQuery ?? null);
+      const { data } : any = await context.$magento.api.cartTotalQty(
+        apiState.getCartId(),
+        params?.customQuery ?? null,
+        params?.customHeaders ?? null,
+      );
 
       return data?.cart?.total_quantity ?? 0;
     }

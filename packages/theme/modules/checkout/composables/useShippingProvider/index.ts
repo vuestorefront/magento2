@@ -26,7 +26,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
   const { cart, setCart, load: loadCart } = useCart();
   const context = useContext();
 
-  const save = async ({ shippingMethod, customQuery = null }: UseShippingProviderSaveParams) => {
+  const save = async ({ shippingMethod, customQuery = null, customHeaders = {} }: UseShippingProviderSaveParams) => {
     Logger.debug('useShippingProvider.save');
     let result = null;
     try {
@@ -37,7 +37,7 @@ export function useShippingProvider(): UseShippingProviderInterface {
         shipping_methods: [shippingMethod],
       };
 
-      const cartData = await setShippingMethodsOnCartCommand.execute(context, shippingMethodParams, customQuery);
+      const cartData = await setShippingMethodsOnCartCommand.execute(context, shippingMethodParams, customQuery, customHeaders);
       Logger.debug('[Result]:', { cartData });
 
       setCart(cartData);
@@ -55,13 +55,13 @@ export function useShippingProvider(): UseShippingProviderInterface {
     return result;
   };
 
-  const load = async ({ customQuery = null }: UseShippingProviderLoadParams = {}) => {
+  const load = async ({ customQuery = null, customHeaders = {} }: UseShippingProviderLoadParams = {}) => {
     Logger.debug('useShippingProvider.load');
     let result = null;
     try {
       loading.value = true;
       if (!cart?.value?.shipping_addresses[0]?.selected_shipping_method) {
-        await loadCart({ customQuery });
+        await loadCart({ customQuery, customHeaders });
       }
 
       result = cart.value?.shipping_addresses[0]?.selected_shipping_method;

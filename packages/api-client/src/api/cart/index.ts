@@ -10,11 +10,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param cartId ID of the cart to fetch
  * @param customQuery custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function cart(
   context: Context,
   cartId: string,
   customQuery: CustomQuery = { cart: 'cart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CartQuery>> {
   const { cart: cartGQL } = context.extendQuery(
     customQuery,
@@ -29,7 +31,7 @@ export default async function cart(
     query: cartGQL.query,
     variables: cartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

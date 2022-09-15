@@ -14,11 +14,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input ID of the cart and item to be removed from it
  * @param customQuery custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function removeItemFromCart(
   context: Context,
   input: RemoveItemFromCartInput,
   customQuery: CustomQuery = { removeItemFromCart: 'removeItemFromCart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<RemoveItemFromCartMutation>> {
   const { removeItemFromCart: removeItemFromCartGQL } = context.extendQuery(
     customQuery,
@@ -34,7 +36,7 @@ export default async function removeItemFromCart(
     mutation: removeItemFromCartGQL.query,
     variables: removeItemFromCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

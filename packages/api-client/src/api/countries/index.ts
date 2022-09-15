@@ -9,10 +9,12 @@ import getHeaders from '../getHeaders';
  * Loads the list of countries
  * @param context VSF Context
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function countries(
   context: Context,
   customQuery: CustomQuery = { countries: 'countries' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CountriesListQuery>> {
   const { countries: countriesGQL } = context.extendQuery(
     customQuery,
@@ -25,7 +27,7 @@ export default async function countries(
   return context.client.query<CountriesListQuery>({
     query: countriesGQL.query,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

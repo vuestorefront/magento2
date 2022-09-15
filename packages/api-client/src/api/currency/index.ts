@@ -10,10 +10,12 @@ import getHeaders from '../getHeaders';
  *
  * @param context VSF context
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function currency(
   context: Context,
   customQuery: CustomQuery = { currency: 'currency' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CurrencyQuery>> {
   const { currency: currencyGQL } = context.extendQuery(customQuery, {
     currency: {
@@ -24,7 +26,7 @@ export default async function currency(
   return context.client.query<CurrencyQuery>({
     query: currencyGQL.query,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

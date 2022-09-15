@@ -17,6 +17,7 @@ export default async (
   context: Context,
   searchParams: WishlistQueryVariables,
   customQuery: CustomQuery = { wishlist: 'wishlist' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<WishlistQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -41,7 +42,7 @@ export default async (
       query: wishlist.query,
       variables: wishlist.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

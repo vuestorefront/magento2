@@ -8,6 +8,7 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   customQuery: CustomQuery = { createEmptyCart: 'createEmptyCart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<CreateEmptyCartMutation>> => {
   const { createEmptyCart: createEmptyCartGQL } = context.extendQuery(
     customQuery,
@@ -21,7 +22,7 @@ export default async (
   return context.client.mutate<CreateEmptyCartMutation>({
     mutation: createEmptyCartGQL.query,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

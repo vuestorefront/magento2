@@ -9,6 +9,7 @@ export default async (
   context: Context,
   cartId: string,
   customQuery: CustomQuery = { cartTotalQty: 'cartTotalQty' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CartQuery>> => {
   const { cartTotalQty } = context.extendQuery(
     customQuery,
@@ -23,7 +24,7 @@ export default async (
     query: cartTotalQty.query,
     variables: cartTotalQty.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

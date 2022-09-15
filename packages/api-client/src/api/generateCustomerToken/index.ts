@@ -21,6 +21,7 @@ export default async (
     recaptchaToken: string;
   },
   customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
     if (context.config.recaptcha.isEnabled) {
@@ -55,7 +56,10 @@ export default async (
         mutation: generateCustomerTokenGQL.query,
         variables: generateCustomerTokenGQL.variables,
         context: {
-          headers: getHeaders(context),
+          headers: {
+            ...customHeaders,
+            ...getHeaders(context),
+          },
         },
       },
     );

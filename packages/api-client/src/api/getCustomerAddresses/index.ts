@@ -10,10 +10,12 @@ import getHeaders from '../getHeaders';
  *
  * @param context - VSF Context
  * @param [customQuery] - (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function getCustomerAddresses(
   context: Context,
   customQuery: CustomQuery = { getCustomerAddresses: 'getCustomerAddresses' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> {
   const { getCustomerAddresses: getCustomerAddressesGQL } = context.extendQuery(customQuery, {
     getCustomerAddresses: {
@@ -25,7 +27,7 @@ export default async function getCustomerAddresses(
     return await context.client.query<GetCustomerAddressesQuery>({
       query: getCustomerAddressesGQL.query,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

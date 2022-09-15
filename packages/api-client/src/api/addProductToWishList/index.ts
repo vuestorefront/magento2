@@ -12,6 +12,7 @@ export default async (
   context: Context,
   input: AddProductsToWishlistMutationVariables,
   customQuery: CustomQuery = { addProductsToWishlist: 'addProductsToWishlist' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<AddProductsToWishlistMutation>> => {
   const { addProductsToWishlist: addProductsToWishlistGQL } = context.extendQuery(
     customQuery,
@@ -26,7 +27,7 @@ export default async (
     mutation: addProductsToWishlistGQL.query,
     variables: addProductsToWishlistGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

@@ -32,7 +32,7 @@ export function useCurrency(): UseCurrencyInterface {
     Logger.debug('useCurrency/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null);
+      const { data } = await app.$vsf.$magento.api.currency(params?.customQuery ?? null, params?.customHeaders ?? null);
       configStore.$patch((state) => {
         state.currency = data?.currency ?? {};
       });

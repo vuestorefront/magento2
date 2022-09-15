@@ -11,11 +11,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param params
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function categoryList(
   context: Context,
   params: CategoryListQueryVariables,
   customQuery: CustomQuery = { categoryList: 'categoryList' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CategoryListQuery>> {
   const { categoryList: categoryListGQL } = context.extendQuery(customQuery, {
     categoryList: {
@@ -28,7 +30,7 @@ export default async function categoryList(
     query: categoryListGQL.query,
     variables: categoryListGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

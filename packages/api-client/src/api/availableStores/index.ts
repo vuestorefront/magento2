@@ -13,6 +13,7 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   customQuery: CustomQuery = { availableStores: 'availableStores' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<AvailableStoresQuery>> => {
   const { availableStores: availableStoresGQL } = context.extendQuery(
     customQuery,
@@ -26,7 +27,7 @@ export default async (
   return context.client.query<AvailableStoresQuery>({
     query: availableStoresGQL.query,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

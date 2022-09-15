@@ -11,6 +11,7 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param params params containing the cart's ID
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function getAvailablePaymentMethods(
   context: Context,
@@ -18,6 +19,7 @@ export default async function getAvailablePaymentMethods(
     cartId: string;
   },
   customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> {
   const defaultVariables = {
     cartId: params.cartId || '',
@@ -35,7 +37,7 @@ export default async function getAvailablePaymentMethods(
       query: paymentMethods.query,
       variables: paymentMethods.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

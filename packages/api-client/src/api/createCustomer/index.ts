@@ -18,6 +18,7 @@ export default async (
   context: Context,
   input: CustomerCreateInput,
   customQuery: CustomQuery = { createCustomer: 'createCustomer' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<CreateCustomerMutation>> => {
   try {
     const {
@@ -52,7 +53,7 @@ export default async (
       mutation: createCustomerGQL.query,
       variables: createCustomerGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

@@ -17,11 +17,13 @@ export type AddProductsToCartInput = {
  * @param context VSF Context
  * @param input ID of the cart and products to be added
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function addProductsToCart(
   context: Context,
   input: AddProductsToCartInput,
   customQuery: CustomQuery = { addProductsToCart: 'addProductsToCart' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<AddProductsToCartMutation>> {
   const { addProductsToCart: addProductsToCartGQL } = context.extendQuery(
     customQuery,
@@ -36,7 +38,7 @@ export default async function addProductsToCart(
     mutation: addProductsToCartGQL.query,
     variables: addProductsToCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

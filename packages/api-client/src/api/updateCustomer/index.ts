@@ -16,6 +16,7 @@ export default async (
   context: Context,
   input: CustomerUpdateInput,
   customQuery: CustomQuery = { updateCustomer: 'updateCustomer' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<UpdateCustomerMutation>> => {
   const { updateCustomer: updateCustomerGQL } = context.extendQuery(
     customQuery,
@@ -31,7 +32,7 @@ export default async (
     mutation: updateCustomerGQL.query,
     variables: updateCustomerGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

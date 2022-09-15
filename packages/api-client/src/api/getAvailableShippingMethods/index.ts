@@ -14,6 +14,7 @@ export default async (
     cartId: string;
   },
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
   const { shippingMethods } = context.extendQuery(
     customQuery,
@@ -31,7 +32,7 @@ export default async (
       query: shippingMethods.query,
       variables: shippingMethods.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

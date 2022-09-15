@@ -26,11 +26,13 @@ type Variables = {
  * @param context VSF context
  * @param searchParams search term and params for filter, sort and pagination
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function products(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { products: 'products' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<ProductsListQuery>> {
   const defaultParams = {
     pageSize: 10,
@@ -61,7 +63,7 @@ export default async function products(
       query: productsGQL.query,
       variables: productsGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

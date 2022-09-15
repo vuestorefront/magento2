@@ -14,6 +14,7 @@ export default async (
   context: Context,
   input: CreateProductReviewInput,
   customQuery: CustomQuery = { createProductReview: 'createProductReview' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<CreateProductReviewMutation>> => {
   const {
     recaptchaToken, ...variables
@@ -47,7 +48,7 @@ export default async (
     mutation: createProductReviewGQL.query,
     variables: createProductReviewGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

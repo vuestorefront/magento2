@@ -4,6 +4,8 @@ export type UseContextReturn = ReturnType<typeof useContext>;
 
 export type CustomQuery = Record<string, string>;
 
+export type CustomHeaders = Record<string, string>;
+
 export type ApiClientMethods<T> = {
   [K in keyof T]:
   T[K] extends (...args: any) => any ?

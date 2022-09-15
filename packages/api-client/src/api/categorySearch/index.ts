@@ -13,11 +13,13 @@ import getHeaders from '../getHeaders';
  * least one attribute, a comparison operator, and the value that is being
  * searched for.
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CategorySearchQuery>> {
   const { categorySearch: categorySearchGQL } = context.extendQuery(customQuery, {
     categorySearch: {
@@ -30,7 +32,7 @@ export default async function categorySearch(
     query: categorySearchGQL.query,
     variables: categorySearchGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

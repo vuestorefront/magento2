@@ -11,11 +11,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input the order's input, containing the cart's ID
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function placeOrder(
   context: Context,
   input: PlaceOrderInput,
   customQuery: CustomQuery = { placeOrder: 'placeOrder' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<PlaceOrderMutation>> {
   const { placeOrder: placeOrderGQL } = context.extendQuery(customQuery, {
     placeOrder: {
@@ -29,7 +31,7 @@ export default async function placeOrder(
       mutation: placeOrderGQL.query,
       variables: placeOrderGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

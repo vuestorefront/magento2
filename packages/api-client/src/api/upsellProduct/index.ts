@@ -26,6 +26,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { upsellProducts: 'upsellProducts' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -56,7 +57,7 @@ export default async (
       query: upsellProductsGQL.query,
       variables: upsellProductsGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

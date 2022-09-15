@@ -11,11 +11,13 @@ import getHeaders from '../getHeaders';
  * @param context - VSF Context
  * @param identifiers - identifiers of CMS blocks
  * @param [customQuery] - (optional) - custom GraphQL query that extends the default cmsBlocks query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function getCmsBlocks(
   context: Context,
   identifiers: string,
   customQuery: CustomQuery = { cmsBlocks: 'cmsBlocks' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CmsBlockQuery>> {
   const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(
     customQuery,
@@ -30,7 +32,7 @@ export default async function getCmsBlocks(
     query: cmsBlocksGQL.query,
     variables: cmsBlocksGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

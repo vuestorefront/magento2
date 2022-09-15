@@ -14,11 +14,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input ID of the cart and the items to update it
  * @param customQuery custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function updateCartItems(
   context: Context,
   input: UpdateCartItemsInput,
   customQuery: CustomQuery = { updateCartItems: 'updateCartItems' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<UpdateCartItemsMutation>> {
   const { updateCartItems: updateCartItemsGQL } = context.extendQuery(
     customQuery,
@@ -34,7 +36,7 @@ export default async function updateCartItems(
     mutation: updateCartItemsGQL.query,
     variables: updateCartItemsGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

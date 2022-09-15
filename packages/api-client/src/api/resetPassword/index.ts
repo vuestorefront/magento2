@@ -15,11 +15,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input Params used to reset a user's password
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
   customQuery: CustomQuery = { resetPassword: 'resetPassword' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<ResetPasswordMutation>> {
   const {
     recaptchaToken, ...variables
@@ -52,7 +54,7 @@ export default async function resetPassword(
     mutation: extendedResetPasswordMutation.query,
     variables: extendedResetPasswordMutation.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 

@@ -12,10 +12,12 @@ import getHeaders from '../getHeaders';
  * Retrive available shipping methods for current customer
  * @param context VSF Context
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function getAvailableCustomerShippingMethods(
   context: Context,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
+  customHeaders: Record<string, string> = {},
 ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> {
   const { shippingMethods } = context.extendQuery(
     customQuery,
@@ -30,7 +32,7 @@ export default async function getAvailableCustomerShippingMethods(
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
       query: shippingMethods.query,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

@@ -83,7 +83,7 @@ export function useCategory(): UseCategoryInterface {
 
     try {
       loading.value = true;
-      const { data } = await app.context.$vsf.$magento.api.categoryList(params, params?.customQuery ?? null);
+      const { data } = await app.context.$vsf.$magento.api.categoryList(params, params?.customQuery ?? null, params?.customHeaders ?? null);
       Logger.debug('[Result]:', { data });
       categories.value = data?.categories?.items ?? [];
       error.value.load = null;

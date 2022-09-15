@@ -31,7 +31,7 @@ export function useUrlResolver(): UseUrlResolverInterface {
     try {
       const clearUrl = path.replace(/[a-z]+\/[cp|]\//gi, '');
       Logger.debug('[Magento] Find information based on URL', { clearUrl });
-      const { data } = await context.$magento.api.route(clearUrl, params?.customQuery ?? null);
+      const { data } = await context.$magento.api.route(clearUrl, params?.customQuery ?? null, params?.customHeaders ?? null);
       results = data?.route ?? null;
 
       if (!results) nuxtError({ statusCode: 404 });

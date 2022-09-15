@@ -10,11 +10,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input params with the email to subscribe
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function subscribeEmailToNewsletter(
   context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
   customQuery: CustomQuery = { subscribeEmailToNewsletter: 'subscribeEmailToNewsletter' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<SubscribeEmailToNewsletterMutation>> {
   const { subscribeEmailToNewsletter: subscribeEmailToNewsletterGQL } = context.extendQuery(customQuery, {
     subscribeEmailToNewsletter: {
@@ -29,7 +31,7 @@ export default async function subscribeEmailToNewsletter(
     mutation: subscribeEmailToNewsletterGQL.query,
     variables: subscribeEmailToNewsletterGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

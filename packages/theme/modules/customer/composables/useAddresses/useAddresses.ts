@@ -1,7 +1,7 @@
 import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
 import type { CustomerAddress } from '~/modules/GraphQL/types';
-import { CustomQuery } from '~/types/core';
+import { CustomQuery, CustomHeaders } from '~/types/core';
 
 /**
  * Errors that occured in the {@link useAddresses|useAddresses()} composable
@@ -77,7 +77,7 @@ export interface UseAddressesInterface {
    * }
    * ```
    */
-  load(customQuery?: CustomQuery): Promise<CustomerAddress[]>;
+  load(customQuery?: CustomQuery, customHeaders?: CustomHeaders): Promise<CustomerAddress[]>;
 
   /**
    * Saves a new address in the profile of the current customer

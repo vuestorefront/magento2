@@ -24,13 +24,13 @@ export function useStore(): UseStoreInterface {
   const configStore = useConfigStore();
   const { app } = useContext();
 
-  const load = async (customQuery = { availableStores: 'availableStores' }): Promise<void> => {
+  const load = async (customQuery = { availableStores: 'availableStores' }, customHeaders = {}): Promise<void> => {
     Logger.debug('useStoreFactory.load');
     error.value.load = null;
 
     try {
       loading.value = true;
-      const { data } = await app.$vsf.$magento.api.availableStores(customQuery);
+      const { data } = await app.$vsf.$magento.api.availableStores(customQuery, customHeaders);
 
       configStore.$patch((state) => {
         state.stores = data?.availableStores ?? [];

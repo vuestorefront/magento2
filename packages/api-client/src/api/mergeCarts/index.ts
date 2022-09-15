@@ -12,6 +12,7 @@ export default async (
     destinationCartId: string;
   },
   customQuery: CustomQuery = { mergeCarts: 'mergeCarts' },
+  customHeaders: Record<string, string> = {},
 ): Promise<FetchResult<MergeCartsMutation>> => {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(
     customQuery,
@@ -30,7 +31,7 @@ export default async (
     mutation: mergeCartsGQL.query,
     variables: mergeCartsGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };
