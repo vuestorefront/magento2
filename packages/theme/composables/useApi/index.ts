@@ -21,7 +21,6 @@ export type Request = <DATA, VARIABLES extends Variables = Variables>(
   request: string,
   variables?: VARIABLES,
   fetchPolicy?: FetchPolicy,
-  headers?: Record<string, any>,
 ) => Promise<{ data: DATA, errors: Error[] }>;
 
 /**
@@ -87,17 +86,10 @@ export function useApi(): UseApiInterface {
   const query: Request = async (
     request,
     variables,
-    fetchPolicy,
-    headers,
   ) => {
     const reqID = `id${Math.random().toString(16).slice(2)}`;
     Logger.debug(`customQuery/request/${reqID}`, request);
-    const { data, errors } = await context.app.$vsf.$magento.api.customQuery({
-      query: request,
-      queryVariables: variables,
-      fetchPolicy,
-      customHeaders: headers,
-    });
+    const { data, errors } = await context.app.$vsf.$magento.api.customQuery({ query: request, queryVariables: variables });
     Logger.debug(`customQuery/result/${reqID}`, { data, errors });
 
     return { data, errors };
@@ -107,17 +99,10 @@ export function useApi(): UseApiInterface {
   const mutate: Request = async (
     request,
     variables,
-    fetchPolicy,
-    headers,
   ) => {
     const reqID = `id${Math.random().toString(16).slice(2)}`;
     Logger.debug(`customQuery/request/${reqID}`, request);
-    const { data, errors } = await context.app.$vsf.$magento.api.customMutation({
-      mutation: request,
-      mutationVariables: variables,
-      fetchPolicy,
-      customHeaders: headers,
-    });
+    const { data, errors } = await context.app.$vsf.$magento.api.customMutation({ mutation: request, mutationVariables: variables });
     Logger.debug(`customQuery/result/${reqID}`, { data, errors });
 
     return { data, errors };
