@@ -63,7 +63,7 @@ jobs:
           image: "registry.storefrontcloud.io/docs-storefrontcloud-io/v2-magento"
           path: "/magento"
           port: "80"
-          has-base-path: false
+          has-base-path: true
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@releases/v1
