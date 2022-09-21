@@ -64,6 +64,7 @@ export default {
   "Go back shopping": "Go back shopping",
   "Go back to shop": "Go back to shop",
   "Go to checkout": "Go to checkout",
+  "Go to cart": "Go to cart",
   "Guarantee": "Guarantee",
   "Help": "Help",
   "Help & FAQs": "Help & FAQs",
