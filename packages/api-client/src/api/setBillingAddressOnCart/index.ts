@@ -7,13 +7,14 @@ import {
   SetBillingAddressOnCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   input: SetBillingAddressOnCartInput,
   customQuery: CustomQuery = { setBillingAddressOnCart: 'setBillingAddressOnCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SetBillingAddressOnCartMutation>> => {
   const { setBillingAddressOnCart: setBillingAddressOnCartGQL } = context.extendQuery(
     customQuery,

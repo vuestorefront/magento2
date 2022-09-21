@@ -7,7 +7,7 @@ export const getGuestShippingMethodsCommand = {
     const { data } = await context.$vsf.$magento.api.getAvailableShippingMethods(
       { cartId: params.cartId },
       params?.customQuery ?? null,
-      params?.customHeaders ?? null,
+      params?.customHeaders,
     );
     const hasAddresses = data.cart.shipping_addresses.length > 0;
 

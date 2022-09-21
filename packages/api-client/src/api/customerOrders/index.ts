@@ -7,6 +7,7 @@ import {
 } from '../../types/GraphQL';
 import customerOrdersQuery from './customerOrders';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import { GetOrdersSearchParams } from '../../types/API';
 import getHeaders from '../getHeaders';
 
@@ -23,7 +24,7 @@ export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,
   customQuery: CustomQuery = { customerOrders: 'customerOrders' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
   const defaultParams = {
     pageSize: 10,

@@ -7,6 +7,7 @@ import {
   UpdateCustomerAddressMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -24,7 +25,7 @@ export default async function updateCustomerAddress(
     input: CustomerAddressInput;
   },
   customQuery: CustomQuery = { updateCustomerAddress: 'updateCustomerAddress' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<UpdateCustomerAddressMutation>> {
   const { updateCustomerAddress: updateCustomerAddressGQL } = context.extendQuery(customQuery, {
     updateCustomerAddress: {

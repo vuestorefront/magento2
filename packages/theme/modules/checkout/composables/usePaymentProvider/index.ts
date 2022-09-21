@@ -39,7 +39,7 @@ export function usePaymentProvider(): UsePaymentProviderInterface {
           ...params.paymentMethod,
         },
         customQuery: params.customQuery,
-        customHeaders: params.customHeaders,
+        customHeaders: params?.customHeaders,
       };
 
       result = await setPaymentMethodOnCartCommand.execute(context, paymentMethodParams);

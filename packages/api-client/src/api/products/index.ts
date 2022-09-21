@@ -8,7 +8,7 @@ import {
 } from '../../types/GraphQL';
 import productsListQuery from './productsList';
 import { Context } from '../../types/context';
-import { GetProductSearchParams } from '../../types/API';
+import { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {
@@ -32,7 +32,7 @@ export default async function products(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { products: 'products' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<ProductsListQuery>> {
   const defaultParams = {
     pageSize: 10,

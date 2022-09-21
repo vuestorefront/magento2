@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -17,7 +18,7 @@ export default async function getCmsBlocks(
   context: Context,
   identifiers: string,
   customQuery: CustomQuery = { cmsBlocks: 'cmsBlocks' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CmsBlockQuery>> {
   const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(
     customQuery,

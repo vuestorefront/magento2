@@ -8,6 +8,7 @@ import {
   RequestPasswordResetEmailMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -21,7 +22,7 @@ export default async function requestPasswordResetEmail(
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
   customQuery: CustomQuery = { requestPasswordResetEmail: 'requestPasswordResetEmail' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> {
   const {
     recaptchaToken, ...variables

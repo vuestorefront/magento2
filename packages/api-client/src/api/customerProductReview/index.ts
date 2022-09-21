@@ -6,6 +6,7 @@ import {
 } from '../../types/GraphQL';
 import customerProductReview from './customerProductReview';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export type CustomerProductReviewParams = {
@@ -20,7 +21,7 @@ export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: 'reviews' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
     pageSize: 10,

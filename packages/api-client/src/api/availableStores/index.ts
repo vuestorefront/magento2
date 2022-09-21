@@ -5,6 +5,7 @@ import {
 } from '../../types/GraphQL';
 import availableStores from './availableStores';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -13,7 +14,7 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   customQuery: CustomQuery = { availableStores: 'availableStores' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<AvailableStoresQuery>> => {
   const { availableStores: availableStoresGQL } = context.extendQuery(
     customQuery,

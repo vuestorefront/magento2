@@ -6,6 +6,7 @@ import {
   ChangeCustomerPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -15,7 +16,7 @@ export default async (
   context: Context,
   params: { currentPassword: string; newPassword: string; },
   customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
   try {
     const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(

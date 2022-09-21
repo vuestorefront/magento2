@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
@@ -20,7 +21,7 @@ export default async function applyCouponToCart(
   context: Context,
   input: ApplyCouponToCartInput,
   customQuery: CustomQuery = { applyCouponToCart: 'applyCouponToCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ApplyCouponToCartMutation>> {
   const { applyCouponToCart: applyCouponToCartGQL } = context.extendQuery(
     customQuery,

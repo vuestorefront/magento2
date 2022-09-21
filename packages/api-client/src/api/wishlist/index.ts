@@ -6,6 +6,7 @@ import {
 } from '../../types/GraphQL';
 import wishlistQuery from './wishlist';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {
@@ -17,7 +18,7 @@ export default async (
   context: Context,
   searchParams: WishlistQueryVariables,
   customQuery: CustomQuery = { wishlist: 'wishlist' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<WishlistQuery>> => {
   const defaultParams = {
     pageSize: 10,

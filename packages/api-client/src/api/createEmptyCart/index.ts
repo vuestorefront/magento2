@@ -3,12 +3,13 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CreateEmptyCartMutation } from '../../types/GraphQL';
 import createEmptyCart from './createEmptyCart';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   customQuery: CustomQuery = { createEmptyCart: 'createEmptyCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<CreateEmptyCartMutation>> => {
   const { createEmptyCart: createEmptyCartGQL } = context.extendQuery(
     customQuery,

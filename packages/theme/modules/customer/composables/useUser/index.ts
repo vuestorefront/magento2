@@ -231,7 +231,7 @@ export function useUser(): UseUserInterface {
   };
 
   // eslint-disable-next-line consistent-return
-  const register = async ({ user: providedUser, customQuery }: UseUserRegisterParams) : Promise<void> => {
+  const register = async ({ user: providedUser, customQuery, customHeaders }: UseUserRegisterParams) : Promise<void> => {
     Logger.debug('[Magento] useUser.register', providedUser);
     resetErrorValue();
 
@@ -253,6 +253,7 @@ export function useUser(): UseUserInterface {
           ...baseData,
         },
         customQuery || {},
+        customHeaders || {},
       );
 
       Logger.debug('[Result]:', { data });
@@ -315,7 +316,7 @@ export function useUser(): UseUserInterface {
         currentUser: customerStore.user,
         currentPassword: params.current,
         newPassword: params.new,
-      }, params.customQuery);
+      }, params.customQuery, params?.customHeaders);
 
       let joinedErrors = null;
 

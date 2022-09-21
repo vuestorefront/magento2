@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CurrencyQuery } from '../../types/GraphQL';
 import currencyQuery from './currency';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -15,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function currency(
   context: Context,
   customQuery: CustomQuery = { currency: 'currency' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CurrencyQuery>> {
   const { currency: currencyGQL } = context.extendQuery(customQuery, {
     currency: {

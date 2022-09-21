@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   AddVirtualProductsToCartInput,
   AddVirtualProductsToCartMutation,
@@ -20,7 +21,7 @@ export default async function addVirtualProductsToCart(
   context: Context,
   input: AddVirtualProductsToCartInput,
   customQuery: CustomQuery = { addVirtualProductsToCart: 'addVirtualProductsToCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<AddVirtualProductsToCartMutation>> {
   const { addVirtualProductsToCart: addVirtualProductsToCartGQL } = context.extendQuery(
     customQuery,

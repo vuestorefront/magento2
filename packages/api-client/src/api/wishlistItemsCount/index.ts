@@ -6,12 +6,13 @@ import {
 } from '../../types/GraphQL';
 import query from './wishlistItemsCount';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   customQuery: CustomQuery = { wishlistItemsCount: 'wishlistItemsCount' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<WishlistQuery>> => {
   const { wishlistItemsCount } = context.extendQuery(customQuery, {
     wishlistItemsCount: {

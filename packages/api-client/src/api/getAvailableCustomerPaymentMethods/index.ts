@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import CustomerAvailablePaymentMethods from './CustomerPaymentMethods';
 import { CustomerAvailablePaymentMethodsQuery } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
@@ -11,7 +12,7 @@ export default async (
     cartId: string;
   },
   customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
   const { paymentMethods } = context.extendQuery(
     customQuery,

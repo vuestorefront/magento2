@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
 import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
@@ -19,7 +20,7 @@ export default async function getAvailablePaymentMethods(
     cartId: string;
   },
   customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> {
   const defaultVariables = {
     cartId: params.cartId || '',

@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { FetchPolicy, FetchResult } from '@apollo/client/core';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async <MUTATION = any, MUTATION_VARIABLES = any>(
@@ -14,7 +15,7 @@ export default async <MUTATION = any, MUTATION_VARIABLES = any>(
     mutation: string,
     mutationVariables: MUTATION_VARIABLES,
     fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
-    customHeaders?: Record<string, string>,
+    customHeaders?: CustomHeaders,
   },
 ): Promise<FetchResult<MUTATION>> => context.client.mutate<MUTATION, MUTATION_VARIABLES>({
   mutation: gql`${mutation}`,

@@ -4,6 +4,7 @@ import { GraphQLError } from 'graphql';
 import { CreateProductReviewMutation, CreateProductReviewInput } from '../../types/GraphQL';
 import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 
@@ -14,7 +15,7 @@ export default async (
   context: Context,
   input: CreateProductReviewInput,
   customQuery: CustomQuery = { createProductReview: 'createProductReview' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<CreateProductReviewMutation>> => {
   const {
     recaptchaToken, ...variables

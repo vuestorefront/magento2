@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import placeOrderMutation from './placeOrder';
 import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -17,7 +18,7 @@ export default async function placeOrder(
   context: Context,
   input: PlaceOrderInput,
   customQuery: CustomQuery = { placeOrder: 'placeOrder' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<PlaceOrderMutation>> {
   const { placeOrder: placeOrderGQL } = context.extendQuery(customQuery, {
     placeOrder: {

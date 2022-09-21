@@ -15,7 +15,7 @@ export const searchReviewsCommand = {
     const { data } = await context.$magento.api.productReview(
       input as GetProductSearchParams,
       params?.customQuery ?? null,
-      params?.customHeaders ?? null,
+      params?.customHeaders,
     );
 
     Logger.debug('[Result]:', { data });

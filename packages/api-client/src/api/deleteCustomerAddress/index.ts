@@ -2,6 +2,7 @@ import { ExecutionResult } from 'graphql';
 import { CustomQuery } from '@vue-storefront/core';
 import deleteCustomerAddressMutation from './deleteCustomerAddress';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
@@ -17,7 +18,7 @@ export default async function deleteCustomerAddress(
   context: Context,
   addressId: number,
   customQuery: CustomQuery = { deleteCustomerAddress: 'deleteCustomerAddress' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ExecutionResult<DeleteCustomerAddressMutation>> {
   const { deleteCustomerAddress: deleteCustomerAddressGQL } = context.extendQuery(
     customQuery,

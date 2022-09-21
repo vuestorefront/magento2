@@ -3,6 +3,7 @@ import type { CustomQuery } from '@vue-storefront/core';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
 import type { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -17,7 +18,7 @@ export default async function setShippingMethodsOnCart(
   context: Context,
   input: SetShippingMethodsOnCartInput,
   customQuery: CustomQuery = { setShippingMethodsOnCart: 'setShippingMethodsOnCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SetShippingMethodsOnCartMutation>> {
   const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(customQuery, {
     setShippingMethodsOnCart: {

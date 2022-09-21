@@ -3,6 +3,7 @@ import { CustomQuery, Logger } from '@vue-storefront/core';
 import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -16,7 +17,7 @@ export default async function getCmsPage(
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: 'cmsPage' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CmsPageQuery>> {
   try {
     const { cmsPage: cmsPageGQL } = context.extendQuery(

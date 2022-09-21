@@ -7,6 +7,7 @@ import {
   ResetPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 
@@ -21,7 +22,7 @@ export default async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
   customQuery: CustomQuery = { resetPassword: 'resetPassword' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ResetPasswordMutation>> {
   const {
     recaptchaToken, ...variables

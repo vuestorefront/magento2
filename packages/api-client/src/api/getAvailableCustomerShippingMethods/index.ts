@@ -2,6 +2,7 @@ import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import CustomerAvailableShippingMethods from './CustomerShippingMethods';
 import {
   CustomerAvailableShippingMethodsQuery,
@@ -17,7 +18,7 @@ import getHeaders from '../getHeaders';
 export default async function getAvailableCustomerShippingMethods(
   context: Context,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> {
   const { shippingMethods } = context.extendQuery(
     customQuery,

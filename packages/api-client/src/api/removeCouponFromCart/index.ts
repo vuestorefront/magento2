@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -20,7 +21,7 @@ export default async function removeCouponFromCart(
   context: Context,
   input: RemoveCouponFromCartInput,
   customQuery: CustomQuery = { removeCouponFromCart: 'removeCouponFromCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RemoveCouponFromCartMutation>> {
   const { removeCouponFromCart: removeCouponFromCartGQL } = context.extendQuery(
     customQuery,

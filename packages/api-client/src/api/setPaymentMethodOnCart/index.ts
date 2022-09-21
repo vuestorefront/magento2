@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
 import type { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
@@ -21,7 +22,7 @@ export default async function setPaymentMethodOnCart(
   context: Context,
   input: SetPaymentMethodOnCartInputs,
   customQuery: CustomQuery = { setPaymentMethodOnCart: 'setPaymentMethodOnCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SetPaymentMethodOnCartMutation>> {
   const { setPaymentMethodOnCart: setPaymentMethodOnCartGQL } = context.extendQuery(customQuery, {
     setPaymentMethodOnCart: {

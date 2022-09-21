@@ -1,12 +1,13 @@
 import { Context } from '../types/context';
+import type { CustomHeaders } from '../types/API';
 
-export default function getHeaders(context: Context, customHeaders: Record<string, string> = {}) {
+export default function getHeaders(context: Context, customHeaders: CustomHeaders = {}) {
   const { getCustomerToken, getStore, getCurrency } = context.config.state;
 
   return {
-    ...customHeaders,
     ...(getCustomerToken() && { Authorization: `Bearer ${getCustomerToken()}` }),
     ...(getStore() && { store: getStore() }),
     ...(getCurrency() && { 'Content-Currency': getCurrency() }),
+    ...customHeaders,
   };
 }

@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { StoreConfigQuery } from '../../types/GraphQL';
 import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -14,7 +15,7 @@ import getHeaders from '../getHeaders';
 export default async function storeConfig(
   context: Context,
   customQuery: CustomQuery = { storeConfig: 'storeConfig' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<StoreConfigQuery>> {
   const { storeConfig: storeConfigGQL } = context.extendQuery(
     customQuery,

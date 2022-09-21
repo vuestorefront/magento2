@@ -7,7 +7,7 @@ export const placeOrderCommand = {
     const { data } = await context.app.$vsf.$magento.api.placeOrder(
       { cart_id: cartId },
       params?.customQuery ?? null,
-      params?.customHeaders ?? null,
+      params?.customHeaders,
     );
 
     return data?.placeOrder ?? null;

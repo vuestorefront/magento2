@@ -54,7 +54,7 @@ export function useAddresses(): UseAddressesInterface {
       const { data } = await context.$magento.api.createCustomerAddress(
         transformUserCreateAddressInput(params),
         params?.customQuery ?? null,
-        params?.customHeaders ?? null,
+        params?.customHeaders,
       );
       results = data?.createCustomerAddress ?? {};
       Logger.debug('[Magento] save user address results:', params.address);
@@ -78,7 +78,7 @@ export function useAddresses(): UseAddressesInterface {
       const { data } = await context.$magento.api.updateCustomerAddress(
         transformUserUpdateAddressInput(params),
         params?.customQuery ?? null,
-        params?.customHeaders ?? null,
+        params?.customHeaders,
       );
       results = data?.updateCustomerAddress ?? {};
       Logger.debug('[Magento] update user address results:', results);
@@ -102,7 +102,7 @@ export function useAddresses(): UseAddressesInterface {
       const { data } = await context.$magento.api.deleteCustomerAddress(
         params.address.id,
         params?.customQuery ?? null,
-        params?.customHeaders ?? null,
+        params?.customHeaders,
       );
       results = !!data.deleteCustomerAddress;
       Logger.debug('[Magento] remove user address results:', results);

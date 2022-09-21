@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CategorySearchQuery, CategorySearchQueryVariables } from '../../types/GraphQL';
 import categorySearchQuery from './categorySearch';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -19,7 +20,7 @@ export default async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CategorySearchQuery>> {
   const { categorySearch: categorySearchGQL } = context.extendQuery(customQuery, {
     categorySearch: {

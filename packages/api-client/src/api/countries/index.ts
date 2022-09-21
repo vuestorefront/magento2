@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { CountriesListQuery } from '../../types/GraphQL';
 import countriesListQuery from './countriesList';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -14,7 +15,7 @@ import getHeaders from '../getHeaders';
 export default async function countries(
   context: Context,
   customQuery: CustomQuery = { countries: 'countries' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CountriesListQuery>> {
   const { countries: countriesGQL } = context.extendQuery(
     customQuery,

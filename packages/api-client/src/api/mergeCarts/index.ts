@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import mergeCarts from './mergeCarts';
 import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
@@ -12,7 +13,7 @@ export default async (
     destinationCartId: string;
   },
   customQuery: CustomQuery = { mergeCarts: 'mergeCarts' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<MergeCartsMutation>> => {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(
     customQuery,

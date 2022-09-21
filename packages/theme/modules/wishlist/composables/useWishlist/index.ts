@@ -43,7 +43,7 @@ export function useWishlist(): UseWishlistInterface {
       const apiState = app.$vsf.$magento.config.state;
 
       if (apiState.getCustomerToken()) {
-        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery ?? null, params?.customHeaders ?? null);
+        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery ?? null, params?.customHeaders);
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];

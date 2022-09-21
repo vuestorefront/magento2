@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import { GetCustomerAddressesQuery } from '../../types/GraphQL';
 import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -15,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function getCustomerAddresses(
   context: Context,
   customQuery: CustomQuery = { getCustomerAddresses: 'getCustomerAddresses' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> {
   const { getCustomerAddresses: getCustomerAddressesGQL } = context.extendQuery(customQuery, {
     getCustomerAddresses: {

@@ -5,6 +5,7 @@ import {
   SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -18,7 +19,7 @@ export default async function setGuestEmailOnCart(
   context: Context,
   input: SetGuestEmailOnCartInput,
   customQuery: CustomQuery = { setGuestEmailOnCart: 'setGuestEmailOnCart' },
-  customHeaders: Record<string, string> = {},
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SetGuestEmailOnCartMutation>> {
   const { setGuestEmailOnCart: setGuestEmailOnCartGQL } = context.extendQuery(
     customQuery,
