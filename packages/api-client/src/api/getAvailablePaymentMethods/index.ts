@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
 import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
@@ -11,6 +12,7 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param params params containing the cart's ID
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function getAvailablePaymentMethods(
   context: Context,
@@ -18,6 +20,7 @@ export default async function getAvailablePaymentMethods(
     cartId: string;
   },
   customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> {
   const defaultVariables = {
     cartId: params.cartId || '',
@@ -35,7 +38,7 @@ export default async function getAvailablePaymentMethods(
       query: paymentMethods.query,
       variables: paymentMethods.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

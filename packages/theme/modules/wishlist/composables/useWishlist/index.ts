@@ -43,7 +43,7 @@ export function useWishlist(): UseWishlistInterface {
       const apiState = app.$vsf.$magento.config.state;
 
       if (apiState.getCustomerToken()) {
-        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery);
+        const { data } = await app.$vsf.$magento.api.wishlist(params?.searchParams, params?.customQuery ?? null, params?.customHeaders);
 
         Logger.debug('[Result]:', { data });
         const loadedWishlist = data?.customer?.wishlists ?? [];
@@ -77,7 +77,7 @@ export function useWishlist(): UseWishlistInterface {
     Logger.debug('useWishlist/setWishlist', newWishlist);
   };
 
-  const removeItem = async ({ product, customQuery }: UseWishlistRemoveItemParams) => {
+  const removeItem = async ({ product, customQuery, customHeaders }: UseWishlistRemoveItemParams) => {
     Logger.debug('useWishlist/removeItem', product);
 
     try {
@@ -86,13 +86,14 @@ export function useWishlist(): UseWishlistInterface {
         currentWishlist: wishlistStore.wishlist,
         product,
         customQuery,
+        customHeaders,
       });
 
       const itemOnWishlist = findItemOnWishlist(wishlistStore.wishlist, product);
       const { data } = await app.context.$vsf.$magento.api.removeProductsFromWishlist({
         id: '0',
         items: [itemOnWishlist.id],
-      }, customQuery);
+      }, customQuery, customHeaders);
 
       Logger.debug('[Result]:', { data });
       error.value.removeItem = null;
@@ -136,7 +137,7 @@ export function useWishlist(): UseWishlistInterface {
   };
 
   // eslint-disable-next-line consistent-return
-  const addItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
+  const addItem = async ({ product, customQuery, customHeaders }: UseWishlistAddItemParams) => {
     Logger.debug('useWishlist/addItem', product);
 
     try {
@@ -145,6 +146,7 @@ export function useWishlist(): UseWishlistInterface {
         currentWishlist: wishlistStore.wishlist,
         product,
         customQuery,
+        customHeaders,
       });
 
       if (!wishlistStore.wishlist) {
@@ -175,7 +177,7 @@ export function useWishlist(): UseWishlistInterface {
               sku: product.sku,
               quantity: 1,
             }],
-          }, customQuery);
+          }, customQuery, customHeaders);
 
           Logger.debug('[Result]:', { data });
 
@@ -193,7 +195,7 @@ export function useWishlist(): UseWishlistInterface {
               quantity: 1,
               parent_sku: product.sku,
             }],
-          }, customQuery);
+          }, customQuery, customHeaders);
 
           Logger.debug('[Result]:', { data: configurableProductData });
 
@@ -211,7 +213,7 @@ export function useWishlist(): UseWishlistInterface {
               quantity: 1,
               entered_options: [],
             }],
-          }, customQuery);
+          }, customQuery, customHeaders);
 
           Logger.debug('[Result]:', { data: bundleProductData });
 
@@ -293,8 +295,8 @@ export function useWishlist(): UseWishlistInterface {
     }
   };
 
-  const addOrRemoveItem = async ({ product, customQuery }: UseWishlistAddItemParams) => {
-    await (isInWishlist({ product }) ? removeItem({ product, customQuery }) : addItem({ product, customQuery }));
+  const addOrRemoveItem = async ({ product, customQuery, customHeaders }: UseWishlistAddItemParams) => {
+    await (isInWishlist({ product }) ? removeItem({ product, customQuery, customHeaders }) : addItem({ product, customQuery, customHeaders }));
   };
 
   return {

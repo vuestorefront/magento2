@@ -4,7 +4,7 @@ import {
   Cart,
   CartItemInput,
 } from '~/modules/GraphQL/types';
-import { CustomQuery } from '~/types/core';
+import { CustomQuery, CustomHeaders } from '~/types/core';
 
 /** Params object used to add items to a cart */
 export declare type AddProductsToCartInput = {
@@ -21,6 +21,7 @@ export const addItemCommand = {
       currentCart,
       productConfiguration,
       customQuery,
+      customHeaders,
     },
   ) => {
     Logger.debug('[Magento]: Add item to cart', {
@@ -48,7 +49,11 @@ export const addItemCommand = {
           ],
         };
 
-        const simpleProduct = await context.$magento.api.addProductsToCart(simpleCartInput, customQuery as CustomQuery);
+        const simpleProduct = await context.$magento.api.addProductsToCart(
+          simpleCartInput,
+          customQuery as CustomQuery,
+          customHeaders as CustomHeaders,
+        );
 
         Logger.debug('[Result]:', { data: simpleProduct.data });
 
@@ -75,7 +80,11 @@ export const addItemCommand = {
           ],
         };
 
-        const configurableProduct = await context.$magento.api.addProductsToCart(configurableCartInput, customQuery as CustomQuery);
+        const configurableProduct = await context.$magento.api.addProductsToCart(
+          configurableCartInput,
+          customQuery as CustomQuery,
+          customHeaders as CustomHeaders,
+        );
         Logger.debug('[Result]:', { data: configurableProduct.data });
 
         if (configurableProduct.data.addProductsToCart.user_errors.length > 0) {
@@ -105,7 +114,11 @@ export const addItemCommand = {
           ],
         };
 
-        const bundleProduct = await context.$magento.api.addProductsToCart(bundleCartInput, customQuery as CustomQuery);
+        const bundleProduct = await context.$magento.api.addProductsToCart(
+          bundleCartInput,
+          customQuery as CustomQuery,
+          customHeaders as CustomHeaders,
+        );
 
         Logger.debug('[Result]:', { data: bundleProduct });
 
@@ -129,7 +142,11 @@ export const addItemCommand = {
           ],
         };
 
-        const downloadableProduct = await context.$magento.api.addProductsToCart(downloadableCartInput, customQuery as CustomQuery);
+        const downloadableProduct = await context.$magento.api.addProductsToCart(
+          downloadableCartInput,
+          customQuery as CustomQuery,
+          customHeaders as CustomHeaders,
+        );
 
         Logger.debug('[Result DownloadableProduct]:', { data: downloadableProduct });
 
@@ -152,7 +169,11 @@ export const addItemCommand = {
             },
           ],
         };
-        const virtualProduct = await context.$magento.api.addProductsToCart(virtualCartInput, customQuery as CustomQuery);
+        const virtualProduct = await context.$magento.api.addProductsToCart(
+          virtualCartInput,
+          customQuery as CustomQuery,
+          customHeaders as CustomHeaders,
+        );
 
         Logger.debug('[Result VirtualProduct]:', { data: virtualProduct });
 

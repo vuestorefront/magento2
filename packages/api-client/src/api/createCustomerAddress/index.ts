@@ -7,6 +7,7 @@ import {
   CustomerAddressInput,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -15,11 +16,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input new customer address data
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function createCustomerAddress(
   context: Context,
   input: CustomerAddressInput,
   customQuery: CustomQuery = { createCustomerAddress: 'createCustomerAddress' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<CreateCustomerAddressMutation>> {
   const { createCustomerAddress: createCustomerAddressGQL } = context.extendQuery(
     customQuery,
@@ -35,7 +38,7 @@ export default async function createCustomerAddress(
     mutation: createCustomerAddressGQL.query,
     variables: createCustomerAddressGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

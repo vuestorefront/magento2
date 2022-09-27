@@ -25,7 +25,7 @@ export function useCountrySearch(): UseCountrySearchInterface {
 
       Logger.debug('[Magento]: Search country information based on', { params });
 
-      const { data } = await app.$vsf.$magento.api.country(params.id, params?.customQuery ?? null);
+      const { data } = await app.$vsf.$magento.api.country(params.id, params?.customQuery ?? null, params?.customHeaders ?? null);
 
       Logger.debug('[Result]:', { data });
 

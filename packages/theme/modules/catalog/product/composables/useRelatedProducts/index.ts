@@ -31,7 +31,11 @@ export function useRelatedProducts(): UseRelatedProductsInterface {
 
       Logger.debug('[Magento] Load related products based on ', { searchParams });
 
-      const { data } = await app.$vsf.$magento.api.relatedProduct(searchParams as GetProductSearchParams, params?.customQuery ?? null);
+      const { data } = await app.$vsf.$magento.api.relatedProduct(
+        searchParams as GetProductSearchParams,
+        params?.customQuery ?? null,
+        params?.customHeaders,
+      );
 
       Logger.debug('[Result] Related products:', { data });
 

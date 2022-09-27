@@ -7,6 +7,7 @@ import {
   UpdateCustomerMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -16,6 +17,7 @@ export default async (
   context: Context,
   input: CustomerUpdateInput,
   customQuery: CustomQuery = { updateCustomer: 'updateCustomer' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<UpdateCustomerMutation>> => {
   const { updateCustomer: updateCustomerGQL } = context.extendQuery(
     customQuery,
@@ -31,7 +33,7 @@ export default async (
     mutation: updateCustomerGQL.query,
     variables: updateCustomerGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

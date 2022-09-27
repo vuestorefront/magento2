@@ -22,7 +22,11 @@ export function useMakeOrder(): UseMakeOrderInterface {
     let placedOrder = null;
     try {
       loading.value = true;
-      placedOrder = await placeOrderCommand.execute(context, cart.value.id, params?.customQuery ?? null);
+      placedOrder = await placeOrderCommand.execute(
+        context,
+        cart.value.id,
+        params,
+      );
       error.value.make = null;
     } catch (err) {
       error.value.make = err;

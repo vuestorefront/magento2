@@ -164,293 +164,385 @@ export enum MagentoCustomerGender {
   Female = 2,
 }
 
+export declare type CustomHeaders = Record<string, string>;
+
 export interface MagentoApiMethods {
   addBundleProductsToCart(
     input: AddBundleProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddBundleProductsToCartMutation>>;
 
   addConfigurableProductsToCart(
     input: AddConfigurableProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddConfigurableProductsToCartMutation>>;
 
   addProductsToCart(
     input: AddProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<{ addProductsToCart: AddProductsToCartOutput }>>;
 
   addProductToWishList(
     input: AddProductsToWishlistMutationVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddProductsToWishlistMutation>>;
 
   addSimpleProductsToCart(
     input: AddSimpleProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddSimpleProductsToCartMutation>>;
 
   addDownloadableProductsToCart(
     input: AddDownloadableProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddDownloadableProductsToCartMutation>>;
 
   addVirtualProductsToCart(
     input: AddVirtualProductsToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<AddVirtualProductsToCartMutation>>;
 
   applyCouponToCart(
     input: ApplyCouponToCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<ApplyCouponToCartMutation>>;
 
-  availableStores(customQuery?: CustomQuery): Promise<ApolloQueryResult<AvailableStoresQuery>>;
+  availableStores(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<AvailableStoresQuery>>;
 
   cart(
     cartId: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CartQuery>>;
 
   cartTotalQty(
     cartId: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CartQuery>>;
 
   categoryList(
     categoryFilter?: CategoryListQueryVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CategoryListQuery>>;
 
   categorySearch(
     categoryFilter?: CategorySearchQueryVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CategorySearchQuery>>;
 
   changeCustomerPassword(
     params: { currentPassword: string; newPassword: string },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<ChangeCustomerPasswordMutation>>;
 
   cmsBlocks(
     identifiers: string[],
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CmsBlockQuery>>;
 
   cmsPage(
     identifier: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CmsPageQuery>>;
 
-  countries(customQuery?: CustomQuery): Promise<ApolloQueryResult<CountriesListQuery>>;
+  countries(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CountriesListQuery>>;
 
   country(
     id: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CountryInformationQuery>>;
 
   createCustomer(
     input: CustomerCreateInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<CreateCustomerMutation>>;
 
   createCustomerAddress(
     input: CustomerAddressInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<CreateCustomerAddressMutation>>;
 
-  createEmptyCart(customQuery?: CustomQuery): Promise<FetchResult<CreateEmptyCartMutation>>;
+  createEmptyCart(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<FetchResult<CreateEmptyCartMutation>>;
 
   createProductReview(
     input: CreateProductReviewInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<CreateProductReviewMutation>>;
 
-  currency(customQuery?: CustomQuery): Promise<FetchResult<CurrencyQuery>>
+  currency(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<FetchResult<CurrencyQuery>>
 
-  customer(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerQuery>>;
+  customer(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CustomerQuery>>;
 
-  customerCart(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerCartQuery>>;
+  customerCart(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CustomerCartQuery>>;
 
   customerOrders(
     searchParams: GetOrdersSearchParams,
     customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders,
   ): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
   customQuery<QUERY, QUERY_VARIABLES = any>(params: {
     query: string,
     queryVariables?: QUERY_VARIABLES,
     fetchPolicy?: FetchPolicy,
+    customHeaders?: CustomHeaders,
   }): Promise<ApolloQueryResult<QUERY>>;
 
   customMutation<MUTATION, MUTATION_VARIABLES = any>(params: {
     mutation: string,
     mutationVariables: MUTATION_VARIABLES,
     fetchPolicy?: Extract<FetchPolicy, 'network-only' | 'no-cache'>,
+    customHeaders?: CustomHeaders,
   }): Promise<FetchResult<MUTATION>>;
 
   customerProductReview(
     input: CustomerProductReviewParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CustomerProductReviewQuery>>;
 
   deleteCustomerAddress(
     addressId: number,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ExecutionResult<DeleteCustomerAddressMutation>>;
 
   generateCustomerToken(
     params: { email: string, password: string, recaptchaToken: string },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<GenerateCustomerTokenMutation>>;
 
-  getAvailableCustomerPaymentMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>>;
+  getAvailableCustomerPaymentMethods(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>>;
 
-  getAvailableCustomerShippingMethods(customQuery?: CustomQuery): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>>;
+  getAvailableCustomerShippingMethods(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>>;
 
   getAvailablePaymentMethods(
     params: { cartId: string },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
 
   getAvailableShippingMethods(
     params: { cartId: string },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
 
-  getCustomerAddresses(customQuery?: CustomQuery): Promise<ApolloQueryResult<GetCustomerAddressesQuery>>;
+  getCustomerAddresses(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<GetCustomerAddressesQuery>>;
 
   mergeCarts(
     params: { sourceCartId: string; destinationCartId: string },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<MergeCartsMutation>>;
 
   placeOrder(
     input: PlaceOrderInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<PlaceOrderMutation>>;
 
   productDetail(
     searchParams: GetProductSearchParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<ProductDetailsQuery>>;
 
   productReview(
     searchParams: GetProductSearchParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<ProductReviewQuery>>;
 
-  productReviewRatingsMetadata(customQuery?: CustomQuery): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>>;
+  productReviewRatingsMetadata(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>>;
 
   products(
     searchParams: GetProductSearchParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<ProductsListQuery>>;
 
   relatedProduct(
     searchParams: GetProductSearchParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<RelatedProductQuery>>;
 
   removeCouponFromCart(
     input: RemoveCouponFromCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<RemoveCouponFromCartMutation>>;
 
   removeItemFromCart(
     input: RemoveItemFromCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<RemoveItemFromCartMutation>>;
 
   removeProductsFromWishlist(
     input: RemoveProductsFromWishlistMutationVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<RemoveProductsFromWishlistMutation>>;
 
-  revokeCustomerToken(customQuery?: CustomQuery): Promise<FetchResult<RevokeCustomerTokenMutation>>;
+  revokeCustomerToken(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<FetchResult<RevokeCustomerTokenMutation>>;
 
   requestPasswordResetEmail(
     input: RequestPasswordResetEmailMutationVariables,
-    customQuery?: CustomQuery): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<FetchResult<RequestPasswordResetEmailMutation>>;
 
   resetPassword(
     input: ResetPasswordMutationVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<ResetPasswordMutation>>;
 
   setBillingAddressOnCart(
     input: SetBillingAddressOnCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SetBillingAddressOnCartMutation>>;
 
   setGuestEmailOnCart(
     input: SetGuestEmailOnCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SetGuestEmailOnCartMutation>>;
 
   setPaymentMethodOnCart(
     input: SetPaymentMethodOnCartInputs,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SetPaymentMethodOnCartMutation>>;
 
   setShippingAddressesOnCart(
     input: SetShippingAddressesOnCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SetShippingAddressesOnCartMutation>>;
 
   setShippingMethodsOnCart(
     input: SetShippingMethodsOnCartInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SetShippingMethodsOnCartMutation>>;
 
-  storeConfig(customQuery?: CustomQuery): Promise<ApolloQueryResult<StoreConfigQuery>>;
+  storeConfig(
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<StoreConfigQuery>>;
 
   subscribeEmailToNewsletter(
     input: SubscribeEmailToNewsletterMutationVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<SubscribeEmailToNewsletterMutation>>;
 
   updateCartItems(
     input: UpdateCartItemsInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCartItemsMutation>>;
 
   updateCustomer(
     input: CustomerUpdateInput,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCustomerMutation>>;
 
   updateCustomerAddress(
     input: { addressId: number; input: CustomerAddressInput; },
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCustomerAddressMutation>>;
 
   updateCustomerEmail(
     input: UpdateCustomerEmailMutationVariables,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCustomerAddressMutation>>;
 
   upsellProduct(
     searchParams: GetProductSearchParams,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<UpsellProductsQuery>>;
 
   urlResolver(
     url: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<UrlResolverQuery>>;
 
   route(
     url: string,
-    customQuery?: CustomQuery
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>>;
 
   wishlist(
     searchParams: WishlistQueryVariables,
     customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders,
   ): Promise<ApolloQueryResult<WishlistQuery>>;
 
   wishlistItemsCount(
     customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders,
   ): Promise<ApolloQueryResult<WishlistQuery>>;
 }

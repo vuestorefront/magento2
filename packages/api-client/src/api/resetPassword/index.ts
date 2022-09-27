@@ -7,6 +7,7 @@ import {
   ResetPasswordMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 
@@ -15,11 +16,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input Params used to reset a user's password
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
   customQuery: CustomQuery = { resetPassword: 'resetPassword' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ResetPasswordMutation>> {
   const {
     recaptchaToken, ...variables
@@ -52,7 +55,7 @@ export default async function resetPassword(
     mutation: extendedResetPasswordMutation.query,
     variables: extendedResetPasswordMutation.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 

@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   AddConfigurableProductsToCartInput, AddConfigurableProductsToCartMutation, AddConfigurableProductsToCartMutationVariables,
 } from '../../types/GraphQL';
@@ -12,11 +13,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input ID of the cart and products to be added
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function addConfigurableProductsToCart(
   context: Context,
   input: AddConfigurableProductsToCartInput,
   customQuery: CustomQuery = { addConfigurableProductsToCart: 'addConfigurableProductsToCart' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<AddConfigurableProductsToCartMutation>> {
   const { addConfigurableProductsToCart: addConfigurableProductsToCartGQL } = context.extendQuery(
     customQuery,
@@ -31,7 +34,7 @@ export default async function addConfigurableProductsToCart(
     mutation: addConfigurableProductsToCartGQL.query,
     variables: addConfigurableProductsToCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

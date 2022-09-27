@@ -15,6 +15,6 @@ export const attachToCartCommand = {
 
     await context.app.$vsf.$magento.api.setGuestEmailOnCart({
       ...emailOnCartInput,
-    }, params?.customQuery ?? null);
+    }, params?.customQuery ?? null, params?.customHeaders);
   },
 };

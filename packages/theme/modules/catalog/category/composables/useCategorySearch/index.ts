@@ -24,7 +24,7 @@ export function useCategorySearch(): UseCategorySearchInterface {
     try {
       loading.value = true;
       const { filters } = params;
-      const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters }, params?.customQuery ?? null);
+      const { data } = await app.context.$vsf.$magento.api.categorySearch({ filters }, params?.customQuery ?? null, params?.customHeaders);
 
       Logger.debug('[Result]:', { data });
 

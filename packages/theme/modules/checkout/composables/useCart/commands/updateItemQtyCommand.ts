@@ -8,6 +8,7 @@ export const updateItemQtyCommand = {
     product,
     quantity,
     customQuery = { updateCartItems: 'updateCartItems' },
+    customHeaders = {},
   }) => {
     Logger.debug('[Magento]: Update product quantity on cart', {
       product,
@@ -25,7 +26,7 @@ export const updateItemQtyCommand = {
       ],
     };
 
-    const { data } = await context.$magento.api.updateCartItems(updateCartParams, customQuery);
+    const { data } = await context.$magento.api.updateCartItems(updateCartParams, customQuery, customHeaders);
 
     Logger.debug('[Result]:', { data });
 

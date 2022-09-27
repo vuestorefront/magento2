@@ -8,6 +8,7 @@ import {
   GenerateCustomerTokenMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -21,6 +22,7 @@ export default async (
     recaptchaToken: string;
   },
   customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
     if (context.config.recaptcha.isEnabled) {
@@ -55,7 +57,7 @@ export default async (
         mutation: generateCustomerTokenGQL.query,
         variables: generateCustomerTokenGQL.variables,
         context: {
-          headers: getHeaders(context),
+          headers: getHeaders(context, customHeaders),
         },
       },
     );

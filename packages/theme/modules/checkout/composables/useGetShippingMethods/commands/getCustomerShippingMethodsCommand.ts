@@ -6,7 +6,7 @@ export const getCustomerShippingMethodsCommand = {
   execute: async (context: VsfContext, params: ComposableFunctionArgs<{}>): Promise<AvailableShippingMethod[]> => {
     const {
       data: { customerCart: { shipping_addresses: shippingAddresses } },
-    } = await context.$magento.api.getAvailableCustomerShippingMethods(params?.customQuery ?? null);
+    } = await context.$magento.api.getAvailableCustomerShippingMethods(params?.customQuery ?? null, params?.customHeaders);
     return shippingAddresses[0]?.available_shipping_methods ?? [];
   },
 };

@@ -63,8 +63,8 @@ export function useUser(): UseUserInterface {
   };
 
   // eslint-disable-next-line consistent-return
-  const updateUser = async ({ user: providedUser, customQuery }: UseUserUpdateUserParams) => {
-    Logger.debug('[Magento] Update user information', { providedUser, customQuery });
+  const updateUser = async ({ user: providedUser, customQuery, customHeaders }: UseUserUpdateUserParams) => {
+    Logger.debug('[Magento] Update user information', { providedUser, customQuery, customHeaders });
     resetErrorValue();
 
     try {
@@ -81,7 +81,7 @@ export function useUser(): UseUserInterface {
         });
       }
 
-      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData, customQuery);
+      const { data, errors } = await app.context.$vsf.$magento.api.updateCustomer(userData, customQuery, customHeaders);
       Logger.debug('[Result]:', { data });
 
       if (errors) {
@@ -100,14 +100,14 @@ export function useUser(): UseUserInterface {
     }
   };
 
-  const logout = async ({ customQuery = {} }: UseUserLogoutParams = {}) => {
+  const logout = async ({ customQuery = {}, customHeaders = {} }: UseUserLogoutParams = {}) => {
     Logger.debug('[Magento] useUserFactory.logout');
     resetErrorValue();
 
     try {
       const apiState = app.context.$vsf.$magento.config.state;
 
-      await app.context.$vsf.$magento.api.revokeCustomerToken(customQuery);
+      await app.context.$vsf.$magento.api.revokeCustomerToken(customQuery, customHeaders);
 
       apiState.removeCustomerToken();
       apiState.removeCartId();
@@ -121,7 +121,7 @@ export function useUser(): UseUserInterface {
     }
   };
 
-  const load = async ({ customQuery = {} }: UseUserLoadParams = {}) => {
+  const load = async ({ customQuery = {}, customHeaders = {} }: UseUserLoadParams = {}) => {
     Logger.debug('[Magento] useUser.load');
     resetErrorValue();
 
@@ -133,7 +133,7 @@ export function useUser(): UseUserInterface {
         return null;
       }
       try {
-        const { data } = await app.context.$vsf.$magento.api.customer(customQuery);
+        const { data } = await app.context.$vsf.$magento.api.customer(customQuery, customHeaders);
 
         Logger.debug('[Result]:', { data });
 
@@ -155,7 +155,7 @@ export function useUser(): UseUserInterface {
   };
 
   // eslint-disable-next-line @typescript-eslint/require-await,no-empty-pattern
-  const login = async ({ user: providedUser, customQuery }: UseUserLoginParams) : Promise<void> => {
+  const login = async ({ user: providedUser, customQuery, customHeaders }: UseUserLoginParams) : Promise<void> => {
     Logger.debug('[Magento] useUser.login', providedUser);
     resetErrorValue();
 
@@ -170,6 +170,7 @@ export function useUser(): UseUserInterface {
           recaptchaToken: providedUser.recaptchaToken,
         },
         customQuery || {},
+        customHeaders || {},
       );
       Logger.debug('[Result]:', { data });
 
@@ -230,7 +231,7 @@ export function useUser(): UseUserInterface {
   };
 
   // eslint-disable-next-line consistent-return
-  const register = async ({ user: providedUser, customQuery }: UseUserRegisterParams) : Promise<void> => {
+  const register = async ({ user: providedUser, customQuery, customHeaders }: UseUserRegisterParams) : Promise<void> => {
     Logger.debug('[Magento] useUser.register', providedUser);
     resetErrorValue();
 
@@ -252,6 +253,7 @@ export function useUser(): UseUserInterface {
           ...baseData,
         },
         customQuery || {},
+        customHeaders || {},
       );
 
       Logger.debug('[Result]:', { data });
@@ -314,7 +316,7 @@ export function useUser(): UseUserInterface {
         currentUser: customerStore.user,
         currentPassword: params.current,
         newPassword: params.new,
-      }, params.customQuery);
+      }, params.customQuery, params?.customHeaders);
 
       let joinedErrors = null;
 

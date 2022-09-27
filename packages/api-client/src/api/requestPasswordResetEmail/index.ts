@@ -8,6 +8,7 @@ import {
   RequestPasswordResetEmailMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -15,11 +16,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF Context
  * @param input Email for which to request a password reset
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function requestPasswordResetEmail(
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
   customQuery: CustomQuery = { requestPasswordResetEmail: 'requestPasswordResetEmail' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> {
   const {
     recaptchaToken, ...variables
@@ -52,7 +55,7 @@ export default async function requestPasswordResetEmail(
     mutation: extendedMutation.query,
     variables: extendedMutation.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 
