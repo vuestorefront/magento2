@@ -40,7 +40,7 @@
       class="color-primary sf-button grouped_items--add-to-cart"
       @click="addToCart"
     >
-      {{ $t('Add to Cart') }}
+      {{ $t('Add to cart') }}
     </SfButton>
     <SfAlert
       :style="{ visibility: !!addToCartError ? 'visible' : 'hidden'}"
