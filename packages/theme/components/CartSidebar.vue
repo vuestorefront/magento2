@@ -361,7 +361,7 @@ export default defineComponent({
     const tempProduct = ref();
 
     onMounted(() => {
-      if (!cart.value.id) {
+      if (!cart.value?.id) {
         loadCart();
       }
     });
