@@ -84,45 +84,7 @@ Then go to the admin panel, find the configuration panel of the `GraphQL CustomC
 
 For more information, see the [GraphQL security configuration](https://devdocs.magento.com/guides/v2.4/graphql/security-configuration.html) page.
 
-### 5. Enable CORS
-
-You may need to enable CORS origins in your Magento store to accept requests from other domains, e.g., `magento.dev`. In the Magento 2 folder, add the package `graycore/magento2-cors` by running the command below:
-
-```sh
-bin/composer require graycore/magento2-cors
-```
-
-Then, add the following configuration at the end of `src/app/etc/env.php`:
-
-```php
-    'system' => [
-        'default' => [
-            'web' => [
-                'graphql' => [
-                    'cors_max_age' => 86400,
-                    'cors_allow_credentials' => 0,
-                    'cors_allowed_methods' => 'POST, OPTIONS, GET',
-                    'cors_allowed_headers' => 'Content-Currency, Store, X-Magento-Cache-Id, X-Captcha, Content-Type, Authorization, DNT, TE',
-                    'cors_allowed_origins' => '*'
-                ]
-            ]
-        ]
-    ]
-```
-
-Enable the graycore cors.
-
-```sh
-bin/magento module:enable Graycore_Cors
-```
-
-Then update the configuration:
-
-```sh
-bin/magento setup:upgrade
-```
-
-### 6. Populate store with sample data (optional)
+### 5. Populate store with sample data (optional)
 
 In the Magento 2 folder, execute the commands below to add sample data to your store.
 
