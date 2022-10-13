@@ -60,7 +60,7 @@ jobs:
           api-key: ${{ secrets.DOCS_CLOUD_PASSWORD }}
           name: "docs-v2-magento"
           tag: "${{ steps.get_version.outputs.VERSION }}"
-          image: "registry.storefrontcloud.io/docs-storefrontcloud-io/v2-magento"
+          image: "registry.storefrontcloud.io/docs-storefrontcloud-io/v2-magento2"
           path: "/magento"
           port: "80"
           has-base-path: true
