@@ -40,7 +40,7 @@
         class="products"
         :button-text="$t('See more')"
         :title="$t('New Products')"
-        link="/c/women.html"
+        link="/women.html"
       />
     </LoadWhenVisible>
     <LoadWhenVisible>
@@ -70,11 +70,15 @@ import {
   ref,
   useContext,
   onMounted,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import LazyHydrate from 'vue-lazy-hydration';
 import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
 import { SfBanner, SfBannerGrid } from '@storefront-ui/vue';
+import { CmsPage } from '~/modules/GraphQL/types';
 import HeroSection from '~/components/HeroSection.vue';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
+import { useContent } from '~/composables';
 import LoadWhenVisible from '~/components/utils/LoadWhenVisible.vue';
 
 export default defineComponent({
@@ -93,9 +97,12 @@ export default defineComponent({
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setup() {
     const { addTags } = useCache();
+    const { loadPage } = useContent();
     const { app } = useContext();
     const year = new Date().getFullYear();
     const { isDesktop } = app.$device;
+
+    const page = ref<CmsPage | null>(null);
     const hero = ref({
       title: app.i18n.t('Colorful summer dresses are already in store'),
       subtitle: app.i18n.t('SUMMER COLLECTION {year}', { year }),
@@ -107,7 +114,7 @@ export default defineComponent({
         fit: 'cover',
         format: 'webp',
       },
-      link: '/c/women.html',
+      link: '/women.html',
     });
     const banners = ref([
       {
@@ -131,7 +138,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim desktop-only',
-        link: '/c/women/women-clothing-skirts',
+        link: '/women/women-clothing-skirts',
       },
       {
         slot: 'banner-B',
@@ -149,7 +156,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim banner-central desktop-only',
-        link: '/c/women/women-clothing-dresses',
+        link: '/women/women-clothing-dresses',
       },
       {
         slot: 'banner-C',
@@ -163,7 +170,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim banner__tshirt',
-        link: '/c/women/women-clothing-shirts',
+        link: '/women/women-clothing-shirts',
       },
       {
         slot: 'banner-D',
@@ -177,7 +184,7 @@ export default defineComponent({
           format: 'webp',
         },
         class: 'sf-banner--slim',
-        link: '/c/women/women-shoes-sandals',
+        link: '/women/women-shoes-sandals',
       },
     ]);
     const callToAction = ref({
@@ -193,6 +200,10 @@ export default defineComponent({
       },
     });
 
+    useFetch(async () => {
+      page.value = await loadPage({ identifier: 'home' });
+    });
+
     onMounted(() => {
       addTags([{ prefix: CacheTagPrefix.View, value: 'home' }]);
     });
@@ -202,7 +213,11 @@ export default defineComponent({
       banners,
       callToAction,
       hero,
+      page,
     };
+  },
+  head() {
+    return getMetaInfo(this.page);
   },
 });
 </script>

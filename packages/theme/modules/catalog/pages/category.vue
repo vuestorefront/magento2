@@ -113,30 +113,35 @@ import {
 } from '@storefront-ui/vue';
 import {
   computed,
-  defineComponent, onMounted, ref, ssrRef, useFetch,
+  defineComponent,
+  onMounted,
+  ref,
+  ssrRef,
+  useFetch,
 } from '@nuxtjs/composition-api';
 import { CacheTagPrefix, useCache } from '@vue-storefront/cache';
+import { usePageStore } from '~/stores/page';
 import SkeletonLoader from '~/components/SkeletonLoader/index.vue';
 import CategoryPagination from '~/modules/catalog/category/components/pagination/CategoryPagination.vue';
 import {
+  useCategory,
   useFacet,
   useUiHelpers,
   useUiState,
 } from '~/composables';
 
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useUrlResolver } from '~/composables/useUrlResolver';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { usePrice } from '~/modules/catalog/pricing/usePrice';
 import { useCategoryContent } from '~/modules/catalog/category/components/cms/useCategoryContent';
 import { useTraverseCategory } from '~/modules/catalog/category/helpers/useTraverseCategory';
 import facetGetters from '~/modules/catalog/category/getters/facetGetters';
+import { getMetaInfo } from '~/helpers/getMetaInfo';
 
 import CategoryNavbar from '~/modules/catalog/category/components/navbar/CategoryNavbar.vue';
 import CategoryBreadcrumbs from '~/modules/catalog/category/components/breadcrumbs/CategoryBreadcrumbs.vue';
-import { isCategoryTreeRoute } from '~/modules/GraphQL/CategoryTreeRouteTypeguard';
 
-import type { ProductInterface, CategoryTree } from '~/modules/GraphQL/types';
+import type { ProductInterface } from '~/modules/GraphQL/types';
 import type { SortingModel } from '~/modules/catalog/category/composables/useFacet/sortingOptions';
 import type { Pagination } from '~/composables/types';
 import type { Product } from '~/modules/catalog/product/types';
@@ -159,7 +164,9 @@ export default defineComponent({
   },
   transition: 'fade',
   setup() {
+    const { routeData } = usePageStore();
     const { getContentData } = useCategoryContent();
+    const { loadCategoryMeta } = useCategory();
     const { addTags } = useCache();
     const uiHelpers = useUiHelpers();
     const cmsContent = ref('');
@@ -171,7 +178,6 @@ export default defineComponent({
 
     const productContainerElement = ref<HTMLElement | null>(null);
 
-    const { search: resolveUrl } = useUrlResolver();
     const {
       toggleFilterSidebar,
       changeToCategoryListView,
@@ -180,12 +186,15 @@ export default defineComponent({
       isFilterSidebarOpen,
     } = useUiState();
     const {
+      load: loadWishlist,
       addItem: addItemToWishlistBase,
       isInWishlist,
       removeItem: removeItemFromWishlist,
     } = useWishlist();
     const { result, search } = useFacet();
     const { addItemToCart } = useAddToCart();
+
+    const categoryMeta = ref(null);
 
     const addItemToWishlist = async (product: Product) => {
       await (isInWishlist({ product })
@@ -195,22 +204,21 @@ export default defineComponent({
 
     const { activeCategory, loadCategoryTree } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
-    const routeData = ref<CategoryTree | null>(null);
+
+    const categoryUid = routeData.uid;
 
     const { fetch } = useFetch(async () => {
       if (!activeCategory.value) {
-        loadCategoryTree();
+        await loadCategoryTree();
       }
-      const resolvedUrl = await resolveUrl();
-      if (isCategoryTreeRoute(resolvedUrl)) routeData.value = resolvedUrl;
 
-      const categoryUid = routeData.value?.uid;
-
-      const [content] = await Promise.all([
-        getContentData(routeData.value?.uid),
+      const [content, categoryMetaData] = await Promise.all([
+        getContentData(categoryUid as string),
+        loadCategoryMeta({ category_uid: routeData.value?.uid }),
         search({ ...uiHelpers.getFacetsFromURL(), category_uid: categoryUid }),
       ]);
 
+      categoryMeta.value = categoryMetaData;
       cmsContent.value = content?.cmsBlock?.content ?? '';
       isShowCms.value = content.isShowCms;
       isShowProducts.value = content.isShowProducts;
@@ -219,7 +227,7 @@ export default defineComponent({
       sortBy.value = facetGetters.getSortOptions(result.value);
       pagination.value = facetGetters.getPagination(result.value);
 
-      const tags = [{ prefix: CacheTagPrefix.View, value: 'category' }];
+      const tags = [{ prefix: CacheTagPrefix.View, value: routeData.uid }];
       const productTags = products.value.map((product) => ({
         prefix: CacheTagPrefix.Product,
         value: product.uid,
@@ -229,16 +237,27 @@ export default defineComponent({
     });
 
     const isPriceLoaded = ref(false);
+
     onMounted(async () => {
+      loadWishlist();
       const { getPricesBySku } = usePrice();
       if (products.value.length > 0) {
         const skus = products.value.map((item) => item.sku);
         const priceData = await getPricesBySku(skus, pagination.value.itemsPerPage);
-        products.value = products.value.map((product) => ({
-          ...product,
-          price_range: priceData.items.find((item) => item.sku === product.sku)?.price_range,
-        }));
+        products.value = products.value.map((product) => {
+          const priceRange = priceData.items.find((item) => item.sku === product.sku)?.price_range;
+
+          if (priceRange) {
+            return {
+              ...product,
+              price_range: priceRange,
+            };
+          }
+
+          return { ...product };
+        });
       }
+
       isPriceLoaded.value = true;
     });
 
@@ -277,9 +296,13 @@ export default defineComponent({
       routeData,
       doChangeItemsPerPage,
       productContainerElement,
+      categoryMeta,
       onReloadProducts,
       goToPage,
     };
+  },
+  head() {
+    return getMetaInfo(this.categoryMeta);
   },
 });
 </script>

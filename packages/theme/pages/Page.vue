@@ -1,90 +1,41 @@
 <template>
-  <SfLoader :loading="loading">
-    <div class="cms-page">
-      <SfHeading
-        v-if="page && page.content_heading"
-        :title="page.content_heading"
-        :level="1"
-        class="sf-heading--no-underline sf-heading--left"
-      />
-      <HTMLContent
-        v-if="page && page.content"
-        :content="page.content"
-      />
-    </div>
-  </SfLoader>
+  <div>
+    <component
+      :is="type"
+      v-if="type"
+    />
+  </div>
 </template>
+
 <script lang="ts">
-import { SfLoader, SfHeading } from '@storefront-ui/vue';
 import {
-  defineComponent, ref, useContext, useFetch, useRoute,
+  defineComponent,
+  computed,
 } from '@nuxtjs/composition-api';
-import { useCache, CacheTagPrefix } from '@vue-storefront/cache';
-import type { MetaInfo } from 'vue-meta';
-import { useContent } from '~/composables';
-import type { CmsPage } from '~/modules/GraphQL/types';
-import HTMLContent from '~/components/HTMLContent.vue';
+import { usePageStore } from '~/stores/page';
+
+import CATEGORY from '~/modules/catalog/pages/category.vue';
+import CMS_PAGE from '~/pages/Cms.vue';
+import PRODUCT from '~/modules/catalog/pages/product.vue';
 
 export default defineComponent({
-  name: 'CmsPage',
+  name: 'PageResolver',
   components: {
-    HTMLContent,
-    SfLoader,
-    SfHeading,
+    CATEGORY,
+    CMS_PAGE,
+    PRODUCT,
   },
-  props: {
-    identifier: {
-      type: [String],
-      default: '',
-    },
-  },
-  setup(props) {
-    const { addTags } = useCache();
-    const { loadPage, error, loading } = useContent();
+  middleware: [
+    'url-resolver',
+  ],
+  setup() {
+    const { routeData } = usePageStore();
 
-    const route = useRoute();
-    const { error: nuxtError, app } = useContext();
-    const { params } = route.value;
-    const page = ref<CmsPage | null>(null);
+    const type = computed(() => routeData?.type);
 
-    // eslint-disable-next-line consistent-return
-    useFetch(async () => {
-      page.value = await loadPage({ identifier: params.slug || props.identifier });
-
-      if (error?.value?.page || !page.value) {
-        return nuxtError({ statusCode: 404, message: app.i18n.t('Page not found') as string });
-      }
-
-      addTags([{ prefix: CacheTagPrefix.View, value: page.value.identifier }]);
-    });
     return {
-      page,
-      loading,
-    };
-  },
-  head() : MetaInfo {
-    if (!this.page) {
-      return null;
-    }
-
-    const title = this.page?.meta_title ? this.page.meta_title : this.page.title;
-    const meta = [];
-    if (this.page.meta_description) {
-      meta.push({
-        hid: 'description',
-        name: 'description',
-        content: this.page.meta_description,
-      });
-    }
-    return {
-      title,
-      meta,
+      type,
     };
   },
 });
 </script>
-<style lang="scss" scoped>
-.cms-page {
-  padding: var(--spacer-sm);
-}
-</style>

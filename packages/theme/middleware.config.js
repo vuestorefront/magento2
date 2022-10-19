@@ -29,10 +29,10 @@ module.exports = {
           ...cookieNames,
         },
         cookiesDefaultOpts: {
-          httpOnly: false,
-          secure: true,
-          sameSite: 'Strict',
-          path: '/',
+          httpOnly: process.env.VSF_COOKIE_HTTP_ONLY || false,
+          secure: process.env.VSF_COOKIE_SECURE || false,
+          sameSite: process.env.VSF_COOKIE_SAME_SITE || 'Strict',
+          path: process.env.VSF_COOKIE_PATH || '/',
         },
         defaultStore: 'default',
         externalCheckout: {

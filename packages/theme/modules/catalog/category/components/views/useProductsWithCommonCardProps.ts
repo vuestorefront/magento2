@@ -4,8 +4,9 @@ import type { ImageModifiers } from '@nuxt/image';
 import { useImage } from '~/composables';
 import { useUser } from '~/modules/customer/composables/useUser';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
+import { useProduct } from '~/modules/catalog/product/composables/useProduct';
 import {
-  getName, getPrice, getProductSku, getProductThumbnailImage, getSlug,
+  getName, getPrice, getProductThumbnailImage,
 } from '~/modules/catalog/product/getters/productGetters';
 import { getAverageRating, getTotalReviews } from '~/modules/review/getters/reviewGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
@@ -40,6 +41,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
   const { isInWishlist } = useWishlist();
   const { isAuthenticated } = useUser();
   const { isInCart } = useAddToCart();
+  const { getProductPath } = useProduct();
   const context = useContext();
 
   /**
@@ -74,7 +76,7 @@ export const useProductsWithCommonProductCardProps = (products: Ref<Product[]>) 
         scoreRating: getAverageRating(product),
       };
 
-      const link = context.localeRoute({ name: 'product', params: { id: getProductSku(product), slug: getSlug(product).slice(1) } });
+      const link = context.localeRoute(getProductPath(product));
 
       const commonProps = {
         title: getName(product),

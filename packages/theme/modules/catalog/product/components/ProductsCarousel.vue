@@ -33,13 +33,7 @@
               productGetters.getPrice(product).special &&
                 $fc(productGetters.getPrice(product).special)
             "
-            :link="
-              localePath(
-                `/p/${productGetters.getProductSku(
-                  product
-                )}${productGetters.getSlug(product, product.categories[0])}`
-              )
-            "
+            :link="localePath(getProductPath(product))"
             :max-rating="5"
             :score-rating="productGetters.getAverageRating(product)"
             :reviews-count="productGetters.getTotalReviews(product)"
@@ -94,7 +88,7 @@ import {
 import { computed, defineComponent, PropType } from '@nuxtjs/composition-api';
 import productGetters from '~/modules/catalog/product/getters/productGetters';
 import { useAddToCart } from '~/helpers/cart/addToCart';
-import { useImage } from '~/composables';
+import { useImage, useProduct } from '~/composables';
 import useWishlist from '~/modules/wishlist/composables/useWishlist';
 import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
@@ -127,6 +121,7 @@ export default defineComponent({
     const { isAuthenticated } = useUser();
     const { isInWishlist, addOrRemoveItem } = useWishlist();
     const { addItemToCart, isInCart } = useAddToCart();
+    const { getProductPath } = useProduct();
 
     const mappedProducts = computed(() => props.products.map((product) => ({
       // @ts-ignore
@@ -150,6 +145,7 @@ export default defineComponent({
       productGetters,
       getMagentoImage,
       imageSizes,
+      getProductPath,
     };
   },
 });

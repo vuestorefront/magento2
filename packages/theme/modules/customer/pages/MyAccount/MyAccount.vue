@@ -34,7 +34,7 @@
                   :label="$t(item.label)"
                   :link="localeRoute(item.link)"
                   class="sf-content-pages__menu"
-                  v-on="item.listeners"
+                  v-on="{ click: getHandler(item.id) }"
                 />
               </li>
             </SfList>
@@ -83,17 +83,28 @@ export default defineComponent({
       }
     });
 
-    const { sidebarLinkGroups } = useSidebarLinkGroups();
+    const { sidebarLinkGroups, logoutUser } = useSidebarLinkGroups();
 
     const isOnSubpage = computed(() => route.value.matched.length > 1);
     const goToTopLevelRoute = () => router.push(localeRoute({ name: 'customer' }));
     const title = computed(() => i18n.t(route.value.matched.at(-1)?.meta.titleLabel as string));
+
+    /**
+     * #tab-id: handler-name
+     */
+    const handlers = {
+      'log-out': logoutUser,
+    };
+
+    const getHandler = (id: string) => handlers[id] ?? {};
 
     return {
       sidebarLinkGroups,
       title,
       isOnSubpage,
       goToTopLevelRoute,
+      logoutUser,
+      getHandler,
     };
   },
 });

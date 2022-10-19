@@ -132,9 +132,10 @@ import {
   useContext,
   useRouter,
 } from '@nuxtjs/composition-api';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
-  useUiState, useImage,
+  useUiState,
+  useImage,
+  useProduct,
 } from '~/composables';
 import type { Price } from '~/modules/catalog/types';
 import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
@@ -164,6 +165,7 @@ export default defineComponent({
     const { localeRoute } = useContext();
     const router = useRouter();
     const { isWishlistSidebarOpen, toggleWishlistSidebar } = useUiState();
+    const { getProductPath } = useProduct();
     const {
       removeItem, load: loadWishlist, loading,
     } = useWishlist();
@@ -207,15 +209,8 @@ export default defineComponent({
 
     const getAttributes = (product: WishlistItemInterface) => (product?.product as ConfigurableProduct)?.configurable_options || [];
     const getBundles = (product: WishlistItemInterface) => (product?.product as BundleProduct)?.items?.map((b) => b.title).flat() || [];
-    const getItemLink = (item: WishlistItemInterface) => localeRoute({
-      path: `/p/${item.product.sku}${productGetters.getSlug(
-        item.product,
-        item.product.categories[0],
-      )}`,
-      query: {
-        wishlist: 'true',
-      },
-    });
+    // @ts-ignore
+    const getItemLink = (item: WishlistItemInterface) => localeRoute(getProductPath(item.product));
 
     const { getMagentoImage, imageSizes } = useImage();
     const isShowGoToWishlistButton = computed(() => wishlistStore.wishlist.items_count > wishlistStore.wishlist?.items_v2?.items.length);

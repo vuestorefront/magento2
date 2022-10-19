@@ -5344,6 +5344,9 @@ export interface RoutableInterface {
   relative_url?: Maybe<Scalars['String']>;
   /** One of PRODUCT, CATEGORY, or CMS_PAGE. */
   type?: Maybe<UrlRewriteEntityTypeEnum>;
+  sku?: Maybe<Scalars['String']>;
+  uid?: Maybe<Scalars['String']>;
+  identifier?: Maybe<Scalars['String']>;
 }
 /** Comment item details */
 export interface SalesCommentItem {
