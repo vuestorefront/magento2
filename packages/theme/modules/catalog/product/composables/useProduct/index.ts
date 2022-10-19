@@ -3,6 +3,7 @@ import { Logger } from '~/helpers/logger';
 import { getProductListCommand } from '~/modules/catalog/product/composables/useProduct/commands/getProductListCommand';
 import { getProductDetailsCommand } from '~/modules/catalog/product/composables/useProduct/commands/getProductDetailsCommand';
 import type { GetProductSearchParams } from '~/modules/catalog/product/types';
+import type { ProductInterface } from '~/modules/GraphQL/types';
 import type {
   ProductDetails,
   ProductList,
@@ -61,9 +62,15 @@ export function useProduct(id?: string): UseProductInterface {
     return products;
   };
 
+  const getProductPath = (product: ProductInterface) => {
+    if (!product) return '/';
+    return `/${product?.url_rewrites?.[0]?.url ?? product.url_key}`;
+  };
+
   return {
     getProductList,
     getProductDetails,
+    getProductPath,
     error: readonly(error),
     loading: readonly(loading),
   };

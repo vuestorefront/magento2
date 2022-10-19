@@ -10,6 +10,10 @@ on:
 jobs:
   create-deployment:
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+
     outputs:
       environment-name: ${{ steps.determine-environment.outputs.name }}
       environment-code: ${{ steps.determine-environment.outputs.code }}
@@ -48,6 +52,7 @@ jobs:
           echo ::set-output name=name::${{ env.ENVNAME }}
           echo ::set-output name=code::${{ env.ENVCODE }}
           echo ::set-output name=middleware-url::${{ env.MIDDLEWARE_URL }}
+          echo ::set-output name=ssr-middleware-url::${{ env.SSR_MIDDLEWARE_URL }}
 
       - name: Create GitHub deployment
         id: deployment
@@ -88,6 +93,7 @@ jobs:
 
           VSF_STORE_URL: ''
           VSF_MIDDLEWARE_URL: ${{ needs.create-deployment.outputs.environment-middleware-url }}
+          VSF_SSR_MIDDLEWARE_URL: ${{ needs.create-deployment.outputs.environment-ssr-middleware-url }}
 
           VSF_MAGENTO_BASE_URL: https://magento2-instance.vuestorefront.io/
           VSF_MAGENTO_GRAPHQL_URL: https://magento2-instance.vuestorefront.io/graphql
@@ -99,7 +105,7 @@ jobs:
           VSF_IMAGE_PROVIDER_BASE_URL: https://res-4.cloudinary.com/dnozky7on/image/upload/
           VSF_IMAGE_PROVIDER_DOMAIN: https://res-4.cloudinary.com
 
-          VSF_REDIS_ENABLED: true
+          VSF_REDIS_ENABLED: false
           VSF_REDIS_HOST: redis # VSF cloud specific
           VSF_REDIS_PORT: 6379
           VSF_REDIS_KEY_PREFIX: ${{ github.sha }}
@@ -112,6 +118,8 @@ jobs:
           VSF_RECAPTCHA_MIN_SCORE: 1.0
           VSF_RECAPTCHA_SITE_KEY: 6Ldce0EeAAAAAAGGtGWG-e-SygXiFub6PXHT5fKd
           VSF_RECAPTCHA_SECRET_KEY: ${{ secrets.RECAPTCHA_SECRET_KEY }}
+
+          VSF_COOKIE_SECURE: true
 
           VSF_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
@@ -129,6 +137,10 @@ jobs:
 
   finalize-deployment:
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+
     needs: [create-deployment, build, deploy]
     if: always()
     steps:

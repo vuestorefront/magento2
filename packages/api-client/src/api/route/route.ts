@@ -4,12 +4,15 @@ import gql from 'graphql-tag';
 export default gql`
   query route($url: String!) {
     route(url: $url) {
-      relative_url
-      redirect_code
       type
+       ... on ProductInterface {
+        sku
+      }
       ... on CategoryTree {
         uid
-        id
+      }
+      ... on CmsPage {
+        identifier
       }
     }
   }

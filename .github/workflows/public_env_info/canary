@@ -1,5 +1,6 @@
 ENVNAME=canary
 ENVCODE=demo-magento2-canary
-BASE_URL=https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io
-MIDDLEWARE_URL=https://demo-magento2-canary.europe-west1.gcp.storefrontcloud.io/api
+BASE_URL=https://magento2stage.vuestorefront.io
+MIDDLEWARE_URL=https://magento2stage.vuestorefront.io/api
+SSR_MIDDLEWARE_URL=http://localhost:3000/api
 MAGENTO_GRAPHQL_URL=https://magento2-instance.vuestorefront.io:8443/graphql

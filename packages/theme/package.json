@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-theme",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "private": true,
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
@@ -38,7 +38,8 @@
     "@pinia/nuxt": "^0.1.9",
     "@storefront-ui/vue": "^0.13.3",
     "@vue-storefront/cache": "~2.7.1",
-    "@vue-storefront/magento-api": "^1.0.2",
+    "@vue-storefront/http-cache": "^2.7.1",
+    "@vue-storefront/magento-api": "^1.1.0",
     "@vue-storefront/middleware": "~2.7.1",
     "@vue-storefront/nuxt": "~2.7.1",
     "@vue-storefront/redis-cache": "^1.0.1",

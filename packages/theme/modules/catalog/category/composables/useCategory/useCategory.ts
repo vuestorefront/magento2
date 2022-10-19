@@ -34,11 +34,17 @@ import type{ CategoryTree } from '~/modules/GraphQL/types';
 export interface UseCategoryErrors {
   /** Error when loading categories fails, otherwise is `null`. */
   load: Error;
+  loadCategoryMeta: Error;
 }
 
 /** The {@link useCategory} params object received by `load` function. */
 export type UseCategoryParamsInput = ComposableFunctionArgs< {
   pageSize: number;
+}>;
+
+/** The {@link useCategory} params object received by `loadCategoryMeta` function. */
+export type UseCategoryMetaParamsInput = ComposableFunctionArgs< {
+  category_uid: string;
 }>;
 
 /**
@@ -87,4 +93,5 @@ export interface UseCategoryInterface {
    * ```
    */
   load(params: ComposableFunctionArgs<UseCategoryParamsInput>): Promise<void>;
+  loadCategoryMeta(params: ComposableFunctionArgs<UseCategoryMetaParamsInput>): Promise<CategoryTree | null>;
 }

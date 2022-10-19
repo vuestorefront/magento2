@@ -290,10 +290,7 @@ export default defineComponent({
 
     const updateCountry = async (params: UseCountrySearchParams) => {
       country.value = await searchCountry(params);
-      form.value.region = {
-        // let region SfSelect know it should display initial state
-        ...(regionInformation.value.length > 0 ? { region_id: null } : {}),
-      };
+      form.value.region = { region_id: null, region_code: '' };
     };
 
     watch(() => props.address, () => {
@@ -318,9 +315,13 @@ export default defineComponent({
 
     const submitForm = () => {
       const regionId = regionInformation.value.find((r) => r.abbreviation === form.value.region.region_code)?.id;
-      if (regionId) {
-        form.value.region.region_id = regionId;
-      }
+      form.value.region = regionId
+        ? { region_id: regionId }
+        : {
+          ...form.value.region,
+          region_code: '',
+          region_id: null,
+        };
 
       emit('submit', {
         form: omitDeep(form.value, ['__typename']),

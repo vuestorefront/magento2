@@ -19,7 +19,7 @@ export function useTraverseCategory() {
   const activeCategory = computed(() => {
     // on localhost the default store is localhost:3000/default/ but in a multi-store Magento instance this can change
     const urlPathToFind = route.value.path
-      .replace(context.app.localePath('/c'), '')
+      .replace(context.app.localePath('/'), '')
       .replace(/^\//, '')
       .replace('.html', '');
 
