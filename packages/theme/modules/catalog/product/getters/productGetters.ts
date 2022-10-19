@@ -92,7 +92,7 @@ export const getPrice = (product: ProductInterface): Price => {
 export const getGallery = (product: Product, maxGallerySize = 4): MediaGalleryItem[] => {
   const images = [];
 
-  if (!product?.media_gallery.length && !product?.configurable_product_options_selection?.media_gallery.length) {
+  if (!product?.media_gallery?.length && !product?.configurable_product_options_selection?.media_gallery?.length) {
     return images;
   }
 

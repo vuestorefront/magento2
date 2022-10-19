@@ -36,11 +36,13 @@ export function useImage(): UseImageInterface {
   /**
    * Extract image path from Magento URL.
    *
-   * @param fullImageUrl {string}
+   * @param fullImageUrl {string | null}
    *
    * @return {string}
    */
-  const getMagentoImage = (fullImageUrl: string) => {
+  const getMagentoImage = (fullImageUrl: string | null) => {
+    if (!fullImageUrl) return '';
+
     // @ts-ignore
     const { imageProvider, magentoBaseUrl } = context.$vsf.$magento.config;
 

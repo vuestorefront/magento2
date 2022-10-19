@@ -307,4 +307,5 @@ export default {
   "The user password was changed successfully updated!":"Das Benutzerpasswort wurde erfolgreich geändert aktualisiert!",
   "The user account data was successfully updated!":"Die Benutzerkontodaten wurden erfolgreich aktualisiert!",
   "You submitted your review for moderation.": "Sie haben Ihre Bewertung zur Moderation eingereicht.",
+  "Starting at": "Beginnt um",
 };

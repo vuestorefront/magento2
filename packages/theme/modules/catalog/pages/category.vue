@@ -205,12 +205,12 @@ export default defineComponent({
     const { activeCategory, loadCategoryTree } = useTraverseCategory();
     const activeCategoryName = computed(() => activeCategory.value?.name ?? '');
 
+    const categoryUid = routeData.uid;
+
     const { fetch } = useFetch(async () => {
       if (!activeCategory.value) {
         await loadCategoryTree();
       }
-
-      const categoryUid = routeData.uid;
 
       const [content, categoryMetaData] = await Promise.all([
         getContentData(categoryUid as string),
@@ -237,17 +237,27 @@ export default defineComponent({
     });
 
     const isPriceLoaded = ref(false);
+
     onMounted(async () => {
       loadWishlist();
       const { getPricesBySku } = usePrice();
       if (products.value.length > 0) {
         const skus = products.value.map((item) => item.sku);
         const priceData = await getPricesBySku(skus, pagination.value.itemsPerPage);
-        products.value = products.value.map((product) => ({
-          ...product,
-          price_range: priceData.items.find((item) => item.sku === product.sku)?.price_range,
-        }));
+        products.value = products.value.map((product) => {
+          const priceRange = priceData.items.find((item) => item.sku === product.sku)?.price_range;
+
+          if (priceRange) {
+            return {
+              ...product,
+              price_range: priceRange,
+            };
+          }
+
+          return { ...product };
+        });
       }
+
       isPriceLoaded.value = true;
     });
 

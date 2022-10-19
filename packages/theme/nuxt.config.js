@@ -135,8 +135,8 @@ export default async () => {
         default: 'max-age=300, s-maxage=3600, stale-while-revalidate=86400',
         matchRoute: {
           '/': 'max-age=1800, s-maxage=86400, stale-while-revalidate=86400',
-          '/my-account': 'none',
-          '/checkout*': 'none',
+          '*/customer*': 'none',
+          '*/checkout*': 'none',
         },
       }],
     ],
