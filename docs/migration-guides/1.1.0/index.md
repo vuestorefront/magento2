@@ -30,7 +30,13 @@ Vue Storefront for Magento 1.1.0 provides a few new features like SEO-friendly U
 - fix: fix product detail components [https://github.com/vuestorefront/magento2/pull/1330](https://github.com/vuestorefront/magento2/pull/1330)
 - fix: downloadableProduct might not have been initialized [https://github.com/vuestorefront/magento2/pull/1325](https://github.com/vuestorefront/magento2/pull/1325)
 - fix: getAvailableShippingMethods query variables [https://github.com/vuestorefront/magento2/pull/1318](https://github.com/vuestorefront/magento2/pull/1318)
-
+- fix: update CDN default configuration [https://github.com/vuestorefront/magento2/pull/1372](https://github.com/vuestorefront/magento2/pull/1372)
+- fix: getMagentoImage reading 'split' error [https://github.com/vuestorefront/magento2/pull/1373](https://github.com/vuestorefront/magento2/pull/1373)
+- fix: cart type error in the console after opening mini cart as a guest [https://github.com/vuestorefront/magento2/pull/1374](https://github.com/vuestorefront/magento2/pull/1374)
+- fix: product detail gallery is missing when browsing products using mobile [https://github.com/vuestorefront/magento2/pull/1375](https://github.com/vuestorefront/magento2/pull/1375)
+- fix: ssr reload on the grouped product page [https://github.com/vuestorefront/magento2/pull/1376](https://github.com/vuestorefront/magento2/pull/1376)
+- fix: product list page items on product page list page zero prices issues [https://github.com/vuestorefront/magento2/pull/1379](https://github.com/vuestorefront/magento2/pull/1379)
+-
 ### Chore
 
 - chore: removed deprecated composables packages from the repository [https://github.com/vuestorefront/magento2/pull/1322](https://github.com/vuestorefront/magento2/pull/1322)
@@ -39,6 +45,7 @@ Vue Storefront for Magento 1.1.0 provides a few new features like SEO-friendly U
 
 - docs: fixed breaking change reference link [https://github.com/vuestorefront/magento2/pull/1350](https://github.com/vuestorefront/magento2/pull/1350)
 - docs: fix wording + add installation video [https://github.com/vuestorefront/magento2/pull/1319](https://github.com/vuestorefront/magento2/pull/1319)
+- docs: removed outdated information about cors configuration [https://github.com/vuestorefront/magento2/pull/1378](https://github.com/vuestorefront/magento2/pull/1378)
 
 ### Repository
 
