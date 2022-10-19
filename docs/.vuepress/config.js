@@ -79,6 +79,13 @@ module.exports = {
         title: '',
         collapsable: false,
         children: [
+          ['https://developer.vuestorefront.io/quiz/questions/magento', 'Test your knowledge']
+        ]
+      },
+      {
+        title: 'Essentials',
+        collapsable: false,
+        children: [
           ['/', 'Introduction'],
           ['/guide/supported-features', 'Supported features'],
           ['/guide/about', 'About'],
