@@ -49,10 +49,10 @@ jobs:
 
       - id: determine-environment
         run: |
-          echo ::set-output name=name::${{ env.ENVNAME }}
-          echo ::set-output name=code::${{ env.ENVCODE }}
-          echo ::set-output name=middleware-url::${{ env.MIDDLEWARE_URL }}
-          echo ::set-output name=ssr-middleware-url::${{ env.SSR_MIDDLEWARE_URL }}
+          echo "name=${{ env.ENVNAME }}" >> $GITHUB_OUTPUT
+          echo "code=${{ env.ENVCODE }}" >> $GITHUB_OUTPUT
+          echo "middleware-url=${{ env.MIDDLEWARE_URL }}" >> $GITHUB_OUTPUT
+          echo "ssr-middleware-url=${{ env.SSR_MIDDLEWARE_URL }}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub deployment
         id: deployment
