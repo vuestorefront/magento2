@@ -1,36 +1,36 @@
 <template>
   <SfBottomModal
-    :is-open='isLangModalOpen'
+    :is-open="isLangModalOpen"
     :title="availableStores.length > 0 ? $t('Change Store') : ''"
-    @click:close='closeModal'
+    @click:close="closeModal"
   >
-    <SfList v-if='availableStores.length > 1'>
+    <SfList v-if="availableStores.length > 1">
       <SfListItem
-        v-for='store in availableStores'
-        :key='store.id'
+        v-for="store in availableStores"
+        :key="store.id"
       >
         <a
-          href='/'
-          class='container__store--link'
+          href="/"
+          class="container__store--link"
           :class="
             storeConfig.store_code === store.store_code
               ? 'container__store--selected'
               : ''
           "
-          @click.prevent='changeStore(store)'
+          @click.prevent="changeStore(store)"
         >
-          <SfCharacteristic class='language'>
+          <SfCharacteristic class="language">
             <template #title>
               <span>{{ store.store_name }}</span>
             </template>
             <template #icon>
               <SfImage
-                image-tag='nuxt-img'
-                :src='`/icons/langs/${store.locale}.webp`'
-                width='20'
-                height='20'
-                alt='Flag'
-                class='language__flag'
+                image-tag="nuxt-img"
+                :src="`/icons/langs/${store.locale}.webp`"
+                width="20"
+                height="20"
+                alt="Flag"
+                class="language__flag"
               />
             </template>
           </SfCharacteristic>
@@ -39,9 +39,9 @@
     </SfList>
     <template #close-mobile>
       <SfButton
-        class='sf-button--full-width sf-bottom-modal__cancel'
-        aria-label='Close'
-        @click='closeModal'
+        class="sf-button--full-width sf-bottom-modal__cancel"
+        aria-label="Close"
+        @click="closeModal"
       >
         {{ $t('Cancel') }}
       </SfButton>
