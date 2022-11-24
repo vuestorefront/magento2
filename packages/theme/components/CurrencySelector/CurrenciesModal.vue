@@ -1,22 +1,22 @@
 <template>
   <SfBottomModal
-    :is-open="isModalOpen"
+    :is-open='isModalOpen'
     :title="$t('Choose Currency')"
-    @click:close="closeModal"
+    @click:close='closeModal'
   >
     <SfList
-      v-if="availableCurrencies.length > 1"
+      v-if='availableCurrencies.length > 1'
     >
       <SfListItem
-        v-for="currency in availableCurrencies"
-        :key="currency"
+        v-for='currency in availableCurrencies'
+        :key='currency'
       >
         <a
-          href="/"
+          href='/'
           :class="selectedCurrency === currency ? 'container__currency--selected-label' : ''"
-          @click.prevent="changeCurrency({id: currency})"
+          @click.prevent='changeCurrency({id: currency})'
         >
-          <SfCharacteristic class="currency">
+          <SfCharacteristic class='currency'>
             <template #title>
               <span>{{ currency }}</span>
             </template>
@@ -26,27 +26,27 @@
     </SfList>
     <template #close-mobile>
       <SfButton
-        class="sf-button--full-width sf-bottom-modal__cancel"
-        aria-label="Close"
-        @click="closeModal"
+        class='sf-button--full-width sf-bottom-modal__cancel'
+        aria-label='Close'
+        @click='closeModal'
       >
         {{ $t('Cancel') }}
       </SfButton>
     </template>
   </SfBottomModal>
 </template>
-<script lang="ts">
+<script lang='ts'>
 import {
-  defineComponent, computed, onMounted,
+  defineComponent, computed, onMounted
 } from '@nuxtjs/composition-api';
 import {
   SfButton,
   SfList,
   SfBottomModal,
-  SfCharacteristic,
+  SfCharacteristic
 } from '@storefront-ui/vue';
 import {
-  useCurrency,
+  useCurrency
 } from '~/composables';
 
 export default defineComponent({
@@ -55,7 +55,7 @@ export default defineComponent({
     SfButton,
     SfList,
     SfBottomModal,
-    SfCharacteristic,
+    SfCharacteristic
   },
   props: {
     isModalOpen: Boolean,
@@ -65,7 +65,7 @@ export default defineComponent({
     },
   },
   emits: ['closeModal'],
-  setup() {
+  setup(props, { emit }) {
     const {
       currency: currencies,
       change: changeCurrency,
@@ -73,6 +73,10 @@ export default defineComponent({
     } = useCurrency();
 
     const availableCurrencies = computed<string[]>(() => currencies.value?.available_currency_codes || []);
+
+    const closeModal = () => {
+      emit('closeModal');
+    };
 
     onMounted(() => {
       if (currencies.value && currencies.value?.available_currency_codes) return;
@@ -82,16 +86,12 @@ export default defineComponent({
     return {
       changeCurrency,
       availableCurrencies,
+      closeModal,
     };
-  },
-  methods: {
-    closeModal() {
-      this.$emit('closeModal');
-    },
   },
 });
 </script>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .sf-bottom-modal {
   z-index: 2;
   left: 0;
@@ -99,6 +99,7 @@ export default defineComponent({
     --bottom-modal-height: 100vh;
   }
 }
+
 .sf-bottom-modal::v-deep .sf-bottom-modal__close {
   position: var(--circle-icon-position, absolute);
   top: var(--spacer-xs);
