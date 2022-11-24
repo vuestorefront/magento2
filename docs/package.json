@@ -7,13 +7,16 @@
   "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build --max-concurrency=32",
+    "build:largeMem": "export NODE_OPTIONS=\"--max-old-space-size=8192\" && yarn build",
+    "build": "yarn api-extract && vuepress build  --max-concurrency=32",
     "api-extract": "cd ../ && yarn build && cd docs/ && yarn api-ref && yarn theme-ref && yarn ref-md",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
     "theme-ref": "cd ../scripts && node generateApiReference.mjs",
     "ref-md": "api-documenter markdown --i api-reference --o api-reference"
   },
   "devDependencies": {
+    "browserslist": "latest",
+    "caniuse-lite": "latest",
     "@microsoft/api-documenter": "^7.17.12",
     "@microsoft/api-extractor": "^7.23.1",
     "@vuepress/plugin-active-header-links": "^1.9.7",
@@ -23,12 +26,12 @@
     "handlebars": "^4.7.7",
     "markdown-it-video": "^0.6.3",
     "rimraf": "^3.0.2",
-    "typescript": "^4.5.4",
+    "typescript": "<=4.7.4",
     "vuepress": "^1.9.7"
   },
   "dependencies": {
     "sass-loader": "^8.0.2",
     "vue-multiselect": "^2.1.6",
-    "vuepress-theme-vsf-docs": "^1.0.16"
+    "vuepress-theme-vsf-docs": "1.0.21"
   }
 }
