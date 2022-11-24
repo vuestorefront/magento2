@@ -31,21 +31,21 @@
     "update:update": "ncu -u"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.7.1",
     "agentkeepalive": "^4.2.1",
-    "dotenv": "^16.0.1",
-    "graphql": "^16.3.0",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.36",
-    "concurrently": "^7.2.2",
+    "concurrently": "^7.6.0",
     "cross-fetch": "^3.1.5",
-    "graphql-tools": "^8.3.0",
+    "graphql-tools": "^8.3.12",
     "jest-transform-graphql": "^2.1.0",
-    "msw": "^0.43.0",
-    "typescript": "^4.7.4",
+    "msw": "^0.49.0",
+    "typescript": "<=4.7.4",
     "webpack": "4.46.0"
   },
   "peerDependencies": {
