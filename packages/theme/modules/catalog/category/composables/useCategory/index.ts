@@ -1,6 +1,6 @@
 import { Ref, ref, useContext } from '@nuxtjs/composition-api';
 import { Logger } from '~/helpers/logger';
-import type { CategoryTree } from '~/modules/GraphQL/types';
+import type{ CategoryTree } from '~/modules/GraphQL/types';
 import categoryMetaGql from '~/modules/catalog/category/composables/useCategory/categoryMeta.gql';
 import type {
   UseCategoryErrors,

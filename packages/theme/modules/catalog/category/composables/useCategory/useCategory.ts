@@ -1,6 +1,6 @@
 import type { Ref } from '@nuxtjs/composition-api';
 import type { ComposableFunctionArgs } from '~/composables/types';
-import type { CategoryTree } from '~/modules/GraphQL/types';
+import type{ CategoryTree } from '~/modules/GraphQL/types';
 /**
  * The {@link useCategory} error object. Its properties values' are the errors
  * thrown by composable methods.
