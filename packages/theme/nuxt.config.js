@@ -216,7 +216,7 @@ export default () => {
           path: 'assets/fonts/',
           local: true,
           formats: ['eot', 'woff', 'woff2', 'ttf', 'svg'],
-          apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
+          apiUrl: 'https://gwfh.mranftl.com/api/fonts',
         }),
       ],
       transpile: [
