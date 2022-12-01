@@ -9,7 +9,7 @@
     "dev": "vuepress dev",
     "build:largeMem": "export NODE_OPTIONS=\"--max-old-space-size=8192\" && yarn build",
     "build": "yarn api-extract && vuepress build  --max-concurrency=32",
-    "api-extract": "cd ../ && yarn build && cd docs/ && yarn api-ref && yarn theme-ref && yarn ref-md",
+    "api-extract": "cd ../ && yarn build && cd docs/ && yarn api-ref && yarn ref-md",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
     "theme-ref": "cd ../scripts && node generateApiReference.mjs",
     "ref-md": "api-documenter markdown --i api-reference --o api-reference"
