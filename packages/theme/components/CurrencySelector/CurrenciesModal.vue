@@ -35,7 +35,7 @@
     </template>
   </SfBottomModal>
 </template>
-<script lang="ts">
+<script lang='ts'>
 import {
   defineComponent, computed, onMounted,
 } from '@nuxtjs/composition-api';
@@ -65,7 +65,7 @@ export default defineComponent({
     },
   },
   emits: ['closeModal'],
-  setup() {
+  setup(props, { emit }) {
     const {
       currency: currencies,
       change: changeCurrency,
@@ -73,6 +73,10 @@ export default defineComponent({
     } = useCurrency();
 
     const availableCurrencies = computed<string[]>(() => currencies.value?.available_currency_codes || []);
+
+    const closeModal = () => {
+      emit('closeModal');
+    };
 
     onMounted(() => {
       if (currencies.value && currencies.value?.available_currency_codes) return;
@@ -82,16 +86,12 @@ export default defineComponent({
     return {
       changeCurrency,
       availableCurrencies,
+      closeModal,
     };
-  },
-  methods: {
-    closeModal() {
-      this.$emit('closeModal');
-    },
   },
 });
 </script>
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .sf-bottom-modal {
   z-index: 2;
   left: 0;
@@ -99,6 +99,7 @@ export default defineComponent({
     --bottom-modal-height: 100vh;
   }
 }
+
 .sf-bottom-modal::v-deep .sf-bottom-modal__close {
   position: var(--circle-icon-position, absolute);
   top: var(--spacer-xs);

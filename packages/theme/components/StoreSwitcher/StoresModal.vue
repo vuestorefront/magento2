@@ -48,9 +48,12 @@
     </template>
   </SfBottomModal>
 </template>
-<script lang="ts">
+<script lang='ts'>
 import {
-  defineComponent, onMounted, computed, PropType,
+  defineComponent,
+  onMounted,
+  computed,
+  PropType,
 } from '@nuxtjs/composition-api';
 import {
   SfButton,
@@ -79,7 +82,7 @@ export default defineComponent({
     },
   },
   emits: ['closeModal'],
-  setup() {
+  setup(props, { emit }) {
     const {
       stores,
       change: changeStore,
@@ -87,6 +90,10 @@ export default defineComponent({
     } = useStore();
 
     const availableStores = computed<AvailableStores>(() => stores.value ?? []);
+
+    const closeModal = () => {
+      emit('closeModal');
+    };
 
     onMounted(() => {
       if (stores.value && stores.value?.length) return;
@@ -96,16 +103,12 @@ export default defineComponent({
     return {
       availableStores,
       changeStore,
+      closeModal,
     };
-  },
-  methods: {
-    closeModal() {
-      this.$emit('closeModal');
-    },
   },
 });
 </script>
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .container {
   display: flex;
   flex-wrap: nowrap;

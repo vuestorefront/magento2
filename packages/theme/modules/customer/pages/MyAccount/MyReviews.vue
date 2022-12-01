@@ -75,7 +75,7 @@ export default defineComponent({
     const userReviews = computed(() => reviewGetters.getItems(reviews.value));
 
     onMounted(async () => {
-      // @ts-expect-error loadCustomerReviews type is wrong in theme and in api-client, see M2-579
+      // loadCustomerReviews type is wrong in theme and in api-client, see M2-579
       reviews.value = await loadCustomerReviews();
     });
 
