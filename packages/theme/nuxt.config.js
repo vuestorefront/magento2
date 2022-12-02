@@ -4,6 +4,7 @@
 import webpack from 'webpack';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
+import { probeGoogleFontsApi, GOOGLE_FONT_API_URL } from './modules/core/GoogleFontsAPI/probeGoogleFontsApi.ts';
 
 const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
@@ -25,7 +26,7 @@ const {
   },
 } = middleware;
 
-export default () => {
+export default async () => {
   const baseConfig = {
     ssr: true,
     dev: process.env.VSF_NUXT_APP_ENV !== 'production',
@@ -206,18 +207,6 @@ export default () => {
             lastCommit: process.env.LAST_COMMIT || '',
           }),
         }),
-        new GoogleFontsPlugin({
-          fonts: [
-            { family: 'Raleway', variants: ['300', '400', '500', '600', '700', '400italic'], display: 'swap' },
-            { family: 'Roboto', variants: ['300', '400', '500', '700', '300italic', '400italic'], display: 'swap' },
-          ],
-          name: 'fonts',
-          filename: 'fonts.css',
-          path: 'assets/fonts/',
-          local: true,
-          formats: ['eot', 'woff', 'woff2', 'ttf', 'svg'],
-          apiUrl: 'https://google-webfonts-helper.herokuapp.com/api/fonts',
-        }),
       ],
       transpile: [
         'vee-validate',
@@ -292,6 +281,22 @@ export default () => {
       ...baseConfig.publicRuntimeConfig,
       isRecaptcha: process.env.VSF_RECAPTCHA_ENABLED === 'true',
     };
+  }
+
+  if (await probeGoogleFontsApi()) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    baseConfig.build.plugins.push(new GoogleFontsPlugin({
+      fonts: [
+        { family: 'Raleway', variants: ['300', '400', '500', '600', '700', '400italic'], display: 'swap' },
+        { family: 'Roboto', variants: ['300', '400', '500', '700', '300italic', '400italic'], display: 'swap' },
+      ],
+      name: 'fonts',
+      filename: 'fonts.css',
+      path: 'assets/fonts/',
+      local: true,
+      formats: ['eot', 'woff', 'woff2', 'ttf', 'svg'],
+      apiUrl: GOOGLE_FONT_API_URL,
+    }));
   }
 
   return baseConfig;
