@@ -2,7 +2,7 @@ import type { ApolloQueryResult } from '@apollo/client/core';
 import type { CustomQuery } from '@vue-storefront/core';
 import upsellProducts from './upsellProducts';
 import type { Context } from '../../types/context';
-import type { GetProductSearchParams } from '../../types/API';
+import type { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import type {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
@@ -26,6 +26,7 @@ export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { upsellProducts: 'upsellProducts' },
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -56,7 +57,7 @@ export default async (
       query: upsellProductsGQL.query,
       variables: upsellProductsGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

@@ -10,7 +10,7 @@ import type {
   UsePaymentProviderSaveParams,
   PaymentMethodParams,
 } from './usePaymentProvider';
-import { CustomQuery } from '~/types/core';
+import { CustomQuery, CustomHeaders } from '~/types/core';
 
 /**
  * Allows loading the available payment
@@ -39,6 +39,7 @@ export function usePaymentProvider(): UsePaymentProviderInterface {
           ...params.paymentMethod,
         },
         customQuery: params.customQuery,
+        customHeaders: params?.customHeaders,
       };
 
       result = await setPaymentMethodOnCartCommand.execute(context, paymentMethodParams);
@@ -54,13 +55,13 @@ export function usePaymentProvider(): UsePaymentProviderInterface {
     return result;
   };
 
-  const load = async (customQuery?: CustomQuery) => {
+  const load = async (customQuery?: CustomQuery, customHeaders?: CustomHeaders) => {
     Logger.debug('usePaymentProvider.load');
     let result = null;
 
     try {
       loading.value = true;
-      result = await getAvailablePaymentMethodsCommand.execute(context, cart.value.id, customQuery);
+      result = await getAvailablePaymentMethodsCommand.execute(context, cart.value.id, customQuery, customHeaders);
       error.value.load = null;
     } catch (err) {
       error.value.load = err;

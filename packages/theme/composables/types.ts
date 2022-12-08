@@ -3,13 +3,14 @@ import type {
   CountriesListQuery,
 } from '~/modules/GraphQL/types';
 
-import type { CustomQuery } from '~/types/core';
+import type { CustomQuery, CustomHeaders } from '~/types/core';
 
 export declare type AvailableStores = AvailableStoresQuery['availableStores'];
 export declare type Countries = CountriesListQuery['countries'][0];
 
 export declare type ComposableFunctionArgs<T> = T & {
   customQuery?: CustomQuery;
+  customHeaders?: CustomHeaders;
 };
 
 export interface Totals {

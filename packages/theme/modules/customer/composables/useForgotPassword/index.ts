@@ -39,7 +39,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
       loading.value = true;
       Logger.debug('[Magento]: Reset user password', resetPasswordParams);
       // eslint-disable-next-line max-len
-      const { data } = await app.context.$vsf.$magento.api.requestPasswordResetEmail({ email: resetPasswordParams.email, recaptchaToken: resetPasswordParams.recaptchaToken }, resetPasswordParams?.customQuery ?? null);
+      const { data } = await app.context.$vsf.$magento.api.requestPasswordResetEmail({ email: resetPasswordParams.email, recaptchaToken: resetPasswordParams.recaptchaToken }, resetPasswordParams?.customQuery ?? null, resetPasswordParams?.customHeaders);
       Logger.debug('[Result]:', { data });
       error.value.request = data;
       result.value.resetPasswordResult = data?.requestPasswordResetEmail ?? false;
@@ -61,7 +61,7 @@ export function useForgotPassword(): UseForgotPasswordInterface {
         newPassword: setNewPasswordParams.newPassword,
         resetPasswordToken: setNewPasswordParams.tokenValue,
         recaptchaToken: setNewPasswordParams.recaptchaToken,
-      }, setNewPasswordParams?.customQuery ?? null);
+      }, setNewPasswordParams?.customQuery ?? null, setNewPasswordParams?.customHeaders);
 
       Logger.debug('[Result]:', { data });
       result.value.setNewPasswordResult = data?.resetPassword ?? false;

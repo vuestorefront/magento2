@@ -24,7 +24,7 @@ export function useConfig(): UseConfigInterface {
     Logger.debug('useConfig/load');
 
     try {
-      const { data } = await app.$vsf.$magento.api.storeConfig(params?.customQuery ?? null);
+      const { data } = await app.$vsf.$magento.api.storeConfig(params?.customQuery ?? null, params?.customHeaders);
       configStore.$patch((state) => {
         state.storeConfig = data.storeConfig || {};
       });

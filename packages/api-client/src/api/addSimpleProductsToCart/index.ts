@@ -7,12 +7,14 @@ import {
   AddSimpleProductsToCartMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   input: AddSimpleProductsToCartInput,
   customQuery: CustomQuery = { addSimpleProductsToCart: 'addSimpleProductsToCart' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
   const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(
     customQuery,
@@ -27,7 +29,7 @@ export default async (
     mutation: addSimpleProductsToCartGQL.query,
     variables: addSimpleProductsToCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

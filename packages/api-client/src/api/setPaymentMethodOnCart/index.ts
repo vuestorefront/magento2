@@ -3,6 +3,7 @@ import { CustomQuery } from '@vue-storefront/core';
 import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
 import type { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
@@ -15,11 +16,13 @@ export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInpu
  * @param context VSF context
  * @param input params containing the cart's ID and the payment method
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function setPaymentMethodOnCart(
   context: Context,
   input: SetPaymentMethodOnCartInputs,
   customQuery: CustomQuery = { setPaymentMethodOnCart: 'setPaymentMethodOnCart' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SetPaymentMethodOnCartMutation>> {
   const { setPaymentMethodOnCart: setPaymentMethodOnCartGQL } = context.extendQuery(customQuery, {
     setPaymentMethodOnCart: {
@@ -32,7 +35,7 @@ export default async function setPaymentMethodOnCart(
     mutation: setPaymentMethodOnCartGQL.query,
     variables: setPaymentMethodOnCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

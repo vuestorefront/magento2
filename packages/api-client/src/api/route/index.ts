@@ -3,6 +3,7 @@ import type { CustomQuery } from '@vue-storefront/core';
 import type { QueryRouteArgs, RoutableInterface } from '../../types/GraphQL';
 import routeQuery from './route';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export type RouteQuery<ROUTE_TYPE> = {
@@ -15,11 +16,13 @@ export type RouteQuery<ROUTE_TYPE> = {
  * @param context VSF Context
  * @param url the URL to be resolved
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function route(
   context: Context,
   url: string,
   customQuery: CustomQuery = { route: 'route' },
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>> {
   const { route: routeGQL } = context.extendQuery(customQuery, {
     route: {
@@ -32,7 +35,7 @@ export default async function route(
     query: routeGQL.query,
     variables: routeGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

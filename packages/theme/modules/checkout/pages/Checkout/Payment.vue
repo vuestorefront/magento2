@@ -338,7 +338,6 @@ export default defineComponent({
   }
 
   &__action-button {
-    margin: 0;
     width: 100%;
     margin: var(--spacer-sm) 0 0 0;
     @include for-desktop {

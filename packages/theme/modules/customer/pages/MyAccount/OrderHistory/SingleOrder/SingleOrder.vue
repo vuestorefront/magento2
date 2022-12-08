@@ -41,7 +41,7 @@
               </div>
             </SfTableData>
             <SfTableData>{{ item.quantity_ordered }}</SfTableData>
-            <SfTableData>{{ $fc(item.product_sale_price.value) }}</SfTableData>
+            <SfTableData>{{ $fc(item.product_sale_price.value, '', { currency: item.product_sale_price.currency }) }}</SfTableData>
           </SfTableRow>
 
           <OrderSummaryRow>
@@ -76,7 +76,7 @@
               {{ $t('Price') }}
             </template>
             <template #value>
-              {{ $fc(asyncData.order.total.base_grand_total.value) }}
+              {{ $fc(getGrandTotal(asyncData.order), '', {currency: getOrderCurrency(asyncData.order)}) }}
             </template>
           </OrderSummaryRow>
         </SfTable>
@@ -192,6 +192,8 @@ export default defineComponent({
       ordersRoute,
       asyncData,
       getDate: orderGetters.getDate,
+      getGrandTotal: orderGetters.getGrandTotal,
+      getOrderCurrency: orderGetters.getOrderCurrency,
     };
   },
 });

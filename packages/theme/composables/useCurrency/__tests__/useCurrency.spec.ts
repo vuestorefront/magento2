@@ -61,6 +61,6 @@ describe('useCurrency', () => {
 
     // then
     expect(appMock.app.$vsf.$magento.api.currency)
-      .toHaveBeenCalledWith({ currency: 'custom-currency-query' });
+      .toHaveBeenCalledWith({ currency: 'custom-currency-query' }, null);
   });
 });

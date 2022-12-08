@@ -40,7 +40,7 @@
         <div class="notifications">
           <SfNotification
             v-if="!loading"
-            :visible="visible"
+            :visible="isRemoveModalVisible"
             :title="$t('Are you sure?')"
             :message="$t('Are you sure you would like to remove this item from the shopping cart?')"
             type="secondary"
@@ -50,11 +50,11 @@
                 <SfButton
                   class="sf-button_remove_item"
                   data-testid="cart-sidebar-remove-item-yes"
-                  @click="actionRemoveItem(tempProduct)"
+                  @click="removeItemAndSendNotification(itemToRemove)"
                 >
                   {{ $t('Yes') }}
                 </SfButton>
-                <SfButton @click="visible = false">
+                <SfButton @click="isRemoveModalVisible = false">
                   {{ $t('Cancel') }}
                 </SfButton>
               </div>
@@ -108,7 +108,7 @@
                   :link="localePath(getProductPath(product.product))"
                   class="collected-product"
                   @input="delayedUpdateItemQty({ product, quantity: $event })"
-                  @click:remove="sendToRemove({ product })"
+                  @click:remove="showRemoveItemModal({ product })"
                 >
                   <template #image>
                     <SfImage
@@ -250,6 +250,15 @@
                 {{ $t('Go to checkout') }}
               </SfButton>
             </a>
+            <a @click="goToCart">
+              <SfButton
+                data-testid="category-sidebar-go-to-cart"
+                class="sf-button--full-width sidebar-go-to-cart"
+                @click="toggleCartSidebar"
+              >
+                {{ $t('Go to cart') }}
+              </SfButton>
+            </a>
           </div>
           <div v-else>
             <SfButton
@@ -265,8 +274,8 @@
     </SfSidebar>
   </div>
 </template>
+
 <script lang="ts">
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   SfLoader,
   SfNotification,
@@ -281,29 +290,16 @@ import {
   SfImage,
 } from '@storefront-ui/vue';
 import {
-  computed,
   defineComponent,
-  ref,
   useRouter,
   useContext,
-  onMounted,
 } from '@nuxtjs/composition-api';
-import { debounce } from 'lodash-es';
-import cartGetters from '~/modules/checkout/getters/cartGetters';
-import productGetters from '~/modules/catalog/product/getters/productGetters';
 import {
   useUiState,
-  useUiNotification,
-  useExternalCheckout,
-  useImage,
-  useProduct,
 } from '~/composables';
-import { useCart } from '~/modules/checkout/composables/useCart';
-import { useUser } from '~/modules/customer/composables/useUser';
 import SvgImage from '~/components/General/SvgImage.vue';
-import type { ConfigurableCartItem, BundleCartItem, CartItemInterface } from '~/modules/GraphQL/types';
-import { ProductStockStatus } from '~/modules/GraphQL/types';
-import CouponCode from './CouponCode.vue';
+import CouponCode from '~/components/CouponCode.vue';
+import { useCartView } from '~/modules/checkout/composables/useCartView';
 
 export default defineComponent({
   name: 'CartSidebar',
@@ -323,120 +319,36 @@ export default defineComponent({
     SfImage,
   },
   setup() {
-    const { app: { i18n } } = useContext();
-    const { initializeCheckout } = useExternalCheckout();
+    const cartView = useCartView();
     const { isCartSidebarOpen, toggleCartSidebar } = useUiState();
-    const { getMagentoImage, imageSizes } = useImage();
     const router = useRouter();
     const { app } = useContext();
-    const { getProductPath } = useProduct();
-    const {
-      cart,
-      removeItem,
-      updateItemQty,
-      load: loadCart,
-      loading,
-    } = useCart();
 
-    const { isAuthenticated } = useUser();
-    const { send: sendNotification, notifications } = useUiNotification();
-
-    const products = computed(() => cartGetters
-      .getItems(cart.value)
-      .filter(Boolean)
-      .map((item) => ({
-        ...item,
-        product: {
-          ...item.product,
-          ...[(item as ConfigurableCartItem).configured_variant ?? {}],
-          original_sku: item.product.sku,
-        },
-      })));
-    const totals = computed(() => cartGetters.getTotals(cart.value));
-    const discount = computed(() => -cartGetters.getDiscountAmount(cart.value));
-    const totalItems = computed(() => cartGetters.getTotalItems(cart.value));
-    const getAttributes = (product: ConfigurableCartItem) => product.configurable_options || [];
-    const getBundles = (product: BundleCartItem) => product.bundle_options?.map((b) => b.values).flat() || [];
-    const visible = ref(false);
-    const tempProduct = ref();
-
-    onMounted(() => {
-      if (!cart.value?.id) {
-        loadCart();
-      }
-    });
-
-    const goToCheckout = async () => {
-      const redirectUrl = initializeCheckout({ baseUrl: '/checkout/user-account' });
-      await router.push(app.localePath(redirectUrl));
+    const goToCart = async () => {
+      await router.push(app.localeRoute({ name: 'cart' }));
     };
-
-    const sendToRemove = ({ product }: { product: CartItemInterface }) => {
-      if (notifications.value.length > 0) {
-        notifications.value[0].dismiss();
-      }
-
-      visible.value = true;
-      tempProduct.value = product;
-    };
-
-    const actionRemoveItem = async (product: CartItemInterface) => {
-      await removeItem({ product });
-      visible.value = false;
-
-      sendNotification({
-        id: Symbol('product_removed'),
-        message: i18n.t('{0} has been successfully removed from your cart', {
-          0: cartGetters.getItemName(
-            product,
-          ),
-        }) as string,
-        type: 'success',
-        icon: 'check',
-        persist: false,
-        title: 'Product removed',
-      });
-    };
-    const delayedUpdateItemQty = debounce(
-      (params) => updateItemQty(params),
-      1000,
-    );
-    const isInStock = (product: CartItemInterface) => cartGetters.getStockStatus(product) === ProductStockStatus.InStock;
 
     return {
-      sendToRemove,
-      actionRemoveItem,
-      loading,
-      isAuthenticated,
-      products,
-      removeItem,
-      delayedUpdateItemQty,
+      ...cartView,
       isCartSidebarOpen,
-      notifications,
-      visible,
-      tempProduct,
       toggleCartSidebar,
-      goToCheckout,
-      totals,
-      totalItems,
-      cartGetters,
-      productGetters,
-      getAttributes,
-      getBundles,
-      isInStock,
-      imageSizes,
-      getMagentoImage,
-      discount,
-      getProductPath,
+      goToCart,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.sidebar-go-to-cart {
+  margin-top: var(--spacer-sm);
+  --button-background: var(--c-light);
+  --button-color: var(--c-dark-variant);
+}
+
 #cart {
   --sidebar-z-index: 3;
   --overlay-z-index: 3;
+
   @include for-desktop {
     & > * {
       --sidebar-bottom-padding: var(--spacer-base);
@@ -444,6 +356,7 @@ export default defineComponent({
     }
   }
 }
+
 @include for-mobile {
   .close-icon {
     display: none;
@@ -463,8 +376,10 @@ export default defineComponent({
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 99999;
+
   .sf-notification {
     padding: 20px;
+
     .button-wrap {
       margin-top: 15px;
       display: flex;
@@ -557,12 +472,14 @@ export default defineComponent({
 
   &:hover {
     --collected-product-configuration-display: initial;
+
     @include for-desktop {
       .collected-product__properties {
         display: none;
       }
     }
   }
+
   .sf-badge__absolute {
     position: absolute;
     left: 0;

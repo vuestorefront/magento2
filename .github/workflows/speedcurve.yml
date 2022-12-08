@@ -11,7 +11,7 @@ jobs:
       - name: Shorten deployment commit SHA
         id: vars
         shell: bash
-        run: echo "::set-output name=sha_short::$(echo ${{ github.event.deployment.sha }} | cut -c1-8)"
+        run: echo "sha_short=$(echo ${{ github.event.deployment.sha }} | cut -c1-8)" >> $GITHUB_OUTPUT
 
       - name: 'Ask SpeedCurve to run performance tests'
         uses: SpeedCurve-Metrics/speedcurve-test-action@v1.2.2

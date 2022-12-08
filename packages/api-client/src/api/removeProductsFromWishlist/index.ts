@@ -6,12 +6,14 @@ import {
   RemoveProductsFromWishlistMutationVariables,
 } from '../../types/GraphQL';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   input: RemoveProductsFromWishlistMutationVariables,
   customQuery: CustomQuery = { removeProductsFromWishlist: 'removeProductsFromWishlist' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RemoveProductsFromWishlistMutation>> => {
   const { removeProductsFromWishlist: removeProductsFromWishlistGQL } = context.extendQuery(
     customQuery,
@@ -27,7 +29,7 @@ export default async (
     mutation: removeProductsFromWishlistGQL.query,
     variables: removeProductsFromWishlistGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

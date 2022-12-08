@@ -6,7 +6,7 @@ export const loadReviewMetadataCommand = {
   execute: async (context: VsfContext, params?: ComposableFunctionArgs<{}>) => {
     Logger.debug('[Magento] load review metadata');
 
-    const { data } = await context.$magento.api.productReviewRatingsMetadata(params?.customQuery ?? null);
+    const { data } = await context.$magento.api.productReviewRatingsMetadata(params?.customQuery ?? null, params?.customHeaders);
 
     Logger.debug('[Result]:', { data });
 

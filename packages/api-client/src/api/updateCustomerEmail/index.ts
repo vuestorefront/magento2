@@ -2,6 +2,7 @@ import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import updateCustomerEmail from './updateCustomerEmail';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import { UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
@@ -9,6 +10,7 @@ export default async (
   context: Context,
   input: UpdateCustomerEmailMutationVariables,
   customQuery: CustomQuery = { updateCustomerEmail: 'updateCustomerEmail' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<UpdateCustomerEmailMutation>> => {
   const { updateCustomerEmail: updateCustomerEmailGQL } = context.extendQuery(
     customQuery,
@@ -24,7 +26,7 @@ export default async (
     mutation: updateCustomerEmailGQL.query,
     variables: updateCustomerEmailGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 };

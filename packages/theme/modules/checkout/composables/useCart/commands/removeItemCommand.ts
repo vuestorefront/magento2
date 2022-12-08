@@ -1,12 +1,17 @@
 import { Logger } from '~/helpers/logger';
 import { Cart, RemoveItemFromCartInput } from '~/modules/GraphQL/types';
 import { VsfContext } from '~/composables/context';
-import { CustomQuery } from '~/types/core';
+import { CustomQuery, CustomHeaders } from '~/types/core';
 
 export const removeItemCommand = {
   execute: async (
     context: VsfContext,
-    { currentCart, product, customQuery },
+    {
+      currentCart,
+      product,
+      customQuery,
+      customHeaders,
+    },
   ) => {
     Logger.debug('[Magento]: Remove item from cart', {
       product,
@@ -24,7 +29,11 @@ export const removeItemCommand = {
       cart_item_uid: item.uid,
     };
 
-    const { data } = await context.$magento.api.removeItemFromCart(removeItemParams, customQuery as CustomQuery);
+    const { data } = await context.$magento.api.removeItemFromCart(
+      removeItemParams,
+      customQuery as CustomQuery,
+      customHeaders as CustomHeaders,
+    );
 
     Logger.debug('[Result]:', { data });
 

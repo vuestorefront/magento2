@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
@@ -14,11 +15,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input ID of the cart and coupon to remove
  * @param customQuery custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function removeCouponFromCart(
   context: Context,
   input: RemoveCouponFromCartInput,
   customQuery: CustomQuery = { removeCouponFromCart: 'removeCouponFromCart' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RemoveCouponFromCartMutation>> {
   const { removeCouponFromCart: removeCouponFromCartGQL } = context.extendQuery(
     customQuery,
@@ -34,7 +37,7 @@ export default async function removeCouponFromCart(
     mutation: removeCouponFromCartGQL.query,
     variables: removeCouponFromCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

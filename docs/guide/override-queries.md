@@ -72,7 +72,7 @@ module.exports = {
     magento: {
       customQueries: {
         /* This is where we override the default query */
-        products: (context) => ({
+        productList: (context) => ({ // this key must match the actual query name
           ...context,
           query: customProductsQuery, // Your custom query
         }),

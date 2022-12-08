@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery } from '@vue-storefront/core';
 import type { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
@@ -14,11 +15,13 @@ import getHeaders from '../getHeaders';
  * @param context VSF context
  * @param input ID of the card and coupon to apply
  * @param customQuery custom GraphQL query that extends the default one
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function applyCouponToCart(
   context: Context,
   input: ApplyCouponToCartInput,
   customQuery: CustomQuery = { applyCouponToCart: 'applyCouponToCart' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ApplyCouponToCartMutation>> {
   const { applyCouponToCart: applyCouponToCartGQL } = context.extendQuery(
     customQuery,
@@ -33,7 +36,7 @@ export default async function applyCouponToCart(
     mutation: applyCouponToCartGQL.query,
     variables: applyCouponToCartGQL.variables,
     context: {
-      headers: getHeaders(context),
+      headers: getHeaders(context, customHeaders),
     },
   });
 }

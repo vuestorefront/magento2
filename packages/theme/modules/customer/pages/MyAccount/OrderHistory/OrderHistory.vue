@@ -45,7 +45,7 @@
           >
             <SfTableData>{{ order.number }}</SfTableData>
             <SfTableData>{{ getDate(order) }}</SfTableData>
-            <SfTableData>{{ $fc(getPrice(order)) }}</SfTableData>
+            <SfTableData>{{ $fc(getGrandTotal(order), '', {currency: getOrderCurrency(order)}) }}</SfTableData>
             <SfTableData>
               <span :class="getStatusTextClass(order)">{{ order.status }}</span>
             </SfTableData>
@@ -173,7 +173,8 @@ export default defineComponent({
       getStatusTextClass,
       orderGetters,
       getDate: orderGetters.getDate,
-      getPrice: orderGetters.getPrice,
+      getGrandTotal: orderGetters.getGrandTotal,
+      getOrderCurrency: orderGetters.getOrderCurrency,
       orders: computed(() => rawCustomerOrders.value?.items ?? []),
       rawCustomerOrders,
       pagination,

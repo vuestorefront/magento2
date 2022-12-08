@@ -7,6 +7,7 @@ export const applyCouponCommand = {
     currentCart,
     couponCode,
     customQuery = { applyCouponToCart: 'applyCouponToCart' },
+    customHeaders = {},
   }) => {
     Logger.debug('[Magento]: Apply coupon on cart', {
       couponCode,
@@ -16,7 +17,7 @@ export const applyCouponCommand = {
     const { data, errors } = await context.$magento.api.applyCouponToCart({
       cart_id: currentCart.id,
       coupon_code: couponCode,
-    }, customQuery);
+    }, customQuery, customHeaders);
 
     Logger.debug('[Result]:', { data, errors });
 

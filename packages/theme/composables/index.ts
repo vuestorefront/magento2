@@ -42,6 +42,7 @@ export * from '../modules/customer/composables/useUserAddress';
 export * from '../modules/customer/composables/useUserOrder';
 export * from '../modules/wishlist/composables/useWishlist';
 export * from './useMagentoConfiguration';
+export * from '../modules/checkout/composables/useCartView';
 
 export * from './types';
 export * from '../modules/GraphQL/types';

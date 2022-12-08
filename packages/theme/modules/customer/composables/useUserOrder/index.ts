@@ -26,7 +26,7 @@ export function useUserOrder(): UseUserOrderInterface {
 
       Logger.debug('[Magento] search user orders', { params });
 
-      const { data } = await app.$vsf.$magento.api.customerOrders(params, params?.customQuery ?? null);
+      const { data } = await app.$vsf.$magento.api.customerOrders(params, params?.customQuery ?? null, params?.customHeaders);
 
       Logger.debug('[Result]:', { data });
 

@@ -67,12 +67,12 @@ PRODUCT
    */
   const isInCart = (product: PRODUCT): boolean => !!cart.value?.items?.find((cartItem) => cartItem?.product?.uid === product.uid);
 
-  const load = async ({ customQuery = {}, realCart = false } = { customQuery: { cart: 'cart' } }): Promise<void> => {
+  const load = async ({ customQuery = {}, customHeaders = {}, realCart = false } = { customQuery: { cart: 'cart' }, customHeaders: {} }): Promise<void> => {
     Logger.debug('useCart.load');
 
     try {
       loading.value = true;
-      const loadedCart = await loadCartCommand.execute(context, { customQuery, realCart });
+      const loadedCart = await loadCartCommand.execute(context, { customQuery, customHeaders, realCart });
       cartStore.$patch((state) => {
         state.cart = loadedCart;
       });
@@ -85,13 +85,13 @@ PRODUCT
     }
   };
 
-  const clear = async ({ customQuery } = { customQuery: { cart: 'cart' } }): Promise<void> => {
+  const clear = async ({ customQuery, customHeaders } = { customQuery: { cart: 'cart' }, customHeaders: {} }): Promise<void> => {
     Logger.debug('useCart.clear');
 
     try {
       loading.value = true;
       context.$magento.config.state.removeCartId();
-      const loadedCart = await loadCartCommand.execute(context, { customQuery });
+      const loadedCart = await loadCartCommand.execute(context, { customQuery, customHeaders });
 
       cartStore.$patch((state) => {
         state.cart = loadedCart;
@@ -123,7 +123,7 @@ PRODUCT
   };
 
   const addItem = async ({
-    product, quantity, productConfiguration, customQuery,
+    product, quantity, productConfiguration, customQuery, customHeaders,
   }): Promise<void> => {
     Logger.debug('useCart.addItem', { product, quantity });
 
@@ -140,6 +140,7 @@ PRODUCT
         quantity,
         productConfiguration,
         customQuery,
+        customHeaders,
       });
 
       error.value.addItem = null;
@@ -160,7 +161,7 @@ PRODUCT
     }
   };
 
-  const removeItem = async ({ product, customQuery }) => {
+  const removeItem = async ({ product, customQuery, customHeaders }) => {
     Logger.debug('useCart.removeItem', { product });
 
     try {
@@ -169,6 +170,7 @@ PRODUCT
         currentCart: cart.value,
         product,
         customQuery,
+        customHeaders,
       });
 
       error.value.removeItem = null;

@@ -8,7 +8,6 @@ export default gql`
           number
           id
           order_date
-          grand_total
           total {
             discounts {
               amount {
@@ -16,6 +15,10 @@ export default gql`
                 value
               }
               label
+            }
+            grand_total {
+              currency
+              value
             }
             base_grand_total {
               currency

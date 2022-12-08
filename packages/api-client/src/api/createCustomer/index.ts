@@ -9,6 +9,7 @@ import {
 } from '../../types/GraphQL';
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
+import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -18,6 +19,7 @@ export default async (
   context: Context,
   input: CustomerCreateInput,
   customQuery: CustomQuery = { createCustomer: 'createCustomer' },
+  customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<CreateCustomerMutation>> => {
   try {
     const {
@@ -52,7 +54,7 @@ export default async (
       mutation: createCustomerGQL.query,
       variables: createCustomerGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
   } catch (error) {

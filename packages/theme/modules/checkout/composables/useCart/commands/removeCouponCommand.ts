@@ -3,12 +3,12 @@ import { Cart } from '~/modules/GraphQL/types';
 import { VsfContext } from '~/composables/context';
 
 export const removeCouponCommand = {
-  execute: async (context: VsfContext, { currentCart, customQuery = { removeCouponFromCart: 'removeCouponFromCart' } }) => {
+  execute: async (context: VsfContext, { currentCart, customQuery = { removeCouponFromCart: 'removeCouponFromCart' }, customHeaders = {} }) => {
     Logger.debug('[Magento]: Remove coupon from cart', { currentCart });
 
     const { data, errors } = await context.$magento.api.removeCouponFromCart({
       cart_id: currentCart.id,
-    }, customQuery);
+    }, customQuery, customHeaders);
 
     Logger.debug('[Result]:', { data });
 

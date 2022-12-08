@@ -15,7 +15,7 @@ import type {
   UseUserAddressUpdateAddressParams,
   UseUserAddressSetDefaultAddressParams,
 } from './useUserAddress';
-import { CustomQuery } from '~/types/core';
+import { CustomQuery, CustomHeaders } from '~/types/core';
 
 /**
  * Allows loading and manipulating addresses of the current user.
@@ -35,7 +35,7 @@ export function useUserAddress(): UseUserAddressInterface {
   const { user, load: loadUser } = useUser();
   const context = useContext();
 
-  const addAddress = async ({ address, customQuery }: UseUserAddressAddAddressParams) => {
+  const addAddress = async ({ address, customQuery, customHeaders }: UseUserAddressAddAddressParams) => {
     Logger.debug('useUserAddress.addAddress', mask(address));
     let result = {};
     try {
@@ -44,7 +44,7 @@ export function useUserAddress(): UseUserAddressInterface {
         address,
         shipping: shipping.value,
       });
-      result = await createCustomerAddressCommand.execute(context, customerAddressInput, customQuery);
+      result = await createCustomerAddressCommand.execute(context, customerAddressInput, customQuery, customHeaders);
       error.value.addAddress = null;
     } catch (err) {
       error.value.addAddress = err;
@@ -58,13 +58,13 @@ export function useUserAddress(): UseUserAddressInterface {
     return result;
   };
 
-  const deleteAddress = async (address: CustomerAddress, customQuery: CustomQuery) => {
+  const deleteAddress = async (address: CustomerAddress, customQuery: CustomQuery, customHeaders: CustomHeaders) => {
     Logger.debug('useUserAddress.deleteAddress', address);
     let result = {};
 
     try {
       loading.value = true;
-      result = await deleteCustomerAddressCommand.execute(context, address, customQuery);
+      result = await deleteCustomerAddressCommand.execute(context, address, customQuery, customHeaders);
       error.value.deleteAddress = null;
     } catch (err) {
       error.value.deleteAddress = err;
@@ -78,7 +78,7 @@ export function useUserAddress(): UseUserAddressInterface {
     return result;
   };
 
-  const updateAddress = async ({ address, customQuery }: UseUserAddressUpdateAddressParams) => {
+  const updateAddress = async ({ address, customQuery, customHeaders }: UseUserAddressUpdateAddressParams) => {
     Logger.debug('useUserAddress.updateAddress', mask(address));
     let result = {};
 
@@ -88,7 +88,7 @@ export function useUserAddress(): UseUserAddressInterface {
         address,
         shipping: shipping.value,
       });
-      result = await updateCustomerAddressCommand.execute(context, customerAddressInput, customQuery);
+      result = await updateCustomerAddressCommand.execute(context, customerAddressInput, customQuery, customHeaders);
       error.value.updateAddress = null;
     } catch (err) {
       error.value.updateAddress = err;
@@ -120,7 +120,7 @@ export function useUserAddress(): UseUserAddressInterface {
     return user?.value;
   };
 
-  const setDefaultAddress = async ({ address, customQuery }: UseUserAddressSetDefaultAddressParams) => {
+  const setDefaultAddress = async ({ address, customQuery, customHeaders }: UseUserAddressSetDefaultAddressParams) => {
     Logger.debug('useUserAddress.setDefaultAddress', mask(address));
     let result = {};
 
@@ -130,9 +130,10 @@ export function useUserAddress(): UseUserAddressInterface {
         address,
         shipping: shipping.value,
         customQuery,
+        customHeaders,
       });
 
-      result = await updateCustomerAddressCommand.execute(context, updateAddressInput, customQuery);
+      result = await updateCustomerAddressCommand.execute(context, updateAddressInput, customQuery, customHeaders);
       error.value.setDefaultAddress = null;
     } catch (err) {
       error.value.setDefaultAddress = err;

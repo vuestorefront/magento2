@@ -8,7 +8,7 @@ import type {
   ProductDetailsQueryVariables,
 } from '../../types/GraphQL';
 import type { Context } from '../../types/context';
-import type { GetProductSearchParams } from '../../types/API';
+import type { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {
@@ -25,11 +25,13 @@ type Variables = {
  * @param context VSF context
  * @param searchParams params with sort, filters and pagination
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
+ * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function productDetail(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { productDetail: 'productDetail' },
+  customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<ProductDetailsQuery>> {
   const defaultParams = {
     pageSize: 10,
@@ -61,7 +63,7 @@ export default async function productDetail(
       query: productDetailGQL.query,
       variables: productDetailGQL.variables,
       context: {
-        headers: getHeaders(context),
+        headers: getHeaders(context, customHeaders),
       },
     });
 

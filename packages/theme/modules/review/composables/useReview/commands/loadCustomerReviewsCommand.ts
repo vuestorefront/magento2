@@ -11,7 +11,7 @@ export const loadCustomerReviewsCommand = {
   execute: async (context: VsfContext, params?: ComposableFunctionArgs<CustomerProductReviewParams>) => {
     Logger.debug('[Magento] load customer review based on:', { params });
 
-    const { data } = await context.$magento.api.customerProductReview(params, params?.customQuery ?? null);
+    const { data } = await context.$magento.api.customerProductReview(params, params?.customQuery ?? null, params?.customHeaders);
 
     Logger.debug('[Result]:', { data });
 

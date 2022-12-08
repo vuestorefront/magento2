@@ -2,9 +2,9 @@ import type { Pagination } from '~/composables/types';
 import type { CustomerOrders, CustomerOrder, OrderItemInterface } from '~/modules/GraphQL/types';
 
 export const getDate = (order: CustomerOrder): string => new Date(order?.order_date?.replace(/ /g, 'T')).toLocaleDateString();
-
-export const getPrice = (order: CustomerOrder): number => order?.total?.base_grand_total?.value ?? 0;
-
+export const getBaseGrandTotal = (order: CustomerOrder): number => order?.total?.base_grand_total?.value ?? 0;
+export const getGrandTotal = (order: CustomerOrder): number => order?.total?.grand_total.value ?? 0;
+export const getOrderCurrency = (order: CustomerOrder): string => order?.total?.subtotal.currency ?? 'USD';
 export const getItemPrice = (item: OrderItemInterface): number => item?.product_sale_price?.value ?? 0;
 
 const getPagination = (orders: CustomerOrders): Pagination => ({
@@ -17,7 +17,9 @@ const getPagination = (orders: CustomerOrders): Pagination => ({
 
 const orderGetters = {
   getDate,
-  getPrice,
+  getBaseGrandTotal,
+  getGrandTotal,
+  getOrderCurrency,
   getItemPrice,
   getPagination,
 };
