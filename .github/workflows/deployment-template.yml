@@ -27,7 +27,7 @@ jobs:
             echo "Something went wrong during the update process..."
             exit 1
           fi
-#
+
 #      - name: 'Poll for Farmer pod deployment status'
 #        timeout-minutes: 5
 #        run: |
@@ -37,7 +37,7 @@ jobs:
 #              -H 'X-User-Id: ${{ secrets.cloud-username }}' \
 #              -H 'X-Api-Key: ${{ secrets.cloud-password }}' \
 #              -H 'Content-Type: application/json' \
-#              https://farmer.storefrontcloud.io/deploy_check/$NAMESPACE/${{ github.sha }}
+#             https://farmer.storefrontcloud.io/deploy_check/$NAMESPACE/${{ github.sha }}
 #          }
 #          until $( query_deploy_check_endpoint | tee /dev/stderr | grep -q '{"code":200,"ready":"1","deployed":"1"}' ); do
 #            sleep 10;

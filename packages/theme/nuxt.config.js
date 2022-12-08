@@ -284,6 +284,7 @@ export default async () => {
   }
 
   if (await probeGoogleFontsApi()) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     baseConfig.build.plugins.push(new GoogleFontsPlugin({
       fonts: [
         { family: 'Raleway', variants: ['300', '400', '500', '600', '700', '400italic'], display: 'swap' },

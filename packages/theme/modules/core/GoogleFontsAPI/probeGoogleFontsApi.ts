@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const GOOGLE_FONT_API_URL = 'https://google-webfonts-helper.herokuapp.com/api/fonts';
+export const GOOGLE_FONT_API_URL = 'https://gwfh.mranftl.com/api/fonts';
 
 /**
  * Check
