@@ -309,6 +309,5 @@ export default {
   "You submitted your review for moderation.": "Sie haben Ihre Bewertung zur Moderation eingereicht.",
   "Starting at": "Beginnt um",
   "Create an account on the store": "Erstellen Sie ein Konto im Shop",
-  "Sign Up for Newsletter": "Anmeldung für Newsletter",
   "Login on the store": "Melden Sie sich im Shop an",
 };
