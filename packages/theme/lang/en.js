@@ -306,4 +306,6 @@ export default {
   "The user account data was successfully updated!":"The user account data was successfully updated!",
   "You submitted your review for moderation.": "You submitted your review for moderation.",
   "Starting at": "Starting at",
+  "Create an account on the store": "Create an account on the store",
+  "Login on the store": "Login on the store",
 };
