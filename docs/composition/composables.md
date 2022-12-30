@@ -22,7 +22,7 @@ To make composables easily distinguishable from standard methods, we follow the 
 
 ### What does it look like in practice?
 
-Let's take a closer look at how it might look like using the [useUser](/api-reference/magento-theme.useuserinterface.html) composable as an example:
+Let's take a closer look at how it might look like using the [useUser](https://github.com/vuestorefront/magento2/blob/main/packages/theme/modules/customer/composables/useUser/index.ts) composable as an example:
 
 <img
   src="../assets/images/useUser-composable-anatomy.webp"
@@ -37,7 +37,7 @@ In this example:
 
 ## Usage
 
-Let's see how you can use the [useUser](/api-reference/magento-theme.useuserinterface.html) composable to load the current user's data:
+Let's see how you can use the [useUser](https://github.com/vuestorefront/magento2/blob/main/packages/theme/modules/customer/composables/useUser/useUser.ts#L61) composable to load the current user's data:
 
 ```vue
 <script>

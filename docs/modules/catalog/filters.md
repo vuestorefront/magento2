@@ -75,7 +75,7 @@ To create a new renderer, open the `modules/catalog/category/components/filters/
 
 Every renderer must:
 
-- Emit `selectFilter` event whenever an option is selected (type: [AggregationOption](/api-reference/magento-theme.aggregationoption.html)). Otherwise parent component will not know about the change.
+- Emit `selectFilter` event whenever an option is selected (type: `AggregationOption`). Otherwise parent component will not know about the change.
 
   ```html
   <input @input="$emit('selectFilter', $event.target.value)">
