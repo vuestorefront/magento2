@@ -23,7 +23,7 @@ jobs:
         id: get_version
         run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
       - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: docs-storefrontcloud-io/v2-magento2:${{ steps.get_version.outputs.VERSION }}
           registry: registry.storefrontcloud.io
