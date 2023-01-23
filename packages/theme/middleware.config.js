@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 /* eslint-disable unicorn/prefer-module */
 const cookieNames = {
   currencyCookieName: 'vsf-currency',
@@ -31,7 +33,7 @@ module.exports = {
         cookiesDefaultOpts: {
           httpOnly: process.env.VSF_COOKIE_HTTP_ONLY || false,
           secure: process.env.VSF_COOKIE_SECURE || false,
-          sameSite: process.env.VSF_COOKIE_SAME_SITE || 'Strict',
+          sameSite: process.env.VSF_COOKIE_SAME_SITE || 'lax',
           path: process.env.VSF_COOKIE_PATH || '/',
         },
         defaultStore: 'default',
@@ -48,7 +50,7 @@ module.exports = {
         },
         magentoBaseUrl: process.env.VSF_MAGENTO_BASE_URL,
         magentoApiEndpoint: process.env.VSF_MAGENTO_GRAPHQL_URL,
-        imageProvider: process.env.VSF_IMAGE_PROVIDER,
+        imageProvider: process.env.NUXT_IMAGE_PROVIDER,
         recaptcha: {
           isEnabled: process.env.VSF_RECAPTCHA_ENABLED === 'true',
           sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,

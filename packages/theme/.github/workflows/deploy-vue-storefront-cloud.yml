@@ -1,0 +1,151 @@
+name: Deploy to Vue Storefront Cloud
+on:
+  push:
+    branches:
+      - main
+jobs:
+  configure-deployment:
+    runs-on: ubuntu-latest
+
+    outputs:
+      env-info-file: ${{ steps.resolve-env-filename.outputs.env-info-file }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Determine environment-specific variables
+        shell: bash
+        id: resolve-env-filename
+        run: |
+          REF=${{ github.ref }}
+
+          if [ $REF = 'refs/heads/main' ]; then
+            ENVINFO_FILE=production
+
+          else
+            echo 'unrecognized branch name'
+            exit 1
+          fi
+
+          echo "env-info-file=$ENVINFO_FILE" >> $GITHUB_OUTPUT
+          echo "Selected environment: $ENVINFO_FILE"
+
+  build-storefront:
+    runs-on: ubuntu-latest
+    needs: configure-deployment
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup deployment environments variables
+        shell: bash
+        run: |
+          cat .github/workflows/public_env_info/${{ needs.configure-deployment.outputs.env-info-file }} >> $GITHUB_ENV
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+      - name: Build and publish docker image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ secrets.PROJECT_NAME }}-storefrontcloud-io/vue-storefront:${{ github.sha }}
+          registry: ${{ secrets.DOCKER_REGISTRY_URL || 'registry.vuestorefront.cloud' }}
+          username: ${{ secrets.CLOUD_USERNAME }}
+          password: ${{ secrets.CLOUD_PASSWORD }}
+          dockerfile: .vuestorefrontcloud/docker/storefront/Dockerfile
+          buildoptions: "--compress"
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,VSF_NUXT_APP_ENV,VSF_NUXT_APP_PORT,VSF_NUXT_APP_HOST,VSF_STORE_URL,API_BASE_URL,API_SSR_BASE_URL,VSF_MAGENTO_BASE_URL,VSF_MAGENTO_GRAPHQL_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED,VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,NUXT_IMAGE_PROVIDER,NUXT_IMAGE_PROVIDER_BASE_URL,NUXT_IMAGE_PROVIDER_DOMAIN,VSF_REDIS_ENABLED,VSF_REDIS_HOST,VSF_REDIS_PORT,VSF_REDIS_KEY_PREFIX,VSF_REDIS_CACHE_INVALIDATE_URL,VSF_RECAPTCHA_ENABLED,VSF_RECAPTCHA_SITE_KEY,VSF_RECAPTCHA_SECRET_KEY,VSF_RECAPTCHA_HIDE_BADGE,VSF_RECAPTCHA_SIZE,VSF_RECAPTCHA_MIN_SCORE,VSF_RECAPTCHA_VERSION,VSF_COOKIE_HTTP_ONLY,VSF_COOKIE_SECURE,VSF_COOKIE_SAME_SITE,VSF_COOKIE_PATH
+        env:
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_PASS: ${{ secrets.NPM_PASS }}
+          NPM_USER: ${{ secrets.NPM_USER }}
+          NPM_REGISTRY: "https://registrynpm.storefrontcloud.io"
+
+  build-middleware:
+    runs-on: ubuntu-latest
+    needs: configure-deployment
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup deployment environments variables
+        shell: bash
+        run: |
+          cat .github/workflows/public_env_info/${{ needs.configure-deployment.outputs.env-info-file }} >> $GITHUB_ENV
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+      - name: Build and publish docker image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: ${{ secrets.PROJECT_NAME }}-storefrontcloud-io/vue-storefront-middleware:${{ github.sha }}
+          registry: ${{ secrets.DOCKER_REGISTRY_URL || 'registry.vuestorefront.cloud' }}
+          username: ${{ secrets.CLOUD_USERNAME }}
+          password: ${{ secrets.CLOUD_PASSWORD }}
+          dockerfile: .vuestorefrontcloud/docker/middleware/Dockerfile
+          buildoptions: "--compress"
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY,VSF_NUXT_APP_ENV,VSF_NUXT_APP_PORT,VSF_NUXT_APP_HOST,VSF_STORE_URL,API_BASE_URL,API_SSR_BASE_URL,VSF_MAGENTO_BASE_URL,VSF_MAGENTO_GRAPHQL_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_ENABLED,VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,NUXT_IMAGE_PROVIDER,NUXT_IMAGE_PROVIDER_BASE_URL,NUXT_IMAGE_PROVIDER_DOMAIN,VSF_REDIS_ENABLED,VSF_REDIS_HOST,VSF_REDIS_PORT,VSF_REDIS_KEY_PREFIX,VSF_REDIS_CACHE_INVALIDATE_URL,VSF_RECAPTCHA_ENABLED,VSF_RECAPTCHA_SITE_KEY,VSF_RECAPTCHA_SECRET_KEY,VSF_RECAPTCHA_HIDE_BADGE,VSF_RECAPTCHA_SIZE,VSF_RECAPTCHA_MIN_SCORE,VSF_RECAPTCHA_VERSION,VSF_COOKIE_HTTP_ONLY,VSF_COOKIE_SECURE,VSF_COOKIE_SAME_SITE,VSF_COOKIE_PATH
+        env:
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_PASS: ${{ secrets.NPM_PASS }}
+          NPM_USER: ${{ secrets.NPM_USER }}
+          NPM_REGISTRY: "https://registrynpm.storefrontcloud.io"
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+    needs: [configure-deployment, build-storefront, build-middleware]
+    steps:
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: https://${{ secrets.PROJECT_NAME }}.${{ secrets.CLOUD_REGION }}.gcp.storefrontcloud.io
+          environment: production
+          initial_status: in_progress
+
+      - name: Deploy on ${{ secrets.PROJECT_NAME }}.${{ secrets.CLOUD_REGION }}.gcp.storefrontcloud.io
+        run: |
+          curl --location --request PATCH '${{ secrets.PLATFORM_API_URL || 'https://api.platform.vuestorefront.io' }}/cloud/instances/${{ secrets.PROJECT_NAME }}-${{ secrets.CLOUD_REGION }}-gcp-storefrontcloud-io/deploy' --header 'Content-Type: application/json' --data-raw '{ "cloudUserId": "${{ secrets.CLOUD_USERNAME }}", "cloudUserPassword": "${{ secrets.CLOUD_PASSWORD }}", "dockerImageHash": "${{ github.sha }}"}'
+
+      - name: Deploy middleware on ${{ secrets.PROJECT_NAME }}.${{ secrets.CLOUD_REGION }}.gcp.storefrontcloud.io/api/
+        run: |
+          if curl -f -s -H 'X-User-Id: ${{ secrets.CLOUD_USERNAME }}' -H 'X-Api-Key: ${{ secrets.CLOUD_PASSWORD }}' -H 'Content-Type: application/json' -X PATCH -d '{
+            "front_version":"${{ github.sha }}",
+            "additional_apps": {
+              "apps":[{
+                "name":"middleware",
+                "tag":"${{ github.sha }}",
+                "image":"${{ secrets.DOCKER_REGISTRY_URL || 'registry.vuestorefront.cloud' }}/${{ secrets.PROJECT_NAME }}-storefrontcloud-io/vue-storefront-middleware",
+                "path":"/api/",
+                "port":"8181",
+                "has_base_path":false
+              }],
+              "enabled": true
+              }
+            }' ${{ secrets.CLOUD_API_BASE_URL || 'https://farmer.vuestorefront.cloud' }}/instance/${{ secrets.PROJECT_NAME }}-${{ secrets.CLOUD_REGION }}-gcp-storefrontcloud-io; then
+            echo "Instance updated"
+          else
+            echo "Something went wrong during the update process..."
+            exit 1
+          fi
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://${{ secrets.PROJECT_NAME }}.${{ secrets.CLOUD_REGION }}.gcp.storefrontcloud.io
+          state: "success"
+          description: Congratulations! The deploy is done.
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: https://${{ secrets.PROJECT_NAME }}.${{ secrets.CLOUD_REGION }}.gcp.storefrontcloud.io
+          description: Unfortunately, the instance hasn't been updated.
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}

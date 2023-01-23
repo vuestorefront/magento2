@@ -1,0 +1,24 @@
+{
+  "name": "@vue-storefront/magento-theme",
+  "description": "Magento2 Integration for Vue Storefront 2",
+  "version": "1.2.0",
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://github.com/vuestorefront/magento2",
+  "bugs": {
+    "url": "https://github.com/vuestorefront/magento2/issues"
+  },
+  "scripts": {
+    "start:middleware": "node middleware.js"
+  },
+  "dependencies": {
+    "@vue-storefront/middleware": "2.7.5",
+    "@vue-storefront/magento-api": "1.1.0",
+    "@nuxtjs/composition-api": "0.31.0",
+    "cors": "2.8.5",
+    "dotenv": "16.0.3"
+  },
+  "engines": {
+    "node": "^16.13"
+  }
+}

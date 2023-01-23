@@ -41,6 +41,7 @@ export const integrationPlugin = (pluginFn: NuxtPluginWithIntegration) => (nuxtC
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const client = axios.create(config.axios);
+
     const api = createProxiedApi({
       givenApi: configuration.api || {}, client, tag, nuxtCtx,
     });

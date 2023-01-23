@@ -1,7 +1,3 @@
-// @core-development-only-start
-/* eslint-disable unicorn/prefer-module */
-// @core-development-only-end
-import webpack from 'webpack';
 import middleware from './middleware.config';
 import { getRoutes } from './routes';
 import { probeGoogleFontsApi, GOOGLE_FONT_API_URL } from './modules/core/GoogleFontsAPI/probeGoogleFontsApi.ts';
@@ -26,10 +22,24 @@ const {
   },
 } = middleware;
 
+// Client side middleware url
+const middlewareUrl = process.env.NODE_ENV === 'production'
+  ? process.env.API_BASE_URL
+  : 'http://localhost:8181';
+
+// Server side middleware url
+const ssrMiddlewareUrl = process.env.NODE_ENV === 'production'
+  ? process.env.API_SSR_BASE_URL
+  : 'http://localhost:8181';
+
 export default async () => {
   const baseConfig = {
     ssr: true,
     dev: process.env.VSF_NUXT_APP_ENV !== 'production',
+    publicRuntimeConfig: {
+      middlewareUrl,
+      ssrMiddlewareUrl
+    },
     server: {
       port: process.env.VSF_NUXT_APP_PORT,
       host: process.env.VSF_NUXT_APP_HOST || '0.0.0.0',
@@ -198,20 +208,19 @@ export default async () => {
       extend(cfg) {
         // eslint-disable-next-line no-param-reassign
         cfg.devtool = 'source-map';
+        cfg.module.rules.push({
+          test: /\.mjs$/,
+          include: /node_modules/,
+          type: 'javascript/auto',
+        })
       },
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.VERSION': JSON.stringify({
-            // eslint-disable-next-line global-require
-            version: require('./package.json').version,
-            lastCommit: process.env.LAST_COMMIT || '',
-          }),
-        }),
-      ],
+      plugins: [],
       transpile: [
         'vee-validate',
         'lodash-es',
         /^@storefront-ui/,
+        '@glidejs/glide',
+        'axios'
       ],
     },
     plugins: [
@@ -223,6 +232,9 @@ export default async () => {
     ],
     serverMiddleware: [
       '~/serverMiddleware/body-parser.js',
+      {
+        path: '/healthz', handler: '~/serverMiddleware/healthCheck.js'
+      }
     ],
     router: {
       prefetchLinks: false,
@@ -232,34 +244,28 @@ export default async () => {
       },
     },
     image: {
-      provider: process.env.VSF_IMAGE_PROVIDER,
+      provider: process.env.NUXT_IMAGE_PROVIDER,
     },
     env: {
       VSF_MAGENTO_GRAPHQL_URL: process.env.VSF_MAGENTO_GRAPHQL_URL,
     },
-    publicRuntimeConfig: {
-      middlewareUrl: process.env.VSF_MIDDLEWARE_URL || 'http://localhost:3000/api/',
-      ssrMiddlewareUrl: process.env.VSF_SSR_MIDDLEWARE_URL
-        || process.env.VSF_MIDDLEWARE_URL
-        || 'http://localhost:3000/api/',
-    },
   };
 
-  if (process.env.VSF_IMAGE_PROVIDER === 'cloudinary') {
+  if (process.env.NUXT_IMAGE_PROVIDER === 'cloudinary') {
     baseConfig.image.cloudinary = {
-      baseURL: process.env.VSF_IMAGE_PROVIDER_BASE_URL,
+      baseURL: process.env.NUXT_IMAGE_PROVIDER_BASE_URL,
     };
 
-    if (process.env.VSF_IMAGE_PROVIDER_DOMAIN) {
+    if (process.env.NUXT_IMAGE_PROVIDER_DOMAIN) {
       const preconnectConfig = [
         {
           rel: 'preconnect',
-          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+          href: process.env.NUXT_IMAGE_PROVIDER_DOMAIN,
           crossorigin: true,
         },
         {
           rel: 'dns-prefetch',
-          href: process.env.VSF_IMAGE_PROVIDER_DOMAIN,
+          href: process.env.NUXT_IMAGE_PROVIDER_DOMAIN,
         },
       ];
 

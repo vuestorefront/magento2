@@ -59,9 +59,6 @@ export default ({ app, route }: Context) => app.$vsf.$magento.client.interceptor
     state.setStore(i18nCurrentLocaleCode);
     state.setLocale(i18nCurrentLocaleCode);
     state.setCurrency(currency);
-
-    // eslint-disable-next-line no-param-reassign
-    request.headers.cookie = prepareNewCookieString(app, i18nCurrentLocaleCode, currency);
   }
 
   return request;
