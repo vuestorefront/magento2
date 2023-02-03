@@ -25,6 +25,22 @@ We use Pinia store to keep the same state for Wishlist across the whole applicat
 ## Interfaces
 
 ```ts
+export interface Wishlist {
+  /** The unique ID for a `Wishlist` object */
+  id?: Maybe<Scalars['ID']>;
+  /** @deprecated Use field `items_v2` from type `Wishlist` instead */
+  items?: Maybe<Array<Maybe<WishlistItem>>>;
+  /** The number of items in the wish list */
+  items_count?: Maybe<Scalars['Int']>;
+  /** An array of items in the customer's wish list */
+  items_v2?: Maybe<WishlistItems>;
+  /** An encrypted code that Magento uses to link to the wish list */
+  sharing_code?: Maybe<Scalars['String']>;
+  /** The time of the last modification to the wish list */
+  updated_at?: Maybe<Scalars['String']>;
+}
+```
+```ts
 /**
  * Almost every method is extending this type
  */
