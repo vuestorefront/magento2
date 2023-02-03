@@ -5,7 +5,7 @@
 ## API
 `useAddresses` composable returns the following properties:
 
-- `load` - function that loads loads the list of categories and updates `categories`
+- `load` - function that loads the list of categories and updates `categories`
 - `loadCategoryMeta` - function that loads the category metadata
 - `categories` - the array of categories fetched in the `load` method, otherwise is `null`.
 - `error` - ref that contains an errors from the composable methods
