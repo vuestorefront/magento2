@@ -13,34 +13,10 @@
 ## Interfaces
 
 ```ts
-/**
- * Almost every method is extending this type
- */
-type ComposableFunctionArgs<T> = T & {
-  customQuery?: CustomQuery;
-  customHeaders?: CustomHeaders;
-};
-
-interface UseCategoryErrors {
-  /** Error when loading categories fails, otherwise is `null`. */
-  load: Error;
-  loadCategoryMeta: Error;
-}
-
-type UseCategoryParamsInput = ComposableFunctionArgs< {
-  pageSize: number;
-}>;
-
-type UseCategoryMetaParamsInput = ComposableFunctionArgs< {
-  category_uid: string;
-}>;
-
-interface UseCategoryInterface {
-  categories: Ref<CategoryTree[] | null>;
-  error: Ref<UseCategoryErrors>;
-  loading: Ref<boolean>;
-  load(params: ComposableFunctionArgs<UseCategoryParamsInput>): Promise<void>;
-  loadCategoryMeta(params: ComposableFunctionArgs<UseCategoryMetaParamsInput>): Promise<CategoryTree | null>;
+interface UseConfigInterface {
+  config: ComputedRef<StoreConfig>,
+  loading: DeepReadonly<Ref<boolean>>,
+  load(): Promise<void>
 }
 ```
 ## Example
