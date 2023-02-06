@@ -15,6 +15,7 @@ import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
 import { Product } from '~/modules/catalog/product/types';
 import { ComposableFunctionArgs } from '~/composables';
 import { UseCartErrors, UseCartInterface } from './useCart';
+import { ProductStockStatus } from '~/modules/GraphQL/types';
 
 /**
  * Allows loading and manipulating cart of the current user.
@@ -272,7 +273,7 @@ PRODUCT
       return !!product?.configurable_product_options_selection?.variant
         ?.uid;
     }
-    const inStock = product?.stock_status || '';
+    const inStock = product.stock_status === ProductStockStatus.InStock ? true : false;
     const stockLeft = product?.only_x_left_in_stock === null
       ? true
       : qty <= product?.only_x_left_in_stock;
