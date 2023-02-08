@@ -4,7 +4,7 @@ import type { UseUiHelpersInterface } from '~/composables';
 import type { Params, QueryParams, FilterParams } from './Params';
 import type { FacetInterface } from '~/modules/catalog/category/types';
 
-const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage']);
+const nonFilters = new Set(['page', 'sort', 'term', 'itemsPerPage', 'gclid', 'fbclid']);
 
 function reduceFilters(query: QueryParams) {
   return (prev: FilterParams, curr: string): FilterParams => {
