@@ -106,6 +106,7 @@ module.exports = {
         children: [
           ['/composition/composables', 'Composables'],
           ['/composition/list-of-composables', 'List of composables'],
+          ['/composition/use-wishlist', 'useWishlist']
         ],
       },
       {
