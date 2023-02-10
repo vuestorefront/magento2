@@ -49,7 +49,7 @@ export const getTotals = (wishlist: Wishlist[] | Wishlist): Totals => {
   }), ({ total: 0, subtotal: 0 }));
 };
 
-// TO-DO: remove
+// TODO: remove
 export const getShippingPrice = (_wishlist: Wishlist): number => 0;
 
 export const getTotalItems = (wishlist: Wishlist | Wishlist[]): number => (Array.isArray(wishlist)
