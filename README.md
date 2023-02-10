@@ -21,10 +21,6 @@ This project is a Magento 2 integration for Vue Storefront 2.
 [![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## How to start if you want to try out the integration
-
-Please follow the [installation guide](https://docs.vuestorefront.io/magento/installation-setup/installation.html)
-
 ## How to start if you want to contribute?
 
 Want to contribute? Ping us on `magento2` channel on [our Discord](http://discord.vuestorefront.io)!
@@ -60,38 +56,14 @@ php bin/magento setup:static-content:deploy
 Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
 
 ### Steps
-(<b>Note: Currently only yarn is supported because of workspaces resolving. Do not use npm to install or build the project.</b>)
-1. [Fork the repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-2. Clone your fork of the repo
-    ```bash
-    git clone https://github.com/vuestorefront/magento2.git && cd magento2
-    ```
-3. Checkout `develop` branch
-    ```bash
-    git checkout develop
-    ```
-4. Run `yarn` to install dependencies
-    ```bash
-    yarn install
-    ```
-5. Copy `.env.example` to `.env`
-    ```bash
-    cp packages/theme/.env.example packages/theme/.env
-    ```
-6. Update `MAGENTO_GRAPHQL_URL` with url to Magento >=2.4.2 GraphQL endpoint, and the other variable accordingly to your store configurations.
-    ```
-    MAGENTO_GRAPHQL_URL=https://{YOUR_SITE_FRONT_URL}/graphql
-    ```
-7. Build dependencies `yarn build:api-client && yarn build:composables`
+1. Build dependencies `yarn build:api-client && yarn build:composables`
     ```bash
     yarn build:api-client && yarn build:composables
     ```
-8. Run `yarn dev:theme` to run theme. You can find other commands in `package.json`
+8. Run `yarn dev`. You can find other commands in `package.json`
     ```bash
-    yarn dev:theme
+    yarn dev
     ```
-- If you need HMR on Api Client/Composables run `yarn dev:api-client` or `yarn dev:composables` on a separate terminal window.
-
 ## Resources
 
 - [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)

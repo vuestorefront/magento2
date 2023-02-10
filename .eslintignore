@@ -3,5 +3,4 @@
 packages/api-client/src/types/GraphQL.ts
 packages/api-client/server
 packages/api-client/lib
-packages/theme/static/sw.js
 .eslintrc.js
