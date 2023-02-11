@@ -5,12 +5,18 @@
 
 The state of the wishlist is kept in [Pinia](https://pinia.vuejs.org/) Store and is accessible through `useWishlistStore()` composable.
 
-We use Pinia store to keep the same state for Wishlist across the whole application. There is always one instance of wishlist no matter how many times you instantiate `useWishlist` composable.
+```js
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+
+const wishlistState = useWishlistStore()
+```
+
+We use Pinia store to keep the same wishlist state the same across the whole application. There is always one instance of wishlist no matter how many times you instantiate `useWishlist` composable.
 
 ## Features
 
 `useWishlist` returns following properties:
-- `loadItemsCount` -  fetches the number of items on wishlist for the current user and saves it to the Pinai store.
+- `loadItemsCount` -  fetches the number of items on wishlist for the current user and saves it to the Pinia store.
 - `isInWishlist` - checks if a given product is already in wishlist
 - `addItem` - Adds product to the wishlist for the current user
 - `load` - Fetches wishlist of the current customer and saves to the wishlist store
@@ -21,6 +27,64 @@ We use Pinia store to keep the same state for Wishlist across the whole applicat
 - `addOrRemoveItem` - Adds item to the wishlist if is not already added, otherwise remove it from the wishlist.
 -  `loading` - Indicates whether any of the methods is in progress.
 -   `error` - Contains errors from any of the composable methods.
+
+## Example
+
+Below we can see part of the code from the `AppHeader.vue` component. Let's break it down to understand how to use `useWishlist` composable.
+
+```typescript
+import {
+  computed,
+  ref,
+  defineComponent,
+  onMounted,
+} from '@nuxtjs/composition-api';
+
+import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
+import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
+
+export default defineComponent({
+  setup() {
+    const { loadItemsCount } = useWishlist();
+
+    const wishlistStore = useWishlistStore();
+    const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
+    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
+
+    onMounted(async () => {
+        await loadItemsCount();
+    });
+
+    return {
+      wishlistHasProducts,
+      wishlistItemsQty,
+    };
+  },
+});
+```
+
+The above code does following things:
+
+```js
+const { loadItemsCount } = useWishlist();
+```
+1. First we are calling `useWishlist` composable that returns a function called `loadItemsCount`. As the name suggests it returns a number of items in the wishlist.
+```js
+const wishlistState = useWishlistStore();
+```
+2. Next we are calling `useWishlistStore`. The store is used by `useWishlist` under the hood to keep the wishlist state. It synchronizes with the backend automatically when you performa any add/remove operations through `useWishlist` composable. 
+```js
+const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
+const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0); 
+```
+3. We used computed properties to keep the extracted properties in sync with the application state. If you change the state through any of `useWishlist` methods, the computed properties will update automatically.
+```js
+onMounted(async () => {
+    await loadItemsCount();
+});
+```
+4. At the very end we call `loadItemsCount()` function that populates the `wishlistStore.wishlist.items_count` value with the amount of items in the wishlist. We are using `onMounted` hook instead of `useFetch` to fetch the wishlist data only on the frontend. This way the cached SSR response will not contain the data specific to a certain user ([read more on that](https://dev.to/vue-storefront/how-to-deal-with-caching-and-dynamic-content-2ilk))
+
 
 ## Interfaces
 
@@ -100,64 +164,6 @@ export interface UseWishlistInterface {
   error: DeepReadonly<Ref<UseWishlistErrors>>;
 }
 ```
-
-## Example
-
-Below we can see part of the code from the `AppHeader.vue` component. Let's break it down to understand how to use `useWishlist` composable.
-
-```typescript
-import {
-  computed,
-  ref,
-  defineComponent,
-  onMounted,
-} from '@nuxtjs/composition-api';
-
-import { useWishlist } from '~/modules/wishlist/composables/useWishlist';
-import { useWishlistStore } from '~/modules/wishlist/store/wishlistStore';
-
-export default defineComponent({
-  setup() {
-    const { loadItemsCount } = useWishlist();
-
-    const wishlistStore = useWishlistStore();
-    const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
-    const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0);
-
-    onMounted(async () => {
-        await loadItemsCount();
-    });
-
-    return {
-      wishlistHasProducts,
-      wishlistItemsQty,
-    };
-  },
-});
-```
-
-The above code does following things:
-
-```js
-const { loadItemsCount } = useWishlist();
-```
-1. First we are calling `useWishlist` composable that returns a function called `loadItemsCount`. As the name suggests it returns a number of items in the wishlist.
-```js
-const wishlistStore = useWishlistStore();
-```
-2. Next we are calling `useWishlistStore`. The store is used by `useWishlist` under the hood to keep the wishlist state. It synchronizes with the backend automatically when you performa any add/remove operations through `useWishlist` composable. 
-```js
-const wishlistItemsQty = computed(() => wishlistStore.wishlist?.items_count ?? 0);
-const wishlistHasProducts = computed(() => wishlistItemsQty.value > 0); 
-```
-3. We used computed properties to keep the extracted properties in sync with the application state. If you change the state through any of `useWishlist` methods, the computed properties will update automatically.
-```js
-onMounted(async () => {
-    await loadItemsCount();
-});
-```
-4. At the very end we call `loadItemsCount()` function that populates the `wishlistStore.wishlist.items_count` value with the amount of items in the wishlist. We are using `onMounted` hook instead of `useFetch` to fetch the wishlist data only on the frontend. This way the cached SSR response will not contain the data specific to a certain user ([read more on that](https://dev.to/vue-storefront/how-to-deal-with-caching-and-dynamic-content-2ilk))
-
 
 ## Getters
 

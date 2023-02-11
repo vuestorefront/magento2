@@ -4,6 +4,11 @@
 
 The state of the wishlist is kept in [Pinia](https://pinia.vuejs.org/) Store and is accessible through `useCartStore()` composable.
 
+```js
+const cartState = useCartStore()
+
+```
+
 We use Pinia store to keep the same state for Wishlist across the whole application. There is always one instance of wishlist no matter how many times you instantiate `useCart` composable.
 
 ## API
