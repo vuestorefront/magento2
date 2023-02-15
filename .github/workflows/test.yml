@@ -40,5 +40,5 @@ jobs:
       - name: Check for linting errors
         run: yarn lint
 
-      - name: Test theme
-        run: yarn test:theme
+      - name: Test API Client
+        run: yarn test:api-client

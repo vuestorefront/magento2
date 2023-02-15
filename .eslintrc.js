@@ -14,8 +14,6 @@ module.exports = {
     project: [
       resolve(__dirname, './tsconfig.json'),
       resolve(__dirname, './packages/api-client/tsconfig.eslint.json'),
-      resolve(__dirname, './packages/theme/tsconfig.json'),
-      resolve(__dirname, './packages/theme/tests/e2e/tsconfig.json'),
       resolve(__dirname, './packages/load-tests/tsconfig.json'),
     ],
     tsconfigRootDir: __dirname,
@@ -44,16 +42,6 @@ module.exports = {
     "no-plusplus": "off",
   },
   overrides: [
-    {
-      "files": ["packages/theme/tests/e2e/**/*"],
-      "rules": {
-        "jest/expect-expect": "off",
-        "promise/catch-or-return": "off", // conflicts with Cypress.Chainable
-        "promise/always-return": "off",
-        "vue/no-v-text-v-html-on-component": "warn",
-        "vue/no-setup-props-destructure": "warn",
-      }
-    },
     {
       "files": ["internals/**/*"],
       "rules": {
