@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery, Logger } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import { GraphQLError } from 'graphql';
+import consola from 'consola';
 import resetPasswordMutation from './resetPassword';
 import {
   ResetPasswordMutation,
@@ -49,7 +50,7 @@ export default async function resetPassword(
     },
   });
 
-  Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
+  consola.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
   const result = await context.client
     .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
     mutation: extendedResetPasswordMutation.query,

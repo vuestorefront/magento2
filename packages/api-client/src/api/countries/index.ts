@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import { CountriesListQuery } from '../../types/GraphQL';
 import countriesListQuery from './countriesList';
 import { Context } from '../../types/context';

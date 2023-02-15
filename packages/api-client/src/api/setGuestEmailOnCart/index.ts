@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import setGuestEmailOnCartMutation from './setGuestEmailOnCart';
 import {
   SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables,

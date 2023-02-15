@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';

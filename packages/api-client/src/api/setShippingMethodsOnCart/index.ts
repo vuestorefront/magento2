@@ -1,5 +1,5 @@
 import type { FetchResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
+import type { CustomQuery } from '@vue-storefront/middleware';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
 import type { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
 import type { Context } from '../../types/context';

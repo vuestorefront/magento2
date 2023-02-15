@@ -1,5 +1,5 @@
 import type { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
+import type { CustomQuery } from '@vue-storefront/middleware';
 import type {
   ProductAttributeFilterInput,
   ProductAttributeSortInput,

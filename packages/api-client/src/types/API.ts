@@ -1,6 +1,6 @@
 import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client/core';
 import { ExecutionResult } from 'graphql';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import {
   AddConfigurableProductsToCartInput,
   AddSimpleProductsToCartInput,

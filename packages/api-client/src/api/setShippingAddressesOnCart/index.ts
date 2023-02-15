@@ -1,5 +1,5 @@
 import type { FetchResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
+import type { CustomQuery } from '@vue-storefront/middleware';
 import setShippingAddressesOnCartQuery from './setShippingAddressesOnCart';
 import type {
   SetShippingAddressesOnCartInput,
