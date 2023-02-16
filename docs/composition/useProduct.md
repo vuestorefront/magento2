@@ -75,7 +75,7 @@ interface UseProductInterface {
 - `getBundleProducts` - returns bundle products
 
 
-## cartGetters usage
+## productGetters usage
 
 ```ts
 import productGetters from '~/modules/catalog/product/getters/productGetters';
