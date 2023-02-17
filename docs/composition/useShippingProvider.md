@@ -7,8 +7,8 @@
 
 - `load` - function that loads the shipping provider for current cart.
 - `save` - function that saves new shipping provider for current cart.
-- `error` - ref that contains an errors from the composable methods
-- `loading` - ref that contains information whether any of the composable methods is loading
+- `error` - ref that contains an errors from the composable methods.
+- `loading` - ref that contains information whether any of the composable methods is loading.
 
 ## Interfaces
 

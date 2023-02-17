@@ -5,12 +5,12 @@
 ## API
 `useReview` composable returns the following properties:
 
-- `search` - function that fetches reviews for the product matching the provided filters
-- `loadCustomerReviews` - function that fetches product reviews created by the current customer
-- `loadReviewMetadata` - function that fetches additional product reviews data
-- `addReview` - function that submits a new product review
-- `error` - ref that contains an errors from the composable methods
-- `loading` - ref that contains information whether any of the composable methods is loading
+- `search` - function that fetches reviews for the product matching the provided filters.
+- `loadCustomerReviews` - function that fetches product reviews created by the current customer.
+- `loadReviewMetadata` - function that fetches additional product reviews data.
+- `addReview` - function that submits a new product review.
+- `error` - ref that contains an errors from the composable methods.
+- `loading` - ref that contains information whether any of the composable methods is loading.
 
 ## Interfaces
 

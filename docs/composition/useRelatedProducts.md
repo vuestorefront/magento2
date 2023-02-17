@@ -6,8 +6,8 @@
 `useRelatedProducts` composable returns the following properties:
 
 - `search` - function that searches for the related products with params for sort, filter and pagination.
-- `error` - ref that contains an errors from the composable methods
-- `loading` - ref that contains information whether any of the composable methods is loading
+- `error` - ref that contains an errors from the composable methods.
+- `loading` - ref that contains information whether any of the composable methods is loading.
 
 ## Interfaces
 

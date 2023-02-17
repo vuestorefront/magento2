@@ -7,9 +7,9 @@
 
 - `getProductList` - function that fetches a list of products with sorting, filtering and pagination.
 - `getProductDetails` - function that fetches a product details with sorting, filtering and pagination.
-- `getProductPath` - function that gets a product path from url_rewrites or url_key 
-- `error` - ref that contains an errors from the composable methods
-- `loading` - ref that contains information whether any of the composable methods is loading
+- `getProductPath` - function that gets a product path from url_rewrites or url_key .
+- `error` - ref that contains an errors from the composable methods.
+- `loading` - ref that contains information whether any of the composable methods is loading.
 
 ## Interfaces
 
