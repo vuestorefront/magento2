@@ -122,6 +122,7 @@ module.exports = {
           ['/composition/use-shipping', 'useShipping'],
           ['/composition/use-shipping-provider', 'useShippingProvider'],
           ['/composition/use-store', 'useStore'],
+          ['/composition/use-wishlist', 'useWishlist']
         ],
       },
       {
