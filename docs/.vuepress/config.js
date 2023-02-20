@@ -106,7 +106,15 @@ module.exports = {
           children: [
             ['/composition/composables', 'Composables'],
             ['/composition/list-of-composables', 'List of composables'],
-            ['/composition/use-forgot-password', 'useForgotPassword'],
+            ['/composition/useFacet', 'useFacet'],
+            ['/composition/useForgotPassword', 'useForgotPassword'],
+            ['/composition/useGetShippingMethods', 'useGetShippingMethods'],
+            ['/composition/useGuestUser', 'useGuestUser'],
+            ['/composition/useImage', 'useImage'],
+            ['/composition/useMagentoConfiguration', 'useMagentoConfiguration'],
+            ['/composition/useMakeOrder', 'useMakeOrder'],
+            ['/composition/useNewsletter', 'useNewsletter'],
+            ['/composition/usePaymentProvider', 'usePaymentProvider'],
 
             ['/composition/use-wishlist', 'useWishlist'],
           ],

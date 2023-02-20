@@ -1,7 +1,5 @@
 # useImage
 
-
-
 The `useImage` composable can be used to extract the image paths returned from the Magento API. 
 
 ```js
@@ -9,6 +7,12 @@ import { useImage } from '~/composables';
 
 const { getMagentoImage, imageSizes } = useImage();
 ```
+
+## API
+
+`useImage` returns the following properties:
+- `getMagentoImage` - extracts the image path from the Magento URL
+- `imageSizes` - default sizes for different image usages
 
 ## Usage
 

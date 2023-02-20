@@ -7,6 +7,14 @@
 Learn more about [Payment Providers](https://docs.vuestorefront.io/v2/integrate/payment.html) in Vue Storefront.
 :::
 
+## API
+
+`usePaymentProvider` returns the following properties:
+- `load` - loads available payment methods for the current cart
+- `save` - saves a payment method for the current cart
+- `loading` - loading state of the `load` and `save` methods
+- `error` - error object
+
 ## Examples 
 
 ### Loading Available Payment Methods
@@ -32,11 +40,12 @@ const paymentMethods = await load();
 
 // saves the first payment method as the payment method for the current cart
 const selectedPaymentMethods = await save({ 
-  paymentMethod: paymentMethods[0] 
+  paymentMethod: {
+    code: paymentMethods[0].code
+  }
 });
 ```
 
-## Selecting a Payment Method
 ## Interfaces
 
 ```js
@@ -84,6 +93,13 @@ export interface UsePaymentProviderInterface {
    * payment methods for current cart, so you can update the UI.
    */
   save(params: UsePaymentProviderSaveParams): Promise<AvailablePaymentMethod[] | null>;
+}
+
+export interface AvailablePaymentMethod {
+  /** The payment method code */
+  code: Scalars['String'];
+  /** The payment method title. */
+  title: Scalars['String'];
 }
 
 export interface PaymentMethodInput {

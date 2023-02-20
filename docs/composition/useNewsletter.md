@@ -2,6 +2,15 @@
 
 The `useNewsletter` composable can be used to subscribe a both guests and registered customers to your newsletter. 
 
+## API
+
+`useNewsletter` returns the following properties:
+- `updateSubscription` - updates subscription status of an email
+- `loading` - loading state of the `updateSubscription` method
+- `error` - error object
+
+## Example
+
 ```js
 import { useNewsletter } from '~/composables';
 const { updateSubscription, loading, error } = useNewsletter();

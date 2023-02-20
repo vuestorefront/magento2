@@ -2,6 +2,16 @@
 
 The `useMakeOrder` composable can be used to make an order with current cart.
 
+## API
+
+`useMakeOrder` returns the following properties:
+- `make` - creates an order from the current cart
+- `error` - error object
+- `loading` - boolean indicating if the request is in progress
+
+## Example
+The `make` function retrieves the active cart from the `useCart` composable, creates an order, and then returns a `PlacedOrderOutput` that contains information about the requested order.
+
 ```js
 import { useMakeOrder } from '~/modules/checkout/composables/useMakeOrder';
 
@@ -12,7 +22,6 @@ const orderOutput = await make();
 const orderId = orderOutput.order.order_number;
 ```
 
-The `make` function retrieves the active cart from the `useCart` composable, creates an order, and then returns a `PlacedOrderOutput` that contains information about the requested order.
 
 ## Interfaces
 

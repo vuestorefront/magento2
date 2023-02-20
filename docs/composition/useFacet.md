@@ -2,39 +2,32 @@
 
 Allows searching for products with pagination, totals and sorting options.
 
-```js
-// Basic Usage
-import { useFacet } from '~/composables';
-import facetGetters from '~/modules/catalog/category/getters/facetGetters';
-
-const { search, result, loading, error } = useFacet();
-const products = ssrRef([]);
-const sortBy = ref({selected: '', options: []});
-const pagination = ref({});
-
-await search({term: 'text'});
-
-products.value = facetGetters.getProducts(result.value);
-sortBy.value = facetGetters.getSortOptions(result.value);
-pagination.value = facetGetters.getPagination(result.value);
-```
-
-
 ::: read-more
 Learn more about the `products` query options from the [Magento docs](https://developer.adobe.com/commerce/webapi/graphql/schema/products/queries/products/).
 :::
 
-The `search` method will allow you to search your catalog for items with a given query object with your search parameters. 
 
 The `result` property will contain the data returned from the search and together with getters, can be used to retrieve the products, supported sorting behavior, and pagination data.
 
+## API
+
+`useFacet` returns the following properties:
+
+- `search` - searches your catalog for items with a given query object with your search parameters.
+- `result` - the result of the search
+- `loading` - a boolean indicating if the search is in progress
+- `error` - an error object if the search failed
+
 ## Getters
 
-`getSortOptions` - returns the available sorting options for the current search
-`getProducts` - returns the products for the current search
-`getPagination` - returns the pagination data for the current search
+There also a few `facetGetters` that can be used to easily retrieve data from the `result`.
+
+- `getSortOptions` - returns the available sorting options for the current search
+- `getProducts` - returns the products for the current search
+- `getPagination` - returns the pagination data for the current search
 
 ## Examples
+
 
 ### Getting Products
 
@@ -45,7 +38,7 @@ import { ssrRef } from '@nuxtjs/composition-api'
 import { useFacet } from '~/composables';
 import facetGetters from '~/modules/catalog/category/getters/facetGetters';
 
-const { result, search } = useFacet();
+const { result, search, loading, error } = useFacet();
 const products = ssrRef([]);
 
 await search({ term	: 'value' }); // will perform a text search

@@ -2,7 +2,16 @@
 
 The `useGuestUser` allows you to set a guest email onto a cart. This means that the cart will have an associated email without requiring customers to go through the full process of registering an account.
 
-This requires two things:
+## API
+
+`useGuestUser` returns the following properties:
+- `attachToCart` - attaches an email address to an anonymous cart
+- `loading` - a boolean indicating if the request is in progress
+- `error` - an error object if the request failed
+
+## Example
+
+Using this composable requires two things:
 1. An email address that will be associated with the cart
 2. A reactive reference to the current cart via the `useCart` composable.
 
@@ -10,7 +19,7 @@ This requires two things:
 import useCart from '~/modules/checkout/composables/useCart';
 import { useGuestUser } from '~/composables';
 
-const email = ref('');
+const email = ref(''); // get user input from a form
 const { cart } = useCart();
 const { attachToCart, loading, error } = useGuestUser();
 

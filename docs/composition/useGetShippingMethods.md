@@ -2,6 +2,15 @@
 
 Fetches the available shipping methods for a given cart and supports both guest checkouts and checkouts for logged in customers.
 
+## API
+
+`useGetShippingMethods` returns the following properties:
+- `load` - loads the shipping methods for a cart
+- `error` - possible errors when loading shipping methods
+- `loading` - indicates whether the shipping methods are already being loaded
+
+## Example
+
 For guest checkouts, you need to provide a `cartId` as a parameter. For logged in customers, the shipping methods are automatically fetched for the current cart.
 
 In both cases, you will receive an array of `AvailableShippingMethods`.

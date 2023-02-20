@@ -6,6 +6,14 @@ A wrapper around the `useConfig` composable that allows easy access to a Magento
 To get access to your entire configuration, see the [useConfig](/composables/useConfig) composable.
 :::
 
+## API
+
+`useMagentoConfiguration` returns the following properties:
+- `storeConfig` - entire config from useConfig()
+- `selectedCurrency` - currently active currency
+- `selectedLocale` - currently active locale
+- `selectedStore` - currently active store
+
 ```js
 import { useMagentoConfiguration } from '~/composables';
 
@@ -16,6 +24,7 @@ const {
   selectedStore
 } = useMagentoConfiguration();
 ```
+
 ## Interfaces
 
 ```js

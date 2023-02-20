@@ -7,7 +7,18 @@ The `useForgotPassword` composable is used to request a password reset email or 
 const { request, setNew, loading, result, error } = useForgotPassword();
 ```
 
-## Usage
+## API
+
+`useForgotPassword` returns the following properties:
+
+- `request` - sends a password reset email to the user
+- `setNew` - sets a new password for the user
+- `loading` - a boolean indicating if the request is in progress
+- `result` - the result of the request
+- `error` - an error object if the request failed
+
+## Example
+
 Resetting a user's password takes two steps:
 
 1. Sending a password reset email to the user's email address with a token (ex: `https://<MAGENTOSITE>/customer/account/createPassword/?token=<TOKEN>`)
@@ -22,6 +33,8 @@ The `useForgotPassword` composable provides two methods to perform these operati
 `request` will send a reset password email to the user if the email address matches a user in your database. The email will contain a link to a page where the user can set a new password. Typically, this link will contain a token that can be used to set a new password for the user.
 
 ```js
+import { useForgotPassword } from '~/composables';
+
 const { request } = useForgotPassword();
 await request({ email: ''}); // will send a password reset email to the user
 ```
@@ -32,8 +45,8 @@ Then, the user will receive an email with a link to a page where they can set a 
 const { setNew } = useForgotPassword();
 const email = ref(''); // get user input from the form
 const newPassword = ref(''); // get user input from the form
-const { params } = useRoute(); 
-const token = params.token; // get the token from the URL
+const route = useRoute();
+const { token } = route.value.query; // get the token from the query
 
 await setNew({ email, newPassword, tokenValue: token }); // will set a new password for the user
 ```
