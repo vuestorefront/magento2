@@ -40,6 +40,38 @@ interface UseShippingInterface {
 }
 ```
 
+## shippingGetters
+
+`shippingGetters` is a set of helper functions that can be used to get data from the user object. They receive user object as a parameter and return the data from it.
+
+- `getAddresses` - returns shipping addresses.
+- `getDefault` - returns default shipping address.
+- `getTotal` - returns total shipping addresses count.
+- `getPostCode` - returns shipping address post code.
+- `getStreetName` - returns shipping address street name.
+- `getApartmentNumber` - returns shipping address apartment number.
+- `getCity` - returns shipping address city.
+- `getFirstName` - returns shipping address first name.
+- `getLastName` - returns shipping address last name.
+- `getCountry` - returns shipping address country.
+- `getPhone` - returns shipping address phone number.
+- `getEmail` - returns shipping address email address.
+- `getProvince` - returns shipping address province.
+- `getCompanyName` - returns shipping address company name.
+- `getId` - returns shipping address id.
+- `isDefault` - returns shipping address default status.
+
+
+## shippingGetters usage
+
+```ts
+import shippingGetters from '~/modules/catalog/product/getters/shippingGetters';
+
+const postCode = shippingGetters.getPostCode(address);
+const shippingEmail = shippingGetters.getEmail(address);
+const companyName = shippingGetters.getCompanyName(address);
+```
+
 ## Example
 
 Fetch shipping details on mount and create a new shipping address handler:
