@@ -22,14 +22,7 @@ type ComposableFunctionArgs<T> = T & {
 };
 
 interface UseContentErrors {
-  /**
-Contains error if `loadPage` method failed, otherwise is `null`
-   */
   page: Error | null;
-
-  /**
-Contains error if `loadBlocks` method failed, otherwise is `null`
-   */
   blocks: Error | null;
 }
 
