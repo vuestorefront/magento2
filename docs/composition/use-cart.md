@@ -2,9 +2,9 @@
 
 `useCart` composable allows loading and manipulating cart of the current user.
 
-The state of the wishlist is kept in [Pinia](https://pinia.vuejs.org/) Store and is accessible through `useCartStore()` composable.
+The state of the cart is kept in [Pinia](https://pinia.vuejs.org/) Store and is accessible through `useCartStore()` composable.
 
-We use Pinia store to keep the same state for Wishlist across the whole application. There is always one instance of wishlist no matter how many times you instantiate `useCart` composable.
+We use Pinia store to keep the same state for Cart across the whole application. There is always one instance of cart no matter how many times you instantiate `useCart` composable.
 
 ## API
 `useCart` composable returns the following properties:
