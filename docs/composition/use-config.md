@@ -13,6 +13,11 @@
 ## Interfaces
 
 ```ts
+interface UseConfigInterface {
+  config: ComputedRef<StoreConfig>,
+  loading: DeepReadonly<Ref<boolean>>,
+  load(): Promise<void>
+=======
 /**
  * Almost every method is extending this type
  */

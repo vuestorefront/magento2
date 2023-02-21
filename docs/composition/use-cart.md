@@ -81,7 +81,7 @@ interface UseCartInterface<CART, CART_ITEM, PRODUCT> {
 
 ## cartGetters
 
-`cartGetters` is a set of helper functions that can be used to get data from the cart. They receive either product or cart as a parameter and return the data from it.
+`cartGetters` is a set of helper functions that can be used to get data from the cart. They receive either product or cart object as a parameter and return the data from it.
 
 ### product parameter
 
