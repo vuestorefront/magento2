@@ -74,104 +74,103 @@ module.exports = {
       { text: 'GitHub', link: 'https://github.com/vuestorefront/magento2' },
       { text: 'Environments', link: 'https://docs.vuestorefront.io/magento/guide/environments.html' },
     ],
-    sidebar: [
-      {
-        title: '',
-        collapsable: false,
-        children: [
-          ['https://developer.vuestorefront.io/quiz/questions/magento', 'Test your knowledge']
-        ]
-      },
-      {
-        title: 'Essentials',
-        collapsable: false,
-        children: [
-          ['/', 'Introduction'],
-          ['/guide/supported-features', 'Supported features'],
-          ['/guide/about', 'About'],
-        ],
-      },
-      {
-        title: 'Installation & Setup',
-        collapsable: true,
-        children: [
-          ['/installation-setup/installation', 'Installation'],
-          ['/installation-setup/configure-magento', 'Configuring Magento'],
-          ['/installation-setup/configure-integration', 'Configuring Vue Storefront'],
-        ],
-      },
-      {
-        title: 'Composition',
-        collapsable: true,
-        children: [
-          ['/composition/composables', 'Composables'],
-          ['/composition/list-of-composables', 'List of composables'],
-          ['/composition/use-wishlist', 'useWishlist']
-        ],
-      },
-      {
-        title: 'Modules',
-        collapsable: true,
-        sidebarDepth: 2,
-        children: [
-          {
-            title: 'Catalog',
-            collapsable: true,
-            children: [
-              ['/modules/catalog/filters', 'Filters'],
-              ['/modules/catalog/product-types', 'Product Types'],
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Guides',
-        collapsable: true,
-        children: [
-          ['/guide/global-state-management', 'Global state management'],
-          ['/guide/image-optimization', 'Image optimization'],
-          ['/guide/override-queries', 'Override queries'],
-          ['/guide/testing', 'Testing'],
-          ['/guide/recaptcha', 'ReCaptcha'],
-        ],
-      },
-      {
-        title: 'Performance',
-        collapsable: true,
-        children: [
-          ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
-          ['/guide/ssr', 'Server Side Rendering Cache'],
-        ],
-      },
-      {
-        title: 'Reference',
-        children: [
-          ['/plugins/', 'Plugins'],
-          ['/api-reference/', 'API Reference'],
-          ['/migration-guides/', 'Migration Guides'],
-        ],
-      },
-      {
-        title: 'Nuxt Tips  & Tricks',
-        children: [
-          ['/improvements/optimization/', 'Optimization'],
-          ['/improvements/security/', 'Security'],
-          ['/improvements/logging/', 'Logging'],
-          ['/improvements/analytics/', 'Analytics'],
-        ],
-      },
-      {
-        title: 'Learn Vue Storefront',
-        collapsable: true,
-        children: [
-          ['https://docs.vuestorefront.io/v2/getting-started/introduction.html', 'What is Vue Storefront?'],
-          ['https://docs.vuestorefront.io/v2/getting-started/project-structure.html', 'Project structure'],
-          ['https://docs.vuestorefront.io/v2/getting-started/configuration.html', 'Configuration'],
-          ['https://docs.vuestorefront.io/v2/getting-started/layouts-and-routing.html', 'Layouts and Routing'],
-          ['https://docs.vuestorefront.io/v2/getting-started/theme.html', 'Theme'],
-          ['https://docs.vuestorefront.io/v2/getting-started/internationalization.html', 'Internationalization'],
-        ],
-      },
-    ],
+    secondaryNav: [],
+    sidebar: {
+      '/': [
+        {
+          title: '',
+          collapsable: false,
+          children: [['https://developer.vuestorefront.io/quiz/questions/magento', 'Test your knowledge']],
+        },
+        {
+          title: 'Essentials',
+          collapsable: false,
+          children: [
+            ['/', 'Introduction'],
+            ['/guide/supported-features', 'Supported features'],
+            ['/guide/about', 'About'],
+          ],
+        },
+        {
+          title: 'Installation & Setup',
+          collapsable: true,
+          children: [
+            ['/installation-setup/installation', 'Installation'],
+            ['/installation-setup/configure-magento', 'Configuring Magento'],
+            ['/installation-setup/configure-integration', 'Configuring Vue Storefront'],
+          ],
+        },
+        {
+          title: 'Composition',
+          collapsable: true,
+          children: [
+            ['/composition/composables', 'Composables'],
+            ['/composition/list-of-composables', 'List of composables'],
+            ['/composition/useFacet', 'useFacet'],
+            ['/composition/useForgotPassword', 'useForgotPassword'],
+            ['/composition/useGetShippingMethods', 'useGetShippingMethods'],
+            ['/composition/useGuestUser', 'useGuestUser'],
+            ['/composition/useImage', 'useImage'],
+            ['/composition/useMagentoConfiguration', 'useMagentoConfiguration'],
+            ['/composition/useMakeOrder', 'useMakeOrder'],
+            ['/composition/useNewsletter', 'useNewsletter'],
+            ['/composition/usePaymentProvider', 'usePaymentProvider'],
+
+            ['/composition/use-wishlist', 'useWishlist'],
+          ],
+        },
+        {
+          title: 'Modules',
+          collapsable: true,
+          sidebarDepth: 2,
+          children: [
+            {
+              title: 'Catalog',
+              collapsable: true,
+              children: [
+                ['/modules/catalog/filters', 'Filters'],
+                ['/modules/catalog/product-types', 'Product Types'],
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Guides',
+          collapsable: true,
+          children: [
+            ['/guide/global-state-management', 'Global state management'],
+            ['/guide/image-optimization', 'Image optimization'],
+            ['/guide/override-queries', 'Override queries'],
+            ['/guide/testing', 'Testing'],
+            ['/guide/recaptcha', 'ReCaptcha'],
+          ],
+        },
+        {
+          title: 'Performance',
+          collapsable: true,
+          children: [
+            ['/guide/graphql-get', 'Varnish & GET for GraphQL Queries'],
+            ['/guide/ssr', 'Server Side Rendering Cache'],
+          ],
+        },
+        {
+          title: 'Reference',
+          children: [
+            ['/plugins/', 'Plugins'],
+            ['/api-reference/', 'API Reference'],
+            ['/migration-guides/', 'Migration Guides'],
+          ],
+        },
+        {
+          title: 'Nuxt Tips  & Tricks',
+          children: [
+            ['/improvements/optimization/', 'Optimization'],
+            ['/improvements/security/', 'Security'],
+            ['/improvements/logging/', 'Logging'],
+            ['/improvements/analytics/', 'Analytics'],
+          ],
+        },
+      ],
+    },
   },
 };
