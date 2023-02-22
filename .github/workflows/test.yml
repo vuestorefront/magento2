@@ -5,12 +5,10 @@ on:
     branches:
       - main
       - develop
-      - release/*
   pull_request:
     branches:
       - main
       - develop
-      - release/*
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -41,4 +39,22 @@ jobs:
         run: yarn lint
 
       - name: Test API Client
-        run: yarn test:api-client
+        run: yarn test:api-client --coverage
+
+      - name: check api-client coverage file
+        id: api-coverage
+        run: echo "exists=$((test -s packages/api-client/coverage/lcov.info && echo 'true') || echo 'false')" >> $GITHUB_OUTPUT
+
+      - name: SonarCloud Scan api-client
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
+        with:
+          projectBaseDir: packages/api-client
+          args: >
+            -Dsonar.organization=vuestorefront
+            -Dsonar.projectKey=vuestorefront_magento2_api-client
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+            -Dsonar.coverage.exclusions=__tests__/**,*.config.js,src/index.ts,src/api-extractor-data.ts,**/types/**
+            -Dsonar.cpd.exclusions=__tests__/**
