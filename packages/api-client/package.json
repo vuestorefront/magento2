@@ -34,7 +34,7 @@
     "@vue-storefront/core": "2.7.5",
     "@nuxtjs/composition-api": "0.31.0",
     "@apollo/client": "^3.6.9",
-    "@vue-storefront/middleware": "3.0.0-rc.1",
+    "@vue-storefront/middleware": "3.0.0-rc.2",
     "agentkeepalive": "^4.2.1",
     "consola": "^2.15.3",
     "dotenv": "^16.0.1",

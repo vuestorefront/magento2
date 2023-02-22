@@ -2841,11 +2841,12 @@
     lodash-es "^4.17.15"
     vue "^2.6.11"
 
-"@vue-storefront/middleware@3.0.0-rc.1":
-  version "3.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.0.0-rc.1.tgz#7ce5b0334fc490d67239eefae29a8d23e81d75cc"
-  integrity sha512-2KFZQvrxY8Re6f3kt9B+ZcysFmlLn/oC2xT8dojysdpTQxAkZPaKoWIJl0kg1CN+ipT5RjsD8UvIoLHNQRCB8A==
+"@vue-storefront/middleware@3.0.0-rc.2":
+  version "3.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.0.0-rc.2.tgz#299a332da1fdae1a7b98a3ace422c60c8f03aff8"
+  integrity sha512-WljeTPEUXQUXjmYsO2K9HPEq9qmIH5t4/6kAXb0zMuCia62l9Hed5yCGktXkNCYQe1Rc/R2nmsCXhyNwHk1H3g==
   dependencies:
+    consola "^2.15.3"
     cookie-parser "^1.4.6"
     cors "^2.8.5"
     express "^4.18.1"
