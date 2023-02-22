@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import { CartQuery, CartQueryVariables } from '../../types/GraphQL';
 import query from './cartTotalQty';
 import { Context } from '../../types/context';

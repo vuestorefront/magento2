@@ -50,7 +50,7 @@ To add support for custom product types, create a new component inside the `modu
 
 It should accept two props:
 
-- `product` (type: [Product](http://localhost:8080/api-reference/magento-theme.product.html)) - product object fetched from the API,
+- `product` (type: `Product`) - product object fetched from the API,
 - `isFetching` (type: `boolean`) - a flag indicating whether the `product.vue` components currently fetches product data .
 
 ```typescript

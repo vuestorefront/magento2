@@ -1,5 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import type { Context } from '../../types/context';
 import type { CustomHeaders } from '../../types/API';
 import {

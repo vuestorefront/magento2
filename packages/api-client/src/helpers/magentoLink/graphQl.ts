@@ -7,7 +7,7 @@ import {
   from,
 } from '@apollo/client/core';
 import fetch from 'isomorphic-fetch';
-import { Logger } from '@vue-storefront/core';
+import consola from 'consola';
 import { onError } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
 import { setContext } from '@apollo/client/link/context';
@@ -38,7 +38,7 @@ const createErrorHandler = () => onError(({
 
       if (!message.includes('Resource Owner Password Credentials Grant')) {
         if (!locations) {
-          Logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+          consola.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
           return;
         }
 
@@ -47,13 +47,13 @@ const createErrorHandler = () => onError(({
           line,
         }) => `[column: ${column}, line: ${line}]`);
 
-        Logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+        consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
       }
     });
   }
 
   if (networkError) {
-    Logger.error(`[Network error]: ${networkError}`);
+    consola.error(`[Network error]: ${networkError}`);
   }
 });
 

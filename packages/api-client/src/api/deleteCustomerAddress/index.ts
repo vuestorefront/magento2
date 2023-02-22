@@ -1,5 +1,5 @@
 import { ExecutionResult } from 'graphql';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import deleteCustomerAddressMutation from './deleteCustomerAddress';
 import { Context } from '../../types/context';
 import type { CustomHeaders } from '../../types/API';

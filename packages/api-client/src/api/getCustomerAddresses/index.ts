@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
 import { GetCustomerAddressesQuery } from '../../types/GraphQL';
 import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';

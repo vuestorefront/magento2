@@ -1,4 +1,5 @@
-import { CustomQuery, Logger } from '@vue-storefront/core';
+import { CustomQuery } from '@vue-storefront/middleware';
+import consola from 'consola';
 import type { ApolloQueryResult } from '@apollo/client/core';
 import productDetailsQuery from './productDetailsQuery';
 import type {
@@ -73,7 +74,7 @@ export default async function productDetail(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      Logger.debug(error);
+      consola.debug(error);
 
       return {
         ...error,
@@ -81,7 +82,7 @@ export default async function productDetail(
         data: null,
       };
     }
-    Logger.error(error);
+    consola.error(error);
     throw error.networkError?.result || error;
   }
 }
