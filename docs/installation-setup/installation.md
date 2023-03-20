@@ -225,7 +225,7 @@ cd server
 ### Step 6: Install Magento 2 instance
 
 To simplify the setup, let's use the [`markshust/docker-magento`](https://github.com/markshust/docker-magento) script.
-This will install Magento 2 instance locally using Docker image.
+This will install Magento 2 instance locally using Docker. 
 
 Run the command below to create the store. It will ask you for the Username and Password. Use your public access key as a username and your private access key as a password from the previous step.
 
@@ -245,7 +245,7 @@ Wait for the installation to finish. It will take a few minutes.
 
 ### 7. Get Magento Marketplace access keys
 
-Registry that stores Magento and other third-party packages require authentication. You'll need to generate access keys in the Magento Marketplace to install them.
+To use Magento registry and other third party packages you need to be authenticated. In order to do that, you need to generate Magento Marketplace access keys.
 
 Follow the [Get your authentication keys](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html) guide to generate new access keys.
 
@@ -280,7 +280,7 @@ bin/copytocontainer auth.json
 
 ### 9. Increase default GraphQL query complexity
 
-For security reasons, Magento 2, by default, allows maximum GraphQL query complexity of 300 and depth of 20. You need to change these values using the [GraphQL CustomConfig module](https://github.com/caravelx/module-graphql-config), which allows configuring these values in the admin panel.
+In order to enable GraphQL for the Magento 2 instance, you need to install GraphQL module and increase the default query complexity.
 
 To install the Magento 2 GraphQL Config module, run the following commands on your Magento installation:
 
@@ -292,7 +292,11 @@ bin/magento setup:di:compile
 bin/magento setup:static-content:deploy -f
 ```
 
-Then go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module, and set:
+For security reasons, Magento 2, by default, allows a maximum GraphQL query complexity of 300 and depth of 20. You need to change these values using the [GraphQL CustomConfig module](https://github.com/caravelx/module-graphql-config), which allows configuring these values in the admin panel.
+
+Vue Storefront requires a higher complexity and depth values to work. 
+
+Go to the admin panel, find the configuration panel of the `GraphQL CustomConfig` module, and set:
 
 - **complexity** to 1500,
 - **depth** to 20.
