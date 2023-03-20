@@ -111,7 +111,7 @@ When prompted, provide the URL of your Magento 2 instance:
 | <YOUR_MAGENTO_DOMAIN_NAME>
 ```
 
-Magento 2 instance URL will be used to configure Vue Storefront to connect to your Magento 2 instance - `magento.test` by default.
+The Magento 2 instance URL will be used to connect Vue Storefront to your Magento 2 instance - by default, the URL of the local Magento instance is `magento.test` 
 
 CLI will start installing Magento 2 instance locally using Docker. It will take a few minutes.
 
