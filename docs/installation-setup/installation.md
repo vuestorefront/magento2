@@ -148,7 +148,7 @@ yarn dev
 
 You have successfully installed Vue Storefront and Magento 2 instance locally using CLI. You can now start developing your store 🚀
 
-Continue the documentation to learn how to build your store using Vue Storefront. 
+Continue reading the rest of the documentation to learn how to build your store using Vue Storefront. 
 
 For more advanced configuration options, check out the [Vue Storefront Advanced Configuration](./advanced-configuration.html) page.
 
