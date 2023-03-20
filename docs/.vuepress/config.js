@@ -97,7 +97,7 @@ module.exports = {
           children: [
             ['/installation-setup/installation', 'Installation'],
             ['/installation-setup/configure-magento', 'Configuring Magento'],
-            ['/installation-setup/configure-integration', 'Configuring Vue Storefront'],
+            ['/installation-setup/advanced-configuration', 'Vue Storefront Advanced Configuration'],
           ],
         },
         {
