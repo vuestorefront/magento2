@@ -1,6 +1,6 @@
 # Installation
 
-Welcome to Vue Storefront Magento 2 Integration installation guide! This guide will help you install Vue Storefront on your local machine.
+Welcome to the Vue Storefront Magento 2 Integration installation guide! This guide will help you install Vue Storefront on your local machine.
 
 - **[Installation using CLI](#installation-using-cli)** - install Vue Storefront and Magento 2 instance locally using CLI (recommended)
 - **[Manual Installation](#manual-installation)** - install Vue Storefront and connect to an existing Magento 2, or manually install Vue Storefront and Magento 2 instance locally.
