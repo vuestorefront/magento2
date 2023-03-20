@@ -87,6 +87,10 @@ When prompted, select the option to install Magento 2 instance locally using CLI
 | > Yes / No
 ```
 
+::: tip
+If you already have Magento 2 instance installed, you can skip this step and connect Vue Storefront to your existing Magento 2 instance. See [Manual Installation](#manual-installation) for more details.
+:::
+
 ### Step 4: Provide Magento 2 API credentials
 
 When prompted, provide your Magento 2 API credentials:
