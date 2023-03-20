@@ -225,12 +225,21 @@ cd server
 ### Step 6: Install Magento 2 instance
 
 To simplify the setup, let's use the [`markshust/docker-magento`](https://github.com/markshust/docker-magento) script.
+This will install Magento 2 instance locally using Docker image.
 
 Run the command below to create the store. It will ask you for the Username and Password. Use your public access key as a username and your private access key as a password from the previous step.
 
 ```sh
 curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento.test
 ```
+
+::: tip
+If you want to install Magento 2 instance on a different domain, you can pass it as a parameter to the script. For example, to install Magento 2 on `magento2.test` domain, run the following command:
+
+```sh
+curl -s https://raw.githubusercontent.com/markshust/docker-magento/master/lib/onelinesetup | bash -s -- magento2.test
+```
+:::
 
 Wait for the installation to finish. It will take a few minutes.
 
