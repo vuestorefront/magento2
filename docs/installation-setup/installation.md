@@ -35,7 +35,7 @@ If you prefer a video guide - here's a quick start guide to get your project up 
 
 ## Installation steps
 
-**Supported OS:** MacOS, Linux
+**Supported OS:** MacOS, Linux, Windows (using WSL2)
 If you are using Windows, please proceed with the [Manual Installation](#manual-installation) guide.
 
 **Installation using CLI** is a quick and easy way to get your project up and running. It will install Vue Storefront and Magento 2 instance locally using Docker. It will also generate sample data for your store *(optional)*.
@@ -52,6 +52,8 @@ CLI may take up to 10 minutes to complete the installation process. Please be pa
 ```bash
 npx @vue-storefront/cli init
 ```
+
+CLI uses [`markshust/docker-magento`](https://github.com/markshust/docker-magento) script to install Magento 2 instance locally using Docker.
 
 ### Step 2: Enter project name
 
@@ -455,11 +457,14 @@ You can always check the existing [GitHub Issues](https://github.com/vuestorefro
 
 ### CLI doesn't work on my machine, it gives me an error
 
-If you are using Windows, please make sure you are using the latest version of Node.js. If you are using Linux, please make sure you have the latest version of `npm` installed.
-
 Check that Docker is running and you have enough memory allocated to it.
 
+::: tip From markshust/docker-magento repository
+This setup assumes you are running Docker on a computer with at least 6GB of RAM allocated to Docker, a dual-core, and an SSD hard drive
+:::
+
 In case nothing helps, please create a new issue on our GitHub and we will try to help you or contact us on [Discord](https://discord.vuestorefront.io).
+
 
 ## Recommended tools
 
