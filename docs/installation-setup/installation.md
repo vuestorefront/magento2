@@ -35,6 +35,9 @@ If you prefer a video guide - here's a quick start guide to get your project up 
 
 ## Installation steps
 
+**Supported OS:** MacOS, Linux
+If you are using Windows, please proceed with the [Manual Installation](#manual-installation) guide.
+
 **Installation using CLI** is a quick and easy way to get your project up and running. It will install Vue Storefront and Magento 2 instance locally using Docker. It will also generate sample data for your store *(optional)*.
 
 **CLI** will guide you through the installation process and ask you to provide the required information.
