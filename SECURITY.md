@@ -1,6 +1,6 @@
 # Security Policies and Procedures
 
-This document outlines security procedures and general policies for the Vue Storefront Magento 2 Integraion.
+This document outlines security procedures and general policies for the Vue Storefront Magento 2 Integration.
 
   * [Reporting a Bug](#reporting-a-bug)
   * [Disclosure Policy](#disclosure-policy)
@@ -8,7 +8,7 @@ This document outlines security procedures and general policies for the Vue Stor
 
 ## Reporting a Bug
 
-The Vue Storefront Magento 2 Integraion team and community take all security bugs very seriously.
+The Vue Storefront Magento 2 Integration team and community take all security bugs very seriously.
 Thank you for improving the security of our integration. We appreciate your efforts and
 responsible disclosure and will make every effort to acknowledge your contributions.
 
