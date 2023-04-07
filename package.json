@@ -11,21 +11,14 @@
     "internals/*"
   ],
   "scripts": {
-    "build": "yarn build:api-client",
-    "build:api-client": "cd packages/api-client && yarn build",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
-    "dev:api-client": "cd packages/api-client && yarn dev",
-    "docs:install": "cd docs && yarn",
-    "docs:dev": "cd docs && yarn dev",
-    "docs:build": "cd docs && yarn build",
-    "graphql:codegen": "graphql-codegen --config codegen.yml",
-    "lint": "eslint . --ext .ts,.vue",
-    "prepare": "[ -d '.husky' ] && (husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks) || true",
-    "test": "yarn test:api-client",
-    "test:api-client": "cd packages/api-client && yarn test --passWithNoTests",
-    "update:check": "ncu && lerna run update:check --stream",
-    "update:update": "ncu -u && lerna run update:update --stream"
+    "build": "lerna run build",
+    "dev": "lerna run dev --parallel",
+    "test": "lerna run test",
+    "test:coverage": "lerna run test:coverage",
+    "link-core": "yarn crosslink --overwrite",
+    "release-patch": "lerna publish patch --skip-npm --force-publish=*",
+    "release-stable": "lerna publish minor --skip-npm --force-publish=*",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
