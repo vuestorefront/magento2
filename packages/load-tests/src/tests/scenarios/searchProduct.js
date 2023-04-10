@@ -119,6 +119,13 @@ export default function main() {
           { headers },
         );
         executeCommonChecks(res);
+
+        res = http.post(
+          `${BASE_URL}/api/magento/crosssellProduct`,
+          '[{"filter":{"sku":{"eq":"WSH12"}}},null]',
+          { headers },
+        );
+        executeCommonChecks(res);
       });
     },
   );

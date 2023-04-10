@@ -168,6 +168,15 @@ export default function main() {
       executeCommonChecks(res);
 
       res = http.post(
+        `${BASE_URL}/api/magento/crosssellProduct`,
+        '[{"filter":{"sku":{"eq":"WSH11"}}},null]',
+        {
+          headers,
+        },
+      );
+      executeCommonChecks(res);
+
+      res = http.post(
         `${BASE_URL}/api/magento/relatedProduct`,
         '[{"filter":{"sku":{"eq":"WSH11"}}},null]',
         {

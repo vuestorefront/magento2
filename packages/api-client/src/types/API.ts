@@ -26,6 +26,7 @@ import {
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
+  CrosssellProductsQuery,
   CurrencyQuery,
   CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
@@ -295,6 +296,12 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
   ): Promise<FetchResult<CreateProductReviewMutation>>;
+
+  crosssellProduct(
+    searchParams: GetProductSearchParams,
+    customQuery?: CustomQuery,
+    customHeaders?: CustomHeaders
+  ): Promise<ApolloQueryResult<CrosssellProductsQuery>>;
 
   currency(
     customQuery?: CustomQuery,
