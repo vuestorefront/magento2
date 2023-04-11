@@ -15,6 +15,9 @@ class SdkContext extends Map {
   }
 }
 
+/**
+ * Map containing SDK module configuration values
+ */
 const sdkContext = new SdkContext();
 
 export { sdkContext };
