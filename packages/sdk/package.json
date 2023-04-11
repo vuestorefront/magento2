@@ -24,6 +24,7 @@
     "axios": "^0.27.2"
   },
   "devDependencies": {
+    "@vue-storefront/middleware": "^2.7.5",
     "@babel/core": "^7.10.5",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
