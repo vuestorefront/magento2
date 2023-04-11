@@ -1,5 +1,6 @@
-import { connector, Options } from './connector';
+import { connector } from './connector';
 import type { Module } from '@vsf-enterprise/sdk';
+import { Options } from './types';
 
 export interface MagentoModuleType extends Module {
   connector: ReturnType<typeof connector>;

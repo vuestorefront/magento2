@@ -1,4 +1,4 @@
-import { config } from '../config';
+import { sdkContext } from '../context';
 
 /**
  * Resolve base URL based on the client-side or server-side environment.
@@ -6,8 +6,8 @@ import { config } from '../config';
  * bacause `ssrApiUrl` is optional.
  */
 export const resolveBaseUrl = () => {
-  const apiUrl = config.get('apiUrl');
-  const ssrApiUrl = config.get('ssrApiUrl');
+  const apiUrl = sdkContext.get('apiUrl');
+  const ssrApiUrl = sdkContext.get('ssrApiUrl');
 
   const baseUrl = typeof window === 'undefined' ? ssrApiUrl || apiUrl : apiUrl;
 
