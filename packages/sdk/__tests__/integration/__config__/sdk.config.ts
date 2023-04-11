@@ -2,7 +2,11 @@ import { buildModule, initSDK } from '@vsf-enterprise/sdk';
 import { magentoModule } from '../../../src';
 
 const sdkConfig = {
-  myModule: buildModule(magentoModule, {})
+  myModule: buildModule(magentoModule,
+    {
+      apiUrl: 'http://localhost:8181/magento',
+      ssrApiUrl: 'http://localhost:8181/magento'
+    })
 };
 
 export const sdk = initSDK(sdkConfig);

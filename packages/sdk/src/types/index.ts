@@ -1,3 +1,1 @@
-/**
- * Types goes here
- */
+export { Options } from './options';
