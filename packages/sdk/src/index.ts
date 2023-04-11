@@ -1,4 +1,4 @@
-import { connector } from './connector';
+import { connector, Options } from './connector';
 import type { Module } from '@vsf-enterprise/sdk';
 
 export interface MagentoModuleType extends Module {
@@ -9,8 +9,10 @@ export interface MagentoModuleType extends Module {
  * This is the main entry point for the module
  * Factory function that returns the module must be exported
  */
-export const magentoModule = (): MagentoModuleType => {
+export const magentoModule = (options: Options): MagentoModuleType => {
   return {
-    connector: connector()
+    connector: connector(options)
   };
 };
+
+export { client } from './client';
