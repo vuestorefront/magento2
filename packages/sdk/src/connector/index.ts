@@ -35,10 +35,14 @@ const sdkContext = new SdkContext();
 
 export { sdkContext };
 
-export const connector = (options: Options) => {
+/**
+ * Connector methods.
+ */
+type Methods = typeof methods;
+
+export const connector = (options: Options): Methods => {
   sdkContext.set('apiUrl', options.apiUrl);
   sdkContext.set('ssrApiUrl', options.ssrApiUrl);
-  const finalMethods: Record<string, any> = methods;
 
-  return finalMethods;
+  return methods;
 };
