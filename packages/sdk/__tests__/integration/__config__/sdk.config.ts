@@ -4,8 +4,7 @@ import { magentoModule } from '../../../src';
 const sdkConfig = {
   magento: buildModule(magentoModule,
     {
-      apiUrl: 'http://localhost:8181/magento',
-      ssrApiUrl: 'http://localhost:8181/magento'
+      apiUrl: 'http://localhost:8181/magento'
     })
 };
 

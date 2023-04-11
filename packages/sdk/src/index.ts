@@ -23,7 +23,6 @@ export interface MagentoModuleType extends Module {
  *       magentoModule,
  *       {
  *         apiUrl: 'http://localhost:8181/magento',
- *         ssrApiUrl: 'http://localhost:8181/magento'
  *       }
  *     )
  * };
