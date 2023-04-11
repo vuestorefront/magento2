@@ -4,12 +4,7 @@
 export interface Options {
 
     /**
-     * The API URL of the client-side environment.
+     * The API URL of the Magento instance
      */
     apiUrl: string;
-
-    /**
-     * The API URL of the server-side environment.
-     */
-    ssrApiUrl?: string;
 }
