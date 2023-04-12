@@ -1,5 +1,5 @@
 import { ApiClientMethods, IntegrationContext } from '@vue-storefront/core';
+import { MagentoApiMethods } from '@vsf-enterprise/magento-api-types';
 import { ClientInstance, Config } from './setup';
-import { MagentoApiMethods } from './API';
 
 export type Context = IntegrationContext<ClientInstance, Config, ApiClientMethods<MagentoApiMethods>>;

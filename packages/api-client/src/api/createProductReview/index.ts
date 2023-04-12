@@ -1,10 +1,9 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery, CreateProductReviewMutation, CreateProductReviewInput } from '@vsf-enterprise/magento-api-types';
 import { GraphQLError } from 'graphql';
-import { CreateProductReviewMutation, CreateProductReviewInput } from '../../types/GraphQL';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 

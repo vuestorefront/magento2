@@ -1,14 +1,15 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
-import type { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import getHeaders from '../getHeaders';
+import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type {
+  CustomHeaders,
+  SetPaymentMethodOnCartInputs,
+  SetPaymentMethodOnCartMutation,
+  SetPaymentMethodOnCartMutationVariables,
+} from '@vsf-enterprise/magento-api-types';
 
-export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
-  [k: string]: any;
-}
+import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
+import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Sets received payment method on cart.

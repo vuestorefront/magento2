@@ -1,14 +1,14 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomQuery,
   CustomerOrdersFilterInput,
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
-} from '../../types/GraphQL';
+  GetOrdersSearchParams,
+} from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import customerOrdersQuery from './customerOrders';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import { GetOrdersSearchParams } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {

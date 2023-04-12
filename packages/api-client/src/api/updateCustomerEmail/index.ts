@@ -1,9 +1,8 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery, UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import updateCustomerEmail from './updateCustomerEmail';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import { UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
 export default async (

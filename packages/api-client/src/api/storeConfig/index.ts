@@ -1,9 +1,8 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { StoreConfigQuery } from '../../types/GraphQL';
+import { CustomQuery, StoreConfigQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

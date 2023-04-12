@@ -1,13 +1,14 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import addBundleProductsToCart from './addBundleProductsToCart';
-import {
+import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type {
+  AddBundleProductsToCartInput,
   AddBundleProductsToCartMutation,
   AddBundleProductsToCartMutationVariables,
-  AddBundleProductsToCartInput,
-} from '../../types/GraphQL';
+  CustomHeaders,
+} from '@vsf-enterprise/magento-api-types';
+
+import addBundleProductsToCart from './addBundleProductsToCart';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (

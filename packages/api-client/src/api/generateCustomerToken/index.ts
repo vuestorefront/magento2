@@ -1,14 +1,14 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { GraphQLError } from 'graphql';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
-import generateCustomerToken from './generateCustomerToken';
 import {
+  CustomQuery,
   GenerateCustomerTokenMutation,
   GenerateCustomerTokenMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import { GraphQLError } from 'graphql';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
+import generateCustomerToken from './generateCustomerToken';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

@@ -1,48 +1,59 @@
 import { ApolloQueryResult, FetchPolicy, FetchResult } from '@apollo/client/core';
 import { ExecutionResult } from 'graphql';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  AddBundleProductsToCartInput,
+  AddBundleProductsToCartMutation,
   AddConfigurableProductsToCartInput,
-  AddSimpleProductsToCartInput,
+  AddConfigurableProductsToCartMutation,
   AddDownloadableProductsToCartInput,
+  AddDownloadableProductsToCartMutation,
+  AddProductsToCartOutput,
+  AddProductsToWishlistMutation,
+  AddProductsToWishlistMutationVariables,
+  AddSimpleProductsToCartInput,
+  AddSimpleProductsToCartMutation,
   AddVirtualProductsToCartInput,
-  AppliedCoupon,
+  AddVirtualProductsToCartMutation,
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
-  AvailableShippingMethod,
   AvailableStoresQuery,
   BundleProduct,
-  Cart as CartInterface,
-  CartItemInterface,
+  CartItemInput,
   CartQuery,
-  CategoryFilterInput,
   CategoryListQuery,
   CategoryListQueryVariables,
   CategorySearchQuery,
   CategorySearchQueryVariables,
-  CategoryTree,
-  CmsPage,
+  ChangeCustomerPasswordMutation,
+  CmsBlockQuery,
   CmsPageQuery,
   ConfigurableProduct,
   CountriesListQuery,
   CountryInformationQuery,
+  CreateCustomerAddressMutation,
+  CreateCustomerMutation,
+  CreateEmptyCartMutation,
+  CreateProductReviewInput,
+  CreateProductReviewMutation,
   CurrencyQuery,
-  CustomerAddress as CustomerAddressInterface,
   CustomerAddressInput,
   CustomerAvailablePaymentMethodsQuery,
   CustomerAvailableShippingMethodsQuery,
   CustomerCartQuery,
   CustomerCreateInput,
-  CustomerOrder as CustomerOrderInterface,
+  CustomerOrdersFilterInput,
   CustomerOrdersQuery,
+  CustomerProductReviewQuery,
   CustomerQuery,
   CustomerUpdateInput,
   DeleteCustomerAddressMutation,
+  DownloadableProduct,
   GenerateCustomerTokenMutation,
+  GetCustomerAddressesQuery,
+  GroupedProduct,
   GuestAvailablePaymentMethodsQuery,
   GuestAvailableShippingMethodsQuery,
   MergeCartsMutation,
-  Order as OrderInterface,
   PlaceOrderInput,
   PlaceOrderMutation,
   ProductAttributeFilterInput,
@@ -57,87 +68,62 @@ import {
   RemoveCouponFromCartMutation,
   RemoveItemFromCartInput,
   RemoveItemFromCartMutation,
+  RemoveProductsFromWishlistMutation,
+  RemoveProductsFromWishlistMutationVariables,
+  RequestPasswordResetEmailMutation,
+  RequestPasswordResetEmailMutationVariables,
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables,
   RevokeCustomerTokenMutation,
+  RoutableInterface,
   SetBillingAddressOnCartInput,
   SetBillingAddressOnCartMutation,
   SetGuestEmailOnCartInput,
   SetGuestEmailOnCartMutation,
+  SetPaymentMethodOnCartInput,
   SetPaymentMethodOnCartMutation,
   SetShippingAddressesOnCartInput,
   SetShippingAddressesOnCartMutation,
   SetShippingMethodsOnCartInput,
   SetShippingMethodsOnCartMutation,
-  ShippingCartAddress,
   StoreConfigQuery,
+  SubscribeEmailToNewsletterMutation,
+  SubscribeEmailToNewsletterMutationVariables,
   UpdateCartItemsInput,
   UpdateCartItemsMutation,
   UpdateCustomerAddressMutation,
+  UpdateCustomerEmailMutationVariables,
+  UpdateCustomerMutation,
   UpsellProductsQuery,
   UrlResolverQuery,
-  WishlistItemInterface,
-  WishlistQuery,
-  WishlistQueryVariables,
-  CreateProductReviewInput,
-  CreateEmptyCartMutation,
-  CreateProductReviewMutation,
-  CustomerProductReviewQuery,
-  SubscribeEmailToNewsletterMutationVariables,
-  SubscribeEmailToNewsletterMutation,
-  UpdateCustomerMutation,
-  CreateCustomerMutation,
-  AddProductsToWishlistMutationVariables,
-  AddProductsToWishlistMutation,
-  UpdateCustomerEmailMutationVariables,
-  RemoveProductsFromWishlistMutationVariables,
-  RemoveProductsFromWishlistMutation,
-  GetCustomerAddressesQuery,
-  CmsBlockQuery,
-  GroupedProduct,
-  AddBundleProductsToCartInput,
-  RequestPasswordResetEmailMutation,
-  RequestPasswordResetEmailMutationVariables,
-  ResetPasswordMutationVariables,
-  ResetPasswordMutation,
-  ChangeCustomerPasswordMutation,
-  CreateCustomerAddressMutation,
-  DownloadableProduct,
   VirtualProduct,
-  CustomerOrdersFilterInput,
-  RoutableInterface,
-  AddProductsToCartOutput,
-  AddConfigurableProductsToCartMutation,
-  AddBundleProductsToCartMutation, AddSimpleProductsToCartMutation, AddDownloadableProductsToCartMutation, AddVirtualProductsToCartMutation,
-} from './GraphQL';
-import { SetPaymentMethodOnCartInputs } from '../api/setPaymentMethodOnCart';
-import { CustomerProductReviewParams } from '../api/customerProductReview';
-import { AddProductsToCartInput } from '../api/addProductsToCart';
-import type { RouteQuery } from '../api/route';
+  WishlistQuery,
+  WishlistQueryVariables
+} from './Schema';
+
+export type CustomQuery = Record<string, string>;
+
+export type AddProductsToCartInput = {
+  cartId: string;
+  cartItems: CartItemInput[];
+};
+
+export type CustomerProductReviewParams = {
+  pageSize: number;
+  currentPage: number;
+};
+
+export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
+  [k: string]: any;
+}
+
+export type RouteQuery<ROUTE_TYPE> = {
+  route: ROUTE_TYPE
+};
+
 
 export interface Product extends ProductInterface, ConfigurableProduct, Omit<BundleProduct, 'items'>, Omit<GroupedProduct, 'items'>, Omit<DownloadableProduct, 'items'>, Omit<VirtualProduct, 'items'> {
 }
-
-export type AddressOnCart = ShippingCartAddress;
-export type AvailableStores = AvailableStoresQuery['availableStores'];
-export type Cart = CartInterface;
-export type CartItem = CartItemInterface;
-export type Category = CategoryTree | CategorySearchQuery['categoryList'][0];
-export type CategoryFilter = CategoryFilterInput;
-export type CategoryMenu = CategoryTree;
-export type Countries = CountriesListQuery['countries'][0];
-export type Coupon = AppliedCoupon;
-export type CustomerAddress = CustomerAddressInterface;
-export type CustomerOrder = CustomerOrderInterface;
-export type CustomerUpdateParameters = CustomerCreateInput;
-export type Order = OrderInterface;
-export type Page = CmsPage | CmsPageQuery['cmsPage'];
-export type ProductAttributeFilter = ProductAttributeFilterInput;
-export type ProductReview = ProductReviewQuery['products']['items'][0]['reviews']['items'][0];
-export type ProductReviews = ProductReviewQuery['products']['items'][0];
-export type ReviewMetadata = ProductReviewRatingsMetadataQuery['productReviewRatingsMetadata']['items'][0];
-export type Route = UrlResolverQuery['urlResolver'];
-export type ShippingMethod = AvailableShippingMethod;
-export type StoreConfig = StoreConfigQuery['storeConfig'];
-export type WishlistProduct = WishlistItemInterface;
 
 export const enum ProductsQueryType {
   List = 'LIST',
@@ -299,7 +285,7 @@ export interface MagentoApiMethods {
   currency(
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
-  ): Promise<FetchResult<CurrencyQuery>>
+  ): Promise<FetchResult<CurrencyQuery>>;
 
   customer(
     customQuery?: CustomQuery,
@@ -314,7 +300,7 @@ export interface MagentoApiMethods {
   customerOrders(
     searchParams: GetOrdersSearchParams,
     customQuery?: CustomQuery,
-    customHeaders?: CustomHeaders,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CustomerOrdersQuery>>;
 
   customQuery<QUERY, QUERY_VARIABLES = any>(params: {
@@ -538,11 +524,11 @@ export interface MagentoApiMethods {
   wishlist(
     searchParams: WishlistQueryVariables,
     customQuery?: CustomQuery,
-    customHeaders?: CustomHeaders,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<WishlistQuery>>;
 
   wishlistItemsCount(
     customQuery?: CustomQuery,
-    customHeaders?: CustomHeaders,
+    customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<WishlistQuery>>;
 }

@@ -1,9 +1,8 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CreateEmptyCartMutation } from '../../types/GraphQL';
+import { CustomQuery, CreateEmptyCartMutation } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import createEmptyCart from './createEmptyCart';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (

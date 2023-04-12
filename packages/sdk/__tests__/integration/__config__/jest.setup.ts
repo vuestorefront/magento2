@@ -1,6 +1,7 @@
 import * as nock from 'nock';
 import * as path from 'path';
-import { NOCK_EXCLUDED_SCOPE, NOCK_FIXTURES_CATALOG_NAME, NOCK_MODE } from './jest.const';
+import { NOCK_EXCLUDED_SCOPE, NOCK_FIXTURES_CATALOG_NAME, NOCK_MODE, TEST_DESCRIBE } from './jest.const';
+import * as methods from '../../../src/methods';
 
 let nockDone: any;
 
@@ -39,4 +40,11 @@ export function createResponseMock(...fields: any[]) {
     response[field] = expect.anything();
     return response;
   }, {});
+}
+
+/**
+ * Creates uniform test descriptions.
+ */
+export function describeGroup(methodName: keyof typeof methods) {
+  return `${TEST_DESCRIBE} ${methodName}`;
 }

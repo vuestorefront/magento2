@@ -1,12 +1,12 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import changeCustomerPassword from './changeCustomerPassword';
 import {
+  CustomQuery,
   ChangeCustomerPasswordMutation,
   ChangeCustomerPasswordMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import changeCustomerPassword from './changeCustomerPassword';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -37,7 +37,7 @@ export default async (
       },
     });
   } catch (error) {
-  // For error in data we don't throw 500, because it's not server error
+    // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
       return {
         errors: error.graphQLErrors,

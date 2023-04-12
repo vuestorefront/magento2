@@ -8,4 +8,4 @@ const sdkConfig = {
     })
 };
 
-export const sdk = initSDK(sdkConfig);
+export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
