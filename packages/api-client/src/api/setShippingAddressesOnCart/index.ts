@@ -1,13 +1,13 @@
 import type { FetchResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
-import setShippingAddressesOnCartQuery from './setShippingAddressesOnCart';
 import type {
+  CustomHeaders,
+  CustomQuery,
   SetShippingAddressesOnCartInput,
   SetShippingAddressesOnCartMutation,
   SetShippingAddressesOnCartMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import setShippingAddressesOnCartQuery from './setShippingAddressesOnCart';
 import type { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { ApolloQueryResult, FetchPolicy } from '@apollo/client/core';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async <QUERY = any, QUERY_VARIABLES = any>(

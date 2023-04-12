@@ -1,0 +1,20 @@
+{
+  "name": "@vsf-enterprise/magento-api-types",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf lib && rollup -c",
+    "dev": "rollup -c -w",
+    "preversion": "yarn build"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "rollup": "^2.59.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,14 +1,15 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomHeaders,
+  CustomQuery,
+  GetProductSearchParams,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   ProductsListQuery,
   ProductsListQueryVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
 import productsListQuery from './productsList';
 import { Context } from '../../types/context';
-import { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {

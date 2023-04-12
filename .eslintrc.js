@@ -6,7 +6,7 @@ module.exports = {
     node: true,
     browser: true,
     es6: true,
-    commonjs: true,
+    commonjs: true
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -14,40 +14,41 @@ module.exports = {
     project: [
       resolve(__dirname, './tsconfig.json'),
       resolve(__dirname, './packages/api-client/tsconfig.eslint.json'),
-      resolve(__dirname, './packages/load-tests/tsconfig.json'),
+      resolve(__dirname, './packages/load-tests/tsconfig.json')
     ],
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue'],
     ecmaVersion: 2021,
-    sourceType: 'module',
+    sourceType: 'module'
   },
+  ignorePatterns: ['packages/api-types'],
   extends: [
     '@vue-storefront/eslint-config-base',
     '@vue-storefront/eslint-config-typescript',
     '@vue-storefront/eslint-config-import',
     '@vue-storefront/eslint-config-vue',
-    '@vue-storefront/eslint-config-jest',
+    '@vue-storefront/eslint-config-jest'
   ],
   globals: {
-    "__ENV": "readonly",
+    '__ENV': 'readonly'
   },
   rules: {
-    "@typescript-eslint/no-floating-promises": "off",
-    "jest/expect-expect": [
-      "error",
+    '@typescript-eslint/no-floating-promises': 'off',
+    'jest/expect-expect': [
+      'error',
       {
-        "assertFunctionNames": ["expect", "getByRole", "getByTestId", "getByText"],
+        'assertFunctionNames': ['expect', 'getByRole', 'getByTestId', 'getByText']
       }
     ],
-    "no-plusplus": "off",
+    'no-plusplus': 'off'
   },
   overrides: [
     {
-      "files": ["internals/**/*"],
-      "rules": {
-        "unicorn/prefer-module": "off",
+      'files': ['internals/**/*'],
+      'rules': {
+        'unicorn/prefer-module': 'off'
       }
     }
   ]
-}
+};
 

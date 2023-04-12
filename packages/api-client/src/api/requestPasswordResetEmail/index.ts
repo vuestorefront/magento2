@@ -1,14 +1,14 @@
 import { FetchResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
 import { GraphQLError } from 'graphql';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
-import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
 import {
   RequestPasswordResetEmailMutation,
   RequestPasswordResetEmailMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
+import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

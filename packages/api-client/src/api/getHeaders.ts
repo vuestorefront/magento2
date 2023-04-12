@@ -1,5 +1,5 @@
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import { Context } from '../types/context';
-import type { CustomHeaders } from '../types/API';
 
 export default function getHeaders(context: Context, customHeaders: CustomHeaders = {}) {
   const { getCustomerToken, getStore, getCurrency } = context.config.state;
