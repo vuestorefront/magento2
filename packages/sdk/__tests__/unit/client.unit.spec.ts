@@ -12,10 +12,12 @@ jest.mock('../../src/context', () => {
     }
   };
 });
+
 describe('client', () => {
   it('uses with credentials', () => {
     expect(client.defaults.withCredentials).toBe(true);
   });
+
   it('sends requests to API URL', () => {
     expect(client.defaults.baseURL).toBe(MOCK_URL);
   });
