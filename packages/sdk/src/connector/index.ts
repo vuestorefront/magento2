@@ -1,7 +1,14 @@
+import { sdkContext } from 'src/context';
+import { Options } from 'src/types';
 import * as methods from '../methods';
 
-export const connector = () => {
-  const finalMethods: Record<string, any> = methods;
+/**
+ * Connector methods.
+ */
+type Methods = typeof methods;
 
-  return finalMethods;
+export const connector = (options: Options): Methods => {
+  sdkContext.set('apiUrl', options.apiUrl);
+
+  return methods;
 };
