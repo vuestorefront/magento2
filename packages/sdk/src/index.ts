@@ -1,6 +1,6 @@
 import { connector } from './connector';
 import type { Module } from '@vsf-enterprise/sdk';
-import { Options } from './types';
+import { ModuleOptions } from './types';
 
 export interface MagentoModuleType extends Module {
   connector: ReturnType<typeof connector>;
@@ -30,7 +30,7 @@ export interface MagentoModuleType extends Module {
  * export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
  * ```
  */
-export const magentoModule = (options: Options): MagentoModuleType => {
+export const magentoModule = (options: ModuleOptions): MagentoModuleType => {
   return {
     connector: connector(options)
   };

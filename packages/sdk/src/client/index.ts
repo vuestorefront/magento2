@@ -1,9 +1,13 @@
-import axios from 'axios';
-import { sdkContext } from '../context';
+import axios, { Axios } from 'axios';
+import { resolveBaseUrl } from './resolvers';
 
-const client = axios.create({
-  baseURL: sdkContext.get('apiUrl'),
-  withCredentials: true
+const client = new Proxy(axios.create(), {
+  get: (axiosInstance, property) => {
+    axiosInstance.defaults.withCredentials = true;
+    axiosInstance.defaults.baseURL = resolveBaseUrl();
+
+    return axiosInstance[property as keyof Axios];
+  }
 });
 
 export { client };

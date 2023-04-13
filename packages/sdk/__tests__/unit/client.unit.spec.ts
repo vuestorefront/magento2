@@ -1,5 +1,5 @@
 const MOCK_URL = 'http://somemagentourl.doesntexist';
-import { client } from '../../src/client';
+import { client } from '../../src';
 
 jest.mock('../../src/context', () => {
   return {

@@ -1,5 +1,5 @@
 import { createServer } from '@vue-storefront/middleware';
-import { customQueries } from './jest.customQueries';
+import { customQueries } from './customQueries/jest.customQueries';
 
 const cookieNames = {
   currencyCookieName: 'vsf-currency',

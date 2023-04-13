@@ -1,5 +1,5 @@
-import { sdkContext } from 'src/context';
-import { Options } from 'src/types';
+import { sdkContext } from '../context';
+import type { ModuleOptions } from '../types';
 import * as methods from '../methods';
 
 /**
@@ -7,7 +7,7 @@ import * as methods from '../methods';
  */
 type Methods = typeof methods;
 
-export const connector = (options: Options): Methods => {
+export const connector = (options: ModuleOptions): Methods => {
   sdkContext.set('apiUrl', options.apiUrl);
 
   return methods;
