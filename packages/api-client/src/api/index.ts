@@ -36,7 +36,7 @@ export { default as getAvailableShippingMethods } from './getAvailableShippingMe
 export { default as getCustomerAddresses } from './getCustomerAddresses';
 export { default as mergeCarts } from './mergeCarts';
 export { default as placeOrder } from './placeOrder';
-export { default as productDetail } from './productDetail';
+export { default as productDetails } from './productDetails';
 export { default as productReview } from './productReview';
 export { default as productReviewRatingsMetadata } from './productReviewRatingsMetadata';
 export { default as products } from './products';

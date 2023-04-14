@@ -28,7 +28,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.13.0'
+          node-version: '16.14'
 
       - name: Install dependencies
         run: |

@@ -7,15 +7,16 @@
   "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build --max-concurrency=32",
-    "api-extract": "cd ../ && yarn build && cd docs/ && yarn api-ref && yarn ref-md",
+    "build": "yarn build:api-reference && NODE_OPTIONS=--max_old_space_size=8192 vuepress build",
+    "build:api-reference": "yarn types-ref && yarn api-ref && yarn sdk-ref && yarn ref-md",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
-    "theme-ref": "cd ../scripts && node generateApiReference.mjs",
+    "types-ref": "cd ../packages/api-types && api-extractor run --local",
+    "sdk-ref": "cd ../packages/sdk && api-extractor run --local",
     "ref-md": "api-documenter markdown --i api-reference --o api-reference"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.17.12",
-    "@microsoft/api-extractor": "^7.23.1",
+    "@microsoft/api-documenter": "^7.21.7",
+    "@microsoft/api-extractor": "^7.34.4",
     "@vuepress/plugin-active-header-links": "^1.9.7",
     "@vuepress/plugin-back-to-top": "^1.9.7",
     "@vuepress/plugin-medium-zoom": "^1.9.7",
