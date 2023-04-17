@@ -11,5 +11,5 @@ concurrency:
 jobs:
   continous-integration:
     name: "Continuous Integration"
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@main
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@develop
     secrets: inherit
