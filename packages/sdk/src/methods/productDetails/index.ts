@@ -59,7 +59,7 @@ import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
  * ```ts
  * module.exports = {
  *   integrations: {
- *     ct: {
+ *     magento: {
  *       customQueries: {
  *         'product-details-custom-query': ({ variables, metadata }) => ({
  *            variables,
