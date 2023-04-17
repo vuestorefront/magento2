@@ -1,7 +1,14 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import { ProductDetailsResponse } from '../../types';
 import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
+import { ProductDetailsQuery } from '@vsf-enterprise/magento-api-types';
+import { DeepPartial } from 'ts-essentials';
+import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * Product details response type
+ */
+export type ProductDetailsResponse<T extends DeepPartial<ProductDetailsQuery> = ProductDetailsQuery> = ApolloQueryResult<T>
 
 /**
  * Method to get products details
