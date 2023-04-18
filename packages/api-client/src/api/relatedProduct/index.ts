@@ -8,6 +8,7 @@ import type {
   RelatedProductQuery,
   RelatedProductQueryVariables,
 } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import relatedProductQuery from './relatedProduct';
 import type { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -61,7 +62,7 @@ export default async function relatedProduct(
 
   try {
     return await context.client.query<RelatedProductQuery, RelatedProductQueryVariables>({
-      query: relatedProductGQL.query,
+      query: gql`${relatedProductGQL.query}`,
       variables: relatedProductGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

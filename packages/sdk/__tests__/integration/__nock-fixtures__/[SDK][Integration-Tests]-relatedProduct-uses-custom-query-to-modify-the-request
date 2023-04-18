@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+relatedProduct%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Brelated_products%7Buid+__typename%7D__typename%7D__typename%7D%7D&operationName=relatedProduct&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A10%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a28ca4f294d2e2906b1334b5273818ce86aa5a2d49cc492d49478842c50b0343345c94ac93724b0cacfd1d6564947293ebea4b220352f31371528ee9c9f9796995e5a949894931a00d1a654ab83d0155a418eae64635f3274a557f813ab2b961c4501b060a9adad0500484bf22d4b010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 18 Apr 2023 05:59:26 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "134",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "222175047",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

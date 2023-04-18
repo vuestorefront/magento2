@@ -1,10 +1,8 @@
-import gql from 'graphql-tag';
-
 /**
  * GraphQL Query that searches for related products using params for sorting,
  * filtering and pagination.
  */
-export default gql`
+export default `
   query relatedProduct(
     $search: String = ""
     $filter: ProductAttributeFilterInput
@@ -22,64 +20,64 @@ export default gql`
       items {
         related_products {
           uid
-    __typename
-    sku
-    name
-    stock_status
-    only_x_left_in_stock
-    rating_summary
-    thumbnail {
-      url
-      position
-      disabled
-      label
-    }
-    url_key
-    url_rewrites {
-      url
-    }
-    price_range {
-      maximum_price {
-        final_price {
-          currency
-          value
-        }
-        regular_price {
-          currency
-          value
-        }
-      }
-      minimum_price {
-        final_price {
-          currency
-          value
-        }
-        regular_price {
-          currency
-          value
-        }
-      }
-    }
-    categories {
-      uid
-      name
-      url_suffix
-      url_path
-      breadcrumbs {
-        category_name,
-        category_url_path
-      }
-    }
-    review_count
-    reviews {
-      items {
-        average_rating
-        ratings_breakdown {
+          __typename
+          sku
           name
-          value
-        }
-      }
-    }
+          stock_status
+          only_x_left_in_stock
+          rating_summary
+          thumbnail {
+            url
+            position
+            disabled
+            label
+          }
+          url_key
+          url_rewrites {
+            url
+          }
+          price_range {
+            maximum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+            minimum_price {
+              final_price {
+                currency
+                value
+              }
+              regular_price {
+                currency
+                value
+              }
+            }
+          }
+          categories {
+            uid
+            name
+            url_suffix
+            url_path
+            breadcrumbs {
+              category_name,
+              category_url_path
+            }
+          }
+          review_count
+          reviews {
+            items {
+              average_rating
+              ratings_breakdown {
+                name
+                value
+              }
+            }
+          }
         }
         uid
       }

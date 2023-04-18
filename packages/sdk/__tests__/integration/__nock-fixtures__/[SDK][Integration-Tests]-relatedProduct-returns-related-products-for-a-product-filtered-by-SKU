@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+relatedProduct%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Brelated_products%7Buid+__typename+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D%7Duid+__typename%7D__typename%7D%7D&operationName=relatedProduct&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A1%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ed59df6fe23810fe57a23cdc535368a11490fab0db6ba5d5a9dd6e4b559d8e55e4240e78716c643b055af57fbfc90f2040b825385c69c54b9bd8339f67c6932f5fccabe92185ccf6ab3914dc0b5d25a36ba2700017ffbc9a0253a4b067cf676130249ed9366f3a3f5e6ebf5c5c9847a66dabc91033146018bfe4cc27bd502087e2bbc40d4ce42084b9a7876a0d6e52cb6f8248e3898b010f95d1e1c3c84c7177604b855428238b5bfba1f3fdf22f98e18c4eecb14db1af6cc2ecd8d06cb390d22353204558cf966110203131db8dea91a9fa61e0304468945028e09fd9576a28dbdd4ab712a01e668a9f5a84c15accc5c7cf210648817dc1993a261c6cb04750b7e2427d28ef752b6909a211b78fbb157cd6aa3be72dd7f11dec34eacd66ad79d23c3bc767a8e5344ece9addcaa85b91f057566b96801a0608e23e39fe35ec413a432e89229c4d53f0888c0ae64def297230cdafd142b5d30a7f8b3232df8ea24ced01861a98043cad51e269a9d8339a147824607fd39d8cebb26c79dc57015d5ee851d0fbc41596997a8e788059b7023e1140728df1ec7a7b602876c0a3fac8141151aa83e7724ab19b020eb1f0b908a27db77ce408e24a1d6ced6473aa5818ec27b41424826d81187402f47c80c62408033b1e8e067cc2109ddfbaa11098b951ab3c3efc09d8cf88863073da5a5ae686336828e82d817b2145420722af77ef6238980c08fb60112f4dc2e87d5c7e9802dec03d2e085ee0cc5f5f2ee6fcf714ed75fa58cad0f7c91806a73b1d0d0e91ea4ffb03861c8191e70ae03539a58945e64d969c74044edb2b5df42ab3287088dc74cd6c4f2eaf0f39a5294eeca57c66e339392c04fc75061837f066c93c6693016ad826992c4ded3ab1a355bc740fd6c22dd55dbb662f37c56b96c7c01a3df892ddb6bb39011bd709016f10d1ef38bc70743f238278267864bb3c64ca6cd7a7034b2a083d6301ef573bd11966fba45a9d8a0e69476b0e3c3e62b169bad07d6239e317f36ccd8bfb3e5e2f355fd9d005a3b89ccba1d40b4772baa3481a8523a97dae9afce7b434df324f43e771bc85746e651e62e2fb884d8c6ba21896d28087ba34f57c5edb2ff5dcb21cd8a5ede4737e9d3654d02a71b6fcc4d952b1f31a119d635c9a8ed6c2ce97d2a541c6215a1251ac09ba40efd8e5960fe2897974a2895b460df3f6670bbc12457a535ff2ae85d88d487fb7880f22fd20d23f82485fe93ae30158b5a0549fd3b18e58df83ef85bf33215cb9dcb84edf06453f14b26f12fd2f84da865f08cdc212b4fee965f93bd5a4882c776b37456579a7da9837ea659f726c5cf2608815363a880d3ea12a07f391aa363454796e993614e56ee46bb989afa512df359a7cd5564ff201c0eca604ec92c3db02ae3c415ad33f835d0fb11341fa7e111f04e9ff2f48b372e2ab40d2f823e69d6d85e99c093ead32dd5afbecd1e9e8fec8b00f7026d91b7f2f2e7e5ad9c70a431362eb0ac949c9da676f7ecf4fb44fcb1af5a1ffb7133f7965da50fb38a92b06d7df489f15d3f2948f06f4ba83430dc8c58f3d419825e0932f006c4f6a01eb679b53c8e268254ab4babee0590bb11b89f66e111f24da41a2edbf44dbcfc3c31fd9933b2064e37e46c8850fef16f95cfffceef4707e579270048319f5556f7b9b09c775b011e0dbbf2bc0c9da8c2a0000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 18 Apr 2023 05:59:26 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "1215",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046,cat_c,cat_c_20,cat_c_21,cat_c_25,cat_c_33,cat_c_35,cat_c,cat_c_20,cat_c_21,cat_c_25,cat_c_30,cat_c_33,cat_c_36,cat_c,cat_c_20,cat_c_21,cat_c_26,cat_c,cat_c_20,cat_c_21,cat_c_26,cat_c_30,cat_c_34",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "222175045 221511432",
+            "Age",
+            "57295",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
