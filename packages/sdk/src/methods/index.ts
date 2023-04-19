@@ -4,4 +4,4 @@ export { categorySearch } from './categorySearch';
 export { products } from './products';
 export { relatedProduct } from './relatedProduct';
 export { upsellProducts } from './upsellProducts';
-
+export { addProductToWishList } from './addProductToWishList';

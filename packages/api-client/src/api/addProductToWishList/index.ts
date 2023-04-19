@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult, gql } from '@apollo/client/core';
 import {
   CustomQuery,
   AddProductsToWishlistMutation,
@@ -25,7 +25,7 @@ export default async (
     },
   );
   return context.client.mutate<AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables>({
-    mutation: addProductsToWishlistGQL.query,
+    mutation: gql`${addProductsToWishlistGQL.query}`,
     variables: addProductsToWishlistGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

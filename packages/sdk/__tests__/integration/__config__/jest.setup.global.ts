@@ -43,7 +43,7 @@ const middlewareConfig = {
         magentoApiEndpoint: 'https://magento2-instance.vuestorefront.io/graphql',
         imageProvider: 'IPX',
         recaptcha: {
-          isEnabled: 'false',
+          isEnabled: false,
           sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
           secretkey: process.env.VSF_RECAPTCHA_SECRET_KEY,
           version: process.env.VSF_RECAPTCHA_VERSION,
