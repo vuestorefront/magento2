@@ -6356,7 +6356,7 @@
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!upsellProduct:var",
+          "canonicalReference": "@vue-storefront/magento-api!upsellProducts:var",
           "docComment": "/**\n * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.\n */\n",
           "excerptTokens": [
             {
@@ -6432,7 +6432,7 @@
             }
           ],
           "releaseTag": "Public",
-          "name": "upsellProduct",
+          "name": "upsellProducts",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 16

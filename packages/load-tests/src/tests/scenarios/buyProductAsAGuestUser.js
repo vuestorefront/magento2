@@ -159,7 +159,7 @@ export default function main() {
       executeCommonChecks(res);
 
       res = http.post(
-        `${BASE_URL}/api/magento/upsellProduct`,
+        `${BASE_URL}/api/magento/upsellProducts`,
         '[{"filter":{"sku":{"eq":"WSH11"}}},null]',
         {
           headers,

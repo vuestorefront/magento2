@@ -503,7 +503,7 @@ export interface MagentoApiMethods {
     customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCustomerAddressMutation>>;
 
-  upsellProduct(
+  upsellProducts(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
