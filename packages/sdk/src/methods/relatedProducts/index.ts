@@ -1,14 +1,14 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
 import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
-import { RelatedProductQuery } from '@vsf-enterprise/magento-api-types';
+import { RelatedProductsQuery } from '@vsf-enterprise/magento-api-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
 /**
  * Related product response
  */
-export type RelatedProductResponse<T extends DeepPartial<RelatedProductQuery> = RelatedProductQuery> = ApolloQueryResult<T>
+export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> = RelatedProductsQuery> = ApolloQueryResult<T>
 
 /**
  * Method to get related products
@@ -31,7 +31,7 @@ export type RelatedProductResponse<T extends DeepPartial<RelatedProductQuery> = 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RelatedProductResponse | RelatedProductResponse}.
+ * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RelatedProductsResponse | RelatedProductsResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:
@@ -121,9 +121,9 @@ export type RelatedProductResponse<T extends DeepPartial<RelatedProductQuery> = 
  * // Result will contain only the fields specified in the custom query.
  * ```
  */
-export async function relatedProduct<RES extends RelatedProductResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'relatedProduct'>>) {
+export async function relatedProducts<RES extends RelatedProductsResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'relatedProducts'>>) {
   const { data } = await client.post<RES>(
-    'relatedProduct',
+    'relatedProducts',
     [params, options?.customQuery, options?.customHeaders],
     options?.clientConfig
   );

@@ -3,9 +3,9 @@ import { describeGroup } from './__config__/jest.setup';
 
 const PRODUCT_SKU = 'WSH12';
 
-describe(describeGroup('relatedProduct'), () => {
+describe(describeGroup('relatedProducts'), () => {
   it('returns related products for a product filtered by SKU', async () => {
-    const result = await sdk.magento.relatedProduct({
+    const result = await sdk.magento.relatedProducts({
       pageSize: 1,
       filter: {
         sku: {
@@ -32,13 +32,13 @@ describe(describeGroup('relatedProduct'), () => {
 
   it('uses custom query to modify the request', async () => {
     const customQuery = {
-      relatedProduct: 'related-product-custom-query',
+      relatedProducts: 'related-products-custom-query',
       metadata: {
         fields: 'items { related_products { uid __typename } }'
       }
     };
 
-    const result = await sdk.magento.relatedProduct({
+    const result = await sdk.magento.relatedProducts({
       filter: {
         sku: {
           eq: PRODUCT_SKU

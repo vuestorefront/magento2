@@ -63,7 +63,7 @@ import {
   ProductReviewQuery,
   ProductReviewRatingsMetadataQuery,
   ProductsListQuery,
-  RelatedProductQuery,
+  RelatedProductsQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
   RemoveItemFromCartInput,
@@ -397,11 +397,11 @@ export interface MagentoApiMethods {
     customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<ProductsListQuery>>;
 
-  relatedProduct(
+  relatedProducts(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
-  ): Promise<ApolloQueryResult<RelatedProductQuery>>;
+  ): Promise<ApolloQueryResult<RelatedProductsQuery>>;
 
   removeCouponFromCart(
     input: RemoveCouponFromCartInput,

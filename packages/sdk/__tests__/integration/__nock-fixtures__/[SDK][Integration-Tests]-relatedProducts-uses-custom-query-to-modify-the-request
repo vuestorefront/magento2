@@ -2,7 +2,7 @@
     {
         "scope": "https://magento2-instance.vuestorefront.io:443",
         "method": "GET",
-        "path": "/graphql?query=query+relatedProduct%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Brelated_products%7Buid+__typename%7D__typename%7D__typename%7D%7D&operationName=relatedProduct&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A10%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "path": "/graphql?query=query+relatedProducts%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Brelated_products%7Buid+__typename%7D__typename%7D__typename%7D%7D&operationName=relatedProducts&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A10%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
         "body": "",
         "status": 200,
         "response": [
@@ -12,7 +12,7 @@
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Tue, 18 Apr 2023 05:59:26 GMT",
+            "Wed, 19 Apr 2023 08:28:00 GMT",
             "Content-Type",
             "application/json",
             "Content-Length",
@@ -34,7 +34,7 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "222175047",
+            "637861",
             "Age",
             "0",
             "Pragma",
