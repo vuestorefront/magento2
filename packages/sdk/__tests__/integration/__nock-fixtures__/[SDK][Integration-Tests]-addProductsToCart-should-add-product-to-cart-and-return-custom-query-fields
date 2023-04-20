@@ -1,0 +1,73 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "addProductsToCart",
+            "variables": {
+                "cartId": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                "cartItems": [
+                    {
+                        "quantity": 1,
+                        "sku": "WSH12",
+                        "selected_options": [
+                            "Y29uZmlndXJhYmxlLzkzLzUz",
+                            "Y29uZmlndXJhYmxlLzE0NC8xNzE="
+                        ]
+                    }
+                ]
+            },
+            "query": "mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {\n  addProductsToCart(cartId: $cartId, cartItems: $cartItems) {\n    cart {\n      id\n      items {\n        uid\n        product {\n          uid\n          sku\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ad904d0b82401086ffcb9c3b681f17c1831894956528788890d5ddc4d2dc741753f1bfb79b1124d1a9c330cc3befcc3c4c0b1831045a0b0863a7c8318f58e9e5262a9814a3574e3068404d57a92f84aae9a45aa4cedaadfdcdea363b85eafc6eed230a234818c94ad00e2df0e788ed1995085db468bf5c6eeb7bdb26ae855e5eb8343aca541441c06a4aae28234233f3eb29897981c294bcd0a0fbe191d0960010a68ffb4df4f5be7d36946daceb6f06df5daae3ff411c872ef9cbe1a831fcfa8e33ca85afeb1e256f9ecc9b010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 12:19:11 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "217",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=7ombfigbig1286o5mh82qjbhh2; expires=Mon, 24-Apr-2023 13:19:11 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=d991ae226b1effffd8bc7f7a12dab074; expires=Thu, 21-Apr-2033 12:19:11 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=934d5e0cacb7e9edb2161ecd8c506002; expires=Thu, 21-Apr-2033 12:19:11 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=dfbddc09f4254143fce5bca6c390fb77; expires=Thu, 21-Apr-2033 12:19:11 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3800933",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
