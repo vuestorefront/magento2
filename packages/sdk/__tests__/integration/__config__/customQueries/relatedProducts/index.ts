@@ -1,8 +1,8 @@
-export const relatedProduct = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const relatedProducts = ({ variables, metadata }: { variables: any, metadata: any }) => {
   return {
     variables,
     query: `
-      query relatedProduct(
+      query relatedProducts(
         $search: String = "",
         $filter: ProductAttributeFilterInput,
         $pageSize: Int = 10,

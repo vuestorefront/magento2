@@ -40,7 +40,7 @@ export { default as productDetails } from './productDetails';
 export { default as productReview } from './productReview';
 export { default as productReviewRatingsMetadata } from './productReviewRatingsMetadata';
 export { default as products } from './products';
-export { default as relatedProduct } from './relatedProduct';
+export { default as relatedProducts } from './relatedProducts';
 export { default as removeCouponFromCart } from './removeCouponFromCart';
 export { default as removeItemFromCart } from './removeItemFromCart';
 export { default as removeProductsFromWishlist } from './removeProductsFromWishlist';

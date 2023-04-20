@@ -5,11 +5,11 @@ import type {
   GetProductSearchParams,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
-  RelatedProductQuery,
-  RelatedProductQueryVariables,
+  RelatedProductsQuery,
+  RelatedProductsQueryVariables,
 } from '@vsf-enterprise/magento-api-types';
 import gql from 'graphql-tag';
-import relatedProductQuery from './relatedProduct';
+import relatedProductsQuery from './relatedProducts';
 import type { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
@@ -30,12 +30,12 @@ type Variables = {
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function relatedProduct(
+export default async function relatedProducts(
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery: CustomQuery = { relatedProduct: 'relatedProduct' },
+  customQuery: CustomQuery = { relatedProducts: 'relatedProducts' },
   customHeaders: CustomHeaders = {},
-): Promise<ApolloQueryResult<RelatedProductQuery>> {
+): Promise<ApolloQueryResult<RelatedProductsQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -53,17 +53,17 @@ export default async function relatedProduct(
 
   if (defaultParams.sort) variables.sort = defaultParams.sort;
 
-  const { relatedProduct: relatedProductGQL } = context.extendQuery(customQuery, {
-    relatedProduct: {
-      query: relatedProductQuery,
+  const { relatedProducts: relatedProductsGQL } = context.extendQuery(customQuery, {
+    relatedProducts: {
+      query: relatedProductsQuery,
       variables,
     },
   });
 
   try {
-    return await context.client.query<RelatedProductQuery, RelatedProductQueryVariables>({
-      query: gql`${relatedProductGQL.query}`,
-      variables: relatedProductGQL.variables,
+    return await context.client.query<RelatedProductsQuery, RelatedProductsQueryVariables>({
+      query: gql`${relatedProductsGQL.query}`,
+      variables: relatedProductsGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),
       },
