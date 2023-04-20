@@ -1,0 +1,1 @@
+export { resolveBaseUrl } from './resolveBaseUrl';

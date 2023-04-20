@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+productsList%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+pageSize%3A%24pageSize+currentPage%3A%24currentPage+sort%3A%24sort%29%7Baggregations%7Battribute_code+label+options%7Blabel+value+count+__typename%7D__typename%7Ditems%7Buid+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D...on+GroupedProduct%7Bitems%7Bproduct%7Bsku+__typename%7D__typename%7D__typename%7D__typename%7Dpage_info%7Bcurrent_page+page_size+total_pages+__typename%7Dtotal_count+__typename%7D%7D&operationName=productsList&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A20%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003c5585b6fe23814fe2b559ea11028e522f561dabd4cb56acbc28ce66119594e30c1836323c7296546fcf73d7612e240e86ed2a2be207c7cf2f9dccfb17f3973acb033fae5aca598c7be8af47f1c0492045851c161fd0f109492d48b1541be98136704dcd4274ec361d8230cd6e3742dd6f947d95ea7ddecb661ef19b3989835326b5fc45c3923b7e120a4b66bc271a8b73fe5873f193467f7fd348bb36b9488e763450221b788ce2d21ef52ea0939bf8990f0829c95846ce448b7422911463656a72ed67429a42a400dea42fd2e29bf98105f84a0e8dcc6ec5e9dd91f8c86607cdb177b4a992b1e289b173cd1ababf3372cc302526deb7d16ca0672dd339b4c30216d83a5eb3273fd294921727bddba4a8e63b966c486ead7859a10db85bd6a76af6c2e02b18da41ddba7a3becc847681aa9df7ae0572e6f0d0c923296696a20f39a94cc3b1605b12018b9df7b5b361bac67c4e5e6c857bb5edf62403cca97f71a7eb262f60568be4ca66e4646359f0d1acde373c2a8bb4060a91dc6eae7b4a79f2e3f5128c072d98db15ca1d562b9ad5052572216488b94fd0027b3001d832e79b177f649b1f6cd90833bb054d93e5470b457f16844a96a573d4c0f66ebf5a81b1b2ad332ce0d49e4c0a439ddbafdd73ba85b2d9af368ad8389d02ce99a33f525b469067263ddb7f9a7cc281b7383269b097b1fe5833e5716023bde734029b549130913d86091a5acb8f4fedc7e0e6060e8956b11eaba69f5d6deef47be8b12b7c318939a73cb83023ab6655c25fa1486115039873ff88a65f9eeefed2d6e16c8b5e10230b85a06f1b4667c463c61a8e04317880a2380c31cceaa37ebbe1a8651c7a1c53a66f27b1d416582ab58e46b3d6ac15e28070253a4dcae12c283897cf31343a21c9420aae2ea9001e32a778d6827b01662298b5d2db8ea6f84b326b91def0caeb0f7d6fe111effa6a30e80edc41af4f7a78e85dbbbdc1acb599b522f88d966ea719e8790b851844772f7facb527d622a2c67ca916731a618fc10894aead69a4c45205678c13d9eeb55ee074ad2f5a916d32e4ac7053261f37a3f463bd2fc94682d3529f190395305f2e55c80e8ffb2ad924f9da4458f2f146df8566ad24bca366ba3420fbd59b0e80f19611dfe48841e2cd7c787b23f47b8857ae7f1d48c8267359461273f027c46f885f68188728b9430361413966f9d28fa524dcd70eff3afd2dcff2abdec1310f824358408440eec60ccbb74094456072a987cd90f25a1277da6f96f834c4ab121f6c027562cc0f5be9db00250705ee262f67d94b80ceac285e2ce80b10334f6b22cc68cb2c4a80e44982e7be841a1565f95e10207b78f802752309b2f4d07bebd0fcd1e07f1d7b109c87528066fb479003adf6f4124d0a62dfee018f3bc64995024ba5fddb451d8d8ae5e6dcfa358ef172879c443c76c29b0df8f36fcb80c777d7ffb2e46b75b572a47ed789fa4cc906a5a3c5554630cf84f994809f89846e8592de0d2348bb9d35f208e9335773b1e186353d6892705a0f0427dae0c49c97b21f59b1c0940c6a07a2742a4be29e4992ebca9274cf24c947b9e7d5ede8a86edf09bea0412cf52095b226fd54eb42f942e48d43214d34b3afd935b72ae37b25946e55408c8e47e329c1d25f4e4814333506967b0dbacb3e3a314f8fb397f2dd6ef72f30972fa840170000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 18 Apr 2023 07:17:36 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046,cat_c,cat_c_20,cat_c_22,cat_c_28,cat_c_34",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "263139",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

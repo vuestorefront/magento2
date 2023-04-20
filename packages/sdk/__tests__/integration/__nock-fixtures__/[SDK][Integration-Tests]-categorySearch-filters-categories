@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+categorySearch%28%24filters%3ACategoryFilterInput%29%7BcategoryList%28filters%3A%24filters%29%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_path+url_suffix+__typename%7D%7D&operationName=categorySearch&variables=%7B%22filters%22%3A%7B%22category_uid%22%3A%7B%22in%22%3A%5B%22MjA%3D%22%5D%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000032d8ec10ac2300c86df25e722288850f0205ef526781009a5cd5ca46b4b9baa63ecddadb263be7cf9ff4ce08c18d0135823f488793c7111d0b70938585f1d21071c2854d06b055cd004dbc7fc9f3cbdc883de28086620d0708dcd04052916168ee1bf4b39ba6a056daca125efb60a2abb669f9f877d936bf6988cf48dbc97fb1f2ab5ebf8d3e0aa97c137882863a2a5e9b87c7bc94430dfe7f90b40827062c9000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Fri, 14 Apr 2023 12:35:21 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "172",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_c,cat_c_20",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "219414516 194491430",
+            "Age",
+            "345",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

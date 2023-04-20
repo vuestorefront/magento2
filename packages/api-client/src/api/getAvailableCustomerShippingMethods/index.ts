@@ -1,12 +1,12 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import CustomerAvailableShippingMethods from './CustomerShippingMethods';
 import {
+  CustomQuery,
   CustomerAvailableShippingMethodsQuery,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { Context } from '../../types/context';
+import CustomerAvailableShippingMethods from './CustomerShippingMethods';
 import getHeaders from '../getHeaders';
 
 /**

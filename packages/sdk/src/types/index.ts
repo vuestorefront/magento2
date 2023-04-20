@@ -1,3 +1,3 @@
-/**
- * Types goes here
- */
+export { ModuleOptions } from './ModuleOptions';
+export * from './MethodOptions';
+export * from './CustomQuery';

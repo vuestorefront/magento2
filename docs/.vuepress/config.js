@@ -96,7 +96,6 @@ module.exports = {
           collapsable: true,
           children: [
             ['/installation-setup/installation', 'Installation'],
-            ['/installation-setup/configure-magento', 'Configuring Magento'],
             ['/installation-setup/advanced-configuration', 'Vue Storefront Advanced Configuration'],
           ],
         },

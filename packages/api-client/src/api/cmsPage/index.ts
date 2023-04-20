@@ -1,9 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
-import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
+import { CmsPageQueryVariables, CmsPageQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

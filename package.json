@@ -13,6 +13,7 @@
   "scripts": {
     "build": "lerna run build",
     "dev": "lerna run dev --parallel",
+    "lint": "eslint . --ext .ts,.vue",
     "test": "lerna run test",
     "test:coverage": "lerna run test:coverage",
     "link-core": "yarn crosslink --overwrite",

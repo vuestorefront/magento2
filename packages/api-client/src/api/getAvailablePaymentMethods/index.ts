@@ -1,9 +1,8 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables, CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
-import type { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
 /**

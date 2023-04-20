@@ -1,9 +1,8 @@
 import { ExecutionResult } from 'graphql';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery, DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import deleteCustomerAddressMutation from './deleteCustomerAddress';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
 /**

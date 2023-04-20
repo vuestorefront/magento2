@@ -1,9 +1,9 @@
 import type { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
-import type { UrlResolverQuery, UrlResolverQueryVariables } from '../../types/GraphQL';
+import type {
+  CustomHeaders, CustomQuery, UrlResolverQuery, UrlResolverQueryVariables,
+} from '@vsf-enterprise/magento-api-types';
 import urlResolverQuery from './urlResolver';
 import type { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

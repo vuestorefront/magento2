@@ -1,12 +1,12 @@
-import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import addProductsToWishlist from './addProductsToWishlist';
+import { FetchResult, gql } from '@apollo/client/core';
 import {
+  CustomQuery,
   AddProductsToWishlistMutation,
   AddProductsToWishlistMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import addProductsToWishlist from './addProductsToWishlist';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
@@ -25,7 +25,7 @@ export default async (
     },
   );
   return context.client.mutate<AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables>({
-    mutation: addProductsToWishlistGQL.query,
+    mutation: gql`${addProductsToWishlistGQL.query}`,
     variables: addProductsToWishlistGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

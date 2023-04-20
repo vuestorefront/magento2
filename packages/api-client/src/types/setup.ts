@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloClientOptions } from '@apollo/client/core';
 import { HttpOptions } from '@apollo/client/link/http/selectHttpOptionsAndBody';
-import { MagentoApiMethods } from './API';
+import { MagentoApiMethods } from '@vsf-enterprise/magento-api-types';
 
 export interface Storage {
   set: (

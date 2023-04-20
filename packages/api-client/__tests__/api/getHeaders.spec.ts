@@ -1,5 +1,6 @@
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import getHeaders from '../../src/api/getHeaders';
-import type { Context, CustomHeaders } from '../../src';
+import type { Context } from '../../src';
 
 const contextMock = ({ customerToken, store, currency }: { customerToken?: string, store?: string, currency?: string }) => ({
   config: {

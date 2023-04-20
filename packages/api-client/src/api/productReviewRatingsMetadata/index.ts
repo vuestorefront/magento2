@@ -1,9 +1,8 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { ProductReviewRatingsMetadataQuery } from '../../types/GraphQL';
+import { CustomQuery, ProductReviewRatingsMetadataQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import productReviewRatingsMetadata from './productReviewRatingsMetadata';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

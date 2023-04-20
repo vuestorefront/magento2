@@ -1,14 +1,17 @@
+import { Logger } from '@vue-storefront/core';
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomHeaders,
+  CustomQuery,
+  GetProductSearchParams,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   ProductsListQuery,
   ProductsListQueryVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import productsListQuery from './productsList';
 import { Context } from '../../types/context';
-import { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {
@@ -59,14 +62,29 @@ export default async function products(
   });
 
   try {
-    return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
-      query: productsGQL.query,
+    const result = await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
+      query: gql`${productsGQL.query}`,
       variables: productsGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),
       },
     });
+
+    if (result.data.products.items.length === 0) throw new Error('No products found');
+
+    return result;
   } catch (error) {
-    throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
+    // For error in data we don't throw 500, because it's not server error
+    if (error.graphQLErrors) {
+      Logger.debug(error);
+
+      return {
+        ...error,
+        errors: error.graphQLErrors,
+        data: null,
+      };
+    }
+    Logger.error(error);
+    throw error.networkError?.result || error;
   }
 }

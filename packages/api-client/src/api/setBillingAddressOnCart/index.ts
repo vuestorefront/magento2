@@ -1,13 +1,13 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import setBillingAddressOnCart from './setBillingAddressOnCart';
 import {
+  CustomQuery,
   SetBillingAddressOnCartInput,
   SetBillingAddressOnCartMutation,
   SetBillingAddressOnCartMutationVariables,
-} from '../../types/GraphQL';
+} from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import setBillingAddressOnCart from './setBillingAddressOnCart';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (

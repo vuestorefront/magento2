@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "1.1.0",
+  "version": "1.2.0-rc.1",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -64,7 +64,8 @@
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-watch-typeahead": "^2.2.2",
-    "jest-watch-toggle-config": "^2.0.1"
+    "jest-watch-toggle-config": "^2.0.1",
+    "@vsf-enterprise/magento-api-types": "1.0.0"
   },
   "peerDependencies": {
     "@vue-storefront/core": "~2.7.1"

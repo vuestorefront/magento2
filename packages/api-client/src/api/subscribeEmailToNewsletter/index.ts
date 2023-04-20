@@ -1,9 +1,12 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type {
+  SubscribeEmailToNewsletterMutation,
+  SubscribeEmailToNewsletterMutationVariables,
+  CustomHeaders,
+} from '@vsf-enterprise/magento-api-types';
 import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
-import type { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**

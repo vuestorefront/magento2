@@ -1,18 +1,14 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomQuery,
+  CustomerProductReviewParams,
   CustomerProductReviewQuery,
   CustomerProductReviewQueryVariables,
-} from '../../types/GraphQL';
+  CustomHeaders,
+} from '@vsf-enterprise/magento-api-types';
 import customerProductReview from './customerProductReview';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
-
-export type CustomerProductReviewParams = {
-  pageSize: number;
-  currentPage: number;
-};
 
 /**
  * Returns product reviews created by the current customer

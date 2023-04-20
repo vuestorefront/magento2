@@ -1,17 +1,10 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import {
-  AddProductsToCartMutation, CartItemInput,
-} from '../../types/GraphQL';
+  CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders,
+} from '@vsf-enterprise/magento-api-types';
+import { Context } from '../../types/context';
 import addProductsToCartMutation from './addProductsToCart';
 import getHeaders from '../getHeaders';
-
-export type AddProductsToCartInput = {
-  cartId: string;
-  cartItems: CartItemInput[];
-};
 
 /**
  * Adds products to the specified cart

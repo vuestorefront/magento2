@@ -1,6 +1,8 @@
 import * as nock from 'nock';
 import * as path from 'path';
-import { NOCK_EXCLUDED_SCOPE, NOCK_FIXTURES_CATALOG_NAME, NOCK_MODE } from './jest.const';
+import { client } from '../../../src/client';
+import { NOCK_EXCLUDED_SCOPE, NOCK_FIXTURES_CATALOG_NAME, NOCK_MODE, TEST_DESCRIBE, TEST_USER_EMAIL, TEST_USER_PASSWORD } from './jest.const';
+import * as methods from '../../../src/methods';
 
 let nockDone: any;
 
@@ -39,4 +41,24 @@ export function createResponseMock(...fields: any[]) {
     response[field] = expect.anything();
     return response;
   }, {});
+}
+
+/**
+ * Gets real user access token for integration tests.
+ */
+export async function getUserToken() {
+  const response = await client.post('generateCustomerToken', [{
+    email: TEST_USER_EMAIL,
+    password: TEST_USER_PASSWORD
+  }]);
+
+  const { token } = response.data.data.generateCustomerToken;
+  return token;
+}
+
+/**
+ * Creates uniform test descriptions.
+ */
+export function describeGroup(methodName: keyof typeof methods) {
+  return `${TEST_DESCRIBE} ${methodName}`;
 }
