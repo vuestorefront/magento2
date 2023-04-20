@@ -12,7 +12,6 @@
     "sourceType": "module"
   },
   "plugins": [
-    "vue",
     "@typescript-eslint"
   ],
   "env": {
