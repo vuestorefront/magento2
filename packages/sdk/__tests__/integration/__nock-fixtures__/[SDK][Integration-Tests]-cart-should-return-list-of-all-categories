@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+cart%28%24cartId%3AString%21%29%7Bcart%28cart_id%3A%24cartId%29%7Bid+email+is_virtual+applied_coupons%7Bcode+__typename%7Dprices%7Bsubtotal_excluding_tax%7Bvalue+__typename%7Dsubtotal_including_tax%7Bvalue+__typename%7Dapplied_taxes%7Bamount%7Bvalue+__typename%7Dlabel+__typename%7Ddiscounts%7Bamount%7Bvalue+__typename%7Dlabel+__typename%7Dgrand_total%7Bvalue+__typename%7D__typename%7Ditems%7Buid+product%7Buid+__typename+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D%7Dprices%7Brow_total%7Bvalue+__typename%7Drow_total_including_tax%7Bvalue+__typename%7Dtotal_item_discount%7Bvalue+__typename%7D__typename%7Dquantity+...on+ConfigurableCartItem%7Bconfigurable_options%7Bconfigurable_product_option_uid+option_label+configurable_product_option_value_uid+value_label+__typename%7Dconfigured_variant%7Bsku+thumbnail%7Burl+__typename%7D__typename%7D__typename%7D...on+BundleCartItem%7Bbundle_options%7Buid+label+type+values%7Bid+label+price+quantity+__typename%7D__typename%7D__typename%7D__typename%7Dtotal_quantity+shipping_addresses%7Bfirstname+lastname+street+city+company+region%7Bcode+region_id+label+__typename%7Dpostcode+telephone+country%7Bcode+label+__typename%7Dselected_shipping_method%7Bcarrier_code+carrier_title+method_code+method_title+amount%7Bvalue+currency+__typename%7D__typename%7D__typename%7Dbilling_address%7Bfirstname+lastname+street+city+company+region%7Bcode+region_id+label+__typename%7Dpostcode+telephone+country%7Bcode+label+__typename%7D__typename%7D__typename%7D%7D&operationName=cart&variables=%7B%22cartId%22%3A%22pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003dd575b73da3814fe2b1d3d4380022d61260f5bd2e9d08694866476bb25a3916d61b4c8922b4bdc32fcf73d926dc010d80476673afb908b8fcef53b171d3da1806882da4fc8274adbbf2c406d147706d5c584c6355e9f7de2fd2f83c5ef379f7f36475eed7adefde6c7a884684418476d61382f2196e02953da10a08c084f68099138e68c06d897269622c93963c57c9a584389f1b4d484633af7b9099808b126737b3225dc50d46e344b0863bd88a920117ca39e14748156a58d2813af15cddd027eebc68fc7120a58024e0abdf63154440087b5f0229d056a0770eca741c211d334b2669e9071c0f6ee7f9bc1cf15b248c8c0f80ef3f4ec76192ed0ae3629462c348a789cf63301887f62acae7eb5011f19e7c0c4540939256f06b154fa4d9f08c7aaa53fc18926da801fa87b8b07f75f3b5fe0440abec073cce948038ed831e60828a22da8898922a216a8dd82d8f5d8449e7049078f15fc4163ade3a43dac0c2b1109a9d0f26d9909b0257c7a313514542a3a5252e80b268187068c0c2b3e141c97e1b092016029fe980e2bb479d9f0de5ffadec8a3debb46ab556fd55acdf7b4492ebd77b5660b348010fc8eab8d32e46881a10405ae5dfc1587164f9930cda4c86380b45ad482fc9b138ff2c3401560cfa0eedab06c1a215c3c8164b7a1f432e97262a5cb712a6d19149d29c877966e07d073dc17631df15d830f8adfa5e2602e978ea818563ca9b58c92b2fbb0f2d9bfe7a906ec2369d14a72a584f37395fe0b7eed877c92bec76cd060e864c820146c44e62c321176644b1831010364fde91ba5a8f06d8a1f06d7a0fb1fbb5ed1d070a2ce51f15ccdb9d9610f23264ef2b85e3ddbe3c32a8e7abc7308d43b073f1c41d3d3502a468bc3f0e3d56680f5a8c81a2931a31183718ef23c5b624cf4382d1020788a92c0573090d6437b67083b738b7b45b3eaca0cf6b60c7e48cbec65460b55b9ebc18fa73cc0052e44b3a6ee455070f7c35a992bdd9785126e856267d829816c4d94ff32a6d2beae0df807f4ed027e3660cbee09803d3b275f5d808fb6f7a68cceb05b346024e404b7096d960432a50aae1c9cdebf70ef56f3bb38c1d6e4249033e138333b7729e3ba7351e3c05576e7cc65ec7b9815981c68bfae27b5eaab5d69febf40397a0c6be76a7bcd5672f68a5576cd7dc26a9dc94131e37ca5de927bd99562b7e72e68d86cd03f0db41dd37047d560566cadc358c6ae31d351b57d902d9619034efbfffbdb4bf367c445f0c7e7f1f768ce6f967ea3c75acddeeccace858c375f123b924b854a47f5bac00e6a9f2c6f960fcb3cf56bc59f6020ec8db301e5d4d734d8def6bf3a23e9ec3c35b8f9edf5b767821bb0253d2bb68fd5db0e285ffa577bf1d5f72afc58708f1b2fe04d36258a91b468362f9c72bd51ce41fbd59e20e055f10d72f41151448545f1e649b7d7065b58e52de1d04a7bacd013c998c5b1ed5312048a2649feacf518e75be403d7143cfa57abd5df14ed47d607100000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 19 Apr 2023 13:42:56 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=li4cd6neungl9632iruemolke2; expires=Wed, 19-Apr-2023 14:42:56 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "913321",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

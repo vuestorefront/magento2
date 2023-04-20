@@ -5,3 +5,4 @@ export { products } from './products';
 export { relatedProducts } from './relatedProducts';
 export { upsellProducts } from './upsellProducts';
 export { addProductToWishList } from './addProductToWishList';
+export { cart } from './cart';
