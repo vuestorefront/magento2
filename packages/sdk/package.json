@@ -25,12 +25,11 @@
   },
   "devDependencies": {
     "@vue-storefront/middleware": "3.0.0-rc.2",
-    "msw": "^0.47.3",
     "nock": "^13.2.9",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-typescript2": "^0.33.0",
-    "ts-essentials": "^9.3.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "ts-essentials": "^9.3.1",
     "@vsf-enterprise/magento-api-types": "^1.0.0",
     "@babel/core": "^7.10.5",
     "@commitlint/cli": "^12.1.1",
@@ -59,8 +58,6 @@
     "tslib": "^2.1.0",
     "typescript": "^4.2.2",
     "webpack-bundle-analyzer": "^3.5.2",
-    "@types/supertest": "~2.0.12",
-    "supertest": "~6.2.4",
     "@apollo/client": "^3.6.9"
   },
   "publishConfig": {
