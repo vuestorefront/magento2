@@ -1,33 +1,42 @@
+#!/usr/bin/env node
 const fsPromises = require('fs/promises');
 const path = require('path');
+const fileOperations = require('./file-operations');
 
-const methodName = process.argv[2];
+// Use IIFE for "top level await", because regular top level await is not present in raw node 16
+// eslint-disable-next-line unicorn/prefer-top-level-await
+(async () => {
+  const methodName = process.argv[2];
 
-// use Immediately Invoked Function Expression because I want to use top level await
-if (!methodName) {
-  throw new Error('usage: mkmethod [method name]');
-}
+  if (!methodName) {
+    console.error('\nerror: method name missing\nusage: npx mkmethod [method name]\n');
+    return;
+  }
 
-// TODO check if repo root
-const folderWhereTheCommandWasRanIn = process.cwd();
+  const folderWhereTheCommandWasRanIn = process.cwd();
 
-const folders = {
-  testIntegrations: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'integration'),
-  testUnit: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'unit'),
-  methods: path.join(folderWhereTheCommandWasRanIn, 'src', 'methods'),
-};
+  const folders = {
+    testIntegrations: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'integration'),
+    testUnit: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'unit'),
+    methods: path.join(folderWhereTheCommandWasRanIn, 'src', 'methods'),
+  };
 
-// check if all folders are accessible
-try {
-  await Promise.all(
-    Object.values(folders)
-      .map((folderPath) => fsPromises.access(folderPath)),
-  );
-} catch (e) {
-  throw new Error('The method bootstrapper expects a certain directory structure. One of the folders is inaccessible', { cause: e });
-}
+  // Checks if all folders required folders are accessible
 
-await fsPromises.appendFile(
-  path.join(folders.methods, 'index.ts'),
-  `export ${methodName} from '${methodName}'`,
-);
+  try {
+    await Promise.all(
+      Object.values(folders)
+        .map((folderPath) => fsPromises.access(folderPath)),
+    );
+  } catch (e) {
+    throw new Error('The method bootstrapper expects a certain directory structure. One of the folders is inaccessible', { cause: e });
+  }
+
+  await fileOperations.createMethodImplementationFile(folders.methods, methodName);
+
+  await fileOperations.patchMethodIndexFile(folders.methods, methodName);
+
+  await fileOperations.createMethodUnitTestFile(folders.testUnit, methodName);
+
+  await fileOperations.createMethodIntegrationTestFile(folders.testIntegrations, methodName);
+})();
