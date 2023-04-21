@@ -1,4 +1,4 @@
-import { client } from '../../src/client';
+import { client } from '../../../src/client';
 import { CategorySearchQueryVariables, CategoryTree } from '@vsf-enterprise/magento-api-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
