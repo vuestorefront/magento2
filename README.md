@@ -11,6 +11,11 @@
 [![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
 
 
+
+**This repository contains integration between Magento and Vue Storefront Middleware.**
+This integration is then consumed in the Nuxt 2 template that resides in [this repo](http://discord.vuestorefront.io](https://github.com/vuestorefront/storefront-nuxt2-magento2))!
+
+
 ## Vue Storefront 2 integration with Magento
 
 This project is a Magento 2 integration for Vue Storefront 2.
