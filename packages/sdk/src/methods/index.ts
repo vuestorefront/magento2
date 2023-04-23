@@ -7,3 +7,4 @@ export { relatedProducts } from './relatedProducts';
 export { upsellProducts } from './upsellProducts';
 export { addProductToWishList } from './addProductToWishList';
 export { cart } from './cart';
+export { removeCouponFromCart } from './removeCouponFromCart';

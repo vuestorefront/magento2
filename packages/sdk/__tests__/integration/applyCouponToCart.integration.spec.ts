@@ -1,12 +1,12 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-import { TEST_CART_ID } from './__config__/jest.const';
+import { TEST_CART_ID, TEST_COUPON_CODE } from './__config__/jest.const';
 
 describe(describeGroup('applyCouponToCart'), () => {
   it('should return error if the coupon is invalid', async () => {
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: 'invalid-coupon'
+      coupon_code: 'invalid-code'
     };
 
     const result = await sdk.magento.applyCouponToCart(params);
@@ -18,16 +18,17 @@ describe(describeGroup('applyCouponToCart'), () => {
   it('should apply coupon to cart', async () => {
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: 'integration-tests'
+      coupon_code: TEST_COUPON_CODE
     };
 
     const result = await sdk.magento.applyCouponToCart(params);
 
-    expect(result.data?.applyCouponToCart?.cart?.applied_coupons?.[0]?.code).toEqual('integration-tests');
+    expect(result.data?.applyCouponToCart?.cart?.applied_coupons?.[0]?.code).toEqual(TEST_COUPON_CODE);
+
+    await sdk.magento.removeCouponFromCart({ cart_id: TEST_CART_ID });
   });
 
-  // TODO: fix this test when remove coupon from the cart is implemented
-  it.skip('using custom query should return customized result', async () => {
+  it('using custom query should return customized result', async () => {
     const customQuery = {
       applyCouponToCart: 'apply-coupon-to-cart-custom-query',
       metadata: {
@@ -37,21 +38,26 @@ describe(describeGroup('applyCouponToCart'), () => {
 
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: 'invalid-coupon'
+      coupon_code: TEST_COUPON_CODE
     };
 
     const result = await sdk.magento.applyCouponToCart(params, { customQuery });
 
     expect(result.data).toEqual({
       applyCouponToCart: {
+        __typename: 'ApplyCouponToCartOutput',
         cart: {
+          __typename: 'Cart',
           applied_coupons: [
             {
-              code: 'integration-tests'
+              __typename: 'AppliedCoupon',
+              code: TEST_COUPON_CODE
             }
           ]
         }
       }
     });
+
+    await sdk.magento.removeCouponFromCart({ cart_id: TEST_CART_ID });
   });
 });
