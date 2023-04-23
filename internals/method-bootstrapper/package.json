@@ -1,0 +1,18 @@
+{
+  "name": "method-bootstrapper",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "mkmethod": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}
