@@ -1,5 +1,5 @@
 import { CategoryFilterInput } from '@vsf-enterprise/magento-api-types';
-import { sdk } from '../integration/__config__/sdk.config';
+import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
 
 describe(describeGroup('categorySearch'), () => {
@@ -10,7 +10,7 @@ describe(describeGroup('categorySearch'), () => {
   });
 
   it('filters categories', async () => {
-    const filters : CategoryFilterInput = { category_uid: { in: ['MjA='] } };
+    const filters: CategoryFilterInput = { category_uid: { in: ['MjA='] } };
 
     const result = await sdk.magento.categorySearch({ filters });
 

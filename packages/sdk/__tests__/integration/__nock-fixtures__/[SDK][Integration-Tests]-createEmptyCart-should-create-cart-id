@@ -1,0 +1,61 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "createEmptyCart",
+            "variables": {},
+            "query": "mutation createEmptyCart {\n  createEmptyCart\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa564a2e4a4d2c4975cd2d28a9744e2c2a51b252ca094c2975ce4a4d8dccb0302b32aa2c4ccc35cfaa282c8ec8f0cd74cc4fcb7254aaad0500b8a7c4743f000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Sun, 23 Apr 2023 16:30:13 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "83",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=4ol6sq1hqnufjs6115jtatosfe; expires=Sun, 23-Apr-2023 17:30:13 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=bf3e30f7270d05e48fa351d4b1f08631; expires=Wed, 20-Apr-2033 16:30:13 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=e0ecaf04847c59bf0a26d41b7847a204; expires=Wed, 20-Apr-2033 16:30:13 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=915a7967b4a18d572ce3332fd7ddd490; expires=Wed, 20-Apr-2033 16:30:13 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3529349",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
