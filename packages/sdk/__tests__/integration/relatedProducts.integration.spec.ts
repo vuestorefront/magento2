@@ -1,7 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-
-const PRODUCT_SKU = 'WSH12';
+import { TEST_PRODUCT_SKU } from './__config__/jest.const';
 
 describe(describeGroup('relatedProducts'), () => {
   it('returns related products for a product filtered by SKU', async () => {
@@ -9,7 +8,7 @@ describe(describeGroup('relatedProducts'), () => {
       pageSize: 1,
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     });
@@ -41,7 +40,7 @@ describe(describeGroup('relatedProducts'), () => {
     const result = await sdk.magento.relatedProducts({
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     }, { customQuery });
