@@ -16,3 +16,4 @@ export { addProductsToCart } from './addProductsToCart';
 export { setBillingAddressOnCart } from './setBillingAddressOnCart';
 export { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 export { removeItemFromCart } from './removeItemFromCart';
+export { setPaymentMethodOnCart } from './setPaymentMethodOnCart';

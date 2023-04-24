@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation that sets received payment method on cart. */
-export default gql`
+export default `
   mutation setPaymentMethodOnCart($input: SetPaymentMethodOnCartInput) {
     setPaymentMethodOnCart(input: $input) {
       cart {

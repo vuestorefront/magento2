@@ -5,6 +5,7 @@ import { categoryList } from './categoryList';
 import { categorySearch } from './categorySearch';
 import { productsList } from './products';
 import { relatedProducts } from './relatedProducts';
+import { removeItemFromCart } from './removeItemFromCart';
 import { upsellProducts } from './upsellProducts';
 import { addProductToWishList } from './addProductToWishList';
 import { cart } from './cart';
@@ -12,7 +13,7 @@ import { setBillingAddressOnCart } from './setBillingAddressOnCart';
 import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 import { addProductsToCart } from './addProductsToCart';
 import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
-import { removeItemFromCart } from './removeItemFromCart';
+import { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -22,6 +23,7 @@ export const customQueries = {
   'category-search-custom-query': categorySearch,
   'products-custom-query': productsList,
   'related-products-custom-query': relatedProducts,
+  'remove-item-from-cart-custom-query': removeItemFromCart,
   'upsell-products-custom-query': upsellProducts,
   'add-product-to-wishlist-custom-query': addProductToWishList,
   'cart-custom-query': cart,
@@ -29,5 +31,5 @@ export const customQueries = {
   'set-billing-address-on-cart-custom-query': setBillingAddressOnCart,
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
   'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart,
-  'remove-item-from-cart-custom-query': removeItemFromCart
+  'set-payment-method-on-cart-custom-query': setPaymentMethodOnCart
 };
