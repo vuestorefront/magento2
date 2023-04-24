@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation that sets the guest user email on a cart */
-export default gql`
+export default `
   mutation setGuestEmailOnCart($input: SetGuestEmailOnCartInput) {
     setGuestEmailOnCart(input: $input) {
       cart {
