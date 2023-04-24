@@ -14,3 +14,4 @@ export { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 export { removeCouponFromCart } from './removeCouponFromCart';
 export { addProductsToCart } from './addProductsToCart';
 export { setBillingAddressOnCart } from './setBillingAddressOnCart';
+export { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
