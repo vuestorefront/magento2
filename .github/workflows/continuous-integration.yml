@@ -10,7 +10,6 @@ concurrency:
 
 jobs:
   continous-integration:
-    if: false
     name: "Continuous Integration"
     uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@main
     secrets: inherit
