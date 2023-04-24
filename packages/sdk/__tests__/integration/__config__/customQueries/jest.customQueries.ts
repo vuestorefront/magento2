@@ -8,6 +8,7 @@ import { relatedProducts } from './relatedProducts';
 import { upsellProducts } from './upsellProducts';
 import { addProductToWishList } from './addProductToWishList';
 import { cart } from './cart';
+import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -19,5 +20,6 @@ export const customQueries = {
   'related-products-custom-query': relatedProducts,
   'upsell-products-custom-query': upsellProducts,
   'add-product-to-wishlist-custom-query': addProductToWishList,
-  'cart-custom-query': cart
+  'cart-custom-query': cart,
+  'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart
 };

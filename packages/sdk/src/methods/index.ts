@@ -11,3 +11,4 @@ export { cart } from './cart';
 export { cartTotalQty } from './cartTotalQty';
 export { setGuestEmailOnCart } from './setGuestEmailOnCart';
 export { createEmptyCart } from './createEmptyCart';
+export { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
