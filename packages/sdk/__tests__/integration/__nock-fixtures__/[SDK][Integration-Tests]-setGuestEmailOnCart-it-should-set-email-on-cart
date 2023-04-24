@@ -1,0 +1,130 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setGuestEmailOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "email": "john.doe@gmail.com"
+                }
+            },
+            "query": "mutation setGuestEmailOnCart($input: SetGuestEmailOnCartInput) {\n  setGuestEmailOnCart(input: $input) {\n    cart {\n      email\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a4e2d712f4d2d2e71cd4dccccf1cf734e2c2a01092743e95490b0929552567e469e5e4a7eaa433a48402f393f574947293ebea4b220352f313715a802acb3164d3018d374ffd2928252a0cada5a00a179d18585000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 06:16:15 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "107",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=a1745u3jrinujgc2v0lfs20k96; expires=Mon, 24-Apr-2023 07:16:15 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=e33057c1f37774763f187a86a81f32a6; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=59ba4339e93c8e087004348ed62755f7; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=10326f16536cad7b239a6e2dd1329cab; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3846471",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setGuestEmailOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "email": "vsf.magento.integration.test.user@gmail.com"
+                }
+            },
+            "query": "mutation setGuestEmailOnCart($input: SetGuestEmailOnCartInput) {\n  setGuestEmailOnCart(input: $input) {\n    cart {\n      email\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003658d310ac3301004ff7275b807b80a9890d2451e600ee72204d1c9482b8331fa7ba4e02aa916869ddd839e02a1e1a0acb817cdb805f1efc94649e87839533ba681b6fce2204e0d91bd415d12f8688ca672c99aaeae377989812e34cfd8573509dad4ef64fd818fffdba9602dad59eb07932e8fca9e000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 06:16:16 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "130",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=ejub41jfmca91s713n4kt8n506; expires=Mon, 24-Apr-2023 07:16:15 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=b2bbeff52ca5cf870f6db481282b4214; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=e54a48e9e9d6db1d7790bba6ed8a57c4; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=795e9330c5baf0de9ea62c0e0a293ac6; expires=Thu, 21-Apr-2033 06:16:15 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3997948",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
