@@ -10,7 +10,7 @@ import { ApolloQueryResult } from '@apollo/client';
 export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMutation> = AddProductsToCartMutation> = ApolloQueryResult<T>
 
 /**
- * Method to get cart
+ * Method to add products to cart (returns cart)
  *
  * @remarks
  * This method communicates with the
@@ -37,12 +37,26 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
  *
- * // fetch cart with default parameters
- * const cart = await sdk.magento.addProductsToCart({ cartId: '123' });
+ * // add products to cart with default parameters (returns cart)
+ * const cart = await sdk.magento.addProductsToCart(
+ *   {
+ *     cartId: '123',
+ *     cartItems: [
+ *       {
+ *         sku: 'WSH12',
+ *         quantity: 1,
+ *         selected_options: [
+ *           'Y29uZmlndXJhYmxlLzkzLzUz',
+ *           'Y29uZmlndXJhYmxlLzE0NC8xNzE='
+ *         ]
+ *       }
+ *     ]
+ *   }
+ * );
  * ```
  *
  * @example
- * Creating a custom GraphQL query for getting cart
+ * Creating a custom GraphQL query for adding products to cart
  *
  * ```ts
  * module.exports = {
@@ -68,7 +82,7 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  * ```
  *
  * @example
- * Using a custom GraphQL query to fetch cart
+ * Using a custom GraphQL query to add product to cart
  *
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
