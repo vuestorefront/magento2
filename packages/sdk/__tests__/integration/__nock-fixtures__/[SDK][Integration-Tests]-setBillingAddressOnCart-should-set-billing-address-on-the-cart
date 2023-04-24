@@ -1,0 +1,145 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setBillingAddressOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "billing_address": {
+                        "address": {
+                            "firstname": "John",
+                            "lastname": "Doe",
+                            "city": "New York",
+                            "country_code": "US",
+                            "street": [
+                                "Street 1",
+                                "Street 2"
+                            ],
+                            "telephone": "123 123 123",
+                            "region": "AL",
+                            "postcode": "10001",
+                            "save_in_address_book": false
+                        }
+                    }
+                }
+            },
+            "query": "mutation setBillingAddressOnCart($input: SetBillingAddressOnCartInput) {\n  setBillingAddressOnCart(input: $input) {\n    cart {\n      billing_address {\n        firstname\n        lastname\n        company\n        street\n        city\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b08000000000000037551cb6ac33010fc15b3671fecf4e65b1ea7521aa8e9a1846294689b88c89290d61413fcef5dc92209697b105acd8c6667a50b4841029a0b04a495d25a99e3524a8f216ccd5a788ad421effb99efc42c88d097f2818ce8111a78b627032568714536161938d8de0933426306ad4b08e411d96f076daa8a9a35b95cc027eb15b1185ef1bbf8b0feccacc7a3b22645b1321a2f5fae68a72434756cbb471d292e442f98ef3a1a1de62871963cd8dbec3695e06ca0ec5857551583106a74276b12b6782af24a630c86fc7897e2bd855bdf74f8afe53adf9d1e24f9c5ef94bf24e9131ec1f6efcfda0ee406564fd30fbc39818fd8010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 13:58:45 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "255",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=1ouhrsp0u97v3hr6iphmu6evp6; expires=Mon, 24-Apr-2023 14:58:45 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=2a9d16cc567d77422325388fd3a649ef; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=692d848536f66da72b6c3734eab7606f; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=8826617c1d0a74a4d75b33d0086e1ab2; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4022492",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setBillingAddressOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "billing_address": {}
+                }
+            },
+            "query": "mutation setBillingAddressOnCart($input: SetBillingAddressOnCartInput) {\n  setBillingAddressOnCart(input: $input) {\n    cart {\n      billing_address {\n        firstname\n        lastname\n        company\n        street\n        city\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003758d410ac2301045af52fe3a6e74d79d7a00c1ad1519dba10da4493a494029b9bb53ba76fbffe3bd152c1224a17dac9839251a192deebc142b3c34918466ce2c4d87b775cefaf145c3204a76686c6a669b928e30e04f669f6cf02a5bd153e631c85765a3509c1677b03e968c6ae082be3ba855756af268d00757668ff6549f0691f2a43712e7cbde3defd99bbf92643c3768a04c5bec1fd4fae25cad3f29ec3d92e5000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 13:58:45 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "175",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=iu8vknhrair3lh5ds949fegsg0; expires=Mon, 24-Apr-2023 14:58:45 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=601fdbb5b2925c8cc5809b2322eae624; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=a0bf1bb3f446632670962d76cd4a1b31; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=5063449183e565792b5632e094d7983e; expires=Thu, 21-Apr-2033 13:58:45 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4133780",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

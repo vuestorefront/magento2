@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation setBillingAddressOnCart($input: SetBillingAddressOnCartInput) {
     setBillingAddressOnCart(input: $input) {
       cart {
