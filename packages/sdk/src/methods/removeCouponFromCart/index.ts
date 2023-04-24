@@ -10,7 +10,7 @@ import { FetchResult } from '@apollo/client';
 export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromCartMutation> = RemoveCouponFromCartMutation> = FetchResult<T>
 
 /**
- * Method applied coupon to cart
+ * Method to remove coupon from cart
  *
  * @remarks
  * This method communicates with the

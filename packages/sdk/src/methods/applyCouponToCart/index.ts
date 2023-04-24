@@ -5,12 +5,12 @@ import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 
 /**
- * Category list response type
+ * Apply coupon to cart response type
  */
 export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMutation> = ApplyCouponToCartMutation> = FetchResult<T>
 
 /**
- * Method applied coupon to cart
+ * Method to apply coupon to cart
  *
  * @remarks
  * This method communicates with the
