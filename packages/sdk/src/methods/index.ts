@@ -1,3 +1,4 @@
+export { applyCouponToCart } from './applyCouponToCart';
 export { productDetails } from './productDetails';
 export { categoryList } from './categoryList';
 export { categorySearch } from './categorySearch';
@@ -6,3 +7,4 @@ export { relatedProducts } from './relatedProducts';
 export { upsellProducts } from './upsellProducts';
 export { addProductToWishList } from './addProductToWishList';
 export { cart } from './cart';
+export { removeCouponFromCart } from './removeCouponFromCart';

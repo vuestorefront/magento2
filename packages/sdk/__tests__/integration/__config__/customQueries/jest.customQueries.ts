@@ -1,3 +1,5 @@
+import { applyCouponToCart } from './applyCouponToCart';
+import { removeCouponFromCart } from './removeCouponFromCart';
 import { productDetails } from './productDetails';
 import { categoryList } from './categoryList';
 import { categorySearch } from './categorySearch';
@@ -8,6 +10,8 @@ import { addProductToWishList } from './addProductToWishList';
 import { cart } from './cart';
 
 export const customQueries = {
+  'apply-coupon-to-cart-custom-query': applyCouponToCart,
+  'remove-coupon-from-cart-custom-query': removeCouponFromCart,
   'product-details-custom-query': productDetails,
   'category-list-custom-query': categoryList,
   'category-search-custom-query': categorySearch,
