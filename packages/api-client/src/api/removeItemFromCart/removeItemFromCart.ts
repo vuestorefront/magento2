@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation to remove an item from a cart */
-export default gql`
+export default `
   mutation removeItemFromCart($input: RemoveItemFromCartInput) {
     removeItemFromCart(input: $input) {
       cart {

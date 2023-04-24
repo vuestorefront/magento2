@@ -12,6 +12,7 @@ import { setBillingAddressOnCart } from './setBillingAddressOnCart';
 import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 import { addProductsToCart } from './addProductsToCart';
 import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
+import { removeItemFromCart } from './removeItemFromCart';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -27,5 +28,6 @@ export const customQueries = {
   'add-products-to-cart-custom-query': addProductsToCart,
   'set-billing-address-on-cart-custom-query': setBillingAddressOnCart,
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
-  'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart
+  'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart,
+  'remove-item-from-cart-custom-query': removeItemFromCart
 };

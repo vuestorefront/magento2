@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import type { CustomHeaders, CustomQuery } from '@vsf-enterprise/magento-api-types';
 import { RemoveItemFromCartInput, RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import removeItemFromCartMutation from './removeItemFromCart';
 import getHeaders from '../getHeaders';
@@ -29,7 +30,7 @@ export default async function removeItemFromCart(
   );
 
   return context.client.mutate<RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables>({
-    mutation: removeItemFromCartGQL.query,
+    mutation: gql`${removeItemFromCartGQL.query}`,
     variables: removeItemFromCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
