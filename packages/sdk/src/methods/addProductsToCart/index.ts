@@ -46,6 +46,7 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  *         sku: 'WSH12',
  *         quantity: 1,
  *         selected_options: [
+ *           // option IDs retrieved from product
  *           'Y29uZmlndXJhYmxlLzkzLzUz',
  *           'Y29uZmlndXJhYmxlLzE0NC8xNzE='
  *         ]
@@ -82,7 +83,7 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  * ```
  *
  * @example
- * Using a custom GraphQL query to add product to cart
+ * Using a custom GraphQL query to modify response containing the cart, which is sent as part of the adding product to cart mutation
  *
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
