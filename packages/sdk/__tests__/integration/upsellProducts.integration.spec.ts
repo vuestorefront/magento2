@@ -1,7 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-
-const PRODUCT_SKU = 'WSH12';
+import { TEST_PRODUCT_SKU } from './__config__/jest.const';
 
 describe(describeGroup('upsellProducts'), () => {
   it('returns upsell-products without filters', async () => {
@@ -34,7 +33,7 @@ describe(describeGroup('upsellProducts'), () => {
 
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     });
@@ -70,7 +69,7 @@ describe(describeGroup('upsellProducts'), () => {
     const result = await sdk.magento.upsellProducts({
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     }, { customQuery });

@@ -14,6 +14,7 @@ export const TEST_ADDRESS = {
   postcode: '10001',
   save_in_address_book: false
 };
+export const TEST_PRODUCT_SKU = 'WSH12';
 
 export const NOCK_FIXTURES_CATALOG_NAME = '__nock-fixtures__';
 export const NOCK_MODE = 'record';

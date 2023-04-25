@@ -39,6 +39,22 @@ const middlewareConfig = {
         customApolloHttpLinkOptions: {
           useGETForQueries: true
         },
+        customOptions: {
+          defaultOptions: {
+            watchQuery: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'ignore'
+            },
+            query: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all'
+            },
+            mutate: {
+              fetchPolicy: 'no-cache',
+              errorPolicy: 'all'
+            }
+          }
+        },
         magentoBaseUrl: 'https://magento2-instance.vuestorefront.io',
         magentoApiEndpoint: 'https://magento2-instance.vuestorefront.io/graphql',
         imageProvider: 'IPX',

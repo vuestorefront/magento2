@@ -1,5 +1,4 @@
 export { applyCouponToCart } from './applyCouponToCart';
-export { removeCouponFromCart } from './removeCouponFromCart';
 export { productDetails } from './productDetails';
 export { categoryList } from './categoryList';
 export { categorySearch } from './categorySearch';
@@ -12,3 +11,5 @@ export { cartTotalQty } from './cartTotalQty';
 export { setGuestEmailOnCart } from './setGuestEmailOnCart';
 export { createEmptyCart } from './createEmptyCart';
 export { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
+export { removeCouponFromCart } from './removeCouponFromCart';
+export { addProductsToCart } from './addProductsToCart';
