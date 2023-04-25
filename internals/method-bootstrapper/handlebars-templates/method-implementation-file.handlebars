@@ -69,7 +69,7 @@ export type {{ capitalizedMethodName }}Response<T extends DeepPartial<{{ capital
  * import { sdk } from '~/sdk.config.ts';
  * // reduce the amount of fields returned by the query, when compared to the default query
  * const customQuery = {
- *   cart: '{{ kebabCaseMethodName }}-custom-query',
+ *   {{ camelCaseMethodName }}: '{{ kebabCaseMethodName }}-custom-query',
  *   metadata: {
  *     fields: 'TODO'
  *   }
