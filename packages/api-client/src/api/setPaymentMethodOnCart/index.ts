@@ -1,12 +1,13 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vsf-enterprise/magento-api-types';
 import type {
   CustomHeaders,
   SetPaymentMethodOnCartInputs,
   SetPaymentMethodOnCartMutation,
   SetPaymentMethodOnCartMutationVariables,
 } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery } from '@vsf-enterprise/magento-api-types';
 
+import gql from 'graphql-tag';
 import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -33,7 +34,7 @@ export default async function setPaymentMethodOnCart(
   });
 
   return context.client.mutate<SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables>({
-    mutation: setPaymentMethodOnCartGQL.query,
+    mutation: gql`${setPaymentMethodOnCartGQL.query}`,
     variables: setPaymentMethodOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
