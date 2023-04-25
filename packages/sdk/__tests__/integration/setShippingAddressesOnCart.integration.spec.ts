@@ -12,14 +12,6 @@ const SHARED_PARAMS = {
 };
 
 describe(describeGroup('setShippingAddressesOnCart'), () => {
-  afterEach(async () => {
-    // Reset addresses
-    await sdk.magento.setShippingAddressesOnCart({
-      cart_id: TEST_CART_ID,
-      shipping_addresses: []
-    });
-  });
-
   it('should set shipping addresses on the cart', async () => {
     const { data } = await sdk.magento.setShippingAddressesOnCart(SHARED_PARAMS);
 

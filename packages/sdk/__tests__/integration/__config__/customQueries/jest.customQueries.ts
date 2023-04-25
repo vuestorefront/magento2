@@ -11,6 +11,7 @@ import { cart } from './cart';
 import { setBillingAddressOnCart } from './setBillingAddressOnCart';
 import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 import { addProductsToCart } from './addProductsToCart';
+import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -23,7 +24,8 @@ export const customQueries = {
   'upsell-products-custom-query': upsellProducts,
   'add-product-to-wishlist-custom-query': addProductToWishList,
   'cart-custom-query': cart,
-  'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
   'add-products-to-cart-custom-query': addProductsToCart,
-  'set-billing-address-on-cart-custom-query': setBillingAddressOnCart
+  'set-billing-address-on-cart-custom-query': setBillingAddressOnCart,
+  'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
+  'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart
 };

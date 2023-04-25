@@ -6,6 +6,7 @@ import type {
   SetShippingMethodsOnCartMutation,
   SetShippingMethodsOnCartMutationVariables,
 } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
 import type { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -32,7 +33,7 @@ export default async function setShippingMethodsOnCart(
   });
 
   return context.client.mutate<SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables>({
-    mutation: setShippingMethodsOnCartGQL.query,
+    mutation: gql`${setShippingMethodsOnCartGQL.query}`,
     variables: setShippingMethodsOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
