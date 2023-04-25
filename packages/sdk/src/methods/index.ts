@@ -18,3 +18,4 @@ export { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 export { removeItemFromCart } from './removeItemFromCart';
 export { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 export { mergeCarts } from './mergeCarts';
+export { updateCartItems } from './updateCartItems';
