@@ -123,3 +123,96 @@ module.exports.createMethodUnitTestFile = async (unitTestDirectoryPath, methodNa
     contents,
   );
 };
+
+/**
+ * Creates '__tests__/integration/__config__/customQueries/methodName/index.ts' with partially filled out content
+ * It uses a Handlebars template (JS template string was too painful)
+ * @see File ./handlebars-templates/method-custom-query.handlebars
+ *
+ * @param {string} customQueriesDirectoryPath Folder where the customQueries for methods' integration tests are (__config__/customQueries)
+ * @param {string} methodName
+ */
+module.exports.createMethodCustomQueryFile = async (customQueriesDirectoryPath, methodName) => {
+  const newCustomQueryFolderPath = path.join(
+    customQueriesDirectoryPath,
+    methodName,
+  );
+
+  await fsPromises.mkdir(newCustomQueryFolderPath);
+
+  const template = handlebars.compile(
+    await fsPromises.readFile(
+      path.join(
+        __dirname,
+        'handlebars-templates',
+        'method-custom-query-file.handlebars',
+      ),
+      { encoding: 'utf8' },
+    ),
+  );
+
+  const contents = template({
+    camelCaseMethodName: methodName,
+    kebabCaseMethodName: utils.kebabize(methodName),
+    capitalizedMethodName: utils.capitalize(methodName),
+  });
+
+  console.info('Creating method custom query file');
+  await fsPromises.writeFile(
+    path.join(newCustomQueryFolderPath, 'index.ts'),
+    contents,
+  );
+};
+
+/**
+ * Appends the string `export { methodName } from './methodName'` to `__config__/customQueries/jest.customQueries.ts`
+ * @param {string} customQueriesDirectoryPath Folder where the method folders are (src/methods)
+ * @param {string} methodName
+ *
+ * Because the jest.customQueries.ts file exports an object,
+ * we can't just append to the file like we did in `patchMethodIndexFile`
+ *
+ * We need to read the file, modify its contents, then write to it again
+ */
+module.exports.patchCustomQueriesIndexFile = async (customQueriesDirectoryPath, methodName) => {
+  console.info('Adding customQuery export to jest.customQueries.ts');
+
+  const customQueriesIndexFile = path.join(customQueriesDirectoryPath, 'jest.customQueries.ts');
+
+  const contents = await fsPromises.readFile(customQueriesIndexFile, { encoding: 'utf8' });
+
+  /**
+   * @param {string} fileContents Contents of the `jest.customQueries.ts` file
+   */
+  const addNewCustomQuery = (fileContents) => {
+    // like findIndex, but starts looking from the end of the array
+    const customQueriesObjectClosingBraceIndex = fileContents.lastIndexOf('}');
+
+    if (customQueriesObjectClosingBraceIndex === -1) {
+      throw new Error('Couldn\'t find closing brace in jest.customQueries.ts');
+    }
+
+    const result = [...fileContents];
+
+    // modified by reference
+    result
+      .splice(
+        // at the index where the closing brace is ... (-1 because we need to add a comma to previous line)
+        customQueriesObjectClosingBraceIndex - 1,
+        // replace 0 array items (append only) ...
+        0,
+        // add the following contents
+        ...`,\n  '${utils.kebabize(methodName)}-custom-query': ${methodName}`,
+      )
+      .join('');
+
+    result.unshift(`import { ${methodName} } from './${methodName}';\n`);
+
+    return result;
+  };
+
+  const newContents = addNewCustomQuery(contents);
+
+  console.info('Patching jest.customQueries.ts');
+  await fsPromises.writeFile(customQueriesIndexFile, newContents);
+};

@@ -19,6 +19,7 @@ const fileOperations = require('./file-operations');
     testIntegrations: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'integration'),
     testUnit: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'unit'),
     methods: path.join(folderWhereTheCommandWasRanIn, 'src', 'methods'),
+    customQueries: path.join(folderWhereTheCommandWasRanIn, '__tests__', 'integration', '__config__', 'customQueries'),
   };
 
   // Checks if all folders required folders are accessible
@@ -39,4 +40,8 @@ const fileOperations = require('./file-operations');
   await fileOperations.createMethodUnitTestFile(folders.testUnit, methodName);
 
   await fileOperations.createMethodIntegrationTestFile(folders.testIntegrations, methodName);
+
+  await fileOperations.createMethodCustomQueryFile(folders.customQueries, methodName);
+
+  await fileOperations.patchCustomQueriesIndexFile(folders.customQueries, methodName);
 })();
