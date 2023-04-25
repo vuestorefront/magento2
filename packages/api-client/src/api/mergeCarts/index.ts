@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult, gql } from '@apollo/client/core';
 import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import mergeCarts from './mergeCarts';
@@ -28,7 +28,7 @@ export default async (
   );
 
   return context.client.mutate<MergeCartsMutation, MergeCartsMutationVariables>({
-    mutation: mergeCartsGQL.query,
+    mutation: gql`${mergeCartsGQL.query}`,
     variables: mergeCartsGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

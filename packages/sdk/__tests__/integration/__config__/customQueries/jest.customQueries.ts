@@ -1,3 +1,4 @@
+import { mergeCarts } from './mergeCarts';
 import { applyCouponToCart } from './applyCouponToCart';
 import { removeCouponFromCart } from './removeCouponFromCart';
 import { productDetails } from './productDetails';
@@ -31,5 +32,6 @@ export const customQueries = {
   'set-billing-address-on-cart-custom-query': setBillingAddressOnCart,
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
   'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart,
-  'set-payment-method-on-cart-custom-query': setPaymentMethodOnCart
+  'set-payment-method-on-cart-custom-query': setPaymentMethodOnCart,
+  'merge-carts-custom-query': mergeCarts
 };
