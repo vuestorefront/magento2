@@ -13,26 +13,28 @@ const SHARED_PARAMS = {
 };
 
 describe(describeGroup('setShippingMethodsOnCart'), () => {
-  beforeAll(async () => {
+  it('should set shipping method on the cart', async () => {
     // We must have an address set before we can set a shipping method
     await sdk.magento.setShippingAddressesOnCart({
       cart_id: TEST_CART_ID,
       shipping_addresses: [{ address: TEST_ADDRESS }]
     });
-  });
 
-  afterEach(async () => {
+    const { data } = await sdk.magento.setShippingMethodsOnCart(SHARED_PARAMS);
+
+    expect(data?.setShippingMethodsOnCart?.cart?.shipping_addresses?.[0]?.selected_shipping_method?.method_code).toEqual('flatrate');
+
     // Reset shipping methods
     await sdk.magento.setShippingMethodsOnCart({ cart_id: TEST_CART_ID, shipping_methods: [] });
   });
 
-  it('should set shipping method on the cart', async () => {
-    const { data } = await sdk.magento.setShippingMethodsOnCart(SHARED_PARAMS);
-
-    expect(data?.setShippingMethodsOnCart?.cart?.shipping_addresses?.[0]?.selected_shipping_method?.method_code).toEqual('flatrate');
-  });
-
   it('using custom query should return customized result', async () => {
+    // We must have an address set before we can set a shipping method
+    await sdk.magento.setShippingAddressesOnCart({
+      cart_id: TEST_CART_ID,
+      shipping_addresses: [{ address: TEST_ADDRESS }]
+    });
+
     const customQuery = {
       setShippingMethodsOnCart: 'set-shipping-methods-on-cart-custom-query',
       metadata: {
@@ -45,5 +47,8 @@ describe(describeGroup('setShippingMethodsOnCart'), () => {
     // check if default (non-custom) query isn't ran on accident
     expect(data?.setShippingMethodsOnCart?.cart?.id).toBe(undefined);
     expect(data?.setShippingMethodsOnCart?.cart?.shipping_addresses?.[0]?.selected_shipping_method?.method_code).toBe('flatrate');
+
+    // Reset shipping methods
+    await sdk.magento.setShippingMethodsOnCart({ cart_id: TEST_CART_ID, shipping_methods: [] });
   });
 });

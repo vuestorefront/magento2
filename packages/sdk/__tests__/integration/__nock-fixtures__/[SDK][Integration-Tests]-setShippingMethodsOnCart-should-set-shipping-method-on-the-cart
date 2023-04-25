@@ -4,6 +4,87 @@
         "method": "POST",
         "path": "/graphql",
         "body": {
+            "operationName": "setShippingAddressesOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "shipping_addresses": [
+                        {
+                            "address": {
+                                "firstname": "John",
+                                "lastname": "Doe",
+                                "city": "New York",
+                                "country_code": "US",
+                                "street": [
+                                    "Street 1",
+                                    "Street 2"
+                                ],
+                                "telephone": "123 123 123",
+                                "region": "AL",
+                                "postcode": "10001",
+                                "save_in_address_book": false
+                            }
+                        }
+                    ]
+                }
+            },
+            "query": "mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {\n  setShippingAddressesOnCart(input: $input) {\n    cart {\n      shipping_addresses {\n        city\n        company\n        firstname\n        lastname\n        postcode\n        region {\n          code\n          label\n          region_id\n          __typename\n        }\n        street\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        available_shipping_methods {\n          amount {\n            currency\n            value\n            __typename\n          }\n          available\n          carrier_code\n          carrier_title\n          error_message\n          method_code\n          method_title\n          price_excl_tax {\n            currency\n            value\n            __typename\n          }\n          price_incl_tax {\n            currency\n            value\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003a554c16ae33010fd15a3b30f4997bdf8966dd9c3d26ea1e9524a29666a4f13515932a3711b53f2ef3b92e59066d760da83b13cefe9cd9b27dbefaa060655bc2b8fbcdeeab6d576b3aa6b42efd15fdb73200e6895ee3e514a1839aa78105873af0af51bdfb27b472f2a57956b5ab052b49d31b97ad6e4d94283c2fae5b65618060e950b8752689de7cad5a1b05c2c164b29116eb4b3d1c000ac2ee3ce2734e14116d0c08157ea5a15cb5c9525f72d26ed30411ae86650dbe7ca3321ca400f6a1d575968969667ea31578c06dbadb3d1ccd9b72c5d71b0ce32f5479efeac8f3cc5872903e769af388057d0b2c7607988b441deba7a08149a408d4d3a22b4551fb52f44fc154c27badf4fda5c89d98fcaaa60ea300f67471aa94c769f0d300187c447843507bafa295076336048e4483c790f9b80496930f81f9d041c64f40eeb70a0a42b2c7157999261f7a96106096dbf20f1a1ba1ac319dff5ab685d7873325f7e3a740ed844ea3fd0737607fd9cd09f84fb16a92799df8606e3d9cd0f7e7aa2f9c94f6bcc8bfef18438e2471fcebfa4f8633a6db19efc875d77dc76b261bfff0b93a0dbcbf2040000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 25 Apr 2023 06:37:59 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "435",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=hhtv8onsqs2b8v924h2rd5mu53; expires=Tue, 25-Apr-2023 07:37:59 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=d3fa1dc8ad091d8b4518225289024368; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=9278adb96aac03316e107358de56c1ac; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=ce6bc4468c8fe1a0b003631ecb2ba240; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4439684",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
             "operationName": "setShippingMethodsOnCart",
             "variables": {
                 "input": {
@@ -20,13 +101,13 @@
         },
         "status": 200,
         "response": [
-            "1f8b0800000000000003ed5aeb4fe33810ff57aa7c6e4b9f502a211d0bdc1e7b5b1e2d688f5b50e4266e6bead859c7e90bf1bfdfd871da84b4ddd2c209eddd0720b167c6f3f6fc689f2c174964359fac00cbce80f83e61fd169603ee0697ec0409a9f61cf397b856d3f24f3aa5e910fb655a1d7fa6577f76a6dfbe7ef951ef75cba793f36bc7b7f216f610a1403a0a7a450ff53193bc4898c47d8124e1ac2871208b6180c56f7d455974b8075c24b04744c810016b0fd100e72de4fb9460d77678e87316584d16529ab77c411c1c68adc3aee412511b4f1c1abaa0bc2dd144ed8c100db1d5acecd7f3966dcba98f19f260c16a7186a7d6737ec14bd8ab7963c5804129f2fd216fb92400359954af4f16f2d4734258bdba4a16455dacbc756a04582f08e7ebcf700ab890c1b14aefa4a6079555d253ab2aa05791f3608b48ec45da863ab2ad9be331fc1c59cac3dc0d1dad7fb47731eb4f5f2a76c2598ff44381ba145f190670eb3054b2ae4a357831949dd0c782f111ca757c2e64ee0a693303c99da11d482443d0c33abfb03b3797277fc20e67746a4f6c8a7b12c2636bc238fa2a89205641e879484cad6603a22407a1d7653aeb4063a1dc3990d20f9af77bf77b26052b05c2e02ce6e0e228840ce402f70467b24838d06097a0fb3d07aa81f2fefd9e71805a7106f87e0fd70f6bdd8343a7dbebe2ee7eadd1a836ca8dfa01aea3c3ee7eb9de0009c004bffd52ad00419ada90d9cc2e171ffdbef2270f884afdd8064816e535377e8f736085a3526e37ae3e5766a93082b9f61082dd848c36dc85407117fc885b11083c16106f136eeda065d4c581f4e8cb036f056d47ec705ccced6176bfd7e552722f28e817c56f1e77130dbef7b8f256100b4594ee2af40df4ca9abc95bc07d3c06c2865882024ac8726c40b3d5b2fab851e61d097e6af4e2804668e0af16de714649bb2afadec4f02f7438ac42e2296e59cee1d6ad3236c2b8daba59d355e2d62adc62f3661b5addd0f5b50f4b8cf05c1e9667876b468602dcc4c210561af47e096b0e238ab451fc9419420b0d01518b98e808634bfb05e34617ddcf44660935de6c056e2c04f519a6d76682a2b5f6af0fd2936706aa7ac99af662c48a9fb692e4ca7ee66a6f413a6a81eb68d21898ef29e36e5b3b216ce5f21efa5c37776d8ec7c0b872ded93af4ec007557b2382c7763465346bf1829eb01643021a6101578e1dddbf70ef96e2bb38b0d59143978f99a634e7b423c279e55ab51557595b1f67c8333e4b1169a77d5c4dcaa557ab52ffb59cb2761bc6cee7e4f82ef83833cbaeb9d462ea9513fb6a5ec307c96cc7837a82ef70e3e9f91c242c26e81f21941d91704795a15724c6619bfbba30a35695dc3083a521b0a3fabfab1c867f7b94b97f7d19dc7913fa75e6d45aa4516f8d8f545f30b4f19078c22917567ead5c6dd84ae9c3d9d7d9ed2c0efd5cf06768089976d6c1143b12bbc969ff521f12f5ce6d8d9b5c9c5e2f31ae43667827dbce4a1727207ce61c65ecab66327c9d710f0b2d00e98d9020284a9a05c229546b85d8691f0d828056690cb21644a4bd423c7f01e9326590f0555c12a9cb1f5064e4fd0c8a6c3d1e972efa3aa7374692df3a7f942b8bcbf14c9021cab543c6a0fc739d018cdd6f86240f4a1f228c630016f03b18942bcbe2b829965ceea90da12456cc0511311702c3bc02492e21de1c558d796aa032af5ac8fc6da7031c4e5591477312486205811dee816037d851f45ba8b7dcfe6d44fe978165657760b95ac4db02cbc7e3c4acff8d7b1b41cb31df0d5c3e9e6f052e9725e706602cb66a197c8a65ec8c991e932053b7b76d2d4ab79bf7b6efd58073451076079dd70907c26dc172ed7963dcc093ebfaeabf87423f10e2aabc5a93f23b69b2ff6a4daabf1820de198656d6dc283fc5a16b98d703d15a6d7724fad650f47c7c717a37ba8cfe3df9ab41d1c8b8d6cd75e91da1e859168a561a6f084535442a541a1f098bfe04c4bc2f187d88eb2c5116154089e6036e1bb9aec04160e6b21e118134f2bef081722045f395538e35c0041bc0e5dfad8e7ecaa9d66d1e2b968a8f3ec5bac0e3dc1d17439d379e8fd8740e36715f833695a7ae127cfcd58a576d9540e505743b8607e4a10c4c06038f23d5db91b4670d07a59108cdb6a4f492904afe003a875aab5473e647eb04fd4641ddb916b71d6b71ae7e5975e489e1551f9d9b5cb5e71ef5f47706cc970560e215b691dfa34842ffd78564762020546dfd0e5bb976b417f12f61321b731e3201a49bcf7ebeaeaebccc64bf412b8dcb2efde5872c99d94ef843a75997509ac8a808b1fc9f4eaf4ba7f4241b7934e5e82552960472f917582e43e98740fefcfc0f29e12765ed220000"
+            "1f8b0800000000000003ed586d6fe23810fe2b953f038502bb14a9d275e9deaabba5ed42abbb5ea92c2731e0c3b1b38ec35bd5ff7e63c701c2dbb5f44e5a9dee036d62cfeb33e3f14c9e51403441cd671453dd1db2286262d0a67a2883f846b488d266cf77ff59809a286a75cbb3118d2abc3af9c26fbf7567bf5d7dfd51ef7b958be9e5773f42054443c238908ee37e2924032ab42c31a1e94011cda428691aeb521253f5cbc050967c1902178bf198299d1060ed131ed3022251c4190db02f93488a183545c27901458af934b656279e969a704ca73e4f02301e6b32353b63c2138a9ab57a0161ac671115248477d49682ced04b61c9cac45b5933b380de98f1f85440018bc148a1173682af02288c861599f5f22e99b95503fc6dea246c314d43a3e619253602edbbf309fcce90414206896f8393ee5dcf0733b42e4d8a3e1b248a789cde3a06f07f941859b7e51abc38ca6e125125e4981c7523a9f4d12d1196544b7f84634d740276a0cb6bdcbdbb697d831d29f80c4f31a77d0d38624b982160820da0c64918123543cd06e0a98749e8099b1d60b1324932d43a8a9bbde3deb14b95932213a04bf8b4344e2053a4a27d25852e3109343460a477ec43d67239e81d3b00cc8a3fa4bd635a3fad791f4f7dafef51ef43add1a8362a8dfa475a27a7de874abd01128009fe46e55a116234c3908102574a7f460383a78c9949d1cc0708ab412dc8de39f128df0d540e7607f5a571cb8411dcc52308761352cf711763c35d8c526e43a0e84441bc5db82d40dba84b431df27585f78a7752765097718754f48e3da9b50ce3a27d31fceef17da201fb501ab4e24c28e1fcbd42ff01bb365d3e48de932b34184e32441012362453162621b6cb66a1cf041490c5ab9f2845856f427cdfbd00d97f5b49141d249ca8f788d89673b67698cd9089832caeeeac53afb678b788bd16af6dc26ac7c20f5b70e8e9402a46f3c5f0f3d9b280b5a97007294efa7d06e51c6571368b11d1c3344160c1539404be8282b428da6b45d8aa9bdd29eab2cb296caf28fc94a6d9eb94e6b272dd82c7e7ccc119ce79b358ddf02067eea785309bbaaf7365b0e28aa9618738b25251fe4d9f0a9bb296e0ef90b70ef8bb019b5f1e00d8d63af9e6047c32676fcce804db46034a42b6603ba1659340c654c19583d3fb17eedd727617c7d8a81c0572222ca5d3d34909172717d5765c651dabce916f609623b2a0fdbc9654ca6f36a5fedf0265ef36b49d2fab6db692938d5676cfa596511fd05a3b3e48669cb5d42b7cafef9e2f41c2b283fe91c0b1631aeea80ad48a957618cbc81eccb454ad6eb8c6d211e0f4fc3f9c9c267f845c04bf7f1d3e84537e35f76b6dd6a8b72767a62e38daac496c492e152aec956b1ddb297d34bf9adfcfb3d02f047f8182b051ceba94535fd360b5dbbfb14ad2da79a873d3eb8bef5b9cebb2397d976f9fcbd72d103ef7cf36fcab6e64f83ee79e9656c04c36268a91346996134eb15a2b66a0fd6c230858959f41f60e11795458182d47ba8d63b0825576242c5ae919cb9d89d88dfe980481a271ec5aac3e53b176e2becaa1818f93c5ca85a47638041700ef47d4b54f471558748f27c804c72a41d77472f420d5c8264d08f7e06c3128d2811db94c920646f0f915ca56b1c99eca72f03a870712928d1117fc3b4f4defa4d25eec30a79d44a8f7656397863c8a865035ccda49f5c8fdac4d506acc98bab0e2be8b967aedcb2e952dc76bbe2ab844c50b4443fb35c57d4681e6556127bfcf8986c26f4f91db817870b3f52b6c1d75d2bd947f0b93db58f0b029cca90544c2b5a209b576a3477f4515cd8e5cfeabd02699db5e81c32699c7385f49a874f6f83f9bde964df97e35453407f416295b02b9fdcbde4da2a304c85f5efe02ee1c593c06140000"
         ],
         "rawHeaders": [
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Mon, 24 Apr 2023 15:37:41 GMT",
+            "Tue, 25 Apr 2023 06:37:59 GMT",
             "Content-Type",
             "application/json",
             "Transfer-Encoding",
@@ -36,13 +117,13 @@
             "Vary",
             "Accept-Encoding",
             "Set-Cookie",
-            "PHPSESSID=a096bta4siik9003b3m8987hse; expires=Mon, 24-Apr-2023 16:37:40 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "PHPSESSID=jcd3marjd92gvco6mf75coarb3; expires=Tue, 25-Apr-2023 07:37:59 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=3d2c8dc02d20462c90aa50ada95362ee; expires=Thu, 21-Apr-2033 15:37:40 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=b61612ccc293a87395996ace4858c127; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=2c85a752c2a8eb3d1a0904f494f60252; expires=Thu, 21-Apr-2033 15:37:41 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=04db6c2c3ab51fc0577ff8a906f65e1f; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=703547fd0d3b796c8f3dc033640d895b; expires=Thu, 21-Apr-2033 15:37:41 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=038ab779c064c8665733dfd0bbc60586; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "X-Magento-Cache-Id",
             "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
             "X-Content-Type-Options",
@@ -54,7 +135,7 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "4106514",
+            "4588232",
             "Age",
             "0",
             "Pragma",
@@ -90,7 +171,7 @@
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Mon, 24 Apr 2023 15:37:41 GMT",
+            "Tue, 25 Apr 2023 06:38:00 GMT",
             "Content-Type",
             "application/json",
             "Content-Length",
@@ -100,13 +181,13 @@
             "Vary",
             "Accept-Encoding",
             "Set-Cookie",
-            "PHPSESSID=s8dpg52dqrkfv96tpe85hngj6s; expires=Mon, 24-Apr-2023 16:37:41 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "PHPSESSID=1p6puhpeo2cs6avppqpklaqcrl; expires=Tue, 25-Apr-2023 07:37:59 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=bd2a0f6cade62e28407f9806f3a5ef99; expires=Thu, 21-Apr-2033 15:37:41 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=8169de7a84b3ec8415311392a2c08d60; expires=Fri, 22-Apr-2033 06:37:59 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=489ee6b89788d174ae62b0815d20eb71; expires=Thu, 21-Apr-2033 15:37:41 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=e12f6ad3fd1483ddf00fc5b254080e48; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=5021bfb25bfd25706091f91f7c16b8dc; expires=Thu, 21-Apr-2033 15:37:41 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=aed7e568783e68fde475254a2b83e001; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "X-Magento-Cache-Id",
             "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
             "X-Content-Type-Options",
@@ -118,7 +199,7 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "3552617",
+            "4439687",
             "Age",
             "0",
             "Pragma",

@@ -91,7 +91,7 @@ export type SetShippingMethodsOnCartResponse<T extends DeepPartial<SetShippingMe
  * // you will get only selected_shipping_method.method_code field
  *
  * const customQuery = {
- *   cart: 'set-shipping-methods-on-cart-custom-query',
+ *   setShippingMethodsOnCart: 'set-shipping-methods-on-cart-custom-query',
  *   metadata: {
  *     fields: 'shipping_addresses { selected_shipping_method { method_code } }'
  *   }
