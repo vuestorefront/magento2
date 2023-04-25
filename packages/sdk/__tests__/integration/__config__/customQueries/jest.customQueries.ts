@@ -8,6 +8,7 @@ import { relatedProducts } from './relatedProducts';
 import { upsellProducts } from './upsellProducts';
 import { addProductToWishList } from './addProductToWishList';
 import { cart } from './cart';
+import { setBillingAddressOnCart } from './setBillingAddressOnCart';
 import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 import { addProductsToCart } from './addProductsToCart';
 
@@ -23,5 +24,6 @@ export const customQueries = {
   'add-product-to-wishlist-custom-query': addProductToWishList,
   'cart-custom-query': cart,
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
-  'add-products-to-cart-custom-query': addProductsToCart
+  'add-products-to-cart-custom-query': addProductsToCart,
+  'set-billing-address-on-cart-custom-query': setBillingAddressOnCart
 };
