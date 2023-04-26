@@ -15,6 +15,7 @@ import { setShippingAddressesOnCart } from './setShippingAddressesOnCart';
 import { addProductsToCart } from './addProductsToCart';
 import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 import { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
+import { updateCartItems } from './updateCartItems';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -26,6 +27,7 @@ export const customQueries = {
   'related-products-custom-query': relatedProducts,
   'remove-item-from-cart-custom-query': removeItemFromCart,
   'upsell-products-custom-query': upsellProducts,
+  'update-cart-items-custom-query': updateCartItems,
   'add-product-to-wishlist-custom-query': addProductToWishList,
   'cart-custom-query': cart,
   'add-products-to-cart-custom-query': addProductsToCart,
