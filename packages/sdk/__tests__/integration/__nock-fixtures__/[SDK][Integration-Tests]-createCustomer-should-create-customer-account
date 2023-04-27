@@ -1,0 +1,68 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "createCustomer",
+            "variables": {
+                "input": {
+                    "email": "john.doe@vuestorefront.io",
+                    "password": "j5E&z42DR@Hx!",
+                    "firstname": "John",
+                    "lastname": "Doe"
+                }
+            },
+            "query": "mutation createCustomer($input: CustomerCreateInput!) {\n  createCustomerV2(input: $input) {\n    customer {\n      date_of_birth\n      default_billing\n      default_shipping\n      email\n      firstname\n      is_subscribed\n      lastname\n      middlename\n      prefix\n      suffix\n      taxvat\n      addresses {\n        city\n        country_code\n        default_billing\n        default_shipping\n        extension_attributes {\n          attribute_code\n          value\n          __typename\n        }\n        firstname\n        id\n        lastname\n        postcode\n        prefix\n        region {\n          region_code\n          region_id\n          region\n          __typename\n        }\n        street\n        suffix\n        telephone\n        vat_id\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b08000000000000037590b16a03310c86df45f39121a3a7423b75c996a514a38be59e8ace36961c52c2bd7b9d261742a09bfe4f1fbf4067086808ee0c874a68f4dad4f24c75bffd63b77499bb473e473f72b5095c6a2203048ad8c43a14e1f4f58c75e2521e38cdc8020ebef3943621d3cbb151bf5029d69c6cc31906885cd512ced4bdf7ee75c4eab58d7aa83c52001751940610bc7b6f99ba367308425774bd577a339fd6a42d3e24c3d3116d4d1842255552701f9f03786f3fe55605eb4f60f967b16b569ac1b22cbf9f4841bd4f010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Thu, 27 Apr 2023 06:48:35 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=i8mk7djs1u8dnt28gmitafqnt8; expires=Thu, 27-Apr-2023 07:48:34 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=29e7f677fcef9793f064b58a57417db4; expires=Sun, 24-Apr-2033 06:48:34 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=74ccb950ee0cd3e694b70c02bd5b7b78; expires=Sun, 24-Apr-2033 06:48:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=9609c96d23e2c43d75a2205c33e9194d; expires=Sun, 24-Apr-2033 06:48:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "5843141",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

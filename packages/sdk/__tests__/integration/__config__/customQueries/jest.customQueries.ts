@@ -1,3 +1,4 @@
+import { createCustomer } from './createCustomer';
 import { mergeCarts } from './mergeCarts';
 import { applyCouponToCart } from './applyCouponToCart';
 import { removeCouponFromCart } from './removeCouponFromCart';
@@ -35,5 +36,6 @@ export const customQueries = {
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
   'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart,
   'set-payment-method-on-cart-custom-query': setPaymentMethodOnCart,
-  'merge-carts-custom-query': mergeCarts
+  'merge-carts-custom-query': mergeCarts,
+  'create-customer-custom-query': createCustomer
 };

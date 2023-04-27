@@ -15,6 +15,12 @@ export const TEST_ADDRESS = {
   postcode: '10001',
   save_in_address_book: false
 };
+export const TEST_CUSTOMER = {
+  email: 'john.doe@vuestorefront.io',
+  password: 'j5E&z42DR@Hx!',
+  firstname: 'John',
+  lastname: 'Doe'
+};
 
 export const NOCK_FIXTURES_CATALOG_NAME = '__nock-fixtures__';
 export const NOCK_MODE = 'record';
