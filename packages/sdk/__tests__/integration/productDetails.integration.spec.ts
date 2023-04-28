@@ -1,7 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-
-const PRODUCT_SKU = 'WSH12';
+import { TEST_PRODUCT_SKU } from './__config__/jest.const';
 
 describe(describeGroup('productDetails'), () => {
   it('returns product details without filters', async () => {
@@ -29,7 +28,7 @@ describe(describeGroup('productDetails'), () => {
       currentPage: 1,
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     });
@@ -39,7 +38,7 @@ describe(describeGroup('productDetails'), () => {
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              sku: PRODUCT_SKU
+              sku: TEST_PRODUCT_SKU
             })
           ])
         })
@@ -61,7 +60,7 @@ describe(describeGroup('productDetails'), () => {
     const details = await sdk.magento.productDetails({
       filter: {
         sku: {
-          eq: PRODUCT_SKU
+          eq: TEST_PRODUCT_SKU
         }
       }
     }, { customQuery });
@@ -71,7 +70,7 @@ describe(describeGroup('productDetails'), () => {
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              sku: PRODUCT_SKU,
+              sku: TEST_PRODUCT_SKU,
               name: expect.any(String)
             })
           ])

@@ -1,6 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import type { CustomHeaders, CustomQuery } from '@vsf-enterprise/magento-api-types';
 import { UpdateCartItemsInput, UpdateCartItemsMutation, UpdateCartItemsMutationVariables } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import updateCartItemsMutation from './updateCartItems';
 import getHeaders from '../getHeaders';
@@ -29,7 +30,7 @@ export default async function updateCartItems(
   );
 
   return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
-    mutation: updateCartItemsGQL.query,
+    mutation: gql`${updateCartItemsGQL.query}`,
     variables: updateCartItemsGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -1,0 +1,25 @@
+import { sdk } from './__config__/sdk.config';
+import { describeGroup } from './__config__/jest.setup';
+
+describe(describeGroup('{{camelCaseMethodName}}'), () => {
+  it('TODO', async () => {
+    const result = await sdk.magento.{{ camelCaseMethodName }}();
+
+    expect(result).toBe('todo');
+  });
+
+  it('TODO', async () => {
+    const customQuery = {
+      {{ camelCaseMethodName }}: '{{kebabCaseMethodName}}-custom-query',
+      metadata: {
+        fields: 'TODO'
+      }
+    };
+
+    const result = await sdk.magento.{{ camelCaseMethodName }}({}, { customQuery });
+
+    expect(result).toBe('todo');
+    // check if default (non-custom) query isn't ran on accident
+    expect(result.someProperty).not.toBe(undefined);
+  });
+});

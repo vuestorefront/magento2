@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation mergeCarts($sourceCartId: String!, $destinationCartId: String!) {
     mergeCarts(source_cart_id: $sourceCartId, destination_cart_id: $destinationCartId) {
       id

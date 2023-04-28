@@ -1,0 +1,73 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "addProductsToCart",
+            "variables": {
+                "cartId": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                "cartItems": [
+                    {
+                        "quantity": 1,
+                        "sku": "WSH12",
+                        "selected_options": [
+                            "Y29uZmlndXJhYmxlLzkzLzUz",
+                            "Y29uZmlndXJhYmxlLzE0NC8xNzE="
+                        ]
+                    }
+                ]
+            },
+            "query": "mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {\n  addProductsToCart(cartId: $cartId, cartItems: $cartItems) {\n    cart {\n      id\n      email\n      is_virtual\n      applied_coupons {\n        code\n        __typename\n      }\n      prices {\n        subtotal_excluding_tax {\n          value\n          __typename\n        }\n        subtotal_including_tax {\n          value\n          __typename\n        }\n        applied_taxes {\n          amount {\n            value\n            __typename\n          }\n          label\n          __typename\n        }\n        discounts {\n          amount {\n            value\n            __typename\n          }\n          label\n          __typename\n        }\n        grand_total {\n          value\n          __typename\n        }\n        __typename\n      }\n      items {\n        uid\n        product {\n          uid\n          __typename\n          sku\n          name\n          stock_status\n          only_x_left_in_stock\n          rating_summary\n          thumbnail {\n            url\n            position\n            disabled\n            label\n            __typename\n          }\n          url_key\n          url_rewrites {\n            url\n            __typename\n          }\n          price_range {\n            maximum_price {\n              final_price {\n                currency\n                value\n                __typename\n              }\n              regular_price {\n                currency\n                value\n                __typename\n              }\n              __typename\n            }\n            minimum_price {\n              final_price {\n                currency\n                value\n                __typename\n              }\n              regular_price {\n                currency\n                value\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          categories {\n            uid\n            name\n            url_suffix\n            url_path\n            breadcrumbs {\n              category_name\n              category_url_path\n              __typename\n            }\n            __typename\n          }\n          review_count\n          reviews {\n            items {\n              average_rating\n              ratings_breakdown {\n                name\n                value\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n        }\n        prices {\n          row_total {\n            value\n            __typename\n          }\n          row_total_including_tax {\n            value\n            __typename\n          }\n          total_item_discount {\n            value\n            __typename\n          }\n          __typename\n        }\n        quantity\n        ... on ConfigurableCartItem {\n          configurable_options {\n            configurable_product_option_uid\n            option_label\n            configurable_product_option_value_uid\n            value_label\n            __typename\n          }\n          configured_variant {\n            sku\n            thumbnail {\n              url\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        ... on BundleCartItem {\n          bundle_options {\n            uid\n            label\n            type\n            values {\n              id\n              label\n              price\n              quantity\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      total_quantity\n      shipping_addresses {\n        firstname\n        lastname\n        street\n        city\n        company\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        selected_shipping_method {\n          carrier_code\n          carrier_title\n          method_code\n          method_title\n          amount {\n            value\n            currency\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      billing_address {\n        firstname\n        lastname\n        street\n        city\n        company\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    user_errors {\n      code\n      message\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003e55aeb6fe23810ff57503e03e5d9a548958ea5d51e7ba50f68b5d7db5691490cb82476d676a0b0eaff7e63c781f0084ba13d557b1fda26f6bc673c9e1ff4a7e52289acfa4f0bb9ee35676ee84871cb9a884bb5e898bfc4b5ea56d0ec16a6231c14bdf2e48b77fd5777faede2eb8f6abf573c7b6edd388195b5b08f8807a463d1cffb6880a9647942251e702409a3798985cc8702f33f068a32ef301fb888b0c784cb10016b1f7902672d14041ec1aeedb030605458751a7a5ed60a3871b0501689b02799449e8d9f1d2f74091dd8123dab9d31f2426cd54ba56ad6b26d390d30453e2c586d46f1d47ac92e78097d356f6c18302843be3f662d970830934af50a71f4d5734258255596877a5845ebcc08b05608e7eb2fa005424841adb23b21bc582ba4495f5a5509bd8e82075b44623fb236d4996ddf3626f0736aa908eb1a502aa2bdcbd960ba6a5893d13e19841cf53c6c8a0648c42854b2ae0b15783194dd30c09cb231ca7403c665e61a69378564cec81612c910ecb05a9776f7f6aaf917ec30ea4ded67dbc37d09e9b135619c7d5544902b11fa3ee253ab5e83c8ca61e8f7a8ae3ab098ab700ea50c44fde1e8e1c89460294728e8a20ece8f43a840c6719f332af384010d76097a3872e018786cf0706402a0569c217e38c2d5934aefd389d3ebf770efb852ab956bc55af513aea293de71b15a0309c004bf83422507499ada50d9d42ee69f82818a271344957eec03148b8a9a1bbfc7359012a8a5b09b50b7945b2a8de0ae3d8264d7a1a20d774e28ee5c10712b028e271cf26dd2ad03b4893a3f94beb7aaf08e7b9d881dd4c5dc3ea60f473d2625f3454ebf287ef378986888bdcf54b4442c1479dea142dfc0ae7597f792f7681a980d4719320805eba367e287bead97d5429f50e84bf35727e41c5347a5f8ae7b06b27fd953381e841ee28788d85473ba77a84d9fd0bd2c2ea7f6a99d2d4e17b1d5e2954d58ede8f0c3161c7a3c609ce0e566787eba68606d4ccd411261bf4fe096b0e23cabc500c9615420b0d0e318b90e878634bfb0569ab05637bde5d8549751d84e28fc1c95d96e4a97aa72d582ef3f6307a7f69237f3d5350f96ccfd3c17a64b773757060957540fdbc7914447794f9fb2ebb216c14f91b71af08303366bed11b08d7df2d505f8a8cede98e0891d4d19f54abca027acc59080c698c3956347f72fdcbb85f82e16b6523972d9846a4aa3a71311ce4fae5549b9ca3a5a9d215f8bd912910edac7b5a45878b529d5df2b285bb761ec7c498eef9c4dd666d92d975a4c9d3ab1a7f31a3e28663b1ed4137c273b4fcf2d90b098a07f8470ec88843baa08bd22310edb2cd007336a55c90d33581a023b3afff7a593f01fdfa3eedf5f87f7feb37731732a6d52abb627a7aa2f18da78486c328f712bbb55ae762c55fa687631bb9bc5a99f0bfe020d61ad9d75b1871d89dde4b47fa59544bd735fe79e2fcf6e3638d725337c906fe785cb26089f39a76bfe95d72a7c9b738f0b2b00e98d1127282a9a05c2c9952bb938681f0d828055cb18642b88588e0af18305a45b3b068958c54762e9f2071419457f0d45b69f1a85cb81aee99d91e4b7ee9fc5d2e2723ce76484329d905238fe99ee10c6ee3743929f0a1f228d130016f05b0c8ba54d79dc154b6e8ed48e50122be61c8f9873c230a720c90dc4bba3aa095b1aa8ccab16327f3b4881c33c75c8a3390924d11cc70ef341b02b0e14fd16e66df67f1f91ff6760593a1c58a68b785b60f9d448ccfadf98bf13b49cb0c3c0e5536b2f70b9a938770063b1579be0532ce360ccf4940499babdedebd172bb796fff5e0d3853927038e8bc4904106e0b9ae9cc1be30e91dcd657ff3b14fa811057e9d59614dfc992e3575b52fecd00f1c13074cb572abfc6a15b98b703d1f2f1c148f4e48d91686b7279763fbe8a3e9dfcdd9068e45cfbf6a6f08e48f47c1d89966a6f88443542ca956a1f098afe02c3bc2f167d8c8f59e2f3193890624882401d56e4ba1c0b61c6b23ee1421a795fd95005d043f395338635be041f20e4dfadae7ecaa8ce6d1e4b96ca8fd6625de249e69ef191ae1b3f40743ac79a78a0319baa5357096e5c58f1aaad0aa8b8406e0d78403e5a43c9e0602332bd13497bd168501a89d06b0bca2e09a5140ca171a8b55239637eb44dd06e14d29d5b71d7b5167af54b9acaa6e155df9c9b5ab5e711f5b11c3277e33ddf353409513a433de2798964a4cc085ce75cfdaf808d3967dc7cd9be44d558fd9f85ab50062130bebcfc0b8b955a30d9200000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 12:18:31 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=h8pqu0g7n5dra08gvfn52ikkcf; expires=Mon, 24-Apr-2023 13:18:31 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=8d02bc9d920a2091bece3e92f3dd586a; expires=Thu, 21-Apr-2033 12:18:31 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=9226867d88e5ee5c40c35d2c7249392c; expires=Thu, 21-Apr-2033 12:18:31 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=fccb4c530586186e1c915e26988f3978; expires=Thu, 21-Apr-2033 12:18:31 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3894267",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

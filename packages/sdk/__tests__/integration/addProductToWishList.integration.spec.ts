@@ -1,4 +1,5 @@
 import { sdk } from '../integration/__config__/sdk.config';
+import { TEST_PRODUCT_SKU } from './__config__/jest.const';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
 
 describe(describeGroup('addProductToWishList'), () => {
@@ -13,14 +14,14 @@ describe(describeGroup('addProductToWishList'), () => {
         {
           id: '258',
           items: [
-            { quantity: 1, sku: 'WSH12' }
+            { quantity: 1, sku: TEST_PRODUCT_SKU }
           ]
         },
         options
       );
 
     const { items } = result.data.addProductsToWishlist!.wishlist!.items_v2!;
-    const addedItem = items.find(item => item!.product!.sku === 'WSH12');
+    const addedItem = items.find(item => item!.product!.sku === TEST_PRODUCT_SKU);
 
     expect(addedItem?.product?.sku).not.toBe(undefined);
   });
@@ -41,7 +42,7 @@ describe(describeGroup('addProductToWishList'), () => {
       {
         id: '258',
         items: [
-          { quantity: 1, sku: 'WSH12' }
+          { quantity: 1, sku: TEST_PRODUCT_SKU }
         ]
       },
       options

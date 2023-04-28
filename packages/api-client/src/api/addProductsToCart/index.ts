@@ -1,4 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
+import gql from 'graphql-tag';
 import {
   CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders,
 } from '@vsf-enterprise/magento-api-types';
@@ -29,7 +30,7 @@ export default async function addProductsToCart(
     },
   );
   return context.client.mutate<AddProductsToCartMutation, AddProductsToCartInput>({
-    mutation: addProductsToCartGQL.query,
+    mutation: gql`${addProductsToCartGQL.query}`,
     variables: addProductsToCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

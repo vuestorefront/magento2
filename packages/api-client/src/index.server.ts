@@ -33,7 +33,6 @@ const init = (settings: Config) => {
 
   const client = apolloClientFactory({
     link: apolloLink,
-    ...settings.customOptions,
     defaultOptions: {
       query: {
         errorPolicy: 'all',
@@ -43,6 +42,7 @@ const init = (settings: Config) => {
         errorPolicy: 'all',
       },
     },
+    ...settings.customOptions,
   });
 
   return {
