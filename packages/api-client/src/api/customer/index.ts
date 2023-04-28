@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult, gql } from '@apollo/client/core';
 import { CustomQuery, CustomerQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import customer from './customer';
@@ -23,7 +23,7 @@ export default async (
   );
 
   return context.client.query<CustomerQuery>({
-    query: customerGQL.query,
+    query: gql`${customerGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },
