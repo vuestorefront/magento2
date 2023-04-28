@@ -19,3 +19,4 @@ export { removeItemFromCart } from './removeItemFromCart';
 export { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 export { mergeCarts } from './mergeCarts';
 export { updateCartItems } from './updateCartItems';
+export { createCustomer } from './createCustomer';
