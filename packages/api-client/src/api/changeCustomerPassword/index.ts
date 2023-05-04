@@ -1,10 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
-import {
-  CustomQuery,
-  ChangeCustomerPasswordMutation,
-  ChangeCustomerPasswordMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import changeCustomerPassword from './changeCustomerPassword';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -30,7 +27,7 @@ export default async (
     );
     return await context.client
       .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
-      mutation: changeCustomerPasswordGQL.query,
+      mutation: gql`${changeCustomerPasswordGQL.query}`,
       variables: changeCustomerPasswordGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

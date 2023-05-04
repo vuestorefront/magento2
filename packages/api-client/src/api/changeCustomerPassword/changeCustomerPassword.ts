@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation changeCustomerPassword($currentPassword: String!, $newPassword: String!) {
     changeCustomerPassword(
       currentPassword: $currentPassword
