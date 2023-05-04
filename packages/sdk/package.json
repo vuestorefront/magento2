@@ -1,9 +1,10 @@
 {
-  "name": "@vsf-enterprise/magento2-sdk",
-  "version": "0.1.1",
+  "name": "@vsf-enterprise/magento-sdk",
+  "version": "0.2.0",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
+  "license": "VSFEL",
   "files": [
     "lib"
   ],
@@ -22,7 +23,8 @@
   "dependencies": {
     "@vsf-enterprise/sdk": "^1.0.0",
     "axios": "^0.27.2",
-    "ts-essentials": "^9.3.1"
+    "ts-essentials": "^9.3.1",
+    "@vsf-enterprise/magento-api-types": "^1.0.0"
   },
   "devDependencies": {
     "@vue-storefront/middleware": "3.0.0-rc.2",
@@ -30,7 +32,6 @@
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-typescript2": "^0.33.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
-    "@vsf-enterprise/magento-api-types": "^1.0.0",
     "@babel/core": "^7.10.5",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
