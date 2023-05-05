@@ -23,3 +23,4 @@ export { createCustomer } from './createCustomer';
 export { customer } from './customer';
 export { changeCustomerPassword } from './changeCustomerPassword';
 export { generateCustomerToken } from './generateCustomerToken';
+export { customerCart } from './customerCart';
