@@ -1,6 +1,6 @@
 {
   "name": "@vsf-enterprise/magento-sdk",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -24,7 +24,7 @@
     "@vsf-enterprise/sdk": "^1.0.0",
     "axios": "^0.27.2",
     "ts-essentials": "^9.3.1",
-    "@vsf-enterprise/magento-api-types": "^1.0.0"
+    "@vsf-enterprise/magento-api-types": "^1.0.0-rc.0"
   },
   "devDependencies": {
     "@vue-storefront/middleware": "3.0.0-rc.2",

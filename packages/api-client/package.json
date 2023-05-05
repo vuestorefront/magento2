@@ -65,7 +65,7 @@
     "jest": "^27.5.1",
     "jest-watch-typeahead": "^2.2.2",
     "jest-watch-toggle-config": "^2.0.1",
-    "@vsf-enterprise/magento-api-types": "1.0.0"
+    "@vsf-enterprise/magento-api-types": "1.0.0-rc.0"
   },
   "peerDependencies": {
     "@vue-storefront/core": "~2.7.1"
