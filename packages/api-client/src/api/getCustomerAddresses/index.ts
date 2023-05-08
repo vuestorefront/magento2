@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, GetCustomerAddressesQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, GetCustomerAddressesQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -25,7 +26,7 @@ export default async function getCustomerAddresses(
 
   try {
     return await context.client.query<GetCustomerAddressesQuery>({
-      query: getCustomerAddressesGQL.query,
+      query: gql`${getCustomerAddressesGQL.query}`,
       context: {
         headers: getHeaders(context, customHeaders),
       },
