@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation updateCustomer($input: CustomerUpdateInput!) {
     updateCustomerV2(input: $input) {
       customer {
