@@ -1,11 +1,8 @@
 import { FetchResult } from '@apollo/client/core';
-import {
-  CustomQuery,
-  GenerateCustomerTokenMutation,
-  GenerateCustomerTokenMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
-import { GraphQLError } from 'graphql';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { GraphQLError } from 'graphql';
+import gql from 'graphql-tag';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import generateCustomerToken from './generateCustomerToken';
 import { Context } from '../../types/context';
@@ -21,7 +18,6 @@ export default async (
     password: string;
     recaptchaToken: string;
   },
-  customQuery: CustomQuery = { generateCustomerToken: 'generateCustomerToken' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
@@ -39,23 +35,13 @@ export default async (
       }
     }
 
-    const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(
-      customQuery,
-      {
-        generateCustomerToken: {
-          query: generateCustomerToken,
-          variables: {
-            email: params.email,
-            password: params.password,
-          },
-        },
-      },
-    );
-
     return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>(
       {
-        mutation: generateCustomerTokenGQL.query,
-        variables: generateCustomerTokenGQL.variables,
+        mutation: gql`${generateCustomerToken}`,
+        variables: {
+          email: params.email,
+          password: params.password,
+        },
         context: {
           headers: getHeaders(context, customHeaders),
         },
