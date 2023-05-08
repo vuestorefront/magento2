@@ -21,3 +21,4 @@ export { mergeCarts } from './mergeCarts';
 export { updateCartItems } from './updateCartItems';
 export { createCustomer } from './createCustomer';
 export { customer } from './customer';
+export { changeCustomerPassword } from './changeCustomerPassword';
