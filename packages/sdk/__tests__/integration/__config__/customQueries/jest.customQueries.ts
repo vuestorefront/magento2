@@ -1,5 +1,6 @@
 import { changeCustomerPassword } from './changeCustomerPassword';
 import { customerCart } from './customerCart';
+import { createCustomerAddress } from './createCustomerAddress';
 import { createCustomer } from './createCustomer';
 import { customer } from './customer';
 import { mergeCarts } from './mergeCarts';
@@ -43,5 +44,6 @@ export const customQueries = {
   'create-customer-custom-query': createCustomer,
   'customer-custom-query': customer,
   'change-customer-password-custom-query': changeCustomerPassword,
-  'customer-cart-custom-query': customerCart
+  'customer-cart-custom-query': customerCart,
+  'create-customer-address-custom-query': createCustomerAddress
 };

@@ -26,3 +26,4 @@ export { generateCustomerToken } from './generateCustomerToken';
 export { customerCart } from './customerCart';
 export { revokeCustomerToken } from './revokeCustomerToken';
 export { requestPasswordResetEmail } from './requestPasswordResetEmail';
+export { createCustomerAddress } from './createCustomerAddress';

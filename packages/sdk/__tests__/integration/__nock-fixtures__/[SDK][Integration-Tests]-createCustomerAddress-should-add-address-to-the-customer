@@ -1,0 +1,144 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "generateCustomerToken",
+            "variables": {
+                "email": "vsf.magento.integration.test.user@gmail.com",
+                "password": "9uvPv!Vvn2!Uaz.yNy4a"
+            },
+            "query": "mutation generateCustomerToken($email: String!, $password: String!) {\n  generateCustomerToken(email: $email, password: $password) {\n    token\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003558fc90e82301445ffa56b63c4080e3b83628a3e71284857a4423165166b180cff2eeacadd4dce599cfb4201930c2d5ee8c6335e32c9f5e743e6292f491ef3ec03e46f20de9825bb1c8525708d4525e8a5ce70948bb301cd9e50111e87bda27c95c8aea0a944e09e547f93c4bdd6ee74b3a0ee87adc7d60a1488fc3110fb815367e2eb58034227d0da2d105cefddd110ebc154582668c675da1ee0be4dd6851d1bd1c9b4545acf9de52cbc3b128c30add000799e6c0a9eb194f7a5ff17baae7b03dee3d9c1e6000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 08 May 2023 06:33:35 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "211",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=r64ot585t6fm9a4qfp4l2heg12; expires=Mon, 08-May-2023 07:33:35 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=bfec8bcadffdc2c85ef14414ea0e1ef8; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "form_key=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/; domain=magento2-instance.vuestorefront.io; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=008b87e2719c6bd28f7d94b683ba9335; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=6313f7ad0d71eef370f7e1586740defc; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "d8e7c9b3ded8b483e0bf9f08863ddae5bf723650af654f3d9c4ddc2176190f1f",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "12515897",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "createCustomerAddress",
+            "variables": {
+                "input": {
+                    "city": "city",
+                    "country_code": "US",
+                    "default_billing": false,
+                    "default_shipping": false,
+                    "firstname": "firstname",
+                    "lastname": "lastname",
+                    "postcode": "123-123-123",
+                    "street": [
+                        "street"
+                    ],
+                    "telephone": "123123123",
+                    "region": {
+                        "region_code": "NJ",
+                        "region_id": 41,
+                        "region": "New Jersey"
+                    }
+                }
+            },
+            "query": "mutation createCustomerAddress($input: CustomerAddressInput!) {\n  createCustomerAddress(input: $input) {\n    id\n    region {\n      region\n      region_id\n      region_code\n      __typename\n    }\n    country_code\n    street\n    telephone\n    postcode\n    city\n    default_shipping\n    default_billing\n    vat_id\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b08000000000000037d8f3f0bc23010c5bf8adc5cc15a17bb895b0707c549a4c4e66a03691292ab524abfbb49ffa8380817eef2deef255c079c1183b483c22223dc378e748d76c7b945e7822138a4c96a1b81c5bbd02a48f304077c2e32b40e5b98fd3cf09bf87d2d34c740669ec8736a0d2a5607e5e7abe3f8661f41a11b45b69d93e7934f3ab28804e9659eae11104a349556018ad7c9589e35dad194f5c2723ade2804b55e1c5a041c4bd648ca5d258c11ea0e69c9a4c38f7113527eeb0f46c372aa91f2ff2ed0f7fd0b8b014eac5a010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 08 May 2023 06:33:35 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "213",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=vf1rlslp447h0bt62l8qp67qaf; expires=Mon, 08-May-2023 07:33:35 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=d241a92d1b3a3f5e719680998ec4a72b; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=abbd789932ea2dc73884fdd3aabe3245; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=381cc8c7f3f14c108ac8c252f1eb1e99; expires=Thu, 05-May-2033 06:33:35 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "d8e7c9b3ded8b483e0bf9f08863ddae5bf723650af654f3d9c4ddc2176190f1f",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "12481923",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
