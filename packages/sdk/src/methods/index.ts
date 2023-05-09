@@ -29,3 +29,4 @@ export { requestPasswordResetEmail } from './requestPasswordResetEmail';
 export { getCustomerAddresses } from './getCustomerAddresses';
 export { createCustomerAddress } from './createCustomerAddress';
 export { updateCustomer } from './updateCustomer';
+export { resetPassword } from './resetPassword';
