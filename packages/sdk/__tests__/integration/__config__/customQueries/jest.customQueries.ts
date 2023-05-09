@@ -1,3 +1,4 @@
+import { reviews } from './reviews';
 import { getCustomerAddresses } from './getCustomerAddresses';
 import { updateCustomer } from './updateCustomer';
 import { updateCustomerEmail } from './updateCustomerEmail';
@@ -51,5 +52,6 @@ export const customQueries = {
   'get-customer-addresses-custom-query': getCustomerAddresses,
   'create-customer-address-custom-query': createCustomerAddress,
   'update-customer-custom-query': updateCustomer,
-  'update-customer-email-custom-query': updateCustomerEmail
+  'update-customer-email-custom-query': updateCustomerEmail,
+  'customer-product-review-custom-query': reviews
 };

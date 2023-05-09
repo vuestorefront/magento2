@@ -61,5 +61,6 @@ export { default as updateCustomerEmail } from './updateCustomerEmail';
 export { default as upsellProducts } from './upsellProducts';
 export { default as urlResolver } from './urlResolver';
 export { default as route } from './route';
+export { default as reviews } from './reviews';
 export { default as wishlist } from './wishlist';
 export { default as wishlistItemsCount } from './wishlistItemsCount';
