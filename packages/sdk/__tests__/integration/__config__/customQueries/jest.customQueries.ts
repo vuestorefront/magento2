@@ -2,6 +2,7 @@ import { reviews } from './reviews';
 import { getCustomerAddresses } from './getCustomerAddresses';
 import { updateCustomer } from './updateCustomer';
 import { updateCustomerEmail } from './updateCustomerEmail';
+import { updateCustomerAddress } from './updateCustomerAddress';
 import { changeCustomerPassword } from './changeCustomerPassword';
 import { customerCart } from './customerCart';
 import { createCustomerAddress } from './createCustomerAddress';
@@ -50,8 +51,9 @@ export const customQueries = {
   'change-customer-password-custom-query': changeCustomerPassword,
   'customer-cart-custom-query': customerCart,
   'get-customer-addresses-custom-query': getCustomerAddresses,
-  'create-customer-address-custom-query': createCustomerAddress,
   'update-customer-custom-query': updateCustomer,
+  'create-customer-address-custom-query': createCustomerAddress,
   'update-customer-email-custom-query': updateCustomerEmail,
-  'customer-product-review-custom-query': reviews
+  'customer-product-review-custom-query': reviews,
+  'update-customer-address-custom-query': updateCustomerAddress
 };

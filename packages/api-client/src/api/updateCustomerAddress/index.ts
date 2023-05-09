@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult, gql } from '@apollo/client/core';
 import {
   CustomQuery,
   CustomerAddressInput,
@@ -38,7 +38,7 @@ export default async function updateCustomerAddress(
   });
 
   return context.client.mutate<UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables>({
-    mutation: updateCustomerAddressGQL.query,
+    mutation: gql`${updateCustomerAddressGQL.query}`,
     variables: updateCustomerAddressGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
