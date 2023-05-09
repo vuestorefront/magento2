@@ -25,7 +25,7 @@ describe(describeGroup('deleteCustomerAddress'), () => {
     await deleteCustomerAddress(PARAMS_MOCK, OPTIONS_MOCK);
 
     expect(client.post).toBeCalledWith(
-      'deleteCustomerAddress', [PARAMS_MOCK.id, {}, {}], {}
+      'deleteCustomerAddress', [PARAMS_MOCK.id, {}], {}
     );
   });
 
