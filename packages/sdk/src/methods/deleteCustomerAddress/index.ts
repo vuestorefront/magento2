@@ -1,13 +1,13 @@
-import { CustomQuery, MethodOptions } from '../../types';
+import { MethodBaseOptions } from '../../types';
 import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vsf-enterprise/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
-import { ApolloQueryResult } from '@apollo/client';
+import { FetchResult } from '@apollo/client';
 
 /**
  * deleteCustomerAddress response type
  */
-export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAddressMutation> = DeleteCustomerAddressMutation> = ApolloQueryResult<T>
+export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAddressMutation> = DeleteCustomerAddressMutation> = FetchResult<T>
 
 /**
  * Method to delete a customer address.
@@ -38,13 +38,15 @@ export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAd
  * import { sdk } from '~/sdk.config.ts';
  *
  * const addressId = 12;
- * await sdk.magento.deleteCustomerAddress({ id: addressId });
+ * // customer address will be remove for the currently logged in customer
+ * const response = await sdk.magento.deleteCustomerAddress({ id: addressId });
+ * // response.data?.deleteCustomerAddress - result is stored here, it's boolean
  * ```
  */
-export async function deleteCustomerAddress<RES extends DeleteCustomerAddressResponse>(params: DeleteCustomerAddressMutationVariables, options?: MethodOptions<CustomQuery<'deleteCustomerAddress'>>) {
+export async function deleteCustomerAddress<RES extends DeleteCustomerAddressResponse>(params: DeleteCustomerAddressMutationVariables, options?: MethodBaseOptions) {
   const { data } = await client.post<RES>(
     'deleteCustomerAddress',
-    [params.id, options?.customQuery, options?.customHeaders],
+    [params.id, options?.customHeaders],
     options?.clientConfig
   );
 
