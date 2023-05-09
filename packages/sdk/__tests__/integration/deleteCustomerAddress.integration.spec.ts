@@ -26,7 +26,7 @@ describe(describeGroup('deleteCustomerAddress'), () => {
     const createdAddressId = createResult.data?.createCustomerAddress?.id;
 
     const result = await sdk.magento.deleteCustomerAddress({ id: createdAddressId! }, { customHeaders: { Authorization: `Bearer ${token}` } });
-    expect(result.data.deleteCustomerAddress).toBeTruthy();
+    expect(result.data!.deleteCustomerAddress).toBeTruthy();
   });
 
 });
