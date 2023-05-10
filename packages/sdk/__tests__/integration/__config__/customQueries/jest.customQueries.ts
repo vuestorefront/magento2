@@ -1,5 +1,6 @@
 import { removeProductsFromWishlist } from './removeProductsFromWishlist';
 import { cmsBlocks } from './cmsBlocks';
+import { cmsPage } from './cmsPage';
 import { reviews } from './reviews';
 import { getCustomerAddresses } from './getCustomerAddresses';
 import { updateCustomer } from './updateCustomer';
@@ -59,5 +60,6 @@ export const customQueries = {
   'customer-product-review-custom-query': reviews,
   'update-customer-address-custom-query': updateCustomerAddress,
   'remove-products-from-wishlist-custom-query': removeProductsFromWishlist,
-  'cms-blocks-custom-query': cmsBlocks
+  'cms-blocks-custom-query': cmsBlocks,
+  'cms-page-custom-query': cmsPage
 };
