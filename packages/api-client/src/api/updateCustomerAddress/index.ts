@@ -1,7 +1,6 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult, gql } from '@apollo/client/core';
 import {
   CustomQuery,
-  CustomerAddressInput,
   UpdateCustomerAddressMutation,
   UpdateCustomerAddressMutationVariables,
 } from '@vsf-enterprise/magento-api-types';
@@ -20,10 +19,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function updateCustomerAddress(
   context: Context,
-  params: {
-    addressId: number;
-    input: CustomerAddressInput;
-  },
+  params: UpdateCustomerAddressMutationVariables,
   customQuery: CustomQuery = { updateCustomerAddress: 'updateCustomerAddress' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<UpdateCustomerAddressMutation>> {
@@ -31,14 +27,14 @@ export default async function updateCustomerAddress(
     updateCustomerAddress: {
       query: updateCustomerAddressMutation,
       variables: {
-        id: params.addressId,
+        id: params.id,
         input: params.input,
       },
     },
   });
 
   return context.client.mutate<UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables>({
-    mutation: updateCustomerAddressGQL.query,
+    mutation: gql`${updateCustomerAddressGQL.query}`,
     variables: updateCustomerAddressGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
