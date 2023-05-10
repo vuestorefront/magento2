@@ -14,7 +14,7 @@ export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation>
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.createCustomer | createCustomer } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.createCustomer | createCustomer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#createCustomer | here}.

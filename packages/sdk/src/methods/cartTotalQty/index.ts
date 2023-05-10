@@ -24,7 +24,7 @@ export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.cartTotalQty | cartTotalQty } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.cartTotalQty | cartTotalQty } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#cartTotalQty | here}.

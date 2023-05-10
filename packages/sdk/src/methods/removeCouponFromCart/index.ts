@@ -14,7 +14,7 @@ export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromC
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.removeCouponFromCart | removeCouponFromCart} endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.removeCouponFromCart | removeCouponFromCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#removeCouponFromCart | here}.

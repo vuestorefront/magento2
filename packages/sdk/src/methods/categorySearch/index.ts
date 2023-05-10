@@ -9,7 +9,7 @@ import { ApolloQueryResult } from '@apollo/client';
  * `CategorySearchQuery` type from Magento doesn't include the important `children` prop
  */
 export interface CategoryList {
-  categoryList: CategoryTree[]
+  categoryList: CategoryTree[];
 }
 
 /**
@@ -22,7 +22,7 @@ export type CategorySearchResponse<T extends DeepPartial<CategoryList> = Categor
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.categorySearch | categorySearch} endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.categorySearch | categorySearch} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#categorySearchQuery | here}.

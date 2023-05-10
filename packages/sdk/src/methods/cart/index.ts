@@ -14,7 +14,7 @@ export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQ
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.cart | cart} endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.cart | cart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#cart | here}.

@@ -15,7 +15,7 @@ export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddres
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.getCustomerAddresses | getCustomerAddresses } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.getCustomerAddresses | getCustomerAddresses } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#getCustomerAddresses | here}.
