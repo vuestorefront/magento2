@@ -1,3 +1,4 @@
+import { removeProductsFromWishlist } from './removeProductsFromWishlist';
 import { reviews } from './reviews';
 import { getCustomerAddresses } from './getCustomerAddresses';
 import { updateCustomer } from './updateCustomer';
@@ -55,5 +56,6 @@ export const customQueries = {
   'create-customer-address-custom-query': createCustomerAddress,
   'update-customer-email-custom-query': updateCustomerEmail,
   'customer-product-review-custom-query': reviews,
-  'update-customer-address-custom-query': updateCustomerAddress
+  'update-customer-address-custom-query': updateCustomerAddress,
+  'remove-products-from-wishlist-custom-query': removeProductsFromWishlist
 };
