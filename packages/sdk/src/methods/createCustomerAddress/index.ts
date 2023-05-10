@@ -10,7 +10,7 @@ import { FetchResult } from '@apollo/client';
 export type CreateCustomerAddressResponse<T extends DeepPartial<CreateCustomerAddressMutation> = CreateCustomerAddressMutation> = FetchResult<T>
 
 /**
- * Method to crete a customer address.
+ * Method to create a customer address.
  *
  * @remarks
  * This method communicates with the

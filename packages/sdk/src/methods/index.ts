@@ -28,6 +28,7 @@ export { revokeCustomerToken } from './revokeCustomerToken';
 export { requestPasswordResetEmail } from './requestPasswordResetEmail';
 export { getCustomerAddresses } from './getCustomerAddresses';
 export { createCustomerAddress } from './createCustomerAddress';
+export { deleteCustomerAddress } from './deleteCustomerAddress';
 export { updateCustomer } from './updateCustomer';
 export { resetPassword } from './resetPassword';
 export { updateCustomerEmail } from './updateCustomerEmail';

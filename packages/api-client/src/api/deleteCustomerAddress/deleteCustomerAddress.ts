@@ -1,7 +1,4 @@
-import gql from 'graphql-tag';
-
-/** GraphQL Mutation that deletes a customer address. */
-export default gql`
+export default `
   mutation deleteCustomerAddress($id: Int!) {
     deleteCustomerAddress(id: $id)
   }
