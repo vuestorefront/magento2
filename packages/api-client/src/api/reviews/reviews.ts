@@ -1,5 +1,5 @@
 export default `
-  query customerProductReview($pageSize: Int = 10, $currentPage: Int = 1) {
+  query reviews($pageSize: Int = 10, $currentPage: Int = 1) {
     customer {
         reviews(pageSize: $pageSize, currentPage: $currentPage) {
           items {

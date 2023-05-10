@@ -53,6 +53,7 @@ import {
   GroupedProduct,
   GuestAvailablePaymentMethodsQuery,
   GuestAvailableShippingMethodsQuery,
+  InputMaybe,
   MergeCartsMutation,
   PlaceOrderInput,
   PlaceOrderMutation,
@@ -76,6 +77,7 @@ import {
   ResetPasswordMutationVariables,
   RevokeCustomerTokenMutation,
   RoutableInterface,
+  Scalars,
   SetBillingAddressOnCartInput,
   SetBillingAddressOnCartMutation,
   SetGuestEmailOnCartInput,
@@ -109,8 +111,8 @@ export type AddProductsToCartInput = {
 };
 
 export type CustomerProductReviewParams = {
-  pageSize: number;
-  currentPage: number;
+  currentPage?: InputMaybe<Scalars['Int']>;
+  pageSize?: InputMaybe<Scalars['Int']>;
 };
 
 export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {

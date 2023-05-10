@@ -7,15 +7,12 @@ import {
   CustomQuery,
 } from '@vsf-enterprise/magento-api-types';
 import gql from 'graphql-tag';
-import customerProductReview from './customerProductReview';
+import customerProductReview from './reviews';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
 /**
  * Returns product reviews created by the current customer
- *
- * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
- *
  */
 export default async (
   context: Context,
