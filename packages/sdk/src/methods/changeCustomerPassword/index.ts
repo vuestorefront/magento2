@@ -19,7 +19,7 @@ export type ChangeCustomerPasswordResponse<T extends DeepPartial<ChangeCustomerP
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#changeCustomerPassword | here}.

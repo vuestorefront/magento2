@@ -21,7 +21,7 @@ export type RequestPasswordResetEmailResponse<T extends DeepPartial<RequestPassw
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#requestPasswordResetEmail | here}.

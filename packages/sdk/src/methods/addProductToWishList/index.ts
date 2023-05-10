@@ -14,7 +14,7 @@ export type AddProductToWishListResponse<T extends DeepPartial<AddProductsToWish
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.addProductToWishList | addProductToWishList} endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.addProductToWishList | addProductToWishList} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#addProductToWishListQuery | here}.

@@ -22,7 +22,7 @@ export type GenerateCustomerTokenResponse<T extends DeepPartial<GenerateCustomer
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.generateCustomerToken | generateCustomerToken } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.generateCustomerToken | generateCustomerToken } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#generateCustomerToken | here}.

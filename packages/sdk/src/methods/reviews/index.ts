@@ -14,7 +14,7 @@ export type ReviewsResponse<T extends DeepPartial<CustomerProductReviewQuery> = 
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.reviews | reviews } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.reviews | reviews } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vsf-storefront/magento-api#reviews | here}.

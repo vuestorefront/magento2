@@ -14,10 +14,10 @@ export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAd
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.deleteCustomerAddress | deleteCustomerAddress } endpoint
+ * {@link @vsf-storefront/magento-api#ApiMethods.deleteCustomerAddress | deleteCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-enterprise/magento-api#deleteCustomerAddress | here}.
+ * {@link @vsf-storefront/magento-api#deleteCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
