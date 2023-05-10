@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, CmsBlockQuery, CmsBlockQueryVariables } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CmsBlockQuery, CmsBlockQueryVariables, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -29,7 +30,7 @@ export default async function getCmsBlocks(
     },
   );
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
-    query: cmsBlocksGQL.query,
+    query: gql`${cmsBlocksGQL.query}`,
     variables: cmsBlocksGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
