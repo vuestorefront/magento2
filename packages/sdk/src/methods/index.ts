@@ -30,3 +30,4 @@ export { getCustomerAddresses } from './getCustomerAddresses';
 export { createCustomerAddress } from './createCustomerAddress';
 export { updateCustomer } from './updateCustomer';
 export { resetPassword } from './resetPassword';
+export { updateCustomerEmail } from './updateCustomerEmail';

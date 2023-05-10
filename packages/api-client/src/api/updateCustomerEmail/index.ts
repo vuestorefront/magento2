@@ -1,4 +1,4 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult, gql } from '@apollo/client/core';
 import { CustomQuery, UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import updateCustomerEmail from './updateCustomerEmail';
@@ -22,7 +22,7 @@ export default async (
   );
 
   return context.client.mutate<UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables>({
-    mutation: updateCustomerEmailGQL.query,
+    mutation: gql`${updateCustomerEmailGQL.query}`,
     variables: updateCustomerEmailGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),
