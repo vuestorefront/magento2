@@ -1,7 +1,8 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import { CustomQuery, Logger } from '@vue-storefront/core';
-import { CmsPageQueryVariables, CmsPageQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CmsPageQuery, CmsPageQueryVariables } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -30,9 +31,8 @@ export default async function getCmsPage(
       },
     );
 
-    return await context.client
-      .query<CmsPageQuery, CmsPageQueryVariables>({
-      query: cmsPageGQL.query,
+    return await context.client.query<CmsPageQuery, CmsPageQueryVariables>({
+      query: gql`${cmsPageGQL.query}`,
       variables: cmsPageGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

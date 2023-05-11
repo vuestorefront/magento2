@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation removeProductsFromWishlist($id: ID!, $items: [ID!]!) {
     removeProductsFromWishlist(wishlistId: $id, wishlistItemsIds: $items) {
       wishlist {

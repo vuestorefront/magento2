@@ -1,12 +1,10 @@
 import { FetchResult } from '@apollo/client/core';
+import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import {
-  CustomQuery,
-  CreateCustomerMutation,
-  CreateCustomerMutationVariables,
-  CustomerCreateInput,
+  CreateCustomerMutation, CreateCustomerMutationVariables, CustomerCreateInput, CustomQuery,
 } from '@vsf-enterprise/magento-api-types';
 import { GraphQLError } from 'graphql';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
@@ -51,7 +49,7 @@ export default async (
     );
 
     return await context.client.mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
-      mutation: createCustomerGQL.query,
+      mutation: gql`${createCustomerGQL.query}`,
       variables: createCustomerGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

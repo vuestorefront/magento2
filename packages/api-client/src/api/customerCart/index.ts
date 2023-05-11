@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import type { CustomerCartQuery, CustomHeaders, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import customerCartQuery from './customerCart';
 import getHeaders from '../getHeaders';
@@ -25,7 +26,7 @@ export default async function customerCart(
   );
 
   return context.client.query<CustomerCartQuery>({
-    query: customerCartGQL.query,
+    query: gql`${customerCartGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

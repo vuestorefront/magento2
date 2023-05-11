@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Query that fetches customer addresses. */
-export default gql`
+export default `
   query getCustomerAddresses {
     customer {
       addresses {

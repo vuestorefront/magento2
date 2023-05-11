@@ -14,10 +14,10 @@ export type SetPaymentMethodOnCartResponse<T extends DeepPartial<SetPaymentMetho
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.setPaymentMethodOnCart | setPaymentMethodOnCart } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.setPaymentMethodOnCart | setPaymentMethodOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#setPaymentMethodOnCart | here}.
+ * {@link @vue-storefront/magento-api#setPaymentMethodOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

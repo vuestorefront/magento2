@@ -1,3 +1,16 @@
+import { removeProductsFromWishlist } from './removeProductsFromWishlist';
+import { cmsBlocks } from './cmsBlocks';
+import { cmsPage } from './cmsPage';
+import { reviews } from './reviews';
+import { getCustomerAddresses } from './getCustomerAddresses';
+import { updateCustomer } from './updateCustomer';
+import { updateCustomerEmail } from './updateCustomerEmail';
+import { updateCustomerAddress } from './updateCustomerAddress';
+import { changeCustomerPassword } from './changeCustomerPassword';
+import { customerCart } from './customerCart';
+import { createCustomerAddress } from './createCustomerAddress';
+import { createCustomer } from './createCustomer';
+import { customer } from './customer';
 import { mergeCarts } from './mergeCarts';
 import { applyCouponToCart } from './applyCouponToCart';
 import { removeCouponFromCart } from './removeCouponFromCart';
@@ -35,5 +48,18 @@ export const customQueries = {
   'set-shipping-addresses-on-cart-custom-query': setShippingAddressesOnCart,
   'set-shipping-methods-on-cart-custom-query': setShippingMethodsOnCart,
   'set-payment-method-on-cart-custom-query': setPaymentMethodOnCart,
-  'merge-carts-custom-query': mergeCarts
+  'merge-carts-custom-query': mergeCarts,
+  'create-customer-custom-query': createCustomer,
+  'customer-custom-query': customer,
+  'change-customer-password-custom-query': changeCustomerPassword,
+  'customer-cart-custom-query': customerCart,
+  'get-customer-addresses-custom-query': getCustomerAddresses,
+  'update-customer-custom-query': updateCustomer,
+  'create-customer-address-custom-query': createCustomerAddress,
+  'update-customer-email-custom-query': updateCustomerEmail,
+  'customer-product-review-custom-query': reviews,
+  'update-customer-address-custom-query': updateCustomerAddress,
+  'remove-products-from-wishlist-custom-query': removeProductsFromWishlist,
+  'cms-blocks-custom-query': cmsBlocks,
+  'cms-page-custom-query': cmsPage
 };

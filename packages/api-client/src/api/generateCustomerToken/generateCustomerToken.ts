@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   mutation generateCustomerToken($email: String!, $password: String!) {
     generateCustomerToken(email: $email, password: $password) {
       token

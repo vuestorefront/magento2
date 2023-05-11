@@ -1,11 +1,9 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery, Logger } from '@vue-storefront/core';
+import { Logger } from '@vue-storefront/core';
 import { GraphQLError } from 'graphql';
-import {
-  RequestPasswordResetEmailMutation,
-  RequestPasswordResetEmailMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
 import { Context } from '../../types/context';
@@ -15,13 +13,11 @@ import getHeaders from '../getHeaders';
  * Requests a password reset email to be sent to the user
  * @param context VSF Context
  * @param input Email for which to request a password reset
- * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function requestPasswordResetEmail(
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
-  customQuery: CustomQuery = { requestPasswordResetEmail: 'requestPasswordResetEmail' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> {
   const {
@@ -42,18 +38,11 @@ export default async function requestPasswordResetEmail(
     }
   }
 
-  const { requestPasswordResetEmail: extendedMutation } = context.extendQuery(customQuery, {
-    requestPasswordResetEmail: {
-      query: requestPasswordResetEmailMutation,
-      variables: { ...variables },
-    },
-  });
-
   Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
   const result = await context.client
     .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
-    mutation: extendedMutation.query,
-    variables: extendedMutation.variables,
+    mutation: gql`${requestPasswordResetEmailMutation}`,
+    variables,
     context: {
       headers: getHeaders(context, customHeaders),
     },

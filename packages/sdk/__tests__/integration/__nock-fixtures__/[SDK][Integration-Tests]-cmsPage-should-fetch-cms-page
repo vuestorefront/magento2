@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+cmsPage%28%24identifier%3AString%29%7BcmsPage%28identifier%3A%24identifier%29%7Bidentifier+content+title+meta_title+meta_description+meta_keywords+content_heading+__typename%7D%7D&operationName=cmsPage&variables=%7B%22identifier%22%3A%22home%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000035d8e410a83400c45af52b2f6046ebbe9b23718c224d550272333812232776fb40ad25dfefbc9232b101a42bf424cf589036fa310abc94bb8400f634e0c1dc4ace6d48107139b7c131ededdf6ab0e121b86b33833718d456693ac17fae6e5930bd51f3acc616424d1e14f1b822d332ba64d7b3f7e6cad7d0156f122a4b9000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 10 May 2023 09:24:30 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "138",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cms_p,cms_p_2",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "13651741 13595976",
+            "Age",
+            "32973",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,17 +1,21 @@
 import { ApolloQueryResult } from '@apollo/client/core';
 import {
-  CustomQuery,
   CustomerProductReviewParams,
   CustomerProductReviewQuery,
   CustomerProductReviewQueryVariables,
   CustomHeaders,
+  CustomQuery,
 } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import customerProductReview from './customerProductReview';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
 /**
  * Returns product reviews created by the current customer
+ *
+ * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
+ *
  */
 export default async (
   context: Context,
@@ -25,8 +29,8 @@ export default async (
   };
 
   const variables: CustomerProductReviewParams = {
-    pageSize: defaultParams.pageSize,
-    currentPage: defaultParams.currentPage,
+    pageSize: searchParams?.pageSize ?? defaultParams.pageSize,
+    currentPage: searchParams?.currentPage ?? defaultParams.currentPage,
   };
 
   const { reviews } = context.extendQuery(customQuery, {
@@ -38,7 +42,7 @@ export default async (
 
   try {
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-      query: reviews.query,
+      query: gql`${reviews.query}`,
       variables: reviews.variables,
       context: {
         headers: getHeaders(context, customHeaders),

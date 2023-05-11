@@ -14,10 +14,10 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.categoryList | categoryList} endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.categoryList | categoryList} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#categoryList | here}.
+ * {@link @vue-storefront/magento-api#categoryList | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

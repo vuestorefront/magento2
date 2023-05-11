@@ -3455,6 +3455,11 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vsf-enterprise/magento-api-types@1.0.0-rc.0":
+  version "1.0.0-rc.0"
+  resolved "https://registrynpm.storefrontcloud.io/@vsf-enterprise%2fmagento-api-types/-/magento-api-types-1.0.0-rc.0.tgz#962f69599d2553f735898153e7c117e4dcd4229f"
+  integrity sha512-dUwqiTJ2evz1VSpoeOwI5gaU4AKP0JScfgNPY5uoBcpsOSdL/yzzEZ/5do85xEU7k1zjBTpJOmwR3m3uzG35gw==
+
 "@vsf-enterprise/sdk@^1.0.0":
   version "1.0.0"
   resolved "https://registrynpm.storefrontcloud.io/@vsf-enterprise%2fsdk/-/sdk-1.0.0.tgz"
