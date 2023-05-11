@@ -44,3 +44,4 @@ export { getAvailableCustomerShippingMethods } from './getAvailableCustomerShipp
 export { getAvailableCustomerPaymentMethods } from './getAvailableCustomerPaymentMethods';
 export { placeOrder } from './placeOrder';
 export { availableStores } from './availableStores';
+export { countries } from './countries';

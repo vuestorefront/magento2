@@ -1,4 +1,5 @@
 import { availableStores } from './availableStores';
+import { countries } from './countries';
 import { getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
 import { removeProductsFromWishlist } from './removeProductsFromWishlist';
 import { cmsBlocks } from './cmsBlocks';
@@ -67,5 +68,6 @@ export const customQueries = {
   'cms-page-custom-query': cmsPage,
   'get-available-shipping-methods-custom-query': getAvailableShippingMethods,
   'get-available-customer-shipping-methods-custom-query': getAvailableCustomerShippingMethods,
-  'available-stores-custom-query': availableStores
+  'available-stores-custom-query': availableStores,
+  'countries-custom-query': countries
 };
