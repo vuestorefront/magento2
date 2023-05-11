@@ -19,7 +19,7 @@ export interface MagentoModuleType extends Module {
  *
  * const sdkConfig = {
  *   magento:
- *     buildModule<CTModuleType>(
+ *     buildModule<MagentoModuleType>(
  *       magentoModule,
  *       {
  *         apiUrl: 'http://localhost:8181/magento',
