@@ -36,6 +36,7 @@ export { reviews } from './reviews';
 export { updateCustomerAddress } from './updateCustomerAddress';
 export { removeProductsFromWishlist } from './removeProductsFromWishlist';
 export { wishlistItemsCount } from './wishlistItemsCount';
+export { getAvailablePaymentMethods } from './getAvailablePaymentMethods';
 export { cmsBlocks } from './cmsBlocks';
 export { cmsPage } from './cmsPage';
 export { getAvailableShippingMethods } from './getAvailableShippingMethods';
