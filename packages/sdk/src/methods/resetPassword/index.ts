@@ -14,10 +14,10 @@ export type ResetPasswordResponse<T extends DeepPartial<ResetPasswordMutation> =
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.resetPassword | resetPassword } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.resetPassword | resetPassword } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#resetPassword | here}.
+ * {@link @vue-storefront/magento-api#resetPassword | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

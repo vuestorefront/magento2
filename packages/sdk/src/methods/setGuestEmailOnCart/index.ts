@@ -14,10 +14,10 @@ export type SetGuestEmailOnCartResponse<T extends DeepPartial<SetGuestEmailOnCar
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.setGuestEmailOnCart | setGuestEmailOnCart } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.setGuestEmailOnCart | setGuestEmailOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#setGuestEmailOnCart | here}.
+ * {@link @vue-storefront/magento-api#setGuestEmailOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

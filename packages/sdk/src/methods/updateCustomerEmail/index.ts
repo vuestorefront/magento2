@@ -14,10 +14,10 @@ export type UpdateCustomerEmailResponse<T extends DeepPartial<UpdateCustomerEmai
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.updateCustomerEmail | updateCustomerEmail } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.updateCustomerEmail | updateCustomerEmail } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#updateCustomerEmail | here}.
+ * {@link @vue-storefront/magento-api#updateCustomerEmail | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

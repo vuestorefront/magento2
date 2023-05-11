@@ -15,10 +15,10 @@ export type UpdateCustomerAddressResponse<T extends DeepPartial<UpdateCustomerAd
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#updateCustomerAddress | here}.
+ * {@link @vue-storefront/magento-api#updateCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

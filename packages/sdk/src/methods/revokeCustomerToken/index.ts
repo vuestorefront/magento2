@@ -15,10 +15,10 @@ export type RevokeCustomerTokenResponse<T extends DeepPartial<RevokeCustomerToke
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.revokeCustomerToken | revokeCustomerToken } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.revokeCustomerToken | revokeCustomerToken } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#revokeCustomerToken | here}.
+ * {@link @vue-storefront/magento-api#revokeCustomerToken | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
