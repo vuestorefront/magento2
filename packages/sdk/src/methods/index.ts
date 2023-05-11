@@ -34,3 +34,4 @@ export { resetPassword } from './resetPassword';
 export { updateCustomerEmail } from './updateCustomerEmail';
 export { reviews } from './reviews';
 export { updateCustomerAddress } from './updateCustomerAddress';
+export { removeProductsFromWishlist } from './removeProductsFromWishlist';
