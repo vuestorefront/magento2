@@ -14,10 +14,10 @@ export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMut
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-storefront/magento-api#ApiMethods.applyCouponToCart | applyCouponToCart} endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.applyCouponToCart | applyCouponToCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vsf-storefront/magento-api#applyCouponToCart | here}.
+ * {@link @vue-storefront/magento-api#applyCouponToCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
