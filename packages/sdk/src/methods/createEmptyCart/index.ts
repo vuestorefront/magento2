@@ -19,10 +19,6 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * The default GraphQL query used by this method can be found
  * {@link @vue-storefront/magento-api#createEmptyCart | here}.
  *
- * @param params -
- * Parameter object which can be used with this method.
- * Refer to its type definition to learn about possible properties.
- *
  * @param options -
  * Options that can be passed to additionally configure the request
  * or customize the logic in a plugin.
