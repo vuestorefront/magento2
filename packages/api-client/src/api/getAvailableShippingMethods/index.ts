@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult, gql } from '@apollo/client/core';
 import {
   CustomQuery,
   GuestAvailableShippingMethodsQuery,
@@ -11,9 +11,7 @@ import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
-  params: {
-    cartId: string;
-  },
+  params: GuestAvailableShippingMethodsQueryVariables,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
   customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
@@ -30,7 +28,7 @@ export default async (
   try {
     return await context.client.query<GuestAvailableShippingMethodsQuery,
     GuestAvailableShippingMethodsQueryVariables>({
-      query: shippingMethods.query,
+      query: gql`${shippingMethods.query}`,
       variables: shippingMethods.variables,
       context: {
         headers: getHeaders(context, customHeaders),

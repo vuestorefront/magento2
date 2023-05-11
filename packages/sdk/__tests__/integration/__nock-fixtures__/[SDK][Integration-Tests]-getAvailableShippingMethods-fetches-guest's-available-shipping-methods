@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+GuestAvailableShippingMethods%28%24cart_id%3AString%21%29%7Bcart%28cart_id%3A%24cart_id%29%7Bshipping_addresses%7Bavailable_shipping_methods%7Bamount%7Bcurrency+value+__typename%7Davailable+carrier_code+carrier_title+error_message+method_code+method_title+price_excl_tax%7Bcurrency+value+__typename%7Dprice_incl_tax%7Bcurrency+value+__typename%7D__typename%7D__typename%7D__typename%7D%7D&operationName=GuestAvailableShippingMethods&variables=%7B%22cart_id%22%3A%22pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003a5934f4fc3300cc5bfcae4730f80c4a5b701da6d1706e28050e4a5668bd4a695e38e5655bf3b49ff3018aa28db298adfcbb3fd93d24082821037a091259c6e6f8ac2d89dc22461728e1cc4af0de0014d8adb94d4972123d9e7c920677969bbf7ba6426ab6b88e179f300111c302d09e2ebdb089492ba208b99bfc33ab754431b1da321162e290aa3b021563a4f825182c6280447498c043fdc9193c50bd65e22e69cfd50cee12e48bed44f38e66cbdf7a3b30ef531e42934583cf61d0a369a14553a5582d5791bf519c65e92f1a3ba1c116d06f8eb6e03ef9b83fee6ea5cf4ef29ca04f9959746667fa2ff9673c27e652a4afe857d7a9bf9d8a733e6617f3b318efabdff44cbfedffc360511dab6fd045149ba1674030000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 10 May 2023 15:14:55 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "290",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=0fl80h4rar5tn4sfna9qua36vv; expires=Wed, 10-May-2023 16:14:55 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "13656271",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

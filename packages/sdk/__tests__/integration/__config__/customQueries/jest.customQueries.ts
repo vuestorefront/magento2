@@ -1,6 +1,7 @@
 import { removeProductsFromWishlist } from './removeProductsFromWishlist';
 import { cmsBlocks } from './cmsBlocks';
 import { cmsPage } from './cmsPage';
+import { getAvailableShippingMethods } from './getAvailableShippingMethods';
 import { reviews } from './reviews';
 import { getCustomerAddresses } from './getCustomerAddresses';
 import { updateCustomer } from './updateCustomer';
@@ -61,5 +62,6 @@ export const customQueries = {
   'update-customer-address-custom-query': updateCustomerAddress,
   'remove-products-from-wishlist-custom-query': removeProductsFromWishlist,
   'cms-blocks-custom-query': cmsBlocks,
-  'cms-page-custom-query': cmsPage
+  'cms-page-custom-query': cmsPage,
+  'get-available-shipping-methods-custom-query': getAvailableShippingMethods
 };

@@ -38,3 +38,4 @@ export { removeProductsFromWishlist } from './removeProductsFromWishlist';
 export { wishlistItemsCount } from './wishlistItemsCount';
 export { cmsBlocks } from './cmsBlocks';
 export { cmsPage } from './cmsPage';
+export { getAvailableShippingMethods } from './getAvailableShippingMethods';
