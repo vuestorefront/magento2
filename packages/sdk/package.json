@@ -1,6 +1,6 @@
 {
   "name": "@vsf-enterprise/magento-sdk",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
