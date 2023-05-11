@@ -1,9 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import {
-  CustomQuery,
-  AvailableStoresQuery,
-} from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { AvailableStoresQuery, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import availableStores from './availableStores';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -26,7 +24,7 @@ export default async (
   );
 
   return context.client.query<AvailableStoresQuery>({
-    query: availableStoresGQL.query,
+    query: gql`${availableStoresGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },
