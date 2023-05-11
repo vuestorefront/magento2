@@ -41,3 +41,4 @@ export { cmsPage } from './cmsPage';
 export { getAvailableShippingMethods } from './getAvailableShippingMethods';
 export { getAvailablePaymentMethods } from './getAvailablePaymentMethods';
 export { getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
+export { getAvailableCustomerPaymentMethods } from './getAvailableCustomerPaymentMethods';

@@ -1,30 +1,18 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, CustomerAvailablePaymentMethodsQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomerAvailablePaymentMethodsQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import { Context } from '../../types/context';
-import CustomerAvailablePaymentMethods from './CustomerPaymentMethods';
 import getHeaders from '../getHeaders';
+import CustomerAvailablePaymentMethods from './CustomerPaymentMethods';
 
 export default async (
   context: Context,
-  params: {
-    cartId: string;
-  },
-  customQuery: CustomQuery = { paymentMethods: 'paymentMethods' },
   customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
-  const { paymentMethods } = context.extendQuery(
-    customQuery,
-    {
-      paymentMethods: {
-        query: CustomerAvailablePaymentMethods,
-      },
-    },
-  );
-
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
-      query: paymentMethods.query,
+      query: gql`${CustomerAvailablePaymentMethods}`,
       context: {
         headers: getHeaders(context, customHeaders),
       },
