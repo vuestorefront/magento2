@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+availableStores%7BavailableStores%7Babsolute_footer+allow_guests_to_write_product_reviews+allow_items+allow_order+autocomplete_on_storefront+base_currency_code+base_link_url+base_media_url+base_static_url+base_url+catalog_default_sort_by+category_fixed_product_tax_display_setting+category_url_suffix+cms_home_page+cms_no_cookies+cms_no_route+code+configurable_thumbnail_source+copyright+default_description+default_display_currency_code+default_keywords+default_title+front+grid_per_page+grid_per_page_values+head_includes+head_shortcut_icon+header_logo_src+id+is_default_store+is_default_store_group+list_mode+list_per_page+list_per_page_values+locale+logo_alt+logo_height+logo_width+magento_wishlist_general_is_enabled+minimum_password_length+no_route+payment_payflowpro_cc_vault_active+product_fixed_product_tax_display_setting+product_reviews_enabled+product_url_suffix+required_character_classes_number+root_category_id+root_category_uid+sales_fixed_product_tax_display_setting+secure_base_link_url+secure_base_media_url+secure_base_static_url+secure_base_url+show_cms_breadcrumbs+store_code+store_group_code+store_group_name+store_name+store_sort_order+timezone+title_prefix+title_separator+title_suffix+use_store_in_url+website_code+website_id+website_name+weight_unit+welcome+__typename%7D%7D&operationName=availableStores&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ed565d6f2b3510fd2b8b9ff3d1a6a4f71251a4d21454e95642b7141e08b21cef64d7aad75e6c6fd250f5bf73bc1f499a9b07085c01529e763d733c9e199f19cf0b4b45106cf2c2c452282de69a1e8275e4d9e417c8e6deea2a105f581bc8b189a9b4ee31a1b55df1ac221f3c0f96af9c02a67436ad64e08e968a5630c0ce598785bef06fb75b97ee58ac8295b62835c19035dc471f16ce9ac0260ba13df5d85c78e2b2728e8c5c736953c2098f0f53d6aab4324fbc721ad23c84d24f66c3d9b010199960477d657c1046d26019bdee8c0f949d0d3b0305a54a1c65a1deb935045c50f2284bcdd6d97049ce2b6bce2fc7efc6a3f797efc65beb47862871cdda663ca585a874e0debac0e76b982aad5701873520caac5bf3857aa67473a3413cf354f9528b35f714823219f67df7c38f7c7af770fded87dbe9ee5e38c87db580098006792874d4169ee7b6004be06ef41fffadd858dca67d5291738c4ca460bf136c10ce8286d01bdb6f7ea16928d006540bcc4265958b1678c8ab626e4069445a391991a500771a60b9762acb412e76d3fd27b3eaec4c7c958ccece2ffa252a00d8e4be496e2fb93372905c6b9dd4589f44bd5b523a80b92ea52979e95459e7b2e5f546d566ef307f3bd413ad57280bbfbf3ba8a023baf526b9b1454131a61e6b6b24a609abcc29dc1ab936cbe7a33d115f0a5dd579866af465efe2129b7212295746ea2aad555fc74a4a10a1be9a311fd69a7c4e14662c09eb92200bf41c6643e93d4449cd7d0851d458e6601d162f2ff7b7d3bb6bfef8f1c3eb6b6362d0e067c36fba237d0e0aca2a7025b7098b1a380ba65aee9decc42a4534f8f82d7f23c3d924b88a3e95f30c24293bad563ef0a249784c473f0a582bdfc9d6d99e689bad710fcaf3716f74d61b8de34e2b457d2364f8e3432d80bf022c6cfdadd739351cdb11ad541af24ed2562e843eaf0fc6929cd01ce1347590b64db45046155501afbc8f0ce19a4c160db1f7d0ee940768301b1a5b2f674365527a06a014eb022761fb7a81d68bb2e65222ba982f21835a52e75257f147d4ff5efbdf8ba0d31e6c0e8e7eab94c38132170e0e21ff52235442e9a38ae333c12e220eaf10dff499c889d1beb08a52769f5d5d01ef7149fe98583ca15089ffed7765d7ce3ff1bcecdafb6cafccee21c7c69de3818f9d7bee50cfd2e1127d5dc04d757ed2b9778ab653164219bea2b98fa34553ec6f7146144d4f5426f9b9c1250f6f702d62da1cd328939f40ce0da27e04db4104d51f5441bf5b13375da3c12a89acdfe4f86496452dba30784435799b7a69649ef0b40858c4c6fe06d9d1bc4156be0d03adb6496b3bd77431b671c7b4b3adb46d7cddf240d03538361a5e19159f023df7b54c4bfb26fe5692143efb0200ce633b6f0dd6b9b9a9df4ff6da3b0d7ea7c1efbf3ff865e40a61fe9f73dfede3c7d3dcf727e7bed1a1b9afed0dffdae097129fde9e06bfd3e0771afcfefae0b7e9dc9f75eefbfeed29a759efd0acf7ebebeb1fa1271ac303140000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Thu, 11 May 2023 12:14:32 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=qjadt4p8p7941pralng66tdf7t; expires=Thu, 11-May-2023 13:14:32 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "14376741",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
