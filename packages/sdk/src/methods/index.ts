@@ -49,3 +49,4 @@ export { currency } from './currency';
 export { createProductReview } from './createProductReview';
 export { productReview } from './productReview';
 export { productReviewRatingsMetadata } from './productReviewRatingsMetadata';
+export { route } from './route';
