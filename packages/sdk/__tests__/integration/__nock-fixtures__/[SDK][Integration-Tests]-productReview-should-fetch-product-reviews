@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+productReview%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort%29%7Bitems%7Breview_count+reviews%28pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7Dproduct%7Bname+uid+__typename%7Dnickname+summary+text+created_at+__typename%7Dpage_info%7Bcurrent_page+page_size+total_pages+__typename%7D__typename%7D__typename%7D__typename%7D%7D&operationName=productReview&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A10%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003dd54616bdb3010fd2b577fe917b7384e53865919a5941158474907658c1214fb626b91a5209d927925ff7d27c55b9bb694163628fb62e4bb77e7d37bef7c9b54824452dc264b6b2a5f920b6749d8f2e1db6d627125713d2d8dd7941447691f7880122bb4a2c6a91524759d14832c63647c71d39945b1a8cc5a47a8162d264532d922d36425940f81119fa753ea96d8232eb7f34ce2f77af8e626fd3d6718a0479e5bb91030f15a3306ae1a63899b795971eee2fb69f6b93e3979d8fdcce8b9acbd153385fd97924d9a68592e7ac495593612b9cef9b615b6e3d027b342c09663843f28dc0285521da810a7061dc2fb21674bbe31613515019367797e908d0ef2210cf262342846c7cf5e95c7784c68fe6a3e076f8dcf8fc26a24da21f45296201d5c9f7e854acee768515320528707f03d151fb6f7ea197f69c51e5c74d09a16d6c6ab4aef13e08a416b14b6578a9f16c119f0b5eaf6e04c6818432d594901196cc9fef0b498f9c1e01d0c8e8a61561c65af17f3f8d5620edf9a98e7be66f08e9617d8a430de6f411b82268e14386e539879fa9390fa4ecb9756c4fd3a842f2c3076a89060292c71d42c1cac4577cf09462ba959415d453fa0128ed831b31098a3a2e810de58927543b16507826db0b46ccd0e4ad3ce3b30c11a5c2f82a9041dfe1313fc0fbfc873267bd704413411f7ce6c37b236518cf1fd7fa46bcc9d095e5a816e2fcab5cf6a459952283d6da546e15852034ec925b739846b968d7b4628af3f74c683700b981bfb17563a301ca4947a6e02c7a5b7c17cd3106461fbac933fc31bab4c86848a5917d33bbdaff88f543613745ed12543c6a1e9e6b901dca3f4934add3cdd83ab379b5fc4e7a8e1f6070000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 08:05:25 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "637",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17085861",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,4 +1,5 @@
 import { currency } from './currency';
+import { productReview } from './productReview';
 import { availableStores } from './availableStores';
 import { countries } from './countries';
 import { getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
@@ -71,5 +72,6 @@ export const customQueries = {
   'get-available-customer-shipping-methods-custom-query': getAvailableCustomerShippingMethods,
   'available-stores-custom-query': availableStores,
   'countries-custom-query': countries,
-  'currency-custom-query': currency
+  'currency-custom-query': currency,
+  'product-review-custom-query': productReview
 };
