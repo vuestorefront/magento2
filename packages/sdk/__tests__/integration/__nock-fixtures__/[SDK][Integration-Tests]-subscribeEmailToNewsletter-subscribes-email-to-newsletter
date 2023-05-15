@@ -6,7 +6,7 @@
         "body": {
             "operationName": "subscribeEmailToNewsletter",
             "variables": {
-                "email": "user-jruuYNkTiVREsl25Aw5W@vsf-9UtsajHbagnFHKAj0GR4.local"
+                "email": "user-1@vsf-1.local"
             },
             "query": "mutation subscribeEmailToNewsletter($email: String!) {\n  subscribeEmailToNewsletter(email: $email) {\n    status\n    __typename\n  }\n}"
         },
@@ -18,7 +18,7 @@
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Mon, 15 May 2023 12:04:48 GMT",
+            "Mon, 15 May 2023 12:37:33 GMT",
             "Content-Type",
             "application/json",
             "Content-Length",
@@ -28,13 +28,13 @@
             "Vary",
             "Accept-Encoding",
             "Set-Cookie",
-            "PHPSESSID=ov7c4ae2h4d70fhanvgtsaccc5; expires=Mon, 15-May-2023 13:04:48 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "PHPSESSID=8pkvf70smq6528p8s6s061hf8j; expires=Mon, 15-May-2023 13:37:32 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=f0f7fedb67f822a256e41759182b27ab; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=4fc87c6d5fbd5ebf32c50d06dcfd9fb3; expires=Thu, 12-May-2033 12:37:32 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=c20a5a38d1ef7f1170ece47b45dbc6de; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=bea12e9d11344167c859dcb5bd583c4b; expires=Thu, 12-May-2033 12:37:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "Set-Cookie",
-            "private_content_version=85eaf454d962bca01affb1f43299e686; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "private_content_version=8531855733a7045c246e317a54949b3f; expires=Thu, 12-May-2033 12:37:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
             "X-Magento-Cache-Id",
             "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
             "X-Content-Type-Options",
@@ -46,7 +46,7 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "17401859",
+            "17371754",
             "Age",
             "0",
             "Pragma",
