@@ -45,3 +45,4 @@ export { getAvailableCustomerPaymentMethods } from './getAvailableCustomerPaymen
 export { placeOrder } from './placeOrder';
 export { availableStores } from './availableStores';
 export { countries } from './countries';
+export { currency } from './currency';
