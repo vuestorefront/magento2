@@ -1,7 +1,4 @@
-import gql from 'graphql-tag';
-
-/** GraphQL Query that fetches store configuration from the API */
-export default gql`
+export default `
   query storeConfig {
     storeConfig {
         allow_guests_to_write_product_reviews,
