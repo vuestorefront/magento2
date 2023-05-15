@@ -1,0 +1,63 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "subscribeEmailToNewsletter",
+            "variables": {
+                "email": "user-jruuYNkTiVREsl25Aw5W@vsf-9UtsajHbagnFHKAj0GR4.local"
+            },
+            "query": "mutation subscribeEmailToNewsletter($email: String!) {\n  subscribeEmailToNewsletter(email: $email) {\n    status\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a2e4d2a4e2eca4c4a75cd4dcccc09c9f74b2d2fce492d29492d02cb96249694162b592905873a053b07793ab9ba28e928c5c7975416a4e625e6a68264701ae05f5a52505aa2545b5b0b00f9d1066b6f000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 12:04:48 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "103",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=ov7c4ae2h4d70fhanvgtsaccc5; expires=Mon, 15-May-2023 13:04:48 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=f0f7fedb67f822a256e41759182b27ab; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=c20a5a38d1ef7f1170ece47b45dbc6de; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=85eaf454d962bca01affb1f43299e686; expires=Thu, 12-May-2033 12:04:48 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17401859",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
