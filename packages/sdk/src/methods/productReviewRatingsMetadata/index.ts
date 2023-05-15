@@ -19,10 +19,6 @@ export type ProductReviewRatingsMetadataResponse<T extends DeepPartial<ProductRe
  * The default GraphQL query used by this method can be found
  * {@link @vue-storefront/magento-api#productReviewRatingsMetadata | here}.
  *
- * @param params -
- * Parameter object which can be used with this method.
- * Refer to its type definition to learn about possible properties.
- *
  * @param options -
  * Options that can be passed to additionally configure the request
  * or customize the logic in a plugin.
@@ -41,7 +37,7 @@ export type ProductReviewRatingsMetadataResponse<T extends DeepPartial<ProductRe
  * const { data } = await sdk.magento.productReviewRatingsMetadata();
  *
  * data.productReviewRatingsMetadata.items; // array of review's attributes
- * data.productReviewRatingsMetadata.items[].values; // array of possible values of the review's attributes
+ * data.productReviewRatingsMetadata.items[0].values; // array of possible values of the review's attributes
  * ```
  *
  * @example
@@ -88,9 +84,9 @@ export type ProductReviewRatingsMetadataResponse<T extends DeepPartial<ProductRe
  *   }
  * };
  *
- * const { data } = await sdk.magento.productReviewRatingsMetadata(TODO, { customQuery });
+ * const { data } = await sdk.magento.productReviewRatingsMetadata({ customQuery });
  *
- * // data.productReviewRatingsMetadata.items[] will contain only the fields specified in the custom query.
+ * // data.productReviewRatingsMetadata.items[0] will contain only the fields specified in the custom query.
  * ```
  */
 export async function productReviewRatingsMetadata<RES extends ProductReviewRatingsMetadataResponse>(options?: MethodOptions<CustomQuery<'productReviewRatingsMetadata'>>) {
