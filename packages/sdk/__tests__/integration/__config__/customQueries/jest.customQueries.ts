@@ -1,5 +1,6 @@
 import { currency } from './currency';
 import { productReview } from './productReview';
+import { productReviewRatingsMetadata } from './productReviewRatingsMetadata';
 import { availableStores } from './availableStores';
 import { countries } from './countries';
 import { getAvailableCustomerShippingMethods } from './getAvailableCustomerShippingMethods';
@@ -73,5 +74,6 @@ export const customQueries = {
   'available-stores-custom-query': availableStores,
   'countries-custom-query': countries,
   'currency-custom-query': currency,
-  'product-review-custom-query': productReview
+  'product-review-custom-query': productReview,
+  'product-review-ratings-metadata-custom-query': productReviewRatingsMetadata
 };
