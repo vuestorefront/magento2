@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult, gql } from '@apollo/client/core';
 import { CustomQuery, ProductReviewRatingsMetadataQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
 import productReviewRatingsMetadata from './productReviewRatingsMetadata';
@@ -6,7 +6,7 @@ import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
 /**
- * Returns additional product reviews data
+ * Returns the active ratings attributes and the values each rating can have.
  */
 export default async (
   context: Context,
@@ -23,7 +23,7 @@ export default async (
   );
 
   return context.client.query<ProductReviewRatingsMetadataQuery>({
-    query: productReviewRatingsMetadataGQL.query,
+    query: gql`${productReviewRatingsMetadataGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

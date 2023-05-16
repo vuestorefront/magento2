@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+productReviewRatingsMetadata%7BproductReviewRatingsMetadata%7Bitems%7Bid+__typename%7D__typename%7D%7D&operationName=productReviewRatingsMetadata&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a28ca4f294d2e094a2dcb4c2d0f4a2cc9cc4b2ff64d2d4984c96796a4e6162b59450359294a564a7e8eb6b64a3a4af1f1259505a97989b9a940b1004c23e026d4c612568cb0afb6b616006485f4209a000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 09:39:10 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "103",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=uvqr02pcsgsmv513ckubhgt7fb; expires=Mon, 15-May-2023 10:39:10 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17239328",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

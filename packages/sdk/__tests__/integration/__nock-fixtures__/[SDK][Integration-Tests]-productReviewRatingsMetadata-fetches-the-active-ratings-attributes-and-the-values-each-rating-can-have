@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+productReviewRatingsMetadata%7BproductReviewRatingsMetadata%7Bitems%7Bid+name+values%7Bvalue_id+value+__typename%7D__typename%7D__typename%7D%7D&operationName=productReviewRatingsMetadata&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a28ca4f294d2e094a2dcb4c2d0f4a2cc9cc4b2ff64d2d4984c96796a4e6162b59450359294a564a7e8eb6b64a3a4a7989b9a9401e443d905f9698539a0a510666c68315fb8644dac224815c43203b3ebea4b22015aa3d00d3ee30905ab8fdb53a68e625239b6744b979e9c8e619536e5e36b27926149b97e5886c9e29e9e6c512d641926244d2a8adad0500a88374e745020000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 09:39:10 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "168",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=9a6dr40g460jgt64h3fq3lfjla; expires=Mon, 15-May-2023 10:39:10 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "12806976",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
