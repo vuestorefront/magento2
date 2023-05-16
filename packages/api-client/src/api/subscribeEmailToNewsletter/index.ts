@@ -1,5 +1,4 @@
-import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import { FetchResult, gql } from '@apollo/client/core';
 import type {
   SubscribeEmailToNewsletterMutation,
   SubscribeEmailToNewsletterMutationVariables,
@@ -19,21 +18,13 @@ import getHeaders from '../getHeaders';
 export default async function subscribeEmailToNewsletter(
   context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
-  customQuery: CustomQuery = { subscribeEmailToNewsletter: 'subscribeEmailToNewsletter' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<SubscribeEmailToNewsletterMutation>> {
-  const { subscribeEmailToNewsletter: subscribeEmailToNewsletterGQL } = context.extendQuery(customQuery, {
-    subscribeEmailToNewsletter: {
-      query: subscribeEmailToNewsletterMutation,
-      variables: {
-        email,
-      },
-    },
-  });
-
   return context.client.mutate<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>({
-    mutation: subscribeEmailToNewsletterGQL.query,
-    variables: subscribeEmailToNewsletterGQL.variables,
+    mutation: gql`${subscribeEmailToNewsletterMutation}`,
+    variables: {
+      email,
+    },
     context: {
       headers: getHeaders(context, customHeaders),
     },
