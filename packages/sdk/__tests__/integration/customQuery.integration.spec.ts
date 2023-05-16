@@ -1,7 +1,7 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-import { ProductsListQuery } from '@vsf-enterprise/magento-api-types';
-import { ApolloQueryResult } from '@apollo/client';
+import { GetProductSearchParams, ProductsListQuery } from '@vsf-enterprise/magento-api-types';
+import { CustomQueryInput, CustomQueryResponse } from '../../src/methods/customQuery';
 
 describe(describeGroup('customQuery'), () => {
   it('sends custom query', async () => {
@@ -11,13 +11,16 @@ describe(describeGroup('customQuery'), () => {
           items {
             name
           }
-        } 
+        }
       }
     `;
 
-    const queryVariables = { search: 't-shirt' };
+    const queryVariables: GetProductSearchParams = { search: 't-shirt' };
 
-    const result = await sdk.magento.customQuery<ApolloQueryResult<ProductsListQuery>>({ query, queryVariables });
+    const result = await sdk.magento.customQuery<CustomQueryResponse<ProductsListQuery>, CustomQueryInput<GetProductSearchParams>>({
+      query,
+      queryVariables
+    });
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({

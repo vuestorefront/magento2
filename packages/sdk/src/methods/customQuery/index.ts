@@ -1,13 +1,13 @@
-import { MethodOptions } from '../../types';
+import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
 
 /**
  * customQuery response type
  */
-export type CustomQueryResponse<T = any> = ApolloQueryResult<T>
+export type CustomQueryResponse<T> = ApolloQueryResult<T>
 
-export type CustomQueryInput<TQueryVariables = any> = {
+export type CustomQueryInput<TQueryVariables> = {
   query: string,
   queryVariables?: TQueryVariables,
   fetchPolicy?: FetchPolicy,
@@ -54,16 +54,16 @@ export type CustomQueryInput<TQueryVariables = any> = {
  *  }
  * `;
  *
- * const queryVariables = { search: "t-shirt" };
+ * const queryVariables: GetProductSearchParams = { search: "t-shirt" };
  *
  * // fetch query response
- * const customQueryResult = await sdk.magento.customQuery({
+ * const customQueryResult = await sdk.magento.customQuery<CustomQueryResponse<ProductsListQuery>, CustomQueryInput<GetProductSearchParams>>({
  *   query: query,
- *   queryVariables: queryVariables
+ *   queryVariables
  * });
  * ```
  */
-export async function customQuery<RES extends CustomQueryResponse<any> = CustomQueryResponse<any>, INPUT extends CustomQueryInput = CustomQueryInput<any>>(params: INPUT, options?: MethodOptions<never>) {
+export async function customQuery<RES extends CustomQueryResponse<any>, INPUT extends CustomQueryInput<any>>(params: INPUT, options?: MethodBaseOptions) {
   const { data } = await client.post<RES>(
     'customQuery',
     [params, options?.customHeaders],
