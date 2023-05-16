@@ -1,7 +1,4 @@
-import gql from 'graphql-tag';
-
-/** GraphQL Query that fetches the resolver for received URL. */
-export default gql`
+export default `
   query route($url: String!) {
     route(url: $url) {
       type
