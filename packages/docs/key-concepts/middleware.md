@@ -180,7 +180,7 @@ module.exports = {
 };
 ```
 
-All integrations can be extended, however, based this example on the Commercetools integration, to give more context about real-life usage. We registered `getProductBySku` in `extendApiMethods` which creates a new `/api/ct/getProductBySku` endpoint.
+All integrations can be extended, however, based this example on the Magento 2 integration, to give more context about real-life usage. We registered `getProductBySku` in `extendApiMethods` which creates a new `/api/ct/getProductBySku` endpoint.
 
 This method accepts two parameters:
 

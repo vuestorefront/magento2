@@ -66,7 +66,7 @@ To install the SDK, run the following command:
 yarn add @vsf-enterprise/sdk
 ```
 
-Before initializing the SDK, ensure you have also installed the desired SDK modules for your project. For instance, to use the Commercetools module, you'll need to install it as well:
+Before initializing the SDK, ensure you have also installed the desired SDK modules for your project. For instance, to use the Magento 2 module, you'll need to install it as well:
 
 ```bash
 yarn add @vsf-enterprise/magento-sdk
