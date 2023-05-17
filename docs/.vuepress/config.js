@@ -110,7 +110,8 @@ module.exports = {
           collapsable: false,
           children: [
             ['/reference/releases/', 'Release notes'],
-            ['/reference/compatibility', 'Compatibility']
+            ['/reference/compatibility', 'Compatibility'],
+            ['/reference/api/', 'API Reference']
           ]
         },
 
