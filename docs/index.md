@@ -1,5 +1,5 @@
 ---
-enterpriseTag: true
+enterpriseTag: false
 hideToc: true
 ---
 # Magento 2 integration for Vue Storefront 2
@@ -13,7 +13,7 @@ If you already have access to an Magento 2 project, see the [core documentation]
 This integration is developed and maintained by the Vue Storefront team.
 
 ## Demo
- 
+
 If you'd like to see the integration in action, check out our [demo](https://demo-m2.vuestorefront.io) project.
 
 <CoreDocsList />

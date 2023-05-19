@@ -93,7 +93,8 @@ module.exports = {
             ['/basics/authentication', 'Authentication'],
             ['/basics/users', 'Users'],
             ['/basics/wishlist', 'Wishlist'],
-            ['/basics/checkout', 'Checkout']
+            ['/basics/checkout', 'Checkout'],
+            ['/basics/misc', 'Miscellaneous']
           ]
         },
 
