@@ -1,7 +1,4 @@
-import gql from 'graphql-tag';
-
-/** GraphQL Query that fetches the list of countries from the API */
-export default gql`
+export default `
   query countriesList {
     countries {
       id

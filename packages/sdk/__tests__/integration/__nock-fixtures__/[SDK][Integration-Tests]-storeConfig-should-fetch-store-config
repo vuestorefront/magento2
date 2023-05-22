@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+storeConfig%7BstoreConfig%7Ballow_guests_to_write_product_reviews+allow_items+allow_order+base_currency_code+base_media_url+catalog_default_sort_by+category_fixed_product_tax_display_setting+cms_home_page+cms_no_cookies+cms_no_route+configurable_thumbnail_source+copyright+default_description+default_display_currency_code+default_keywords+default_title+grid_per_page+grid_per_page_values+head_shortcut_icon+header_logo_src+is_default_store+is_default_store_group+list_mode+list_per_page+list_per_page_values+locale+logo_alt+logo_height+logo_width+magento_wishlist_general_is_enabled+minimum_password_length+no_route+product_fixed_product_tax_display_setting+product_reviews_enabled+required_character_classes_number+root_category_uid+sales_fixed_product_tax_display_setting+store_code+store_group_code+store_group_name+store_name+store_sort_order+timezone+title_prefix+title_separator+title_suffix+use_store_in_url+website_code+website_name+weight_unit+welcome+__typename%7D%7D&operationName=storeConfig&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000039d55db6edb300cfd15cfcfb9355d87ad401fba74030aacc080ecf212805064c616aa8b274a4db3a2ff3eca969334eb539f621f1eca878714f354562288f2f2a9a4e03c2e9cdda83abd0aaddd16ea8814088283ad5701a1f5ae8a3280c707855b2a2fcbb37294b91c378cd8a8f500395fa11fa0b5200419bd472b77205d859cfe737953e690c14a09885e33dc84d0d2e56aba9a1a51a30d6e3e569682b012270f49136bdd7867c34439e6a4ccd5940f925c8c763554b811510720e703ac777c62eb4805e56c4fc2daf91d6cd42356fb9a8278844a51abc50e084350968d28bf7eff0137b7cbebcfdfbe24a5d21034ceb013ac2b09e5e70c5bc745b97b85c916b462ad713c007b867731a43cebc6fd23473acfa34f09109a68d65628cdd2a39789da0a762c74c476e755dd040617c373b18ab399f854cc6767e7e3d62331b7b8eb4d1b15b7564e8a6bad8b8e4b458afb07ac267cdce0518524bd6a3b7372abf6a16cc7eb5d1b58f7b8db72a7e9343ba8a0133bab2916ce184c358dcada2b361e7db6f16c7e02c183d0b1339243f3f7a3f30f9cd4a0a8801a6ea98c01943ce84d11cee4ce3b202f0758d16110d2c49497c147fc1f879a7bd10e51ad2880e90b4da2c60928337ea47976021d345f8c387876319acf46f38b94e9a4e89c400b3f971dc042850e83d0eebdc1beb747d05655a119907c1318a4a6fb30bfa2171ab89c7edcaa7c1f8db2ca44c3aa88526740a3add341e5478e1e4d210fe56a6a5df7ba9a2a5be12313860bf186eb71b21f4e7479fc1395e7336523bc90818d939a35225f0d1efbb42acaf3c4732ec0fe964695f2efeaab2b0e111b496f51d6373acf6feefe1eeefa3f048d5016b6b8a6b4f0fab979c9b3c2f463ad6cf1bbe715cb17bcccb8e93fd3078b5fecc89ed12da6bc1e79908232f8d7d99474cd7744495e678b867f6a57a6285f242e17b9ee611a7a8c90b783e0133971bc6752dc1c3123e53280ebead6eb4668e2411f6acc75a7255c1ed057aaeca26948215a95b6905e538769e95e149c91c250fd8e090061d7623e7079f43ff3fcfcfc0f5a0daab881060000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 11:49:28 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "778",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=fmhs1jvk0ircajvct21eb3eoa9; expires=Mon, 15-May-2023 12:49:28 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "16972530",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

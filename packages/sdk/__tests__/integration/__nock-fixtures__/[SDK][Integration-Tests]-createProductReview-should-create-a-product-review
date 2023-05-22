@@ -1,0 +1,74 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "createProductReview",
+            "variables": {
+                "input": {
+                    "sku": "WSH12",
+                    "nickname": "john do the test",
+                    "summary": "awesome thing, whatever it is!",
+                    "text": "this is a test review",
+                    "ratings": [
+                        {
+                            "id": "NA==",
+                            "value_id": "MjA="
+                        }
+                    ]
+                }
+            },
+            "query": "mutation createProductReview($input: CreateProductReviewInput!) {\n  createProductReview(input: $input) {\n    review {\n      average_rating\n      ratings_breakdown {\n        name\n        value\n        __typename\n      }\n      nickname\n      summary\n      text\n      created_at\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b08000000000000037d904d6ac3301085afa2ce5a01c7c12d68db0334645b8a985843eca6b68234b2138ceede71230a6da1bbd17bdffc3c2de09011cc026d2064da07ef52cb079a7a9a57397c573851c013d980dc8f2730dbaad2707f447b94eeb3f3f308e6758111070203873ba961c28fb40a8dd4d6f2ed4285f8b1aee0f94dc3d8b7e782bcfb6e54ce2bee4831459611310d03869b983853f483189d746a35771241ce543dab3e3e08ca7465e1c48fa228fc1aa14a285d423b8b2b5457f56e53359b6da3aa27b36b4cfdf8efbd907fb9cf7fbff025f12531e49c3f01db279f906a010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 07:35:26 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "231",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=srn06o0evf1mqu59qc0le1l3li; expires=Mon, 15-May-2023 08:35:26 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=a877c2e2a90702f1254af65ddf834652; expires=Thu, 12-May-2033 07:35:26 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=1372eec4fe09b9bdf5ab9eb32d0c08c3; expires=Thu, 12-May-2033 07:35:26 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=308cc0c012981bc618d52dbc3a550823; expires=Thu, 12-May-2033 07:35:26 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17180802",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+route%28%24url%3AString%21%29%7Broute%28url%3A%24url%29%7Btype+...on+ProductInterface%7Bsku+__typename%7D...on+CategoryTree%7Buid+__typename%7D...on+CmsPage%7Bidentifier+__typename%7D__typename%7D%7D&operationName=route&variables=%7B%22url%22%3A%22aether-gym-pant.html%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562aca2f2d4905314a2a0b80b4524090bf4ba87388928e5271762990ef1b606808e4c4c783e4f31273416a9cf3f3d232d34b8b12937252038af2534a934b946a6b6b01b5729a0055000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 11:26:45 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "94",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=8pjouri3drtjtu8tmprundiqa1; expires=Mon, 15-May-2023 12:26:45 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17245400",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

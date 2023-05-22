@@ -1,10 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import {
-  CustomQuery,
-  CustomerAvailableShippingMethodsQuery,
-} from '@vsf-enterprise/magento-api-types';
-
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomerAvailableShippingMethodsQuery, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import { Context } from '../../types/context';
 import CustomerAvailableShippingMethods from './CustomerShippingMethods';
 import getHeaders from '../getHeaders';
@@ -31,7 +28,7 @@ export default async function getAvailableCustomerShippingMethods(
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
-      query: shippingMethods.query,
+      query: gql`${shippingMethods.query}`,
       context: {
         headers: getHeaders(context, customHeaders),
       },

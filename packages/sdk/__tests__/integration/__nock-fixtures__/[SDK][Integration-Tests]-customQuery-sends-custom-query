@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query%28%24search%3AString%21%29%7Bproducts%28search%3A%24search%29%7Bitems%7Bname+__typename%7D__typename%7D%7D&variables=%7B%22search%22%3A%22t-shirt%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000039d90bb0ec2300c457f25f2c0c417c00612afa942dd10426e72018b3641893ba0aaff4e108f8109ba1d59f71ed9eec8b1324d3abac6e05aabe9c1a26832ec3af2dc802634e3ba0a6c0ac42449e12d4c09d0980e07bd5df14acd833fcaa98d5cd5289e3aeac71fc9969db0d701cd65a8c4acc05ac28e224ed3018e3c52b4c92c443d52321bb6977496a87f7ae612f3f5ab101c9c59675cd480fd6d9bfd57a878ffbceffb3bd83cbea38a010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 16 May 2023 06:55:59 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "182",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_532,cat_p_1562,cat_p_452,cat_p_436,cat_p_1216",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17804490 17316143",
+            "Age",
+            "59441",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+currency%7Bcurrency%7Bavailable_currency_codes+base_currency_code+base_currency_symbol+default_display_currecy_code+default_display_currecy_symbol+default_display_currency_code+default_display_currency_symbol+exchange_rates%7Bcurrency_to+rate+__typename%7D__typename%7D%7D&operationName=currency&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000037d90c10e82300c86dfa5f1e8c5ebaeea0b683c19d294ad2a4919840de342f6ee32148c18bc35fdfefe6dff0e0c7902d5816e9b86ad0ea9a63b1542b9308e5dd4956107ea0ca7e30eb235e4e46614d4c0e6c88532afa487ab1e19be502b1e4de16aa1f0524df3b61559d68c467f543fa72caabeaee287be91bd3236e487273f69a0af26b344416dd680e843cd96cab468ff1e3e241ab319dd8ea9c6189f51382b486c010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 07:04:25 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "175",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=211jenj8lp538qocosnjfrk451; expires=Mon, 15-May-2023 08:04:25 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17144131",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

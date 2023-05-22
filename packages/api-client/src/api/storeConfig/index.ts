@@ -1,6 +1,7 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, StoreConfigQuery } from '@vsf-enterprise/magento-api-types';
 import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, StoreConfigQuery } from '@vsf-enterprise/magento-api-types';
+import gql from 'graphql-tag';
 import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -26,7 +27,7 @@ export default async function storeConfig(
   );
 
   return context.client.query<StoreConfigQuery>({
-    query: storeConfigGQL.query,
+    query: gql`${storeConfigGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },
