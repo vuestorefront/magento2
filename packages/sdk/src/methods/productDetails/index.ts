@@ -15,10 +15,10 @@ export type ProductDetailsResponse<T extends DeepPartial<ProductDetailsQuery> = 
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.productDetails | productDetails} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productDetails | productDetails} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#productDetailsQuery | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#productDetailsQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +31,7 @@ export type ProductDetailsResponse<T extends DeepPartial<ProductDetailsQuery> = 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ProductDetailsResponse | ProductDetailsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ProductDetailsResponse | ProductDetailsResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:
@@ -122,4 +122,3 @@ export async function productDetails<RES extends ProductDetailsResponse>(params:
 
   return data;
 }
-

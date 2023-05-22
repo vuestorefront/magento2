@@ -14,10 +14,10 @@ export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = Merge
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.mergeCarts | mergeCarts } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.mergeCarts | mergeCarts } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#mergeCarts | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#mergeCarts | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +30,7 @@ export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = Merge
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#MergeCartsResponse | MergeCartsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#MergeCartsResponse | MergeCartsResponse}.
  *
  * @example
  * Simple usage:

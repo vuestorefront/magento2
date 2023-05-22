@@ -8042,6 +8042,7 @@ export type ProductDetailsQueryVariables = Exact<{
   configurations?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
 }>;
 
+type A = ProductDetailsQuery['products']['items']
 export type ProductDetailsQuery = {
   products?: {
     items?: Array<{

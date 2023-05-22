@@ -15,10 +15,10 @@ export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> 
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.relatedProduct | relatedProduct} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.relatedProduct | relatedProduct} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#relatedProduct | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#relatedProduct | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +31,7 @@ export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RelatedProductsResponse | RelatedProductsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RelatedProductsResponse | RelatedProductsResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:

@@ -60,18 +60,11 @@ module.exports = {
     sidebar: {
       '/': [
         {
-          title: 'Quiz',
-          collapsable: false,
-          children: [['https://developer.vuestorefront.io/quiz/questions/magento-2', 'Test your knowledge']]
-        },
-
-        {
           title: 'Getting started',
           collapsable: false,
           children: [
             ['/', 'Introduction'],
-            ['/getting-started/quick-start', 'Quick start'],
-            ['/getting-started/configuration', 'Configuration']
+            ['/getting-started/quick-start', 'Quick start']
           ]
         },
 
@@ -113,19 +106,6 @@ module.exports = {
             ['/reference/releases/', 'Release notes'],
             ['/reference/compatibility', 'Compatibility'],
             ['/reference/api/', 'API Reference']
-          ]
-        },
-
-        {
-          title: 'Learn Vue Storefront',
-          collapsable: true,
-          children: [
-            ['https://docs.vuestorefront.io/v2/getting-started/introduction.html', 'What is Vue Storefront?'],
-            ['https://docs.vuestorefront.io/v2/getting-started/project-structure.html', 'Project structure'],
-            ['https://docs.vuestorefront.io/v2/getting-started/configuration.html', 'Configuration'],
-            ['https://docs.vuestorefront.io/v2/getting-started/layouts-and-routing.html', 'Layouts and Routing'],
-            ['https://docs.vuestorefront.io/v2/getting-started/theme.html', 'Theme'],
-            ['https://docs.vuestorefront.io/v2/getting-started/internationalization.html', 'Internationalization']
           ]
         }
       ]

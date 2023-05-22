@@ -2,5 +2,5 @@
   "integrationName": "magento-2",
   "abbreviatedIntegrationName": "m2",
   "apiPackage": "@vue-storefront/magento-api",
-  "sdkPackage": "@vsf-enterprise/magento-sdk"
+  "sdkPackage": "@vsf-storefront/magento-sdk"
 }

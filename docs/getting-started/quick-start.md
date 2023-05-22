@@ -19,7 +19,7 @@ Middleware concept is described in detail in our [Key concepts: Middleware](../k
 If you have the server middleware configured, you can move directly to the [SDK](./quick-start.md#sdk-preparation)[ preparation](./quick-start.md#sdk-preparation) part.
 :::
 
-1. Install the API Client to communicate with SAP Customer Cloud. This package is used to create a server-to-server connection with the SAP Commerce Cloud backend and the server middleware.
+1. Install the API Client to communicate with Magento2. This package is used to create a server-to-server connection with the Magento2 backend and the server middleware.
 
 ```bash
 yarn add @vue-storefront/magento-api
@@ -151,23 +151,20 @@ SDK is described in detail in our [Key concepts: SDK](../key-concepts/sdk.md) do
 yarn add @vue-storefront/sdk
 ```
 
-2. Install the SAP Commerce Cloud module. It extends the SDK core with methods to communicate with SAP Commerce Cloud.
+2. Install the Magento2 module. It extends the SDK core with methods to communicate with Magento2.
 
 ```bash
-yarn add @vue-storefront/sapcc-sdk
+yarn add @vue-storefront/magento2-sdk
 ```
 
-3. Initialize the SDK. Configure SAP Commerce Cloud module with `apiUrl` that points to the server middleware.
+3. Initialize the SDK. Configure Magento2 module with `apiUrl` that points to the server middleware.
 
 ```javascript
 import { buildModule, initSDK } from '@vue-storefront/sdk';
-import { magentoModule } from '../../../src';
+import { magentoModule } from '@vue-storefront/sdk/magento-sdk';
 
 const sdkConfig = {
-  magento: buildModule(magentoModule,
-    {
-      apiUrl: 'http://localhost:8181/magento'
-    })
+  magento: buildModule(magentoModule, { apiUrl: 'http://localhost:8181/magento' })
 };
 
 export const sdk = initSDK<typeof sdkConfig>(sdkConfig);

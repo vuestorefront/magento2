@@ -15,10 +15,10 @@ export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation>
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.updateCustomer | updateCustomer } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCustomer | updateCustomer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#updateCustomer | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#updateCustomer | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +31,7 @@ export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation>
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#UpdateCustomerResponse | UpdateCustomerResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpdateCustomerResponse | UpdateCustomerResponse}.
  *
  * @example
  * Simple usage:

@@ -14,10 +14,10 @@ export type CreateCustomerAddressResponse<T extends DeepPartial<CreateCustomerAd
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.createCustomerAddress | createCustomerAddress } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createCustomerAddress | createCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#createCustomerAddress | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#createCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +30,7 @@ export type CreateCustomerAddressResponse<T extends DeepPartial<CreateCustomerAd
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CreateCustomerAddressResponse | CreateCustomerAddressResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CreateCustomerAddressResponse | CreateCustomerAddressResponse}.
  *
  * @example
  * Simple usage:

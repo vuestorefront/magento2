@@ -50,13 +50,13 @@ module.exports = {
 
 Every integration you register inside of this file must have a unique key provided in the installation guide of said extension. That key is used for communication with the middleware, so changing it might cause the integration to break.
 
-Registered integrations should have a configuration matching the [Integration interface](https://docs.vuestorefront.io/v2/reference/api/core.integration.html). 
+Registered integrations should have a configuration matching the [Integration interface](https://docs.vuestorefront.io/v2/reference/api/core.integration.html).
 
 ```javascript
 // middleware.config.js
 module.exports = {
   integrations: {
-    m2: {
+    magento: {
       location: '',
       extensions: (baseExtensions) => [
         ...baseExtensions,
@@ -71,7 +71,7 @@ module.exports = {
 
 ## Running the server middleware
 
-Running the server middleware requires the `@vue-storefront/middleware` package. It exposes `createServer` function, that uses the `integrations` defined in your configuration to initialize a server. 
+Running the server middleware requires the `@vue-storefront/middleware` package. It exposes `createServer` function, that uses the `integrations` defined in your configuration to initialize a server.
 ```javascript
 // middleware.js
 
@@ -139,7 +139,7 @@ the `middleware.config.js` file:
 ```js
 module.exports = {
   integrations: {
-    m2: {
+    magento: {
       // ...
       extensions: (extensions) => [
         ...extensions,
@@ -161,7 +161,7 @@ endpoints cannot be registered directly. Let's look at an example:
 ```ts
 module.exports = {
   integrations: {
-    m2: {
+    magento: {
       // ...
       extensions: (extensions) => [
         ...extensions,

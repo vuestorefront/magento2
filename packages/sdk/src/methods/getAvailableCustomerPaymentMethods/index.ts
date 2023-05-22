@@ -14,10 +14,10 @@ export type GetAvailableCustomerPaymentMethodsResponse<T extends DeepPartial<Cus
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#getAvailableCustomerPaymentMethods | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableCustomerPaymentMethods | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -26,7 +26,7 @@ export type GetAvailableCustomerPaymentMethodsResponse<T extends DeepPartial<Cus
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#GetAvailableCustomerPaymentMethodsResponse | GetAvailableCustomerPaymentMethodsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetAvailableCustomerPaymentMethodsResponse | GetAvailableCustomerPaymentMethodsResponse}.
  *
  * @example
  * Simple usage:

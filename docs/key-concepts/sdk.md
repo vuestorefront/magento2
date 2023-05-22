@@ -11,8 +11,8 @@ With the introduction of the SDK, users can now seamlessly connect to third-part
 To avoid confusion, let's define some terms that we'll use to describe the SDK:
 
 - **SDK** - A set of tools, libraries, and documentation that simplifies the development process by providing reusable code and pre-built functionality.
-- **SDK Core** - the core package `@vsf-enterprise/sdk`, that combines all modules and implements the plug-in architecture.
-- **Module** - a pluggable piece of code as a standalone package (eg.: `@vsf-enterprise/magento-sdk`).
+- **SDK Core** - the core package `@vue-storefront/sdk/sdk`, that combines all modules and implements the plug-in architecture.
+- **Module** - a pluggable piece of code as a standalone package (eg.: `@vue-storefront/sdk/magento-sdk`).
 - **Options** - a configuration used to initialize the module.
 - **Extension** - a set of methods and interceptors that extends the module.
 - **Methods** - a functions that are exposed by the module. By default, those functions are asynchronous and return a Promise. Methods affected by the interceptors are always returning a Promise, because interceptors requires it. However, there is a possibility to create a method that returns a value, not a Promise. To do it, you can use `lib` property in the method extension's configuration. Methods could be also extended and overridden. More about it in the [Extending the module](./sdk.md#extending-the-module) section.
@@ -63,13 +63,13 @@ Based on this information, the diagram can be simplified.
 To install the SDK, run the following command:
 
 ```bash
-yarn add @vsf-enterprise/sdk
+yarn add @vue-storefront/sdk
 ```
 
 Before initializing the SDK, ensure you have also installed the desired SDK modules for your project. For instance, to use the Magento 2 module, you'll need to install it as well:
 
 ```bash
-yarn add @vsf-enterprise/magento-sdk
+yarn add @vue-storefront/sdk/magento-sdk
 ```
 
 :::warning Installation of the modules can be different.
