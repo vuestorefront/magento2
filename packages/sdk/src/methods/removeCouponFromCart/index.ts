@@ -14,10 +14,10 @@ export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromC
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.removeCouponFromCart | removeCouponFromCart} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.removeCouponFromCart | removeCouponFromCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#removeCouponFromCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#removeCouponFromCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +30,7 @@ export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromC
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RemoveCouponFromCartResponse | RemoveCouponFromCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RemoveCouponFromCartResponse | RemoveCouponFromCartResponse}.
  *
  * @example
  * Simple usage:

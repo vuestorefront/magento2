@@ -15,10 +15,10 @@ export type RevokeCustomerTokenResponse<T extends DeepPartial<RevokeCustomerToke
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.revokeCustomerToken | revokeCustomerToken } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.revokeCustomerToken | revokeCustomerToken } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#revokeCustomerToken | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#revokeCustomerToken | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -27,7 +27,7 @@ export type RevokeCustomerTokenResponse<T extends DeepPartial<RevokeCustomerToke
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RevokeCustomerTokenResponse | RevokeCustomerTokenResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RevokeCustomerTokenResponse | RevokeCustomerTokenResponse}.
  *
  * @example
  * Simple usage if the customer is logged in and the token is valid:

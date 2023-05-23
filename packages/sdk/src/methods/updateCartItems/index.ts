@@ -14,10 +14,10 @@ export type UpdateCartItemsResponse<T extends DeepPartial<UpdateCartItemsMutatio
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.updateCartItems | updateCartItems } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCartItems | updateCartItems } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#updateCartItems | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#updateCartItems | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +30,7 @@ export type UpdateCartItemsResponse<T extends DeepPartial<UpdateCartItemsMutatio
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#UpdateCartItemsResponse | UpdateCartItemsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpdateCartItemsResponse | UpdateCartItemsResponse}.
  *
  * @example
  * Simple usage, updating the quantity of a cart item:

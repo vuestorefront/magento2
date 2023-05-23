@@ -14,10 +14,10 @@ export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuer
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.customer | customer } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.customer | customer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#customer | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customer | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +30,7 @@ export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuer
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CustomerResponse | CustomerResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CustomerResponse | CustomerResponse}.
  *
  * @example
  * The `customer()` returns the currently active user.

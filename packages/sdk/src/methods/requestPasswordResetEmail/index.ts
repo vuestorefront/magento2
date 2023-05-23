@@ -5,7 +5,7 @@ import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 
 /**
- * Parameter object for the {@link @vsf-enterprise/magento2-sdk#requestPasswordResetEmail | requestPasswordResetEmail } method.
+ * Parameter object for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | requestPasswordResetEmail } method.
  */
 export type RequestPasswordResetEmailInput = {
   email: string;
@@ -21,10 +21,10 @@ export type RequestPasswordResetEmailResponse<T extends DeepPartial<RequestPassw
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#requestPasswordResetEmail | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -37,7 +37,7 @@ export type RequestPasswordResetEmailResponse<T extends DeepPartial<RequestPassw
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RequestPasswordResetEmailResponse | RequestPasswordResetEmailResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RequestPasswordResetEmailResponse | RequestPasswordResetEmailResponse}.
  *
  * @example
  * Simple usage:

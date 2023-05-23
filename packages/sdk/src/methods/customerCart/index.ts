@@ -13,10 +13,10 @@ export type CustomerCartResponse<T extends DeepPartial<CustomerCartQuery> = Cust
  * Method to fetch customer cart
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.customerCart | customerCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.customerCart | customerCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#customerCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customerCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -29,7 +29,7 @@ export type CustomerCartResponse<T extends DeepPartial<CustomerCartQuery> = Cust
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CustomerCartResponse | CustomerCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CustomerCartResponse | CustomerCartResponse}.
  *
  * @example
  * Simple usage:

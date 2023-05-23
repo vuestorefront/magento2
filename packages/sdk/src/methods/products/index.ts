@@ -15,7 +15,7 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.products | products} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.products | products} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link @vue-storefront/magento-api-types#productsListQuery | here}.
@@ -31,7 +31,7 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ProductsListResponse | ProductsListResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ProductsListResponse | ProductsListResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:

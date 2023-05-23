@@ -15,7 +15,7 @@ export type CustomQueryInput<TQueryVariables> = {
 
 /**
  * Method to send an arbitrary GraphQL query to the Magento GraphQL endpoint
- * For sending mutation, please see {@link @vsf-enterprise/magento2-sdk#customMutation | customMutation}.
+ * For sending mutation, please see {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customMutation | customMutation}.
  *
  * @remarks
  * This method communicates with the
@@ -34,7 +34,7 @@ export type CustomQueryInput<TQueryVariables> = {
  * @typeParam INPUT - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CustomQueryResponse | CustomQueryResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CustomQueryResponse | CustomQueryResponse}.
  *
  * @example
  * Simple usage:
