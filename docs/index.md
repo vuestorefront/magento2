@@ -2,14 +2,11 @@
 enterpriseTag: false
 hideToc: true
 ---
-# Magento 2 integration for Vue Storefront 2
+# Magento 2 SDK
 
-This project is a Magento 2 integration for Vue Storefront 2.
+This Magneto 2 SDK is framework-agnostic. If you'd like a ready to go UI Solution for eCommerce checkout [Storefront UI](https://docs.storefrontui.io/v2/)
 
-If you already have access to an Magento 2 project, see the [core documentation](https://docs.vuestorefront.io/) to learn the basics of Vue Storefront and refer to this documentation for integration-specific bits.
+You will need a Magento 2 project as a backend. If you don't already have one, you can run `npx @vue-storefront/cli m2-only` to quickly set up a local instance.
 
-This integration is developed and maintained by the Vue Storefront team.
+This SDK is developed and maintained by the Vue Storefront team.
 
-## Demo
-
-If you'd like to see the integration in action, check out our [demo](https://demo-magento.vuestorefront.io/default) project.
