@@ -36,11 +36,22 @@ yarn add @vue-storefront/middleware
 ```javascript
 // middleware.config.js
 
-require('dotenv').config();
+import {config} from "dotenv";
 
-module.exports = {
-  integrations: {
-    magento: {
+config();
+
+const cookieNames = {
+  currencyCookieName: 'vsf-currency',
+  countryCookieName: 'vsf-country',
+  localeCookieName: 'vsf-locale',
+  cartCookieName: 'vsf-cart',
+  customerCookieName: 'vsf-customer',
+  storeCookieName: 'vsf-store',
+  messageCookieName: 'vsf-message'
+};
+
+export const integrations = {
+  magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
         api: process.env.VSF_MAGENTO_GRAPHQL_URL,
@@ -55,11 +66,11 @@ module.exports = {
         },
         defaultStore: 'default',
         externalCheckout: {
-          enable: isCheckoutEnabled,
+          enable: process.env.IS_CHECKOUT_ENABLED,
           cmsUrl: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,
           syncUrlPath: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
           stores: {
-            default: isCheckoutEnabled,
+            default: process.env.IS_CHECKOUT_ENABLED,
           },
         },
         customApolloHttpLinkOptions: {
@@ -79,8 +90,7 @@ module.exports = {
           customer_create_account_confirm: true,
         },
       },
-    },
-  },
+    }
 };
 ```
 
@@ -101,6 +111,8 @@ VSF_MAGENTO_BASE_URL=
 VSF_MAGENTO_GRAPHQL_URL=
 
 NUXT_IMAGE_PROVIDER=ipx
+
+IS_CHECKOUT_ENABLED=
 ```
 
 5. Create a `middleware.js` file. This script is used to run the server middleware.
@@ -108,9 +120,9 @@ NUXT_IMAGE_PROVIDER=ipx
 ```javascript
 // middleware.js
 
-const { createServer } = require("@vue-storefront/middleware");
-const { integrations } = require("./middleware.config");
-const cors = require("cors");
+import {createServer} from "@vue-storefront/middleware";
+import {integrations} from "./middleware.config.js";
+import cors from 'cors';
 
 (async () => {
   const app = await createServer({ integrations });
