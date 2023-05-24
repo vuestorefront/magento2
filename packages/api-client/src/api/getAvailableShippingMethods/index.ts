@@ -3,8 +3,8 @@ import {
   CustomQuery,
   GuestAvailableShippingMethodsQuery,
   GuestAvailableShippingMethodsQueryVariables,
-} from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import { Context } from '../../types/context';
 import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
 import getHeaders from '../getHeaders';

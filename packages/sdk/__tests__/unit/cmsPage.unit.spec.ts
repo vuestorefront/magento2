@@ -2,7 +2,7 @@ import { cmsPage } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CmsPageQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CmsPageQueryVariables } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: CmsPageQueryVariables = {
   identifier: 'some_identifier'

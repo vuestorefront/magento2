@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import {
   CreateCustomerAddressMutation,
   CreateCustomerAddressMutationVariables,
   CustomerAddressInput,
   CustomQuery,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import createCustomerAddressMutation from './createCustomerAddress';
 import { Context } from '../../types/context';

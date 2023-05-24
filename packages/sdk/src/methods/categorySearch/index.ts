@@ -1,5 +1,5 @@
 import { client } from '../../../src/client';
-import { CategorySearchQueryVariables, CategoryTree } from '@vsf-enterprise/magento-api-types';
+import { CategorySearchQueryVariables, CategoryTree } from '@vue-storefront/magento-api-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

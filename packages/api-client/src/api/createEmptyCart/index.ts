@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CreateEmptyCartMutation } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { CreateEmptyCartMutation } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import createEmptyCart from './createEmptyCart';
 import { Context } from '../../types/context';

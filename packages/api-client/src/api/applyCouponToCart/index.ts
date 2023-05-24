@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
   ApplyCouponToCartMutationVariables,
   CustomQuery,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import applyCouponToCartMutation from './applyCouponToCart';

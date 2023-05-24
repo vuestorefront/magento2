@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders, GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders, GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import { Context } from '../../types/context';
 import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';

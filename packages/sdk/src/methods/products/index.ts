@@ -1,7 +1,7 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import { ProductsListQuery } from '@vsf-enterprise/magento-api-types';
-import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
+import { ProductsListQuery } from '@vue-storefront/magento-api-types';
+import type { GetProductSearchParams } from '@vue-storefront/magento-api-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 

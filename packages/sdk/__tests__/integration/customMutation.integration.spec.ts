@@ -3,7 +3,7 @@ import { describeGroup } from './__config__/jest.setup';
 import { CustomMutationInput, CustomMutationResponse } from '../../src/methods/customMutation';
 import { GenerateCustomerTokenInput } from '../../src/methods/generateCustomerToken';
 import { TEST_USER_EMAIL, TEST_USER_PASSWORD } from './__config__/jest.const';
-import { GenerateCustomerTokenMutation } from '@vsf-enterprise/magento-api-types';
+import { GenerateCustomerTokenMutation } from '@vue-storefront/magento-api-types';
 
 describe(describeGroup('customMutation'), () => {
   it('sends custom query', async () => {

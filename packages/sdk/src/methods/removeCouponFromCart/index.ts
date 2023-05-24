@@ -1,4 +1,4 @@
-import { RemoveCouponFromCartInput, RemoveCouponFromCartMutation } from '@vsf-enterprise/magento-api-types';
+import { RemoveCouponFromCartInput, RemoveCouponFromCartMutation } from '@vue-storefront/magento-api-types';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';

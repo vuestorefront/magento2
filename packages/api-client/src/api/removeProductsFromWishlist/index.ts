@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CustomQuery, RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { CustomQuery, RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import removeProductsFromWishlist from './removeProductsFromWishlist';
 import { Context } from '../../types/context';

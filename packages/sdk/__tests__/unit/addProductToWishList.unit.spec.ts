@@ -2,9 +2,9 @@ import { addProductToWishList } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { AddProductsToWishlistMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-api-types';
 
-const PARAMS_MOCK : AddProductsToWishlistMutationVariables = {
+const PARAMS_MOCK: AddProductsToWishlistMutationVariables = {
   id: 'id123',
   items: [{ quantity: 1, sku: '123' }]
 };

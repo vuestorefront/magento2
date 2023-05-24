@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders, CustomQuery } from '@vsf-enterprise/magento-api-types';
-import { UpdateCartItemsInput, UpdateCartItemsMutation, UpdateCartItemsMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders, CustomQuery } from '@vue-storefront/magento-api-types';
+import { UpdateCartItemsInput, UpdateCartItemsMutation, UpdateCartItemsMutationVariables } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import updateCartItemsMutation from './updateCartItems';

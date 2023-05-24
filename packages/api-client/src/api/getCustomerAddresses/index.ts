@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CustomQuery, GetCustomerAddressesQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { CustomQuery, GetCustomerAddressesQuery } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import getCustomerAddressesQuery from './getCustomerAddresses';
 import { Context } from '../../types/context';

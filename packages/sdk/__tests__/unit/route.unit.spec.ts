@@ -2,7 +2,7 @@ import { route } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { QueryRouteArgs } from '@vsf-enterprise/magento-api-types';
+import { QueryRouteArgs } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: QueryRouteArgs = {
   url: 'some_url'

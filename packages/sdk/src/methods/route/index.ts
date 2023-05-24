@@ -1,4 +1,4 @@
-import { QueryRouteArgs, RoutableInterface, RouteQuery } from '@vsf-enterprise/magento-api-types';
+import { QueryRouteArgs, RoutableInterface, RouteQuery } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

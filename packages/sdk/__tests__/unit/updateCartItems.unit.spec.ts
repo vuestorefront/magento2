@@ -2,7 +2,7 @@ import { updateCartItems } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { UpdateCartItemsInput } from '@vsf-enterprise/magento-api-types';
+import { UpdateCartItemsInput } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: UpdateCartItemsInput = { cart_id: '123', cart_items: [{ quantity: 1 }] };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'updateCartItems'>>;

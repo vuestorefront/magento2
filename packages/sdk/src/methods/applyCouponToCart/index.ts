@@ -1,4 +1,4 @@
-import { ApplyCouponToCartInput, ApplyCouponToCartMutation } from '@vsf-enterprise/magento-api-types';
+import { ApplyCouponToCartInput, ApplyCouponToCartMutation } from '@vue-storefront/magento-api-types';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';

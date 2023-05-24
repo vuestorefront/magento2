@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { WishlistQuery } from '@vsf-enterprise/magento-api-types';
+import { WishlistQuery } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

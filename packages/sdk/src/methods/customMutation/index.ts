@@ -20,7 +20,7 @@ export type CustomMutationInput<TQueryVariables> = {
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.customMutation | customMutation } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.customMutation | customMutation } endpoint
  * of the Vue Storefront API Middleware.
  *
  * @param params -

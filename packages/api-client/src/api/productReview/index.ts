@@ -7,7 +7,7 @@ import {
   ProductAttributeSortInput,
   ProductReviewQuery,
   ProductReviewQueryVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import productReview from './productReview';
 import { Context } from '../../types/context';

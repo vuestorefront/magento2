@@ -1,4 +1,4 @@
-import { MutationResetPasswordArgs, ResetPasswordMutation } from '@vsf-enterprise/magento-api-types';
+import { MutationResetPasswordArgs, ResetPasswordMutation } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
@@ -41,7 +41,7 @@ export type ResetPasswordResponse<T extends DeepPartial<ResetPasswordMutation> =
  * const await sdk.magento.resetPassword({
  *   email: 'customer.email@gmail.com'
  *   newPassword: 'newPassword',
- *   resetPasswordToken: 'resetPasswordToken' // token obtained from email {@link @vsf-enterprise/magento-sdk#requestPasswordResetEmail}
+ *   resetPasswordToken: 'resetPasswordToken' // token obtained from email {@link @vue-storefront/magento-sdk#requestPasswordResetEmail}
  * });
  * ```
  */

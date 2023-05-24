@@ -2,7 +2,7 @@ import { setBillingAddressOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetBillingAddressOnCartInput } from '@vsf-enterprise/magento-api-types';
+import { SetBillingAddressOnCartInput } from '@vue-storefront/magento-api-types';
 import { TEST_CART_ID } from '../integration/__config__/jest.const';
 
 const PARAMS_MOCK: SetBillingAddressOnCartInput = { cart_id: TEST_CART_ID, billing_address: {} };

@@ -2,7 +2,7 @@ import { FetchResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
 import {
   CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import { Context } from '../../types/context';
 import addProductsToCartMutation from './addProductsToCart';
 import getHeaders from '../getHeaders';

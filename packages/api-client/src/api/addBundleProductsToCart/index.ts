@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery } from '@vue-storefront/magento-api-types';
 import type {
   AddBundleProductsToCartInput,
   AddBundleProductsToCartMutation,
   AddBundleProductsToCartMutationVariables,
   CustomHeaders,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 
 import addBundleProductsToCart from './addBundleProductsToCart';
 import { Context } from '../../types/context';

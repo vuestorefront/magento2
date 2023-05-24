@@ -2,7 +2,7 @@ import { createProductReview } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CreateProductReviewInput } from '@vsf-enterprise/magento-api-types';
+import { CreateProductReviewInput } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: CreateProductReviewInput = {
   sku: 'some_sku',

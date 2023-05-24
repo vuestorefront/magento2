@@ -2,7 +2,7 @@ import { resetPassword } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { MutationResetPasswordArgs } from '@vsf-enterprise/magento-api-types';
+import { MutationResetPasswordArgs } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: MutationResetPasswordArgs = {
   email: 'some_email',

@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from '@vue-storefront/magento-api-types';
 import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';

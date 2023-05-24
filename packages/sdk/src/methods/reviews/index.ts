@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CustomerProductReviewParams, CustomerProductReviewQuery } from '@vsf-enterprise/magento-api-types';
+import { CustomerProductReviewParams, CustomerProductReviewQuery } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

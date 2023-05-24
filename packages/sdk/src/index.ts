@@ -1,5 +1,5 @@
 import { connector } from './connector';
-import type { Module } from '@vsf-enterprise/sdk';
+import type { Module } from '@vue-storefront/sdk';
 import { ModuleOptions } from './types';
 
 export interface MagentoModuleType extends Module {
@@ -14,8 +14,8 @@ export interface MagentoModuleType extends Module {
  * Initialization of the Magento module.
  *
  * ```js
- * import { initSDK, buildModule } from '@vsf-enterprise/sdk';
- * import { magentoModule, MagentoModuleType } from '@vsf-enterprise/magento2-sdk'
+ * import { initSDK, buildModule } from '@vue-storefront/sdk';
+ * import { magentoModule, MagentoModuleType } from '@vue-storefront/magento2-sdk'
  *
  * const sdkConfig = {
  *   magento:

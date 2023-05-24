@@ -4,8 +4,8 @@ import {
   AddVirtualProductsToCartInput,
   AddVirtualProductsToCartMutation,
   AddVirtualProductsToCartMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import type { Context } from '../../types/context';
 import addVirtualProductsToCartMutation from './addVirtualProductsToCart';
 import getHeaders from '../getHeaders';

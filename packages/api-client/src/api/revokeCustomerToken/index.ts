@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { RevokeCustomerTokenMutation } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { RevokeCustomerTokenMutation } from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import revokeCustomerToken from './revokeCustomerToken';
 import { Context } from '../../types/context';

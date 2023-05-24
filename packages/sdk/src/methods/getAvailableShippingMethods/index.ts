@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

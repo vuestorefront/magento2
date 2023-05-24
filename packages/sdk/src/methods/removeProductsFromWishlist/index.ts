@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

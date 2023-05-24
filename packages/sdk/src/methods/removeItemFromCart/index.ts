@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RemoveItemFromCartInput, RemoveItemFromCartMutation } from '@vsf-enterprise/magento-api-types';
+import { RemoveItemFromCartInput, RemoveItemFromCartMutation } from '@vue-storefront/magento-api-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

@@ -1,6 +1,6 @@
 import { ApolloQueryResult, gql } from '@apollo/client/core';
-import { CustomQuery, CategorySearchQuery, CategorySearchQueryVariables } from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, CategorySearchQuery, CategorySearchQueryVariables } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import categorySearchQuery from './categorySearch';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

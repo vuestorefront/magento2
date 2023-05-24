@@ -3,8 +3,8 @@ import {
   CustomQuery,
   UpdateCustomerAddressMutation,
   UpdateCustomerAddressMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import updateCustomerAddressMutation from './updateCustomerAddress';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

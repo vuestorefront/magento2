@@ -1,5 +1,5 @@
 import { client } from '../../../src/client';
-import { AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-api-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

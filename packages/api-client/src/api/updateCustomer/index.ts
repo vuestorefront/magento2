@@ -1,8 +1,8 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-api-types';
 import {
   CustomerUpdateInput, CustomQuery, UpdateCustomerMutation, UpdateCustomerMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import updateCustomer from './updateCustomer';
 import { Context } from '../../types/context';

@@ -7,7 +7,7 @@ import {
   ProductAttributeSortInput,
   ProductsListQuery,
   ProductsListQueryVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-api-types';
 import gql from 'graphql-tag';
 import consola from 'consola';
 import productsListQuery from './productsList';

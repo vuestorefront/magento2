@@ -2,7 +2,7 @@ import { reviews } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CustomerProductReviewParams } from '@vsf-enterprise/magento-api-types';
+import { CustomerProductReviewParams } from '@vue-storefront/magento-api-types';
 
 const PARAMS_MOCK: CustomerProductReviewParams = {
   pageSize: 10,

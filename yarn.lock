@@ -3455,16 +3455,6 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vsf-enterprise/magento-api-types@1.0.0-rc.0":
-  version "1.0.0-rc.0"
-  resolved "https://registrynpm.storefrontcloud.io/@vsf-enterprise%2fmagento-api-types/-/magento-api-types-1.0.0-rc.0.tgz#962f69599d2553f735898153e7c117e4dcd4229f"
-  integrity sha512-dUwqiTJ2evz1VSpoeOwI5gaU4AKP0JScfgNPY5uoBcpsOSdL/yzzEZ/5do85xEU7k1zjBTpJOmwR3m3uzG35gw==
-
-"@vsf-enterprise/sdk@^1.0.0":
-  version "1.0.0"
-  resolved "https://registrynpm.storefrontcloud.io/@vsf-enterprise%2fsdk/-/sdk-1.0.0.tgz"
-  integrity sha512-RjDQIYa/vAR90nZtzj5OOMHxQIaQ/2XhIBOVmx/NqF+Yq1iOqE2TzfQPUgN6zP+Y+WlMzHG0C4NOMku1kYU92w==
-
 "@vue-storefront/middleware@3.0.0-rc.2":
   version "3.0.0-rc.2"
   resolved "https://registry.npmjs.org/@vue-storefront/middleware/-/middleware-3.0.0-rc.2.tgz"
@@ -3476,6 +3466,11 @@
     express "^4.18.1"
     helmet "^5.1.1"
     rimraf "^4.1.2"
+
+"@vue-storefront/sdk@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/sdk/-/sdk-1.0.1.tgz#ed42e5ad76a0b17132edb515a484b10ab2dc1395"
+  integrity sha512-97lIVHroM/zno/1hdTBTsqNH+2r7kAQWqrbObZto9GO30HiS3mco7dn0uiZNzhQC+ET0FdwKp/UNgUXX3E7hsw==
 
 "@vue/compiler-core@3.2.24":
   version "3.2.24"
