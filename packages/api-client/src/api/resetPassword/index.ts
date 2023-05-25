@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { GraphQLError } from 'graphql';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { ResetPasswordMutation, ResetPasswordMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { ResetPasswordMutation, ResetPasswordMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import consola from 'consola';
 import resetPasswordMutation from './resetPassword';

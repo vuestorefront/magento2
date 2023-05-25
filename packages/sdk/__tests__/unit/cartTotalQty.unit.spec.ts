@@ -2,7 +2,7 @@ import { cartTotalQty } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { MethodBaseOptions } from '../../src/types';
-import { CartQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CartQueryVariables } from '@vue-storefront/magento-types';
 
 const CART_ID = 'some_cart_id';
 const CUSTOM_HEADERS = { header: 'some_header' };

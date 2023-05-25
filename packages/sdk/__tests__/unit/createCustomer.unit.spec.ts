@@ -2,7 +2,7 @@ import { createCustomer } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CustomerCreateInput } from '@vsf-enterprise/magento-api-types';
+import { CustomerCreateInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CustomerCreateInput = {
   email: 'some_email@gmail.com',

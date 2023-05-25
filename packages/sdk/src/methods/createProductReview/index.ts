@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { CreateProductReviewInput, CreateProductReviewMutation } from '@vsf-enterprise/magento-api-types';
+import { CreateProductReviewInput, CreateProductReviewMutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

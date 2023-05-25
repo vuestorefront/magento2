@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
   CustomQuery,
   SetGuestEmailOnCartInput,
   SetGuestEmailOnCartMutation,
   SetGuestEmailOnCartMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import setGuestEmailOnCartMutation from './setGuestEmailOnCart';
 import { Context } from '../../types/context';

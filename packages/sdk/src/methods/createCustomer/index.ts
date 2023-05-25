@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CreateCustomerMutation, CustomerCreateInput } from '@vsf-enterprise/magento-api-types';
+import { CreateCustomerMutation, CustomerCreateInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

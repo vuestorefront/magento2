@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { FetchPolicy, FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 

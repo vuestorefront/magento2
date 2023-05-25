@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, CountryInformationQuery, CountryInformationQueryVariables } from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, CountryInformationQuery, CountryInformationQueryVariables } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import countryInformation from './countryInformation';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

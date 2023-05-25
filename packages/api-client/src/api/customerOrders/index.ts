@@ -5,8 +5,8 @@ import {
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
   GetOrdersSearchParams,
-} from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import customerOrdersQuery from './customerOrders';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

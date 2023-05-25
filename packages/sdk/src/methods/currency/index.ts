@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CurrencyQuery } from '@vsf-enterprise/magento-api-types';
+import { CurrencyQuery } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
