@@ -5,7 +5,7 @@ import {
   CustomerProductReviewQueryVariables,
   CustomHeaders,
   CustomQuery,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import customerProductReview from './reviews';
 import { Context } from '../../types/context';

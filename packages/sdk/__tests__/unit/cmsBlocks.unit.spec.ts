@@ -2,7 +2,7 @@ import { cmsBlocks } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CmsBlockQueryVariables } from '@vue-storefront/magento-api-types';
+import { CmsBlockQueryVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CmsBlockQueryVariables = {
   identifiers: ['id1', 'id2']

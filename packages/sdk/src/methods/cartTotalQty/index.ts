@@ -1,7 +1,7 @@
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 import { ApolloQueryResult } from '@apollo/client';
-import { CartQueryVariables } from '@vue-storefront/magento-api-types';
+import { CartQueryVariables } from '@vue-storefront/magento-types';
 
 /**
  * Cart total query type

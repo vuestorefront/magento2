@@ -7,7 +7,7 @@ import type {
   ProductAttributeSortInput,
   UpsellProductsQuery,
   UpsellProductsQueryVariables,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import upsellProducts from './upsellProducts';
 import type { Context } from '../../types/context';

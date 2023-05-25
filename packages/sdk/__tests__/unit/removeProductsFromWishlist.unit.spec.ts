@@ -2,7 +2,7 @@ import { removeProductsFromWishlist } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-api-types';
+import { RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: RemoveProductsFromWishlistMutationVariables = {
   id: 'some_wishlist_id',

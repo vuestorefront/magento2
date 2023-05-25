@@ -7,7 +7,7 @@ import type {
   ProductAttributeSortInput,
   RelatedProductsQuery,
   RelatedProductsQueryVariables,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import relatedProductsQuery from './relatedProducts';
 import type { Context } from '../../types/context';

@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
-import { CartQuery, CartQueryVariables } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CartQuery, CartQueryVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import cartTotalQtyQuery from './cartTotalQty';
 import { Context } from '../../types/context';

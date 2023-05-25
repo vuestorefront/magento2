@@ -2,7 +2,7 @@ import { setShippingAddressesOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetShippingAddressesOnCartInput } from '@vue-storefront/magento-api-types';
+import { SetShippingAddressesOnCartInput } from '@vue-storefront/magento-types';
 import { TEST_CART_ID } from '../integration/__config__/jest.const';
 
 const PARAMS_MOCK: SetShippingAddressesOnCartInput = { cart_id: TEST_CART_ID, shipping_addresses: [] };

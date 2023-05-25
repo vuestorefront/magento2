@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { CustomerAvailablePaymentMethodsQuery } from '@vue-storefront/magento-api-types';
+import { CustomerAvailablePaymentMethodsQuery } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

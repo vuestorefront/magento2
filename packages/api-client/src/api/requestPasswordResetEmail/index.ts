@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client/core';
 import { GraphQLError } from 'graphql';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
-import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import consola from 'consola';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';

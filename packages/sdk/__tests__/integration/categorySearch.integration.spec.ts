@@ -1,4 +1,4 @@
-import { CategoryFilterInput } from '@vue-storefront/magento-api-types';
+import { CategoryFilterInput } from '@vue-storefront/magento-types';
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
 

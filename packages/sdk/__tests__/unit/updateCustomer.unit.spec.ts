@@ -2,7 +2,7 @@ import { updateCustomer } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CustomerUpdateInput } from '@vue-storefront/magento-api-types';
+import { CustomerUpdateInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CustomerUpdateInput = {
   lastname: 'Doe'

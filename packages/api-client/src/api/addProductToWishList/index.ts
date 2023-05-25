@@ -3,8 +3,8 @@ import {
   CustomQuery,
   AddProductsToWishlistMutation,
   AddProductsToWishlistMutationVariables,
-} from '@vue-storefront/magento-api-types';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import addProductsToWishlist from './addProductsToWishlist';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

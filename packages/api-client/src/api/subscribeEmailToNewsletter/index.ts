@@ -3,7 +3,7 @@ import type {
   CustomHeaders,
   SubscribeEmailToNewsletterMutation,
   SubscribeEmailToNewsletterMutationVariables,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
 import { Context } from '../../types/context';

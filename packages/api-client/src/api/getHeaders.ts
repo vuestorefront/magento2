@@ -1,4 +1,4 @@
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import { Context } from '../types/context';
 
 export default function getHeaders(context: Context, customHeaders: CustomHeaders = {}) {

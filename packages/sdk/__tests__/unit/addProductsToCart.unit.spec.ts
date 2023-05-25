@@ -2,7 +2,7 @@ import { addProductsToCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { AddProductsToCartMutationVariables } from '@vue-storefront/magento-api-types';
+import { AddProductsToCartMutationVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: AddProductsToCartMutationVariables = { cartId: '123', cartItems: [{ quantity: 1, sku: '123' }] };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<CustomQuery<'addProductsToCart'>>;

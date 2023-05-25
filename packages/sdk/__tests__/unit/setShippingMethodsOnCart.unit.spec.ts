@@ -2,7 +2,7 @@ import { setShippingMethodsOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetShippingMethodsOnCartInput } from '@vue-storefront/magento-api-types';
+import { SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetShippingMethodsOnCartInput = {
   cart_id: 'some_cart_id',

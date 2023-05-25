@@ -1,7 +1,7 @@
 import type { ApolloQueryResult } from '@apollo/client/core';
 import type {
   CustomHeaders, QueryRouteArgs, RoutableInterface, RouteQuery,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import routeQuery from './route';
 import type { Context } from '../../types/context';

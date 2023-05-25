@@ -2,7 +2,7 @@ import { productReview } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { GetProductSearchParams } from '@vue-storefront/magento-api-types';
+import { GetProductSearchParams } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: GetProductSearchParams = {
   filter: {

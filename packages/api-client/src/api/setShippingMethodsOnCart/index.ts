@@ -5,7 +5,7 @@ import type {
   SetShippingMethodsOnCartInput,
   SetShippingMethodsOnCartMutation,
   SetShippingMethodsOnCartMutationVariables,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
 import type { Context } from '../../types/context';

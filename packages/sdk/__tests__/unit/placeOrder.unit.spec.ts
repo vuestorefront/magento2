@@ -2,7 +2,7 @@ import { placeOrder } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { PlaceOrderInput } from '@vue-storefront/magento-api-types';
+import { PlaceOrderInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: PlaceOrderInput = {
   cart_id: 'cart_id'

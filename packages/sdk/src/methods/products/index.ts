@@ -1,7 +1,7 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import { ProductsListQuery } from '@vue-storefront/magento-api-types';
-import type { GetProductSearchParams } from '@vue-storefront/magento-api-types';
+import { ProductsListQuery } from '@vue-storefront/magento-types';
+import type { GetProductSearchParams } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
@@ -18,7 +18,7 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.products | products} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api-types#productsListQuery | here}.
+ * {@link @vue-storefront/magento-types#productsListQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.

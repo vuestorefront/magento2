@@ -2,8 +2,8 @@ import { FetchResult } from '@apollo/client/core';
 import {
   CustomQuery,
   AddConfigurableProductsToCartInput, AddConfigurableProductsToCartMutation, AddConfigurableProductsToCartMutationVariables,
-} from '@vue-storefront/magento-api-types';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import type { Context } from '../../types/context';
 import addConfigurableProductsToCartMutation from './addConfigurableProductsToCart';
 import getHeaders from '../getHeaders';

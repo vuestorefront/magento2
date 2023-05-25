@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CmsBlockQuery, CmsBlockQueryVariables } from '@vue-storefront/magento-api-types';
+import { CmsBlockQuery, CmsBlockQueryVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

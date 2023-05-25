@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
-import { CountriesListQuery, CustomQuery } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CountriesListQuery, CustomQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import countriesListQuery from './countriesList';
 import { Context } from '../../types/context';

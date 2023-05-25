@@ -1,7 +1,7 @@
 import { getAvailablePaymentMethods } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-api-types';
+import { GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-types';
 import { MethodBaseOptions } from '../../lib/types';
 
 const PARAMS_MOCK: GuestAvailablePaymentMethodsQueryVariables = {

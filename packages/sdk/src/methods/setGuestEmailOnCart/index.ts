@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation } from '@vue-storefront/magento-api-types';
+import { SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

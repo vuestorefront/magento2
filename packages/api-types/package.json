@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/magento-api-types",
+  "name": "@vue-storefront/magento-types",
   "version": "1.0.0",
   "sideEffects": false,
   "main": "lib/index.cjs.js",

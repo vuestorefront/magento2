@@ -1,5 +1,5 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomerCartQuery, CustomHeaders, CustomQuery } from '@vue-storefront/magento-api-types';
+import type { CustomerCartQuery, CustomHeaders, CustomQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import customerCartQuery from './customerCart';

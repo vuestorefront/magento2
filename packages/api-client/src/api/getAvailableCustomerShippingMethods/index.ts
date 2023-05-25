@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
-import { CustomerAvailableShippingMethodsQuery, CustomQuery } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CustomerAvailableShippingMethodsQuery, CustomQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import { Context } from '../../types/context';
 import CustomerAvailableShippingMethods from './CustomerShippingMethods';

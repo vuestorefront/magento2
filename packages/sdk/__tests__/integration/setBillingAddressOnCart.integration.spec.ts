@@ -1,7 +1,7 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
 import { TEST_ADDRESS, TEST_CART_ID } from './__config__/jest.const';
-import { SetBillingAddressOnCartInput } from '@vue-storefront/magento-api-types';
+import { SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
 
 const SHARED_PARAMS: SetBillingAddressOnCartInput = {
   cart_id: TEST_CART_ID,

@@ -42,7 +42,7 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@vue-storefront/magento-api-types": "1.0.0",
+    "@vue-storefront/magento-types": "1.0.0",
     "@graphql-codegen/cli": "^2.4.0",
     "@graphql-codegen/typescript": "^2.4.2",
     "@graphql-codegen/typescript-operations": "^2.2.3",

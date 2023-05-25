@@ -4,8 +4,8 @@ import {
   AddDownloadableProductsToCartInput,
   AddDownloadableProductsToCartMutation,
   AddDownloadableProductsToCartMutationVariables,
-} from '@vue-storefront/magento-api-types';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import type { Context } from '../../types/context';
 import addDownloadableProductsToCartMutation from './addDownloadableProductsToCart';
 import getHeaders from '../getHeaders';

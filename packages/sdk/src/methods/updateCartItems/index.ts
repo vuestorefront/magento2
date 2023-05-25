@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { UpdateCartItemsInput, UpdateCartItemsMutation } from '@vue-storefront/magento-api-types';
+import { UpdateCartItemsInput, UpdateCartItemsMutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

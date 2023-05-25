@@ -1,6 +1,6 @@
 import { ApolloQueryResult, gql } from '@apollo/client/core';
-import { CustomQuery, CustomerQuery } from '@vue-storefront/magento-api-types';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+import { CustomQuery, CustomerQuery } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import customer from './customer';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

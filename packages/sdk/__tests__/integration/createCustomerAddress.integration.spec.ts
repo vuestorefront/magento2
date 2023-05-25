@@ -1,6 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
-import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-api-types';
+import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-types';
 
 describe(describeGroup('createCustomerAddress'), () => {
   const address: CustomerAddressInput = {

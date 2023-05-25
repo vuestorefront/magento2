@@ -4,8 +4,8 @@ import {
   AddSimpleProductsToCartInput,
   AddSimpleProductsToCartMutation,
   AddSimpleProductsToCartMutationVariables,
-} from '@vue-storefront/magento-api-types';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import addSimpleProductsToCart from './addSimpleProductsToCart';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

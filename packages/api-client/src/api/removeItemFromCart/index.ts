@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders, CustomQuery } from '@vue-storefront/magento-api-types';
-import { RemoveItemFromCartInput, RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders, CustomQuery } from '@vue-storefront/magento-types';
+import { RemoveItemFromCartInput, RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import removeItemFromCartMutation from './removeItemFromCart';

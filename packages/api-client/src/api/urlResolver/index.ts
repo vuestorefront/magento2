@@ -1,7 +1,7 @@
 import type { ApolloQueryResult } from '@apollo/client/core';
 import type {
   CustomHeaders, CustomQuery, UrlResolverQuery, UrlResolverQueryVariables,
-} from '@vue-storefront/magento-api-types';
+} from '@vue-storefront/magento-types';
 import urlResolverQuery from './urlResolver';
 import type { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

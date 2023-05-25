@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-api-types';
-import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '@vue-storefront/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import placeOrderMutation from './placeOrder';
 import { Context } from '../../types/context';
