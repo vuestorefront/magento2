@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Magento configured - if you don't have your Magento2 configured, see our [Configuration](https://docs.vuestorefront.io/magento/installation-setup/installation.html) guide.
-- Install Node.js version 16.0
+- Install Node.js version >=16.0
 
 ## Using the integration
 
