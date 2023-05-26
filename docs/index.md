@@ -14,5 +14,5 @@ You will need a Magento 2 project as a backend. If you don't already have one, y
 For a more detailed guide to using the CLI to create a local Magento 2 instance see: [Magento Installation](./getting-started/magento.md)
 :::
 
-This SDK is developed and maintained by the Vue Storefront team.
+This integration is developed and maintained by the Vue Storefront team.
 
