@@ -2,9 +2,9 @@ import { cart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CartQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CartQueryVariables } from '@vue-storefront/magento-types';
 
-const PARAMS_MOCK : CartQueryVariables = { cartId: '123' };
+const PARAMS_MOCK: CartQueryVariables = { cartId: '123' };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<CustomQuery<'cart'>>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');

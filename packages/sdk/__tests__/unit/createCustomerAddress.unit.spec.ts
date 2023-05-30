@@ -2,7 +2,7 @@ import { createCustomerAddress } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CustomerAddressInput } from '@vsf-enterprise/magento-api-types';
+import { CustomerAddressInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CustomerAddressInput = {
   city: 'city'

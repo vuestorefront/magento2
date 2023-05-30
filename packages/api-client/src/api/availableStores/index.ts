@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { AvailableStoresQuery, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { AvailableStoresQuery, CustomQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import availableStores from './availableStores';
 import { Context } from '../../types/context';

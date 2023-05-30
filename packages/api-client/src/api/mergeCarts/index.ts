@@ -1,6 +1,6 @@
 import { FetchResult, gql } from '@apollo/client/core';
-import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import mergeCarts from './mergeCarts';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

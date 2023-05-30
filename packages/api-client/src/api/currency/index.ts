@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CurrencyQuery, CustomQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CurrencyQuery, CustomQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import currencyQuery from './currency';
 import { Context } from '../../types/context';

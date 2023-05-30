@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CreateProductReviewInput, CreateProductReviewMutation } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CreateProductReviewInput, CreateProductReviewMutation } from '@vue-storefront/magento-types';
 import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 import createProductReview from './createProductReview';

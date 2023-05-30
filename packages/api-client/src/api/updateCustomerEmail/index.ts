@@ -1,6 +1,6 @@
 import { FetchResult, gql } from '@apollo/client/core';
-import { CustomQuery, UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '@vsf-enterprise/magento-api-types';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import { CustomQuery, UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import updateCustomerEmail from './updateCustomerEmail';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

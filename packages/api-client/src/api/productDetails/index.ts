@@ -1,4 +1,3 @@
-import { Logger } from '@vue-storefront/core';
 import type { ApolloQueryResult } from '@apollo/client/core';
 import type {
   CustomHeaders,
@@ -8,8 +7,9 @@ import type {
   ProductAttributeSortInput,
   ProductDetailsQuery,
   ProductDetailsQueryVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
+import consola from 'consola';
 import productDetailsQuery from './productDetailsQuery';
 import type { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
@@ -75,7 +75,7 @@ export default async function productDetails(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      Logger.debug(error);
+      consola.debug(error);
 
       return {
         ...error,
@@ -83,7 +83,7 @@ export default async function productDetails(
         data: null,
       };
     }
-    Logger.error(error);
+    consola.error(error);
     throw error.networkError?.result || error;
   }
 }

@@ -1,6 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
-import { GetProductSearchParams, ProductsListQuery } from '@vsf-enterprise/magento-api-types';
+import { GetProductSearchParams, ProductsListQuery } from '@vue-storefront/magento-types';
 import { CustomQueryInput, CustomQueryResponse } from '../../src/methods/customQuery';
 
 describe(describeGroup('customQuery'), () => {

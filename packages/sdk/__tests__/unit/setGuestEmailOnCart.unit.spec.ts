@@ -2,7 +2,7 @@ import { setGuestEmailOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { MethodBaseOptions } from '../../src/types';
-import { SetGuestEmailOnCartInput } from '@vsf-enterprise/magento-api-types';
+import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetGuestEmailOnCartInput = { cart_id: 'some_id', email: 'some_email' };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;

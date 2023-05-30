@@ -1,9 +1,9 @@
 import { ApolloQueryResult, gql } from '@apollo/client/core';
 import {
   WishlistQuery,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
 
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import wishlistItemsCountQuery from './wishlistItemsCount';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';

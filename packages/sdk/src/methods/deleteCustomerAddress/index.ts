@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';

@@ -4,8 +4,8 @@ import type {
   SetPaymentMethodOnCartInputs,
   SetPaymentMethodOnCartMutation,
   SetPaymentMethodOnCartMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
-import { CustomQuery } from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
+import { CustomQuery } from '@vue-storefront/magento-types';
 
 import gql from 'graphql-tag';
 import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';

@@ -2,7 +2,7 @@ import { setPaymentMethodOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetPaymentMethodOnCartInputs } from '@vsf-enterprise/magento-api-types';
+import { SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetPaymentMethodOnCartInputs = {
   cart_id: '123',

@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CartQuery, CartQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CartQuery, CartQueryVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';

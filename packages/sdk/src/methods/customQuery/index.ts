@@ -19,7 +19,7 @@ export type CustomQueryInput<TQueryVariables> = {
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.customQuery | customQuery } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.customQuery | customQuery } endpoint
  * of the Vue Storefront API Middleware.
  *
  * @param params -

@@ -2,7 +2,7 @@ import { removeItemFromCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { RemoveItemFromCartInput } from '@vsf-enterprise/magento-api-types';
+import { RemoveItemFromCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: RemoveItemFromCartInput = {
   cart_id: 'some_cart_id',

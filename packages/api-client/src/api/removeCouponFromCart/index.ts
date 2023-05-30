@@ -1,11 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
   CustomQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
   RemoveCouponFromCartMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import type { Context } from '../../types/context';
 import removeCouponFromCartMutation from './removeCouponFromCart';

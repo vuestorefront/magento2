@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CustomQuery, StoreConfigQuery } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CustomQuery, StoreConfigQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import storeConfigMutation from './storeConfig';
 import { Context } from '../../types/context';
