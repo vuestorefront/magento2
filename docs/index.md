@@ -2,7 +2,7 @@
 enterpriseTag: false
 hideToc: true
 ---
-#  Magento 2 integration
+# Magento 2 integration
 
 This Magento 2 Integration features an SDK and middleware which are framework-agnostic. Popular choices for frameworks include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
 These are great frameworks, but it's up to you which framework you use, or if you use a framework at all. The SDK is built using TypeScript and can be installed in any JavaScript or TypeScript application.

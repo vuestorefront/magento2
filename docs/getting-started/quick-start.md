@@ -65,14 +65,6 @@ export const integrations = {
           path: process.env.VSF_COOKIE_PATH || '/',
         },
         defaultStore: 'default',
-        externalCheckout: {
-          enable: process.env.IS_CHECKOUT_ENABLED,
-          cmsUrl: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,
-          syncUrlPath: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
-          stores: {
-            default: process.env.IS_CHECKOUT_ENABLED,
-          },
-        },
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },
@@ -112,7 +104,6 @@ VSF_MAGENTO_GRAPHQL_URL=
 
 NUXT_IMAGE_PROVIDER=ipx
 
-IS_CHECKOUT_ENABLED=
 ```
 
 5. Create a `middleware.js` file. This script is used to run the server middleware.
