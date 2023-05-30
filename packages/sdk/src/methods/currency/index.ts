@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CurrencyQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link currency} method.
+ */
+export type CurrencyQuery = { currency: Query['currency'] };
 
 /**
  * currency response type
@@ -40,8 +45,8 @@ export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuer
  * // {
  * //   "data": {
  * //     "currency": {
- * //       "base_currency_code": "EUR",
- * //       "base_currency_symbol": "€",
+ * //       "_currency_code": "EUR",
+ * //       "_currency_symbol": "€",
  * //       "default_display_currency_code": "EUR",
  * //       "default_display_currency_symbol": "€",
  * //       "available_currency_codes": [
@@ -96,13 +101,13 @@ export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuer
  * const customQuery = {
  *   currency: 'currency-custom-query',
  *   metadata: {
- *     fields: 'base_currency_code'
+ *     fields: '_currency_code'
  *   }
  * };
  *
  * const result = await sdk.magento.currency({ customQuery });
  *
- * // result will contain only the base_currency_code field
+ * // result will contain only the _currency_code field
  * ```
  */
 export async function currency<RES extends CurrencyResponse>(options?: MethodOptions<CustomQuery<'currency'>>) {

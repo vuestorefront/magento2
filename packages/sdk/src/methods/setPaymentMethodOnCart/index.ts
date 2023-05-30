@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { SetPaymentMethodOnCartInputs, SetPaymentMethodOnCartMutation } from '@vue-storefront/magento-types';
+import { Mutation, SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setPaymentMethodOnCart} method.
+ */
+export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart: Mutation['setPaymentMethodOnCart'] }
 
 /**
  * setPaymentMethodOnCart response type

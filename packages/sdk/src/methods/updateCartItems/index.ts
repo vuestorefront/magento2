@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { UpdateCartItemsInput, UpdateCartItemsMutation } from '@vue-storefront/magento-types';
+import { Mutation, UpdateCartItemsInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link updateCartItems} method.
+ */
+export type UpdateCartItemsMutation = { updateCartItems: Mutation['updateCartItems'] };
 
 /**
  * updateCartItems response type

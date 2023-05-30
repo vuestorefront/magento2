@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CategoryListQuery, CategoryListQueryVariables } from '@vue-storefront/magento-types';
+import { CategoryListQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link categoryList} method.
+ */
+export type CategoryListQuery = { categories: Query['categories'] };
 
 /**
  * Category list response type

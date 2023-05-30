@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-types';
+import { Mutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link removeProductsFromWishlist} method.
+ */
+export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist: Mutation['removeProductsFromWishlist'] }
 
 /**
  * removeProductsFromWishlist response type

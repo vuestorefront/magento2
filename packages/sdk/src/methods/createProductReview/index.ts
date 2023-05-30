@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { CreateProductReviewInput, CreateProductReviewMutation } from '@vue-storefront/magento-types';
+import { CreateProductReviewInput, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link createProductReview} method.
+ */
+export type CreateProductReviewMutation = { createProductReview: Mutation['createProductReview'] };
 
 /**
  * createProductReview response type

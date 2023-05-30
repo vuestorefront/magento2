@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { MergeCartsMutation, MergeCartsMutationVariables } from '@vue-storefront/magento-types';
+import { MergeCartsMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link mergeCarts} method.
+ */
+export type MergeCartsMutation = { mergeCarts: Mutation['mergeCarts'] };
 
 /**
  * mergeCarts response type

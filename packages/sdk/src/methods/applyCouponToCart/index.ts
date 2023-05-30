@@ -1,8 +1,13 @@
-import { ApplyCouponToCartInput, ApplyCouponToCartMutation } from '@vue-storefront/magento-types';
+import { ApplyCouponToCartInput, Mutation } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link applyCouponToCart} method.
+ */
+export type ApplyCouponToCartMutation = { applyCouponToCart: Mutation['applyCouponToCart'] };
 
 /**
  * Apply coupon to cart response type

@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CreateCustomerMutation, CustomerCreateInput } from '@vue-storefront/magento-types';
+import { CustomerCreateInput, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link createCustomer} method.
+ */
+export type CreateCustomerMutation = { createCustomerV2: Mutation['createCustomerV2'] };
 
 /**
  * createCustomer response type

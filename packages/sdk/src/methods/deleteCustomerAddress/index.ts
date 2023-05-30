@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
+import { DeleteCustomerAddressMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link deleteCustomerAddress} method.
+ */
+export type DeleteCustomerAddressMutation = { deleteCustomerAddress: Mutation['deleteCustomerAddress'] };
 
 /**
  * deleteCustomerAddress response type

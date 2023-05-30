@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
+import { Mutation, UpdateCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link updateCustomerAddress} method.
+ */
+export type UpdateCustomerAddressMutation = { updateCustomerAddress: Mutation['updateCustomerAddress'] };
 
 /**
  * updateCustomerAddress response type

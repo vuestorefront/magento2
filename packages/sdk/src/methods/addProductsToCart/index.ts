@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { AddProductsToCartMutation, AddProductsToCartMutationVariables } from '@vue-storefront/magento-types';
+import { AddProductsToCartMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link addProductsToCart} method.
+ */
+export type AddProductsToCartMutation = { addProductsToCart: Mutation['addProductsToCart'] };
 
 /**
  * Add products to cart response type

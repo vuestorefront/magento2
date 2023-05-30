@@ -1,8 +1,13 @@
-import { RemoveCouponFromCartInput, RemoveCouponFromCartMutation } from '@vue-storefront/magento-types';
+import { Mutation, RemoveCouponFromCartInput } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link removeCouponFromCart} method.
+ */
+export type RemoveCouponFromCartMutation = { removeCouponFromCart: Mutation['removeCouponFromCart'] }
 
 /**
  * Category list response type

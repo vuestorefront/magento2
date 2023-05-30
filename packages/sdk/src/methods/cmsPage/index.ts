@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CmsPageQuery, CmsPageQueryVariables } from '@vue-storefront/magento-types';
+import { CmsPageQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link cmsPage} method.
+ */
+export type CmsPageQuery = { cmsPage: Query['cmsPage'] };
 
 /**
  * cmsPage response type

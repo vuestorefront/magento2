@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GetProductSearchParams, ProductReviewQuery } from '@vue-storefront/magento-types';
+import { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link productReview} method.
+ */
+export type ProductReviewQuery = { products: Query['products'] };
 
 /**
  * productReview response type

@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CustomerCartQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link customerCart} method.
+ */
+export type CustomerCartQuery = { customerCart: Query['customerCart'] };
 
 /**
  * customerCart response type
@@ -17,10 +22,6 @@ export type CustomerCartResponse<T extends DeepPartial<CustomerCartQuery> = Cust
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customerCart | here}.
- *
- * @param params -
- * Parameter object which can be used with this method.
- * Refer to its type definition to learn about possible properties.
  *
  * @param options -
  * Options that can be passed to additionally configure the request

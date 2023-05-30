@@ -5,17 +5,16 @@ import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
 /**
- * Query that returns only CategoryList
- * `CategorySearchQuery` type from Magento doesn't include the important `children` prop
+ * query type for the {@link categorySearch} method.
  */
-export interface CategoryList {
+export type CategorySearchQuery = {
   categoryList: CategoryTree[];
 }
 
 /**
  * Category search response type
  */
-export type CategorySearchResponse<T extends DeepPartial<CategoryList> = CategoryList> = ApolloQueryResult<T>;
+export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = CategorySearchQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to search categories

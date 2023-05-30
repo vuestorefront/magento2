@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation } from '@vue-storefront/magento-types';
+import { Mutation, SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setShippingMethodsOnCart} method.
+ */
+export type SetShippingMethodsOnCartMutation = { setShippingMethodsOnCart: Mutation['setShippingMethodsOnCart'] };
 
 /**
  * setShippingMethodsOnCart response type

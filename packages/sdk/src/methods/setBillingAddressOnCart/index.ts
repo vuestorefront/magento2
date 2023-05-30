@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { SetBillingAddressOnCartInput, SetBillingAddressOnCartMutation } from '@vue-storefront/magento-types';
+import { Mutation, SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setBillingAddressOnCart} method.
+ */
+export type SetBillingAddressOnCartMutation = { setBillingAddressOnCart: Mutation['setBillingAddressOnCart'] }
 
 /**
  * Set billing address response type

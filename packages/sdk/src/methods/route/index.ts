@@ -1,13 +1,18 @@
-import { QueryRouteArgs, RoutableInterface, RouteQuery } from '@vue-storefront/magento-types';
+import { Query, QueryRouteArgs } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { MethodBaseOptions } from '../../types';
 
 /**
+ * route type for the {@link route} method.
+ */
+export type RouteQuery = { route: Query['route'] };
+
+/**
  * route response type
  */
-export type RouteResponse<T extends DeepPartial<RouteQuery<RoutableInterface>> = RouteQuery<RoutableInterface>> = ApolloQueryResult<T>
+export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = ApolloQueryResult<T>
 
 /**
  * Method to resolve a route object data
