@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GetProductSearchParams, ProductReviewQuery } from '@vsf-enterprise/magento-api-types';
+import { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link productReview} method.
+ */
+export type ProductReviewQuery = { products: Query['products'] };
 
 /**
  * productReview response type
@@ -14,10 +19,10 @@ export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = Pr
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.productReview | productReview } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productReview | productReview } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#productReview | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#productReview | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = Pr
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ProductReviewResponse | ProductReviewResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ProductReviewResponse | ProductReviewResponse}.
  *
  * @example
  * Simple usage:

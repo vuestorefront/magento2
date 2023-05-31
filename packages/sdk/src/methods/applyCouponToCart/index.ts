@@ -1,8 +1,13 @@
-import { ApplyCouponToCartInput, ApplyCouponToCartMutation } from '@vsf-enterprise/magento-api-types';
+import { ApplyCouponToCartInput, Mutation } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link applyCouponToCart} method.
+ */
+export type ApplyCouponToCartMutation = { applyCouponToCart: Mutation['applyCouponToCart'] };
 
 /**
  * Apply coupon to cart response type
@@ -14,10 +19,10 @@ export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMut
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.applyCouponToCart | applyCouponToCart} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.applyCouponToCart | applyCouponToCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#applyCouponToCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#applyCouponToCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMut
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ApplyCouponToCartResponse | ApplyCouponToCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApplyCouponToCartResponse | ApplyCouponToCartResponse}.
  *
  * @example
  * Simple usage:

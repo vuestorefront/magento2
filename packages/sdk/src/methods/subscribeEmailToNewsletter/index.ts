@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { Mutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link subscribeEmailToNewsletter} method.
+ */
+export type SubscribeEmailToNewsletterMutation = { subscribeEmailToNewsletter: Mutation['subscribeEmailToNewsletter'] }
 
 /**
  * subscribeEmailToNewsletter response type
@@ -14,10 +19,10 @@ export type SubscribeEmailToNewsletterResponse<T extends DeepPartial<SubscribeEm
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#subscribeEmailToNewsletter | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#subscribeEmailToNewsletter | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type SubscribeEmailToNewsletterResponse<T extends DeepPartial<SubscribeEm
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#SubscribeEmailToNewsletterResponse | SubscribeEmailToNewsletterResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SubscribeEmailToNewsletterResponse | SubscribeEmailToNewsletterResponse}.
  *
  * @example
  * Simple usage:

@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { CreateProductReviewInput, CreateProductReviewMutation } from '@vsf-enterprise/magento-api-types';
+import { CreateProductReviewInput, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link createProductReview} method.
+ */
+export type CreateProductReviewMutation = { createProductReview: Mutation['createProductReview'] };
 
 /**
  * createProductReview response type
@@ -14,10 +19,10 @@ export type CreateProductReviewResponse<T extends DeepPartial<CreateProductRevie
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.createProductReview | createProductReview } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createProductReview | createProductReview } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#createProductReview | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#createProductReview | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type CreateProductReviewResponse<T extends DeepPartial<CreateProductRevie
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CreateProductReviewResponse | CreateProductReviewResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CreateProductReviewResponse | CreateProductReviewResponse}.
  *
  * @example
  * Simple usage:

@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { StoreConfigQuery } from '@vsf-enterprise/magento-api-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link storeConfig} method.
+ */
+export type StoreConfigQuery = { storeConfig: Query['storeConfig'] };
 
 /**
  * storeConfig response type
@@ -14,10 +19,10 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.storeConfig | storeConfig } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.storeConfig | storeConfig } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#storeConfig | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#storeConfig | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -26,7 +31,7 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#StoreConfigResponse | StoreConfigResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#StoreConfigResponse | StoreConfigResponse}.
  *
  * @example
  * Simple usage:

@@ -1,31 +1,30 @@
 import { client } from '../../../src/client';
-import { CategorySearchQueryVariables, CategoryTree } from '@vsf-enterprise/magento-api-types';
+import { CategorySearchQueryVariables, CategoryTree } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
 /**
- * Query that returns only CategoryList
- * `CategorySearchQuery` type from Magento doesn't include the important `children` prop
+ * query type for the {@link categorySearch} method.
  */
-export interface CategoryList {
+export type CategorySearchQuery = {
   categoryList: CategoryTree[];
 }
 
 /**
  * Category search response type
  */
-export type CategorySearchResponse<T extends DeepPartial<CategoryList> = CategoryList> = ApolloQueryResult<T>;
+export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = CategorySearchQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to search categories
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.categorySearch | categorySearch} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.categorySearch | categorySearch} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#categorySearchQuery | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#categorySearchQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -38,7 +37,7 @@ export type CategorySearchResponse<T extends DeepPartial<CategoryList> = Categor
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CategorySearchResponse | CategorySearchResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CategorySearchResponse | CategorySearchResponse}.
  *
  * @example
  * Simple usage without filters

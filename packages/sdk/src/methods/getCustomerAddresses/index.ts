@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GetCustomerAddressesQuery } from '@vsf-enterprise/magento-api-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getCustomerAddresses} method.
+ */
+export type GetCustomerAddressesQuery = { customer: Query['customer'] };
 
 /**
  * getCustomerAddresses response type
@@ -15,10 +20,10 @@ export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddres
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.getCustomerAddresses | getCustomerAddresses } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getCustomerAddresses | getCustomerAddresses } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#getCustomerAddresses | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getCustomerAddresses | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -27,7 +32,7 @@ export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddres
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#GetCustomerAddressesResponse | GetCustomerAddressesResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetCustomerAddressesResponse | GetCustomerAddressesResponse}.
  *
  * @example
  * Simple usage:

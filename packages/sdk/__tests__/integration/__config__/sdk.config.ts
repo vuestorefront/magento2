@@ -1,4 +1,4 @@
-import { buildModule, initSDK } from '@vsf-enterprise/sdk';
+import { buildModule, initSDK } from '@vue-storefront/sdk';
 import { magentoModule } from '../../../src';
 
 const sdkConfig = {

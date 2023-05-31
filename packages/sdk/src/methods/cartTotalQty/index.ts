@@ -1,7 +1,7 @@
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 import { ApolloQueryResult } from '@apollo/client';
-import { CartQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CartQueryVariables } from '@vue-storefront/magento-types';
 
 /**
  * Cart total query type
@@ -24,10 +24,10 @@ export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.cartTotalQty | cartTotalQty } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cartTotalQty | cartTotalQty } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#cartTotalQty | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#cartTotalQty | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -40,7 +40,7 @@ export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CartTotalQtyResponse | CartTotalQtyResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CartTotalQtyResponse | CartTotalQtyResponse}.
  *
  * @example
  * Simple usage:

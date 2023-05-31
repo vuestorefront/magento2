@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation, SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setShippingMethodsOnCart} method.
+ */
+export type SetShippingMethodsOnCartMutation = { setShippingMethodsOnCart: Mutation['setShippingMethodsOnCart'] };
 
 /**
  * setShippingMethodsOnCart response type
@@ -15,10 +20,10 @@ export type SetShippingMethodsOnCartResponse<T extends DeepPartial<SetShippingMe
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.setShippingMethodsOnCart | setShippingMethodsOnCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setShippingMethodsOnCart | setShippingMethodsOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#setShippingMethodsOnCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#setShippingMethodsOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +36,7 @@ export type SetShippingMethodsOnCartResponse<T extends DeepPartial<SetShippingMe
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#SetShippingMethodsOnCartResponse | SetShippingMethodsOnCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SetShippingMethodsOnCartResponse | SetShippingMethodsOnCartResponse}.
  *
  * @example
  * Simple usage:

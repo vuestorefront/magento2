@@ -1,9 +1,9 @@
 import { FetchResult } from '@apollo/client/core';
-import { Logger } from '@vue-storefront/core';
 import { GraphQLError } from 'graphql';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { ResetPasswordMutation, ResetPasswordMutationVariables } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { ResetPasswordMutation, ResetPasswordMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
+import consola from 'consola';
 import resetPasswordMutation from './resetPassword';
 import { Context } from '../../types/context';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
@@ -38,7 +38,7 @@ export default async function resetPassword(
     }
   }
 
-  Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
+  consola.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
   const result = await context.client
     .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
     mutation: gql`${resetPasswordMutation}`,

@@ -1,6 +1,6 @@
 import { sdk } from './__config__/sdk.config';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
-import { CustomerUpdateInput } from '@vsf-enterprise/magento-api-types';
+import { CustomerUpdateInput } from '@vue-storefront/magento-types';
 
 describe(describeGroup('updateCustomer'), () => {
   const newCustomerData: CustomerUpdateInput = {

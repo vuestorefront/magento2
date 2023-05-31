@@ -1,5 +1,5 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { {{ capitalizedMethodName }}Query, {{ capitalizedMethodName }}QueryVariables } from '@vsf-enterprise/magento-api-types';
+import { {{ capitalizedMethodName }}Query, {{ capitalizedMethodName }}QueryVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
@@ -30,7 +30,7 @@ export type {{ capitalizedMethodName }}Response<T extends DeepPartial<{{ capital
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#{{ capitalizedMethodName }}Response | {{ capitalizedMethodName }}Response}.
+ * Returns a representation of the {@link @vue-storefront/magento2-sdk#{{ capitalizedMethodName }}Response | {{ capitalizedMethodName }}Response}.
  *
  * @example
  * Simple usage:

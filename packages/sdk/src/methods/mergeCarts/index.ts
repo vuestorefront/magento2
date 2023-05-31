@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { MergeCartsMutation, MergeCartsMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { MergeCartsMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link mergeCarts} method.
+ */
+export type MergeCartsMutation = { mergeCarts: Mutation['mergeCarts'] };
 
 /**
  * mergeCarts response type
@@ -14,10 +19,10 @@ export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = Merge
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.mergeCarts | mergeCarts } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.mergeCarts | mergeCarts } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#mergeCarts | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#mergeCarts | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = Merge
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#MergeCartsResponse | MergeCartsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#MergeCartsResponse | MergeCartsResponse}.
  *
  * @example
  * Simple usage:

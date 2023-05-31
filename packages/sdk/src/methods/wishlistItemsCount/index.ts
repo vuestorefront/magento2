@@ -1,5 +1,5 @@
 import { MethodBaseOptions } from '../../types';
-import { WishlistQuery } from '@vsf-enterprise/magento-api-types';
+import { WishlistQuery } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
@@ -14,14 +14,10 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.wishlistItemsCount | wishlistItemsCount } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.wishlistItemsCount | wishlistItemsCount } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#wishlist | here}.
- *
- * @param params -
- * Parameter object which can be used with this method.
- * Refer to its type definition to learn about possible properties.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#wishlist | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -30,7 +26,7 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#WishlistItemsCountResponse | WishlistItemsCountResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#WishlistItemsCountResponse | WishlistItemsCountResponse}.
  *
  * @example
  * Simple usage:

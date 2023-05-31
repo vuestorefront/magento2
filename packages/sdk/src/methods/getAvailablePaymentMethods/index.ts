@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { GuestAvailablePaymentMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getAvailablePaymentMethods} method.
+ */
+export type GuestAvailablePaymentMethodsQuery = { cart: Query['cart'] };
 
 /**
  * getAvailablePaymentMethods response type
@@ -11,14 +16,14 @@ export type GetAvailablePaymentMethodsResponse<T extends DeepPartial<GuestAvaila
 
 /**
  * Method to get available payment methods for the received guest cart.
- * To get available customer payment methods use {@link @vue-storefront/magento-api#getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods }.
+ * To get available customer payment methods use {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods }.
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.getAvailablePaymentMethods | getAvailablePaymentMethods } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailablePaymentMethods | getAvailablePaymentMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#getAvailablePaymentMethods | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailablePaymentMethods | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +36,7 @@ export type GetAvailablePaymentMethodsResponse<T extends DeepPartial<GuestAvaila
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#GetAvailablePaymentMethodsResponse | GetAvailablePaymentMethodsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetAvailablePaymentMethodsResponse | GetAvailablePaymentMethodsResponse}.
  *
  * @example
  * Simple usage:

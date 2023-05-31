@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { GuestAvailableShippingMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getAvailableShippingMethods} method.
+ */
+export type GuestAvailableShippingMethodsQuery = { cart: Query['cart'] };
 
 /**
  * getAvailableShippingMethods response type
@@ -14,10 +19,10 @@ export type GetAvailableShippingMethodsResponse<T extends DeepPartial<GuestAvail
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.getAvailableShippingMethods | getAvailableShippingMethods } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailableShippingMethods | getAvailableShippingMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#getAvailableShippingMethods | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableShippingMethods | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type GetAvailableShippingMethodsResponse<T extends DeepPartial<GuestAvail
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#GetAvailableShippingMethodsResponse | GetAvailableShippingMethodsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetAvailableShippingMethodsResponse | GetAvailableShippingMethodsResponse}.
  *
  * @example
  * Simple usage:

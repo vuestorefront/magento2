@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { PlaceOrderInput, PlaceOrderMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation, PlaceOrderInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link placeOrder} method.
+ */
+export type PlaceOrderMutation = { placeOrder: Mutation['placeOrder'] };
 
 /**
  * placeOrder response type
@@ -14,10 +19,10 @@ export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = Place
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.placeOrder | placeOrder } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.placeOrder | placeOrder } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#placeOrder | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#placeOrder | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = Place
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#PlaceOrderResponse | PlaceOrderResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#PlaceOrderResponse | PlaceOrderResponse}.
  *
  * @example
  * Simple usage:

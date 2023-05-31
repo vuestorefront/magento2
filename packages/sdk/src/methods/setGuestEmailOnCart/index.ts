@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation, SetGuestEmailOnCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setGuestEmailOnCart} method.
+ */
+export type SetGuestEmailOnCartMutation = { setGuestEmailOnCart: Mutation['setGuestEmailOnCart'] }
 
 /**
  * setGuestEmailOnCart response type
@@ -14,10 +19,10 @@ export type SetGuestEmailOnCartResponse<T extends DeepPartial<SetGuestEmailOnCar
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.setGuestEmailOnCart | setGuestEmailOnCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setGuestEmailOnCart | setGuestEmailOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#setGuestEmailOnCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#setGuestEmailOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type SetGuestEmailOnCartResponse<T extends DeepPartial<SetGuestEmailOnCar
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#SetGuestEmailOnCartResponse | SetGuestEmailOnCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SetGuestEmailOnCartResponse | SetGuestEmailOnCartResponse}.
  *
  * @example
  * Simple usage:

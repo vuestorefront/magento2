@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CmsPageQuery, CmsPageQueryVariables } from '@vsf-enterprise/magento-api-types';
+import { CmsPageQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link cmsPage} method.
+ */
+export type CmsPageQuery = { cmsPage: Query['cmsPage'] };
 
 /**
  * cmsPage response type
@@ -14,10 +19,10 @@ export type CmsPageResponse<T extends DeepPartial<CmsPageQuery> = CmsPageQuery> 
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.cmsPage | cmsPage } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cmsPage | cmsPage } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#cmsPage | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#cmsPage | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type CmsPageResponse<T extends DeepPartial<CmsPageQuery> = CmsPageQuery> 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CmsPageResponse | CmsPageResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CmsPageResponse | CmsPageResponse}.
  *
  * @example
  * Simple usage:

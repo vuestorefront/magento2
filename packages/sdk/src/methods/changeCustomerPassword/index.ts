@@ -1,11 +1,16 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { ChangeCustomerPasswordMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 
 /**
- * Parameters for the {@link @vsf-enterprise/magento2-sdk#changeCustomerPassword | changeCustomerPassword } method.
+ * mutation type for the {@link changeCustomerPassword} method.
+ */
+export type ChangeCustomerPasswordMutation = { changeCustomerPassword: Mutation['changeCustomerPassword'] };
+
+/**
+ * Parameters for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | changeCustomerPassword } method.
  */
 export type ChangeCustomerPasswordInput = { currentPassword: string; newPassword: string; }
 
@@ -19,10 +24,10 @@ export type ChangeCustomerPasswordResponse<T extends DeepPartial<ChangeCustomerP
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#changeCustomerPassword | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -35,7 +40,7 @@ export type ChangeCustomerPasswordResponse<T extends DeepPartial<ChangeCustomerP
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ChangeCustomerPasswordResponse | ChangeCustomerPasswordResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ChangeCustomerPasswordResponse | ChangeCustomerPasswordResponse}.
  *
  * @example
  * Simple usage, change customer password:

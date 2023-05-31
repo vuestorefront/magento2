@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { SetPaymentMethodOnCartInputs, SetPaymentMethodOnCartMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation, SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link setPaymentMethodOnCart} method.
+ */
+export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart: Mutation['setPaymentMethodOnCart'] }
 
 /**
  * setPaymentMethodOnCart response type
@@ -14,10 +19,10 @@ export type SetPaymentMethodOnCartResponse<T extends DeepPartial<SetPaymentMetho
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.setPaymentMethodOnCart | setPaymentMethodOnCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setPaymentMethodOnCart | setPaymentMethodOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#setPaymentMethodOnCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#setPaymentMethodOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type SetPaymentMethodOnCartResponse<T extends DeepPartial<SetPaymentMetho
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#SetPaymentMethodOnCartResponse | SetPaymentMethodOnCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SetPaymentMethodOnCartResponse | SetPaymentMethodOnCartResponse}.
  *
  * @example
  * Simple usage:

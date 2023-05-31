@@ -1,9 +1,14 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import { ProductsListQuery } from '@vsf-enterprise/magento-api-types';
-import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
+import type { GetProductSearchParams } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link products} method.
+ */
+export type ProductsListQuery = { products: Query['products'] };
 
 /**
  * Products list response type
@@ -15,10 +20,10 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.products | products} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.products | products} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api-types#productsListQuery | here}.
+ * {@link @vue-storefront/magento-types#productsListQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +36,7 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#ProductsListResponse | ProductsListResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ProductsListResponse | ProductsListResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:

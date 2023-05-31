@@ -1,6 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vsf-enterprise/magento-api-types';
-import { CategoryListQuery, CustomQuery, QueryCategoryListArgs } from '@vsf-enterprise/magento-api-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CategoryListQuery, CustomQuery, QueryCategoryListArgs } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import categoryListQuery from './categoryList';
 import { Context } from '../../types/context';

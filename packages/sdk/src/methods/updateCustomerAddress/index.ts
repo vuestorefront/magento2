@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables } from '@vsf-enterprise/magento-api-types';
+import { Mutation, UpdateCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link updateCustomerAddress} method.
+ */
+export type UpdateCustomerAddressMutation = { updateCustomerAddress: Mutation['updateCustomerAddress'] };
 
 /**
  * updateCustomerAddress response type
@@ -15,10 +20,10 @@ export type UpdateCustomerAddressResponse<T extends DeepPartial<UpdateCustomerAd
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#updateCustomerAddress | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#updateCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +36,7 @@ export type UpdateCustomerAddressResponse<T extends DeepPartial<UpdateCustomerAd
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#UpdateCustomerAddressResponse | UpdateCustomerAddressResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpdateCustomerAddressResponse | UpdateCustomerAddressResponse}.
  *
  * @example
  * Simple usage:

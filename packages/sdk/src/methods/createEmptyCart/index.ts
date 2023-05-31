@@ -1,8 +1,13 @@
-import { MethodBaseOptions } from '../../types';
-import { CreateEmptyCartMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { MethodBaseOptions } from '../../types';
+
+/**
+ * mutation type for the {@link createEmptyCart} method.
+ */
+export type CreateEmptyCartMutation = { createEmptyCart: Mutation['createEmptyCart'] };
 
 /**
  * createEmptyCart response type
@@ -14,10 +19,10 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.createEmptyCart | createEmptyCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createEmptyCart | createEmptyCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#createEmptyCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#createEmptyCart | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -26,7 +31,7 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CreateEmptyCartResponse | CreateEmptyCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CreateEmptyCartResponse | CreateEmptyCartResponse}.
  *
  * @example
  * Simple usage:

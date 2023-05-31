@@ -1,23 +1,28 @@
-import { QueryRouteArgs, RoutableInterface, RouteQuery } from '@vsf-enterprise/magento-api-types';
+import { Query, QueryRouteArgs } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { MethodBaseOptions } from '../../types';
 
 /**
+ * route type for the {@link route} method.
+ */
+export type RouteQuery = { route: Query['route'] };
+
+/**
  * route response type
  */
-export type RouteResponse<T extends DeepPartial<RouteQuery<RoutableInterface>> = RouteQuery<RoutableInterface>> = ApolloQueryResult<T>
+export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = ApolloQueryResult<T>
 
 /**
  * Method to resolve a route object data
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.route | route } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.route | route } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#route | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#route | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type RouteResponse<T extends DeepPartial<RouteQuery<RoutableInterface>> =
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RouteResponse | RouteResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RouteResponse | RouteResponse}.
  *
  * @example
  * Simple usage:

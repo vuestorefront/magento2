@@ -5,7 +5,7 @@ import type {
   SetShippingAddressesOnCartInput,
   SetShippingAddressesOnCartMutation,
   SetShippingAddressesOnCartMutationVariables,
-} from '@vsf-enterprise/magento-api-types';
+} from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import setShippingAddressesOnCartQuery from './setShippingAddressesOnCart';
 import type { Context } from '../../types/context';

@@ -1,9 +1,13 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import type { GetProductSearchParams } from '@vsf-enterprise/magento-api-types';
-import { UpsellProductsQuery } from '@vsf-enterprise/magento-api-types';
+import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { ApolloQueryResult } from '@apollo/client';
 import { DeepPartial } from 'ts-essentials';
+
+/**
+ * query type for the {@link upsellProducts} method.
+ */
+export type UpsellProductsQuery = { products: Query['products'] };
 
 /**
  * Upsell Products response type
@@ -15,10 +19,10 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.upsellProducts | upsellProducts} endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.upsellProducts | upsellProducts} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#upsellProductQuery | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#upsellProductQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -31,7 +35,7 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#UpsellProductsResponse | UpsellProductsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpsellProductsResponse | UpsellProductsResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:

@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RemoveItemFromCartInput, RemoveItemFromCartMutation } from '@vsf-enterprise/magento-api-types';
+import { Mutation, RemoveItemFromCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link removeItemFromCart} method.
+ */
+export type RemoveItemFromCartMutation = { removeItemFromCart: Mutation['removeItemFromCart'] };
 
 /**
  * removeItemFromCart response type
@@ -14,10 +19,10 @@ export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartM
  *
  * @remarks
  * This method communicates with the
- * {@link @vue-storefront/magento-api#ApiMethods.removeItemFromCart | removeItemFromCart } endpoint
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.removeItemFromCart | removeItemFromCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link @vue-storefront/magento-api#removeItemFromCart | here}.
+ * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#removeItemFromCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -30,7 +35,7 @@ export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartM
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#RemoveItemFromCartResponse | RemoveItemFromCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RemoveItemFromCartResponse | RemoveItemFromCartResponse}.
  *
  * @example
  * Simple usage:

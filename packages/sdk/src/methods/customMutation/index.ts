@@ -8,6 +8,9 @@ import { FetchResult } from '@apollo/client/core';
  */
 export type CustomMutationResponse<T> = FetchResult<T>
 
+/**
+ * Custom mutation input type
+ */
 export type CustomMutationInput<TQueryVariables> = {
   mutation: string,
   mutationVariables?: TQueryVariables,
@@ -16,11 +19,11 @@ export type CustomMutationInput<TQueryVariables> = {
 
 /**
  * Method to send an arbitrary GraphQL mutation to the Magento GraphQL endpoint
- * For sending query, please see {@link @vsf-enterprise/magento2-sdk#customQuery | customQuery}.
+ * For sending query, please see {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customQuery | customQuery}.
  *
  * @remarks
  * This method communicates with the
- * {@link @vsf-enterprise/magento-api#ApiMethods.customMutation | customMutation } endpoint
+ * {@link @vue-storefront/magento-api#ApiMethods.customMutation | customMutation } endpoint
  * of the Vue Storefront API Middleware.
  *
  * @param params -
@@ -35,7 +38,7 @@ export type CustomMutationInput<TQueryVariables> = {
  * @typeParam INPUT - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link @vsf-enterprise/magento2-sdk#CustomQueryResponse | CustomQueryResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CustomQueryResponse | CustomQueryResponse}.
  *
  * @example
  * Simple usage:
