@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RemoveItemFromCartInput, RemoveItemFromCartMutation } from '@vue-storefront/magento-types';
+import { Mutation, RemoveItemFromCartInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link removeItemFromCart} method.
+ */
+export type RemoveItemFromCartMutation = { removeItemFromCart: Mutation['removeItemFromCart'] };
 
 /**
  * removeItemFromCart response type

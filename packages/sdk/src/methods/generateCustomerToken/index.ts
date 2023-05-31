@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { GenerateCustomerTokenMutation } from '@vue-storefront/magento-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link generateCustomerToken} method.
+ */
+export type GenerateCustomerTokenMutation = { generateCustomerToken: Mutation['generateCustomerToken'] };
 
 /**
  * Parameters used in the {@link generateCustomerToken} method.

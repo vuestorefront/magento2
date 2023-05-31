@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CartQuery, CartQueryVariables } from '@vue-storefront/magento-types';
+import { CartQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link cart} method.
+ */
+export type CartQuery = { cart: Query['cart'] };
 
 /**
  * Category list response type

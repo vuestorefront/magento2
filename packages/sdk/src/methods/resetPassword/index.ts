@@ -1,8 +1,13 @@
-import { MutationResetPasswordArgs, ResetPasswordMutation } from '@vue-storefront/magento-types';
+import { Mutation, MutationResetPasswordArgs } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 import { MethodBaseOptions } from '../../types';
+
+/**
+ * mutation type for the {@link resetPassword} method.
+ */
+export type ResetPasswordMutation = { resetPassword: Mutation['resetPassword'] }
 
 /**
  * resetPassword response type

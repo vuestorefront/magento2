@@ -1,9 +1,13 @@
 import { client } from '../../client';
 import type { CustomQuery, MethodOptions } from '../../types';
-import type { GetProductSearchParams } from '@vue-storefront/magento-types';
-import { ProductDetailsQuery } from '@vue-storefront/magento-types';
+import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link productDetails} method.
+ */
+export type ProductDetailsQuery = { products: Query['products'] };
 
 /**
  * Product details response type

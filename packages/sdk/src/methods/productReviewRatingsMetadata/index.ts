@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { ProductReviewRatingsMetadataQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link productReviewRatingsMetadata} method.
+ */
+export type ProductReviewRatingsMetadataQuery = { productReviewRatingsMetadata: Query['productReviewRatingsMetadata'] };
 
 /**
  * productReviewRatingsMetadata response type

@@ -8,6 +8,9 @@ import { FetchResult } from '@apollo/client/core';
  */
 export type CustomMutationResponse<T> = FetchResult<T>
 
+/**
+ * Custom mutation input type
+ */
 export type CustomMutationInput<TQueryVariables> = {
   mutation: string,
   mutationVariables?: TQueryVariables,

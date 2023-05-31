@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
+import { Mutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link subscribeEmailToNewsletter} method.
+ */
+export type SubscribeEmailToNewsletterMutation = { subscribeEmailToNewsletter: Mutation['subscribeEmailToNewsletter'] }
 
 /**
  * subscribeEmailToNewsletter response type

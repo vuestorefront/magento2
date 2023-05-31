@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { AvailableStoresQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link availableStores} method.
+ */
+export type AvailableStoresQuery = { availableStores: Query['availableStores'] };
 
 /**
  * availableStores response type

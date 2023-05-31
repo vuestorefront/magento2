@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vue-storefront/magento-types';
+import { GuestAvailableShippingMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getAvailableShippingMethods} method.
+ */
+export type GuestAvailableShippingMethodsQuery = { cart: Query['cart'] };
 
 /**
  * getAvailableShippingMethods response type

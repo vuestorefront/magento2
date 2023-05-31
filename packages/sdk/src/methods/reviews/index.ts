@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CustomerProductReviewParams, CustomerProductReviewQuery } from '@vue-storefront/magento-types';
+import { CustomerProductReviewParams, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * Method to fetch customer reviews
+ */
+export type CustomerProductReviewQuery = { customer: Query['customer'] };
 
 /**
  * reviews response type

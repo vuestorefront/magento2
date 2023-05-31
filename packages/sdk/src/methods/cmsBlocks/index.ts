@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CmsBlockQuery, CmsBlockQueryVariables } from '@vue-storefront/magento-types';
+import { CmsBlockQueryVariables, Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link cmsBlocks} method.
+ */
+export type CmsBlockQuery = { cmsBlocks: Query['cmsBlocks'] };
 
 /**
  * cmsBlocks response type

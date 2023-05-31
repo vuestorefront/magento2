@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { PlaceOrderInput, PlaceOrderMutation } from '@vue-storefront/magento-types';
+import { Mutation, PlaceOrderInput } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link placeOrder} method.
+ */
+export type PlaceOrderMutation = { placeOrder: Mutation['placeOrder'] };
 
 /**
  * placeOrder response type

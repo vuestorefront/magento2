@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { CustomerAvailablePaymentMethodsQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getAvailableCustomerPaymentMethods} method.
+ */
+export type CustomerAvailablePaymentMethodsQuery = { cart: Query['customerCart'] };
 
 /**
  * getAvailableCustomerPaymentMethods response type

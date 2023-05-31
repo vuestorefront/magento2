@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { RequestPasswordResetEmailMutation } from '@vue-storefront/magento-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link requestPasswordResetEmail} method.
+ */
+export type RequestPasswordResetEmailMutation = { requestPasswordResetEmail: Mutation['requestPasswordResetEmail'] }
 
 /**
  * Parameter object for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | requestPasswordResetEmail } method.

@@ -1,8 +1,13 @@
 import { client } from '../../../src/client';
-import { AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-types';
+import { AddProductsToWishlistMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * mutation for the {@link addProductToWishList} method.
+ */
+export type AddProductsToWishlistMutation = { addProductsToWishlist: Mutation['addProductsToWishlist'] };
 
 /**
  * addProductToWishList response type

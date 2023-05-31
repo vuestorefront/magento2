@@ -1,8 +1,13 @@
 import { MethodBaseOptions } from '../../types';
-import { RevokeCustomerTokenMutation } from '@vue-storefront/magento-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link revokeCustomerToken} method.
+ */
+export type RevokeCustomerTokenMutation = { revokeCustomerToken: Mutation['revokeCustomerToken'] }
 
 /**
  * revokeCustomerToken response type

@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { ChangeCustomerPasswordMutation } from '@vue-storefront/magento-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+
+/**
+ * mutation type for the {@link changeCustomerPassword} method.
+ */
+export type ChangeCustomerPasswordMutation = { changeCustomerPassword: Mutation['changeCustomerPassword'] };
 
 /**
  * Parameters for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | changeCustomerPassword } method.

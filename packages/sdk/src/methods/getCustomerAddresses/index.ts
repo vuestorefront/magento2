@@ -1,8 +1,13 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { GetCustomerAddressesQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+
+/**
+ * query type for the {@link getCustomerAddresses} method.
+ */
+export type GetCustomerAddressesQuery = { customer: Query['customer'] };
 
 /**
  * getCustomerAddresses response type

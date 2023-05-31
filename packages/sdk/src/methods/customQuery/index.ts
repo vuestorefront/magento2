@@ -7,6 +7,9 @@ import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
  */
 export type CustomQueryResponse<T> = ApolloQueryResult<T>
 
+/**
+ * Custom query input type
+ */
 export type CustomQueryInput<TQueryVariables> = {
   query: string,
   queryVariables?: TQueryVariables,

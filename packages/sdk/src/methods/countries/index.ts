@@ -1,13 +1,18 @@
 import { CustomQuery, MethodOptions } from '../../types';
-import { CountriesListQuery } from '@vue-storefront/magento-types';
+import { Query } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
 /**
+ * query type for the {@link countries} method.
+ */
+export type CountriesQuery = { countries: Query['countries'] };
+
+/**
  * countries response type
  */
-export type CountriesResponse<T extends DeepPartial<CountriesListQuery> = CountriesListQuery> = ApolloQueryResult<T>
+export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQuery> = ApolloQueryResult<T>
 
 /**
  * Method to fetch list of countries

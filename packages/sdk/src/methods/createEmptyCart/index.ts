@@ -1,8 +1,13 @@
-import { MethodBaseOptions } from '../../types';
-import { CreateEmptyCartMutation } from '@vue-storefront/magento-types';
+import { Mutation } from '@vue-storefront/magento-types';
 import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { MethodBaseOptions } from '../../types';
+
+/**
+ * mutation type for the {@link createEmptyCart} method.
+ */
+export type CreateEmptyCartMutation = { createEmptyCart: Mutation['createEmptyCart'] };
 
 /**
  * createEmptyCart response type
