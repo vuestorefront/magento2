@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Magento configured - if you don't have your Magento2 configured, see our [Configuration](https://docs.vuestorefront.io/magento/installation-setup/installation.html) guide.
-- Install Node.js version 16.0
+- Install Node.js version >=16.0
 
 ## Using the integration
 
@@ -36,11 +36,22 @@ yarn add @vue-storefront/middleware
 ```javascript
 // middleware.config.js
 
-require('dotenv').config();
+import {config} from "dotenv";
 
-module.exports = {
-  integrations: {
-    magento: {
+config();
+
+const cookieNames = {
+  currencyCookieName: 'vsf-currency',
+  countryCookieName: 'vsf-country',
+  localeCookieName: 'vsf-locale',
+  cartCookieName: 'vsf-cart',
+  customerCookieName: 'vsf-customer',
+  storeCookieName: 'vsf-store',
+  messageCookieName: 'vsf-message'
+};
+
+export const integrations = {
+  magento: {
       location: '@vue-storefront/magento-api/server',
       configuration: {
         api: process.env.VSF_MAGENTO_GRAPHQL_URL,
@@ -54,14 +65,6 @@ module.exports = {
           path: process.env.VSF_COOKIE_PATH || '/',
         },
         defaultStore: 'default',
-        externalCheckout: {
-          enable: isCheckoutEnabled,
-          cmsUrl: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_URL,
-          syncUrlPath: process.env.VSF_MAGENTO_EXTERNAL_CHECKOUT_SYNC_PATH,
-          stores: {
-            default: isCheckoutEnabled,
-          },
-        },
         customApolloHttpLinkOptions: {
           useGETForQueries: true,
         },
@@ -79,8 +82,7 @@ module.exports = {
           customer_create_account_confirm: true,
         },
       },
-    },
-  },
+    }
 };
 ```
 
@@ -101,6 +103,7 @@ VSF_MAGENTO_BASE_URL=
 VSF_MAGENTO_GRAPHQL_URL=
 
 NUXT_IMAGE_PROVIDER=ipx
+
 ```
 
 5. Create a `middleware.js` file. This script is used to run the server middleware.
@@ -108,9 +111,9 @@ NUXT_IMAGE_PROVIDER=ipx
 ```javascript
 // middleware.js
 
-const { createServer } = require("@vue-storefront/middleware");
-const { integrations } = require("./middleware.config");
-const cors = require("cors");
+import {createServer} from "@vue-storefront/middleware";
+import {integrations} from "./middleware.config.js";
+import cors from 'cors';
 
 (async () => {
   const app = await createServer({ integrations });

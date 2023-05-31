@@ -2,14 +2,17 @@
 enterpriseTag: false
 hideToc: true
 ---
-# Magento 2 integration for Vue Storefront 2
+# Magento 2 integration
 
-This project is a Magento 2 integration for Vue Storefront 2.
+This Magento 2 Integration features an SDK and middleware which are framework-agnostic. Popular choices for frameworks include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
+These are great frameworks, but it's up to you which framework you use, or if you use a framework at all. The SDK is built using TypeScript and can be installed in any JavaScript or TypeScript application.
 
-If you already have access to an Magento 2 project, see the [core documentation](https://docs.vuestorefront.io/) to learn the basics of Vue Storefront and refer to this documentation for integration-specific bits.
+If you'd like a ready-to-go UI solution for eCommerce, consider using [Storefront UI](https://docs.storefrontui.io/v2/)
+
+:::tip
+You will need a Magento 2 project as a backend. If you don't already have one, you can run `npx @vue-storefront/cli m2-only` to quickly set up a local instance.
+For a more detailed guide to using the CLI to create a local Magento 2 instance see: [Magento Installation](./getting-started/magento.md)
+:::
 
 This integration is developed and maintained by the Vue Storefront team.
 
-## Demo
-
-If you'd like to see the integration in action, check out our [demo](https://demo-magento.vuestorefront.io/default) project.
