@@ -153,6 +153,8 @@ export {
   CreditMemoItem,
   CreditMemoItemInterface,
   CreditMemoTotal,
+  CrosssellProductsQuery,
+  CrosssellProductsQueryVariables,
   Currency,
   CurrencyEnum,
   CurrencyQuery,
