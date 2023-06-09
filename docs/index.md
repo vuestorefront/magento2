@@ -12,7 +12,7 @@ Quickly build your storefront with the Vue Storefront SDK for Magento. Connect y
 
 
 [Get Started](/getting-started/quick-start)
-[See on Github](https://github.com/vue-storefront/magento2-sdk)
+[See on Github](https://github.com/vue-storefront/magento2)
 
 :::
 
