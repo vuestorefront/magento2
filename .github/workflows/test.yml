@@ -31,10 +31,7 @@ jobs:
           node-version: '16.14'
 
       - name: Install dependencies
-        run: |
-          npm install -g npm-cli-login
-          npm-cli-login -u ${{ secrets.NPM_USER }} -p ${{ secrets.NPM_PASS }} -e ${{ secrets.NPM_EMAIL }}
-          yarn --frozen-lockfile
+        run: yarn --frozen-lockfile
 
       - name: Build packages
         run: yarn build
