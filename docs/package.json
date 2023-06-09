@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "NODE_OPTIONS=--max_old_space_size=12048 vuepress build",
+    "build": "NODE_OPTIONS=--max_old_space_size=32768 vuepress build",
     "api-extract": "cd ../ && yarn build && cd docs/ && yarn types-ref && yarn api-ref && yarn sdk-ref && yarn ref-md",
     "types-ref": "cd ../packages/api-types && api-extractor run --local",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",

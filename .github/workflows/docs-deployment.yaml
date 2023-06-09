@@ -2,7 +2,7 @@ name: Deploy Documentation
 on:
   push:
     branches:
-      - main
+      - fix/deploy-docs
   workflow_dispatch:
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
       - shell: bash
         run: |
           echo "1.0.`date +%s`" > version.txt
@@ -22,8 +22,8 @@ jobs:
       - name: Get the version
         id: get_version
         run: echo "VERSION=$(cat version.txt)" >> $GITHUB_OUTPUT
-      - name: Build and publish docker image
-        uses: elgohr/Publish-Docker-Github-Action@v5
+      - name: Build and publish docker image wiht docs for SAP CC
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: docs-storefrontcloud-io/v2-sdk-magento2:${{ steps.get_version.outputs.VERSION }}
           registry: registry.storefrontcloud.io
@@ -32,6 +32,12 @@ jobs:
           workdir: .
           dockerfile: ./.vuestorefrontcloud/docker/docs/Dockerfile
           buildoptions: "--compress"
+          buildargs: NPM_EMAIL,NPM_PASS,NPM_USER,NPM_REGISTRY
+        env:
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
+          NPM_PASS: ${{ secrets.NPM_PASS }}
+          NPM_USER: ${{ secrets.NPM_USER }}
+          NPM_REGISTRY: "https://registrynpm.storefrontcloud.io"
 
   deploy:
     runs-on: ubuntu-latest

@@ -1,13 +1,18 @@
 FROM node:16-alpine AS build
 
-WORKDIR /var/www
+ARG NPM_EMAIL
+ARG NPM_PASS
+ARG NPM_USER
+ARG NPM_REGISTRY
 
-RUN apk add --no-cache \
-    yarn
+WORKDIR /var/www
 
 COPY . .
 
-# Run dependencies needed to build API Refenrece
+RUN npm install -g npm-cli-login \
+  && npm-cli-login
+
+# Run dependencies needed to build API Reference
 RUN yarn install
 
 # Build docs
