@@ -1,2 +1,3 @@
 .vuepress/dist
-reference/api
+api.json
+reference
