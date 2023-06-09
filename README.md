@@ -13,12 +13,12 @@
 
 
 **This repository contains integration between Magento and Vue Storefront Middleware.**
-This integration is then consumed in the Nuxt 2 template that resides in [this repo](http://discord.vuestorefront.io](https://github.com/vuestorefront/storefront-nuxt2-magento2))!
+This integration is framework-agnostic and may be consumed in the framework of your choice.
 
 
-## Vue Storefront 2 integration with Magento
+## Magento 2 integration for Vue Storefront
 
-This project is a Magento 2 integration for Vue Storefront 2.
+This project is a Magento 2 integration for Vue Storefront.
 
 <hr />
 
@@ -61,9 +61,9 @@ php bin/magento setup:static-content:deploy
 Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
 
 ### Steps
-1. Build dependencies `yarn build:api-client && yarn build:composables`
+1. Build dependencies `yarn build`
     ```bash
-    yarn build:api-client && yarn build:composables
+    yarn build
     ```
 8. Run `yarn dev`. You can find other commands in `package.json`
     ```bash
