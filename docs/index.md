@@ -1,18 +1,66 @@
 ---
-enterpriseTag: false
+openSourceTag: true
 hideToc: true
 ---
-# Magento 2 integration
 
-This Magento 2 Integration features an SDK and middleware which are framework-agnostic. Popular choices for frameworks include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
-These are great frameworks, but it's up to you which framework you use, or if you use a framework at all. The SDK is built using TypeScript and can be installed in any JavaScript or TypeScript application.
+:::::: col-wrapper-hero
+::: col-1/2
 
-If you'd like a ready-to-go UI solution for eCommerce, consider using [Storefront UI](https://docs.storefrontui.io/v2/)
+# Magento 2 SDK
 
-:::tip
-You will need a Magento 2 project as a backend. If you don't already have one, you can run `npx @vue-storefront/cli m2-only` to quickly set up a local instance.
-For a more detailed guide to using the CLI to create a local Magento 2 instance see: [Magento Installation](./getting-started/magento.md)
+Quickly build your storefront with the Vue Storefront SDK for Magento. Connect your Magento 2 backend to any frontend framework with type-safe SDK methods.
+
+
+[Get Started](/getting-started/quick-start)
+[See on Github](https://github.com/vue-storefront/magento2-sdk)
+
 :::
 
-This integration is developed and maintained by the Vue Storefront team.
+::: col-1/2
 
+![Three images of a storefront on desktop and mobile](/hero.png)
+
+:::
+::::::
+
+:::::: col-wrapper-gap
+::: col-1/3
+<NavCard
+to='/getting-started/quick-start'
+title="Framework Agnostic"
+description="The Magento SDK is built using TypeScript and can be installed in any JavaScript or TypeScript application."
+:border="true"
+/>
+:::
+::: col-1/3
+<NavCard
+to='/key-concepts/sdk'
+title="Customizable"
+description="Need to customize the SDK or send custom queries to your backend? The SDK is fully customizable and extendable."
+:border="true"
+/>
+:::
+::: col-1/3
+<NavCard
+to='/getting-started/magento'
+title="Easy Local Development"
+description="Start your local development in minutes with our CLI tool that allows you to create a local Magento 2 instance."
+:border="true"
+/>
+
+:::
+::::::
+
+## Want to see other our SDK modules?
+
+The Magento 2 module is just one of many SDK modules that allow you to integrate with the various services needed to run your application. Add payment providers, CMS integrations, search engines and more to your storefront with Vue Storefront SDKs.
+
+:::read-more
+Want to see the [full list of SDK modules](https://docs.vuestorefront.io/sdk/modules/)?
+:::
+
+
+
+<VsfEcosystem />
+
+This integration is developed and maintained by the Vue Storefront team.

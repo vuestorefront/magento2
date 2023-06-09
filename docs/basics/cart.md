@@ -11,7 +11,7 @@ Using listed method you can implement the full cart functionality in your storef
 
 
 
-## Referencies
+## References
 | Method                                                                       | Description                                        |
 |------------------------------------------------------------------------------|----------------------------------------------------|
 | [cart](../reference/api/magento-sdk.cart.md)                                 | Method to fetch guest cart data                      |

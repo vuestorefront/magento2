@@ -41,11 +41,9 @@ Usually, Vue Storefront application comes with the `middleware.config.js` file l
 
 ```javascript
 // middleware.config.js
-module.exports = {
-  integrations: {
+export const integrations = {
 
-  }
-};
+}
 ```
 
 Every integration you register inside of this file must have a unique key provided in the installation guide of said extension. That key is used for communication with the middleware, so changing it might cause the integration to break.
@@ -54,8 +52,7 @@ Registered integrations should have a configuration matching the [Integration in
 
 ```javascript
 // middleware.config.js
-module.exports = {
-  integrations: {
+export const integrations = {
     magento: {
       location: '',
       extensions: (baseExtensions) => [
@@ -65,8 +62,7 @@ module.exports = {
       configuration: {},
       customQueries: {}
     }
-  }
-};
+}
 ```
 
 ## Running the server middleware
@@ -75,8 +71,8 @@ Running the server middleware requires the `@vue-storefront/middleware` package.
 ```javascript
 // middleware.js
 
-const { createServer } = require('@vue-storefront/middleware');
-const { integrations } = require('./middleware.config');
+import { createServer } from "@vue-storefront/middleware";
+import { integrations } from "./middleware.config.js";
 
 (async () => {
   const app = await createServer({ integrations });
@@ -137,8 +133,7 @@ To register an extension, add it to the array returned from the `extensions` fun
 the `middleware.config.js` file:
 
 ```js
-module.exports = {
-  integrations: {
+export const integrations = {
     magento: {
       // ...
       extensions: (extensions) => [
@@ -150,7 +145,7 @@ module.exports = {
       ]
     }
   }
-};
+}
 ```
 
 ### Example: Adding new API endpoints
@@ -159,8 +154,7 @@ To register a new API endpoint, you can register a custom extension and use the 
 endpoints cannot be registered directly. Let's look at an example:
 
 ```ts
-module.exports = {
-  integrations: {
+export const integrations = {
     magento: {
       // ...
       extensions: (extensions) => [
@@ -176,11 +170,10 @@ module.exports = {
         }
       ],
     }
-  }
-};
+}
 ```
 
-All integrations can be extended, however, based this example on the Magento 2 integration, to give more context about real-life usage. We registered `getProductBySku` in `extendApiMethods` which creates a new `/api/ct/getProductBySku` endpoint.
+All integrations can be extended, however, this example extends the Magento 2 integration, to give more context about real-life usage. We registered `getProductBySku` in `extendApiMethods` which creates a new `/api/magento/getProductBySku` endpoint.
 
 This method accepts two parameters:
 
@@ -197,7 +190,7 @@ This method accepts two parameters:
 To try it, you can run a simple `curl` command:
 
 ```bash
-curl '{SERVER_DOMAIN}/api/ct/getProductBySku`' \
+curl '{SERVER_DOMAIN}/api/magento/getProductBySku`' \
   -X POST \
   -H 'content-type: application/json' \
   -d '[{ "id": 1, "name": "John" }]'

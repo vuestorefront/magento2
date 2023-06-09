@@ -1,7 +1,7 @@
 # Misc
 In this section, we will cover the basics of various miscellaneous methods.
 
-## Referencies
+## References
 
 ### Confuguration
 Methdos in this section are used to fetch various configuration data.

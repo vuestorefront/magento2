@@ -6,7 +6,7 @@ Wishlist is a list of products that customers want to buy later. Using provided 
 
 :warning: **Because only logged in users can have a wishlist, all methods in this section require a valid access token stored in the `vsf-customer` cookie.**
 
-## Referencies
+## References
 | Method                                                                             | Description                                  |
 |------------------------------------------------------------------------------------|----------------------------------------------|
 | [addProductToWishlist](../reference/api/magento-sdk.addProductToWishlist.md)       | Method to add a product to wishlist          |

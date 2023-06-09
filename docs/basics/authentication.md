@@ -12,7 +12,7 @@ To access any user protected resource, you need to provide a valid access token.
 Once token is generated, you should store it in the `vsf-customer` cookie. This cookie is used by the Magento 2 integration to authenticate the user.
 Methods like `customer`, `customerCart`, `updateCustomer`, `changeCustomerPassword` require a valid access token stored in the `vsf-customer` cookie.
 
-## Referencies
+## References
 | Method                                                                | Description                       |
 |-----------------------------------------------------------------------|-----------------------------------|
 | [generateCustomerToken](../reference/api/magento-sdk.generateCustomerToken.md) | Method to generate customer token |

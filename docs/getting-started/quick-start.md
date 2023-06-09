@@ -1,37 +1,50 @@
 # Quick start
 
+Your Vue Storefront application has two parts:
+
+1. **Server Middleware** - an Express.js application that can connect to your various third-party services (like Magento).
+
+
+2. **Front-end application** - any application using JavaScript or TypeScript that can connect to the server middleware. Popular choices include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
+
+In this section, we will explain in a step-by-step guide how to use Magento 2 integration in each part of your Vue Storefront application.
+
+:::read-more
+Learn more about the Vue Storefront middleware layer in our [Key concepts: Middleware](../key-concepts/middleware.md) docs.
+:::
+
+:::read-more
+Learn more about the SDK in our [Key concepts: SDK](../key-concepts/sdk.md) docs.
+:::
+
 ## Prerequisites
 
-- Magento configured - if you don't have your Magento2 configured, see our [Configuration](https://docs.vuestorefront.io/magento/installation-setup/installation.html) guide.
+- Magento configured - if you don't have your Magento 2 configured, see our [Magento Installation](./magento.md) guide.
 - Install Node.js version >=16.0
 
-## Using the integration
 
-In this section, we will explain in a step-by-step guide how to use Magento2 integration in your front-end application.
+## Server Middleware
 
-### Middleware preparation
+The first step to setup your integration is to create and configure your server middleware layer to connect to your Magento 2 backend.
 
-:::tip Key concept - Middleware
-Middleware concept is described in detail in our [Key concepts: Middleware](../key-concepts/middleware.md) docs.
-:::
+For an example of a generic server middleware configuration, check out one of [our boilerplates](https://github.com/vuestorefront/integration-boilerplate/tree/main/playground/middleware).
 
 :::tip Already have the server middleware configured?
 If you have the server middleware configured, you can move directly to the [SDK](./quick-start.md#sdk-preparation)[ preparation](./quick-start.md#sdk-preparation) part.
 :::
 
-1. Install the API Client to communicate with Magento2. This package is used to create a server-to-server connection with the Magento2 backend and the server middleware.
+
+1. Install the dependencies needed to create your server middleware and to create a server-to-server connection with the Magento 2 backend and the server middleware.
 
 ```bash
-yarn add @vue-storefront/magento-api
+yarn add @vue-storefront/middleware @vue-storefront/magento-api 
+
+# npm install @vue-storefront/middleware @vue-storefront/magento-api
+
+# pnpm install @vue-storefront/middleware @vue-storefront/magento-api
 ```
 
-2. Install `@vue-storefront/middleware` package. This package is used to create the server middleware.
-
-```bash
-yarn add @vue-storefront/middleware
-```
-
-3. Create a file `middleware.config.js` with server middleware configuration.
+2. Create a file `middleware.config.js` with server middleware configuration.
 
 ```javascript
 // middleware.config.js
@@ -86,7 +99,7 @@ export const integrations = {
 };
 ```
 
-4. Configure environment variables in your `.env` file.
+3. Configure environment variables in your `.env` file.
 
 ```
 # .env
@@ -106,7 +119,7 @@ NUXT_IMAGE_PROVIDER=ipx
 
 ```
 
-5. Create a `middleware.js` file. This script is used to run the server middleware.
+4. Create a `middleware.js` file. This script is used to run the server middleware.
 
 ```javascript
 // middleware.js
@@ -140,37 +153,54 @@ import cors from 'cors';
 
 ```
 
-6. Your middleware is ready. You can start it by running `node middleware.js`
+5. Your middleware is ready. You can start it by running `node middleware.js`. Most likely, you'll want to setup this command as a script in your `package.json` file.
 
-### SDK preparation
-
-:::tip Key concept - SDK
-SDK is described in detail in our [Key concepts: SDK](../key-concepts/sdk.md) docs.
-:::
-
-1. Install the SDK package. It's the core of the SDK.
-
-```bash
-yarn add @vue-storefront/sdk
+```json
+{
+  // ...
+  "scripts": {
+    "start": "node middleware.js"
+  }
+  // ...
+}
 ```
 
-2. Install the Magento2 module. It extends the SDK core with methods to communicate with Magento2.
+## Configuring the SDK
+
+Now, let's configure the SDK in the frontend part of your application to communicate with the server middleware. 
+
+1. Install the SDK package and the Magento 2 module. These packages will allow you to create an instance of the SDK and then extend it with methods to communicate with Magento 2 via your server middleware.
 
 ```bash
-yarn add @vue-storefront/magento2-sdk
+yarn add @vue-storefront/sdk @vue-storefront/magento-sdk
+
+# npm install @vue-storefront/sdk @vue-storefront/magento-sdk
+
+# pnpm install @vue-storefront/sdk @vue-storefront/magento-sdk
 ```
 
-3. Initialize the SDK. Configure Magento2 module with `apiUrl` that points to the server middleware.
+2. Initialize the SDK. Configure Magento 2 module with `apiUrl` that points to the server middleware.
 
-```javascript
+```ts
 import { buildModule, initSDK } from '@vue-storefront/sdk';
-import { magentoModule } from '@vue-storefront/sdk/magento-sdk';
+import { magentoModule, MagentoModuleType } from '@vue-storefront/sdk/magento-sdk';
 
 const sdkConfig = {
-  magento: buildModule(magentoModule, { apiUrl: 'http://localhost:8181/magento' })
+  magento: buildModule<MagentoModuleType>(magentoModule, { 
+    apiUrl: 'http://localhost:8181/magento'
+  })
 };
 
 export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
 ```
 
-4. Your SDK is ready and you can call methods with `sdk.magento.<METHOD_NAME>`. To see a full list of methods offered by the Magento2 module, check out the [API Reference](../reference/api/index.md).
+3. Your SDK is ready! You can now import it in the different parts of your frontend application and call methods with `sdk.magento.<METHOD_NAME>`. To see a full list of methods offered by the Magento 2 module, check out the [API Reference](../reference/api/index.md).
+
+For example, we can call the `products` method to fetch products from Magento 2.
+
+```ts
+import { sdk } from './sdk';
+const products = await sdk.magento.products({})
+// returns ProductInterface[]
+
+```

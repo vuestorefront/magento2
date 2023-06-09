@@ -6,7 +6,7 @@ Checkout in e-commerce is the process of selecting and paying for items in a sho
 
 We provide a set of methods that allow you to implement the full checkout functionality in your storefront integration. These methods are divided into two groups: guest checkout methods and customer checkout methods. Guest checkout methods are used when the customer is not logged in, while customer checkout methods are used when the customer is logged in.
 
-## Referencies
+## References
 
 | Method                                                                                                       | Description                                        |
 |--------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
