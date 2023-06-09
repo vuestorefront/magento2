@@ -6760,9 +6760,9 @@ minimist-options@4.1.0:
     kind-of "^6.0.3"
 
 minimist@^1.2.0, minimist@^1.2.5, minimist@~1.2.0:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
 minimist@^1.2.6:
   version "1.2.7"
@@ -10583,10 +10583,10 @@ vuepress-plugin-smooth-scroll@^0.0.3:
   dependencies:
     smoothscroll-polyfill "^0.4.3"
 
-vuepress-theme-vsf-docs@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.npmjs.org/vuepress-theme-vsf-docs/-/vuepress-theme-vsf-docs-1.3.1.tgz#7eda0989976b74b142ebd3c2782442809942dbd1"
-  integrity sha512-F3U1j9YWrwkWFCAudcOQRAgamgQ4r8Z0dfSY1LP9blcX6p1UKMRyR5JCf390aSjH+QKpiGwRbB/yQTOqv24N3A==
+vuepress-theme-vsf-docs@^1.1.0-alpha.8:
+  version "1.1.0-alpha.8"
+  resolved "https://registry.npmjs.org/vuepress-theme-vsf-docs/-/vuepress-theme-vsf-docs-1.1.0-alpha.8.tgz#bbdcd3636b54b718f23fcf551d8d1283542ffe6d"
+  integrity sha512-jR8x/ZIONRdQfarAN11qHK9uxvKFn31Pxv9CPRtsIQ+p5puwO+2fFH08U3vUpW5tgMLX5UjWHCnoKyTvRj25WQ==
   dependencies:
     "@vuepress/plugin-active-header-links" "1.9.7"
     "@vuepress/plugin-nprogress" "1.9.7"
