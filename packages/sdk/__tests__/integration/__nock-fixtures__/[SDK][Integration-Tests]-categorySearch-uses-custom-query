@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+categorySearch%28%24filters%3ACategoryFilterInput%29%7BcategoryList%28filters%3A%24filters%29%7Bavailable_sort_by+__typename%7D%7D&operationName=categorySearch&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b08000000000000032dcb310a80300c05d0bbfcd913647575741309518314622b6d144ae9dd5d7cfb6b38c405d4b08beb99729d4271d0d220af0493cd944bcace5b05c5c76c00b3d75ba35c0ac2f8b739aba2afbd7f15e01d4e52000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Fri, 14 Apr 2023 12:35:21 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "95",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_c,cat_c_2",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "194491561 219414242",
+            "Age",
+            "345",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

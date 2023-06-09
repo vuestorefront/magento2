@@ -1,6 +1,4 @@
-import gql from 'graphql-tag';
-
-export default gql`
+export default `
   query customerProductReview($pageSize: Int = 10, $currentPage: Int = 1) {
     customer {
         reviews(pageSize: $pageSize, currentPage: $currentPage) {

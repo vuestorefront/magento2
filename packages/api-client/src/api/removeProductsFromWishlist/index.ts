@@ -1,12 +1,9 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CustomQuery, RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import removeProductsFromWishlist from './removeProductsFromWishlist';
-import {
-  RemoveProductsFromWishlistMutation,
-  RemoveProductsFromWishlistMutationVariables,
-} from '../../types/GraphQL';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
@@ -26,7 +23,7 @@ export default async (
   );
 
   return context.client.mutate<RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables>({
-    mutation: removeProductsFromWishlistGQL.query,
+    mutation: gql`${removeProductsFromWishlistGQL.query}`,
     variables: removeProductsFromWishlistGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

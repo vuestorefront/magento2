@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+upsellProducts%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Bupsell_products%7Buid+__typename+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D%7Duid+__typename%7D__typename%7D%7D&operationName=upsellProducts&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A20%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ed996b6fda3a18c7bf0af2eba6dc5b40da8bb5d38e7aa6765d595f1da6c8494c70719cc81728aafaddcfe3249492958d3401b289372db11f3f97bf2f3f3979421e56180d9e5024424fbb4a9adf5491007efcf78474240963f6aad3b4510f0dd0f5b70f1fd009b26db58808c70181b6210d22466e1363e894530dadad8e757dd168c2736af66fa8a5aa7dd2e33123b50bec1b4b15ba535b2aac3404415737f6f0fbd7cb2fd01372b6b01f6d46c6caa6dc8e0dd1806bc64e90c08a72df963a08b058a041b77182d444070ec7949942b4807f68a2542407a3faa81e609f7015b62cca211677c9e94c137029c858845c9dd2106c8847f1a8ee822e2cf447f5b476d3e24ec8a84ebafd8e73de779db1439cb34eafd7ee357bdd73d2c57de7acd9ed818751dd81bf4ea369394c13ab71fa109922a350524543be4cdfa3123b8c78cb67861d62f2bd326966b54d554dfa9e4f4c69f69440d1e8c1c86979b19c9613cb693a05990b98c874ce6221b296a71315b06ca07bc1ee92a1106639d227588cea45c7c310f90e2f3f403a415d620bcca17898d7003fd2400776dc6c1ac69463b67a74b51084bb469dfbe127f03dc3301168d0ee64c25c871c34043905f135c3a2888bb7a6eb3676079d01e57f58c6994e68bd8be5872ed81bc40f05256b07c23c3e10d201ffc084a70b51c24cd347685b4eb4698cb09aa4eb025a1c41b0e70ad8b972b919d6c25f260117df054957551cf2e6e3eb907092c82d43264b311b184a492b5bd8eb65bc34ff9cfa5a9e172feee255fb8b1a7e98099c5132b7dd50738506ad6543e604c6332260cbdbc95987069dc6f2dc93b6c97eea85731e5ba671ee12c397e947ad0d47c95d1c2e35ff29dd35a358f36c2667b933699791c92fbb257a5e2d8f6b3f1fa23aabb5345482ce486d380935f388a8dd62a04e5998ea570c531dc014d4b76b4ec958534ba69a5a51a2e90656bd659d9737c57cb82163c43542c8a2ae5ee3ef5d9eca4360ab571c28adbd22f070191f11b84b04ae6a5893ed72b5edb628c55db3ce27e2bb19dc6ce4465f774710eee5cea4b36708cff341b8fd6a2508a8a536046c5205f744771a9549e1b3f36a51b8bd1f0abb46544bc6a2c2edeb45d40d187ed33c2ff84a7192d0f37dae4abc419600a38d2e7673833c58c6477ceef506d9de925e074246756e90d5c9647b8cdee4bccbb656abfab3968091bf1fa02dcb1778b16b7e8e6335b72067c6302fee0a0e4f6899d749799cecf60b5367b38b9d70f270191f3959494e56e896571d501ee8f5730e50e6b96fdeaf81f22a88349324fd32591a277bd578ddab634e6ac3c9bd5c3469a266faa16f3327d7edf272aed8e88492397d9407c9f3e21ff736bbd809240f97f11192474856f255687570fd5b488241ba391e3e36deba515e867c4c7d2dccf9bfc4e526b7c6e1f3ff028d2c8540240000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 19 Apr 2023 07:27:47 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "1044",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c_7,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "896770 295490",
+            "Age",
+            "87151",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

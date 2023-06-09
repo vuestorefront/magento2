@@ -1,9 +1,14 @@
 import type { FetchResult } from '@apollo/client/core';
-import type { CustomQuery } from '@vue-storefront/core';
+import type {
+  CustomHeaders,
+  CustomQuery,
+  SetShippingMethodsOnCartInput,
+  SetShippingMethodsOnCartMutation,
+  SetShippingMethodsOnCartMutationVariables,
+} from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
-import type { SetShippingMethodsOnCartInput, SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables } from '../../types/GraphQL';
 import type { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -28,7 +33,7 @@ export default async function setShippingMethodsOnCart(
   });
 
   return context.client.mutate<SetShippingMethodsOnCartMutation, SetShippingMethodsOnCartMutationVariables>({
-    mutation: setShippingMethodsOnCartGQL.query,
+    mutation: gql`${setShippingMethodsOnCartGQL.query}`,
     variables: setShippingMethodsOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

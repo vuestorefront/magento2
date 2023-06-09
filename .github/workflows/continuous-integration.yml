@@ -1,0 +1,15 @@
+name: VSF Continuous Integration
+
+on:
+  pull_request:
+    types: ['opened', 'edited', 'reopened', 'synchronize']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  continous-integration:
+    name: "Continuous Integration"
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@main
+    secrets: inherit

@@ -1,9 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CurrencyQuery } from '../../types/GraphQL';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CurrencyQuery, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import currencyQuery from './currency';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -25,7 +25,7 @@ export default async function currency(
   });
 
   return context.client.query<CurrencyQuery>({
-    query: currencyGQL.query,
+    query: gql`${currencyGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

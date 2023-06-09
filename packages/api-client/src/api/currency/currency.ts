@@ -1,9 +1,6 @@
-import gql from 'graphql-tag';
-
-/** GraphQL Query that fetches the currency information. */
-export default gql`
+export default `
   query currency {
-    currency{
+    currency {
       available_currency_codes
       base_currency_code
       base_currency_symbol

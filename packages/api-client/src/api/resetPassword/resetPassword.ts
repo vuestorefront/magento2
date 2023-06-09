@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation that resets a users's password */
-export default gql`
+export default `
   mutation resetPassword($email: String!, $newPassword: String!, $resetPasswordToken: String!){
     resetPassword(email: $email, newPassword: $newPassword, resetPasswordToken: $resetPasswordToken)
   }

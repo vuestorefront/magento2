@@ -1,12 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CustomerAvailableShippingMethodsQuery, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import CustomerAvailableShippingMethods from './CustomerShippingMethods';
-import {
-  CustomerAvailableShippingMethodsQuery,
-} from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
 /**
@@ -31,7 +28,7 @@ export default async function getAvailableCustomerShippingMethods(
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
-      query: shippingMethods.query,
+      query: gql`${shippingMethods.query}`,
       context: {
         headers: getHeaders(context, customHeaders),
       },

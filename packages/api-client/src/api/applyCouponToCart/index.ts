@@ -1,12 +1,13 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import type { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
   ApplyCouponToCartInput,
   ApplyCouponToCartMutation,
   ApplyCouponToCartMutationVariables,
-} from '../../types/GraphQL';
+  CustomQuery,
+} from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
+import type { Context } from '../../types/context';
 import applyCouponToCartMutation from './applyCouponToCart';
 import getHeaders from '../getHeaders';
 
@@ -32,8 +33,9 @@ export default async function applyCouponToCart(
       },
     },
   );
+
   return context.client.mutate<ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables>({
-    mutation: applyCouponToCartGQL.query,
+    mutation: gql`${applyCouponToCartGQL.query}`,
     variables: applyCouponToCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

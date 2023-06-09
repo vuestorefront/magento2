@@ -11,6 +11,7 @@ on:
       - main
       - develop
       - release/*
+      - feat/sdk
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -27,18 +28,16 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: '16.13.0'
+          node-version: '16.14'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn --frozen-lockfile
 
       - name: Build packages
         run: yarn build
 
-        # typescript-eslint needs all packages to be built
-        # to check type-related linting rules
-      - name: Check for linting errors
+      - name: Lint code
         run: yarn lint
 
-      - name: Test API Client
-        run: yarn test:api-client
+      - name: Test packages
+        run: yarn test:coverage

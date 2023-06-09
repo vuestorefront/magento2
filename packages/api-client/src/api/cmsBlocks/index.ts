@@ -1,9 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CmsBlockQuery, CmsBlockQueryVariables } from '../../types/GraphQL';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CmsBlockQuery, CmsBlockQueryVariables, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import cmsBlocks from './cmsBlocks';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -30,7 +30,7 @@ export default async function getCmsBlocks(
     },
   );
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
-    query: cmsBlocksGQL.query,
+    query: gql`${cmsBlocksGQL.query}`,
     variables: cmsBlocksGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Query that fetches the category list. */
-export default gql`
+export default `
   query categoryList {
     categories {
       items {

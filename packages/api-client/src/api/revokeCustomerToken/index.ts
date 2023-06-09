@@ -1,9 +1,9 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { RevokeCustomerTokenMutation } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import revokeCustomerToken from './revokeCustomerToken';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import { RevokeCustomerTokenMutation } from '../../types/GraphQL';
 import getHeaders from '../getHeaders';
 
 /**
@@ -11,19 +11,10 @@ import getHeaders from '../getHeaders';
  */
 export default async (
   context: Context,
-  customQuery: CustomQuery = { revokeCustomerToken: 'revokeCustomerToken' },
   customHeaders: CustomHeaders = {},
-): Promise<FetchResult<RevokeCustomerTokenMutation>> => {
-  const { revokeCustomerToken: revokeCustomerTokenGQL } = context.extendQuery(customQuery, {
-    revokeCustomerToken: {
-      query: revokeCustomerToken,
-    },
-  });
-
-  return context.client.mutate<RevokeCustomerTokenMutation>({
-    mutation: revokeCustomerTokenGQL.query,
-    context: {
-      headers: getHeaders(context, customHeaders),
-    },
-  });
-};
+): Promise<FetchResult<RevokeCustomerTokenMutation>> => context.client.mutate<RevokeCustomerTokenMutation>({
+  mutation: gql`${revokeCustomerToken}`,
+  context: {
+    headers: getHeaders(context, customHeaders),
+  },
+});

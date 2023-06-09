@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "./lib",
+    "esModuleInterop": true,
+    "target": "ES2019",
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "lib": ["ES2019", "dom"],
+    "strict": false,
+    "preserveSymlinks": true,
+    "resolveJsonModule": true,
+    "allowJs": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "**/*.mock.ts",
+    "__mocks__",
+    "__tests__",
+    "__config__"
+  ],
+  "include": ["src"]
+}
+

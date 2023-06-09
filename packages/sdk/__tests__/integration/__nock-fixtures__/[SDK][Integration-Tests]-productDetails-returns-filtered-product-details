@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+productDetails%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Buid+sku+name+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Drating_summary+review_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7Dsmall_image%7Burl+position+disabled+label+__typename%7Dimage%7Burl+position+disabled+label+__typename%7Dmedia_gallery%7Burl+position+disabled+label+__typename%7Dthumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dmeta_description+meta_keyword+meta_title+description%7Bhtml+__typename%7Dshort_description%7Bhtml+__typename%7Doptions_container+special_to_date+...on+ConfigurableProduct%7Bconfigurable_options%7Battribute_code+attribute_uid+label+position+uid+use_default+values%7Blabel+swatch_data%7Bvalue+__typename%7Duid+__typename%7D__typename%7D__typename%7D...on+DownloadableProduct%7Bdownloadable_product_samples%7Bsample_url+title+__typename%7Ddownloadable_product_links%7Bid+price+title+uid+__typename%7D__typename%7D...on+VirtualProduct%7Bgift_message_available+product_links%7Blink_type+linked_product_sku+linked_product_type+position+sku+__typename%7D__typename%7D...on+GroupedProduct%7Bitems%7Bposition+qty+product%7Buid+sku+name+stock_status+only_x_left_in_stock+price_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dthumbnail%7Burl+position+disabled+label+__typename%7D__typename%7D__typename%7D__typename%7D__typename%7D__typename%7D%7D&operationName=productDetails&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A20%2C%22currentPage%22%3A1%2C%22filter%22%3A%7B%22sku%22%3A%7B%22eq%22%3A%22WSH12%22%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003e558eb53db3810ff5734bee9f54b425e3c420e3ad352e68e9b425b42dbe39a8e47b6d7b68a2c7924999030fcefb7f22390174dc875ae73e503d8ab7dfc7eab5d69cdad1350439ddead932a1964bed1f6991948f0e1f3ad93b1c0e939a75f5f36cfa2c343a7e6e8ab0c059ffa7fb4daf8266802f87aacd81525e799104c44a41f4b6570d1c459e209cab8759929fce3c4c6a4ba37680c1a098d4018d9ae33a10d153e6c5d67a08d54102a29cc1693a80301a383868f08b98c068d12a295f8310c1ab0b3bfedededfb5ee881b7bbdded76baadeece1eecd07d6fb7b5d31d34868386c6df3a6eb5eb9102106e4299705b5b5fd30811a65233c3a4707a22e3bce6044c538f4350bd73ea015fcacf75cd28853205ef0a6c2796977357b37cdd2b18e10a58e3ba2a8cebba34b6eb0a860a535d663a4fd002e5add8247c36dc07c5cf0b6b0c56190f650262d0f0a43132d1f5f235773279db28802f3907df664ce79e445d812f13741ce80d5dff1bf016f37f8acb2f3507ab0e22a918cc34c2e17dd97fb201cabdd45918b21b1456bead30a526ae70a1c85340035f6157e8aac2a6101c1521471758a905ad32e8c983a0af0a76ab869d49c72c0a6456121db933ac26f2054ca660bf9a38cc13b71aa5e801a5bca19eca68bac0bf37bfdabcbffb0d59ea717e13364ee0f8fde1d4f92bc8f9a41557c8e4639dbc76a52266450d7617864c12aaf0d4db6ba20cae190c5d5f66c238bded4a3073c3d06b507866ba8507a7d76a362b77dab538ae023914b96a19fcbcd0ac39d7946756b0b3e4303ecfe395ea73999d52ca533b0ba5bd3692d67742b2bb3692ce7742f25f6dcfa3cbdadeb83aa19cbb2cbf807fc281e3a7259e637723dc7cb027cfe71f3e03ad87f443ca35dcf3ff06d91f871be5a6b5805bfbffc0cda3fed5026e9d2773fb62abd4503700ed2b963e6c845c8e1f0a43a98229996186c3a45d1e1ade3af97dde730ed2172f0942a686e43310193213134a3c198cea711645b687d09445a2464c0c64417711a6490a2ac461808452113b2783d264184b9262a241a1c39019034119040fff18a526a622776a140df20c514e3c1a4523724d716c36a3ad03dc8e170381307ff590c66fa40f349434213884185082944379e1586f1d788a0c1a95f231a7da309f0c29d3c6a3229859ef8b2cb2c866c4dbcf9f13ac17a0c9ccc2deee33cb286159423c95e918199d8db814a843dadbcf483fc5207053c09eddd02399a41c6e2ee0c67cccef357be358d8eee2bd59c55ee6461a272461f0a800950f66e5b3fdbcd629f88c72d748173fd327d5803a218b32654bd12d9d14b394318a79990174194031e649858eee178af1f1edc5a91d1fabea3d2ad5a6cea842f3b2bd9ffd9d7011fcf5677c99dcf037e393e1d9ebcbebd243a6011310d28c9b494fe4f77e01a80af0bbed2b4b68488d1fbbd5ff1caa09e1979d0eedb6bbf3394358fddce4b5b5b85b0eea6afc66fc613cefe03e516547be2dd2f5b1c0684f9d0ae3bb4ce10e3d0212c24e10869b829c1bccd602798e67cf728461d8c49f4d116eaf8f70eeab65a9453154ced6a966635850a6a717ef9b0fcab45f68dd5769f35b555a3a58b14af30a5c92dbf9eab4adbc5a568f9b6747dd9bb3f1f1e1467bdfde7f04defee6f04e3683d7692e87d7992bcaf5e19d6e08aff508bcb9efb6f5e1bddf105efb1178edcde17d7802bc75ba7a05dda51f71687e77f70f61fe84ff8a160000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Thu, 13 Apr 2023 10:33:03 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046,cat_c,cat_c_20,cat_c_22,cat_c_28,cat_c_34",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "219051186",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

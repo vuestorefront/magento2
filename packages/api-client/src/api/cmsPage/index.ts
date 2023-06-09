@@ -1,9 +1,10 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, Logger } from '@vue-storefront/core';
-import { CmsPageQueryVariables, CmsPageQuery } from '../../types/GraphQL';
+import consola from 'consola';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CmsPageQuery, CmsPageQueryVariables, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import cmsPage from './cmsPage';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -30,9 +31,8 @@ export default async function getCmsPage(
       },
     );
 
-    return await context.client
-      .query<CmsPageQuery, CmsPageQueryVariables>({
-      query: cmsPageGQL.query,
+    return await context.client.query<CmsPageQuery, CmsPageQueryVariables>({
+      query: gql`${cmsPageGQL.query}`,
       variables: cmsPageGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),
@@ -41,7 +41,7 @@ export default async function getCmsPage(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      Logger.debug(error);
+      consola.debug(error);
 
       return {
         ...error,
@@ -49,7 +49,7 @@ export default async function getCmsPage(
         data: null,
       };
     }
-    Logger.error(error);
+    consola.error(error);
     throw error.networkError?.result || error;
   }
 }

@@ -1,9 +1,8 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CustomerQuery } from '../../types/GraphQL';
+import { ApolloQueryResult, gql } from '@apollo/client/core';
+import { CustomQuery, CustomerQuery } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import customer from './customer';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -24,7 +23,7 @@ export default async (
   );
 
   return context.client.query<CustomerQuery>({
-    query: customerGQL.query,
+    query: gql`${customerGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

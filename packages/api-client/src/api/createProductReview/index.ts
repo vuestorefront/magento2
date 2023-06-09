@@ -1,10 +1,10 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CreateProductReviewInput, CreateProductReviewMutation } from '@vue-storefront/magento-types';
 import { GraphQLError } from 'graphql';
-import { CreateProductReviewMutation, CreateProductReviewInput } from '../../types/GraphQL';
+import gql from 'graphql-tag';
 import createProductReview from './createProductReview';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 
@@ -14,7 +14,6 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   input: CreateProductReviewInput,
-  customQuery: CustomQuery = { createProductReview: 'createProductReview' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<CreateProductReviewMutation>> => {
   const {
@@ -35,19 +34,9 @@ export default async (
     }
   }
 
-  const { createProductReview: createProductReviewGQL } = context.extendQuery(
-    customQuery,
-    {
-      createProductReview: {
-        query: createProductReview,
-        variables: { input: variables },
-      },
-    },
-  );
-
   return context.client.mutate<CreateProductReviewMutation, { input: CreateProductReviewInput }>({
-    mutation: createProductReviewGQL.query,
-    variables: createProductReviewGQL.variables,
+    mutation: gql`${createProductReview}`,
+    variables: { input: variables },
     context: {
       headers: getHeaders(context, customHeaders),
     },

@@ -1,11 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import {
-  AvailableStoresQuery,
-} from '../../types/GraphQL';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { AvailableStoresQuery, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import availableStores from './availableStores';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -26,7 +24,7 @@ export default async (
   );
 
   return context.client.query<AvailableStoresQuery>({
-    query: availableStoresGQL.query,
+    query: gql`${availableStoresGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

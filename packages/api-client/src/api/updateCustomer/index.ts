@@ -1,13 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import updateCustomer from './updateCustomer';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
-  CustomerUpdateInput,
-  UpdateCustomerMutation,
-  UpdateCustomerMutationVariables,
-} from '../../types/GraphQL';
+  CustomerUpdateInput, CustomQuery, UpdateCustomerMutation, UpdateCustomerMutationVariables,
+} from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
+import updateCustomer from './updateCustomer';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -30,7 +28,7 @@ export default async (
   );
 
   return context.client.mutate<UpdateCustomerMutation, UpdateCustomerMutationVariables>({
-    mutation: updateCustomerGQL.query,
+    mutation: gql`${updateCustomerGQL.query}`,
     variables: updateCustomerGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

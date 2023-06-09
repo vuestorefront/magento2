@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Query that searches for categories using filters. */
-export default gql`
+export default `
   query categorySearch($filters: CategoryFilterInput) {
     categoryList(filters: $filters) {
       include_in_menu

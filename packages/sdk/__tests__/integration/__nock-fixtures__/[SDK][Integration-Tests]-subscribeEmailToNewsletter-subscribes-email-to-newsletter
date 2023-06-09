@@ -1,0 +1,63 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "subscribeEmailToNewsletter",
+            "variables": {
+                "email": "user-1@vsf-1.local"
+            },
+            "query": "mutation subscribeEmailToNewsletter($email: String!) {\n  subscribeEmailToNewsletter(email: $email) {\n    status\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa562a2e4d2a4e2eca4c4a75cd4dcccc09c9f74b2d2fce492d29492d02cb96249694162b592905873a053b07793ab9ba28e928c5c7975416a4e625e6a68264701ae05f5a52505aa2545b5b0b00f9d1066b6f000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 15 May 2023 12:37:33 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "103",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=8pkvf70smq6528p8s6s061hf8j; expires=Mon, 15-May-2023 13:37:32 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=4fc87c6d5fbd5ebf32c50d06dcfd9fb3; expires=Thu, 12-May-2033 12:37:32 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=bea12e9d11344167c859dcb5bd583c4b; expires=Thu, 12-May-2033 12:37:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=8531855733a7045c246e317a54949b3f; expires=Thu, 12-May-2033 12:37:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "17371754",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

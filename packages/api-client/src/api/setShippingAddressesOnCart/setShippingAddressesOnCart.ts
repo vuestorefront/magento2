@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation that sets a shipping address on received cart. */
-export default gql`
+export default `
   mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {
     setShippingAddressesOnCart(input: $input) {
       cart {

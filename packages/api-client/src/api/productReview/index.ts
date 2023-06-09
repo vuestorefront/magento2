@@ -1,14 +1,16 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomHeaders,
+  CustomQuery,
+  GetProductSearchParams,
   ProductAttributeFilterInput,
   ProductAttributeSortInput,
   ProductReviewQuery,
   ProductReviewQueryVariables,
-} from '../../types/GraphQL';
+} from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import productReview from './productReview';
 import { Context } from '../../types/context';
-import { GetProductSearchParams, CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {
@@ -54,7 +56,7 @@ export default async (
 
   try {
     return await context.client.query<ProductReviewQuery, ProductReviewQueryVariables>({
-      query: productReviewGQL.query,
+      query: gql`${productReviewGQL.query}`,
       variables: productReviewGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+cart%28%24cartId%3AString%21%29%7Bcart%28cart_id%3A%24cartId%29%7Bid+email+is_virtual+applied_coupons%7Bcode+__typename%7Dprices%7Bsubtotal_excluding_tax%7Bvalue+__typename%7Dsubtotal_including_tax%7Bvalue+__typename%7Dapplied_taxes%7Bamount%7Bvalue+__typename%7Dlabel+__typename%7Ddiscounts%7Bamount%7Bvalue+__typename%7Dlabel+__typename%7Dgrand_total%7Bvalue+__typename%7D__typename%7Ditems%7Buid+product%7Buid+__typename+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D%7Dprices%7Brow_total%7Bvalue+__typename%7Drow_total_including_tax%7Bvalue+__typename%7Dtotal_item_discount%7Bvalue+__typename%7D__typename%7Dquantity+...on+ConfigurableCartItem%7Bconfigurable_options%7Bconfigurable_product_option_uid+option_label+configurable_product_option_value_uid+value_label+__typename%7Dconfigured_variant%7Bsku+thumbnail%7Burl+__typename%7D__typename%7D__typename%7D...on+BundleCartItem%7Bbundle_options%7Buid+label+type+values%7Bid+label+price+quantity+__typename%7D__typename%7D__typename%7D__typename%7Dtotal_quantity+shipping_addresses%7Bfirstname+lastname+street+city+company+region%7Bcode+region_id+label+__typename%7Dpostcode+telephone+country%7Bcode+label+__typename%7Dselected_shipping_method%7Bcarrier_code+carrier_title+method_code+method_title+amount%7Bvalue+currency+__typename%7D__typename%7D__typename%7Dbilling_address%7Bfirstname+lastname+street+city+company+region%7Bcode+region_id+label+__typename%7Dpostcode+telephone+country%7Bcode+label+__typename%7D__typename%7D__typename%7D%7D&operationName=cart&variables=%7B%22cartId%22%3A%22pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp%22%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003dd585b4fe33814fe2bc8cfbdd276a654425aa68c46cc5086a1a05d9622cb49dcd45bc7ce384e6f88ffbec78e93de280bedae34da0720b6cff53b171ff38402a209ea3c219f286dfeb2007550dcedd7e6631ad77963fa855f7febcf7fbffcfab335f4eae7b38b1f7e8c4a88468471209d24c34a44422ab4ac30a169a888665254344d74254da8fa2d3494155f46c0c5123c614aa70458878427b484481c734603eccb349622411d91725e42b1623e4d8c4549ea69a909c774e6f3346022c49accccc984f094a24eb3554218eb794c0589608d7a52d0397a2e2d5999782f6b6e16d01b331e1e4b2860091829746123f82a80c2687893ccb5dd2e007e9d3909474cd3c8a87942a98d40eff66c0a3fa7c8202183d4b7c1c9ceae16e11c6d4a9362c8c254118fd36bc700fe8f5323ebbad68485a3eca73155424ec8513f964a1f5d136149b5f4c738d144a76007bab8c2fddbefdd6f7022059fe319e674a801476c0973044cb001d4248d22a2e6a8d306dff5288d3c61b3032c562649465ac74967501d545daa1c9799005dc2a795490a9922151d2a29748549a0a1012383aa0f99c96538a83a00cc8e3fa2832a6d9d34bd8f27be37f4a8f7a1d96e37daf576eb236d9113ef43bdd50609c004bfe35ab30c319a63c84081eb95bfe2d0e02913665234f701c26a500bf235271ee5bb815a83dd417d61dc32610477f11882dd81d473dce5c47097e38cdb10283a55106f176e0bd04bd495918ef8a6c23bc56f327650977347540caa9ed45a4649d92e0cbffb3c4c34601f498356920b259c1f2af45fb06bdbe5bde43dba4683a192218290b01199b1288db0dd361b4326a081144b3f558a0adf84f8ae7f0eb2ffb1ea150d534ed421225eca39db3bcc61c4c45e16376a075bbc5bc4ab166f1cc2ee8d851f8ea0e8692815a3ebcdf0f3e9b281f5a8708594a4c32183768ef2389bcd98e8519620b0e1294a025f41432a9af64613b6eae6b78abaec720a7b2b0a3f6569f636a56b59b969c1c353eee01caf7953ec6e79b066eea742984dddb7b912aeb8627ad83e8eac7494ffd2a7d2b6ac25f83be46d027e30608b8b3d007bb14fbe3b011f4ded4d189d623b68404bc837ec24b41c12c8842ab8727076ffc2bd5bcbefe2041b95e3404e85a5747a6e32c2a2725173c7557663d539f22dccd6882c68bfae25f5dabb4d69fdbf4079f518c6cee7d5315bc9e93b46d9827a8fd1daf14132e37ca45ee17bdb9562a6e70b90b09ca07fa650764cc31d55875eb1320e6319dbc2cc5ad5ea811b2c1d01ceeafffef824fd33e222f8e3ebe83e9af1cb85dfecb176ab373d357dc1d1e643625772a950e955b9d6b19dd2c78bcbc5dd220f7d21f80b3484ad76d6a79cfa9a06abd3fe77ab24eb9dfb3a37bb3afff182737db6a007f9f6b976d505e10bff74cbbfc65686bfe6dce3d20a78934d8862244b9ae50ba7dc689673d07eb5270858b5fe0679f511b18e0a8be2e5936eab0c56b0ca4bc2a295d5d85a4d242316c7a64e4910289a246ec41a32956827eeab1c19f8382976ce25b58f437001f07e407dfb7554874df7798c4c70ac127445a747f7528d6dd244700fce8b87220ded93cb246960049f5da27c179beca92f1f5e67f04122b2f5c405ffce32d36f3269cff631a79d44e8f7356397863c8a47d035ccde71e3c8fd589ba0d598676a61c55d1f2df5dac52e955dc76bfeabe01215178846548f64f0e205df77342ba26c803cc6f94a30760c070a42fefcfc37e065debfa6110000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Mon, 24 Apr 2023 08:21:33 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "1268",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=nlhj5krqe6m3fo8mjgd452co0r; expires=Mon, 24-Apr-2023 09:21:32 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "3723665",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

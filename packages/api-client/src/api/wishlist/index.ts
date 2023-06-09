@@ -1,12 +1,12 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
 import {
+  CustomQuery,
   WishlistQuery,
   WishlistQueryVariables,
-} from '../../types/GraphQL';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import wishlistQuery from './wishlist';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 type Variables = {

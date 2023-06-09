@@ -1,7 +1,5 @@
-import gql from 'graphql-tag';
-
 /** GraphQL Mutation to update cart items */
-export default gql`
+export default `
   mutation updateCartItems($input: UpdateCartItemsInput) {
     updateCartItems(input: $input) {
       cart {

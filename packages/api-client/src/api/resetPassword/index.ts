@@ -1,13 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery, Logger } from '@vue-storefront/core';
 import { GraphQLError } from 'graphql';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { ResetPasswordMutation, ResetPasswordMutationVariables } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
+import consola from 'consola';
 import resetPasswordMutation from './resetPassword';
-import {
-  ResetPasswordMutation,
-  ResetPasswordMutationVariables,
-} from '../../types/GraphQL';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import getHeaders from '../getHeaders';
 
@@ -15,13 +13,11 @@ import getHeaders from '../getHeaders';
  * Resets a user's password
  * @param context VSF Context
  * @param input Params used to reset a user's password
- * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export default async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
-  customQuery: CustomQuery = { resetPassword: 'resetPassword' },
   customHeaders: CustomHeaders = {},
 ): Promise<FetchResult<ResetPasswordMutation>> {
   const {
@@ -42,18 +38,11 @@ export default async function resetPassword(
     }
   }
 
-  const { resetPassword: extendedResetPasswordMutation } = context.extendQuery(customQuery, {
-    resetPassword: {
-      query: resetPasswordMutation,
-      variables: { ...variables },
-    },
-  });
-
-  Logger.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
+  consola.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
   const result = await context.client
     .mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
-    mutation: extendedResetPasswordMutation.query,
-    variables: extendedResetPasswordMutation.variables,
+    mutation: gql`${resetPasswordMutation}`,
+    variables,
     context: {
       headers: getHeaders(context, customHeaders),
     },

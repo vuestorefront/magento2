@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+cmsBlock%28%24identifiers%3A%5BString%5D%29%7BcmsBlocks%28identifiers%3A%24identifiers%29%7Bitems%7Bcontent+identifier+title+__typename%7D__typename%7D%7D&operationName=cmsBlock&variables=%7B%22identifiers%22%3A%5B%221%22%2C%222%22%5D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003bd556d6fda3010fe2bb77c26297dd9c410636b99aa4dda876ad3544d63422639888563bb7ea14315ff7de7249050609ab4b648807d77be3b3fcf63fb21ca986351ff214a0b7b2554bab061c21d1634f84966251d4a17f5a38117900a66edbb713453caa101c1e5c28ea3e158027d06826f03245b424842ce0183dce08c8cb973daf6c727e39382cd29a93a8bb9b48ec91493a547eb14c5192a9870353e6153e55dec2dc547c3cb30016f07641fd28fe0cf5334f56428d0c416cd92a758161fd546f85619779aa07f2fe83fea443ca3fc7cc6d1105c15449312a2c934204b118e3b81e4bcaef0fb129c70553b2713b7d22859112246351dd1bab34342c697dbfd06334b1ded67a680f88bebb80d2303dd8436de98175a190220c4dd2208b544c891192ee7404814b052be03ca537fbe60b081c4267023905984ba2ed1012549c0e4cae56139a3b11009fc08ab0573042f68ea802bd9012ff99d2f4b099703fed66838120da00c18bc0b5cc08cc60cacc694704c411b95f9d425708b637fd63d7d2b04640a7089a6ae784fed30094e41c116185aafdb6ee5f7848f99a3736c2ab05a0c8e1798c05764691ef691abfb600feb49d58b40b1ae416c235ef208e56fdc467f7b060e2e884bdadb31659c7524bbf97054a3f9ddc2674a45956b4793717c4239ff5ae111f3703052fd06fac63a5772af9b5647ed05875b6f1668268737215f683b4cf693eeefe75877c776b153eea0fa63e98b291a5a781af7baddf8a27b1ef77ae7bda35d95e9f470446a05976325994f28349d572c5548e95334d27636228452a1a4643205956e348fc262235013046eaa14414c6717a42d6fe8a440c65610c3f99bd761140c2b3a7449a3b447a8ed507ed47688e00c2d9f4b02e6ce733a02f609b9bed49a1914f0b12c4182ad4bbc08fd7a7869ca234ee0039719d26d19ae5c4aa22a2eaa9da3790fd7c89c37f58550336841c986ed7b9c5a7a2d5e6d6eb58c1b4ccbfb0bb6c8c192d34d52304e2a517d685e9560224b6a3f08ca95a42a3c3aadd9e689786a6ab5416b9f85d99b90f9c509ddc7bec08c30ff6706b46933d09afd2703edf976bc1d3c7eec377791b7e575d47ae947cd5b597b8e3cf3bf8e786cb45eafff0067d7749ca7090000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 10 May 2023 09:03:03 GMT",
+            "Content-Type",
+            "application/json",
+            "Transfer-Encoding",
+            "chunked",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cms_b,cms_b_1,cms_b_footer_links_block,cms_b_2,cms_b_contact-us-info",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "13650581",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

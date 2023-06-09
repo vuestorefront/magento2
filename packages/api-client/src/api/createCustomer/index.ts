@@ -1,15 +1,13 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { GraphQLError } from 'graphql';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
-  CreateCustomerMutation,
-  CreateCustomerMutationVariables,
-  CustomerCreateInput,
-} from '../../types/GraphQL';
+  CreateCustomerMutation, CreateCustomerMutationVariables, CustomerCreateInput, CustomQuery,
+} from '@vue-storefront/magento-types';
+import { GraphQLError } from 'graphql';
+import gql from 'graphql-tag';
+import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
 import createCustomer from './createCustomer';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -51,7 +49,7 @@ export default async (
     );
 
     return await context.client.mutate<CreateCustomerMutation, CreateCustomerMutationVariables>({
-      mutation: createCustomerGQL.query,
+      mutation: gql`${createCustomerGQL.query}`,
       variables: createCustomerGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

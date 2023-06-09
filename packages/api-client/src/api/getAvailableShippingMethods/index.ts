@@ -1,19 +1,17 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
+import { ApolloQueryResult, gql } from '@apollo/client/core';
 import {
+  CustomQuery,
   GuestAvailableShippingMethodsQuery,
   GuestAvailableShippingMethodsQueryVariables,
-} from '../../types/GraphQL';
+} from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { Context } from '../../types/context';
+import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
-  params: {
-    cartId: string;
-  },
+  params: GuestAvailableShippingMethodsQueryVariables,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
   customHeaders: CustomHeaders = {},
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
@@ -30,7 +28,7 @@ export default async (
   try {
     return await context.client.query<GuestAvailableShippingMethodsQuery,
     GuestAvailableShippingMethodsQueryVariables>({
-      query: shippingMethods.query,
+      query: gql`${shippingMethods.query}`,
       variables: shippingMethods.variables,
       context: {
         headers: getHeaders(context, customHeaders),

@@ -1,0 +1,51 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+upsellProducts%28%24search%3AString%3D%22%22%24filter%3AProductAttributeFilterInput%24pageSize%3AInt%3D10%24currentPage%3AInt%3D1%24sort%3AProductAttributeSortInput%29%7Bproducts%28search%3A%24search+filter%3A%24filter+sort%3A%24sort+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Bupsell_products%7Buid+__typename+sku+name+stock_status+only_x_left_in_stock+rating_summary+thumbnail%7Burl+position+disabled+label+__typename%7Durl_key+url_rewrites%7Burl+__typename%7Dprice_range%7Bmaximum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7Dminimum_price%7Bfinal_price%7Bcurrency+value+__typename%7Dregular_price%7Bcurrency+value+__typename%7D__typename%7D__typename%7Dcategories%7Buid+name+url_suffix+url_path+breadcrumbs%7Bcategory_name+category_url_path+__typename%7D__typename%7Dreview_count+reviews%7Bitems%7Baverage_rating+ratings_breakdown%7Bname+value+__typename%7D__typename%7D__typename%7D%7Duid+__typename%7D__typename%7D%7D&operationName=upsellProducts&variables=%7B%22search%22%3A%22%22%2C%22pageSize%22%3A10%2C%22currentPage%22%3A1%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ed9a5b6fe2381480ff0aca7353ee2d20cd43dbd1aeba2b3addd23e2da3c8494c70712ef2a594adfadff73809e5529821244066e49716ece373b3e30f3be7cd70914046efcd8858e84a4770f59908ecc3877fdf0c19714ca9b5e8546dc4357a46ff9f2f5f8c33c3b2c42cc201f231b40d881f517c9f0843279f48686db4ccfe75ad0edf53b1bf42c945e5ab1c8d28ae5c234f498ad099585c2021c188717b670d1ebfddfc0d3d614067d6ab45f1485824b06241a317484acf0c8604093c8b4bdf476c66f4dab533438ca56f078850158864f0cf180b11f1deb03aacfac8c381081b2609c056e0e0f317894125c3231606e29c8420835d82865507f242436f584d63572dce180fabb8dd6dd9975dc71ed9d8be68753acd4ebdd3bec46dd4b52feaed0e6818566df86bd7eaa64d25366be7cf910a320a3911240ce6eebb84239b6277fe9d221b2b7f6f959bebb94db39af4bd9fa9d0ac0986a08d67954ed38dd369da713a5527c353061399ce599c8875c9f3b1f0e9baa127461f92a160663ed2c3880dab79c7c310be8796ef903a461c6c311440f030af3e7a25bef4adb859358c4880e8e2ab2319c381a3b2f334f80aba5f104c84d16bb6d6ccf4c3007208e964d89314b13c2a364dd77dac0e3a7d12fc621eaf7542eb439c7ee88267037b212378654398c61b423ae04f98f07421729869f20a6df389568d1112e3745d408bcd30721d064f2e9f3f0c2be66f1283b34786d355159bbcbb5a36093b09dfd164b214d70d43286964336b358c8fe6cfaeaff879fda12e5eb53f88e1bb9ac01782a79613ca4018bdc6bc616d07462f98c1236f257b9dd16bd5e6fb1eb794f713379c06b1646ae72111fc987ea3b1652b7988cda5e29fdc5d118a73beeec945664f9a4578f2c36e6ebc2f9647dfcb86a8d6622d0d04232fb832188792ba9855ee1150a7284c754b86a916600ae23b34a7789c5393a73935a324a75b58b5493a2b6ff2e970424ab1a312c1f3aa5ac6df5e9a8a4360a3931f288da322f0741e6b041e12818b1856d276b378ec7608c55991ce96c4bd195caf65465ffb4010ee64f6a47564084fb341b8b9b41218c452190036898073a233898aa4f0c565b928dc3c0e851d955493c74985d3d74752b76078a37856f015a224a1e77eaa0a3c411600a3ad2a0e73823c99c71a9f473d413677a4d78990519e1364793cd91da37719cfb28dc5aafe4372c0c8ef0fd086e931343b343f4771367720e79a6056dce51c9ed032ab92e238d9eee6a6ce761507e1e4e93cd69c2c25274b74ca2b0f284f74fd9c019459ce9b4f2ba0bcf52349394edf4c16c6c94e39ae7b65cc49a9387994832649b299bee8dbcec955b9ac9ccb373aa164461dc541f232ffcbbded2a0e02c9d379ac21a92159caabd0f2e0faa7900481f4e178beaa6d3a51de84c1887892a9fd7f8ecb787d7f2a035a56f55fffaa2855b34dd7c5fba97a2d2ec0e9b70dc54e7baa2a2ac0c7493b5f80ba904b1772e9422e5dc8a57f39e942ae72fe5cd1855cba904b177295af2c4a17726904ea42aedfe3f6421772e9422e5dc8b5278c742197c6a72ee42ad5fbe9b29e65972f6e5b455d273f4e9ac55d27d737bd39dfa86a4bb02accf7ff016ecc0d65513c0000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 19 Apr 2023 07:27:47 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "1175",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Magento-Tags",
+            "cat_p,cat_p_2046,cat_p_2030,cat_p_2023,cat_p_2016,cat_p_2009,cat_p_2003,cat_p_1996,cat_p_1989,cat_p_1973,cat_p_1957,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c_7,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c,cat_c_3,cat_c_4,cat_c_7,cat_c,cat_c_3,cat_c_4",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "864319 295487",
+            "Age",
+            "87151",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

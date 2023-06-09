@@ -1,9 +1,9 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CountriesListQuery } from '../../types/GraphQL';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CountriesListQuery, CustomQuery } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
 import countriesListQuery from './countriesList';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -26,7 +26,7 @@ export default async function countries(
     },
   );
   return context.client.query<CountriesListQuery>({
-    query: countriesGQL.query,
+    query: gql`${countriesGQL.query}`,
     context: {
       headers: getHeaders(context, customHeaders),
     },

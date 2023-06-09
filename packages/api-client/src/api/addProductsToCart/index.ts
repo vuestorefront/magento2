@@ -1,17 +1,11 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
+import gql from 'graphql-tag';
 import {
-  AddProductsToCartMutation, CartItemInput,
-} from '../../types/GraphQL';
+  CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders,
+} from '@vue-storefront/magento-types';
+import { Context } from '../../types/context';
 import addProductsToCartMutation from './addProductsToCart';
 import getHeaders from '../getHeaders';
-
-export type AddProductsToCartInput = {
-  cartId: string;
-  cartItems: CartItemInput[];
-};
 
 /**
  * Adds products to the specified cart
@@ -36,7 +30,7 @@ export default async function addProductsToCart(
     },
   );
   return context.client.mutate<AddProductsToCartMutation, AddProductsToCartInput>({
-    mutation: addProductsToCartGQL.query,
+    mutation: gql`${addProductsToCartGQL.query}`,
     variables: addProductsToCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -1,31 +1,19 @@
 import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import { CartQuery, CartQueryVariables } from '../../types/GraphQL';
-import query from './cartTotalQty';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { CartQuery, CartQueryVariables } from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
+import cartTotalQtyQuery from './cartTotalQty';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
   context: Context,
   cartId: string,
-  customQuery: CustomQuery = { cartTotalQty: 'cartTotalQty' },
   customHeaders: CustomHeaders = {},
-): Promise<ApolloQueryResult<CartQuery>> => {
-  const { cartTotalQty } = context.extendQuery(
-    customQuery,
-    {
-      cartTotalQty: {
-        query,
-        variables: { cartId: cartId ?? '' },
-      },
-    },
-  );
-  return context.client.query<CartQuery, CartQueryVariables>({
-    query: cartTotalQty.query,
-    variables: cartTotalQty.variables,
-    context: {
-      headers: getHeaders(context, customHeaders),
-    },
-  });
-};
+): Promise<ApolloQueryResult<CartQuery>> => context.client.query<CartQuery, CartQueryVariables>({
+  query: gql`${cartTotalQtyQuery}`,
+  variables: { cartId },
+  context: {
+    headers: getHeaders(context, customHeaders),
+  },
+});

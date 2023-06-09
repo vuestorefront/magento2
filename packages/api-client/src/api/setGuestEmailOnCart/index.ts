@@ -1,11 +1,14 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import setGuestEmailOnCartMutation from './setGuestEmailOnCart';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import {
-  SetGuestEmailOnCartInput, SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables,
-} from '../../types/GraphQL';
+  CustomQuery,
+  SetGuestEmailOnCartInput,
+  SetGuestEmailOnCartMutation,
+  SetGuestEmailOnCartMutationVariables,
+} from '@vue-storefront/magento-types';
+import gql from 'graphql-tag';
+import setGuestEmailOnCartMutation from './setGuestEmailOnCart';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 /**
@@ -32,7 +35,7 @@ export default async function setGuestEmailOnCart(
   );
 
   return context.client.mutate<SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables>({
-    mutation: setGuestEmailOnCartGQL.query,
+    mutation: gql`${setGuestEmailOnCartGQL.query}`,
     variables: setGuestEmailOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

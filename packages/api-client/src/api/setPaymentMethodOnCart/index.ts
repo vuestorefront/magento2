@@ -1,14 +1,16 @@
 import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
-import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
-import type { SetPaymentMethodOnCartInput, SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables } from '../../types/GraphQL';
-import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
-import getHeaders from '../getHeaders';
+import type {
+  CustomHeaders,
+  SetPaymentMethodOnCartInputs,
+  SetPaymentMethodOnCartMutation,
+  SetPaymentMethodOnCartMutationVariables,
+} from '@vue-storefront/magento-types';
+import { CustomQuery } from '@vue-storefront/magento-types';
 
-export interface SetPaymentMethodOnCartInputs extends SetPaymentMethodOnCartInput {
-  [k: string]: any;
-}
+import gql from 'graphql-tag';
+import setPaymentMethodOnCartMutation from './setPaymentMethodOnCart';
+import { Context } from '../../types/context';
+import getHeaders from '../getHeaders';
 
 /**
  * Sets received payment method on cart.
@@ -32,7 +34,7 @@ export default async function setPaymentMethodOnCart(
   });
 
   return context.client.mutate<SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables>({
-    mutation: setPaymentMethodOnCartGQL.query,
+    mutation: gql`${setPaymentMethodOnCartGQL.query}`,
     variables: setPaymentMethodOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

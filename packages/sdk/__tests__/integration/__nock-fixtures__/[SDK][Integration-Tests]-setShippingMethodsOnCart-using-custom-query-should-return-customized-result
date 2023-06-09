@@ -1,0 +1,216 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setShippingAddressesOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "shipping_addresses": [
+                        {
+                            "address": {
+                                "firstname": "John",
+                                "lastname": "Doe",
+                                "city": "New York",
+                                "country_code": "US",
+                                "street": [
+                                    "Street 1",
+                                    "Street 2"
+                                ],
+                                "telephone": "123 123 123",
+                                "region": "AL",
+                                "postcode": "10001",
+                                "save_in_address_book": false
+                            }
+                        }
+                    ]
+                }
+            },
+            "query": "mutation setShippingAddressesOnCart($input: SetShippingAddressesOnCartInput) {\n  setShippingAddressesOnCart(input: $input) {\n    cart {\n      shipping_addresses {\n        city\n        company\n        firstname\n        lastname\n        postcode\n        region {\n          code\n          label\n          region_id\n          __typename\n        }\n        street\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        available_shipping_methods {\n          amount {\n            currency\n            value\n            __typename\n          }\n          available\n          carrier_code\n          carrier_title\n          error_message\n          method_code\n          method_title\n          price_excl_tax {\n            currency\n            value\n            __typename\n          }\n          price_incl_tax {\n            currency\n            value\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003a554c16ae33010fd15a3b30f4997bdf8966dd9c3d26ea1e9524a29666a4f13515932a3711b53f2ef3b92e59066d760da83b13cefe9cd9b27dbefaa060655bc2b8fbcdeeab6d576b3aa6b42efd15fdb73200e6895ee3e514a1839aa78105873af0af51bdfb27b472f2a57956b5ab052b49d31b97ad6e4d94283c2fae5b65618060e950b8752689de7cad5a1b05c2c164b29116eb4b3d1c000ac2ee3ce2734e14116d0c08157ea5a15cb5c9525f72d26ed30411ae86650dbe7ca3321ca400f6a1d575968969667ea31578c06dbadb3d1ccd9b72c5d71b0ce32f5479efeac8f3cc5872903e769af388057d0b2c7607988b441deba7a08149a408d4d3a22b4551fb52f44fc154c27badf4fda5c89d98fcaaa60ea300f67471aa94c769f0d300187c447843507bafa295076336048e4483c790f9b80496930f81f9d041c64f40eeb70a0a42b2c7157999261f7a96106096dbf20f1a1ba1ac319dff5ab685d7873325f7e3a740ed844ea3fd0737607fd9cd09f84fb16a92799df8606e3d9cd0f7e7aa2f9c94f6bcc8bfef18438e2471fcebfa4f8633a6db19efc875d77dc76b261bfff0b93a0dbcbf2040000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 25 Apr 2023 06:38:00 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "435",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=ipj2j0roocsqeprer0l40jvahg; expires=Tue, 25-Apr-2023 07:38:00 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=0fd284593a6b6e954aa07f7dc3504bfd; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=cbda965cc17efcf7e594796514687190; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=a64af2e2ce733148e28403e615a27283; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4439690",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setShippingMethodsOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "shipping_methods": [
+                        {
+                            "carrier_code": "flatrate",
+                            "method_code": "flatrate"
+                        }
+                    ]
+                }
+            },
+            "query": "mutation setShippingMethodsOnCart($input: SetShippingMethodsOnCartInput) {\n  setShippingMethodsOnCart(input: $input) {\n    cart {\n      shipping_addresses {\n        selected_shipping_method {\n          method_code\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003758fcd0ac2300cc7df25679fa037f12c3bec28124213dd60eb4a931d64f4dd67b72238f19490ff07bf2cc064046e01156bbb3ec63e3caf62ddc4da840b252b9aaf53ab01893989aa28b85b890ee24d183ffab83594c8bea19f58c0c163204b64022740b457944063b9b7b5e19b00f2d156e5c275de1120df0fa60dfa27f9e7bb66b638bfed39affc47e5750a010000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 25 Apr 2023 06:38:00 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "153",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=glg1q4l0d9k5ev4294n51js3t3; expires=Tue, 25-Apr-2023 07:38:00 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=edb2457062401af294a53e386cfc3d35; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=6af25df4e1f8dd48d6451813d123961c; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=f083489ffa2951765a8b2d1b471725b4; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4588235",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    },
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "setShippingMethodsOnCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "shipping_methods": []
+                }
+            },
+            "query": "mutation setShippingMethodsOnCart($input: SetShippingMethodsOnCartInput) {\n  setShippingMethodsOnCart(input: $input) {\n    cart {\n      id\n      email\n      is_virtual\n      applied_coupons {\n        code\n        __typename\n      }\n      prices {\n        subtotal_excluding_tax {\n          value\n          __typename\n        }\n        subtotal_including_tax {\n          value\n          __typename\n        }\n        applied_taxes {\n          amount {\n            value\n            __typename\n          }\n          label\n          __typename\n        }\n        discounts {\n          amount {\n            value\n            __typename\n          }\n          label\n          __typename\n        }\n        grand_total {\n          value\n          __typename\n        }\n        __typename\n      }\n      items {\n        uid\n        product {\n          uid\n          __typename\n          sku\n          name\n          stock_status\n          only_x_left_in_stock\n          rating_summary\n          thumbnail {\n            url\n            position\n            disabled\n            label\n            __typename\n          }\n          url_key\n          url_rewrites {\n            url\n            __typename\n          }\n          price_range {\n            maximum_price {\n              final_price {\n                currency\n                value\n                __typename\n              }\n              regular_price {\n                currency\n                value\n                __typename\n              }\n              __typename\n            }\n            minimum_price {\n              final_price {\n                currency\n                value\n                __typename\n              }\n              regular_price {\n                currency\n                value\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          categories {\n            uid\n            name\n            url_suffix\n            url_path\n            breadcrumbs {\n              category_name\n              category_url_path\n              __typename\n            }\n            __typename\n          }\n          review_count\n          reviews {\n            items {\n              average_rating\n              ratings_breakdown {\n                name\n                value\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n        }\n        prices {\n          row_total {\n            value\n            __typename\n          }\n          row_total_including_tax {\n            value\n            __typename\n          }\n          total_item_discount {\n            value\n            __typename\n          }\n          __typename\n        }\n        quantity\n        ... on ConfigurableCartItem {\n          configurable_options {\n            configurable_product_option_uid\n            option_label\n            configurable_product_option_value_uid\n            value_label\n            __typename\n          }\n          configured_variant {\n            sku\n            thumbnail {\n              url\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        ... on BundleCartItem {\n          bundle_options {\n            uid\n            label\n            type\n            values {\n              id\n              label\n              price\n              quantity\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      total_quantity\n      shipping_addresses {\n        firstname\n        lastname\n        street\n        city\n        company\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        selected_shipping_method {\n          carrier_code\n          carrier_title\n          method_code\n          method_title\n          amount {\n            value\n            currency\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      billing_address {\n        firstname\n        lastname\n        street\n        city\n        company\n        region {\n          code\n          region_id\n          label\n          __typename\n        }\n        postcode\n        telephone\n        country {\n          code\n          label\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003758db10ac23014457fa5dcb92eba75751641472bf2681f69204dd2f712504afedd94babade7b3867058b0451748f1533ab926174b8f192adf0d844129a39b1343d74b2315a6f5e7598c2a83d1aabcd6c55eb8816fc4eecd5065f6d2b064a6c827caacd08c5697107eb634e282d5ca8ef0ed6acb3be368f2d86e0f2ecd19dcab345a434d51bcae9fe0b5ff6eed59f49129e1b3552a2adf697ea7c76ae942f9872caaee8000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 25 Apr 2023 06:38:00 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "176",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=qvv3dj5qsubdqv8sp78mgo795t; expires=Tue, 25-Apr-2023 07:38:00 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=d7b79637751bfc99b4e88dbc7290bfca; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=dfa0250936478aea862f2f9724b81f51; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=7a9676d856ba7621468569d4bb57ac38; expires=Fri, 22-Apr-2033 06:38:00 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "40eaaed8434b6bc4d35eb631fa2239af78c842214e0e7f4d505856f54f43ffd5",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "4416480",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

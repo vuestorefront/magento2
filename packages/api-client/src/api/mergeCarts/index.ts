@@ -1,9 +1,8 @@
-import { FetchResult } from '@apollo/client/core';
-import { CustomQuery } from '@vue-storefront/core';
+import { FetchResult, gql } from '@apollo/client/core';
+import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from '@vue-storefront/magento-types';
+import type { CustomHeaders } from '@vue-storefront/magento-types';
 import mergeCarts from './mergeCarts';
-import { MergeCartsMutation, MergeCartsMutationVariables } from '../../types/GraphQL';
 import { Context } from '../../types/context';
-import type { CustomHeaders } from '../../types/API';
 import getHeaders from '../getHeaders';
 
 export default async (
@@ -29,7 +28,7 @@ export default async (
   );
 
   return context.client.mutate<MergeCartsMutation, MergeCartsMutationVariables>({
-    mutation: mergeCartsGQL.query,
+    mutation: gql`${mergeCartsGQL.query}`,
     variables: mergeCartsGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

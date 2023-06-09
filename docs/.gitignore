@@ -1,2 +1,2 @@
-.yarn/
-api-reference/
+.vuepress/dist
+reference/api

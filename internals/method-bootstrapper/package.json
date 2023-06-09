@@ -1,0 +1,34 @@
+{
+  "name": "method-bootstrapper",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "mkmethod": "./index.js"
+  },
+  "scripts": {
+    "build": "echo \"Skip this step\"",
+    "docs": "echo \"Skip this step\"",
+    "lint": "echo \"Skip this step\"",
+    "lint:fix": "echo \"Skip this step\"",
+    "lint:fix:src": "echo \"Skip this step\"",
+    "lint:fix:test": "echo \"Skip this step\"",
+    "lint:src": "echo \"Skip this step\"",
+    "lint:test": "echo \"Skip this step\"",
+    "precommit": "echo \"Skip this step\"",
+    "prepare": "echo \"Skip this step\"",
+    "start": "echo \"Skip this step\"",
+    "test": "echo \"Skip this step\"",
+    "test:coverage": "echo \"Skip this step\"",
+    "test:ui": "echo \"Skip this step\"",
+    "test:unit": "echo \"Skip this step\"",
+    "test:watch": "echo \"Skip this step\"",
+    "test:watchAll": "echo \"Skip this step\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}

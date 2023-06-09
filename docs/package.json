@@ -1,34 +1,38 @@
 {
-  "name": "vsf-magento-integration-docs",
-  "version": "1.0.0-beta.0",
-  "description": "Documentation for the Magento integration for Vue Storefront",
+  "name": "vsf-m2-integration-docs",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Documentation for the Magento 2 integration of Vue Storefront",
   "main": "index.js",
-  "license": "MIT",
-  "repository": "https://github.com/vuestorefront/magento2",
   "scripts": {
     "dev": "vuepress dev",
-    "build": "vuepress build --max-concurrency=32",
-    "api-extract": "cd ../ && yarn build && cd docs/ && yarn api-ref && yarn ref-md",
+    "build": "NODE_OPTIONS=--max_old_space_size=12048 vuepress build",
+    "api-extract": "cd ../ && yarn build && cd docs/ && yarn types-ref && yarn api-ref && yarn sdk-ref && yarn ref-md",
+    "types-ref": "cd ../packages/api-types && api-extractor run --local",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
-    "theme-ref": "cd ../scripts && node generateApiReference.mjs",
-    "ref-md": "api-documenter markdown --i api-reference --o api-reference"
+    "sdk-ref": "cd ../packages/sdk && api-extractor run --local",
+    "ref-md": "api-documenter markdown --i reference/api --o reference/api"
   },
   "devDependencies": {
-    "@microsoft/api-documenter": "^7.17.12",
-    "@microsoft/api-extractor": "^7.23.1",
-    "@vuepress/plugin-active-header-links": "^1.9.7",
-    "@vuepress/plugin-back-to-top": "^1.9.7",
-    "@vuepress/plugin-medium-zoom": "^1.9.7",
-    "@vuepress/plugin-search": "^1.9.7",
+    "@microsoft/api-documenter": "^7.13.30",
+    "@microsoft/api-extractor": "7.18.1",
+    "concat-md": "^0.3.5",
     "handlebars": "^4.7.7",
-    "markdown-it-video": "^0.6.3",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.5.4",
-    "vuepress": "^1.9.7"
+    "typedoc": "^0.20.20",
+    "typedoc-plugin-markdown": "^3.4.5",
+    "typescript": "^3.6.4",
+    "vuepress": "^1.8.2"
   },
+  "author": "VSF",
+  "license": "MIT",
   "dependencies": {
     "sass-loader": "^8.0.2",
     "vue-multiselect": "^2.1.6",
-    "vuepress-theme-vsf-docs": "^1.2.3"
+    "vuepress-theme-vsf-docs": "^1.3.1"
+  },
+  "workspaces": {
+    "nohoist": [
+      "typedoc-plugin-markdown"
+    ]
   }
 }
