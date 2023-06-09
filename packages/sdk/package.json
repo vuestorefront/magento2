@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-sdk",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -24,10 +24,10 @@
     "@vue-storefront/sdk": "^1.0.0",
     "axios": "^0.27.2",
     "ts-essentials": "^9.3.1",
-    "@vue-storefront/magento-types": "^1.0.0-rc.1"
+    "@vue-storefront/magento-types": "^1.0.0"
   },
   "devDependencies": {
-    "@vue-storefront/middleware": "3.0.0-rc.2",
+    "@vue-storefront/middleware": "3.0.0",
     "nock": "^13.2.9",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-typescript2": "^0.33.0",

@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-types",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",

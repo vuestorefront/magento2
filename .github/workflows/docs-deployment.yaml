@@ -25,7 +25,7 @@ jobs:
       - name: Build and publish docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: docs-storefrontcloud-io/v2-magento2:${{ steps.get_version.outputs.VERSION }}
+          name: docs-storefrontcloud-io/v2-sdk-magento2:${{ steps.get_version.outputs.VERSION }}
           registry: registry.storefrontcloud.io
           username: ${{ secrets.DOCS_CLOUD_USERNAME }}
           password: ${{ secrets.DOCS_CLOUD_PASSWORD }}
@@ -49,19 +49,19 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/sdk-magento2
           environment: production
           initial_status: in_progress
-      - name: Deploy on docs.europe-west1.gcp.storefrontcloud.io/magento
+      - name: Deploy on docs.europe-west1.gcp.storefrontcloud.io/sdk-magento2
         id: publish
         uses: vuestorefront/publish-docs-action@main
         with:
           user-id: ${{ secrets.DOCS_CLOUD_USERNAME }}
           api-key: ${{ secrets.DOCS_CLOUD_PASSWORD }}
-          name: "docs-v2-magento"
+          name: "docs-v2-sdk-magento2"
           tag: "${{ steps.get_version.outputs.VERSION }}"
-          image: "registry.storefrontcloud.io/docs-storefrontcloud-io/v2-magento2"
-          path: "/magento"
+          image: "registry.storefrontcloud.io/docs-storefrontcloud-io/v2-sdk-magento2"
+          path: "/sdk-magento2"
           port: "80"
           has-base-path: true
       - name: Update deployment status (success)
@@ -69,7 +69,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/sdk-magento2
           state: "success"
           description: Congratulations! The deploy is done.
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
@@ -78,7 +78,7 @@ jobs:
         uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
-          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/magento
+          target_url: https://docs.europe-west1.gcp.storefrontcloud.io/sdk-magento2
           description: Unfortunately, the instance hasn't been updated.
           state: "failure"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}

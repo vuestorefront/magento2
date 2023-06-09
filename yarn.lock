@@ -3467,18 +3467,6 @@
     helmet "^5.1.1"
     rimraf "^4.1.2"
 
-"@vue-storefront/middleware@3.0.0-rc.2":
-  version "3.0.0-rc.2"
-  resolved "https://registry.npmjs.org/@vue-storefront/middleware/-/middleware-3.0.0-rc.2.tgz"
-  integrity sha512-WljeTPEUXQUXjmYsO2K9HPEq9qmIH5t4/6kAXb0zMuCia62l9Hed5yCGktXkNCYQe1Rc/R2nmsCXhyNwHk1H3g==
-  dependencies:
-    consola "^2.15.3"
-    cookie-parser "^1.4.6"
-    cors "^2.8.5"
-    express "^4.18.1"
-    helmet "^5.1.1"
-    rimraf "^4.1.2"
-
 "@vue-storefront/sdk@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@vue-storefront/sdk/-/sdk-1.0.1.tgz#ed42e5ad76a0b17132edb515a484b10ab2dc1395"
