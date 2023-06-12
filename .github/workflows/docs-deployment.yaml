@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
@@ -29,8 +30,8 @@ jobs:
           registry: registry.storefrontcloud.io
           username: ${{ secrets.DOCS_CLOUD_USERNAME }}
           password: ${{ secrets.DOCS_CLOUD_PASSWORD }}
-          workdir: .
-          dockerfile: ./.vuestorefrontcloud/docker/docs/Dockerfile
+          workdir: ./docs
+          dockerfile: ../.vuestorefrontcloud/docker/docs/Dockerfile
           buildoptions: "--compress"
 
   deploy:

@@ -13,8 +13,8 @@ RUN yarn install
 # Build docs
 RUN cd docs
 RUN yarn install
-# RUN sed -i "s/base: '\/',/base: '\/sdk-magento2\/',/g" ./.vuepress/config.js
-# RUN cat ./.vuepress/config.js
+RUN sed -i "s/base: '\/',/base: '\/sdk-magento2\/',/g" ./.vuepress/config.js
+RUN cat ./.vuepress/config.js
 RUN yarn api-extract
 RUN yarn build
 
