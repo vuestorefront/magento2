@@ -18,7 +18,7 @@ Quickly build your storefront with the Vue Storefront SDK for Magento. Connect y
 
 ::: col-1/2
 
-![Three images of a storefront on desktop and mobile](/hero.png)
+![Three images of a storefront on desktop and mobile](./hero.png)
 
 :::
 ::::::
