@@ -11,12 +11,12 @@ COPY . .
 RUN yarn install
 
 # Build docs
-RUN cd docs \
-  && yarn install \
-  && sed -i "s/base: '\/',/base: '\/sdk-magento2\/',/g" ./.vuepress/config.js \
-  && cat ./.vuepress/config.js \
-  && yarn api-extract \
-  && yarn build
+RUN cd docs
+RUN yarn install
+RUN sed -i "s/base: '\/',/base: '\/sdk-magento2\/',/g" ./.vuepress/config.js
+RUN cat ./.vuepress/config.js
+RUN yarn api-extract
+RUN yarn build
 
 FROM nginx
 
