@@ -2,7 +2,7 @@ const GTM_TAG = 'GTM-WMDC3CP';
 
 module.exports = {
   title: 'Vue Storefront 2 for Magento 2',
-  base: '/',
+  base: '/sdk-magento2/',
   description: 'Documentation for the Magento 2 module for Vue Storefront 2',
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
