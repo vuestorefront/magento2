@@ -19,6 +19,8 @@ This integration is framework-agnostic and may be consumed in the framework of y
 
 This project is a Magento 2 integration for Vue Storefront.
 
+ ### Check out [the docs](https://docs.vuestorefront.io/sdk-magento2/)
+
 # Quick start
 
 Your Vue Storefront application has two parts:
@@ -268,8 +270,8 @@ Find more information about the module [GraphQl Custom Config](https://github.co
     ```
 ## Resources
 
+- [Magento 2 integration Documentation](https://docs.vuestorefront.io/sdk-magento2/)
 - [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
-- [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
 - [Community Chat](http://discord.vuestorefront.io)
 
 ## Support
