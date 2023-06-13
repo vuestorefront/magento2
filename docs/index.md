@@ -11,8 +11,8 @@ hideToc: true
 Quickly build your storefront with the Vue Storefront SDK for Magento. Connect your Magento 2 backend to any frontend framework with type-safe SDK methods.
 
 
-[Get Started](/getting-started/quick-start)
-[See on Github](https://github.com/vue-storefront/magento2)
+[Get Started](./getting-started/quick-start)
+[See on Github](https://github.com/vuestorefront/magento2)
 
 :::
 
