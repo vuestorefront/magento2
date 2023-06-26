@@ -1,6 +1,7 @@
 {
-  "name": "vue-storefront",
+  "name": "vue-storefront-magento2",
   "private": true,
+  "version": "0.0.0",
   "license": "MIT",
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -11,15 +12,15 @@
     "internals/*"
   ],
   "scripts": {
+    "prepare": "husky install",
     "build": "lerna run build",
-    "dev": "lerna run dev --parallel",
-    "lint": "eslint . --ext .ts,.vue",
     "test": "lerna run test",
-    "test:coverage": "lerna run test:coverage",
-    "link-core": "yarn crosslink --overwrite",
-    "release-patch": "lerna publish patch --skip-npm --force-publish=*",
-    "release-stable": "lerna publish minor --skip-npm --force-publish=*",
-    "prepare": "husky install"
+    "test:unit": "lerna run test:unit",
+    "test:integration": "lerna run test:integration",
+    "lint": "eslint . --ext .ts,.vue",
+    "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
+    "changesets:publish": "yarn build && yarn changeset publish",
+    "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
