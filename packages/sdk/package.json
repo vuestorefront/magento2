@@ -5,20 +5,18 @@
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "scripts": {
-    "build": "rimraf lib && rollup -c",
-    "dev": "rimraf lib && rollup -c -w",
-    "lint": "eslint . --ext .ts",
+    "build": "rimraf lib server && rollup -c",
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "jest ./unit -c ./jest.config.unit.js",
     "test:integration": "jest ./integration -c ./jest.config.integration.js --runInBand",
-    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand",
+    "lint": "eslint . --ext .ts",
+    "prepublish": "yarn build",
+    "dev": "rimraf lib server && rollup -c -w",
     "test:watch": "jest --watch",
     "test:coverage": "yarn test --coverage --passWithNoTests",
-    "prepublish": "yarn build"
+    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand",
   },
   "dependencies": {
     "@vue-storefront/sdk": "^1.0.0",
