@@ -3752,6 +3752,11 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vue-storefront/api-extractor-config@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/api-extractor-config/-/api-extractor-config-0.0.3.tgz#05bab58c485a39e721d9f9e673bb28a5fbf95840"
+  integrity sha512-o/vbqbehZ2luLNyMRzGGcw7/K4gqYTcVUJud1iRu5lAoGJjH6hBwU4ZWy/XfSmhuudPY4LKQco5etTUfNDAuPQ==
+
 "@vue-storefront/integrations-tsconfig@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@vue-storefront/integrations-tsconfig/-/integrations-tsconfig-0.0.2.tgz#de3bf7775cebb816c491323fc486e745e3045e0b"
