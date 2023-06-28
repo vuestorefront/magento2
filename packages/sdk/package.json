@@ -9,8 +9,8 @@
   "scripts": {
     "build": "rimraf lib server && rollup -c",
     "test": "yarn test:unit && yarn test:integration",
-    "test:unit": "jest ./unit -c ./jest.config.unit.js",
-    "test:integration": "jest ./integration -c ./jest.config.integration.js --runInBand",
+    "test:unit": "jest ./unit -c ./jest.config.unit.ts",
+    "test:integration": "jest ./integration -c ./jest.config.integration.ts --runInBand",
     "lint": "eslint . --ext .ts",
     "prepublish": "yarn build",
     "dev": "rimraf lib server && rollup -c -w",
