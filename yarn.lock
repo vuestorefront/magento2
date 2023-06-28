@@ -3455,6 +3455,11 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
+"@vue-storefront/integrations-tsconfig@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/integrations-tsconfig/-/integrations-tsconfig-0.0.2.tgz#de3bf7775cebb816c491323fc486e745e3045e0b"
+  integrity sha512-8zWgGKU7EGrwAK+zcfxNUYSdsuFvrdLo5Oq95o5Unwcj5X153rgexTVGL4qYC18NRXD76r52Fbj8hWKWIBVdFw==
+
 "@vue-storefront/middleware@3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.0.0.tgz#35b8294a552ed0d8991fcfdc865c11171a9cc1c3"
@@ -13798,7 +13803,7 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.2.2:
+typescript@^4, typescript@^4.2.2:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
