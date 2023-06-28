@@ -61,17 +61,13 @@ export default async function productDetails(
     },
   });
   try {
-    const result = await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
+    return await context.client.query<ProductDetailsQuery, ProductDetailsQueryVariables>({
       query: gql`${productDetailGQL.query}`,
       variables: productDetailGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),
       },
     });
-
-    if (result.data.products.items.length === 0) throw new Error('No products found');
-
-    return result;
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
