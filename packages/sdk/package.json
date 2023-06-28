@@ -16,7 +16,7 @@
     "dev": "rimraf lib server && rollup -c -w",
     "test:watch": "jest --watch",
     "test:coverage": "yarn test --coverage --passWithNoTests",
-    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand",
+    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand"
   },
   "dependencies": {
     "@vue-storefront/sdk": "^1.0.0",
