@@ -23,6 +23,7 @@
     "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
+    "@vue-storefront/api-extractor-config": "^0.0.3",
     "@vue-storefront/integrations-tsconfig": "^0.0.2",
     "@vue-storefront/jest-config": "^0.0.2",
     "@vue-storefront/rollup-config": "^0.0.2",
