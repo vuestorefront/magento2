@@ -10,6 +10,28 @@ concurrency:
 
 jobs:
   continous-integration:
-    name: "Continuous Integration"
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@main
+    name: 'Continuous Integration'
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@develop
     secrets: inherit
+  
+  sonarcloud-api-client:
+    name: 'SonarCloud API Client'
+    needs: [continous-integration]
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@develop
+    secrets:
+      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
+    with:
+      project_key: 'vuestorefront_magento_api-client'
+      package_name: 'api-client'
+      exclusions: '*.config.js,src/index.ts,src/api-extractor-data.ts,**/types/**'
+
+  sonarcloud-sdk:
+    name: 'SonarCloud SDK'
+    needs: [continous-integration]
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@develop
+    secrets:
+      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK }}
+    with:
+      project_key: 'vuestorefront_magento_sdk'
+      package_name: 'sdk'
+      exclusions: '*.config.js,*.config.*.ts,src/index.ts,src/connector.ts,src/api-extractor-data.ts,**/types/**,'
