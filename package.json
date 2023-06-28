@@ -23,9 +23,6 @@
     "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.1.0",
-    "@commitlint/config-conventional": "^16.0.0",
-    "@commitlint/config-lerna-scopes": "^16.0.0",
     "@vue-storefront/integrations-tsconfig": "^0.0.2",
     "all-contributors-cli": "^6.20.0",
     "esbuild": "^0.14.23",
