@@ -11,7 +11,8 @@ concurrency:
 jobs:
   continous-integration:
     name: 'Continuous Integration'
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@develop
+    #                                                                                               \/ FIXME Change to develop once/if it's merged
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@dont-log-into-private-repo-if-not-necessary
     secrets: inherit
   
   sonarcloud-api-client:
