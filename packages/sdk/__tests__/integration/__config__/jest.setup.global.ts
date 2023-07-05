@@ -8,7 +8,7 @@ const cookieNames = {
   cartCookieName: 'vsf-cart',
   customerCookieName: 'vsf-customer',
   storeCookieName: 'vsf-store',
-  messageCookieName: 'vsf-message'
+  messageCookieName: 'vsf-message',
 };
 
 const middlewareConfig = {
@@ -18,7 +18,7 @@ const middlewareConfig = {
     frameguard: { action: 'deny' },
     permittedCrossDomainPolicies: { permittedPolicies: 'none' },
     contentSecurityPolicy: { useDefaults: true },
-    expectCt: { maxAge: 86_400 }
+    expectCt: { maxAge: 86_400 },
   },
   integrations: {
     magento: {
@@ -27,33 +27,33 @@ const middlewareConfig = {
       configuration: {
         api: 'https://magento2-instance.vuestorefront.io/graphql',
         cookies: {
-          ...cookieNames
+          ...cookieNames,
         },
         cookiesDefaultOpts: {
           httpOnly: process.env.VSF_COOKIE_HTTP_ONLY || false,
           secure: process.env.VSF_COOKIE_SECURE || false,
           sameSite: process.env.VSF_COOKIE_SAME_SITE || 'lax',
-          path: process.env.VSF_COOKIE_PATH || '/'
+          path: process.env.VSF_COOKIE_PATH || '/',
         },
         defaultStore: 'default',
         customApolloHttpLinkOptions: {
-          useGETForQueries: true
+          useGETForQueries: true,
         },
         customOptions: {
           defaultOptions: {
             watchQuery: {
               fetchPolicy: 'no-cache',
-              errorPolicy: 'ignore'
+              errorPolicy: 'ignore',
             },
             query: {
               fetchPolicy: 'no-cache',
-              errorPolicy: 'all'
+              errorPolicy: 'all',
             },
             mutate: {
               fetchPolicy: 'no-cache',
-              errorPolicy: 'all'
-            }
-          }
+              errorPolicy: 'all',
+            },
+          },
         },
         magentoBaseUrl: 'https://magento2-instance.vuestorefront.io',
         magentoApiEndpoint: 'https://magento2-instance.vuestorefront.io/graphql',
@@ -63,14 +63,14 @@ const middlewareConfig = {
           sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
           secretkey: process.env.VSF_RECAPTCHA_SECRET_KEY,
           version: process.env.VSF_RECAPTCHA_VERSION,
-          score: process.env.VSF_RECAPTCHA_MIN_SCORE
+          score: process.env.VSF_RECAPTCHA_MIN_SCORE,
         },
         customer: {
-          customer_create_account_confirm: true
-        }
-      }
-    }
-  }
+          customer_create_account_confirm: true,
+        },
+      },
+    },
+  },
 };
 
 export default async () => {

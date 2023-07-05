@@ -19,7 +19,7 @@ export default async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: 'categorySearch' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CategorySearchQuery>> {
   const { categorySearch: categorySearchGQL } = context.extendQuery(customQuery, {
     categorySearch: {
@@ -29,7 +29,9 @@ export default async function categorySearch(
   });
 
   return context.client.query<CategorySearchQuery, CategorySearchQueryVariables>({
-    query: gql`${categorySearchGQL.query}`,
+    query: gql`
+      ${categorySearchGQL.query}
+    `,
     variables: categorySearchGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

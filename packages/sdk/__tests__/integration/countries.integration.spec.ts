@@ -13,10 +13,10 @@ describe(describeGroup('countries'), () => {
             id: expect.any(String),
             two_letter_abbreviation: expect.any(String),
             full_name_locale: expect.any(String),
-            full_name_english: expect.any(String)
-          })
-        ])
-      })
+            full_name_english: expect.any(String),
+          }),
+        ]),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -26,8 +26,8 @@ describe(describeGroup('countries'), () => {
     const customQuery = {
       countries: 'countries-custom-query',
       metadata: {
-        fields: 'full_name_english'
-      }
+        fields: 'full_name_english',
+      },
     };
 
     const result = await sdk.magento.countries({ customQuery });

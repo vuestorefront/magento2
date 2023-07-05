@@ -40,7 +40,7 @@ export default gql`
                 }
               }
               taxes {
-                amount{
+                amount {
                   currency
                   value
                 }
@@ -130,7 +130,7 @@ export default gql`
                   }
                 }
                 taxes {
-                  amount{
+                  amount {
                     currency
                     value
                   }
@@ -255,9 +255,9 @@ export default gql`
           shipping_method
         }
         page_info {
-            current_page
-            total_pages
-            page_size
+          current_page
+          total_pages
+          page_size
         }
         total_count
       }

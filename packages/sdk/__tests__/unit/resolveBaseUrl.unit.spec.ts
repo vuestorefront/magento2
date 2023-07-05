@@ -24,5 +24,4 @@ describe('resolveBaseUrl', () => {
     emulateServerSideEnvironment();
     expect(resolveBaseUrl()).toEqual('https://ssr.api.magento.com');
   });
-
 });

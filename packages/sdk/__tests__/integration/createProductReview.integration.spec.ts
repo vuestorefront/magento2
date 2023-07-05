@@ -8,10 +8,12 @@ describe(describeGroup('createProductReview'), () => {
     nickname: 'john do the test',
     summary: 'awesome thing, whatever it is!',
     text: 'this is a test review',
-    ratings: [{
-      id: 'NA==',
-      value_id: 'MjA='
-    }]
+    ratings: [
+      {
+        id: 'NA==',
+        value_id: 'MjA=',
+      },
+    ],
   };
 
   it('should create a product review', async () => {
@@ -28,10 +30,10 @@ describe(describeGroup('createProductReview'), () => {
             nickname: 'john do the test',
             text: 'this is a test review',
             summary: 'awesome thing, whatever it is!',
-            ratings_breakdown: expect.any(Array)
-          }
-        }
-      }
+            ratings_breakdown: expect.any(Array),
+          },
+        },
+      },
     };
 
     expect(result).toEqual(expected);

@@ -6,18 +6,20 @@ import { CustomQuery, MethodOptions } from '../../src/types';
 const PARAMS_MOCK = {
   filter: {
     sku: {
-      eq: 'test-sku'
-    }
-  }
+      eq: 'test-sku',
+    },
+  },
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'upsellProducts'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'upsellProducts'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('upsellProducts'), () => {
@@ -30,9 +32,7 @@ describe(describeGroup('upsellProducts'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await upsellProducts(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'upsellProducts', [{ filter: { sku: { eq: 'test-sku' } } }, {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('upsellProducts', [{ filter: { sku: { eq: 'test-sku' } } }, {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

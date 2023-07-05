@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link changeCustomerPassword} method.
@@ -12,12 +12,14 @@ export type ChangeCustomerPasswordMutation = { changeCustomerPassword: Mutation[
 /**
  * Parameters for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | changeCustomerPassword } method.
  */
-export type ChangeCustomerPasswordInput = { currentPassword: string; newPassword: string; }
+export type ChangeCustomerPasswordInput = { currentPassword: string; newPassword: string };
 
 /**
  * changeCustomerPassword response type
  */
-export type ChangeCustomerPasswordResponse<T extends DeepPartial<ChangeCustomerPasswordMutation> = ChangeCustomerPasswordMutation> = FetchResult<T>
+export type ChangeCustomerPasswordResponse<
+  T extends DeepPartial<ChangeCustomerPasswordMutation> = ChangeCustomerPasswordMutation,
+> = FetchResult<T>;
 
 /**
  * Method to change customer password.
@@ -99,11 +101,14 @@ export type ChangeCustomerPasswordResponse<T extends DeepPartial<ChangeCustomerP
  * }, { customQuery });
  * ```
  */
-export async function changeCustomerPassword<RES extends ChangeCustomerPasswordResponse>(params: ChangeCustomerPasswordInput, options?: MethodOptions<CustomQuery<'changeCustomerPassword'>>) {
+export async function changeCustomerPassword<RES extends ChangeCustomerPasswordResponse>(
+  params: ChangeCustomerPasswordInput,
+  options?: MethodOptions<CustomQuery<'changeCustomerPassword'>>,
+) {
   const { data } = await client.post<RES>(
     'changeCustomerPassword',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

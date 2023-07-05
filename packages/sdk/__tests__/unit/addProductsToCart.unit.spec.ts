@@ -1,18 +1,20 @@
+import { AddProductsToCartMutationVariables } from '@vue-storefront/magento-types';
 import { addProductsToCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { AddProductsToCartMutationVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: AddProductsToCartMutationVariables = { cartId: '123', cartItems: [{ quantity: 1, sku: '123' }] };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<CustomQuery<'addProductsToCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<
+  CustomQuery<'addProductsToCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('addProductsToCart'), () => {
@@ -26,7 +28,9 @@ describe(describeGroup('addProductsToCart'), () => {
     await addProductsToCart(PARAMS_MOCK, OPTIONS_MOCK);
 
     expect(client.post).toBeCalledWith(
-      'addProductsToCart', [{ cartId: '123', cartItems: [{ quantity: 1, sku: '123' }] }, undefined, { 'x-header': 'true' }], {}
+      'addProductsToCart',
+      [{ cartId: '123', cartItems: [{ quantity: 1, sku: '123' }] }, undefined, { 'x-header': 'true' }],
+      {},
     );
   });
 

@@ -6,9 +6,9 @@ const SHARED_PARAMS = {
   cart_id: TEST_CART_ID,
   shipping_addresses: [
     {
-      address: TEST_ADDRESS
-    }
-  ]
+      address: TEST_ADDRESS,
+    },
+  ],
 };
 
 describe(describeGroup('setShippingAddressesOnCart'), () => {
@@ -22,14 +22,12 @@ describe(describeGroup('setShippingAddressesOnCart'), () => {
             expect.objectContaining({
               firstname: TEST_ADDRESS.firstname,
               lastname: TEST_ADDRESS.lastname,
-              street: expect.arrayContaining([
-                TEST_ADDRESS.street[0],
-                TEST_ADDRESS.street[1]
-              ]),
-              city: TEST_ADDRESS.city
-            })])
-        })
-      })
+              street: expect.arrayContaining([TEST_ADDRESS.street[0], TEST_ADDRESS.street[1]]),
+              city: TEST_ADDRESS.city,
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(data).toStrictEqual(expectedResult);
@@ -39,8 +37,8 @@ describe(describeGroup('setShippingAddressesOnCart'), () => {
     const customQuery = {
       setShippingAddressesOnCart: 'set-shipping-addresses-on-cart-custom-query',
       metadata: {
-        fields: 'shipping_addresses { city }'
-      }
+        fields: 'shipping_addresses { city }',
+      },
     };
 
     const { data } = await sdk.magento.setShippingAddressesOnCart(SHARED_PARAMS, { customQuery });

@@ -1,8 +1,8 @@
-import { client } from '../../../src/client';
 import { AddProductsToWishlistMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
 
 /**
  * mutation for the {@link addProductToWishList} method.
@@ -12,7 +12,9 @@ export type AddProductsToWishlistMutation = { addProductsToWishlist: Mutation['a
 /**
  * addProductToWishList response type
  */
-export type AddProductToWishListResponse<T extends DeepPartial<AddProductsToWishlistMutation> = AddProductsToWishlistMutation> = ApolloQueryResult<T>
+export type AddProductToWishListResponse<
+  T extends DeepPartial<AddProductsToWishlistMutation> = AddProductsToWishlistMutation,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to add products to wishlist
@@ -96,12 +98,12 @@ export type AddProductToWishListResponse<T extends DeepPartial<AddProductsToWish
  */
 export async function addProductToWishList<Res extends AddProductToWishListResponse>(
   params: AddProductsToWishlistMutationVariables,
-  options?: MethodOptions<CustomQuery<'addProductsToWishlist'>>
+  options?: MethodOptions<CustomQuery<'addProductsToWishlist'>>,
 ) {
   const { data } = await client.post<Res>(
     'addProductToWishList',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

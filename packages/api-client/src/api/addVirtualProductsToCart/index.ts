@@ -21,17 +21,14 @@ export default async function addVirtualProductsToCart(
   context: Context,
   input: AddVirtualProductsToCartInput,
   customQuery: CustomQuery = { addVirtualProductsToCart: 'addVirtualProductsToCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddVirtualProductsToCartMutation>> {
-  const { addVirtualProductsToCart: addVirtualProductsToCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      addVirtualProductsToCart: {
-        query: addVirtualProductsToCartMutation,
-        variables: { input },
-      },
+  const { addVirtualProductsToCart: addVirtualProductsToCartGQL } = context.extendQuery(customQuery, {
+    addVirtualProductsToCart: {
+      query: addVirtualProductsToCartMutation,
+      variables: { input },
     },
-  );
+  });
   return context.client.mutate<AddVirtualProductsToCartMutation, AddVirtualProductsToCartMutationVariables>({
     mutation: addVirtualProductsToCartGQL.query,
     variables: addVirtualProductsToCartGQL.variables,

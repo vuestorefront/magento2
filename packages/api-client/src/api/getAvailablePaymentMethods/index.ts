@@ -15,11 +15,13 @@ import getHeaders from '../getHeaders';
 export default async function getAvailablePaymentMethods(
   context: Context,
   cartId: string,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>> {
   try {
     return await context.client.query<GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables>({
-      query: gql`${GuestAvailablePaymentMethods}`,
+      query: gql`
+        ${GuestAvailablePaymentMethods}
+      `,
       variables: { cartId: cartId ?? '' },
       context: {
         headers: getHeaders(context, customHeaders),

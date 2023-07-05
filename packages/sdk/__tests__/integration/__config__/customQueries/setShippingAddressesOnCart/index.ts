@@ -1,4 +1,4 @@
-export const setShippingAddressesOnCart = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const setShippingAddressesOnCart = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -8,6 +8,6 @@ export const setShippingAddressesOnCart = ({ variables, metadata }: { variables:
           ${metadata.fields}
         }
       }
-    }`
+    }`,
   };
 };

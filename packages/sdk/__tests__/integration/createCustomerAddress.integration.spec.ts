@@ -1,6 +1,6 @@
+import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-types';
 import { sdk } from './__config__/sdk.config';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
-import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-types';
 
 describe(describeGroup('createCustomerAddress'), () => {
   const address: CustomerAddressInput = {
@@ -16,8 +16,8 @@ describe(describeGroup('createCustomerAddress'), () => {
     region: {
       region_code: 'NJ',
       region_id: 41,
-      region: 'New Jersey'
-    }
+      region: 'New Jersey',
+    },
   };
 
   it('should add address to the customer', async () => {
@@ -34,12 +34,14 @@ describe(describeGroup('createCustomerAddress'), () => {
           region: { __typename: 'CustomerAddressRegion', region: 'New Jersey', region_code: 'NJ', region_id: 41 },
           street: ['street'],
           telephone: '123123123',
-          vat_id: null
-        })
-      })
+          vat_id: null,
+        }),
+      }),
     });
 
-    const result = await sdk.magento.createCustomerAddress(address, { customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.createCustomerAddress(address, {
+      customHeaders: { Authorization: `Bearer ${token}` },
+    });
 
     expect(result).toEqual(expected);
   });
@@ -50,13 +52,16 @@ describe(describeGroup('createCustomerAddress'), () => {
     const customQuery = {
       createCustomerAddress: 'create-customer-address-custom-query',
       metadata: {
-        fields: 'id city'
-      }
+        fields: 'id city',
+      },
     };
 
     const expected = { data: { createCustomerAddress: { __typename: 'CustomerAddress', city: 'city', id: 310 } } };
 
-    const result = await sdk.magento.createCustomerAddress(address, { customQuery, customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.createCustomerAddress(address, {
+      customQuery,
+      customHeaders: { Authorization: `Bearer ${token}` },
+    });
 
     expect(result).toEqual(expected);
   });

@@ -1,18 +1,20 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link setPaymentMethodOnCart} method.
  */
-export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart: Mutation['setPaymentMethodOnCart'] }
+export type SetPaymentMethodOnCartMutation = { setPaymentMethodOnCart: Mutation['setPaymentMethodOnCart'] };
 
 /**
  * setPaymentMethodOnCart response type
  */
-export type SetPaymentMethodOnCartResponse<T extends DeepPartial<SetPaymentMethodOnCartMutation> = SetPaymentMethodOnCartMutation> = FetchResult<T>
+export type SetPaymentMethodOnCartResponse<
+  T extends DeepPartial<SetPaymentMethodOnCartMutation> = SetPaymentMethodOnCartMutation,
+> = FetchResult<T>;
 
 /**
  * Method to set payment method on cart.
@@ -99,11 +101,14 @@ export type SetPaymentMethodOnCartResponse<T extends DeepPartial<SetPaymentMetho
  * // data contains only the properties selected in the custom query
  * ```
  */
-export async function setPaymentMethodOnCart<RES extends SetPaymentMethodOnCartResponse>(params: SetPaymentMethodOnCartInputs, options?: MethodOptions<CustomQuery<'setPaymentMethodOnCart'>>) {
+export async function setPaymentMethodOnCart<RES extends SetPaymentMethodOnCartResponse>(
+  params: SetPaymentMethodOnCartInputs,
+  options?: MethodOptions<CustomQuery<'setPaymentMethodOnCart'>>,
+) {
   const { data } = await client.post<RES>(
     'setPaymentMethodOnCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

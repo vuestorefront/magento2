@@ -5,16 +5,18 @@ import { CustomQuery, MethodOptions } from '../../src/types';
 import { RequestPasswordResetEmailInput } from '../../src/methods/requestPasswordResetEmail';
 
 const PARAMS_MOCK: RequestPasswordResetEmailInput = {
-  email: 'some_email'
+  email: 'some_email',
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'requestPasswordResetEmail'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'requestPasswordResetEmail'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('requestPasswordResetEmail'), () => {
@@ -27,9 +29,7 @@ describe(describeGroup('requestPasswordResetEmail'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await requestPasswordResetEmail(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'requestPasswordResetEmail', [expect.objectContaining(PARAMS_MOCK), {}], {}
-    );
+    expect(client.post).toBeCalledWith('requestPasswordResetEmail', [expect.objectContaining(PARAMS_MOCK), {}], {});
   });
 
   it('extracts and returns a response', async () => {

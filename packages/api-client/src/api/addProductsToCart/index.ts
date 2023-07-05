@@ -1,8 +1,6 @@
 import { FetchResult } from '@apollo/client/core';
 import gql from 'graphql-tag';
-import {
-  CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders,
-} from '@vue-storefront/magento-types';
+import { CustomQuery, AddProductsToCartInput, AddProductsToCartMutation, CustomHeaders } from '@vue-storefront/magento-types';
 import { Context } from '../../types/context';
 import addProductsToCartMutation from './addProductsToCart';
 import getHeaders from '../getHeaders';
@@ -18,19 +16,18 @@ export default async function addProductsToCart(
   context: Context,
   input: AddProductsToCartInput,
   customQuery: CustomQuery = { addProductsToCart: 'addProductsToCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddProductsToCartMutation>> {
-  const { addProductsToCart: addProductsToCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      addProductsToCart: {
-        query: addProductsToCartMutation,
-        variables: { ...input },
-      },
+  const { addProductsToCart: addProductsToCartGQL } = context.extendQuery(customQuery, {
+    addProductsToCart: {
+      query: addProductsToCartMutation,
+      variables: { ...input },
     },
-  );
+  });
   return context.client.mutate<AddProductsToCartMutation, AddProductsToCartInput>({
-    mutation: gql`${addProductsToCartGQL.query}`,
+    mutation: gql`
+      ${addProductsToCartGQL.query}
+    `,
     variables: addProductsToCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -13,8 +13,8 @@ describe(describeGroup('cmsBlocks'), () => {
     const customQuery = {
       cmsBlocks: 'cms-blocks-custom-query',
       metadata: {
-        fields: 'title'
-      }
+        fields: 'title',
+      },
     };
 
     const result = await sdk.magento.cmsBlocks(PARAMS, { customQuery });

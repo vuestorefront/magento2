@@ -22,20 +22,19 @@ export default async function removeCouponFromCart(
   context: Context,
   input: RemoveCouponFromCartInput,
   customQuery: CustomQuery = { removeCouponFromCart: 'removeCouponFromCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RemoveCouponFromCartMutation>> {
-  const { removeCouponFromCart: removeCouponFromCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      removeCouponFromCart: {
-        query: removeCouponFromCartMutation,
-        variables: { input },
-      },
+  const { removeCouponFromCart: removeCouponFromCartGQL } = context.extendQuery(customQuery, {
+    removeCouponFromCart: {
+      query: removeCouponFromCartMutation,
+      variables: { input },
     },
-  );
+  });
 
   return context.client.mutate<RemoveCouponFromCartMutation, RemoveCouponFromCartMutationVariables>({
-    mutation: gql`${removeCouponFromCartGQL.query}`,
+    mutation: gql`
+      ${removeCouponFromCartGQL.query}
+    `,
     variables: removeCouponFromCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

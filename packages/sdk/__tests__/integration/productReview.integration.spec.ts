@@ -6,9 +6,9 @@ describe(describeGroup('productReview'), () => {
   const params = {
     filter: {
       sku: {
-        eq: TEST_PRODUCT_SKU
-      }
-    }
+        eq: TEST_PRODUCT_SKU,
+      },
+    },
   };
 
   it('should fetch product reviews', async () => {
@@ -20,8 +20,8 @@ describe(describeGroup('productReview'), () => {
     const customQuery = {
       productReview: 'product-review-custom-query',
       metadata: {
-        fields: 'average_rating'
-      }
+        fields: 'average_rating',
+      },
     };
 
     const result = await sdk.magento.productReview(params, { customQuery });

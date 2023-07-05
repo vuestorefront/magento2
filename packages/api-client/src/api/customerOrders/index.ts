@@ -24,7 +24,7 @@ export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,
   customQuery: CustomQuery = { customerOrders: 'customerOrders' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
   const defaultParams = {
     pageSize: 10,

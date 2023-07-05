@@ -1,4 +1,4 @@
-export const applyCouponToCart = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const applyCouponToCart = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -6,7 +6,6 @@ export const applyCouponToCart = ({ variables, metadata }: { variables: any, met
       applyCouponToCart(input: $input) {
         ${metadata.fields}
       }
-    }`
+    }`,
   };
 };
-

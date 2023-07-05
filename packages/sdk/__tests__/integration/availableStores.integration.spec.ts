@@ -12,8 +12,8 @@ describe(describeGroup('availableStores'), () => {
     const customQuery = {
       availableStores: 'available-stores-custom-query',
       metadata: {
-        fields: 'code store_name'
-      }
+        fields: 'code store_name',
+      },
     };
 
     const result = await sdk.magento.availableStores({ customQuery });

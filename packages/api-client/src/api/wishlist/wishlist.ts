@@ -14,7 +14,7 @@ export default gql`
             description
             added_at
             product {
-              ...on ConfigurableProduct {
+              ... on ConfigurableProduct {
                 configurable_options {
                   attribute_code
                   attribute_uid
@@ -81,7 +81,7 @@ export default gql`
                 url_suffix
                 url_path
                 breadcrumbs {
-                  category_name,
+                  category_name
                   category_url_path
                 }
               }

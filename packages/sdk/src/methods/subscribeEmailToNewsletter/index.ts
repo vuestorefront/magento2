@@ -1,18 +1,20 @@
-import { MethodBaseOptions } from '../../types';
 import { Mutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link subscribeEmailToNewsletter} method.
  */
-export type SubscribeEmailToNewsletterMutation = { subscribeEmailToNewsletter: Mutation['subscribeEmailToNewsletter'] }
+export type SubscribeEmailToNewsletterMutation = { subscribeEmailToNewsletter: Mutation['subscribeEmailToNewsletter'] };
 
 /**
  * subscribeEmailToNewsletter response type
  */
-export type SubscribeEmailToNewsletterResponse<T extends DeepPartial<SubscribeEmailToNewsletterMutation> = SubscribeEmailToNewsletterMutation> = FetchResult<T>
+export type SubscribeEmailToNewsletterResponse<
+  T extends DeepPartial<SubscribeEmailToNewsletterMutation> = SubscribeEmailToNewsletterMutation,
+> = FetchResult<T>;
 
 /**
  * Method allows guests and registered customers to sign up to receive newsletters.
@@ -48,11 +50,14 @@ export type SubscribeEmailToNewsletterResponse<T extends DeepPartial<SubscribeEm
  * result.data?.subscribeEmailToNewsletter?.status; // status of the operation. Possible values: https://developer.adobe.com/commerce/webapi/graphql/schema/customer/mutations/subscribe-email-to-newsletter/#subscriptionstatusesenum
  * ```
  */
-export async function subscribeEmailToNewsletter<RES extends SubscribeEmailToNewsletterResponse>(params: SubscribeEmailToNewsletterMutationVariables, options?: MethodBaseOptions) {
+export async function subscribeEmailToNewsletter<RES extends SubscribeEmailToNewsletterResponse>(
+  params: SubscribeEmailToNewsletterMutationVariables,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'subscribeEmailToNewsletter',
     [params, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

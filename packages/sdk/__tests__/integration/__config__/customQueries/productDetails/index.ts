@@ -1,4 +1,4 @@
-export const productDetails = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const productDetails = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -13,6 +13,6 @@ export const productDetails = ({ variables, metadata }: { variables: any, metada
          ${metadata.fields}
         }
       }
-    `
+    `,
   };
 };

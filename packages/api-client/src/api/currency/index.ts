@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function currency(
   context: Context,
   customQuery: CustomQuery = { currency: 'currency' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CurrencyQuery>> {
   const { currency: currencyGQL } = context.extendQuery(customQuery, {
     currency: {
@@ -25,7 +25,9 @@ export default async function currency(
   });
 
   return context.client.query<CurrencyQuery>({
-    query: gql`${currencyGQL.query}`,
+    query: gql`
+      ${currencyGQL.query}
+    `,
     context: {
       headers: getHeaders(context, customHeaders),
     },

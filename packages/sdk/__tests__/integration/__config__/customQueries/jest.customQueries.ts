@@ -77,5 +77,5 @@ export const customQueries = {
   'currency-custom-query': currency,
   'product-review-custom-query': productReview,
   'product-review-ratings-metadata-custom-query': productReviewRatingsMetadata,
-  'store-config-custom-query': storeConfig
+  'store-config-custom-query': storeConfig,
 };

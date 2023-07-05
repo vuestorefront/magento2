@@ -15,20 +15,19 @@ import getHeaders from '../getHeaders';
 export default async function getAvailableCustomerShippingMethods(
   context: Context,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> {
-  const { shippingMethods } = context.extendQuery(
-    customQuery,
-    {
-      shippingMethods: {
-        query: CustomerAvailableShippingMethods,
-      },
+  const { shippingMethods } = context.extendQuery(customQuery, {
+    shippingMethods: {
+      query: CustomerAvailableShippingMethods,
     },
-  );
+  });
 
   try {
     return await context.client.query<CustomerAvailableShippingMethodsQuery>({
-      query: gql`${shippingMethods.query}`,
+      query: gql`
+        ${shippingMethods.query}
+      `,
       context: {
         headers: getHeaders(context, customHeaders),
       },

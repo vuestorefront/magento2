@@ -7,7 +7,7 @@ const client = new Proxy(axios.create(), {
     axiosInstance.defaults.baseURL = resolveBaseUrl();
 
     return axiosInstance[property as keyof Axios];
-  }
+  },
 });
 
 export { client };

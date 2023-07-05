@@ -1,18 +1,20 @@
-import { MethodBaseOptions } from '../../types';
 import { Mutation, SetGuestEmailOnCartInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link setGuestEmailOnCart} method.
  */
-export type SetGuestEmailOnCartMutation = { setGuestEmailOnCart: Mutation['setGuestEmailOnCart'] }
+export type SetGuestEmailOnCartMutation = { setGuestEmailOnCart: Mutation['setGuestEmailOnCart'] };
 
 /**
  * setGuestEmailOnCart response type
  */
-export type SetGuestEmailOnCartResponse<T extends DeepPartial<SetGuestEmailOnCartMutation> = SetGuestEmailOnCartMutation> = FetchResult<T>
+export type SetGuestEmailOnCartResponse<
+  T extends DeepPartial<SetGuestEmailOnCartMutation> = SetGuestEmailOnCartMutation,
+> = FetchResult<T>;
 
 /**
  * Method to set the guest user email on the cart
@@ -49,11 +51,14 @@ export type SetGuestEmailOnCartResponse<T extends DeepPartial<SetGuestEmailOnCar
  * // data.setGuestEmailOnCart.cart.email will contain the email address
  * ```
  */
-export async function setGuestEmailOnCart<RES extends SetGuestEmailOnCartResponse>(params: SetGuestEmailOnCartInput, options?: MethodBaseOptions) {
+export async function setGuestEmailOnCart<RES extends SetGuestEmailOnCartResponse>(
+  params: SetGuestEmailOnCartInput,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'setGuestEmailOnCart',
     [params, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

@@ -6,17 +6,15 @@ describe(describeGroup('removeProductsFromWishlist'), () => {
   const addProductToWishlist = async () => {
     const token = await getUserToken();
     const headers = {
-      customHeaders: { Authorization: `Bearer ${token}` }
+      customHeaders: { Authorization: `Bearer ${token}` },
     };
 
     const wishlist = await sdk.magento.addProductToWishList(
       {
         id: '258',
-        items: [
-          { quantity: 1, sku: TEST_PRODUCT_SKU }
-        ]
+        items: [{ quantity: 1, sku: TEST_PRODUCT_SKU }],
       },
-      headers
+      headers,
     );
 
     return { wishlist, headers };
@@ -24,13 +22,16 @@ describe(describeGroup('removeProductsFromWishlist'), () => {
 
   it('should remove item from the wishlist', async () => {
     const { wishlist, headers } = await addProductToWishlist();
-    const result = await sdk.magento.removeProductsFromWishlist({
-      id: wishlist!.data!.addProductsToWishlist!.wishlist!.id ?? '',
-      items: ['656']
-    }, headers);
+    const result = await sdk.magento.removeProductsFromWishlist(
+      {
+        id: wishlist!.data!.addProductsToWishlist!.wishlist!.id ?? '',
+        items: ['656'],
+      },
+      headers,
+    );
 
     const { items } = result!.data!.removeProductsFromWishlist!.wishlist!.items_v2!;
-    const removedItem = items.find(item => item!.product!.sku === TEST_PRODUCT_SKU);
+    const removedItem = items.find((item) => item!.product!.sku === TEST_PRODUCT_SKU);
 
     expect(removedItem).toBeUndefined();
   });
@@ -40,14 +41,17 @@ describe(describeGroup('removeProductsFromWishlist'), () => {
     const customQuery = {
       removeProductsFromWishlist: 'remove-products-from-wishlist-custom-query',
       metadata: {
-        fields: 'sharing_code'
-      }
+        fields: 'sharing_code',
+      },
     };
 
-    const result = await sdk.magento.removeProductsFromWishlist({
-      id: wishlist!.data!.addProductsToWishlist!.wishlist!.id ?? '',
-      items: ['656']
-    }, { customQuery, ...headers });
+    const result = await sdk.magento.removeProductsFromWishlist(
+      {
+        id: wishlist!.data!.addProductsToWishlist!.wishlist!.id ?? '',
+        items: ['656'],
+      },
+      { customQuery, ...headers },
+    );
 
     expect(result!.data!.removeProductsFromWishlist!.wishlist.sharing_code).toBeTruthy();
     // check if default (non-custom) query isn't ran on accident

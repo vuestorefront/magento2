@@ -11,19 +11,18 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   customQuery: CustomQuery = { productReviewRatingsMetadata: 'productReviewRatingsMetadata' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> => {
-  const { productReviewRatingsMetadata: productReviewRatingsMetadataGQL } = context.extendQuery(
-    customQuery,
-    {
-      productReviewRatingsMetadata: {
-        query: productReviewRatingsMetadata,
-      },
+  const { productReviewRatingsMetadata: productReviewRatingsMetadataGQL } = context.extendQuery(customQuery, {
+    productReviewRatingsMetadata: {
+      query: productReviewRatingsMetadata,
     },
-  );
+  });
 
   return context.client.query<ProductReviewRatingsMetadataQuery>({
-    query: gql`${productReviewRatingsMetadataGQL.query}`,
+    query: gql`
+      ${productReviewRatingsMetadataGQL.query}
+    `,
     context: {
       headers: getHeaders(context, customHeaders),
     },

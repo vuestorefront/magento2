@@ -6,14 +6,13 @@ import cartTotalQtyQuery from './cartTotalQty';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
-export default async (
-  context: Context,
-  cartId: string,
-  customHeaders: CustomHeaders = {},
-): Promise<ApolloQueryResult<CartQuery>> => context.client.query<CartQuery, CartQueryVariables>({
-  query: gql`${cartTotalQtyQuery}`,
-  variables: { cartId },
-  context: {
-    headers: getHeaders(context, customHeaders),
-  },
-});
+export default async (context: Context, cartId: string, customHeaders: CustomHeaders = {}): Promise<ApolloQueryResult<CartQuery>> =>
+  context.client.query<CartQuery, CartQueryVariables>({
+    query: gql`
+      ${cartTotalQtyQuery}
+    `,
+    variables: { cartId },
+    context: {
+      headers: getHeaders(context, customHeaders),
+    },
+  });

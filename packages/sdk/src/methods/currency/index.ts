@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link currency} method.
@@ -12,7 +12,7 @@ export type CurrencyQuery = { currency: Query['currency'] };
 /**
  * currency response type
  */
-export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuery> = ApolloQueryResult<T>
+export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch available currencies in a store.
@@ -114,7 +114,7 @@ export async function currency<RES extends CurrencyResponse>(options?: MethodOpt
   const { data } = await client.post<RES>(
     'currency',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

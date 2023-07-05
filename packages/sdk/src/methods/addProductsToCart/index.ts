@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { AddProductsToCartMutationVariables, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link addProductsToCart} method.
@@ -12,7 +12,8 @@ export type AddProductsToCartMutation = { addProductsToCart: Mutation['addProduc
 /**
  * Add products to cart response type
  */
-export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMutation> = AddProductsToCartMutation> = ApolloQueryResult<T>
+export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMutation> = AddProductsToCartMutation> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to add products to cart (returns cart)
@@ -121,11 +122,14 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  * // Result will contain only the fields specified in the custom query.
  * ```
  */
-export async function addProductsToCart<RES extends AddProductsToCartResponse>(params: AddProductsToCartMutationVariables, options?: MethodOptions<CustomQuery<'addProductsToCart'>>) {
+export async function addProductsToCart<RES extends AddProductsToCartResponse>(
+  params: AddProductsToCartMutationVariables,
+  options?: MethodOptions<CustomQuery<'addProductsToCart'>>,
+) {
   const { data } = await client.post<RES>(
     'addProductsToCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

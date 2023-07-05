@@ -1,4 +1,4 @@
-export const cart = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const cart = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -6,6 +6,6 @@ export const cart = ({ variables, metadata }: { variables: any, metadata: any })
       cart(cart_id:$cartId) {
         ${metadata.fields}
       }
-    }`
+    }`,
   };
 };

@@ -15,10 +15,12 @@ import getHeaders from '../getHeaders';
 export default async function deleteCustomerAddress(
   context: Context,
   addressId: number,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<DeleteCustomerAddressMutation>> {
   return context.client.mutate<DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables>({
-    mutation: gql`${deleteCustomerAddressMutation}`,
+    mutation: gql`
+      ${deleteCustomerAddressMutation}
+    `,
     variables: { id: addressId },
     context: {
       headers: getHeaders(context, customHeaders),

@@ -10,9 +10,9 @@ const ADD_TO_CART_PARAMS = {
       quantity: 1,
       sku: TEST_PRODUCT_SKU,
       // size and color
-      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE=']
-    }
-  ]
+      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE='],
+    },
+  ],
 };
 
 describe(describeGroup('updateCartItems'), () => {
@@ -22,7 +22,7 @@ describe(describeGroup('updateCartItems'), () => {
   const addProductsToCart = async () => {
     // Add product to cart before each test
     const result = await sdk.magento.addProductsToCart(ADD_TO_CART_PARAMS);
-    addedItem = result.data.addProductsToCart!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    addedItem = result.data.addProductsToCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
   };
 
   const removeAddedProductFromCart = async () => {
@@ -42,13 +42,13 @@ describe(describeGroup('updateCartItems'), () => {
       cart_items: [
         {
           cart_item_uid: addedItem!.uid,
-          quantity: expectedQuantity
-        }
-      ]
+          quantity: expectedQuantity,
+        },
+      ],
     });
 
     // Find updated item
-    const item = result!.data!.updateCartItems!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result!.data!.updateCartItems!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
 
     expect(item!.quantity).toEqual(expectedQuantity);
 
@@ -59,8 +59,8 @@ describe(describeGroup('updateCartItems'), () => {
     const customQuery = {
       updateCartItems: 'update-cart-items-custom-query',
       metadata: {
-        fields: 'id items { uid quantity product { uid sku }}'
-      }
+        fields: 'id items { uid quantity product { uid sku }}',
+      },
     };
 
     // Add product to cart before each test
@@ -69,17 +69,20 @@ describe(describeGroup('updateCartItems'), () => {
     // Expected quantity
     const expectedQuantity = 69;
 
-    const result = await sdk.magento.updateCartItems({
-      cart_id: TEST_CART_ID,
-      cart_items: [
-        {
-          cart_item_uid: addedItem!.uid,
-          quantity: expectedQuantity
-        }
-      ]
-    }, { customQuery });
+    const result = await sdk.magento.updateCartItems(
+      {
+        cart_id: TEST_CART_ID,
+        cart_items: [
+          {
+            cart_item_uid: addedItem!.uid,
+            quantity: expectedQuantity,
+          },
+        ],
+      },
+      { customQuery },
+    );
 
-    const item = result!.data!.updateCartItems!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result!.data!.updateCartItems!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
 
     expect(item!.quantity).toEqual(expectedQuantity);
     expect(result!.data!.updateCartItems!.cart!.id).toEqual(TEST_CART_ID);

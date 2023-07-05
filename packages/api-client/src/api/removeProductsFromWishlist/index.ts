@@ -10,20 +10,19 @@ export default async (
   context: Context,
   input: RemoveProductsFromWishlistMutationVariables,
   customQuery: CustomQuery = { removeProductsFromWishlist: 'removeProductsFromWishlist' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RemoveProductsFromWishlistMutation>> => {
-  const { removeProductsFromWishlist: removeProductsFromWishlistGQL } = context.extendQuery(
-    customQuery,
-    {
-      removeProductsFromWishlist: {
-        query: removeProductsFromWishlist,
-        variables: { ...input },
-      },
+  const { removeProductsFromWishlist: removeProductsFromWishlistGQL } = context.extendQuery(customQuery, {
+    removeProductsFromWishlist: {
+      query: removeProductsFromWishlist,
+      variables: { ...input },
     },
-  );
+  });
 
   return context.client.mutate<RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables>({
-    mutation: gql`${removeProductsFromWishlistGQL.query}`,
+    mutation: gql`
+      ${removeProductsFromWishlistGQL.query}
+    `,
     variables: removeProductsFromWishlistGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

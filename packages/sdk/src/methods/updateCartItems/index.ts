@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, UpdateCartItemsInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link updateCartItems} method.
@@ -12,7 +12,8 @@ export type UpdateCartItemsMutation = { updateCartItems: Mutation['updateCartIte
 /**
  * updateCartItems response type
  */
-export type UpdateCartItemsResponse<T extends DeepPartial<UpdateCartItemsMutation> = UpdateCartItemsMutation> = FetchResult<T>
+export type UpdateCartItemsResponse<T extends DeepPartial<UpdateCartItemsMutation> = UpdateCartItemsMutation> =
+  FetchResult<T>;
 
 /**
  * Method to update items in the cart
@@ -97,11 +98,14 @@ export type UpdateCartItemsResponse<T extends DeepPartial<UpdateCartItemsMutatio
  * const result = await sdk.magento.updateCartItems(params, { customQuery });
  * ```
  */
-export async function updateCartItems<RES extends UpdateCartItemsResponse>(params: UpdateCartItemsInput, options?: MethodOptions<CustomQuery<'updateCartItems'>>) {
+export async function updateCartItems<RES extends UpdateCartItemsResponse>(
+  params: UpdateCartItemsInput,
+  options?: MethodOptions<CustomQuery<'updateCartItems'>>,
+) {
   const { data } = await client.post<RES>(
     'updateCartItems',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

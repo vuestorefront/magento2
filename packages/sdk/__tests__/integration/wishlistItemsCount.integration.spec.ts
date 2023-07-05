@@ -5,7 +5,7 @@ describe(describeGroup('wishlistItemsCount'), () => {
   it('counts items', async () => {
     const token = await getUserToken();
     const options = {
-      customHeaders: { Authorization: `Bearer ${token}` }
+      customHeaders: { Authorization: `Bearer ${token}` },
     };
 
     const result = await sdk.magento.wishlistItemsCount(options);

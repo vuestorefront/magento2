@@ -1,18 +1,20 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link setBillingAddressOnCart} method.
  */
-export type SetBillingAddressOnCartMutation = { setBillingAddressOnCart: Mutation['setBillingAddressOnCart'] }
+export type SetBillingAddressOnCartMutation = { setBillingAddressOnCart: Mutation['setBillingAddressOnCart'] };
 
 /**
  * Set billing address response type
  */
-export type SetBillingAddressOnCartResponse<T extends DeepPartial<SetBillingAddressOnCartMutation> = SetBillingAddressOnCartMutation> = FetchResult<T>
+export type SetBillingAddressOnCartResponse<
+  T extends DeepPartial<SetBillingAddressOnCartMutation> = SetBillingAddressOnCartMutation,
+> = FetchResult<T>;
 
 /**
  * Method to set billing address on the cart
@@ -107,11 +109,14 @@ export type SetBillingAddressOnCartResponse<T extends DeepPartial<SetBillingAddr
  * const { data } = await sdk.magento.setBillingAddressOnCart(params, { customQuery });
  * ```
  */
-export async function setBillingAddressOnCart<RES extends SetBillingAddressOnCartResponse>(params: SetBillingAddressOnCartInput, options?: MethodOptions<CustomQuery<'setBillingAddressOnCart'>>) {
+export async function setBillingAddressOnCart<RES extends SetBillingAddressOnCartResponse>(
+  params: SetBillingAddressOnCartInput,
+  options?: MethodOptions<CustomQuery<'setBillingAddressOnCart'>>,
+) {
   const { data } = await client.post<RES>(
     'setBillingAddressOnCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

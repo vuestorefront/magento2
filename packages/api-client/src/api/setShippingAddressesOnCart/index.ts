@@ -23,7 +23,7 @@ export default async function setShippingAddressesOnCart(
   context: Context,
   input: SetShippingAddressesOnCartInput,
   customQuery: CustomQuery = { setShippingAddressesOnCart: 'setShippingAddressesOnCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SetShippingAddressesOnCartMutation>> {
   const { setShippingAddressesOnCart: setShippingAddressesOnCartGQL } = context.extendQuery(customQuery, {
     setShippingAddressesOnCart: {
@@ -33,7 +33,9 @@ export default async function setShippingAddressesOnCart(
   });
 
   return context.client.mutate<SetShippingAddressesOnCartMutation, SetShippingAddressesOnCartMutationVariables>({
-    mutation: gql`${setShippingAddressesOnCartGQL.query}`,
+    mutation: gql`
+      ${setShippingAddressesOnCartGQL.query}
+    `,
     variables: setShippingAddressesOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

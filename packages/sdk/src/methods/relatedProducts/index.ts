@@ -1,8 +1,8 @@
-import { client } from '../../client';
-import type { CustomQuery, MethodOptions } from '../../types';
 import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import type { CustomQuery, MethodOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * query type for the {@link relatedProducts} method.
@@ -12,7 +12,8 @@ export type RelatedProductsQuery = { products: Query['products'] };
 /**
  * Related product response
  */
-export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> = RelatedProductsQuery> = ApolloQueryResult<T>
+export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> = RelatedProductsQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to get related products
@@ -125,13 +126,15 @@ export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> 
  * // Result will contain only the fields specified in the custom query.
  * ```
  */
-export async function relatedProducts<RES extends RelatedProductsResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'relatedProducts'>>) {
+export async function relatedProducts<RES extends RelatedProductsResponse>(
+  params: GetProductSearchParams,
+  options?: MethodOptions<CustomQuery<'relatedProducts'>>,
+) {
   const { data } = await client.post<RES>(
     'relatedProducts',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;
 }
-

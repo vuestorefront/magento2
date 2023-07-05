@@ -18,7 +18,7 @@ export default async function categoryList(
   context: Context,
   params: QueryCategoryListArgs,
   customQuery: CustomQuery = { categoryList: 'categoryList' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CategoryListQuery>> {
   const { categoryList: categoryListGQL } = context.extendQuery(customQuery, {
     categoryList: {
@@ -28,7 +28,9 @@ export default async function categoryList(
   });
 
   return context.client.query<CategoryListQuery, QueryCategoryListArgs>({
-    query: gql`${categoryListGQL.query}`,
+    query: gql`
+      ${categoryListGQL.query}
+    `,
     variables: categoryListGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

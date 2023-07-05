@@ -6,16 +6,18 @@ import { GenerateCustomerTokenInput } from '../../src/methods/generateCustomerTo
 
 const PARAMS_MOCK: GenerateCustomerTokenInput = {
   email: 'some_email',
-  password: 'some_password'
+  password: 'some_password',
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'generateCustomerToken'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'generateCustomerToken'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('generateCustomerToken'), () => {
@@ -28,9 +30,7 @@ describe(describeGroup('generateCustomerToken'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await generateCustomerToken(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'generateCustomerToken', [expect.objectContaining(PARAMS_MOCK), {}], {}
-    );
+    expect(client.post).toBeCalledWith('generateCustomerToken', [expect.objectContaining(PARAMS_MOCK), {}], {});
   });
 
   it('extracts and returns a response', async () => {

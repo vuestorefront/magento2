@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CustomerAddressInput, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link createCustomerAddress} method.
@@ -12,7 +12,9 @@ export type CreateCustomerAddressMutation = { createCustomerAddress: Mutation['c
 /**
  * createCustomerAddress response type
  */
-export type CreateCustomerAddressResponse<T extends DeepPartial<CreateCustomerAddressMutation> = CreateCustomerAddressMutation> = FetchResult<T>
+export type CreateCustomerAddressResponse<
+  T extends DeepPartial<CreateCustomerAddressMutation> = CreateCustomerAddressMutation,
+> = FetchResult<T>;
 
 /**
  * Method to create a customer address.
@@ -106,11 +108,14 @@ export type CreateCustomerAddressResponse<T extends DeepPartial<CreateCustomerAd
  * result.data.createCustomerAddress.city; // 'some city'
  * ```
  */
-export async function createCustomerAddress<RES extends CreateCustomerAddressResponse>(params: CustomerAddressInput, options?: MethodOptions<CustomQuery<'createCustomerAddress'>>) {
+export async function createCustomerAddress<RES extends CreateCustomerAddressResponse>(
+  params: CustomerAddressInput,
+  options?: MethodOptions<CustomQuery<'createCustomerAddress'>>,
+) {
   const { data } = await client.post<RES>(
     'createCustomerAddress',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

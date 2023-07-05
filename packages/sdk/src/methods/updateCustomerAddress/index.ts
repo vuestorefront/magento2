@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, UpdateCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link updateCustomerAddress} method.
@@ -12,7 +12,9 @@ export type UpdateCustomerAddressMutation = { updateCustomerAddress: Mutation['u
 /**
  * updateCustomerAddress response type
  */
-export type UpdateCustomerAddressResponse<T extends DeepPartial<UpdateCustomerAddressMutation> = UpdateCustomerAddressMutation> = ApolloQueryResult<T>
+export type UpdateCustomerAddressResponse<
+  T extends DeepPartial<UpdateCustomerAddressMutation> = UpdateCustomerAddressMutation,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to update customer address
@@ -90,11 +92,14 @@ export type UpdateCustomerAddressResponse<T extends DeepPartial<UpdateCustomerAd
  * // result will contain only the fields specified in the custom query.
  * ```
  */
-export async function updateCustomerAddress<RES extends UpdateCustomerAddressResponse>(params: UpdateCustomerAddressMutationVariables, options?: MethodOptions<CustomQuery<'updateCustomerAddress'>>) {
+export async function updateCustomerAddress<RES extends UpdateCustomerAddressResponse>(
+  params: UpdateCustomerAddressMutationVariables,
+  options?: MethodOptions<CustomQuery<'updateCustomerAddress'>>,
+) {
   const { data } = await client.post<RES>(
     'updateCustomerAddress',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

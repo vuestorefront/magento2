@@ -6,7 +6,7 @@ describe(describeGroup('generateCustomerToken'), () => {
   it('should generate customer token', async () => {
     const result = await sdk.magento.generateCustomerToken({
       email: TEST_USER_EMAIL,
-      password: TEST_USER_PASSWORD
+      password: TEST_USER_PASSWORD,
     });
 
     expect(result?.data?.generateCustomerToken?.token).toBeDefined();

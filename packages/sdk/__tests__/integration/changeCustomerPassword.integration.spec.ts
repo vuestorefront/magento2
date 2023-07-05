@@ -9,27 +9,33 @@ describe(describeGroup('changeCustomerPassword'), () => {
   let token: string;
 
   const revertPassword = async () => {
-    await sdk.magento.changeCustomerPassword({
-      currentPassword: NEW_PASSWORD,
-      newPassword: OLD_PASSWORD
-    }, { customHeaders: { Authorization: `Bearer ${token}` } });
+    await sdk.magento.changeCustomerPassword(
+      {
+        currentPassword: NEW_PASSWORD,
+        newPassword: OLD_PASSWORD,
+      },
+      { customHeaders: { Authorization: `Bearer ${token}` } },
+    );
   };
 
   it('should change customer password', async () => {
     token = await getUserToken();
 
-    const result = await sdk.magento.changeCustomerPassword({
-      currentPassword: OLD_PASSWORD,
-      newPassword: NEW_PASSWORD
-    }, { customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.changeCustomerPassword(
+      {
+        currentPassword: OLD_PASSWORD,
+        newPassword: NEW_PASSWORD,
+      },
+      { customHeaders: { Authorization: `Bearer ${token}` } },
+    );
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
         changeCustomerPassword: expect.objectContaining({
           __typename: 'Customer',
-          email: TEST_USER_EMAIL
-        })
-      })
+          email: TEST_USER_EMAIL,
+        }),
+      }),
     });
 
     // revert password to old one
@@ -44,22 +50,25 @@ describe(describeGroup('changeCustomerPassword'), () => {
     const customQuery = {
       changeCustomerPassword: 'change-customer-password-custom-query',
       metadata: {
-        fields: 'email'
-      }
+        fields: 'email',
+      },
     };
 
-    const result = await sdk.magento.changeCustomerPassword({
-      currentPassword: OLD_PASSWORD,
-      newPassword: NEW_PASSWORD
-    }, { customQuery, customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.changeCustomerPassword(
+      {
+        currentPassword: OLD_PASSWORD,
+        newPassword: NEW_PASSWORD,
+      },
+      { customQuery, customHeaders: { Authorization: `Bearer ${token}` } },
+    );
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
         changeCustomerPassword: expect.objectContaining({
           __typename: 'Customer',
-          email: TEST_USER_EMAIL
-        })
-      })
+          email: TEST_USER_EMAIL,
+        }),
+      }),
     });
 
     // revert password to old one

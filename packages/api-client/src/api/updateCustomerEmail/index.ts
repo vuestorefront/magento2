@@ -9,20 +9,19 @@ export default async (
   context: Context,
   input: UpdateCustomerEmailMutationVariables,
   customQuery: CustomQuery = { updateCustomerEmail: 'updateCustomerEmail' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<UpdateCustomerEmailMutation>> => {
-  const { updateCustomerEmail: updateCustomerEmailGQL } = context.extendQuery(
-    customQuery,
-    {
-      updateCustomerEmail: {
-        query: updateCustomerEmail,
-        variables: { ...input },
-      },
+  const { updateCustomerEmail: updateCustomerEmailGQL } = context.extendQuery(customQuery, {
+    updateCustomerEmail: {
+      query: updateCustomerEmail,
+      variables: { ...input },
     },
-  );
+  });
 
   return context.client.mutate<UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables>({
-    mutation: gql`${updateCustomerEmailGQL.query}`,
+    mutation: gql`
+      ${updateCustomerEmailGQL.query}
+    `,
     variables: updateCustomerEmailGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

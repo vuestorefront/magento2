@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link updateCustomerEmail} method.
@@ -12,7 +12,9 @@ export type UpdateCustomerEmailMutation = { updateCustomerEmail: Mutation['updat
 /**
  * updateCustomerEmail response type
  */
-export type UpdateCustomerEmailResponse<T extends DeepPartial<UpdateCustomerEmailMutation> = UpdateCustomerEmailMutation> = ApolloQueryResult<T>
+export type UpdateCustomerEmailResponse<
+  T extends DeepPartial<UpdateCustomerEmailMutation> = UpdateCustomerEmailMutation,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to update customer email
@@ -90,11 +92,14 @@ export type UpdateCustomerEmailResponse<T extends DeepPartial<UpdateCustomerEmai
  * // Result will contain only the fields specified in the custom query.
  * ```
  */
-export async function updateCustomerEmail<RES extends UpdateCustomerEmailResponse>(params: UpdateCustomerEmailMutationVariables, options?: MethodOptions<CustomQuery<'updateCustomerEmail'>>) {
+export async function updateCustomerEmail<RES extends UpdateCustomerEmailResponse>(
+  params: UpdateCustomerEmailMutationVariables,
+  options?: MethodOptions<CustomQuery<'updateCustomerEmail'>>,
+) {
   const { data } = await client.post<RES>(
     'updateCustomerEmail',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

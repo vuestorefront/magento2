@@ -2,17 +2,11 @@ module.exports = {
   globals: {
     __DEV__: true,
   },
-  coverageReporters: [
-    'lcov',
-  ],
+  coverageReporters: ['lcov'],
   coverageThreshold: {
     global: {},
   },
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '.d.ts$',
-    '/__mocks__/',
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/', '.d.ts$', '/__mocks__/'],
   coverageDirectory: './coverage/',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
@@ -24,13 +18,8 @@ module.exports = {
     '^.+\\.(m)js$': 'babel-jest',
     '^.+\\.ts$': 'ts-jest',
   },
-  transformIgnorePatterns: [
-    'node_modules',
-    '<rootDir>/node_modules',
-  ],
-  testMatch: [
-    '<rootDir>/**/__tests__/**/*spec.[jt]s?(x)',
-  ],
+  transformIgnorePatterns: ['node_modules', '<rootDir>/node_modules'],
+  testMatch: ['<rootDir>/**/__tests__/**/*spec.[jt]s?(x)'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',
@@ -59,12 +48,6 @@ module.exports = {
       },
     ],
   ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
-  ],
-  moduleFileExtensions: [
-    'js',
-    'json',
-    'ts',
-  ],
+  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  moduleFileExtensions: ['js', 'json', 'ts'],
 };

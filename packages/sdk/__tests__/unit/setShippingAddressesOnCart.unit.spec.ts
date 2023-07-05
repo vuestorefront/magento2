@@ -1,19 +1,21 @@
+import { SetShippingAddressesOnCartInput } from '@vue-storefront/magento-types';
 import { setShippingAddressesOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetShippingAddressesOnCartInput } from '@vue-storefront/magento-types';
 import { TEST_CART_ID } from '../integration/__config__/jest.const';
 
 const PARAMS_MOCK: SetShippingAddressesOnCartInput = { cart_id: TEST_CART_ID, shipping_addresses: [] };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'setShippingAddressesOnCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'setShippingAddressesOnCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('setShippingAddressesOnCart'), () => {
@@ -27,7 +29,9 @@ describe(describeGroup('setShippingAddressesOnCart'), () => {
     await setShippingAddressesOnCart(PARAMS_MOCK, OPTIONS_MOCK);
 
     expect(client.post).toBeCalledWith(
-      'setShippingAddressesOnCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
+      'setShippingAddressesOnCart',
+      [expect.objectContaining(PARAMS_MOCK), {}, {}],
+      {},
     );
   });
 

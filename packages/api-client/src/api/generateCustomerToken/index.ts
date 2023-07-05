@@ -18,7 +18,7 @@ export default async (
     password: string;
     recaptchaToken: string;
   },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
     if (context.config.recaptcha.isEnabled) {
@@ -35,18 +35,18 @@ export default async (
       }
     }
 
-    return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>(
-      {
-        mutation: gql`${generateCustomerToken}`,
-        variables: {
-          email: params.email,
-          password: params.password,
-        },
-        context: {
-          headers: getHeaders(context, customHeaders),
-        },
+    return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
+      mutation: gql`
+        ${generateCustomerToken}
+      `,
+      variables: {
+        email: params.email,
+        password: params.password,
       },
-    );
+      context: {
+        headers: getHeaders(context, customHeaders),
+      },
+    });
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {

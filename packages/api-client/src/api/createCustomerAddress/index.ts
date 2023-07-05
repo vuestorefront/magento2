@@ -23,20 +23,19 @@ export default async function createCustomerAddress(
   context: Context,
   input: CustomerAddressInput,
   customQuery: CustomQuery = { createCustomerAddress: 'createCustomerAddress' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<CreateCustomerAddressMutation>> {
-  const { createCustomerAddress: createCustomerAddressGQL } = context.extendQuery(
-    customQuery,
-    {
-      createCustomerAddress: {
-        query: createCustomerAddressMutation,
-        variables: { input },
-      },
+  const { createCustomerAddress: createCustomerAddressGQL } = context.extendQuery(customQuery, {
+    createCustomerAddress: {
+      query: createCustomerAddressMutation,
+      variables: { input },
     },
-  );
+  });
 
   return context.client.mutate<CreateCustomerAddressMutation, CreateCustomerAddressMutationVariables>({
-    mutation: gql`${createCustomerAddressGQL.query}`,
+    mutation: gql`
+      ${createCustomerAddressGQL.query}
+    `,
     variables: createCustomerAddressGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

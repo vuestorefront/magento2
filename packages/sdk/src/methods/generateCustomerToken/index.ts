@@ -1,8 +1,8 @@
-import { MethodBaseOptions } from '../../types';
 import { Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link generateCustomerToken} method.
@@ -15,12 +15,14 @@ export type GenerateCustomerTokenMutation = { generateCustomerToken: Mutation['g
 export type GenerateCustomerTokenInput = {
   email: string;
   password: string;
-}
+};
 
 /**
  * generateCustomerToken response type
  */
-export type GenerateCustomerTokenResponse<T extends DeepPartial<GenerateCustomerTokenMutation> = GenerateCustomerTokenMutation> = FetchResult<T>
+export type GenerateCustomerTokenResponse<
+  T extends DeepPartial<GenerateCustomerTokenMutation> = GenerateCustomerTokenMutation,
+> = FetchResult<T>;
 
 /**
  * Method to generate customer token
@@ -59,11 +61,14 @@ export type GenerateCustomerTokenResponse<T extends DeepPartial<GenerateCustomer
  * // Token is now available in result.data.generateCustomerToken.token
  * ```
  */
-export async function generateCustomerToken<RES extends GenerateCustomerTokenResponse>(params: GenerateCustomerTokenInput, options?: MethodBaseOptions) {
+export async function generateCustomerToken<RES extends GenerateCustomerTokenResponse>(
+  params: GenerateCustomerTokenInput,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'generateCustomerToken',
     [params, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

@@ -14,11 +14,12 @@ describe(describeGroup('reviews'), () => {
           reviews: expect.objectContaining({
             items: expect.arrayContaining([
               expect.objectContaining({
-                __typename: 'ProductReview'
-              })])
-          })
-        })
-      })
+                __typename: 'ProductReview',
+              }),
+            ]),
+          }),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -30,13 +31,16 @@ describe(describeGroup('reviews'), () => {
     const customQuery = {
       reviews: 'customer-product-review-custom-query',
       metadata: {
-        fields: 'items { text }'
-      }
+        fields: 'items { text }',
+      },
     };
 
     const token = await getUserToken();
 
-    const result = await sdk.magento.reviews({ pageSize: 1 }, { customQuery, customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.reviews(
+      { pageSize: 1 },
+      { customQuery, customHeaders: { Authorization: `Bearer ${token}` } },
+    );
     const review = result?.data?.customer?.reviews?.items?.[0];
 
     expect(review?.text).toBeDefined();

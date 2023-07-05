@@ -9,9 +9,9 @@ const ADD_TO_CART_PARAMS = {
       quantity: 1,
       sku: TEST_PRODUCT_SKU,
       // size and color
-      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE=']
-    }
-  ]
+      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE='],
+    },
+  ],
 };
 
 describe(describeGroup('removeItemFromCart'), () => {
@@ -21,7 +21,7 @@ describe(describeGroup('removeItemFromCart'), () => {
   const addProductsToCart = async () => {
     // Add product to cart before each test
     const result = await sdk.magento.addProductsToCart(ADD_TO_CART_PARAMS);
-    addedItem = result.data.addProductsToCart!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    addedItem = result.data.addProductsToCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
   };
 
   it('should remove item from the cart', async () => {
@@ -29,7 +29,7 @@ describe(describeGroup('removeItemFromCart'), () => {
     await addProductsToCart();
 
     const result = await sdk.magento.removeItemFromCart({ cart_id: TEST_CART_ID, cart_item_uid: addedItem?.uid });
-    const item = result.data?.removeItemFromCart!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result.data?.removeItemFromCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
 
     expect(item).toBeUndefined();
   });
@@ -41,18 +41,25 @@ describe(describeGroup('removeItemFromCart'), () => {
     const customQuery = {
       removeItemFromCart: 'remove-item-from-cart-custom-query',
       metadata: {
-        fields: 'id email'
-      }
+        fields: 'id email',
+      },
     };
 
-    const result = await sdk.magento.removeItemFromCart({ cart_id: TEST_CART_ID, cart_item_uid: addedItem?.uid }, { customQuery });
+    const result = await sdk.magento.removeItemFromCart(
+      { cart_id: TEST_CART_ID, cart_item_uid: addedItem?.uid },
+      { customQuery },
+    );
     const expectedResult = {
       data: {
         removeItemFromCart: {
           __typename: 'RemoveItemFromCartOutput',
-          cart: { __typename: 'Cart', email: 'vsf.magento.integration.test.user@gmail.com', id: 'pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp' }
-        }
-      }
+          cart: {
+            __typename: 'Cart',
+            email: 'vsf.magento.integration.test.user@gmail.com',
+            id: 'pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp',
+          },
+        },
+      },
     };
 
     expect(result).toStrictEqual(expectedResult);
