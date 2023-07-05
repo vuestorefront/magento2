@@ -1,7 +1,7 @@
 import { getAvailableCustomerPaymentMethods } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { MethodBaseOptions } from '../../lib/types';
+import { MethodBaseOptions } from '../../src/types';
 
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { ClientConfig } from '../../types/setup';
 
 export const defaultSettings: ClientConfig = {
@@ -24,7 +25,6 @@ export const defaultSettings: ClientConfig = {
     getCountry: () => '',
     setCountry: () => {},
     setMessage: () => {},
-    // @ts-ignore
     getMessage: () => ({}),
   },
   externalCheckout: {

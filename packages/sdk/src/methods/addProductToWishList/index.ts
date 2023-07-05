@@ -1,7 +1,7 @@
 import { AddProductsToWishlistMutationVariables, Mutation } from '@vue-storefront/magento-types';
-import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 
 /**
