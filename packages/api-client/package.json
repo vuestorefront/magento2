@@ -7,12 +7,8 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "license": "MIT",
-  "main": "./lib/index.js",
-  "exports": {
-    ".": "./lib/index.js",
-    "./server": "./lib/index.server.js",
-    "./package.json": "./package.json"
-  },
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.es.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "rimraf lib server && rollup -c",
