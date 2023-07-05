@@ -8,7 +8,6 @@ export const handleRetry = () => (count, operation, error) => {
   }
 
   if (error?.result?.message === 'invalid_token') {
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     consola.debug(`Apollo retry-link, the operation (${operation.operationName}) sent with wrong token, creating a new one... (attempt: ${count})`);
     return true;
   }

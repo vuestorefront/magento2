@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import {
   ApolloClient, ApolloLink, from, HttpLink, InMemoryCache,
 } from '@apollo/client/core';
@@ -82,7 +81,6 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
   return from([
     onErrorLink,
     errorRetry,
-    // eslint-disable-next-line unicorn/prefer-spread
     baseLink.concat(httpLink),
   ]);
 };
