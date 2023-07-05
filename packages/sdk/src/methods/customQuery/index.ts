@@ -1,20 +1,20 @@
+import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
-import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
 
 /**
  * customQuery response type
  */
-export type CustomQueryResponse<T> = ApolloQueryResult<T>
+export type CustomQueryResponse<T> = ApolloQueryResult<T>;
 
 /**
  * Custom query input type
  */
 export type CustomQueryInput<TQueryVariables> = {
-  query: string,
-  queryVariables?: TQueryVariables,
-  fetchPolicy?: FetchPolicy,
-}
+  query: string;
+  queryVariables?: TQueryVariables;
+  fetchPolicy?: FetchPolicy;
+};
 
 /**
  * Method to send an arbitrary GraphQL query to the Magento GraphQL endpoint
@@ -66,12 +66,11 @@ export type CustomQueryInput<TQueryVariables> = {
  * });
  * ```
  */
-export async function customQuery<RES extends CustomQueryResponse<any>, INPUT extends CustomQueryInput<any>>(params: INPUT, options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'customQuery',
-    [params, options?.customHeaders],
-    options?.clientConfig
-  );
+export async function customQuery<RES extends CustomQueryResponse<any>, INPUT extends CustomQueryInput<any>>(
+  params: INPUT,
+  options?: MethodBaseOptions,
+) {
+  const { data } = await client.post<RES>('customQuery', [params, options?.customHeaders], options?.clientConfig);
 
   return data;
 }

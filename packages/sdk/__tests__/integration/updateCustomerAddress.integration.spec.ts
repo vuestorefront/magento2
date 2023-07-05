@@ -10,7 +10,10 @@ describe(describeGroup('updateCustomerAddress'), () => {
   it('updates address', async () => {
     const token = await getUserToken();
     const customHeaders = { Authorization: `Bearer ${token}` };
-    const result = await sdk.magento.updateCustomerAddress({ id: addressId, input: { city: NEW_CITY } }, { customHeaders });
+    const result = await sdk.magento.updateCustomerAddress(
+      { id: addressId, input: { city: NEW_CITY } },
+      { customHeaders },
+    );
 
     expect(result.data!.updateCustomerAddress!.city).toBe(NEW_CITY);
 
@@ -23,12 +26,15 @@ describe(describeGroup('updateCustomerAddress'), () => {
     const customQuery = {
       updateCustomerAddress: 'update-customer-address-custom-query',
       metadata: {
-        fields: 'id firstname city'
-      }
+        fields: 'id firstname city',
+      },
     };
     const customHeaders = { Authorization: `Bearer ${token}` };
 
-    const result = await sdk.magento.updateCustomerAddress({ id: addressId, input: { city: NEW_CITY } }, { customQuery, customHeaders });
+    const result = await sdk.magento.updateCustomerAddress(
+      { id: addressId, input: { city: NEW_CITY } },
+      { customQuery, customHeaders },
+    );
 
     expect(result.data!.updateCustomerAddress!.city).toBe(NEW_CITY);
     // check if default (non-custom) query isn't ran on accident

@@ -1,9 +1,5 @@
 import { FetchResult } from '@apollo/client/core';
-import type {
-  CustomHeaders,
-  SubscribeEmailToNewsletterMutation,
-  SubscribeEmailToNewsletterMutationVariables,
-} from '@vue-storefront/magento-types';
+import type { CustomHeaders, SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
 import { Context } from '../../types/context';
@@ -18,10 +14,12 @@ import getHeaders from '../getHeaders';
 export default async function subscribeEmailToNewsletter(
   context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SubscribeEmailToNewsletterMutation>> {
   return context.client.mutate<SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables>({
-    mutation: gql`${subscribeEmailToNewsletterMutation}`,
+    mutation: gql`
+      ${subscribeEmailToNewsletterMutation}
+    `,
     variables: {
       email,
     },

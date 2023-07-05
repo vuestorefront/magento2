@@ -1,8 +1,8 @@
-import { MethodBaseOptions } from '../../types';
 import { CreateProductReviewInput, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link createProductReview} method.
@@ -12,7 +12,9 @@ export type CreateProductReviewMutation = { createProductReview: Mutation['creat
 /**
  * createProductReview response type
  */
-export type CreateProductReviewResponse<T extends DeepPartial<CreateProductReviewMutation> = CreateProductReviewMutation> = FetchResult<T>
+export type CreateProductReviewResponse<
+  T extends DeepPartial<CreateProductReviewMutation> = CreateProductReviewMutation,
+> = FetchResult<T>;
 
 /**
  * Method to create product review
@@ -59,11 +61,14 @@ export type CreateProductReviewResponse<T extends DeepPartial<CreateProductRevie
  * // result will contain the created review and summary data
  * ```
  */
-export async function createProductReview<RES extends CreateProductReviewResponse>(params: CreateProductReviewInput, options?: MethodBaseOptions) {
+export async function createProductReview<RES extends CreateProductReviewResponse>(
+  params: CreateProductReviewInput,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'createProductReview',
     [params, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

@@ -16,13 +16,13 @@ describe(describeGroup('productReviewRatingsMetadata'), () => {
                 expect.objectContaining({
                   __typename: 'ProductReviewRatingValueMetadata',
                   value: expect.any(String),
-                  value_id: expect.any(String)
-                })
-              ])
-            })
-          ])
-        })
-      })
+                  value_id: expect.any(String),
+                }),
+              ]),
+            }),
+          ]),
+        }),
+      }),
     });
 
     const result = await sdk.magento.productReviewRatingsMetadata();
@@ -34,8 +34,8 @@ describe(describeGroup('productReviewRatingsMetadata'), () => {
     const customQuery = {
       productReviewRatingsMetadata: 'product-review-ratings-metadata-custom-query',
       metadata: {
-        fields: 'id'
-      }
+        fields: 'id',
+      },
     };
     const expected = expect.objectContaining({
       data: expect.objectContaining({
@@ -44,11 +44,11 @@ describe(describeGroup('productReviewRatingsMetadata'), () => {
           items: expect.arrayContaining([
             expect.objectContaining({
               __typename: 'ProductReviewRatingMetadata',
-              id: expect.any(String)
-            })
-          ])
-        })
-      })
+              id: expect.any(String),
+            }),
+          ]),
+        }),
+      }),
     });
 
     const result = await sdk.magento.productReviewRatingsMetadata({ customQuery });

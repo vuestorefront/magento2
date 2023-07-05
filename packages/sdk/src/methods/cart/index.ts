@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CartQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link cart} method.
@@ -12,7 +12,7 @@ export type CartQuery = { cart: Query['cart'] };
 /**
  * Category list response type
  */
-export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQueryResult<T>
+export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to get cart
@@ -88,11 +88,14 @@ export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQ
  * // Cart will contain only the fields specified in the custom query.
  * ```
  */
-export async function cart<RES extends CartResponse>(params: CartQueryVariables, options?: MethodOptions<CustomQuery<'cart'>>) {
+export async function cart<RES extends CartResponse>(
+  params: CartQueryVariables,
+  options?: MethodOptions<CustomQuery<'cart'>>,
+) {
   const { data } = await client.post<RES>(
     'cart',
     [params.cartId, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

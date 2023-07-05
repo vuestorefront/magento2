@@ -4,14 +4,16 @@ import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
 
 const PARAMS_MOCK = { sourceCartId: '123', destinationCartId: '456' };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'mergeCarts'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'mergeCarts'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('mergeCarts'), () => {
@@ -24,9 +26,7 @@ describe(describeGroup('mergeCarts'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await mergeCarts(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'mergeCarts', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('mergeCarts', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

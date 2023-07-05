@@ -18,11 +18,9 @@ import getHeaders from '../getHeaders';
 export default async function requestPasswordResetEmail(
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> {
-  const {
-    recaptchaToken, ...variables
-  } = input;
+  const { recaptchaToken, ...variables } = input;
 
   if (context.config.recaptcha.isEnabled) {
     /**
@@ -39,9 +37,10 @@ export default async function requestPasswordResetEmail(
   }
 
   consola.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
-  const result = await context.client
-    .mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
-    mutation: gql`${requestPasswordResetEmailMutation}`,
+  const result = await context.client.mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
+    mutation: gql`
+      ${requestPasswordResetEmailMutation}
+    `,
     variables,
     context: {
       headers: getHeaders(context, customHeaders),

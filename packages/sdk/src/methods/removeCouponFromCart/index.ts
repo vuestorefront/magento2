@@ -1,18 +1,20 @@
 import { Mutation, RemoveCouponFromCartInput } from '@vue-storefront/magento-types';
-import { CustomQuery, MethodOptions } from '../../types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { CustomQuery, MethodOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * mutation type for the {@link removeCouponFromCart} method.
  */
-export type RemoveCouponFromCartMutation = { removeCouponFromCart: Mutation['removeCouponFromCart'] }
+export type RemoveCouponFromCartMutation = { removeCouponFromCart: Mutation['removeCouponFromCart'] };
 
 /**
  * Category list response type
  */
-export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromCartMutation> = RemoveCouponFromCartMutation> = FetchResult<T>
+export type RemoveCouponFromCartResponse<
+  T extends DeepPartial<RemoveCouponFromCartMutation> = RemoveCouponFromCartMutation,
+> = FetchResult<T>;
 
 /**
  * Method to remove coupon from cart
@@ -96,11 +98,14 @@ export type RemoveCouponFromCartResponse<T extends DeepPartial<RemoveCouponFromC
  *  const result = await sdk.magento.removeCouponFromCart(params, { customQuery });
  * ```
  */
-export async function removeCouponFromCart<RES extends RemoveCouponFromCartResponse>(params: RemoveCouponFromCartInput, options?: MethodOptions<CustomQuery<'removeCouponFromCart'>>) {
+export async function removeCouponFromCart<RES extends RemoveCouponFromCartResponse>(
+  params: RemoveCouponFromCartInput,
+  options?: MethodOptions<CustomQuery<'removeCouponFromCart'>>,
+) {
   const { data } = await client.post<RES>(
     'removeCouponFromCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

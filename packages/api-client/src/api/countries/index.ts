@@ -15,18 +15,17 @@ import getHeaders from '../getHeaders';
 export default async function countries(
   context: Context,
   customQuery: CustomQuery = { countries: 'countries' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CountriesListQuery>> {
-  const { countries: countriesGQL } = context.extendQuery(
-    customQuery,
-    {
-      countries: {
-        query: countriesListQuery,
-      },
+  const { countries: countriesGQL } = context.extendQuery(customQuery, {
+    countries: {
+      query: countriesListQuery,
     },
-  );
+  });
   return context.client.query<CountriesListQuery>({
-    query: gql`${countriesGQL.query}`,
+    query: gql`
+      ${countriesGQL.query}
+    `,
     context: {
       headers: getHeaders(context, customHeaders),
     },

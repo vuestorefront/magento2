@@ -10,8 +10,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('customMutation'), () => {
@@ -24,9 +24,7 @@ describe(describeGroup('customMutation'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await customMutation(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'customMutation', [expect.objectContaining(PARAMS_MOCK), {}], {}
-    );
+    expect(client.post).toBeCalledWith('customMutation', [expect.objectContaining(PARAMS_MOCK), {}], {});
   });
 
   it('extracts and returns a response', async () => {

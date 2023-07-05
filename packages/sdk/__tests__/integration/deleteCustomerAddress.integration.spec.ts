@@ -1,6 +1,6 @@
+import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-types';
 import { sdk } from './__config__/sdk.config';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
-import { CountryCodeEnum, CustomerAddressInput } from '@vue-storefront/magento-types';
 
 describe(describeGroup('deleteCustomerAddress'), () => {
   const address: CustomerAddressInput = {
@@ -16,17 +16,21 @@ describe(describeGroup('deleteCustomerAddress'), () => {
     region: {
       region_code: 'NJ',
       region_id: 41,
-      region: 'New Jersey'
-    }
+      region: 'New Jersey',
+    },
   };
 
   it('removes address of the customer', async () => {
     const token = await getUserToken();
-    const createResult = await sdk.magento.createCustomerAddress(address, { customHeaders: { Authorization: `Bearer ${token}` } });
+    const createResult = await sdk.magento.createCustomerAddress(address, {
+      customHeaders: { Authorization: `Bearer ${token}` },
+    });
     const createdAddressId = createResult.data?.createCustomerAddress?.id;
 
-    const result = await sdk.magento.deleteCustomerAddress({ id: createdAddressId! }, { customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.deleteCustomerAddress(
+      { id: createdAddressId! },
+      { customHeaders: { Authorization: `Bearer ${token}` } },
+    );
     expect(result.data!.deleteCustomerAddress).toBeTruthy();
   });
-
 });

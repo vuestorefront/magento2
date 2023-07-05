@@ -1,21 +1,23 @@
+import { AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-types';
 import { addProductToWishList } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: AddProductsToWishlistMutationVariables = {
   id: 'id123',
-  items: [{ quantity: 1, sku: '123' }]
+  items: [{ quantity: 1, sku: '123' }],
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'addProductsToWishlist'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'addProductsToWishlist'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('addProductToWishList'), () => {
@@ -28,9 +30,7 @@ describe(describeGroup('addProductToWishList'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await addProductToWishList(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'addProductToWishList', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('addProductToWishList', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

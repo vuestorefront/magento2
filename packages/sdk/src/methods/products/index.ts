@@ -1,9 +1,9 @@
-import { client } from '../../client';
-import type { CustomQuery, MethodOptions } from '../../types';
 import type { GetProductSearchParams } from '@vue-storefront/magento-types';
 import { Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import type { CustomQuery, MethodOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * query type for the {@link products} method.
@@ -13,7 +13,7 @@ export type ProductsListQuery = { products: Query['products'] };
 /**
  * Products list response type
  */
-export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = ProductsListQuery> = ApolloQueryResult<T>
+export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = ProductsListQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to get products
@@ -118,13 +118,15 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  * // Products will contain only the fields specified in the custom query.
  * ```
  */
-export async function products<RES extends ProductsListResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'products'>>) {
+export async function products<RES extends ProductsListResponse>(
+  params: GetProductSearchParams,
+  options?: MethodOptions<CustomQuery<'products'>>,
+) {
   const { data } = await client.post<RES>(
     'products',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;
 }
-

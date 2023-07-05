@@ -16,19 +16,18 @@ export default async function cart(
   context: Context,
   cartId: string,
   customQuery: CustomQuery = { cart: 'cart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CartQuery>> {
-  const { cart: cartGQL } = context.extendQuery(
-    customQuery,
-    {
-      cart: {
-        query: cartQuery,
-        variables: { cartId: cartId ?? '' },
-      },
+  const { cart: cartGQL } = context.extendQuery(customQuery, {
+    cart: {
+      query: cartQuery,
+      variables: { cartId: cartId ?? '' },
     },
-  );
+  });
   return context.client.query<CartQuery, CartQueryVariables>({
-    query: gql`${cartGQL.query}`,
+    query: gql`
+      ${cartGQL.query}
+    `,
     variables: cartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

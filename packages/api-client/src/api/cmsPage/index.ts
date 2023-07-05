@@ -18,21 +18,20 @@ export default async function getCmsPage(
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: 'cmsPage' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CmsPageQuery>> {
   try {
-    const { cmsPage: cmsPageGQL } = context.extendQuery(
-      customQuery,
-      {
-        cmsPage: {
-          query: cmsPage,
-          variables: { identifier },
-        },
+    const { cmsPage: cmsPageGQL } = context.extendQuery(customQuery, {
+      cmsPage: {
+        query: cmsPage,
+        variables: { identifier },
       },
-    );
+    });
 
     return await context.client.query<CmsPageQuery, CmsPageQueryVariables>({
-      query: gql`${cmsPageGQL.query}`,
+      query: gql`
+        ${cmsPageGQL.query}
+      `,
       variables: cmsPageGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

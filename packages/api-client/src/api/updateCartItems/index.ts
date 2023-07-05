@@ -17,20 +17,19 @@ export default async function updateCartItems(
   context: Context,
   input: UpdateCartItemsInput,
   customQuery: CustomQuery = { updateCartItems: 'updateCartItems' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<UpdateCartItemsMutation>> {
-  const { updateCartItems: updateCartItemsGQL } = context.extendQuery(
-    customQuery,
-    {
-      updateCartItems: {
-        query: updateCartItemsMutation,
-        variables: { input },
-      },
+  const { updateCartItems: updateCartItemsGQL } = context.extendQuery(customQuery, {
+    updateCartItems: {
+      query: updateCartItemsMutation,
+      variables: { input },
     },
-  );
+  });
 
   return context.client.mutate<UpdateCartItemsMutation, UpdateCartItemsMutationVariables>({
-    mutation: gql`${updateCartItemsGQL.query}`,
+    mutation: gql`
+      ${updateCartItemsGQL.query}
+    `,
     variables: updateCartItemsGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -1,11 +1,11 @@
+import { CmsPageQueryVariables } from '@vue-storefront/magento-types';
 import { cmsPage } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CmsPageQueryVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CmsPageQueryVariables = {
-  identifier: 'some_identifier'
+  identifier: 'some_identifier',
 };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'cmsPage'>>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
@@ -13,8 +13,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('cmsPage'), () => {
@@ -27,9 +27,7 @@ describe(describeGroup('cmsPage'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await cmsPage(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'cmsPage', [PARAMS_MOCK.identifier, {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('cmsPage', [PARAMS_MOCK.identifier, {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

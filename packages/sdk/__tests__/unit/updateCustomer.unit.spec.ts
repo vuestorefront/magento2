@@ -1,20 +1,22 @@
+import { CustomerUpdateInput } from '@vue-storefront/magento-types';
 import { updateCustomer } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CustomerUpdateInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CustomerUpdateInput = {
-  lastname: 'Doe'
+  lastname: 'Doe',
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'updateCustomer'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'updateCustomer'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('updateCustomer'), () => {
@@ -27,9 +29,7 @@ describe(describeGroup('updateCustomer'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await updateCustomer(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'updateCustomer', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('updateCustomer', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

@@ -1,24 +1,26 @@
+import { SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 import { setPaymentMethodOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetPaymentMethodOnCartInputs = {
   cart_id: '123',
   payment_method: {
-    code: 'checkmo'
-  }
+    code: 'checkmo',
+  },
 };
 
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'setPaymentMethodOnCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'setPaymentMethodOnCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('setPaymentMethodOnCart'), () => {
@@ -31,9 +33,7 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await setPaymentMethodOnCart(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'setPaymentMethodOnCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('setPaymentMethodOnCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

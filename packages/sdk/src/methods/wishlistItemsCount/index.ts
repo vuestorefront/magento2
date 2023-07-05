@@ -1,13 +1,13 @@
-import { MethodBaseOptions } from '../../types';
 import { WishlistQuery } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * wishlistItemsCount response type
  */
-export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = WishlistQuery> = ApolloQueryResult<T>
+export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = WishlistQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to count items in the wishlist
@@ -41,11 +41,7 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * ```
  */
 export async function wishlistItemsCount<RES extends WishlistItemsCountResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'wishlistItemsCount',
-    [options?.customHeaders],
-    options?.clientConfig
-  );
+  const { data } = await client.post<RES>('wishlistItemsCount', [options?.customHeaders], options?.clientConfig);
 
   return data;
 }

@@ -1,8 +1,8 @@
-import { client } from '../../client';
-import type { CustomQuery, MethodOptions } from '../../types';
 import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { ApolloQueryResult } from '@apollo/client';
 import { DeepPartial } from 'ts-essentials';
+import type { CustomQuery, MethodOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * query type for the {@link upsellProducts} method.
@@ -12,7 +12,8 @@ export type UpsellProductsQuery = { products: Query['products'] };
 /**
  * Upsell Products response type
  */
-export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = UpsellProductsQuery> = ApolloQueryResult<T>
+export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = UpsellProductsQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to get upsell products for a given product.
@@ -117,13 +118,15 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  * // upsellProducts will contain only the fields specified in the custom query.
  * ```
  */
-export async function upsellProducts<RES extends UpsellProductsResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'upsellProducts'>>) {
+export async function upsellProducts<RES extends UpsellProductsResponse>(
+  params: GetProductSearchParams,
+  options?: MethodOptions<CustomQuery<'upsellProducts'>>,
+) {
   const { data } = await client.post<RES>(
     'upsellProducts',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;
 }
-

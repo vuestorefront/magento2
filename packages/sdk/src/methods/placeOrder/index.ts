@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, PlaceOrderInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link placeOrder} method.
@@ -12,7 +12,7 @@ export type PlaceOrderMutation = { placeOrder: Mutation['placeOrder'] };
 /**
  * placeOrder response type
  */
-export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = PlaceOrderMutation> = FetchResult<T>
+export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = PlaceOrderMutation> = FetchResult<T>;
 
 /**
  * Method to place an order.
@@ -117,12 +117,11 @@ export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = Place
  * // place the order
  * const result = await sdk.magento.placeOrder({ cart_id: cartId });
  */
-export async function placeOrder<RES extends PlaceOrderResponse>(params: PlaceOrderInput, options?: MethodOptions<CustomQuery<'placeOrder'>>) {
-  const { data } = await client.post<RES>(
-    'placeOrder',
-    [params, options?.customHeaders],
-    options?.clientConfig
-  );
+export async function placeOrder<RES extends PlaceOrderResponse>(
+  params: PlaceOrderInput,
+  options?: MethodOptions<CustomQuery<'placeOrder'>>,
+) {
+  const { data } = await client.post<RES>('placeOrder', [params, options?.customHeaders], options?.clientConfig);
 
   return data;
 }

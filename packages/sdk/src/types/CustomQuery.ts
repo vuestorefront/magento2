@@ -17,4 +17,6 @@
  * type CreateCartCustomQuery = CustomQuery<'createCart'>;
  * ```
  */
-export type CustomQuery<KEY extends string> = KEY extends string ? Record<KEY, string> & { metadata?: unknown } : unknown;
+export type CustomQuery<KEY extends string> = KEY extends string
+  ? Record<KEY, string> & { metadata?: unknown }
+  : unknown;

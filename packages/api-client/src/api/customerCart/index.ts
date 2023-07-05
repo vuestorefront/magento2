@@ -14,19 +14,18 @@ import getHeaders from '../getHeaders';
 export default async function customerCart(
   context: Context,
   customQuery: CustomQuery = { customerCart: 'customerCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerCartQuery>> {
-  const { customerCart: customerCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      customerCart: {
-        query: customerCartQuery,
-      },
+  const { customerCart: customerCartGQL } = context.extendQuery(customQuery, {
+    customerCart: {
+      query: customerCartQuery,
     },
-  );
+  });
 
   return context.client.query<CustomerCartQuery>({
-    query: gql`${customerCartGQL.query}`,
+    query: gql`
+      ${customerCartGQL.query}
+    `,
     context: {
       headers: getHeaders(context, customHeaders),
     },

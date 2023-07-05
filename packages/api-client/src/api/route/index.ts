@@ -1,7 +1,5 @@
 import type { ApolloQueryResult } from '@apollo/client/core';
-import type {
-  CustomHeaders, QueryRouteArgs, RoutableInterface, RouteQuery,
-} from '@vue-storefront/magento-types';
+import type { CustomHeaders, QueryRouteArgs, RoutableInterface, RouteQuery } from '@vue-storefront/magento-types';
 import gql from 'graphql-tag';
 import routeQuery from './route';
 import type { Context } from '../../types/context';
@@ -17,10 +15,12 @@ import getHeaders from '../getHeaders';
 export default async function route(
   context: Context,
   url: string,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<RouteQuery<RoutableInterface>>> {
   return context.client.query<RouteQuery<RoutableInterface>, QueryRouteArgs>({
-    query: gql`${routeQuery}`,
+    query: gql`
+      ${routeQuery}
+    `,
     variables: { url },
     context: {
       headers: getHeaders(context, customHeaders),

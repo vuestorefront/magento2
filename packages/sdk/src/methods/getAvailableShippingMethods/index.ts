@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { GuestAvailableShippingMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link getAvailableShippingMethods} method.
@@ -12,7 +12,9 @@ export type GuestAvailableShippingMethodsQuery = { cart: Query['cart'] };
 /**
  * getAvailableShippingMethods response type
  */
-export type GetAvailableShippingMethodsResponse<T extends DeepPartial<GuestAvailableShippingMethodsQuery> = GuestAvailableShippingMethodsQuery> = ApolloQueryResult<T>
+export type GetAvailableShippingMethodsResponse<
+  T extends DeepPartial<GuestAvailableShippingMethodsQuery> = GuestAvailableShippingMethodsQuery,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch guest's available shipping methods
@@ -96,11 +98,14 @@ export type GetAvailableShippingMethodsResponse<T extends DeepPartial<GuestAvail
  * // result contains the customer addresses with only the city method_title. Of course, it has same shape as in the "simple usage" example.
  * ```
  */
-export async function getAvailableShippingMethods<RES extends GetAvailableShippingMethodsResponse>(params: GuestAvailableShippingMethodsQueryVariables, options?: MethodOptions<CustomQuery<'shippingMethods'>>) {
+export async function getAvailableShippingMethods<RES extends GetAvailableShippingMethodsResponse>(
+  params: GuestAvailableShippingMethodsQueryVariables,
+  options?: MethodOptions<CustomQuery<'shippingMethods'>>,
+) {
   const { data } = await client.post<RES>(
     'getAvailableShippingMethods',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

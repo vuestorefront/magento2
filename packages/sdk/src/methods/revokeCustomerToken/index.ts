@@ -1,18 +1,20 @@
-import { MethodBaseOptions } from '../../types';
 import { Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link revokeCustomerToken} method.
  */
-export type RevokeCustomerTokenMutation = { revokeCustomerToken: Mutation['revokeCustomerToken'] }
+export type RevokeCustomerTokenMutation = { revokeCustomerToken: Mutation['revokeCustomerToken'] };
 
 /**
  * revokeCustomerToken response type
  */
-export type RevokeCustomerTokenResponse<T extends DeepPartial<RevokeCustomerTokenMutation> = RevokeCustomerTokenMutation> = FetchResult<T>
+export type RevokeCustomerTokenResponse<
+  T extends DeepPartial<RevokeCustomerTokenMutation> = RevokeCustomerTokenMutation,
+> = FetchResult<T>;
 
 /**
  * Method to revoke customer token.
@@ -45,11 +47,7 @@ export type RevokeCustomerTokenResponse<T extends DeepPartial<RevokeCustomerToke
  * ```
  */
 export async function revokeCustomerToken<RES extends RevokeCustomerTokenResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'revokeCustomerToken',
-    [options?.customHeaders],
-    options?.clientConfig
-  );
+  const { data } = await client.post<RES>('revokeCustomerToken', [options?.customHeaders], options?.clientConfig);
 
   return data;
 }

@@ -1,9 +1,5 @@
 import { FetchResult, gql } from '@apollo/client/core';
-import {
-  CustomQuery,
-  AddProductsToWishlistMutation,
-  AddProductsToWishlistMutationVariables,
-} from '@vue-storefront/magento-types';
+import { CustomQuery, AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables } from '@vue-storefront/magento-types';
 import type { CustomHeaders } from '@vue-storefront/magento-types';
 import addProductsToWishlist from './addProductsToWishlist';
 import { Context } from '../../types/context';
@@ -13,19 +9,18 @@ export default async (
   context: Context,
   input: AddProductsToWishlistMutationVariables,
   customQuery: CustomQuery = { addProductsToWishlist: 'addProductsToWishlist' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddProductsToWishlistMutation>> => {
-  const { addProductsToWishlist: addProductsToWishlistGQL } = context.extendQuery(
-    customQuery,
-    {
-      addProductsToWishlist: {
-        query: addProductsToWishlist,
-        variables: { ...input },
-      },
+  const { addProductsToWishlist: addProductsToWishlistGQL } = context.extendQuery(customQuery, {
+    addProductsToWishlist: {
+      query: addProductsToWishlist,
+      variables: { ...input },
     },
-  );
+  });
   return context.client.mutate<AddProductsToWishlistMutation, AddProductsToWishlistMutationVariables>({
-    mutation: gql`${addProductsToWishlistGQL.query}`,
+    mutation: gql`
+      ${addProductsToWishlistGQL.query}
+    `,
     variables: addProductsToWishlistGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

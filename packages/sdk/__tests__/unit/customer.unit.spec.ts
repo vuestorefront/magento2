@@ -9,8 +9,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('customer'), () => {
@@ -23,9 +23,7 @@ describe(describeGroup('customer'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await customer(OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'customer', [{}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('customer', [{}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

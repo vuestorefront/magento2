@@ -1,21 +1,21 @@
-import { MethodBaseOptions } from '../../types';
-import { client } from '../../client';
 import { FetchPolicy } from '@apollo/client';
 import { FetchResult } from '@apollo/client/core';
+import { MethodBaseOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * customQuery response type
  */
-export type CustomMutationResponse<T> = FetchResult<T>
+export type CustomMutationResponse<T> = FetchResult<T>;
 
 /**
  * Custom mutation input type
  */
 export type CustomMutationInput<TQueryVariables> = {
-  mutation: string,
-  mutationVariables?: TQueryVariables,
-  fetchPolicy?: FetchPolicy,
-}
+  mutation: string;
+  mutationVariables?: TQueryVariables;
+  fetchPolicy?: FetchPolicy;
+};
 
 /**
  * Method to send an arbitrary GraphQL mutation to the Magento GraphQL endpoint
@@ -69,12 +69,11 @@ export type CustomMutationInput<TQueryVariables> = {
  * });
  * ```
  */
-export async function customMutation<RES extends CustomMutationResponse<any>, INPUT extends CustomMutationInput<any>>(params: INPUT, options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'customMutation',
-    [params, options?.customHeaders],
-    options?.clientConfig
-  );
+export async function customMutation<RES extends CustomMutationResponse<any>, INPUT extends CustomMutationInput<any>>(
+  params: INPUT,
+  options?: MethodBaseOptions,
+) {
+  const { data } = await client.post<RES>('customMutation', [params, options?.customHeaders], options?.clientConfig);
 
   return data;
 }

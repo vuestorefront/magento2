@@ -1,6 +1,4 @@
-import {
-  ApolloClient, ApolloLink, from, HttpLink, InMemoryCache,
-} from '@apollo/client/core';
+import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client/core';
 import fetch from 'isomorphic-fetch';
 import { onError } from '@apollo/client/link/error';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -15,51 +13,46 @@ import standardURL from '../url/standardURL';
 const { HttpsAgent } = AgentKeepAlive;
 const agent = new HttpsAgent();
 
-const createErrorHandler = () => onError(({
-  graphQLErrors,
-  networkError,
-}) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({
-      message,
-      locations,
-      path,
-      extensions,
-    }) => {
-      // Mute all GraphQL authorization errors
-      if (extensions?.category === 'graphql-authorization') {
-        return;
-      }
-
-      if (!message.includes('Resource Owner Password Credentials Grant')) {
-        if (!locations) {
-          consola.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+const createErrorHandler = () =>
+  onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(({ message, locations, path, extensions }) => {
+        // Mute all GraphQL authorization errors
+        if (extensions?.category === 'graphql-authorization') {
           return;
         }
 
-        const parsedLocations = locations.map(({
-          column,
-          line,
-        }) => `[column: ${column}, line: ${line}]`);
+        if (!message.includes('Resource Owner Password Credentials Grant')) {
+          if (!locations) {
+            consola.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+            return;
+          }
 
-        consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
-      }
-    });
+          const parsedLocations = locations.map(({ column, line }) => `[column: ${column}, line: ${line}]`);
+
+          consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+        }
+      });
+    }
+
+    if (networkError) {
+      consola.error(`[Network error]: ${networkError}`);
+    }
+  });
+
+export const apolloLinkFactory = (
+  settings: Config,
+  handlers?: {
+    apolloLink?: ApolloLink;
   }
-
-  if (networkError) {
-    consola.error(`[Network error]: ${networkError}`);
-  }
-});
-
-export const apolloLinkFactory = (settings: Config, handlers?: {
-  apolloLink?: ApolloLink;
-}) => {
-  const baseLink = handlers?.apolloLink || setContext((apolloReq, { headers }) => ({
-    headers: {
-      ...headers,
-    },
-  }));
+) => {
+  const baseLink =
+    handlers?.apolloLink ||
+    setContext((apolloReq, { headers }) => ({
+      headers: {
+        ...headers,
+      },
+    }));
 
   const httpLink = new HttpLink({
     uri: settings.api,
@@ -78,19 +71,16 @@ export const apolloLinkFactory = (settings: Config, handlers?: {
     delay: () => 0,
   });
 
-  return from([
-    onErrorLink,
-    errorRetry,
-    baseLink.concat(httpLink),
-  ]);
+  return from([onErrorLink, errorRetry, baseLink.concat(httpLink)]);
 };
 
-export const apolloClientFactory = (customOptions: Record<string, any>) => new ApolloClient({
-  cache: new InMemoryCache({
-    possibleTypes,
-    resultCaching: true,
-  }),
-  queryDeduplication: true,
-  ssrMode: true,
-  ...customOptions,
-});
+export const apolloClientFactory = (customOptions: Record<string, any>) =>
+  new ApolloClient({
+    cache: new InMemoryCache({
+      possibleTypes,
+      resultCaching: true,
+    }),
+    queryDeduplication: true,
+    ssrMode: true,
+    ...customOptions,
+  });

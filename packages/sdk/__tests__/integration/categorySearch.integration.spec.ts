@@ -22,15 +22,15 @@ describe(describeGroup('categorySearch'), () => {
       categorySearch: 'category-search-custom-query',
       metadata: {
         // field that doesn't exist in default query
-        fields: 'available_sort_by'
-      }
+        fields: 'available_sort_by',
+      },
     };
 
     const result = await sdk.magento.categorySearch({}, { customQuery });
 
     const expected = {
       __typename: 'CategoryTree',
-      available_sort_by: null
+      available_sort_by: null,
     };
     expect(result.data.categoryList[0]).toStrictEqual(expected);
   });

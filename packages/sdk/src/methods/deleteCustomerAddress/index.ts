@@ -1,8 +1,8 @@
-import { MethodBaseOptions } from '../../types';
 import { DeleteCustomerAddressMutationVariables, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link deleteCustomerAddress} method.
@@ -12,7 +12,9 @@ export type DeleteCustomerAddressMutation = { deleteCustomerAddress: Mutation['d
 /**
  * deleteCustomerAddress response type
  */
-export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAddressMutation> = DeleteCustomerAddressMutation> = FetchResult<T>
+export type DeleteCustomerAddressResponse<
+  T extends DeepPartial<DeleteCustomerAddressMutation> = DeleteCustomerAddressMutation,
+> = FetchResult<T>;
 
 /**
  * Method to delete a customer address.
@@ -48,11 +50,14 @@ export type DeleteCustomerAddressResponse<T extends DeepPartial<DeleteCustomerAd
  * // response.data?.deleteCustomerAddress - result is stored here, it's boolean
  * ```
  */
-export async function deleteCustomerAddress<RES extends DeleteCustomerAddressResponse>(params: DeleteCustomerAddressMutationVariables, options?: MethodBaseOptions) {
+export async function deleteCustomerAddress<RES extends DeleteCustomerAddressResponse>(
+  params: DeleteCustomerAddressMutationVariables,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'deleteCustomerAddress',
     [params.id, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

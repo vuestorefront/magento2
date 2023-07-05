@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link storeConfig} method.
@@ -12,7 +12,7 @@ export type StoreConfigQuery = { storeConfig: Query['storeConfig'] };
 /**
  * storeConfig response type
  */
-export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreConfigQuery> = ApolloQueryResult<T>
+export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreConfigQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch store configuration
@@ -83,11 +83,13 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  * const result = await sdk.magento.storeConfig({ customQuery });
  * ```
  */
-export async function storeConfig<RES extends StoreConfigResponse>(options?: MethodOptions<CustomQuery<'storeConfig'>>) {
+export async function storeConfig<RES extends StoreConfigResponse>(
+  options?: MethodOptions<CustomQuery<'storeConfig'>>,
+) {
   const { data } = await client.post<RES>(
     'storeConfig',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

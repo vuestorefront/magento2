@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link getAvailableCustomerShippingMethods} method.
@@ -12,7 +12,9 @@ export type CustomerAvailableShippingMethodsQuery = { customerCart: Query['custo
 /**
  * getAvailableCustomerShippingMethods response type
  */
-export type GetAvailableCustomerShippingMethodsResponse<T extends DeepPartial<CustomerAvailableShippingMethodsQuery> = CustomerAvailableShippingMethodsQuery> = ApolloQueryResult<T>
+export type GetAvailableCustomerShippingMethodsResponse<
+  T extends DeepPartial<CustomerAvailableShippingMethodsQuery> = CustomerAvailableShippingMethodsQuery,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch available shipping methods for current customer.
@@ -96,11 +98,13 @@ export type GetAvailableCustomerShippingMethodsResponse<T extends DeepPartial<Cu
  * // the result will contain only the data defined in the custom query
  * ```
  */
-export async function getAvailableCustomerShippingMethods<RES extends GetAvailableCustomerShippingMethodsResponse>(options?: MethodOptions<CustomQuery<'getAvailableCustomerShippingMethods'>>) {
+export async function getAvailableCustomerShippingMethods<RES extends GetAvailableCustomerShippingMethodsResponse>(
+  options?: MethodOptions<CustomQuery<'getAvailableCustomerShippingMethods'>>,
+) {
   const { data } = await client.post<RES>(
     'getAvailableCustomerShippingMethods',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

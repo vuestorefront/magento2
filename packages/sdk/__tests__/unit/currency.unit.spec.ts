@@ -9,8 +9,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('currency'), () => {
@@ -23,9 +23,7 @@ describe(describeGroup('currency'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await currency(OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'currency', [{}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('currency', [{}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

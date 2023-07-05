@@ -11,10 +11,10 @@ const createAddToCartParams = (sourceCartId: string) => ({
       selected_options: [
         // size and color
         'Y29uZmlndXJhYmxlLzkzLzUz',
-        'Y29uZmlndXJhYmxlLzE0NC8xNzE='
-      ]
-    }
-  ]
+        'Y29uZmlndXJhYmxlLzE0NC8xNzE=',
+      ],
+    },
+  ],
 });
 
 describe(describeGroup('mergeCarts'), () => {
@@ -27,7 +27,9 @@ describe(describeGroup('mergeCarts'), () => {
 
     const result = await sdk.magento.mergeCarts({ sourceCartId, destinationCartId }, { customHeaders });
 
-    const addedProductInDestinationCart = result.data.mergeCarts.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const addedProductInDestinationCart = result.data.mergeCarts.items!.find(
+      (item) => item!.product.sku === TEST_PRODUCT_SKU,
+    );
     expect(addedProductInDestinationCart).toBeDefined();
   });
 
@@ -35,18 +37,15 @@ describe(describeGroup('mergeCarts'), () => {
     const customQuery = {
       mergeCarts: 'merge-carts-custom-query',
       metadata: {
-        fields: 'id'
-      }
+        fields: 'id',
+      },
     };
     const customHeaders = { Authorization: `Bearer ${await getUserToken()}` };
     const sourceCartId = (await sdk.magento.createEmptyCart()).data!.createEmptyCart!;
     const destinationCartId = (await sdk.magento.createEmptyCart({ customHeaders })).data!.createEmptyCart!;
     await sdk.magento.addProductsToCart(createAddToCartParams(sourceCartId));
 
-    const result = await sdk.magento.mergeCarts(
-      { sourceCartId, destinationCartId },
-      { customHeaders, customQuery }
-    );
+    const result = await sdk.magento.mergeCarts({ sourceCartId, destinationCartId }, { customHeaders, customQuery });
 
     expect(result.data.mergeCarts.id).toBe(destinationCartId);
     // check if default (non-custom) query isn't ran on accident

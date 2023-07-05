@@ -5,8 +5,8 @@ import { TEST_CART_ID } from './__config__/jest.const';
 const SHARED_PARAMS = {
   cart_id: TEST_CART_ID,
   payment_method: {
-    code: 'checkmo'
-  }
+    code: 'checkmo',
+  },
 };
 
 describe(describeGroup('setPaymentMethodOnCart'), () => {
@@ -22,17 +22,17 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
               {
                 __typename: 'AvailablePaymentMethod',
                 code: 'checkmo',
-                title: 'Check / Money order'
-              }
+                title: 'Check / Money order',
+              },
             ],
             selected_payment_method: {
               __typename: 'SelectedPaymentMethod',
               code: 'checkmo',
-              title: 'Check / Money order'
-            }
-          }
-        }
-      }
+              title: 'Check / Money order',
+            },
+          },
+        },
+      },
     };
 
     expect(result).toStrictEqual(expectedResult);
@@ -42,8 +42,8 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
     const { errors } = await sdk.magento.setPaymentMethodOnCart({
       cart_id: TEST_CART_ID,
       payment_method: {
-        code: 'invalid'
-      }
+        code: 'invalid',
+      },
     });
 
     expect(errors).toHaveLength(1);
@@ -53,8 +53,8 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
     const customQuery = {
       setPaymentMethodOnCart: 'set-payment-method-on-cart-custom-query',
       metadata: {
-        fields: 'available_payment_methods { code title }'
-      }
+        fields: 'available_payment_methods { code title }',
+      },
     };
 
     const result = await sdk.magento.setPaymentMethodOnCart(SHARED_PARAMS, { customQuery });
@@ -70,12 +70,12 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
               {
                 __typename: 'AvailablePaymentMethod',
                 code: 'checkmo',
-                title: 'Check / Money order'
-              }
-            ]
-          }
-        }
-      }
+                title: 'Check / Money order',
+              },
+            ],
+          },
+        },
+      },
     };
 
     expect(result).toStrictEqual(expectedResult);

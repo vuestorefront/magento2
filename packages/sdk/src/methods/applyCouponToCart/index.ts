@@ -1,8 +1,8 @@
 import { ApplyCouponToCartInput, Mutation } from '@vue-storefront/magento-types';
-import { CustomQuery, MethodOptions } from '../../types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { CustomQuery, MethodOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * mutation type for the {@link applyCouponToCart} method.
@@ -12,7 +12,8 @@ export type ApplyCouponToCartMutation = { applyCouponToCart: Mutation['applyCoup
 /**
  * Apply coupon to cart response type
  */
-export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMutation> = ApplyCouponToCartMutation> = FetchResult<T>
+export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMutation> = ApplyCouponToCartMutation> =
+  FetchResult<T>;
 
 /**
  * Method to apply coupon to cart
@@ -96,11 +97,14 @@ export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMut
  *  const result = await sdk.magento.applyCouponToCart(params, { customQuery });
  * ```
  */
-export async function applyCouponToCart<RES extends ApplyCouponToCartResponse>(params: ApplyCouponToCartInput, options?: MethodOptions<CustomQuery<'applyCouponToCart'>>) {
+export async function applyCouponToCart<RES extends ApplyCouponToCartResponse>(
+  params: ApplyCouponToCartInput,
+  options?: MethodOptions<CustomQuery<'applyCouponToCart'>>,
+) {
   const { data } = await client.post<RES>(
     'applyCouponToCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

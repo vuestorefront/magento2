@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CategoryListQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link categoryList} method.
@@ -12,7 +12,7 @@ export type CategoryListQuery = { categories: Query['categories'] };
 /**
  * Category list response type
  */
-export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = CategoryListQuery> = ApolloQueryResult<T>
+export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = CategoryListQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to list of all categories without filters
@@ -87,11 +87,14 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  * // Category list will contain only the fields specified in the custom query.
  * ```
  */
-export async function categoryList<RES extends CategoryListResponse>(params: CategoryListQueryVariables, options?: MethodOptions<CustomQuery<'categoryList'>>) {
+export async function categoryList<RES extends CategoryListResponse>(
+  params: CategoryListQueryVariables,
+  options?: MethodOptions<CustomQuery<'categoryList'>>,
+) {
   const { data } = await client.post<RES>(
     'categoryList',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

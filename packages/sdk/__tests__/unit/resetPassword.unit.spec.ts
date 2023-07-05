@@ -1,22 +1,24 @@
+import { MutationResetPasswordArgs } from '@vue-storefront/magento-types';
 import { resetPassword } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { MutationResetPasswordArgs } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: MutationResetPasswordArgs = {
   email: 'some_email',
   newPassword: 'new_password',
-  resetPasswordToken: 'reset_password_token'
+  resetPasswordToken: 'reset_password_token',
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'resetPassword'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'resetPassword'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('resetPassword'), () => {
@@ -29,9 +31,7 @@ describe(describeGroup('resetPassword'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await resetPassword(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'resetPassword', [expect.objectContaining(PARAMS_MOCK), {}], {}
-    );
+    expect(client.post).toBeCalledWith('resetPassword', [expect.objectContaining(PARAMS_MOCK), {}], {});
   });
 
   it('extracts and returns a response', async () => {

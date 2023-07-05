@@ -1,5 +1,6 @@
-const MOCK_URL = 'http://somemagentourl.doesntexist';
 import { client } from '../../src';
+
+const MOCK_URL = 'http://somemagentourl.doesntexist';
 
 jest.mock('../../src/context', () => {
   return {
@@ -8,8 +9,8 @@ jest.mock('../../src/context', () => {
         if (key === 'apiUrl') {
           return MOCK_URL;
         }
-      }
-    }
+      },
+    },
   };
 });
 

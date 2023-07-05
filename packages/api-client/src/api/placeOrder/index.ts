@@ -16,11 +16,13 @@ import getHeaders from '../getHeaders';
 export default async function placeOrder(
   context: Context,
   input: PlaceOrderInput,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<PlaceOrderMutation>> {
   try {
     return await context.client.mutate<PlaceOrderMutation, PlaceOrderMutationVariables>({
-      mutation: gql`${placeOrderMutation}`,
+      mutation: gql`
+        ${placeOrderMutation}
+      `,
       variables: { input },
       context: {
         headers: getHeaders(context, customHeaders),

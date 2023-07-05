@@ -1,11 +1,11 @@
+import { GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-types';
 import { getAvailablePaymentMethods } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-types';
 import { MethodBaseOptions } from '../../lib/types';
 
 const PARAMS_MOCK: GuestAvailablePaymentMethodsQueryVariables = {
-  cartId: 'cart_id'
+  cartId: 'cart_id',
 };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
@@ -13,8 +13,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('getAvailablePaymentMethods'), () => {
@@ -27,9 +27,7 @@ describe(describeGroup('getAvailablePaymentMethods'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await getAvailablePaymentMethods(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'getAvailablePaymentMethods', [PARAMS_MOCK.cartId, {}], {}
-    );
+    expect(client.post).toBeCalledWith('getAvailablePaymentMethods', [PARAMS_MOCK.cartId, {}], {});
   });
 
   it('extracts and returns a response', async () => {

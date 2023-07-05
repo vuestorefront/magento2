@@ -3,10 +3,7 @@ import { HttpOptions } from '@apollo/client/link/http/selectHttpOptionsAndBody';
 import { MagentoApiMethods } from '@vue-storefront/magento-types';
 
 export interface Storage {
-  set: (
-    name: string,
-    value: any
-  ) => void;
+  set: (name: string, value: any) => void;
   get: (name: string) => any;
   remove: (name: string) => any;
   removeAll: () => void;
@@ -68,24 +65,27 @@ export interface ClientConfig {
     cartCookieName: string;
     customerCookieName: string;
     storeCookieName: string;
-  },
+  };
   externalCheckout: {
     enable: boolean;
     cmsUrl: string;
     syncUrlPath: string;
-    stores: Record<string, {
-      cmsUrl: string;
-    }>;
+    stores: Record<
+      string,
+      {
+        cmsUrl: string;
+      }
+    >;
   };
   state: ConfigState;
 }
 
 export interface RecaptchaConfig {
-  isEnabled: boolean,
-  sitekey: string,
-  secretkey: string,
-  version: number,
-  score: number,
+  isEnabled: boolean;
+  sitekey: string;
+  secretkey: string;
+  version: number;
+  score: number;
 }
 
 export interface Config<T = any> extends ClientConfig {
@@ -100,5 +100,4 @@ export interface Config<T = any> extends ClientConfig {
   magentoBaseUrl: string;
 }
 
-export interface ClientInstance extends ApolloClient<any> {
-}
+export type ClientInstance = ApolloClient<any>;

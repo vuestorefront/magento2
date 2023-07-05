@@ -4,7 +4,6 @@ import { AxiosRequestConfig } from 'axios';
  * Options available for methods which do not use custom queries.
  */
 export type MethodBaseOptions = {
-
   /**
    * {@link https://axios-http.com/docs/req_config | AxiosRequestConfig} object
    * You can use it to override Axios request configuration
@@ -15,13 +14,12 @@ export type MethodBaseOptions = {
    * Custom headers to be sent with the request.
    */
   customHeaders?: Record<string, string>;
-}
+};
 
 /**
  * Options available for methods which use custom queries.
  */
 export type MethodOptions<CustomQueryType> = MethodBaseOptions & {
-
   /**
    * Name of the custom GraphQL query function to be executed
    * and an additional metadata object to pass to it.

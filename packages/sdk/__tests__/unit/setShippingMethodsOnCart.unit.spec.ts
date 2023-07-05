@@ -1,26 +1,28 @@
+import { SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
 import { setShippingMethodsOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetShippingMethodsOnCartInput = {
   cart_id: 'some_cart_id',
   shipping_methods: [
     {
       carrier_code: 'some_carrier_code',
-      method_code: 'some_method_code'
-    }
-  ]
+      method_code: 'some_method_code',
+    },
+  ],
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'setShippingMethodsOnCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'setShippingMethodsOnCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('setShippingMethodsOnCart'), () => {
@@ -33,9 +35,7 @@ describe(describeGroup('setShippingMethodsOnCart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await setShippingMethodsOnCart(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'setShippingMethodsOnCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('setShippingMethodsOnCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

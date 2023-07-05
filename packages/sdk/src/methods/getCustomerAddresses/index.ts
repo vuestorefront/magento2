@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link getCustomerAddresses} method.
@@ -12,7 +12,8 @@ export type GetCustomerAddressesQuery = { customer: Query['customer'] };
 /**
  * getCustomerAddresses response type
  */
-export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddressesQuery> = GetCustomerAddressesQuery> = ApolloQueryResult<T>
+export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddressesQuery> = GetCustomerAddressesQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to get customer addresses.
@@ -90,11 +91,13 @@ export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddres
  * // data contains the customer addresses with only the city field
  * ```
  */
-export async function getCustomerAddresses<RES extends GetCustomerAddressesResponse>(options?: MethodOptions<CustomQuery<'getCustomerAddresses'>>) {
+export async function getCustomerAddresses<RES extends GetCustomerAddressesResponse>(
+  options?: MethodOptions<CustomQuery<'getCustomerAddresses'>>,
+) {
   const { data } = await client.post<RES>(
     'getCustomerAddresses',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

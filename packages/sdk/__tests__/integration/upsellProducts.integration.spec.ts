@@ -11,16 +11,12 @@ describe(describeGroup('upsellProducts'), () => {
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              upsell_products: expect.arrayContaining(
-                [
-                  expect.objectContaining({ __typename: 'SimpleProduct' })
-                ]
-              ),
-              uid: expect.any(String)
-            })
-          ])
-        })
-      })
+              upsell_products: expect.arrayContaining([expect.objectContaining({ __typename: 'SimpleProduct' })]),
+              uid: expect.any(String),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(upsellProducts).toEqual(expected);
@@ -33,9 +29,9 @@ describe(describeGroup('upsellProducts'), () => {
 
       filter: {
         sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
+          eq: TEST_PRODUCT_SKU,
+        },
+      },
     });
 
     const expected = expect.objectContaining({
@@ -43,16 +39,12 @@ describe(describeGroup('upsellProducts'), () => {
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              upsell_products: expect.arrayContaining(
-                [
-                  expect.objectContaining({ __typename: 'SimpleProduct' })
-                ]
-              ),
-              uid: expect.any(String)
-            })
-          ])
-        })
-      })
+              upsell_products: expect.arrayContaining([expect.objectContaining({ __typename: 'SimpleProduct' })]),
+              uid: expect.any(String),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(upsellProducts).toEqual(expected);
@@ -62,36 +54,37 @@ describe(describeGroup('upsellProducts'), () => {
     const customQuery = {
       upsellProducts: 'upsell-products-custom-query',
       metadata: {
-        fields: 'items { upsell_products { uid __typename activity } }'
-      }
+        fields: 'items { upsell_products { uid __typename activity } }',
+      },
     };
 
-    const result = await sdk.magento.upsellProducts({
-      filter: {
-        sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
-    }, { customQuery });
+    const result = await sdk.magento.upsellProducts(
+      {
+        filter: {
+          sku: {
+            eq: TEST_PRODUCT_SKU,
+          },
+        },
+      },
+      { customQuery },
+    );
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              upsell_products: expect.arrayContaining(
-                [
-                  expect.objectContaining({
-                    __typename: 'SimpleProduct',
-                    activity: null,
-                    uid: 'MQ=='
-                  })
-                ]
-              )
-            })
-          ])
-        })
-      })
+              upsell_products: expect.arrayContaining([
+                expect.objectContaining({
+                  __typename: 'SimpleProduct',
+                  activity: null,
+                  uid: 'MQ==',
+                }),
+              ]),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

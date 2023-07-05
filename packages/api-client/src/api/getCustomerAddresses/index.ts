@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function getCustomerAddresses(
   context: Context,
   customQuery: CustomQuery = { getCustomerAddresses: 'getCustomerAddresses' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> {
   const { getCustomerAddresses: getCustomerAddressesGQL } = context.extendQuery(customQuery, {
     getCustomerAddresses: {
@@ -26,7 +26,9 @@ export default async function getCustomerAddresses(
 
   try {
     return await context.client.query<GetCustomerAddressesQuery>({
-      query: gql`${getCustomerAddressesGQL.query}`,
+      query: gql`
+        ${getCustomerAddressesGQL.query}
+      `,
       context: {
         headers: getHeaders(context, customHeaders),
       },

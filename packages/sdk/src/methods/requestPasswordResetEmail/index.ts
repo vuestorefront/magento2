@@ -1,25 +1,27 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link requestPasswordResetEmail} method.
  */
-export type RequestPasswordResetEmailMutation = { requestPasswordResetEmail: Mutation['requestPasswordResetEmail'] }
+export type RequestPasswordResetEmailMutation = { requestPasswordResetEmail: Mutation['requestPasswordResetEmail'] };
 
 /**
  * Parameter object for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | requestPasswordResetEmail } method.
  */
 export type RequestPasswordResetEmailInput = {
   email: string;
-}
+};
 
 /**
  * requestPasswordResetEmail response type
  */
-export type RequestPasswordResetEmailResponse<T extends DeepPartial<RequestPasswordResetEmailMutation> = RequestPasswordResetEmailMutation> = FetchResult<T>
+export type RequestPasswordResetEmailResponse<
+  T extends DeepPartial<RequestPasswordResetEmailMutation> = RequestPasswordResetEmailMutation,
+> = FetchResult<T>;
 
 /**
  * Method to request password reset email
@@ -55,11 +57,14 @@ export type RequestPasswordResetEmailResponse<T extends DeepPartial<RequestPassw
  * // result.data.requestPasswordResetEmail contains the boolean response from the API
  * ```
  */
-export async function requestPasswordResetEmail<RES extends RequestPasswordResetEmailResponse>(params: RequestPasswordResetEmailInput, options?: MethodOptions<CustomQuery<'requestPasswordResetEmail'>>) {
+export async function requestPasswordResetEmail<RES extends RequestPasswordResetEmailResponse>(
+  params: RequestPasswordResetEmailInput,
+  options?: MethodOptions<CustomQuery<'requestPasswordResetEmail'>>,
+) {
   const { data } = await client.post<RES>(
     'requestPasswordResetEmail',
     [params, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

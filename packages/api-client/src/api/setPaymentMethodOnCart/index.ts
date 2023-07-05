@@ -24,7 +24,7 @@ export default async function setPaymentMethodOnCart(
   context: Context,
   input: SetPaymentMethodOnCartInputs,
   customQuery: CustomQuery = { setPaymentMethodOnCart: 'setPaymentMethodOnCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SetPaymentMethodOnCartMutation>> {
   const { setPaymentMethodOnCart: setPaymentMethodOnCartGQL } = context.extendQuery(customQuery, {
     setPaymentMethodOnCart: {
@@ -34,7 +34,9 @@ export default async function setPaymentMethodOnCart(
   });
 
   return context.client.mutate<SetPaymentMethodOnCartMutation, SetPaymentMethodOnCartMutationVariables>({
-    mutation: gql`${setPaymentMethodOnCartGQL.query}`,
+    mutation: gql`
+      ${setPaymentMethodOnCartGQL.query}
+    `,
     variables: setPaymentMethodOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

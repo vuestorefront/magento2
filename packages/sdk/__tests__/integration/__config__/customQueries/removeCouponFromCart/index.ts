@@ -1,4 +1,4 @@
-export const removeCouponFromCart = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const removeCouponFromCart = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -6,7 +6,6 @@ export const removeCouponFromCart = ({ variables, metadata }: { variables: any, 
       removeCouponFromCart(input: $input) {
         ${metadata.fields}
       }
-    }`
+    }`,
   };
 };
-

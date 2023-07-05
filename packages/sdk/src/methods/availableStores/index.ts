@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link availableStores} method.
@@ -12,7 +12,8 @@ export type AvailableStoresQuery = { availableStores: Query['availableStores'] }
 /**
  * availableStores response type
  */
-export type AvailableStoresResponse<T extends DeepPartial<AvailableStoresQuery> = AvailableStoresQuery> = ApolloQueryResult<T>
+export type AvailableStoresResponse<T extends DeepPartial<AvailableStoresQuery> = AvailableStoresQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to fetch available stores
@@ -86,11 +87,13 @@ export type AvailableStoresResponse<T extends DeepPartial<AvailableStoresQuery> 
  * // result.data.availableStores contains the available stores with only the fields specified in the custom query
  * ```
  */
-export async function availableStores<RES extends AvailableStoresResponse>(options?: MethodOptions<CustomQuery<'availableStores'>>) {
+export async function availableStores<RES extends AvailableStoresResponse>(
+  options?: MethodOptions<CustomQuery<'availableStores'>>,
+) {
   const { data } = await client.post<RES>(
     'availableStores',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

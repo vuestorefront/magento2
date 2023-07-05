@@ -1,7 +1,7 @@
 import { Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
 /**
@@ -12,7 +12,8 @@ export type CreateEmptyCartMutation = { createEmptyCart: Mutation['createEmptyCa
 /**
  * createEmptyCart response type
  */
-export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutation> = CreateEmptyCartMutation> = FetchResult<T>
+export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutation> = CreateEmptyCartMutation> =
+  FetchResult<T>;
 
 /**
  * Method to create an empty cart.
@@ -46,11 +47,7 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * ```
  */
 export async function createEmptyCart<RES extends CreateEmptyCartResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'createEmptyCart',
-    [options?.customHeaders],
-    options?.clientConfig
-  );
+  const { data } = await client.post<RES>('createEmptyCart', [options?.customHeaders], options?.clientConfig);
 
   return data;
 }

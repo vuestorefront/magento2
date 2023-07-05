@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CustomerProductReviewParams, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * Method to fetch customer reviews
@@ -12,7 +12,8 @@ export type CustomerProductReviewQuery = { customer: Query['customer'] };
 /**
  * reviews response type
  */
-export type ReviewsResponse<T extends DeepPartial<CustomerProductReviewQuery> = CustomerProductReviewQuery> = ApolloQueryResult<T>
+export type ReviewsResponse<T extends DeepPartial<CustomerProductReviewQuery> = CustomerProductReviewQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to fetch customer reviews
@@ -96,11 +97,14 @@ export type ReviewsResponse<T extends DeepPartial<CustomerProductReviewQuery> = 
  * result?.data?.customer?.reviews?.items.forEach(review => console.log(review.text));
  * ```
  */
-export async function reviews<RES extends ReviewsResponse>(params?: CustomerProductReviewParams, options?: MethodOptions<CustomQuery<'reviews'>>) {
+export async function reviews<RES extends ReviewsResponse>(
+  params?: CustomerProductReviewParams,
+  options?: MethodOptions<CustomQuery<'reviews'>>,
+) {
   const { data } = await client.post<RES>(
     'reviews',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

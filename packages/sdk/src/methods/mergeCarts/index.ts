@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { MergeCartsMutationVariables, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link mergeCarts} method.
@@ -12,7 +12,7 @@ export type MergeCartsMutation = { mergeCarts: Mutation['mergeCarts'] };
 /**
  * mergeCarts response type
  */
-export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = MergeCartsMutation> = ApolloQueryResult<T>
+export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = MergeCartsMutation> = ApolloQueryResult<T>;
 
 /**
  * Method to merge carts
@@ -98,11 +98,14 @@ export type MergeCartsResponse<T extends DeepPartial<MergeCartsMutation> = Merge
  * // Merged cart will contain only the fields specified in the custom query.
  * ```
  */
-export async function mergeCarts<RES extends MergeCartsResponse>(params: MergeCartsMutationVariables, options?: MethodOptions<CustomQuery<'mergeCarts'>>) {
+export async function mergeCarts<RES extends MergeCartsResponse>(
+  params: MergeCartsMutationVariables,
+  options?: MethodOptions<CustomQuery<'mergeCarts'>>,
+) {
   const { data } = await client.post<RES>(
     'mergeCarts',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

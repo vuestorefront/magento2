@@ -13,20 +13,20 @@ export default gql`
         prices {
           subtotal_excluding_tax {
             value
-          },
+          }
           subtotal_including_tax {
             value
-          },
+          }
           applied_taxes {
             amount {
               value
-            },
+            }
             label
           }
           discounts {
             amount {
               value
-            },
+            }
             label
           }
           grand_total {
@@ -81,7 +81,7 @@ export default gql`
               url_suffix
               url_path
               breadcrumbs {
-                category_name,
+                category_name
                 category_url_path
               }
             }

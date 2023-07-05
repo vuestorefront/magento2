@@ -18,19 +18,18 @@ export default async function getCmsBlocks(
   context: Context,
   identifiers: string,
   customQuery: CustomQuery = { cmsBlocks: 'cmsBlocks' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CmsBlockQuery>> {
-  const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(
-    customQuery,
-    {
-      cmsBlocks: {
-        query: cmsBlocks,
-        variables: { identifiers },
-      },
+  const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(customQuery, {
+    cmsBlocks: {
+      query: cmsBlocks,
+      variables: { identifiers },
     },
-  );
+  });
   return context.client.query<CmsBlockQuery, CmsBlockQueryVariables>({
-    query: gql`${cmsBlocksGQL.query}`,
+    query: gql`
+      ${cmsBlocksGQL.query}
+    `,
     variables: cmsBlocksGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

@@ -1,8 +1,8 @@
+import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-types';
 import { setGuestEmailOnCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { MethodBaseOptions } from '../../src/types';
-import { SetGuestEmailOnCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: SetGuestEmailOnCartInput = { cart_id: 'some_id', email: 'some_email' };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;
@@ -11,8 +11,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('setGuestEmailOnCart'), () => {
@@ -25,9 +25,7 @@ describe(describeGroup('setGuestEmailOnCart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await setGuestEmailOnCart(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'setGuestEmailOnCart', [expect.objectContaining(PARAMS_MOCK), {}], {}
-    );
+    expect(client.post).toBeCalledWith('setGuestEmailOnCart', [expect.objectContaining(PARAMS_MOCK), {}], {});
   });
 
   it('extracts and returns a response', async () => {

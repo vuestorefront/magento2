@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link customer} method.
@@ -12,7 +12,7 @@ export type CustomerQuery = { customer: Query['customer'] };
 /**
  * customer response type
  */
-export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuery> = ApolloQueryResult<T>
+export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to get current customer information
@@ -108,7 +108,7 @@ export async function customer<RES extends CustomerResponse>(options?: MethodOpt
   const { data } = await client.post<RES>(
     'customer',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

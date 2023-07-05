@@ -14,8 +14,8 @@ describe(describeGroup('cart'), () => {
     const customQuery = {
       cart: 'cart-custom-query',
       metadata: {
-        fields: 'id'
-      }
+        fields: 'id',
+      },
     };
 
     const result = await sdk.magento.cart(PARAMS, { customQuery });

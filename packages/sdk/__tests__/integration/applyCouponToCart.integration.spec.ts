@@ -6,19 +6,19 @@ describe(describeGroup('applyCouponToCart'), () => {
   it('should return error if the coupon is invalid', async () => {
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: 'invalid-code'
+      coupon_code: 'invalid-code',
     };
 
     const result = await sdk.magento.applyCouponToCart(params);
 
     expect(result.errors).toBeDefined();
-    expect(result.errors![0].message).toEqual('The coupon code isn\'t valid. Verify the code and try again.');
+    expect(result.errors![0].message).toEqual("The coupon code isn't valid. Verify the code and try again.");
   });
 
   it('should apply coupon to cart', async () => {
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: TEST_COUPON_CODE
+      coupon_code: TEST_COUPON_CODE,
     };
 
     const result = await sdk.magento.applyCouponToCart(params);
@@ -32,13 +32,13 @@ describe(describeGroup('applyCouponToCart'), () => {
     const customQuery = {
       applyCouponToCart: 'apply-coupon-to-cart-custom-query',
       metadata: {
-        fields: 'cart { applied_coupons { code } }'
-      }
+        fields: 'cart { applied_coupons { code } }',
+      },
     };
 
     const params = {
       cart_id: TEST_CART_ID,
-      coupon_code: TEST_COUPON_CODE
+      coupon_code: TEST_COUPON_CODE,
     };
 
     const result = await sdk.magento.applyCouponToCart(params, { customQuery });
@@ -51,11 +51,11 @@ describe(describeGroup('applyCouponToCart'), () => {
           applied_coupons: [
             {
               __typename: 'AppliedCoupon',
-              code: TEST_COUPON_CODE
-            }
-          ]
-        }
-      }
+              code: TEST_COUPON_CODE,
+            },
+          ],
+        },
+      },
     });
 
     await sdk.magento.removeCouponFromCart({ cart_id: TEST_CART_ID });

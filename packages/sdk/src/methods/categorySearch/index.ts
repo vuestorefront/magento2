@@ -1,20 +1,21 @@
-import { client } from '../../../src/client';
 import { CategorySearchQueryVariables, CategoryTree } from '@vue-storefront/magento-types';
 import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
 
 /**
  * query type for the {@link categorySearch} method.
  */
 export type CategorySearchQuery = {
   categoryList: CategoryTree[];
-}
+};
 
 /**
  * Category search response type
  */
-export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = CategorySearchQuery> = ApolloQueryResult<T>;
+export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = CategorySearchQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to search categories
@@ -113,12 +114,12 @@ export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = 
  */
 export async function categorySearch<Res extends CategorySearchResponse>(
   params: CategorySearchQueryVariables = {},
-  options?: MethodOptions<CustomQuery<'categorySearch'>>
+  options?: MethodOptions<CustomQuery<'categorySearch'>>,
 ) {
   const { data } = await client.post<Res>(
     'categorySearch',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;
