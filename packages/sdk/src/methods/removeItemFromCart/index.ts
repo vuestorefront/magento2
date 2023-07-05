@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, RemoveItemFromCartInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link removeItemFromCart} method.
@@ -12,7 +12,8 @@ export type RemoveItemFromCartMutation = { removeItemFromCart: Mutation['removeI
 /**
  * removeItemFromCart response type
  */
-export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartMutation> = RemoveItemFromCartMutation> = FetchResult<T>
+export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartMutation> = RemoveItemFromCartMutation> =
+  FetchResult<T>;
 
 /**
  * Method to remove item from cart.
@@ -101,11 +102,14 @@ export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartM
  * // result will contain only the fields specified in the custom query.
  * ```
  */
-export async function removeItemFromCart<RES extends RemoveItemFromCartResponse>(params: RemoveItemFromCartInput, options?: MethodOptions<CustomQuery<'removeItemFromCart'>>) {
+export async function removeItemFromCart<RES extends RemoveItemFromCartResponse>(
+  params: RemoveItemFromCartInput,
+  options?: MethodOptions<CustomQuery<'removeItemFromCart'>>,
+) {
   const { data } = await client.post<RES>(
     'removeItemFromCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

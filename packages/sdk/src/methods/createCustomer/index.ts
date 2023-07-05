@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CustomerCreateInput, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link createCustomer} method.
@@ -12,7 +12,8 @@ export type CreateCustomerMutation = { createCustomerV2: Mutation['createCustome
 /**
  * createCustomer response type
  */
-export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation> = CreateCustomerMutation> = FetchResult<T>
+export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation> = CreateCustomerMutation> =
+  FetchResult<T>;
 
 /**
  * Method to create a new customer.
@@ -99,11 +100,14 @@ export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation>
  * // result will contain only the fields specified in the custom query.
  * ```
  */
-export async function createCustomer<RES extends CreateCustomerResponse>(params: CustomerCreateInput, options?: MethodOptions<CustomQuery<'createCustomer'>>) {
+export async function createCustomer<RES extends CreateCustomerResponse>(
+  params: CustomerCreateInput,
+  options?: MethodOptions<CustomQuery<'createCustomer'>>,
+) {
   const { data } = await client.post<RES>(
     'createCustomer',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

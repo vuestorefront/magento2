@@ -11,9 +11,9 @@ describe(describeGroup('currency'), () => {
           base_currency_code: expect.any(String),
           base_currency_symbol: expect.any(String),
           default_display_currency_code: expect.any(String),
-          default_display_currency_symbol: expect.any(String)
-        })
-      })
+          default_display_currency_symbol: expect.any(String),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -23,8 +23,8 @@ describe(describeGroup('currency'), () => {
     const customQuery = {
       currency: 'currency-custom-query',
       metadata: {
-        fields: 'base_currency_code'
-      }
+        fields: 'base_currency_code',
+      },
     };
 
     const result = await sdk.magento.currency({ customQuery });

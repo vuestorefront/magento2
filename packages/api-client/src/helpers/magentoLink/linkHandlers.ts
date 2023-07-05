@@ -15,33 +15,32 @@ export const handleRetry = () => (count, operation, error) => {
   return false;
 };
 
-export const linkFactory = ({ state }: {
-  state: ConfigState;
-}) => setContext((apolloReq, { headers }) => {
-  consola.debug('Apollo linkFactory', apolloReq.operationName);
+export const linkFactory = ({ state }: { state: ConfigState }) =>
+  setContext((apolloReq, { headers }) => {
+    consola.debug('Apollo linkFactory', apolloReq.operationName);
 
-  const Store: string = state.getStore();
-  const token: string = state.getCustomerToken();
-  const currency: string = state.getCurrency();
+    const Store: string = state.getStore();
+    const token: string = state.getCustomerToken();
+    const currency: string = state.getCurrency();
 
-  if (currency) {
-    consola.debug('Apollo currencyLinkFactory, finished, currency: ', currency);
-  }
+    if (currency) {
+      consola.debug('Apollo currencyLinkFactory, finished, currency: ', currency);
+    }
 
-  if (Store) {
-    consola.debug('Apollo storeLinkFactory, finished, storeId: ', Store);
-  }
+    if (Store) {
+      consola.debug('Apollo storeLinkFactory, finished, storeId: ', Store);
+    }
 
-  if (token) {
-    consola.debug('Apollo authLinkFactory, finished, token: ', token);
-  }
+    if (token) {
+      consola.debug('Apollo authLinkFactory, finished, token: ', token);
+    }
 
-  return {
-    headers: {
-      ...headers,
-      ...(currency ? { 'Content-Currency': currency } : {}),
-      ...(token ? { authorization: `Bearer ${token}` } : {}),
-      ...(Store ? { Store } : {}),
-    },
-  };
-});
+    return {
+      headers: {
+        ...headers,
+        ...(currency ? { 'Content-Currency': currency } : {}),
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+        ...(Store ? { Store } : {}),
+      },
+    };
+  });

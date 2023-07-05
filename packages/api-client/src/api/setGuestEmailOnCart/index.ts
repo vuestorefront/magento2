@@ -22,20 +22,19 @@ export default async function setGuestEmailOnCart(
   context: Context,
   input: SetGuestEmailOnCartInput,
   customQuery: CustomQuery = { setGuestEmailOnCart: 'setGuestEmailOnCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SetGuestEmailOnCartMutation>> {
-  const { setGuestEmailOnCart: setGuestEmailOnCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      setGuestEmailOnCart: {
-        query: setGuestEmailOnCartMutation,
-        variables: { input },
-      },
+  const { setGuestEmailOnCart: setGuestEmailOnCartGQL } = context.extendQuery(customQuery, {
+    setGuestEmailOnCart: {
+      query: setGuestEmailOnCartMutation,
+      variables: { input },
     },
-  );
+  });
 
   return context.client.mutate<SetGuestEmailOnCartMutation, SetGuestEmailOnCartMutationVariables>({
-    mutation: gql`${setGuestEmailOnCartGQL.query}`,
+    mutation: gql`
+      ${setGuestEmailOnCartGQL.query}
+    `,
     variables: setGuestEmailOnCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

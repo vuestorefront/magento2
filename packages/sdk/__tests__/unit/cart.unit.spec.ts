@@ -1,8 +1,8 @@
+import { CartQueryVariables } from '@vue-storefront/magento-types';
 import { cart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { CartQueryVariables } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: CartQueryVariables = { cartId: '123' };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<CustomQuery<'cart'>>;
@@ -11,8 +11,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('cart'), () => {
@@ -25,9 +25,7 @@ describe(describeGroup('cart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await cart(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'cart', ['123', undefined, { 'x-header': 'true' }], {}
-    );
+    expect(client.post).toBeCalledWith('cart', ['123', undefined, { 'x-header': 'true' }], {});
   });
 
   it('extracts and returns a response', async () => {

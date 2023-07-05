@@ -1,4 +1,4 @@
-export const categorySearch = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const categorySearch = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -7,6 +7,6 @@ export const categorySearch = ({ variables, metadata }: { variables: any, metada
           ${metadata.fields}
         }
       }
-     `
+     `,
   };
 };

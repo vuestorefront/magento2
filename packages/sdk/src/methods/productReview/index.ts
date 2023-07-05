@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link productReview} method.
@@ -12,7 +12,8 @@ export type ProductReviewQuery = { products: Query['products'] };
 /**
  * productReview response type
  */
-export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = ProductReviewQuery> = ApolloQueryResult<T>
+export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = ProductReviewQuery> =
+  ApolloQueryResult<T>;
 
 /**
  * Method to fetch product reviews
@@ -102,11 +103,14 @@ export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = Pr
  * // result.data.products.items[0].reviews.items[0] will only contain the average_rating field
  * ```
  */
-export async function productReview<RES extends ProductReviewResponse>(params: GetProductSearchParams, options?: MethodOptions<CustomQuery<'productReview'>>) {
+export async function productReview<RES extends ProductReviewResponse>(
+  params: GetProductSearchParams,
+  options?: MethodOptions<CustomQuery<'productReview'>>,
+) {
   const { data } = await client.post<RES>(
     'productReview',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

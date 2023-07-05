@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link productReviewRatingsMetadata} method.
@@ -12,7 +12,9 @@ export type ProductReviewRatingsMetadataQuery = { productReviewRatingsMetadata: 
 /**
  * productReviewRatingsMetadata response type
  */
-export type ProductReviewRatingsMetadataResponse<T extends DeepPartial<ProductReviewRatingsMetadataQuery> = ProductReviewRatingsMetadataQuery> = ApolloQueryResult<T>
+export type ProductReviewRatingsMetadataResponse<
+  T extends DeepPartial<ProductReviewRatingsMetadataQuery> = ProductReviewRatingsMetadataQuery,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to get the active ratings attributes and the values each rating can have.
@@ -94,11 +96,13 @@ export type ProductReviewRatingsMetadataResponse<T extends DeepPartial<ProductRe
  * // data.productReviewRatingsMetadata.items[0] will contain only the fields specified in the custom query.
  * ```
  */
-export async function productReviewRatingsMetadata<RES extends ProductReviewRatingsMetadataResponse>(options?: MethodOptions<CustomQuery<'productReviewRatingsMetadata'>>) {
+export async function productReviewRatingsMetadata<RES extends ProductReviewRatingsMetadataResponse>(
+  options?: MethodOptions<CustomQuery<'productReviewRatingsMetadata'>>,
+) {
   const { data } = await client.post<RES>(
     'productReviewRatingsMetadata',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

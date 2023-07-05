@@ -9,16 +9,16 @@ const PARAMS = {
       quantity: 1,
       sku: TEST_PRODUCT_SKU,
       // size and color
-      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE=']
-    }
-  ]
+      selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE='],
+    },
+  ],
 };
 
 describe(describeGroup('addProductsToCart'), () => {
   it('should add product to cart', async () => {
     const result = await sdk.magento.addProductsToCart(PARAMS);
 
-    const item = result.data.addProductsToCart!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result.data.addProductsToCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
     expect(result.data.addProductsToCart!.cart!.id).toEqual(PARAMS.cartId);
     expect(item).not.toBe(undefined);
   });
@@ -27,13 +27,13 @@ describe(describeGroup('addProductsToCart'), () => {
     const customQuery = {
       addProductsToCart: 'add-products-to-cart-custom-query',
       metadata: {
-        fields: 'id items { uid product { uid sku }}'
-      }
+        fields: 'id items { uid product { uid sku }}',
+      },
     };
 
     const result = await sdk.magento.addProductsToCart(PARAMS, { customQuery });
 
-    const item = result.data.addProductsToCart!.cart!.items!.find(item => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result.data.addProductsToCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
     expect(item).not.toBe(undefined);
     expect(result.data.addProductsToCart!.cart!.id).toEqual(PARAMS.cartId);
     // make sure default query is not called by accident

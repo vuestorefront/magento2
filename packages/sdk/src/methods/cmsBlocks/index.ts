@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CmsBlockQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link cmsBlocks} method.
@@ -12,7 +12,7 @@ export type CmsBlockQuery = { cmsBlocks: Query['cmsBlocks'] };
 /**
  * cmsBlocks response type
  */
-export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQuery> = ApolloQueryResult<T>
+export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch cms blocks.
@@ -98,11 +98,14 @@ export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQue
  * // data will contain only block titles
  * ```
  */
-export async function cmsBlocks<RES extends CmsBlocksResponse>(params: CmsBlockQueryVariables, options?: MethodOptions<CustomQuery<'cmsBlocks'>>) {
+export async function cmsBlocks<RES extends CmsBlocksResponse>(
+  params: CmsBlockQueryVariables,
+  options?: MethodOptions<CustomQuery<'cmsBlocks'>>,
+) {
   const { data } = await client.post<RES>(
     'cmsBlocks',
     [params.identifiers, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link countries} method.
@@ -12,7 +12,7 @@ export type CountriesQuery = { countries: Query['countries'] };
 /**
  * countries response type
  */
-export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQuery> = ApolloQueryResult<T>
+export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch list of countries
@@ -90,7 +90,7 @@ export async function countries<RES extends CountriesResponse>(options?: MethodO
   const { data } = await client.post<RES>(
     'countries',
     [options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

@@ -35,7 +35,7 @@ export default async function products(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { products: 'products' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<ProductsListQuery>> {
   const defaultParams = {
     pageSize: 10,
@@ -63,7 +63,9 @@ export default async function products(
 
   try {
     return await context.client.query<ProductsListQuery, ProductsListQueryVariables>({
-      query: gql`${productsGQL.query}`,
+      query: gql`
+        ${productsGQL.query}
+      `,
       variables: productsGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

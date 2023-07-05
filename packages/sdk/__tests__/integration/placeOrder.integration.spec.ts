@@ -16,31 +16,31 @@ describe(describeGroup('placeOrder'), () => {
           quantity: 1,
           sku: TEST_PRODUCT_SKU,
           // size and color
-          selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE=']
-        }
-      ]
+          selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE='],
+        },
+      ],
     });
 
     await sdk.magento.setShippingAddressesOnCart({
       cart_id: cartId,
-      shipping_addresses: [{ address: TEST_ADDRESS }]
+      shipping_addresses: [{ address: TEST_ADDRESS }],
     });
 
     await sdk.magento.setBillingAddressOnCart({
       cart_id: cartId,
-      billing_address: { address: TEST_ADDRESS }
+      billing_address: { address: TEST_ADDRESS },
     });
 
     await sdk.magento.setShippingMethodsOnCart({
       cart_id: cartId,
-      shipping_methods: [{ carrier_code: 'flatrate', method_code: 'flatrate' }]
+      shipping_methods: [{ carrier_code: 'flatrate', method_code: 'flatrate' }],
     });
 
     await sdk.magento.setPaymentMethodOnCart({
       cart_id: cartId,
       payment_method: {
-        code: 'checkmo'
-      }
+        code: 'checkmo',
+      },
     });
 
     const result = await sdk.magento.placeOrder({ cart_id: cartId });
@@ -51,10 +51,10 @@ describe(describeGroup('placeOrder'), () => {
           __typename: 'PlaceOrderOutput',
           order: expect.objectContaining({
             __typename: 'Order',
-            order_number: expect.any(String)
-          })
-        })
-      })
+            order_number: expect.any(String),
+          }),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

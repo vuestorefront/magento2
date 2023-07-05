@@ -1,7 +1,7 @@
 import { Query, QueryRouteArgs } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
 /**
@@ -12,7 +12,7 @@ export type RouteQuery = { route: Query['route'] };
 /**
  * route response type
  */
-export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = ApolloQueryResult<T>
+export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to resolve a route object data
@@ -58,11 +58,7 @@ export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = Apol
  * ```
  */
 export async function route<RES extends RouteResponse>(params: QueryRouteArgs, options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'route',
-    [params.url, options?.customHeaders],
-    options?.clientConfig
-  );
+  const { data } = await client.post<RES>('route', [params.url, options?.customHeaders], options?.clientConfig);
 
   return data;
 }

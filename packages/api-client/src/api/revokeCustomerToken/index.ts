@@ -9,12 +9,12 @@ import getHeaders from '../getHeaders';
 /**
  * Logs out the current customer. To override the default query, use the `revokeCustomerToken` query key.
  */
-export default async (
-  context: Context,
-  customHeaders: CustomHeaders = {},
-): Promise<FetchResult<RevokeCustomerTokenMutation>> => context.client.mutate<RevokeCustomerTokenMutation>({
-  mutation: gql`${revokeCustomerToken}`,
-  context: {
-    headers: getHeaders(context, customHeaders),
-  },
-});
+export default async (context: Context, customHeaders: CustomHeaders = {}): Promise<FetchResult<RevokeCustomerTokenMutation>> =>
+  context.client.mutate<RevokeCustomerTokenMutation>({
+    mutation: gql`
+      ${revokeCustomerToken}
+    `,
+    context: {
+      headers: getHeaders(context, customHeaders),
+    },
+  });

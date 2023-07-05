@@ -12,11 +12,11 @@ describe(describeGroup('products'), () => {
           aggregations: expect.any(Array),
           items: expect.any(Array),
           page_info: expect.any(Object),
-          total_count: expect.any(Number)
-        })
+          total_count: expect.any(Number),
+        }),
       },
       loading: expect.anything(),
-      networkStatus: expect.any(Number)
+      networkStatus: expect.any(Number),
     };
 
     expect(products).toEqual(expected);
@@ -28,9 +28,9 @@ describe(describeGroup('products'), () => {
       currentPage: 1,
       filter: {
         sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
+          eq: TEST_PRODUCT_SKU,
+        },
+      },
     });
 
     const expected = expect.objectContaining({
@@ -38,12 +38,12 @@ describe(describeGroup('products'), () => {
         products: expect.objectContaining({
           items: expect.arrayContaining([
             expect.objectContaining({
-              sku: TEST_PRODUCT_SKU
-            })
+              sku: TEST_PRODUCT_SKU,
+            }),
           ]),
-          total_count: 1
-        })
-      })
+          total_count: 1,
+        }),
+      }),
     });
 
     expect(products).toEqual(expected);
@@ -54,17 +54,20 @@ describe(describeGroup('products'), () => {
     const customQuery = {
       products: 'products-custom-query',
       metadata: {
-        fields: 'items { sku name }'
-      }
+        fields: 'items { sku name }',
+      },
     };
 
-    const products = await sdk.magento.products({
-      filter: {
-        sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
-    }, { customQuery });
+    const products = await sdk.magento.products(
+      {
+        filter: {
+          sku: {
+            eq: TEST_PRODUCT_SKU,
+          },
+        },
+      },
+      { customQuery },
+    );
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
@@ -72,11 +75,11 @@ describe(describeGroup('products'), () => {
           items: expect.arrayContaining([
             expect.objectContaining({
               sku: TEST_PRODUCT_SKU,
-              name: expect.any(String)
-            })
-          ])
-        })
-      })
+              name: expect.any(String),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(products).toEqual(expected);

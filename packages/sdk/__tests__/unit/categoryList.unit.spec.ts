@@ -4,14 +4,16 @@ import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
 
 const PARAMS_MOCK = {};
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<CustomQuery<'categoryList'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: { 'x-header': 'true' } } as MethodOptions<
+  CustomQuery<'categoryList'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('categoryList'), () => {
@@ -24,9 +26,7 @@ describe(describeGroup('categoryList'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await categoryList(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'categoryList', [{}, undefined, { 'x-header': 'true' }], {}
-    );
+    expect(client.post).toBeCalledWith('categoryList', [{}, undefined, { 'x-header': 'true' }], {});
   });
 
   it('extracts and returns a response', async () => {

@@ -14,17 +14,14 @@ export default async (
   context: Context,
   input: AddSimpleProductsToCartInput,
   customQuery: CustomQuery = { addSimpleProductsToCart: 'addSimpleProductsToCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
-  const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      addSimpleProductsToCart: {
-        query: addSimpleProductsToCart,
-        variables: { input },
-      },
+  const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(customQuery, {
+    addSimpleProductsToCart: {
+      query: addSimpleProductsToCart,
+      variables: { input },
     },
-  );
+  });
   return context.client.mutate<AddSimpleProductsToCartMutation, AddSimpleProductsToCartMutationVariables>({
     mutation: addSimpleProductsToCartGQL.query,
     variables: addSimpleProductsToCartGQL.variables,

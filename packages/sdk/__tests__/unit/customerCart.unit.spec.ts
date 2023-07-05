@@ -3,14 +3,16 @@ import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
 
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'customerCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'customerCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('customerCart'), () => {
@@ -23,9 +25,7 @@ describe(describeGroup('customerCart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await customerCart(OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'customerCart', [{}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('customerCart', [{}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

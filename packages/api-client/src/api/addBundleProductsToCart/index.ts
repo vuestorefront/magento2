@@ -15,20 +15,16 @@ export default async (
   context: Context,
   input: AddBundleProductsToCartInput,
   customQuery: CustomQuery = { addBundleProductsToCart: 'addBundleProductsToCart' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddBundleProductsToCartMutation>> => {
-  const { addBundleProductsToCart: addBundleProductsToCartGQL } = context.extendQuery(
-    customQuery,
-    {
-      addBundleProductsToCart: {
-        query: addBundleProductsToCart,
-        variables: { input },
-      },
+  const { addBundleProductsToCart: addBundleProductsToCartGQL } = context.extendQuery(customQuery, {
+    addBundleProductsToCart: {
+      query: addBundleProductsToCart,
+      variables: { input },
     },
-  );
+  });
 
-  return context.client
-    .mutate<any, AddBundleProductsToCartMutationVariables>({
+  return context.client.mutate<any, AddBundleProductsToCartMutationVariables>({
     mutation: addBundleProductsToCartGQL.query,
     variables: addBundleProductsToCartGQL.variables,
     context: {

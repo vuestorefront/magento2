@@ -6,15 +6,17 @@ describe(describeGroup('getAvailableCustomerPaymentMethods'), () => {
     const token = await getUserToken();
 
     //  On the frontend token should be passed automatically using cookie, but in integration tests we have no browser context so it's done manually
-    const result = await sdk.magento.getAvailableCustomerPaymentMethods({ customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.getAvailableCustomerPaymentMethods({
+      customHeaders: { Authorization: `Bearer ${token}` },
+    });
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
         customerCart: expect.objectContaining({
           __typename: 'Cart',
-          available_payment_methods: expect.any(Array)
-        })
-      })
+          available_payment_methods: expect.any(Array),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

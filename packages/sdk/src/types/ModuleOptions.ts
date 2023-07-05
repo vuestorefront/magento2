@@ -2,7 +2,6 @@
  * Connector options.
  */
 export interface ModuleOptions {
-
   /**
    * The API URL of the Magento instance
    */

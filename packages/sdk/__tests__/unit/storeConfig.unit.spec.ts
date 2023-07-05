@@ -3,14 +3,16 @@ import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
 
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'storeConfig'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'storeConfig'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('storeConfig'), () => {
@@ -23,9 +25,7 @@ describe(describeGroup('storeConfig'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await storeConfig(OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'storeConfig', [{}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('storeConfig', [{}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

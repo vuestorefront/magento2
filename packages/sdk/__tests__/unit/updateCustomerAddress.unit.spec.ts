@@ -4,14 +4,16 @@ import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
 
 const PARAMS_MOCK = { id: 1, input: { city: 'Warsaw' } };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'updateCustomerAddress'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'updateCustomerAddress'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('updateCustomerAddress'), () => {
@@ -24,9 +26,7 @@ describe(describeGroup('updateCustomerAddress'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await updateCustomerAddress(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'updateCustomerAddress', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('updateCustomerAddress', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

@@ -8,7 +8,7 @@ describe(describeGroup('createCustomer'), () => {
       email: TEST_CUSTOMER.email,
       password: TEST_CUSTOMER.password,
       firstname: TEST_CUSTOMER.firstname,
-      lastname: TEST_CUSTOMER.lastname
+      lastname: TEST_CUSTOMER.lastname,
     });
 
     const expected = expect.objectContaining({
@@ -17,10 +17,10 @@ describe(describeGroup('createCustomer'), () => {
           customer: expect.objectContaining({
             email: TEST_CUSTOMER.email,
             firstname: TEST_CUSTOMER.firstname,
-            lastname: TEST_CUSTOMER.lastname
-          })
-        })
-      })
+            lastname: TEST_CUSTOMER.lastname,
+          }),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

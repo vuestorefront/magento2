@@ -8,9 +8,9 @@ describe(describeGroup('categoryList'), () => {
     const expected = expect.objectContaining({
       data: expect.objectContaining({
         categories: expect.objectContaining({
-          items: expect.any(Array)
-        })
-      })
+          items: expect.any(Array),
+        }),
+      }),
     });
 
     expect(categoryList).toEqual(expected);
@@ -21,8 +21,8 @@ describe(describeGroup('categoryList'), () => {
     const customQuery = {
       categoryList: 'category-list-custom-query',
       metadata: {
-        fields: 'items { uid name }'
-      }
+        fields: 'items { uid name }',
+      },
     };
 
     const result = await sdk.magento.categoryList({}, { customQuery });
@@ -35,13 +35,13 @@ describe(describeGroup('categoryList'), () => {
             {
               __typename: 'CategoryTree',
               name: 'Default Category',
-              uid: 'Mg=='
-            }
-          ]
-        }
+              uid: 'Mg==',
+            },
+          ],
+        },
       },
       loading: false,
-      networkStatus: 7
+      networkStatus: 7,
     };
 
     expect(result).toEqual(expected);

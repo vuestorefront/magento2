@@ -4,16 +4,15 @@ import { TEST_CART_ID, TEST_COUPON_CODE } from './__config__/jest.const';
 
 const TO_ADD_PARAMS = {
   cart_id: TEST_CART_ID,
-  coupon_code: TEST_COUPON_CODE
+  coupon_code: TEST_COUPON_CODE,
 };
 
 const TO_REMOVE_PARAMS = {
-  cart_id: TEST_CART_ID
+  cart_id: TEST_CART_ID,
 };
 
 describe(describeGroup('removeCouponFromCart'), () => {
   it('should remove coupon from cart if was previously applied', async () => {
-
     await sdk.magento.applyCouponToCart(TO_ADD_PARAMS);
     const result = await sdk.magento.removeCouponFromCart(TO_REMOVE_PARAMS);
 
@@ -24,8 +23,8 @@ describe(describeGroup('removeCouponFromCart'), () => {
     const customQuery = {
       removeCouponFromCart: 'remove-coupon-from-cart-custom-query',
       metadata: {
-        fields: 'cart { applied_coupons { code } }'
-      }
+        fields: 'cart { applied_coupons { code } }',
+      },
     };
 
     await sdk.magento.applyCouponToCart(TO_ADD_PARAMS);
@@ -36,9 +35,9 @@ describe(describeGroup('removeCouponFromCart'), () => {
         __typename: 'RemoveCouponFromCartOutput',
         cart: {
           __typename: 'Cart',
-          applied_coupons: null
-        }
-      }
+          applied_coupons: null,
+        },
+      },
     });
   });
 });

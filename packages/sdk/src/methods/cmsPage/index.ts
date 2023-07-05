@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CmsPageQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * query type for the {@link cmsPage} method.
@@ -12,7 +12,7 @@ export type CmsPageQuery = { cmsPage: Query['cmsPage'] };
 /**
  * cmsPage response type
  */
-export type CmsPageResponse<T extends DeepPartial<CmsPageQuery> = CmsPageQuery> = ApolloQueryResult<T>
+export type CmsPageResponse<T extends DeepPartial<CmsPageQuery> = CmsPageQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to fetch CMS page
@@ -92,11 +92,14 @@ export type CmsPageResponse<T extends DeepPartial<CmsPageQuery> = CmsPageQuery> 
  * // result will only contain the title and content fields
  * ```
  */
-export async function cmsPage<RES extends CmsPageResponse>(params: CmsPageQueryVariables, options?: MethodOptions<CustomQuery<'cmsPage'>>) {
+export async function cmsPage<RES extends CmsPageResponse>(
+  params: CmsPageQueryVariables,
+  options?: MethodOptions<CustomQuery<'cmsPage'>>,
+) {
   const { data } = await client.post<RES>(
     'cmsPage',
     [params.identifier, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

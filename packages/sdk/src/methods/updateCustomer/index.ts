@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { CustomerUpdateInput, Mutation } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link updateCustomer} method.
@@ -12,7 +12,8 @@ export type UpdateCustomerMutation = { updateCustomerV2: Mutation['updateCustome
 /**
  * updateCustomer response type
  */
-export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation> = UpdateCustomerMutation> = FetchResult<T>
+export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation> = UpdateCustomerMutation> =
+  FetchResult<T>;
 
 /**
  * Method to update customer data.
@@ -102,11 +103,14 @@ export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation>
  * console.log(result); // result.data.updateCustomerV2.customer.firstname === 'New John'
  * ```
  */
-export async function updateCustomer<RES extends UpdateCustomerResponse>(params: CustomerUpdateInput, options?: MethodOptions<CustomQuery<'updateCustomer'>>) {
+export async function updateCustomer<RES extends UpdateCustomerResponse>(
+  params: CustomerUpdateInput,
+  options?: MethodOptions<CustomQuery<'updateCustomer'>>,
+) {
   const { data } = await client.post<RES>(
     'updateCustomer',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

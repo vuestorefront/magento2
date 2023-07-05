@@ -1,4 +1,4 @@
-import { sdk } from '../integration/__config__/sdk.config';
+import { sdk } from './__config__/sdk.config';
 import { TEST_PRODUCT_SKU } from './__config__/jest.const';
 import { describeGroup, getUserToken } from './__config__/jest.setup';
 
@@ -6,22 +6,19 @@ describe(describeGroup('addProductToWishList'), () => {
   it('adds product array', async () => {
     const token = await getUserToken();
     const options = {
-      customHeaders: { Authorization: `Bearer ${token}` }
+      customHeaders: { Authorization: `Bearer ${token}` },
     };
 
-    const result =
-      await sdk.magento.addProductToWishList(
-        {
-          id: '258',
-          items: [
-            { quantity: 1, sku: TEST_PRODUCT_SKU }
-          ]
-        },
-        options
-      );
+    const result = await sdk.magento.addProductToWishList(
+      {
+        id: '258',
+        items: [{ quantity: 1, sku: TEST_PRODUCT_SKU }],
+      },
+      options,
+    );
 
     const { items } = result.data.addProductsToWishlist!.wishlist!.items_v2!;
-    const addedItem = items.find(item => item!.product!.sku === TEST_PRODUCT_SKU);
+    const addedItem = items.find((item) => item!.product!.sku === TEST_PRODUCT_SKU);
 
     expect(addedItem?.product?.sku).not.toBe(undefined);
   });
@@ -33,19 +30,17 @@ describe(describeGroup('addProductToWishList'), () => {
       customQuery: {
         addProductsToWishlist: 'add-product-to-wishlist-custom-query',
         metadata: {
-          fields: 'sharing_code'
-        }
-      }
+          fields: 'sharing_code',
+        },
+      },
     };
 
     const result = await sdk.magento.addProductToWishList(
       {
         id: '258',
-        items: [
-          { quantity: 1, sku: TEST_PRODUCT_SKU }
-        ]
+        items: [{ quantity: 1, sku: TEST_PRODUCT_SKU }],
       },
-      options
+      options,
     );
 
     expect(result.data.addProductsToWishlist!.wishlist.sharing_code).toBeTruthy();

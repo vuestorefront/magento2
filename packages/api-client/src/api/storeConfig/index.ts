@@ -15,19 +15,18 @@ import getHeaders from '../getHeaders';
 export default async function storeConfig(
   context: Context,
   customQuery: CustomQuery = { storeConfig: 'storeConfig' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<StoreConfigQuery>> {
-  const { storeConfig: storeConfigGQL } = context.extendQuery(
-    customQuery,
-    {
-      storeConfig: {
-        query: storeConfigMutation,
-      },
+  const { storeConfig: storeConfigGQL } = context.extendQuery(customQuery, {
+    storeConfig: {
+      query: storeConfigMutation,
     },
-  );
+  });
 
   return context.client.query<StoreConfigQuery>({
-    query: gql`${storeConfigGQL.query}`,
+    query: gql`
+      ${storeConfigGQL.query}
+    `,
     context: {
       headers: getHeaders(context, customHeaders),
     },

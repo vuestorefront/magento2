@@ -1,8 +1,8 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, SetShippingMethodsOnCartInput } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link setShippingMethodsOnCart} method.
@@ -12,7 +12,9 @@ export type SetShippingMethodsOnCartMutation = { setShippingMethodsOnCart: Mutat
 /**
  * setShippingMethodsOnCart response type
  */
-export type SetShippingMethodsOnCartResponse<T extends DeepPartial<SetShippingMethodsOnCartMutation> = SetShippingMethodsOnCartMutation> = FetchResult<T>
+export type SetShippingMethodsOnCartResponse<
+  T extends DeepPartial<SetShippingMethodsOnCartMutation> = SetShippingMethodsOnCartMutation,
+> = FetchResult<T>;
 
 /**
  * Method to set shipping methods on cart.
@@ -117,11 +119,14 @@ export type SetShippingMethodsOnCartResponse<T extends DeepPartial<SetShippingMe
  * // data will contain only the fields specified in the custom query.
  * ```
  */
-export async function setShippingMethodsOnCart<RES extends SetShippingMethodsOnCartResponse>(params: SetShippingMethodsOnCartInput, options?: MethodOptions<CustomQuery<'setShippingMethodsOnCart'>>) {
+export async function setShippingMethodsOnCart<RES extends SetShippingMethodsOnCartResponse>(
+  params: SetShippingMethodsOnCartInput,
+  options?: MethodOptions<CustomQuery<'setShippingMethodsOnCart'>>,
+) {
   const { data } = await client.post<RES>(
     'setShippingMethodsOnCart',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

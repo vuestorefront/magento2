@@ -1,8 +1,8 @@
-import { MethodBaseOptions } from '../../types';
 import { GuestAvailablePaymentMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { client } from '../../client';
+import { MethodBaseOptions } from '../../types';
 
 /**
  * query type for the {@link getAvailablePaymentMethods} method.
@@ -12,7 +12,9 @@ export type GuestAvailablePaymentMethodsQuery = { cart: Query['cart'] };
 /**
  * getAvailablePaymentMethods response type
  */
-export type GetAvailablePaymentMethodsResponse<T extends DeepPartial<GuestAvailablePaymentMethodsQuery> = GuestAvailablePaymentMethodsQuery> = ApolloQueryResult<T>
+export type GetAvailablePaymentMethodsResponse<
+  T extends DeepPartial<GuestAvailablePaymentMethodsQuery> = GuestAvailablePaymentMethodsQuery,
+> = ApolloQueryResult<T>;
 
 /**
  * Method to get available payment methods for the received guest cart.
@@ -67,11 +69,14 @@ export type GetAvailablePaymentMethodsResponse<T extends DeepPartial<GuestAvaila
  * }
  * ```
  */
-export async function getAvailablePaymentMethods<RES extends GetAvailablePaymentMethodsResponse>(params: GuestAvailablePaymentMethodsQueryVariables, options?: MethodBaseOptions) {
+export async function getAvailablePaymentMethods<RES extends GetAvailablePaymentMethodsResponse>(
+  params: GuestAvailablePaymentMethodsQueryVariables,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'getAvailablePaymentMethods',
     [params.cartId, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

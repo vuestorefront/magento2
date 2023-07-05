@@ -11,23 +11,21 @@ import getHeaders from '../getHeaders';
  */
 export default async (
   context: Context,
-  params: { currentPassword: string; newPassword: string; },
+  params: { currentPassword: string; newPassword: string },
   customQuery: CustomQuery = { changeCustomerPassword: 'changeCustomerPassword' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
   try {
-    const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(
-      customQuery,
-      {
-        changeCustomerPassword: {
-          query: changeCustomerPassword,
-          variables: { ...params },
-        },
+    const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(customQuery, {
+      changeCustomerPassword: {
+        query: changeCustomerPassword,
+        variables: { ...params },
       },
-    );
-    return await context.client
-      .mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
-      mutation: gql`${changeCustomerPasswordGQL.query}`,
+    });
+    return await context.client.mutate<ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables>({
+      mutation: gql`
+        ${changeCustomerPasswordGQL.query}
+      `,
       variables: changeCustomerPasswordGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),

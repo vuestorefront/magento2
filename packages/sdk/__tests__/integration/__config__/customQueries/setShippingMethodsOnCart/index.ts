@@ -1,4 +1,4 @@
-export const setShippingMethodsOnCart = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const setShippingMethodsOnCart = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -8,6 +8,6 @@ export const setShippingMethodsOnCart = ({ variables, metadata }: { variables: a
           ${metadata.fields}
         }
       }
-    }`
+    }`,
   };
 };

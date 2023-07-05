@@ -12,9 +12,9 @@ describe(describeGroup('customerCart'), () => {
       data: expect.objectContaining({
         customerCart: expect.objectContaining({
           __typename: 'Cart',
-          email: TEST_USER_EMAIL
-        })
-      })
+          email: TEST_USER_EMAIL,
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -26,8 +26,8 @@ describe(describeGroup('customerCart'), () => {
     const customQuery = {
       customerCart: 'customer-cart-custom-query',
       metadata: {
-        fields: 'id email'
-      }
+        fields: 'id email',
+      },
     };
 
     const result = await sdk.magento.customerCart({ customQuery, customHeaders: { Authorization: `Bearer ${token}` } });

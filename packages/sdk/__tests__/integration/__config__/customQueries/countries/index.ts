@@ -1,4 +1,4 @@
-export const countries = ({ variables, metadata }: { variables: any, metadata: any }) => {
+export const countries = ({ variables, metadata }: { variables: any; metadata: any }) => {
   return {
     variables,
     query: `
@@ -7,6 +7,6 @@ export const countries = ({ variables, metadata }: { variables: any, metadata: a
           ${metadata?.fields}
         }
       }
-     `
+     `,
   };
 };

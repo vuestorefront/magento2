@@ -12,8 +12,8 @@ describe(describeGroup('storeConfig'), () => {
     const customQuery = {
       storeConfig: 'store-config-custom-query',
       metadata: {
-        fields: 'logo_alt logo_height logo_width'
-      }
+        fields: 'logo_alt logo_height logo_width',
+      },
     };
 
     const result = await sdk.magento.storeConfig({ customQuery });
@@ -24,11 +24,11 @@ describe(describeGroup('storeConfig'), () => {
           __typename: 'StoreConfig',
           logo_alt: null,
           logo_height: null,
-          logo_width: null
-        })
+          logo_width: null,
+        }),
       }),
       loading: false,
-      networkStatus: 7
+      networkStatus: 7,
     });
 
     expect(result).toEqual(expectedResult);

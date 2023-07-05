@@ -13,13 +13,13 @@ export const TEST_ADDRESS = {
   telephone: '123 123 123',
   region: 'AL',
   postcode: '10001',
-  save_in_address_book: false
+  save_in_address_book: false,
 };
 export const TEST_CUSTOMER = {
   email: 'john.doe@vuestorefront.io',
   password: 'j5E&z42DR@Hx!',
   firstname: 'John',
-  lastname: 'Doe'
+  lastname: 'Doe',
 };
 
 export const NOCK_FIXTURES_CATALOG_NAME = '__nock-fixtures__';

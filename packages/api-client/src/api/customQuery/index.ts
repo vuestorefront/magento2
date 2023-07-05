@@ -12,16 +12,19 @@ export default async <QUERY = any, QUERY_VARIABLES = any>(
     fetchPolicy,
     customHeaders,
   }: {
-    query: string,
-    queryVariables?: QUERY_VARIABLES,
-    fetchPolicy?: FetchPolicy,
-    customHeaders?: CustomHeaders,
-  },
-): Promise<ApolloQueryResult<QUERY>> => context.client.query<QUERY, QUERY_VARIABLES>({
-  query: gql`${query}`,
-  variables: { ...queryVariables },
-  fetchPolicy: fetchPolicy || 'no-cache',
-  context: {
-    headers: getHeaders(context, customHeaders),
-  },
-});
+    query: string;
+    queryVariables?: QUERY_VARIABLES;
+    fetchPolicy?: FetchPolicy;
+    customHeaders?: CustomHeaders;
+  }
+): Promise<ApolloQueryResult<QUERY>> =>
+  context.client.query<QUERY, QUERY_VARIABLES>({
+    query: gql`
+      ${query}
+    `,
+    variables: { ...queryVariables },
+    fetchPolicy: fetchPolicy || 'no-cache',
+    context: {
+      headers: getHeaders(context, customHeaders),
+    },
+  });

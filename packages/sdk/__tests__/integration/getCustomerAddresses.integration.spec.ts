@@ -12,11 +12,11 @@ describe(describeGroup('getCustomerAddresses'), () => {
           __typename: 'Customer',
           addresses: expect.arrayContaining([
             expect.objectContaining({
-              __typename: 'CustomerAddress'
-            })
-          ])
-        })
-      })
+              __typename: 'CustomerAddress',
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -27,11 +27,14 @@ describe(describeGroup('getCustomerAddresses'), () => {
     const customQuery = {
       getCustomerAddresses: 'get-customer-addresses-custom-query',
       metadata: {
-        fields: 'city'
-      }
+        fields: 'city',
+      },
     };
 
-    const result = await sdk.magento.getCustomerAddresses({ customQuery, customHeaders: { Authorization: `Bearer ${token}` } });
+    const result = await sdk.magento.getCustomerAddresses({
+      customQuery,
+      customHeaders: { Authorization: `Bearer ${token}` },
+    });
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
@@ -40,11 +43,11 @@ describe(describeGroup('getCustomerAddresses'), () => {
           addresses: expect.arrayContaining([
             expect.objectContaining({
               __typename: 'CustomerAddress',
-              city: expect.any(String)
-            })
-          ])
-        })
-      })
+              city: expect.any(String),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

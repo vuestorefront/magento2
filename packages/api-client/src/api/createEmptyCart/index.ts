@@ -6,12 +6,12 @@ import createEmptyCart from './createEmptyCart';
 import { Context } from '../../types/context';
 import getHeaders from '../getHeaders';
 
-export default async (
-  context: Context,
-  customHeaders: CustomHeaders = {},
-): Promise<FetchResult<CreateEmptyCartMutation>> => context.client.mutate<CreateEmptyCartMutation>({
-  mutation: gql`${createEmptyCart}`,
-  context: {
-    headers: getHeaders(context, customHeaders),
-  },
-});
+export default async (context: Context, customHeaders: CustomHeaders = {}): Promise<FetchResult<CreateEmptyCartMutation>> =>
+  context.client.mutate<CreateEmptyCartMutation>({
+    mutation: gql`
+      ${createEmptyCart}
+    `,
+    context: {
+      headers: getHeaders(context, customHeaders),
+    },
+  });

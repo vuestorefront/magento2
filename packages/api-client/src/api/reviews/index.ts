@@ -18,7 +18,7 @@ export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: 'reviews' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {
     pageSize: 10,
@@ -39,7 +39,9 @@ export default async (
 
   try {
     return await context.client.query<CustomerProductReviewQuery, CustomerProductReviewQueryVariables>({
-      query: gql`${reviews.query}`,
+      query: gql`
+        ${reviews.query}
+      `,
       variables: reviews.variables,
       context: {
         headers: getHeaders(context, customHeaders),

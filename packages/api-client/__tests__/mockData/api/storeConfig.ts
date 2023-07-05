@@ -53,6 +53,4 @@ const STORE_CONFIG_MOCK_RESP = {
   },
 };
 
-export {
-  STORE_CONFIG_MOCK_RESP,
-};
+export { STORE_CONFIG_MOCK_RESP };

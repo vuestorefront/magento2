@@ -14,11 +14,9 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   input: CreateProductReviewInput,
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<CreateProductReviewMutation>> => {
-  const {
-    recaptchaToken, ...variables
-  } = input;
+  const { recaptchaToken, ...variables } = input;
 
   if (context.config.recaptcha.isEnabled) {
     /**
@@ -35,7 +33,9 @@ export default async (
   }
 
   return context.client.mutate<CreateProductReviewMutation, { input: CreateProductReviewInput }>({
-    mutation: gql`${createProductReview}`,
+    mutation: gql`
+      ${createProductReview}
+    `,
     variables: { input: variables },
     context: {
       headers: getHeaders(context, customHeaders),

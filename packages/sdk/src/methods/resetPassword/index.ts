@@ -1,18 +1,19 @@
 import { Mutation, MutationResetPasswordArgs } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
 /**
  * mutation type for the {@link resetPassword} method.
  */
-export type ResetPasswordMutation = { resetPassword: Mutation['resetPassword'] }
+export type ResetPasswordMutation = { resetPassword: Mutation['resetPassword'] };
 
 /**
  * resetPassword response type
  */
-export type ResetPasswordResponse<T extends DeepPartial<ResetPasswordMutation> = ResetPasswordMutation> = FetchResult<T>
+export type ResetPasswordResponse<T extends DeepPartial<ResetPasswordMutation> = ResetPasswordMutation> =
+  FetchResult<T>;
 
 /**
  * Method to reset customer password.
@@ -50,12 +51,11 @@ export type ResetPasswordResponse<T extends DeepPartial<ResetPasswordMutation> =
  * });
  * ```
  */
-export async function resetPassword<RES extends ResetPasswordResponse>(params: MutationResetPasswordArgs, options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>(
-    'resetPassword',
-    [params, options?.customHeaders],
-    options?.clientConfig
-  );
+export async function resetPassword<RES extends ResetPasswordResponse>(
+  params: MutationResetPasswordArgs,
+  options?: MethodBaseOptions,
+) {
+  const { data } = await client.post<RES>('resetPassword', [params, options?.customHeaders], options?.clientConfig);
 
   return data;
 }

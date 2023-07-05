@@ -8,9 +8,9 @@ describe(describeGroup('relatedProducts'), () => {
       pageSize: 1,
       filter: {
         sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
+          eq: TEST_PRODUCT_SKU,
+        },
+      },
     });
 
     const expected = expect.objectContaining({
@@ -19,11 +19,11 @@ describe(describeGroup('relatedProducts'), () => {
           __typename: 'Products',
           items: expect.arrayContaining([
             expect.objectContaining({
-              related_products: expect.any(Array)
-            })
-          ])
-        })
-      })
+              related_products: expect.any(Array),
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);
@@ -33,17 +33,20 @@ describe(describeGroup('relatedProducts'), () => {
     const customQuery = {
       relatedProducts: 'related-products-custom-query',
       metadata: {
-        fields: 'items { related_products { uid __typename } }'
-      }
+        fields: 'items { related_products { uid __typename } }',
+      },
     };
 
-    const result = await sdk.magento.relatedProducts({
-      filter: {
-        sku: {
-          eq: TEST_PRODUCT_SKU
-        }
-      }
-    }, { customQuery });
+    const result = await sdk.magento.relatedProducts(
+      {
+        filter: {
+          sku: {
+            eq: TEST_PRODUCT_SKU,
+          },
+        },
+      },
+      { customQuery },
+    );
 
     const expected = expect.objectContaining({
       data: expect.objectContaining({
@@ -53,25 +56,25 @@ describe(describeGroup('relatedProducts'), () => {
               related_products: [
                 {
                   __typename: 'ConfigurableProduct',
-                  uid: 'MTQzNA=='
+                  uid: 'MTQzNA==',
                 },
                 {
                   __typename: 'ConfigurableProduct',
-                  uid: 'MTUxNA=='
+                  uid: 'MTUxNA==',
                 },
                 {
                   __typename: 'ConfigurableProduct',
-                  uid: 'MTc3MA=='
+                  uid: 'MTc3MA==',
                 },
                 {
                   __typename: 'ConfigurableProduct',
-                  uid: 'MTgxOA=='
-                }
-              ]
-            })
-          ])
-        })
-      })
+                  uid: 'MTgxOA==',
+                },
+              ],
+            }),
+          ]),
+        }),
+      }),
     });
 
     expect(result).toEqual(expected);

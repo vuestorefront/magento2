@@ -1,9 +1,5 @@
 import { ApolloQueryResult, gql } from '@apollo/client/core';
-import {
-  CustomQuery,
-  GuestAvailableShippingMethodsQuery,
-  GuestAvailableShippingMethodsQueryVariables,
-} from '@vue-storefront/magento-types';
+import { CustomQuery, GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vue-storefront/magento-types';
 import type { CustomHeaders } from '@vue-storefront/magento-types';
 import { Context } from '../../types/context';
 import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
@@ -13,22 +9,20 @@ export default async (
   context: Context,
   params: GuestAvailableShippingMethodsQueryVariables,
   customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
-  customHeaders: CustomHeaders = {},
+  customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
-  const { shippingMethods } = context.extendQuery(
-    customQuery,
-    {
-      shippingMethods: {
-        query: GuestAvailableShippingMethods,
-        variables: { ...params },
-      },
+  const { shippingMethods } = context.extendQuery(customQuery, {
+    shippingMethods: {
+      query: GuestAvailableShippingMethods,
+      variables: { ...params },
     },
-  );
+  });
 
   try {
-    return await context.client.query<GuestAvailableShippingMethodsQuery,
-    GuestAvailableShippingMethodsQueryVariables>({
-      query: gql`${shippingMethods.query}`,
+    return await context.client.query<GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables>({
+      query: gql`
+        ${shippingMethods.query}
+      `,
       variables: shippingMethods.variables,
       context: {
         headers: getHeaders(context, customHeaders),

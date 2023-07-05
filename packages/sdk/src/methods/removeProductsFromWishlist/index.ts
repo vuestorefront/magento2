@@ -1,18 +1,20 @@
-import { CustomQuery, MethodOptions } from '../../types';
 import { Mutation, RemoveProductsFromWishlistMutationVariables } from '@vue-storefront/magento-types';
-import { client } from '../../client';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { client } from '../../client';
+import { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * mutation type for the {@link removeProductsFromWishlist} method.
  */
-export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist: Mutation['removeProductsFromWishlist'] }
+export type RemoveProductsFromWishlistMutation = { removeProductsFromWishlist: Mutation['removeProductsFromWishlist'] };
 
 /**
  * removeProductsFromWishlist response type
  */
-export type RemoveProductsFromWishlistResponse<T extends DeepPartial<RemoveProductsFromWishlistMutation> = RemoveProductsFromWishlistMutation> = FetchResult<T>
+export type RemoveProductsFromWishlistResponse<
+  T extends DeepPartial<RemoveProductsFromWishlistMutation> = RemoveProductsFromWishlistMutation,
+> = FetchResult<T>;
 
 /**
  * Method to remove products from wishlist
@@ -97,11 +99,14 @@ export type RemoveProductsFromWishlistResponse<T extends DeepPartial<RemoveProdu
  * // result should be narrowed to only contain the `id` field
  * ```
  */
-export async function removeProductsFromWishlist<RES extends RemoveProductsFromWishlistResponse>(params: RemoveProductsFromWishlistMutationVariables, options?: MethodOptions<CustomQuery<'removeProductsFromWishlist'>>) {
+export async function removeProductsFromWishlist<RES extends RemoveProductsFromWishlistResponse>(
+  params: RemoveProductsFromWishlistMutationVariables,
+  options?: MethodOptions<CustomQuery<'removeProductsFromWishlist'>>,
+) {
   const { data } = await client.post<RES>(
     'removeProductsFromWishlist',
     [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

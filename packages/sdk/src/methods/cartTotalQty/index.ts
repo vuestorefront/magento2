@@ -1,7 +1,7 @@
-import { MethodBaseOptions } from '../../types';
-import { client } from '../../client';
 import { ApolloQueryResult } from '@apollo/client';
 import { CartQueryVariables } from '@vue-storefront/magento-types';
+import { MethodBaseOptions } from '../../types';
+import { client } from '../../client';
 
 /**
  * Cart total query type
@@ -9,13 +9,13 @@ import { CartQueryVariables } from '@vue-storefront/magento-types';
 export type CartTotalQtyQuery = {
   cart: {
     total_quantity: number;
-  }
-}
+  };
+};
 
 /**
  * Cart total quantity response type
  */
-export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery> = ApolloQueryResult<T>
+export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to resolve cart total quantity
@@ -53,11 +53,14 @@ export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery
  * // total quantity of the cart available in data.cart.total_quantity
  * ```
  */
-export async function cartTotalQty<RES extends CartTotalQtyResponse>(params: CartQueryVariables, options?: MethodBaseOptions) {
+export async function cartTotalQty<RES extends CartTotalQtyResponse>(
+  params: CartQueryVariables,
+  options?: MethodBaseOptions,
+) {
   const { data } = await client.post<RES>(
     'cartTotalQty',
     [params.cartId, options?.customHeaders],
-    options?.clientConfig
+    options?.clientConfig,
   );
 
   return data;

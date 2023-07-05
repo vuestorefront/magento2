@@ -5,16 +5,18 @@ import { CustomQuery, MethodOptions } from '../../src/types';
 
 const PARAMS_MOCK = {
   cart_id: '123',
-  coupon_code: 'test-coupon'
+  coupon_code: 'test-coupon',
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'applyCouponToCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'applyCouponToCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('applyCouponToCart'), () => {
@@ -28,10 +30,16 @@ describe(describeGroup('applyCouponToCart'), () => {
     await applyCouponToCart(PARAMS_MOCK, OPTIONS_MOCK);
 
     expect(client.post).toBeCalledWith(
-      'applyCouponToCart', [{
-        cart_id: '123',
-        coupon_code: 'test-coupon'
-      }, {}, {}], {}
+      'applyCouponToCart',
+      [
+        {
+          cart_id: '123',
+          coupon_code: 'test-coupon',
+        },
+        {},
+        {},
+      ],
+      {},
     );
   });
 

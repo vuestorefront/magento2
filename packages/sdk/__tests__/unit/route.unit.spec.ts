@@ -1,11 +1,11 @@
+import { QueryRouteArgs } from '@vue-storefront/magento-types';
 import { route } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { QueryRouteArgs } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: QueryRouteArgs = {
-  url: 'some_url'
+  url: 'some_url',
 };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'route'>>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
@@ -13,8 +13,8 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('route'), () => {
@@ -27,9 +27,7 @@ describe(describeGroup('route'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await route(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'route', [PARAMS_MOCK.url, {}], {}
-    );
+    expect(client.post).toBeCalledWith('route', [PARAMS_MOCK.url, {}], {});
   });
 
   it('extracts and returns a response', async () => {

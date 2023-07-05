@@ -1,5 +1,5 @@
-import { connector } from './connector';
 import type { Module } from '@vue-storefront/sdk';
+import { connector } from './connector';
 import { ModuleOptions } from './types';
 
 export interface MagentoModuleType extends Module {
@@ -32,7 +32,7 @@ export interface MagentoModuleType extends Module {
  */
 export const magentoModule = (options: ModuleOptions): MagentoModuleType => {
   return {
-    connector: connector(options)
+    connector: connector(options),
   };
 };
 

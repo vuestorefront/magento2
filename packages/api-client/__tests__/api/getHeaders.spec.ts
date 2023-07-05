@@ -2,15 +2,16 @@ import type { CustomHeaders } from '@vue-storefront/magento-types';
 import getHeaders from '../../src/api/getHeaders';
 import type { Context } from '../../src';
 
-const contextMock = ({ customerToken, store, currency }: { customerToken?: string, store?: string, currency?: string }) => ({
-  config: {
-    state: {
-      getCustomerToken: jest.fn(() => customerToken),
-      getStore: jest.fn(() => store),
-      getCurrency: jest.fn(() => currency),
-    } as unknown,
-  },
-} as Context);
+const contextMock = ({ customerToken, store, currency }: { customerToken?: string; store?: string; currency?: string }) =>
+  ({
+    config: {
+      state: {
+        getCustomerToken: jest.fn(() => customerToken),
+        getStore: jest.fn(() => store),
+        getCurrency: jest.fn(() => currency),
+      } as unknown,
+    },
+  } as Context);
 
 describe('[Magento-API-Client] getHeaders', () => {
   it('Use without default headers', () => {

@@ -1,21 +1,23 @@
+import { RemoveItemFromCartInput } from '@vue-storefront/magento-types';
 import { removeItemFromCart } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
 import { CustomQuery, MethodOptions } from '../../src/types';
-import { RemoveItemFromCartInput } from '@vue-storefront/magento-types';
 
 const PARAMS_MOCK: RemoveItemFromCartInput = {
   cart_id: 'some_cart_id',
-  cart_item_id: 1
+  cart_item_id: 1,
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'removeItemFromCart'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'removeItemFromCart'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 
 describe(describeGroup('removeItemFromCart'), () => {
@@ -28,9 +30,7 @@ describe(describeGroup('removeItemFromCart'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await removeItemFromCart(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith(
-      'removeItemFromCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {}
-    );
+    expect(client.post).toBeCalledWith('removeItemFromCart', [expect.objectContaining(PARAMS_MOCK), {}, {}], {});
   });
 
   it('extracts and returns a response', async () => {

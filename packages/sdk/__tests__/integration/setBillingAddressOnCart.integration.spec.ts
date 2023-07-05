@@ -1,13 +1,13 @@
+import { SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
 import { sdk } from './__config__/sdk.config';
 import { describeGroup } from './__config__/jest.setup';
 import { TEST_ADDRESS, TEST_CART_ID } from './__config__/jest.const';
-import { SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
 
 const SHARED_PARAMS: SetBillingAddressOnCartInput = {
   cart_id: TEST_CART_ID,
   billing_address: {
-    address: TEST_ADDRESS
-  }
+    address: TEST_ADDRESS,
+  },
 };
 
 describe(describeGroup('setBillingAddressOnCart'), () => {
@@ -15,7 +15,7 @@ describe(describeGroup('setBillingAddressOnCart'), () => {
     // Reset addresses
     await sdk.magento.setBillingAddressOnCart({
       cart_id: TEST_CART_ID,
-      billing_address: {}
+      billing_address: {},
     });
   });
 
@@ -28,14 +28,11 @@ describe(describeGroup('setBillingAddressOnCart'), () => {
           billing_address: expect.objectContaining({
             firstname: TEST_ADDRESS.firstname,
             lastname: TEST_ADDRESS.lastname,
-            street: expect.arrayContaining([
-              TEST_ADDRESS.street[0],
-              TEST_ADDRESS.street[1]
-            ]),
-            city: TEST_ADDRESS.city
-          })
-        })
-      })
+            street: expect.arrayContaining([TEST_ADDRESS.street[0], TEST_ADDRESS.street[1]]),
+            city: TEST_ADDRESS.city,
+          }),
+        }),
+      }),
     });
 
     expect(data).toStrictEqual(expectedResult);
@@ -45,8 +42,8 @@ describe(describeGroup('setBillingAddressOnCart'), () => {
     const customQuery = {
       setBillingAddressOnCart: 'set-billing-address-on-cart-custom-query',
       metadata: {
-        fields: 'billing_address { city }'
-      }
+        fields: 'billing_address { city }',
+      },
     };
 
     const { data } = await sdk.magento.setBillingAddressOnCart(SHARED_PARAMS, { customQuery });

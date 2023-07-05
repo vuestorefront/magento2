@@ -6,21 +6,22 @@ import { CustomQuery, MethodOptions } from '../../src/types';
 const PARAMS_MOCK = {
   filters: {
     category_uid: {
-      in: ['MjA=']
-    }
-  }
+      in: ['MjA='],
+    },
+  },
 };
-const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<CustomQuery<'categorySearch'>>;
+const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {}, customQuery: {} } as MethodOptions<
+  CustomQuery<'categorySearch'>
+>;
 const RESPONSE_MOCK = { data: { data: 'some_data', error: null } };
 const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK)
-  }
+    post: jest.fn(() => RESPONSE_MOCK),
+  },
 }));
 describe(describeGroup('categorySearch'), () => {
-
   it('makes a single call to API Middleware', async () => {
     await categorySearch(PARAMS_MOCK);
 

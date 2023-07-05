@@ -16,8 +16,8 @@ describe(describeGroup('customer'), () => {
     const customQuery = {
       customer: 'customer-custom-query',
       metadata: {
-        fields: 'email'
-      }
+        fields: 'email',
+      },
     };
 
     const result = await sdk.magento.customer({ customQuery, customHeaders: { Authorization: `Bearer ${token}` } });
