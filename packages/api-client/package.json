@@ -7,6 +7,7 @@
     "url": "https://github.com/vuestorefront/magento2/issues"
   },
   "license": "MIT",
+  "server": "server/index.js",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -25,9 +26,9 @@
     "dev": "concurrently \"yarn build:package --watch\" \"yarn build:server --watch\""
   },
   "dependencies": {
-    "@vue-storefront/middleware": "3.0.0",
     "@apollo/client": "^3.6.9",
     "@nuxtjs/composition-api": "0.31.0",
+    "@vue-storefront/middleware": "3.0.0",
     "agentkeepalive": "^4.2.1",
     "consola": "^3.1.0",
     "dotenv": "^16.0.1",
@@ -36,16 +37,17 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@vue-storefront/magento-types": "1.0.0",
     "@graphql-codegen/cli": "^2.4.0",
     "@graphql-codegen/typescript": "^2.4.2",
     "@graphql-codegen/typescript-operations": "^2.2.3",
     "@graphql-tools/utils": "^8.6.1",
+    "@rollup/plugin-json": "^6.0.0",
     "@types/graphql": "^14.5.0",
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/jest": "^27.4.0",
     "@types/jsdom": "^16.2.14",
     "@types/webpack": "^5.28.0",
+    "@vue-storefront/magento-types": "1.0.0",
     "concurrently": "^7.2.2",
     "cross-fetch": "^3.1.5",
     "graphql-tools": "^8.3.0",
