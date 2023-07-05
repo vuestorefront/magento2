@@ -12,7 +12,9 @@ export interface Storage {
 export type StoreGroup = {
   code: string;
   defaultStore: string;
+  // eslint-disable-next-line no-use-before-define
   stores: Record<string, Store>;
+  // eslint-disable-next-line no-use-before-define
   website?: Website;
 };
 

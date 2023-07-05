@@ -56,7 +56,7 @@ export const apolloLinkFactory = (
 
   const httpLink = new HttpLink({
     uri: settings.api,
-    // @ts-ignore
+    // @ts-expect-error intentional
     fetch: (url, options) => fetch(standardURL(url), options),
     fetchOptions: {
       agent,

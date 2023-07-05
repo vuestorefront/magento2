@@ -1,7 +1,7 @@
 import { CategorySearchQueryVariables, CategoryTree } from '@vue-storefront/magento-types';
-import { CustomQuery, MethodOptions } from 'src/types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 
 /**
@@ -113,6 +113,7 @@ export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = 
  * ```
  */
 export async function categorySearch<Res extends CategorySearchResponse>(
+  // eslint-disable-next-line default-param-last
   params: CategorySearchQueryVariables = {},
   options?: MethodOptions<CustomQuery<'categorySearch'>>,
 ) {
