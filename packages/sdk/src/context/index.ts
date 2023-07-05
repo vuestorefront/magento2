@@ -1,10 +1,6 @@
 import type { ModuleOptions } from '../types';
 
 class SdkContext extends Map {
-  constructor() {
-    super();
-  }
-
   get<T extends keyof ModuleOptions>(key: T): ModuleOptions[T] {
     return super.get(key);
   }

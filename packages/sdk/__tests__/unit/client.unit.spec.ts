@@ -9,6 +9,7 @@ jest.mock('../../src/context', () => {
         if (key === 'apiUrl') {
           return MOCK_URL;
         }
+        return undefined;
       },
     },
   };

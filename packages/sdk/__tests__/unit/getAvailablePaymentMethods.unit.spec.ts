@@ -2,7 +2,7 @@ import { GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/mage
 import { getAvailablePaymentMethods } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { MethodBaseOptions } from '../../lib/types';
+import { MethodBaseOptions } from '../../src/types';
 
 const PARAMS_MOCK: GuestAvailablePaymentMethodsQueryVariables = {
   cartId: 'cart_id',

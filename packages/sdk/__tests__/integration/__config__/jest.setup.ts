@@ -23,11 +23,11 @@ async function setupNock(customFixtureName?: string) {
   const afterRecord = (recordings: any[]) =>
     recordings.filter((recording) => !recording.scope.toString().includes(NOCK_EXCLUDED_SCOPE));
 
-  const { nockDone } = await nock.back(fixtureName, { afterRecord });
+  const { nockDone: _nockDone } = await nock.back(fixtureName, { afterRecord });
 
   nock.enableNetConnect();
 
-  return nockDone;
+  return _nockDone;
 }
 
 beforeEach(async () => {

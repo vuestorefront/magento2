@@ -48,7 +48,9 @@ describe(describeGroup('updateCartItems'), () => {
     });
 
     // Find updated item
-    const item = result!.data!.updateCartItems!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result!.data!.updateCartItems!.cart!.items!.find(
+      (cartItem) => cartItem!.product.sku === TEST_PRODUCT_SKU,
+    );
 
     expect(item!.quantity).toEqual(expectedQuantity);
 
@@ -82,7 +84,9 @@ describe(describeGroup('updateCartItems'), () => {
       { customQuery },
     );
 
-    const item = result!.data!.updateCartItems!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result!.data!.updateCartItems!.cart!.items!.find(
+      (cartItem) => cartItem!.product.sku === TEST_PRODUCT_SKU,
+    );
 
     expect(item!.quantity).toEqual(expectedQuantity);
     expect(result!.data!.updateCartItems!.cart!.id).toEqual(TEST_CART_ID);

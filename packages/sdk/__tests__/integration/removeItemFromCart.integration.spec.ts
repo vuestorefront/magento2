@@ -29,7 +29,9 @@ describe(describeGroup('removeItemFromCart'), () => {
     await addProductsToCart();
 
     const result = await sdk.magento.removeItemFromCart({ cart_id: TEST_CART_ID, cart_item_uid: addedItem?.uid });
-    const item = result.data?.removeItemFromCart!.cart!.items!.find((item) => item!.product.sku === TEST_PRODUCT_SKU);
+    const item = result.data?.removeItemFromCart!.cart!.items!.find(
+      (cartItem) => cartItem!.product.sku === TEST_PRODUCT_SKU,
+    );
 
     expect(item).toBeUndefined();
   });

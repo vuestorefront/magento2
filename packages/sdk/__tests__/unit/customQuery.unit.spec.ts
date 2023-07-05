@@ -1,7 +1,7 @@
 import { customQuery } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { MethodBaseOptions } from '../../lib/types';
+import { MethodBaseOptions } from '../../src/types';
 
 const PARAMS_MOCK = { query: '{ __typename }', queryVariables: {} };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;

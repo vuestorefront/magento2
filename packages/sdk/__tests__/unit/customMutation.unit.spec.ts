@@ -1,7 +1,7 @@
 import { customMutation } from '../../src/methods';
 import { describeGroup } from './__config__/jest.setup';
 import { client } from '../../src';
-import { MethodBaseOptions } from '../../lib/types';
+import { MethodBaseOptions } from '../../src/types';
 
 const PARAMS_MOCK = { mutation: '{ __typename }', mutationVariables: {} };
 const OPTIONS_MOCK = { clientConfig: {}, customHeaders: {} } as MethodBaseOptions;
