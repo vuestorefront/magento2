@@ -23,6 +23,7 @@
     "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^5.61.0",
     "@vue-storefront/api-extractor-config": "^0.0.3",
     "@vue-storefront/integrations-tsconfig": "^0.0.2",
     "@vue-storefront/jest-config": "^0.0.2",
