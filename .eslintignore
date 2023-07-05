@@ -1,6 +1,4 @@
 **/node_modules/**/*
 **/lib/*
-packages/api-client/src/types/GraphQL.ts
-packages/api-client/server
-packages/api-client/lib
-.eslintrc.js
+**/__nock-fixtures__/*
+**/server/*
