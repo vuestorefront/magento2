@@ -18,12 +18,8 @@
     "test:integration": "echo 'No test step created for this package'",
     "lint": "eslint ./src --ext .ts,.vue",
     "prepublish": "yarn build",
-    "lint:fix": "eslint ./src --ext .ts --fix",
     "partial:types": "node ./possible-types.js",
-    "precommit": "lint-staged",
-    "update:check": "ncu",
-    "update:update": "ncu -u",
-    "dev": "concurrently \"yarn build:package --watch\" \"yarn build:server --watch\""
+    "dev": "rimraf lib server && rollup -c -w"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
