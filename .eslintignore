@@ -2,3 +2,4 @@
 **/lib/*
 **/__nock-fixtures__/*
 **/server/*
+packages/api-types/src
