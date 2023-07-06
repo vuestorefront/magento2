@@ -11,14 +11,11 @@
   "scripts": {
     "build": "rimraf lib server && rollup -c",
     "test": "yarn test:unit && yarn test:integration",
-    "test:unit": "jest ./unit -c ./jest.config.unit.ts",
-    "test:integration": "jest ./integration -c ./jest.config.integration.ts --runInBand",
-    "lint": "eslint . --ext .ts",
+    "test:unit": "jest ./unit -c ./jest.config.unit.ts --coverage",
+    "test:integration": "jest ./integration -c ./jest.config.integration.ts --runInBand --coverage",
+    "lint": "eslint . --ext .ts,.js",
     "prepublish": "yarn build",
-    "dev": "rimraf lib server && rollup -c -w",
-    "test:watch": "jest --watch",
-    "test:coverage": "yarn test --coverage --passWithNoTests",
-    "test:integration:init": "rm -rf __tests__/integration/__nock-fixtures__ && jest ./integration -c ./jest.config.integration.js --runInBand"
+    "dev": "rimraf lib server && rollup -c -w"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
