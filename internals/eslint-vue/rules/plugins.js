@@ -1,5 +1,6 @@
-module.exports = {
-  plugins: [
-    'vue',
-  ],
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedpundefinedlundefineduundefinedgundefinediundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinedvundefineduundefinedeundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

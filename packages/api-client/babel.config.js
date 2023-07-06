@@ -1,10 +1,11 @@
-// eslint-disable-next-line unicorn/prefer-module
-module.exports = {
-  presets: [
-    ['@babel/preset-env', {
-      targets: {
-        node: 'current',
-      },
-    }],
-  ],
-};
+undefined/undefined/undefined undefinedeundefinedsundefinedlundefinediundefinednundefinedtundefined-undefineddundefinediundefinedsundefinedaundefinedbundefinedlundefinedeundefined-undefinednundefinedeundefinedxundefinedtundefined-undefinedlundefinediundefinednundefinedeundefined undefineduundefinednundefinediundefinedcundefinedoundefinedrundefinednundefined/undefinedpundefinedrundefinedeundefinedfundefinedeundefinedrundefined-undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedpundefinedrundefinedeundefinedsundefinedeundefinedtundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined[undefined'undefined@undefinedbundefinedaundefinedbundefinedeundefinedlundefined/undefinedpundefinedrundefinedeundefinedsundefinedeundefinedtundefined-undefinedeundefinednundefinedvundefined'undefined,undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefinedtundefinedaundefinedrundefinedgundefinedeundefinedtundefinedsundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinednundefinedoundefineddundefinedeundefined:undefined undefined'undefinedcundefineduundefinedrundefinedrundefinedeundefinednundefinedtundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined}undefined]undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

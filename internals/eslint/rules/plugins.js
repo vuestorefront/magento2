@@ -1,5 +1,6 @@
-module.exports = {
-  plugins: [
-    'unicorn',
-  ],
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedpundefinedlundefineduundefinedgundefinediundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefineduundefinednundefinediundefinedcundefinedoundefinedrundefinednundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

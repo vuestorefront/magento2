@@ -1,5 +1,6 @@
-module.exports = {
-  plugins: [
-    'import',
-  ],
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedpundefinedlundefineduundefinedgundefinediundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinediundefinedmundefinedpundefinedoundefinedrundefinedtundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

@@ -1,25 +1,26 @@
-module.exports = {
-  settings: {
-    'import/extensions': [
-      '.js',
-      '.jsx',
-      '.mjs',
-      '.ts',
-      '.tsx',
-      '.vue',
-    ],
-    'import/resolver': {
-      node: {
-        extensions: [
-          '.js',
-          '.jsx',
-          '.mjs',
-          '.ts',
-          '.tsx',
-          '.vue',
-        ],
-      },
-      typescript: {},
-    },
-  },
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedsundefinedeundefinedtundefinedtundefinediundefinednundefinedgundefinedsundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined'undefinediundefinedmundefinedpundefinedoundefinedrundefinedtundefined/undefinedeundefinedxundefinedtundefinedeundefinednundefinedsundefinediundefinedoundefinednundefinedsundefined'undefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedjundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedjundefinedsundefinedxundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedmundefinedjundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedtundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedtundefinedsundefinedxundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedvundefineduundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined'undefinediundefinedmundefinedpundefinedoundefinedrundefinedtundefined/undefinedrundefinedeundefinedsundefinedoundefinedlundefinedvundefinedeundefinedrundefined'undefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefinednundefinedoundefineddundefinedeundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedeundefinedxundefinedtundefinedeundefinednundefinedsundefinediundefinedoundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedjundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedjundefinedsundefinedxundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedmundefinedjundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedtundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedtundefinedsundefinedxundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined'undefined.undefinedvundefineduundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined undefined undefinedtundefinedyundefinedpundefinedeundefinedsundefinedcundefinedrundefinediundefinedpundefinedtundefined:undefined undefined{undefined}undefined,undefined
+undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined}undefined;undefined
+undefined

@@ -1,5 +1,6 @@
-module.exports = {
-  plugins: [
-    '@typescript-eslint',
-  ],
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedpundefinedlundefineduundefinedgundefinediundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefined@undefinedtundefinedyundefinedpundefinedeundefinedsundefinedcundefinedrundefinediundefinedpundefinedtundefined-undefinedeundefinedsundefinedlundefinediundefinednundefinedtundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

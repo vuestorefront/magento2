@@ -1,71 +1,72 @@
-/* eslint-disable unicorn/prefer-module */
-module.exports = {
-  globals: {
-    __DEV__: true,
-  },
-  coverageReporters: [
-    'lcov',
-  ],
-  coverageThreshold: {
-    global: {},
-  },
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '.d.ts$',
-    '/__mocks__/',
-  ],
-  coverageDirectory: './coverage/',
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
-    '^~/(.*)$': '<rootDir>/$1',
-    'api-client(.*)$': '<rootDir>$1',
-  },
-  testEnvironment: 'jsdom',
-  transform: {
-    '^.+\\.(m)js$': 'babel-jest',
-    '^.+\\.ts$': 'ts-jest',
-  },
-  transformIgnorePatterns: [
-    'node_modules',
-    '<rootDir>/node_modules',
-  ],
-  testMatch: [
-    '<rootDir>/**/__tests__/**/*spec.[jt]s?(x)',
-  ],
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-    [
-      'jest-watch-toggle-config',
-      {
-        setting: 'verbose',
-      },
-    ],
-    [
-      'jest-watch-toggle-config',
-      {
-        setting: 'collectCoverage',
-      },
-    ],
-    [
-      'jest-watch-toggle-config',
-      {
-        setting: 'notify',
-      },
-    ],
-    [
-      'jest-watch-toggle-config',
-      {
-        setting: 'bail',
-      },
-    ],
-  ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**/*.ts',
-  ],
-  moduleFileExtensions: [
-    'js',
-    'json',
-    'ts',
-  ],
-};
+undefined/undefined*undefined undefinedeundefinedsundefinedlundefinediundefinednundefinedtundefined-undefineddundefinediundefinedsundefinedaundefinedbundefinedlundefinedeundefined undefineduundefinednundefinediundefinedcundefinedoundefinedrundefinednundefined/undefinedpundefinedrundefinedeundefinedfundefinedeundefinedrundefined-undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined undefined*undefined/undefined
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedgundefinedlundefinedoundefinedbundefinedaundefinedlundefinedsundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined_undefined_undefinedDundefinedEundefinedVundefined_undefined_undefined:undefined undefinedtundefinedrundefineduundefinedeundefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined undefined undefinedcundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefinedRundefinedeundefinedpundefinedoundefinedrundefinedtundefinedeundefinedrundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinedlundefinedcundefinedoundefinedvundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedcundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefinedTundefinedhundefinedrundefinedeundefinedsundefinedhundefinedoundefinedlundefineddundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefinedgundefinedlundefinedoundefinedbundefinedaundefinedlundefined:undefined undefined{undefined}undefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined undefined undefinedcundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefinedPundefinedaundefinedtundefinedhundefinedIundefinedgundefinednundefinedoundefinedrundefinedeundefinedPundefinedaundefinedtundefinedtundefinedeundefinedrundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefined/undefinednundefinedoundefineddundefinedeundefined_undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefinedsundefined/undefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefined.undefineddundefined.undefinedtundefinedsundefined$undefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefined/undefined_undefined_undefinedmundefinedoundefinedcundefinedkundefinedsundefined_undefined_undefined/undefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedcundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefinedDundefinediundefinedrundefinedeundefinedcundefinedtundefinedoundefinedrundefinedyundefined:undefined undefined'undefined.undefined/undefinedcundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefined/undefined'undefined,undefined
+undefined undefined undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefinedNundefinedaundefinedmundefinedeundefinedMundefinedaundefinedpundefinedpundefinedeundefinedrundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined'undefined^undefined@undefined/undefined(undefined.undefined*undefined)undefined$undefined'undefined:undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined/undefined$undefined1undefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefined^undefined~undefined/undefined(undefined.undefined*undefined)undefined$undefined'undefined:undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined/undefined$undefined1undefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefinedaundefinedpundefinediundefined-undefinedcundefinedlundefinediundefinedeundefinednundefinedtundefined(undefined.undefined*undefined)undefined$undefined'undefined:undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined$undefined1undefined'undefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined undefined undefinedtundefinedeundefinedsundefinedtundefinedEundefinednundefinedvundefinediundefinedrundefinedoundefinednundefinedmundefinedeundefinednundefinedtundefined:undefined undefined'undefinedjundefinedsundefineddundefinedoundefinedmundefined'undefined,undefined
+undefined undefined undefinedtundefinedrundefinedaundefinednundefinedsundefinedfundefinedoundefinedrundefinedmundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined'undefined^undefined.undefined+undefined\undefined\undefined.undefined(undefinedmundefined)undefinedjundefinedsundefined$undefined'undefined:undefined undefined'undefinedbundefinedaundefinedbundefinedeundefinedlundefined-undefinedjundefinedeundefinedsundefinedtundefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefined^undefined.undefined+undefined\undefined\undefined.undefinedtundefinedsundefined$undefined'undefined:undefined undefined'undefinedtundefinedsundefined-undefinedjundefinedeundefinedsundefinedtundefined'undefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined undefined undefinedtundefinedrundefinedaundefinednundefinedsundefinedfundefinedoundefinedrundefinedmundefinedIundefinedgundefinednundefinedoundefinedrundefinedeundefinedPundefinedaundefinedtundefinedtundefinedeundefinedrundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinednundefinedoundefineddundefinedeundefined_undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined/undefinednundefinedoundefineddundefinedeundefined_undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefinedsundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedtundefinedeundefinedsundefinedtundefinedMundefinedaundefinedtundefinedcundefinedhundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined/undefined*undefined*undefined/undefined_undefined_undefinedtundefinedeundefinedsundefinedtundefinedsundefined_undefined_undefined/undefined*undefined*undefined/undefined*undefinedsundefinedpundefinedeundefinedcundefined.undefined[undefinedjundefinedtundefined]undefinedsundefined?undefined(undefinedxundefined)undefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedwundefinedaundefinedtundefinedcundefinedhundefinedPundefinedlundefineduundefinedgundefinediundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedyundefinedpundefinedeundefinedaundefinedhundefinedeundefinedaundefineddundefined/undefinedfundefinediundefinedlundefinedeundefinednundefinedaundefinedmundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedyundefinedpundefinedeundefinedaundefinedhundefinedeundefinedaundefineddundefined/undefinedtundefinedeundefinedsundefinedtundefinednundefinedaundefinedmundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedoundefinedgundefinedgundefinedlundefinedeundefined-undefinedcundefinedoundefinednundefinedfundefinediundefinedgundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedeundefinedtundefinedtundefinediundefinednundefinedgundefined:undefined undefined'undefinedvundefinedeundefinedrundefinedbundefinedoundefinedsundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedoundefinedgundefinedgundefinedlundefinedeundefined-undefinedcundefinedoundefinednundefinedfundefinediundefinedgundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedeundefinedtundefinedtundefinediundefinednundefinedgundefined:undefined undefined'undefinedcundefinedoundefinedlundefinedlundefinedeundefinedcundefinedtundefinedCundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedoundefinedgundefinedgundefinedlundefinedeundefined-undefinedcundefinedoundefinednundefinedfundefinediundefinedgundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedeundefinedtundefinedtundefinediundefinednundefinedgundefined:undefined undefined'undefinednundefinedoundefinedtundefinediundefinedfundefinedyundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined[undefined
+undefined undefined undefined undefined undefined undefined undefined'undefinedjundefinedeundefinedsundefinedtundefined-undefinedwundefinedaundefinedtundefinedcundefinedhundefined-undefinedtundefinedoundefinedgundefinedgundefinedlundefinedeundefined-undefinedcundefinedoundefinednundefinedfundefinediundefinedgundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedeundefinedtundefinedtundefinediundefinednundefinedgundefined:undefined undefined'undefinedbundefinedaundefinediundefinedlundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedcundefinedoundefinedlundefinedlundefinedeundefinedcundefinedtundefinedCundefinedoundefinedvundefinedeundefinedrundefinedaundefinedgundefinedeundefinedFundefinedrundefinedoundefinedmundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefined<undefinedrundefinedoundefinedoundefinedtundefinedDundefinediundefinedrundefined>undefined/undefinedsundefinedrundefinedcundefined/undefined*undefined*undefined/undefined*undefined.undefinedtundefinedsundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined undefined undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefinedFundefinediundefinedlundefinedeundefinedEundefinedxundefinedtundefinedeundefinednundefinedsundefinediundefinedoundefinednundefinedsundefined:undefined undefined[undefined
+undefined undefined undefined undefined undefined'undefinedjundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefinedjundefinedsundefinedoundefinednundefined'undefined,undefined
+undefined undefined undefined undefined undefined'undefinedtundefinedsundefined'undefined,undefined
+undefined undefined undefined]undefined,undefined
+undefined}undefined;undefined
+undefined

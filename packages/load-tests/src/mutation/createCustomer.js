@@ -1,45 +1,46 @@
-export const CreateCustomer = `
-  mutation createCustomer($input: CustomerCreateInput!) {
-    createCustomerV2(input: $input) {
-      customer {
-        date_of_birth
-        default_billing
-        default_shipping
-        email
-        firstname
-        is_subscribed
-        lastname
-        middlename
-        prefix
-        suffix
-        taxvat
-        addresses {
-          city
-          country_code
-          default_billing
-          default_shipping
-          extension_attributes {
-            attribute_code
-            value
-          }
-          firstname
-          id
-          lastname
-          postcode
-          prefix
-          region {
-            region_code
-            region_id
-            region
-          }
-          street
-          suffix
-          telephone
-          vat_id
-        }
-      }
-    }
-  }
-`;
-
-export default CreateCustomer;
+undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefined undefinedcundefinedoundefinednundefinedsundefinedtundefined undefinedCundefinedrundefinedeundefinedaundefinedtundefinedeundefinedCundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefined undefined=undefined undefined`undefined
+undefined undefined undefinedmundefineduundefinedtundefinedaundefinedtundefinediundefinedoundefinednundefined undefinedcundefinedrundefinedeundefinedaundefinedtundefinedeundefinedCundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefined(undefined$undefinediundefinednundefinedpundefineduundefinedtundefined:undefined undefinedCundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefinedCundefinedrundefinedeundefinedaundefinedtundefinedeundefinedIundefinednundefinedpundefineduundefinedtundefined!undefined)undefined undefined{undefined
+undefined undefined undefined undefined undefinedcundefinedrundefinedeundefinedaundefinedtundefinedeundefinedCundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefinedVundefined2undefined(undefinediundefinednundefinedpundefineduundefinedtundefined:undefined undefined$undefinediundefinednundefinedpundefineduundefinedtundefined)undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefinedcundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefineddundefinedaundefinedtundefinedeundefined_undefinedoundefinedfundefined_undefinedbundefinediundefinedrundefinedtundefinedhundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefineddundefinedeundefinedfundefinedaundefineduundefinedlundefinedtundefined_undefinedbundefinediundefinedlundefinedlundefinediundefinednundefinedgundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefineddundefinedeundefinedfundefinedaundefineduundefinedlundefinedtundefined_undefinedsundefinedhundefinediundefinedpundefinedpundefinediundefinednundefinedgundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedeundefinedmundefinedaundefinediundefinedlundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedfundefinediundefinedrundefinedsundefinedtundefinednundefinedaundefinedmundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinediundefinedsundefined_undefinedsundefineduundefinedbundefinedsundefinedcundefinedrundefinediundefinedbundefinedeundefineddundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedlundefinedaundefinedsundefinedtundefinednundefinedaundefinedmundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedmundefinediundefineddundefineddundefinedlundefinedeundefinednundefinedaundefinedmundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedpundefinedrundefinedeundefinedfundefinediundefinedxundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefineduundefinedfundefinedfundefinediundefinedxundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedtundefinedaundefinedxundefinedvundefinedaundefinedtundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedaundefineddundefineddundefinedrundefinedeundefinedsundefinedsundefinedeundefinedsundefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedcundefinediundefinedtundefinedyundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedcundefinedoundefineduundefinednundefinedtundefinedrundefinedyundefined_undefinedcundefinedoundefineddundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefineddundefinedeundefinedfundefinedaundefineduundefinedlundefinedtundefined_undefinedbundefinediundefinedlundefinedlundefinediundefinednundefinedgundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefineddundefinedeundefinedfundefinedaundefineduundefinedlundefinedtundefined_undefinedsundefinedhundefinediundefinedpundefinedpundefinediundefinednundefinedgundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedeundefinedxundefinedtundefinedeundefinednundefinedsundefinediundefinedoundefinednundefined_undefinedaundefinedtundefinedtundefinedrundefinediundefinedbundefineduundefinedtundefinedeundefinedsundefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedaundefinedtundefinedtundefinedrundefinediundefinedbundefineduundefinedtundefinedeundefined_undefinedcundefinedoundefineddundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedvundefinedaundefinedlundefineduundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined}undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedfundefinediundefinedrundefinedsundefinedtundefinednundefinedaundefinedmundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinediundefineddundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedlundefinedaundefinedsundefinedtundefinednundefinedaundefinedmundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedpundefinedoundefinedsundefinedtundefinedcundefinedoundefineddundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedpundefinedrundefinedeundefinedfundefinediundefinedxundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedrundefinedeundefinedgundefinediundefinedoundefinednundefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedrundefinedeundefinedgundefinediundefinedoundefinednundefined_undefinedcundefinedoundefineddundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedrundefinedeundefinedgundefinediundefinedoundefinednundefined_undefinediundefineddundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedrundefinedeundefinedgundefinediundefinedoundefinednundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined}undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedtundefinedrundefinedeundefinedeundefinedtundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefineduundefinedfundefinedfundefinediundefinedxundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedtundefinedeundefinedlundefinedeundefinedpundefinedhundefinedoundefinednundefinedeundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedvundefinedaundefinedtundefined_undefinediundefineddundefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined}undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined
+undefined undefined undefined undefined undefined}undefined
+undefined undefined undefined}undefined
+undefined`undefined;undefined
+undefined
+undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefined undefineddundefinedeundefinedfundefinedaundefineduundefinedlundefinedtundefined undefinedCundefinedrundefinedeundefinedaundefinedtundefinedeundefinedCundefineduundefinedsundefinedtundefinedoundefinedmundefinedeundefinedrundefined;undefined
+undefined

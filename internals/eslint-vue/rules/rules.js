@@ -1,15 +1,16 @@
-// eslint-disable-next-line unicorn/prefer-module
-module.exports = {
-  rules: {
-    'vue/block-lang': ['error',
-      {
-        script: {
-          lang: 'ts',
-        },
-      },
-    ],
-    'vue/no-setup-props-destructure': 0,
-    'vue/no-v-html': 0,
-    'vue/no-v-text-v-html-on-component': 0,
-  },
-};
+undefined/undefined/undefined undefinedeundefinedsundefinedlundefinediundefinednundefinedtundefined-undefineddundefinediundefinedsundefinedaundefinedbundefinedlundefinedeundefined-undefinednundefinedeundefinedxundefinedtundefined-undefinedlundefinediundefinednundefinedeundefined undefineduundefinednundefinediundefinedcundefinedoundefinedrundefinednundefined/undefinedpundefinedrundefinedeundefinedfundefinedeundefinedrundefined-undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedrundefineduundefinedlundefinedeundefinedsundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined'undefinedvundefineduundefinedeundefined/undefinedbundefinedlundefinedoundefinedcundefinedkundefined-undefinedlundefinedaundefinednundefinedgundefined'undefined:undefined undefined[undefined'undefinedeundefinedrundefinedrundefinedoundefinedrundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefinedsundefinedcundefinedrundefinediundefinedpundefinedtundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined undefined undefinedlundefinedaundefinednundefinedgundefined:undefined undefined'undefinedtundefinedsundefined'undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined undefined undefined}undefined,undefined
+undefined undefined undefined undefined undefined]undefined,undefined
+undefined undefined undefined undefined undefined'undefinedvundefineduundefinedeundefined/undefinednundefinedoundefined-undefinedsundefinedeundefinedtundefineduundefinedpundefined-undefinedpundefinedrundefinedoundefinedpundefinedsundefined-undefineddundefinedeundefinedsundefinedtundefinedrundefineduundefinedcundefinedtundefineduundefinedrundefinedeundefined'undefined:undefined undefined0undefined,undefined
+undefined undefined undefined undefined undefined'undefinedvundefineduundefinedeundefined/undefinednundefinedoundefined-undefinedvundefined-undefinedhundefinedtundefinedmundefinedlundefined'undefined:undefined undefined0undefined,undefined
+undefined undefined undefined undefined undefined'undefinedvundefineduundefinedeundefined/undefinednundefinedoundefined-undefinedvundefined-undefinedtundefinedeundefinedxundefinedtundefined-undefinedvundefined-undefinedhundefinedtundefinedmundefinedlundefined-undefinedoundefinednundefined-undefinedcundefinedoundefinedmundefinedpundefinedoundefinednundefinedeundefinednundefinedtundefined'undefined:undefined undefined0undefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined}undefined;undefined
+undefined

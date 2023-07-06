@@ -1,7 +1,8 @@
-module.exports = {
-  env: {
-    browser: true,
-    node: true,
-    commonjs: true,
-  },
-};
+undefinedmundefinedoundefineddundefineduundefinedlundefinedeundefined.undefinedeundefinedxundefinedpundefinedoundefinedrundefinedtundefinedsundefined undefined=undefined undefined{undefined
+undefined undefined undefinedeundefinednundefinedvundefined:undefined undefined{undefined
+undefined undefined undefined undefined undefinedbundefinedrundefinedoundefinedwundefinedsundefinedeundefinedrundefined:undefined undefinedtundefinedrundefineduundefinedeundefined,undefined
+undefined undefined undefined undefined undefinednundefinedoundefineddundefinedeundefined:undefined undefinedtundefinedrundefineduundefinedeundefined,undefined
+undefined undefined undefined undefined undefinedcundefinedoundefinedmundefinedmundefinedoundefinednundefinedjundefinedsundefined:undefined undefinedtundefinedrundefineduundefinedeundefined,undefined
+undefined undefined undefined}undefined,undefined
+undefined}undefined;undefined
+undefined
