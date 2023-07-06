@@ -1,9 +1,9 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders, SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import subscribeEmailToNewsletterMutation from './subscribeEmailToNewsletter';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders, SubscribeEmailToNewsletterMutation, SubscribeEmailToNewsletterMutationVariables } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import subscribeEmailToNewsletterMutation from "./subscribeEmailToNewsletter";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Subscribes an email in the newsletter.

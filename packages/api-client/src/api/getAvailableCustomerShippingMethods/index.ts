@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CustomerAvailableShippingMethodsQuery, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import { Context } from '../../types/context';
-import CustomerAvailableShippingMethods from './CustomerShippingMethods';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CustomerAvailableShippingMethodsQuery, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import { Context } from "../../types/context";
+import CustomerAvailableShippingMethods from "./CustomerShippingMethods";
+import getHeaders from "../getHeaders";
 
 /**
  * Retrive available shipping methods for current customer
@@ -14,7 +14,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function getAvailableCustomerShippingMethods(
   context: Context,
-  customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
+  customQuery: CustomQuery = { shippingMethods: "shippingMethods" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerAvailableShippingMethodsQuery>> {
   const { shippingMethods } = context.extendQuery(customQuery, {

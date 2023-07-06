@@ -1,12 +1,11 @@
-/* eslint-disable unicorn/prefer-module */
-require('dotenv').config();
-const fetch = require('cross-fetch');
-const fs = require('fs');
+/* eslint-disable @typescript-eslint/no-var-requires */
+require("dotenv").config();
+const fetch = require("cross-fetch");
+const fs = require("fs");
 
-// eslint-disable-next-line promise/catch-or-return
 fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     variables: {},
     query: `
@@ -23,8 +22,8 @@ fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
       }
     `,
   }),
-}).then((result) => result.json())
-  // eslint-disable-next-line promise/always-return
+})
+  .then((result) => result.json())
   .then((result) => {
     const possibleTypes = {};
 
@@ -35,11 +34,13 @@ fetch(process.env.VSF_MAGENTO_GRAPHQL_URL, {
       }
     });
 
-    fs.writeFile('./src/types/possibleTypes.json', JSON.stringify(possibleTypes), (err) => {
+    fs.writeFile("./src/types/possibleTypes.json", JSON.stringify(possibleTypes), (err) => {
       if (err) {
-        console.error('Error writing possibleTypes.json', err);
+        // eslint-disable-next-line no-console
+        console.error("Error writing possibleTypes.json", err);
       } else {
-        console.log('Fragment types successfully extracted!');
+        // eslint-disable-next-line no-console
+        console.log("Fragment types successfully extracted!");
       }
     });
   });

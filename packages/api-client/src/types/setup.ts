@@ -1,6 +1,6 @@
-import { ApolloClient, ApolloClientOptions } from '@apollo/client/core';
-import { HttpOptions } from '@apollo/client/link/http/selectHttpOptionsAndBody';
-import { MagentoApiMethods } from '@vue-storefront/magento-types';
+import { ApolloClient, ApolloClientOptions } from "@apollo/client/core";
+import { HttpOptions } from "@apollo/client/link/http/selectHttpOptionsAndBody";
+import { MagentoApiMethods } from "@vue-storefront/magento-types";
 
 export interface Storage {
   set: (name: string, value: any) => void;

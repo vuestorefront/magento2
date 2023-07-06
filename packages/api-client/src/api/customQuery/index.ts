@@ -1,8 +1,8 @@
-import gql from 'graphql-tag';
-import { ApolloQueryResult, FetchPolicy } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import gql from "graphql-tag";
+import { ApolloQueryResult, FetchPolicy } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 export default async <QUERY = any, QUERY_VARIABLES = any>(
   context: Context,
@@ -23,7 +23,7 @@ export default async <QUERY = any, QUERY_VARIABLES = any>(
       ${query}
     `,
     variables: { ...queryVariables },
-    fetchPolicy: fetchPolicy || 'no-cache',
+    fetchPolicy: fetchPolicy || "no-cache",
     context: {
       headers: getHeaders(context, customHeaders),
     },

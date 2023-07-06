@@ -1,14 +1,14 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult } from "@apollo/client/core";
 import {
   CustomQuery,
   AddDownloadableProductsToCartInput,
   AddDownloadableProductsToCartMutation,
   AddDownloadableProductsToCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import type { Context } from '../../types/context';
-import addDownloadableProductsToCartMutation from './addDownloadableProductsToCart';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import type { Context } from "../../types/context";
+import addDownloadableProductsToCartMutation from "./addDownloadableProductsToCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Adds a set of downloadable products to a specified cart
@@ -20,7 +20,7 @@ import getHeaders from '../getHeaders';
 export default async function addDownloadableProductsToCart(
   context: Context,
   input: AddDownloadableProductsToCartInput,
-  customQuery: CustomQuery = { addDownloadableProductsToCart: 'addDownloadableProductsToCart' },
+  customQuery: CustomQuery = { addDownloadableProductsToCart: "addDownloadableProductsToCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddDownloadableProductsToCartMutation>> {
   const { addDownloadableProductsToCart: addDownloadableProductsToCartGQL } = context.extendQuery(customQuery, {

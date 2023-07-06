@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 /** GraphQL Mutation that adds virtual products to shopping cart */
 export default gql`

@@ -1,9 +1,9 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import { CustomQuery, WishlistQuery, WishlistQueryVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import wishlistQuery from './wishlist';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import { CustomQuery, WishlistQuery, WishlistQueryVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import wishlistQuery from "./wishlist";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 type Variables = {
   pageSize: number;
@@ -13,7 +13,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams: WishlistQueryVariables,
-  customQuery: CustomQuery = { wishlist: 'wishlist' },
+  customQuery: CustomQuery = { wishlist: "wishlist" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<WishlistQuery>> => {
   const defaultParams = {

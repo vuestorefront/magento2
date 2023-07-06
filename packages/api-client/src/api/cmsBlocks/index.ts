@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CmsBlockQuery, CmsBlockQueryVariables, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import cmsBlocks from './cmsBlocks';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CmsBlockQuery, CmsBlockQueryVariables, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import cmsBlocks from "./cmsBlocks";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetch CMS Blocks from Magento Api.
@@ -17,7 +17,7 @@ import getHeaders from '../getHeaders';
 export default async function getCmsBlocks(
   context: Context,
   identifiers: string,
-  customQuery: CustomQuery = { cmsBlocks: 'cmsBlocks' },
+  customQuery: CustomQuery = { cmsBlocks: "cmsBlocks" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CmsBlockQuery>> {
   const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(customQuery, {

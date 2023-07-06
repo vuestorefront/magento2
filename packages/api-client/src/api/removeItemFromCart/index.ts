@@ -1,10 +1,10 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders, CustomQuery } from '@vue-storefront/magento-types';
-import { RemoveItemFromCartInput, RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import type { Context } from '../../types/context';
-import removeItemFromCartMutation from './removeItemFromCart';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders, CustomQuery } from "@vue-storefront/magento-types";
+import { RemoveItemFromCartInput, RemoveItemFromCartMutation, RemoveItemFromCartMutationVariables } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import type { Context } from "../../types/context";
+import removeItemFromCartMutation from "./removeItemFromCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Removes an item from the given cart
@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function removeItemFromCart(
   context: Context,
   input: RemoveItemFromCartInput,
-  customQuery: CustomQuery = { removeItemFromCart: 'removeItemFromCart' },
+  customQuery: CustomQuery = { removeItemFromCart: "removeItemFromCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RemoveItemFromCartMutation>> {
   const { removeItemFromCart: removeItemFromCartGQL } = context.extendQuery(customQuery, {

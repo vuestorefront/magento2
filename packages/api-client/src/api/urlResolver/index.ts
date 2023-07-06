@@ -1,8 +1,8 @@
-import type { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders, CustomQuery, UrlResolverQuery, UrlResolverQueryVariables } from '@vue-storefront/magento-types';
-import urlResolverQuery from './urlResolver';
-import type { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import type { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders, CustomQuery, UrlResolverQuery, UrlResolverQueryVariables } from "@vue-storefront/magento-types";
+import urlResolverQuery from "./urlResolver";
+import type { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches the resolver for received URL.
@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function urlResolver(
   context: Context,
   url: string,
-  customQuery: CustomQuery = { urlResolver: 'urlResolver' },
+  customQuery: CustomQuery = { urlResolver: "urlResolver" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<UrlResolverQuery>> {
   const { urlResolver: urlResolverGQL } = context.extendQuery(customQuery, {

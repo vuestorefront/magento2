@@ -1,12 +1,12 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CreateCustomerMutation, CreateCustomerMutationVariables, CustomerCreateInput, CustomQuery } from '@vue-storefront/magento-types';
-import { GraphQLError } from 'graphql';
-import gql from 'graphql-tag';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
-import createCustomer from './createCustomer';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CreateCustomerMutation, CreateCustomerMutationVariables, CustomerCreateInput, CustomQuery } from "@vue-storefront/magento-types";
+import { GraphQLError } from "graphql";
+import gql from "graphql-tag";
+import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
+import createCustomer from "./createCustomer";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Registers a new customer. To override the default query, use the `createCustomer` query key.
@@ -14,7 +14,7 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   input: CustomerCreateInput,
-  customQuery: CustomQuery = { createCustomer: 'createCustomer' },
+  customQuery: CustomQuery = { createCustomer: "createCustomer" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<CreateCustomerMutation>> => {
   try {
@@ -28,7 +28,7 @@ export default async (
 
       if (!response.success) {
         return {
-          errors: [new GraphQLError('Error during reCaptcha verification. Please try again.')],
+          errors: [new GraphQLError("Error during reCaptcha verification. Please try again.")],
           data: null,
         };
       }

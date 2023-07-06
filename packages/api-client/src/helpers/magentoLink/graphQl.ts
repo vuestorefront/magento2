@@ -1,14 +1,14 @@
-import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from '@apollo/client/core';
-import fetch from 'isomorphic-fetch';
-import { onError } from '@apollo/client/link/error';
-import { RetryLink } from '@apollo/client/link/retry';
-import { setContext } from '@apollo/client/link/context';
-import AgentKeepAlive from 'agentkeepalive';
-import consola from 'consola';
-import { handleRetry } from './linkHandlers';
-import { Config } from '../../types/setup';
-import possibleTypes from '../../types/possibleTypes.json';
-import standardURL from '../url/standardURL';
+import { ApolloClient, ApolloLink, from, HttpLink, InMemoryCache } from "@apollo/client/core";
+import fetch from "isomorphic-fetch";
+import { onError } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
+import { setContext } from "@apollo/client/link/context";
+import AgentKeepAlive from "agentkeepalive";
+import consola from "consola";
+import { handleRetry } from "./linkHandlers";
+import { Config } from "../../types/setup";
+import possibleTypes from "../../types/possibleTypes.json";
+import standardURL from "../url/standardURL";
 
 const { HttpsAgent } = AgentKeepAlive;
 const agent = new HttpsAgent();
@@ -18,11 +18,11 @@ const createErrorHandler = () =>
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path, extensions }) => {
         // Mute all GraphQL authorization errors
-        if (extensions?.category === 'graphql-authorization') {
+        if (extensions?.category === "graphql-authorization") {
           return;
         }
 
-        if (!message.includes('Resource Owner Password Credentials Grant')) {
+        if (!message.includes("Resource Owner Password Credentials Grant")) {
           if (!locations) {
             consola.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
             return;
@@ -30,7 +30,7 @@ const createErrorHandler = () =>
 
           const parsedLocations = locations.map(({ column, line }) => `[column: ${column}, line: ${line}]`);
 
-          consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(', ')}, Path: ${path}`);
+          consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(", ")}, Path: ${path}`);
         }
       });
     }

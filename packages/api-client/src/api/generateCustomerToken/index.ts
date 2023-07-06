@@ -1,12 +1,12 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from '@vue-storefront/magento-types';
-import { GraphQLError } from 'graphql';
-import gql from 'graphql-tag';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
-import generateCustomerToken from './generateCustomerToken';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from "@vue-storefront/magento-types";
+import { GraphQLError } from "graphql";
+import gql from "graphql-tag";
+import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
+import generateCustomerToken from "./generateCustomerToken";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.
@@ -29,7 +29,7 @@ export default async (
 
       if (!response.success) {
         return {
-          errors: [new GraphQLError('Error during reCaptcha verification. Please try again.')],
+          errors: [new GraphQLError("Error during reCaptcha verification. Please try again.")],
           data: null,
         };
       }

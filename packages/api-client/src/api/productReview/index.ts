@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult } from "@apollo/client/core";
 import {
   CustomHeaders,
   CustomQuery,
@@ -7,11 +7,11 @@ import {
   ProductAttributeSortInput,
   ProductReviewQuery,
   ProductReviewQueryVariables,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import productReview from './productReview';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import productReview from "./productReview";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 type Variables = {
   pageSize: number;
@@ -27,7 +27,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery: CustomQuery = { productReview: 'productReview' },
+  customQuery: CustomQuery = { productReview: "productReview" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<ProductReviewQuery>> => {
   const defaultParams = {

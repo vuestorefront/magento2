@@ -1,9 +1,9 @@
-import { FetchResult, gql } from '@apollo/client/core';
-import { CustomQuery, UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import updateCustomerAddressMutation from './updateCustomerAddress';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult, gql } from "@apollo/client/core";
+import { CustomQuery, UpdateCustomerAddressMutation, UpdateCustomerAddressMutationVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import updateCustomerAddressMutation from "./updateCustomerAddress";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Updates a customer address.
@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function updateCustomerAddress(
   context: Context,
   params: UpdateCustomerAddressMutationVariables,
-  customQuery: CustomQuery = { updateCustomerAddress: 'updateCustomerAddress' },
+  customQuery: CustomQuery = { updateCustomerAddress: "updateCustomerAddress" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<UpdateCustomerAddressMutation>> {
   const { updateCustomerAddress: updateCustomerAddressGQL } = context.extendQuery(customQuery, {

@@ -1,13 +1,13 @@
-import { FetchResult } from '@apollo/client/core';
-import { GraphQLError } from 'graphql';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import consola from 'consola';
-import recaptchaValidator from '../../helpers/recaptcha/recaptchaValidator';
-import requestPasswordResetEmailMutation from './requestPasswordResetEmail';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import { GraphQLError } from "graphql";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import consola from "consola";
+import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
+import requestPasswordResetEmailMutation from "./requestPasswordResetEmail";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Requests a password reset email to be sent to the user
@@ -30,13 +30,13 @@ export default async function requestPasswordResetEmail(
 
     if (!response.success) {
       return {
-        errors: [new GraphQLError('Error during reCaptcha verification. Please try again.')],
+        errors: [new GraphQLError("Error during reCaptcha verification. Please try again.")],
         data: null,
       };
     }
   }
 
-  consola.debug('[VSF: Magento] requestPasswordResetEmail', JSON.stringify(input, null, 2));
+  consola.debug("[VSF: Magento] requestPasswordResetEmail", JSON.stringify(input, null, 2));
   const result = await context.client.mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
     mutation: gql`
       ${requestPasswordResetEmailMutation}
@@ -47,7 +47,7 @@ export default async function requestPasswordResetEmail(
     },
   });
 
-  if (!result.data.requestPasswordResetEmail) throw new Error('Email was not found, or not available.');
+  if (!result.data.requestPasswordResetEmail) throw new Error("Email was not found, or not available.");
 
   return result;
 }

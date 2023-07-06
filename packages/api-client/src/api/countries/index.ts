@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CountriesListQuery, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import countriesListQuery from './countriesList';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CountriesListQuery, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import countriesListQuery from "./countriesList";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Loads the list of countries
@@ -14,7 +14,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function countries(
   context: Context,
-  customQuery: CustomQuery = { countries: 'countries' },
+  customQuery: CustomQuery = { countries: "countries" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CountriesListQuery>> {
   const { countries: countriesGQL } = context.extendQuery(customQuery, {
