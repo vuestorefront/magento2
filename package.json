@@ -16,7 +16,7 @@
     "test": "lerna run test",
     "test:unit": "lerna run test:unit",
     "test:integration": "lerna run test:integration",
-    "lint": "eslint . --ext .ts,.vue",
+    "lint": "lerna run lint",
     "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
     "changesets:publish": "yarn build && yarn changeset publish"
   },
