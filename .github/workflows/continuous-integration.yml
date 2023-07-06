@@ -22,7 +22,7 @@ jobs:
     secrets:
       SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
     with:
-      project_key: 'vuestorefront_magento_api-client'
+      project_key: 'vuestorefront_magento2_api-client'
       package_name: 'api-client'
       exclusions: '*.config.js,src/index.ts,src/api-extractor-data.ts,**/types/**'
 
@@ -33,6 +33,6 @@ jobs:
     secrets:
       SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK }}
     with:
-      project_key: 'vuestorefront_magento_sdk'
+      project_key: 'vuestorefront_magento2_sdk'
       package_name: 'sdk'
       exclusions: '*.config.js,*.config.*.ts,src/index.ts,src/connector.ts,src/api-extractor-data.ts,**/types/**,'
