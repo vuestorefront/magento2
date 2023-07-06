@@ -18,8 +18,7 @@
     "test:integration": "lerna run test:integration",
     "lint": "eslint . --ext .ts,.vue",
     "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
-    "changesets:publish": "yarn build && yarn changeset publish",
-    "dev": "lerna run dev --parallel"
+    "changesets:publish": "yarn build && yarn changeset publish"
   },
   "devDependencies": {
     "@vue-storefront/api-extractor-config": "^0.0.3",
