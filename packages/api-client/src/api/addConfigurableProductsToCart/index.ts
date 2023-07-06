@@ -1,14 +1,14 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult } from "@apollo/client/core";
 import {
   CustomQuery,
   AddConfigurableProductsToCartInput,
   AddConfigurableProductsToCartMutation,
   AddConfigurableProductsToCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import type { Context } from '../../types/context';
-import addConfigurableProductsToCartMutation from './addConfigurableProductsToCart';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import type { Context } from "../../types/context";
+import addConfigurableProductsToCartMutation from "./addConfigurableProductsToCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Adds a set of configurable products to a specified cart
@@ -20,7 +20,7 @@ import getHeaders from '../getHeaders';
 export default async function addConfigurableProductsToCart(
   context: Context,
   input: AddConfigurableProductsToCartInput,
-  customQuery: CustomQuery = { addConfigurableProductsToCart: 'addConfigurableProductsToCart' },
+  customQuery: CustomQuery = { addConfigurableProductsToCart: "addConfigurableProductsToCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddConfigurableProductsToCartMutation>> {
   const { addConfigurableProductsToCart: addConfigurableProductsToCartGQL } = context.extendQuery(customQuery, {

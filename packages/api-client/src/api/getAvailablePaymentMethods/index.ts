@@ -1,9 +1,9 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders, GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import { Context } from '../../types/context';
-import GuestAvailablePaymentMethods from './GuestAvailablePaymentMethods';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders, GuestAvailablePaymentMethodsQuery, GuestAvailablePaymentMethodsQueryVariables } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import { Context } from "../../types/context";
+import GuestAvailablePaymentMethods from "./GuestAvailablePaymentMethods";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches the available payment methods for the received cart.
@@ -22,7 +22,7 @@ export default async function getAvailablePaymentMethods(
       query: gql`
         ${GuestAvailablePaymentMethods}
       `,
-      variables: { cartId: cartId ?? '' },
+      variables: { cartId: cartId ?? "" },
       context: {
         headers: getHeaders(context, customHeaders),
       },

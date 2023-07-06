@@ -1,10 +1,10 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import placeOrderMutation from './placeOrder';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { PlaceOrderInput, PlaceOrderMutation, PlaceOrderMutationVariables } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import placeOrderMutation from "./placeOrder";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Places an order for received cart.

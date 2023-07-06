@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export default gql`
   query wishlist($currentPage: Int = 1, $pageSize: Int = 10) {

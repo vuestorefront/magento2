@@ -1,10 +1,10 @@
 /* istanbul ignore file */
-import { ApiClientExtension, apiClientFactory } from '@vue-storefront/middleware';
-import * as api from './api';
-import { ClientInstance, Config } from './types/setup';
-import { createMagentoConnection } from './helpers/magentoLink';
-import { defaultSettings } from './helpers/apiClient/defaultSettings';
-import { apolloClientFactory } from './helpers/magentoLink/graphQl';
+import { ApiClientExtension, apiClientFactory } from "@vue-storefront/middleware";
+import * as api from "./api";
+import { ClientInstance, Config } from "./types/setup";
+import { createMagentoConnection } from "./helpers/magentoLink";
+import { defaultSettings } from "./helpers/apiClient/defaultSettings";
+import { apolloClientFactory } from "./helpers/magentoLink/graphQl";
 
 const buildConfig = (settings: Config) =>
   ({
@@ -36,11 +36,11 @@ const init = (settings: Config) => {
     link: apolloLink,
     defaultOptions: {
       query: {
-        errorPolicy: 'all',
-        fetchPolicy: 'no-cache',
+        errorPolicy: "all",
+        fetchPolicy: "no-cache",
       },
       mutate: {
-        errorPolicy: 'all',
+        errorPolicy: "all",
       },
     },
     ...settings.customOptions,
@@ -63,7 +63,7 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
 };
 
 const tokenExtension: ApiClientExtension = {
-  name: 'tokenExtension',
+  name: "tokenExtension",
   hooks: (req, res) => ({
     beforeCreate: ({ configuration }) => {
       const cartCookieName: string = configuration.cookies?.cartCookieName || defaultSettings.cookies.cartCookieName;

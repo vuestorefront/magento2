@@ -1,19 +1,19 @@
-import { FetchResult } from '@apollo/client/core';
+import { FetchResult } from "@apollo/client/core";
 import {
   CustomQuery,
   AddSimpleProductsToCartInput,
   AddSimpleProductsToCartMutation,
   AddSimpleProductsToCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import addSimpleProductsToCart from './addSimpleProductsToCart';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import addSimpleProductsToCart from "./addSimpleProductsToCart";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 export default async (
   context: Context,
   input: AddSimpleProductsToCartInput,
-  customQuery: CustomQuery = { addSimpleProductsToCart: 'addSimpleProductsToCart' },
+  customQuery: CustomQuery = { addSimpleProductsToCart: "addSimpleProductsToCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
   const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(customQuery, {

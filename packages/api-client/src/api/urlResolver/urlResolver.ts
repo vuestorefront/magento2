@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 /** GraphQL Query that fetches the resolver for received URL. */
 export default gql`

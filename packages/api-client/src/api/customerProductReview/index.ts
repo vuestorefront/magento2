@@ -1,15 +1,15 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult } from "@apollo/client/core";
 import {
   CustomerProductReviewParams,
   CustomerProductReviewQuery,
   CustomerProductReviewQueryVariables,
   CustomHeaders,
   CustomQuery,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import customerProductReview from './customerProductReview';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import customerProductReview from "./customerProductReview";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Returns product reviews created by the current customer
@@ -20,7 +20,7 @@ import getHeaders from '../getHeaders';
 export default async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
-  customQuery: CustomQuery = { reviews: 'reviews' },
+  customQuery: CustomQuery = { reviews: "reviews" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
   const defaultParams = {

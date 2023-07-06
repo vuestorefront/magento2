@@ -1,15 +1,15 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
 import {
   CreateCustomerAddressMutation,
   CreateCustomerAddressMutationVariables,
   CustomerAddressInput,
   CustomQuery,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import createCustomerAddressMutation from './createCustomerAddress';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import createCustomerAddressMutation from "./createCustomerAddress";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Creates a customer address.
@@ -22,7 +22,7 @@ import getHeaders from '../getHeaders';
 export default async function createCustomerAddress(
   context: Context,
   input: CustomerAddressInput,
-  customQuery: CustomQuery = { createCustomerAddress: 'createCustomerAddress' },
+  customQuery: CustomQuery = { createCustomerAddress: "createCustomerAddress" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<CreateCustomerAddressMutation>> {
   const { createCustomerAddress: createCustomerAddressGQL } = context.extendQuery(customQuery, {

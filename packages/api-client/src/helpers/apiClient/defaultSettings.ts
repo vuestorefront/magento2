@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ClientConfig } from '../../types/setup';
+import { ClientConfig } from "../../types/setup";
 
 export const defaultSettings: ClientConfig = {
-  api: '',
+  api: "",
   cookies: {
-    currencyCookieName: 'vsf-currency',
-    countryCookieName: 'vsf-country',
-    localeCookieName: 'vsf-locale',
-    cartCookieName: 'vsf-cart',
-    customerCookieName: 'vsf-customer',
-    storeCookieName: 'vsf-store',
+    currencyCookieName: "vsf-currency",
+    countryCookieName: "vsf-country",
+    localeCookieName: "vsf-locale",
+    cartCookieName: "vsf-cart",
+    customerCookieName: "vsf-customer",
+    storeCookieName: "vsf-store",
   },
   state: {
-    getCartId: () => '',
+    getCartId: () => "",
     setCartId: () => {},
-    getCustomerToken: () => '',
+    getCustomerToken: () => "",
     setCustomerToken: () => {},
-    getStore: () => '',
+    getStore: () => "",
     setStore: () => {},
-    getCurrency: () => '',
+    getCurrency: () => "",
     setCurrency: () => {},
-    getLocale: () => '',
+    getLocale: () => "",
     setLocale: () => {},
-    getCountry: () => '',
+    getCountry: () => "",
     setCountry: () => {},
     setMessage: () => {},
     // @ts-expect-error intentional
@@ -30,8 +30,8 @@ export const defaultSettings: ClientConfig = {
   },
   externalCheckout: {
     enable: false,
-    syncUrlPath: '/vue/cart/sync',
+    syncUrlPath: "/vue/cart/sync",
     stores: {},
-    cmsUrl: '',
+    cmsUrl: "",
   },
 };

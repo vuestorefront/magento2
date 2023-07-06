@@ -1,9 +1,9 @@
-import type { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders, QueryRouteArgs, RoutableInterface, RouteQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import routeQuery from './route';
-import type { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import type { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders, QueryRouteArgs, RoutableInterface, RouteQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import routeQuery from "./route";
+import type { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Returns the canonical URL for a specified product, category, or CMS page

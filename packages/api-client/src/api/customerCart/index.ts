@@ -1,9 +1,9 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomerCartQuery, CustomHeaders, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import type { Context } from '../../types/context';
-import customerCartQuery from './customerCart';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomerCartQuery, CustomHeaders, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import type { Context } from "../../types/context";
+import customerCartQuery from "./customerCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches the cart of the current logged in user
@@ -13,7 +13,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function customerCart(
   context: Context,
-  customQuery: CustomQuery = { customerCart: 'customerCart' },
+  customQuery: CustomQuery = { customerCart: "customerCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerCartQuery>> {
   const { customerCart: customerCartGQL } = context.extendQuery(customQuery, {

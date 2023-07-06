@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CurrencyQuery, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import currencyQuery from './currency';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CurrencyQuery, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import currencyQuery from "./currency";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches the currency information.
@@ -15,7 +15,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function currency(
   context: Context,
-  customQuery: CustomQuery = { currency: 'currency' },
+  customQuery: CustomQuery = { currency: "currency" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CurrencyQuery>> {
   const { currency: currencyGQL } = context.extendQuery(customQuery, {

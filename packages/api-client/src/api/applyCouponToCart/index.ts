@@ -1,10 +1,10 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { ApplyCouponToCartInput, ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables, CustomQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import type { Context } from '../../types/context';
-import applyCouponToCartMutation from './applyCouponToCart';
-import getHeaders from '../getHeaders';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { ApplyCouponToCartInput, ApplyCouponToCartMutation, ApplyCouponToCartMutationVariables, CustomQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import type { Context } from "../../types/context";
+import applyCouponToCartMutation from "./applyCouponToCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Applies a coupon to a given card
@@ -16,7 +16,7 @@ import getHeaders from '../getHeaders';
 export default async function applyCouponToCart(
   context: Context,
   input: ApplyCouponToCartInput,
-  customQuery: CustomQuery = { applyCouponToCart: 'applyCouponToCart' },
+  customQuery: CustomQuery = { applyCouponToCart: "applyCouponToCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<ApplyCouponToCartMutation>> {
   const { applyCouponToCart: applyCouponToCartGQL } = context.extendQuery(customQuery, {

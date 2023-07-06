@@ -1,9 +1,9 @@
-import { ApolloQueryResult, gql } from '@apollo/client/core';
-import { CustomQuery, CategorySearchQuery, CategorySearchQueryVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import categorySearchQuery from './categorySearch';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult, gql } from "@apollo/client/core";
+import { CustomQuery, CategorySearchQuery, CategorySearchQueryVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import categorySearchQuery from "./categorySearch";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Searches for categories using received filters.
@@ -18,7 +18,7 @@ import getHeaders from '../getHeaders';
 export default async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
-  customQuery: CustomQuery = { categorySearch: 'categorySearch' },
+  customQuery: CustomQuery = { categorySearch: "categorySearch" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CategorySearchQuery>> {
   const { categorySearch: categorySearchGQL } = context.extendQuery(customQuery, {

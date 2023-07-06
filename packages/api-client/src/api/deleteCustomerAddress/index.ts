@@ -1,9 +1,9 @@
-import { FetchResult, gql } from '@apollo/client/core';
-import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import deleteCustomerAddressMutation from './deleteCustomerAddress';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult, gql } from "@apollo/client/core";
+import { DeleteCustomerAddressMutation, DeleteCustomerAddressMutationVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import deleteCustomerAddressMutation from "./deleteCustomerAddress";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Deletes a customer address.

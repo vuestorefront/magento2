@@ -1,10 +1,10 @@
-import { Context } from '../../types/context';
+import { Context } from "../../types/context";
 
 interface RecaptchaApiResponse {
   success: boolean;
   challenge_ts: string;
   hostname: string;
-  'error-codes'?: [any];
+  "error-codes"?: [any];
   score?: number;
 }
 

@@ -1,14 +1,14 @@
-import { ApolloQueryResult, gql } from '@apollo/client/core';
-import { CustomQuery, GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { Context } from '../../types/context';
-import GuestAvailableShippingMethods from './GuestAvailableShippingMethods';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult, gql } from "@apollo/client/core";
+import { CustomQuery, GuestAvailableShippingMethodsQuery, GuestAvailableShippingMethodsQueryVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { Context } from "../../types/context";
+import GuestAvailableShippingMethods from "./GuestAvailableShippingMethods";
+import getHeaders from "../getHeaders";
 
 export default async (
   context: Context,
   params: GuestAvailableShippingMethodsQueryVariables,
-  customQuery: CustomQuery = { shippingMethods: 'shippingMethods' },
+  customQuery: CustomQuery = { shippingMethods: "shippingMethods" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
   const { shippingMethods } = context.extendQuery(customQuery, {

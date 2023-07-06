@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CategoryListQuery, CustomQuery, QueryCategoryListArgs } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import categoryListQuery from './categoryList';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CategoryListQuery, CustomQuery, QueryCategoryListArgs } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import categoryListQuery from "./categoryList";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches the category list.
@@ -17,7 +17,7 @@ import getHeaders from '../getHeaders';
 export default async function categoryList(
   context: Context,
   params: QueryCategoryListArgs,
-  customQuery: CustomQuery = { categoryList: 'categoryList' },
+  customQuery: CustomQuery = { categoryList: "categoryList" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CategoryListQuery>> {
   const { categoryList: categoryListGQL } = context.extendQuery(customQuery, {

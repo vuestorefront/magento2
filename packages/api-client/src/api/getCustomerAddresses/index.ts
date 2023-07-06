@@ -1,10 +1,10 @@
-import { ApolloQueryResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import { CustomQuery, GetCustomerAddressesQuery } from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import getCustomerAddressesQuery from './getCustomerAddresses';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { ApolloQueryResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import { CustomQuery, GetCustomerAddressesQuery } from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import getCustomerAddressesQuery from "./getCustomerAddresses";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Fetches customer addresses.
@@ -15,7 +15,7 @@ import getHeaders from '../getHeaders';
  */
 export default async function getCustomerAddresses(
   context: Context,
-  customQuery: CustomQuery = { getCustomerAddresses: 'getCustomerAddresses' },
+  customQuery: CustomQuery = { getCustomerAddresses: "getCustomerAddresses" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<GetCustomerAddressesQuery>> {
   const { getCustomerAddresses: getCustomerAddressesGQL } = context.extendQuery(customQuery, {

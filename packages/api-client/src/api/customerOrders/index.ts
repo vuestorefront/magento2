@@ -1,15 +1,15 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult } from "@apollo/client/core";
 import {
   CustomQuery,
   CustomerOrdersFilterInput,
   CustomerOrdersQuery,
   CustomerOrdersQueryVariables,
   GetOrdersSearchParams,
-} from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import customerOrdersQuery from './customerOrders';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import customerOrdersQuery from "./customerOrders";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 type Variables = {
   pageSize: number;
@@ -23,7 +23,7 @@ type Variables = {
 export default async (
   context: Context,
   searchParams: GetOrdersSearchParams,
-  customQuery: CustomQuery = { customerOrders: 'customerOrders' },
+  customQuery: CustomQuery = { customerOrders: "customerOrders" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
   const defaultParams = {

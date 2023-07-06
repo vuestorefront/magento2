@@ -1,8 +1,8 @@
-import request from '../../setup/request';
-import { STORE_CONFIG_MOCK_RESP } from '../../mockData/api/storeConfig';
+import request from "../../setup/request";
+import { STORE_CONFIG_MOCK_RESP } from "../../mockData/api/storeConfig";
 
-describe('[Magento-API-Client] storeConfig', () => {
-  it('Fetching the storeConfig', async () => {
+describe("[Magento-API-Client] storeConfig", () => {
+  it("Fetching the storeConfig", async () => {
     const res = await request({
       body: JSON.stringify({
         query: `

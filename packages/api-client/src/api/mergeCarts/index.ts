@@ -1,9 +1,9 @@
-import { FetchResult, gql } from '@apollo/client/core';
-import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from '@vue-storefront/magento-types';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
-import mergeCarts from './mergeCarts';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+import { FetchResult, gql } from "@apollo/client/core";
+import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from "@vue-storefront/magento-types";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
+import mergeCarts from "./mergeCarts";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 export default async (
   context: Context,
@@ -11,7 +11,7 @@ export default async (
     sourceCartId: string;
     destinationCartId: string;
   },
-  customQuery: CustomQuery = { mergeCarts: 'mergeCarts' },
+  customQuery: CustomQuery = { mergeCarts: "mergeCarts" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<MergeCartsMutation>> => {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(customQuery, {

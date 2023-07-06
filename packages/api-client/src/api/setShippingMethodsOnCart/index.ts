@@ -1,15 +1,15 @@
-import type { FetchResult } from '@apollo/client/core';
+import type { FetchResult } from "@apollo/client/core";
 import type {
   CustomHeaders,
   CustomQuery,
   SetShippingMethodsOnCartInput,
   SetShippingMethodsOnCartMutation,
   SetShippingMethodsOnCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import setShippingMethodsOnCartMutation from './setShippingMethodsOnCart';
-import type { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import setShippingMethodsOnCartMutation from "./setShippingMethodsOnCart";
+import type { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Sets a shipping method on received cart.
@@ -22,7 +22,7 @@ import getHeaders from '../getHeaders';
 export default async function setShippingMethodsOnCart(
   context: Context,
   input: SetShippingMethodsOnCartInput,
-  customQuery: CustomQuery = { setShippingMethodsOnCart: 'setShippingMethodsOnCart' },
+  customQuery: CustomQuery = { setShippingMethodsOnCart: "setShippingMethodsOnCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SetShippingMethodsOnCartMutation>> {
   const { setShippingMethodsOnCart: setShippingMethodsOnCartGQL } = context.extendQuery(customQuery, {

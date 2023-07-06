@@ -1,4 +1,4 @@
-import { ApolloQueryResult } from '@apollo/client/core';
+import { ApolloQueryResult } from "@apollo/client/core";
 import {
   CustomHeaders,
   CustomQuery,
@@ -7,12 +7,12 @@ import {
   ProductAttributeSortInput,
   ProductsListQuery,
   ProductsListQueryVariables,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import consola from 'consola';
-import productsListQuery from './productsList';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import consola from "consola";
+import productsListQuery from "./productsList";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 type Variables = {
   pageSize: number;
@@ -34,7 +34,7 @@ type Variables = {
 export default async function products(
   context: Context,
   searchParams?: GetProductSearchParams,
-  customQuery: CustomQuery = { products: 'products' },
+  customQuery: CustomQuery = { products: "products" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<ProductsListQuery>> {
   const defaultParams = {

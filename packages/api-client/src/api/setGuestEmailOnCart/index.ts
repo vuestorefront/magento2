@@ -1,15 +1,15 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
 import {
   CustomQuery,
   SetGuestEmailOnCartInput,
   SetGuestEmailOnCartMutation,
   SetGuestEmailOnCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import setGuestEmailOnCartMutation from './setGuestEmailOnCart';
-import { Context } from '../../types/context';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import setGuestEmailOnCartMutation from "./setGuestEmailOnCart";
+import { Context } from "../../types/context";
+import getHeaders from "../getHeaders";
 
 /**
  * Set the guest user email on the cart
@@ -21,7 +21,7 @@ import getHeaders from '../getHeaders';
 export default async function setGuestEmailOnCart(
   context: Context,
   input: SetGuestEmailOnCartInput,
-  customQuery: CustomQuery = { setGuestEmailOnCart: 'setGuestEmailOnCart' },
+  customQuery: CustomQuery = { setGuestEmailOnCart: "setGuestEmailOnCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<SetGuestEmailOnCartMutation>> {
   const { setGuestEmailOnCart: setGuestEmailOnCartGQL } = context.extendQuery(customQuery, {

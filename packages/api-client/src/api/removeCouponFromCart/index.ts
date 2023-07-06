@@ -1,15 +1,15 @@
-import { FetchResult } from '@apollo/client/core';
-import type { CustomHeaders } from '@vue-storefront/magento-types';
+import { FetchResult } from "@apollo/client/core";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
 import {
   CustomQuery,
   RemoveCouponFromCartInput,
   RemoveCouponFromCartMutation,
   RemoveCouponFromCartMutationVariables,
-} from '@vue-storefront/magento-types';
-import gql from 'graphql-tag';
-import type { Context } from '../../types/context';
-import removeCouponFromCartMutation from './removeCouponFromCart';
-import getHeaders from '../getHeaders';
+} from "@vue-storefront/magento-types";
+import gql from "graphql-tag";
+import type { Context } from "../../types/context";
+import removeCouponFromCartMutation from "./removeCouponFromCart";
+import getHeaders from "../getHeaders";
 
 /**
  * Removes a coupon from a cart
@@ -21,7 +21,7 @@ import getHeaders from '../getHeaders';
 export default async function removeCouponFromCart(
   context: Context,
   input: RemoveCouponFromCartInput,
-  customQuery: CustomQuery = { removeCouponFromCart: 'removeCouponFromCart' },
+  customQuery: CustomQuery = { removeCouponFromCart: "removeCouponFromCart" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RemoveCouponFromCartMutation>> {
   const { removeCouponFromCart: removeCouponFromCartGQL } = context.extendQuery(customQuery, {

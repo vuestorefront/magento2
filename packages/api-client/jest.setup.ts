@@ -1,4 +1,4 @@
-import { server } from './__tests__/setup/server';
+import { server } from "./__tests__/setup/server";
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
