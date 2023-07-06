@@ -25,6 +25,7 @@ export const defaultSettings: ClientConfig = {
     getCountry: () => '',
     setCountry: () => {},
     setMessage: () => {},
+    // @ts-expect-error intentional
     getMessage: () => ({}),
   },
   externalCheckout: {
