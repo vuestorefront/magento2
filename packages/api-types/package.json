@@ -11,7 +11,7 @@
     "test": "yarn test:unit && yarn test:integration",
     "test:unit": "echo 'No test step created for this package'",
     "test:integration": "echo 'No test step created for this package'",
-    "lint": "eslint . --ext .ts,.js",
+    "lint": "echo 'Only GraphQL stuff here'",
     "prepublish": "yarn build",
     "dev": "rollup -c -w"
   },
