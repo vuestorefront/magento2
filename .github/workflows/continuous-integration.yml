@@ -11,9 +11,10 @@ concurrency:
 jobs:
   continous-integration:
     name: 'Continuous Integration'
-    #                                                                                               \/ FIXME Change to develop once/if it's merged
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@no-oss-login
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-integration.yml@develop
     secrets: inherit
+    with:
+      enterprise: false
   
   sonarcloud-api-client:
     name: 'SonarCloud API Client'

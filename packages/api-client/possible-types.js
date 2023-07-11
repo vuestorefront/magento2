@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config();
 const fetch = require("cross-fetch");
 const fs = require("fs");
