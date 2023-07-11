@@ -2934,10 +2934,10 @@
   resolved "https://registry.yarnpkg.com/@vue-storefront/api-extractor-config/-/api-extractor-config-0.0.3.tgz#05bab58c485a39e721d9f9e673bb28a5fbf95840"
   integrity sha512-o/vbqbehZ2luLNyMRzGGcw7/K4gqYTcVUJud1iRu5lAoGJjH6hBwU4ZWy/XfSmhuudPY4LKQco5etTUfNDAuPQ==
 
-"@vue-storefront/eslint-config-integrations@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/eslint-config-integrations/-/eslint-config-integrations-0.0.9.tgz#82cd8207f59c813fe7d51433c9d4d31968144a5c"
-  integrity sha512-/j/7kPF3XPqqggkR5UddEw2BpJ0DLDnLUS97cc36NJS2Zhx3kqo9MXUPHmF0wkBTGSJ8V1MMkwzQM1qWD6SfKA==
+"@vue-storefront/eslint-config-integrations@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/eslint-config-integrations/-/eslint-config-integrations-0.0.14.tgz#645568fe2b46f7b59060ff0cc99dd888da8bf726"
+  integrity sha512-FOi2qgOGLyIcd9H5rehsPK0ZyvmJtNiiSDqtezJFfUwZSu8Wydc5plMlod1BiO+IhnhvCVddpsbGqWEhB4A7ng==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.59.9"
     "@typescript-eslint/parser" "^5.59.9"
