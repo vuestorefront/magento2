@@ -4,7 +4,9 @@ In this section, we will cover the basics of wishlist. We will show you how to f
 ## Overview
 Wishlist is a list of products that customers want to buy later. Using provided methods you can implement the full wishlist functionality in your storefront integration.
 
-:warning: **Because only logged in users can have a wishlist, all methods in this section require a valid access token stored in the `vsf-customer` cookie.**
+::warning Wishlists are available only for logged in users
+Because only logged in users can have a wishlist, all methods in this section require a valid access token stored in the `vsf-customer` cookie
+::
 
 ## References
 | Method                                                                             | Description                                  |
