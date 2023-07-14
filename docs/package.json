@@ -1,38 +1,25 @@
 {
-  "name": "vsf-m2-integration-docs",
-  "version": "0.0.1",
+  "name": "@vuestorefront/docs-example",
+  "version": "1.0.0",
   "private": true,
-  "description": "Documentation for the Magento 2 integration of Vue Storefront",
-  "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev",
-    "build": "NODE_OPTIONS=--max_old_space_size=12048 vuepress build",
-    "api-extract": "cd ../ && yarn build && cd docs/ && yarn types-ref && yarn api-ref && yarn sdk-ref && yarn ref-md",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxi prepare",
+    "api-extract": "cd ../ && yarn build && cd docs/ && yarn types-ref && yarn api-ref && yarn sdk-ref",
     "types-ref": "cd ../packages/api-types && api-extractor run --local",
     "api-ref": "cd ../packages/api-client && api-extractor run --local",
-    "sdk-ref": "cd ../packages/sdk && api-extractor run --local",
-    "ref-md": "api-documenter markdown --i reference/api --o reference/api"
+    "sdk-ref": "cd ../packages/sdk && api-extractor run --local"
   },
   "devDependencies": {
+    "@types/node": "^18",
+    "nuxt": "^3.5.3",
     "@microsoft/api-documenter": "^7.13.30",
-    "@microsoft/api-extractor": "7.18.1",
-    "concat-md": "^0.3.5",
-    "handlebars": "^4.7.7",
-    "typedoc": "^0.20.20",
-    "typedoc-plugin-markdown": "^3.4.5",
-    "typescript": "^3.6.4",
-    "vuepress": "^1.8.2"
+    "@microsoft/api-extractor": "7.18.1"
   },
-  "author": "VSF",
-  "license": "MIT",
   "dependencies": {
-    "sass-loader": "^8.0.2",
-    "vue-multiselect": "^2.1.6",
-    "vuepress-theme-vsf-docs": "^1.1.0-alpha.8"
-  },
-  "workspaces": {
-    "nohoist": [
-      "typedoc-plugin-markdown"
-    ]
+    "sf-docs-base": "1.0.0-alpha.10"
   }
 }
