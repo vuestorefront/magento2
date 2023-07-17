@@ -12,7 +12,7 @@ Using listed method you can implement the full cart functionality in your storef
 
 
 ## References
-| Method                                                                       | Description                                        |
+<!-- | Method                                                                       | Description                                        |
 |------------------------------------------------------------------------------|----------------------------------------------------|
 | [cart](../reference/api/magento-sdk.cart.md)                                 | Method to fetch guest cart data                      |
 | [customerCart](../reference/api/magento-sdk.customerCart.md)                 | Method to fetch logged in customer cart data         |
@@ -22,7 +22,7 @@ Using listed method you can implement the full cart functionality in your storef
 | [applyCouponToCart](../reference/api/magento-sdk.applyCouponToCart.md)       | Method to apply coupon to cart                     |
 | [removeCouponFromCart](../reference/api/magento-sdk.removeCouponFromCart.md) | Method to remove coupon from cart                  |
 | [cartTotalQty](../reference/api/magento-sdk.cartTotalQty.md)                 | Method to fetch cart total items quantity            |
-| [mergeCarts](../reference/api/magento-sdk.mergeCarts.md)                     | Method to merge guest and logged in customer carts |
+| [mergeCarts](../reference/api/magento-sdk.mergeCarts.md)                     | Method to merge guest and logged in customer carts | -->
 
 
 

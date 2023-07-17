@@ -194,7 +194,7 @@ const sdkConfig = {
 export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
 ```
 
-3. Your SDK is ready! You can now import it in the different parts of your frontend application and call methods with `sdk.magento.<METHOD_NAME>`. To see a full list of methods offered by the Magento 2 module, check out the [API Reference](../reference/api/index.md).
+<!-- 3. Your SDK is ready! You can now import it in the different parts of your frontend application and call methods with `sdk.magento.<METHOD_NAME>`. To see a full list of methods offered by the Magento 2 module, check out the [API Reference](../reference/api/index.md). -->
 
 For example, we can call the `products` method to fetch products from Magento 2.
 

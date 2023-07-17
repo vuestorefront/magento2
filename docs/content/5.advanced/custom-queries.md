@@ -75,6 +75,6 @@ const result = await sdk.magento.customer({
 });
 ```
 
-:::tip Custom queries for other methods
+<!-- :::tip Custom queries for other methods
 To check out our examples, how to add a custom query to other methods, check out the [API Reference: Functions](../reference/api/magento-sdk.md#functions). Each method has at least one example of how to use a custom query.
-:::
+::: -->

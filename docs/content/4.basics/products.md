@@ -7,13 +7,13 @@ There are two main functions to fetch products from Magento 2: [productDetails](
 The first one is optimized to be used on single product pages, while the second one is optimized to be used on product list pages like category pages, search results pages, etc.
 
 ## References
-| Method                                                             | Description                    |
+<!-- | Method                                                             | Description                    |
 |--------------------------------------------------------------------|--------------------------------|
 | [productDetails](../reference/api/magento-sdk.productDetails.md)   | Method to fetch product details  |
 | [products](../reference/api/magento-sdk.products.md)               | Method to fetch products         |
 | [relatedProducts](../reference/api/magento-sdk.relatedProducts.md) | Method to fetch related products |
 | [upsellProducts](../reference/api/magento-sdk.upsellProducts.md)   | Method to fetch upsell products  |
-| [productReview](../reference/api/magento-sdk.productReview.md)    | Method to fetch reviews        |
+| [productReview](../reference/api/magento-sdk.productReview.md)    | Method to fetch reviews        | -->
 
 
 

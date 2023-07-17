@@ -8,7 +8,7 @@ We provide a set of methods that allow you to implement the full checkout functi
 
 ## References
 
-| Method                                                                                                       | Description                                        |
+<!-- | Method                                                                                                       | Description                                        |
 |--------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
 | [getAvailableShippingMethods](../reference/api/magento-sdk.getAvailableShippingMethods.md)                   | Method to fetch guest available shipping methods   |
 | [getAvailablePaymentMethods](../reference/api/magento-sdk.getAvailablePaymentMethods.md)                     | Method to fetch guest available payment methods    |
@@ -20,4 +20,4 @@ We provide a set of methods that allow you to implement the full checkout functi
 | [setShippingMethodsOnCart](../reference/api/magento-sdk.setShippingMethodsOnCart.md)                         | Method to set shipping methods on cart             |
 | [setPaymentMethodOnCart](../reference/api/magento-sdk.setPaymentMethodOnCart.md)                             | Method to set payment method on cart               |
 | [setGuestEmailOnCart](../reference/api/magento-sdk.setGuestEmailOnCart.md)                                   | Method to set email on the guest cart              |
-| [placeOrder](../reference/api/magento-sdk.placeOrder.md)                                                     | Method to place an order                           |
+| [placeOrder](../reference/api/magento-sdk.placeOrder.md)                                                     | Method to place an order                           | -->

@@ -9,7 +9,7 @@ There are two types of users in Magento 2: guest users and logged in users. Gues
 Methods in this section helps you to implement full user functionality in your storefront integration including login, logout, registration, and password reset.
 
 ## References
-| Method                                                                           | Description                        |
+<!-- | Method                                                                           | Description                        |
 |----------------------------------------------------------------------------------|------------------------------------|
 | [customer](../reference/api/magento-sdk.customer.md)                             | Method to fetch customer data      |
 | [createCustomer](../reference/api/magento-sdk.createCustomer.md)                 | Method to create new customer      |
@@ -17,5 +17,5 @@ Methods in this section helps you to implement full user functionality in your s
 | [changeCustomerPassword](../reference/api/magento-sdk.changeCustomerPassword.md) | Method to change customer password |
 | [createCustomerAddress](../reference/api/magento-sdk.createCustomerAddress.md)  | Method to create customer address  |
 
-
+ -->
 
