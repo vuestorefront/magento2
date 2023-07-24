@@ -27,7 +27,7 @@
     "@vue-storefront/eslint-config-integrations": "^0.0.14",
     "@vue-storefront/integrations-tsconfig": "^0.0.2",
     "@vue-storefront/jest-config": "^0.0.2",
-    "@vue-storefront/rollup-config": "^0.0.2",
+    "@vue-storefront/rollup-config": "^0.0.3",
     "all-contributors-cli": "^6.20.0",
     "esbuild": "^0.14.23",
     "lerna": "^4.0.0",

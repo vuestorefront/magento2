@@ -15,7 +15,8 @@ jobs:
     secrets: inherit
     with:
       enterprise: false
-  
+      node_version: '["16", "18"]'
+
   sonarcloud-api-client:
     name: 'SonarCloud API Client'
     needs: [continous-integration]
