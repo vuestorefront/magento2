@@ -15,4 +15,4 @@ Methods like `customer`, `customerCart`, `updateCustomer`, `changeCustomerPasswo
 ## References
 | Method                                                                | Description                       |
 |-----------------------------------------------------------------------|-----------------------------------|
-| [generateCustomerToken](/integrations/sdk/magento/api/magento-sdk/generateCustomerToken) | Method to generate customer token |
+| [generateCustomerToken](/integrations/magento/api/magento-sdk/generateCustomerToken) | Method to generate customer token |
