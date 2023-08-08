@@ -10,11 +10,11 @@ Your Vue Storefront application has two parts:
 In this section, we will explain in a step-by-step guide how to use Magento 2 integration in each part of your Vue Storefront application.
 
 :::read-more
-Learn more about the Vue Storefront middleware layer in our [Key concepts: Middleware](../key-concepts/middleware.md) docs.
+Learn more about the Vue Storefront middleware layer in our [Key concepts: Middleware](/middleware) docs.
 :::
 
 :::read-more
-Learn more about the SDK in our [Key concepts: SDK](../key-concepts/sdk.md) docs.
+Learn more about the SDK in our [Key concepts: SDK](/sdk) docs.
 :::
 
 ## Prerequisites
