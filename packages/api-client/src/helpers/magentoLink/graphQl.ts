@@ -80,7 +80,7 @@ export const apolloClientFactory = (customOptions: Record<string, any>) =>
       possibleTypes,
       resultCaching: true,
     }),
-    queryDeduplication: true,
+    queryDeduplication: false,
     ssrMode: true,
     ...customOptions,
   });
