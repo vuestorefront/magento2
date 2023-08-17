@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 2.1.1
+
+### Patch Changes
+
+- [#1454](https://github.com/vuestorefront/magento2/pull/1454) [`328e8749`](https://github.com/vuestorefront/magento2/commit/328e8749a7bd730b8f3948684af05aed8b6a17b6) Thanks [@bartoszherba](https://github.com/bartoszherba)! - Turn off query deduplication to prevent any potential session leaks.
+
 ## 2.1.0
 
 ### Minor Changes
