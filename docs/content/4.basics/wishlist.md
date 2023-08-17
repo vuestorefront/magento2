@@ -11,6 +11,6 @@ Because only logged in users can have a wishlist, all methods in this section re
 ## References
 | Method                                                                             | Description                                  |
 |------------------------------------------------------------------------------------|----------------------------------------------|
-| [addProductToWishlist](../reference/api/magento-sdk.addProductToWishlist.md)       | Method to add a product to wishlist          |
-| [removeProductsFromWishlist](../reference/api/magento-sdk.removeProductsFromWishlist.md) | Method to remove a product to wishlist       |
-| [wishlistItemsCount](../reference/api/magento-sdk.wishlistItemsCount.md) | Method to get items quantity in the wishlist |
+| [addProductToWishlist](../api/magento-sdk/addProductToWishList)       | Method to add a product to wishlist          |
+| [removeProductsFromWishlist](../api/magento-sdk/removeProductsFromWishlist) | Method to remove a product to wishlist       |
+| [wishlistItemsCount](../api/magento-sdk/wishlistItemsCount) | Method to get items quantity in the wishlist |

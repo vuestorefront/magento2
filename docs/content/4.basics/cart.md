@@ -12,17 +12,17 @@ Using listed method you can implement the full cart functionality in your storef
 
 
 ## References
-<!-- | Method                                                                       | Description                                        |
+| Method                                                                       | Description                                        |
 |------------------------------------------------------------------------------|----------------------------------------------------|
-| [cart](../reference/api/magento-sdk.cart.md)                                 | Method to fetch guest cart data                      |
-| [customerCart](../reference/api/magento-sdk.customerCart.md)                 | Method to fetch logged in customer cart data         |
-| [createEmptyCart](../reference/api/magento-sdk.createEmptyCart.md)           | Method to create a new cart                        |
-| [updateCartItems](../reference/api/magento-sdk.updateCartItems.md)           | Method to update cart items                        |
-| [removeItemFromCart](../reference/api/magento-sdk.removeItemFromCart.md)        | Method to remove item from cart                    |
-| [applyCouponToCart](../reference/api/magento-sdk.applyCouponToCart.md)       | Method to apply coupon to cart                     |
-| [removeCouponFromCart](../reference/api/magento-sdk.removeCouponFromCart.md) | Method to remove coupon from cart                  |
-| [cartTotalQty](../reference/api/magento-sdk.cartTotalQty.md)                 | Method to fetch cart total items quantity            |
-| [mergeCarts](../reference/api/magento-sdk.mergeCarts.md)                     | Method to merge guest and logged in customer carts | -->
+| [cart](../api/magento-sdk/cart)                               | Method to fetch/guestrt data                      |
+| [customerCart](../api/magento-sdk/customerCart)                 | Method to fetch logged in customer cart data         |
+| [createEmptyCart](../api/magento-sdk/createEmptyCart)           | Method to create a new cart                        |
+| [updateCartItems](../api/magento-sdk/updateCartItems)           | Method to update cart items                        |
+| [removeItemFromCart](../api/magento-sdk/removeItemFromCart)        | Method to remove item from cart                    |
+| [applyCouponToCart](../api/magento-sdk/applyCouponToCart)       | Method to apply coupon to cart                     |
+| [removeCouponFromCart](../api/magento-sdk/removeCouponFromCart) | Method to remove coupon from cart                  |
+| [cartTotalQty](../api/magento-sdk/cartTotalQty)                 | Method to fetch cart total items quantity            |
+| [mergeCarts](../api/magento-sdk/mergeCarts)                     | Method to merge guest and logged in customer carts |
 
 
 

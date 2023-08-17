@@ -6,52 +6,52 @@ In this section, we will cover the basics of various miscellaneous methods.
 ### Confuguration
 Methdos in this section are used to fetch various configuration data.
 
-<!-- | Method                                                             | Description                      |
+| Method                                                             | Description                      |
 |--------------------------------------------------------------------|----------------------------------|
-| [availableStores](../reference/api/magento-sdk.availableStores.md) | Method to fetch available stores |
-| [countries](../reference/api/magento-sdk.countries.md)             | Method to fetch available countries |
-| [currency](../reference/api/magento-sdk.currency.md)               | Method to fetch available currency |
-| [storeConfig](../reference/api/magento-sdk.storeConfig.md)            | Method to fetch available storeConfig | -->
+| [availableStores](../api/magento-sdk/availableStores) | Method to fetch available stores |
+| [countries](../api/magento-sdk/countries)             | Method to fetch available countries |
+| [currency](../api/magento-sdk/currency)               | Method to fetch available currency |
+| [storeConfig](../api/magento-sdk/storeConfig)            | Method to fetch available storeConfig |
 
 ### CMS
 Methods in this section are used to fetch CMS data.
 
-<!-- | Method                                                             | Description                      |
+| Method                                                             | Description                      |
 |--------------------------------------------------------------------|----------------------------------|
-| [cmsBlocks](../reference/api/magento-sdk.cmsBlocks.md) | Method to fetch cms blocks |
-| [cmsPage](../reference/api/magento-sdk.cmsPage.md)             | Method to fetch cms page | -->
+| [cmsBlocks](../api/magento-sdk/cmsBlocks) | Method to fetch cms blocks |
+| [cmsPage](../api/magento-sdk/cmsPage)             | Method to fetch cms page |
 
 ### Routing
 Methods in this section are used to fetch routing data.
 
-<!-- | Method                                       | Description                       |
+| Method                                       | Description                       |
 |----------------------------------------------|-----------------------------------|
-| [route](../reference/api/magento-sdk.route.md) | Method to fetch route object data | -->
+| [route](../api/magento-sdk/route) | Method to fetch route object data |
 
 ### Customer reviews
 Methods in this section are used to fetch customer reviews data.
 
-<!-- | Method                                                                                       | Description                                 |
+| Method                                                                                       | Description                                 |
 |----------------------------------------------------------------------------------------------|---------------------------------------------|
-| [createProductReview](../reference/api/magento-sdk.createProductReview.md)                   | Method to create product review             |
-| [productReview](../reference/api/magento-sdk.productReview.md)                               | Method to fetch product review              |
-| [reviews](../reference/api/magento-sdk.reviews.md)                                     | Method to fetch reviews created by customer |
-| [productReviewRatingsMetadata](../reference/api/magento-sdk.productReviewRatingsMetadata.md) | Method to fetch product reviews metadata    | -->
+| [createProductReview](../api/magento-sdk/createProductReview)                   | Method to create product review             |
+| [productReview](../api/magento-sdk/productReview)                               | Method to fetch product review              |
+| [reviews](../api/magento-sdk/reviews)                                     | Method to fetch reviews created by customer |
+| [productReviewRatingsMetadata](../api/magento-sdk/productReviewRatingsMetadata) | Method to fetch product reviews metadata    |
 
 ### Newsletter
 Methods in this section are used to fetch newsletter data.
 
-<!-- | Method                                                                              | Description                              |
+| Method                                                                              | Description                              |
 |-------------------------------------------------------------------------------------|------------------------------------------|
-| [subscribeEmailToNewsletter](../reference/api/magento-sdk.subscribeEmailToNewsletter.md) | Method to subscribe to newsletter          | -->
+| [subscribeEmailToNewsletter](../api/magento-sdk/subscribeEmailToNewsletter) | Method to subscribe to newsletter          |
 
 ### Custom Queries
 Methods in this section are used to create custom queries and mutations.
 
-<!-- | Method                                                     | Description                        |
+| Method                                                     | Description                        |
 |------------------------------------------------------------|------------------------------------|
-| [customQuery](../reference/api/magento-sdk.customQuery.md) | Method to create a custom query    |
-| [customMutation](../reference/api/magento-sdk.customMutation.md) | Method to create a custom mutation |
+| [customQuery](../api/magento-sdk/customQuery) | Method to create a custom query    |
+| [customMutation](../api/magento-sdk/customMutation) | Method to create a custom mutation |
 
- -->
+
 
