@@ -376,7 +376,7 @@ export interface MagentoApiMethods {
     customHeaders?: CustomHeaders
   ): Promise<FetchResult<PlaceOrderMutation>>;
 
-  productDetail(
+  productDetails(
     searchParams: GetProductSearchParams,
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
