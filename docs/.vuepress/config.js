@@ -64,8 +64,9 @@ module.exports = {
           collapsable: false,
           children: [
             ['/', 'Introduction'],
+            ['/getting-started/magento', 'Magento Installation'],
             ['/getting-started/quick-start', 'Quick start'],
-            ['/getting-started/magento', 'Magento Installation']
+            ['/getting-started/supported-features', 'Supported features']
           ]
         },
 
