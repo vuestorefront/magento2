@@ -9,5 +9,5 @@ on:
 jobs:
   release-packages:
     name: "Release NPM Packages"
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-delivery.yml@develop
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/continuous-delivery.yml@main
     secrets: inherit

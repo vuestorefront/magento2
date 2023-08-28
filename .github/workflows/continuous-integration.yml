@@ -20,7 +20,7 @@ jobs:
   sonarcloud-api-client:
     name: 'SonarCloud API Client'
     needs: [continous-integration]
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@develop
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@main
     secrets:
       SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
     with:
@@ -31,7 +31,7 @@ jobs:
   sonarcloud-sdk:
     name: 'SonarCloud SDK'
     needs: [continous-integration]
-    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@develop
+    uses: vuestorefront/integrations-github-workflows/.github/workflows/sonarcloud.yml@main
     secrets:
       SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK }}
     with:
