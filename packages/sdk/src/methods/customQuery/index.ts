@@ -1,4 +1,5 @@
 import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 

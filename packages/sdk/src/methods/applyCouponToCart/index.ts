@@ -1,6 +1,7 @@
 import { ApplyCouponToCartInput, Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 

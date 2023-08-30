@@ -1,6 +1,7 @@
 import { CustomQuery, MethodOptions } from '../../types';
 import { {{ capitalizedMethodName }}Query, {{ capitalizedMethodName }}QueryVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 

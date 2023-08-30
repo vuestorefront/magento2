@@ -3,6 +3,7 @@ import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * mutation for the {@link addProductToWishList} method.

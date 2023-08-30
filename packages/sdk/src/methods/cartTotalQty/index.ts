@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client';
 import { CartQueryVariables } from '@vue-storefront/magento-types';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 

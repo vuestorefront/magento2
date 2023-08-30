@@ -3,6 +3,7 @@ import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import type { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * query type for the {@link relatedProducts} method.

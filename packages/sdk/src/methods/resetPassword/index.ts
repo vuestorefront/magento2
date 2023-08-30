@@ -2,6 +2,7 @@ import { Mutation, MutationResetPasswordArgs } from '@vue-storefront/magento-typ
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { MethodBaseOptions } from '../../types';
 
 /**

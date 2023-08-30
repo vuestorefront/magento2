@@ -2,6 +2,7 @@ import { FetchPolicy } from '@apollo/client';
 import { FetchResult } from '@apollo/client/core';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * customQuery response type

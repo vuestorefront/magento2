@@ -2,6 +2,7 @@ import { WishlistQuery } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { MethodBaseOptions } from '../../types';
 
 /**

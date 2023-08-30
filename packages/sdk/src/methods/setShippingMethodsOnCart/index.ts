@@ -2,6 +2,7 @@ import { Mutation, SetShippingMethodsOnCartInput } from '@vue-storefront/magento
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
