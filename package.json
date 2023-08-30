@@ -21,7 +21,6 @@
     "changesets:publish": "yarn build && yarn changeset publish"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
     "@vue-storefront/api-extractor-config": "^0.0.3",
     "@vue-storefront/eslint-config-integrations": "^0.0.14",
