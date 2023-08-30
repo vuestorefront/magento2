@@ -18,7 +18,7 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK),
+    get: jest.fn(() => RESPONSE_MOCK),
   },
 }));
 
@@ -26,13 +26,18 @@ describe(describeGroup('upsellProducts'), () => {
   it('makes a single call to API Middleware', async () => {
     await upsellProducts(PARAMS_MOCK);
 
-    expect(client.post).toBeCalledTimes(1);
+    expect(client.get).toBeCalledTimes(1);
   });
 
   it('makes a call to API Middleware with proper params and options', async () => {
     await upsellProducts(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith('upsellProducts', [{ filter: { sku: { eq: 'test-sku' } } }, {}, {}], {});
+    expect(client.get).toBeCalledWith('upsellProducts', {
+      params: {
+        body: JSON.stringify([{ filter: { sku: { eq: 'test-sku' } } }, {}, {}]),
+      },
+      ...OPTIONS_MOCK.clientConfig,
+    });
   });
 
   it('extracts and returns a response', async () => {
@@ -43,7 +48,7 @@ describe(describeGroup('upsellProducts'), () => {
 
   it('throws an exception in case of network error', async () => {
     expect.hasAssertions();
-    (client.post as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
+    (client.get as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
 
     try {
       await upsellProducts(PARAMS_MOCK, OPTIONS_MOCK);

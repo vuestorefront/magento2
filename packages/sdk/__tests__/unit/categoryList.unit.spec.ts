@@ -12,7 +12,7 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK),
+    get: jest.fn(() => RESPONSE_MOCK),
   },
 }));
 
@@ -20,13 +20,18 @@ describe(describeGroup('categoryList'), () => {
   it('makes a single call to API Middleware', async () => {
     await categoryList(PARAMS_MOCK);
 
-    expect(client.post).toBeCalledTimes(1);
+    expect(client.get).toBeCalledTimes(1);
   });
 
   it('makes a call to API Middleware with proper params and options', async () => {
     await categoryList(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith('categoryList', [{}, undefined, { 'x-header': 'true' }], {});
+    expect(client.get).toBeCalledWith('categoryList', {
+      params: {
+        body: JSON.stringify([{}, undefined, { 'x-header': 'true' }]),
+      },
+      ...OPTIONS_MOCK.clientConfig,
+    });
   });
 
   it('extracts and returns a response', async () => {
@@ -37,7 +42,7 @@ describe(describeGroup('categoryList'), () => {
 
   it('throws an exception in case of network error', async () => {
     expect.hasAssertions();
-    (client.post as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
+    (client.get as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
 
     try {
       await categoryList(PARAMS_MOCK, OPTIONS_MOCK);
