@@ -21,7 +21,7 @@ export type GetAvailableShippingMethodsResponse<
  * Method to fetch guest's available shipping methods
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailableShippingMethods | getAvailableShippingMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

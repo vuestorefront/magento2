@@ -22,7 +22,7 @@ export type UpdateCustomerAddressResponse<
  * The user needs to be logged in in order to send this request
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

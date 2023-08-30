@@ -20,7 +20,7 @@ export type ApplyCouponToCartResponse<T extends DeepPartial<ApplyCouponToCartMut
  * Method to apply coupon to cart
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.applyCouponToCart | applyCouponToCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

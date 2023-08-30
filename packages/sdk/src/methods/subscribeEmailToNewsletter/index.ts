@@ -21,7 +21,7 @@ export type SubscribeEmailToNewsletterResponse<
  * Method allows guests and registered customers to sign up to receive newsletters.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

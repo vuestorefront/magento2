@@ -21,7 +21,7 @@ export type ProductReviewRatingsMetadataResponse<
  * Method to get the active ratings attributes and the values each rating can have.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productReviewRatingsMetadata | productReviewRatingsMetadata } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

@@ -14,7 +14,7 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * Method to count items in the wishlist
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.wishlistItemsCount | wishlistItemsCount } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

@@ -20,7 +20,7 @@ export type AddProductsToCartResponse<T extends DeepPartial<AddProductsToCartMut
  * Method to add products to cart (returns cart)
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.addProductsToCart | addProductsToCart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

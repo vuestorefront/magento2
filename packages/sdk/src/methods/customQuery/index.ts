@@ -22,7 +22,7 @@ export type CustomQueryInput<TQueryVariables> = {
  * For sending mutation, please see {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customMutation | customMutation}.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link @vue-storefront/magento-api#ApiMethods.customQuery | customQuery } endpoint
  * of the Vue Storefront API Middleware.
  *

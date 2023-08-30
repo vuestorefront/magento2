@@ -20,7 +20,7 @@ export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> 
  * Method to get related products
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.relatedProduct | relatedProduct} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

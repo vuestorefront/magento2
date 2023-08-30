@@ -19,7 +19,7 @@ export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuer
  * Method to get current customer information
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.customer | customer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

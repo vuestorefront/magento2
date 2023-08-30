@@ -1,9 +1,9 @@
 import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import type { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * query type for the {@link productDetails} method.
@@ -20,7 +20,7 @@ export type ProductDetailsResponse<T extends DeepPartial<ProductDetailsQuery> = 
  * Method to get products details
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productDetails | productDetails} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

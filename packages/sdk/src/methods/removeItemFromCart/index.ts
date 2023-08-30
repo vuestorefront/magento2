@@ -20,7 +20,7 @@ export type RemoveItemFromCartResponse<T extends DeepPartial<RemoveItemFromCartM
  * Method to remove item from cart.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.removeItemFromCart | removeItemFromCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found

@@ -1,8 +1,8 @@
 import { CmsBlockQueryVariables, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -19,7 +19,7 @@ export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQue
  * Method to fetch cms blocks.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cmsBlocks | cmsBlocks } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
