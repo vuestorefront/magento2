@@ -95,11 +95,10 @@ export type GetCustomerAddressesResponse<T extends DeepPartial<GetCustomerAddres
 export async function getCustomerAddresses<RES extends GetCustomerAddressesResponse>(
   options?: MethodOptions<CustomQuery<'getCustomerAddresses'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'getCustomerAddresses',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getCustomerAddresses')
+    .setMethod('POST')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

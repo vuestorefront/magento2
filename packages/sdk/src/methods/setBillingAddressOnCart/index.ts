@@ -114,11 +114,10 @@ export async function setBillingAddressOnCart<RES extends SetBillingAddressOnCar
   params: SetBillingAddressOnCartInput,
   options?: MethodOptions<CustomQuery<'setBillingAddressOnCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'setBillingAddressOnCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('setBillingAddressOnCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

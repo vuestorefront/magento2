@@ -66,11 +66,10 @@ export async function generateCustomerToken<RES extends GenerateCustomerTokenRes
   params: GenerateCustomerTokenInput,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'generateCustomerToken',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('generateCustomerToken')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

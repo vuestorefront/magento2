@@ -106,11 +106,10 @@ export async function changeCustomerPassword<RES extends ChangeCustomerPasswordR
   params: ChangeCustomerPasswordInput,
   options?: MethodOptions<CustomQuery<'changeCustomerPassword'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'changeCustomerPassword',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('changeCustomerPassword')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

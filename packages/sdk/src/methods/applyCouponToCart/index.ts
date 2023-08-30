@@ -102,11 +102,10 @@ export async function applyCouponToCart<RES extends ApplyCouponToCartResponse>(
   params: ApplyCouponToCartInput,
   options?: MethodOptions<CustomQuery<'applyCouponToCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'applyCouponToCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('applyCouponToCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -66,11 +66,10 @@ export type GetAvailableCustomerPaymentMethodsResponse<
 export async function getAvailableCustomerPaymentMethods<RES extends GetAvailableCustomerPaymentMethodsResponse>(
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'getAvailableCustomerPaymentMethods',
-    [options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getAvailableCustomerPaymentMethods')
+    .setMethod('POST')
+    .setProps([options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

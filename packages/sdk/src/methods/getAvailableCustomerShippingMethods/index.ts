@@ -102,11 +102,10 @@ export type GetAvailableCustomerShippingMethodsResponse<
 export async function getAvailableCustomerShippingMethods<RES extends GetAvailableCustomerShippingMethodsResponse>(
   options?: MethodOptions<CustomQuery<'getAvailableCustomerShippingMethods'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'getAvailableCustomerShippingMethods',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getAvailableCustomerShippingMethods')
+    .setMethod('POST')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

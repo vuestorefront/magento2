@@ -1,8 +1,8 @@
 import { Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -20,7 +20,7 @@ export type AvailableStoresResponse<T extends DeepPartial<AvailableStoresQuery> 
  * Method to fetch available stores
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.availableStores | availableStores } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -91,11 +91,10 @@ export type AvailableStoresResponse<T extends DeepPartial<AvailableStoresQuery> 
 export async function availableStores<RES extends AvailableStoresResponse>(
   options?: MethodOptions<CustomQuery<'availableStores'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'availableStores',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('availableStores')
+    .setMethod('GET')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

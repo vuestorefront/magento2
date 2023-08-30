@@ -2,9 +2,9 @@ import type { GetProductSearchParams } from '@vue-storefront/magento-types';
 import { Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import type { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * query type for the {@link products} method.
@@ -20,7 +20,7 @@ export type ProductsListResponse<T extends DeepPartial<ProductsListQuery> = Prod
  * Method to get products
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.products | products} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -123,11 +123,10 @@ export async function products<RES extends ProductsListResponse>(
   params: GetProductSearchParams,
   options?: MethodOptions<CustomQuery<'products'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'products',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('products')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

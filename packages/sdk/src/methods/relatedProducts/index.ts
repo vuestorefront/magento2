@@ -1,9 +1,9 @@
 import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import type { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * query type for the {@link relatedProducts} method.
@@ -20,7 +20,7 @@ export type RelatedProductsResponse<T extends DeepPartial<RelatedProductsQuery> 
  * Method to get related products
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.relatedProduct | relatedProduct} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -131,11 +131,10 @@ export async function relatedProducts<RES extends RelatedProductsResponse>(
   params: GetProductSearchParams,
   options?: MethodOptions<CustomQuery<'relatedProducts'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'relatedProducts',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('relatedProducts')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

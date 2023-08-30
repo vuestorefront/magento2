@@ -108,11 +108,10 @@ export async function updateCustomer<RES extends UpdateCustomerResponse>(
   params: CustomerUpdateInput,
   options?: MethodOptions<CustomQuery<'updateCustomer'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'updateCustomer',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('updateCustomer')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -55,11 +55,10 @@ export async function deleteCustomerAddress<RES extends DeleteCustomerAddressRes
   params: DeleteCustomerAddressMutationVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'deleteCustomerAddress',
-    [params.id, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('deleteCustomerAddress')
+    .setMethod('POST')
+    .setProps([params.id, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

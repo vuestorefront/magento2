@@ -48,7 +48,10 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * ```
  */
 export async function createEmptyCart<RES extends CreateEmptyCartResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>('createEmptyCart', [options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('createEmptyCart')
+    .setMethod('POST')
+    .setProps([options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

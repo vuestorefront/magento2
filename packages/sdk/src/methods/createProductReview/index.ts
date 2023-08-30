@@ -1,8 +1,8 @@
 import { CreateProductReviewInput, Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { MethodBaseOptions } from '../../types';
 
 /**
@@ -66,11 +66,10 @@ export async function createProductReview<RES extends CreateProductReviewRespons
   params: CreateProductReviewInput,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'createProductReview',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('createProductReview')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

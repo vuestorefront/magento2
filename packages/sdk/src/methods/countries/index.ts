@@ -19,7 +19,7 @@ export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQ
  * Method to fetch list of countries
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.countries | countries } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -88,11 +88,10 @@ export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQ
  * ```
  */
 export async function countries<RES extends CountriesResponse>(options?: MethodOptions<CustomQuery<'countries'>>) {
-  const { data } = await client.post<RES>(
-    'countries',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('countries')
+    .setMethod('GET')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

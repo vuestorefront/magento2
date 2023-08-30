@@ -56,11 +56,10 @@ export async function setGuestEmailOnCart<RES extends SetGuestEmailOnCartRespons
   params: SetGuestEmailOnCartInput,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'setGuestEmailOnCart',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('setGuestEmailOnCart')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

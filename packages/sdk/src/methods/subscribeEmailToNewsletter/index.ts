@@ -55,11 +55,10 @@ export async function subscribeEmailToNewsletter<RES extends SubscribeEmailToNew
   params: SubscribeEmailToNewsletterMutationVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'subscribeEmailToNewsletter',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('subscribeEmailToNewsletter')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

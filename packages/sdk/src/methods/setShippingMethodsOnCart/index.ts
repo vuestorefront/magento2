@@ -124,11 +124,10 @@ export async function setShippingMethodsOnCart<RES extends SetShippingMethodsOnC
   params: SetShippingMethodsOnCartInput,
   options?: MethodOptions<CustomQuery<'setShippingMethodsOnCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'setShippingMethodsOnCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('setShippingMethodsOnCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -66,12 +66,33 @@ export type CustomQueryInput<TQueryVariables> = {
  *   queryVariables
  * });
  * ```
+ *
+ * @example
+ * If you want the method to send a GET instead of a POST request,
+ * use the `options.clientConfig` parameter.
+ *
+ * ```ts
+ * const customQueryResult = await sdk.magento.customQuery(
+ *   {
+ *     query,
+ *     queryVariables
+ *   },
+ *   {
+ *     clientConfig: {
+ *       method: 'GET'
+ *     }
+ *   }
+ * );
+ * ```
  */
 export async function customQuery<RES extends CustomQueryResponse<any>, INPUT extends CustomQueryInput<any>>(
   params: INPUT,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>('customQuery', [params, options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('customQuery')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

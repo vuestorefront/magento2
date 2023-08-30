@@ -56,7 +56,10 @@ export async function resetPassword<RES extends ResetPasswordResponse>(
   params: MutationResetPasswordArgs,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>('resetPassword', [params, options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('resetPassword')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

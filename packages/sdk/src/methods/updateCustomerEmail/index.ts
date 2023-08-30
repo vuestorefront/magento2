@@ -1,8 +1,8 @@
 import { Mutation, UpdateCustomerEmailMutationVariables } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -97,11 +97,10 @@ export async function updateCustomerEmail<RES extends UpdateCustomerEmailRespons
   params: UpdateCustomerEmailMutationVariables,
   options?: MethodOptions<CustomQuery<'updateCustomerEmail'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'updateCustomerEmail',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('updateCustomerEmail')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

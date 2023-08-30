@@ -127,11 +127,10 @@ export async function addProductsToCart<RES extends AddProductsToCartResponse>(
   params: AddProductsToCartMutationVariables,
   options?: MethodOptions<CustomQuery<'addProductsToCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'addProductsToCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('addProductsToCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

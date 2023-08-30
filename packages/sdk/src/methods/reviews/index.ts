@@ -20,7 +20,7 @@ export type ReviewsResponse<T extends DeepPartial<CustomerProductReviewQuery> = 
  * Method to fetch customer reviews
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.reviews | reviews } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -102,11 +102,10 @@ export async function reviews<RES extends ReviewsResponse>(
   params?: CustomerProductReviewParams,
   options?: MethodOptions<CustomQuery<'reviews'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'reviews',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('reviews')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -1,8 +1,8 @@
 import { CustomerCreateInput, Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -105,11 +105,10 @@ export async function createCustomer<RES extends CreateCustomerResponse>(
   params: CustomerCreateInput,
   options?: MethodOptions<CustomQuery<'createCustomer'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'createCustomer',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('createCustomer')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

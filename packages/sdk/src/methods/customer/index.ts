@@ -106,11 +106,10 @@ export type CustomerResponse<T extends DeepPartial<CustomerQuery> = CustomerQuer
  * ```
  */
 export async function customer<RES extends CustomerResponse>(options?: MethodOptions<CustomQuery<'customer'>>) {
-  const { data } = await client.post<RES>(
-    'customer',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('customer')
+    .setMethod('POST')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

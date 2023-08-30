@@ -19,7 +19,7 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  * Method to list of all categories without filters
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.categoryList | categoryList} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -92,11 +92,10 @@ export async function categoryList<RES extends CategoryListResponse>(
   params: CategoryListQueryVariables,
   options?: MethodOptions<CustomQuery<'categoryList'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'categoryList',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('categoryList')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

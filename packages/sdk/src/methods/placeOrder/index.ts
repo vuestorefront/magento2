@@ -1,8 +1,8 @@
 import { Mutation, PlaceOrderInput } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -122,7 +122,10 @@ export async function placeOrder<RES extends PlaceOrderResponse>(
   params: PlaceOrderInput,
   options?: MethodOptions<CustomQuery<'placeOrder'>>,
 ) {
-  const { data } = await client.post<RES>('placeOrder', [params, options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('placeOrder')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

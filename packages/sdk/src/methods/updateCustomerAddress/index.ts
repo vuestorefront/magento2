@@ -97,11 +97,10 @@ export async function updateCustomerAddress<RES extends UpdateCustomerAddressRes
   params: UpdateCustomerAddressMutationVariables,
   options?: MethodOptions<CustomQuery<'updateCustomerAddress'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'updateCustomerAddress',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('updateCustomerAddress')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

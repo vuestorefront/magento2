@@ -103,11 +103,10 @@ export async function removeCouponFromCart<RES extends RemoveCouponFromCartRespo
   params: RemoveCouponFromCartInput,
   options?: MethodOptions<CustomQuery<'removeCouponFromCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'removeCouponFromCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('removeCouponFromCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

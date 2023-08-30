@@ -74,11 +74,10 @@ export async function getAvailablePaymentMethods<RES extends GetAvailablePayment
   params: GuestAvailablePaymentMethodsQueryVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'getAvailablePaymentMethods',
-    [params.cartId, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getAvailablePaymentMethods')
+    .setMethod('POST')
+    .setProps([params.cartId, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

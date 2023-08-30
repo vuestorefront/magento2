@@ -19,7 +19,7 @@ export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuer
  * Method to fetch available currencies in a store.
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.currency | currency } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -112,11 +112,10 @@ export type CurrencyResponse<T extends DeepPartial<CurrencyQuery> = CurrencyQuer
  * ```
  */
 export async function currency<RES extends CurrencyResponse>(options?: MethodOptions<CustomQuery<'currency'>>) {
-  const { data } = await client.post<RES>(
-    'currency',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('currency')
+    .setMethod('GET')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -103,11 +103,10 @@ export async function mergeCarts<RES extends MergeCartsResponse>(
   params: MergeCartsMutationVariables,
   options?: MethodOptions<CustomQuery<'mergeCarts'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'mergeCarts',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('mergeCarts')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

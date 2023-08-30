@@ -58,11 +58,10 @@ export async function cartTotalQty<RES extends CartTotalQtyResponse>(
   params: CartQueryVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'cartTotalQty',
-    [params.cartId, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('cartTotalQty')
+    .setMethod('POST')
+    .setProps([params.cartId, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

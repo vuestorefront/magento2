@@ -1,9 +1,9 @@
 import type { GetProductSearchParams, Query } from '@vue-storefront/magento-types';
 import { ApolloQueryResult } from '@apollo/client';
 import { DeepPartial } from 'ts-essentials';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import type { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 
 /**
  * query type for the {@link upsellProducts} method.
@@ -20,7 +20,7 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  * Method to get upsell products for a given product.
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.upsellProducts | upsellProducts} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -123,11 +123,10 @@ export async function upsellProducts<RES extends UpsellProductsResponse>(
   params: GetProductSearchParams,
   options?: MethodOptions<CustomQuery<'upsellProducts'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'upsellProducts',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('upsellProducts')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

@@ -19,7 +19,7 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  * Method to fetch store configuration
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.storeConfig | storeConfig } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -87,11 +87,10 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
 export async function storeConfig<RES extends StoreConfigResponse>(
   options?: MethodOptions<CustomQuery<'storeConfig'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'storeConfig',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('storeConfig')
+    .setMethod('GET')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

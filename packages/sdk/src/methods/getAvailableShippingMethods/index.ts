@@ -1,8 +1,8 @@
 import { GuestAvailableShippingMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
@@ -103,11 +103,10 @@ export async function getAvailableShippingMethods<RES extends GetAvailableShippi
   params: GuestAvailableShippingMethodsQueryVariables,
   options?: MethodOptions<CustomQuery<'shippingMethods'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'getAvailableShippingMethods',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getAvailableShippingMethods')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

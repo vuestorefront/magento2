@@ -62,11 +62,10 @@ export async function requestPasswordResetEmail<RES extends RequestPasswordReset
   params: RequestPasswordResetEmailInput,
   options?: MethodOptions<CustomQuery<'requestPasswordResetEmail'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'requestPasswordResetEmail',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('requestPasswordResetEmail')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

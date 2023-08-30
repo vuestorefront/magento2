@@ -22,7 +22,7 @@ export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = 
  * Method to search categories
  *
  * @remarks
- * This method sends a POST request to the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.categorySearch | categorySearch} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -113,16 +113,15 @@ export type CategorySearchResponse<T extends DeepPartial<CategorySearchQuery> = 
  * // Details will contain only the fields specified in the custom query.
  * ```
  */
-export async function categorySearch<Res extends CategorySearchResponse>(
+export async function categorySearch<RES extends CategorySearchResponse>(
   // eslint-disable-next-line default-param-last
   params: CategorySearchQueryVariables = {},
   options?: MethodOptions<CustomQuery<'categorySearch'>>,
 ) {
-  const { data } = await client.post<Res>(
-    'categorySearch',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('categorySearch')
+    .setMethod('GET')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }
