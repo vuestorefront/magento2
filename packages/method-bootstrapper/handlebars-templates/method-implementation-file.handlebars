@@ -82,11 +82,10 @@ export type {{ capitalizedMethodName }}Response<T extends DeepPartial<{{ capital
  * ```
  */
 export async function {{ camelCaseMethodName }}<RES extends {{ capitalizedMethodName }}Response>(params: {{ capitalizedMethodName }}QueryVariables, options?: MethodOptions<CustomQuery<'{{ camelCaseMethodName }}'>>) {
-  const { data } = await client.post<RES>(
-    '{{ camelCaseMethodName }}',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('{{ camelCaseMethodName }}')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }
