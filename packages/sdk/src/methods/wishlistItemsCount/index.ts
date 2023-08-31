@@ -1,6 +1,7 @@
 import { WishlistQuery } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
@@ -13,7 +14,7 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * Method to count items in the wishlist
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.wishlistItemsCount | wishlistItemsCount } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -41,7 +42,10 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * ```
  */
 export async function wishlistItemsCount<RES extends WishlistItemsCountResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>('wishlistItemsCount', [options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('wishlistItemsCount')
+    .setMethod('POST')
+    .setProps([options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

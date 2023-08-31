@@ -1,6 +1,7 @@
 import { AddProductsToWishlistMutationVariables, Mutation } from '@vue-storefront/magento-types';
 import type { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { CustomQuery, MethodOptions } from '../../types';
 import { client } from '../../client';
 
@@ -20,7 +21,7 @@ export type AddProductToWishListResponse<
  * Method to add products to wishlist
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.addProductToWishList | addProductToWishList} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -96,15 +97,14 @@ export type AddProductToWishListResponse<
  * // Returned wishlist will contain only the fields specified in the custom query.
  * ```
  */
-export async function addProductToWishList<Res extends AddProductToWishListResponse>(
+export async function addProductToWishList<RES extends AddProductToWishListResponse>(
   params: AddProductsToWishlistMutationVariables,
   options?: MethodOptions<CustomQuery<'addProductsToWishlist'>>,
 ) {
-  const { data } = await client.post<Res>(
-    'addProductToWishList',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('addProductToWishList')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

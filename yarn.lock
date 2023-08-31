@@ -2963,17 +2963,16 @@
     ts-jest "^29.1.0"
     ts-node "^10.9.1"
 
-"@vue-storefront/middleware@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.0.0.tgz#35b8294a552ed0d8991fcfdc865c11171a9cc1c3"
-  integrity sha512-HxL3lxmGfWT9Q+6fKL17xNyENGird314aB2yy2IMgA4MEX5ETqA7HZaV2a0hwgDulVlapFtl0yeCTnVO61YvKw==
+"@vue-storefront/middleware@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.5.0.tgz#54221d1419ce20c7433157827f3f572b84c36379"
+  integrity sha512-jn0pLSiytBSo8F8nPRQEVJGU3K7fkHq5NHvKEEwPQg2KyxMOB6atBTKkWzrIxehfEfATcjhO04+RyxW43QbFBg==
   dependencies:
     consola "^2.15.3"
     cookie-parser "^1.4.6"
     cors "^2.8.5"
     express "^4.18.1"
     helmet "^5.1.1"
-    rimraf "^4.1.2"
 
 "@vue-storefront/rollup-config@^0.0.3":
   version "0.0.3"
@@ -2984,6 +2983,11 @@
     "@rollup/plugin-node-resolve" "^13.0.6"
     rollup "^2.59.0"
     rollup-plugin-typescript2 "^0.35.0"
+
+"@vue-storefront/sdk-axios-request-sender@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/sdk-axios-request-sender/-/sdk-axios-request-sender-1.0.0.tgz#60d75648f17b9807c0cd9131e3dac025a7a941d6"
+  integrity sha512-525CIPrDlEQSO/VpeABqOUNrcSHaKJtUxxSt05aYX2ZYo4FPZSZueGSZr/g8yedyWkwm18CKGXIUWLFtW/WwiQ==
 
 "@vue-storefront/sdk@^1.0.0":
   version "1.1.1"
@@ -5726,16 +5730,6 @@ glob@^7.1.1, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^9.2.0:
-  version "9.3.5"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-9.3.5.tgz#ca2ed8ca452781a3009685607fdf025a899dfe21"
-  integrity sha512-e1LleDykUz2Iu+MTYdkSsuWX8lvAjAcs0Xef0lNIu0S2wOAzuTxCJtcd9S3cijlwYF18EsU3rzb8jPVobxDh9Q==
-  dependencies:
-    fs.realpath "^1.0.0"
-    minimatch "^8.0.2"
-    minipass "^4.2.4"
-    path-scurry "^1.6.1"
-
 globals@^11.1.0:
   version "11.12.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.12.0.tgz#ab8795338868a0babd8525758018c2a7eb95c42e"
@@ -7643,13 +7637,6 @@ minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   dependencies:
     brace-expansion "^1.1.7"
 
-minimatch@^8.0.2:
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-8.0.4.tgz#847c1b25c014d4e9a7f68aaf63dedd668a626229"
-  integrity sha512-W0Wvr9HyFXZRGIDgCicunpQ299OKXs9RgZfaukz4qAW/pJhcpUfupc9c+OObPOFueNy8VSrZgEmDtk6Kh4WzDA==
-  dependencies:
-    brace-expansion "^2.0.1"
-
 minimatch@^9.0.1:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.2.tgz#397e387fff22f6795844d00badc903a3d5de7057"
@@ -7732,11 +7719,6 @@ minipass@^3.0.0, minipass@^3.1.0, minipass@^3.1.1, minipass@^3.1.3:
   integrity sha512-DxiNidxSEK+tHG6zOIklvNOwm3hvCrbUrdtzY74U6HKTJxvIDfOUL5W5P2Ghd3DTkhhKPYGqeNUIh5qcM4YBfw==
   dependencies:
     yallist "^4.0.0"
-
-minipass@^4.2.4:
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-4.2.8.tgz#f0010f64393ecfc1d1ccb5f582bcaf45f48e1a3a"
-  integrity sha512-fNzuVyifolSLFL4NzpF+wEF4qrgqaaKX0haXPQEdQ7NKAN+WecoKMHV09YcuL/DHxrUsYQOK3MiuDf7Ip2OXfQ==
 
 minipass@^5.0.0:
   version "5.0.0"
@@ -8507,7 +8489,7 @@ path-root@^0.1.1:
   dependencies:
     path-root-regex "^0.1.0"
 
-path-scurry@^1.10.0, path-scurry@^1.6.1:
+path-scurry@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/path-scurry/-/path-scurry-1.10.0.tgz#0ffbd4c1f7de9600f98a1405507d9f9acb438ab3"
   integrity sha512-tZFEaRQbMLjwrsmidsGJ6wDMv0iazJWk6SfIKnY4Xru8auXgmJkOBa5DUbYFcFD2Rzk2+KDlIiF0GVXNCbgC7g==
@@ -9125,13 +9107,6 @@ rimraf@^3.0.2:
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
   dependencies:
     glob "^7.1.3"
-
-rimraf@^4.1.2:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-4.4.1.tgz#bd33364f67021c5b79e93d7f4fa0568c7c21b755"
-  integrity sha512-Gk8NlF062+T9CqNGn6h4tls3k6T1+/nXdOcSZVikNVtlRdYpA7wRJJMoXmuvOnLW844rPjdQ7JgXCYM6PPC/og==
-  dependencies:
-    glob "^9.2.0"
 
 rimraf@^5.0.0:
   version "5.0.1"

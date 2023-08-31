@@ -1,6 +1,7 @@
 import { Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -25,7 +26,7 @@ export type ChangeCustomerPasswordResponse<
  * Method to change customer password.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -105,11 +106,10 @@ export async function changeCustomerPassword<RES extends ChangeCustomerPasswordR
   params: ChangeCustomerPasswordInput,
   options?: MethodOptions<CustomQuery<'changeCustomerPassword'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'changeCustomerPassword',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('changeCustomerPassword')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

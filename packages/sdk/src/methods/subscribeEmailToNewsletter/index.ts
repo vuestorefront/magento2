@@ -1,6 +1,7 @@
 import { Mutation, SubscribeEmailToNewsletterMutationVariables } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
@@ -20,7 +21,7 @@ export type SubscribeEmailToNewsletterResponse<
  * Method allows guests and registered customers to sign up to receive newsletters.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -54,11 +55,10 @@ export async function subscribeEmailToNewsletter<RES extends SubscribeEmailToNew
   params: SubscribeEmailToNewsletterMutationVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'subscribeEmailToNewsletter',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('subscribeEmailToNewsletter')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

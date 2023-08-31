@@ -9,7 +9,7 @@ const ERROR_MOCK = new Error('error');
 
 jest.mock('../../src/client', () => ({
   client: {
-    post: jest.fn(() => RESPONSE_MOCK),
+    get: jest.fn(() => RESPONSE_MOCK),
   },
 }));
 
@@ -17,13 +17,18 @@ describe(describeGroup('currency'), () => {
   it('makes a single call to API Middleware', async () => {
     await currency();
 
-    expect(client.post).toBeCalledTimes(1);
+    expect(client.get).toBeCalledTimes(1);
   });
 
   it('makes a call to API Middleware with proper params and options', async () => {
     await currency(OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith('currency', [{}, {}], {});
+    expect(client.get).toBeCalledWith('currency', {
+      params: {
+        body: JSON.stringify([{}, {}]),
+      },
+      ...OPTIONS_MOCK.clientConfig,
+    });
   });
 
   it('extracts and returns a response', async () => {
@@ -34,7 +39,7 @@ describe(describeGroup('currency'), () => {
 
   it('throws an exception in case of network error', async () => {
     expect.hasAssertions();
-    (client.post as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
+    (client.get as jest.Mock).mockRejectedValueOnce(ERROR_MOCK);
 
     try {
       await currency(OPTIONS_MOCK);

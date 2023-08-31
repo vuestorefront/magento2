@@ -1,6 +1,7 @@
 import { Mutation, SetPaymentMethodOnCartInputs } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -20,7 +21,7 @@ export type SetPaymentMethodOnCartResponse<
  * Method to set payment method on cart.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setPaymentMethodOnCart | setPaymentMethodOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -105,11 +106,10 @@ export async function setPaymentMethodOnCart<RES extends SetPaymentMethodOnCartR
   params: SetPaymentMethodOnCartInputs,
   options?: MethodOptions<CustomQuery<'setPaymentMethodOnCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'setPaymentMethodOnCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('setPaymentMethodOnCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

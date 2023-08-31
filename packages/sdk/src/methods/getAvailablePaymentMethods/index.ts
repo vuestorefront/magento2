@@ -1,6 +1,7 @@
 import { GuestAvailablePaymentMethodsQueryVariables, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
@@ -21,7 +22,7 @@ export type GetAvailablePaymentMethodsResponse<
  * To get available customer payment methods use {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods }.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailablePaymentMethods | getAvailablePaymentMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -73,11 +74,10 @@ export async function getAvailablePaymentMethods<RES extends GetAvailablePayment
   params: GuestAvailablePaymentMethodsQueryVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'getAvailablePaymentMethods',
-    [params.cartId, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('getAvailablePaymentMethods')
+    .setMethod('POST')
+    .setProps([params.cartId, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

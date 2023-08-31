@@ -1,6 +1,7 @@
 import { Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -27,7 +28,7 @@ export type RequestPasswordResetEmailResponse<
  * Method to request password reset email
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -61,11 +62,10 @@ export async function requestPasswordResetEmail<RES extends RequestPasswordReset
   params: RequestPasswordResetEmailInput,
   options?: MethodOptions<CustomQuery<'requestPasswordResetEmail'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'requestPasswordResetEmail',
-    [params, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('requestPasswordResetEmail')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

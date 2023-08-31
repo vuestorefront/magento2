@@ -1,6 +1,7 @@
 import { Mutation } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { MethodBaseOptions } from '../../types';
 
@@ -19,7 +20,7 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * Method to create an empty cart.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createEmptyCart | createEmptyCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -47,7 +48,10 @@ export type CreateEmptyCartResponse<T extends DeepPartial<CreateEmptyCartMutatio
  * ```
  */
 export async function createEmptyCart<RES extends CreateEmptyCartResponse>(options?: MethodBaseOptions) {
-  const { data } = await client.post<RES>('createEmptyCart', [options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('createEmptyCart')
+    .setMethod('POST')
+    .setProps([options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

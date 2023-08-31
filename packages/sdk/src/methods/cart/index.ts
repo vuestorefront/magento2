@@ -1,6 +1,7 @@
 import { CartQueryVariables, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -18,7 +19,7 @@ export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQ
  * Method to get cart
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cart | cart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -92,11 +93,10 @@ export async function cart<RES extends CartResponse>(
   params: CartQueryVariables,
   options?: MethodOptions<CustomQuery<'cart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'cart',
-    [params.cartId, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('cart')
+    .setMethod('POST')
+    .setProps([params.cartId, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

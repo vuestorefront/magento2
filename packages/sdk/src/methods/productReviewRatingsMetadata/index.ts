@@ -1,6 +1,7 @@
 import { Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -20,7 +21,7 @@ export type ProductReviewRatingsMetadataResponse<
  * Method to get the active ratings attributes and the values each rating can have.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a GET request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productReviewRatingsMetadata | productReviewRatingsMetadata } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -99,11 +100,10 @@ export type ProductReviewRatingsMetadataResponse<
 export async function productReviewRatingsMetadata<RES extends ProductReviewRatingsMetadataResponse>(
   options?: MethodOptions<CustomQuery<'productReviewRatingsMetadata'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'productReviewRatingsMetadata',
-    [options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('productReviewRatingsMetadata')
+    .setMethod('GET')
+    .setProps([options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

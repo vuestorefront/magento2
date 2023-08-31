@@ -1,6 +1,7 @@
 import { Mutation, SetBillingAddressOnCartInput } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
@@ -20,7 +21,7 @@ export type SetBillingAddressOnCartResponse<
  * Method to set billing address on the cart
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setBillingAddressOnCart | setBillingAddressOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -113,11 +114,10 @@ export async function setBillingAddressOnCart<RES extends SetBillingAddressOnCar
   params: SetBillingAddressOnCartInput,
   options?: MethodOptions<CustomQuery<'setBillingAddressOnCart'>>,
 ) {
-  const { data } = await client.post<RES>(
-    'setBillingAddressOnCart',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('setBillingAddressOnCart')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

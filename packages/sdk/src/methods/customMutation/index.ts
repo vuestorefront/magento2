@@ -1,5 +1,6 @@
 import { FetchPolicy } from '@apollo/client';
 import { FetchResult } from '@apollo/client/core';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 
@@ -22,7 +23,7 @@ export type CustomMutationInput<TQueryVariables> = {
  * For sending query, please see {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customQuery | customQuery}.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link @vue-storefront/magento-api#ApiMethods.customMutation | customMutation } endpoint
  * of the Vue Storefront API Middleware.
  *
@@ -73,7 +74,10 @@ export async function customMutation<RES extends CustomMutationResponse<any>, IN
   params: INPUT,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>('customMutation', [params, options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('customMutation')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

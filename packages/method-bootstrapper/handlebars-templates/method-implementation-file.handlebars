@@ -1,6 +1,7 @@
 import { CustomQuery, MethodOptions } from '../../types';
 import { {{ capitalizedMethodName }}Query, {{ capitalizedMethodName }}QueryVariables } from '@vue-storefront/magento-types';
 import { client } from '../../client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender'
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 
@@ -13,7 +14,7 @@ export type {{ capitalizedMethodName }}Response<T extends DeepPartial<{{ capital
  * Method to TODO (to do what?)
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link @vue-storefront/magento-api#ApiMethods.{{ camelCaseMethodName }} | {{ camelCaseMethodName }} } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -81,11 +82,10 @@ export type {{ capitalizedMethodName }}Response<T extends DeepPartial<{{ capital
  * ```
  */
 export async function {{ camelCaseMethodName }}<RES extends {{ capitalizedMethodName }}Response>(params: {{ capitalizedMethodName }}QueryVariables, options?: MethodOptions<CustomQuery<'{{ camelCaseMethodName }}'>>) {
-  const { data } = await client.post<RES>(
-    '{{ camelCaseMethodName }}',
-    [params, options?.customQuery, options?.customHeaders],
-    options?.clientConfig
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('{{ camelCaseMethodName }}')
+    .setMethod('POST')
+    .setProps([params, options?.customQuery, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

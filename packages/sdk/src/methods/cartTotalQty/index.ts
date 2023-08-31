@@ -1,5 +1,6 @@
 import { ApolloQueryResult } from '@apollo/client';
 import { CartQueryVariables } from '@vue-storefront/magento-types';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 
@@ -23,7 +24,7 @@ export type CartTotalQtyResponse<T extends CartTotalQtyQuery = CartTotalQtyQuery
  * Do not use `cart` query inf you want to fetch only total quantity of the cart.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cartTotalQty | cartTotalQty } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
@@ -57,11 +58,10 @@ export async function cartTotalQty<RES extends CartTotalQtyResponse>(
   params: CartQueryVariables,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>(
-    'cartTotalQty',
-    [params.cartId, options?.customHeaders],
-    options?.clientConfig,
-  );
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('cartTotalQty')
+    .setMethod('POST')
+    .setProps([params.cartId, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }

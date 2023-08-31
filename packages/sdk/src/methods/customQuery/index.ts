@@ -1,4 +1,5 @@
 import { ApolloQueryResult, FetchPolicy } from '@apollo/client';
+import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { MethodBaseOptions } from '../../types';
 import { client } from '../../client';
 
@@ -21,7 +22,7 @@ export type CustomQueryInput<TQueryVariables> = {
  * For sending mutation, please see {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#customMutation | customMutation}.
  *
  * @remarks
- * This method communicates with the
+ * This method sends a POST request to the
  * {@link @vue-storefront/magento-api#ApiMethods.customQuery | customQuery } endpoint
  * of the Vue Storefront API Middleware.
  *
@@ -65,12 +66,33 @@ export type CustomQueryInput<TQueryVariables> = {
  *   queryVariables
  * });
  * ```
+ *
+ * @example
+ * If you want the method to send a GET instead of a POST request,
+ * use the `options.clientConfig` parameter.
+ *
+ * ```ts
+ * const customQueryResult = await sdk.magento.customQuery(
+ *   {
+ *     query,
+ *     queryVariables
+ *   },
+ *   {
+ *     clientConfig: {
+ *       method: 'GET'
+ *     }
+ *   }
+ * );
+ * ```
  */
 export async function customQuery<RES extends CustomQueryResponse<any>, INPUT extends CustomQueryInput<any>>(
   params: INPUT,
   options?: MethodBaseOptions,
 ) {
-  const { data } = await client.post<RES>('customQuery', [params, options?.customHeaders], options?.clientConfig);
-
-  return data;
+  return new AxiosRequestSender(client)
+    .setUrl('customQuery')
+    .setMethod('POST')
+    .setProps([params, options?.customHeaders])
+    .setConfig(options?.clientConfig)
+    .send<RES>();
 }
