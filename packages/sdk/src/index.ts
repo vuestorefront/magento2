@@ -37,3 +37,5 @@ export const magentoModule = (options: ModuleOptions): MagentoModuleType => {
 };
 
 export { client } from './client';
+export type * from './methods';
+
