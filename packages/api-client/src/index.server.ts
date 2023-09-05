@@ -92,7 +92,7 @@ const tokenExtension: ApiClientExtension = {
             }
             res.cookie(customerCookieName, JSON.stringify(token));
           },
-          getStore: () => req.cookies[storeCookieName],
+          getStore: () => configuration?.storeViewCode ?? req.cookies[storeCookieName],
           setStore: (id) => {
             if (!id) {
               // eslint-disable-next-line no-param-reassign
