@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 2.2.0
+
+### Minor Changes
+
+- 07d2087a: Bumped `@vue-storefront/middleware` version to `^3.5.0` which introduces support for HTTP GET requests.
+
 ## 2.1.1
 
 ### Patch Changes
