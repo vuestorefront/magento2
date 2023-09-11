@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 2.3.0
+
+### Minor Changes
+
+- a9ea521f: Added Compatibility: Now supports domain-based store resolving with the [Unified MultiStore](https://github.com/vuestorefront/unified-multi-store) module.
+
 ## 2.2.0
 
 ### Minor Changes
