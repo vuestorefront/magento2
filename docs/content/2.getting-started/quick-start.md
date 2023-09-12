@@ -30,7 +30,7 @@ The first step to setup your integration is to create and configure your server 
 For an example of a generic server middleware configuration, check out one of [our boilerplates](https://github.com/vuestorefront/integration-boilerplate/tree/main/playground/middleware).
 
 :::tip Already have the server middleware configured?
-If you have the server middleware configured, you can move directly to the [SDK](./quick-start.md#sdk-preparation)[ preparation](./quick-start.md#sdk-preparation) part.
+If you have the server middleware configured, you can move directly to the [SDK preparation](./quick-start.md#configuring-the-sdk) part.
 :::
 
 
