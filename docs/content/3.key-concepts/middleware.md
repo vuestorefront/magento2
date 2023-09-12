@@ -3,7 +3,7 @@
 The Server Middleware is an Express.js application implemented for a variety of reasons, such as:
 
 - connect multiple services using different technologies and libraries,
-- allow you to create and [extend](/integrate/extending-integrations.html) integrations to add new capabilities or modify their behavior,
+- allow you to create and [extend](/middleware/guides/extensions) integrations to add new capabilities or modify their behavior,
 - give you control of the requests sent to the integration platform and responses sent back to the Nuxt.js application,
 - securely store credentials on the server without exposing them to the end-users of your application,
 - improve the performance by moving all logic of the networking layer to the server, thus shipping less code to the browser.
