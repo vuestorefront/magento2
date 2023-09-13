@@ -1,4 +1,4 @@
-# Misc
+# Miscellaneous
 In this section, we will cover the basics of various miscellaneous methods.
 
 ## References
