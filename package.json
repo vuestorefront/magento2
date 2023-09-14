@@ -17,7 +17,7 @@
     "test:unit": "lerna run test:unit",
     "test:integration": "lerna run test:integration",
     "lint": "lerna run lint",
-    "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install",
+    "changesets:version": "yarn changeset version && yarn --cwd docs run api-extract",
     "changesets:publish": "yarn build && yarn changeset publish"
   },
   "devDependencies": {
