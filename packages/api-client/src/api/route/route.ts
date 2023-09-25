@@ -11,6 +11,9 @@ export default `
       ... on CmsPage {
         identifier
       }
+      ... on CategoryInterface {
+        uid
+      }
     }
   }
 `;
