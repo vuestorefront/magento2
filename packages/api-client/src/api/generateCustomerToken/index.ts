@@ -1,7 +1,7 @@
 import { FetchResult } from "@apollo/client/core";
-import type { CustomHeaders } from "@vue-storefront/magento-types";
-import { GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from "@vue-storefront/magento-types";
+import { CustomQuery, GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables } from "@vue-storefront/magento-types";
 import { GraphQLError } from "graphql";
+import type { CustomHeaders } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
 import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
 import generateCustomerToken from "./generateCustomerToken";
@@ -18,6 +18,7 @@ export default async (
     password: string;
     recaptchaToken: string;
   },
+  customQuery: CustomQuery = { generateCustomerToken: "generateCustomerToken" },
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
   try {
@@ -35,14 +36,21 @@ export default async (
       }
     }
 
+    const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(customQuery, {
+      generateCustomerToken: {
+        query: generateCustomerToken,
+        variables: {
+          email: params.email,
+          password: params.password,
+        },
+      },
+    });
+
     return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
       mutation: gql`
         ${generateCustomerToken}
       `,
-      variables: {
-        email: params.email,
-        password: params.password,
-      },
+      variables: generateCustomerTokenGQL.variables,
       context: {
         headers: getHeaders(context, customHeaders),
       },

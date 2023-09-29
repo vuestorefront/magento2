@@ -37,6 +37,7 @@ import { addProductsToCart } from './addProductsToCart';
 import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 import { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 import { updateCartItems } from './updateCartItems';
+import { generateCustomerToken } from './generateCustomerToken';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -78,4 +79,5 @@ export const customQueries = {
   'product-review-custom-query': productReview,
   'product-review-ratings-metadata-custom-query': productReviewRatingsMetadata,
   'store-config-custom-query': storeConfig,
+  'generate-customer-token-custom-query': generateCustomerToken,
 };

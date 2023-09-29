@@ -3,8 +3,7 @@ import { DeepPartial } from 'ts-essentials';
 import { FetchResult } from '@apollo/client';
 import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { MethodBaseOptions } from '../../types';
-
+import type { CustomQuery, MethodOptions } from '../../types';
 /**
  * mutation type for the {@link generateCustomerToken} method.
  */
@@ -61,15 +60,60 @@ export type GenerateCustomerTokenResponse<
  *
  * // Token is now available in result.data.generateCustomerToken.token
  * ```
+ *
+ *  * @example
+ * Creating a custom GraphQL query to fetch additional data:
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'generate-customer-token-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              mutation generateCustomerToken($email: String!, $password: String!) {
+ *                generateCustomerToken(email: $email, password: $password) {
+ *                  ${metadata.fields}
+ *                }
+ *              }
+ *            }`
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query created in the previous example.
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * const customQuery = {
+ *   route: 'generate-customer-token-custom-query',
+ *   metadata: {
+ *     fields: 'token additional_field'
+ *   }
+ * };
+ *
+ * // data will contain only the fields specified in the custom query.
+ * const result = await sdk.magento.generateCustomerToken({
+ *   email: 'some-email',
+ *   password: 'some-password'
+ * }, { customQuery });
+ * ```
  */
 export async function generateCustomerToken<RES extends GenerateCustomerTokenResponse>(
   params: GenerateCustomerTokenInput,
-  options?: MethodBaseOptions,
+  options?: MethodOptions<CustomQuery<'generateCustomerToken'>>,
 ) {
   return new AxiosRequestSender(client)
     .setUrl('generateCustomerToken')
     .setMethod('POST')
-    .setProps([params, options?.customHeaders])
+    .setProps([params, options?.customQuery, options?.customHeaders])
     .setConfig(options?.clientConfig)
     .send<RES>();
 }

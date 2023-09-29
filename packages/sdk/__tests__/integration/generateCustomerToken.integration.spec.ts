@@ -11,4 +11,23 @@ describe(describeGroup('generateCustomerToken'), () => {
 
     expect(result?.data?.generateCustomerToken?.token).toBeDefined();
   });
+
+  it('should send the custom query', async () => {
+    const customQuery = {
+      generateCustomerToken: 'generate-customer-token-custom-query',
+      metadata: {
+        fields: 'token',
+      },
+    };
+
+    const result = await sdk.magento.generateCustomerToken(
+      {
+        email: TEST_USER_EMAIL,
+        password: TEST_USER_PASSWORD,
+      },
+      { customQuery },
+    );
+
+    expect(result?.data?.generateCustomerToken?.token).toBeDefined();
+  });
 });
