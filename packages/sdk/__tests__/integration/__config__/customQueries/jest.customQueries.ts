@@ -37,6 +37,7 @@ import { addProductsToCart } from './addProductsToCart';
 import { setShippingMethodsOnCart } from './setShippingMethodsOnCart';
 import { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 import { updateCartItems } from './updateCartItems';
+import { generateCustomerToken } from './generateCustomerToken';
 import { route } from './route';
 
 export const customQueries = {
@@ -80,4 +81,5 @@ export const customQueries = {
   'product-review-ratings-metadata-custom-query': productReviewRatingsMetadata,
   'store-config-custom-query': storeConfig,
   'route-custom-query': route,
+  'generate-customer-token-custom-query': generateCustomerToken,
 };
