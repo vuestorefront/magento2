@@ -1,5 +1,36 @@
 # @vue-storefront/magento-sdk
 
+## 2.1.0
+
+### Minor Changes
+
+- d634cdbe: ## Changes
+
+  This change adds support for custom queries in the `route` method of both the `api-client` and `sdk` modules. The `route` query has also been extended with a `CategoryInterface` fragment. These changes improve the flexibility and functionality of the `route` method, allowing for more customization and control over the data returned.
+
+  ### api-client
+
+  - Expanded the route query to include a `CategoryInterface` fragment.
+  - Introduced support for `customQueries` within the route API method.
+
+  ### sdk
+
+  - Now includes support for `customQueries` in the route SDK method.
+
+### Patch Changes
+
+- 992734bf: ## Changes
+
+  This change adds support for custom queries in the `generateCustomerToken` method of both the `api-client` and `sdk` modules.
+
+  ### api-client
+
+  - Introduced support for `customQueries` within the route API method.
+
+  ### sdk
+
+  - Now includes support for `customQueries` in the route SDK method.
+
 ## 2.0.0
 
 ### Major Changes
