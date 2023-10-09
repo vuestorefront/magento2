@@ -3,7 +3,7 @@ import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
 import { client } from '../../client';
-import { MethodBaseOptions } from '../../types';
+import type { CustomQuery, MethodOptions } from '../../types';
 
 /**
  * route type for the {@link route} method.
@@ -57,12 +57,56 @@ export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = Apol
  *    networkStatus: 7
  * }
  * ```
+ *  * @example
+ * Creating a custom GraphQL query to fetch additional data:
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'route-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query route($url: String!) {
+ *                route(url: $url) {
+ *                  ${metadata?.fields}
+ *                }
+ *              }
+ *            }`
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query created in the previous example.
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * const customQuery = {
+ *   route: 'route-custom-query',
+ *   metadata: {
+ *     fields: 'type ... on CategoryInterface { uid name image}' // fetch additional name and image fields
+ *   }
+ * };
+ *
+ * // data will contain only the fields specified in the custom query.
+ * const { data } = await sdk.magento.route({ url: 'women.html' }, { customQuery });
+ * ```
  */
-export async function route<RES extends RouteResponse>(params: QueryRouteArgs, options?: MethodBaseOptions) {
+export async function route<RES extends RouteResponse>(
+  params: QueryRouteArgs,
+  options?: MethodOptions<CustomQuery<'route'>>,
+) {
   return new AxiosRequestSender(client)
     .setUrl('route')
     .setMethod('GET')
-    .setProps([params.url, options?.customHeaders])
+    .setProps([params.url, options?.customQuery, options?.customHeaders])
     .setConfig(options?.clientConfig)
     .send<RES>();
 }

@@ -19,4 +19,28 @@ describe(describeGroup('route'), () => {
 
     expect(result).toEqual(expected);
   });
+
+  it('should resolve route based on the url path using custom query', async () => {
+    const customQuery = {
+      route: 'route-custom-query',
+      metadata: {
+        fields: 'type ... on CategoryInterface { uid name image}',
+      },
+    };
+
+    const result = await sdk.magento.route({ url: 'women.html' }, { customQuery });
+
+    const expected = expect.objectContaining({
+      data: expect.objectContaining({
+        route: expect.objectContaining({
+          __typename: expect.any(String),
+          type: 'CATEGORY',
+          uid: expect.any(String),
+          name: expect.any(String),
+        }),
+      }),
+    });
+
+    expect(result).toEqual(expected);
+  });
 });

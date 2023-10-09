@@ -75,9 +75,13 @@ const middlewareConfig = {
 
 async function runMiddleware(app: any) {
   return new Promise((resolve) => {
-    const server = app.listen(8181, async () => {
-      resolve(server);
-    });
+    try {
+      const server = app.listen(8181, async () => {
+        resolve(server);
+      });
+    } catch (error) {
+      console.error(error);
+    }
   });
 }
 
