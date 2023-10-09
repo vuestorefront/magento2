@@ -29,7 +29,7 @@ describe(describeGroup('route'), () => {
 
     expect(client.get).toBeCalledWith('route', {
       params: {
-        body: JSON.stringify([PARAMS_MOCK.url, {}]),
+        body: JSON.stringify([PARAMS_MOCK.url, {}, {}]),
       },
       ...OPTIONS_MOCK.clientConfig,
     });
