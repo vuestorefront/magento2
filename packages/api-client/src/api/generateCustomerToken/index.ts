@@ -48,7 +48,7 @@ export default async (
 
     return await context.client.mutate<GenerateCustomerTokenMutation, GenerateCustomerTokenMutationVariables>({
       mutation: gql`
-        ${generateCustomerToken}
+        ${generateCustomerTokenGQL.query}
       `,
       variables: generateCustomerTokenGQL.variables,
       context: {
