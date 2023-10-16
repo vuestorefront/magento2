@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 2.4.1
+
+### Patch Changes
+
+- 78edfd5c: \* Fixed a bug in the GraphQL mutation in the generateCustomerToken API. Replaced the ${generateCustomerToken} template string with ${generateCustomerTokenGQL.query} in the mutation to address the bug.
+
 ## 2.4.0
 
 ### Minor Changes
