@@ -1,5 +1,12 @@
 # @vue-storefront/magento-api
 
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [045784a6]
+  - @vue-storefront/magento-types@1.0.2
+
 ## 2.4.1
 
 ### Patch Changes
