@@ -1,5 +1,12 @@
 # @vue-storefront/magento-types
 
+## 1.0.2
+
+### Patch Changes
+
+- 045784a6: Fixes
+  - Fixed `getAvailablePaymentMethods` type definition. Parameter `cartId` is now properly typed as `string`.
+
 ## 1.0.1
 
 ### Patch Changes
