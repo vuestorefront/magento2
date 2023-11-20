@@ -22,7 +22,7 @@
     "dev": "rimraf lib server && rollup -c -w"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "3.8.7",
     "@nuxtjs/composition-api": "0.31.0",
     "@vue-storefront/middleware": "^3.5.0",
     "@vue-storefront/magento-types": "1.0.1",
