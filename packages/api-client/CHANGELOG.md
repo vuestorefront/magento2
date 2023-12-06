@@ -1,5 +1,12 @@
 # @vue-storefront/magento-api
 
+## 2.4.3
+
+### Patch Changes
+
+- adc748ef: \* Updated @apollo/client dependency from version `^3.6.9` to version `3.8.7` in the api-client package.
+- adc748ef: \* Fixed a bug in the GraphQL mutation in the generateCustomerToken API. Replaced the ${generateCustomerToken} template string with ${generateCustomerTokenGQL.query} in the mutation to address the bug.
+
 ## 2.4.2
 
 ### Patch Changes
