@@ -197,7 +197,7 @@ yarn add @vue-storefront/sdk @vue-storefront/magento-sdk
 
 ```ts
 import { buildModule, initSDK } from '@vue-storefront/sdk';
-import { magentoModule, MagentoModuleType } from '@vue-storefront/sdk/magento-sdk';
+import { magentoModule, MagentoModuleType } from '@vue-storefront/magento-sdk';
 
 const sdkConfig = {
   magento: buildModule<MagentoModuleType>(magentoModule, {
