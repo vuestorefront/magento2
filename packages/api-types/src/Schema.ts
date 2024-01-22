@@ -7727,7 +7727,43 @@ export type CategorySearchQueryVariables = Exact<{
   filters?: InputMaybe<CategoryFilterInput>;
 }>;
 
-export type CategorySearchQuery = { categoryList?: Array<{ include_in_menu?: number | null | undefined, is_anchor?: number | null | undefined, level?: number | null | undefined, name?: string | null | undefined, position?: number | null | undefined, product_count?: number | null | undefined, uid: string, url_path?: string | null | undefined, url_suffix?: string | null | undefined } | null | undefined> | null | undefined };
+export type CategorySearchQuery = {
+  categoryList?:
+    | Array<
+        | {
+            include_in_menu?: number | null | undefined;
+            is_anchor?: number | null | undefined;
+            level?: number | null | undefined;
+            name?: string | null | undefined;
+            position?: number | null | undefined;
+            product_count?: number | null | undefined;
+            uid: string;
+            url_key?: string | null | undefined;
+            url_path?: string | null | undefined;
+            url_suffix?: string | null | undefined;
+            children?: Array<
+              | {
+                  include_in_menu?: number | null | undefined;
+                  is_anchor?: number | null | undefined;
+                  level?: number | null | undefined;
+                  name?: string | null | undefined;
+                  position?: number | null | undefined;
+                  product_count?: number | null | undefined;
+                  uid: string;
+                  url_key?: string | null | undefined;
+                  url_path?: string | null | undefined;
+                  url_suffix?: string | null | undefined;
+                }
+              | null
+              | undefined
+            >;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+};
 
 export type ChangeCustomerPasswordMutationVariables = Exact<{
   currentPassword: Scalars['String'];
