@@ -11,6 +11,7 @@ export default `
           position
           product_count
           uid
+          url_key
           url_path
           url_suffix
           children {
@@ -31,6 +32,7 @@ export default `
               position
               product_count
               uid
+              url_key
               url_path
               url_suffix
             }
