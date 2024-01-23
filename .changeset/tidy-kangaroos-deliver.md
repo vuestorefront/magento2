@@ -3,11 +3,12 @@
 "@vue-storefront/magento-types": minor
 ---
 
-Ehnanced GQL queries:
-- `CategorySearchQuery` - new response fields
-  - `url_key`
-  - `children`
-- `CategoryListQuery` - new response fields
-  - `url_key`
-- `ProductListsQuery` - new response fields
-  - `variants` products for `ConfigurableProduct`
+**[CHANGED]** Enhanced default GQL queries
+
+- [`CategorySearchQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CategorySearchQuery) new fields:
+  - `url_key` - The url key assigned to the category.
+  - `children` - Child categories tree.
+- [`CategoryListQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CategoryListQuery) new fields:
+  - `url_key` - The url key assigned to the category.
+- [`ProductListsQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ProductListsQuery) new fields:
+  - `variants` - An array of variants of [`ConfigurableProduct`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ConfigurableProduct)
