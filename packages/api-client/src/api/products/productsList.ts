@@ -80,34 +80,6 @@ export default `
             }
           }
         }
-        ... on ConfigurableProduct {
-          variants {
-            product {
-              uid
-              sku
-              name
-              only_x_left_in_stock
-              price_range {
-                minimum_price {
-                  final_price {
-                    currency
-                    value
-                  }
-                  regular_price {
-                    currency
-                    value
-                  }
-                }
-              }
-              thumbnail {
-                url
-                position
-                disabled
-                label
-              }
-            }
-          }
-        }
       }
       page_info {
         current_page
