@@ -2,21 +2,21 @@
     {
         "scope": "https://magento2-instance.vuestorefront.io:443",
         "method": "GET",
-        "path": "/graphql?query=query+categorySearch%28%24filters%3ACategoryFilterInput%29%7BcategoryList%28filters%3A%24filters%29%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_path+url_suffix+__typename%7D%7D&operationName=categorySearch&variables=%7B%7D",
+        "path": "/graphql?query=query+categorySearch%28%24filters%3ACategoryFilterInput%29%7BcategoryList%28filters%3A%24filters%29%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+__typename%7D__typename%7D%7D&operationName=categorySearch&variables=%7B%7D",
         "body": "",
         "status": 200,
         "response": [
-            "1f8b0800000000000003358dc10ac23010447f45f65cc4de24d0931ef5e64d248464db06b6494876c552faef865a6f33f066de02ceb001b580358c43ccf3cd1706f55cc0074be250fba0270c02aa6dc0176d821d63de1ae11b694bc14c080aaed81b213e5cf62f6820c5e2d9c7b06129472796b58d12aaa43d9f1a10efeaf23e745da525934e86475041887ebd48dffb4f658e234f5421ad794eb82bffaa474684f5b5ae5f4aec7cd4d2000000"
+            "1f8b0800000000000003bd934b4f02311485ff0ab91b376078289a495818356ec48d242e8c699ace65a65ada491f2212febb750687962110a27137bdf7dcd3ef4cdb25a4d4524896c0a8c54ce9c53d371692e72570c9844b91704966281d24bd367043a864b9d2e54ae03b8af24bd21942023738a54ed8d6f5da0bda5028c32d57b294155aa58e59c294937e93dea5af399efac971361a79b5d382bce1c217d2caaac33656dfcd82da1c12e984a8d6c64da7fcc3eb4f733b135ec4722e528d7277846e14a15b47e8d7119e726a4f4ceb01e707e0bb35fa6716a3cfbd45879b8e2c3d36d43b1a0d7c42eca2c035cbcf6f9c684458b58f3892208ff2ca284abf11e562586779bddacab21e0f5304a5bfe5df751ee32dfa41f3169dd7f493db98bec1fe9fe4774875847ed6401f0c6af4f9d6fdcfaae9803da8fc16fef03378a40223f8e1be07c06276530d07ec41e518f697fdddd5ea0b066f9c4bbf040000"
         ],
         "rawHeaders": [
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Fri, 14 Apr 2023 12:35:21 GMT",
+            "Tue, 23 Jan 2024 10:42:48 GMT",
             "Content-Type",
             "application/json",
             "Content-Length",
-            "173",
+            "350",
             "Connection",
             "keep-alive",
             "Vary",
@@ -34,9 +34,9 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "219414514 194491426",
+            "39462196 39312422",
             "Age",
-            "345",
+            "2303",
             "Pragma",
             "no-cache",
             "Expires",
