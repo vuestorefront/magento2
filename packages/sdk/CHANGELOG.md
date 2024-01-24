@@ -1,5 +1,12 @@
 # @vue-storefront/magento-sdk
 
+## 2.1.1-rc.0
+
+### Patch Changes
+
+- Updated dependencies [a4fd7ddf]
+  - @vue-storefront/magento-types@1.1.0-rc.0
+
 ## 2.1.0
 
 ### Minor Changes

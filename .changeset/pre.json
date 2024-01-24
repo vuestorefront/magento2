@@ -8,5 +8,7 @@
     "method-bootstrapper": "1.1.0",
     "@vue-storefront/magento-sdk": "2.1.0"
   },
-  "changesets": []
+  "changesets": [
+    "tidy-kangaroos-deliver"
+  ]
 }
