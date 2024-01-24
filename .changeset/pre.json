@@ -1,0 +1,12 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@vue-storefront/magento-api": "2.4.3",
+    "@vue-storefront/magento-types": "1.0.2",
+    "@vue-storefront/magento-load-tests": "1.1.0",
+    "method-bootstrapper": "1.1.0",
+    "@vue-storefront/magento-sdk": "2.1.0"
+  },
+  "changesets": []
+}
