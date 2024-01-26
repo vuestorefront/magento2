@@ -1,5 +1,19 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.1
+
+### Patch Changes
+
+- 60af3cb0: **[FIXED]** [`CategoryListQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CategoryListQuery) returns `url_key` property on each children level
+
+  **[CHANGED]** Enhanced default GQL queries
+
+  - [`CategoryListQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CategoryListQuery)
+    - fetch up to 5th level nested categories `children`
+
+- Updated dependencies [60af3cb0]
+  - @vue-storefront/magento-types@1.1.0-rc.1
+
 ## 2.5.0-rc.0
 
 ### Minor Changes

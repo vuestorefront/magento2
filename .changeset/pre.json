@@ -9,6 +9,7 @@
     "@vue-storefront/magento-sdk": "2.1.0"
   },
   "changesets": [
+    "chatty-beds-grin",
     "tidy-kangaroos-deliver"
   ]
 }
