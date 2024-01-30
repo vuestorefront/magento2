@@ -8167,29 +8167,406 @@ export type ProductDetailsQueryVariables = Exact<{
 type A = ProductDetailsQuery['products']['items']
 export type ProductDetailsQuery = {
   products?: {
-    items?: Array<{
-      uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, items?: Array<{
-        position?: number | null | undefined, required?: boolean | null | undefined, sku?: string | null | undefined, title?: string | null | undefined, type?: string | null | undefined, uid?: string | null | undefined, options?: Array<{
-          can_change_quantity?: boolean | null | undefined, is_default?: boolean | null | undefined, position?: number | null | undefined, uid: string, quantity?: number | null | undefined, product?: { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | null | undefined
-        } | null | undefined> | null | undefined
-      } | null | undefined> | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | {
-      uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, configurable_options?: Array<{ attribute_code?: string | null | undefined, attribute_uid: string, label?: string | null | undefined, position?: number | null | undefined, uid: string, use_default?: boolean | null | undefined, values?: Array<{ label?: string | null | undefined, uid?: string | null | undefined, swatch_data?: { value?: string | null | undefined } | { value?: string | null | undefined } | { value?: string | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, configurable_product_options_selection?: {
-        options_available_for_selection?: Array<{ attribute_code: string, option_value_uids: Array<string | null | undefined> } | null | undefined> | null | undefined, media_gallery?: Array<{ disabled?: boolean | null | undefined, label?: string | null | undefined, position?: number | null | undefined, url?: string | null | undefined } | { disabled?: boolean | null | undefined, label?: string | null | undefined, position?: number | null | undefined, url?: string | null | undefined } | null | undefined> | null | undefined, variant?: { uid: string, sku?: string | null | undefined, name?: string | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } } } | null | undefined
-      } | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | {
-      uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, downloadable_product_samples?: Array<{ sample_url?: string | null | undefined, title?: string | null | undefined } | null | undefined> | null | undefined, downloadable_product_links?: Array<{ id?: number | null | undefined, price?: number | null | undefined, title?: string | null | undefined, uid: string } | null | undefined> | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | {
-      uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, items?: Array<{
-        position?: number | null | undefined, qty?: number | null | undefined, product?: { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | { uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined } | null | undefined
-      } | null | undefined> | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | {
-      uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | {
-      gift_message_available?: string | null | undefined, uid: string, sku?: string | null | undefined, name?: string | null | undefined, stock_status?: ProductStockStatus | null | undefined, only_x_left_in_stock?: number | null | undefined, url_key?: string | null | undefined, rating_summary: number, review_count: number, meta_description?: string | null | undefined, meta_keyword?: string | null | undefined, meta_title?: string | null | undefined, options_container?: string | null | undefined, special_to_date?: string | null | undefined, product_links?: Array<{ link_type?: string | null | undefined, linked_product_sku?: string | null | undefined, linked_product_type?: string | null | undefined, position?: number | null | undefined, sku?: string | null | undefined } | null | undefined> | null | undefined, thumbnail?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, url_rewrites?: Array<{ url?: string | null | undefined } | null | undefined> | null | undefined, price_range: { maximum_price?: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } | null | undefined, minimum_price: { final_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined }, regular_price: { currency?: CurrencyEnum | null | undefined, value?: number | null | undefined } } }, categories?: Array<{ uid: string, name?: string | null | undefined, url_suffix?: string | null | undefined, url_path?: string | null | undefined, breadcrumbs?: Array<{ category_name?: string | null | undefined, category_url_path?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined> | null | undefined, reviews: { items: Array<{ average_rating: number, ratings_breakdown: Array<{ name: string, value: string } | null | undefined> } | null | undefined> }, small_image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, image?: { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined, media_gallery?: Array<{ url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | { url?: string | null | undefined, position?: number | null | undefined, disabled?: boolean | null | undefined, label?: string | null | undefined } | null | undefined> | null | undefined, description?: { html: string } | null | undefined, short_description?: { html: string } | null | undefined
-    } | null | undefined> | null | undefined
-  } | null | undefined
+    items?: Array<
+      | {
+          __typename: "BundleProduct";
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | {
+          __typename: "ConfigurableProduct";
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          configurable_options?: Array<{
+            attribute_code?: string | null;
+            attribute_uid: string;
+            label?: string | null;
+            position?: number | null;
+            uid: string;
+            use_default?: boolean | null;
+            values?: Array<{
+              label?: string | null;
+              uid?: string | null;
+              swatch_data?: { value?: string | null } | { value?: string | null } | { value?: string | null } | null;
+            } | null> | null;
+          } | null> | null;
+          variants?: Array<{
+            attributes?: Array<{ code?: string | null; label?: string | null; uid: string; value_index?: number | null } | null> | null;
+            product?: {
+              uid: string;
+              sku?: string | null;
+              name?: string | null;
+              only_x_left_in_stock?: number | null;
+              price_range: {
+                minimum_price: {
+                  final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                  regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                };
+              };
+              media_gallery?: Array<{ label?: string | null; url?: string | null } | { label?: string | null; url?: string | null } | null> | null;
+            } | null;
+          } | null> | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | {
+          __typename: "DownloadableProduct";
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          downloadable_product_samples?: Array<{ sample_url?: string | null; title?: string | null } | null> | null;
+          downloadable_product_links?: Array<{ id?: number | null; price?: number | null; title?: string | null; uid: string } | null> | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | {
+          __typename: "GroupedProduct";
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          items?: Array<{
+            position?: number | null;
+            qty?: number | null;
+            product?:
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | {
+                  uid: string;
+                  sku?: string | null;
+                  name?: string | null;
+                  stock_status?: ProductStockStatus | null;
+                  only_x_left_in_stock?: number | null;
+                  price_range: {
+                    maximum_price?: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    } | null;
+                    minimum_price: {
+                      final_price: { currency?: CurrencyEnum | null; value?: number | null };
+                      regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+                    };
+                  };
+                  thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+                }
+              | null;
+          } | null> | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | {
+          __typename: "SimpleProduct";
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | {
+          __typename: "VirtualProduct";
+          gift_message_available?: string | null;
+          uid: string;
+          sku?: string | null;
+          name?: string | null;
+          url_key?: string | null;
+          rating_summary: number;
+          review_count: number;
+          meta_description?: string | null;
+          meta_keyword?: string | null;
+          meta_title?: string | null;
+          options_container?: string | null;
+          special_to_date?: string | null;
+          product_links?: Array<{
+            link_type?: string | null;
+            linked_product_sku?: string | null;
+            linked_product_type?: string | null;
+            position?: number | null;
+            sku?: string | null;
+          } | null> | null;
+          thumbnail?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          url_rewrites?: Array<{ url?: string | null } | null> | null;
+          categories?: Array<{
+            uid: string;
+            name?: string | null;
+            url_suffix?: string | null;
+            url_path?: string | null;
+            url_key?: string | null;
+            breadcrumbs?: Array<{ category_name?: string | null; category_url_path?: string | null } | null> | null;
+          } | null> | null;
+          reviews: { items: Array<{ average_rating: number; ratings_breakdown: Array<{ name: string; value: string } | null> } | null> };
+          small_image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          image?: { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null } | null;
+          media_gallery?: Array<
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | { url?: string | null; position?: number | null; disabled?: boolean | null; label?: string | null }
+            | null
+          > | null;
+          description?: { html: string } | null;
+          short_description?: { html: string } | null;
+          price_range: {
+            minimum_price: {
+              final_price: { currency?: CurrencyEnum | null; value?: number | null };
+              regular_price: { currency?: CurrencyEnum | null; value?: number | null };
+            };
+          };
+        }
+      | null
+    > | null;
+  } | null;
 };
+
+
 
 export type ProductReviewQueryVariables = Exact<{
   search?: InputMaybe<Scalars['String']>;
