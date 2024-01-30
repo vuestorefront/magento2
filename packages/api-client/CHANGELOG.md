@@ -1,5 +1,17 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.2
+
+### Patch Changes
+
+- 624be6ac: **[CHANGED]** Enhanced default GQL queries
+
+  - [`ProductDetailsQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ProductDetailsQuery)
+    - enhanced [`ConfigurableProduct`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ConfigurableProduct) response with [`ConfigurableVariants`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ConfigurableVariants)
+
+- Updated dependencies [624be6ac]
+  - @vue-storefront/magento-types@1.1.0-rc.2
+
 ## 2.5.0-rc.1
 
 ### Patch Changes

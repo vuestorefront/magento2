@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "2.5.0-rc.1",
+  "version": "2.5.0-rc.2",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -25,7 +25,7 @@
     "@apollo/client": "3.8.7",
     "@nuxtjs/composition-api": "0.31.0",
     "@vue-storefront/middleware": "^3.5.0",
-    "@vue-storefront/magento-types": "1.1.0-rc.1",
+    "@vue-storefront/magento-types": "1.1.0-rc.2",
     "agentkeepalive": "^4.2.1",
     "consola": "^3.1.0",
     "dotenv": "^16.0.1",
