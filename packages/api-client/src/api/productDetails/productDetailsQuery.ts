@@ -30,6 +30,7 @@ export default `
           name
           url_suffix
           url_path
+          url_key
           breadcrumbs {
             category_name,
             category_url_path
@@ -85,6 +86,18 @@ export default `
         }
         options_container
         special_to_date
+        price_range {
+          minimum_price {
+            final_price {
+              currency
+              value
+            }
+            regular_price {
+              currency
+              value
+            }
+          }
+        }
         ... on ConfigurableProduct {
           configurable_options {
             attribute_code
@@ -99,6 +112,36 @@ export default `
                 value
               }
               uid
+            }
+          }
+          variants {
+            attributes {
+              code
+              label
+              uid
+              value_index
+            }
+            product {
+              uid
+              sku
+              name
+              only_x_left_in_stock
+              price_range {
+                minimum_price {
+                  final_price {
+                    currency
+                    value
+                  }
+                  regular_price {
+                    currency
+                    value
+                  }
+                }
+              }
+              media_gallery{
+                label
+                url
+              }
             }
           }
         }
