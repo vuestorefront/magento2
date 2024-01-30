@@ -10,6 +10,7 @@
   },
   "changesets": [
     "chatty-beds-grin",
+    "chilly-lizards-fix",
     "tidy-kangaroos-deliver"
   ]
 }
