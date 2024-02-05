@@ -12,6 +12,10 @@ export default gql`
           code
         }
         prices {
+          subtotal_with_discount_excluding_tax {
+            value
+            currency
+          }
           subtotal_excluding_tax {
             value
             currency
