@@ -1,5 +1,33 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.3
+
+### Patch Changes
+
+- 64bcbe02: **[CHANGED]** Enhanced default GQL queries with new fields
+
+  - [`CartQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CartQuery)
+  - [`CustomerCartQuery`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CustomerCartQuery)
+  - [`ApplyCouponToCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/ApplyCouponToCartMutation)
+  - [`RemoveCouponFromCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/RemoveCouponFromCartMutation)
+  - [`AddProductsToCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/AddProductsToCartMutation)
+  - [`RemoveItemFromCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/RemoveItemFromCartMutation)
+  - [`SetShippingMethodsOnCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/SetShippingMethodsOnCartMutation)
+  - [`MergeCartsMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/MergeCartsMutation)
+
+  with new fields:
+
+  - `prices`
+    - `subtotal_with_discount_excluding_tax`
+  - `configured_variant`
+    - `sku`
+    - `name`
+    - `only_x_left_in_stock`
+    - `price_range`
+
+- Updated dependencies [64bcbe02]
+  - @vue-storefront/magento-types@1.1.0-rc.3
+
 ## 2.5.0-rc.2
 
 ### Patch Changes
