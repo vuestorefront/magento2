@@ -8004,7 +8004,30 @@ export type CreateCustomerAddressMutationVariables = Exact<{
   input: CustomerAddressInput;
 }>;
 
-export type CreateCustomerAddressMutation = { createCustomerAddress?: { id?: number | null | undefined, country_code?: CountryCodeEnum | null | undefined, street?: Array<string | null | undefined> | null | undefined, telephone?: string | null | undefined, postcode?: string | null | undefined, city?: string | null | undefined, default_shipping?: boolean | null | undefined, default_billing?: boolean | null | undefined, vat_id?: string | null | undefined, region?: { region?: string | null | undefined, region_id?: number | null | undefined, region_code?: string | null | undefined } | null | undefined } | null | undefined };
+export type CreateCustomerAddressMutation = {
+  createCustomerAddress?:
+    | {
+        firstname?: string | null | undefined;
+        lastname?: string | null | undefined;
+        prefix?: string | null | undefined;
+        suffix?: string | null | undefined;
+        id?: number | null | undefined;
+        country_code?: CountryCodeEnum | null | undefined;
+        street?: Array<string | null | undefined> | null | undefined;
+        telephone?: string | null | undefined;
+        postcode?: string | null | undefined;
+        city?: string | null | undefined;
+        default_shipping?: boolean | null | undefined;
+        default_billing?: boolean | null | undefined;
+        vat_id?: string | null | undefined;
+        region?:
+          | { region?: string | null | undefined; region_id?: number | null | undefined; region_code?: string | null | undefined }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
 
 export type CreateEmptyCartMutationVariables = Exact<{ [key: string]: never; }>;
 
