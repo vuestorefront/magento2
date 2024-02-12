@@ -1,5 +1,22 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.4
+
+### Patch Changes
+
+- e8d07f3b: **[FIXED]** [`updateCustomerAddress`](https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomerAddress) method declaration argument type. Use `id` instead of `addressId`.
+
+  **[CHANGED]** Enhanced default GQL queries
+
+  - [`CreateCustomerAddress`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/CreateCustomerAddress) response with fields
+    - `firstname`
+    - `lastname`
+    - `prefix`
+    - `suffix`
+
+- Updated dependencies [e8d07f3b]
+  - @vue-storefront/magento-types@1.1.0-rc.4
+
 ## 2.5.0-rc.3
 
 ### Patch Changes
