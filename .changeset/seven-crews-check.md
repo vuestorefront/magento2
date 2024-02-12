@@ -3,7 +3,7 @@
 "@vue-storefront/magento-types": patch
 ---
 
-**[FIXED]** [`updateCustomerAddress`](https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomerAddress) method declaration id argument
+**[FIXED]** [`updateCustomerAddress`](https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomerAddress) method declaration argument type. Use `id` instead of `addressId`.
 
 **[CHANGED]** Enhanced default GQL queries
 
