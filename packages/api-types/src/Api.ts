@@ -494,7 +494,7 @@ export interface MagentoApiMethods {
   ): Promise<FetchResult<UpdateCustomerMutation>>;
 
   updateCustomerAddress(
-    input: { addressId: number; input: CustomerAddressInput; },
+    input: { id: number; input: CustomerAddressInput; },
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
   ): Promise<FetchResult<UpdateCustomerAddressMutation>>;

@@ -56,7 +56,7 @@ describe(describeGroup('createCustomerAddress'), () => {
       },
     };
 
-    const expected = { data: { createCustomerAddress: { __typename: 'CustomerAddress', city: 'city', id: 310 } } };
+    const expected = { data: { createCustomerAddress: { __typename: 'CustomerAddress', city: 'city', id: 354 } } };
 
     const result = await sdk.magento.createCustomerAddress(address, {
       customQuery,
