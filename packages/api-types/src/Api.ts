@@ -354,7 +354,7 @@ export interface MagentoApiMethods {
   ): Promise<ApolloQueryResult<GuestAvailablePaymentMethodsQuery>>;
 
   getAvailableShippingMethods(
-    params: { cartId: string },
+    params: { cart_id: string },
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>>;
