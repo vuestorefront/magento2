@@ -1,5 +1,11 @@
 # @vue-storefront/magento-types
 
+## 1.1.0-rc.5
+
+### Patch Changes
+
+- 523488c0: **[FIXED]** [`getAvailableShippingMethods`](https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableShippingMethods) method declaration argument type. Using `cart_id` instead of `cartId`.
+
 ## 1.1.0-rc.4
 
 ### Patch Changes
