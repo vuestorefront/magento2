@@ -1,5 +1,5 @@
 {
-  "mode": "exit",
+  "mode": "pre",
   "tag": "rc",
   "initialVersions": {
     "@vue-storefront/magento-api": "2.4.3",
