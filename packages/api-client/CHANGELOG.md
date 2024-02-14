@@ -1,5 +1,12 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.5
+
+### Patch Changes
+
+- Updated dependencies [523488c0]
+  - @vue-storefront/magento-types@1.1.0-rc.5
+
 ## 2.5.0-rc.4
 
 ### Patch Changes
