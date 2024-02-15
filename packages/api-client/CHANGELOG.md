@@ -1,5 +1,29 @@
 # @vue-storefront/magento-api
 
+## 2.5.0-rc.6
+
+### Patch Changes
+
+- f0d4ad7a: **[CHANGED]** Enhanced default GQL queries with new fields
+
+  - [`SetGuestEmailOnCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/SetBillingAddressOnCartMutation)
+  - [`SetBillingAddressOnCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/SetBillingAddressOnCartMutation)
+  - [`SetPaymentMethodOnCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/SetPaymentMethodOnCartMutation)
+  - [`SetShippingAddressesOnCartMutation`](https://docs.vuestorefront.io/integrations/magento/api/magento-types/SetShippingAddressesOnCartMutation)
+
+  with new fields:
+
+  - `prices`
+    - `subtotal_with_discount_excluding_tax`
+  - `configured_variant`
+    - `sku`
+    - `name`
+    - `only_x_left_in_stock`
+    - `price_range`
+
+- Updated dependencies [f0d4ad7a]
+  - @vue-storefront/magento-types@1.1.0-rc.6
+
 ## 2.5.0-rc.5
 
 ### Patch Changes
