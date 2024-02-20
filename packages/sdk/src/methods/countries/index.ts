@@ -20,10 +20,10 @@ export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQ
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.countries | countries } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/countries | countries } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#countries | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/countries | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -32,7 +32,7 @@ export type CountriesResponse<T extends DeepPartial<CountriesQuery> = CountriesQ
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CountriesResponse | CountriesResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CountriesResponse | CountriesResponse}.
  *
  * @example
  * Simple usage:

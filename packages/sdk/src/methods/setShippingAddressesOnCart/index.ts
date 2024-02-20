@@ -23,10 +23,10 @@ export type SetShippingAddressesOnCartResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.setShippingAddressOnCart | setShippingAddressOnCart } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/setShippingAddressOnCart | setShippingAddressOnCart } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#setShippingAddressOnCart | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/setShippingAddressOnCart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -39,7 +39,7 @@ export type SetShippingAddressesOnCartResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SetShippingAddressesOnCartResponse | SetShippingAddressesOnCartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/SetShippingAddressesOnCartResponse | SetShippingAddressesOnCartResponse}.
  *
  * @example
  * Simple usage:

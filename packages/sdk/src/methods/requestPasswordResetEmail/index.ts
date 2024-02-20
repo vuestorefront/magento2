@@ -11,7 +11,7 @@ import { CustomQuery, MethodOptions } from '../../types';
 export type RequestPasswordResetEmailMutation = { requestPasswordResetEmail: Mutation['requestPasswordResetEmail'] };
 
 /**
- * Parameter object for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | requestPasswordResetEmail } method.
+ * Parameter object for the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/requestPasswordResetEmail | requestPasswordResetEmail } method.
  */
 export type RequestPasswordResetEmailInput = {
   email: string;
@@ -29,10 +29,10 @@ export type RequestPasswordResetEmailResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.requestPasswordResetEmail | requestPasswordResetEmail } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/requestPasswordResetEmail | requestPasswordResetEmail } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#requestPasswordResetEmail | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/requestPasswordResetEmail | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -45,7 +45,7 @@ export type RequestPasswordResetEmailResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RequestPasswordResetEmailResponse | RequestPasswordResetEmailResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/RequestPasswordResetEmailResponse | RequestPasswordResetEmailResponse}.
  *
  * @example
  * Simple usage:

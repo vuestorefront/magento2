@@ -11,7 +11,7 @@ import { CustomQuery, MethodOptions } from '../../types';
 export type ChangeCustomerPasswordMutation = { changeCustomerPassword: Mutation['changeCustomerPassword'] };
 
 /**
- * Parameters for the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | changeCustomerPassword } method.
+ * Parameters for the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/changeCustomerPassword | changeCustomerPassword } method.
  */
 export type ChangeCustomerPasswordInput = { currentPassword: string; newPassword: string };
 
@@ -27,10 +27,10 @@ export type ChangeCustomerPasswordResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.changeCustomerPassword | changeCustomerPassword } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/changeCustomerPassword | changeCustomerPassword } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#changeCustomerPassword | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/changeCustomerPassword | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -43,7 +43,7 @@ export type ChangeCustomerPasswordResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ChangeCustomerPasswordResponse | ChangeCustomerPasswordResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/ChangeCustomerPasswordResponse | ChangeCustomerPasswordResponse}.
  *
  * @example
  * Simple usage, change customer password:
