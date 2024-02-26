@@ -23,10 +23,10 @@ export type UpdateCustomerAddressResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCustomerAddress | updateCustomerAddress } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomerAddress | updateCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#updateCustomerAddress | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -39,7 +39,7 @@ export type UpdateCustomerAddressResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpdateCustomerAddressResponse | UpdateCustomerAddressResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/UpdateCustomerAddressResponse | UpdateCustomerAddressResponse}.
  *
  * @example
  * Simple usage:

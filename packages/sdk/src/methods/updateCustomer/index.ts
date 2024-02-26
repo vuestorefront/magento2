@@ -22,10 +22,10 @@ export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation>
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.updateCustomer | updateCustomer } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomer | updateCustomer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#updateCustomer | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/updateCustomer | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -38,7 +38,7 @@ export type UpdateCustomerResponse<T extends DeepPartial<UpdateCustomerMutation>
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpdateCustomerResponse | UpdateCustomerResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/UpdateCustomerResponse | UpdateCustomerResponse}.
  *
  * @example
  * Simple usage:

@@ -20,10 +20,10 @@ export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQue
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cmsBlocks | cmsBlocks } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/cmsBlocks | cmsBlocks } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#cmsBlocks | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/cmsBlocks | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -36,7 +36,7 @@ export type CmsBlocksResponse<T extends DeepPartial<CmsBlockQuery> = CmsBlockQue
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CmsBlocksResponse | CmsBlocksResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CmsBlocksResponse | CmsBlocksResponse}.
  *
  * @example
  * Simple usage:

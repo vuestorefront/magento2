@@ -21,10 +21,10 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.upsellProducts | upsellProducts} endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/upsellProducts | upsellProducts} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#upsellProductQuery | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/upsellProductQuery | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -37,7 +37,7 @@ export type UpsellProductsResponse<T extends DeepPartial<UpsellProductsQuery> = 
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#UpsellProductsResponse | UpsellProductsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/UpsellProductsResponse | UpsellProductsResponse}.
  *
  * @example
  * Simple usage without filters, sorting or pagination:

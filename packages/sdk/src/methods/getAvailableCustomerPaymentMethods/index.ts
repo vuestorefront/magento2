@@ -22,10 +22,10 @@ export type GetAvailableCustomerPaymentMethodsResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableCustomerPaymentMethods | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableCustomerPaymentMethods | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -34,7 +34,7 @@ export type GetAvailableCustomerPaymentMethodsResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetAvailableCustomerPaymentMethodsResponse | GetAvailableCustomerPaymentMethodsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/GetAvailableCustomerPaymentMethodsResponse | GetAvailableCustomerPaymentMethodsResponse}.
  *
  * @example
  * Simple usage:

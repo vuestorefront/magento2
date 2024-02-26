@@ -22,10 +22,10 @@ export type SubscribeEmailToNewsletterResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/subscribeEmailToNewsletter | subscribeEmailToNewsletter } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#subscribeEmailToNewsletter | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/subscribeEmailToNewsletter | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -38,7 +38,7 @@ export type SubscribeEmailToNewsletterResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#SubscribeEmailToNewsletterResponse | SubscribeEmailToNewsletterResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/SubscribeEmailToNewsletterResponse | SubscribeEmailToNewsletterResponse}.
  *
  * @example
  * Simple usage:
