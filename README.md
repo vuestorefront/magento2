@@ -1,5 +1,7 @@
 <div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
+    <img src="https://res.cloudinary.com/vue-storefront/image/upload/v1710754524/Logo_green_2x_z4vmhz.png" height="80px"/>
+    <br>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
 
@@ -12,25 +14,25 @@
 
 
 
-**This repository contains integration for Magento 2 and Vue Storefront Middleware.**
+**This repository contains integration for Magento 2 and Alokai Middleware.**
 This integration is framework-agnostic and may be consumed in the framework of your choice.
 
-## Magento 2 integration for Vue Storefront
+## Magento 2 integration for Alokai
 
-This project is a Magento 2 integration for Vue Storefront.
+This project is a Magento 2 integration for Alokai.
 
  ### Check out [the docs](https://docs.vuestorefront.io/sdk-magento2/)
 
 # Quick start
 
-Your Vue Storefront application has two parts:
+Your Alokai application has two parts:
 
 1. **Server Middleware** - an Express.js application that can connect to your various third-party services (like Magento).
 
 
 2. **Front-end application** - any application using JavaScript or TypeScript that can connect to the server middleware. Popular choices include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
 
-In this section, we will explain in a step-by-step guide how to use Magento 2 integration in each part of your Vue Storefront application.
+In this section, we will explain in a step-by-step guide how to use Magento 2 integration in each part of your Alokai application.
 
 
 ## Prerequisites
@@ -271,7 +273,7 @@ Find more information about the module [GraphQl Custom Config](https://github.co
 ## Resources
 
 - [Magento 2 integration Documentation](https://docs.vuestorefront.io/sdk-magento2/)
-- [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
+- [Alokai Documentation](https://docs.vuestorefront.io/v2/)
 - [Community Chat](http://discord.vuestorefront.io)
 
 ## Support
