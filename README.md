@@ -278,7 +278,7 @@ Find more information about the module [GraphQl Custom Config](https://github.co
 
 ## Support
 
-If you have any questions about this integration we will be happy to answer them on  `magento2-vsf2` channel on [our Discord](http://discord.vuestorefront.io).
+If you have any questions about this integration we will be happy to answer them on  `magento2-alokai` channel on [our Discord](http://discord.vuestorefront.io).
 
 ## Contributors ✨
 
