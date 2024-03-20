@@ -23,8 +23,8 @@ Please run tests locally before running on the cloud or comitting them to make s
 
 #### Accessing K6 web dashboard
 Before you ask the K6 cloud to run the tests for you, please make sure that:
-1. You logged in at [app.k6.io](https://app.k6.io) with your VSF Google domain account
-2. You were invited to the VSF K6 organization (K6 won't automatically add you to it - even though you're using your domain account) - ask Miłosz if you don't have access
+1. You logged in at [app.k6.io](https://app.k6.io) with your Alokai Google domain account
+2. You were invited to the Alokai K6 organization (K6 won't automatically add you to it - even though you're using your domain account) - ask Miłosz if you don't have access
 3. In the sidebar in the top right, select the "Magento" project.
 That way you'll be able to access the test results.
 

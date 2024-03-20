@@ -1,14 +1,17 @@
 <div align="center">
-<img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" height="80px"/>  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
+    <img src="https://res.cloudinary.com/vue-storefront/image/upload/v1710754524/Logo_green_2x_z4vmhz.png" height="80px"/>
+    <br>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
-## Vue Storefront 2 integration with Magento
 
-### @vue-storefront/magento-api
+## Alokai integration with Magento
+
+### @alokai/magento-api
 
 This is only the **api-client** package, you need to install the other dependencies also.
 
-This project is a Magento 2 integration for Vue Storefront 2.
+This project is a Magento 2 integration for Alokai.
 This integration developed by superheroes from [Caravel](https://github.com/caravelx) ❤️
 <div align="center">
 <img src="https://user-images.githubusercontent.com/1626923/127100067-98eda368-94e3-47dd-b824-842d38dc8550.png" height="80px"/>
@@ -81,7 +84,7 @@ Find more information about the module [GraphQl Custom Config](https://github.co
 
 ## Resources
 
-- [Vue Storefront Documentation](https://docs.vuestorefront.io/v2/)
+- [Alokai Documentation](https://docs.vuestorefront.io/v2/)
 - [Magento 2 integration Documentation (WIP)](https://docs.vuestorefront.io/magento)
 - [Community Chat](http://discord.vuestorefront.io)
 
