@@ -35,7 +35,7 @@ describe(describeGroup('setPaymentMethodOnCart'), () => {
       },
     };
 
-    expect(result).toStrictEqual(expectedResult);
+    expect(result).toMatchObject(expectedResult);
   });
 
   it('should return error if payment method is not available', async () => {

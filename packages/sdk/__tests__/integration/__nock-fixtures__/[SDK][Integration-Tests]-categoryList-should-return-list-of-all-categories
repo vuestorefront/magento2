@@ -2,21 +2,21 @@
     {
         "scope": "https://magento2-instance.vuestorefront.io:443",
         "method": "GET",
-        "path": "/graphql?query=query+categoryList%7Bcategories%7Bitems%7Bchildren%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_path+url_suffix+__typename%7D__typename%7D__typename%7Dproduct_count+name+uid+__typename%7D__typename%7D%7D&operationName=categoryList&variables=%7B%7D",
+        "path": "/graphql?query=query+categoryList%7Bcategories%7Bitems%7Bchildren%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+__typename%7D__typename%7D__typename%7D__typename%7Dproduct_count+name+uid+__typename%7D__typename%7D%7D&operationName=categoryList&variables=%7B%7D",
         "body": "",
         "status": 200,
         "response": [
-            "1f8b0800000000000003d5985d6fda301486ff0af2c5764346f9e8d621f5a26cdd9754b48e4cd534a6c84b0ec410ec2c76c6ba8aff3e93d038311986523e7a8793f8cdfb38c7e725b9431e1618b5ef908b050c594480cf4744c044fef82e8ffb24f022a0c9805037883d700875264063d43ea922c21d4c5d9f45c92880df10a076a38a289e006aa31b1f8be7bcd28529aaa29071220893627539889817bbc271594c453239269e9c71f577782eaf8da3c009b1f0e591a9d4b008b76822323fc1e3c180fc91a75ef86212c883399b3faac871c46d080b076f52b25b3b0240b36a0945bd40512fa360f2ca02406309e0d5694630bad00916f34dde3730d7ccccd92ce486c53d55ab3bba2cf3d6af09a962edc0672bf3f909bb631026abf586b27a65b2daaf8d52d1d5ce1fa91e14ca07c63cb9552acf2abd2960c17d126960cbf59107bb3683f9e92d2c4c3d8bab9bec19d40628723557727d357309a9b867884e84e78fcac6745c84692dc3b414ccb73560e6920fa679bc4ea59a418709c126a65a6ce47ad5c772cc9fa9d06e5bc2674ccd0da1a9bcba6b78edd7c2b9ea9e6bac27cf6cd4029642ae148527b23baab06debaf2cefafb49c2ce917aaf66c3d8b0e9b92ad33e54cdf156aeb1f3e21ebcaa61e24059b2a1d8f3e1bd51eb7f50cd190fe978bc79b8ab61e241a5192887bb5bf4e10e6fceb5d57f79f84e0938b4095f4b6fe3fb3d0890f1d7fb907a16786eef33efa8e39f8ecb11162117a4f25f2de038e0cbba9a9fadbf45ce31fa6d377127a1d3c34d657b60fba1765d6e4b34945f6f7deadfcbf238202e795cb5f3109e52461aab3ec3db77b5d0e3348152dc8291e82ec060bd737a6c8eb0c67588e33cd64b683d81cd1fce9a7870328f0bd5cf5d1470f199ecede1a4baf90b393cce05b18e0381095fb39287393aef603d6eb0b70a98866b3d93ffacb7e935b130000"
+            "1f8b0800000000000003d598516fda3010c7bf0af2c3f6026301da75487d285bb77512688c54d534a6c84d0c3184248b9d3156f1dde7101a3b8e8bb39685f216db77a7fb9dcff65fb9030ea41074ef800d299a0611462419618a16ece33b9b77b1e744c8df0cb06f7bb1832cec5b0be4c7a0fbba0e30b1a06fbb41b41979e817f240b755073e5c20d005372ea42f496d8096a00ec280608a0316cc60832870629b5a7610fb74e31c638779f4ff4ccf996d1c79d61cadd8c492856860d2f0373192f9105257b940e2c904ff664baf5cbaf0d8a490fe8f3ab02cba0ad136b37729f1ca8c1002ebba82cec8d1192aba8059e6c05a05b037a719d9ec4222dbba8b4cc2d42e9a7f48b79da56b0621d16cc309df87d9653e5bcabc1b0fa53c6e1696f7947e274bff33b4e788ea088c1627e8e7096669805210e3a6caba9a06e3c89f82c06167b2f6a2365a2248898b23a900c586130b30cc17c04dc335a0ef34080f58b22065bcab2e908950be1eed9df5b8965a9a7997842f98564dda8b60d20726f4e779e24e91b8c389bf49c4897b59e482ede399f757117e9df5024a8385ee38b484fbf72a5f8cdb34c08e72a82cf67eaf7d81befe566b730a3b4f1126ee6519c6cda279d59d3c622bfa5b4c00960401d9f8972756d8ffaf467e6ab95412aa2f490cc50d7792d5ca941eed42890e2b2f3a673cd32b85bc50a5bbbd940e2f2c0c9efb502d2c76a7cf25c591090a7e14cdeb7282425708bddff31612a6fcac26ea40072d19554e5846390888b64a39681925aba3540c5c3e997db5625097a1b87a18ad206ce254a515b4d9dfab84e7ae1104d0b9522394202d581e9336f88860a439d26d7e7b2fcff3459aa6de42798499bdcb831e9c6a3b373b79830b29d7dbd45bca95ed259fafa64739d0074c7d4448edf2678c43e64475ed9afd5b190c25ba491aaa81845005d4878caae6be81d476b5afe5db0c762ac12e33ff02627ea9cac743ff2b73043d94633eddf513537a3d49ea2c000b334fe2949becccc8327e8f2630f668edde0764e9a55bf288027e45844504ebf5fa2f3eca13063c160000"
         ],
         "rawHeaders": [
             "Server",
             "nginx/1.14.2",
             "Date",
-            "Mon, 17 Apr 2023 07:14:08 GMT",
+            "Fri, 26 Jan 2024 10:25:48 GMT",
             "Content-Type",
             "application/json",
-            "Content-Length",
-            "686",
+            "Transfer-Encoding",
+            "chunked",
             "Connection",
             "keep-alive",
             "Vary",
@@ -34,9 +34,9 @@
             "Content-Encoding",
             "gzip",
             "X-Varnish",
-            "221410124 221355143",
+            "40839590",
             "Age",
-            "39249",
+            "0",
             "Pragma",
             "no-cache",
             "Expires",
