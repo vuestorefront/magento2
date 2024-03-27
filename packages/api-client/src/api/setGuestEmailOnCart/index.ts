@@ -18,7 +18,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - Custom query that will extend default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function setGuestEmailOnCart(
+export async function setGuestEmailOnCart(
   context: Context,
   input: SetGuestEmailOnCartInput,
   customQuery: CustomQuery = { setGuestEmailOnCart: "setGuestEmailOnCart" },

@@ -1,7 +1,7 @@
-const chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+const chars = "abcdefghijklmnopqrstuvwxyz1234567890";
 
 export const getEmail = (length = 15) => {
-  let string = '';
+  let string = "";
   for (let i = 0; i < length; i++) {
     string += chars[Math.floor(Math.random() * chars.length)];
   }

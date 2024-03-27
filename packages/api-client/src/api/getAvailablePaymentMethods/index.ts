@@ -12,7 +12,7 @@ import getHeaders from "../getHeaders";
  * @param cartId cart ID
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function getAvailablePaymentMethods(
+export async function getAvailablePaymentMethods(
   context: Context,
   cartId: string,
   customHeaders: CustomHeaders = {}

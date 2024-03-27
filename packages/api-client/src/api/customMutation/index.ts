@@ -4,7 +4,7 @@ import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async <MUTATION = any, MUTATION_VARIABLES = any>(
+export const customMutation = async <MUTATION = any, MUTATION_VARIABLES = any>(
   context: Context,
   {
     mutation,

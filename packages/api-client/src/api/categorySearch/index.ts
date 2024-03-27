@@ -15,7 +15,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function categorySearch(
+export async function categorySearch(
   context: Context,
   filters: CategorySearchQueryVariables,
   customQuery: CustomQuery = { categorySearch: "categorySearch" },

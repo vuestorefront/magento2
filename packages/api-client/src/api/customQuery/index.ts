@@ -4,7 +4,7 @@ import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async <QUERY = any, QUERY_VARIABLES = any>(
+export const customQuery = async <QUERY = any, QUERY_VARIABLES = any>(
   context: Context,
   {
     query,

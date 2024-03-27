@@ -12,7 +12,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function storeConfig(
+export async function storeConfig(
   context: Context,
   customQuery: CustomQuery = { storeConfig: "storeConfig" },
   customHeaders: CustomHeaders = {}

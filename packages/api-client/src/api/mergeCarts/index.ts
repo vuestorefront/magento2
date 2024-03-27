@@ -1,11 +1,11 @@
 import { FetchResult, gql } from "@apollo/client/core";
 import { CustomQuery, MergeCartsMutation, MergeCartsMutationVariables } from "@vue-storefront/magento-types";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
-import mergeCarts from "./mergeCarts";
+import mergeCartsQuery from "./mergeCarts";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export const mergeCarts = async (
   context: Context,
   params: {
     sourceCartId: string;
@@ -16,7 +16,7 @@ export default async (
 ): Promise<FetchResult<MergeCartsMutation>> => {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(customQuery, {
     mergeCarts: {
-      query: mergeCarts,
+      query: mergeCartsQuery,
       variables: {
         sourceCartId: params.sourceCartId,
         destinationCartId: params.destinationCartId,

@@ -15,7 +15,7 @@ import getHeaders from "../getHeaders";
  * @param input Params used to reset a user's password
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function resetPassword(
+export async function resetPassword(
   context: Context,
   input: ResetPasswordMutationVariables,
   customHeaders: CustomHeaders = {}

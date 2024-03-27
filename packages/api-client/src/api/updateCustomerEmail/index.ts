@@ -1,11 +1,11 @@
 import { FetchResult, gql } from "@apollo/client/core";
 import { CustomQuery, UpdateCustomerEmailMutation, UpdateCustomerEmailMutationVariables } from "@vue-storefront/magento-types";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
-import updateCustomerEmail from "./updateCustomerEmail";
+import updateCustomerEmailQuery from "./updateCustomerEmail";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export const updateCustomerEmail = async (
   context: Context,
   input: UpdateCustomerEmailMutationVariables,
   customQuery: CustomQuery = { updateCustomerEmail: "updateCustomerEmail" },
@@ -13,7 +13,7 @@ export default async (
 ): Promise<FetchResult<UpdateCustomerEmailMutation>> => {
   const { updateCustomerEmail: updateCustomerEmailGQL } = context.extendQuery(customQuery, {
     updateCustomerEmail: {
-      query: updateCustomerEmail,
+      query: updateCustomerEmailQuery,
       variables: { ...input },
     },
   });

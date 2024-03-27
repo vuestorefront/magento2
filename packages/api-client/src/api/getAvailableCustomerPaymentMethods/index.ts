@@ -6,7 +6,10 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 import CustomerAvailablePaymentMethods from "./CustomerPaymentMethods";
 
-export default async (context: Context, customHeaders: CustomHeaders = {}): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
+export const getAvailableCustomerPaymentMethods = async (
+  context: Context,
+  customHeaders: CustomHeaders = {}
+): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
       query: gql`

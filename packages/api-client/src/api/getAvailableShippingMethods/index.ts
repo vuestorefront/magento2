@@ -5,7 +5,7 @@ import { Context } from "../../types/context";
 import GuestAvailableShippingMethods from "./GuestAvailableShippingMethods";
 import getHeaders from "../getHeaders";
 
-export default async (
+export const getAvailableShippingMethods = async (
   context: Context,
   params: GuestAvailableShippingMethodsQueryVariables,
   customQuery: CustomQuery = { shippingMethods: "shippingMethods" },

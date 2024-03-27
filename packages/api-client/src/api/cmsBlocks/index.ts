@@ -14,7 +14,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] - (optional) - custom GraphQL query that extends the default cmsBlocks query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function getCmsBlocks(
+export async function getCmsBlocks(
   context: Context,
   identifiers: string,
   customQuery: CustomQuery = { cmsBlocks: "cmsBlocks" },
