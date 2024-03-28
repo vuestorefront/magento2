@@ -11,7 +11,7 @@ import getHeaders from "../getHeaders";
  * @param input params with the email to subscribe
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function subscribeEmailToNewsletter(
+export async function subscribeEmailToNewsletter(
   context: Context,
   { email }: SubscribeEmailToNewsletterMutationVariables,
   customHeaders: CustomHeaders = {}

@@ -12,7 +12,7 @@ import getHeaders from "../getHeaders";
  * @param customQuery custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function cart(
+export async function cart(
   context: Context,
   cartId: string,
   customQuery: CustomQuery = { cart: "cart" },

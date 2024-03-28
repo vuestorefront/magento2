@@ -1,9 +1,9 @@
 // This file contains functions that modify files in such a way that add a new SDK method
 
-const fsPromises = require('fs/promises');
-const path = require('path');
-const handlebars = require('handlebars');
-const utils = require('./utils');
+const fsPromises = require("fs/promises");
+const path = require("path");
+const handlebars = require("handlebars");
+const utils = require("./utils");
 
 /**
  * Creates 'src/methods/methodName/index.ts' with partially filled out content
@@ -14,22 +14,13 @@ const utils = require('./utils');
  * @param {string} methodName Name of the method to create
  */
 module.exports.createMethodImplementationFile = async (methodsDirectoryPath, methodName) => {
-  console.info('Creating method folder');
+  console.info("Creating method folder");
   const methodFolderPath = path.join(methodsDirectoryPath, methodName);
 
-  await fsPromises.mkdir(
-    methodFolderPath,
-  );
+  await fsPromises.mkdir(methodFolderPath);
 
   const template = handlebars.compile(
-    await fsPromises.readFile(
-      path.join(
-        __dirname,
-        'handlebars-templates',
-        'method-implementation-file.handlebars',
-      ),
-      { encoding: 'utf8' },
-    ),
+    await fsPromises.readFile(path.join(__dirname, "handlebars-templates", "method-implementation-file.handlebars"), { encoding: "utf8" })
   );
 
   const contents = template({
@@ -38,11 +29,8 @@ module.exports.createMethodImplementationFile = async (methodsDirectoryPath, met
     capitalizedMethodName: utils.capitalize(methodName),
   });
 
-  console.info('Creating method implementation file');
-  await fsPromises.writeFile(
-    path.join(methodFolderPath, 'index.ts'),
-    contents,
-  );
+  console.info("Creating method implementation file");
+  await fsPromises.writeFile(path.join(methodFolderPath, "index.ts"), contents);
 };
 
 /**
@@ -51,11 +39,8 @@ module.exports.createMethodImplementationFile = async (methodsDirectoryPath, met
  * @param {string} methodName
  */
 module.exports.patchMethodIndexFile = async (methodsDirectoryPath, methodName) => {
-  console.info('Adding method export to methods index.ts');
-  await fsPromises.appendFile(
-    path.join(methodsDirectoryPath, 'index.ts'),
-    `export { ${methodName} } from './${methodName}';`,
-  );
+  console.info("Adding method export to methods index.ts");
+  await fsPromises.appendFile(path.join(methodsDirectoryPath, "index.ts"), `export { ${methodName} } from './${methodName}';`);
 };
 
 /**
@@ -68,14 +53,7 @@ module.exports.patchMethodIndexFile = async (methodsDirectoryPath, methodName) =
  */
 module.exports.createMethodIntegrationTestFile = async (integrationTestDirectoryPath, methodName) => {
   const template = handlebars.compile(
-    await fsPromises.readFile(
-      path.join(
-        __dirname,
-        'handlebars-templates',
-        'method-integration-test-file.handlebars',
-      ),
-      { encoding: 'utf8' },
-    ),
+    await fsPromises.readFile(path.join(__dirname, "handlebars-templates", "method-integration-test-file.handlebars"), { encoding: "utf8" })
   );
 
   const contents = template({
@@ -84,11 +62,8 @@ module.exports.createMethodIntegrationTestFile = async (integrationTestDirectory
     capitalizedMethodName: utils.capitalize(methodName),
   });
 
-  console.info('Creating method integration test file');
-  await fsPromises.writeFile(
-    path.join(integrationTestDirectoryPath, `${methodName}.integration.spec.ts`),
-    contents,
-  );
+  console.info("Creating method integration test file");
+  await fsPromises.writeFile(path.join(integrationTestDirectoryPath, `${methodName}.integration.spec.ts`), contents);
 };
 
 /**
@@ -101,14 +76,7 @@ module.exports.createMethodIntegrationTestFile = async (integrationTestDirectory
  */
 module.exports.createMethodUnitTestFile = async (unitTestDirectoryPath, methodName) => {
   const template = handlebars.compile(
-    await fsPromises.readFile(
-      path.join(
-        __dirname,
-        'handlebars-templates',
-        'method-unit-test-file.handlebars',
-      ),
-      { encoding: 'utf8' },
-    ),
+    await fsPromises.readFile(path.join(__dirname, "handlebars-templates", "method-unit-test-file.handlebars"), { encoding: "utf8" })
   );
 
   const contents = template({
@@ -117,11 +85,8 @@ module.exports.createMethodUnitTestFile = async (unitTestDirectoryPath, methodNa
     capitalizedMethodName: utils.capitalize(methodName),
   });
 
-  console.info('Creating method unit test file');
-  await fsPromises.writeFile(
-    path.join(unitTestDirectoryPath, `${methodName}.unit.spec.ts`),
-    contents,
-  );
+  console.info("Creating method unit test file");
+  await fsPromises.writeFile(path.join(unitTestDirectoryPath, `${methodName}.unit.spec.ts`), contents);
 };
 
 /**
@@ -133,22 +98,12 @@ module.exports.createMethodUnitTestFile = async (unitTestDirectoryPath, methodNa
  * @param {string} methodName
  */
 module.exports.createMethodCustomQueryFile = async (customQueriesDirectoryPath, methodName) => {
-  const newCustomQueryFolderPath = path.join(
-    customQueriesDirectoryPath,
-    methodName,
-  );
+  const newCustomQueryFolderPath = path.join(customQueriesDirectoryPath, methodName);
 
   await fsPromises.mkdir(newCustomQueryFolderPath);
 
   const template = handlebars.compile(
-    await fsPromises.readFile(
-      path.join(
-        __dirname,
-        'handlebars-templates',
-        'method-custom-query-file.handlebars',
-      ),
-      { encoding: 'utf8' },
-    ),
+    await fsPromises.readFile(path.join(__dirname, "handlebars-templates", "method-custom-query-file.handlebars"), { encoding: "utf8" })
   );
 
   const contents = template({
@@ -157,11 +112,8 @@ module.exports.createMethodCustomQueryFile = async (customQueriesDirectoryPath, 
     capitalizedMethodName: utils.capitalize(methodName),
   });
 
-  console.info('Creating method custom query file');
-  await fsPromises.writeFile(
-    path.join(newCustomQueryFolderPath, 'index.ts'),
-    contents,
-  );
+  console.info("Creating method custom query file");
+  await fsPromises.writeFile(path.join(newCustomQueryFolderPath, "index.ts"), contents);
 };
 
 /**
@@ -175,21 +127,21 @@ module.exports.createMethodCustomQueryFile = async (customQueriesDirectoryPath, 
  * We need to read the file, modify its contents, then write to it again
  */
 module.exports.patchCustomQueriesIndexFile = async (customQueriesDirectoryPath, methodName) => {
-  console.info('Adding customQuery export to jest.customQueries.ts');
+  console.info("Adding customQuery export to jest.customQueries.ts");
 
-  const customQueriesIndexFile = path.join(customQueriesDirectoryPath, 'jest.customQueries.ts');
+  const customQueriesIndexFile = path.join(customQueriesDirectoryPath, "jest.customQueries.ts");
 
-  const contents = await fsPromises.readFile(customQueriesIndexFile, { encoding: 'utf8' });
+  const contents = await fsPromises.readFile(customQueriesIndexFile, { encoding: "utf8" });
 
   /**
    * @param {string} fileContents Contents of the `jest.customQueries.ts` file
    */
   const addNewCustomQuery = (fileContents) => {
     // like findIndex, but starts looking from the end of the array
-    const customQueriesObjectClosingBraceIndex = fileContents.lastIndexOf('}');
+    const customQueriesObjectClosingBraceIndex = fileContents.lastIndexOf("}");
 
     if (customQueriesObjectClosingBraceIndex === -1) {
-      throw new Error('Couldn\'t find closing brace in jest.customQueries.ts');
+      throw new Error("Couldn't find closing brace in jest.customQueries.ts");
     }
 
     const result = [...fileContents];
@@ -202,9 +154,9 @@ module.exports.patchCustomQueriesIndexFile = async (customQueriesDirectoryPath, 
         // replace 0 array items (append only) ...
         0,
         // add the following contents
-        ...`,\n  '${utils.kebabize(methodName)}-custom-query': ${methodName}`,
+        ...`,\n  '${utils.kebabize(methodName)}-custom-query': ${methodName}`
       )
-      .join('');
+      .join("");
 
     result.unshift(`import { ${methodName} } from './${methodName}';\n`);
 
@@ -213,6 +165,6 @@ module.exports.patchCustomQueriesIndexFile = async (customQueriesDirectoryPath, 
 
   const newContents = addNewCustomQuery(contents);
 
-  console.info('Patching jest.customQueries.ts');
+  console.info("Patching jest.customQueries.ts");
   await fsPromises.writeFile(customQueriesIndexFile, newContents);
 };

@@ -20,7 +20,7 @@ type Variables = {
 /**
  * Returns customer orders. To override the default query, use the `customerOrders` query key.
  */
-export default async (
+export const customerOrders = async (
   context: Context,
   searchParams: GetOrdersSearchParams,
   customQuery: CustomQuery = { customerOrders: "customerOrders" },

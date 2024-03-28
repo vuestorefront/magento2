@@ -19,7 +19,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function setShippingMethodsOnCart(
+export async function setShippingMethodsOnCart(
   context: Context,
   input: SetShippingMethodsOnCartInput,
   customQuery: CustomQuery = { setShippingMethodsOnCart: "setShippingMethodsOnCart" },

@@ -9,7 +9,7 @@ import {
   ProductReviewQueryVariables,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import productReview from "./productReview";
+import productReviewQuery from "./productReview";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -24,7 +24,7 @@ type Variables = {
 /**
  * Returns reviews of the provided product
  */
-export default async (
+export const productReview = async (
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { productReview: "productReview" },
@@ -49,7 +49,7 @@ export default async (
 
   const { productReview: productReviewGQL } = context.extendQuery(customQuery, {
     productReview: {
-      query: productReview,
+      query: productReviewQuery,
       variables,
     },
   });

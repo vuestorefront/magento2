@@ -15,7 +15,7 @@ import getHeaders from "../getHeaders";
  * @param input Email for which to request a password reset
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function requestPasswordResetEmail(
+export async function requestPasswordResetEmail(
   context: Context,
   input: RequestPasswordResetEmailMutationVariables,
   customHeaders: CustomHeaders = {}

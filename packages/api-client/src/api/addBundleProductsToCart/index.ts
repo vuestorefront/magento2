@@ -7,11 +7,11 @@ import type {
   CustomHeaders,
 } from "@vue-storefront/magento-types";
 
-import addBundleProductsToCart from "./addBundleProductsToCart";
+import addBundleProductsToCartQuery from "./addBundleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export const addBundleProductsToCart = async (
   context: Context,
   input: AddBundleProductsToCartInput,
   customQuery: CustomQuery = { addBundleProductsToCart: "addBundleProductsToCart" },
@@ -19,7 +19,7 @@ export default async (
 ): Promise<FetchResult<AddBundleProductsToCartMutation>> => {
   const { addBundleProductsToCart: addBundleProductsToCartGQL } = context.extendQuery(customQuery, {
     addBundleProductsToCart: {
-      query: addBundleProductsToCart,
+      query: addBundleProductsToCartQuery,
       variables: { input },
     },
   });

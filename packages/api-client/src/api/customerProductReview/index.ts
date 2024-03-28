@@ -7,7 +7,7 @@ import {
   CustomQuery,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import customerProductReview from "./customerProductReview";
+import customerProductReviewQuery from "./customerProductReview";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -17,7 +17,7 @@ import getHeaders from "../getHeaders";
  * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
  *
  */
-export default async (
+export const customerProductReview = async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: "reviews" },
@@ -35,7 +35,7 @@ export default async (
 
   const { reviews } = context.extendQuery(customQuery, {
     reviews: {
-      query: customerProductReview,
+      query: customerProductReviewQuery,
       variables,
     },
   });

@@ -13,7 +13,7 @@ import getHeaders from "../getHeaders";
  * @param input the order's input, containing the cart's ID
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function placeOrder(
+export async function placeOrder(
   context: Context,
   input: PlaceOrderInput,
   customHeaders: CustomHeaders = {}

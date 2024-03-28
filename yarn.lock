@@ -2982,10 +2982,10 @@
     ts-jest "^29.1.0"
     ts-node "^10.9.1"
 
-"@vue-storefront/middleware@^3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.5.0.tgz#54221d1419ce20c7433157827f3f572b84c36379"
-  integrity sha512-jn0pLSiytBSo8F8nPRQEVJGU3K7fkHq5NHvKEEwPQg2KyxMOB6atBTKkWzrIxehfEfATcjhO04+RyxW43QbFBg==
+"@vue-storefront/middleware@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-3.9.0.tgz#58ec3c0e5f6c0b706187f8a87c1ee014b92fa4e4"
+  integrity sha512-4NSga6xlPETMHeROHyANfv8282pV2viBHIW3ivytmxzdWJN1pLh/rwM9sKgPdpjhZF9mBAzxsRCo7KCf5R7Oyw==
   dependencies:
     consola "^2.15.3"
     cookie-parser "^1.4.6"

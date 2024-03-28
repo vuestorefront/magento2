@@ -14,7 +14,7 @@ import getHeaders from "../getHeaders";
 /**
  * Returns product reviews created by the current customer
  */
-export default async (
+export const reviews = async (
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: "reviews" },

@@ -30,7 +30,7 @@ type Variables = {
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function relatedProducts(
+export async function relatedProducts(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { relatedProducts: "relatedProducts" },

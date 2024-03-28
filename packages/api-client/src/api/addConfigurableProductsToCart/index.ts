@@ -17,7 +17,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function addConfigurableProductsToCart(
+export async function addConfigurableProductsToCart(
   context: Context,
   input: AddConfigurableProductsToCartInput,
   customQuery: CustomQuery = { addConfigurableProductsToCart: "addConfigurableProductsToCart" },

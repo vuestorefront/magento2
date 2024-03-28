@@ -10,7 +10,7 @@ type Variables = {
   currentPage: number;
 };
 
-export default async (
+export const wishlist = async (
   context: Context,
   searchParams: WishlistQueryVariables,
   customQuery: CustomQuery = { wishlist: "wishlist" },

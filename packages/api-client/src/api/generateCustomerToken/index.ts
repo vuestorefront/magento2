@@ -4,14 +4,14 @@ import { GraphQLError } from "graphql";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
 import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
-import generateCustomerToken from "./generateCustomerToken";
+import generateCustomerTokenQuery from "./generateCustomerToken";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
  * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.
  */
-export default async (
+export const generateCustomerToken = async (
   context: Context,
   params: {
     email: string;
@@ -38,7 +38,7 @@ export default async (
 
     const { generateCustomerToken: generateCustomerTokenGQL } = context.extendQuery(customQuery, {
       generateCustomerToken: {
-        query: generateCustomerToken,
+        query: generateCustomerTokenQuery,
         variables: {
           email: params.email,
           password: params.password,

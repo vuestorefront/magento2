@@ -7,11 +7,11 @@ import {
   SetBillingAddressOnCartMutationVariables,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import setBillingAddressOnCart from "./setBillingAddressOnCart";
+import setBillingAddressOnCartQuery from "./setBillingAddressOnCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export const setBillingAddressOnCart = async (
   context: Context,
   input: SetBillingAddressOnCartInput,
   customQuery: CustomQuery = { setBillingAddressOnCart: "setBillingAddressOnCart" },
@@ -19,7 +19,7 @@ export default async (
 ): Promise<FetchResult<SetBillingAddressOnCartMutation>> => {
   const { setBillingAddressOnCart: setBillingAddressOnCartGQL } = context.extendQuery(customQuery, {
     setBillingAddressOnCart: {
-      query: setBillingAddressOnCart,
+      query: setBillingAddressOnCartQuery,
       variables: { input },
     },
   });
