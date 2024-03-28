@@ -2,7 +2,7 @@ import { ApolloQueryResult } from "@apollo/client/core";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { CustomQuery, StoreConfigQuery } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import storeConfigMutation from "./storeConfig";
+import storeConfigQuery from "./storeConfig";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -19,7 +19,7 @@ export async function storeConfig(
 ): Promise<ApolloQueryResult<StoreConfigQuery>> {
   const { storeConfig: storeConfigGQL } = context.extendQuery(customQuery, {
     storeConfig: {
-      query: storeConfigMutation,
+      query: storeConfigQuery,
     },
   });
 
