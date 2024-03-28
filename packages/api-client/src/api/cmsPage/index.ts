@@ -14,7 +14,7 @@ import getHeaders from "../getHeaders";
  * @param customQuery - (optional) - custom query that extends default cmsPage GraphQL query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export async function getCmsPage(
+export async function cmsPage(
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: "cmsPage" },
