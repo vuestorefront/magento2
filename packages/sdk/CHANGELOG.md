@@ -1,5 +1,11 @@
 # @vue-storefront/magento-sdk
 
+## 2.1.1
+
+### Patch Changes
+
+- c5d63066: [FIXED] Correctly passing properties and options to `customQuery` and `customMutation` SDK methods. Previously, the `customHeaders` option was not being passed properly. Now, all options will be properly passed to the `customQuery` and `customMutation` methods.
+
 ## 2.1.0
 
 ### Minor Changes

@@ -4756,7 +4756,7 @@
         {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-sdk!generateCustomerToken:function(1)",
-          "docComment": "/**\n * Method to generate customer token\n *\n * @remarks\n *\n * This method sends a POST request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/generateCustomerToken | generateCustomerToken} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/generateCustomerToken | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/GenerateCustomerTokenResponse | GenerateCustomerTokenResponse}.\n *\n * @example\n *\n * Simple usage:\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // fetch token\n * const result = await sdk.magento.generateCustomerToken({\n *   email: 'some-email',\n *   password: 'some-password'\n * });\n *\n * // Token is now available in result.data.generateCustomerToken.token\n * ```\n *\n */\n",
+          "docComment": "/**\n * Method to generate customer token\n *\n * @remarks\n *\n * This method sends a POST request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/generateCustomerToken | generateCustomerToken} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/generateCustomerToken | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/GenerateCustomerTokenResponse | GenerateCustomerTokenResponse}.\n *\n * @example\n *\n * Simple usage:\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // fetch token\n * const result = await sdk.magento.generateCustomerToken({\n *   email: 'some-email',\n *   password: 'some-password'\n * });\n *\n * // Token is now available in result.data.generateCustomerToken.token\n * ```\n *\n * *\n *\n * @example\n *\n * Creating a custom GraphQL query to fetch additional data:\n * ```ts\n * module.exports = {\n *   integrations: {\n *     magento: {\n *       customQueries: {\n *         'generate-customer-token-custom-query': ({ variables, metadata }) => ({\n *            variables,\n *            query: `\n *              mutation generateCustomerToken($email: String!, $password: String!) {\n *                generateCustomerToken(email: $email, password: $password) {\n *                  ${metadata.fields}\n *                }\n *              }\n *            }`\n *         }),\n *       },\n *     }\n *   }\n * };\n * ```\n *\n * @example\n *\n * Using a custom GraphQL query created in the previous example.\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // reduce the amount of fields returned by the query, when compared to the default query\n * const customQuery = {\n *   route: 'generate-customer-token-custom-query',\n *   metadata: {\n *     fields: 'token additional_field'\n *   }\n * };\n *\n * // data will contain only the fields specified in the custom query.\n * const result = await sdk.magento.generateCustomerToken({\n *   email: 'some-email',\n *   password: 'some-password'\n * }, { customQuery });\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4782,8 +4782,21 @@
             },
             {
               "kind": "Reference",
-              "text": "MethodBaseOptions",
-              "canonicalReference": "@vue-storefront/magento-sdk!MethodBaseOptions:type"
+              "text": "MethodOptions",
+              "canonicalReference": "@vue-storefront/magento-sdk!MethodOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-sdk!CustomQuery:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<'generateCustomerToken'>>"
             },
             {
               "kind": "Content",
@@ -4804,8 +4817,8 @@
             }
           ],
           "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 9
+            "startIndex": 10,
+            "endIndex": 12
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -4821,7 +4834,7 @@
               "parameterName": "options",
               "parameterTypeTokenRange": {
                 "startIndex": 5,
-                "endIndex": 6
+                "endIndex": 9
               }
             }
           ],
@@ -8873,7 +8886,7 @@
         {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-sdk!route:function(1)",
-          "docComment": "/**\n * Method to resolve a route object data\n *\n * @remarks\n *\n * This method sends a GET request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | route} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/RouteResponse | RouteResponse}.\n *\n * @example\n *\n * Simple usage:\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // fetch route object data\n * const result = await sdk.magento.route({\n *   url: 'aether-gym-pant.html'\n * });\n *\n * // Example result:\n * {\n *    data: {\n *      route: { type: 'PRODUCT', sku: 'MP11', __typename: 'ConfigurableProduct' }\n *    },\n *    loading: false,\n *    networkStatus: 7\n * }\n * ```\n *\n */\n",
+          "docComment": "/**\n * Method to resolve a route object data\n *\n * @remarks\n *\n * This method sends a GET request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | route} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/RouteResponse | RouteResponse}.\n *\n * @example\n *\n * Simple usage:\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // fetch route object data\n * const result = await sdk.magento.route({\n *   url: 'aether-gym-pant.html'\n * });\n *\n * // Example result:\n * {\n *    data: {\n *      route: { type: 'PRODUCT', sku: 'MP11', __typename: 'ConfigurableProduct' }\n *    },\n *    loading: false,\n *    networkStatus: 7\n * }\n * ```\n *\n * *\n *\n * @example\n *\n * Creating a custom GraphQL query to fetch additional data:\n * ```ts\n * module.exports = {\n *   integrations: {\n *     magento: {\n *       customQueries: {\n *         'route-custom-query': ({ variables, metadata }) => ({\n *            variables,\n *            query: `\n *              query route($url: String!) {\n *                route(url: $url) {\n *                  ${metadata?.fields}\n *                }\n *              }\n *            }`\n *         }),\n *       },\n *     }\n *   }\n * };\n * ```\n *\n * @example\n *\n * Using a custom GraphQL query created in the previous example.\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // reduce the amount of fields returned by the query, when compared to the default query\n * const customQuery = {\n *   route: 'route-custom-query',\n *   metadata: {\n *     fields: 'type ... on CategoryInterface { uid name image}' // fetch additional name and image fields\n *   }\n * };\n *\n * // data will contain only the fields specified in the custom query.\n * const { data } = await sdk.magento.route({ url: 'women.html' }, { customQuery });\n * ```\n *\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -8899,8 +8912,21 @@
             },
             {
               "kind": "Reference",
-              "text": "MethodBaseOptions",
-              "canonicalReference": "@vue-storefront/magento-sdk!MethodBaseOptions:type"
+              "text": "MethodOptions",
+              "canonicalReference": "@vue-storefront/magento-sdk!MethodOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-sdk!CustomQuery:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<'route'>>"
             },
             {
               "kind": "Content",
@@ -8921,8 +8947,8 @@
             }
           ],
           "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 9
+            "startIndex": 10,
+            "endIndex": 12
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -8938,7 +8964,7 @@
               "parameterName": "options",
               "parameterTypeTokenRange": {
                 "startIndex": 5,
-                "endIndex": 6
+                "endIndex": 9
               }
             }
           ],

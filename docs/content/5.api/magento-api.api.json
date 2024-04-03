@@ -3037,7 +3037,16 @@
             },
             {
               "kind": "Content",
-              "text": ", params: {\n    email: string;\n    password: string;\n    recaptchaToken: string;\n}, customHeaders?: "
+              "text": ", params: {\n    email: string;\n    password: string;\n    recaptchaToken: string;\n}, customQuery?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-types!CustomQuery:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", customHeaders?: "
             },
             {
               "kind": "Reference",
@@ -3080,7 +3089,7 @@
           "name": "generateCustomerToken",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 12
+            "endIndex": 14
           }
         },
         {
@@ -4872,7 +4881,7 @@
         {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!route:function(1)",
-          "docComment": "/**\n * Returns the canonical URL for a specified product, category, or CMS page\n *\n * @param context - VSF Context\n *\n * @param url - the URL to be resolved\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
+          "docComment": "/**\n * Returns the canonical URL for a specified product, category, or CMS page\n *\n * @param context - VSF Context\n *\n * @param url - the URL to be resolved\n *\n * @param customQuery - (optional) - custom GraphQL query that extends the default one\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -4890,6 +4899,15 @@
             {
               "kind": "Content",
               "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", customQuery?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-types!CustomQuery:type"
             },
             {
               "kind": "Content",
@@ -4946,8 +4964,8 @@
             }
           ],
           "returnTypeTokenRange": {
-            "startIndex": 7,
-            "endIndex": 15
+            "startIndex": 9,
+            "endIndex": 17
           },
           "releaseTag": "Public",
           "overloadIndex": 1,
@@ -4967,10 +4985,17 @@
               }
             },
             {
-              "parameterName": "customHeaders",
+              "parameterName": "customQuery",
               "parameterTypeTokenRange": {
                 "startIndex": 5,
                 "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
               }
             }
           ],
