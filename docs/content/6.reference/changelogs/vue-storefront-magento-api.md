@@ -1,5 +1,56 @@
 # @vue-storefront/magento-api
 
+## 2.4.3
+
+### Patch Changes
+
+- adc748ef: \* Updated @apollo/client dependency from version `^3.6.9` to version `3.8.7` in the api-client package.
+- adc748ef: \* Fixed a bug in the GraphQL mutation in the generateCustomerToken API. Replaced the ${generateCustomerToken} template string with ${generateCustomerTokenGQL.query} in the mutation to address the bug.
+
+## 2.4.2
+
+### Patch Changes
+
+- Updated dependencies [045784a6]
+  - @vue-storefront/magento-types@1.0.2
+
+## 2.4.1
+
+### Patch Changes
+
+- 78edfd5c: \* Fixed a bug in the GraphQL mutation in the generateCustomerToken API. Replaced the ${generateCustomerToken} template string with ${generateCustomerTokenGQL.query} in the mutation to address the bug.
+
+## 2.4.0
+
+### Minor Changes
+
+- d634cdbe: ## Changes
+
+  This change adds support for custom queries in the `route` method of both the `api-client` and `sdk` modules. The `route` query has also been extended with a `CategoryInterface` fragment. These changes improve the flexibility and functionality of the `route` method, allowing for more customization and control over the data returned.
+
+  ### api-client
+
+  - Expanded the route query to include a `CategoryInterface` fragment.
+  - Introduced support for `customQueries` within the route API method.
+
+  ### sdk
+
+  - Now includes support for `customQueries` in the route SDK method.
+
+### Patch Changes
+
+- 992734bf: ## Changes
+
+  This change adds support for custom queries in the `generateCustomerToken` method of both the `api-client` and `sdk` modules.
+
+  ### api-client
+
+  - Introduced support for `customQueries` within the route API method.
+
+  ### sdk
+
+  - Now includes support for `customQueries` in the route SDK method.
+
 ## 2.3.0
 
 ### Minor Changes
