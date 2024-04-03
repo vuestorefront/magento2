@@ -92,7 +92,7 @@ export async function customQuery<RES extends CustomQueryResponse<any>, INPUT ex
   return new AxiosRequestSender(client)
     .setUrl('customQuery')
     .setMethod('POST')
-    .setProps([params, options?.customHeaders])
+    .setProps({ ...params, customHeaders: options?.customHeaders })
     .setConfig(options?.clientConfig)
     .send<RES>();
 }
