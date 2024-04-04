@@ -1,5 +1,12 @@
 # @vue-storefront/magento-sdk
 
+## 2.2.0
+
+### Minor Changes
+
+- eda02ee7: [ADDED] addBundleProductsToCart method to add one or more bundle products to the specified cart.
+  [ADDED] addConfigurableProductsToCart method to add one or more configurable products to the specified cart.
+
 ## 2.1.1
 
 ### Patch Changes
