@@ -4,6 +4,8 @@ export const TEST_USER_PASSWORD = '9uvPv!Vvn2!Uaz.yNy4a';
 export const TEST_CART_ID = 'pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp';
 export const TEST_COUPON_CODE = 'integration-tests';
 export const TEST_PRODUCT_SKU = 'WSH12';
+export const TEST_CONF_SKU_PARENT = 'MH01';
+export const TEST_CONF_SKU_VARIANT = 'MH01-XS-Black';
 export const TEST_ADDRESS = {
   firstname: 'John',
   lastname: 'Doe',

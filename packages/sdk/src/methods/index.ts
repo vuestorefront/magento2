@@ -13,6 +13,7 @@ export * from './createEmptyCart';
 export * from './setShippingAddressesOnCart';
 export * from './removeCouponFromCart';
 export * from './addProductsToCart';
+export * from './addConfigurableProductsToCart';
 export * from './setBillingAddressOnCart';
 export * from './setShippingMethodsOnCart';
 export * from './removeItemFromCart';

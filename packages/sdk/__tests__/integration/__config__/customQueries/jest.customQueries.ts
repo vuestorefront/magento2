@@ -39,6 +39,7 @@ import { setPaymentMethodOnCart } from './setPaymentMethodOnCart';
 import { updateCartItems } from './updateCartItems';
 import { generateCustomerToken } from './generateCustomerToken';
 import { route } from './route';
+import { addConfigurableProductsToCart } from './addConfigurableProductsToCart';
 
 export const customQueries = {
   'apply-coupon-to-cart-custom-query': applyCouponToCart,
@@ -82,4 +83,5 @@ export const customQueries = {
   'store-config-custom-query': storeConfig,
   'route-custom-query': route,
   'generate-customer-token-custom-query': generateCustomerToken,
+  'add-configurable-products-to-cart-custom-query': addConfigurableProductsToCart,
 };
