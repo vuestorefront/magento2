@@ -171,6 +171,422 @@
       "members": [
         {
           "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-sdk!addBundleProductsToCart:function(1)",
+          "docComment": "/**\n * Method to add bundle products to cart (returns cart)\n *\n * @remarks\n *\n * This method sends a POST request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addBundleProductsToCart | addBundleProductsToCart} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addBundleProductsToCart | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/AddProductsToCartResponse | AddProductsToCartResponse}.\n *\n * @example\n *\n * Adding bundle products to cart with default parameters.\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * const cart = await sdk.magento.addBundleProductsToCart(\n *   {\n *     cart_id: '123',\n *     cart_items: [\n *      {\n *        data: {\n *          quantity: 1,\n *          sku: TEST_BUNDLE_SKU,\n *        },\n *        bundle_options: [\n *          {\n *            id: 1,\n *            quantity: 1,\n *            value: ['1'],\n *          },\n *          {\n *            id: 2,\n *            quantity: 1,\n *            value: ['4'],\n *          },\n *          {\n *            id: 3,\n *            quantity: 1,\n *            value: ['5'],\n *          },\n *          {\n *            id: 4,\n *            quantity: 1,\n *            value: ['8'],\n *          },\n *     ]\n *   }\n * );\n * ```\n *\n * @example\n *\n * Creating a custom GraphQL query for adding bundle products to cart\n * ```ts\n * module.exports = {\n *   integrations: {\n *     magento: {\n *       customQueries: {\n *         'add-bundle-products-to-cart-custom-query': ({ variables, metadata }) => ({\n *            variables,\n *            query: `\n *              mutation addBundleProductsToCart($input: AddBundleProductsToCartInput) {\n *                addBundleProductsToCart(input: $input) {\n *                  cart {\n *                    ${metadata.fields}\n *                  }\n *                }\n *              }`,\n *         }),\n *       },\n *     }\n *   }\n * };\n * ```\n *\n * @example\n *\n * Using a custom GraphQL query to modify response containing the cart, which is sent as part of the adding product to cart mutation\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n * // reduce the amount of fields returned by the query, when compared to the default query\n * const customQuery = {\n *   cart: 'add-bundle-products-to-cart-custom-query',\n *   metadata: {\n *     fields: 'id items { uid }'\n *   }\n * };\n *\n *\n * const cart = await sdk.magento.addBundleProductsToCart(\n *   {\n *    // use the payload from the previous example\n *   }, { customQuery }\n * );\n *\n * // Result will contain only the fields specified in the custom query.\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function addBundleProductsToCart<RES extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddBundleProductsToCartResponse",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddBundleProductsToCartResponse:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">(params: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddBundleProductsToCartInput",
+              "canonicalReference": "@vue-storefront/magento-types!AddBundleProductsToCartInput:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MethodOptions",
+              "canonicalReference": "@vue-storefront/magento-sdk!MethodOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-sdk!CustomQuery:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<'addBundleProductsToCart'>>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<RES>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 10,
+            "endIndex": 12
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 9
+              }
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "RES",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "addBundleProductsToCart"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-sdk!AddBundleProductsToCart:type",
+          "docComment": "/**\n * mutation type for the {@link addBundleProductsToCart} method.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type AddBundleProductsToCart = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    addBundleProductsToCart: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Mutation",
+              "canonicalReference": "@vue-storefront/magento-types!Mutation:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "['addBundleProductsToCart'];\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "AddBundleProductsToCart",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-sdk!AddBundleProductsToCartResponse:type",
+          "docComment": "/**\n * Add bundle products to cart response type\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type AddBundleProductsToCartResponse<T extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "DeepPartial",
+              "canonicalReference": "ts-essentials!DeepPartial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "AddBundleProductsToCart",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddBundleProductsToCart:type"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            },
+            {
+              "kind": "Content",
+              "text": "= "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddBundleProductsToCart",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddBundleProductsToCart:type"
+            },
+            {
+              "kind": "Content",
+              "text": "> = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ApolloQueryResult",
+              "canonicalReference": "@apollo/client/core!ApolloQueryResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "AddBundleProductsToCartResponse",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 8,
+            "endIndex": 10
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-sdk!addConfigurableProductsToCart:function(1)",
+          "docComment": "/**\n * Method to add configurable products to cart (returns cart)\n *\n * @remarks\n *\n * This method sends a POST request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addConfigurableProductsToCart | addConfigurableProductsToCart} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addConfigurableProductsToCart | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/AddProductsToCartResponse | AddProductsToCartResponse}.\n *\n * @example\n *\n * Adding configurable products to cart with default parameters.\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * const cart = await sdk.magento.addConfigurableProductsToCart(\n *   {\n *     cart_id: '123',\n *     cart_items: [\n *       {\n *        data: {\n *          quantity: 1,\n *          sku: 'MH01-XS-Black',\n *        },\n *        parent_sku: 'MH01',\n *        customizable_options: [],\n *       }\n *     ]\n *   }\n * );\n * ```\n *\n * @example\n *\n * Creating a custom GraphQL query for adding configurable products to cart\n * ```ts\n * module.exports = {\n *   integrations: {\n *     magento: {\n *       customQueries: {\n *         'add-configurable-products-to-cart-custom-query': ({ variables, metadata }) => ({\n *            variables,\n *            query: `\n *              mutation addConfigurableProductsToCart($input: AddConfigurableProductsToCartInput) {\n *                addConfigurableProductsToCart(input: $input) {\n *                  cart {\n *                    ${metadata.fields}\n *                  }\n *                }\n *              }`,\n *         }),\n *       },\n *     }\n *   }\n * };\n * ```\n *\n * @example\n *\n * Using a custom GraphQL query to modify response containing the cart, which is sent as part of the adding product to cart mutation\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n * // reduce the amount of fields returned by the query, when compared to the default query\n * const customQuery = {\n *   cart: 'add-configurable-products-to-cart-custom-query',\n *   metadata: {\n *     fields: 'id items { uid }'\n *   }\n * };\n *\n *\n * const cart = await sdk.magento.addConfigurableProductsToCart(\n *   {\n *     cart_id: '123',\n *     cart_items: [\n *       {\n *        data: {\n *          quantity: 1,\n *          sku: 'MH01-XS-Black',\n *        },\n *        parent_sku: 'MH01',\n *        customizable_options: [],\n *       }\n *     ]\n *   },\n *   { customQuery }\n * );\n *\n * // Result will contain only the fields specified in the custom query.\n * ```\n *\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function addConfigurableProductsToCart<RES extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddConfigurableProductsToCartResponse",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddConfigurableProductsToCartResponse:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">(params: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddConfigurableProductsToCartInput",
+              "canonicalReference": "@vue-storefront/magento-types!AddConfigurableProductsToCartInput:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MethodOptions",
+              "canonicalReference": "@vue-storefront/magento-sdk!MethodOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "CustomQuery",
+              "canonicalReference": "@vue-storefront/magento-sdk!CustomQuery:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<'addConfigurableProductsToCart'>>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<RES>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 10,
+            "endIndex": 12
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 9
+              }
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "RES",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "addConfigurableProductsToCart"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-sdk!AddConfigurableProductsToCart:type",
+          "docComment": "/**\n * mutation type for the {@link addConfigurableProductsToCart} method.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type AddConfigurableProductsToCart = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    addConfigurableProductsToCart: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Mutation",
+              "canonicalReference": "@vue-storefront/magento-types!Mutation:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "['addConfigurableProductsToCart'];\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "AddConfigurableProductsToCart",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-sdk!AddConfigurableProductsToCartResponse:type",
+          "docComment": "/**\n * Add products to cart response type\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type AddConfigurableProductsToCartResponse<T extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "DeepPartial",
+              "canonicalReference": "ts-essentials!DeepPartial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "AddConfigurableProductsToCart",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddConfigurableProductsToCart:type"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            },
+            {
+              "kind": "Content",
+              "text": "= "
+            },
+            {
+              "kind": "Reference",
+              "text": "AddConfigurableProductsToCart",
+              "canonicalReference": "@vue-storefront/magento-sdk!AddConfigurableProductsToCart:type"
+            },
+            {
+              "kind": "Content",
+              "text": "> = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ApolloQueryResult",
+              "canonicalReference": "@apollo/client/core!ApolloQueryResult:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "AddConfigurableProductsToCartResponse",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 7
+              }
+            }
+          ],
+          "typeTokenRange": {
+            "startIndex": 8,
+            "endIndex": 10
+          }
+        },
+        {
+          "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-sdk!addProductsToCart:function(1)",
           "docComment": "/**\n * Method to add products to cart (returns cart)\n *\n * @remarks\n *\n * This method sends a POST request to the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addProductsToCart | addProductsToCart} endpoint of the Vue Storefront API Middleware. The default GraphQL query used by this method can be found {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/addProductsToCart | here}.\n *\n * @param params - Parameter object which can be used with this method. Refer to its type definition to learn about possible properties.\n *\n * @param options - Options that can be passed to additionally configure the request or customize the logic in a plugin.\n *\n * @typeParam Res - Customizable response interface to be used with custom queries.\n *\n * @returns Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/AddProductsToCartResponse | AddProductsToCartResponse}.\n *\n * @example\n *\n * Simple usage:\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n *\n * // add products to cart with default parameters (returns cart)\n * const cart = await sdk.magento.addProductsToCart(\n *   {\n *     cartId: '123',\n *     cartItems: [\n *       {\n *         sku: 'WSH12',\n *         quantity: 1,\n *         selected_options: [\n *           // option IDs retrieved from product\n *           'Y29uZmlndXJhYmxlLzkzLzUz',\n *           'Y29uZmlndXJhYmxlLzE0NC8xNzE='\n *         ]\n *       }\n *     ]\n *   }\n * );\n * ```\n *\n * @example\n *\n * Creating a custom GraphQL query for adding products to cart\n * ```ts\n * module.exports = {\n *   integrations: {\n *     magento: {\n *       customQueries: {\n *         'add-products-to-cart-custom-query': ({ variables, metadata }) => ({\n *            variables,\n *            query: `\n *              mutation addProductsToCart($cartId: String!, $cartItems: [CartItemInput!]!) {\n *                addProductsToCart(cartId: $cartId, cartItems: $cartItems) {\n *                  cart {\n *                    ${metadata.fields}\n *                  }\n *                }\n *              }`\n *\n *         }),\n *       },\n *     }\n *   }\n * };\n * ```\n *\n * @example\n *\n * Using a custom GraphQL query to modify response containing the cart, which is sent as part of the adding product to cart mutation\n * ```ts\n * import { sdk } from '~/sdk.config.ts';\n * // reduce the amount of fields returned by the query, when compared to the default query\n * const customQuery = {\n *   cart: 'add-products-to-cart-custom-query',\n *   metadata: {\n *     fields: 'id items { uid }'\n *   }\n * };\n *\n *\n * const cart = await sdk.magento.addProductsToCart(\n *   {\n *     cartId: '123',\n *     cartItems: [\n *       {\n *         sku: 'WSH12',\n *         quantity: 1,\n *         selected_options: [\n *           'Y29uZmlndXJhYmxlLzkzLzUz',\n *           'Y29uZmlndXJhYmxlLzE0NC8xNzE='\n *         ]\n *       }\n *     ]\n *   },\n *   { customQuery }\n * );\n *\n * // Result will contain only the fields specified in the custom query.\n * ```\n *\n */\n",
           "excerptTokens": [

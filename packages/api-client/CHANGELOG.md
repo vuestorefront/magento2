@@ -1,5 +1,15 @@
 # @vue-storefront/magento-api
 
+## 2.5.0
+
+### Minor Changes
+
+- eda02ee7: [CHANGED] Update addConfigurableProductsToCart and addBundleProductsToCart methods to align with the rest of the API methods. It is an internal change that does not affect the public API.
+
+### Patch Changes
+
+- 06362368: [CHANGED] `Context` from type to interface to allow declaration merging.
+
 ## 2.4.3
 
 ### Patch Changes

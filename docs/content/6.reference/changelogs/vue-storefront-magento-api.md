@@ -1,5 +1,16 @@
 # @vue-storefront/magento-api
 
+## 2.5.0
+
+### Minor Changes
+
+- eda02ee7: [ADDED] addBundleProductsToCart method to add one or more bundle products to the specified cart.
+  [ADDED] addConfigurableProductsToCart method to add one or more configurable products to the specified cart.
+
+### Patch Changes
+
+- 06362368: [CHANGED] `Context` from type to interface to allow declaration merging.
+
 ## 2.4.3
 
 ### Patch Changes
