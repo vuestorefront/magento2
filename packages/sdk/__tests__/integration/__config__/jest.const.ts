@@ -6,6 +6,8 @@ export const TEST_COUPON_CODE = 'integration-tests';
 export const TEST_PRODUCT_SKU = 'WSH12';
 export const TEST_CONF_SKU_PARENT = 'MH01';
 export const TEST_CONF_SKU_VARIANT = 'MH01-XS-Black';
+export const TEST_BUNDLE_SKU = '24-WG080';
+
 export const TEST_ADDRESS = {
   firstname: 'John',
   lastname: 'Doe',

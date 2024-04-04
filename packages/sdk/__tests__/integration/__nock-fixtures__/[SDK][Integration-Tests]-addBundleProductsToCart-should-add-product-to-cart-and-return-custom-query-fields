@@ -1,0 +1,103 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "POST",
+        "path": "/graphql",
+        "body": {
+            "operationName": "addBundleProductsToCart",
+            "variables": {
+                "input": {
+                    "cart_id": "pCS0ykep1l3wGlPKSyWLJq5fb1DxIQcp",
+                    "cart_items": [
+                        {
+                            "data": {
+                                "quantity": 1,
+                                "sku": "24-WG080"
+                            },
+                            "bundle_options": [
+                                {
+                                    "id": 1,
+                                    "quantity": 1,
+                                    "value": [
+                                        "1"
+                                    ]
+                                },
+                                {
+                                    "id": 2,
+                                    "quantity": 1,
+                                    "value": [
+                                        "4"
+                                    ]
+                                },
+                                {
+                                    "id": 3,
+                                    "quantity": 1,
+                                    "value": [
+                                        "5"
+                                    ]
+                                },
+                                {
+                                    "id": 4,
+                                    "quantity": 1,
+                                    "value": [
+                                        "8"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "query": "mutation addBundleProductsToCart($input: AddBundleProductsToCartInput) {\n  addBundleProductsToCart(input: $input) {\n    cart {\n      id\n      items {\n        uid\n        product {\n          uid\n          sku\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+        },
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003b592516b83301485ff4b9e3788ae8521f8e0145ab7c53ab4f83046498d15add54c135a15fffb92392a73756f3e84907b4eeef9486e0b086618682dc0843cf19c64915b168487acf20b13974c4ae1cf9e10a0016a7ab03e4654c91eceabcc7df1eae0f5f97379d82bd6c57e0b29b803098b4e15d0de5bc0bfaf20df388ba50b89f6cd65b75e739ab816f5eac8a5d1850b71d8ed584da31c9f2251338bfc90c4bcc4fb2b1ae8fef148685b0008d3906f5f3613f928351a64e8fa9521f0d68a320384636d97c80fa720a0138f20d4592062d549d1ed9f48e30100ade13c8f20f29b897c6b3be4ab8bfb60051fe198e1d788fe49efd521f7634c2707797cc9b83df81bce2817eeaefb0246d9a3b724030000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Thu, 04 Apr 2024 08:22:33 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "282",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=qp9p894m3nd4ob79r8vfshl9ur; expires=Thu, 04-Apr-2024 09:22:32 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=49915dd66425d7e901dccac3541c1d5e; expires=Sun, 02-Apr-2034 08:22:32 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=f0118632a5fb7cb8bde953132aed3bd5; expires=Sun, 02-Apr-2034 08:22:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "Set-Cookie",
+            "private_content_version=155c15d67869228246d4f05ce006fbcc; expires=Sun, 02-Apr-2034 08:22:33 GMT; Max-Age=315360000; path=/; secure; SameSite=Lax",
+            "X-Magento-Cache-Id",
+            "b309d3e32ec01e2fccaf4dd92e430e3576b7d1135b436c3a91b354bb36cec2ec",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "63335937",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]
