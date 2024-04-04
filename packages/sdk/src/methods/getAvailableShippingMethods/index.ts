@@ -22,10 +22,10 @@ export type GetAvailableShippingMethodsResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.getAvailableShippingMethods | getAvailableShippingMethods } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableShippingMethods | getAvailableShippingMethods } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#getAvailableShippingMethods | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableShippingMethods | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -38,7 +38,7 @@ export type GetAvailableShippingMethodsResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#GetAvailableShippingMethodsResponse | GetAvailableShippingMethodsResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/GetAvailableShippingMethodsResponse | GetAvailableShippingMethodsResponse}.
  *
  * @example
  * Simple usage:

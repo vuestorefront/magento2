@@ -24,7 +24,11 @@ describe(describeGroup('customQuery'), () => {
   it('makes a call to API Middleware with proper params and options', async () => {
     await customQuery(PARAMS_MOCK, OPTIONS_MOCK);
 
-    expect(client.post).toBeCalledWith('customQuery', [expect.objectContaining(PARAMS_MOCK), {}], {});
+    expect(client.post).toBeCalledWith(
+      'customQuery',
+      { customHeaders: {}, query: '{ __typename }', queryVariables: {} },
+      {},
+    );
   });
 
   it('extracts and returns a response', async () => {

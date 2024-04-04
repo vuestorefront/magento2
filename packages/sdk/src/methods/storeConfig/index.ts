@@ -20,10 +20,10 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.storeConfig | storeConfig } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/storeConfig | storeConfig } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#storeConfig | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/storeConfig | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -32,7 +32,7 @@ export type StoreConfigResponse<T extends DeepPartial<StoreConfigQuery> = StoreC
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#StoreConfigResponse | StoreConfigResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/StoreConfigResponse | StoreConfigResponse}.
  *
  * @example
  * Simple usage:

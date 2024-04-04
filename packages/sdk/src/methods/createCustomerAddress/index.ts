@@ -22,10 +22,10 @@ export type CreateCustomerAddressResponse<
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createCustomerAddress | createCustomerAddress } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/createCustomerAddress | createCustomerAddress } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#createCustomerAddress | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/createCustomerAddress | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -38,7 +38,7 @@ export type CreateCustomerAddressResponse<
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CreateCustomerAddressResponse | CreateCustomerAddressResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CreateCustomerAddressResponse | CreateCustomerAddressResponse}.
  *
  * @example
  * Simple usage:

@@ -21,10 +21,10 @@ export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation>
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.createCustomer | createCustomer } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/createCustomer | createCustomer } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#createCustomer | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/createCustomer | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -37,7 +37,7 @@ export type CreateCustomerResponse<T extends DeepPartial<CreateCustomerMutation>
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CreateCustomerResponse | CreateCustomerResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CreateCustomerResponse | CreateCustomerResponse}.
  *
  * @example
  * Simple usage with basic customer data:

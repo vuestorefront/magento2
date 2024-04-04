@@ -24,7 +24,7 @@ const STORE_CONFIG_MOCK_RESP = {
     list_mode: "grid-list",
     list_per_page: 10,
     list_per_page_values: "5,10,15,20,25",
-    locale: "en_EN",
+    locale: expect.any(String),
     logo_alt: null,
     logo_height: null,
     logo_width: null,

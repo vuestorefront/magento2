@@ -20,10 +20,10 @@ export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = Place
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.placeOrder | placeOrder } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/placeOrder | placeOrder } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#placeOrder | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/placeOrder | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -36,7 +36,7 @@ export type PlaceOrderResponse<T extends DeepPartial<PlaceOrderMutation> = Place
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#PlaceOrderResponse | PlaceOrderResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/PlaceOrderResponse | PlaceOrderResponse}.
  *
  * @example
  * Simple usage:

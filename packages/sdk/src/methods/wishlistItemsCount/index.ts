@@ -15,10 +15,10 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.wishlistItemsCount | wishlistItemsCount } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/wishlistItemsCount | wishlistItemsCount } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#wishlist | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/wishlist | here}.
  *
  * @param options -
  * Options that can be passed to additionally configure the request
@@ -27,7 +27,7 @@ export type WishlistItemsCountResponse<T extends DeepPartial<WishlistQuery> = Wi
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#WishlistItemsCountResponse | WishlistItemsCountResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/WishlistItemsCountResponse | WishlistItemsCountResponse}.
  *
  * @example
  * Simple usage:

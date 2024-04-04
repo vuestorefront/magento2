@@ -20,10 +20,10 @@ export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = Apol
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.route | route } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | route } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#route | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/route | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -36,7 +36,7 @@ export type RouteResponse<T extends DeepPartial<RouteQuery> = RouteQuery> = Apol
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#RouteResponse | RouteResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/RouteResponse | RouteResponse}.
  *
  * @example
  * Simple usage:

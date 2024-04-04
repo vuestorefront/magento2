@@ -21,10 +21,10 @@ export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = Pr
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.productReview | productReview } endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/productReview | productReview } endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#productReview | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/productReview | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -37,7 +37,7 @@ export type ProductReviewResponse<T extends DeepPartial<ProductReviewQuery> = Pr
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ProductReviewResponse | ProductReviewResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/ProductReviewResponse | ProductReviewResponse}.
  *
  * @example
  * Simple usage:

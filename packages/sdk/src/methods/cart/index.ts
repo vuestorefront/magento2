@@ -20,10 +20,10 @@ export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQ
  *
  * @remarks
  * This method sends a POST request to the
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#ApiMethods.cart | cart} endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/cart | cart} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#cart | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/cart | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -36,7 +36,7 @@ export type CartResponse<T extends DeepPartial<CartQuery> = CartQuery> = ApolloQ
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/sdk-magento2/reference/api/magento-api#CartResponse | CartResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CartResponse | CartResponse}.
  *
  * @example
  * Simple usage:
