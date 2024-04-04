@@ -23,7 +23,7 @@
     "@vue-storefront/sdk-axios-request-sender": "1.0.0",
     "@apollo/client": "^3.6.9",
     "ts-essentials": "^9.3.1",
-    "@vue-storefront/magento-types": "^1.0.0"
+    "@vue-storefront/magento-types": "^1.0.2"
   },
   "devDependencies": {
     "@vue-storefront/magento-api": "^2.5.0",
