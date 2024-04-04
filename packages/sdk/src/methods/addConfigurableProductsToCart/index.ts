@@ -20,7 +20,7 @@ export type AddConfigurableProductsToCartResponse<
 > = ApolloQueryResult<T>;
 
 /**
- * Method to add products to cart (returns cart)
+ * Method to add configurable products to cart (returns cart)
  *
  * @remarks
  * This method sends a POST request to the
@@ -43,11 +43,10 @@ export type AddConfigurableProductsToCartResponse<
  * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/AddProductsToCartResponse | AddProductsToCartResponse}.
  *
  * @example
- * Simple usage:
+ * Adding configurable products to cart with default parameters.
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
  *
- * // add products to cart with default parameters (returns cart)
  * const cart = await sdk.magento.addConfigurableProductsToCart(
  *   {
  *     cart_id: '123',

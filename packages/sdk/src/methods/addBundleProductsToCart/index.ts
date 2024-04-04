@@ -13,13 +13,13 @@ export type AddBundleProductsToCart = {
 };
 
 /**
- * Add products to cart response type
+ * Add bundle products to cart response type
  */
 export type AddBundleProductsToCartResponse<T extends DeepPartial<AddBundleProductsToCart> = AddBundleProductsToCart> =
   ApolloQueryResult<T>;
 
 /**
- * Method to add products to cart (returns cart)
+ * Method to add bundle products to cart (returns cart)
  *
  * @remarks
  * This method sends a POST request to the
@@ -42,11 +42,10 @@ export type AddBundleProductsToCartResponse<T extends DeepPartial<AddBundleProdu
  * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/AddProductsToCartResponse | AddProductsToCartResponse}.
  *
  * @example
- * Simple usage:
+ * Adding bundle products to cart with default parameters.
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
  *
- * // add products to cart with default parameters (returns cart)
  * const cart = await sdk.magento.addBundleProductsToCart(
  *   {
  *     cart_id: '123',
