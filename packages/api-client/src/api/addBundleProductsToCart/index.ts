@@ -11,9 +11,6 @@ import addBundleProductsToCartQuery from "./addBundleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-/**
- * Test
- */
 export async function addBundleProductsToCart(
   context: Context,
   input: AddBundleProductsToCartInput,
