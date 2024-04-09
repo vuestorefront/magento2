@@ -10,12 +10,12 @@ type Variables = {
   currentPage: number;
 };
 
-export const wishlist = async (
+export async function wishlist(
   context: Context,
   searchParams: WishlistQueryVariables,
   customQuery: CustomQuery = { wishlist: "wishlist" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<WishlistQuery>> => {
+): Promise<ApolloQueryResult<WishlistQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -44,4 +44,4 @@ export const wishlist = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

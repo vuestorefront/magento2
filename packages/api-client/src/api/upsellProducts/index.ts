@@ -24,12 +24,12 @@ type Variables = {
 /**
  * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.
  */
-export const upsellProducts = async (
+export async function upsellProducts(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { upsellProducts: "upsellProducts" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
+): Promise<ApolloQueryResult<UpsellProductsQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -67,4 +67,4 @@ export const upsellProducts = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

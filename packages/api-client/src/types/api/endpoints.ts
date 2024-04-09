@@ -2,11 +2,11 @@ import { WithoutContext } from "@vue-storefront/middleware";
 import * as apiMethods from "../../api";
 
 /**
- * ApiMethods type of the Magento 2 integration.
+ * Methods of the API client.
  */
 export type ApiMethods = typeof apiMethods;
 
 /**
- * Interface of the Magento 2 integration
+ * Endpoints available in the Magento integration.
  */
 export type Endpoints = WithoutContext<ApiMethods>;

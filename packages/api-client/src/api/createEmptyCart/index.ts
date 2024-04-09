@@ -6,8 +6,8 @@ import createEmptyCartQuery from "./createEmptyCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const createEmptyCart = async (context: Context, customHeaders: CustomHeaders = {}): Promise<FetchResult<CreateEmptyCartMutation>> =>
-  context.client.mutate<CreateEmptyCartMutation>({
+export async function createEmptyCart(context: Context, customHeaders: CustomHeaders = {}): Promise<FetchResult<CreateEmptyCartMutation>> {
+  return context.client.mutate<CreateEmptyCartMutation>({
     mutation: gql`
       ${createEmptyCartQuery}
     `,
@@ -15,3 +15,4 @@ export const createEmptyCart = async (context: Context, customHeaders: CustomHea
       headers: getHeaders(context, customHeaders),
     },
   });
+}

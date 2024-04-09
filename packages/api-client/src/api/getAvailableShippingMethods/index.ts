@@ -5,12 +5,12 @@ import { Context } from "../../types/context";
 import GuestAvailableShippingMethods from "./GuestAvailableShippingMethods";
 import getHeaders from "../getHeaders";
 
-export const getAvailableShippingMethods = async (
+export async function getAvailableShippingMethods(
   context: Context,
   params: GuestAvailableShippingMethodsQueryVariables,
   customQuery: CustomQuery = { shippingMethods: "shippingMethods" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> => {
+): Promise<ApolloQueryResult<GuestAvailableShippingMethodsQuery>> {
   const { shippingMethods } = context.extendQuery(customQuery, {
     shippingMethods: {
       query: GuestAvailableShippingMethods,
@@ -31,4 +31,4 @@ export const getAvailableShippingMethods = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

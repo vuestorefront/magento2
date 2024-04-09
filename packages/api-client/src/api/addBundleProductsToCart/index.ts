@@ -11,12 +11,15 @@ import addBundleProductsToCartQuery from "./addBundleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const addBundleProductsToCart = async (
+/**
+ * Test
+ */
+export async function addBundleProductsToCart(
   context: Context,
   input: AddBundleProductsToCartInput,
   customQuery: CustomQuery = { addBundleProductsToCart: "addBundleProductsToCart" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<AddBundleProductsToCartMutation>> => {
+): Promise<FetchResult<AddBundleProductsToCartMutation>> {
   const { addBundleProductsToCart: addBundleProductsToCartGQL } = context.extendQuery(customQuery, {
     addBundleProductsToCart: {
       query: addBundleProductsToCartQuery,
@@ -31,4 +34,4 @@ export const addBundleProductsToCart = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

@@ -9,12 +9,12 @@ import getHeaders from "../getHeaders";
 /**
  * Changes password of the current customer. To override the default query, use the `changeCustomerPassword` query key.
  */
-export const changeCustomerPassword = async (
+export async function changeCustomerPassword(
   context: Context,
   params: { currentPassword: string; newPassword: string },
   customQuery: CustomQuery = { changeCustomerPassword: "changeCustomerPassword" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
+): Promise<FetchResult<ChangeCustomerPasswordMutation>> {
   try {
     const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(customQuery, {
       changeCustomerPassword: {
@@ -41,4 +41,4 @@ export const changeCustomerPassword = async (
     }
     throw error.networkError?.result || error;
   }
-};
+}

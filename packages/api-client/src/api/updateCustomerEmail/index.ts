@@ -5,12 +5,12 @@ import updateCustomerEmailQuery from "./updateCustomerEmail";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const updateCustomerEmail = async (
+export async function updateCustomerEmail(
   context: Context,
   input: UpdateCustomerEmailMutationVariables,
   customQuery: CustomQuery = { updateCustomerEmail: "updateCustomerEmail" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<UpdateCustomerEmailMutation>> => {
+): Promise<FetchResult<UpdateCustomerEmailMutation>> {
   const { updateCustomerEmail: updateCustomerEmailGQL } = context.extendQuery(customQuery, {
     updateCustomerEmail: {
       query: updateCustomerEmailQuery,
@@ -27,4 +27,4 @@ export const updateCustomerEmail = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

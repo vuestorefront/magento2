@@ -9,11 +9,11 @@ import getHeaders from "../getHeaders";
 /**
  * Returns list of available stores
  */
-export const availableStores = async (
+export async function availableStores(
   context: Context,
   customQuery: CustomQuery = { availableStores: "availableStores" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<AvailableStoresQuery>> => {
+): Promise<ApolloQueryResult<AvailableStoresQuery>> {
   const { availableStores: availableStoresGQL } = context.extendQuery(customQuery, {
     availableStores: {
       query: availableStoresQuery,
@@ -28,4 +28,4 @@ export const availableStores = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

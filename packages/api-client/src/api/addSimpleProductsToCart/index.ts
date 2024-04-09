@@ -10,12 +10,12 @@ import addSimpleProductsToCartQuery from "./addSimpleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const addSimpleProductsToCart = async (
+export async function addSimpleProductsToCart(
   context: Context,
   input: AddSimpleProductsToCartInput,
   customQuery: CustomQuery = { addSimpleProductsToCart: "addSimpleProductsToCart" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
+): Promise<FetchResult<AddSimpleProductsToCartMutation>> {
   const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(customQuery, {
     addSimpleProductsToCart: {
       query: addSimpleProductsToCartQuery,
@@ -29,4 +29,4 @@ export const addSimpleProductsToCart = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

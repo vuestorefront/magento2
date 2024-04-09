@@ -6,10 +6,10 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 import CustomerAvailablePaymentMethods from "./CustomerPaymentMethods";
 
-export const getAvailableCustomerPaymentMethods = async (
+export async function getAvailableCustomerPaymentMethods(
   context: Context,
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> => {
+): Promise<ApolloQueryResult<CustomerAvailablePaymentMethodsQuery>> {
   try {
     return await context.client.query<CustomerAvailablePaymentMethodsQuery>({
       query: gql`
@@ -22,4 +22,4 @@ export const getAvailableCustomerPaymentMethods = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

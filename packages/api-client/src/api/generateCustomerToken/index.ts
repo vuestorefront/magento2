@@ -11,7 +11,7 @@ import getHeaders from "../getHeaders";
 /**
  * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.
  */
-export const generateCustomerToken = async (
+export async function generateCustomerToken(
   context: Context,
   params: {
     email: string;
@@ -20,7 +20,7 @@ export const generateCustomerToken = async (
   },
   customQuery: CustomQuery = { generateCustomerToken: "generateCustomerToken" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<GenerateCustomerTokenMutation>> => {
+): Promise<FetchResult<GenerateCustomerTokenMutation>> {
   try {
     if (context.config.recaptcha.isEnabled) {
       /**
@@ -65,4 +65,4 @@ export const generateCustomerToken = async (
     }
     throw error.networkError?.result || error;
   }
-};
+}

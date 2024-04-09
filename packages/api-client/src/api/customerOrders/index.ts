@@ -20,12 +20,12 @@ type Variables = {
 /**
  * Returns customer orders. To override the default query, use the `customerOrders` query key.
  */
-export const customerOrders = async (
+export async function customerOrders(
   context: Context,
   searchParams: GetOrdersSearchParams,
   customQuery: CustomQuery = { customerOrders: "customerOrders" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerOrdersQuery>> => {
+): Promise<ApolloQueryResult<CustomerOrdersQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -57,4 +57,4 @@ export const customerOrders = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

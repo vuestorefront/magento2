@@ -11,11 +11,11 @@ import getHeaders from "../getHeaders";
 /**
  * Creates a new product review
  */
-export const createProductReview = async (
+export async function createProductReview(
   context: Context,
   input: CreateProductReviewInput,
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<CreateProductReviewMutation>> => {
+): Promise<FetchResult<CreateProductReviewMutation>> {
   const { recaptchaToken, ...variables } = input;
 
   if (context.config.recaptcha.isEnabled) {
@@ -41,4 +41,4 @@ export const createProductReview = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

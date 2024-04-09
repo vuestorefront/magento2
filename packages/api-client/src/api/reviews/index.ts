@@ -14,12 +14,12 @@ import getHeaders from "../getHeaders";
 /**
  * Returns product reviews created by the current customer
  */
-export const reviews = async (
+export async function reviews(
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: "reviews" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
+): Promise<ApolloQueryResult<CustomerProductReviewQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -50,4 +50,4 @@ export const reviews = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

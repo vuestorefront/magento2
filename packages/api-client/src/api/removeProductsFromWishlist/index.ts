@@ -6,12 +6,12 @@ import removeProductsFromWishlistQuery from "./removeProductsFromWishlist";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const removeProductsFromWishlist = async (
+export async function removeProductsFromWishlist(
   context: Context,
   input: RemoveProductsFromWishlistMutationVariables,
   customQuery: CustomQuery = { removeProductsFromWishlist: "removeProductsFromWishlist" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<RemoveProductsFromWishlistMutation>> => {
+): Promise<FetchResult<RemoveProductsFromWishlistMutation>> {
   const { removeProductsFromWishlist: removeProductsFromWishlistGQL } = context.extendQuery(customQuery, {
     removeProductsFromWishlist: {
       query: removeProductsFromWishlistQuery,
@@ -28,4 +28,4 @@ export const removeProductsFromWishlist = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

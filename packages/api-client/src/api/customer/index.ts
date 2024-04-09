@@ -8,11 +8,11 @@ import getHeaders from "../getHeaders";
 /**
  * Returns the information about the current customer. To override the default query, use the `customer` query key.
  */
-export const customer = async (
+export async function customer(
   context: Context,
   customQuery: CustomQuery = { customer: "customer" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerQuery>> => {
+): Promise<ApolloQueryResult<CustomerQuery>> {
   const { customer: customerGQL } = context.extendQuery(customQuery, {
     customer: {
       query: customerQuery,
@@ -27,4 +27,4 @@ export const customer = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

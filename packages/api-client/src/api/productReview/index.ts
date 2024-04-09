@@ -24,12 +24,12 @@ type Variables = {
 /**
  * Returns reviews of the provided product
  */
-export const productReview = async (
+export async function productReview(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { productReview: "productReview" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<ProductReviewQuery>> => {
+): Promise<ApolloQueryResult<ProductReviewQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -67,4 +67,4 @@ export const productReview = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

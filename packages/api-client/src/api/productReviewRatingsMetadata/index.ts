@@ -8,11 +8,11 @@ import getHeaders from "../getHeaders";
 /**
  * Returns the active ratings attributes and the values each rating can have.
  */
-export const productReviewRatingsMetadata = async (
+export async function productReviewRatingsMetadata(
   context: Context,
   customQuery: CustomQuery = { productReviewRatingsMetadata: "productReviewRatingsMetadata" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> => {
+): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> {
   const { productReviewRatingsMetadata: productReviewRatingsMetadataGQL } = context.extendQuery(customQuery, {
     productReviewRatingsMetadata: {
       query: productReviewRatingsMetadataQuery,
@@ -27,4 +27,4 @@ export const productReviewRatingsMetadata = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

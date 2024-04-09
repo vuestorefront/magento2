@@ -11,12 +11,12 @@ import getHeaders from "../getHeaders";
 /**
  * Registers a new customer. To override the default query, use the `createCustomer` query key.
  */
-export const createCustomer = async (
+export async function createCustomer(
   context: Context,
   input: CustomerCreateInput,
   customQuery: CustomQuery = { createCustomer: "createCustomer" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<CreateCustomerMutation>> => {
+): Promise<FetchResult<CreateCustomerMutation>> {
   try {
     const { recaptchaToken, ...variables } = input;
 
@@ -60,4 +60,4 @@ export const createCustomer = async (
     }
     throw error.networkError?.result || error;
   }
-};
+}

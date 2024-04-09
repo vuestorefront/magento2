@@ -1,5 +1,5 @@
 /**
- * Api Client for Magento 2 integration for Vue Storefront 2.
+ * `api-client` of Magento 2 integration.
  *
  * @remarks
  * The `@vue-storefront/magento-api` library includes Apollo Client,
@@ -10,3 +10,4 @@
  */
 
 export * from "./api";
+export * from "./types";

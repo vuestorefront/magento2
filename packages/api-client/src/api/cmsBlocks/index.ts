@@ -2,7 +2,7 @@ import { ApolloQueryResult } from "@apollo/client/core";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { CmsBlockQuery, CmsBlockQueryVariables, CustomQuery } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import cmsBlocks from "./cmsBlocks";
+import cmsBlocksQuery from "./cmsBlocks";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -22,7 +22,7 @@ export async function cmsBlocks(
 ): Promise<ApolloQueryResult<CmsBlockQuery>> {
   const { cmsBlocks: cmsBlocksGQL } = context.extendQuery(customQuery, {
     cmsBlocks: {
-      query: cmsBlocks,
+      query: cmsBlocksQuery,
       variables: { identifiers },
     },
   });

@@ -4,7 +4,7 @@ import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const customQuery = async <QUERY = any, QUERY_VARIABLES = any>(
+export async function customQuery<QUERY = any, QUERY_VARIABLES = any>(
   context: Context,
   {
     query,
@@ -17,8 +17,8 @@ export const customQuery = async <QUERY = any, QUERY_VARIABLES = any>(
     fetchPolicy?: FetchPolicy;
     customHeaders?: CustomHeaders;
   }
-): Promise<ApolloQueryResult<QUERY>> =>
-  context.client.query<QUERY, QUERY_VARIABLES>({
+): Promise<ApolloQueryResult<QUERY>> {
+  return context.client.query<QUERY, QUERY_VARIABLES>({
     query: gql`
       ${query}
     `,
@@ -28,3 +28,4 @@ export const customQuery = async <QUERY = any, QUERY_VARIABLES = any>(
       headers: getHeaders(context, customHeaders),
     },
   });
+}

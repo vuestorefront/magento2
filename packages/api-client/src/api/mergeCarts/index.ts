@@ -5,7 +5,7 @@ import mergeCartsQuery from "./mergeCarts";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const mergeCarts = async (
+export async function mergeCarts(
   context: Context,
   params: {
     sourceCartId: string;
@@ -13,7 +13,7 @@ export const mergeCarts = async (
   },
   customQuery: CustomQuery = { mergeCarts: "mergeCarts" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<MergeCartsMutation>> => {
+): Promise<FetchResult<MergeCartsMutation>> {
   const { mergeCarts: mergeCartsGQL } = context.extendQuery(customQuery, {
     mergeCarts: {
       query: mergeCartsQuery,
@@ -33,4 +33,4 @@ export const mergeCarts = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

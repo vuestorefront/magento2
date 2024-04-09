@@ -17,12 +17,12 @@ import getHeaders from "../getHeaders";
  * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
  *
  */
-export const customerProductReview = async (
+export async function customerProductReview(
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: "reviews" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
+): Promise<ApolloQueryResult<CustomerProductReviewQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -53,4 +53,4 @@ export const customerProductReview = async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

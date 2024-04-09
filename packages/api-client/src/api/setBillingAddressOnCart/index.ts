@@ -11,12 +11,12 @@ import setBillingAddressOnCartQuery from "./setBillingAddressOnCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export const setBillingAddressOnCart = async (
+export async function setBillingAddressOnCart(
   context: Context,
   input: SetBillingAddressOnCartInput,
   customQuery: CustomQuery = { setBillingAddressOnCart: "setBillingAddressOnCart" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<SetBillingAddressOnCartMutation>> => {
+): Promise<FetchResult<SetBillingAddressOnCartMutation>> {
   const { setBillingAddressOnCart: setBillingAddressOnCartGQL } = context.extendQuery(customQuery, {
     setBillingAddressOnCart: {
       query: setBillingAddressOnCartQuery,
@@ -33,4 +33,4 @@ export const setBillingAddressOnCart = async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}
