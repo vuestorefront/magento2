@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "2.4.3",
+  "version": "2.6.0",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -24,7 +24,7 @@
   "dependencies": {
     "@apollo/client": "3.8.7",
     "@nuxtjs/composition-api": "0.31.0",
-    "@vue-storefront/magento-types": "1.0.2",
+    "@vue-storefront/magento-types": "^1.1.0",
     "@vue-storefront/middleware": "^3.9.0",
     "agentkeepalive": "^4.2.1",
     "consola": "^3.1.0",

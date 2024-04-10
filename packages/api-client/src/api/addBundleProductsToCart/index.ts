@@ -6,7 +6,7 @@ import type {
   AddBundleProductsToCartMutationVariables,
   CustomHeaders,
 } from "@vue-storefront/magento-types";
-
+import gql from "graphql-tag";
 import addBundleProductsToCartQuery from "./addBundleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
@@ -25,7 +25,9 @@ export async function addBundleProductsToCart(
   });
 
   return context.client.mutate<any, AddBundleProductsToCartMutationVariables>({
-    mutation: addBundleProductsToCartGQL.query,
+    mutation: gql`
+      ${addBundleProductsToCartGQL.query}
+    `,
     variables: addBundleProductsToCartGQL.variables,
     context: {
       headers: getHeaders(context, customHeaders),

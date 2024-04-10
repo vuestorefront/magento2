@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-sdk",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -23,10 +23,10 @@
     "@vue-storefront/sdk-axios-request-sender": "1.0.0",
     "@apollo/client": "^3.6.9",
     "ts-essentials": "^9.3.1",
-    "@vue-storefront/magento-types": "^1.0.0"
+    "@vue-storefront/magento-types": "^1.0.2"
   },
   "devDependencies": {
-    "@vue-storefront/magento-api": "^2.4.0",
+    "@vue-storefront/magento-api": "^2.5.0",
     "nock": "^13.2.9",
     "@types/node": "^12.12.14"
   },

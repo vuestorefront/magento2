@@ -15,3 +15,10 @@
 - import { ContextualizedEndpoints } from '@vue-storefront/magento-api';
 + import { Endpoints } from '@vue-storefront/magento-api';
 ```
+
+- **[REMOVED]** `MagentoApiMethods` interface. Use `Endpoints` instead.
+
+```diff
+- import { MagentoApiMethods } from '@vue-storefront/magento-api';
++ import { Endpoints } from '@vue-storefront/magento-api';
+```

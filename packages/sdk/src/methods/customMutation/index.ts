@@ -77,7 +77,7 @@ export async function customMutation<RES extends CustomMutationResponse<any>, IN
   return new AxiosRequestSender(client)
     .setUrl('customMutation')
     .setMethod('POST')
-    .setProps([params, options?.customHeaders])
+    .setProps({ ...params, customHeaders: options?.customHeaders })
     .setConfig(options?.clientConfig)
     .send<RES>();
 }

@@ -2,6 +2,10 @@
 export default `
   mutation createCustomerAddress($input: CustomerAddressInput!) {
     createCustomerAddress(input: $input) {
+      firstname
+      lastname
+      prefix
+      suffix
       id
       region {
         region
