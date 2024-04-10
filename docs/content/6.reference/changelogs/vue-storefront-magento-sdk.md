@@ -1,5 +1,16 @@
 # @vue-storefront/magento-sdk
 
+## 2.3.0
+
+### Minor Changes
+
+- 8b2a0c35: [ADDED] `categories` method that allows fetching a list of categories that match the specified filter.
+
+### Patch Changes
+
+- Updated dependencies [8b2a0c35]
+  - @vue-storefront/magento-types@1.2.0
+
 ## 2.2.0
 
 ### Minor Changes

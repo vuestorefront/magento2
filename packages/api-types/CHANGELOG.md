@@ -1,5 +1,11 @@
 # @vue-storefront/magento-types
 
+## 1.2.0
+
+### Minor Changes
+
+- 8b2a0c35: [ADDED] `categories` endpoint definition.
+
 ## 1.1.0
 
 ### Minor Changes
