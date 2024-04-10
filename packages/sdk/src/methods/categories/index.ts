@@ -11,7 +11,7 @@ import { CustomQuery, MethodOptions } from '../../types';
 export type CategoriesQuery = { categories: Query['categories'] };
 
 /**
- * Category list response type
+ * Category result response type
  */
 export type CategoriesResponse<T extends DeepPartial<CategoriesQuery> = CategoriesQuery> = ApolloQueryResult<T>;
 
