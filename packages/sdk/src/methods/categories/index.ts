@@ -16,7 +16,7 @@ export type CategoriesQuery = { categories: Query['categories'] };
 export type CategoriesResponse<T extends DeepPartial<CategoriesQuery> = CategoriesQuery> = ApolloQueryResult<T>;
 
 /**
- * Method to list of all categories without filters
+ * Method to list of all categories matching specified filters
  *
  * @remarks
  * This method sends a GET request to the
@@ -48,14 +48,14 @@ export type CategoriesResponse<T extends DeepPartial<CategoriesQuery> = Categori
  * ```
  *
  * @example
- * Creating a custom GraphQL query for adding product details.
+ * Creating a custom GraphQL query for fetching categories.
  *
  * ```ts
  * module.exports = {
  *   integrations: {
  *     magento: {
  *       customQueries: {
- *         'category-list-custom-query': ({ variables, metadata }) => ({
+ *         'categories-custom-query': ({ variables, metadata }) => ({
  *            variables,
  *            query: `
  *              query categories {
@@ -72,12 +72,12 @@ export type CategoriesResponse<T extends DeepPartial<CategoriesQuery> = Categori
  * ```
  *
  * @example
- * Using a custom GraphQL query to fetch product details.
+ * Using a custom GraphQL query to fetch categories.
  *
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
  * const customQuery = {
- *  categories: 'category-list-custom-query',
+ *  categories: 'categories-custom-query',
  *    metadata: {
  *      fields: 'items { uid name }'
  *    }

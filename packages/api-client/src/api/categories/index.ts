@@ -9,7 +9,7 @@ import getHeaders from "../getHeaders";
 /**
  * Fetches categories.
  *
- * @param context VSF Context
+ * @param context Context
  * @param params
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
