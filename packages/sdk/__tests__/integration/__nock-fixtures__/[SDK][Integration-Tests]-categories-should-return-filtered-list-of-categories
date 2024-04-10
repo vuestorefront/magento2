@@ -1,0 +1,49 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+categories%28%24filters%3ACategoryFilterInput%24pageSize%3AInt%24currentPage%3AInt%29%7Bcategories%28filters%3A%24filters+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Bchildren%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+__typename%7D__typename%7D__typename%7D__typename%7Dproduct_count+name+uid+__typename%7Dpage_info%7Bcurrent_page+page_size+total_pages+__typename%7Dtotal_count+__typename%7D%7D&operationName=categories&variables=%7B%22pageSize%22%3A2%2C%22currentPage%22%3A1%2C%22filters%22%3A%7B%22category_uid%22%3A%7B%22in%22%3A%5B%22MjE%3D%22%2C%22MjM%3D%22%2C%22MjU%3D%22%5D%7D%7D%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003bd544d4fc24010fd2b640f9e8a28e0a589178d899a90a8e0c108d96cda812e6c779bdd591149ffbbdb0f534b111b0edc98993733efbd2db325214346fc2d0918c242690e268b3842ec7ebcbb7cc445a841e6019781b021502e690cd212ffd223dc50268348e93c12f00182f8438f481603f1c9230b56808678245186235732c7255a8536401a282bd165fa1eb13c74f8d17274edc0560bba828d4b2c8b01ddb5722bcb4ac23072a53c35eda14acaf2b4b70f6dec7cce3f1dfe3cc258b8e42f4d338f508a9b044abab7850d9b890620a97794e47ba542e763e7ac335e03431371bd6340ffa001cf7503a2625c97c9b06baa812d0d69d37d6a832600753f0607fd78adfb81aebba5f806f4d44a6f34cbbe830993abbae26153f1b052fcb6a3386b6f2bb9813d5ef3ac41f2eaa27a44b7945494ef32ca87fdabefddf3e08d93513b09ff10658bec65e62a3f6656bb3d48b364716eb2aae15f90fff750211379d1e4716df218980ea2173056e093833c6433d39fa692ede00f3a451b49d3f41b0de0ef375a050000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 09 Apr 2024 12:52:01 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "400",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=g9dpg3ocsudug1stfg3e761f1v; expires=Tue, 09-Apr-2024 13:52:01 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "924050",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,5 +1,6 @@
 export * from './applyCouponToCart';
 export * from './productDetails';
+export * from './categories';
 export * from './categoryList';
 export * from './categorySearch';
 export * from './products';

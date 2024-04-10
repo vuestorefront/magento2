@@ -20,8 +20,10 @@ import {
   BundleProduct,
   CartItemInput,
   CartQuery,
+  CategoryFilterInput,
   CategoryListQuery,
   CategoryListQueryVariables,
+  CategoryResult,
   CategorySearchQuery,
   CategorySearchQueryVariables,
   ChangeCustomerPasswordMutation,
@@ -54,6 +56,7 @@ import {
   GuestAvailablePaymentMethodsQuery,
   GuestAvailableShippingMethodsQuery,
   InputMaybe,
+  Maybe,
   MergeCartsMutation,
   PlaceOrderInput,
   PlaceOrderMutation,
@@ -219,6 +222,12 @@ export interface MagentoApiMethods {
     customQuery?: CustomQuery,
     customHeaders?: CustomHeaders
   ): Promise<ApolloQueryResult<CartQuery>>;
+
+  categories(
+    currentPage?: InputMaybe<Scalars['Int']>,
+    filters?: InputMaybe<CategoryFilterInput>,
+    pageSize?: InputMaybe<Scalars['Int']>,
+  ): Promise<ApolloQueryResult<Maybe<CategoryResult>>>;
 
   categoryList(
     categoryFilter?: CategoryListQueryVariables,
