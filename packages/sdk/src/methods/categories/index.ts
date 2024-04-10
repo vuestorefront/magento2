@@ -1,4 +1,4 @@
-import { CategoryListQueryVariables, Query } from '@vue-storefront/magento-types';
+import { QueryCategoriesArgs, Query } from '@vue-storefront/magento-types';
 import { DeepPartial } from 'ts-essentials';
 import { ApolloQueryResult } from '@apollo/client';
 import { AxiosRequestSender } from '@vue-storefront/sdk-axios-request-sender';
@@ -6,25 +6,24 @@ import { client } from '../../client';
 import { CustomQuery, MethodOptions } from '../../types';
 
 /**
- * query type for the {@link categoryList} method.
+ * query type for the {@link categories} method.
  */
-export type CategoryListQuery = { categories: Query['categories'] };
+export type CategoriesQuery = { categories: Query['categories'] };
 
 /**
  * Category list response type
  */
-export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = CategoryListQuery> = ApolloQueryResult<T>;
+export type CategoriesResponse<T extends DeepPartial<CategoriesQuery> = CategoriesQuery> = ApolloQueryResult<T>;
 
 /**
  * Method to list of all categories without filters
- * @deprecated Use `categories` method instead
  *
  * @remarks
  * This method sends a GET request to the
- * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/categoryList | categoryList} endpoint
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/categories | categories} endpoint
  * of the Vue Storefront API Middleware.
  * The default GraphQL query used by this method can be found
- * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/categoryList | here}.
+ * {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/categories | here}.
  *
  * @param params -
  * Parameter object which can be used with this method.
@@ -37,7 +36,7 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  * @typeParam Res - Customizable response interface to be used with custom queries.
  *
  * @returns
- * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/CategoryListResponse | CategoryListResponse}.
+ * Returns a representation of the {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/categoriesResponse | categoriesResponse}.
  *
  * @example
  * Simple usage:
@@ -45,7 +44,7 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  * import { sdk } from '~/sdk.config.ts';
  *
  * // fetch list of categories with default parameters
- * const categoryList = await sdk.magento.categoryList({});
+ * const categories = await sdk.magento.categories({});
  * ```
  *
  * @example
@@ -59,7 +58,7 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  *         'category-list-custom-query': ({ variables, metadata }) => ({
  *            variables,
  *            query: `
- *              query categoryList {
+ *              query categories {
  *                 categories {
  *                   ${metadata.fields}
  *                 }
@@ -78,23 +77,23 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
  * ```ts
  * import { sdk } from '~/sdk.config.ts';
  * const customQuery = {
- *  categoryList: 'category-list-custom-query',
+ *  categories: 'category-list-custom-query',
  *    metadata: {
  *      fields: 'items { uid name }'
  *    }
  * };
  *
- * const categoryList = await sdk.magento.categoryList({}, { customQuery });
+ * const categories = await sdk.magento.categories({}, { customQuery });
  *
  * // Category list will contain only the fields specified in the custom query.
  * ```
  */
-export async function categoryList<RES extends CategoryListResponse>(
-  params: CategoryListQueryVariables,
-  options?: MethodOptions<CustomQuery<'categoryList'>>,
+export async function categories<RES extends CategoriesResponse>(
+  params: QueryCategoriesArgs,
+  options?: MethodOptions<CustomQuery<'categories'>>,
 ) {
   return new AxiosRequestSender(client)
-    .setUrl('categoryList')
+    .setUrl('categories')
     .setMethod('GET')
     .setProps([params, options?.customQuery, options?.customHeaders])
     .setConfig(options?.clientConfig)

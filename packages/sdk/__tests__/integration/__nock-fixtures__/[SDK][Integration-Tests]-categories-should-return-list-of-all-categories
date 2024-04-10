@@ -1,0 +1,49 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+categories%28%24filters%3ACategoryFilterInput%24pageSize%3AInt%24currentPage%3AInt%29%7Bcategories%28filters%3A%24filters+pageSize%3A%24pageSize+currentPage%3A%24currentPage%29%7Bitems%7Bchildren%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+children%7Binclude_in_menu+is_anchor+level+name+position+product_count+uid+url_key+url_path+url_suffix+__typename%7D__typename%7D__typename%7D__typename%7Dproduct_count+name+uid+__typename%7Dpage_info%7Bcurrent_page+page_size+total_pages+__typename%7Dtotal_count+__typename%7D%7D&operationName=categories&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003d5585b6fda3018fd2bc80f7b82512edd3aa43e94addb9844d58e54d534a6c84d4ce212e22c76caba8aff3e278138710c8e1885f246be9bce39f9ec1cf10c6cc820e83d030b32e49010231a3f618666fcc74f1e77b16787c84f1eb06f79918d4cec9b33e447a0d7aa034c4de85b2e0993270f3d220ff4da75e0c319023d70477825a8838050cc30f1935c10123bb2986991c867a0f7fe5d1d44d8e6d5c3878b735e1c859e39454f3c305fb6c7910032570ad16832c17f78f0adcb661e0f6e07b793c13548400b685b25b4a72702ed65112de3dd8d7590c7cd527a47f0bb19fc6fd09a22a663d06a0b06c322838774402512e3a6aa7a13a75f75609aec29404bb81fd3a57b324284c0a2be15e5af84d87c6b6b6f6aa339828cba389404282f5c5e809ba2006e3aae017dbb41c5c08a8254e9deb7400642453d3a1bf5b895569a7757245f2add37d37e08e33d30a03f2d32ee96197705e31f12e3b8bd2ae552edf69c77a788b8cefa843132d31d8776eefe1d14c5b84f076c904355b1f37bed1afafa5bad235858451641dc5e95c3b8592edff7268f78467f8be5083b45c234e9afce5851ff528bfcbf729d284cc650b2188a1bee34d3ca903eda25890e6b2fba6702e940612f54709797d2e18d454b60bf511b8bcdf085a5383243218ea2715bcd50e884d0f7bd6e2361c89fd5d81de8484b457b6758c539e4285a2ae7a0e528551da56310f6c918aa1d835a8672f6305e21f7121d9557d0a25fb984d7ee117244a74a8f508169a9f298bcc1170443cd91ee88db7b7e5e14c949bb73f2e4223bb7077de86837373b79571712d6fbb45bc2cadfa588ef674705a1cf98f988d2dae5ef0807bc89e9d635fb6fe5ea466237494735506e5489eabaa27df3be83cc72b55fcb0f195947223bcffa4b148ba9173c89f2ab396b65f43ea1098c3c565bf580ecfca4443483a1138b3921c9ff8e51c8d132330ea6fb1e6729fecb9fda7c1b1861d04bb2344917468fb82296fb1d510ee69a970ce2a18b55d30af81a3c691b582c16ff00b674324406150000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Tue, 09 Apr 2024 12:45:55 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "758",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=8r1fmr0eekj2b8sjf2425lfvmf; expires=Tue, 09-Apr-2024 13:45:55 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "759652",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

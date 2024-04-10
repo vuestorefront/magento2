@@ -8,6 +8,7 @@ import getHeaders from "../getHeaders";
 
 /**
  * Fetches the category list.
+ * @deprecated Use `categories` method instead
  *
  * @param context VSF Context
  * @param params
