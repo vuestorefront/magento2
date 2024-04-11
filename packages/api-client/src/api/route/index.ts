@@ -13,7 +13,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function route(
+export async function route(
   context: Context,
   url: string,
   customQuery: CustomQuery = { route: "route" },

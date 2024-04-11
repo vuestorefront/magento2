@@ -11,7 +11,7 @@ import getHeaders from "../getHeaders";
  * @param customQuery custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function customerCart(
+export async function customerCart(
   context: Context,
   customQuery: CustomQuery = { customerCart: "customerCart" },
   customHeaders: CustomHeaders = {}

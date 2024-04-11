@@ -6,19 +6,19 @@ import {
   AddSimpleProductsToCartMutationVariables,
 } from "@vue-storefront/magento-types";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
-import addSimpleProductsToCart from "./addSimpleProductsToCart";
+import addSimpleProductsToCartQuery from "./addSimpleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export async function addSimpleProductsToCart(
   context: Context,
   input: AddSimpleProductsToCartInput,
   customQuery: CustomQuery = { addSimpleProductsToCart: "addSimpleProductsToCart" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<AddSimpleProductsToCartMutation>> => {
+): Promise<FetchResult<AddSimpleProductsToCartMutation>> {
   const { addSimpleProductsToCart: addSimpleProductsToCartGQL } = context.extendQuery(customQuery, {
     addSimpleProductsToCart: {
-      query: addSimpleProductsToCart,
+      query: addSimpleProductsToCartQuery,
       variables: { input },
     },
   });
@@ -29,4 +29,4 @@ export default async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

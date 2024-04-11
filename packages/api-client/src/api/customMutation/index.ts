@@ -4,7 +4,7 @@ import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async <MUTATION = any, MUTATION_VARIABLES = any>(
+export async function customMutation<MUTATION = any, MUTATION_VARIABLES = any>(
   context: Context,
   {
     mutation,
@@ -17,8 +17,8 @@ export default async <MUTATION = any, MUTATION_VARIABLES = any>(
     fetchPolicy?: Extract<FetchPolicy, "network-only" | "no-cache">;
     customHeaders?: CustomHeaders;
   }
-): Promise<FetchResult<MUTATION>> =>
-  context.client.mutate<MUTATION, MUTATION_VARIABLES>({
+): Promise<FetchResult<MUTATION>> {
+  return context.client.mutate<MUTATION, MUTATION_VARIABLES>({
     mutation: gql`
       ${mutation}
     `,
@@ -28,3 +28,4 @@ export default async <MUTATION = any, MUTATION_VARIABLES = any>(
       headers: getHeaders(context, customHeaders),
     },
   });
+}

@@ -9,7 +9,7 @@ import {
   ProductReviewQueryVariables,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import productReview from "./productReview";
+import productReviewQuery from "./productReview";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -24,12 +24,12 @@ type Variables = {
 /**
  * Returns reviews of the provided product
  */
-export default async (
+export async function productReview(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { productReview: "productReview" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<ProductReviewQuery>> => {
+): Promise<ApolloQueryResult<ProductReviewQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -49,7 +49,7 @@ export default async (
 
   const { productReview: productReviewGQL } = context.extendQuery(customQuery, {
     productReview: {
-      query: productReview,
+      query: productReviewQuery,
       variables,
     },
   });
@@ -67,4 +67,4 @@ export default async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

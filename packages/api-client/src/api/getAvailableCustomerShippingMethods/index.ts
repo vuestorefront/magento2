@@ -12,7 +12,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default one
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function getAvailableCustomerShippingMethods(
+export async function getAvailableCustomerShippingMethods(
   context: Context,
   customQuery: CustomQuery = { shippingMethods: "shippingMethods" },
   customHeaders: CustomHeaders = {}

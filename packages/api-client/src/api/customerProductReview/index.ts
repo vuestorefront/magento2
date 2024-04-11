@@ -7,7 +7,7 @@ import {
   CustomQuery,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import customerProductReview from "./customerProductReview";
+import customerProductReviewQuery from "./customerProductReview";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -17,12 +17,12 @@ import getHeaders from "../getHeaders";
  * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
  *
  */
-export default async (
+export async function customerProductReview(
   context: Context,
   searchParams?: CustomerProductReviewParams,
   customQuery: CustomQuery = { reviews: "reviews" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<CustomerProductReviewQuery>> => {
+): Promise<ApolloQueryResult<CustomerProductReviewQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -35,7 +35,7 @@ export default async (
 
   const { reviews } = context.extendQuery(customQuery, {
     reviews: {
-      query: customerProductReview,
+      query: customerProductReviewQuery,
       variables,
     },
   });
@@ -53,4 +53,4 @@ export default async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

@@ -6,8 +6,8 @@ import wishlistItemsCountQuery from "./wishlistItemsCount";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (context: Context, customHeaders: CustomHeaders = {}): Promise<ApolloQueryResult<WishlistQuery>> =>
-  context.client.query<WishlistQuery>({
+export async function wishlistItemsCount(context: Context, customHeaders: CustomHeaders = {}): Promise<ApolloQueryResult<WishlistQuery>> {
+  return context.client.query<WishlistQuery>({
     query: gql`
       ${wishlistItemsCountQuery}
     `,
@@ -15,3 +15,4 @@ export default async (context: Context, customHeaders: CustomHeaders = {}): Prom
       headers: getHeaders(context, customHeaders),
     },
   });
+}

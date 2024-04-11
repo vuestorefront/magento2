@@ -8,9 +8,9 @@ module.exports.kebabize = (camelCaseString) =>
     .map((letter, index) => {
       const isUppercase = letter === letter.toUpperCase();
       const isFirst = index === 0;
-      return (isUppercase && !isFirst) ? `-${letter.toLowerCase()}` : letter;
+      return isUppercase && !isFirst ? `-${letter.toLowerCase()}` : letter;
     })
-    .join('');
+    .join("");
 
 /**
  * @param {string} string

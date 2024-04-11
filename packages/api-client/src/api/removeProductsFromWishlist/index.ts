@@ -2,19 +2,19 @@ import { FetchResult } from "@apollo/client/core";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { CustomQuery, RemoveProductsFromWishlistMutation, RemoveProductsFromWishlistMutationVariables } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import removeProductsFromWishlist from "./removeProductsFromWishlist";
+import removeProductsFromWishlistQuery from "./removeProductsFromWishlist";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
-export default async (
+export async function removeProductsFromWishlist(
   context: Context,
   input: RemoveProductsFromWishlistMutationVariables,
   customQuery: CustomQuery = { removeProductsFromWishlist: "removeProductsFromWishlist" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<RemoveProductsFromWishlistMutation>> => {
+): Promise<FetchResult<RemoveProductsFromWishlistMutation>> {
   const { removeProductsFromWishlist: removeProductsFromWishlistGQL } = context.extendQuery(customQuery, {
     removeProductsFromWishlist: {
-      query: removeProductsFromWishlist,
+      query: removeProductsFromWishlistQuery,
       variables: { ...input },
     },
   });
@@ -28,4 +28,4 @@ export default async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

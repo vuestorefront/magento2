@@ -13,7 +13,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) - custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function currency(
+export async function currency(
   context: Context,
   customQuery: CustomQuery = { currency: "currency" },
   customHeaders: CustomHeaders = {}

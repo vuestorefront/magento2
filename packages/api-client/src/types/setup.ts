@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloClientOptions } from "@apollo/client/core";
 import { HttpOptions } from "@apollo/client/link/http/selectHttpOptionsAndBody";
-import { MagentoApiMethods } from "@vue-storefront/magento-types";
+import { Endpoints } from "./api";
 
 export interface Storage {
   set: (name: string, value: any) => void;
@@ -96,7 +96,7 @@ export interface Config<T = any> extends ClientConfig {
   customOptions?: ApolloClientOptions<any>;
   customApolloHttpLinkOptions?: HttpOptions;
   magentoApiEndpoint: string;
-  overrides: MagentoApiMethods;
+  overrides: Endpoints;
   recaptcha: RecaptchaConfig;
   imageProvider: string;
   magentoBaseUrl: string;

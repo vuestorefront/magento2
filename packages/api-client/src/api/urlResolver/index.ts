@@ -13,7 +13,7 @@ import getHeaders from "../getHeaders";
  * @param customHeaders (optional) - custom headers that extends the default headers
  * @deprecated - use route instead
  */
-export default async function urlResolver(
+export async function urlResolver(
   context: Context,
   url: string,
   customQuery: CustomQuery = { urlResolver: "urlResolver" },

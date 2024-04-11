@@ -13,7 +13,7 @@ import getHeaders from "../getHeaders";
  * @param [customQuery] (optional) custom GraphQL query that extends the default query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function updateCustomerAddress(
+export async function updateCustomerAddress(
   context: Context,
   params: UpdateCustomerAddressMutationVariables,
   customQuery: CustomQuery = { updateCustomerAddress: "updateCustomerAddress" },

@@ -1,21 +1,21 @@
 import { ApolloQueryResult, gql } from "@apollo/client/core";
 import { CustomQuery, ProductReviewRatingsMetadataQuery } from "@vue-storefront/magento-types";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
-import productReviewRatingsMetadata from "./productReviewRatingsMetadata";
+import productReviewRatingsMetadataQuery from "./productReviewRatingsMetadata";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
  * Returns the active ratings attributes and the values each rating can have.
  */
-export default async (
+export async function productReviewRatingsMetadata(
   context: Context,
   customQuery: CustomQuery = { productReviewRatingsMetadata: "productReviewRatingsMetadata" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> => {
+): Promise<ApolloQueryResult<ProductReviewRatingsMetadataQuery>> {
   const { productReviewRatingsMetadata: productReviewRatingsMetadataGQL } = context.extendQuery(customQuery, {
     productReviewRatingsMetadata: {
-      query: productReviewRatingsMetadata,
+      query: productReviewRatingsMetadataQuery,
     },
   });
 
@@ -27,4 +27,4 @@ export default async (
       headers: getHeaders(context, customHeaders),
     },
   });
-};
+}

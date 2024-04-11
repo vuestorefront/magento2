@@ -12,7 +12,7 @@ import getHeaders from "../getHeaders";
  * @param addressId ID of the customer address to delete
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function deleteCustomerAddress(
+export async function deleteCustomerAddress(
   context: Context,
   addressId: number,
   customHeaders: CustomHeaders = {}

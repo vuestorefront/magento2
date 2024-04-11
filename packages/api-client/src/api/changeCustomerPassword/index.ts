@@ -2,23 +2,23 @@ import { FetchResult } from "@apollo/client/core";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { ChangeCustomerPasswordMutation, ChangeCustomerPasswordMutationVariables, CustomQuery } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import changeCustomerPassword from "./changeCustomerPassword";
+import changeCustomerPasswordQuery from "./changeCustomerPassword";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
  * Changes password of the current customer. To override the default query, use the `changeCustomerPassword` query key.
  */
-export default async (
+export async function changeCustomerPassword(
   context: Context,
   params: { currentPassword: string; newPassword: string },
   customQuery: CustomQuery = { changeCustomerPassword: "changeCustomerPassword" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<ChangeCustomerPasswordMutation>> => {
+): Promise<FetchResult<ChangeCustomerPasswordMutation>> {
   try {
     const { changeCustomerPassword: changeCustomerPasswordGQL } = context.extendQuery(customQuery, {
       changeCustomerPassword: {
-        query: changeCustomerPassword,
+        query: changeCustomerPasswordQuery,
         variables: { ...params },
       },
     });
@@ -41,4 +41,4 @@ export default async (
     }
     throw error.networkError?.result || error;
   }
-};
+}

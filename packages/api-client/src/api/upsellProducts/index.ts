@@ -9,7 +9,7 @@ import type {
   UpsellProductsQueryVariables,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import upsellProducts from "./upsellProducts";
+import upsellProductsQuery from "./upsellProducts";
 import type { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -24,12 +24,12 @@ type Variables = {
 /**
  * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.
  */
-export default async (
+export async function upsellProducts(
   context: Context,
   searchParams?: GetProductSearchParams,
   customQuery: CustomQuery = { upsellProducts: "upsellProducts" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<UpsellProductsQuery>> => {
+): Promise<ApolloQueryResult<UpsellProductsQuery>> {
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -49,7 +49,7 @@ export default async (
 
   const { upsellProducts: upsellProductsGQL } = context.extendQuery(customQuery, {
     upsellProducts: {
-      query: upsellProducts,
+      query: upsellProductsQuery,
       variables,
     },
   });
@@ -67,4 +67,4 @@ export default async (
   } catch (error) {
     throw error.graphQLErrors?.[0].message || error.networkError?.result || error;
   }
-};
+}

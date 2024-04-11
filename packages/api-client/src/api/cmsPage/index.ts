@@ -3,7 +3,7 @@ import consola from "consola";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { CmsPageQuery, CmsPageQueryVariables, CustomQuery } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import cmsPage from "./cmsPage";
+import cmsPageQuery from "./cmsPage";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
@@ -14,7 +14,7 @@ import getHeaders from "../getHeaders";
  * @param customQuery - (optional) - custom query that extends default cmsPage GraphQL query
  * @param customHeaders (optional) - custom headers that extends the default headers
  */
-export default async function getCmsPage(
+export async function cmsPage(
   context: Context,
   identifier: string,
   customQuery: CustomQuery = { cmsPage: "cmsPage" },
@@ -23,7 +23,7 @@ export default async function getCmsPage(
   try {
     const { cmsPage: cmsPageGQL } = context.extendQuery(customQuery, {
       cmsPage: {
-        query: cmsPage,
+        query: cmsPageQuery,
         variables: { identifier },
       },
     });

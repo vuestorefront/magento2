@@ -4,19 +4,19 @@ import { CreateCustomerMutation, CreateCustomerMutationVariables, CustomerCreate
 import { GraphQLError } from "graphql";
 import gql from "graphql-tag";
 import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
-import createCustomer from "./createCustomer";
+import createCustomerQuery from "./createCustomer";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
  * Registers a new customer. To override the default query, use the `createCustomer` query key.
  */
-export default async (
+export async function createCustomer(
   context: Context,
   input: CustomerCreateInput,
   customQuery: CustomQuery = { createCustomer: "createCustomer" },
   customHeaders: CustomHeaders = {}
-): Promise<FetchResult<CreateCustomerMutation>> => {
+): Promise<FetchResult<CreateCustomerMutation>> {
   try {
     const { recaptchaToken, ...variables } = input;
 
@@ -36,7 +36,7 @@ export default async (
 
     const { createCustomer: createCustomerGQL } = context.extendQuery(customQuery, {
       createCustomer: {
-        query: createCustomer,
+        query: createCustomerQuery,
         variables: { input: variables },
       },
     });
@@ -60,4 +60,4 @@ export default async (
     }
     throw error.networkError?.result || error;
   }
-};
+}
