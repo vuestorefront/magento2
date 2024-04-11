@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "2.7.0",
+  "version": "3.0.0",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {

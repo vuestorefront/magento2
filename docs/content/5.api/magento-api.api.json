@@ -161,7 +161,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@vue-storefront/magento-api!",
-  "docComment": "/**\n * Api Client for Magento 2 integration for Vue Storefront 2.\n *\n * @remarks\n *\n * The `@vue-storefront/magento-api` library includes Apollo Client, GraphQL operations and Middleware endpoints that allow you to communicate with Magento.\n *\n * @packageDocumentation\n */\n",
+  "docComment": "/**\n * `api-client` of Magento 2 integration.\n *\n * @remarks\n *\n * The `@vue-storefront/magento-api` library includes Apollo Client, GraphQL operations and Middleware endpoints that allow you to communicate with Magento.\n *\n * @packageDocumentation\n */\n",
   "name": "@vue-storefront/magento-api",
   "members": [
     {
@@ -170,17 +170,13 @@
       "name": "",
       "members": [
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!addBundleProductsToCart:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!addBundleProductsToCart:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function addBundleProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -216,7 +212,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -244,14 +240,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "addBundleProductsToCart",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "addBundleProductsToCart"
         },
         {
           "kind": "Function",
@@ -260,7 +291,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function addConfigurableProductsToCart(context: "
+              "text": "export declare function addConfigurableProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -375,7 +406,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function addDownloadableProductsToCart(context: "
+              "text": "export declare function addDownloadableProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -490,7 +521,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function addProductsToCart(context: "
+              "text": "export declare function addProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -599,17 +630,13 @@
           "name": "addProductsToCart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!addProductToWishList:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!addProductToWishList:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function addProductToWishList(context: "
             },
             {
               "kind": "Reference",
@@ -645,7 +672,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -673,27 +700,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "addProductToWishList",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "addProductToWishList"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!addSimpleProductsToCart:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!addSimpleProductsToCart:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function addSimpleProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -729,7 +787,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -757,14 +815,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "addSimpleProductsToCart",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "addSimpleProductsToCart"
         },
         {
           "kind": "Function",
@@ -773,7 +866,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function addVirtualProductsToCart(context: "
+              "text": "export declare function addVirtualProductsToCart(context: "
             },
             {
               "kind": "Reference",
@@ -882,13 +975,38 @@
           "name": "addVirtualProductsToCart"
         },
         {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!ApiMethods:type",
+          "docComment": "/**\n * Methods of the API client.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type ApiMethods = "
+            },
+            {
+              "kind": "Content",
+              "text": "typeof apiMethods"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ApiMethods",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!applyCouponToCart:function(1)",
           "docComment": "/**\n * Applies a coupon to a given card\n *\n * @param context - VSF context\n *\n * @param input - ID of the card and coupon to apply\n *\n * @param customQuery - custom GraphQL query that extends the default one\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function applyCouponToCart(context: "
+              "text": "export declare function applyCouponToCart(context: "
             },
             {
               "kind": "Reference",
@@ -997,17 +1115,13 @@
           "name": "applyCouponToCart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!availableStores:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!availableStores:function(1)",
           "docComment": "/**\n * Returns list of available stores\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function availableStores(context: "
             },
             {
               "kind": "Reference",
@@ -1034,7 +1148,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -1062,14 +1176,42 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 13
+          },
           "releaseTag": "Public",
-          "name": "availableStores",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            }
+          ],
+          "name": "availableStores"
         },
         {
           "kind": "Function",
@@ -1078,7 +1220,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function cart(context: "
+              "text": "export declare function cart(context: "
             },
             {
               "kind": "Reference",
@@ -1186,17 +1328,13 @@
           "name": "cart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!cartTotalQty:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!cartTotalQty:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function cartTotalQty(context: "
             },
             {
               "kind": "Reference",
@@ -1205,7 +1343,15 @@
             },
             {
               "kind": "Content",
-              "text": ", cartId: string, customHeaders?: "
+              "text": ", cartId: "
+            },
+            {
+              "kind": "Content",
+              "text": "string"
+            },
+            {
+              "kind": "Content",
+              "text": ", customHeaders?: "
             },
             {
               "kind": "Reference",
@@ -1214,7 +1360,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -1242,14 +1388,42 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 13
+          },
           "releaseTag": "Public",
-          "name": "cartTotalQty",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "cartId",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            }
+          ],
+          "name": "cartTotalQty"
         },
         {
           "kind": "Function",
@@ -1258,7 +1432,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function categories(context: "
+              "text": "export declare function categories(context: "
             },
             {
               "kind": "Reference",
@@ -1373,7 +1547,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function categoryList(context: "
+              "text": "export declare function categoryList(context: "
             },
             {
               "kind": "Reference",
@@ -1488,7 +1662,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function categorySearch(context: "
+              "text": "export declare function categorySearch(context: "
             },
             {
               "kind": "Reference",
@@ -1597,17 +1771,13 @@
           "name": "categorySearch"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!changeCustomerPassword:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!changeCustomerPassword:function(1)",
           "docComment": "/**\n * Changes password of the current customer. To override the default query, use the `changeCustomerPassword` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function changeCustomerPassword(context: "
             },
             {
               "kind": "Reference",
@@ -1616,7 +1786,15 @@
             },
             {
               "kind": "Content",
-              "text": ", params: {\n    currentPassword: string;\n    newPassword: string;\n}, customQuery?: "
+              "text": ", params: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    currentPassword: string;\n    newPassword: string;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ", customQuery?: "
             },
             {
               "kind": "Reference",
@@ -1634,7 +1812,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -1662,13 +1840,208 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "changeCustomerPassword"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!ClientConfig:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface ClientConfig "
             }
           ],
           "releaseTag": "Public",
-          "name": "changeCustomerPassword",
-          "variableTypeTokenRange": {
+          "name": "ClientConfig",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!ClientConfig#api:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "api: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "api",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!ClientConfig#cookies:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "cookies: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        currencyCookieName: string;\n        countryCookieName: string;\n        localeCookieName: string;\n        cartCookieName: string;\n        customerCookieName: string;\n        storeCookieName: string;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "cookies",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!ClientConfig#externalCheckout:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "externalCheckout: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        enable: boolean;\n        cmsUrl: string;\n        syncUrlPath: string;\n        stores: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Record",
+                  "canonicalReference": "!Record:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string, {\n            cmsUrl: string;\n        }>;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "externalCheckout",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!ClientConfig#state:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "state: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ConfigState",
+                  "canonicalReference": "@vue-storefront/magento-api!ConfigState:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "state",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!ClientInstance:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type ClientInstance = "
+            },
+            {
+              "kind": "Reference",
+              "text": "ApolloClient",
+              "canonicalReference": "@apollo/client/core!ApolloClient:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<any>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ClientInstance",
+          "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 14
+            "endIndex": 3
           }
         },
         {
@@ -1678,7 +2051,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function getCmsBlocks(context: "
+              "text": "export declare function cmsBlocks(context: "
             },
             {
               "kind": "Reference",
@@ -1792,7 +2165,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function getCmsPage(context: "
+              "text": "export declare function cmsPage(context: "
             },
             {
               "kind": "Reference",
@@ -1900,13 +2273,393 @@
           "name": "cmsPage"
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!Config:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface Config<T = "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": "> extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "ClientConfig",
+              "canonicalReference": "@vue-storefront/magento-api!ClientConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "T",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "name": "Config",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#client:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "client?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ApolloClient",
+                  "canonicalReference": "@apollo/client/core!ApolloClient:class"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<T>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "client",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#customApolloHttpLinkOptions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "customApolloHttpLinkOptions?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "HttpOptions",
+                  "canonicalReference": "@apollo/client/link/http!HttpOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "customApolloHttpLinkOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#customOptions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "customOptions?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ApolloClientOptions",
+                  "canonicalReference": "@apollo/client/core!ApolloClientOptions:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<any>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "customOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#imageProvider:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "imageProvider: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "imageProvider",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#magentoApiEndpoint:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "magentoApiEndpoint: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "magentoApiEndpoint",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#magentoBaseUrl:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "magentoBaseUrl: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "magentoBaseUrl",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#overrides:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "overrides: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Endpoints",
+                  "canonicalReference": "@vue-storefront/magento-api!Endpoints:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "overrides",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#recaptcha:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "recaptcha: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RecaptchaConfig",
+                  "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "recaptcha",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#storage:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "storage: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Storage",
+                  "canonicalReference": "@vue-storefront/magento-api!Storage:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "storage",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 3,
+              "endIndex": 5
+            }
+          ]
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!ConfigState:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type ConfigState = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    getCartId(): string;\n    setCartId(id?: string | null): void;\n    removeCartId(): void;\n    getCustomerToken(): string;\n    setCustomerToken(token?: string | null): void;\n    removeCustomerToken(): void;\n    getStore(): string;\n    setStore(id?: string | null): void;\n    removeStore(): void;\n    getCurrency(): string;\n    setCurrency(id?: string | null): void;\n    removeCurrency(): void;\n    getLocale(): string;\n    setLocale(id?: string | null): void;\n    removeLocale(): void;\n    getCountry(): string;\n    setCountry(id?: string | null): void;\n    removeCountry(): void;\n    getMessage<T>(): T;\n    setMessage<T>(id?: T | null): void;\n    removeMessage(): void;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "ConfigState",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!Context:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface Context extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "IntegrationContext",
+              "canonicalReference": "@vue-storefront/middleware!IntegrationContext:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "ClientInstance",
+              "canonicalReference": "@vue-storefront/magento-api!ClientInstance:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "Config",
+              "canonicalReference": "@vue-storefront/magento-api!Config:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "Endpoints",
+              "canonicalReference": "@vue-storefront/magento-api!Endpoints:type"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Context",
+          "members": [],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 9
+            }
+          ]
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!countries:function(1)",
           "docComment": "/**\n * Loads the list of countries\n *\n * @param context - VSF Context\n *\n * @param customQuery - (optional) - custom GraphQL query that extends the default one\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function countries(context: "
+              "text": "export declare function countries(context: "
             },
             {
               "kind": "Reference",
@@ -2005,7 +2758,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function country(context: "
+              "text": "export declare function country(context: "
             },
             {
               "kind": "Reference",
@@ -2113,17 +2866,13 @@
           "name": "country"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!createCustomer:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!createCustomer:function(1)",
           "docComment": "/**\n * Registers a new customer. To override the default query, use the `createCustomer` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function createCustomer(context: "
             },
             {
               "kind": "Reference",
@@ -2159,7 +2908,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2187,14 +2936,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "createCustomer",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "createCustomer"
         },
         {
           "kind": "Function",
@@ -2203,7 +2987,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function createCustomerAddress(context: "
+              "text": "export declare function createCustomerAddress(context: "
             },
             {
               "kind": "Reference",
@@ -2312,17 +3096,13 @@
           "name": "createCustomerAddress"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!createEmptyCart:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!createEmptyCart:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function createEmptyCart(context: "
             },
             {
               "kind": "Reference",
@@ -2340,7 +3120,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2368,27 +3148,44 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 11
+          },
           "releaseTag": "Public",
-          "name": "createEmptyCart",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "createEmptyCart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!createProductReview:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!createProductReview:function(1)",
           "docComment": "/**\n * Creates a new product review\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function createProductReview(context: "
             },
             {
               "kind": "Reference",
@@ -2415,7 +3212,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2443,14 +3240,42 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 13
+          },
           "releaseTag": "Public",
-          "name": "createProductReview",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            }
+          ],
+          "name": "createProductReview"
         },
         {
           "kind": "Function",
@@ -2459,7 +3284,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function currency(context: "
+              "text": "export declare function currency(context: "
             },
             {
               "kind": "Reference",
@@ -2552,17 +3377,13 @@
           "name": "currency"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!customer:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!customer:function(1)",
           "docComment": "/**\n * Returns the information about the current customer. To override the default query, use the `customer` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function customer(context: "
             },
             {
               "kind": "Reference",
@@ -2589,7 +3410,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2617,14 +3438,42 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 13
+          },
           "releaseTag": "Public",
-          "name": "customer",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            }
+          ],
+          "name": "customer"
         },
         {
           "kind": "Function",
@@ -2633,7 +3482,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function customerCart(context: "
+              "text": "export declare function customerCart(context: "
             },
             {
               "kind": "Reference",
@@ -2726,17 +3575,13 @@
           "name": "customerCart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!customerOrders:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!customerOrders:function(1)",
           "docComment": "/**\n * Returns customer orders. To override the default query, use the `customerOrders` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function customerOrders(context: "
             },
             {
               "kind": "Reference",
@@ -2772,7 +3617,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2800,27 +3645,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "customerOrders",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "customerOrders"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!customerProductReview:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!customerProductReview:function(1)",
           "docComment": "/**\n * Returns product reviews created by the current customer\n *\n * @deprecated\n *\n * Use {@link @vue-storefront/magento-api#reviews} instead.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function customerProductReview(context: "
             },
             {
               "kind": "Reference",
@@ -2856,7 +3732,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2884,27 +3760,74 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "customerProductReview",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "customerProductReview"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!customMutation:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!customMutation:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
+              "text": "export declare function customMutation<MUTATION = "
             },
             {
               "kind": "Content",
-              "text": "<MUTATION = any, MUTATION_VARIABLES = any>(context: "
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ", MUTATION_VARIABLES = "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ">(context: "
             },
             {
               "kind": "Reference",
@@ -2913,7 +3836,11 @@
             },
             {
               "kind": "Content",
-              "text": ", { mutation, mutationVariables, fetchPolicy, customHeaders, }: {\n    mutation: string;\n    mutationVariables: MUTATION_VARIABLES;\n    fetchPolicy?: "
+              "text": ", { mutation, mutationVariables, fetchPolicy, customHeaders, }: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    mutation: string;\n    mutationVariables: MUTATION_VARIABLES;\n    fetchPolicy?: "
             },
             {
               "kind": "Reference",
@@ -2940,7 +3867,11 @@
             },
             {
               "kind": "Content",
-              "text": ";\n}) => "
+              "text": ";\n}"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -2959,27 +3890,84 @@
             {
               "kind": "Content",
               "text": "<MUTATION>>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 15,
+            "endIndex": 19
+          },
           "releaseTag": "Public",
-          "name": "customMutation",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "{ mutation, mutationVariables, fetchPolicy, customHeaders, }",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 14
+              }
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "MUTATION",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "typeParameterName": "MUTATION_VARIABLES",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "customMutation"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!customQuery:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!customQuery:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
+              "text": "export declare function customQuery<QUERY = "
             },
             {
               "kind": "Content",
-              "text": "<QUERY = any, QUERY_VARIABLES = any>(context: "
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ", QUERY_VARIABLES = "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ">(context: "
             },
             {
               "kind": "Reference",
@@ -2988,7 +3976,11 @@
             },
             {
               "kind": "Content",
-              "text": ", { query, queryVariables, fetchPolicy, customHeaders, }: {\n    query: string;\n    queryVariables?: QUERY_VARIABLES;\n    fetchPolicy?: "
+              "text": ", { query, queryVariables, fetchPolicy, customHeaders, }: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    query: string;\n    queryVariables?: QUERY_VARIABLES;\n    fetchPolicy?: "
             },
             {
               "kind": "Reference",
@@ -3006,7 +3998,11 @@
             },
             {
               "kind": "Content",
-              "text": ";\n}) => "
+              "text": ";\n}"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -3025,14 +4021,59 @@
             {
               "kind": "Content",
               "text": "<QUERY>>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 13,
+            "endIndex": 17
+          },
           "releaseTag": "Public",
-          "name": "customQuery",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "{ query, queryVariables, fetchPolicy, customHeaders, }",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 12
+              }
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "QUERY",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "typeParameterName": "QUERY_VARIABLES",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "customQuery"
         },
         {
           "kind": "Function",
@@ -3041,7 +4082,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function deleteCustomerAddress(context: "
+              "text": "export declare function deleteCustomerAddress(context: "
             },
             {
               "kind": "Reference",
@@ -3133,17 +4174,52 @@
           "name": "deleteCustomerAddress"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!generateCustomerToken:var",
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!Endpoints:type",
+          "docComment": "/**\n * Endpoints available in the Magento integration.\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Endpoints = "
+            },
+            {
+              "kind": "Reference",
+              "text": "WithoutContext",
+              "canonicalReference": "@vue-storefront/middleware!WithoutContext:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "ApiMethods",
+              "canonicalReference": "@vue-storefront/magento-api!ApiMethods:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Endpoints",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!generateCustomerToken:function(1)",
           "docComment": "/**\n * Logs in the customer based on provided username and password. To override the default query, use the `generateCustomerToken` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function generateCustomerToken(context: "
             },
             {
               "kind": "Reference",
@@ -3152,7 +4228,15 @@
             },
             {
               "kind": "Content",
-              "text": ", params: {\n    email: string;\n    password: string;\n    recaptchaToken: string;\n}, customQuery?: "
+              "text": ", params: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    email: string;\n    password: string;\n    recaptchaToken: string;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ", customQuery?: "
             },
             {
               "kind": "Reference",
@@ -3170,7 +4254,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -3198,27 +4282,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "generateCustomerToken",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "generateCustomerToken"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!getAvailableCustomerPaymentMethods:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!getAvailableCustomerPaymentMethods:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function getAvailableCustomerPaymentMethods(context: "
             },
             {
               "kind": "Reference",
@@ -3236,7 +4351,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -3264,14 +4379,35 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 11
+          },
           "releaseTag": "Public",
-          "name": "getAvailableCustomerPaymentMethods",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "getAvailableCustomerPaymentMethods"
         },
         {
           "kind": "Function",
@@ -3280,7 +4416,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function getAvailableCustomerShippingMethods(context: "
+              "text": "export declare function getAvailableCustomerShippingMethods(context: "
             },
             {
               "kind": "Reference",
@@ -3379,7 +4515,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function getAvailablePaymentMethods(context: "
+              "text": "export declare function getAvailablePaymentMethods(context: "
             },
             {
               "kind": "Reference",
@@ -3471,17 +4607,13 @@
           "name": "getAvailablePaymentMethods"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!getAvailableShippingMethods:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!getAvailableShippingMethods:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function getAvailableShippingMethods(context: "
             },
             {
               "kind": "Reference",
@@ -3517,7 +4649,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -3545,14 +4677,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "getAvailableShippingMethods",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "getAvailableShippingMethods"
         },
         {
           "kind": "Function",
@@ -3561,7 +4728,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function getCustomerAddresses(context: "
+              "text": "export declare function getCustomerAddresses(context: "
             },
             {
               "kind": "Reference",
@@ -3654,17 +4821,81 @@
           "name": "getCustomerAddresses"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!mergeCarts:var",
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!LocaleItem:interface",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
+              "text": "export interface LocaleItem "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "LocaleItem",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!LocaleItem#label:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "label: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "label",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
             },
             {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!LocaleItem#name:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "name: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "name",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!mergeCarts:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
               "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function mergeCarts(context: "
             },
             {
               "kind": "Reference",
@@ -3673,7 +4904,15 @@
             },
             {
               "kind": "Content",
-              "text": ", params: {\n    sourceCartId: string;\n    destinationCartId: string;\n}, customQuery?: "
+              "text": ", params: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    sourceCartId: string;\n    destinationCartId: string;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ", customQuery?: "
             },
             {
               "kind": "Reference",
@@ -3691,7 +4930,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -3719,14 +4958,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "mergeCarts",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "params",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "mergeCarts"
         },
         {
           "kind": "Function",
@@ -3735,7 +5009,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function placeOrder(context: "
+              "text": "export declare function placeOrder(context: "
             },
             {
               "kind": "Reference",
@@ -3834,7 +5108,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function productDetails(context: "
+              "text": "export declare function productDetails(context: "
             },
             {
               "kind": "Reference",
@@ -3943,17 +5217,13 @@
           "name": "productDetails"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!productReview:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!productReview:function(1)",
           "docComment": "/**\n * Returns reviews of the provided product\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function productReview(context: "
             },
             {
               "kind": "Reference",
@@ -3989,7 +5259,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -4017,27 +5287,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "productReview",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "productReview"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!productReviewRatingsMetadata:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!productReviewRatingsMetadata:function(1)",
           "docComment": "/**\n * Returns the active ratings attributes and the values each rating can have.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function productReviewRatingsMetadata(context: "
             },
             {
               "kind": "Reference",
@@ -4064,7 +5365,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -4092,14 +5393,42 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 7,
+            "endIndex": 13
+          },
           "releaseTag": "Public",
-          "name": "productReviewRatingsMetadata",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 14
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            }
+          ],
+          "name": "productReviewRatingsMetadata"
         },
         {
           "kind": "Function",
@@ -4108,7 +5437,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function products(context: "
+              "text": "export declare function products(context: "
             },
             {
               "kind": "Reference",
@@ -4217,13 +5546,159 @@
           "name": "products"
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface RecaptchaConfig "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "RecaptchaConfig",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig#isEnabled:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "isEnabled: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "isEnabled",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig#score:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "score: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "score",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig#secretkey:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "secretkey: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "secretkey",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig#sitekey:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "sitekey: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "sitekey",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!RecaptchaConfig#version:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "version: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "number"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "version",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!relatedProducts:function(1)",
           "docComment": "/**\n * Searches for related products using params for sorting, filtering and pagination.\n *\n * @param context - VSF context\n *\n * @param searchParams - params for sorting, filtering and pagination\n *\n * @param customQuery - (optional) - custom GraphQL query that extends the default query\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function relatedProducts(context: "
+              "text": "export declare function relatedProducts(context: "
             },
             {
               "kind": "Reference",
@@ -4338,7 +5813,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function removeCouponFromCart(context: "
+              "text": "export declare function removeCouponFromCart(context: "
             },
             {
               "kind": "Reference",
@@ -4453,7 +5928,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function removeItemFromCart(context: "
+              "text": "export declare function removeItemFromCart(context: "
             },
             {
               "kind": "Reference",
@@ -4562,17 +6037,13 @@
           "name": "removeItemFromCart"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!removeProductsFromWishlist:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!removeProductsFromWishlist:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function removeProductsFromWishlist(context: "
             },
             {
               "kind": "Reference",
@@ -4608,7 +6079,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -4636,14 +6107,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "removeProductsFromWishlist",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "removeProductsFromWishlist"
         },
         {
           "kind": "Function",
@@ -4652,7 +6158,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function requestPasswordResetEmail(context: "
+              "text": "export declare function requestPasswordResetEmail(context: "
             },
             {
               "kind": "Reference",
@@ -4751,7 +6257,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function resetPassword(context: "
+              "text": "export declare function resetPassword(context: "
             },
             {
               "kind": "Reference",
@@ -4844,17 +6350,13 @@
           "name": "resetPassword"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!reviews:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!reviews:function(1)",
           "docComment": "/**\n * Returns product reviews created by the current customer\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function reviews(context: "
             },
             {
               "kind": "Reference",
@@ -4890,7 +6392,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -4918,27 +6420,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "reviews",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "reviews"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!revokeCustomerToken:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!revokeCustomerToken:function(1)",
           "docComment": "/**\n * Logs out the current customer. To override the default query, use the `revokeCustomerToken` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function revokeCustomerToken(context: "
             },
             {
               "kind": "Reference",
@@ -4956,7 +6489,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -4984,14 +6517,35 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 11
+          },
           "releaseTag": "Public",
-          "name": "revokeCustomerToken",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "revokeCustomerToken"
         },
         {
           "kind": "Function",
@@ -5000,7 +6554,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function route(context: "
+              "text": "export declare function route(context: "
             },
             {
               "kind": "Reference",
@@ -5117,17 +6671,13 @@
           "name": "route"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!setBillingAddressOnCart:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!setBillingAddressOnCart:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function setBillingAddressOnCart(context: "
             },
             {
               "kind": "Reference",
@@ -5163,7 +6713,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -5191,14 +6741,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "setBillingAddressOnCart",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "setBillingAddressOnCart"
         },
         {
           "kind": "Function",
@@ -5207,7 +6792,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function setGuestEmailOnCart(context: "
+              "text": "export declare function setGuestEmailOnCart(context: "
             },
             {
               "kind": "Reference",
@@ -5322,7 +6907,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function setPaymentMethodOnCart(context: "
+              "text": "export declare function setPaymentMethodOnCart(context: "
             },
             {
               "kind": "Reference",
@@ -5437,7 +7022,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function setShippingAddressesOnCart(context: "
+              "text": "export declare function setShippingAddressesOnCart(context: "
             },
             {
               "kind": "Reference",
@@ -5552,7 +7137,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function setShippingMethodsOnCart(context: "
+              "text": "export declare function setShippingMethodsOnCart(context: "
             },
             {
               "kind": "Reference",
@@ -5661,13 +7246,167 @@
           "name": "setShippingMethodsOnCart"
         },
         {
+          "kind": "Interface",
+          "canonicalReference": "@vue-storefront/magento-api!Storage_2:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface Storage "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Storage_2",
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Storage_2#get:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "get: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(name: string) => any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "get",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Storage_2#remove:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "remove: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(name: string) => any"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "remove",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Storage_2#removeAll:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "removeAll: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "() => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "removeAll",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Storage_2#set:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "set: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(name: string, value: any) => void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "set",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!Store:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Store = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    code: string;\n    storeGroup?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "StoreGroup",
+              "canonicalReference": "@vue-storefront/magento-api!StoreGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Store",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!storeConfig:function(1)",
           "docComment": "/**\n * Fetches the store configuration from the API\n *\n * @param context - VSF Context\n *\n * @param customQuery - (optional) - custom GraphQL query that extends the default one\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function storeConfig(context: "
+              "text": "export declare function storeConfig(context: "
             },
             {
               "kind": "Reference",
@@ -5760,13 +7499,65 @@
           "name": "storeConfig"
         },
         {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!StoreGroup:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type StoreGroup = "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    code: string;\n    defaultStore: string;\n    stores: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, "
+            },
+            {
+              "kind": "Reference",
+              "text": "Store",
+              "canonicalReference": "@vue-storefront/magento-api!Store:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    website?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Website",
+              "canonicalReference": "@vue-storefront/magento-api!Website:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "StoreGroup",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 8
+          }
+        },
+        {
           "kind": "Function",
           "canonicalReference": "@vue-storefront/magento-api!subscribeEmailToNewsletter:function(1)",
           "docComment": "/**\n * Subscribes an email in the newsletter.\n *\n * @param context - VSF context\n *\n * @param input - params with the email to subscribe\n *\n * @param customHeaders - (optional) - custom headers that extends the default headers\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function subscribeEmailToNewsletter(context: "
+              "text": "export declare function subscribeEmailToNewsletter(context: "
             },
             {
               "kind": "Reference",
@@ -5865,7 +7656,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function updateCartItems(context: "
+              "text": "export declare function updateCartItems(context: "
             },
             {
               "kind": "Reference",
@@ -5974,17 +7765,13 @@
           "name": "updateCartItems"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!updateCustomer:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!updateCustomer:function(1)",
           "docComment": "/**\n * Updates the data of the current customer. To override the default query, use the `updateCustomer` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function updateCustomer(context: "
             },
             {
               "kind": "Reference",
@@ -6020,7 +7807,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -6048,14 +7835,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "updateCustomer",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "updateCustomer"
         },
         {
           "kind": "Function",
@@ -6064,7 +7886,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function updateCustomerAddress(context: "
+              "text": "export declare function updateCustomerAddress(context: "
             },
             {
               "kind": "Reference",
@@ -6173,17 +7995,13 @@
           "name": "updateCustomerAddress"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!updateCustomerEmail:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!updateCustomerEmail:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function updateCustomerEmail(context: "
             },
             {
               "kind": "Reference",
@@ -6219,7 +8037,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -6247,27 +8065,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "updateCustomerEmail",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "input",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "updateCustomerEmail"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!upsellProducts:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!upsellProducts:function(1)",
           "docComment": "/**\n * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function upsellProducts(context: "
             },
             {
               "kind": "Reference",
@@ -6303,7 +8152,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -6331,14 +8180,49 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "upsellProducts",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "upsellProducts"
         },
         {
           "kind": "Function",
@@ -6347,7 +8231,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export default function urlResolver(context: "
+              "text": "export declare function urlResolver(context: "
             },
             {
               "kind": "Reference",
@@ -6455,17 +8339,56 @@
           "name": "urlResolver"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!wishlist:var",
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!Website:type",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
+              "text": "export type Website = "
             },
             {
               "kind": "Content",
-              "text": "(context: "
+              "text": "{\n    code: string;\n    defaultStoreGroup: string;\n    storeGroups: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, "
+            },
+            {
+              "kind": "Reference",
+              "text": "StoreGroup",
+              "canonicalReference": "@vue-storefront/magento-api!StoreGroup:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n}"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Website",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!wishlist:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function wishlist(context: "
             },
             {
               "kind": "Reference",
@@ -6501,7 +8424,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -6529,27 +8452,58 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 15
+          },
           "releaseTag": "Public",
-          "name": "wishlist",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 16
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "searchParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            },
+            {
+              "parameterName": "customQuery",
+              "parameterTypeTokenRange": {
+                "startIndex": 5,
+                "endIndex": 6
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 7,
+                "endIndex": 8
+              }
+            }
+          ],
+          "name": "wishlist"
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@vue-storefront/magento-api!wishlistItemsCount:var",
+          "kind": "Function",
+          "canonicalReference": "@vue-storefront/magento-api!wishlistItemsCount:function(1)",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "_default: "
-            },
-            {
-              "kind": "Content",
-              "text": "(context: "
+              "text": "export declare function wishlistItemsCount(context: "
             },
             {
               "kind": "Reference",
@@ -6567,7 +8521,7 @@
             },
             {
               "kind": "Content",
-              "text": ") => "
+              "text": "): "
             },
             {
               "kind": "Reference",
@@ -6595,14 +8549,35 @@
             {
               "kind": "Content",
               "text": ">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
+          "returnTypeTokenRange": {
+            "startIndex": 5,
+            "endIndex": 11
+          },
           "releaseTag": "Public",
-          "name": "wishlistItemsCount",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 12
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "context",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "parameterName": "customHeaders",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "wishlistItemsCount"
         }
       ]
     }
