@@ -10,5 +10,5 @@ export interface ModuleOptions {
   /**
    * The SSR API URL of the Magento instance
    */
-  ssrApiUrl: string;
+  ssrApiUrl?: string;
 }
