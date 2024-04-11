@@ -24,7 +24,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
     "@vue-storefront/api-extractor-config": "^0.0.5",
-    "@vue-storefront/eslint-config-integrations": "^0.0.20",
+    "@vue-storefront/eslint-config-integrations": "^0.0.21",
     "@vue-storefront/integrations-tsconfig": "^0.0.4",
     "@vue-storefront/jest-config": "^0.0.4",
     "@vue-storefront/rollup-config": "^0.0.7",
