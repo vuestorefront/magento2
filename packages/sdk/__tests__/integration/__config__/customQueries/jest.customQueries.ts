@@ -24,6 +24,7 @@ import { applyCouponToCart } from './applyCouponToCart';
 import { removeCouponFromCart } from './removeCouponFromCart';
 import { productDetails } from './productDetails';
 import { categoryList } from './categoryList';
+import { categories } from './categories';
 import { categorySearch } from './categorySearch';
 import { productsList } from './products';
 import { relatedProducts } from './relatedProducts';
@@ -47,6 +48,7 @@ export const customQueries = {
   'remove-coupon-from-cart-custom-query': removeCouponFromCart,
   'product-details-custom-query': productDetails,
   'category-list-custom-query': categoryList,
+  'categories-custom-query': categories,
   'category-search-custom-query': categorySearch,
   'products-custom-query': productsList,
   'related-products-custom-query': relatedProducts,

@@ -17,6 +17,7 @@ export type CategoryListResponse<T extends DeepPartial<CategoryListQuery> = Cate
 
 /**
  * Method to list of all categories without filters
+ * @deprecated Use `categories` method instead
  *
  * @remarks
  * This method sends a GET request to the

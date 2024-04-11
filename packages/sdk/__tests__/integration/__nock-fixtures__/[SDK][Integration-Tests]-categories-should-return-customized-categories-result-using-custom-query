@@ -1,0 +1,49 @@
+[
+    {
+        "scope": "https://magento2-instance.vuestorefront.io:443",
+        "method": "GET",
+        "path": "/graphql?query=query+categories%7Bcategories%7Bitems%7Buid+name+__typename%7D__typename%7D%7D&operationName=categories&variables=%7B%7D",
+        "body": "",
+        "status": 200,
+        "response": [
+            "1f8b0800000000000003ab564a492c4954b2aa564a4e2c494dcf2fca4c2d06f1324b5273818ce86aa5d2cc14252b25df745b5b251da5bcc4dc5420cf25352db134a744c119a2a71228131f5f5259900a9587898714a5a62ad5c6e2900d4a2d061aa2545b5b0b004255adab86000000"
+        ],
+        "rawHeaders": [
+            "Server",
+            "nginx/1.14.2",
+            "Date",
+            "Wed, 10 Apr 2024 06:55:53 GMT",
+            "Content-Type",
+            "application/json",
+            "Content-Length",
+            "111",
+            "Connection",
+            "keep-alive",
+            "Vary",
+            "Accept-Encoding",
+            "Set-Cookie",
+            "PHPSESSID=f1p5dgdj3ibd0gt054onvms8si; expires=Wed, 10-Apr-2024 07:55:53 GMT; Max-Age=3600; path=/; domain=magento2-instance.vuestorefront.io; secure; HttpOnly; SameSite=Lax",
+            "X-Content-Type-Options",
+            "nosniff",
+            "X-XSS-Protection",
+            "1; mode=block",
+            "X-Frame-Options",
+            "SAMEORIGIN",
+            "Content-Encoding",
+            "gzip",
+            "X-Varnish",
+            "531710",
+            "Age",
+            "0",
+            "Pragma",
+            "no-cache",
+            "Expires",
+            "-1",
+            "Cache-Control",
+            "no-store, no-cache, must-revalidate, max-age=0",
+            "Accept-Ranges",
+            "bytes"
+        ],
+        "responseIsBinary": false
+    }
+]

@@ -1,5 +1,20 @@
 # @vue-storefront/magento-api
 
+## 2.7.0
+
+### Minor Changes
+
+- 8b2a0c35: [ADDED] `categories` endpoint that allows fetching a list of categories that match the specified filter.
+  [CHANGED] `categoryList` endpoint is now deprecated in favor of the new `categories` endpoint.
+  ```
+
+  ```
+
+### Patch Changes
+
+- Updated dependencies [8b2a0c35]
+  - @vue-storefront/magento-types@1.2.0
+
 ## 2.6.0
 
 ### Minor Changes
