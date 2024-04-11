@@ -13,7 +13,8 @@ export interface MagentoModuleType extends Module {
 /**
  * Magento module.
  *
- * @example Initialization of the Magento module.
+ * @example 
+ * Initialization of the Magento module.
  *
  * ```js
  * import { initSDK, buildModule } from '@vue-storefront/sdk';
@@ -35,7 +36,7 @@ export interface MagentoModuleType extends Module {
 export const magentoModule = (options: ModuleOptions) => {
   return {
     connector: connector(options),
-  };
+  } satisfies Module;
 };
 
 export { client } from './client';

@@ -20,7 +20,7 @@ const sdkConfig = {
     )
 };
 
-export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
+export const sdk = initSDK(sdkConfig);
 ```
 
 - [CHANGED] Made the `ssrApiUrl` property in `ModuleOptions.ts` optional.
