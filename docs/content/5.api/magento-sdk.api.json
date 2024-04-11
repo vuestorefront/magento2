@@ -6848,7 +6848,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "ssrApiUrl: "
+                  "text": "ssrApiUrl?: "
                 },
                 {
                   "kind": "Content",
@@ -6859,7 +6859,7 @@
                   "text": ";"
                 }
               ],
-              "isOptional": false,
+              "isOptional": true,
               "releaseTag": "Public",
               "name": "ssrApiUrl",
               "propertyTypeTokenRange": {
