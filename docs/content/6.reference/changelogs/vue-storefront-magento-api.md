@@ -1,11 +1,37 @@
 # @vue-storefront/magento-api
 
+## 3.0.0
+
+### Major Changes
+
+- 8b8fdff0: - **[CHANGED]** `Endpoints` interface. Previously, each endpoint contained `context` param, which is internal and shouldn't be exposed in the final interface. Now, `Endpoints` interface properties don't contain `context` param. If you need to use `context` param, you should use `ApiMethods` type.
+
+  ```diff
+  - import { Endpoints } from '@vue-storefront/magento-api';
+  + import { ApiMethods } from '@vue-storefront/magento-api';
+  ```
+
+  - **[CHANGED]** Removed `ContextualizedEndpoints` type. Use `Endpoints` instead.
+
+  ```diff
+  - import { ContextualizedEndpoints } from '@vue-storefront/magento-api';
+  + import { Endpoints } from '@vue-storefront/magento-api';
+  ```
+
+  - **[REMOVED]** `MagentoApiMethods` interface. Use `Endpoints` instead.
+
+  ```diff
+  - import { MagentoApiMethods } from '@vue-storefront/magento-api';
+  + import { Endpoints } from '@vue-storefront/magento-api';
+  ```
+
 ## 2.7.0
 
 ### Minor Changes
 
 - 8b2a0c35: [ADDED] `categories` endpoint that allows fetching a list of categories that match the specified filter.
   [CHANGED] `categoryList` endpoint is now deprecated in favor of the new `categories` endpoint.
+
   ```
 
   ```
