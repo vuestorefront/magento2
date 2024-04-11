@@ -9,6 +9,7 @@ export * from "./applyCouponToCart";
 export * from "./availableStores";
 export * from "./cart";
 export * from "./cartTotalQty";
+export * from "./categories";
 export * from "./categoryList";
 export * from "./categorySearch";
 export * from "./changeCustomerPassword";
