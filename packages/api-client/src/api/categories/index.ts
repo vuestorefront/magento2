@@ -7,12 +7,57 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches categories.
+ * Fetch list of all categories matching specified filters
  *
- * @param context Context
- * @param params
- * @param [customQuery] (optional) - custom GraphQL query that extends the default query
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch list of categories with default parameters
+ * const categories = await sdk.magento.categories({});
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query for fetching categories.
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'categories-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query categories {
+ *                 categories {
+ *                   ${metadata.fields}
+ *                 }
+ *               }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to fetch categories.
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * const customQuery = {
+ *  categories: 'categories-custom-query',
+ *    metadata: {
+ *      fields: 'items { uid name }'
+ *    }
+ * };
+ *
+ * const categories = await sdk.magento.categories({}, customQuery);
+ *
+ * // Category list will contain only the fields specified in the custom query.
+ * ```
  */
 export async function categories(
   context: Context,

@@ -6,6 +6,36 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 import CustomerAvailablePaymentMethods from "./CustomerPaymentMethods";
 
+/**
+ * Fetch available payment methods for a logged in customer.
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch available payment methods for a logged in customer
+ * const result = await sdk.magento.getAvailableCustomerPaymentMethods();
+ *
+ * // example result
+ * {
+ *   "data": {
+ *     "cart": {
+ *       "__typename": "Cart",
+ *       "available_payment_methods": [
+ *         {
+ *           "__typename": "AvailablePaymentMethod",
+ *           "code": "checkmo",
+ *           "title": "Check / Money order"
+ *         }
+ *       ]
+ *     }
+ *   },
+ *   "loading": false,
+ *   "networkStatus": 7
+ * }
+ * ```
+ */
 export async function getAvailableCustomerPaymentMethods(
   context: Context,
   customHeaders: CustomHeaders = {}

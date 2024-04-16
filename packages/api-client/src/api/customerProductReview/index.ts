@@ -14,7 +14,7 @@ import getHeaders from "../getHeaders";
 /**
  * Returns product reviews created by the current customer
  *
- * @deprecated Use {@link @vue-storefront/magento-api#reviews} instead.
+ * @deprecated Use {@link https://docs.alokai.com/integrations/magento/api/magento-api/reviews | reviews} instead.
  *
  */
 export async function customerProductReview(

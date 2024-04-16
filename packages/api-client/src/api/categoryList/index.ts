@@ -7,13 +7,10 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches the category list.
- * @deprecated Use `categories` method instead
+ * Fetch list of all categories without filters
  *
- * @param context VSF Context
- * @param params
- * @param [customQuery] (optional) - custom GraphQL query that extends the default query
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @deprecated
+ * Use `categories` method instead.
  */
 export async function categoryList(
   context: Context,

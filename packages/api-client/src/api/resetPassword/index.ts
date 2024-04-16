@@ -10,10 +10,20 @@ import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
 import getHeaders from "../getHeaders";
 
 /**
- * Resets a user's password
- * @param context VSF Context
- * @param input Params used to reset a user's password
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Reset customer password.
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch resetPassword
+ * const await sdk.magento.resetPassword({
+ *   email: 'customer.email@gmail.com'
+ *   newPassword: 'newPassword',
+ *   resetPasswordToken: 'resetPasswordToken' // token obtained from email {@link @vue-storefront/magento-sdk#requestPasswordResetEmail}
+ * });
+ * ```
  */
 export async function resetPassword(
   context: Context,

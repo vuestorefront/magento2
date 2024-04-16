@@ -22,7 +22,87 @@ type Variables = {
 };
 
 /**
- * Returns upsell products matching the provided parameters. To override the default query, use the `upsellProducts` query key.
+ * Get upsell products for a given product.
+ *
+ * @example
+ * Simple usage without filters, sorting or pagination:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch list of upsell-products with default parameters
+ * const upsellProducts = await sdk.magento.upsellProducts({});
+ * ```
+ *
+ * @example
+ * Usage with filters, sorting and pagination:
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // make a request to fetch list of products with upsell products
+ * const upsellProducts = await sdk.magento.upsellProducts({
+ *  pageSize: 20,
+ *  currentPage: 1,
+ *  filter: {
+ *    sku: {
+ *      eq: PRODUCT_SKU
+ *    }
+ *  }
+ * });
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query for getting upsellProducts.
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'upsell-products-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query upsellProducts(
+ *                $search: String = "",
+ *                $filter: ProductAttributeFilterInput,
+ *                $pageSize: Int = 10,
+ *                $currentPage: Int = 1,
+ *                $sort: ProductAttributeSortInput
+ *              ) {
+ *                products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
+ *                  ${metadata.fields}
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to fetch upsell-products.
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * const customQuery = {
+ *  upsellProducts: 'upsell-products-custom-query',
+ *    metadata: {
+ *      fields: 'items { sku name upsell_products { sku } }'
+ *    }
+ * };
+ *
+ * const upsellProducts = await sdk.magento.upsellProducts({
+ *  filter: {
+ *    sku: {
+ *      eq: 'some-sku' // optional SKU filter
+ *    }
+ *  }
+ * }, customQuery);
+ *
+ * // upsellProducts will contain only the fields specified in the custom query.
+ * ```
  */
 export async function upsellProducts(
   context: Context,

@@ -10,6 +10,9 @@ import addSimpleProductsToCartQuery from "./addSimpleProductsToCart";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
+/**
+ * Add simple products to cart.
+ */
 export async function addSimpleProductsToCart(
   context: Context,
   input: AddSimpleProductsToCartInput,

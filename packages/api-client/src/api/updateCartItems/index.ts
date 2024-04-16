@@ -7,11 +7,67 @@ import updateCartItemsMutation from "./updateCartItems";
 import getHeaders from "../getHeaders";
 
 /**
- * Updates the contents of the given cart
- * @param context VSF context
- * @param input ID of the cart and the items to update it
- * @param customQuery custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Update items in the cart
+ *
+ * @example
+ * Simple usage, updating the quantity of a cart item:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // update the quantity of a cart item
+ * const result = await sdk.magento.updateCartItems({
+ *  cart_id: 'some-cart-id'
+ *  cart_items: [{
+ *      cart_item_uid: 'MY=',
+ *      quantity: 10 // update the quantity to 10
+ *     }]
+ * });
+ *
+ * // result will contain the updated cart.
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query for manipulating the cart response data.
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'update-cart-items-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              mutation updateCartItems($input: UpdateCartItemsInput) {
+ *                updateCartItems(input: $input) {
+ *                  cart {
+ *                    ${metadata.fields}
+ *                  }
+ *                 }
+ *              }`
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query created in the previous example.
+ * Note that the custom query must be passed to the `customQuery` property of the `options` parameter.
+ * The `metadata` property of the `options` parameter can be used to pass additional data to the custom query.
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * const customQuery = {
+ *   updateCartItems: 'update-cart-items-custom-query',
+ *   metadata: {
+ *     fields: 'id items { uid quantity product { uid sku }}'
+ *   }
+ * };
+ *
+ * // update the quantity of a cart item with params and custom query
+ * // Params are the same as in the previous example.
+ * const result = await sdk.magento.updateCartItems(params, customQuery);
+ * ```
  */
 export async function updateCartItems(
   context: Context,

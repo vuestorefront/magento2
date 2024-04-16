@@ -10,10 +10,18 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Requests a password reset email to be sent to the user
- * @param context VSF Context
- * @param input Email for which to request a password reset
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Request password reset email
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // trigger sending of password reset email
+ * const result = await sdk.magento.requestPasswordResetEmail({ email: 'john.doe@gmail.com'});
+ *
+ * // result.data.requestPasswordResetEmail contains the boolean response from the API
+ * ```
  */
 export async function requestPasswordResetEmail(
   context: Context,

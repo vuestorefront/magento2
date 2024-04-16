@@ -7,11 +7,87 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Places an order for received cart.
+ * Place an order.
  *
- * @param context VSF Context
- * @param input the order's input, containing the cart's ID
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // place an order
+ * const result = await sdk.magento.placeOrder({cart_id: 'some-cart-id'});
+ *
+ * // example result:
+ * {
+ *   "data": {
+ *     "placeOrder": {
+ *       "__typename": "PlaceOrderOutput",
+ *       "order": {
+ *         "__typename": "Order",
+ *         "order_number": "000000522"
+ *       }
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * The complete flow of placing an order for a guest user:
+ *
+ * ```ts
+ * const emptyCart = await sdk.magento.createEmptyCart(); // create an empty cart
+ * const cartId = emptyCart?.data?.createEmptyCart || ''; // get cart id from the response
+ *
+ * // set guest email on the cart
+ * await sdk.magento.setGuestEmailOnCart({ cart_id: cartId, email: 'john.doe+test@vuestorefront.io' });
+ *
+ * // add products to the cart
+ * await sdk.magento.addProductsToCart({
+ *   cartId,
+ *   cartItems: [
+ *     {
+ *       quantity: 1,
+ *       sku: 'some-sku',
+ *       // size and color
+ *       selected_options: ['Y29uZmlndXJhYmxlLzkzLzUz', 'Y29uZmlndXJhYmxlLzE0NC8xNzE=']
+ *     }
+ *   ]
+ * });
+ *
+ * const address = {
+ *   firstname: 'John',
+ *   lastname: 'Doe',
+ *   city: 'New York',
+ *   country_code: 'US',
+ *   street: ['Street 1', 'Street 2'],
+ *   telephone: '123 123 123',
+ *   region: 'AL',
+ *   postcode: '10001',
+ *   save_in_address_book: false
+ * }
+ *
+ * // set shipping and billing address
+ * await sdk.magento.setShippingAddressesOnCart({
+ *   cart_id: cartId,
+ *   shipping_addresses: [{ address }]
+ * });
+ * await sdk.magento.setBillingAddressOnCart({
+ *   cart_id: cartId,
+ *   billing_address: { address }
+ * });
+ *
+ * //
+ * await sdk.magento.setShippingMethodsOnCart({
+ *   cart_id: cartId,
+ *   shipping_methods: [{ carrier_code: 'flatrate', method_code: 'flatrate' }]
+ * });
+ * await sdk.magento.setPaymentMethodOnCart({
+ *   cart_id: cartId,
+ *   payment_method: { code: 'checkmo' }
+ * });
+ *
+ * // place the order
+ * const result = await sdk.magento.placeOrder({ cart_id: cartId });
  */
 export async function placeOrder(
   context: Context,

@@ -7,10 +7,6 @@ import getHeaders from "../getHeaders";
 
 /**
  * Fetches the information about a country given its ID
- * @param context VSF Context
- * @param id ID of the country to be fetched
- * @param [customQuery] (optional) - custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export async function country(
   context: Context,

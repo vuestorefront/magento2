@@ -7,7 +7,18 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Logs out the current customer. To override the default query, use the `revokeCustomerToken` query key.
+ * Revoke customer token.
+ * It is used to log out the current customer.
+ *
+ * @example
+ * Simple usage if the customer is logged in and the token is valid:
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // token will be invalidated and the customer will be logged out
+ * await sdk.magento.revokeCustomerToken();
+ * ```
  */
 export async function revokeCustomerToken(context: Context, customHeaders: CustomHeaders = {}): Promise<FetchResult<RevokeCustomerTokenMutation>> {
   return context.client.mutate<RevokeCustomerTokenMutation>({

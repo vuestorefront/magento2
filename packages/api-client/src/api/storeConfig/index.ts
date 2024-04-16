@@ -7,10 +7,57 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches the store configuration from the API
- * @param context VSF Context
- * @param [customQuery] (optional) - custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Fetch store configuration
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch store configuration
+ * const result = await sdk.magento.storeConfig();
+ *
+ * // result?.data?.storeConfig contains the store configuration
+ * ```
+ *
+ * @example
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'store-config-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query storeConfig {
+ *                storeConfig {
+ *                  ${metadata?.fields}
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to select only the fields you need
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // we want to fetch only logo related data
+ * const customQuery = {
+ *   storeConfig: 'store-config-custom-query',
+ *   metadata: {
+ *     fields: 'logo_alt logo_height logo_width'
+ *   }
+ * };
+ *
+ * const result = await sdk.magento.storeConfig(customQuery);
+ * ```
  */
 export async function storeConfig(
   context: Context,

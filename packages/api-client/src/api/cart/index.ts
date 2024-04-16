@@ -6,11 +6,58 @@ import cartQuery from "./cart";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches a cart by its ID
- * @param context VSF context
- * @param cartId ID of the cart to fetch
- * @param customQuery custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Get cart
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch cart with default parameters
+ * const cart = await sdk.magento.cart({ cartId: '123' });
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query for getting cart
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'cart-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query cart($cartId: String!) {
+ *                cart(cart_id:$cartId) {
+ *                  ${metadata.fields}
+ *                }
+ *              }`
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to fetch cart
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * const customQuery = {
+ *   cart: 'cart-custom-query',
+ *   metadata: {
+ *     fields: 'id items { uid }'
+ *   }
+ * };
+ *
+ * const cart = await sdk.magento.cart({ cartId: '123'}, customQuery);
+ *
+ * // Cart will contain only the fields specified in the custom query.
+ * ```
  */
 export async function cart(
   context: Context,

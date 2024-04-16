@@ -6,11 +6,18 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Deletes a customer address.
+ * Delete a customer address.
  *
- * @param context VSF Context
- * @param addressId ID of the customer address to delete
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * const addressId = 12;
+ * // customer address will be remove for the currently logged in customer
+ * const response = await sdk.magento.deleteCustomerAddress({ id: addressId });
+ * // response.data?.deleteCustomerAddress - result is stored here, it's boolean
+ * ```
  */
 export async function deleteCustomerAddress(
   context: Context,
