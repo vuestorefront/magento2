@@ -13,7 +13,42 @@ export interface MagentoModuleType extends Module {
 /**
  * Magento module.
  *
- * @example 
+ * @deprecated
+ *
+ * Use `middlewareModule` instead.
+ *
+ * ```diff
+ * - import { initSDK, buildModule } from '@vue-storefront/sdk';
+ * - import { magentoModule } from '@vsf-enterprise/magento-sdk'
+ * + import { initSDK, buildModule, middlewareModule } from '@vue-storefront/sdk';
+ * + import { Endpoints as MagentoEndpoints } from '@vsf-enterprise/magento-api';
+ *
+ * const sdkConfig = {
+ *   magneto:
+ *     buildModule(
+ * -      magentoModule,
+ * +      middlewareModule<MagentoEndpoints>,
+ *       { apiUrl: 'http://localhost:8181/magneto' }
+ *     )
+ * };
+ *
+ * export const sdk = initSDK(sdkConfig);
+ *
+ * // Breaking changes:
+ * // - Custom queries are now a second argument of the methods.
+ *
+ * const customQuery = {
+ *   cart: 'cart-custom-query',
+ *   metadata: {
+ *     fields: 'id items { uid }'
+ *   }
+ * };
+ * - const cart = await sdk.magento.cart({ cartId: '123'}, { customQuery });
+ * + const cart = await sdk.magento.cart({ cartId: '123'}, customQuery);
+ *
+ * ```
+ *
+ * @example
  * Initialization of the Magento module.
  *
  * ```js
