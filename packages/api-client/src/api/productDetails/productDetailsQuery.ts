@@ -15,6 +15,8 @@ export default `
         uid
         sku
         name
+        stock_status
+        only_x_left_in_stock
         thumbnail {
           url
           position
@@ -125,6 +127,7 @@ export default `
               uid
               sku
               name
+              stock_status
               only_x_left_in_stock
               price_range {
                 minimum_price {
@@ -147,6 +150,8 @@ export default `
         }
 
         ... on DownloadableProduct {
+          stock_status
+          only_x_left_in_stock
           downloadable_product_samples {
             sample_url
             title
@@ -159,6 +164,8 @@ export default `
           }
         }
         ... on VirtualProduct {
+          stock_status
+          only_x_left_in_stock
           gift_message_available
           product_links {
             link_type
@@ -169,6 +176,8 @@ export default `
           }
         }
         ... on GroupedProduct {
+          stock_status
+          only_x_left_in_stock
           items {
             position
             qty
