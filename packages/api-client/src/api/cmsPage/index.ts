@@ -8,11 +8,62 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetch CMS Page from Magento
- * @param context - VSF Context
- * @param identifier - identifier of CMS page
- * @param customQuery - (optional) - custom query that extends default cmsPage GraphQL query
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * Fetch CMS page
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch home page by the page identifier
+ * const result = await sdk.magento.cmsPage({
+ *   identifier: 'home'
+ * });
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'cms-page-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query cmsPage($identifier: String) {
+ *                cmsPage(identifier:$identifier) {
+ *                  ${metadata?.fields}
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to reduce the amount of fields returned by the query
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields to only the content and title
+ * const customQuery = {
+ *   cmsPage: 'cms-page-custom-query',
+ *   metadata: {
+ *     fields: 'title content'
+ *   }
+ * };
+ *
+ * const result = await sdk.magento.cmsPage({
+ *   identifier: 'home'
+ * }, customQuery);
+ *
+ * // result will only contain the title and content fields
+ * ```
  */
 export async function cmsPage(
   context: Context,

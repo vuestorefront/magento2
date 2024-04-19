@@ -9,7 +9,69 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Registers a new customer. To override the default query, use the `createCustomer` query key.
+ * Create a new customer.
+ *
+ * @example
+ * Simple usage with basic customer data:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * const params = {
+ *   email: 'john.doe@gmail.com'
+ *   firstname: 'John',
+ *   lastname: 'Doe',
+ * }
+ *
+ * const result = await sdk.magento.createCustomer(params);
+ * ```
+ @example
+ * Creating a custom GraphQL query for creating a customer
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'create-customer-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query customer {
+ *                customer {
+ *                  ${metadata.fields}
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to fetch customer
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ *
+ * const customQuery = {
+ *   customer: 'create customer-custom-query',
+ *   metadata: {
+ *     fields: 'email firstname lastname'
+ *   }
+ * };
+ *
+ * const params = {
+ *   email: 'john.doe@gmail.com'
+ *   firstname: 'John',
+ *   lastname: 'Doe',
+ * }
+ *
+ * const result = await sdk.magento.createCustomer(params, customQuery)
+ *
+ * // result will contain only the fields specified in the custom query.
+ * ```
  */
 export async function createCustomer(
   context: Context,

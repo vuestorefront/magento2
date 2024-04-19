@@ -7,11 +7,64 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches customer addresses.
+ * Get customer addresses.
+ * Customer must be logged in before calling this method.
  *
- * @param context - VSF Context
- * @param [customQuery] - (optional) - custom GraphQL query that extends the default query
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch customer addresses if customer is logged in
+ * const { data } = await sdk.magento.getCustomerAddresses();
+ *
+ * // data contains the customer addresses
+ * data.customer.addresses; // array of customer addresses
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'get-customer-addresses-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query getCustomerAddresses {
+ *                customer {
+ *                  addresses {
+ *                    ${metadata.fields}
+ *                  }
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to reduce the amount of data returned by the query
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * const customQuery = {
+ *   getCustomerAddresses: 'get-customer-addresses-custom-query',
+ *   metadata: {
+ *     fields: 'city'
+ *   }
+ * };
+ *
+ * const { data } = await sdk.magento.getCustomerAddresses(customQuery);
+ *
+ * // data contains the customer addresses with only the city field
+ * ```
  */
 export async function getCustomerAddresses(
   context: Context,

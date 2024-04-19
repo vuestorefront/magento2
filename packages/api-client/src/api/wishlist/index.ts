@@ -10,6 +10,9 @@ type Variables = {
   currentPage: number;
 };
 
+/**
+ * Get wishlist.
+ */
 export async function wishlist(
   context: Context,
   searchParams: WishlistQueryVariables,

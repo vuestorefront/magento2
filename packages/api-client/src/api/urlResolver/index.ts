@@ -7,11 +7,7 @@ import getHeaders from "../getHeaders";
 /**
  * Fetches the resolver for received URL.
  *
- * @param context VSF Context
- * @param url the URL to be resolved
- * @param [customQuery] (optional) - custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
- * @deprecated - use route instead
+ * @deprecated - use {@link https://docs.alokai.com/integrations/magento/api/magento-api/route | route} instead.
  */
 export async function urlResolver(
   context: Context,

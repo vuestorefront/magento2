@@ -12,10 +12,6 @@ import getHeaders from "../getHeaders";
 
 /**
  * Adds a set of downloadable products to a specified cart
- * @param context VSF Context
- * @param input ID of the cart and products to be added
- * @param customQuery custom GraphQL query that extends the default one
- * @param customHeaders (optional) - custom headers that extends the default headers
  */
 export async function addDownloadableProductsToCart(
   context: Context,

@@ -7,12 +7,68 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetch CMS Blocks from Magento Api.
+ * Fetch cms blocks.
  *
- * @param context - VSF Context
- * @param identifiers - identifiers of CMS blocks
- * @param [customQuery] - (optional) - custom GraphQL query that extends the default cmsBlocks query
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch few cms blocks by their identifiers
+ * const { data } = await sdk.magento.cmsBlocks({
+ *   identifiers: ['id1', 'id2']
+ * });
+ *
+ * // result will contain cms blocks with the specified identifiers
+ * data.cmsBlocks.items.forEach(block => console.log(block.identifier));
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'cms-blocks-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query cmsBlock($identifiers: [String]) {
+ *                cmsBlocks(identifiers: $identifiers) {
+ *                  items {
+ *                    ${metadata.fields}
+ *                  }
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to reduce the amount of fields returned by the query
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * // fetch only title
+ * const customQuery = {
+ *   cmsBlocks: 'cms-blocks-custom-query',
+ *   metadata: {
+ *     fields: 'title'
+ *   }
+ * };
+ *
+ * const { data } = await sdk.magento.cmsBlocks({
+ *   identifiers: ['id1', 'id2']
+ * }, customQuery);
+ *
+ * // data will contain only block titles
+ * ```
  */
 export async function cmsBlocks(
   context: Context,

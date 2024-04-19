@@ -12,7 +12,66 @@ import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
 /**
- * Returns product reviews created by the current customer
+ * Fetch customer reviews
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch reviews, customer must be logged in
+ * const result = await sdk.magento.reviews();
+ *
+ * // log all reviews
+ * result?.data?.customer?.reviews?.items.forEach(review => console.log(review));
+ * ```
+ *
+ * @example
+ * Creating a custom GraphQL query
+ *
+ * ```ts
+ * module.exports = {
+ *   integrations: {
+ *     magento: {
+ *       customQueries: {
+ *         'customer-product-review-custom-query': ({ variables, metadata }) => ({
+ *            variables,
+ *            query: `
+ *              query reviews($pageSize: Int = 10, $currentPage: Int = 1) {
+ *                customer {
+ *                  reviews(pageSize: $pageSize, currentPage: $currentPage) {
+ *                    ${metadata?.fields}
+ *                  }
+ *                }
+ *              }
+ *            `
+ *         }),
+ *       },
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * @example
+ * Using a custom GraphQL query to reduce the amount of fields returned by the query
+ *
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ * // reduce the amount of fields returned by the query, when compared to the default query
+ * // fetch only text
+ *
+ * const customQuery = {
+ *   reviews: 'customer-product-review-custom-query',
+ *   metadata: {
+ *     fields: 'items { text }'
+ *   }
+ * };
+ *
+ * const result = await sdk.magento.reviews({}, customQuery);
+ *
+ * // result will only contain the text of the reviews
+ * result?.data?.customer?.reviews?.items.forEach(review => console.log(review.text));
+ * ```
  */
 export async function reviews(
   context: Context,

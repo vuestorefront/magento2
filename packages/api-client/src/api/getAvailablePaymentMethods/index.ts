@@ -6,11 +6,37 @@ import GuestAvailablePaymentMethods from "./GuestAvailablePaymentMethods";
 import getHeaders from "../getHeaders";
 
 /**
- * Fetches the available payment methods for the received cart.
+ * Get available payment methods for the received guest cart.
+ * To get available customer payment methods use {@link https://docs.vuestorefront.io/integrations/magento/api/magento-api/getAvailableCustomerPaymentMethods | getAvailableCustomerPaymentMethods }.
  *
- * @param context VSF context
- * @param cartId cart ID
- * @param customHeaders (optional) - custom headers that extends the default headers
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // fetch guest available payment methods
+ * const result = await sdk.magento.getAvailablePaymentMethods({
+ *  cartId: 'masked-cart-id'
+ * });
+ *
+ * // example result
+ * {
+ *   "data": {
+ *     "cart": {
+ *       "__typename": "Cart",
+ *       "available_payment_methods": [
+ *         {
+ *           "__typename": "AvailablePaymentMethod",
+ *           "code": "checkmo",
+ *           "title": "Check / Money order"
+ *         }
+ *       ]
+ *     }
+ *   },
+ *   "loading": false,
+ *   "networkStatus": 7
+ * }
+ * ```
  */
 export async function getAvailablePaymentMethods(
   context: Context,

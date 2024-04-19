@@ -9,7 +9,29 @@ import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
 import getHeaders from "../getHeaders";
 
 /**
- * Creates a new product review
+ * Create product review
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // create review data structure
+ * const review = {
+ *  sku: 'some-sku',
+ *  nickname: 'john.doe',
+ *  summary: 'awesome thing, whatever it is!',
+ *  text: 'this is a test review',
+ *  ratings: [{
+ *    id: 'NA==', // base64 encoded id
+ *    value_id: 'MjA=' // base64 encoded value_id
+ *  }]
+ * };
+ *
+ * const result = await sdk.magento.createProductReview(review);
+ *
+ * // result will contain the created review and summary data
+ * ```
  */
 export async function createProductReview(
   context: Context,

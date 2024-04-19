@@ -13,10 +13,18 @@ import getHeaders from "../getHeaders";
 
 /**
  * Set the guest user email on the cart
- * @param context VSF Context
- * @param input Variables to set guest email
- * @param [customQuery] (optional) - Custom query that will extend default one
- * @param customHeaders (optional) - custom headers that extends the default headers
+ *
+ * @example
+ * Simple usage:
+ * ```ts
+ * import { sdk } from '~/sdk.config.ts';
+ *
+ * // set an email on the cart
+ * const result = await sdk.magento.setGuestEmailOnCart({ cart_id: 'some-cart-id', email: 'some-email' });
+ *
+ * // new email will be set on the cart
+ * // data.setGuestEmailOnCart.cart.email will contain the email address
+ * ```
  */
 export async function setGuestEmailOnCart(
   context: Context,
