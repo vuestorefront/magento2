@@ -1,5 +1,15 @@
 # @vue-storefront/magento-api
 
+## 3.1.0
+
+### Minor Changes
+
+- 6dc90582: [CHANGED] Enhanced default GQL `productDetailsQuery` with new fields: `stock_status` and `only_x_left_in_stock`. [#1521](https://github.com/vuestorefront/magento2/pull/1521/files)
+
+### Patch Changes
+
+- 6672edfb: [CHANGED] Update TSDocs of API methods. Now, they contain examples of usage.
+
 ## 3.0.0
 
 ### Major Changes
