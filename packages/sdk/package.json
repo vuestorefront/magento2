@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-sdk",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -26,7 +26,7 @@
     "@vue-storefront/magento-types": "^1.2.0"
   },
   "devDependencies": {
-    "@vue-storefront/magento-api": "^3.0.0",
+    "@vue-storefront/magento-api": "^3.1.0",
     "nock": "^13.2.9",
     "@types/node": "^12.12.14"
   },
