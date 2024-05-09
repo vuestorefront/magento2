@@ -6,6 +6,8 @@ import categoriesQuery from "./categories";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
 
+export type CategoriesQuery = Required<Pick<Query, "categories">>;
+
 /**
  * Fetch list of all categories matching specified filters
  *
@@ -64,7 +66,7 @@ export async function categories(
   params: QueryCategoriesArgs,
   customQuery: CustomQuery = { categories: "categories" },
   customHeaders: CustomHeaders = {}
-): Promise<ApolloQueryResult<Query["categories"]>> {
+): Promise<ApolloQueryResult<CategoriesQuery>> {
   const { categories: categoriesGQL } = context.extendQuery(customQuery, {
     categories: {
       query: categoriesQuery,
@@ -72,7 +74,7 @@ export async function categories(
     },
   });
 
-  return context.client.query<Query["categories"], QueryCategoriesArgs>({
+  return context.client.query<CategoriesQuery, QueryCategoriesArgs>({
     query: gql`
       ${categoriesGQL.query}
     `,
