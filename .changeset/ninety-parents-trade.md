@@ -2,4 +2,4 @@
 "@vue-storefront/magento-api": patch
 ---
 
-Fix missing export of Endpoints type
+[FIXED]: Added export of `Endpoints` type, because it was missing.
