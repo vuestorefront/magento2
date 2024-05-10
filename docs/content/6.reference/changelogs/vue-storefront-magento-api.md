@@ -1,5 +1,12 @@
 # @vue-storefront/magento-api
 
+## 3.1.1
+
+### Patch Changes
+
+- 3065ee76: [ADDED] `CategoriesQuery` type for `categories` endpoint.
+- 101d9905: [FIXED]: Added export of `Endpoints` type, because it was missing.
+
 ## 3.1.0
 
 ### Minor Changes

@@ -1490,12 +1490,12 @@
             },
             {
               "kind": "Reference",
-              "text": "Query",
-              "canonicalReference": "@vue-storefront/magento-types!Query:interface"
+              "text": "CategoriesQuery",
+              "canonicalReference": "@vue-storefront/magento-api!CategoriesQuery:type"
             },
             {
               "kind": "Content",
-              "text": "[\"categories\"]>>"
+              "text": ">>"
             },
             {
               "kind": "Content",
@@ -1539,6 +1539,54 @@
             }
           ],
           "name": "categories"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@vue-storefront/magento-api!CategoriesQuery:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type CategoriesQuery = "
+            },
+            {
+              "kind": "Reference",
+              "text": "Required",
+              "canonicalReference": "!Required:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Pick",
+              "canonicalReference": "!Pick:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Query",
+              "canonicalReference": "@vue-storefront/magento-types!Query:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"categories\">>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "CategoriesQuery",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 7
+          }
         },
         {
           "kind": "Function",
