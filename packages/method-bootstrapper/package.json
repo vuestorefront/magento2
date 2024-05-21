@@ -6,13 +6,6 @@
   "bin": {
     "mkmethod": "./index.js"
   },
-  "scripts": {
-    "build": "echo Skip this step",
-    "test": "echo Skip this step",
-    "test:unit": "echo Skip this step",
-    "test:integration": "echo Skip this step",
-    "lint": "echo Skip this step"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
