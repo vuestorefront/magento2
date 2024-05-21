@@ -36,7 +36,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=16.x.x",
+    "node": ">=18",
     "yarn": "1.x.x||>=3.x.x"
   },
   "packageManager": "yarn@1.22.15"
