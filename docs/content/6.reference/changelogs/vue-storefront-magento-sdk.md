@@ -1,5 +1,16 @@
 # @vue-storefront/magento-sdk
 
+## 3.0.0
+
+### Major Changes
+
+- e4709f9a: Changed minimum Node version from 16 to 18. The condition that was forcing the Node version to be lower than 19 is also removed.
+
+### Patch Changes
+
+- Updated dependencies [e4709f9a]
+  - @vue-storefront/magento-types@2.0.0
+
 ## 2.3.2
 
 ### Patch Changes
