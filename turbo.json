@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["lib/**", "server/**"]
+    },
+    "test:unit": {
+      // Sometimes in unit tests of SDK we refer to the "types" package of the integration
+      // so this means the dependencies of the packages need to be built
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "__tests__/unit/**/*.ts"],
+      "outputs": ["coverage/**"]
+    },
+    "test:integration": {
+      // Similarly to unit tests, people just freely import stuff from subdeps :(
+      "dependsOn": ["^build"],
+      "inputs": ["src/**/*.ts", "__tests__/integration/**/*.ts"],
+      "outputs": ["coverage/**"]
+    },
+    "lint": {
+      // ESLint fails the 'is this import statement resolveable?' rule if the
+      // dependencies of some package aren't built
+      "dependsOn": ["^build"]
+    }
+  }
+}

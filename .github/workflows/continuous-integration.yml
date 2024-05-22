@@ -11,16 +11,15 @@ concurrency:
 jobs:
   continous-integration:
     name: 'Continuous Integration'
-    uses: vuestorefront/vue-storefront/.github/workflows/ci-integrations.yml@main
+    uses: vuestorefront/vue-storefront/.github/workflows/ci-integrations.yml@turbo
     secrets: inherit
     with:
       enterprise: false
-      node_version: '["16", "18"]'
 
   sonarcloud-api-client:
     name: 'SonarCloud API Client'
     needs: [continous-integration]
-    uses: vuestorefront/vue-storefront/.github/workflows/sonarcloud-integrations.yml@main
+    uses: vuestorefront/vue-storefront/.github/workflows/sonarcloud-integrations.yml@turbo
     secrets:
       SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
     with:

@@ -12,11 +12,12 @@
   ],
   "scripts": {
     "prepare": "husky install",
-    "build": "lerna run build",
-    "test": "lerna run test",
-    "test:unit": "lerna run test:unit",
-    "test:integration": "lerna run test:integration",
-    "lint": "lerna run lint",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "turbo run test:integration",
+    "lint": "turbo run lint",
+    "ci": "turbo run build test:unit test:integration lint --cache-dir=.turbo",
     "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install && yarn prepare:docs",
     "changesets:publish": "yarn build && yarn changeset publish",
     "prepare:docs": "cd docs && yarn install && yarn api-extract && yarn copy-changelog"
@@ -30,13 +31,13 @@
     "@vue-storefront/rollup-config": "^0.0.7",
     "all-contributors-cli": "^6.20.0",
     "esbuild": "^0.14.23",
-    "lerna": "^4.0.0",
     "lint-staged": "^12.3.3",
     "rimraf": "^5.0.0",
+    "turbo": "^1.13.3",
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=16.x.x",
+    "node": ">=18",
     "yarn": "1.x.x||>=3.x.x"
   },
   "packageManager": "yarn@1.22.15"

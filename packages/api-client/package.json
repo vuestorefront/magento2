@@ -24,8 +24,8 @@
   "dependencies": {
     "@apollo/client": "3.8.7",
     "@nuxtjs/composition-api": "0.31.0",
-    "@vue-storefront/middleware": "^3.9.0",
     "@vue-storefront/magento-types": "1.2.0",
+    "@vue-storefront/middleware": "^3.9.0",
     "agentkeepalive": "^4.2.1",
     "consola": "^3.1.0",
     "dotenv": "^16.0.1",
@@ -57,6 +57,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "engines": {
-    "node": ">=16.x < 19"
+    "node": ">=18"
   }
 }

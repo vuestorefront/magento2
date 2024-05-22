@@ -8,15 +8,14 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf lib && rollup -c",
-    "test": "yarn test:unit && yarn test:integration",
-    "test:unit": "echo 'No test step created for this package'",
-    "test:integration": "echo 'No test step created for this package'",
-    "lint": "echo 'Only GraphQL stuff here'",
     "prepublish": "yarn build",
     "dev": "rollup -c -w"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
