@@ -1,5 +1,11 @@
 # @vue-storefront/magento-types
 
+## 2.0.0
+
+### Major Changes
+
+- e4709f9a: Changed minimum Node version from 16 to 18. The condition that was forcing the Node version to be lower than 19 is also removed.
+
 ## 1.2.0
 
 ### Minor Changes
