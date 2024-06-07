@@ -33,12 +33,12 @@
     "esbuild": "^0.14.23",
     "lint-staged": "^12.3.3",
     "rimraf": "^5.0.0",
-    "turbo": "^1.13.3",
+    "turbo": "^2",
     "typescript": "^5"
   },
   "engines": {
     "node": ">=18",
     "yarn": "1.x.x||>=3.x.x"
   },
-  "packageManager": "yarn@1.22.15"
+  "packageManager": "yarn@1.22.22"
 }
