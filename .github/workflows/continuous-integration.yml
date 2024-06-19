@@ -32,7 +32,7 @@ jobs:
     needs: [continous-integration]
     uses: vuestorefront/vue-storefront/.github/workflows/sonarcloud-integrations.yml@main
     secrets:
-      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK }}
+      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK_2 }}
     with:
       project_key: 'vuestorefront_magento2_sdk'
       package_name: 'sdk'
