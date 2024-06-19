@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 4.0.1
+
+### Patch Changes
+
+- d65bb6ee: [CHANGED] Updated `@vue-storefront/middleware` version to `4.x.x`.
+
 ## 4.0.0
 
 ### Major Changes

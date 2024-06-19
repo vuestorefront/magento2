@@ -1,5 +1,11 @@
 # @vue-storefront/magento-sdk
 
+## 3.0.1
+
+### Patch Changes
+
+- d65bb6ee: [CHANGED] Updated `@vue-storefront/middleware` peer dependency version to `4.x.x`.
+
 ## 3.0.0
 
 ### Major Changes
