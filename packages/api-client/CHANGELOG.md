@@ -1,6 +1,8 @@
 # @vue-storefront/magento-api
 
-## 4.0.1
+## 4.0.1 (deprecated)
+
+> This package version is deprecated. Please use the next major version.
 
 ### Patch Changes
 
