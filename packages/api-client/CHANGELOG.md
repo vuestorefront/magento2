@@ -1,5 +1,21 @@
 # @vue-storefront/magento-api
 
+## 5.0.0
+
+### Major Changes
+
+- 018d73d3: - **[BREAKING]** Updated `@vue-storefront/middleware` version to `4.1.0`. Make sure this version is used in your project.
+
+  ```diff
+  {
+    ...
+    "dependencies": {
+  -   "@vue-storefront/middleware": "3.x.x",
+  +   "@vue-storefront/middleware": "4.1.0"
+    }
+  }
+  ```
+
 ## 4.0.1 (deprecated)
 
 > This package version is deprecated. Please use the next major version.

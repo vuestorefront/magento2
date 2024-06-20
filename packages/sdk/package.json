@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
-    "@vue-storefront/magento-api": "^4.0.0",
+    "@vue-storefront/magento-api": "^5.0.0",
     "nock": "^13.2.9"
   },
   "peerDependencies": {
