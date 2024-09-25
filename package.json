@@ -41,8 +41,5 @@
     "node": ">=18",
     "yarn": "1.x.x||>=3.x.x"
   },
-  "packageManager": "yarn@1.22.22",
-  "dependencies": {
-    "@vue-storefront/magento-types": "^2.0.0"
-  }
+  "packageManager": "yarn@1.22.22"
 }
