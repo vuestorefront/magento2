@@ -18,9 +18,10 @@
     "test:integration": "turbo run test:integration",
     "lint": "turbo run lint",
     "ci": "turbo run build test:unit test:integration lint --cache-dir=.turbo",
-    "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install && yarn prepare:docs",
+    "changesets:version": "yarn changeset version && YARN_ENABLE_IMMUTABLE_INSTALLS=false yarn install && yarn prepare:docs && yarn graphQlApiDocs:md",
     "changesets:publish": "yarn build && yarn changeset publish",
-    "prepare:docs": "cd docs && yarn install && yarn api-extract && yarn copy-changelog"
+    "prepare:docs": "cd docs && yarn install && yarn api-extract && yarn copy-changelog",
+    "graphQlApiDocs:md": "ts-node scripts/generateGraphQlApiDocs.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
@@ -40,5 +41,8 @@
     "node": ">=18",
     "yarn": "1.x.x||>=3.x.x"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "dependencies": {
+    "@vue-storefront/magento-types": "^2.0.0"
+  }
 }
