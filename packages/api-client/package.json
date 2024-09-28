@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@apollo/client": "3.8.7",
-    "@nuxtjs/composition-api": "0.31.0",
     "@vue-storefront/magento-types": "2.0.0",
     "@vue-storefront/middleware": "^4.1.0",
     "agentkeepalive": "^4.2.1",
