@@ -1,0 +1,6 @@
+versions:
+  - title: current
+    path: /
+    latest: true
+  - title: SDK v2
+    path: /v2
