@@ -143,7 +143,7 @@ function findQueriesInFolder(folderPath: string, fragmentFolderPaths: string[], 
 }
 
 const apiFolderPath = path.join(__dirname, "../packages/api-client/src/api");
-const markdownFile = path.join(__dirname, "../docs/content/5.api/magento-graphql-queries.md");
+const markdownFile = path.join(__dirname, "../docs/content/4.advanced/graphql-queries.md");
 
 if (fs.existsSync(markdownFile)) {
   fs.unlinkSync(markdownFile);
