@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 5.0.1
+
+### Patch Changes
+
+- 158a648f: Remove unused vulnerable dependency "@nuxtjs/composition-api"
+
 ## 5.0.0
 
 ### Major Changes
