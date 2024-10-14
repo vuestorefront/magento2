@@ -14,7 +14,7 @@ type QueryResult = {
 function findGraphQLInContent(content: string): string | null {
   const gqlRegex = /export\s+default\s+gql`([\s\S]*?)`;/g;
   const stringRegex = /export\s+default\s+`([\s\S]*?)`;/g;
-  let match = gqlRegex.exec(content) || stringRegex.exec(content);
+  const match = gqlRegex.exec(content) || stringRegex.exec(content);
   return match ? match[1].trim() : null;
 }
 
@@ -43,7 +43,7 @@ function parseImports(content: string): ImportedVars[] {
   return imports;
 }
 
-function findFragmentDefinitionInFolder(folderPath: string, fragmentName: string): string | null {
+function findFragmentDefinitionInFolder(folderPath: string): string | null {
   const files = getAllFiles(folderPath);
   for (const file of files) {
     const content = fs.readFileSync(file, "utf8");
@@ -85,16 +85,15 @@ function resolveImports(filePath: string, imports: ImportedVars[]): Record<strin
 function expandFragments(query: string, folderPaths: string[]): string {
   let previousQuery = "";
   let currentQuery = query;
-  let match: RegExpExecArray | null;
   const fragmentRegex = /\$\{(\w+)\}/g;
   while (previousQuery !== currentQuery) {
     previousQuery = currentQuery;
-    match = fragmentRegex.exec(currentQuery);
+    let match: RegExpExecArray | null = fragmentRegex.exec(currentQuery);
     while (match !== null) {
       const fragmentName = match[1];
       let fragmentDefinition: string | null = null;
       for (const folderPath of folderPaths) {
-        fragmentDefinition = findFragmentDefinitionInFolder(folderPath, fragmentName);
+        fragmentDefinition = findFragmentDefinitionInFolder(folderPath);
         if (fragmentDefinition) break;
       }
       if (fragmentDefinition) {
@@ -111,28 +110,40 @@ function findQueriesInFile(filePath: string, fragmentFolderPaths: string[], mark
   const imports = parseImports(content);
   const resolvedQueries = resolveImports(filePath, imports);
   const queryRegex = /(\w+):\s*{\s*query:\s*(\w+)/g;
+  const methodRegex = /async function (\w+)\s*\(/g;
+  let methodMatch = methodRegex.exec(content);
   const queryResults: QueryResult[] = [];
   let match: RegExpExecArray | null;
+
   while ((match = queryRegex.exec(content)) !== null) {
     const queryName = match[1];
     const queryVariable = match[2];
-    let queryDefinition =
-      resolvedQueries[queryVariable] || findGraphQLInContent(content);
-    if (!queryDefinition) {
-      queryDefinition = findFragmentDefinitionInFolder(path.dirname(filePath), queryVariable);
+    const queryDefinition =
+      resolvedQueries[queryVariable] ||
+      findGraphQLInContent(content) ||
+      findFragmentDefinitionInFolder(path.dirname(filePath));
+
+    if (methodMatch && methodMatch.index < match.index) {
+      fs.appendFileSync(
+        markdownFile,
+        `### Method: ${methodMatch[1]}\n- Query: ${queryName}\n`
+      );
+      methodMatch = methodRegex.exec(content); // Move to the next method
     }
+
     if (queryDefinition) {
-      queryDefinition = expandFragments(queryDefinition, [path.dirname(filePath), ...fragmentFolderPaths]);
-    }
-    queryResults.push({queryName, queryDefinition});
-  }
-  queryResults.forEach(({queryName, queryDefinition}) => {
-    if (queryDefinition) {
-      fs.appendFileSync(markdownFile, `### Query: ${queryName}\n\`\`\`graphql\n${queryDefinition}\n\`\`\`\n\n`);
+      const expandedQuery = expandFragments(queryDefinition, [path.dirname(filePath), ...fragmentFolderPaths]);
+      fs.appendFileSync(
+        markdownFile,
+        `\`\`\`graphql\n${expandedQuery}\n\`\`\`\n\n`
+      );
     } else {
-      fs.appendFileSync(markdownFile, `### Query: ${queryName}\n- **GraphQL Query definition not found.**\n\n`);
+      fs.appendFileSync(
+        markdownFile,
+        `- **GraphQL Query definition not found.**\n\n`
+      );
     }
-  });
+  }
 }
 
 function findQueriesInFolder(folderPath: string, fragmentFolderPaths: string[], markdownFile: string): void {
@@ -149,7 +160,8 @@ if (fs.existsSync(markdownFile)) {
   fs.unlinkSync(markdownFile);
 }
 
-fs.writeFileSync(markdownFile, `# Magento GraphQL Queries Documentation\n\n`);
+fs.writeFileSync(markdownFile, `# Magento 2 API GraphQL Queries Documentation\n\nThis documentation provides an overview of the GraphQL queries executed by specific methods in the Magento 2 API.\n\n`);
+
 findQueriesInFolder(apiFolderPath, [], markdownFile);
 
 console.log(`Documentation generated in ${markdownFile}`);
