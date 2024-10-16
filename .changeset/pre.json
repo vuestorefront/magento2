@@ -8,5 +8,8 @@
     "method-bootstrapper": "1.1.0",
     "@vue-storefront/magento-sdk": "3.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "few-baboons-chew",
+    "tasty-books-melt"
+  ]
 }
