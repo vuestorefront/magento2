@@ -1,5 +1,15 @@
 # @vue-storefront/magento-api
 
+## 6.0.0-rc.0
+
+### Major Changes
+
+- 5c9607c8: update middleware to 5.1.0-rc
+
+### Patch Changes
+
+- 158a648f: Remove unused vulnerable dependency "@nuxtjs/composition-api"
+
 ## 5.0.0
 
 ### Major Changes

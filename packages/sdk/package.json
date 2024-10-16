@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
-    "@vue-storefront/magento-api": "^5.0.0",
+    "@vue-storefront/magento-api": "^6.0.0-rc.0",
     "@vue-storefront/middleware": "^5.0.0-rc",
     "nock": "^13.2.9"
   },
