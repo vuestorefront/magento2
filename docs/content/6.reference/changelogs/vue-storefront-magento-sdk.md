@@ -1,5 +1,11 @@
 # @vue-storefront/magento-sdk
 
+## 4.0.0-rc.0
+
+### Major Changes
+
+- 3de1337c: update middleware
+
 ## 3.0.1
 
 ### Patch Changes
