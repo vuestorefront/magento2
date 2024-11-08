@@ -28,11 +28,11 @@
   "devDependencies": {
     "@types/node": "^12.12.14",
     "@vue-storefront/magento-api": "^6.0.0-rc.1",
-    "@vue-storefront/middleware": "^5.1.0-rc",
+    "@vue-storefront/middleware": "^5.1.0",
     "nock": "^13.2.9"
   },
   "peerDependencies": {
-    "@vue-storefront/middleware": "^5.1.0-rc"
+    "@vue-storefront/middleware": "^5.1.0"
   },
   "publishConfig": {
     "access": "public",

@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "rc",
   "initialVersions": {
     "@vue-storefront/magento-api": "5.0.0",
@@ -8,9 +8,5 @@
     "method-bootstrapper": "1.1.0",
     "@vue-storefront/magento-sdk": "3.0.1"
   },
-  "changesets": [
-    "few-baboons-chew",
-    "olive-terms-stare",
-    "tasty-books-melt"
-  ]
+  "changesets": ["olive-terms-stare"]
 }

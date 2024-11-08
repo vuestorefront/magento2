@@ -10,7 +10,7 @@
 
 ### Major Changes
 
-- 5c9607c8: update middleware to 5.1.0-rc
+- 5c9607c8: update middleware to 5.1.0
 
 ### Patch Changes
 

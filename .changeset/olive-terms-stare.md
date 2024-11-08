@@ -3,4 +3,4 @@
 "@vue-storefront/magento-sdk": major
 ---
 
-update middleware
+**[CHANGE]** - Update middleware to 5.1.0
