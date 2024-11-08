@@ -893,6 +893,13 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
+"@godaddy/terminus@^4.12.1":
+  version "4.12.1"
+  resolved "https://registrynpm.storefrontcloud.io/@godaddy/terminus/-/terminus-4.12.1.tgz#c4fdc280a4ac9655d4734250e22299a4ad46c54c"
+  integrity sha512-Tm+wVu1/V37uZXcT7xOhzdpFoovQReErff8x3y82k6YyWa1gzxWBjTyrx4G2enjEqoXPnUUmJ3MOmwH+TiP6Sw==
+  dependencies:
+    stoppable "^1.1.0"
+
 "@graphql-codegen/cli@^2.4.0":
   version "2.16.5"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/cli/-/cli-2.16.5.tgz#b3b5eeec357af01c1cb72f6a4ea96e52bd49e662"
@@ -2222,16 +2229,27 @@
     ts-jest "^29.1.0"
     ts-node "^10.9.1"
 
-"@vue-storefront/middleware@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@vue-storefront/middleware/-/middleware-4.1.0.tgz#dc6ebf58b1d9f518c8a3ae4fad6f14d561ef502d"
-  integrity sha512-RwHzVsGSFCmp7YpIVkUNYMiTUdHYE2lzupG6wxGXgGkMDcc4b1FnI93pZnO5Adjf0T4PKV27tjUZCtMm5gmClQ==
+"@vue-storefront/logger@^1.0.0":
+  version "1.0.0"
+  resolved "https://registrynpm.storefrontcloud.io/@vue-storefront/logger/-/logger-1.0.0.tgz#6b5120ec01cfb40dd135a57df38092306b99c267"
+  integrity sha512-BRZLdJGxAsnGdPjS9kpDij96h4bSjbyscoAVwl9IUbHpK5jXPKL9qoqJj+zTvnjwe5IpY15iSgQ+QR14CkofLw==
   dependencies:
-    consola "^2.15.3"
+    consola "^3"
+    dotenv "^16"
+
+"@vue-storefront/middleware@^5.1.0":
+  version "5.1.0"
+  resolved "https://registrynpm.storefrontcloud.io/@vue-storefront/middleware/-/middleware-5.1.0.tgz#d5d235dced08dd79daa5fff1fdd455830c280aa9"
+  integrity sha512-G9NknbWTWjV3AwwyzO43ugYaiOQaTCgJXphK4+EZjsC/NETNxFa9twVGTegRYGRBTUJ9OhZ4WhSKOnAcgETFZg==
+  dependencies:
+    "@godaddy/terminus" "^4.12.1"
+    "@vue-storefront/logger" "^1.0.0"
     cookie-parser "^1.4.6"
     cors "^2.8.5"
     express "^4.18.1"
     helmet "^5.1.1"
+    lodash.merge "^4.6.2"
+    xss "^1.0.15"
 
 "@vue-storefront/rollup-config@^0.0.7":
   version "0.0.7"
@@ -3093,6 +3111,11 @@ commander@^10.0.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-10.0.1.tgz#881ee46b4f77d1c1dccc5823433aa39b022cbe06"
   integrity sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==
 
+commander@^2.20.3:
+  version "2.20.3"
+  resolved "https://registrynpm.storefrontcloud.io/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
+  integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
 commander@^9.3.0:
   version "9.5.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-9.5.0.tgz#bc08d1eb5cedf7ccb797a96199d41c7bc3e60d30"
@@ -3118,10 +3141,10 @@ confusing-browser-globals@^1.0.10:
   resolved "https://registry.yarnpkg.com/confusing-browser-globals/-/confusing-browser-globals-1.0.11.tgz#ae40e9b57cdd3915408a2805ebd3a5585608dc81"
   integrity sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==
 
-consola@^2.15.3:
-  version "2.15.3"
-  resolved "https://registry.yarnpkg.com/consola/-/consola-2.15.3.tgz#2e11f98d6a4be71ff72e0bdf07bd23e12cb61550"
-  integrity sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==
+consola@^3:
+  version "3.2.3"
+  resolved "https://registrynpm.storefrontcloud.io/consola/-/consola-3.2.3.tgz#0741857aa88cfa0d6fd53f1cff0375136e98502f"
+  integrity sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==
 
 consola@^3.1.0:
   version "3.2.2"
@@ -3250,6 +3273,11 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+cssfilter@0.0.10:
+  version "0.0.10"
+  resolved "https://registrynpm.storefrontcloud.io/cssfilter/-/cssfilter-0.0.10.tgz#c6d2672632a2e5c83e013e6864a42ce8defd20ae"
+  integrity sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=
 
 csv-generate@^3.4.3:
   version "3.4.3"
@@ -3433,6 +3461,11 @@ dot-case@^3.0.4:
   dependencies:
     no-case "^3.0.4"
     tslib "^2.0.3"
+
+dotenv@^16:
+  version "16.4.5"
+  resolved "https://registrynpm.storefrontcloud.io/dotenv/-/dotenv-16.4.5.tgz#cdd3b3b604cb327e286b4762e13502f717cb099f"
+  integrity sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==
 
 dotenv@^16.0.0, dotenv@^16.0.1:
   version "16.3.1"
@@ -7089,6 +7122,11 @@ statuses@2.0.1, statuses@^2.0.0:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
   integrity sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==
 
+stoppable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registrynpm.storefrontcloud.io/stoppable/-/stoppable-1.1.0.tgz#32da568e83ea488b08e4d7ea2c3bcc9d75015d5b"
+  integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
+
 stream-transform@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-2.1.3.tgz#a1c3ecd72ddbf500aa8d342b0b9df38f5aa598e3"
@@ -7850,6 +7888,14 @@ ws@8.13.0, ws@^8.12.0:
   version "8.13.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.13.0.tgz#9a9fb92f93cf41512a0735c8f4dd09b8a1211cd0"
   integrity sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==
+
+xss@^1.0.15:
+  version "1.0.15"
+  resolved "https://registrynpm.storefrontcloud.io/xss/-/xss-1.0.15.tgz#96a0e13886f0661063028b410ed1b18670f4e59a"
+  integrity sha512-FVdlVVC67WOIPvfOwhoMETV72f6GbW7aOabBC3WxN/oUdoEMDyLz4OgRv5/gck2ZeNqEQu+Tb0kloovXOfpYVg==
+  dependencies:
+    commander "^2.20.3"
+    cssfilter "0.0.10"
 
 y18n@^4.0.0:
   version "4.0.3"

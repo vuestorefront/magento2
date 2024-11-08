@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-api",
-  "version": "5.0.1",
+  "version": "6.0.0-rc.1",
   "sideEffects": false,
   "homepage": "https://github.com/vuestorefront/magento2",
   "bugs": {
@@ -24,7 +24,7 @@
   "dependencies": {
     "@apollo/client": "3.8.7",
     "@vue-storefront/magento-types": "2.0.0",
-    "@vue-storefront/middleware": "^4.1.0",
+    "@vue-storefront/middleware": "^5.1.0",
     "agentkeepalive": "^4.2.1",
     "consola": "^3.1.0",
     "dotenv": "^16.0.1",

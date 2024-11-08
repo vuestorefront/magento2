@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/magento-sdk",
-  "version": "3.0.1",
+  "version": "4.0.0-rc.0",
   "main": "lib/index.cjs.js",
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
@@ -27,11 +27,12 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
-    "@vue-storefront/magento-api": "^5.0.0",
+    "@vue-storefront/magento-api": "^6.0.0-rc.1",
+    "@vue-storefront/middleware": "^5.1.0",
     "nock": "^13.2.9"
   },
   "peerDependencies": {
-    "@vue-storefront/middleware": "^4.1.0"
+    "@vue-storefront/middleware": "^5.1.0"
   },
   "publishConfig": {
     "access": "public",
