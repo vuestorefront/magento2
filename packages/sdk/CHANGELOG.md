@@ -1,5 +1,11 @@
 # @vue-storefront/magento-sdk
 
+## 4.0.0
+
+### Major Changes
+
+- 983eb70e: **[CHANGE]** - Update middleware to 5.1.0
+
 ## 3.0.1
 
 ### Patch Changes
@@ -65,12 +71,15 @@
   - [CHANGED] Deprecated the `MagentoModuleType` interface in `index.ts`. It is no longer necessary to use this type. Please, check documentation of `magentoModule` for alternatives. Below you can find a snippet of the new way of using `magentoModule`. Pay attention to the `buildModule` function that is used to create a module instance, it no longer requires the `MagentoModuleType` type as a generic parameter.
 
   ```ts
-  import { initSDK, buildModule } from '@vue-storefront/sdk';
-  import { magentoModule, MagentoModuleType } from '@vue-storefront/magento2-sdk';
+  import { initSDK, buildModule } from "@vue-storefront/sdk";
+  import {
+    magentoModule,
+    MagentoModuleType,
+  } from "@vue-storefront/magento2-sdk";
 
   const sdkConfig = {
     magento: buildModule(magentoModule, {
-      apiUrl: 'http://localhost:8181/magento',
+      apiUrl: "http://localhost:8181/magento",
     }),
   };
 
