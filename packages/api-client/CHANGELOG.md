@@ -1,16 +1,6 @@
 # @vue-storefront/magento-api
 
-## 6.0.0-rc.1
-
-### Major Changes
-
-- 3de1337c: update middleware
-
-## 6.0.0-rc.0
-
-### Major Changes
-
-- 5c9607c8: update middleware to 5.1.0
+## 5.0.1
 
 ### Patch Changes
 
