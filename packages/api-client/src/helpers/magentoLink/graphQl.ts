@@ -11,7 +11,9 @@ import possibleTypes from "../../types/possibleTypes.json";
 import standardURL from "../url/standardURL";
 
 const { HttpsAgent } = AgentKeepAlive;
-const agent = new HttpsAgent();
+const agent = new HttpsAgent({
+  timeout: 30000,
+});
 
 const createErrorHandler = () =>
   onError(({ graphQLErrors, networkError }) => {
@@ -48,7 +50,7 @@ export const apolloLinkFactory = (
 ) => {
   const baseLink =
     handlers?.apolloLink ||
-    setContext((apolloReq, { headers }) => ({
+    setContext((_apolloReq, { headers }) => ({
       headers: {
         ...headers,
       },
