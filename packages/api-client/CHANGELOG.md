@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 6.1.0
+
+### Minor Changes
+
+- a89d1e10: ** [CHANGED] ** - increase the HttpAgent socket timeout from `10s` to `30s` to prevent timeout errors on slow connections.
+
 ## 6.0.0
 
 ### Major Changes
