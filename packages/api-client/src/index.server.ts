@@ -1,10 +1,10 @@
 /* istanbul ignore file */
 import { ApiClientExtension, apiClientFactory } from "@vue-storefront/middleware";
 import * as api from "./api";
-import { ClientInstance, Config } from "./types/setup";
-import { createMagentoConnection } from "./helpers/magentoLink";
 import { defaultSettings } from "./helpers/apiClient/defaultSettings";
+import { createMagentoConnection } from "./helpers/magentoLink";
 import { apolloClientFactory } from "./helpers/magentoLink/graphQl";
+import { ClientInstance, Config } from "./types/setup";
 
 const buildConfig = (settings: Config) =>
   ({
@@ -65,11 +65,15 @@ const onCreate = (settings: Config): { config: Config; client: ClientInstance } 
 const tokenExtension: ApiClientExtension = {
   name: "tokenExtension",
   hooks: (req, res) => ({
-    beforeCreate: ({ configuration }) => {
+    beforeCreate: ({ configuration }: { configuration: Config }) => {
       const cartCookieName: string = configuration.cookies?.cartCookieName || defaultSettings.cookies.cartCookieName;
       const customerCookieName: string = configuration.cookies?.customerCookieName || defaultSettings.cookies.customerCookieName;
       const storeCookieName: string = configuration.cookies?.storeCookieName || defaultSettings.cookies.storeCookieName;
       const currencyCookieName: string = configuration.cookies?.currencyCookieName || defaultSettings.cookies.currencyCookieName;
+
+      function setCookie(name: string, value: string) {
+        res.cookie(name, value, configuration.cookieOptions?.[name]);
+      }
 
       return {
         ...configuration,
@@ -81,7 +85,7 @@ const tokenExtension: ApiClientExtension = {
               delete req.cookies[cartCookieName];
               return;
             }
-            res.cookie(cartCookieName, JSON.stringify(id));
+            setCookie(cartCookieName, JSON.stringify(id));
           },
           getCustomerToken: () => req.cookies[customerCookieName],
           setCustomerToken: (token) => {
@@ -90,16 +94,16 @@ const tokenExtension: ApiClientExtension = {
               delete req.cookies[customerCookieName];
               return;
             }
-            res.cookie(customerCookieName, JSON.stringify(token));
+            setCookie(customerCookieName, JSON.stringify(token));
           },
-          getStore: () => configuration?.storeViewCode ?? req.cookies[storeCookieName],
+          getStore: () => (configuration as any)?.storeViewCode ?? req.cookies[storeCookieName],
           setStore: (id) => {
             if (!id) {
               // eslint-disable-next-line no-param-reassign
               delete req.cookies[storeCookieName];
               return;
             }
-            res.cookie(storeCookieName, JSON.stringify(id));
+            setCookie(storeCookieName, JSON.stringify(id));
           },
           getCurrency: () => req.cookies[currencyCookieName],
           setCurrency: (id) => {
@@ -108,7 +112,7 @@ const tokenExtension: ApiClientExtension = {
               delete req.cookies[currencyCookieName];
               return;
             }
-            res.cookie(currencyCookieName, JSON.stringify(id));
+            setCookie(currencyCookieName, JSON.stringify(id));
           },
         },
       };
