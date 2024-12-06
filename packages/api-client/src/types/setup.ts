@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloClientOptions } from "@apollo/client/core";
 import { HttpOptions } from "@apollo/client/link/http/selectHttpOptionsAndBody";
+import type { CookieOptions } from "express";
 import { Endpoints } from "./api";
 
 export interface Storage {
@@ -100,6 +101,7 @@ export interface Config<T = any> extends ClientConfig {
   recaptcha: RecaptchaConfig;
   imageProvider: string;
   magentoBaseUrl: string;
+  cookieOptions?: Record<string, CookieOptions>;
 }
 
 export type ClientInstance = ApolloClient<any>;
