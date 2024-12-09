@@ -1,5 +1,32 @@
 # @vue-storefront/magento-api
 
+## 6.2.0
+
+### Minor Changes
+
+- aa9e8a96: **[ADDED]** `cookieOptions` config. This option allows you to customize the cookie options which are set for a given cookie name.
+
+  Example:
+
+  ```
+  {
+    integrations: {
+      magento: {
+        location: "@vue-storefront/magento-api/server",
+        configuration: {
+          // ...
+          cookieOptions: {
+            "vsf-customer": {
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            }
+          }
+        },
+      },
+    },
+  }
+  ```
+
 ## 6.1.0
 
 ### Minor Changes
