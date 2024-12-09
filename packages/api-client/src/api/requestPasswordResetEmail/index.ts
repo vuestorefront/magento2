@@ -3,7 +3,7 @@ import { GraphQLError } from "graphql";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import consola from "consola";
+import { getLogger } from "@vue-storefront/middleware";
 import recaptchaValidator from "../../helpers/recaptcha/recaptchaValidator";
 import requestPasswordResetEmailMutation from "./requestPasswordResetEmail";
 import { Context } from "../../types/context";
@@ -28,6 +28,8 @@ export async function requestPasswordResetEmail(
   input: RequestPasswordResetEmailMutationVariables,
   customHeaders: CustomHeaders = {}
 ): Promise<FetchResult<RequestPasswordResetEmailMutation>> {
+  const logger = getLogger(context);
+
   const { recaptchaToken, ...variables } = input;
 
   if (context.config.recaptcha.isEnabled) {
@@ -44,7 +46,7 @@ export async function requestPasswordResetEmail(
     }
   }
 
-  consola.debug("[VSF: Magento] requestPasswordResetEmail", JSON.stringify(input, null, 2));
+  logger.debug("[VSF: Magento] requestPasswordResetEmail", input);
   const result = await context.client.mutate<RequestPasswordResetEmailMutation, RequestPasswordResetEmailMutationVariables>({
     mutation: gql`
       ${requestPasswordResetEmailMutation}
