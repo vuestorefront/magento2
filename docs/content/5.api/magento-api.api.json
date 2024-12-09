@@ -2396,6 +2396,46 @@
             },
             {
               "kind": "PropertySignature",
+              "canonicalReference": "@vue-storefront/magento-api!Config#cookieOptions:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "cookieOptions?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Record",
+                  "canonicalReference": "!Record:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<string, "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "CookieOptions",
+                  "canonicalReference": "@types/express!~e.CookieOptions:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "cookieOptions",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              }
+            },
+            {
+              "kind": "PropertySignature",
               "canonicalReference": "@vue-storefront/magento-api!Config#customApolloHttpLinkOptions:member",
               "docComment": "",
               "excerptTokens": [
