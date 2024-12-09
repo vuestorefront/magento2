@@ -1,8 +1,8 @@
 import { ApolloQueryResult } from "@apollo/client/core";
-import consola from "consola";
 import type { CustomHeaders } from "@vue-storefront/magento-types";
 import { CmsPageQuery, CmsPageQueryVariables, CustomQuery } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
+import { getLogger } from "@vue-storefront/middleware";
 import cmsPageQuery from "./cmsPage";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
@@ -71,6 +71,8 @@ export async function cmsPage(
   customQuery: CustomQuery = { cmsPage: "cmsPage" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<CmsPageQuery>> {
+  const logger = getLogger(context);
+
   try {
     const { cmsPage: cmsPageGQL } = context.extendQuery(customQuery, {
       cmsPage: {
@@ -91,7 +93,7 @@ export async function cmsPage(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      consola.debug(error);
+      logger.debug(error);
 
       return {
         ...error,
@@ -99,7 +101,7 @@ export async function cmsPage(
         data: null,
       };
     }
-    consola.error(error);
+
     throw error.networkError?.result || error;
   }
 }
