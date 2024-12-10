@@ -4,15 +4,19 @@ import { ConfigState } from "../../types/setup";
 
 export const handleRetry =
   ({ alokai }: { alokai: AlokaiContainer }) =>
-  (count, operation, error) => {
+  (retryCount, operation, error) => {
     const logger = getLogger(alokai);
 
-    if (count > 3) {
+    if (retryCount > 3) {
       return false;
     }
 
     if (error?.result?.message === "invalid_token") {
-      logger.debug(`Apollo retry-link, the operation (${operation.operationName}) sent with wrong token, creating a new one... (attempt: ${count})`);
+      const { operationName } = operation;
+      logger.error(`Invalid token used for operation ${operationName}, Apollo retry-link will refresh the token and retry`, {
+        operation,
+        retryCount,
+      });
       return true;
     }
 
