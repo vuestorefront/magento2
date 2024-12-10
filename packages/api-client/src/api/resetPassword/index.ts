@@ -48,7 +48,7 @@ export async function resetPassword(
     }
   }
 
-  logger.debug("[VSF: Magento] requestPasswordResetEmail", input);
+  logger.debug("Initiating password reset request with input", { input });
   const result = await context.client.mutate<ResetPasswordMutation, ResetPasswordMutationVariables>({
     mutation: gql`
       ${resetPasswordMutation}
