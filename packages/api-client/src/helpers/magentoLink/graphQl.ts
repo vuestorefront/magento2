@@ -28,13 +28,13 @@ const createErrorHandler = (alokai: AlokaiContainer) =>
 
         if (!message.includes("Resource Owner Password Credentials Grant")) {
           if (!locations) {
-            logger.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+            logger.error(message, { path });
             return;
           }
 
           const parsedLocations = locations.map(({ column, line }) => `[column: ${column}, line: ${line}]`);
 
-          logger.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(", ")}, Path: ${path}`);
+          logger.error(message, { path, location: parsedLocations.join(", ") });
         }
       });
     }
