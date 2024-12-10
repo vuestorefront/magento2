@@ -1,13 +1,9 @@
-import { getLogger, type AlokaiContainer } from "@vue-storefront/middleware";
+import { type AlokaiContainer } from "@vue-storefront/middleware";
 import { Config } from "../../types/setup";
 import { apolloLinkFactory } from "./graphQl";
 import { linkFactory } from "./linkHandlers";
 
 export const createMagentoConnection = (settings: Config, alokai: AlokaiContainer) => {
-  const logger = getLogger(alokai);
-
-  logger.debug("createMagentoConnection");
-
   const apolloLink = apolloLinkFactory(
     settings,
     {
