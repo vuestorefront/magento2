@@ -34,15 +34,15 @@ export const linkFactory = ({ state, alokai }: { state: ConfigState; alokai: Alo
     const currency: string = state.getCurrency();
 
     if (currency) {
-      logger.debug(`Apollo currencyLinkFactory, finished, currency: ${currency}`);
+      logger.debug(`Finished executing Apollo currencyLinkFactory.`, { currency });
     }
 
     if (Store) {
-      logger.debug(`Apollo storeLinkFactory, finished, storeId: ${Store}`);
+      logger.debug(`Finished executing Apollo storeLinkFactory.`, { Store });
     }
 
     if (token) {
-      logger.debug(`Apollo authLinkFactory, finished, token: ${token}`);
+      logger.debug(`Finished executing Apollo authLinkFactory.`, { token });
     }
 
     return {
