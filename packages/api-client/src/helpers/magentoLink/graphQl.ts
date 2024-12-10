@@ -40,7 +40,7 @@ const createErrorHandler = (alokai: AlokaiContainer) =>
     }
 
     if (networkError) {
-      logger.error(`[Network error]: ${networkError}`);
+      logger.error(networkError, { type: "Network Error" });
     }
   });
 
