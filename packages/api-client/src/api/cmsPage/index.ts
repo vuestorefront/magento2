@@ -93,7 +93,7 @@ export async function cmsPage(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      logger.debug(error);
+      logger.error(error);
 
       return {
         ...error,
