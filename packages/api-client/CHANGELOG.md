@@ -1,5 +1,11 @@
 # @vue-storefront/magento-api
 
+## 6.3.0
+
+### Minor Changes
+
+- 9f61ba2b: [CHANGED] Replaced `consola` with Alokai Logger. To learn more about logger, visit [Alokai Logger](https://docs.alokai.com/middleware/guides/logging/).
+
 ## 6.2.0
 
 ### Minor Changes
