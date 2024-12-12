@@ -1,38 +1,48 @@
 import { setContext } from "@apollo/client/link/context";
-import consola from "consola";
+import { getLogger, type AlokaiContainer } from "@vue-storefront/middleware";
 import { ConfigState } from "../../types/setup";
 
-export const handleRetry = () => (count, operation, error) => {
-  if (count > 3) {
+export const handleRetry =
+  ({ alokai }: { alokai: AlokaiContainer }) =>
+  (retryCount, operation, error) => {
+    const logger = getLogger(alokai);
+
+    if (retryCount > 3) {
+      return false;
+    }
+
+    if (error?.result?.message === "invalid_token") {
+      const { operationName } = operation;
+      logger.error(`Invalid token used for operation ${operationName}, Apollo retry-link will refresh the token and retry`, {
+        operation,
+        retryCount,
+      });
+      return true;
+    }
+
     return false;
-  }
+  };
 
-  if (error?.result?.message === "invalid_token") {
-    consola.debug(`Apollo retry-link, the operation (${operation.operationName}) sent with wrong token, creating a new one... (attempt: ${count})`);
-    return true;
-  }
-
-  return false;
-};
-
-export const linkFactory = ({ state }: { state: ConfigState }) =>
+export const linkFactory = ({ state, alokai }: { state: ConfigState; alokai: AlokaiContainer }) =>
   setContext((apolloReq, { headers }) => {
-    consola.debug("Apollo linkFactory", apolloReq.operationName);
+    const logger = getLogger(alokai);
+
+    logger.debug(`Apollo linkFactory ${apolloReq.operationName}`);
 
     const Store: string = state.getStore();
     const token: string = state.getCustomerToken();
     const currency: string = state.getCurrency();
 
     if (currency) {
-      consola.debug("Apollo currencyLinkFactory, finished, currency: ", currency);
+      logger.debug(`Finished executing Apollo currencyLinkFactory.`, { currency });
     }
 
     if (Store) {
-      consola.debug("Apollo storeLinkFactory, finished, storeId: ", Store);
+      logger.debug(`Finished executing Apollo storeLinkFactory.`, { Store });
     }
 
     if (token) {
-      consola.debug("Apollo authLinkFactory, finished, token: ", token);
+      logger.debug(`Finished executing Apollo authLinkFactory.`, { token });
     }
 
     return {

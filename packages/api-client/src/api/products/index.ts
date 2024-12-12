@@ -9,7 +9,7 @@ import {
   ProductsListQueryVariables,
 } from "@vue-storefront/magento-types";
 import gql from "graphql-tag";
-import consola from "consola";
+import { getLogger } from "@vue-storefront/middleware";
 import productsListQuery from "./productsList";
 import { Context } from "../../types/context";
 import getHeaders from "../getHeaders";
@@ -111,6 +111,8 @@ export async function products(
   customQuery: CustomQuery = { products: "products" },
   customHeaders: CustomHeaders = {}
 ): Promise<ApolloQueryResult<ProductsListQuery>> {
+  const logger = getLogger(context);
+
   const defaultParams = {
     pageSize: 10,
     currentPage: 1,
@@ -148,7 +150,7 @@ export async function products(
   } catch (error) {
     // For error in data we don't throw 500, because it's not server error
     if (error.graphQLErrors) {
-      consola.debug(error);
+      logger.error(error);
 
       return {
         ...error,
@@ -156,7 +158,7 @@ export async function products(
         data: null,
       };
     }
-    consola.error(error);
+
     throw error.networkError?.result || error;
   }
 }

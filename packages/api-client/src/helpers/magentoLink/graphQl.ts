@@ -4,7 +4,7 @@ import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
 import { setContext } from "@apollo/client/link/context";
 import AgentKeepAlive from "agentkeepalive";
-import consola from "consola";
+import { getLogger, type AlokaiContainer } from "@vue-storefront/middleware";
 import { handleRetry } from "./linkHandlers";
 import { Config } from "../../types/setup";
 import possibleTypes from "../../types/possibleTypes.json";
@@ -15,8 +15,10 @@ const agent = new HttpsAgent({
   timeout: 30000,
 });
 
-const createErrorHandler = () =>
+const createErrorHandler = (alokai: AlokaiContainer) =>
   onError(({ graphQLErrors, networkError }) => {
+    const logger = getLogger(alokai);
+
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, locations, path, extensions }) => {
         // Mute all GraphQL authorization errors
@@ -26,27 +28,28 @@ const createErrorHandler = () =>
 
         if (!message.includes("Resource Owner Password Credentials Grant")) {
           if (!locations) {
-            consola.error(`[GraphQL error]: Message: ${message}, Path: ${path}`);
+            logger.error(message, { path });
             return;
           }
 
           const parsedLocations = locations.map(({ column, line }) => `[column: ${column}, line: ${line}]`);
 
-          consola.error(`[GraphQL error]: Message: ${message}, Location: ${parsedLocations.join(", ")}, Path: ${path}`);
+          logger.error(message, { path, location: parsedLocations.join(", ") });
         }
       });
     }
 
     if (networkError) {
-      consola.error(`[Network error]: ${networkError}`);
+      logger.error(networkError, { type: "Network Error" });
     }
   });
 
 export const apolloLinkFactory = (
   settings: Config,
-  handlers?: {
+  handlers: {
     apolloLink?: ApolloLink;
-  }
+  },
+  alokai: AlokaiContainer
 ) => {
   const baseLink =
     handlers?.apolloLink ||
@@ -66,10 +69,10 @@ export const apolloLinkFactory = (
     ...settings.customApolloHttpLinkOptions,
   });
 
-  const onErrorLink = createErrorHandler();
+  const onErrorLink = createErrorHandler(alokai);
 
   const errorRetry = new RetryLink({
-    attempts: handleRetry(),
+    attempts: handleRetry({ alokai }),
     delay: () => 0,
   });
 

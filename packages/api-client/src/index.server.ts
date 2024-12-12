@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { ApiClientExtension, apiClientFactory } from "@vue-storefront/middleware";
+import { type AlokaiContainer, ApiClientExtension, apiClientFactory } from "@vue-storefront/middleware";
 import * as api from "./api";
 import { defaultSettings } from "./helpers/apiClient/defaultSettings";
 import { createMagentoConnection } from "./helpers/magentoLink";
@@ -13,7 +13,7 @@ const buildConfig = (settings: Config) =>
     state: settings.state || defaultSettings.state,
   } as unknown as Config);
 
-const init = (settings: Config) => {
+const init = (settings: Config, alokai: AlokaiContainer) => {
   const config = buildConfig(settings);
 
   if (settings.client) {
@@ -30,7 +30,7 @@ const init = (settings: Config) => {
     };
   }
 
-  const { apolloLink } = createMagentoConnection(config);
+  const { apolloLink } = createMagentoConnection(config, alokai);
 
   const client = apolloClientFactory({
     link: apolloLink,
@@ -52,9 +52,9 @@ const init = (settings: Config) => {
   };
 };
 
-const onCreate = (settings: Config): { config: Config; client: ClientInstance } => {
+const onCreate = (settings: Config, alokai: AlokaiContainer): { config: Config; client: ClientInstance } => {
   if (!settings?.client) {
-    return init(settings);
+    return init(settings, alokai);
   }
 
   const config = buildConfig(settings);
