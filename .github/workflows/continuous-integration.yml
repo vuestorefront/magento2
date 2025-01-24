@@ -15,25 +15,3 @@ jobs:
     secrets: inherit
     with:
       enterprise: false
-
-  sonarcloud-api-client:
-    name: 'SonarCloud API Client'
-    needs: [continous-integration]
-    uses: vuestorefront/vue-storefront/.github/workflows/sonarcloud-integrations.yml@turbo
-    secrets:
-      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_API_CLIENT }}
-    with:
-      project_key: 'vuestorefront_magento2_api-client'
-      package_name: 'api-client'
-      exclusions: '*.config.js,src/index.ts,src/api-extractor-data.ts,**/types/**'
-
-  sonarcloud-sdk:
-    name: 'SonarCloud SDK'
-    needs: [continous-integration]
-    uses: vuestorefront/vue-storefront/.github/workflows/sonarcloud-integrations.yml@main
-    secrets:
-      SONARCLOUD_TOKEN: ${{ secrets.SONARCLOUD_TOKEN_SDK_2 }}
-    with:
-      project_key: 'vuestorefront_magento2_sdk'
-      package_name: 'sdk'
-      exclusions: '*.config.js,*.config.*.ts,src/index.ts,src/connector.ts,src/api-extractor-data.ts,**/types/**,'
