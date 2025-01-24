@@ -4,7 +4,6 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magento_Logo.svg/2560px-Magento_Logo.svg.png" height="80px"/>
 </div>
 
-
 ### Stay connected
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/vuestorefront/vue-storefront?style=social)
@@ -12,16 +11,27 @@
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCkm1F3Cglty3CE1QwKQUhhg?style=social)
 [![Discord](https://img.shields.io/discord/770285988244750366?label=join%20discord&logo=Discord&logoColor=white)](https://discord.vuestorefront.io)
 
+### Magento 2 Integration for Alokai (Community-Maintained)
 
+<div style="background-color: #fff3cd; padding: 10px; border-radius: 5px;">
+  <strong>Important Notice:</strong> This repository is no longer actively maintained by the Alokai team.
+</div>
+<br />
+The official development of the Magento 2 Integration is now part of the Alokai Enterprise offering and has been moved to a private repository.
+
+From now on, this repository will be maintained by the community.  
+No further updates or new features will be provided here by the Alokai team.
+
+For more information, please refer to the [Alokai Enterprise](https://docs.alokai.com/enterprise) documentation.
+
+Thank you for your support and contributions!
+
+## Magento 2 integration for Alokai
 
 **This repository contains integration for Magento 2 and Alokai Middleware.**
 This integration is framework-agnostic and may be consumed in the framework of your choice.
 
-## Magento 2 integration for Alokai
-
-This project is a Magento 2 integration for Alokai.
-
- ### Check out [the docs](https://docs.vuestorefront.io/sdk-magento2/)
+### Check out [the docs](https://docs.vuestorefront.io/sdk-magento2/)
 
 # Quick start
 
@@ -29,17 +39,14 @@ Your Alokai application has two parts:
 
 1. **Server Middleware** - an Express.js application that can connect to your various third-party services (like Magento).
 
-
 2. **Front-end application** - any application using JavaScript or TypeScript that can connect to the server middleware. Popular choices include [Nuxt](https://nuxt.com/) and [Next.js](https://nextjs.org/).
 
 In this section, we will explain in a step-by-step guide how to use Magento 2 integration in each part of your Alokai application.
-
 
 ## Prerequisites
 
 - Magento configured - you need a Magento 2 configured
 - Install Node.js version >=16.0
-
 
 ## Server Middleware
 
@@ -47,8 +54,6 @@ The first step to setup your integration is to create and configure your server 
 
 Already have the server middleware configured?
 If you have the server middleware configured, you can move directly to the sdk preparation section.
-
-
 
 1. Install the dependencies needed to create your server middleware and to create a server-to-server connection with the Magento 2 backend and the server middleware.
 
@@ -65,53 +70,53 @@ yarn add @vue-storefront/middleware @vue-storefront/magento-api
 ```javascript
 // middleware.config.js
 
-import {config} from "dotenv";
+import { config } from "dotenv";
 
 config();
 
 const cookieNames = {
-  currencyCookieName: 'vsf-currency',
-  countryCookieName: 'vsf-country',
-  localeCookieName: 'vsf-locale',
-  cartCookieName: 'vsf-cart',
-  customerCookieName: 'vsf-customer',
-  storeCookieName: 'vsf-store',
-  messageCookieName: 'vsf-message'
+  currencyCookieName: "vsf-currency",
+  countryCookieName: "vsf-country",
+  localeCookieName: "vsf-locale",
+  cartCookieName: "vsf-cart",
+  customerCookieName: "vsf-customer",
+  storeCookieName: "vsf-store",
+  messageCookieName: "vsf-message",
 };
 
 export const integrations = {
   magento: {
-      location: '@vue-storefront/magento-api/server',
-      configuration: {
-        api: process.env.VSF_MAGENTO_GRAPHQL_URL,
-        cookies: {
-          ...cookieNames,
-        },
-        cookiesDefaultOpts: {
-          httpOnly: process.env.VSF_COOKIE_HTTP_ONLY || false,
-          secure: process.env.VSF_COOKIE_SECURE || false,
-          sameSite: process.env.VSF_COOKIE_SAME_SITE || 'lax',
-          path: process.env.VSF_COOKIE_PATH || '/',
-        },
-        defaultStore: 'default',
-        customApolloHttpLinkOptions: {
-          useGETForQueries: true,
-        },
-        magentoBaseUrl: process.env.VSF_MAGENTO_BASE_URL,
-        magentoApiEndpoint: process.env.VSF_MAGENTO_GRAPHQL_URL,
-        imageProvider: process.env.NUXT_IMAGE_PROVIDER,
-        recaptcha: {
-          isEnabled: process.env.VSF_RECAPTCHA_ENABLED === 'true',
-          sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
-          secretkey: process.env.VSF_RECAPTCHA_SECRET_KEY,
-          version: process.env.VSF_RECAPTCHA_VERSION,
-          score: process.env.VSF_RECAPTCHA_MIN_SCORE,
-        },
-        customer: {
-          customer_create_account_confirm: true,
-        },
+    location: "@vue-storefront/magento-api/server",
+    configuration: {
+      api: process.env.VSF_MAGENTO_GRAPHQL_URL,
+      cookies: {
+        ...cookieNames,
       },
-    }
+      cookiesDefaultOpts: {
+        httpOnly: process.env.VSF_COOKIE_HTTP_ONLY || false,
+        secure: process.env.VSF_COOKIE_SECURE || false,
+        sameSite: process.env.VSF_COOKIE_SAME_SITE || "lax",
+        path: process.env.VSF_COOKIE_PATH || "/",
+      },
+      defaultStore: "default",
+      customApolloHttpLinkOptions: {
+        useGETForQueries: true,
+      },
+      magentoBaseUrl: process.env.VSF_MAGENTO_BASE_URL,
+      magentoApiEndpoint: process.env.VSF_MAGENTO_GRAPHQL_URL,
+      imageProvider: process.env.NUXT_IMAGE_PROVIDER,
+      recaptcha: {
+        isEnabled: process.env.VSF_RECAPTCHA_ENABLED === "true",
+        sitekey: process.env.VSF_RECAPTCHA_SITE_KEY,
+        secretkey: process.env.VSF_RECAPTCHA_SECRET_KEY,
+        version: process.env.VSF_RECAPTCHA_VERSION,
+        score: process.env.VSF_RECAPTCHA_MIN_SCORE,
+      },
+      customer: {
+        customer_create_account_confirm: true,
+      },
+    },
+  },
 };
 ```
 
@@ -140,9 +145,9 @@ NUXT_IMAGE_PROVIDER=ipx
 ```javascript
 // middleware.js
 
-import {createServer} from "@vue-storefront/middleware";
-import {integrations} from "./middleware.config.js";
-import cors from 'cors';
+import { createServer } from "@vue-storefront/middleware";
+import { integrations } from "./middleware.config.js";
+import cors from "cors";
 
 (async () => {
   const app = await createServer({ integrations });
@@ -166,7 +171,6 @@ import cors from 'cors';
     console.log(`Middleware started: ${host}:${port}`);
   });
 })();
-
 ```
 
 5. Your middleware is ready. You can start it by running `node middleware.js`. Most likely, you'll want to setup this command as a script in your `package.json` file.
@@ -198,13 +202,13 @@ yarn add @vue-storefront/sdk @vue-storefront/magento-sdk
 2. Initialize the SDK. Configure Magento 2 module with `apiUrl` that points to the server middleware.
 
 ```ts
-import { buildModule, initSDK } from '@vue-storefront/sdk';
-import { magentoModule, MagentoModuleType } from '@vue-storefront/magento-sdk';
+import { buildModule, initSDK } from "@vue-storefront/sdk";
+import { magentoModule, MagentoModuleType } from "@vue-storefront/magento-sdk";
 
 const sdkConfig = {
   magento: buildModule<MagentoModuleType>(magentoModule, {
-    apiUrl: 'http://localhost:8181/magento'
-  })
+    apiUrl: "http://localhost:8181/magento",
+  }),
 };
 
 export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
@@ -215,16 +219,17 @@ export const sdk = initSDK<typeof sdkConfig>(sdkConfig);
 For example, we can call the `products` method to fetch products from Magento 2.
 
 ```ts
-import { sdk } from './sdk';
-const products = await sdk.magento.products({})
+import { sdk } from "./sdk";
+const products = await sdk.magento.products({});
 // returns ProductInterface[]
-
 ```
 
 <hr />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## How to start if you want to contribute?
@@ -232,18 +237,18 @@ const products = await sdk.magento.products({})
 Want to contribute? Ping us on `magento2` channel on [our Discord](http://discord.vuestorefront.io)!
 
 ### Requirements:
+
 - NodeJS v16 or later
 - Yarn (npm is not supprted yet)
 - Magento >= v2.4.3 instance for GraphQL endpoint
 - Change Magento GraphQL Query Complexity and Depth values
 
 > Don't forget to change the Magento GraphQL Query Complexity and Depth values
-Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
+> Magento 2 by default has a lower value for the complexity of 300, and a higher value for the depth of 20. [Magento 2 - Issue #32427](https://github.com/magento/magento2/issues/32427#issuecomment-860478483)
 
->The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
+> The changes are required, due to the size of the queries and mutations in the `api-client` implementation.
 
->To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
-
+> To do this changes, you can use the [Magento 2 module](https://github.com/caravelx/module-graphql-config), which adds a configuration panel to your admin, or do this changes manually.
 
 To install the Magento 2 GraphQL Config module, on your Magento installation execute:
 
@@ -262,14 +267,16 @@ php bin/magento setup:static-content:deploy
 Find more information about the module [GraphQl Custom Config](https://github.com/caravelx/module-graphql-config)
 
 ### Steps
+
 1. Build dependencies `yarn build`
-    ```bash
-    yarn build
-    ```
-8. Run `yarn dev`. You can find other commands in `package.json`
-    ```bash
-    yarn dev
-    ```
+   ```bash
+   yarn build
+   ```
+2. Run `yarn dev`. You can find other commands in `package.json`
+   ```bash
+   yarn dev
+   ```
+
 ## Resources
 
 - [Magento 2 integration Documentation](https://docs.vuestorefront.io/sdk-magento2/)
@@ -278,11 +285,12 @@ Find more information about the module [GraphQl Custom Config](https://github.co
 
 ## Support
 
-If you have any questions about this integration we will be happy to answer them on  `magento2-alokai` channel on [our Discord](http://discord.vuestorefront.io).
+If you have any questions about this integration we will be happy to answer them on `magento2-alokai` channel on [our Discord](http://discord.vuestorefront.io).
 
 ## Contributors ✨
 
 ### Honorable Mentions
+
 - [Caravel x](https://www.caravelx.com/)
 - [Cyberfuze](https://cyberfuze.com/)
 - [Leonex](https://www.leonex.de/)
@@ -339,4 +347,3 @@ Thanks go to these wonderful people 🙌:
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
-
