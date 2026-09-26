@@ -9,6 +9,7 @@ type Methods = typeof methods;
 
 export const connector = (options: ModuleOptions): Methods => {
   sdkContext.set('apiUrl', options.apiUrl);
+  sdkContext.set('ssrApiUrl', options.ssrApiUrl);
 
   return methods;
 };
