@@ -45,12 +45,14 @@ export const linkFactory = ({ state, alokai }: { state: ConfigState; alokai: Alo
       logger.debug(`Finished executing Apollo authLinkFactory.`, { token });
     }
 
+    // Headers set on the operation (getHeaders + customHeaders) are spread last,
+    // so they win over the state defaults once Apollo lowercases header names.
     return {
       headers: {
-        ...headers,
         ...(currency ? { "Content-Currency": currency } : {}),
         ...(token ? { authorization: `Bearer ${token}` } : {}),
         ...(Store ? { Store } : {}),
+        ...headers,
       },
     };
   });
